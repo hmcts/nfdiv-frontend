@@ -1,27 +1,45 @@
-#!/usr/bin/env node
-const { Logger } = require('@hmcts/nodejs-logging');
-import * as fs from 'fs';
-import * as https from 'https';
+import * as bodyParser from 'body-parser';
+import config from 'config';
+import express from 'express';
+import {Helmet} from './modules/helmet';
 import * as path from 'path';
-import { app } from './app';
+import favicon from 'serve-favicon';
+import {Nunjucks} from './modules/nunjucks';
+import {Container} from './modules/awilix';
+import {HealthCheck} from './modules/health';
+import {PropertiesVolume} from './modules/properties-volume';
+import {SessionStorage} from './modules/session';
+import {AppInsights} from './modules/appinsights';
+import { Routes } from './routes';
 
+const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('server');
+const env = process.env.NODE_ENV || 'development';
+const developmentMode = env === 'development';
+const app = express();
 
-// TODO: set the right port for your application
-const port: number = parseInt(process.env.PORT, 10) || 3001;
+app.locals.ENV = env;
+app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, max-age=0, must-revalidate, no-store',
+  );
+  next();
+});
 
-if (app.locals.ENV === 'development') {
-  const sslDirectory = path.join(__dirname, 'resources', 'localhost-ssl');
-  const sslOptions = {
-    cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt')),
-    key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
-  };
-  const server = https.createServer(sslOptions, app);
-  server.listen(port, () => {
-    logger.info(`Application started: https://localhost:${port}`);
-  });
-} else {
-  app.listen(port, () => {
-    logger.info(`Application started: http://localhost:${port}`);
-  });
-}
+new PropertiesVolume().enableFor(app);
+new Container().enableFor(app);
+new SessionStorage().enableFor(app);
+new Nunjucks(developmentMode).enableFor(app);
+new Helmet(config.get('security')).enableFor(app);
+new HealthCheck().enableFor(app);
+new AppInsights().enable();
+new Routes().enableFor(app);
+
+app.listen(config.get('port'), () => {
+  logger.info(`Application started: http://localhost:${config.get('port')}`);
+});
