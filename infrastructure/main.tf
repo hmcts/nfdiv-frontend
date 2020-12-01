@@ -12,7 +12,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name = "core-infra-${var.env}"
 }
 
-module "fact-admin-session-storage" {
+module "nfdiv-admin-session-storage" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = "${var.product}-${var.component}-session-storage"
   location = var.location
@@ -28,6 +28,6 @@ data "azurerm_key_vault" "key_vault" {
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "redis-access-key"
-  value        = module.fact-admin-session-storage.access_key
+  value        = module.nfdiv-admin-session-storage.access_key
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }

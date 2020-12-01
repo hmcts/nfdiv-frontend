@@ -10,4 +10,4 @@ nodejs:
 #    - oauth-client-secret
 #        - AppInsightsInstrumentationKey
   environment:
-    REDIS_HOST: "fact-admin-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net"
+    REDIS_HOST: "nfdiv-admin-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net"
