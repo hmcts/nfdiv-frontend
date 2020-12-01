@@ -89,3 +89,12 @@ export const checkElementLength = async (selector: string) => {
     return false;
   }
 };
+
+export const getTextFromElements = async (el: string) => {
+  try {
+    return await scope.page.$$eval(el, (elements: any) => elements.map((e: any) => e.innerText));
+  } catch (error) {
+    console.log("The element didn't appear.");
+    return [];
+  }
+};
