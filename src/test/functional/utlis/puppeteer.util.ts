@@ -89,16 +89,3 @@ export const checkElementLength = async (selector: string) => {
     return false;
   }
 };
-
-export const getTextFromList = async (el: any) => {
-  try {
-    const texts: string[] = [];
-    await el.foreach(async (el: any) => {
-      texts.push(await getElementText(el));
-    });
-    return texts;
-  } catch (error) {
-    console.log("The element didn't appear.");
-    return [];
-  }
-};
