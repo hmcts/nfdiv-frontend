@@ -10,6 +10,8 @@ export class PropertiesVolume {
       propertiesVolume.addTo(config);
 
       this.setSecret('secrets.nfdiv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
+      this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
     }
   }
 
