@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+import autobind from 'autobind-decorator';
 
+@autobind
 export class ErrorController {
 
   constructor(
@@ -12,7 +14,7 @@ export class ErrorController {
    */
   public notFound(req: Request, res: Response): void {
     res.status(404);
-    res.render('not-found');
+    res.render('error/not-found');
   }
 
   /**
@@ -25,7 +27,7 @@ export class ErrorController {
     res.locals.message = err.message;
     res.locals.error = this.exposeErrors ? err : {};
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error/error');
   }
 
 }
