@@ -3,11 +3,12 @@ nodejs:
   aadIdentityName: nfdiv
   ingressHost: nfdiv-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/nfdiv/frontend:latest'
-#  Uncomment once the vault containing the app insights key has been set up
-#  keyVaults:
-#    nfdiv:
-#      secrets:
-#    - oauth-client-secret
-#        - AppInsightsInstrumentationKey
+  keyVaults:
+    nfdiv:
+      resourceGroup: nfdiv
+      secrets:
+        - oauth-client-secret
+        - AppInsightsInstrumentationKey
+        - redis-access-key
   environment:
     REDIS_HOST: "nfdiv-admin-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net"
