@@ -3,13 +3,13 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { Response } from 'express';
 import { firstPageContent } from './first-page.content';
 import autobind from 'autobind-decorator';
+import { Steps } from '../steps';
 
 @autobind
 export class FirstPageGet extends GetController {
-  public static readonly URL = '/first-page';
 
   constructor() {
-    super(__dirname + FirstPageGet.URL, firstPageContent);
+    super(__dirname + Steps.FIRST_PAGE, firstPageContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

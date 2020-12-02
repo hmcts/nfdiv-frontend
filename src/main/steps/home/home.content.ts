@@ -1,4 +1,4 @@
-import { FirstPageGet } from '../first-page/first-page.get';
+import { Steps } from '../steps';
 
 const en = {
   linkText: 'Click to go next'
@@ -9,7 +9,7 @@ const cy: typeof en = {
 };
 
 const common = {
-  link: FirstPageGet.URL
+  link: Steps.FIRST_PAGE
 };
 
 export const homeContent = { en, cy, common };
