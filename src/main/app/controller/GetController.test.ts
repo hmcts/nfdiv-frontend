@@ -9,7 +9,7 @@ describe('GetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
-    expect(res.render).toBeCalledWith('home/home', { errors: undefined });
+    expect(res.render).toBeCalledWith('home/home', { errors: [] });
   });
 
 });

@@ -8,11 +8,8 @@ export const mockRequest = () => {
       }
     },
     query: {},
-    session: {
-      user: {
-        isSuperAdmin: ''
-      }
-    }
+    session: {},
+    path: '/request'
   };
   req.body = jest.fn().mockReturnValue(req);
   return req;

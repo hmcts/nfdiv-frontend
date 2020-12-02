@@ -1,7 +1,7 @@
 
-export class Form {
+export class Form<T> {
 
-  public getErrors(body: {}): FormError[] {
+  public getErrors(body: T): FormError[] {
     return [];
   }
 

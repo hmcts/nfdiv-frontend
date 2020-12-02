@@ -2,10 +2,10 @@ import { Response } from 'express';
 import { Form } from '../form/Form';
 import { AppRequest } from './AppRequest';
 
-export abstract class PostController {
+export abstract class PostController<T> {
 
   constructor(
-    private form: Form
+    private form: Form<T>
   ) { }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
@@ -13,7 +13,7 @@ export abstract class PostController {
 
     if (errors.length > 0) {
       req.session.errors = errors;
-      res.redirect(req.url);
+      res.redirect(req.path);
     } else {
       req.session.errors = undefined;
       // todo session handling
@@ -23,6 +23,6 @@ export abstract class PostController {
     }
   }
 
-  protected abstract getNextStep(body: {}): string;
+  protected abstract getNextStep(body: T): string;
 
 }

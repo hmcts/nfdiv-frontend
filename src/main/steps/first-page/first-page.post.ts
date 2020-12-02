@@ -1,10 +1,14 @@
-import { Steps } from '../steps';
+import { HOME_URL } from '../urls';
 import { PostController } from '../../app/controller/PostController';
 
-export class FirstPagePost extends PostController {
+export class FirstPagePost extends PostController<FirstPageForm> {
 
-  protected getNextStep(body: {}): string {
-    return Steps.HOME;
+  protected getNextStep(body: FirstPageForm): string {
+    return HOME_URL;
   }
 
+}
+
+export interface FirstPageForm {
+  field1: string
 }
