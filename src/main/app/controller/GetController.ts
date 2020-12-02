@@ -7,7 +7,7 @@ export class GetController {
 
   constructor(
     protected readonly name: string,
-    protected readonly content: Record<string, {}>,
+    protected readonly content: Record<string, Record<string, never>>,
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
