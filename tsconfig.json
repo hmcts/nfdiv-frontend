@@ -27,5 +27,8 @@
     "typeRoots": [
       "./node_modules/@types"
     ]
-  }
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ]
 }

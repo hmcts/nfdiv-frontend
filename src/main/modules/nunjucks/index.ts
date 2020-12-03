@@ -3,8 +3,7 @@ import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
 export class Nunjucks {
-  constructor(public developmentMode: boolean) {
-    this.developmentMode = developmentMode;
+  constructor() {
   }
 
   enableFor(app: express.Express): void {
@@ -19,10 +18,10 @@ export class Nunjucks {
       'govuk-frontend',
     );
     nunjucks.configure(
-      [path.join(__dirname, '..', '..', 'views'), govUkFrontendPath],
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath],
       {
         autoescape: true,
-        watch: this.developmentMode,
+        watch: app.locals.developmentMode,
         express: app,
       },
     );

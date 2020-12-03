@@ -1,6 +1,6 @@
-import { mockRequest } from '../../utils/mockRequest';
-import { mockResponse } from '../../utils/mockResponse';
-import { ErrorController } from '../../../../main/app/controller/ErrorController';
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { ErrorController } from './error.controller';
 
 describe('ErrorController', () => {
   const logger = {
@@ -15,7 +15,7 @@ describe('ErrorController', () => {
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
 
-    expect(res.render).toBeCalledWith('error');
+    expect(res.render).toBeCalledWith('error/error');
     expect(res.statusCode).toBe(err.status);
   });
 
@@ -26,7 +26,7 @@ describe('ErrorController', () => {
     const res = mockResponse();
     await controller.notFound(req, res);
 
-    expect(res.render).toBeCalledWith('not-found');
+    expect(res.render).toBeCalledWith('error/not-found');
   });
 
   test('Should render error pages but not expose details', async () => {
@@ -37,7 +37,7 @@ describe('ErrorController', () => {
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
 
-    expect(res.render).toBeCalledWith('error');
+    expect(res.render).toBeCalledWith('error/error');
     expect(res.statusCode).toBe(500);
   });
 

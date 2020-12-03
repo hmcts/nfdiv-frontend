@@ -2,8 +2,6 @@ import { fail } from 'assert';
 import { config } from '../config';
 import Axios from 'axios';
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
 
@@ -31,7 +29,7 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
 }
 
 function runPally(url: string): Pa11yResult {
-  return pa11y(url, {
+  return pa11y(config.TEST_URL + url, {
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
 }
