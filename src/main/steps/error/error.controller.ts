@@ -32,6 +32,7 @@ export class ErrorController {
 
 }
 
-export class HTTPError extends Error {
-  status: number;
+export interface HTTPError extends Error {
+  status: number
 }
+

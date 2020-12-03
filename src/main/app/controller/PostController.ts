@@ -1,7 +1,9 @@
 import { Response } from 'express';
 import { Form } from '../form/Form';
 import { AppRequest } from './AppRequest';
+import autobind from 'autobind-decorator';
 
+@autobind
 export abstract class PostController<T> {
 
   constructor(

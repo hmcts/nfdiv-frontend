@@ -16,6 +16,8 @@ export class GetController {
     const commonContent = this.content.common || {};
     const errors = req.session.errors || [];
 
+    req.session.errors = undefined;
+
     res.render(this.name, { ...languageContent, ...commonContent, errors });
   }
 
