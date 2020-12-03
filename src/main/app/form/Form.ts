@@ -16,11 +16,13 @@ export class Form<T> {
 
 export interface FormContent<T> {
   submit: {
-    text: string
+    text: string,
+    class?: string
   },
   fields: Record<keyof T, FormField>
 }
 
 interface FormField {
-  label: string
+  label: string,
+  class?: string
 }
