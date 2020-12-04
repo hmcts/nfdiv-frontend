@@ -15,6 +15,12 @@ export class FirstPageGet extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     res.locals.someApiResponse = { data: 'some data' };
 
+    req.session.state.initialise('livingArrangementsLiveTogether', (value: string, state: any) => {
+      if (value !== 'Yes') {
+        state.remove('lp');
+      }
+    });
+
     return super.get(req, res);
   }
 
