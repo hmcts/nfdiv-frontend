@@ -1,11 +1,11 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
-import { FormError } from '../form/Form';
+import { DefinedError } from 'ajv';
 
 export interface AppRequest extends Request {
   session: Session & {
     lang: string,
-    errors: FormError[]
+    errors: DefinedError[] | undefined
   },
   locals: {
     env: string,

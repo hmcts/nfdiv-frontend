@@ -5,19 +5,19 @@ import Axios from 'axios';
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
 
-class Pa11yResult {
-  documentTitle: string;
-  pageUrl: string;
-  issues: PallyIssue[];
+interface Pa11yResult {
+  documentTitle: string,
+  pageUrl: string,
+  issues: PallyIssue[]
 }
 
-class PallyIssue {
-  code: string;
-  context: string;
-  message: string;
-  selector: string;
-  type: string;
-  typeCode: number;
+interface PallyIssue {
+  code: string,
+  context: string,
+  message: string,
+  selector: string,
+  type: string,
+  typeCode: number
 }
 
 beforeAll((done /* call it or remove it*/) => {
