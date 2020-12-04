@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { AppRequest } from './AppRequest';
 
 @autobind
-export class GetController {
+export abstract class GetController {
 
   constructor(
     protected readonly name: string,

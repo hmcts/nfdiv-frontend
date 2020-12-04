@@ -4,6 +4,8 @@ import ConnectRedis from 'connect-redis';
 import * as redis from 'redis';
 import config from 'config';
 import FileStoreFactory from 'session-file-store';
+import { AppRequest } from '../../app/controller/AppRequest';
+import { SessionStateStorage } from '../../app/step/SessionStateStorage';
 
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
@@ -22,6 +24,10 @@ export class SessionStorage {
       },
       store: this.getStore()
     }));
+
+    server.use((req: AppRequest) => {
+      req.locals.storage = new SessionStateStorage(req.session);
+    });
   }
 
   private getStore() {

@@ -5,7 +5,7 @@ import { Form } from '../../app/form/Form';
 import { FirstPageForm } from './first-page.form';
 
 describe('FirstPagePostController', () => {
-  const mockForm: Form<FirstPageForm> = { getErrors: () => [] } as any;
+  const mockForm: Form<FirstPageForm> = { getErrors: () => [] as never[] } as any;
   const controller = new FirstPagePost(mockForm);
 
   test('Should redirect', async () => {
