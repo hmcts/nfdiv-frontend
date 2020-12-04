@@ -26,3 +26,8 @@ interface FormField {
   label: string,
   class?: string
 }
+
+export interface CsrfField {
+  _csrf: string
+}
+

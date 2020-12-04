@@ -1,20 +1,7 @@
-{% extends "common/template.njk" %}
+{% extends "common/page.njk" %}
 
-{% block content %}
+{% block page_content %}
   <h1 class="govuk-heading-xl">Default page template</h1>
   <p>{{ someApiResponse.data }}</p>
   <p>{{ text }}</p>
-  {% for error in errors %}
-    <p>{{ error.message }}</p>
-  {% endfor %}
-
-  {% if form %}
-    <form action="" method="POST">
-      {% for fieldName, field in form.fields %}
-        <label for="{{ fieldName }}">{{ field.label }}</label>
-        <input name="{{ fieldName }}" type="text"/>
-      {% endfor %}
-      <button>{{ form.submit.text }}</button>
-    </form>
-  {% endif %}
 {% endblock %}

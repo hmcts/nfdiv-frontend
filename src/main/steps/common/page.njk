@@ -1,0 +1,49 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "govuk/template.njk" %}
+
+{% block head %}
+  {% include "./webpack/css.njk" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block error_summary %}
+        {% include "common/error/summary.njk" %}
+      {% endblock %}
+
+      {% block page_content %}{% endblock %}
+
+      {% if form %}
+        <form class="form" id="main-form" method="post" action="" novalidate>
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          {% block form_content %}
+            {% for fieldName, field in form.fields %}
+              {{ govukInput({
+                label: {
+                  text: field.label,
+                  classes: "govuk-label--l " + field.classes
+                },
+                id: fieldName,
+                name: fieldName
+              }) }}
+            {% endfor %}
+          {% endblock %}
+
+          <div class="govuk-form-group">
+            {{ govukButton({ text: form.submit.text, preventDoubleClick: true }) }}
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  {% include "./webpack/js.njk" %}
+{% endblock %}

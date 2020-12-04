@@ -14,7 +14,7 @@ const form: FormContent<FirstPageForm> = {
       class: 'derp'
     },
     field2: {
-      label: 'Label for field 1'
+      label: 'Label for field 2'
     }
   }
 };
@@ -33,7 +33,7 @@ const welshForm: FormContent<FirstPageForm> = {
       label: 'Label for field 1'
     },
     field2: {
-      label: 'Label for field 1'
+      label: 'Label for field 2'
     }
   }
 };
