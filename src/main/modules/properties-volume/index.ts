@@ -17,10 +17,7 @@ export class PropertiesVolume {
 
   private setSecret(fromPath: string, toPath: string): void {
     if (config.has(fromPath)) {
-      console.log(get(config, fromPath));
-      console.log(get(config, toPath));
       set(config, toPath, get(config, fromPath));
-      console.log(get(config, toPath));
     }
   }
 

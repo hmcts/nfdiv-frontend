@@ -1,15 +1,15 @@
 import * as bodyParser from 'body-parser';
 import config from 'config';
 import express from 'express';
-import {Helmet} from './modules/helmet';
+import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
-import {Nunjucks} from './modules/nunjucks';
-import {Container} from './modules/awilix';
-import {HealthCheck} from './modules/health';
-import {PropertiesVolume} from './modules/properties-volume';
-import {SessionStorage} from './modules/session';
-import {AppInsights} from './modules/appinsights';
+import { Nunjucks } from './modules/nunjucks';
+import { Container } from './modules/awilix';
+import { HealthCheck } from './modules/health';
+import { PropertiesVolume } from './modules/properties-volume';
+import { SessionStorage } from './modules/session';
+import { AppInsights } from './modules/appinsights';
 import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
 
