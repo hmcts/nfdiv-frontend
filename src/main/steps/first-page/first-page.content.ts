@@ -1,46 +1,40 @@
-import { FirstPageForm } from './first-page.form';
-import { FormContent } from '../../app/form/Form';
 import { merge } from 'lodash';
 import { HOME_URL } from '../urls';
 
-const form: FormContent<FirstPageForm> = {
-  submit: {
-    text: 'Next',
-    class: 'extra-important'
-  },
-  fields: {
-    field1: {
-      label: 'Label for field 1',
-      class: 'derp'
-    },
-    field2: {
-      label: 'Label for field 2'
-    }
-  }
-};
-
 const en = {
   text: 'Some text',
-  form: form
-};
-
-const welshForm: FormContent<FirstPageForm> = {
-  submit: {
-    text: 'Next'
-  },
-  fields: {
-    field1: {
-      label: 'Label for field 1'
+  form: {
+    submit: {
+      text: 'Next',
+      class: 'extra-important'
     },
-    field2: {
-      label: 'Label for field 2'
+    fields: {
+      field1: {
+        label: 'Label for field 1',
+        class: 'derp'
+      },
+      field2: {
+        label: 'Label for field 2'
+      }
     }
   }
 };
 
 const cy: typeof en = {
   text: 'Some text',
-  form: merge({}, form, welshForm)
+  form: merge({}, en.form, {
+    submit: {
+      text: 'Next'
+    },
+    fields: {
+      field1: {
+        label: 'Label for field 1'
+      },
+      field2: {
+        label: 'Label for field 2'
+      }
+    }
+  })
 };
 
 const common = {

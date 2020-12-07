@@ -14,12 +14,12 @@ export class Form<T> {
 
 }
 
-export interface FormContent<T> {
+export interface FormContent {
   submit: {
     text: string,
     class?: string
   },
-  fields: Record<keyof T, FormField>
+  fields: Record<string, FormField>
 }
 
 interface FormField {
@@ -30,4 +30,6 @@ interface FormField {
 export interface CsrfField {
   _csrf: string
 }
+
+export type FormBody<T extends FormContent> = Record<keyof T['fields'], string> & CsrfField;
 
