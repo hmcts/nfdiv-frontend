@@ -21,13 +21,15 @@ export abstract class PostController<T extends AnyObject> {
 
     if (errors.length > 0) {
       req.session.errors = errors;
-      res.redirect(req.path);
+      req.session.save(() => {
+        res.redirect(req.path);
+      });
     } else {
       req.session.errors = undefined;
 
-      const state = this.getStateUpdate(req.locals.storage.getCurrentState(), req.body);
+      const state = this.getStateUpdate(res.locals.storage.getCurrentState(), req.body, req.path);
 
-      await req.locals.storage.store(state);
+      await res.locals.storage.store(state);
 
       res.redirect(this.getNextStep(req.body));
     }
@@ -38,8 +40,8 @@ export abstract class PostController<T extends AnyObject> {
    * be persisted in the session state storage. If updating this steps state has any side effects (such as removing
    * the state of other steps) then the base class should overwrite this method and add further changes.
    */
-  protected getStateUpdate(current: SessionState, update: T): AnyObject {
-    return update;
+  protected getStateUpdate(current: SessionState, update: T, stepName: string): AnyObject {
+    return { [stepName]: update };
   }
 
   /**
