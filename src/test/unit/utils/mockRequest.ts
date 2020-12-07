@@ -8,7 +8,10 @@ export const mockRequest = () => {
       }
     },
     query: {},
-    session: {},
+    session: {
+      save: (callback: any) => callback(),
+      state: {}
+    },
     path: '/request'
   };
   req.body = jest.fn().mockReturnValue(req);

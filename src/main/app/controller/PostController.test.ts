@@ -17,7 +17,7 @@ describe('PostController', () => {
     const controller = new NewPostController(mockForm);
 
     const req = mockRequest();
-    const res = mockResponse();
+    const res = mockResponse(req.session);
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(req.path);
@@ -30,7 +30,7 @@ describe('PostController', () => {
     const controller = new NewPostController(mockForm);
 
     const req = mockRequest();
-    const res = mockResponse();
+    const res = mockResponse(req.session);
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith('/redirect-to');

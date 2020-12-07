@@ -1,12 +1,10 @@
 import { JSONSchemaType } from 'ajv';
-import { CsrfField } from '../../app/form/Form';
+import { firstPageContent } from './first-page.content';
+import { FormBody } from '../../app/form/Form';
 
-export interface FirstPageForm {
-  field1: string,
-  field2: string
-}
+export type FirstPageForm = FormBody<typeof firstPageContent['en']['form']>;
 
-export const firstPageSchema: JSONSchemaType<FirstPageForm & CsrfField> = {
+export const firstPageSchema: JSONSchemaType<FirstPageForm> = {
   type: 'object',
   properties: {
     _csrf: {
@@ -23,6 +21,6 @@ export const firstPageSchema: JSONSchemaType<FirstPageForm & CsrfField> = {
       maxLength: 255
     }
   },
-  required: [/* '_crsf?',*/ 'field1', 'field2'],
+  required: [/* '_csrf?',*/ 'field1', 'field2'],
   additionalProperties: false,
 };

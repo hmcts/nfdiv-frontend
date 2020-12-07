@@ -10,9 +10,7 @@ describe('FirstPageGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.locals).toStrictEqual({
-      someApiResponse: { data: 'some data' }
-    });
+    expect(res.locals.someApiResponse).toStrictEqual({ data: 'some data' });
   });
 
 });
