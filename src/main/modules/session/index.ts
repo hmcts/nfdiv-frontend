@@ -26,9 +26,13 @@ export class SessionStorage {
     }));
 
     server.use((req, res, next) => {
+      console.log('in session handler');
       const session = req.session as AppSession;
+      console.log('setting session');
       session.state = session.state || {};
+      console.log('creating storage');
       res.locals.storage = new SessionStateStorage(session);
+      console.log('creating storage');
 
       next();
     });
