@@ -11,4 +11,4 @@ nodejs:
         - AppInsightsInstrumentationKey
         - redis-access-key
   environment:
-    REDIS_HOST: "nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net"
+    REDIS_HOST: "nfdiv-frontend-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net"
