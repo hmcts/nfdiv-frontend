@@ -35,6 +35,12 @@ export class SessionStorage {
   }
 
   private getStore() {
+    console.log({
+      host: config.get('session.redis.host') as string,
+      password: config.get('session.redis.key') as string,
+      port: 6380,
+      tls: true
+    });
     return !config.get('session.redis.host')
       ? new FileStore({ path: '/tmp' })
       : new RedisStore({
