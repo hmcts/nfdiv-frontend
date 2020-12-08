@@ -39,7 +39,8 @@ export class SessionStorage {
       host: config.get('session.redis.host') as string,
       password: config.get('session.redis.key') as string,
       port: 6380,
-      tls: true
+      tls: true,
+      connect_timeout: 5000
     });
     return !config.get('session.redis.host')
       ? new FileStore({ path: '/tmp' })
