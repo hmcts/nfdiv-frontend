@@ -33,12 +33,12 @@ app.use((req, res, next) => {
 
 new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
-new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new HealthCheck().enableFor(app);
 new AppInsights().enable();
+new SessionStorage().enableFor(app);
 new Routes().enableFor(app);
 
 app.listen(config.get('port'), () => {
