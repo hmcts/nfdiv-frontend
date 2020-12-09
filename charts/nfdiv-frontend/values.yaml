@@ -1,7 +1,7 @@
 nodejs:
   applicationPort: 3001
   aadIdentityName: nfdiv
-  ingressHost: nfdiv-frontend.{{ .Values.global.environment }}.platform.hmcts.net
+  ingressHost: nfdiv.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/nfdiv/frontend:latest'
   keyVaults:
     nfdiv:
