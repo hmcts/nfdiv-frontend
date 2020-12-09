@@ -7,7 +7,7 @@ nodejs:
     nfdiv:
       resourceGroup: nfdiv
       secrets:
-        - oauth-client-secret
+        - idam-secret
         - AppInsightsInstrumentationKey
         - redis-access-key
   environment:
