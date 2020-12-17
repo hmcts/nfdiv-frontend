@@ -2,11 +2,12 @@ import Ajv from 'ajv';
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import { Application } from 'express';
 import { ErrorController } from '../../steps/error/error.controller';
-import { HomeGetController } from '../../steps/home/home.get';
+import { HomeGetController } from '../../steps/home/get';
 import { FirstPageGet } from '../../steps/first-page/first-page.get';
 import { FirstPagePost } from '../../steps/first-page/first-page.post';
 import { Form } from '../../app/form/Form';
 import { firstPageSchema } from '../../steps/first-page/first-page.form';
+import { LanguagePreferenceGetController } from '../../steps/screen-questions/language-preference/get';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
@@ -24,6 +25,7 @@ export class Container {
       homeGetController: asValue(new HomeGetController()),
       firstPageGetController: asValue(new FirstPageGet()),
       firstPagePostController: asValue(new FirstPagePost(new Form(ajv.compile(firstPageSchema)))),
+      languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
       errorController: asClass(ErrorController),
       exposeErrors: asValue(app.locals.developmentMode)
     });

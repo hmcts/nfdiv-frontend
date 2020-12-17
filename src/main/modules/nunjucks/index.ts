@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
+import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
   constructor() {
@@ -17,7 +18,7 @@ export class Nunjucks {
       'node_modules',
       'govuk-frontend',
     );
-    nunjucks.configure(
+    const env = nunjucks.configure(
       [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath],
       {
         autoescape: true,
@@ -25,6 +26,18 @@ export class Nunjucks {
         express: app,
       },
     );
+
+    env.addGlobal('formContent', function(prop: any): string {
+      return typeof prop === 'function' ? prop(this.ctx) :  prop;
+    });
+
+    env.addGlobal('formItems', function(items: FormInput[]) {
+      return items.map(i => ({
+        text: this.env.globals.formContent.call(this, i.label),
+        value: i.value,
+        selected: i.selected
+      }));
+    });
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;

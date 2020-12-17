@@ -14,17 +14,29 @@ export class Form<T> {
 
 }
 
+type LanguageLookup = (lang: Record<string, never>) => string;
+
+type Label = string | LanguageLookup;
+
 export interface FormContent {
   submit: {
-    text: string,
+    text: Label,
     class?: string
   },
-  fields: Record<string, FormField>
+  fields: Record<string, FormInput | FormOptions>
 }
 
-interface FormField {
-  label: string,
-  class?: string
+export interface FormOptions {
+  type: string,
+  label?: Label,
+  values: FormInput[]
+}
+
+export interface FormInput {
+  label: Label,
+  class?: string,
+  selected?: boolean,
+  value?: string | number
 }
 
 export interface CsrfField {

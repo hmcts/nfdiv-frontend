@@ -1,6 +1,8 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% extends "govuk/template.njk" %}
 
@@ -22,19 +24,43 @@
           <input type="hidden" name="_csrf" value="{{ csrfToken }}">
           {% block form_content %}
             {% for fieldName, field in form.fields %}
-              {{ govukInput({
-                label: {
-                  text: field.label,
-                  classes: "govuk-label--l " + field.classes
-                },
-                id: fieldName,
-                name: fieldName
-              }) }}
+              {% if field.type === 'radios' %}
+                {{ govukRadios({
+                  classes: "govuk-radios--inline" + field.classes,
+                  idPrefix: fieldName,
+                  name: fieldName,
+                  fieldset: {
+                    legend: {
+                      text: formContent(field.label),
+                      classes: "govuk-fieldset__legend--l"
+                    }
+                  },
+                  items: formItems(field.values)
+                }) }}
+              {% elif field.type === 'option' %}
+                {{ govukSelect({
+                  id: fieldName,
+                  name: fieldName,
+                  label: {
+                    text: formContent(field.label)
+                  },
+                  items: formItems(field.values)
+                }) }}
+              {% else %}
+                {{ govukInput({
+                  label: {
+                    text: formContent(field.label),
+                    classes: "govuk-label--l " + field.classes
+                  },
+                  id: fieldName,
+                  name: fieldName
+                }) }}
+              {% endif %}
             {% endfor %}
           {% endblock %}
 
           <div class="govuk-form-group">
-            {{ govukButton({ text: form.submit.text, preventDoubleClick: true }) }}
+            {{ govukButton({ text: formContent(form.submit.text), preventDoubleClick: true }) }}
           </div>
         </form>
       {% endif %}
