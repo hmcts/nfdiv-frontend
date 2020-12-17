@@ -14,7 +14,7 @@ export class GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     // todo set req.session.lang
     const languageContent = this.content[req.session.lang] || this.content['en'] || {};
-    const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'] || {};
+    const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
 
     const errors = req.session.errors || [];
