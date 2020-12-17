@@ -26,7 +26,7 @@
             {% for fieldName, field in form.fields %}
               {% if field.type === 'radios' %}
                 {{ govukRadios({
-                  classes: "govuk-radios--inline" + field.classes,
+                  classes: field.classes,
                   idPrefix: fieldName,
                   name: fieldName,
                   fieldset: {
