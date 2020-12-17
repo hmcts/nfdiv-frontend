@@ -6,6 +6,8 @@
     "allowSyntheticDefaultImports": true,
     "target": "es6",
     "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "experimentalDecorators": true,

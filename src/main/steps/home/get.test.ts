@@ -1,7 +1,8 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { homeContent } from './home.content';
-import { HomeGetController } from './home.get';
+import { homeContent } from './content';
+import { HomeGetController } from './get';
+import { commonContent } from '../common/common.content';
 
 
 describe('HomeGetController', () => {
@@ -15,6 +16,7 @@ describe('HomeGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...homeContent.en,
       ...homeContent.common,
+      ...commonContent.en,
       errors: []
     });
   });

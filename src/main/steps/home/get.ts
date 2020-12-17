@@ -1,10 +1,10 @@
 import { GetController } from '../../app/controller/GetController';
-import { homeContent } from './home.content';
+import { homeContent } from './content';
 
 export class HomeGetController extends GetController {
 
   constructor() {
-    super(__dirname + '/home', homeContent);
+    super(__dirname + '/template', homeContent);
   }
 
 }
