@@ -4,7 +4,7 @@ import { languagePreferenceForm } from './content';
 
 export type LanguagePreferenceForm = FormBody<typeof languagePreferenceForm>;
 
-export const firstPageSchema: JSONSchemaType<LanguagePreferenceForm> = {
+export const languagePreferenceSchema: JSONSchemaType<LanguagePreferenceForm> = {
   type: 'object',
   properties: {
     _csrf: {

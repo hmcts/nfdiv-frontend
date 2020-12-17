@@ -21,7 +21,7 @@ type Label = string | LanguageLookup;
 export interface FormContent {
   submit: {
     text: Label,
-    class?: string
+    classes?: string
   },
   fields: Record<string, FormInput | FormOptions>
 }
@@ -34,7 +34,7 @@ export interface FormOptions {
 
 export interface FormInput {
   label: Label,
-  class?: string,
+  classes?: string,
   selected?: boolean,
   value?: string | number
 }
