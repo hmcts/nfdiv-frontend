@@ -57,7 +57,7 @@
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.17.1",
     "glob": "^7.1.6",
-    "govuk-frontend": "^3.9.1",
+    "govuk-frontend": "^3.10.2",
     "helmet": "^4.2.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
