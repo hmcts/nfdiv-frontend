@@ -3,7 +3,6 @@ import { Response } from 'express';
 import { AppRequest } from './AppRequest';
 import { commonContent } from '../../steps/common/common.content';
 import { DefinedError } from 'ajv';
-import { ErrorObject } from 'ajv/lib/types/index';
 
 @autobind
 export class GetController {
@@ -33,12 +32,14 @@ export class GetController {
   }
 
   private mapErrors(errors: DefinedError[], contentErrors) {
-    return errors.map((error: ErrorObject) => {
-      const key = error.params.missingProperty;
-      return {
-        href: `#${key}`,
-        msg: contentErrors[key].required
-      };
+    return errors.map((error: DefinedError) => {
+      if (error.keyword === 'required') {
+        const key = error.params.missingProperty;
+        return {
+          href: `#${key}`,
+          msg: contentErrors[key].required
+        };
+      }
     });
   }
 
