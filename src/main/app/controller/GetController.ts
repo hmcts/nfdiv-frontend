@@ -19,9 +19,12 @@ export class GetController {
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
 
-    const errors = req.session.errors || [];
-    if (errors.length > 0) {
-      this.mapErrors(errors, languageContent.errors);
+    const sessionErrors = req.session.errors || [];
+    let errors;
+    if (sessionErrors.length > 0) {
+      errors = this.mapErrors(sessionErrors, languageContent.errors);
+    } else {
+      errors = sessionErrors;
     }
 
     req.session.errors = undefined;
@@ -30,10 +33,12 @@ export class GetController {
   }
 
   private mapErrors(errors: DefinedError[], contentErrors) {
-    errors.forEach((error: ErrorObject) => {
+    return errors.map((error: ErrorObject) => {
       const key = error.params.missingProperty;
-      error.message = contentErrors[key].required;
-      error.schema = `#${key}`;
+      return {
+        href: `#${key}`,
+        msg: contentErrors[key].required
+      };
     });
   }
 
