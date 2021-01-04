@@ -4,7 +4,12 @@ const en = {
   line1: 'We’ll send you emails and documents as we progress your case.',
   line2: 'Choose which language you’d like these in.',
   yes: 'English and Welsh',
-  no: 'English only'
+  no: 'English only',
+  errors: {
+    languagePreferenceWelsh: {
+      required: 'Choose the languages you want your documents and correspondence in.'
+    }
+  }
 };
 
 const cy: typeof en = {
@@ -13,6 +18,11 @@ const cy: typeof en = {
   line2: 'Dewisiwch pa iaith yr hoffech eu cael.',
   yes: 'Cymraeg a Saesneg',
   no: 'Saesneg yn unig',
+  errors: {
+    languagePreferenceWelsh: {
+      required: 'Dewisiwch yr iaith yr hoffech gael eich dogfennau a’ch gohebiaeth.'
+    }
+  }
 };
 
 export const languagePreferenceForm = {

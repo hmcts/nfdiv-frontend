@@ -2,6 +2,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { AppRequest } from './AppRequest';
 import { commonContent } from '../../steps/common/common.content';
+import { DefinedError } from 'ajv';
+import { ErrorObject } from 'ajv/lib/types/index';
 
 @autobind
 export class GetController {
@@ -18,10 +20,21 @@ export class GetController {
     const commonPageContent = this.content.common || {};
 
     const errors = req.session.errors || [];
+    if (errors.length > 0) {
+      this.mapErrors(errors, languageContent.errors);
+    }
 
     req.session.errors = undefined;
 
     res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, errors });
+  }
+
+  private mapErrors(errors: DefinedError[], contentErrors) {
+    errors.forEach((error: ErrorObject) => {
+      const key = error.params.missingProperty;
+      error.message = contentErrors[key].required;
+      error.schema = `#${key}`;
+    });
   }
 
 }
