@@ -19,6 +19,11 @@ import { RespondentAddressGetController } from '../../steps/screen-questions/res
 import { MarriageCertificateGetController } from '../../steps/screen-questions/marriage-certificate/get';
 import { MarriageCertificatePostController } from '../../steps/screen-questions/marriage-certificate/post';
 import { marriageCertificateSchema } from '../../steps/screen-questions/marriage-certificate/form';
+import { homeContent } from 'steps/home/content';
+import { languagePreferenceContent } from '../../steps/screen-questions/language-preference/content';
+import { hasMarriageBrokenContent } from '../../steps/screen-questions/has-marriage-broken/content';
+import { respondentAddressContent } from '../../steps/screen-questions/respondent-address/content';
+import { marriageCertificateContent } from '../../steps/screen-questions/marriage-certificate/content';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
@@ -29,21 +34,21 @@ const logger = Logger.getLogger('app');
 export class Container {
 
   public enableFor(app: Application): void {
-    const ajv = new Ajv();
+    const ajv = new Ajv({ verbose: true });
 
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
       firstPageGetController: asValue(new FirstPageGet()),
-      firstPagePostController: asValue(new FirstPagePost(new Form(ajv.compile(firstPageSchema)))),
+      firstPagePostController: asValue(new FirstPagePost(new Form(ajv.compile(firstPageSchema)), homeContent)),
       languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
-      languagePreferencePostController: asValue(new LanguagePreferencePostController(new Form(ajv.compile(languagePreferenceSchema)))),
+      languagePreferencePostController: asValue(new LanguagePreferencePostController(new Form(ajv.compile(languagePreferenceSchema)), languagePreferenceContent)),
       hasMarriageBrokenGetController: asValue(new HasMarriageBrokenGetController()),
-      hasMarriageBrokenPostController: asValue(new HasMarriageBrokenPostController(new Form(ajv.compile(hasMarriageBrokenSchema)))),
+      hasMarriageBrokenPostController: asValue(new HasMarriageBrokenPostController(new Form(ajv.compile(hasMarriageBrokenSchema)), hasMarriageBrokenContent)),
       respondentAddressGetController: asValue(new RespondentAddressGetController()),
-      respondentAddressPostController: asValue(new RespondentAddressPostController(new Form(ajv.compile(respondentAddressSchema)))),
+      respondentAddressPostController: asValue(new RespondentAddressPostController(new Form(ajv.compile(respondentAddressSchema)), respondentAddressContent)),
       marriageCertificateGetController: asValue(new MarriageCertificateGetController()),
-      marriageCertificatePostController: asValue(new MarriageCertificatePostController(new Form(ajv.compile(marriageCertificateSchema)))),
+      marriageCertificatePostController: asValue(new MarriageCertificatePostController(new Form(ajv.compile(marriageCertificateSchema)), marriageCertificateContent)),
       errorController: asClass(ErrorController),
       exposeErrors: asValue(app.locals.developmentMode)
     });

@@ -1,4 +1,4 @@
-import { DefinedError, ValidateFunction } from 'ajv';
+import { ErrorObject, ValidateFunction } from 'ajv';
 
 export class Form<T> {
 
@@ -6,10 +6,31 @@ export class Form<T> {
     private readonly validator: ValidateFunction
   ) { }
 
-  public getErrors(body: T): DefinedError[] {
-    this.validator(body);
+  public getErrors(body: T, contentErrors: Record<string, any>): { href: string; msg: string }[] {
+    const isValid = this.validator(body);
+    return isValid ? [] : this.mapErrors(this.validator.errors, contentErrors);
+  }
 
-    return (this.validator.errors || []) as DefinedError[];
+  private mapErrors(errors: ErrorObject[] | null | undefined, contentErrors: Record<string, any>): { href: string; msg: string }[] {
+    let mappedErrors;
+    if (errors) {
+      // errors.forEach((error: ErrorObject) => {
+      //   if (error.keyword === 'required') {
+      //     const key = error.params.missingProperty;
+      //     error.message = contentErrors[key].required;
+      //   }
+      // });
+      mappedErrors = errors.map((error: ErrorObject) => {
+        if (error.keyword === 'required') {
+          const key = error.params.missingProperty;
+          return {
+            href: `#${key}`,
+            msg: contentErrors[key].required
+          };
+        }
+      });
+    }
+    return mappedErrors || [];
   }
 
 }

@@ -8,7 +8,8 @@ import { SessionState } from '../step/StepStateStorage';
 export abstract class PostController<T extends AnyObject> {
 
   constructor(
-    protected readonly form: Form<T>
+    protected readonly form: Form<T>,
+    protected readonly content: Record<string, any>
   ) { }
 
   /**
@@ -17,7 +18,8 @@ export abstract class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const errors = this.form.getErrors(req.body);
+    const languageContent = this.content[req.session.lang] || this.content['en'] || {};
+    const errors = this.form.getErrors(req.body, languageContent.errors);
 
     if (errors.length > 0) {
       req.session.errors = errors;

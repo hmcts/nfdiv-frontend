@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { AppRequest } from './AppRequest';
 import { commonContent } from '../../steps/common/common.content';
-import { DefinedError } from 'ajv';
 
 @autobind
 export class GetController {
@@ -18,29 +17,13 @@ export class GetController {
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
 
-    const sessionErrors = req.session.errors || [];
-    let errors;
-    if (sessionErrors.length > 0) {
-      errors = this.mapErrors(sessionErrors, languageContent.errors);
-    } else {
-      errors = sessionErrors;
-    }
+    const errors = req.session.errors;
 
     req.session.errors = undefined;
 
     res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, errors });
   }
 
-  private mapErrors(errors: DefinedError[], contentErrors) {
-    return errors.map((error: DefinedError) => {
-      if (error.keyword === 'required') {
-        const key = error.params.missingProperty;
-        return {
-          href: `#${key}`,
-          msg: contentErrors[key].required
-        };
-      }
-    });
-  }
+
 
 }
