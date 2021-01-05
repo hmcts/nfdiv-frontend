@@ -14,6 +14,6 @@ export interface AppRequest<T = Record<string, unknown>> extends Request {
 
 export interface AppSession extends Session {
   lang: string,
-  errors: { href: string; msg: string }[] | undefined,
+  errors: { href: string; message: string }[] | undefined,
   state: Record<string, unknown>
 }

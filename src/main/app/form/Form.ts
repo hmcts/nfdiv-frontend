@@ -6,12 +6,12 @@ export class Form<T> {
     private readonly validator: ValidateFunction
   ) { }
 
-  public getErrors(body: T, contentErrors: Record<string, any>): { href: string; msg: string }[] {
+  public getErrors(body: T, contentErrors: Record<string, any>): { href: string; message: string }[] {
     const isValid = this.validator(body);
     return isValid ? [] : this.mapErrors(this.validator.errors, contentErrors);
   }
 
-  private mapErrors(errors: ErrorObject[] | null | undefined, contentErrors: Record<string, any>): { href: string; msg: string }[] {
+  private mapErrors(errors: ErrorObject[] | null | undefined, contentErrors: Record<string, any>): { href: string; message: string }[] {
     let mappedErrors;
     if (errors) {
       // errors.forEach((error: ErrorObject) => {

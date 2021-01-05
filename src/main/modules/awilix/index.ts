@@ -34,7 +34,7 @@ const logger = Logger.getLogger('app');
 export class Container {
 
   public enableFor(app: Application): void {
-    const ajv = new Ajv({ verbose: true });
+    const ajv = new Ajv();
 
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),

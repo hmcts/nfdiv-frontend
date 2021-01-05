@@ -17,13 +17,11 @@ export class GetController {
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
 
-    const errors = req.session.errors;
+    const errors = req.session.errors || [];
 
     req.session.errors = undefined;
 
     res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, errors });
   }
-
-
 
 }
