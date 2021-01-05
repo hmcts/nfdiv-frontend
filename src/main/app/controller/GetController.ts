@@ -19,28 +19,22 @@ export class GetController {
     const commonPageContent = this.content.common || {};
 
     const sessionErrors = req.session.errors || [];
-    let errors;
-    if (sessionErrors.length > 0) {
-      errors = this.mapErrors(sessionErrors, languageContent.errors);
-    } else {
-      errors = sessionErrors;
-    }
+    const errors = sessionErrors.map(e => this.mapErrors(e, languageContent.errors, commonLanguageContent));
 
     req.session.errors = undefined;
 
     res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, errors });
   }
 
-  private mapErrors(errors: DefinedError[], contentErrors) {
-    return errors.map((error: DefinedError) => {
-      if (error.keyword === 'required') {
-        const key = error.params.missingProperty;
-        return {
-          href: `#${key}`,
-          msg: contentErrors[key].required
-        };
-      }
-    });
+  private mapErrors(error: DefinedError, contentErrors, commonLanguage) {
+    let key;
+    if (error.keyword === 'required') {
+      key = error.params.missingProperty;
+    }
+    return {
+      href: '#' + key,
+      msg: contentErrors[key][error.keyword] || commonLanguage.invalid
+    };
   }
 
 }
