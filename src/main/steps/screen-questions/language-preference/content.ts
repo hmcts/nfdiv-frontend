@@ -1,10 +1,17 @@
+import { isFieldFilledIn } from '../../../utils/validation';
+import { FormBody } from '../../../app/form/Form';
 
 const en = {
   question: 'What language do you want us to use when we contact you?',
   line1: 'We’ll send you emails and documents as we progress your case.',
   line2: 'Choose which language you’d like these in.',
   yes: 'English and Welsh',
-  no: 'English only'
+  no: 'English only',
+  errors: {
+    languagePreferenceWelsh: {
+      required: 'Choose the languages you want your documents and correspondence in.'
+    }
+  }
 };
 
 const cy: typeof en = {
@@ -13,18 +20,25 @@ const cy: typeof en = {
   line2: 'Dewisiwch pa iaith yr hoffech eu cael.',
   yes: 'Cymraeg a Saesneg',
   no: 'Saesneg yn unig',
+  errors: {
+    languagePreferenceWelsh: {
+      required: 'Dewisiwch yr iaith yr hoffech gael eich dogfennau a’ch gohebiaeth.'
+    }
+  }
 };
 
 export const languagePreferenceForm = {
-  fields: {
-    languagePreferenceWelsh: {
+  fields: [
+    { name: 'languagePreferenceWelsh',
       type: 'radios',
       values: [
         { label: l => l.no, value: 'No' },
         { label: l => l.yes, value: 'Yes' }
-      ]
+      ],
+      required: true,
+      validator: value => isFieldFilledIn(value)
     }
-  },
+  ],
   submit: {
     text: l => l.continue
   }
@@ -35,3 +49,5 @@ const common = {
 };
 
 export const languagePreferenceContent = { en, cy, common };
+
+export type LanguagePreferenceForm = FormBody<typeof languagePreferenceForm>;

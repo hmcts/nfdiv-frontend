@@ -1,7 +1,7 @@
 import { HOME_URL } from '../urls';
 import { AnyObject, PostController } from '../../app/controller/PostController';
-import { FirstPageForm } from './first-page.form';
 import { SessionState } from 'app/step/StepStateStorage';
+import { FirstPageForm } from './first-page.content';
 
 export class FirstPagePost extends PostController<FirstPageForm> {
 

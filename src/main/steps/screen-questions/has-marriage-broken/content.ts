@@ -1,3 +1,4 @@
+import { FormBody } from '../../../app/form/Form';
 
 const en = {
   question: 'Has your marriage broken down irretrievably (it can’t be saved)?',
@@ -36,3 +37,5 @@ const common = {
 };
 
 export const hasMarriageBrokenContent = { en, cy, common };
+
+export type HasMarriageBrokenForm = FormBody<typeof hasMarriageBrokenForm>;

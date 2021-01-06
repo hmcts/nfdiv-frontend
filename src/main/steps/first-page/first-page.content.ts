@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import { HOME_URL } from '../urls';
+import { FormBody } from '../../app/form/Form';
 
 const en = {
   text: 'Some text',
@@ -42,3 +43,5 @@ const common = {
 };
 
 export const firstPageContent = { en, cy, common };
+
+export type FirstPageForm = FormBody<typeof firstPageContent['en']['form']>;

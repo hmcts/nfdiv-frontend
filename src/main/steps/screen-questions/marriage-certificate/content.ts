@@ -1,3 +1,4 @@
+import { FormBody } from '../../../app/form/Form';
 
 const en = {
   question: 'Do you have your marriage certificate with you now?',
@@ -38,3 +39,5 @@ const common = {
 };
 
 export const marriageCertificateContent = { en, cy, common };
+
+export type MarriageCertificateForm = FormBody<typeof marriageCertificateForm>;

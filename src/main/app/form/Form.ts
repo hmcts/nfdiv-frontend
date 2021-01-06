@@ -1,15 +1,25 @@
-import { DefinedError, ValidateFunction } from 'ajv';
 
 export class Form<T> {
 
   constructor(
-    private readonly validator: ValidateFunction
+    private readonly validator: any
   ) { }
 
-  public getErrors(body: T): DefinedError[] {
-    this.validator(body);
+  public getErrors(body: T): [] {
+    const errors = this.validator.fields
+      .filter(f => f.required)
+      .reduce((filtered, f) => {
+        const [isValid, errorType] = f.validator(body[f.name]);
+        if (!isValid) {
+          filtered.push({
+            propertyName: f.name,
+            errorType: errorType
+          });
+        }
+        return filtered;
+      }, []);
 
-    return (this.validator.errors || []) as DefinedError[];
+    return errors || [];
   }
 
 }
@@ -23,7 +33,7 @@ export interface FormContent {
     text: Label,
     classes?: string
   },
-  fields: Record<string, FormInput | FormOptions>
+  fields: (FormInput | FormOptions)[]
 }
 
 export interface FormOptions {

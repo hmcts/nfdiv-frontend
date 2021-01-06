@@ -1,3 +1,4 @@
+import { FormBody } from '../../../app/form/Form';
 
 const en = {
   question: 'Do you have an address for your husband/wife?',
@@ -36,3 +37,5 @@ const common = {
 };
 
 export const respondentAddressContent = { en, cy, common };
+
+export type RespondentAddressForm = FormBody<typeof respondentAddressForm>;
