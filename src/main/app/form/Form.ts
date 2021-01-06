@@ -2,7 +2,7 @@
 export class Form<T> {
 
   constructor(
-    private readonly form: any
+    private readonly form: FormContent
   ) { }
 
   public getErrors(body: T): FormError[] {
@@ -27,6 +27,8 @@ export class Form<T> {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
+type ValidationCheck = (lang: Record<string, never>) => string | boolean;
+
 type Label = string | LanguageLookup;
 
 export interface FormContent {
@@ -40,7 +42,8 @@ export interface FormContent {
 export interface FormOptions {
   type: string,
   label?: Label,
-  values: FormInput[]
+  values: FormInput[],
+  validator?: ValidationCheck
 }
 
 export interface FormInput {
