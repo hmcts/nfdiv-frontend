@@ -28,17 +28,16 @@ const cy: typeof en = {
 };
 
 export const languagePreferenceForm = {
-  fields: [
-    { name: 'languagePreferenceWelsh',
+  fields: {
+    languagePreferenceWelsh: {
       type: 'radios',
       values: [
-        { label: l => l.no, value: 'No' },
-        { label: l => l.yes, value: 'Yes' }
+        {label: l => l.no, value: 'No'},
+        {label: l => l.yes, value: 'Yes'}
       ],
-      required: true,
       validator: value => isFieldFilledIn(value)
     }
-  ],
+  },
   submit: {
     text: l => l.continue
   }

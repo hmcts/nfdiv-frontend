@@ -2,18 +2,19 @@
 export class Form<T> {
 
   constructor(
-    private readonly validator: any
+    private readonly form: any
   ) { }
 
-  public getErrors(body: T): [] {
-    const errors = this.validator.fields
-      .filter(f => f.required)
-      .reduce((filtered, f) => {
-        const [isValid, errorType] = f.validator(body[f.name]);
-        if (!isValid) {
+  public getErrors(body: T): FormError[] {
+    const fields = this.form.fields;
+    const errors = Object.keys(fields)
+      .filter((field: string) => !!fields[field].validator)
+      .reduce((filtered: FormError[], field: string) => {
+        const error = fields[field].validator(body[field]);
+        if (typeof error === 'string') {
           filtered.push({
-            propertyName: f.name,
-            errorType: errorType
+            propertyName: field,
+            errorType: error
           });
         }
         return filtered;
@@ -33,7 +34,7 @@ export interface FormContent {
     text: Label,
     classes?: string
   },
-  fields: (FormInput | FormOptions)[]
+  fields: Record<string, FormInput | FormOptions>
 }
 
 export interface FormOptions {
@@ -55,3 +56,7 @@ export interface CsrfField {
 
 export type FormBody<T extends FormContent> = Record<keyof T['fields'], string> & CsrfField;
 
+export type FormError = {
+  propertyName: string,
+  errorType: string
+}

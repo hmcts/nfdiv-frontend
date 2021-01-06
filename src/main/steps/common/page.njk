@@ -23,12 +23,12 @@
         <form class="form" id="main-form" method="post" action="" novalidate>
           <input type="hidden" name="_csrf" value="{{ csrfToken }}">
           {% block form_content %}
-            {% for field in form.fields %}
+            {% for fieldName, field in form.fields %}
               {% if field.type === 'radios' %}
                 {{ govukRadios({
                   classes: field.classes,
-                  idPrefix: field.name,
-                  name: field.name,
+                  idPrefix: fieldName,
+                  name: fieldName,
                   fieldset: {
                     legend: {
                       text: formContent(field.label),
@@ -39,8 +39,8 @@
                 }) }}
               {% elif field.type === 'option' %}
                 {{ govukSelect({
-                  id: field.name,
-                  name: field.name,
+                  id: fieldName,
+                  name: fieldName,
                   label: {
                     text: formContent(field.label)
                   },
@@ -52,8 +52,8 @@
                     text: formContent(field.label),
                     classes: "govuk-label--l " + field.classes
                   },
-                  id: field.name,
-                  name: field.name
+                  id: fieldName,
+                  name: fieldName
                 }) }}
               {% endif %}
             {% endfor %}
