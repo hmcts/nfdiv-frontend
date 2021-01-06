@@ -6,14 +6,15 @@ export class Form<T> {
   ) { }
 
   public getErrors(body: T): FormError[] {
-    const fields = this.form.fields;
-    const errors = Object.keys(fields)
-      .filter((field: string) => !!fields[field].validator)
-      .reduce((filtered: FormError[], field: string) => {
-        const error = fields[field].validator(body[field]);
+    const errors = Object.entries(this.form.fields)
+      // @ts-ignore
+      .filter(([, field]) => typeof field.validator === 'function')
+      .reduce((filtered: FormError[], [key, field]) => {
+        // @ts-ignore
+        const error = field.validator(body[key]);
         if (typeof error === 'string') {
           filtered.push({
-            propertyName: field,
+            propertyName: key,
             errorType: error
           });
         }
