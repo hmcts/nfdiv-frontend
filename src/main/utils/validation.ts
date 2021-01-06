@@ -1,4 +1,6 @@
 
-export const isFieldFilledIn = (value: string): boolean | string => {
-  return value ? true : 'required';
+export const isFieldFilledIn = (value: string): void | string => {
+  if (!value) {
+    return 'required';
+  }
 };
