@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { HasMarriageBrokenPostController } from './post';
 import { Form } from '../../../app/form/Form';
-import { HasMarriageBrokenForm } from './form';
+import { HasMarriageBrokenForm } from './content';
 import { RESPONDENT_ADDRESS_URL } from '../../urls';
 
 describe('HasMarriageBrokenPostController', () => {

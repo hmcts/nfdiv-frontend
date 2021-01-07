@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { LanguagePreferencePostController } from './post';
 import { Form } from '../../../app/form/Form';
-import { LanguagePreferenceForm } from './form';
+import { LanguagePreferenceForm } from './content';
 import { HAS_MARRIAGE_BROKEN_URL } from '../../urls';
 
 describe('LanguagePreferencePostController', () => {

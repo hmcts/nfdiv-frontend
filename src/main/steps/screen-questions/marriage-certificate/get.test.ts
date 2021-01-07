@@ -16,7 +16,7 @@ describe('MarriageCertificateGetController', () => {
       ...marriageCertificateContent.en,
       ...marriageCertificateContent.common,
       ...commonContent.en,
-      errors: []
+      sessionErrors: []
     });
   });
 

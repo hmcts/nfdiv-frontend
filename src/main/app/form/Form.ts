@@ -28,7 +28,7 @@ export class Form<T> {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (lang: Record<string, never>) => void | string;
+type ValidationCheck = (lang: string) => void | string;
 
 type Label = string | LanguageLookup;
 

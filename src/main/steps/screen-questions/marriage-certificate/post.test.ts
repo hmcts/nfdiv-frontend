@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { MarriageCertificatePostController } from './post';
 import { Form } from '../../../app/form/Form';
-import { MarriageCertificateForm } from './form';
+import { MarriageCertificateForm } from './content';
 
 describe('MarriageCertificatePostController', () => {
   const mockForm: Form<MarriageCertificateForm> = { getErrors: () => [] as never[] } as any;

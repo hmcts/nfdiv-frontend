@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FirstPagePost } from './first-page.post';
 import { Form } from '../../app/form/Form';
-import { FirstPageForm } from './first-page.form';
+import { FirstPageForm } from './first-page.content';
 
 describe('FirstPagePostController', () => {
   const mockForm: Form<FirstPageForm> = { getErrors: () => [] as never[] } as any;
