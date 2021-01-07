@@ -12,7 +12,7 @@ import { SessionStorage } from './modules/session';
 import { AppInsights } from './modules/appinsights';
 import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
-import csurf from 'csurf';
+import { CSRFToken } from './modules/csrf';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('server');
@@ -40,12 +40,7 @@ new Helmet(config.get('security')).enableFor(app);
 new HealthCheck().enableFor(app);
 new AppInsights().enable();
 new SessionStorage().enableFor(app);
-
-app.use(csurf(), (req, res, next) => {
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
-
+new CSRFToken().enableFor(app);
 new Routes().enableFor(app);
 
 app.listen(config.get('port'), () => {
