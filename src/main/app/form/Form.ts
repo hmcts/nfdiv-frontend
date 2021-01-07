@@ -1,4 +1,3 @@
-
 export class Form<T> {
 
   constructor(
@@ -7,9 +6,8 @@ export class Form<T> {
 
   public getErrors(body: T): FormError[] {
     const errors = Object.entries(this.form.fields)
-      // @ts-ignore
-      .filter(([, field]) => typeof field.validator === 'function')
-      .reduce((filtered: FormError[], [key, field]) => {
+      .filter(([, field]: [string, FormInput | FormOptions]) => field.validator !== undefined)
+      .reduce((filtered: FormError[], [key, field]: [string, FormInput | FormOptions]) => {
         // @ts-ignore
         const error = field.validator(body[key]);
         if (typeof error === 'string') {
@@ -51,7 +49,8 @@ export interface FormInput {
   label: Label,
   classes?: string,
   selected?: boolean,
-  value?: string | number
+  value?: string | number,
+  validator?: ValidationCheck
 }
 
 export interface CsrfField {
