@@ -7,6 +7,12 @@ const en = {
   certificateTranslation: 'You must have the original certificate or a <a class="govuk-link" href="https://www.gov.uk/certifying-a-document"target="_blank" aria-label="certifying a document link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.">certified copy</a>. If it isn’t in English, you’ll also need to provide a <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"target="_blank">certified translation</a>.',
   yes: 'Yes',
   no: 'No',
+  'errors': {
+    'screenHasMarriageCert': {
+      'required': 'Select yes if you have your marriage certificate',
+      'invalid': 'Select yes if you have your marriage certificate'
+    }
+  }
 };
 
 const cy: typeof en = {
@@ -15,7 +21,13 @@ const cy: typeof en = {
   camera: 'Os nad yw eich tystysgrif gennych, dylech arbed a chau eich cais a dychwelyd ato yn hwyrach ymlaen.',
   certificateTranslation: 'Mae’n rhaid ichi feddu ar y dystysgrif wreiddiol neu <a class="govuk-link" href="https://www.gov.uk/certifying-a-document"target="_blank" aria-label="Dolen i wybodaeth am ardystio tystysgrif, Bydd hon yn agor ffenestr newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud eisoes.">copi ardystiedig</a>. Os nad yw yn Saesneg, bydd angen ichi ddarparu <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"target="_blank">cyfieithiad ardystiedig</a>.',
   yes: 'Ydi',
-  no: 'Nac ydi'
+  no: 'Nac ydi',
+  'errors': {
+    'screenHasMarriageCert': {
+      'required': 'Dewiswch oes os yw eich tystysgrif priodas gennych',
+      'invalid': 'Dewiswch oes os yw eich tystysgrif priodas gennych'
+    }
+  }
 };
 
 export const marriageCertificateForm = {

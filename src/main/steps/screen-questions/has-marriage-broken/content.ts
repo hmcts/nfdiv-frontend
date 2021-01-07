@@ -5,7 +5,12 @@ const en = {
   line1: 'You can only get a divorce on the ground that your marriage has broken down irretrievably.',
   yes: 'Yes',
   no: 'No',
-  marriageBrokenDownNo: 'The only legal ground for divorce in England and Wales is that your marriage has broken down irretrievably.'
+  marriageBrokenDownNo: 'The only legal ground for divorce in England and Wales is that your marriage has broken down irretrievably.',
+  errors: {
+    'screenHasMarriageBroken': {
+      'required': 'Select yes if your marriage has broken down irretrievably'
+    }
+  }
 };
 
 const cy: typeof en = {
@@ -14,6 +19,11 @@ const cy: typeof en = {
   yes: 'Do',
   no: 'Naddo',
   marriageBrokenDownNo: 'Yr unig reswm cyfreithiol dros gael ysgariad yng Nghymru a Lloegr yw bod y briodas wedi chwalu’n anadferadwy.',
+  errors: {
+    'screenHasMarriageBroken': {
+      'required': 'Dewiswch do os yw eich priodas wedi chwalu’n anadferadwy'
+    }
+  }
 };
 
 export const hasMarriageBrokenForm = {
