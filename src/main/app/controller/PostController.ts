@@ -8,7 +8,7 @@ import { SessionState } from '../step/StepStateStorage';
 export abstract class PostController<T extends AnyObject> {
 
   constructor(
-    protected readonly form: Form<T>
+    protected readonly form: Form
   ) { }
 
   /**
