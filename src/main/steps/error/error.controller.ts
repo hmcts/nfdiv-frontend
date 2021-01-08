@@ -30,6 +30,14 @@ export class ErrorController {
     res.render('error/error');
   }
 
+  /**
+   * Catch all for CSRF Token errors
+   */
+  public CSRFTokenError(req: Request, res: Response): void {
+    res.status(403);
+    res.render('error/csrf-token');
+  }
+
 }
 
 export interface HTTPError extends Error {

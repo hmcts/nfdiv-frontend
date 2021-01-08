@@ -41,4 +41,15 @@ describe('ErrorController', () => {
     expect(res.statusCode).toBe(500);
   });
 
+  test('Should render csrf token error page', async () => {
+    const controller = new ErrorController(logger, false);
+
+    const req = mockRequest();
+    const res = mockResponse();
+    await controller.CSRFTokenError(req, res);
+
+    expect(res.render).toBeCalledWith('error/csrf-token');
+    expect(res.statusCode).toBe(403);
+  });
+
 });
