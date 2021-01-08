@@ -17,7 +17,7 @@ describe('HomeGetController', () => {
       ...homeContent.en,
       ...homeContent.common,
       ...commonContent.en,
-      errors: []
+      sessionErrors: []
     });
   });
 

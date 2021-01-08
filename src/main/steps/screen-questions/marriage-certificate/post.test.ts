@@ -2,10 +2,9 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { MarriageCertificatePostController } from './post';
 import { Form } from '../../../app/form/Form';
-import { MarriageCertificateForm } from './form';
 
 describe('MarriageCertificatePostController', () => {
-  const mockForm: Form<MarriageCertificateForm> = { getErrors: () => [] as never[] } as any;
+  const mockForm: Form = { getErrors: () => [] as never[] } as any;
   const controller = new MarriageCertificatePostController(mockForm);
 
   test('Should redirect', async () => {

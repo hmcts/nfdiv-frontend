@@ -16,7 +16,7 @@ describe('RespondentAddressGetController', () => {
       ...respondentAddressContent.en,
       ...respondentAddressContent.common,
       ...commonContent.en,
-      errors: []
+      sessionErrors: []
     });
   });
 

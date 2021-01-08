@@ -16,7 +16,7 @@ describe('LanguagePreferenceGetController', () => {
       ...languagePreferenceContent.en,
       ...languagePreferenceContent.common,
       ...commonContent.en,
-      errors: []
+      sessionErrors: []
     });
   });
 

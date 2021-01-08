@@ -1,10 +1,17 @@
+import { FormBody } from '../../../app/form/Form';
 
 const en = {
   question: 'Do you have an address for your husband/wife?',
   line1: 'You must provide either a residential address or their solicitor’s address. This can be a UK or international address.',
   line2: 'The court needs this so that it can send your husband/wife their divorce papers.',
   yes: 'Yes',
-  no: 'No'
+  no: 'No',
+  'errors': {
+    'screenHasRespondentAddress': {
+      'required': 'Select yes if you have an address for your husband/wife',
+      'invalid': 'Select yes if you have an address for your husband/wife'
+    }
+  }
 };
 
 const cy: typeof en = {
@@ -12,7 +19,13 @@ const cy: typeof en = {
   line1: 'Rhaid ichi ddarparu naill ai gyfeiriad preswyl neu gyfeiriad ei gyfreithiwr/chyfreithiwr. Gall hwn fod yn gyfeiriad yn y DU neu’n gyfeiriad rhyngwladol.',
   line2: 'Mae’r llys angen hyn fel y gellir anfon y papurau ysgariad at eich gŵr/gwraig.',
   yes: 'Oes',
-  no: 'Nac oes'
+  no: 'Nac oes',
+  'errors': {
+    'screenHasRespondentAddress': {
+      'required': 'Dewiswch oes os oes gennych chi gyfeiriad ar gyfer eich gŵr/gwraig',
+      'invalid': 'Dewiswch oes os oes gennych chi gyfeiriad ar gyfer eich gŵr/gwraig'
+    }
+  }
 };
 
 export const respondentAddressForm = {
@@ -36,3 +49,5 @@ const common = {
 };
 
 export const respondentAddressContent = { en, cy, common };
+
+export type RespondentAddressForm = FormBody<typeof respondentAddressForm>;

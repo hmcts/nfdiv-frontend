@@ -1,5 +1,5 @@
 import { PostController } from '../../../app/controller/PostController';
-import { MarriageCertificateForm } from './form';
+import { MarriageCertificateForm } from './content';
 
 export class MarriageCertificatePostController extends PostController<MarriageCertificateForm> {
 

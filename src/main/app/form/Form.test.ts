@@ -1,18 +1,42 @@
-import { Form } from './Form';
-import { ValidateFunction } from 'ajv';
+import { Form, FormContent } from './Form';
+import { isFieldFilledIn } from '../../utils/validation';
 
 describe('Form', () => {
-  const mockValidator: ValidateFunction = function (body: any) {
-    // @ts-ignore
-    this.errors = [];
-  } as any;
+  const mockForm: FormContent = {
+    fields: {
+      field: {
+        type: 'radios',
+        values: [
+          {label: l => l.no, value: 'No'},
+          {label: l => l.yes, value: 'Yes'}
+        ],
+        validator: value => isFieldFilledIn(value)
+      }
+    },
+    submit: {
+      text: l => l.continue
+    }
+  };
 
-  const form = new Form(mockValidator);
+  const form = new Form(mockForm);
 
   test('Should validate a form', async () => {
-    const errors = form.getErrors({});
+    const errors = form.getErrors({
+      field: 'Yes'
+    });
 
     expect(errors).toStrictEqual([]);
+  });
+
+  test('Should validate a form and return error', async () => {
+    const errors = form.getErrors({});
+
+    expect(errors).toStrictEqual([
+      {
+        propertyName: 'field',
+        errorType: 'required'
+      }
+      ]);
   });
 
 });

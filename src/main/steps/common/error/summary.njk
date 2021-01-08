@@ -1,13 +1,13 @@
-{% if errors and errors.length > 0 %}
+{% if sessionErrors and sessionErrors.length > 0 %}
   {% set errorList = [] %}
-  {% for item in errors %}
+  {% for item in sessionErrors %}
     {% set errorList = (errorList.push({
-      href: item.href,
-      text: item.message
+      href: '#' + item.propertyName,
+      text: errors[item.propertyName][item.errorType]
     }), errorList) %}
   {% endfor %}
   {{ govukErrorSummary({
-    "titleText": common.errorSummaryHeading,
+    "titleText": errorSummaryHeading,
     "errorList": errorList
   }) }}
 {% endif %}

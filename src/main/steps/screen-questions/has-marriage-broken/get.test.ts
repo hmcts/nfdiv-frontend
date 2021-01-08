@@ -16,7 +16,7 @@ describe('HasMarriageBrokenGetController', () => {
       ...hasMarriageBrokenContent.en,
       ...hasMarriageBrokenContent.common,
       ...commonContent.en,
-      errors: []
+      sessionErrors: []
     });
   });
 
