@@ -1,25 +1,23 @@
-export class Form<T> {
+import { AnyObject } from '../controller/PostController';
+
+export class Form {
 
   constructor(
     private readonly form: FormContent
   ) { }
 
-  public getErrors(body: T): FormError[] {
-    const errors = Object.entries(this.form.fields)
-      .filter(([, field]: [string, FormInput | FormOptions]) => field.validator !== undefined)
-      .reduce((filtered: FormError[], [key, field]: [string, FormInput | FormOptions]) => {
-        // @ts-ignore
-        const error = field.validator(body[key]);
-        if (typeof error === 'string') {
-          filtered.push({
-            propertyName: key,
-            errorType: error
-          });
-        }
-        return filtered;
-      }, []);
+  /**
+   * Pass the form body to any fields with a validator and return a list of errors
+   */
+  public getErrors(body: AnyObject): FormError[] {
+    return Object.keys(this.form.fields)
+      .filter((key) => this.form.fields[key].validator !== undefined)
+      .reduce((errors: FormError[], propertyName: string) => {
+        const field = this.form.fields[propertyName];
+        const errorType = field.validator!(body[propertyName]);
 
-    return errors || [];
+        return errorType ? errors.concat({ errorType, propertyName }) : errors;
+      }, []);
   }
 
 }
@@ -35,8 +33,10 @@ export interface FormContent {
     text: Label,
     classes?: string
   },
-  fields: Record<string, FormInput | FormOptions>
+  fields: Record<string, FormField>
 }
+
+export type FormField = FormInput | FormOptions;
 
 export interface FormOptions {
   type: string,
