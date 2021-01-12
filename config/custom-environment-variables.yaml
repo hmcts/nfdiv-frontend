@@ -1,3 +1,10 @@
+services:
+  idam:
+    authorizationURL: IDAM_WEB_URL
+    tokenURL: IDAM_API_URL
+    clientID: IDAM_CLIENT_ID
+    clientSecret: IDAM_SECRET
+    callbackURL: OAUTH_CLIENT_REDIRECT
 port: PORT
 session:
   redis:
