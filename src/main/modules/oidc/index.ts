@@ -33,12 +33,12 @@ export class OidcMiddleware {
 
       req.session.user = response.data;
       req.session.user!.jwt = jwt_decode(response.data.id_token);
-      res.redirect('/');
+      req.session.save(() => res.redirect('/'));
     });
 
     server.get('/logout', function(req: Request, res){
       req.session.user = undefined;
-      res.redirect('/');
+      req.session.save(() => res.redirect('/'));
     });
 
     server.use((req: Request, res: Response, next: NextFunction) => {
