@@ -2,6 +2,7 @@ import config from 'config';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import { Application } from 'express';
 import { get, set } from 'lodash';
+import { execSync } from 'child_process';
 
 export class PropertiesVolume {
 
@@ -12,6 +13,9 @@ export class PropertiesVolume {
       this.setSecret('secrets.nfdiv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
+      this.setSecret('secrets.idam-secret', 'services.idam.clientSecret');
+    } else {
+      this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
     }
   }
 
@@ -19,6 +23,15 @@ export class PropertiesVolume {
     if (config.has(fromPath)) {
       set(config, toPath, get(config, fromPath));
     }
+  }
+
+  /**
+   * Load a secret from the AAT vault using azure cli
+   */
+  private setLocalSecret(secret: string, toPath: string): void {
+    const result = execSync('az keyvault secret show --vault-name nfdiv-aat -o tsv --query value --name ' + secret);
+
+    set(config, toPath, result.toString().replace('\n', ''));
   }
 
 }
