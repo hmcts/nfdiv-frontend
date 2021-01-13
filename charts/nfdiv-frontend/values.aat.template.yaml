@@ -4,4 +4,4 @@ nodejs:
   ingressHost: div-${SERVICE_FQDN}
   registerAdditionalDns:
     enabled: true
-    primaryIngressHost: dis-${SERVICE_FQDN}
+    prefix: dis
