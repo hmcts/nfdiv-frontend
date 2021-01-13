@@ -1,4 +1,4 @@
-import { isFieldFilledIn } from '../../../utils/validation';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import { FormBody } from '../../../app/form/Form';
 
 const en = {
