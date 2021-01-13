@@ -9,5 +9,3 @@ idam-pr:
   redirect_uris:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
-tags:
-  idam-pr: true
