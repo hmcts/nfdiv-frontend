@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { config } from '../../config';
 import * as I from '../utlis/puppeteer.util';
 
-Given('I am on FACT homepage', async function() {
+Given('I am on the Divorce homepage', async function() {
   await I.newPage();
   await I.goTo(config.TEST_URL);
 });

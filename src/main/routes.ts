@@ -4,7 +4,7 @@ import {
   FIRST_PAGE_URL,
   HAS_MARRIAGE_BROKEN_URL,
   HOME_URL,
-  LANGUAGE_PREFERENCE_URL, MARRIAGE_CERTIFICATE_URL,
+  LANGUAGE_PREFERENCE_URL, MARRIAGE_CERTIFICATE_URL, PRIVACY_POLICY_URL,
   RESPONDENT_ADDRESS_URL
 } from './steps/urls';
 
@@ -12,6 +12,7 @@ export class Routes {
   public enableFor(app: Application): void {
 
     app.get(HOME_URL, app.locals.container.cradle.homeGetController.get);
+    app.get(PRIVACY_POLICY_URL, app.locals.container.cradle.privacyPolicyGetController.get);
     app.get(FIRST_PAGE_URL, app.locals.container.cradle.firstPageGetController.get);
     app.post(FIRST_PAGE_URL, app.locals.container.cradle.firstPagePostController.post);
     app.get(LANGUAGE_PREFERENCE_URL, app.locals.container.cradle.languagePreferenceGetController.get);

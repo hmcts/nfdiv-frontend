@@ -13,6 +13,7 @@ import { RespondentAddressPostController } from '../../steps/screen-questions/re
 import { RespondentAddressGetController } from '../../steps/screen-questions/respondent-address/get';
 import { MarriageCertificateGetController } from '../../steps/screen-questions/marriage-certificate/get';
 import { MarriageCertificatePostController } from '../../steps/screen-questions/marriage-certificate/post';
+import { PrivacyPolicyGetController } from '../../steps/privacy-policy/get';
 import { languagePreferenceForm } from '../../steps/screen-questions/language-preference/content';
 import { firstPageContent } from '../../steps/first-page/first-page.content';
 import { marriageCertificateForm } from '../../steps/screen-questions/marriage-certificate/content';
@@ -32,6 +33,7 @@ export class Container {
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
+      privacyPolicyGetController: asValue(new PrivacyPolicyGetController()),
       firstPageGetController: asValue(new FirstPageGet()),
       // TODO create form when first page is implemented as of now its just a link and this post is not used
       firstPagePostController: asValue(new FirstPagePost(new Form(firstPageContent['en']['forms']))),
