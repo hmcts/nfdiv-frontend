@@ -15,3 +15,5 @@ nodejs:
     IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token"
     OAUTH_CLIENT_REDIRECT: "https://nfdiv.{{ .Values.global.environment }}.platform.hmcts.net/oauth2/callback"
     REDIS_HOST: "nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net"
+idam-pr:
+  enabled: false
