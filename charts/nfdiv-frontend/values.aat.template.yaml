@@ -1,4 +1,6 @@
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
-  ingressHost: ${SERVICE_FQDN}
+  ingressHost: div-${SERVICE_FQDN}
+  registerAdditionalDns:
+    primaryIngressHost: dis-${SERVICE_FQDN}
