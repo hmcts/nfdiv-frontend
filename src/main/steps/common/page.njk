@@ -3,11 +3,23 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% extends "govuk/template.njk" %}
 
 {% block head %}
   {% include "./webpack/css.njk" %}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: phase
+    },
+    html: feedback + languageToggle
+  })
+  }}
+  <a href="#" class="govuk-back-link">{{ back }}</a>
 {% endblock %}
 
 {% block content %}

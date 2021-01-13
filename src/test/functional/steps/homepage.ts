@@ -33,3 +33,14 @@ When('I fill in the Username and Password fields with my authenticated credentia
 Given('click the Sign In button', async () => {
   await I.click('.button');
 });
+
+When('I click the {string} link', async function(linkText: string) {
+  await I.clickLinkWithText(linkText);
+});
+
+Then('the page should include {string}', async function(text: string) {
+  const body = await I.getElement('body');
+  const content = await I.getElementText(body);
+
+  expect(content.includes(text)).equal(true);
+});
