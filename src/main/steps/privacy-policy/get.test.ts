@@ -8,7 +8,7 @@ import { commonContent } from '../common/common.content';
 describe('PrivacyPolicyGetController', () => {
   const controller = new PrivacyPolicyGetController();
 
-  test('Should render the home page', async () => {
+  test('Should render the privacy policy page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
