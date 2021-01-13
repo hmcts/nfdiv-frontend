@@ -1,7 +1,9 @@
 nodejs:
   applicationPort: 3001
   aadIdentityName: nfdiv
-  ingressHost: nfdiv.{{ .Values.global.environment }}.platform.hmcts.net
+  ingressHost: nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net
+  registerAdditionalDns:
+    primaryIngressHost: nfdiv-end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/nfdiv/frontend:latest'
   keyVaults:
     nfdiv:
