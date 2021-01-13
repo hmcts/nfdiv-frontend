@@ -80,7 +80,7 @@
     "@types/puppeteer": "^3.0.2",
     "@types/supertest": "^2.0.8",
     "@types/webpack-dev-middleware": "^3.7.0",
-    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
