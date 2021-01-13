@@ -1,3 +1,6 @@
+tags:
+  idam-pr: true
+
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
@@ -6,5 +9,10 @@ nodejs:
     enabled: true
     prefix: dis
     primaryIngressHost: ${SERVICE_FQDN}
-
   environment:
+
+idam-pr:
+  redirect_uris:
+    Divorce:
+      - https://${SERVICE_FQDN}/oauth2/callback
+      - https://dis-${SERVICE_FQDN}/oauth2/callback
