@@ -1,5 +1,5 @@
 import { Form, FormContent } from './Form';
-import { isFieldFilledIn } from '../../utils/validation';
+import { isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
