@@ -1,10 +1,12 @@
 import { Application } from 'express';
 import {
+  ACCESSIBILITY_STATEMENT_URL,
   CSRF_TOKEN_ERROR_URL,
   FIRST_PAGE_URL,
   HAS_MARRIAGE_BROKEN_URL,
   HOME_URL,
-  LANGUAGE_PREFERENCE_URL, MARRIAGE_CERTIFICATE_URL,
+  LANGUAGE_PREFERENCE_URL,
+  MARRIAGE_CERTIFICATE_URL,
   RESPONDENT_ADDRESS_URL
 } from './steps/urls';
 
@@ -13,6 +15,7 @@ export class Routes {
 
     app.get(HOME_URL, app.locals.container.cradle.homeGetController.get);
     app.get(FIRST_PAGE_URL, app.locals.container.cradle.firstPageGetController.get);
+    app.get(ACCESSIBILITY_STATEMENT_URL, app.locals.container.cradle.accessibilityStatementGetController.get);
     app.post(FIRST_PAGE_URL, app.locals.container.cradle.firstPagePostController.post);
     app.get(LANGUAGE_PREFERENCE_URL, app.locals.container.cradle.languagePreferenceGetController.get);
     app.post(LANGUAGE_PREFERENCE_URL, app.locals.container.cradle.languagePreferencePostController.post);
