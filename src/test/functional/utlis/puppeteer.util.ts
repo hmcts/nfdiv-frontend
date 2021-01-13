@@ -26,6 +26,18 @@ export const click = async (selector: string) => {
   await scope.page.click(selector);
 };
 
+export const clickLinkWithText = async (text: string) => {
+  const splitedQuotes = text.replace(/'/g, '\', "\'", \'');
+  const escapedText = `concat('${splitedQuotes}', '')`;
+  const linkHandlers = await scope.page.$x(`//a[contains(text(), ${escapedText})]`);
+
+  if (linkHandlers.length > 0) {
+    await linkHandlers[0].click();
+  } else {
+    throw new Error(`Link not found: ${text}`);
+  }
+};
+
 export const fillField = async (selector: string, value: string) => {
   await scope.page.type(selector, value);
 };
