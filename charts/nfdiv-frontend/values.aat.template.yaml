@@ -3,4 +3,5 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: div-${SERVICE_FQDN}
   registerAdditionalDns:
+    enabled: true
     primaryIngressHost: dis-${SERVICE_FQDN}
