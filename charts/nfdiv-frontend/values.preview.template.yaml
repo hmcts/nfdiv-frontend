@@ -1,3 +1,5 @@
+tags:
+  idam-pr: true
 
 nodejs:
   # Don't modify below here
@@ -7,7 +9,6 @@ nodejs:
     OAUTH_CLIENT_REDIRECT: https://${SERVICE_FQDN}/oauth2/callback
 
 idam-pr:
-  enabled: true
   redirect_uris:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
