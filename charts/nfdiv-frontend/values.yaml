@@ -19,4 +19,5 @@ nodejs:
     enabled: true
     maxReplicas: 16
     targetCPUUtilizationPercentage: 80
-
+idam-pr:
+  enabled: false
