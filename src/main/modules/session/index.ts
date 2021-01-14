@@ -1,4 +1,4 @@
-import { Application } from 'express';
+import { Application, Request } from 'express';
 import session from 'express-session';
 import ConnectRedis from 'connect-redis';
 import * as redis from 'redis';
@@ -6,6 +6,7 @@ import config from 'config';
 import FileStoreFactory from 'session-file-store';
 import { SessionStateStorage } from '../../app/step/SessionStateStorage';
 import { AppSession } from '../../app/controller/AppRequest';
+import { AnyObject } from '../../app/controller/PostController';
 
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
@@ -19,8 +20,7 @@ export class SessionStorage {
       saveUninitialized: false,
       secret: config.get('session.secret'),
       cookie: {
-        httpOnly: true,
-        sameSite: true
+        httpOnly: true
       },
       store: this.getStore()
     }));
@@ -48,3 +48,7 @@ export class SessionStorage {
       });
   }
 }
+
+export type ReqWithSession = Request & {
+  session: AnyObject
+};
