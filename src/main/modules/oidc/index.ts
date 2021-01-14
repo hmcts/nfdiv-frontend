@@ -20,6 +20,11 @@ export class OidcMiddleware {
     });
 
     server.get('/oauth2/callback', async (req: Request, res: Response) => {
+      console.log(
+        'Got callback',
+        tokenUrl,
+        `client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&redirect_uri=${encodeURIComponent(redirectUri)}&code=${encodeURIComponent(req.query.code as string)}`,
+      );
       const response = await Axios.post(
         tokenUrl,
         `client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&redirect_uri=${encodeURIComponent(redirectUri)}&code=${encodeURIComponent(req.query.code as string)}`,
