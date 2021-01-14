@@ -5,6 +5,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
 
 idam-pr:
+  enabled: true
   redirect_uris:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
