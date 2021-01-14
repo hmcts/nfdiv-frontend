@@ -6,7 +6,6 @@ nodejs:
   environment:
     OAUTH_CLIENT_REDIRECT: https://${SERVICE_FQDN}/oauth2/callback
 
-debug: true
 idam-pr:
   redirect_uris:
     divorce:
