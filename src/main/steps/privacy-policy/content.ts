@@ -82,7 +82,7 @@ const cy: typeof en = {
   managedBy: 'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM), un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ), sy’n rheoli’r gwasanaeth hwn.',
   moj: 'MoJ yw’r rheolydd data i ddibenion diogelu data. The <a class=\'govuk-link\' href=\'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter\' target=\'_blank\' >Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae’r MoJ yn prosesu data personol.',
   responsibleRorDeciding: 'Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac mae’n gyfrifol am ddiogelu’r data personol yr ydych yn ei ddarparu.',
-  moreInformation: 'Ceir rhagor o wybodaeth am ddefnyddio’r gwasanaeth hwn yn y<a class=\'govuk-link\' href=\'/terms-and-conditions\' >telerau ac amodau</a>.',
+  moreInformation: 'Ceir rhagor o wybodaeth am ddefnyddio’r gwasanaeth hwn yn y <a class=\'govuk-link\' href=\'/terms-and-conditions\' >telerau ac amodau</a>.',
   whyWeCollect: 'Pam rydym ni’n casglu eich data personol?',
   personalData: 'Rydym ni’n casglu eich data personol i:',
   processApplication: 'brosesu eich cais',

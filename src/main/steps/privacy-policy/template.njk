@@ -1,6 +1,8 @@
 {% extends "common/page.njk" %}
 
 {% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ title }}</h1>
     <p class="govuk-body">{{ info }}</p>
 
@@ -97,4 +99,6 @@
     <p class="govuk-body">{{ writeTo }}</p>
     <p class="govuk-body">{{ email }}</p>
     <p class="govuk-body">{{ youCanAlsoComplain | safe }}</p>
+  </div>
+</div>
 {% endblock %}
