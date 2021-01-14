@@ -14,6 +14,7 @@ import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
 import { CSRFToken } from './modules/csrf';
 import { LanguageToggle } from './modules/i18n';
+import { OidcMiddleware } from './modules/oidc';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('server');
@@ -43,6 +44,7 @@ new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
+new OidcMiddleware().enableFor(app);
 new Routes().enableFor(app);
 
 app.listen(config.get('port'), () => {
