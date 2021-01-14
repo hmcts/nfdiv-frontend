@@ -1,5 +1,6 @@
 import { Application } from 'express';
 import {
+  COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   FIRST_PAGE_URL,
   HAS_MARRIAGE_BROKEN_URL,
@@ -13,6 +14,7 @@ export class Routes {
 
     app.get(HOME_URL, app.locals.container.cradle.homeGetController.get);
     app.get(FIRST_PAGE_URL, app.locals.container.cradle.firstPageGetController.get);
+    app.get(COOKIES_URL, app.locals.container.cradle.cookiesGetController.get);
     app.post(FIRST_PAGE_URL, app.locals.container.cradle.firstPagePostController.post);
     app.get(LANGUAGE_PREFERENCE_URL, app.locals.container.cradle.languagePreferenceGetController.get);
     app.post(LANGUAGE_PREFERENCE_URL, app.locals.container.cradle.languagePreferencePostController.post);

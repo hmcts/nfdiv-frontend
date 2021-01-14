@@ -18,6 +18,7 @@ import { firstPageContent } from '../../steps/first-page/first-page.content';
 import { marriageCertificateForm } from '../../steps/screen-questions/marriage-certificate/content';
 import { respondentAddressForm } from '../../steps/screen-questions/respondent-address/content';
 import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
+import { CookiesGetController } from '../../steps/cookies/get';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
@@ -33,6 +34,7 @@ export class Container {
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
       firstPageGetController: asValue(new FirstPageGet()),
+      cookiesGetController: asValue(new CookiesGetController()),
       // TODO create form when first page is implemented as of now its just a link and this post is not used
       firstPagePostController: asValue(new FirstPagePost(new Form(firstPageContent['en']['forms']))),
       languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
