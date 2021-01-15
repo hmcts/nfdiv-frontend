@@ -5,12 +5,14 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   registerAdditionalDns:
     enabled: true
-    prefix: dis
+    prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
+  environment:
+    OAUTH_CLIENT_REDIRECT: https://${SERVICE_FQDN}/oauth2/callback
 
 idam-pr:
   enabled: true
   redirect_uris:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
-      - https://dis-${SERVICE_FQDN}/oauth2/callback
+      - https://civil-${SERVICE_FQDN}/oauth2/callback

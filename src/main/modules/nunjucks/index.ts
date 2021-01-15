@@ -27,13 +27,13 @@ export class Nunjucks {
       },
     );
 
-    env.addGlobal('formContent', function(prop: any): string {
+    env.addGlobal('getContent', function(prop: any): string {
       return typeof prop === 'function' ? prop(this.ctx) :  prop;
     });
 
     env.addGlobal('formItems', function(items: FormInput[]) {
       return items.map(i => ({
-        text: this.env.globals.formContent.call(this, i.label),
+        text: this.env.globals.getContent.call(this, i.label),
         value: i.value,
         selected: i.selected
       }));
@@ -41,6 +41,7 @@ export class Nunjucks {
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
+      res.locals.isDivorce = !req.hostname.includes('civil') && req.query['forceCivilMode'] === undefined;
       next();
     });
   }

@@ -13,14 +13,16 @@ export class OidcMiddleware {
     const tokenUrl: string = config.get('services.idam.tokenURL');
     const clientId: string = config.get('services.idam.clientID');
     const clientSecret: string = config.get('services.idam.clientSecret');
+    const protocol = server.locals.developmentMode ? 'http://' : 'https://';
+    const port = server.locals.developmentMode ? `:${config.get('port')}` : '';
 
     server.get('/login', (req: Request, res) => {
-      const redirectUri = encodeURI(`https://${req.hostname}/oauth2/callback`);
+      const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
       res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
     });
 
     server.get('/oauth2/callback', async (req: Request, res: Response) => {
-      const redirectUri = encodeURI(`https://${req.hostname}/oauth2/callback`);
+      const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
       const response = await Axios.post(
         tokenUrl,
         `client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&redirect_uri=${redirectUri}&code=${encodeURIComponent(req.query.code as string)}`,
