@@ -11,6 +11,18 @@
   {% include "./webpack/css.njk" %}
 {% endblock %}
 
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: pageHeader[serviceType],
+    serviceUrl: (globals.basePath if globals.basePath) + "/"
+  }) }}
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle[serviceType] }}
+{% endblock %}
+
 {% block beforeContent %}
   {{ govukPhaseBanner({
     tag: {
@@ -43,7 +55,7 @@
                   name: fieldName,
                   fieldset: {
                     legend: {
-                      text: formContent(field.label),
+                      text: getContent(field.label),
                       classes: "govuk-fieldset__legend--l"
                     }
                   },
@@ -54,14 +66,14 @@
                   id: fieldName,
                   name: fieldName,
                   label: {
-                    text: formContent(field.label)
+                    text: getContent(field.label)
                   },
                   items: formItems(field.values)
                 }) }}
               {% else %}
                 {{ govukInput({
                   label: {
-                    text: formContent(field.label),
+                    text: getContent(field.label),
                     classes: "govuk-label--l " + field.classes
                   },
                   id: fieldName,
@@ -72,7 +84,7 @@
           {% endblock %}
 
           <div class="govuk-form-group">
-            {{ govukButton({ text: formContent(form.submit.text), preventDoubleClick: true }) }}
+            {{ govukButton({ text: getContent(form.submit.text), preventDoubleClick: true }) }}
           </div>
         </form>
       {% endif %}
