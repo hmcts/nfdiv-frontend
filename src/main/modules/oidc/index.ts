@@ -41,7 +41,10 @@ export class OidcMiddleware {
 
     server.get('/logout', function(req: Request, res){
       req.session.user = undefined;
-      req.session.save(() => res.redirect('/'));
+      req.session.save(() => {
+        res.redirect('/');
+        res.locals.isLoggedIn = false;
+      });
     });
 
     server.use((req: Request, res: Response, next: NextFunction) => {

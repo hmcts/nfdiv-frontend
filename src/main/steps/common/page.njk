@@ -18,8 +18,8 @@
     serviceUrl: (globals.basePath if globals.basePath) + "/",
     navigation: [
       {
-        href: "/logout",
-        text: signOut
+        href: "/logout" if isLoggedIn else "/login",
+        text: signOut if isLoggedIn else signIn
       }
     ]
   }) }}
