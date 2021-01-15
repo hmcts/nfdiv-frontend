@@ -17,3 +17,7 @@ Feature: Homepage
     When I am on civil partnership homepage
     Then I expect the page header to be "Civil partnership - GOV.UK"
 
+  Scenario: Sign out
+    When I am on civil partnership homepage
+    When I click the "Sign Out" link
+    Then I expect the page header to be "Sign in - HMCTS Access"
