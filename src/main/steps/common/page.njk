@@ -14,13 +14,13 @@
 {% block header %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
-    serviceName: getContent(serviceName),
+    serviceName: pageHeader[serviceType],
     serviceUrl: (globals.basePath if globals.basePath) + "/"
   }) }}
 {% endblock %}
 
 {% block pageTitle %}
-  {{ getContent(pageTitle) }}
+  {{ pageTitle[serviceType] }}
 {% endblock %}
 
 {% block beforeContent %}

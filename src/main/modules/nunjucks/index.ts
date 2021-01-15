@@ -41,7 +41,7 @@ export class Nunjucks {
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
-      res.locals.isDivorce = !req.hostname.includes('civil') && req.query['forceCivilMode'] === undefined;
+      res.locals.serviceType = req.hostname.includes('civil') || 'forceCivilMode' in req.query ? 'civil' : 'divorce';
       next();
     });
   }

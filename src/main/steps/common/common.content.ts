@@ -2,8 +2,14 @@ const en = {
   phase: 'Beta',
   feedback: 'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
-  serviceName: (page): string => page.isDivorce ? 'Apply for a divorce' : 'End a civil partnership',
-  pageTitle: (page): string => page.isDivorce ? 'Divorce - GOV.UK' : 'Civil partnership - GOV.UK',
+  pageHeader: {
+    divorce: 'Apply for a divorce',
+    civil: 'End a civil partnership'
+  },
+  pageTitle: {
+    divorce: 'Divorce - GOV.UK',
+    civil: 'Civil partnership - GOV.UK'
+  },
   back: 'Back',
   continue: 'Continue',
   download: 'Download',
@@ -45,8 +51,14 @@ const cy: typeof en = {
   phase: 'Beta',
   feedback: 'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
-  serviceName: page => page.isDivorce ? 'Gwneud cais am ysgariad' : 'Insert translation here',
-  pageTitle: page => page.isDivorce ? 'Translate' : 'Translate',
+  pageHeader: {
+    divorce: 'Gwneud cais am ysgariad',
+    civil: 'TODO'
+  },
+  pageTitle: {
+    divorce: 'Divorce - GOV.UK',
+    civil: 'Civil partnership - GOV.UK'
+  },
   back: 'Yn ôl',
   continue: 'Parhau',
   download: 'Llwytho i lawr',
