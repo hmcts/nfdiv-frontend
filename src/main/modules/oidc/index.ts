@@ -49,7 +49,6 @@ export class OidcMiddleware {
         res.locals.isLoggedIn = true;
         return next();
       }
-      res.locals.isLoggedIn = false;
       res.redirect('/login');
     });
 
