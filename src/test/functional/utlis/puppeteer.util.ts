@@ -18,6 +18,11 @@ export const goTo = async (url: string) => {
   await scope.page.goto(url);
 };
 
+export const appendCivilMode = async () => {
+  const url = await scope.page.url();
+  await goTo(url + '?forceCivilMode');
+};
+
 export const getPageTitle = async () => {
   return await scope.page.title();
 };

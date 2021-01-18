@@ -48,4 +48,5 @@ Then('the page should include {string}', async function(text: string) {
 Given('I am on civil partnership homepage', async function() {
   await I.newPage();
   await I.goTo(config.TEST_URL + '?forceCivilMode');
+  await I.appendCivilMode();
 });
