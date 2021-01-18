@@ -14,7 +14,6 @@ describe('HomeGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...homeContent.en,
       ...homeContent.common,
       ...commonContent.en,
       sessionErrors: []
