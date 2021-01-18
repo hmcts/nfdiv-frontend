@@ -1,7 +1,8 @@
 nodejs:
   applicationPort: 3001
   aadIdentityName: nfdiv
-  ingressHost: nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net
+  #ingressHost: nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net
+  ingressHost: nfdiv.{{ .Values.global.environment }}.platform.hmcts.net
   registerAdditionalDns:
     enabled: true
     prefix: nfdiv
