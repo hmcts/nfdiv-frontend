@@ -47,7 +47,6 @@ export class OidcMiddleware {
     server.use((req: Request, res: Response, next: NextFunction) => {
       if (req.session.user) {
         res.locals.isLoggedIn = true;
-
         return next();
       }
       res.redirect('/login');

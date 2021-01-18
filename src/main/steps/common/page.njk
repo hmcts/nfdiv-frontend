@@ -15,7 +15,13 @@
   {{ govukHeader({
     containerClasses: "govuk-width-container",
     serviceName: pageHeader[serviceType],
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
+    serviceUrl: (globals.basePath if globals.basePath) + "/",
+    navigation: [
+      {
+        href: "/logout" if isLoggedIn else "/login",
+        text: signOut if isLoggedIn else signIn
+      }
+    ]
   }) }}
 {% endblock %}
 
