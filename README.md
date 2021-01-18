@@ -80,6 +80,10 @@ $ yarn test:a11y
 
 Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
 
+### Running as civil app locally
+
+Set `civilMode=true` in the environment variable before running the app to test as a civil app.
+
 ### Security
 
 #### CSRF prevention

@@ -41,7 +41,7 @@ export class Nunjucks {
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
-      res.locals.serviceType = req.hostname.includes('civil') || 'forceCivilMode' in req.query ? 'civil' : 'divorce';
+      res.locals.serviceType = req.hostname.includes('civil') || 'forceCivilMode' in req.query || process.env.civilMode === 'true' ? 'civil' : 'divorce';
       next();
     });
   }
