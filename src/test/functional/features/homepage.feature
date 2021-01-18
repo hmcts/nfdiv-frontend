@@ -20,4 +20,4 @@ Feature: Homepage
   Scenario: Sign out
     When I am on civil partnership homepage
     When I click the "Sign Out" link
-    Then I expect the page header to be "Sign in - HMCTS Access"
+    Then I am on the admin portal sign in page
