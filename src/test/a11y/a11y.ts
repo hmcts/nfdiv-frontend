@@ -1,6 +1,12 @@
 import { fail } from 'assert';
 import { config } from '../config';
 import Axios from 'axios';
+import {
+  HAS_MARRIAGE_BROKEN_URL,
+  LANGUAGE_PREFERENCE_URL,
+  MARRIAGE_CERTIFICATE_URL,
+  RESPONDENT_ADDRESS_URL
+} from '../../main/steps/urls';
 
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
@@ -20,7 +26,20 @@ interface PallyIssue {
   typeCode: number
 }
 
+function loginPally(): Pa11yResult {
+  return pa11y(config.TEST_URL + '/login', {
+    hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+    actions: [
+      'set field #username to hmcts.nfdiv@gmail.com',
+      'set field #password to Pa55word11',
+      'click element .button',
+      'wait for path to be /'
+    ]
+  });
+}
+
 beforeAll((done /* call it or remove it*/) => {
+  loginPally();
   done(); // calling it
 });
 
@@ -60,6 +79,10 @@ function testAccessibility(url: string): void {
 describe('Accessibility', () => {
   // testing accessibility of the home page
   testAccessibility('/');
+  testAccessibility(LANGUAGE_PREFERENCE_URL);
+  testAccessibility(HAS_MARRIAGE_BROKEN_URL);
+  testAccessibility(RESPONDENT_ADDRESS_URL);
+  testAccessibility(MARRIAGE_CERTIFICATE_URL);
 
   // TODO: include each path of your application in accessibility checks
 });
