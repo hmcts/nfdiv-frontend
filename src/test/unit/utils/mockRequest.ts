@@ -1,8 +1,8 @@
-import { AppRequest } from 'app/controller/AppRequest';
+import { AppRequest } from '../../../main/app/controller/AppRequest';
 
 export const mockRequest = (): AppRequest<never> => {
   const req = {
-    body: () => {},
+    body: () => ({}),
     scope: {
       cradle: {
 

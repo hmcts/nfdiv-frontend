@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Axios from 'axios';
 
 const scope = require('../support/scope');
@@ -19,7 +21,7 @@ export const goTo = async (url: string): Promise<void> => {
 };
 
 export const getPageTitle = async (): Promise<string> => {
-  return await scope.page.title();
+  return scope.page.title();
 };
 
 export const click = async (selector: string): Promise<void> => {
