@@ -1,4 +1,3 @@
-import { fail } from 'assert';
 import { config } from '../config';
 import Axios from 'axios';
 
@@ -20,15 +19,11 @@ interface PallyIssue {
   typeCode: number
 }
 
-beforeAll((done /* call it or remove it*/) => {
-  done(); // calling it
-});
-
 function ensurePageCallWillSucceed(url: string): Promise<void> {
   return axios.get(url);
 }
 
-function runPally(url: string): Pa11yResult {
+function runPally(url: string): Promise<Pa11yResult> {
   return pa11y(config.TEST_URL + url, {
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
@@ -39,20 +34,17 @@ function expectNoErrors(messages: PallyIssue[]): void {
 
   if (errors.length > 0) {
     const errorsAsJson = `${JSON.stringify(errors, null, 2)}`;
-    fail(`There are accessibility issues: \n${errorsAsJson}\n`);
+    throw new Error(`There are accessibility issues: \n${errorsAsJson}\n`);
   }
 }
 
 function testAccessibility(url: string): void {
   describe(`Page ${url}`, () => {
-    test('should have no accessibility errors', done => {
-      ensurePageCallWillSucceed(url)
-        .then(() => runPally(url))
-        .then((result: Pa11yResult) => {
-          expectNoErrors(result.issues);
-          done();
-        })
-        .catch((err: Error) => done(err));
+    test('should have no accessibility errors', async () => {
+      await ensurePageCallWillSucceed(url);
+      const result = await runPally(url);
+      expect(result.issues).toEqual(expect.any(Array));
+      expectNoErrors(result.issues);
     });
   });
 }

@@ -4,9 +4,6 @@ import * as nunjucks from 'nunjucks';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
-  constructor() {
-  }
-
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(

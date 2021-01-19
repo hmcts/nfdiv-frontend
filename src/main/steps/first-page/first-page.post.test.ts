@@ -16,7 +16,7 @@ describe('FirstPagePostController', () => {
     expect(req.session.state['/']).toStrictEqual(null);
   });
 
-  test('Should redirect', async () => {
+  test('Should redirect with a field', async () => {
     const req = mockRequest();
     const res = mockResponse(req.session);
 
