@@ -13,7 +13,7 @@ const FileStore = FileStoreFactory(session);
 
 export class SessionStorage {
 
-  public enableFor(server: Application) {
+  public enableFor(server: Application): void {
     server.use(session({
       name: 'nfdiv-session',
       resave: false,
