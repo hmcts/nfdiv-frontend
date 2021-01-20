@@ -4,7 +4,7 @@ import { FirstPagePost } from './first-page.post';
 import { Form } from '../../app/form/Form';
 
 describe('FirstPagePostController', () => {
-  const mockForm: Form = { getErrors: () => [] as never[] } as any;
+  const mockForm = { getErrors: () => [] as never[] } as unknown as Form;
   const controller = new FirstPagePost(mockForm);
 
   test('Should redirect', async () => {
@@ -20,7 +20,7 @@ describe('FirstPagePostController', () => {
     const req = mockRequest();
     const res = mockResponse(req.session);
 
-    req.body.field1 = 'Somewhere in England';
+    req.body['field1'] = 'Somewhere in England' as never;
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith('/');

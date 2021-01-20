@@ -5,7 +5,7 @@ import { Form } from '../../../app/form/Form';
 import { MARRIAGE_CERTIFICATE_URL } from '../../urls';
 
 describe('HasMarriageBrokenPostController', () => {
-  const mockForm: Form = { getErrors: () => [] as never[] } as any;
+  const mockForm = { getErrors: () => [] as never[] } as unknown as Form;
   const controller = new RespondentAddressPostController(mockForm);
 
   test('Should redirect', async () => {

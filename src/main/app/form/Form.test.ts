@@ -36,7 +36,7 @@ describe('Form', () => {
         propertyName: 'field',
         errorType: 'required'
       }
-      ]);
+    ]);
   });
 
 });
