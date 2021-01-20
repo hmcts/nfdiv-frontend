@@ -78,7 +78,7 @@
     "@types/cucumber": "^6.0.1",
     "@types/jest": "^26.0.19",
     "@types/mini-css-extract-plugin": "^0.9.1",
-    "@types/puppeteer": "^3.0.2",
+    "@types/puppeteer": "^5.4.2",
     "@types/supertest": "^2.0.8",
     "@types/webpack-dev-middleware": "^3.7.0",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
