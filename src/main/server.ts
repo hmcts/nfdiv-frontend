@@ -7,14 +7,14 @@ import favicon from 'serve-favicon';
 import { Nunjucks } from './modules/nunjucks';
 import { Container } from './modules/awilix';
 import { HealthCheck } from './modules/health';
-// import { PropertiesVolume } from './modules/properties-volume';
+import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { AppInsights } from './modules/appinsights';
 import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
 import { CSRFToken } from './modules/csrf';
 import { LanguageToggle } from './modules/i18n';
-// import { OidcMiddleware } from './modules/oidc';
+import { OidcMiddleware } from './modules/oidc';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('server');
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// new PropertiesVolume().enableFor(app);
+new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
@@ -44,7 +44,7 @@ new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
-// new OidcMiddleware().enableFor(app);
+new OidcMiddleware().enableFor(app);
 new Routes().enableFor(app);
 
 app.listen(config.get('port'), () => {
