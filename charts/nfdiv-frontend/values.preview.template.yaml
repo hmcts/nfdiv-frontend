@@ -2,7 +2,7 @@
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
-  ingressHost: divorce-${SERVICE_FQDN}
+  ingressHost: ${SERVICE_FQDN}
   registerAdditionalDns:
     enabled: true
     prefix: civil
@@ -13,5 +13,5 @@ idam-pr:
   enabled: true
   redirect_uris:
     divorce:
-      - https://divorce-${SERVICE_FQDN}/oauth2/callback
+      - https://${SERVICE_FQDN}/oauth2/callback
       - https://civil-${SERVICE_FQDN}/oauth2/callback
