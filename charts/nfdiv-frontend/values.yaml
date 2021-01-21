@@ -1,7 +1,12 @@
 nodejs:
   applicationPort: 3001
   aadIdentityName: nfdiv
+  #ingressHost: nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net
   ingressHost: nfdiv.{{ .Values.global.environment }}.platform.hmcts.net
+  registerAdditionalDns:
+    enabled: true
+    prefix: nfdiv
+    primaryIngressHost: end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/nfdiv/frontend:latest'
   keyVaults:
     nfdiv:
@@ -13,7 +18,6 @@ nodejs:
   environment:
     IDAM_WEB_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login"
     IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token"
-    OAUTH_CLIENT_REDIRECT: "https://nfdiv.{{ .Values.global.environment }}.platform.hmcts.net/oauth2/callback"
     REDIS_HOST: "nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net"
   autoscaling:
     enabled: true
