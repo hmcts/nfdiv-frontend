@@ -35,7 +35,7 @@ export const languagePreferenceForm: FormContent = {
         {label: l => l.no, value: 'No'},
         {label: l => l.yes, value: 'Yes'}
       ],
-      validator: (value: string): string | void => isFieldFilledIn(value)
+      validator: value => isFieldFilledIn(value)
     }
   },
   submit: {
