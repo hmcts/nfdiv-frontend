@@ -7,7 +7,7 @@ export interface HelmetConfig {
 }
 
 const googleAnalyticsDomain = '*.google-analytics.com';
-const self = '\'self\'';
+const self = "'self'";
 
 /**
  * Module that enables helmet in the application
@@ -27,18 +27,18 @@ export class Helmet {
     const scriptSrc = [
       self,
       googleAnalyticsDomain,
-      '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\''
+      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"
     ];
 
     if (app.locals.developmentMode) {
-      scriptSrc.push('\'unsafe-eval\'');
+      scriptSrc.push("'unsafe-eval'");
     }
 
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
           connectSrc: [self],
-          defaultSrc: ['\'none\''],
+          defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
           imgSrc: [self, googleAnalyticsDomain],
           objectSrc: [self],
