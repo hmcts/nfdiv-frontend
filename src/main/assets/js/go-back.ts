@@ -1,7 +1,7 @@
-import $ from 'jquery';
-
-$('.govuk-back-link').click(e => {
-  e.preventDefault();
-  history.go(-1);
-});
-
+const backLink: HTMLElement | null = document.querySelector('.govuk-back-link');
+if (backLink) {
+  backLink.onclick = function (e) {
+    e.preventDefault();
+    history.go(-1);
+  };
+}
