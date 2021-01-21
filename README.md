@@ -54,9 +54,7 @@ You should get a very basic home page (no styles, etc.).
 
 ## Developing
 
-**Note:** the application can be started without authentication by commenting out `PropertiesVolume` and `OidcMiddleware` in `src/main/server.ts`.
-
-Start server in development mode:
+Starting the server in development mode:
 
 ```bash
 yarn start:dev
