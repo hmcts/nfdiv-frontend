@@ -14,6 +14,7 @@ import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
 import { CSRFToken } from './modules/csrf';
 import { LanguageToggle } from './modules/i18n';
+import { LoadTimeouts } from './modules/timeouts';
 import { OidcMiddleware } from './modules/oidc';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
+new LoadTimeouts().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
 new Nunjucks().enableFor(app);

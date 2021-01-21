@@ -12,6 +12,12 @@ export class GetController {
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    if (res.locals.isError) {
+      // If there's an error, it will have already rendered an error
+      // page upstream, so we don't want to call render again
+      return;
+    }
+
     const languageContent = this.content[req.session.lang] || this.content['en'] || {};
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
