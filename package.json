@@ -75,7 +75,7 @@
     "@types/chai-as-promised": "^7.1.1",
     "@types/copy-webpack-plugin": "^6.4.0",
     "@types/cucumber": "^6.0.1",
-    "@types/jest": "^26.0.19",
+    "@types/jest": "^26.0.20",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/puppeteer": "^5.4.2",
     "@types/supertest": "^2.0.8",
