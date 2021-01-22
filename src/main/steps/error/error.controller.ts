@@ -5,7 +5,9 @@ import autobind from 'autobind-decorator';
 export class ErrorController {
 
   constructor(
-    private readonly logger: any,
+    private readonly logger: {
+      error: (message: string) => string
+    },
     private readonly exposeErrors: boolean
   ) { }
 

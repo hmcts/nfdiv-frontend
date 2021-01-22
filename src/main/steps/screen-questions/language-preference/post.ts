@@ -4,7 +4,7 @@ import { LanguagePreferenceForm } from './content';
 
 export class LanguagePreferencePostController extends PostController<LanguagePreferenceForm> {
 
-  protected getNextStep(body: LanguagePreferenceForm): string {
+  protected getNextStep(): string {
     return HAS_MARRIAGE_BROKEN_URL;
   }
 

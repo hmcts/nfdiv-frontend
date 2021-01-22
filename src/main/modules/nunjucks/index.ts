@@ -27,7 +27,7 @@ export class Nunjucks {
       },
     );
 
-    env.addGlobal('getContent', function(prop: any): string {
+    env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) :  prop;
     });
 

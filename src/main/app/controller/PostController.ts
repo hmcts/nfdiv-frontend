@@ -51,4 +51,4 @@ export abstract class PostController<T extends AnyObject> {
 
 }
 
-export type AnyObject = Record<string, any>;
+export type AnyObject = Record<string, unknown>;

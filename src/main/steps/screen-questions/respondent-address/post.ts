@@ -4,7 +4,7 @@ import { RespondentAddressForm } from './content';
 
 export class RespondentAddressPostController extends PostController<RespondentAddressForm> {
 
-  protected getNextStep(body: RespondentAddressForm): string {
+  protected getNextStep(): string {
     return MARRIAGE_CERTIFICATE_URL;
   }
 

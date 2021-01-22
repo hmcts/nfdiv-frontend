@@ -1,4 +1,4 @@
-import { FormBody } from '../../../app/form/Form';
+import { FormBody, FormContent } from '../../../app/form/Form';
 
 const en = {
   question: 'Do you have an address for your husband/wife?',
@@ -28,7 +28,7 @@ const cy: typeof en = {
   }
 };
 
-export const respondentAddressForm = {
+export const respondentAddressForm: FormContent = {
   fields: {
     screenHasRespondentAddress: {
       type: 'radios',

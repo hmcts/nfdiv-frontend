@@ -1,4 +1,4 @@
-import { FormBody } from '../../../app/form/Form';
+import { FormBody, FormContent } from '../../../app/form/Form';
 
 const en = {
   question: 'Has your marriage broken down irretrievably (it can’t be saved)?',
@@ -26,7 +26,7 @@ const cy: typeof en = {
   }
 };
 
-export const hasMarriageBrokenForm = {
+export const hasMarriageBrokenForm: FormContent = {
   fields: {
     screenHasMarriageBroken: {
       type: 'radios',

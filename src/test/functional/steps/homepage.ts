@@ -42,7 +42,7 @@ Then('the page should include {string}', async function(text: string) {
   const body = await I.getElement('body');
   const content = await I.getElementText(body);
 
-  expect(content.includes(text)).equal(true);
+  expect(content?.includes(text)).equal(true);
 });
 
 Given('I am on civil partnership homepage', async function() {
