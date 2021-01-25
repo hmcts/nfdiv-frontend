@@ -4,6 +4,7 @@ import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
+import { ErrorHandler } from './modules/error-handler';
 import { Nunjucks } from './modules/nunjucks';
 import { Container } from './modules/awilix';
 import { HealthCheck } from './modules/health';
@@ -35,9 +36,10 @@ app.use((req, res, next) => {
   next();
 });
 
-new LoadTimeouts().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
+new ErrorHandler().enableFor(app);
+new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
@@ -48,7 +50,9 @@ new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new OidcMiddleware().enableFor(app);
 new Routes().enableFor(app);
+new ErrorHandler().handleNextErrorsFor(app);
 
-app.listen(config.get('port'), () => {
-  logger.info(`Application started: http://localhost:${config.get('port')}`);
+const port = config.get('port');
+app.listen(port, () => {
+  logger.info(`Application started: http://localhost:${port}`);
 });

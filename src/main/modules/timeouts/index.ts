@@ -20,6 +20,7 @@ export class LoadTimeouts {
         const err = new HTTPError('Service Unavailable', 503);
         errorController.internalServerError(err, req, res);
       });
+
       next();
     });
   }

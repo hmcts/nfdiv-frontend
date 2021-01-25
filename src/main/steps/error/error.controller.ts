@@ -24,7 +24,7 @@ export class ErrorController {
    * Catch all for 500 errors
    */
   public internalServerError(err: HTTPError | undefined, req: Request, res: Response): void {
-    this.logger.error([err?.status, err?.stack || err].filter(Boolean).join() || 'Unknown error occurred');
+    this.logger.error([err?.stack, err?.status || err].filter(Boolean).join() || 'Unknown error occurred');
 
     // set locals, only providing error in development
     res.locals.message = err?.message;
@@ -42,7 +42,6 @@ export class ErrorController {
   }
 
   private render(templateName: string, req: Request, res: Response) {
-    res.locals.isError = true;
     res.render(templateName, { ...commonContent[req.session['lang'] || 'en'] });
   }
 }
