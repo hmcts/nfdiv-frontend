@@ -16,15 +16,10 @@ module.exports = {
   module: {
     rules: [
       ...scss.rules,
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
     ],
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: ['.ts', '.js'],
   },
   output: {
     path: path.resolve(__dirname, 'src/main/public/'),

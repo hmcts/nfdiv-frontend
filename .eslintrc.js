@@ -21,7 +21,7 @@ module.exports = {
   },
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": ["**/*.ts"],
       "env": { "browser": true, "es6": true, "node": true },
       "extends": [
         "eslint:recommended",
