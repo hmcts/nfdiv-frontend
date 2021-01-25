@@ -12,7 +12,7 @@ export class GetController {
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    setImmediate(() => {
+    setImmediate(async () => {
       if (res.headersSent) {
         // If there's an async error, it may have already rendered an error page upstream,
         // so we don't want to call render again if headers have already been sent

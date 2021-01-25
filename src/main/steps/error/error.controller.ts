@@ -29,13 +29,15 @@ export class ErrorController {
   /**
    * Catch all for 500 errors
    */
-  public internalServerError(err: HTTPError | undefined, req: Request, res: Response): void {
-    this.logger.error([err?.stack, err?.status || err].filter(Boolean).join() || 'Unknown error occurred');
+  public internalServerError(error: HTTPError | string | undefined, req: Request, res: Response): void {
+    const { message = error, stack = '', status = null } = typeof error === 'object' ? error : {};
+
+    this.logger.error([stack, status, message].filter(Boolean).join() || 'Unknown error occurred');
 
     // set locals, only providing error in development
-    res.locals.message = err?.message;
-    res.locals.error = this.exposeErrors ? err : {};
-    res.status(err?.status || StatusCodes.INTERNAL_SERVER_ERROR);
+    res.locals.message = message;
+    res.locals.error = this.exposeErrors ? error : {};
+    res.status(status || StatusCodes.INTERNAL_SERVER_ERROR);
     this.render(req, res);
   }
 
