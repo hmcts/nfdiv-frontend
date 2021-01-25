@@ -1,4 +1,5 @@
 import { Application } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import { HTTPError } from '../../steps/error/error.controller';
 
@@ -11,13 +12,13 @@ export class LoadTimeouts {
 
       // Set the timeout for all HTTP requests
       req.setTimeout(MAX_TIME_LIMIT, () => {
-        const err = new HTTPError('Request Timeout', 408);
+        const err = new HTTPError('Request Timeout', StatusCodes.REQUEST_TIMEOUT);
         errorController.internalServerError(err, req, res);
       });
 
       // Set the server response timeout for all HTTP requests
       res.setTimeout(MAX_TIME_LIMIT, () => {
-        const err = new HTTPError('Service Unavailable', 503);
+        const err = new HTTPError('Service Unavailable', StatusCodes.SERVICE_UNAVAILABLE);
         errorController.internalServerError(err, req, res);
       });
 
