@@ -57,6 +57,7 @@ You should get a very basic home page (no styles, etc.).
 Starting the server in development mode:
 
 ```bash
+yarn build
 yarn start:dev
 ```
 
