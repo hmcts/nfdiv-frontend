@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import autobind from 'autobind-decorator';
 import { StatusCodes } from 'http-status-codes';
+import type { LoggerInstance } from 'winston';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { commonContent } from '../common/common.content';
 
@@ -10,10 +12,7 @@ import { errorContent } from './content';
 export class ErrorController {
 
   constructor(
-    private readonly logger: {
-      error: (message: string) => string
-    },
-    private readonly exposeErrors: boolean
+    private readonly logger: LoggerInstance
   ) { }
 
   /**
@@ -29,15 +28,17 @@ export class ErrorController {
   /**
    * Catch all for 500 errors
    */
-  public internalServerError(error: HTTPError | string | undefined, req: Request, res: Response): void {
-    const { message = error, stack = '', status = null } = typeof error === 'object' ? error : {};
+  public internalServerError(error: HTTPError | AxiosError | string | undefined, req: Request, res: Response): void {
+    const { message = error, stack = undefined } = typeof error === 'object' ? error : {};
 
-    this.logger.error([stack, status, message].filter(Boolean).join() || 'Unknown error occurred');
+    let response: AxiosResponse<string | Record<string, unknown>> | undefined;
+    if (typeof error === 'object' && (error as AxiosError).isAxiosError) {
+      response = (error as AxiosError).response?.data;
+    }
 
-    // set locals, only providing error in development
-    res.locals.message = message;
-    res.locals.error = this.exposeErrors ? error : {};
-    res.status(status || StatusCodes.INTERNAL_SERVER_ERROR);
+    this.logger.error(`${stack || message}`, response);
+
+    res.status((error as HTTPError)?.status || StatusCodes.INTERNAL_SERVER_ERROR);
     this.render(req, res);
   }
 

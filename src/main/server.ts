@@ -4,6 +4,8 @@ import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
+import type { LoggerInstance } from 'winston';
+
 import { ErrorHandler } from './modules/error-handler';
 import { Nunjucks } from './modules/nunjucks';
 import { Container } from './modules/awilix';
@@ -19,7 +21,7 @@ import { LoadTimeouts } from './modules/timeouts';
 import { OidcMiddleware } from './modules/oidc';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('server');
+const logger: LoggerInstance = Logger.getLogger('server');
 const env = process.env.NODE_ENV || 'development';
 const app = express();
 
