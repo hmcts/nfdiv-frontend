@@ -9,6 +9,7 @@ export class AppInsights {
       appInsights.setup(config.get('appInsights.instrumentationKey'))
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
+        .setAutoCollectExceptions(true)
         .start();
 
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'nfdiv-frontend';
