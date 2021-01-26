@@ -1,5 +1,6 @@
-import { BeforeAll, AfterAll, After, setDefaultTimeout } from 'cucumber';
+import { After, AfterAll, BeforeAll, setDefaultTimeout } from 'cucumber';
 import puppeteer from 'puppeteer';
+
 import { puppeteerConfig } from '../puppeteer.config';
 
 const scope = require('./scope');

@@ -1,20 +1,18 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
 export const mockRequest = (): AppRequest<never> => {
-  const req = {
+  const req = ({
     body: () => ({}),
     scope: {
-      cradle: {
-
-      }
+      cradle: {},
     },
     query: {},
     session: {
-      save: (callback) => callback(),
-      state: {}
+      save: callback => callback(),
+      state: {},
     },
-    path: '/request'
-  } as unknown as AppRequest<never>;
-  req.body = jest.fn().mockReturnValue(req) as unknown as never;
+    path: '/request',
+  } as unknown) as AppRequest<never>;
+  req.body = (jest.fn().mockReturnValue(req) as unknown) as never;
   return req;
 };

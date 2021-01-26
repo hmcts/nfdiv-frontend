@@ -1,16 +1,17 @@
 import { Application } from 'express';
+
 import {
   CSRF_TOKEN_ERROR_URL,
   FIRST_PAGE_URL,
   HAS_MARRIAGE_BROKEN_URL,
   HOME_URL,
-  LANGUAGE_PREFERENCE_URL, MARRIAGE_CERTIFICATE_URL,
-  RESPONDENT_ADDRESS_URL
+  LANGUAGE_PREFERENCE_URL,
+  MARRIAGE_CERTIFICATE_URL,
+  RESPONDENT_ADDRESS_URL,
 } from './steps/urls';
 
 export class Routes {
   public enableFor(app: Application): void {
-
     app.get(HOME_URL, app.locals.container.cradle.homeGetController.get);
     app.get(FIRST_PAGE_URL, app.locals.container.cradle.firstPageGetController.get);
     app.post(FIRST_PAGE_URL, app.locals.container.cradle.firstPagePostController.post);
@@ -26,6 +27,5 @@ export class Routes {
     app.get(CSRF_TOKEN_ERROR_URL, app.locals.container.cradle.errorController.CSRFTokenError);
     app.use(app.locals.container.cradle.errorController.notFound);
     app.use(app.locals.container.cradle.errorController.internalServerError);
-
   }
 }

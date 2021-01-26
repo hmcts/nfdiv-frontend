@@ -1,6 +1,7 @@
-import { Application } from 'express';
 import os from 'os';
+
 import { infoRequestHandler } from '@hmcts/info-provider';
+import { Application } from 'express';
 
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
@@ -8,9 +9,7 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
  * Sets up the HMCTS info and health endpoints
  */
 export class HealthCheck {
-
   public enableFor(app: Application): void {
-
     app.get(
       '/info',
       infoRequestHandler({
@@ -19,8 +18,8 @@ export class HealthCheck {
           name: 'nfdiv-frontend',
           uptime: process.uptime(),
         },
-        info: { },
-      }),
+        info: {},
+      })
     );
 
     // const healthOptions = () => {

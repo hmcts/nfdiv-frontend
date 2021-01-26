@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../common/common.content';
-import { RespondentAddressGetController } from './get';
+
 import { respondentAddressContent } from './content';
+import { RespondentAddressGetController } from './get';
 
 describe('RespondentAddressGetController', () => {
   const controller = new RespondentAddressGetController();
@@ -16,8 +17,7 @@ describe('RespondentAddressGetController', () => {
       ...respondentAddressContent.en,
       ...respondentAddressContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });

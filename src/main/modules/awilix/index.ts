@@ -1,23 +1,24 @@
-import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
+import { InjectionMode, asClass, asValue, createContainer } from 'awilix';
 import { Application } from 'express';
+
+import { Form } from '../../app/form/Form';
 import { ErrorController } from '../../steps/error/error.controller';
-import { HomeGetController } from '../../steps/home/get';
+import { firstPageContent } from '../../steps/first-page/first-page.content';
 import { FirstPageGet } from '../../steps/first-page/first-page.get';
 import { FirstPagePost } from '../../steps/first-page/first-page.post';
-import { Form } from '../../app/form/Form';
+import { HomeGetController } from '../../steps/home/get';
+import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
+import { HasMarriageBrokenGetController } from '../../steps/screen-questions/has-marriage-broken/get';
+import { HasMarriageBrokenPostController } from '../../steps/screen-questions/has-marriage-broken/post';
+import { languagePreferenceForm } from '../../steps/screen-questions/language-preference/content';
 import { LanguagePreferenceGetController } from '../../steps/screen-questions/language-preference/get';
 import { LanguagePreferencePostController } from '../../steps/screen-questions/language-preference/post';
-import { HasMarriageBrokenPostController } from '../../steps/screen-questions/has-marriage-broken/post';
-import { HasMarriageBrokenGetController } from '../../steps/screen-questions/has-marriage-broken/get';
-import { RespondentAddressPostController } from '../../steps/screen-questions/respondent-address/post';
-import { RespondentAddressGetController } from '../../steps/screen-questions/respondent-address/get';
+import { marriageCertificateForm } from '../../steps/screen-questions/marriage-certificate/content';
 import { MarriageCertificateGetController } from '../../steps/screen-questions/marriage-certificate/get';
 import { MarriageCertificatePostController } from '../../steps/screen-questions/marriage-certificate/post';
-import { languagePreferenceForm } from '../../steps/screen-questions/language-preference/content';
-import { firstPageContent } from '../../steps/first-page/first-page.content';
-import { marriageCertificateForm } from '../../steps/screen-questions/marriage-certificate/content';
 import { respondentAddressForm } from '../../steps/screen-questions/respondent-address/content';
-import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
+import { RespondentAddressGetController } from '../../steps/screen-questions/respondent-address/get';
+import { RespondentAddressPostController } from '../../steps/screen-questions/respondent-address/post';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
@@ -26,9 +27,7 @@ const logger = Logger.getLogger('app');
  * Sets up the dependency injection container
  */
 export class Container {
-
   public enableFor(app: Application): void {
-
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
@@ -42,10 +41,11 @@ export class Container {
       respondentAddressGetController: asValue(new RespondentAddressGetController()),
       respondentAddressPostController: asValue(new RespondentAddressPostController(new Form(respondentAddressForm))),
       marriageCertificateGetController: asValue(new MarriageCertificateGetController()),
-      marriageCertificatePostController: asValue(new MarriageCertificatePostController(new Form(marriageCertificateForm))),
+      marriageCertificatePostController: asValue(
+        new MarriageCertificatePostController(new Form(marriageCertificateForm))
+      ),
       errorController: asClass(ErrorController),
-      exposeErrors: asValue(app.locals.developmentMode)
+      exposeErrors: asValue(app.locals.developmentMode),
     });
   }
-
 }

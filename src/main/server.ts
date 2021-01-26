@@ -1,20 +1,22 @@
+import * as path from 'path';
+
 import * as bodyParser from 'body-parser';
 import config from 'config';
 import express from 'express';
-import { Helmet } from './modules/helmet';
-import * as path from 'path';
 import favicon from 'serve-favicon';
-import { Nunjucks } from './modules/nunjucks';
+
+import { AppInsights } from './modules/appinsights';
 import { Container } from './modules/awilix';
+import { CSRFToken } from './modules/csrf';
 import { HealthCheck } from './modules/health';
+import { Helmet } from './modules/helmet';
+import { LanguageToggle } from './modules/i18n';
+import { Nunjucks } from './modules/nunjucks';
+import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
-import { AppInsights } from './modules/appinsights';
-import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
-import { CSRFToken } from './modules/csrf';
-import { LanguageToggle } from './modules/i18n';
-import { OidcMiddleware } from './modules/oidc';
+import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('server');
@@ -27,10 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, max-age=0, must-revalidate, no-store',
-  );
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
 

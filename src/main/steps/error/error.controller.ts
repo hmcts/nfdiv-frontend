@@ -1,15 +1,14 @@
-import { Request, Response } from 'express';
 import autobind from 'autobind-decorator';
+import { Request, Response } from 'express';
 
 @autobind
 export class ErrorController {
-
   constructor(
     private readonly logger: {
-      error: (message: string) => string
+      error: (message: string) => string;
     },
     private readonly exposeErrors: boolean
-  ) { }
+  ) {}
 
   /**
    * Catch all for 404
@@ -39,10 +38,8 @@ export class ErrorController {
     res.status(403);
     res.render('error/csrf-token');
   }
-
 }
 
 export interface HTTPError extends Error {
-  status: number
+  status: number;
 }
-

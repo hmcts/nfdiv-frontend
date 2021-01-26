@@ -1,22 +1,23 @@
-import { config } from '../config';
 import Axios from 'axios';
+
+import { config } from '../config';
 
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
 
 interface Pa11yResult {
-  documentTitle: string,
-  pageUrl: string,
-  issues: PallyIssue[]
+  documentTitle: string;
+  pageUrl: string;
+  issues: PallyIssue[];
 }
 
 interface PallyIssue {
-  code: string,
-  context: string,
-  message: string,
-  selector: string,
-  type: string,
-  typeCode: number
+  code: string;
+  context: string;
+  message: string;
+  selector: string;
+  type: string;
+  typeCode: number;
 }
 
 function ensurePageCallWillSucceed(url: string): Promise<void> {

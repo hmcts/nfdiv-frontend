@@ -1,11 +1,12 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { LanguagePreferencePostController } from './post';
 import { Form } from '../../../app/form/Form';
 import { HAS_MARRIAGE_BROKEN_URL } from '../../urls';
 
+import { LanguagePreferencePostController } from './post';
+
 describe('LanguagePreferencePostController', () => {
-  const mockForm = { getErrors: () => [] as never[] } as unknown as Form;
+  const mockForm = ({ getErrors: () => [] as never[] } as unknown) as Form;
   const controller = new LanguagePreferencePostController(mockForm);
 
   test('Should redirect', async () => {
@@ -15,5 +16,4 @@ describe('LanguagePreferencePostController', () => {
 
     expect(res.redirect).toBeCalledWith(HAS_MARRIAGE_BROKEN_URL);
   });
-
 });
