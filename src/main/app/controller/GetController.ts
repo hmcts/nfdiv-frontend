@@ -12,22 +12,20 @@ export class GetController {
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    setImmediate(async () => {
-      if (res.headersSent) {
-        // If there's an async error, it may have already rendered an error page upstream,
-        // so we don't want to call render again if headers have already been sent
-        return;
-      }
+    if (res.locals.isError) {
+      // If there's an async error, it wil have already rendered an error page upstream,
+      // so we don't want to call render again
+      return;
+    }
 
-      const languageContent = this.content[req.session.lang] || this.content['en'] || {};
-      const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
-      const commonPageContent = this.content.common || {};
+    const languageContent = this.content[req.session.lang] || this.content['en'] || {};
+    const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
+    const commonPageContent = this.content.common || {};
 
-      const sessionErrors = req.session.errors || [];
+    const sessionErrors = req.session.errors || [];
 
-      req.session.errors = undefined;
+    req.session.errors = undefined;
 
-      res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, sessionErrors });
-    });
+    res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, sessionErrors });
   }
 }

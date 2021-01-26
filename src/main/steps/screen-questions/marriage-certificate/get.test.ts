@@ -1,6 +1,5 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { currentEventLoopEnd } from '../../../../test/unit/utils/currentEventLoopEnd';
 import { commonContent } from '../../common/common.content';
 import { MarriageCertificateGetController } from './get';
 import { marriageCertificateContent } from './content';
@@ -12,7 +11,6 @@ describe('MarriageCertificateGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
-    await currentEventLoopEnd();
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...marriageCertificateContent.en,
