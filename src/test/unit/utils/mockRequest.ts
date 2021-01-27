@@ -13,7 +13,8 @@ export const mockRequest = (): AppRequest<never> => {
       save: (callback) => callback(),
       state: {}
     },
-    path: '/request'
+    path: '/request',
+    originalUrl: '/request'
   } as unknown as AppRequest<never>;
   req.body = jest.fn().mockReturnValue(req) as unknown as never;
   return req;

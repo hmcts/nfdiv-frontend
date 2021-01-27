@@ -10,17 +10,18 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 export class HealthCheck {
 
   public enableFor(app: Application): void {
+    const { errorHandler } = app.locals;
 
     app.get(
       '/info',
-      infoRequestHandler({
+      errorHandler(infoRequestHandler({
         extraBuildInfo: {
           host: os.hostname(),
           name: 'nfdiv-frontend',
           uptime: process.uptime(),
         },
         info: { },
-      }),
+      })),
     );
 
     // const healthOptions = () => {

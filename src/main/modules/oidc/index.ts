@@ -8,20 +8,21 @@ import jwt_decode from 'jwt-decode';
  */
 export class OidcMiddleware {
 
-  public enableFor(server: Application): void {
+  public enableFor(app: Application): void {
     const loginUrl: string = config.get('services.idam.authorizationURL');
     const tokenUrl: string = config.get('services.idam.tokenURL');
     const clientId: string = config.get('services.idam.clientID');
     const clientSecret: string = config.get('services.idam.clientSecret');
-    const protocol = server.locals.developmentMode ? 'http://' : 'https://';
-    const port = server.locals.developmentMode ? `:${config.get('port')}` : '';
+    const protocol = app.locals.developmentMode ? 'http://' : 'https://';
+    const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
+    const { errorHandler } = app.locals;
 
-    server.get('/login', (req: Request, res) => {
+    app.get('/login', errorHandler((req: Request, res) => {
       const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
       res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
-    });
+    }));
 
-    server.get('/oauth2/callback', async (req: Request, res: Response) => {
+    app.get('/oauth2/callback', errorHandler(async (req: Request, res: Response) => {
       const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
       const response = await Axios.post(
         tokenUrl,
@@ -39,23 +40,21 @@ export class OidcMiddleware {
         jwt: jwt_decode(response.data.id_token)
       };
       req.session.save(() => res.redirect('/'));
-    });
+    }));
 
-    server.get('/logout', function(req: Request, res){
+    app.get('/logout', errorHandler((req: Request, res) => {
       req.session.user = undefined;
       req.session.save(() => res.redirect('/'));
-    });
+    }));
 
-    server.use((req: Request, res: Response, next: NextFunction) => {
-      if (req.session.user) {
+    app.use((req: Request, res: Response, next: NextFunction) => {
+      if (req.session?.user) {
         res.locals.isLoggedIn = true;
         return next();
       }
       res.redirect('/login');
     });
-
   }
-
 }
 
 declare module 'express-session' {

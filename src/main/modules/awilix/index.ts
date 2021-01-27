@@ -1,5 +1,6 @@
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import { Application } from 'express';
+import type { LoggerInstance } from 'winston';
 import { ErrorController } from '../../steps/error/error.controller';
 import { HomeGetController } from '../../steps/home/get';
 import { FirstPageGet } from '../../steps/first-page/first-page.get';
@@ -20,7 +21,7 @@ import { respondentAddressForm } from '../../steps/screen-questions/respondent-a
 import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('app');
+const logger: LoggerInstance = Logger.getLogger('app');
 
 /**
  * Sets up the dependency injection container
@@ -44,7 +45,6 @@ export class Container {
       marriageCertificateGetController: asValue(new MarriageCertificateGetController()),
       marriageCertificatePostController: asValue(new MarriageCertificatePostController(new Form(marriageCertificateForm))),
       errorController: asClass(ErrorController),
-      exposeErrors: asValue(app.locals.developmentMode)
     });
   }
 

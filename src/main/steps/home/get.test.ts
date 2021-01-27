@@ -4,7 +4,6 @@ import { homeContent } from './content';
 import { HomeGetController } from './get';
 import { commonContent } from '../common/common.content';
 
-
 describe('HomeGetController', () => {
   const controller = new HomeGetController();
 
