@@ -8,12 +8,12 @@ import { ErrorController, HTTPError } from './error.controller';
 
 describe('ErrorController', () => {
   const logger = {
-    warn: jest.fn(),
+    info: jest.fn(),
     error: jest.fn()
   };
 
   afterEach(() => {
-    logger.warn.mockClear();
+    logger.info.mockClear();
     logger.error.mockClear();
   });
 
@@ -24,7 +24,7 @@ describe('ErrorController', () => {
     const res = mockResponse();
     await controller.notFound(req, res);
 
-    expect(logger.warn.mock.calls[0][0]).toContain('404 Not Found: /request');
+    expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
     expect(res.statusCode).toBe(404);
     expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[404] });
   });
