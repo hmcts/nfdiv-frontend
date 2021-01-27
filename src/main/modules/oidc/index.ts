@@ -51,19 +51,21 @@ export class OidcMiddleware {
 
     app.use(async (req: Request, res: Response, next: NextFunction) => {
       if (req.session?.user) {
+        const userToken = req.session.user.id_token;
         req.scope = req.app.locals.container.createScope();
         req.scope?.register({
           axios: asValue(Axios.create({
             baseURL: config.get('services.cos.baseURL'),
             headers: {
-              Authorization: 'Bearer ' + req.session.user.id_token
+              Authorization: 'Bearer ' + userToken
             }
           })),
           api: asClass(COSApi)
         });
 
         if (!req.session.caseCreated) {
-          req.session.caseCreated = await req.scope?.cradle.api.createCase({petitionerEmail: req.session.user.jwt});
+          const userDetails = await this.getUserDetails(userToken as string);
+          req.session.caseCreated = await req.scope?.cradle.api.createCase({ petitionerEmail: userDetails.email });
         }
 
         res.locals.isLoggedIn = true;
@@ -71,6 +73,19 @@ export class OidcMiddleware {
       }
       res.redirect('/login');
     });
+  }
+
+  private async getUserDetails(userId: string): Promise<Record<string, unknown>> {
+    const apiURL: string = config.get('services.idam.apiURL');
+    return await Axios.get(
+      `${apiURL}/details`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + userId
+        }
+      }
+    );
   }
 }
 
