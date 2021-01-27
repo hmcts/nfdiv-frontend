@@ -6,7 +6,6 @@ services:
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
-    apiURL: 'https://idam-api.aat.platform.hmcts.net'
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
   cos:
