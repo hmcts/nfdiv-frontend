@@ -19,7 +19,7 @@ export class ErrorController {
    * Catch all for 404
    */
   public notFound(req: Request, res: Response): void {
-    this.logger.error(`404 Not Found: ${req.originalUrl}`);
+    this.logger.info(`404 Not Found: ${req.originalUrl}`);
 
     res.status(StatusCodes.NOT_FOUND);
     this.render(req, res);
