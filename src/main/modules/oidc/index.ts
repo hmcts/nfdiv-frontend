@@ -3,7 +3,7 @@ import Axios from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
 import { asClass, asValue, AwilixContainer } from 'awilix';
-import { COSApi } from '../api/cos-api';
+import { CosApi } from '../api/cos-api';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -49,7 +49,7 @@ export class OidcMiddleware {
       req.session.save(() => res.redirect('/'));
     }));
 
-    app.use(async (req: Request, res: Response, next: NextFunction) => {
+    app.use(async (req: RequestWithScope, res: Response, next: NextFunction) => {
       if (req.session?.user) {
         const user = req.session.user;
         req.scope = req.app.locals.container.createScope();
@@ -57,12 +57,13 @@ export class OidcMiddleware {
           axios: asValue(Axios.create({
             baseURL: config.get('services.cos.baseURL'),
             headers: {
-              Authorization: 'Bearer ' + user.id_token
+              Authorization: 'Bearer ' + user.access_token
             }
           })),
-          api: asClass(COSApi)
+          api: asClass(CosApi)
         });
 
+        req.session.caseCreated = await req.scope?.cradle.api.getCase();
         if (!req.session.caseCreated) {
           req.session.caseCreated = await req.scope?.cradle.api.createCase({ petitionerEmail: user.jwt.sub });
         }
@@ -82,8 +83,6 @@ declare module 'express-session' {
   }
 }
 
-declare module 'Express' {
-  export interface Request {
-    scope?: AwilixContainer
-  }
+export interface RequestWithScope extends Request {
+  scope?: AwilixContainer
 }
