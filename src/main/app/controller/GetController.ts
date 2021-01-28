@@ -1,15 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { AppRequest } from './AppRequest';
+
 import { commonContent } from '../../steps/common/common.content';
+
+import { AppRequest } from './AppRequest';
 
 @autobind
 export class GetController {
-
-  constructor(
-    protected readonly name: string,
-    protected readonly content: Record<string, Record<string, unknown>>
-  ) {}
+  constructor(protected readonly name: string, protected readonly content: Record<string, Record<string, unknown>>) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError) {

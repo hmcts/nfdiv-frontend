@@ -3,13 +3,14 @@ import type { LoggerInstance } from 'winston';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../common/common.content';
+
 import { errorContent } from './content';
 import { ErrorController, HTTPError } from './error.controller';
 
 describe('ErrorController', () => {
   const logger = {
     info: jest.fn(),
-    error: jest.fn()
+    error: jest.fn(),
   };
 
   afterEach(() => {
@@ -18,7 +19,7 @@ describe('ErrorController', () => {
   });
 
   test('Should render not found', async () => {
-    const controller = new ErrorController(logger as unknown as LoggerInstance);
+    const controller = new ErrorController((logger as unknown) as LoggerInstance);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -30,9 +31,9 @@ describe('ErrorController', () => {
   });
 
   test('Should render error page with supplied status code', async () => {
-    const controller = new ErrorController(logger as unknown as LoggerInstance);
+    const controller = new ErrorController((logger as unknown) as LoggerInstance);
 
-    const err = { status: 400, message: 'Bad request' } as unknown as HTTPError;
+    const err = ({ status: 400, message: 'Bad request' } as unknown) as HTTPError;
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
@@ -43,9 +44,9 @@ describe('ErrorController', () => {
   });
 
   test('Should render error pages and fall back to a 500 error if status not given', async () => {
-    const controller = new ErrorController(logger as unknown as LoggerInstance);
+    const controller = new ErrorController((logger as unknown) as LoggerInstance);
 
-    const err = { message: 'Bad request' } as unknown as HTTPError;
+    const err = ({ message: 'Bad request' } as unknown) as HTTPError;
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
@@ -56,7 +57,7 @@ describe('ErrorController', () => {
   });
 
   test('Renders the error page with correct status code and logs the details', async () => {
-    const controller = new ErrorController(logger as unknown as LoggerInstance);
+    const controller = new ErrorController((logger as unknown) as LoggerInstance);
 
     const err = new HTTPError('Bad request', 400);
     const req = mockRequest();
@@ -69,7 +70,7 @@ describe('ErrorController', () => {
   });
 
   test('Should render CSRF token error page', async () => {
-    const controller = new ErrorController(logger as unknown as LoggerInstance);
+    const controller = new ErrorController((logger as unknown) as LoggerInstance);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -79,5 +80,4 @@ describe('ErrorController', () => {
     expect(res.statusCode).toBe(400);
     expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[400] });
   });
-
 });

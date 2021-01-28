@@ -1,38 +1,29 @@
 import * as path from 'path';
+
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
+
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
-    const govUkFrontendPath = path.join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      'node_modules',
-      'govuk-frontend',
-    );
-    const env = nunjucks.configure(
-      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath],
-      {
-        autoescape: true,
-        watch: app.locals.developmentMode,
-        express: app,
-      },
-    );
-
-    env.addGlobal('getContent', function (prop): string {
-      return typeof prop === 'function' ? prop(this.ctx) :  prop;
+    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
+    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath], {
+      autoescape: true,
+      watch: app.locals.developmentMode,
+      express: app,
     });
 
-    env.addGlobal('formItems', function(items: FormInput[]) {
+    env.addGlobal('getContent', function (prop): string {
+      return typeof prop === 'function' ? prop(this.ctx) : prop;
+    });
+
+    env.addGlobal('formItems', function (items: FormInput[]) {
       return items.map(i => ({
         text: this.env.globals.getContent.call(this, i.label),
         value: i.value,
-        selected: i.selected
+        selected: i.selected,
       }));
     });
 

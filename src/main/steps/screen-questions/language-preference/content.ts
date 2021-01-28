@@ -1,5 +1,5 @@
-import { isFieldFilledIn } from '../../../app/form/validation';
 import { FormBody, FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = {
   question: 'What language do you want us to use when we contact you?',
@@ -9,9 +9,9 @@ const en = {
   no: 'English only',
   errors: {
     languagePreferenceWelsh: {
-      required: 'Choose the languages you want your documents and correspondence in.'
-    }
-  }
+      required: 'Choose the languages you want your documents and correspondence in.',
+    },
+  },
 };
 
 const cy: typeof en = {
@@ -22,9 +22,9 @@ const cy: typeof en = {
   no: 'Saesneg yn unig',
   errors: {
     languagePreferenceWelsh: {
-      required: 'Dewisiwch yr iaith yr hoffech gael eich dogfennau a’ch gohebiaeth.'
-    }
-  }
+      required: 'Dewisiwch yr iaith yr hoffech gael eich dogfennau a’ch gohebiaeth.',
+    },
+  },
 };
 
 export const languagePreferenceForm: FormContent = {
@@ -32,19 +32,19 @@ export const languagePreferenceForm: FormContent = {
     languagePreferenceWelsh: {
       type: 'radios',
       values: [
-        {label: l => l.no, value: 'No'},
-        {label: l => l.yes, value: 'Yes'}
+        { label: l => l.no, value: 'No' },
+        { label: l => l.yes, value: 'Yes' },
       ],
-      validator: value => isFieldFilledIn(value)
-    }
+      validator: value => isFieldFilledIn(value),
+    },
   },
   submit: {
-    text: l => l.continue
-  }
+    text: l => l.continue,
+  },
 };
 
 const common = {
-  form: languagePreferenceForm
+  form: languagePreferenceForm,
 };
 
 export const languagePreferenceContent = { en, cy, common };

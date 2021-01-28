@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../common/common.content';
-import { HasMarriageBrokenGetController } from './get';
+
 import { hasMarriageBrokenContent } from './content';
+import { HasMarriageBrokenGetController } from './get';
 
 describe('HasMarriageBrokenGetController', () => {
   const controller = new HasMarriageBrokenGetController();
@@ -16,8 +17,7 @@ describe('HasMarriageBrokenGetController', () => {
       ...hasMarriageBrokenContent.en,
       ...hasMarriageBrokenContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });

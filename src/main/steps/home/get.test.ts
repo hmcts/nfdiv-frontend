@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { commonContent } from '../common/common.content';
+
 import { homeContent } from './content';
 import { HomeGetController } from './get';
-import { commonContent } from '../common/common.content';
 
 describe('HomeGetController', () => {
   const controller = new HomeGetController();
@@ -15,8 +16,7 @@ describe('HomeGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...homeContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });
