@@ -1,9 +1,9 @@
 import * as express from 'express';
-import helmet = require('helmet');
 import { Express } from 'express';
+import helmet = require('helmet');
 
 export interface HelmetConfig {
-  referrerPolicy: string
+  referrerPolicy: string;
 }
 
 const googleAnalyticsDomain = '*.google-analytics.com';
@@ -24,11 +24,7 @@ export class Helmet {
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
-    const scriptSrc = [
-      self,
-      googleAnalyticsDomain,
-      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"
-    ];
+    const scriptSrc = [self, googleAnalyticsDomain, "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"];
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -43,8 +39,8 @@ export class Helmet {
           imgSrc: [self, googleAnalyticsDomain],
           objectSrc: [self],
           scriptSrc,
-          styleSrc: [self]
-        }
+          styleSrc: [self],
+        },
       })
     );
   }

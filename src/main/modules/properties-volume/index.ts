@@ -1,11 +1,11 @@
-import config from 'config';
-import * as propertiesVolume from '@hmcts/properties-volume';
-import { Application } from 'express';
-import { get, set } from 'lodash';
 import { execSync } from 'child_process';
 
-export class PropertiesVolume {
+import * as propertiesVolume from '@hmcts/properties-volume';
+import config from 'config';
+import { Application } from 'express';
+import { get, set } from 'lodash';
 
+export class PropertiesVolume {
   enableFor(server: Application): void {
     if (!server.locals.developmentMode) {
       propertiesVolume.addTo(config);
@@ -33,5 +33,4 @@ export class PropertiesVolume {
 
     set(config, toPath, result.toString().replace('\n', ''));
   }
-
 }

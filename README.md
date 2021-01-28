@@ -46,11 +46,9 @@ Run the application by executing the following command:
 docker-compose up
 ```
 
-This will start the frontend container exposing the application's port
-(set to `3001` in this template app).
+This will start the frontend container exposing the application's port `3001`.
 
 In order to test if the application is up, you can visit [https://localhost:3001](https://localhost:3001) in your browser.
-You should get a very basic home page (no styles, etc.).
 
 ## Developing
 
@@ -63,8 +61,7 @@ yarn start:dev
 
 ### Code style
 
-We use [ESLint](https://github.com/typescript-eslint/typescript-eslint)
-alongside [sass-lint](https://github.com/sasstools/sass-lint)
+We use [Prettier](https://prettier.io/) alongside [ESLint](https://github.com/typescript-eslint/typescript-eslint) and [sass-lint](https://github.com/sasstools/sass-lint)
 
 Running the linting with auto fix:
 
@@ -74,8 +71,7 @@ yarn lint --fix
 
 ### Running the tests
 
-This template app uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing
-the following command:
+We uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing the following command:
 
 ```bash
 yarn test
@@ -93,26 +89,16 @@ Make sure all the paths in your application are covered by accessibility tests (
 
 #### CSRF prevention
 
-[Cross-Site Request Forgery](https://github.com/pillarjs/understanding-csrf) prevention has already been
-set up in this template, at the application level. However, you need to make sure that CSRF token
-is present in every HTML form that requires it. For that purpose you can use the `csrfProtection` macro,
-included in this template app. Your njk file would look like this:
+[Cross-Site Request Forgery](https://github.com/pillarjs/understanding-csrf) prevention has already been set up, at the application level. However, you need to make sure that CSRF token is present in every HTML form that requires it. For that purpose you can use the `csrfProtection` macro. Your njk file would include it like this:
 
 ```html
 {% from "macros/csrf.njk" import csrfProtection %}
-...
-<form ...>
-  ...
-    {{ csrfProtection(csrfToken) }}
-  ...
-</form>
-...
+<form>{{ csrfProtection(csrfToken) }}</form>
 ```
 
 #### Helmet
 
-This application uses [Helmet](https://helmetjs.github.io/), which adds various security-related HTTP headers
-to the responses. Apart from default Helmet functions, following headers are set:
+This application uses [Helmet](https://helmetjs.github.io/), which adds various security-related HTTP headers to the responses. Apart from default Helmet functions, following headers are set:
 
 - [Referrer-Policy](https://helmetjs.github.io/docs/referrer-policy/)
 - [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
@@ -133,11 +119,7 @@ Make sure you have those values set correctly for your application.
 
 ### Healthcheck
 
-The application exposes a health endpoint [https://localhost:3001/health](https://localhost:3001/health), created with the use of
-[Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined
-in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application.
-In particular, remember to replace the sample check with checks specific to your frontend app,
-e.g. the ones verifying the state of each service it depends on.
+The application exposes a health endpoint [https://localhost:3001/health](https://localhost:3001/health), created with the use of [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application. In particular, remember to replace the sample check with checks specific to your frontend app, e.g. the ones verifying the state of each service it depends on.
 
 ## License
 

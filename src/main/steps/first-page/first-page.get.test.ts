@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+
 import { FirstPageGet } from './first-page.get';
 
 describe('FirstPageGetController', () => {
@@ -12,5 +13,4 @@ describe('FirstPageGetController', () => {
 
     expect(res.locals.someApiResponse).toStrictEqual({ data: 'some data' });
   });
-
 });

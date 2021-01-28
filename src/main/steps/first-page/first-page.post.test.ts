@@ -1,10 +1,11 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { FirstPagePost } from './first-page.post';
 import { Form } from '../../app/form/Form';
 
+import { FirstPagePost } from './first-page.post';
+
 describe('FirstPagePostController', () => {
-  const mockForm = { getErrors: () => [] as never[] } as unknown as Form;
+  const mockForm = ({ getErrors: () => [] as never[] } as unknown) as Form;
   const controller = new FirstPagePost(mockForm);
 
   test('Should redirect', async () => {
@@ -16,7 +17,7 @@ describe('FirstPagePostController', () => {
     expect(req.session.state['/']).toStrictEqual(null);
   });
 
-  test('Should redirect', async () => {
+  test('Should redirect with a field', async () => {
     const req = mockRequest();
     const res = mockResponse(req.session);
 
@@ -26,5 +27,4 @@ describe('FirstPagePostController', () => {
     expect(res.redirect).toBeCalledWith('/');
     expect(req.session.state['/']).toBeUndefined();
   });
-
 });

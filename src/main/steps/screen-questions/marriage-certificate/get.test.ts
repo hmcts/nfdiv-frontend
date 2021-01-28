@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../common/common.content';
-import { MarriageCertificateGetController } from './get';
+
 import { marriageCertificateContent } from './content';
+import { MarriageCertificateGetController } from './get';
 
 describe('MarriageCertificateGetController', () => {
   const controller = new MarriageCertificateGetController();
@@ -16,8 +17,7 @@ describe('MarriageCertificateGetController', () => {
       ...marriageCertificateContent.en,
       ...marriageCertificateContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });

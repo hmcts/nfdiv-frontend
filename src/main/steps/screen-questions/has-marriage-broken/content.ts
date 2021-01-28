@@ -5,12 +5,13 @@ const en = {
   line1: 'You can only get a divorce on the ground that your marriage has broken down irretrievably.',
   yes: 'Yes',
   no: 'No',
-  marriageBrokenDownNo: 'The only legal ground for divorce in England and Wales is that your marriage has broken down irretrievably.',
+  marriageBrokenDownNo:
+    'The only legal ground for divorce in England and Wales is that your marriage has broken down irretrievably.',
   errors: {
-    'screenHasMarriageBroken': {
-      'required': 'Select yes if your marriage has broken down irretrievably'
-    }
-  }
+    screenHasMarriageBroken: {
+      required: 'Select yes if your marriage has broken down irretrievably',
+    },
+  },
 };
 
 const cy: typeof en = {
@@ -18,12 +19,13 @@ const cy: typeof en = {
   line1: 'Ni allwch gael ysgariad ond ar y sail bod y briodas wedi chwalu’n anadferadwy.',
   yes: 'Do',
   no: 'Naddo',
-  marriageBrokenDownNo: 'Yr unig reswm cyfreithiol dros gael ysgariad yng Nghymru a Lloegr yw bod y briodas wedi chwalu’n anadferadwy.',
+  marriageBrokenDownNo:
+    'Yr unig reswm cyfreithiol dros gael ysgariad yng Nghymru a Lloegr yw bod y briodas wedi chwalu’n anadferadwy.',
   errors: {
-    'screenHasMarriageBroken': {
-      'required': 'Dewiswch do os yw eich priodas wedi chwalu’n anadferadwy'
-    }
-  }
+    screenHasMarriageBroken: {
+      required: 'Dewiswch do os yw eich priodas wedi chwalu’n anadferadwy',
+    },
+  },
 };
 
 export const hasMarriageBrokenForm: FormContent = {
@@ -33,17 +35,17 @@ export const hasMarriageBrokenForm: FormContent = {
       classes: 'govuk-radios--inline',
       values: [
         { label: l => l.yes, value: 'Yes' },
-        { label: l => l.no, value: 'No' }
-      ]
-    }
+        { label: l => l.no, value: 'No' },
+      ],
+    },
   },
   submit: {
-    text: l => l.continue
-  }
+    text: l => l.continue,
+  },
 };
 
 const common = {
-  form: hasMarriageBrokenForm
+  form: hasMarriageBrokenForm,
 };
 
 export const hasMarriageBrokenContent = { en, cy, common };
