@@ -2,8 +2,8 @@ const path = require('path');
 
 const sourcePath = path.resolve(__dirname, 'src/main/assets/js');
 const govukFrontend = require(path.resolve(__dirname, 'webpack/govukFrontend'));
-const scss = require(path.resolve(__dirname,'webpack/scss'));
-const HtmlWebpack = require(path.resolve(__dirname,'webpack/htmlWebpack'));
+const scss = require(path.resolve(__dirname, 'webpack/scss'));
+const HtmlWebpack = require(path.resolve(__dirname, 'webpack/htmlWebpack'));
 
 const devMode = process.env.NODE_ENV !== 'production';
 const fileNameSuffix = devMode ? '-dev' : '.[contenthash]';

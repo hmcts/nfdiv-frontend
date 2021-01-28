@@ -1,4 +1,5 @@
 import { Application } from 'express';
+
 import {
   CSRF_TOKEN_ERROR_URL,
   FIRST_PAGE_URL,
@@ -25,7 +26,10 @@ export class Routes {
     app.get(RESPONDENT_ADDRESS_URL, errorHandler(app.locals.container.cradle.respondentAddressGetController.get));
     app.post(RESPONDENT_ADDRESS_URL, errorHandler(app.locals.container.cradle.respondentAddressPostController.post));
     app.get(MARRIAGE_CERTIFICATE_URL, errorHandler(app.locals.container.cradle.marriageCertificateGetController.get));
-    app.post(MARRIAGE_CERTIFICATE_URL, errorHandler(app.locals.container.cradle.marriageCertificatePostController.post));
+    app.post(
+      MARRIAGE_CERTIFICATE_URL,
+      errorHandler(app.locals.container.cradle.marriageCertificatePostController.post)
+    );
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(app.locals.container.cradle.errorController.CSRFTokenError));
     app.use(app.locals.container.cradle.errorController.notFound);

@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../common/common.content';
-import { LanguagePreferenceGetController } from './get';
+
 import { languagePreferenceContent } from './content';
+import { LanguagePreferenceGetController } from './get';
 
 describe('LanguagePreferenceGetController', () => {
   const controller = new LanguagePreferenceGetController();
@@ -16,8 +17,7 @@ describe('LanguagePreferenceGetController', () => {
       ...languagePreferenceContent.en,
       ...languagePreferenceContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });

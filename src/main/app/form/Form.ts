@@ -1,17 +1,14 @@
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
-
-  constructor(
-    private readonly form: FormContent
-  ) { }
+  constructor(private readonly form: FormContent) {}
 
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
   public getErrors(body: AnyObject): FormError[] {
     return Object.keys(this.form.fields)
-      .filter((key) => this.form.fields[key].validator !== undefined)
+      .filter(key => this.form.fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>this.form.fields[propertyName];
         const errorType = field.validator(body[propertyName] as string);
@@ -19,7 +16,6 @@ export class Form {
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
   }
-
 }
 
 type LanguageLookup = (lang: Record<string, never>) => string;
@@ -30,36 +26,36 @@ type Label = string | LanguageLookup;
 
 export interface FormContent {
   submit: {
-    text: Label,
-    classes?: string
-  },
-  fields: Record<string, FormField>
+    text: Label;
+    classes?: string;
+  };
+  fields: Record<string, FormField>;
 }
 
 export type FormField = FormInput | FormOptions;
 
 export interface FormOptions {
-  type: string,
-  label?: Label,
-  values: FormInput[],
-  validator?: ValidationCheck
+  type: string;
+  label?: Label;
+  values: FormInput[];
+  validator?: ValidationCheck;
 }
 
 export interface FormInput {
-  label: Label,
-  classes?: string,
-  selected?: boolean,
-  value?: string | number,
-  validator?: ValidationCheck
+  label: Label;
+  classes?: string;
+  selected?: boolean;
+  value?: string | number;
+  validator?: ValidationCheck;
 }
 
 export interface CsrfField {
-  _csrf: string
+  _csrf: string;
 }
 
 export type FormBody<T extends FormContent> = Record<keyof T['fields'], string> & CsrfField;
 
 export type FormError = {
-  propertyName: string,
-  errorType: string
-}
+  propertyName: string;
+  errorType: string;
+};

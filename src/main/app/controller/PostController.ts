@@ -1,15 +1,14 @@
-import { Response } from 'express';
-import { Form } from '../form/Form';
-import { AppRequest } from './AppRequest';
 import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
+import { Form } from '../form/Form';
 import { SessionState } from '../step/StepStateStorage';
+
+import { AppRequest } from './AppRequest';
 
 @autobind
 export abstract class PostController<T extends AnyObject> {
-
-  constructor(
-    protected readonly form: Form
-  ) { }
+  constructor(protected readonly form: Form) {}
 
   /**
    * Default handler for a POST request. Checks the body for errors, returning to the current page with errors in the
@@ -48,7 +47,6 @@ export abstract class PostController<T extends AnyObject> {
    * Get the page to redirect to
    */
   protected abstract getNextStep(body: T): string;
-
 }
 
 export type AnyObject = Record<string, unknown>;
