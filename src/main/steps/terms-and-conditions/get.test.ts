@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { TermsAndConditionsGetController } from './get';
 import { commonContent } from '../common/common.content';
+
 import { TermsAndConditionsContent } from './content';
+import { TermsAndConditionsGetController } from './get';
 
 describe('TermsAndConditionsGetController', () => {
   const controller = new TermsAndConditionsGetController();
@@ -16,8 +17,7 @@ describe('TermsAndConditionsGetController', () => {
       ...TermsAndConditionsContent.en,
       ...TermsAndConditionsContent.common,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
-
 });
