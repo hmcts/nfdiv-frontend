@@ -48,7 +48,7 @@ const en = {
 const cy: typeof en = {
   title: 'Telerau ac Amodau',
   thisPage:
-    'Mae’r dudalen hon yn egluro telerau defnyddio’r gwasanaeth hwn. Ar y wefan hon maent yn cynnwys <a class="govuk-link" href="https://www.gov.uk/help/privacy-policy" target="_blank">polisi preifatrwydd</a> and <a class="govuk-link" href="https://www.gov.uk/help/terms-conditions" target="_blank">telerau ac amodau</a>. Trwy ddefnyddio’r gwasanaeth hwn rydych yn cytuno i’r polisi preifatrwydd a’r telerau a’r amodau.',
+    'Mae’r dudalen hon yn egluro telerau defnyddio’r gwasanaeth hwn. Ar y wefan hon maent yn cynnwys <a class="govuk-link" href="https://www.gov.uk/help/privacy-policy" target="_blank">polisi preifatrwydd</a> a’r <a class="govuk-link" href="https://www.gov.uk/help/terms-conditions" target="_blank">telerau ac amodau</a>. Trwy ddefnyddio’r gwasanaeth hwn rydych yn cytuno i’r polisi preifatrwydd a’r telerau a’r amodau.',
   whoWeAre: 'Pwy ydym ni?',
   managedBy:
     'Rheolir y gwasanaeth hwn gan Wasanaeth Llysoedd a Thribiwnlysoedd Ei Mawrhydi a chyfeirir at y gwasanaeth o hyn ymlaen fel ‘ni’.',
@@ -82,7 +82,7 @@ const cy: typeof en = {
   knowinglyIntroducing:
     'Ni ddylech gamddefnyddio’r gwasanaeth hwn drwy fynd ati’n fwriadol i gyflwyno firysau, trojans, worms, logic bombs neu unrhyw ddeunydd arall maleisus neu sy’n niweidiol i dechnoleg. Ni ddylech geisio cael mynediad heb awdurdod at y gwasanaeth hwn, y system lle caiff ei storio nac unrhyw weinydd, cyfrifiadur neu gronfa ddata sy’n gysylltiedig â’r gwasanaeth. Ni ddylech ymosod ar y wefan hon drwy ymosodiad gwrthod gwasanaeth neu ymosodiad gwrthod gwasanaeth a ddosbarthwyd.',
   containsSeveral:
-    'Mae’r gwasanaeth ar-lein hwn yn cynnwys meysydd testun rhydd lle bydd gofyn ichi nodi mathau penodol o wybodaeth. Ni ddylid rhoi gwybodaeth sensitif yn y rhannau hyn. Gall data sensitif gynnwys manylion credoau crefyddol a data ariannol ymysg pethau eraill. Chi sy’n gyfrifol am unrhyw ddata sensitif yr ydych yn ei darparu.',
+    'Mae’r gwasanaeth ar-lein hwn yn cynnwys meysydd testun rhydd lle bydd gofyn ichi nodi mathau penodol o wybodaeth. Ni ddylid rhoi gwybodaeth sensitif yn y rhannau hyn. Gall data sensitif gynnwys manylion credoau crefyddol a data ariannol ymysg pethau eraill. Chi sy’n gyfrifol am unrhyw ddata sensitif yr ydych yn ei ddarparu.',
   changes: 'Newidiadau i’r telerau a’r amodau hyn',
   checkTermsAndConditions:
     'Dylech wirio’r telerau a’r amodau hyn yn rheolaidd. Efallai y byddwn yn eu diweddaru ar unrhyw adeg heb rybudd.',
@@ -90,7 +90,7 @@ const cy: typeof en = {
     'Rydych yn cytuno i unrhyw newidiadau drwy barhau i ddefnyddio’r gwasanaeth hwn ar ôl diweddaru’r telerau a’r amodau hyn.',
   contactUs: 'Cysylltwch â ni',
   address:
-    'Uned yr Iaith Gymraeg, Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF<br>',
+    'Uned yr Iaith Gymraeg<br>Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF<br>',
 };
 
 const common = {
