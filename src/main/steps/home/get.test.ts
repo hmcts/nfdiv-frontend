@@ -4,7 +4,6 @@ import { homeContent } from './content';
 import { HomeGetController } from './get';
 import { commonContent } from '../common/common.content';
 
-
 describe('HomeGetController', () => {
   const controller = new HomeGetController();
 
@@ -14,7 +13,6 @@ describe('HomeGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...homeContent.en,
       ...homeContent.common,
       ...commonContent.en,
       sessionErrors: []

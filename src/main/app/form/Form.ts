@@ -13,8 +13,8 @@ export class Form {
     return Object.keys(this.form.fields)
       .filter((key) => this.form.fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
-        const field = this.form.fields[propertyName];
-        const errorType = field.validator!(body[propertyName]);
+        const field = <FormField & { validator: ValidationCheck }>this.form.fields[propertyName];
+        const errorType = field.validator(body[propertyName] as string);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);

@@ -1,13 +1,13 @@
 security:
   referrerPolicy: 'origin'
 port: 3001
+timeout: 30000
 services:
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
-    callbackURL: 'http://localhost:3001/oauth2/callback'
 health:
   timeout: 5000
   deadline: 15000

@@ -1,5 +1,5 @@
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { FormBody } from '../../../app/form/Form';
+import { FormBody, FormContent } from '../../../app/form/Form';
 
 const en = {
   question: 'What language do you want us to use when we contact you?',
@@ -27,7 +27,7 @@ const cy: typeof en = {
   }
 };
 
-export const languagePreferenceForm = {
+export const languagePreferenceForm: FormContent = {
   fields: {
     languagePreferenceWelsh: {
       type: 'radios',

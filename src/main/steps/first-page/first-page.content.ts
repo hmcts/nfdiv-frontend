@@ -1,6 +1,6 @@
 import { merge } from 'lodash';
 import { HOME_URL } from '../urls';
-import { FormBody } from '../../app/form/Form';
+import { FormBody, FormContent } from '../../app/form/Form';
 
 const en = {
   text: 'Some text',
@@ -38,10 +38,26 @@ const cy: typeof en = {
   })
 };
 
+export const firstPageForm: FormContent = {
+  fields: {
+    exampleRadio: {
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      values: [
+        { label: l => l.yes, value: 'Yes' },
+        { label: l => l.no, value: 'No' }
+      ]
+    }
+  },
+  submit: {
+    text: l => l.continue
+  }
+};
+
 const common = {
   backLink: HOME_URL
 };
 
 export const firstPageContent = { en, cy, common };
 
-export type FirstPageForm = FormBody<typeof firstPageContent['en']['form']>;
+export type FirstPageForm = FormBody<typeof firstPageForm>;

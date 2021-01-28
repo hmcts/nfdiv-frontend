@@ -5,7 +5,7 @@ import { Form } from '../../../app/form/Form';
 import { HAS_MARRIAGE_BROKEN_URL } from '../../urls';
 
 describe('LanguagePreferencePostController', () => {
-  const mockForm: Form = { getErrors: () => [] as never[] } as any;
+  const mockForm = { getErrors: () => [] as never[] } as unknown as Form;
   const controller = new LanguagePreferencePostController(mockForm);
 
   test('Should redirect', async () => {

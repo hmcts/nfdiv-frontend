@@ -3,7 +3,7 @@ import { MarriageCertificateForm } from './content';
 
 export class MarriageCertificatePostController extends PostController<MarriageCertificateForm> {
 
-  protected getNextStep(body: MarriageCertificateForm): string {
+  protected getNextStep(): string {
     return '/';
   }
 

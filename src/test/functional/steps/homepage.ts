@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { config } from '../../config';
 import * as I from '../utlis/puppeteer.util';
 
-Given('I am on Divorce homepage', async function() {
+Given('I am on divorce homepage', async function() {
   await I.newPage();
   await I.goTo(config.TEST_URL);
 });
@@ -42,5 +42,10 @@ Then('the page should include {string}', async function(text: string) {
   const body = await I.getElement('body');
   const content = await I.getElementText(body);
 
-  expect(content.includes(text)).equal(true);
+  expect(content?.includes(text)).equal(true);
+});
+
+Given('I am on civil partnership homepage', async function() {
+  await I.newPage();
+  await I.goTo(config.TEST_URL + '?forceCivilMode');
 });

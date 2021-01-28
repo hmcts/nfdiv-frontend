@@ -21,7 +21,7 @@ module.exports = {
   },
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": ["**/*.ts"],
       "env": { "browser": true, "es6": true, "node": true },
       "extends": [
         "eslint:recommended",
@@ -33,7 +33,7 @@ module.exports = {
       "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module",
-        "project": "./tsconfig.json"
+        "project": "./tsconfig.eslint.json"
       },
       "plugins": ["@typescript-eslint"],
       "rules": {

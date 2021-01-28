@@ -8,11 +8,16 @@ export class GetController {
 
   constructor(
     protected readonly name: string,
-    protected readonly content: Record<string, any>
+    protected readonly content: Record<string, Record<string, unknown>>
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    // todo set req.session.lang
+    if (res.locals.isError) {
+      // If there's an async error, it wil have already rendered an error page upstream,
+      // so we don't want to call render again
+      return;
+    }
+
     const languageContent = this.content[req.session.lang] || this.content['en'] || {};
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
@@ -23,5 +28,4 @@ export class GetController {
 
     res.render(this.name, { ...languageContent, ...commonPageContent, ...commonLanguageContent, sessionErrors });
   }
-
 }

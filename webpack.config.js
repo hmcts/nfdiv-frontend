@@ -10,21 +10,21 @@ const fileNameSuffix = devMode ? '-dev' : '.[contenthash]';
 const filename = `[name]${fileNameSuffix}.js`;
 
 module.exports = {
-  plugins: [...govukFrontend.plugins, ...scss.plugins, ...HtmlWebpack.plugins ],
-  entry: path.resolve(sourcePath, 'index.ts') ,
-  mode: devMode ? 'development': 'production',
+  plugins: [...govukFrontend.plugins, ...scss.plugins, ...HtmlWebpack.plugins],
+  entry: path.resolve(sourcePath, 'index.ts'),
+  mode: devMode ? 'development' : 'production',
   module: {
     rules: [
       ...scss.rules,
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: ['.ts', '.js'],
   },
   output: {
     path: path.resolve(__dirname, 'src/main/public/'),

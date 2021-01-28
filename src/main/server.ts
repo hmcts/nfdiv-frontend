@@ -4,6 +4,9 @@ import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
+import type { LoggerInstance } from 'winston';
+
+import { ErrorHandler } from './modules/error-handler';
 import { Nunjucks } from './modules/nunjucks';
 import { Container } from './modules/awilix';
 import { HealthCheck } from './modules/health';
@@ -14,10 +17,11 @@ import { Routes } from './routes';
 import { Webpack } from './modules/webpack';
 import { CSRFToken } from './modules/csrf';
 import { LanguageToggle } from './modules/i18n';
+import { LoadTimeouts } from './modules/timeouts';
 import { OidcMiddleware } from './modules/oidc';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('server');
+const logger: LoggerInstance = Logger.getLogger('server');
 const env = process.env.NODE_ENV || 'development';
 const app = express();
 
@@ -36,6 +40,8 @@ app.use((req, res, next) => {
 
 new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
+new ErrorHandler().enableFor(app);
+new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
@@ -46,7 +52,9 @@ new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new OidcMiddleware().enableFor(app);
 new Routes().enableFor(app);
+new ErrorHandler().handleNextErrorsFor(app);
 
-app.listen(config.get('port'), () => {
-  logger.info(`Application started: http://localhost:${config.get('port')}`);
+const port = config.get('port');
+app.listen(port, () => {
+  logger.info(`Application started: http://localhost:${port}`);
 });

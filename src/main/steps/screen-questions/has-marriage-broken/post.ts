@@ -4,7 +4,7 @@ import { HasMarriageBrokenForm } from './content';
 
 export class HasMarriageBrokenPostController extends PostController<HasMarriageBrokenForm> {
 
-  protected getNextStep(body: HasMarriageBrokenForm): string {
+  protected getNextStep(): string {
     return RESPONDENT_ADDRESS_URL;
   }
 

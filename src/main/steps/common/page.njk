@@ -1,8 +1,3 @@
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/select/macro.njk" import govukSelect %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
@@ -10,6 +5,24 @@
 
 {% block head %}
   {% include "./webpack/css.njk" %}
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: pageHeader[serviceType],
+    serviceUrl: (globals.basePath if globals.basePath) + "/",
+    navigation: [
+      {
+        href: "/logout" if isLoggedIn else "/login",
+        text: signOut if isLoggedIn else signIn
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle[serviceType] }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -33,49 +46,7 @@
       {% block page_content %}{% endblock %}
 
       {% if form %}
-        <form class="form" id="main-form" method="post" action="" novalidate>
-          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-          {% block form_content %}
-            {% for fieldName, field in form.fields %}
-              {% if field.type === 'radios' %}
-                {{ govukRadios({
-                  classes: field.classes,
-                  idPrefix: fieldName,
-                  name: fieldName,
-                  fieldset: {
-                    legend: {
-                      text: formContent(field.label),
-                      classes: "govuk-fieldset__legend--l"
-                    }
-                  },
-                  items: formItems(field.values)
-                }) }}
-              {% elif field.type === 'option' %}
-                {{ govukSelect({
-                  id: fieldName,
-                  name: fieldName,
-                  label: {
-                    text: formContent(field.label)
-                  },
-                  items: formItems(field.values)
-                }) }}
-              {% else %}
-                {{ govukInput({
-                  label: {
-                    text: formContent(field.label),
-                    classes: "govuk-label--l " + field.classes
-                  },
-                  id: fieldName,
-                  name: fieldName
-                }) }}
-              {% endif %}
-            {% endfor %}
-          {% endblock %}
-
-          <div class="govuk-form-group">
-            {{ govukButton({ text: formContent(form.submit.text), preventDoubleClick: true }) }}
-          </div>
-        </form>
+        {% include "common/form/form.njk"%}
       {% endif %}
     </div>
   </div>

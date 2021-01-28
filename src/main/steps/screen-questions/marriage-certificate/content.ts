@@ -1,4 +1,4 @@
-import { FormBody } from '../../../app/form/Form';
+import { FormBody, FormContent } from '../../../app/form/Form';
 
 const en = {
   question: 'Do you have your marriage certificate with you now?',
@@ -30,7 +30,7 @@ const cy: typeof en = {
   }
 };
 
-export const marriageCertificateForm = {
+export const marriageCertificateForm: FormContent = {
   fields: {
     screenHasMarriageCert: {
       type: 'radios',

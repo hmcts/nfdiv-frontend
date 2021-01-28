@@ -16,7 +16,7 @@ export class FirstPagePost extends PostController<FirstPageForm> {
     }
   }
 
-  protected getNextStep(body: FirstPageForm): string {
+  protected getNextStep(): string {
     return HOME_URL;
   }
 

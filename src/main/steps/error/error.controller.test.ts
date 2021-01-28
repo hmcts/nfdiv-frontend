@@ -1,55 +1,83 @@
+import type { LoggerInstance } from 'winston';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { ErrorController } from './error.controller';
+import { commonContent } from '../common/common.content';
+import { errorContent } from './content';
+import { ErrorController, HTTPError } from './error.controller';
 
 describe('ErrorController', () => {
   const logger = {
-    error: async (message: string) => message
-  } as any;
+    info: jest.fn(),
+    error: jest.fn()
+  };
 
-  test('Should render error pages', async () => {
-    const controller = new ErrorController(logger, true);
-
-    const err = { status: 400, message: 'Bad request' } as any;
-    const req = mockRequest();
-    const res = mockResponse();
-    await controller.internalServerError(err, req, res);
-
-    expect(res.render).toBeCalledWith('error/error');
-    expect(res.statusCode).toBe(err.status);
+  afterEach(() => {
+    logger.info.mockClear();
+    logger.error.mockClear();
   });
 
   test('Should render not found', async () => {
-    const controller = new ErrorController(logger, true);
+    const controller = new ErrorController(logger as unknown as LoggerInstance);
 
     const req = mockRequest();
     const res = mockResponse();
     await controller.notFound(req, res);
 
-    expect(res.render).toBeCalledWith('error/not-found');
+    expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
+    expect(res.statusCode).toBe(404);
+    expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[404] });
   });
 
-  test('Should render error pages but not expose details', async () => {
-    const controller = new ErrorController(logger, false);
+  test('Should render error page with supplied status code', async () => {
+    const controller = new ErrorController(logger as unknown as LoggerInstance);
 
-    const err = { message: 'Bad request' } as any;
+    const err = { status: 400, message: 'Bad request' } as unknown as HTTPError;
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
 
-    expect(res.render).toBeCalledWith('error/error');
-    expect(res.statusCode).toBe(500);
+    expect(logger.error.mock.calls[0][0]).toContain('Bad request');
+    expect(res.statusCode).toBe(err.status);
+    expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[400] });
   });
 
-  test('Should render csrf token error page', async () => {
-    const controller = new ErrorController(logger, false);
+  test('Should render error pages and fall back to a 500 error if status not given', async () => {
+    const controller = new ErrorController(logger as unknown as LoggerInstance);
+
+    const err = { message: 'Bad request' } as unknown as HTTPError;
+    const req = mockRequest();
+    const res = mockResponse();
+    await controller.internalServerError(err, req, res);
+
+    expect(logger.error.mock.calls[0][0]).toContain('Bad request');
+    expect(res.statusCode).toBe(500);
+    expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[500] });
+  });
+
+  test('Renders the error page with correct status code and logs the details', async () => {
+    const controller = new ErrorController(logger as unknown as LoggerInstance);
+
+    const err = new HTTPError('Bad request', 400);
+    const req = mockRequest();
+    const res = mockResponse();
+    await controller.internalServerError(err, req, res);
+
+    expect(logger.error.mock.calls[0][0]).toContain('HTTPError: Bad request');
+    expect(res.statusCode).toBe(400);
+    expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[400] });
+  });
+
+  test('Should render CSRF token error page', async () => {
+    const controller = new ErrorController(logger as unknown as LoggerInstance);
 
     const req = mockRequest();
     const res = mockResponse();
     await controller.CSRFTokenError(req, res);
 
-    expect(res.render).toBeCalledWith('error/csrf-token');
-    expect(res.statusCode).toBe(403);
+    expect(logger.error.mock.calls[0][0]).toContain('CSRF Token Failed');
+    expect(res.statusCode).toBe(400);
+    expect(res.render).toBeCalledWith('error/error', { ...commonContent.en, ...errorContent.en[400] });
   });
 
 });
