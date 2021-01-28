@@ -57,7 +57,7 @@ export class OidcMiddleware {
           axios: asValue(Axios.create({
             baseURL: config.get('services.cos.baseURL'),
             headers: {
-              Authorization: 'Bearer ' + user.access_token
+              Authorization: 'Bearer ' + user.id_token
             }
           })),
           api: asClass(CosApi)
