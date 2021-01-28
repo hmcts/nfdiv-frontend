@@ -63,9 +63,9 @@ export class OidcMiddleware {
           api: asClass(CosApi)
         });
 
-        req.session.caseCreated = await req.scope?.cradle.api.getCase();
-        if (!req.session.caseCreated) {
-          req.session.caseCreated = await req.scope?.cradle.api.createCase({ petitionerEmail: user.jwt.sub });
+        if (!req.session.userCase) {
+          const userCase = await req.scope?.cradle.api.getCase();
+          req.session.userCase = userCase ? userCase : await req.scope?.cradle.api.createCase({ petitionerEmail: user.jwt.sub });
         }
 
         res.locals.isLoggedIn = true;
@@ -79,7 +79,7 @@ export class OidcMiddleware {
 declare module 'express-session' {
   export interface SessionData {
     user: Record<string, Record<string, unknown>>,
-    caseCreated: boolean
+    userCase: Record<string, string>
   }
 }
 
