@@ -24,4 +24,4 @@ dist/
 public/
 coverage/
 .env
-src/test/cross-browser/output
+functional-output/crossbrowser/reports

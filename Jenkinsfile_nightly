@@ -1,8 +1,11 @@
 #!groovy
 
 properties([
-// H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-pipelineTriggers([cron('H 05 * * *')])
+  // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
+  pipelineTriggers([cron('H 05 * * *')])
+  parameters([
+    string(name: 'URL_TO_TEST', defaultValue: 'https://nfdiv.aat.platform.hmcts.net', description: 'The URL you want to run tests against'),
+  ])
 ])
 
 @Library("Infrastructure")
@@ -11,6 +14,16 @@ def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
 
-withNightlyPipeline(type, product, component) {
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
+env.TEST_HEADLESS = 'true'
 
+withNightlyPipeline(type, product, component) {
+  enableCrossBrowserTest()
+
+  after('crossBrowserTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
+  }
 }

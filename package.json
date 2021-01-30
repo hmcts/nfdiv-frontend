@@ -19,8 +19,10 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "jest -c jest.smoke.config.js",
     "test:functional": "yarn test:cucumber && yarn test:pa11y",
-    "test:cross-browser": "TS_NODE_PROJECT='./src/test/cross-browser/tsconfig.json' codeceptjs run-multiple crossBrowser --steps",
-    "test:cross-browser:sauce": "SAUCE='true' TS_NODE_PROJECT='./src/test/cross-browser/tsconfig.json' codeceptjs run --steps",
+    "test:crossbrowser": "concurrently \"yarn test:crossbrowser:latest\" \"yarn test:crossbrowser:ie\" --names latest,ie",
+    "test:crossbrowser:latest": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --steps",
+    "test:crossbrowser:ie": "IE='true' yarn test:crossbrowser:codeceptjs run --steps",
+    "test:crossbrowser:codeceptjs": "TS_NODE_PROJECT='./src/test/cross-browser/tsconfig.json' ts-node ./node_modules/.bin/codeceptjs --config ./src/test/cross-browser/codecept.conf.ts",
     "cichecks": "yarn && yarn build && yarn lint && yarn test"
   },
   "dependencies": {
@@ -91,6 +93,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "codeceptjs": "^3.0.4",
+    "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^3.4.2",
     "cucumber": "^6.0.5",
