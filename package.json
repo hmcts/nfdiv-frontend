@@ -19,8 +19,9 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "jest -c jest.smoke.config.js",
     "test:functional": "yarn test:cucumber && yarn test:pa11y",
-    "test:crossbrowser": "concurrently \"yarn test:crossbrowser:latest\" \"yarn test:crossbrowser:ie\" --names latest,ie",
+    "test:crossbrowser": "concurrently \"yarn test:crossbrowser:latest:docker\" \"yarn test:crossbrowser:ie\" --names latest,ie",
     "test:crossbrowser:latest": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --steps",
+    "test:crossbrowser:latest:docker": "docker run --rm --volume $PWD:/home/app --workdir=\"/home/app\" --env URL_TO_TEST --env TEST_HEADLESS=true mcr.microsoft.com/playwright:bionic yarn test:crossbrowser:latest",
     "test:crossbrowser:ie": "IE='true' yarn test:crossbrowser:codeceptjs run --steps",
     "test:crossbrowser:codeceptjs": "TS_NODE_PROJECT='./src/test/cross-browser/tsconfig.json' ts-node ./node_modules/.bin/codeceptjs --config ./src/test/cross-browser/codecept.conf.ts",
     "cichecks": "yarn && yarn build && yarn lint && yarn test"
