@@ -23,3 +23,5 @@ npm-debug.log.*
 dist/
 public/
 coverage/
+.env
+src/test/cross-browser/output
