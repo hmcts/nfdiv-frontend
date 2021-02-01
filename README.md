@@ -99,9 +99,13 @@ yarn test
 
 #### Functional tests
 
+Running the functional tests:
+
 ```bash
 TEST_HEADLESS=false yarn test:cucumber
 ```
+
+Note: By default tests are run heedlessly (i.e. without displaying the browser) setting the `TEST_HEADLESS` flag to `false` will open the test browser window allowing you to see whats happening in realtime.
 
 #### Accessibility tests
 
@@ -124,12 +128,12 @@ Running cross browser tests locally, start the server then run:
 ```bash
 # Playwright - Chrome/Edge, Safari and Firefox
 TEST_HEADLESS=false yarn test:crossbrowser:latest
+```
 
+To run the cross browser tests in Internet Explorer will need to install the [Sauce Labs connect proxy tunnel](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) and set the following environment variables with your own [Sauce Labs](https://saucelabs.com/) account details: `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`, and `SAUCE_TUNNEL_IDENTIFIER`.
+
+```bash
 # WebDriver - Internet Explorer (via Sauce Labs)
-brew install sauce-connect
-export SAUCE_USERNAME="your-username"
-export SAUCE_ACCESS_KEY="token-from-sauce-labs-settings-page"
-export SAUCE_TUNNEL_IDENTIFIER="$SAUCE_USERNAME-tunnel"
 sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -x https://eu-central-1.saucelabs.com/rest/v1 -i $SAUCE_TUNNEL_IDENTIFIER -B all
 yarn test:crossbrowser:ie
 ```
