@@ -1,10 +1,10 @@
 import { setHeadlessWhen } from '@codeceptjs/configure';
 
-// turn on headless mode when running with TEST_HEADLESS="true" environment variable
-const isHeadless = process.env.TEST_HEADLESS === 'true';
-setHeadlessWhen(isHeadless);
+import { config as testConfig } from '../config';
 
-const url = process.env.URL_TO_TEST || 'http://localhost:3001';
+setHeadlessWhen(testConfig.TestHeadlessBrowser);
+
+const url = testConfig.TEST_URL || 'http://localhost:3001';
 let helpers = {};
 let plugins = {};
 if (process.env.IE === 'true') {
@@ -37,14 +37,14 @@ if (process.env.IE === 'true') {
   helpers = {
     Playwright: {
       url,
-      show: !isHeadless,
+      show: !testConfig.TestHeadlessBrowser,
       browser: 'chromium',
     },
   };
 }
 
 export const config: CodeceptJS.Config = {
-  tests: './*_test.ts',
+  tests: './*.test.ts',
   output: '../../../functional-output/crossbrowser/reports',
   helpers,
   multiple: {

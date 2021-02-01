@@ -1,5 +1,23 @@
 # nfdiv-frontend
 
+- [nfdiv-frontend](#nfdiv-frontend)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Running the application](#running-the-application)
+    - [Running with Docker](#running-with-docker)
+  - [Developing](#developing)
+    - [Code style](#code-style)
+    - [Running the tests](#running-the-tests)
+      - [Unit tests](#unit-tests)
+      - [Functional tests](#functional-tests)
+      - [Accessibility tests](#accessibility-tests)
+      - [Cross browser tests](#cross-browser-tests)
+    - [Security](#security)
+      - [CSRF prevention](#csrf-prevention)
+      - [Helmet](#helmet)
+    - [Healthcheck](#healthcheck)
+  - [License](#license)
+
 ## Getting Started
 
 ### Prerequisites
@@ -71,11 +89,21 @@ yarn lint --fix
 
 ### Running the tests
 
+#### Unit tests
+
 We uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing the following command:
 
 ```bash
 yarn test
 ```
+
+#### Functional tests
+
+```bash
+TEST_HEADLESS=false yarn test:cucumber
+```
+
+#### Accessibility tests
 
 Running accessibility tests:
 
@@ -84,6 +112,27 @@ yarn test:a11y
 ```
 
 Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
+
+#### Cross browser tests
+
+Cross browser tests are run via [CodeceptJS](https://codecept.io/) using the [Playwright](https://playwright.dev/) plugin which tests Chrome/Edge, Safari and Firefox and [WebDriver](https://www.w3.org/TR/webdriver/) plugin which tests Internet Explorer via [Sauce Labs](https://saucelabs.com/).
+
+Cross browser tests are automatically run via the nightly Jenkins pipeline.
+
+Running cross browser tests locally, start the server then run:
+
+```bash
+# Playwright - Chrome/Edge, Safari and Firefox
+TEST_HEADLESS=false yarn test:crossbrowser:latest
+
+# WebDriver - Internet Explorer (via Sauce Labs)
+brew install sauce-connect
+export SAUCE_USERNAME="your-username"
+export SAUCE_ACCESS_KEY="token-from-sauce-labs-settings-page"
+export SAUCE_TUNNEL_IDENTIFIER="$SAUCE_USERNAME-tunnel"
+sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -x https://eu-central-1.saucelabs.com/rest/v1 -i $SAUCE_TUNNEL_IDENTIFIER -B all
+yarn test:crossbrowser:ie
+```
 
 ### Security
 
