@@ -12,6 +12,7 @@ if (process.env.IE === 'true') {
     WebDriver: {
       url,
       browser: 'internet explorer',
+      waitForTimeout: 15000,
       capabilities: {
         'sauce:options': {
           idleTimeout: 300,
@@ -39,12 +40,16 @@ if (process.env.IE === 'true') {
       url,
       show: !testConfig.TestHeadlessBrowser,
       browser: 'chromium',
+      waitForTimeout: 15000,
     },
   };
 }
 
 export const config: CodeceptJS.Config = {
-  tests: './*.test.ts',
+  gherkin: {
+    features: './features/*.feature',
+    steps: ['../steps/homepage.ts'],
+  },
   output: '../../../functional-output/crossbrowser/reports',
   helpers,
   multiple: {
@@ -58,6 +63,7 @@ export const config: CodeceptJS.Config = {
   bootstrap: null,
   name: 'nfdiv-frontend',
   plugins: {
+    allure: {},
     pauseOnFail: {},
     retryFailedStep: {
       enabled: true,
