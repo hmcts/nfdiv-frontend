@@ -19,13 +19,8 @@ export class OidcMiddleware {
     app.get(
       '/login',
       errorHandler((req: Request, res) => {
-        console.log(req.hostname);
-        console.log(req.host);
-        console.log(req.url);
-        console.log(req.baseUrl);
-        console.log(req.originalUrl);
-        console.log(req.headers);
-        const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
+        const host = req.headers['x-forwarded-host'] || req.hostname;
+        const redirectUri = encodeURI(`${protocol}${host}${port}/oauth2/callback`);
         res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
       })
     );
@@ -33,7 +28,8 @@ export class OidcMiddleware {
     app.get(
       '/oauth2/callback',
       errorHandler(async (req: Request, res: Response) => {
-        const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
+        const host = req.headers['x-forwarded-host'] || req.hostname;
+        const redirectUri = encodeURI(`${protocol}${host}${port}/oauth2/callback`);
         const response = await Axios.post(
           tokenUrl,
           `client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&redirect_uri=${redirectUri}&code=${encodeURIComponent(
