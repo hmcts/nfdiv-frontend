@@ -19,6 +19,12 @@ export class OidcMiddleware {
     app.get(
       '/login',
       errorHandler((req: Request, res) => {
+        console.log(req.hostname);
+        console.log(req.host);
+        console.log(req.url);
+        console.log(req.baseUrl);
+        console.log(req.originalUrl);
+        console.log(req.headers);
         const redirectUri = encodeURI(`${protocol}${req.hostname}${port}/oauth2/callback`);
         res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
       })
