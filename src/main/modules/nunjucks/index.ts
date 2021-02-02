@@ -28,8 +28,9 @@ export class Nunjucks {
     });
 
     app.use((req, res, next) => {
+      res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
-      res.locals.serviceType = req.hostname.includes('civil') || 'forceCivilMode' in req.query ? 'civil' : 'divorce';
+      res.locals.serviceType = res.locals.host.includes('civil') || 'forceCivilMode' in req.query ? 'civil' : 'divorce';
       next();
     });
   }
