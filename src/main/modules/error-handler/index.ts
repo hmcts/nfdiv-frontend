@@ -1,4 +1,5 @@
 import { Application, NextFunction, Request, Response } from 'express';
+import { LoggerInstance } from 'winston';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 
@@ -12,7 +13,11 @@ const setupErrorHandler = renderError => render => async (...args): Promise<void
 };
 
 export class ErrorHandler {
-  public enableFor(app: Application): void {
+  public enableFor(app: Application, logger: LoggerInstance): void {
+    process.on('unhandledRejection', (reason, p) => {
+      logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason);
+    });
+
     const errorHandler = setupErrorHandler(app.locals.container.cradle.errorController.internalServerError);
     app.locals.errorHandler = render => errorHandler(render);
   }

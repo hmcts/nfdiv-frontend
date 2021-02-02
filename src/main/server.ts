@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 
 new PropertiesVolume().enableFor(app);
 new Container().enableFor(app);
-new ErrorHandler().enableFor(app);
+new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
