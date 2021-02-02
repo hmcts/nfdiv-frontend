@@ -15,7 +15,17 @@ module.exports = {
   rules: [
     {
       test: /\.scss$/,
-      use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      use: [
+        'style-loader',
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            esModule: false,
+          },
+        },
+        'css-loader',
+        'sass-loader',
+      ],
     },
   ],
   plugins: [miniCss],
