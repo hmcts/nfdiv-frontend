@@ -42,7 +42,8 @@ const en = {
   agreeToChanges:
     'You’ll agree to any changes if you continue to use this service after the terms and conditions have been updated.',
   contactUs: 'Contact Us',
-  address: 'East Midlands Regional Divorce Centre<br>PO Box 10447<br>Nottingham<br>Nottinghamshire<br>NG2 9QN<br>',
+  address:
+    'CTSC (Courts and Tribunal Service Centre)<br>C/o HMCTS Digital Divorce Services<br>PO Box 12706<br>Harlow<br>CM20 9QT<br>',
 };
 
 const cy: typeof en = {
