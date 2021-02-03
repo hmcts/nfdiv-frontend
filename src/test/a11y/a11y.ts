@@ -1,5 +1,12 @@
 import Axios from 'axios';
 
+import {
+  HAS_MARRIAGE_BROKEN_URL,
+  LANGUAGE_PREFERENCE_URL,
+  MARRIAGE_CERTIFICATE_URL,
+  RESPONDENT_ADDRESS_URL,
+  TERMS_AND_CONDITIONS_URL,
+} from '../../main/steps/urls';
 import { config } from '../config';
 
 const pa11y = require('pa11y');
@@ -70,7 +77,11 @@ function testAccessibility(url: string): void {
 describe('Accessibility', () => {
   // testing accessibility of the home page
   testAccessibility('/');
-  testAccessibility('/terms-and-conditions');
+  testAccessibility(TERMS_AND_CONDITIONS_URL);
+  testAccessibility(LANGUAGE_PREFERENCE_URL);
+  testAccessibility(HAS_MARRIAGE_BROKEN_URL);
+  testAccessibility(RESPONDENT_ADDRESS_URL);
+  testAccessibility(MARRIAGE_CERTIFICATE_URL);
 
   // TODO: include each path of your application in accessibility checks
 });
