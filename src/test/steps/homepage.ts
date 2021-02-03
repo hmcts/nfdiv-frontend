@@ -1,3 +1,5 @@
+import { LANGUAGE_PREFERENCE_URL } from '../../main/steps/urls';
+
 const { I } = inject();
 
 Given('I am on divorce homepage', () => {
@@ -38,5 +40,5 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Given('I am on civil partnership homepage', () => {
-  I.amOnPage('/?forceCivilMode');
+  I.amOnPage(`${LANGUAGE_PREFERENCE_URL}?forceCivilMode`);
 });
