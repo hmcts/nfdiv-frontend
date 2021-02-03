@@ -31,6 +31,7 @@ export const languagePreferenceForm: FormContent = {
   fields: {
     languagePreferenceWelsh: {
       type: 'radios',
+      label: l => l.question,
       values: [
         { label: l => l.no, value: 'No' },
         { label: l => l.yes, value: 'Yes' },

@@ -17,7 +17,7 @@
     "test:pa11y": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.a11y.config.js --maxWorkers 15",
     "test:cucumber": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run-workers 8 parallel --features --verbose",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "jest -c jest.smoke.config.js",
+    "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
     "test:functional": "yarn test:cucumber && yarn test:pa11y",
     "test:crossbrowser": "concurrently \"yarn test:crossbrowser:latest:docker\" \"yarn test:crossbrowser:ie\" --names latest,ie",
     "test:crossbrowser:latest": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --features --verbose",

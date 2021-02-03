@@ -33,6 +33,7 @@ export const hasMarriageBrokenForm: FormContent = {
     screenHasMarriageBroken: {
       type: 'radios',
       classes: 'govuk-radios--inline',
+      label: l => l.question,
       values: [
         { label: l => l.yes, value: 'Yes' },
         { label: l => l.no, value: 'No' },
