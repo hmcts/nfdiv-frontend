@@ -20,6 +20,7 @@ import { MarriageCertificatePostController } from '../../steps/screen-questions/
 import { respondentAddressForm } from '../../steps/screen-questions/respondent-address/content';
 import { RespondentAddressGetController } from '../../steps/screen-questions/respondent-address/get';
 import { RespondentAddressPostController } from '../../steps/screen-questions/respondent-address/post';
+import { TermsAndConditionsGetController } from '../../steps/terms-and-conditions/get';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
@@ -33,6 +34,7 @@ export class Container {
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
       firstPageGetController: asValue(new FirstPageGet()),
+      termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
       // TODO create form when first page is implemented as of now its just a link and this post is not used
       firstPagePostController: asValue(new FirstPagePost(new Form(firstPageContent['en']['forms']))),
       languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
