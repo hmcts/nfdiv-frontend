@@ -1,9 +1,10 @@
-import { GetController } from '../../app/controller/GetController';
+import { Response } from 'express';
 
-import { homeContent } from './content';
+import { AppRequest } from '../../app/controller/AppRequest';
+import { LANGUAGE_PREFERENCE_URL } from '../urls';
 
-export class HomeGetController extends GetController {
-  constructor() {
-    super(__dirname + '/template', homeContent);
+export class HomeGetController {
+  public async get(req: AppRequest, res: Response): Promise<void> {
+    res.redirect(LANGUAGE_PREFERENCE_URL);
   }
 }

@@ -4,9 +4,6 @@ import type { LoggerInstance } from 'winston';
 
 import { Form } from '../../app/form/Form';
 import { ErrorController } from '../../steps/error/error.controller';
-import { firstPageContent } from '../../steps/first-page/first-page.content';
-import { FirstPageGet } from '../../steps/first-page/first-page.get';
-import { FirstPagePost } from '../../steps/first-page/first-page.post';
 import { HomeGetController } from '../../steps/home/get';
 import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
 import { HasMarriageBrokenGetController } from '../../steps/screen-questions/has-marriage-broken/get';
@@ -33,10 +30,7 @@ export class Container {
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
-      firstPageGetController: asValue(new FirstPageGet()),
       termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
-      // TODO create form when first page is implemented as of now its just a link and this post is not used
-      firstPagePostController: asValue(new FirstPagePost(new Form(firstPageContent['en']['forms']))),
       languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
       languagePreferencePostController: asValue(new LanguagePreferencePostController(new Form(languagePreferenceForm))),
       hasMarriageBrokenGetController: asValue(new HasMarriageBrokenGetController()),
