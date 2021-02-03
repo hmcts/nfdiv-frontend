@@ -1,14 +1,13 @@
-const superagent = require('superagent');
+import axios from 'axios';
 
-const { config } = require('../config');
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { config } from '../config';
 
 describe('Smoke Test', () => {
-  describe('healthcheck', () => {
+  describe('Health Check', () => {
     test('should return status 200', async () => {
-      const response = await superagent.get(`${config.TEST_URL}/health`);
+      const response = await axios.get(`${config.TEST_URL}/health`);
 
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
     });
   });
 });

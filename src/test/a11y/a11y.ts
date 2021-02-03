@@ -25,7 +25,14 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
 }
 
 function runPally(url: string): Promise<Pa11yResult> {
-  return pa11y(config.TEST_URL + url, {
+  const fullUrl = `${config.TEST_URL}${url}`;
+  return pa11y(fullUrl, {
+    actions: [
+      `set field #username to ${config.TestUser}`,
+      `set field #password to ${config.TestPass}`,
+      'click element input[type="submit"]',
+      `navigate to ${fullUrl}`,
+    ],
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
 }
