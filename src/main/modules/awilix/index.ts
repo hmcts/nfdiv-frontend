@@ -4,6 +4,7 @@ import type { LoggerInstance } from 'winston';
 
 import { Form } from '../../app/form/Form';
 import { ErrorController } from '../../steps/error/error.controller';
+import { noMarriageCertificateGetController } from '../../steps/exit/no-marriage-certificate/get';
 import { HomeGetController } from '../../steps/home/get';
 import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
 import { HasMarriageBrokenGetController } from '../../steps/screen-questions/has-marriage-broken/get';
@@ -41,6 +42,7 @@ export class Container {
       marriageCertificatePostController: asValue(
         new MarriageCertificatePostController(new Form(marriageCertificateForm))
       ),
+      noMarriageCertificateGetController: asValue(new noMarriageCertificateGetController()),
       errorController: asClass(ErrorController),
     });
   }

@@ -1,0 +1,9 @@
+{% extends "common/page.njk" %}
+
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ info }}</h1>
+  <p class="govuk-body">{{ certificate }}</p>
+  <p class="govuk-body">{{ ask | safe }}</p>
+  <p class="govuk-body">{{ certificateTranslation | safe }}</p>
+{% endblock %}

@@ -137,5 +137,5 @@ export interface contentType {
     en: Record<string, unknown>;
     cy: Record<string, unknown>;
   };
-  common: Record<string, unknown>;
+  common?: Record<string, unknown>;
 }
