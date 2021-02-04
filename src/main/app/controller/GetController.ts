@@ -1,13 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { commonContent } from '../../steps/common/common.content';
+import { commonContent, contentType } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
 @autobind
 export class GetController {
-  constructor(protected readonly name: string, protected readonly content: Record<string, Record<string, unknown>>) {}
+  constructor(protected readonly name: string, protected readonly content: contentType) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError) {
@@ -16,7 +16,8 @@ export class GetController {
       return;
     }
 
-    const languageContent = this.content[req.session.lang] || this.content['en'] || {};
+    const languageContent =
+      this.content[res.locals.serviceType][req.session.lang] || this.content[res.locals.serviceType]['en'] || {};
     const commonLanguageContent = commonContent[req.session.lang] || commonContent['en'];
     const commonPageContent = this.content.common || {};
 

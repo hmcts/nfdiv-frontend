@@ -98,4 +98,15 @@ const common = {
   link: TERMS_AND_CONDITIONS_URL,
 };
 
-export const TermsAndConditionsContent = { en, cy, common };
+//TODO civil partnership translations
+export const TermsAndConditionsContent = {
+  divorce: {
+    en,
+    cy,
+  },
+  civil: {
+    en,
+    cy,
+  },
+  common,
+};

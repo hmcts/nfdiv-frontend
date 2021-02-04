@@ -48,6 +48,17 @@ const common = {
   form: languagePreferenceForm,
 };
 
-export const languagePreferenceContent = { en, cy, common };
+//TODO civil partnership translations
+export const languagePreferenceContent = {
+  divorce: {
+    en,
+    cy,
+  },
+  civil: {
+    en,
+    cy,
+  },
+  common,
+};
 
 export type LanguagePreferenceForm = FormBody<typeof languagePreferenceForm>;

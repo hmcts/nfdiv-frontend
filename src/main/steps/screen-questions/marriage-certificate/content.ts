@@ -1,14 +1,15 @@
 import { FormBody, FormContent } from '../../../app/form/Form';
 
-const en = {
-  question: 'Do you have your marriage certificate with you now?',
+const divorceEn = {
+  question: 'Do you have your marriage certificate with you?',
   originalCertificate:
-    'You’ll be asked to upload a digital photo of the certificate. You can use your phone to do this if it has a camera.',
-  camera: 'If you don’t have your certificate you should save and close your application and return later.',
+    'You’ll be asked to upload a digital photo of the certificate later in this application. You can use your phone to take the picture, if it has a camera.',
+  camera:
+    'It must be a photo of the original marriage certificate or a certified copy. You can <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" target="_blank">order a certified copy online (opens in a new tab)</a>, if you got married in England or Wales.',
   certificateTranslation:
-    'You must have the original certificate or a <a class="govuk-link" href="https://www.gov.uk/certifying-a-document"target="_blank" aria-label="certifying a document link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.">certified copy</a>. If it isn’t in English, you’ll also need to provide a <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"target="_blank">certified translation</a>.',
-  yes: 'Yes',
-  no: 'No',
+    'If the original certificate is not in English, you’ll need to provide a <a class="govuk-link" href="https://www.gov.uk/certifying-a-document#certifying-a-translation">certified translation</a>.',
+  yes: 'Yes, I have my marriage certificate',
+  no: 'No, I do not have my marriage certificate',
   errors: {
     screenHasMarriageCert: {
       required: 'Select yes if you have your marriage certificate',
@@ -17,7 +18,42 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+const divorceCy: typeof divorceEn = {
+  question: 'A yw eich tystysgrif priodas gennych yn awr?',
+  originalCertificate:
+    'Gofynnir ichi lwytho llun digidol o’r dystysgrif. Gallwch ddefnyddio’ch ffôn i wneud hyn os oes ganddo gamera.',
+  camera: 'Os nad yw eich tystysgrif gennych, dylech arbed a chau eich cais a dychwelyd ato yn hwyrach ymlaen.',
+  certificateTranslation:
+    'Mae’n rhaid ichi feddu ar y dystysgrif wreiddiol neu <a class="govuk-link" href="https://www.gov.uk/certifying-a-document"target="_blank" aria-label="Dolen i wybodaeth am ardystio tystysgrif, Bydd hon yn agor ffenestr newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud eisoes.">copi ardystiedig</a>. Os nad yw yn Saesneg, bydd angen ichi ddarparu <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"target="_blank">cyfieithiad ardystiedig</a>.',
+  yes: 'Ydi',
+  no: 'Nac ydi',
+  errors: {
+    screenHasMarriageCert: {
+      required: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
+      invalid: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
+    },
+  },
+};
+
+const civilEn = {
+  question: 'Do you have your civil partnership certificate with you?',
+  originalCertificate:
+    'You’ll be asked to upload a digital photo of the certificate later in this application. You can use your phone to take the picture, if it has a camera.',
+  camera:
+    'It must be a photo of the original civil partnership certificate or a certified copy. You can <a class="govuk-link" href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" target="_blank">order a certified copy online (opens in a new tab)</a>, if you formed your civil partnership in England or Wales.',
+  certificateTranslation:
+    'If the original certificate is not in English, you’ll need to provide a <a class="govuk-link" href="https://www.gov.uk/certifying-a-document#certifying-a-translation">certified translation</a>.',
+  yes: 'Yes, I have my civil partnership certificate',
+  no: 'No, I do not have my civil partnership certificate',
+  errors: {
+    screenHasMarriageCert: {
+      required: 'Select yes if you have your civil partnership certificate',
+      invalid: 'Select yes if you have your civil partnership certificate',
+    },
+  },
+};
+
+const civilCy: typeof civilEn = {
   question: 'A yw eich tystysgrif priodas gennych yn awr?',
   originalCertificate:
     'Gofynnir ichi lwytho llun digidol o’r dystysgrif. Gallwch ddefnyddio’ch ffôn i wneud hyn os oes ganddo gamera.',
@@ -55,6 +91,17 @@ const common = {
   form: marriageCertificateForm,
 };
 
-export const marriageCertificateContent = { en, cy, common };
+//TODO civil partnership translations
+export const marriageCertificateContent = {
+  divorce: {
+    en: divorceEn,
+    cy: divorceCy,
+  },
+  civil: {
+    en: civilEn,
+    cy: civilCy,
+  },
+  common,
+};
 
 export type MarriageCertificateForm = FormBody<typeof marriageCertificateForm>;

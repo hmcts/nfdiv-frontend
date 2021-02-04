@@ -51,6 +51,17 @@ const common = {
   form: respondentAddressForm,
 };
 
-export const respondentAddressContent = { en, cy, common };
+//TODO civil partnership translations
+export const respondentAddressContent = {
+  divorce: {
+    en,
+    cy,
+  },
+  civil: {
+    en,
+    cy,
+  },
+  common,
+};
 
 export type RespondentAddressForm = FormBody<typeof respondentAddressForm>;

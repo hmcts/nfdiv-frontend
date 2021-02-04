@@ -127,3 +127,15 @@ const cy: typeof en = {
 };
 
 export const commonContent = { en, cy };
+
+export interface contentType {
+  divorce: {
+    en: Record<string, unknown>;
+    cy: Record<string, unknown>;
+  };
+  civil: {
+    en: Record<string, unknown>;
+    cy: Record<string, unknown>;
+  };
+  common: Record<string, unknown>;
+}

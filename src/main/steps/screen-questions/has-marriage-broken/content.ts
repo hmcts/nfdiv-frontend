@@ -49,6 +49,17 @@ const common = {
   form: hasMarriageBrokenForm,
 };
 
-export const hasMarriageBrokenContent = { en, cy, common };
+//TODO civil partnership translations
+export const hasMarriageBrokenContent = {
+  divorce: {
+    en,
+    cy,
+  },
+  civil: {
+    en,
+    cy,
+  },
+  common,
+};
 
 export type HasMarriageBrokenForm = FormBody<typeof hasMarriageBrokenForm>;
