@@ -2,11 +2,11 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../common/common.content';
 
-import { noMarriageCertificateContent } from './content';
-import { noMarriageCertificateGetController } from './get';
+import { certificateContent } from './content';
+import { CertificateGetController } from './get';
 
-describe('noMarriageCertificateGetController', () => {
-  const controller = new noMarriageCertificateGetController();
+describe('CertificateGetController', () => {
+  const controller = new CertificateGetController();
 
   test('Should render the divorce page', async () => {
     const req = mockRequest();
@@ -15,7 +15,8 @@ describe('noMarriageCertificateGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...noMarriageCertificateContent.divorce.en,
+      ...certificateContent.divorce.en,
+      ...certificateContent.common,
       ...commonContent.en,
       sessionErrors: [],
     });
@@ -28,7 +29,8 @@ describe('noMarriageCertificateGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...noMarriageCertificateContent.civil.en,
+      ...certificateContent.civil.en,
+      ...certificateContent.common,
       ...commonContent.en,
       sessionErrors: [],
     });

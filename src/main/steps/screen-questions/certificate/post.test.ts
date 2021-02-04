@@ -2,11 +2,11 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Form } from '../../../app/form/Form';
 
-import { MarriageCertificatePostController } from './post';
+import { CertificatePostController } from './post';
 
-describe('MarriageCertificatePostController', () => {
+describe('CertificatePostController', () => {
   const mockForm = ({ getErrors: () => [] as never[] } as unknown) as Form;
-  const controller = new MarriageCertificatePostController(mockForm);
+  const controller = new CertificatePostController(mockForm);
 
   test('Should redirect', async () => {
     const req = mockRequest();

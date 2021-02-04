@@ -11,7 +11,7 @@ const divorceEn = {
   yes: 'Yes, I have my marriage certificate',
   no: 'No, I do not have my marriage certificate',
   errors: {
-    screenHasMarriageCert: {
+    screenHasCertificate: {
       required: 'Select yes if you have your marriage certificate',
       invalid: 'Select yes if you have your marriage certificate',
     },
@@ -28,7 +28,7 @@ const divorceCy: typeof divorceEn = {
   yes: 'Ydi',
   no: 'Nac ydi',
   errors: {
-    screenHasMarriageCert: {
+    screenHasCertificate: {
       required: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
       invalid: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
     },
@@ -46,7 +46,7 @@ const civilEn = {
   yes: 'Yes, I have my civil partnership certificate',
   no: 'No, I do not have my civil partnership certificate',
   errors: {
-    screenHasMarriageCert: {
+    screenHasCertificate: {
       required: 'Select yes if you have your civil partnership certificate',
       invalid: 'Select yes if you have your civil partnership certificate',
     },
@@ -63,16 +63,16 @@ const civilCy: typeof civilEn = {
   yes: 'Ydi',
   no: 'Nac ydi',
   errors: {
-    screenHasMarriageCert: {
+    screenHasCertificate: {
       required: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
       invalid: 'Dewiswch oes os yw eich tystysgrif priodas gennych',
     },
   },
 };
 
-export const marriageCertificateForm: FormContent = {
+export const certificateForm: FormContent = {
   fields: {
-    screenHasMarriageCert: {
+    screenHasCertificate: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.question,
@@ -88,11 +88,11 @@ export const marriageCertificateForm: FormContent = {
 };
 
 const common = {
-  form: marriageCertificateForm,
+  form: certificateForm,
 };
 
 //TODO civil partnership translations
-export const marriageCertificateContent = {
+export const certificateContent = {
   divorce: {
     en: divorceEn,
     cy: divorceCy,
@@ -104,4 +104,4 @@ export const marriageCertificateContent = {
   common,
 };
 
-export type MarriageCertificateForm = FormBody<typeof marriageCertificateForm>;
+export type CertificateForm = FormBody<typeof certificateForm>;
