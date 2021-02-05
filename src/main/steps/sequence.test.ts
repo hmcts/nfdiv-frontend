@@ -12,7 +12,7 @@ describe('Sequence', () => {
     });
 
     it('moves into the substep when the response matches', () => {
-      const actual = getNextStepUrl(HAS_MARRIAGE_BROKEN_URL, { screenHasMarriageBroken: 'No' });
+      const actual = getNextStepUrl(HAS_MARRIAGE_BROKEN_URL, { screenHasUnionBroken: 'No' });
       expect(actual).toBe(MARRIAGE_NOT_BROKEN_URL);
     });
 

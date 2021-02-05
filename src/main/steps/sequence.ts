@@ -1,14 +1,17 @@
+import { Request } from 'express';
+
 import {
-  HAS_MARRIAGE_BROKEN_URL,
-  LANGUAGE_PREFERENCE_URL,
-  MARRIAGE_CERTIFICATE_URL,
-  MARRIAGE_NOT_BROKEN_URL,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  PARTNER_GENDER_URL,
+  RELATIONSHIP_NOT_BROKEN_URL,
+  UNION_CERTIFICATE_URL,
 } from './urls';
 
-interface Step {
+export interface Step {
+  id: string;
   title: string;
-  field?: string;
-  url?: string;
+  field: string;
+  url: string;
   subSteps?: SubStep[];
 }
 
@@ -16,22 +19,36 @@ interface SubStep extends Step {
   when: (response: Record<string, string>) => boolean;
   finalPage?: boolean;
 }
+interface IncompleteStep {
+  id?: string;
+  title: string;
+  field?: string;
+  url?: string;
+  subSteps?: IncompleteSubStep[];
+}
 
-export const sequence: Step[] = [
+interface IncompleteSubStep extends IncompleteStep {
+  when: (response: Record<string, string>) => boolean;
+  finalPage?: boolean;
+}
+
+const sequence: IncompleteStep[] = [
   {
-    title: 'What language do you want us to use when we contact you?',
-    url: LANGUAGE_PREFERENCE_URL,
+    id: 'partner-gender',
+    title: 'Who are you divorcing?',
+    url: PARTNER_GENDER_URL,
   },
-  { title: 'Who are you divorcing?' },
   {
+    id: 'has-relationship-broken',
     title: 'Has you marriage irretrievably broken down (it cannot be saved)?',
-    url: HAS_MARRIAGE_BROKEN_URL,
+    url: HAS_RELATIONSHIP_BROKEN_URL,
     subSteps: [
       {
+        id: 'relationship-not-broken',
         title: 'You cannot apply to get a divorce',
-        field: 'screenHasMarriageBroken',
-        when: res => res.screenHasMarriageBroken === 'No',
-        url: MARRIAGE_NOT_BROKEN_URL,
+        field: 'screenHasUnionBroken',
+        when: res => res.screenHasUnionBroken === 'No',
+        url: RELATIONSHIP_NOT_BROKEN_URL,
         finalPage: true,
       },
     ],
@@ -48,7 +65,7 @@ export const sequence: Step[] = [
   },
   {
     title: 'Do you have you marriage certificate with you?',
-    url: MARRIAGE_CERTIFICATE_URL,
+    url: UNION_CERTIFICATE_URL,
     subSteps: [
       {
         title: 'You need your marriage certificate',
@@ -124,18 +141,32 @@ export const sequence: Step[] = [
   { title: 'Other court case relating you marriage, property or children' },
 ];
 
-export const getNextStepUrl = (currentUrl: string, response: Record<string, string>): string => {
-  const validSteps = sequence.filter(step => step.url);
-  const currentStep = validSteps.find(step => step.url === currentUrl);
+const validSteps = sequence.filter(step => step.id && step.url) as Step[];
+
+export const getSteps = (steps: Step[] = [], start = validSteps): Step[] => {
+  start.map(step => {
+    steps.push(step);
+    if (step.subSteps) {
+      return getSteps(steps, step.subSteps);
+    }
+  });
+  return steps;
+};
+
+export const getNextStepUrl = (req: Request, response: Record<string, string>): string => {
+  const searchParams = new URL(req.originalUrl, 'https://www.gov.uk').searchParams;
+  const queryString = searchParams && `?${searchParams}`;
+
+  const currentStep = validSteps.find(step => step.url === req.path);
   if (!currentStep) {
-    return '/';
+    return `/${queryString}`;
   }
   if (currentStep.subSteps?.length) {
     const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(response));
     if (foundMatchingSubstep?.url) {
-      return foundMatchingSubstep?.url;
+      return `${foundMatchingSubstep?.url}${queryString}`;
     }
   }
   const index = validSteps.indexOf(currentStep);
-  return validSteps[index + 1]?.url || validSteps[index]?.url || '/';
+  return `${validSteps[index + 1]?.url || validSteps[index]?.url || '/'}${queryString}`;
 };

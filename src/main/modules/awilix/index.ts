@@ -1,22 +1,16 @@
+import fs from 'fs';
+
 import { InjectionMode, asClass, asValue, createContainer } from 'awilix';
 import { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 
+import { GetController } from '../../app/controller/GetController';
+import { PostController } from '../../app/controller/PostController';
 import { Form } from '../../app/form/Form';
 import { ErrorController } from '../../steps/error/error.controller';
 import { HomeGetController } from '../../steps/home/get';
-import { hasMarriageBrokenForm } from '../../steps/screen-questions/has-marriage-broken/content';
-import { HasMarriageBrokenGetController } from '../../steps/screen-questions/has-marriage-broken/get';
-import { HasMarriageBrokenPostController } from '../../steps/screen-questions/has-marriage-broken/post';
-import { languagePreferenceForm } from '../../steps/screen-questions/language-preference/content';
-import { LanguagePreferenceGetController } from '../../steps/screen-questions/language-preference/get';
-import { LanguagePreferencePostController } from '../../steps/screen-questions/language-preference/post';
-import { marriageCertificateForm } from '../../steps/screen-questions/marriage-certificate/content';
-import { MarriageCertificateGetController } from '../../steps/screen-questions/marriage-certificate/get';
-import { MarriageCertificatePostController } from '../../steps/screen-questions/marriage-certificate/post';
-import { respondentAddressForm } from '../../steps/screen-questions/respondent-address/content';
-import { RespondentAddressGetController } from '../../steps/screen-questions/respondent-address/get';
-import { RespondentAddressPostController } from '../../steps/screen-questions/respondent-address/post';
+import { getSteps } from '../../steps/sequence';
+import type { Step } from '../../steps/sequence';
 import { TermsAndConditionsGetController } from '../../steps/terms-and-conditions/get';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -27,21 +21,31 @@ const logger: LoggerInstance = Logger.getLogger('app');
  */
 export class Container {
   public enableFor(app: Application): void {
-    app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
-      logger: asValue(logger),
-      homeGetController: asValue(new HomeGetController()),
-      termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
-      languagePreferenceGetController: asValue(new LanguagePreferenceGetController()),
-      languagePreferencePostController: asValue(new LanguagePreferencePostController(new Form(languagePreferenceForm))),
-      hasMarriageBrokenGetController: asValue(new HasMarriageBrokenGetController()),
-      hasMarriageBrokenPostController: asValue(new HasMarriageBrokenPostController(new Form(hasMarriageBrokenForm))),
-      respondentAddressGetController: asValue(new RespondentAddressGetController()),
-      respondentAddressPostController: asValue(new RespondentAddressPostController(new Form(respondentAddressForm))),
-      marriageCertificateGetController: asValue(new MarriageCertificateGetController()),
-      marriageCertificatePostController: asValue(
-        new MarriageCertificatePostController(new Form(marriageCertificateForm))
-      ),
-      errorController: asClass(ErrorController),
+    // const steps = [];
+    const steps = getSteps().map((step: Step) => {
+      const stepDir = `${__dirname}/../../steps/screen-questions/${step.id}`;
+      const view = `${stepDir}/template.njk`;
+      const { getContent, form } = require(`${stepDir}/content.ts`);
+
+      return {
+        [`${step.id}StepGetController`]: asValue(
+          new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, getContent(step.title))
+        ),
+        [`${step.id}StepPostController`]: asValue(new PostController(new Form(form))),
+      };
     });
+
+    app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(
+      Object.assign(
+        {},
+        {
+          logger: asValue(logger),
+          homeGetController: asValue(new HomeGetController()),
+          termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
+          errorController: asClass(ErrorController),
+        },
+        ...steps
+      )
+    );
   }
 }

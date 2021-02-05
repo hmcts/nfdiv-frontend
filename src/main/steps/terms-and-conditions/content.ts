@@ -98,4 +98,4 @@ const common = {
   link: TERMS_AND_CONDITIONS_URL,
 };
 
-export const TermsAndConditionsContent = { en, cy, common };
+export const TermsAndConditionsContent = { en: { divorce: en, civil: en }, cy: { divorce: cy, civil: cy }, common };

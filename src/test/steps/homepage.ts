@@ -1,4 +1,4 @@
-import { LANGUAGE_PREFERENCE_URL } from '../../main/steps/urls';
+import { PARTNER_GENDER_URL } from '../../main/steps/urls';
 import { config } from '../config';
 
 const { I } = inject();
@@ -38,5 +38,5 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Given('I am on civil partnership homepage', () => {
-  I.amOnPage(`${LANGUAGE_PREFERENCE_URL}?forceCivilMode`);
+  I.amOnPage(`${PARTNER_GENDER_URL}?forceCivilMode`);
 });

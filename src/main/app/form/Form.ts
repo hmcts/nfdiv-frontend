@@ -24,6 +24,8 @@ type ValidationCheck = (lang: string) => void | string;
 
 type Label = string | LanguageLookup;
 
+type Conditional = Label;
+
 export interface FormContent {
   submit: {
     text: Label;
@@ -47,6 +49,7 @@ export interface FormInput {
   selected?: boolean;
   value?: string | number;
   validator?: ValidationCheck;
+  conditional?: Conditional;
 }
 
 export interface CsrfField {

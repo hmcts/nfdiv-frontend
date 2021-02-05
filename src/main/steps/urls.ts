@@ -3,8 +3,9 @@ export type PageLink = `/${string}`;
 export const HOME_URL: PageLink = '/';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
-export const LANGUAGE_PREFERENCE_URL: PageLink = '/screening-questions/language-preference';
-export const HAS_MARRIAGE_BROKEN_URL: PageLink = '/screening-questions/has-marriage-broken';
-export const MARRIAGE_NOT_BROKEN_URL: PageLink = '/screening-questions/marriage-has-not-broken';
-export const RESPONDENT_ADDRESS_URL: PageLink = '/screening-questions/respondent-address';
-export const MARRIAGE_CERTIFICATE_URL: PageLink = '/screening-questions/marriage-certificate';
+
+export const PARTNER_GENDER_URL: PageLink = '/screening-questions/partner-gender';
+export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/screening-questions/has-relationship-broken';
+export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/screening-questions/relationship-has-not-broken';
+
+export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';

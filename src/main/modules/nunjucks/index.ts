@@ -24,6 +24,16 @@ export class Nunjucks {
         text: this.env.globals.getContent.call(this, i.label),
         value: i.value,
         selected: i.selected,
+        conditional: i.conditional && {
+          html: `
+            <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                ${this.env.globals.getContent.call(this, i.conditional)}
+              </strong>
+            </div>`,
+        },
       }));
     });
 
