@@ -1,4 +1,5 @@
 import { FormBody, FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
 
 const divorceEn = {
   question: 'Do you have your marriage certificate with you?',
@@ -12,8 +13,8 @@ const divorceEn = {
   no: 'No, I do not have my marriage certificate',
   errors: {
     screenHasCertificate: {
-      required: 'Select yes if you have your marriage certificate',
-      invalid: 'Select yes if you have your marriage certificate',
+      required: 'You have not answered the question. You need to select an answer before continuing.',
+      invalid: 'You have not answered the question. You need to select an answer before continuing.',
     },
   },
 };
@@ -47,8 +48,8 @@ const civilEn = {
   no: 'No, I do not have my civil partnership certificate',
   errors: {
     screenHasCertificate: {
-      required: 'Select yes if you have your civil partnership certificate',
-      invalid: 'Select yes if you have your civil partnership certificate',
+      required: 'You have not answered the question. You need to select an answer before continuing.',
+      invalid: 'You have not answered the question. You need to select an answer before continuing.',
     },
   },
 };
@@ -80,6 +81,7 @@ export const certificateForm: FormContent = {
         { label: l => l.yes, value: 'Yes' },
         { label: l => l.no, value: 'No' },
       ],
+      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {
