@@ -92,7 +92,7 @@ export class OidcMiddleware {
 
 declare module 'express-session' {
   export interface SessionData {
-    user: Record<string, unknown>;
+    user: Record<string, Record<string, unknown>>;
     userCase: Record<string, string>;
   }
 }
