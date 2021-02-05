@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
 import autobind from 'autobind-decorator';
+import { AxiosError, AxiosResponse } from 'axios';
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import type { LoggerInstance } from 'winston';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import { commonContent } from '../common/common.content';
 
@@ -10,16 +10,13 @@ import { errorContent } from './content';
 
 @autobind
 export class ErrorController {
-
-  constructor(
-    private readonly logger: LoggerInstance
-  ) { }
+  constructor(private readonly logger: LoggerInstance) {}
 
   /**
    * Catch all for 404
    */
   public notFound(req: Request, res: Response): void {
-    this.logger.error(`404 Not Found: ${req.originalUrl}`);
+    this.logger.info(`404 Not Found: ${req.originalUrl}`);
 
     res.status(StatusCodes.NOT_FOUND);
     this.render(req, res);

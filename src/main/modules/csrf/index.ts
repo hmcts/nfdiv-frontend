@@ -1,8 +1,9 @@
-import { Application } from 'express';
 import csurf from 'csurf';
+import { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 

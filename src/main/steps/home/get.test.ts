@@ -1,8 +1,8 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { homeContent } from './content';
+import { LANGUAGE_PREFERENCE_URL } from '../urls';
+
 import { HomeGetController } from './get';
-import { commonContent } from '../common/common.content';
 
 describe('HomeGetController', () => {
   const controller = new HomeGetController();
@@ -12,11 +12,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...homeContent.common,
-      ...commonContent.en,
-      sessionErrors: []
-    });
+    expect(res.redirect).toBeCalledWith(LANGUAGE_PREFERENCE_URL);
   });
-
 });
