@@ -70,7 +70,7 @@ export class OidcMiddleware {
               baseURL: config.get('services.cos.baseURL'),
               headers: {
                 Authorization: 'Bearer ' + user.access_token,
-                ServiceAuthorization: user.id_token,
+                IdToken: user.id_token,
               },
             })
           ),
