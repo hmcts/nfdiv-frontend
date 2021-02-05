@@ -88,7 +88,7 @@
     "allure-commandline": "^2.13.8",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
-    "codeceptjs": "^3.0.4",
+    "codeceptjs": "^3.0.5",
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^3.4.2",
