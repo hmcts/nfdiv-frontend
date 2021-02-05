@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getNextStepUrl } from '../../steps/sequence';
 import { Form } from '../form/Form';
 import { SessionState } from '../step/StepStateStorage';
 
@@ -30,7 +31,7 @@ export abstract class PostController<T extends AnyObject> {
 
       await res.locals.storage.store(state);
 
-      res.redirect(this.getNextStep(req.body));
+      res.redirect(getNextStepUrl(req.url, req.body as Record<string, string>));
     }
   }
 
@@ -42,11 +43,6 @@ export abstract class PostController<T extends AnyObject> {
   protected getStateUpdate(current: SessionState, update: T, stepName: string): AnyObject {
     return { [stepName]: update };
   }
-
-  /**
-   * Get the page to redirect to
-   */
-  protected abstract getNextStep(body: T): string;
 }
 
 export type AnyObject = Record<string, unknown>;
