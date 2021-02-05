@@ -69,7 +69,8 @@ export class OidcMiddleware {
             Axios.create({
               baseURL: config.get('services.cos.baseURL'),
               headers: {
-                Authorization: 'Bearer ' + user.id_token,
+                Authorization: 'Bearer ' + user.access_token,
+                ServiceAuthorization: user.id_token,
               },
             })
           ),
@@ -79,7 +80,7 @@ export class OidcMiddleware {
         if (!req.session.userCase) {
           const userCase = await req.scope?.cradle.api.getCase();
           req.session.userCase =
-            userCase || (await req.scope?.cradle.api.createCase({ petitionerEmail: user.jwt.sub }));
+            userCase || (await req.scope?.cradle.api.createCase({ divorceOrDissolution: res.locals.serviceType }));
         }
 
         res.locals.isLoggedIn = true;
