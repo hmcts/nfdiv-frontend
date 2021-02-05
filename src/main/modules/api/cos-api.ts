@@ -2,10 +2,7 @@ import { AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
 export class CosApi {
-  constructor(
-    private readonly axios: AxiosInstance,
-    private readonly logger: LoggerInstance
-  ) { }
+  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   //TODO change return type when backend has been implemented.
   public getCase(): Promise<Record<string, unknown>> {
@@ -29,10 +26,9 @@ export class CosApi {
   }
 }
 
-
 export interface CaseCreationResponse {
-  caseId: string,
-  error: string,
-  status: string,
-  allocatedCourt: Record<string, string>
+  caseId: string;
+  error: string;
+  status: string;
+  allocatedCourt: Record<string, string>;
 }
