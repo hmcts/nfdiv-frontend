@@ -1,7 +1,10 @@
+import { AwilixContainer, asClass, asValue } from 'awilix';
 import Axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
+
+import { CosApi } from '../api/cos-api';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -57,8 +60,29 @@ export class OidcMiddleware {
       })
     );
 
-    app.use((req: Request, res: Response, next: NextFunction) => {
+    app.use(async (req: RequestWithScope, res: Response, next: NextFunction) => {
       if (req.session?.user) {
+        const user = req.session.user;
+        req.scope = req.app.locals.container.createScope();
+        req.scope?.register({
+          axios: asValue(
+            Axios.create({
+              baseURL: config.get('services.cos.baseURL'),
+              headers: {
+                Authorization: 'Bearer ' + user.access_token,
+                IdToken: user.id_token,
+              },
+            })
+          ),
+          api: asClass(CosApi),
+        });
+
+        if (!req.session.userCase) {
+          const userCase = await req.scope?.cradle.api.getCase();
+          req.session.userCase =
+            userCase || (await req.scope?.cradle.api.createCase({ divorceOrDissolution: res.locals.serviceType }));
+        }
+
         res.locals.isLoggedIn = true;
         return next();
       }
@@ -69,6 +93,11 @@ export class OidcMiddleware {
 
 declare module 'express-session' {
   export interface SessionData {
-    user: Record<string, unknown>;
+    user: Record<string, Record<string, unknown>>;
+    userCase: Record<string, string>;
   }
+}
+
+export interface RequestWithScope extends Request {
+  scope?: AwilixContainer;
 }
