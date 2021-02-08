@@ -34,21 +34,14 @@ export class Container {
       };
     });
 
-    const combinedStepControllersAndResolvers = stepControllers.reduce(
-      (previous, current) => ({
-        ...previous,
-        ...current,
-      }),
-      {
-        logger: asValue(logger),
-        homeGetController: asValue(new HomeGetController()),
-        termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
-        errorController: asClass(ErrorController),
-      }
-    );
+    const baseDependencies = {
+      logger: asValue(logger),
+      homeGetController: asValue(new HomeGetController()),
+      termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
+      errorController: asClass(ErrorController),
+    };
+    const dependencies = Object.assign(baseDependencies, ...stepControllers);
 
-    app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(
-      combinedStepControllersAndResolvers
-    );
+    app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(dependencies);
   }
 }
