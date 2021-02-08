@@ -70,5 +70,6 @@ export class OidcMiddleware {
 declare module 'express-session' {
   export interface SessionData {
     user: Record<string, unknown>;
+    lang: string;
   }
 }

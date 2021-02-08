@@ -50,7 +50,7 @@ export class ErrorController {
   }
 
   private render(req: Request, res: Response) {
-    const lang = req.session['lang'] || 'en';
+    const lang = req.session?.lang || 'en';
     const errorText = errorContent[lang][res.statusCode] || errorContent[lang][StatusCodes.INTERNAL_SERVER_ERROR];
     res.locals.isError = true;
     res.render('error/error', { ...commonContent[lang], ...errorText });

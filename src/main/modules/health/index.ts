@@ -26,6 +26,23 @@ export class HealthCheck {
       )
     );
 
+    app.get(
+      '/timeout',
+      errorHandler(async (req, res) => {
+        console.log(`Pausing for ${req.query.duration} milliseconds`);
+        await new Promise(resolve => setTimeout(resolve, req.query.duration));
+
+        console.log('Headers sent?', res.headersSent);
+        if (res.headersSent || res.locals.isError) {
+          // If there's an async error, it wil have already rendered an error page upstream,
+          // so we don't want to call render again
+          return;
+        }
+
+        res.send('done');
+      })
+    );
+
     // const healthOptions = () => {
     //   return {
     //     callback: (err: Error, res: Request): Promise<void> => {
