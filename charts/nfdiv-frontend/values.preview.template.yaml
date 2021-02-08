@@ -1,3 +1,4 @@
+
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
@@ -7,9 +8,6 @@ nodejs:
     prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
   environment:
-    IDAM_WEB_URL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    IDAM_API_URL: 'https://idam-api.aat.platform.hmcts.net/o/token'
-    COS_URL: 'http://nfdiv-cos-aat.service.core-compute-aat.internal'
 
 idam-pr:
   enabled: true
