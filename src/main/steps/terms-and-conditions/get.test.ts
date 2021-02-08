@@ -14,7 +14,7 @@ describe('TermsAndConditionsGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...TermsAndConditionsContent.en,
+      ...TermsAndConditionsContent.en.divorce,
       ...TermsAndConditionsContent.common,
       ...commonContent.en,
       sessionErrors: [],

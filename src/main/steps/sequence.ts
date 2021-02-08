@@ -157,7 +157,7 @@ export const getNextStepUrl = (req: Request, response: Record<string, string>): 
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
 
-  const currentStep = validSteps.find(step => step.url === req.path);
+  const currentStep = validSteps.find(step => step.url === path);
   if (!currentStep) {
     return `${path}${queryString}`;
   }

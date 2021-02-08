@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
+import { HAS_RELATIONSHIP_BROKEN_URL, PARTNER_GENDER_URL } from '../../steps/urls';
 
 import { PostController } from './PostController';
 
@@ -31,9 +32,11 @@ describe('PostController', () => {
 
     const req = mockRequest();
     const res = mockResponse(req.session);
+
+    req.originalUrl = PARTNER_GENDER_URL;
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/redirect-to');
+    expect(res.redirect).toBeCalledWith(HAS_RELATIONSHIP_BROKEN_URL);
     expect(req.session.errors).toBe(undefined);
   });
 });
