@@ -154,12 +154,12 @@ export const getSteps = (steps: Step[] = [], start = validSteps): Step[] => {
 };
 
 export const getNextStepUrl = (req: Request, response: Record<string, string>): string => {
-  const searchParams = new URL(req.originalUrl, 'https://www.gov.uk').searchParams;
-  const queryString = searchParams && `?${searchParams}`;
+  const [path, searchParams] = req.originalUrl.split('?');
+  const queryString = searchParams ? `?${searchParams}` : '';
 
   const currentStep = validSteps.find(step => step.url === req.path);
   if (!currentStep) {
-    return `/${queryString}`;
+    return `${path}${queryString}`;
   }
   if (currentStep.subSteps?.length) {
     const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(response));
@@ -168,5 +168,5 @@ export const getNextStepUrl = (req: Request, response: Record<string, string>): 
     }
   }
   const index = validSteps.indexOf(currentStep);
-  return `${validSteps[index + 1]?.url || validSteps[index]?.url || '/'}${queryString}`;
+  return `${validSteps[index + 1]?.url || path}${queryString}`;
 };

@@ -56,7 +56,7 @@ export const form: FormContent = {
         {
           label: l => l.no,
           value: 'No',
-          conditional: l => l.notBrokenDownSelected,
+          warning: l => l.notBrokenDownSelected,
         },
       ],
       validator: value => isFieldFilledIn(value),

@@ -14,6 +14,7 @@ const en = {
   back: 'Back',
   continue: 'Continue',
   download: 'Download',
+  warning: 'Warning',
   ogl:
     'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   cookieText:
@@ -78,6 +79,7 @@ const cy: typeof en = {
   back: 'Yn ôl',
   continue: 'Parhau',
   download: 'Llwytho i lawr',
+  warning: 'Warning',
   ogl:
     'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   cookieText:
