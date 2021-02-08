@@ -147,7 +147,7 @@ export const getSteps = (steps: Step[] = [], start = validSteps): Step[] => {
   start.map(step => {
     steps.push(step);
     if (step.subSteps) {
-      return getSteps(steps, step.subSteps);
+      getSteps(steps, step.subSteps);
     }
   });
   return steps;
