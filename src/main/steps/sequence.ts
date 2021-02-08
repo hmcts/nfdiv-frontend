@@ -19,6 +19,8 @@ interface SubStep extends Step {
   when: (response: Record<string, string>) => boolean;
   finalPage?: boolean;
 }
+
+// @TODO Remove this type once all steps have been implemented
 interface IncompleteStep {
   id?: string;
   title: string;

@@ -21,8 +21,7 @@ const logger: LoggerInstance = Logger.getLogger('app');
  */
 export class Container {
   public enableFor(app: Application): void {
-    // const steps = [];
-    const steps = getSteps().map((step: Step) => {
+    const stepControllers = getSteps().map((step: Step) => {
       const stepDir = `${__dirname}/../../steps/screen-questions/${step.id}`;
       const view = `${stepDir}/template.njk`;
       const { getContent, form } = require(`${stepDir}/content.ts`);
@@ -35,17 +34,21 @@ export class Container {
       };
     });
 
+    const combinedStepControllersAndResolvers = stepControllers.reduce(
+      (previous, current) => ({
+        ...previous,
+        ...current,
+      }),
+      {
+        logger: asValue(logger),
+        homeGetController: asValue(new HomeGetController()),
+        termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
+        errorController: asClass(ErrorController),
+      }
+    );
+
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(
-      Object.assign(
-        {},
-        {
-          logger: asValue(logger),
-          homeGetController: asValue(new HomeGetController()),
-          termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
-          errorController: asClass(ErrorController),
-        },
-        ...steps
-      )
+      combinedStepControllersAndResolvers
     );
   }
 }
