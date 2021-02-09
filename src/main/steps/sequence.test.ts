@@ -35,7 +35,5 @@ describe('Sequence', () => {
       mockReq.originalUrl = "I don't exist";
       expect(getNextStepUrl(mockReq, {})).toBe('/step-not-found');
     });
-
-    it.todo('returns current step if this is flagged as the lastPage');
   });
 });
