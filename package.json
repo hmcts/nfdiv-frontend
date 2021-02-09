@@ -82,7 +82,7 @@
     "@types/jest": "^26.0.20",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/webpack-dev-middleware": "^4.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "@wdio/sauce-service": "^6.12.1",
     "allure-commandline": "^2.13.8",
