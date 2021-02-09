@@ -20,22 +20,19 @@ export class Nunjucks {
     });
 
     env.addGlobal('formItems', function (items: FormInput[]) {
-      return items.map(i => {
-        let conditional: string | undefined;
-        if (i.warning) {
-          conditional = env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-            message: this.env.globals.getContent.call(this, i.warning),
-            warning: this.ctx.warning,
-          });
-        }
-
-        return {
-          text: this.env.globals.getContent.call(this, i.label),
-          value: i.value,
-          selected: i.selected,
-          conditional: conditional && { html: conditional },
-        };
-      });
+      return items.map(i => ({
+        text: this.env.globals.getContent.call(this, i.label),
+        value: i.value,
+        selected: i.selected,
+        conditional: !i.warning
+          ? undefined
+          : {
+              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                message: this.env.globals.getContent.call(this, i.warning),
+                warning: this.ctx.warning,
+              }),
+            },
+      }));
     });
 
     app.use((req, res, next) => {

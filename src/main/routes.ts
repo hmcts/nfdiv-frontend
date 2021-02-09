@@ -1,4 +1,10 @@
+import fs from 'fs';
+
 import { Application } from 'express';
+
+import { GetController } from '../main/app/controller/GetController';
+import { PostController } from '../main/app/controller/PostController';
+import { Form } from '../main/app/form/Form';
 
 import { getSteps } from './steps/sequence';
 import { CSRF_TOKEN_ERROR_URL, HOME_URL, TERMS_AND_CONDITIONS_URL } from './steps/urls';
@@ -10,14 +16,22 @@ export class Routes {
     app.get(HOME_URL, errorHandler(app.locals.container.cradle.homeGetController.get));
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
 
-    getSteps().forEach(step => {
-      app.get(step.url, errorHandler(app.locals.container.cradle[`${step.id}StepGetController`].get));
+    for (const step of getSteps()) {
+      const stepDir = `${__dirname}/steps/sequence/${step.id}`;
+      const view = `${stepDir}/template.njk`;
+      const { generateContent, form } = require(`${stepDir}/content.ts`);
 
-      const postController = `${step.id}StepPostController`;
-      if (app.locals.container.has(postController)) {
-        app.post(step.url, errorHandler(app.locals.container.cradle[postController].post));
+      app.get(
+        step.url,
+        errorHandler(
+          new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, generateContent(step.title)).get
+        )
+      );
+
+      if (form) {
+        app.post(step.url, errorHandler(new PostController(new Form(form)).post));
       }
-    });
+    }
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(app.locals.container.cradle.errorController.CSRFTokenError));
     app.use(app.locals.container.cradle.errorController.notFound);

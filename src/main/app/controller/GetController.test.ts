@@ -5,18 +5,29 @@ import { commonContent } from '../../steps/common/common.content';
 import { GetController, Translations } from './GetController';
 
 describe('GetController', () => {
-  test('Should render the home page', async () => {
-    const controller = new GetController('home/home', {} as Translations);
+  test('Should render the page', async () => {
+    const controller = new GetController('page', ({ en: { extraEnglish: 'text' } } as unknown) as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('home/home', { ...commonContent.en, sessionErrors: [] });
+    expect(res.render).toBeCalledWith('page', { ...commonContent.en, extraEnglish: 'text', sessionErrors: [] });
+  });
+
+  test('Should render the page in Welsh', async () => {
+    const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+
+    const req = mockRequest();
+    const res = mockResponse();
+    req.session.lang = 'cy';
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith('page', { ...commonContent.cy, extraWelsh: 'text', sessionErrors: [] });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new GetController('home/home', {} as Translations);
+    const controller = new GetController('page', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -26,35 +37,90 @@ describe('GetController', () => {
     expect(res.render).not.toHaveBeenCalled();
   });
 
-  test('calls getContent with correct arguments when serviceType is civil', async () => {
-    const getContentMock = jest.fn().mockReturnValue({ en: { additionalEnglish: 'text' } });
-    const controller = new GetController('home/home', getContentMock);
+  test("Doesn't call render if headers have already been sent already upstream", async () => {
+    const controller = new GetController('page', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
-    res.locals.serviceType = 'civil';
+    res.headersSent = true;
     await controller.get(req, res);
 
-    expect(getContentMock).toHaveBeenCalledTimes(1);
-    expect(getContentMock).toHaveBeenCalledWith(false);
-    expect(res.render).toBeCalledWith('home/home', {
-      ...commonContent.en,
-      additionalEnglish: 'text',
-      sessionErrors: [],
+    expect(res.render).not.toHaveBeenCalled();
+  });
+
+  describe('Service type divorce', () => {
+    test('calls getContent with correct arguments in English', async () => {
+      const getContentMock = jest.fn().mockReturnValue({ en: { additionalEnglish: 'text' } });
+      const controller = new GetController('page', getContentMock);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      await controller.get(req, res);
+
+      expect(getContentMock).toHaveBeenCalledTimes(1);
+      expect(getContentMock).toHaveBeenCalledWith(true);
+      expect(res.render).toBeCalledWith('page', {
+        ...commonContent.en,
+        additionalEnglish: 'text',
+        sessionErrors: [],
+      });
+    });
+
+    test('calls getContent with correct arguments in Welsh', async () => {
+      const getContentMock = jest.fn().mockReturnValue({ cy: { additionalWelsh: 'text' } });
+      const controller = new GetController('page', getContentMock);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      req.session.lang = 'cy';
+      await controller.get(req, res);
+
+      expect(getContentMock).toHaveBeenCalledTimes(1);
+      expect(getContentMock).toHaveBeenCalledWith(true);
+      expect(res.render).toBeCalledWith('page', {
+        ...commonContent.cy,
+        additionalWelsh: 'text',
+        sessionErrors: [],
+      });
     });
   });
 
-  test('returns Welsh translations', async () => {
-    const getContentMock = jest.fn().mockReturnValue({ cy: { additionalWelsh: 'text' } });
-    const controller = new GetController('home/home', getContentMock);
+  describe('Service type civil', () => {
+    test('calls getContent with correct arguments in English', async () => {
+      const getContentMock = jest.fn().mockReturnValue({ en: { additionalEnglish: 'text' } });
+      const controller = new GetController('page', getContentMock);
 
-    const req = mockRequest();
-    const res = mockResponse();
-    req.session.lang = 'cy';
-    await controller.get(req, res);
+      const req = mockRequest();
+      const res = mockResponse();
+      res.locals.serviceType = 'civil';
+      await controller.get(req, res);
 
-    expect(getContentMock).toHaveBeenCalledTimes(1);
-    expect(getContentMock).toHaveBeenCalledWith(true);
-    expect(res.render).toBeCalledWith('home/home', { ...commonContent.cy, additionalWelsh: 'text', sessionErrors: [] });
+      expect(getContentMock).toHaveBeenCalledTimes(1);
+      expect(getContentMock).toHaveBeenCalledWith(false);
+      expect(res.render).toBeCalledWith('page', {
+        ...commonContent.en,
+        additionalEnglish: 'text',
+        sessionErrors: [],
+      });
+    });
+
+    test('calls getContent with correct arguments in Welsh', async () => {
+      const getContentMock = jest.fn().mockReturnValue({ cy: { additionalWelsh: 'text' } });
+      const controller = new GetController('page', getContentMock);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      res.locals.serviceType = 'civil';
+      req.session.lang = 'cy';
+      await controller.get(req, res);
+
+      expect(getContentMock).toHaveBeenCalledTimes(1);
+      expect(getContentMock).toHaveBeenCalledWith(false);
+      expect(res.render).toBeCalledWith('page', {
+        ...commonContent.cy,
+        additionalWelsh: 'text',
+        sessionErrors: [],
+      });
+    });
   });
 });

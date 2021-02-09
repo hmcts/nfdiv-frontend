@@ -31,7 +31,7 @@ export class PostController<T extends AnyObject> {
 
       await res.locals.storage.store(state);
 
-      res.redirect(getNextStepUrl(req, req.body as Record<string, string>));
+      res.redirect(getNextStepUrl(req));
     }
   }
 

@@ -6,11 +6,11 @@ import { commonContent } from '../../steps/common/common.content';
 import { AppRequest } from './AppRequest';
 
 export type Translations = Record<'en' | 'cy' | 'common', Record<string, unknown>>;
-export type TranslationHOC = (isDivorce: boolean) => Translations;
+export type TranslationFn = (isDivorce: boolean) => Translations;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationHOC | Translations) {}
+  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -19,13 +19,13 @@ export class GetController {
       return;
     }
 
-    const isDivorce = res.locals?.serviceType !== 'civil';
+    const isDivorce = res.locals.serviceType !== 'civil';
     const derivedContent = typeof this.content === 'function' ? this.content(isDivorce) : this.content;
 
-    const language = req.session?.lang || 'en';
+    const language = req.session.lang || 'en';
     const languageContent = derivedContent[language];
     const commonLanguageContent = commonContent[language];
-    const commonPageContent = derivedContent?.common || {};
+    const commonPageContent = derivedContent.common || {};
 
     const sessionErrors = req.session.errors || [];
 

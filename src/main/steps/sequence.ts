@@ -155,7 +155,7 @@ export const getSteps = (steps: Step[] = [], start = validSteps): Step[] => {
   return steps;
 };
 
-export const getNextStepUrl = (req: Request, response: Record<string, string>): string => {
+export const getNextStepUrl = (req: Request): string => {
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
 
@@ -164,7 +164,7 @@ export const getNextStepUrl = (req: Request, response: Record<string, string>): 
     return '/step-not-found';
   }
   if (currentStep.subSteps?.length) {
-    const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(response));
+    const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(req.body));
     if (foundMatchingSubstep?.url) {
       return `${foundMatchingSubstep?.url}${queryString}`;
     }
