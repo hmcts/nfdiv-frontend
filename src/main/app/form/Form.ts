@@ -56,8 +56,6 @@ export interface CsrfField {
   _csrf: string;
 }
 
-export type FormBody<T extends FormContent> = Record<keyof T['fields'], string> & CsrfField;
-
 export type FormError = {
   propertyName: string;
   errorType: string;

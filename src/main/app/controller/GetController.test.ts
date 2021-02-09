@@ -2,25 +2,21 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
 
-import { GetController } from './GetController';
+import { GetController, Translations } from './GetController';
 
 describe('GetController', () => {
   test('Should render the home page', async () => {
-    const getContentMock = jest.fn();
-    const controller = new GetController('home/home', getContentMock);
+    const controller = new GetController('home/home', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(getContentMock).toHaveBeenCalledTimes(1);
-    expect(getContentMock).toHaveBeenCalledWith(true);
     expect(res.render).toBeCalledWith('home/home', { ...commonContent.en, sessionErrors: [] });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const getContentMock = jest.fn();
-    const controller = new GetController('home/home', getContentMock);
+    const controller = new GetController('home/home', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();

@@ -161,7 +161,7 @@ export const getNextStepUrl = (req: Request, response: Record<string, string>): 
 
   const currentStep = validSteps.find(step => step.url === path);
   if (!currentStep) {
-    return `${path}${queryString}`;
+    return '/step-not-found';
   }
   if (currentStep.subSteps?.length) {
     const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(response));

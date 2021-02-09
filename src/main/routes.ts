@@ -12,7 +12,11 @@ export class Routes {
 
     getSteps().forEach(step => {
       app.get(step.url, errorHandler(app.locals.container.cradle[`${step.id}StepGetController`].get));
-      app.post(step.url, errorHandler(app.locals.container.cradle[`${step.id}StepPostController`].post));
+
+      const postController = `${step.id}StepPostController`;
+      if (app.locals.container.has(postController)) {
+        app.post(step.url, errorHandler(app.locals.container.cradle[postController].post));
+      }
     });
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(app.locals.container.cradle.errorController.CSRFTokenError));

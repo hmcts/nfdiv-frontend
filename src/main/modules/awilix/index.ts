@@ -22,7 +22,7 @@ const logger: LoggerInstance = Logger.getLogger('app');
 export class Container {
   public enableFor(app: Application): void {
     const stepControllers = getSteps().map((step: Step) => {
-      const stepDir = `${__dirname}/../../steps/screen-questions/${step.id}`;
+      const stepDir = `${__dirname}/../../steps/sequence/${step.id}`;
       const view = `${stepDir}/template.njk`;
       const { generateContent, form } = require(`${stepDir}/content.ts`);
 
@@ -30,7 +30,7 @@ export class Container {
         [`${step.id}StepGetController`]: asValue(
           new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, generateContent(step.title))
         ),
-        [`${step.id}StepPostController`]: asValue(new PostController(new Form(form))),
+        ...(form && { [`${step.id}StepPostController`]: asValue(new PostController(new Form(form))) }),
       };
     });
 

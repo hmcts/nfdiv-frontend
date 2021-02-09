@@ -5,12 +5,12 @@ import { commonContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
-type DivorceOrCivilContext = Record<string, unknown>;
-type TranslationContent = (isDivorce: boolean) => Record<'en' | 'cy' | 'common', DivorceOrCivilContext>;
+export type Translations = Record<'en' | 'cy' | 'common', Record<string, unknown>>;
+export type TranslationHOC = (isDivorce: boolean) => Translations;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly getContent: TranslationContent) {}
+  constructor(protected readonly view: string, protected readonly content: TranslationHOC | Translations) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -20,12 +20,12 @@ export class GetController {
     }
 
     const isDivorce = res.locals?.serviceType !== 'civil';
-    const content = this.getContent(isDivorce);
+    const derivedContent = typeof this.content === 'function' ? this.content(isDivorce) : this.content;
 
     const language = req.session?.lang || 'en';
-    const languageContent = content?.[language];
+    const languageContent = derivedContent[language];
     const commonLanguageContent = commonContent[language];
-    const commonPageContent = content?.common || {};
+    const commonPageContent = derivedContent?.common || {};
 
     const sessionErrors = req.session.errors || [];
 

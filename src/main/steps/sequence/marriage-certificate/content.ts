@@ -1,4 +1,4 @@
-import { FormBody, FormContent } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 export const generateContent = (title: string): Record<string, unknown> => {
   const en = {
@@ -58,5 +58,3 @@ export const form: FormContent = {
     text: l => l.continue,
   },
 };
-
-export type MarriageCertificateForm = FormBody<typeof form>;
