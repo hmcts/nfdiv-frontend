@@ -24,11 +24,11 @@ export class Container {
     const stepControllers = getSteps().map((step: Step) => {
       const stepDir = `${__dirname}/../../steps/screen-questions/${step.id}`;
       const view = `${stepDir}/template.njk`;
-      const { getContent, form } = require(`${stepDir}/content.ts`);
+      const { generateContent, form } = require(`${stepDir}/content.ts`);
 
       return {
         [`${step.id}StepGetController`]: asValue(
-          new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, getContent(step.title))
+          new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, generateContent(step.title))
         ),
         [`${step.id}StepPostController`]: asValue(new PostController(new Form(form))),
       };

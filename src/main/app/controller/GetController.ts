@@ -5,12 +5,12 @@ import { commonContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
-type DivorceOrCivilContext = Record<'divorce' | 'civil' | string, unknown>;
-type TranslationContent = Record<'en' | 'cy' | 'common', DivorceOrCivilContext>;
+type DivorceOrCivilContext = Record<string, unknown>;
+type TranslationContent = (isDivorce: boolean) => Record<'en' | 'cy' | 'common', DivorceOrCivilContext>;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationContent) {}
+  constructor(protected readonly view: string, protected readonly getContent: TranslationContent) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -18,12 +18,14 @@ export class GetController {
       // so we don't want to call render again
       return;
     }
-    const language = req.session?.lang || 'en';
-    const serviceType = res.locals?.serviceType || 'divorce';
 
-    const languageContent = this.content[language][serviceType];
+    const isDivorce = res.locals?.serviceType !== 'civil';
+    const content = this.getContent(isDivorce);
+
+    const language = req.session?.lang || 'en';
+    const languageContent = content?.[language];
     const commonLanguageContent = commonContent[language];
-    const commonPageContent = this.content.common || {};
+    const commonPageContent = content?.common || {};
 
     const sessionErrors = req.session.errors || [];
 

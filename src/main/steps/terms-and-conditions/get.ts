@@ -1,9 +1,9 @@
 import { GetController } from '../../app/controller/GetController';
 
-import { TermsAndConditionsContent } from './content';
+import { getTermsAndConditionsContent } from './content';
 
 export class TermsAndConditionsGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', TermsAndConditionsContent);
+    super(__dirname + '/template', getTermsAndConditionsContent);
   }
 }

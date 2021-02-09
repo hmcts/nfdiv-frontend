@@ -98,4 +98,8 @@ const common = {
   link: TERMS_AND_CONDITIONS_URL,
 };
 
-export const TermsAndConditionsContent = { en: { divorce: en, civil: en }, cy: { divorce: cy, civil: cy }, common };
+export const getTermsAndConditionsContent = (): Record<'en' | 'cy' | 'common', Record<string, unknown>> => ({
+  en,
+  cy,
+  common,
+});

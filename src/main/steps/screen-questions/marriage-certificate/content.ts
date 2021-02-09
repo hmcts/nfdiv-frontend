@@ -1,6 +1,6 @@
 import { FormBody, FormContent } from '../../../app/form/Form';
 
-export const getContent = (title: string): Record<string, unknown> => {
+export const generateContent = (title: string): Record<string, unknown> => {
   const en = {
     title,
     originalCertificate:

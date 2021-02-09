@@ -2,9 +2,9 @@ import { Request } from 'express';
 
 import {
   HAS_RELATIONSHIP_BROKEN_URL,
-  PARTNER_GENDER_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   UNION_CERTIFICATE_URL,
+  YOUR_DETAILS_URL,
 } from './urls';
 
 export interface Step {
@@ -36,9 +36,9 @@ interface IncompleteSubStep extends IncompleteStep {
 
 const sequence: IncompleteStep[] = [
   {
-    id: 'partner-gender',
-    title: 'Who are you divorcing?',
-    url: PARTNER_GENDER_URL,
+    id: 'your-details',
+    title: 'Who are you applying to divorce?',
+    url: YOUR_DETAILS_URL,
   },
   {
     id: 'has-relationship-broken',

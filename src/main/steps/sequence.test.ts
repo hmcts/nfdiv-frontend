@@ -3,9 +3,9 @@ import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { getNextStepUrl } from './sequence';
 import {
   HAS_RELATIONSHIP_BROKEN_URL,
-  PARTNER_GENDER_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   UNION_CERTIFICATE_URL,
+  YOUR_DETAILS_URL,
 } from './urls';
 
 describe('Sequence', () => {
@@ -16,7 +16,7 @@ describe('Sequence', () => {
     });
 
     it('returns the next step when correct details a passed', () => {
-      mockReq.originalUrl = PARTNER_GENDER_URL;
+      mockReq.originalUrl = YOUR_DETAILS_URL;
       expect(getNextStepUrl(mockReq, {})).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
@@ -32,7 +32,7 @@ describe('Sequence', () => {
     });
 
     it('keeps the query string', () => {
-      mockReq.originalUrl = `${PARTNER_GENDER_URL}?customQueryString`;
+      mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
       expect(getNextStepUrl(mockReq, {})).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
 
