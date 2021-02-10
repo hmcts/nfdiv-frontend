@@ -146,12 +146,12 @@ const sequence: IncompleteStep[] = [
 const validSteps = sequence.filter(step => step.id && step.url) as Step[];
 
 export const getSteps = (steps: Step[] = [], start = validSteps): Step[] => {
-  start.map(step => {
+  for (const step of start) {
     steps.push(step);
     if (step.subSteps) {
       getSteps(steps, step.subSteps);
     }
-  });
+  }
   return steps;
 };
 
