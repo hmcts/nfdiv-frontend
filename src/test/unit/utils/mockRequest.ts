@@ -12,6 +12,7 @@ export const mockRequest = (): AppRequest<never> => {
       state: {},
     },
     path: '/request',
+    url: '/request',
     originalUrl: '/request',
   } as unknown) as AppRequest<never>;
   req.body = (jest.fn().mockReturnValue(req) as unknown) as never;

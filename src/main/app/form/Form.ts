@@ -24,6 +24,8 @@ type ValidationCheck = (lang: string) => void | string;
 
 type Label = string | LanguageLookup;
 
+type Warning = Label;
+
 export interface FormContent {
   submit: {
     text: Label;
@@ -47,13 +49,12 @@ export interface FormInput {
   selected?: boolean;
   value?: string | number;
   validator?: ValidationCheck;
+  warning?: Warning;
 }
 
 export interface CsrfField {
   _csrf: string;
 }
-
-export type FormBody<T extends FormContent> = Record<keyof T['fields'], string> & CsrfField;
 
 export type FormError = {
   propertyName: string;
