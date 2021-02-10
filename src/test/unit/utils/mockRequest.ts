@@ -1,8 +1,8 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = (): AppRequest<never> => {
-  const req = ({
-    body: () => ({}),
+export const mockRequest = (body = {}): AppRequest<never> =>
+  (({
+    body,
     scope: {
       cradle: {},
     },
@@ -14,7 +14,4 @@ export const mockRequest = (): AppRequest<never> => {
     path: '/request',
     url: '/request',
     originalUrl: '/request',
-  } as unknown) as AppRequest<never>;
-  req.body = (jest.fn().mockReturnValue(req) as unknown) as never;
-  return req;
-};
+  } as unknown) as AppRequest<never>);

@@ -57,7 +57,13 @@
     {% endfor %}
   {% endblock %}
 
-  <div class="govuk-form-group">
-    {{ govukButton({ text: getContent(form.submit.text), preventDoubleClick: true }) }}
-  </div>
+  {{ govukButton({
+    text: getContent(form.submit.text),
+    type: "submit",
+    preventDoubleClick: true
+  }) }}
+
+  <p class="govuk-body">
+    <input class="hmcts-button-link" type="submit" name="saveAndSignOut" value="{{ saveAndSignOut }}"/><br>
+  </p>
 </form>

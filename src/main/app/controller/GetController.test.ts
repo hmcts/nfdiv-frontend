@@ -48,6 +48,23 @@ describe('GetController', () => {
     expect(res.render).not.toHaveBeenCalled();
   });
 
+  test('sends the current page session state to the view', async () => {
+    const controller = new GetController('page', {} as Translations, 'test-page');
+
+    const req = mockRequest();
+    const res = mockResponse();
+    req.session.state['test-page'] = { someInputData: 'falafel' };
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith('page', {
+      ...commonContent.en,
+      sessionErrors: [],
+      formState: {
+        someInputData: 'falafel',
+      },
+    });
+  });
+
   describe('Service type divorce', () => {
     test('calls getContent with correct arguments in English', async () => {
       const getContentMock = jest.fn().mockReturnValue({ en: { additionalEnglish: 'text' } });
