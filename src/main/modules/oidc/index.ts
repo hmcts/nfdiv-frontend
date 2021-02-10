@@ -60,34 +60,36 @@ export class OidcMiddleware {
       })
     );
 
-    app.use(async (req: RequestWithScope, res: Response, next: NextFunction) => {
-      if (req.session?.user) {
-        const user = req.session.user;
-        req.scope = req.app.locals.container.createScope();
-        req.scope?.register({
-          axios: asValue(
-            Axios.create({
-              baseURL: config.get('services.cos.baseURL'),
-              headers: {
-                Authorization: 'Bearer ' + user.access_token,
-                IdToken: user.id_token,
-              },
-            })
-          ),
-          api: asClass(CosApi),
-        });
+    app.use(
+      errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
+        if (req.session?.user) {
+          const user = req.session.user;
+          req.scope = req.app.locals.container.createScope();
+          req.scope?.register({
+            axios: asValue(
+              Axios.create({
+                baseURL: config.get('services.cos.baseURL'),
+                headers: {
+                  Authorization: 'Bearer ' + user.access_token,
+                  IdToken: user.id_token,
+                },
+              })
+            ),
+            api: asClass(CosApi),
+          });
 
-        if (!req.session.userCase) {
-          const userCase = await req.scope?.cradle.api.getCase();
-          req.session.userCase =
-            userCase || (await req.scope?.cradle.api.createCase({ divorceOrDissolution: res.locals.serviceType }));
+          if (!req.session.userCase) {
+            const userCase = await req.scope?.cradle.api.getCase();
+            req.session.userCase =
+              userCase || (await req.scope?.cradle.api.createCase({ divorceOrDissolution: res.locals.serviceType }));
+          }
+
+          res.locals.isLoggedIn = true;
+          return next();
         }
-
-        res.locals.isLoggedIn = true;
-        return next();
-      }
-      res.redirect('/login');
-    });
+        res.redirect('/login');
+      })
+    );
   }
 }
 
