@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../common/common.content';
 
-import { TermsAndConditionsContent } from './content';
+import { termsAndConditionsContent } from './content';
 import { TermsAndConditionsGetController } from './get';
 
 describe('TermsAndConditionsGetController', () => {
@@ -14,8 +14,8 @@ describe('TermsAndConditionsGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...TermsAndConditionsContent.en,
-      ...TermsAndConditionsContent.common,
+      ...termsAndConditionsContent.en,
+      ...termsAndConditionsContent.common,
       ...commonContent.en,
       sessionErrors: [],
     });

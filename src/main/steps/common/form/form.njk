@@ -2,6 +2,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -21,6 +22,19 @@
               },
               items: formItems(field.values)
             }) }}
+        {% case 'checkboxes' %}
+          {{ govukCheckboxes({
+            classes: field.classes,
+            idPrefix: fieldName,
+            name: fieldName,
+            fieldset: {
+              legend: {
+                text: getContent(field.label),
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            items: formItems(field.values)
+          }) }}
         {% case 'option' %}
           {{ govukSelect({
             id: fieldName,
