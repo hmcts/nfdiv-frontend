@@ -48,7 +48,7 @@ describe('GetController', () => {
     expect(res.render).not.toHaveBeenCalled();
   });
 
-  test('sends the current page session state to the view', async () => {
+  test('sends the current page form session state to the view', async () => {
     const controller = new GetController('page', {} as Translations, 'test-page');
 
     const req = mockRequest();
