@@ -10,4 +10,4 @@ coverage/*
 /src/main/types/
 jest.*config.js
 .eslintrc.js
-**/*.test.ts
+src/test/*/codecept.conf.js

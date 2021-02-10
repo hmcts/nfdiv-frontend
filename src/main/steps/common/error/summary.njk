@@ -1,3 +1,5 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
 {% if sessionErrors and sessionErrors.length > 0 %}
   {% set errorList = [] %}
   {% for item in sessionErrors %}
@@ -11,4 +13,3 @@
     "errorList": errorList
   }) }}
 {% endif %}
-

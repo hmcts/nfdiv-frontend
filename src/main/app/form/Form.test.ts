@@ -7,22 +7,22 @@ describe('Form', () => {
       field: {
         type: 'radios',
         values: [
-          {label: l => l.no, value: 'No'},
-          {label: l => l.yes, value: 'Yes'}
+          { label: l => l.no, value: 'No' },
+          { label: l => l.yes, value: 'Yes' },
         ],
-        validator: value => isFieldFilledIn(value)
-      }
+        validator: value => isFieldFilledIn(value),
+      },
     },
     submit: {
-      text: l => l.continue
-    }
+      text: l => l.continue,
+    },
   };
 
   const form = new Form(mockForm);
 
   test('Should validate a form', async () => {
     const errors = form.getErrors({
-      field: 'Yes'
+      field: 'Yes',
     });
 
     expect(errors).toStrictEqual([]);
@@ -34,9 +34,8 @@ describe('Form', () => {
     expect(errors).toStrictEqual([
       {
         propertyName: 'field',
-        errorType: 'required'
-      }
-      ]);
+        errorType: 'required',
+      },
+    ]);
   });
-
 });
