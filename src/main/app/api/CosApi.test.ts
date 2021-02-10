@@ -22,6 +22,23 @@ describe('CosApi', () => {
   } as never;
   const api = new CosApi(mockedAxios, mockLogger);
 
+  //TODO check the returned data once backend has been implemented
+  test('Should return case data response', async () => {
+    mockedAxios.get = jest.fn().mockResolvedValue(results);
+
+    const userCase = await api.getCase();
+
+    expect(userCase).toBe(results.data);
+  });
+
+  test('Should return false when case was not returned', async () => {
+    mockedAxios.get = jest.fn().mockRejectedValue(false);
+
+    const userCase = await api.getCase();
+
+    expect(userCase).toBe(false);
+  });
+
   test('Should return case creation response', async () => {
     mockedAxios.post = jest.fn().mockResolvedValue(results);
 

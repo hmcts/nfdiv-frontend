@@ -56,6 +56,7 @@ export class OidcMiddleware {
       '/logout',
       errorHandler((req: Request, res) => {
         req.session.user = undefined;
+        req.session.userCase = undefined;
         req.session.save(() => res.redirect('/'));
       })
     );

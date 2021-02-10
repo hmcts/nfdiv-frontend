@@ -7,7 +7,7 @@ export class CosApi {
   //TODO change return type when backend has been implemented.
   public getCase(): Promise<Record<string, unknown>> {
     return this.axios
-      .get('/retrieve-case')
+      .get('/case')
       .then(results => results.data)
       .catch(err => {
         this.logger.error(err);
