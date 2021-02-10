@@ -24,11 +24,7 @@ export const generateContent = (title: string) => (isDivorce: boolean): Record<s
     form,
   };
 
-  return {
-    en,
-    cy,
-    common,
-  };
+  return { en, cy, common };
 };
 
 export const form: FormContent = {
