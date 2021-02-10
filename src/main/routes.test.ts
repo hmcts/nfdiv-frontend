@@ -2,14 +2,16 @@ import { Application } from 'express';
 
 import { Routes } from './routes';
 import { Step, getSteps } from './steps/sequence';
+import { generateContent } from './steps/sequence/your-details/content';
 
 jest.mock('./steps/sequence');
+jest.mock('./steps/sequence/your-details/content');
 
 const getStepsMock = getSteps as jest.Mock<Step[]>;
 
 describe('Routes', () => {
-  it('sets up dyamic step sequence routes', () => {
-    getStepsMock.mockReturnValue([{ id: 'your-details', title: 'mockTitle', url: '/mockUrl' } as Step]);
+  it('sets up dynamic step sequence routes', () => {
+    getStepsMock.mockReturnValue([{ id: 'your-details', title: 'Mock Title', url: '/mockUrl' } as Step]);
 
     const appMock = ({
       get: jest.fn(),
@@ -30,6 +32,8 @@ describe('Routes', () => {
     new Routes().enableFor(appMock);
 
     expect(appMock.locals.errorHandler).toHaveBeenCalled();
+
+    expect(generateContent).toHaveBeenCalledWith('Mock Title');
 
     expect(appMock.get).toHaveBeenCalledWith('/', undefined);
     expect(appMock.get).toHaveBeenCalledWith('/terms-and-conditions', undefined);
