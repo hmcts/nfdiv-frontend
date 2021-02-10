@@ -23,6 +23,7 @@ describe('Routes', () => {
           cradle: {
             homeGetController: { get: 'mock' },
             termsAndConditionsGetController: { get: 'mock' },
+            cookiesGetController: { get: 'mock' },
             errorController: { get: 'mock' },
           },
         },
