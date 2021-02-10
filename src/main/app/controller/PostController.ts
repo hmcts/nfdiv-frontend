@@ -20,19 +20,20 @@ export class PostController<T extends AnyObject> {
     const errors = this.form.getErrors(req.body);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
+    const { saveAndSignOut, ...formData } = req.body;
+    await res.locals.storage.store({ [this.id]: formData });
+
+    let nextUrl = isSaveAndSignOut ? SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;
-      req.session.save(() => {
-        res.redirect(req.url);
-      });
+      nextUrl = req.url;
     } else {
       req.session.errors = undefined;
-
-      const { saveAndSignOut, ...formData } = req.body;
-      await res.locals.storage.store({ [this.id]: formData });
-
-      res.redirect(isSaveAndSignOut ? SIGN_OUT_URL : getNextStepUrl(req));
     }
+
+    req.session.save(() => {
+      res.redirect(nextUrl);
+    });
   }
 }
 
