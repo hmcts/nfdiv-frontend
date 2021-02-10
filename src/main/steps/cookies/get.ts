@@ -1,10 +1,9 @@
 import { GetController } from '../../app/controller/GetController';
-import { CookiesContent } from './content';
+
+import { generateContent } from './content';
 
 export class CookiesGetController extends GetController {
-
   constructor() {
-    super(__dirname + '/template', CookiesContent);
+    super(__dirname + '/template', generateContent);
   }
-
 }
