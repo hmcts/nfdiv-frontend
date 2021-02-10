@@ -4,7 +4,7 @@ import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
-import { CosApi } from '../api/cos-api';
+import { CosApi } from '../../app/api/CosApi';
 
 /**
  * Adds the oidc middleware to add oauth authentication

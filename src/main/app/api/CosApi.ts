@@ -21,7 +21,7 @@ export class CosApi {
       .then(results => results.data)
       .catch(err => {
         this.logger.error(err);
-        throw new Error('Case could not be created. Please try again.');
+        throw new Error('Case could not be created.');
       });
   }
 }
