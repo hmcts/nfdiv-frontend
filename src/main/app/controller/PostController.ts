@@ -9,7 +9,7 @@ import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
-  constructor(protected readonly form: Form, protected readonly id: string) {}
+  constructor(protected readonly form: Form, protected readonly stepId: string) {}
 
   /**
    * Default handler for a POST request. Checks the body for errors, returning to the current page with errors in the
@@ -21,7 +21,7 @@ export class PostController<T extends AnyObject> {
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
     const { saveAndSignOut, ...formData } = req.body;
-    res.locals.storage.store({ [this.id]: formData });
+    res.locals.storage.store({ [this.stepId]: formData });
 
     let nextUrl = isSaveAndSignOut ? SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {

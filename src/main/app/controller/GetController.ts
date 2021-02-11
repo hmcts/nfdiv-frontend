@@ -13,7 +13,7 @@ export class GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn | Translations,
-    protected readonly id: string = 'page'
+    protected readonly stepId: string | undefined = undefined
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -40,7 +40,7 @@ export class GetController {
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
-      formState: req.session.state[this.id],
+      ...(this.stepId && { formState: req.session.state[this.stepId] }),
     });
   }
 }
