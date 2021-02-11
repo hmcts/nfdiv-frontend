@@ -12,8 +12,7 @@ export class SessionStateStorage implements StepStateStorage {
     return this.session.state;
   }
 
-  public async store(state: SessionState): Promise<void> {
+  public store(state: SessionState): void {
     Object.assign(this.session.state, state);
-    await new Promise((resolve, reject) => this.session.save(err => (err ? reject(err) : resolve(true))));
   }
 }

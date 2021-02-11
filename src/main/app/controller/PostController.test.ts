@@ -4,6 +4,7 @@ import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps/sequence';
 import { SIGN_OUT_URL } from '../../steps/urls';
 
+import { AppSession } from './AppRequest';
 import { PostController } from './PostController';
 
 jest.mock('../../steps/sequence');
@@ -64,6 +65,23 @@ describe('PostController', () => {
     });
 
     expect(res.redirect).toBeCalledWith(SIGN_OUT_URL);
+    expect(req.session.errors).toBe(undefined);
+  });
+
+  test('rejects with an error when unable to save session data', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const errors = [] as never[];
+    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const controller = new NewPostController(mockForm, 'test-step');
+
+    const mockSave = jest.fn(done => done('An error while saving session'));
+    const req = mockRequest({ mockField: 'falafel' }, ({ save: mockSave } as unknown) as AppSession);
+    const res = mockResponse(req.session);
+    await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
+
+    expect(mockSave).toHaveBeenCalled();
+    expect(getNextStepUrlMock).toBeCalledWith(req);
+    expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toBe(undefined);
   });
 });
