@@ -3,6 +3,8 @@ import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
+import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+
 /**
  * Adds the oidc middleware to add oauth authentication
  */
@@ -17,7 +19,7 @@ export class OidcMiddleware {
     const { errorHandler } = app.locals;
 
     app.get(
-      '/login',
+      SIGN_IN_URL,
       errorHandler((req: Request, res) => {
         const redirectUri = encodeURI(`${protocol}${res.locals.host}${port}/oauth2/callback`);
         res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
@@ -50,7 +52,7 @@ export class OidcMiddleware {
     );
 
     app.get(
-      '/logout',
+      SIGN_OUT_URL,
       errorHandler((req: Request, res) => {
         req.session.user = undefined;
         req.session.save(() => res.redirect('/'));
@@ -62,7 +64,7 @@ export class OidcMiddleware {
         res.locals.isLoggedIn = true;
         return next();
       }
-      res.redirect('/login');
+      res.redirect(SIGN_IN_URL);
     });
   }
 }

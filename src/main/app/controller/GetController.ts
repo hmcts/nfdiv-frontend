@@ -10,7 +10,11 @@ export type TranslationFn = (isDivorce: boolean) => Translations;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
+  constructor(
+    protected readonly view: string,
+    protected readonly content: TranslationFn | Translations,
+    protected readonly stepId: string | undefined = undefined
+  ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -31,6 +35,12 @@ export class GetController {
 
     req.session.errors = undefined;
 
-    res.render(this.view, { ...languageContent, ...commonPageContent, ...commonLanguageContent, sessionErrors });
+    res.render(this.view, {
+      ...languageContent,
+      ...commonPageContent,
+      ...commonLanguageContent,
+      sessionErrors,
+      ...(this.stepId && { formState: req.session.state[this.stepId] }),
+    });
   }
 }
