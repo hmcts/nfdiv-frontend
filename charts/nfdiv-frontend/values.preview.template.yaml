@@ -2,7 +2,11 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-
+  registerAdditionalDns:
+    enabled: true
+    prefix: civil
+    primaryIngressHost: ${SERVICE_FQDN}
+    
 idam-pr:
   enabled: true
   redirect_uris:
