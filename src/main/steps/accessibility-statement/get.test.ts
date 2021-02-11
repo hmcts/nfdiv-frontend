@@ -1,24 +1,36 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { AccessibilityStatementContent } from './content';
-import { AccessibilityStatementGetController } from './get';
 import { commonContent } from '../common/common.content';
 
+import { generateContent } from './content';
+import { AccessibilityStatementGetController } from './get';
 
 describe('AccessibilityStatementGetController', () => {
   const controller = new AccessibilityStatementGetController();
 
-  test('Should render the accessibility statement page', async () => {
+  test('Should render the accessibility statement page for divorce service', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...AccessibilityStatementContent.en,
-      ...AccessibilityStatementContent.common,
+      ...generateContent(true).en,
       ...commonContent.en,
-      sessionErrors: []
+      sessionErrors: [],
     });
   });
 
+  test('Should render the accessibility statement page', async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    res.locals.serviceType = 'civil';
+
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith(expect.anything(), {
+      ...generateContent(false).en,
+      ...commonContent.en,
+      sessionErrors: [],
+    });
+  });
 });
