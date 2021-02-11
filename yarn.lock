@@ -1692,16 +1692,6 @@
     deepmerge "^4.0.0"
     glob "^7.1.2"
 
-"@wdio/logger@6.10.10":
-  version "6.10.10"
-  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.10.10.tgz#1e07cf32a69606ddb94fa9fd4b0171cb839a5980"
-  integrity sha512-2nh0hJz9HeZE0VIEMI+oPgjr/Q37ohrR9iqsl7f7GW5ik+PnKYCT9Eab5mR1GNMG60askwbskgGC1S9ygtvrSw==
-  dependencies:
-    chalk "^4.0.0"
-    loglevel "^1.6.0"
-    loglevel-plugin-prefix "^0.8.4"
-    strip-ansi "^6.0.0"
-
 "@wdio/logger@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-7.0.0.tgz#d2e7a595b3daf1285da29571cc0fd7cfcc3c1a68"
@@ -1724,14 +1714,16 @@
   dependencies:
     "@wdio/utils" "7.0.0"
 
-"@wdio/sauce-service@^6.12.1":
-  version "6.12.1"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-6.12.1.tgz#7f0e50741d4f0a2502544fcaa2cfcba32ab8cff1"
-  integrity sha512-IBVXK0fB4KFZfmEsBqmDMA5AlpVxvnh91QmmfBlvjYtIPZFCUkqvZpJrtzIPpFTctZ9sMQnEa2/xm/VFQykBRg==
+"@wdio/sauce-service@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.0.1.tgz#a074416c2a736ca1640cc9cf29d621e6941156c1"
+  integrity sha512-LXAxQWePlHt+mLzUORBnXg/wFby+115MIgF/JjyLEaL6NCcr8KWJKB9vfvFsUm69COvrTuL54K+nPue183rS7Q==
   dependencies:
-    "@wdio/logger" "6.10.10"
-    "@wdio/utils" "6.11.0"
+    "@wdio/logger" "7.0.0"
+    "@wdio/types" "7.0.0"
+    "@wdio/utils" "7.0.0"
     saucelabs "^4.2.0"
+    webdriverio "7.0.1"
 
 "@wdio/types@7.0.0":
   version "7.0.0"
@@ -1739,13 +1731,6 @@
   integrity sha512-DhNmKKF26MIjlUndmH5IsnnmxZEpGQvOpTsANPagadO0D8KePUoItG9Jxx3enxQ7f3YDQuRSXh/thDkp3nJujg==
   dependencies:
     got "^11.8.1"
-
-"@wdio/utils@6.11.0":
-  version "6.11.0"
-  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-6.11.0.tgz#878c2500efb1a325bf5a66d2ff3d08162f976e8c"
-  integrity sha512-vf0sOQzd28WbI26d6/ORrQ4XKWTzSlWLm9W/K/eJO0NASKPEzR+E+Q2kaa+MJ4FKXUpjbt+Lxfo+C26TzBk7tg==
-  dependencies:
-    "@wdio/logger" "6.10.10"
 
 "@wdio/utils@7.0.0":
   version "7.0.0"
@@ -11693,7 +11678,7 @@ webdriver@7.0.0:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@^7.0.1:
+webdriverio@7.0.1, webdriverio@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.1.tgz#c7b5c1a077080a1c443801c9fe67446c860460be"
   integrity sha512-MOILmvIEbVCJBSpm2zifGzx6npDq5z4pruv2uEMzux85sLrMHTC5xpvajnajMEqCOUJ5LWDJkBoMURJqOI7MiA==
