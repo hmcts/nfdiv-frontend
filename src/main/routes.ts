@@ -24,12 +24,16 @@ export class Routes {
       app.get(
         step.url,
         errorHandler(
-          new GetController(fs.existsSync(view) ? view : `${stepDir}/../template.njk`, generateContent(step.title)).get
+          new GetController(
+            fs.existsSync(view) ? view : `${stepDir}/../template.njk`,
+            generateContent(step.title),
+            step.id
+          ).get
         )
       );
 
       if (form) {
-        app.post(step.url, errorHandler(new PostController(new Form(form)).post));
+        app.post(step.url, errorHandler(new PostController(new Form(form), step.id).post));
       }
     }
 

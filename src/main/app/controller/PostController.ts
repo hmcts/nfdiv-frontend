@@ -2,14 +2,14 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps/sequence';
+import { SIGN_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
-import { SessionState } from '../step/StepStateStorage';
 
 import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
-  constructor(protected readonly form: Form) {}
+  constructor(protected readonly form: Form, protected readonly stepId: string) {}
 
   /**
    * Default handler for a POST request. Checks the body for errors, returning to the current page with errors in the
@@ -18,30 +18,25 @@ export class PostController<T extends AnyObject> {
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     const errors = this.form.getErrors(req.body);
+    const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
-    if (errors.length > 0) {
+    const { saveAndSignOut, ...formData } = req.body;
+    res.locals.storage.store({ [this.stepId]: formData });
+
+    let nextUrl = isSaveAndSignOut ? SIGN_OUT_URL : getNextStepUrl(req);
+    if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;
-      req.session.save(() => {
-        res.redirect(req.url);
-      });
+      nextUrl = req.url;
     } else {
       req.session.errors = undefined;
-
-      const state = this.getStateUpdate(res.locals.storage.getCurrentState(), req.body, req.path);
-
-      await res.locals.storage.store(state);
-
-      res.redirect(getNextStepUrl(req));
     }
-  }
 
-  /**
-   * Apply the given state to the existing state and return an update. By default the update will be returned so it can
-   * be persisted in the session state storage. If updating this steps state has any side effects (such as removing
-   * the state of other steps) then the base class should overwrite this method and add further changes.
-   */
-  protected getStateUpdate(current: SessionState, update: T, stepName: string): AnyObject {
-    return { [stepName]: update };
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
   }
 }
 
