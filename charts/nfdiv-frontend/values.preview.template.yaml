@@ -1,4 +1,3 @@
-
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
@@ -7,8 +6,7 @@ nodejs:
     enabled: true
     prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
-  environment:
-
+    
 idam-pr:
   enabled: true
   redirect_uris:
