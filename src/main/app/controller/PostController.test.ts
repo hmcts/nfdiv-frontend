@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps/sequence';
-import { SIGN_OUT_URL } from '../../steps/urls';
+import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 
 import { PostController } from './PostController';
 
@@ -63,7 +63,7 @@ describe('PostController', () => {
       'test-step': { mockField: 'falafel' },
     });
 
-    expect(res.redirect).toBeCalledWith(SIGN_OUT_URL);
+    expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);
   });
 
