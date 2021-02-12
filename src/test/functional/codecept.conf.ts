@@ -5,10 +5,7 @@ import { config as testConfig } from '../config';
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
 export const config: CodeceptJS.Config = {
-  gherkin: {
-    features: './features/*.feature',
-    steps: ['../steps/homepage.ts'],
-  },
+  gherkin: testConfig.Gherkin,
   output: '../../../functional-output/functional/reports',
   helpers: {
     Playwright: {

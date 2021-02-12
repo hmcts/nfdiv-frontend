@@ -4,9 +4,9 @@ Feature: Footer Links
     Given I am on divorce homepage
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
-    And click the Sign In button
+    And I click "Sign in"
     Then I expect the page header to be "Divorce - GOV.UK"
 
   Scenario: Load Terms and Conditions Page
-    When I click the "Terms and conditions" link
+    When I click "Terms and conditions"
     Then the page should include "Terms and conditions"
