@@ -75,7 +75,7 @@ describe('GetController', () => {
       await controller.get(req, res);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
-      expect(getContentMock).toHaveBeenCalledWith({ isDivorce: true, partner: '' });
+      expect(getContentMock).toHaveBeenCalledWith({ isDivorce: true, partner: 'partner' });
       expect(res.render).toBeCalledWith('page', {
         ...commonContent.en,
         sessionErrors: [],
@@ -88,9 +88,10 @@ describe('GetController', () => {
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { partnerGender: 'Masculine', marriageKey: 'husband' },
-          { partnerGender: 'Feminine', marriageKey: 'wife' },
-        ])('calls getContent with correct arguments %s selected', async ({ partnerGender, marriageKey }) => {
+          { partnerGender: 'Masculine', partnerKey: 'husband' },
+          { partnerGender: 'Feminine', partnerKey: 'wife' },
+          { partnerKey: 'partner' },
+        ])('calls getContent with correct arguments %s selected', async ({ partnerGender, partnerKey }) => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
           const controller = new GetController('page', getContentMock);
 
@@ -99,7 +100,7 @@ describe('GetController', () => {
           await controller.get(req, res);
 
           expect(getContentMock).toHaveBeenCalledTimes(1);
-          const expectedPartner = commonContent[lang][civilKey || marriageKey];
+          const expectedPartner = commonContent[lang][civilKey || partnerKey];
           expect(getContentMock).toHaveBeenCalledWith({ isDivorce, partner: expectedPartner });
           expect(res.render).toBeCalledWith('page', {
             ...commonContent[lang],

@@ -48,17 +48,23 @@ export class GetController {
     }
 
     const isDivorce = res.locals.serviceType !== 'civil';
-    const yourDetails = req.session.state?.['your-details'] as Record<string, string> | undefined;
-    const selectedPartnerGender = yourDetails?.partnerGender;
-    let partner = '';
-    if (selectedPartnerGender) {
-      if (!isDivorce) {
-        partner = translations['civilPartner'];
-      } else {
-        partner = selectedPartnerGender === 'Masculine' ? translations['husband'] : translations['wife'];
-      }
-    }
 
-    return this.content({ isDivorce, partner });
+    const getPartner = (): string => {
+      if (!isDivorce) {
+        return translations['civilPartner'];
+      }
+
+      const selectedPartnerGender = req.session.state['your-details']?.partnerGender;
+      if (selectedPartnerGender === 'Masculine') {
+        return translations['husband'];
+      }
+      if (selectedPartnerGender === 'Feminine') {
+        return translations['wife'];
+      }
+
+      return translations['partner'];
+    };
+
+    return this.content({ isDivorce, partner: getPartner() });
   }
 }

@@ -46,6 +46,7 @@ const en = {
   husband: 'husband',
   wife: 'wife',
   civilPartner: 'civil partner',
+  partner: 'partner',
   withHim: 'with him',
   withHer: 'with her',
   months: [

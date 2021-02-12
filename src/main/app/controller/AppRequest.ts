@@ -19,5 +19,5 @@ export interface AppSession extends Session {
   userCase: Record<string, string> | undefined;
   lang: string | undefined;
   errors: FormError[] | undefined;
-  state: Record<string, unknown>;
+  state: Record<string, Record<string, string> | undefined>;
 }

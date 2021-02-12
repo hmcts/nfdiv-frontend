@@ -57,9 +57,9 @@ export class OidcMiddleware {
     app.get(
       SIGN_OUT_URL,
       errorHandler((req: AppRequest, res) => {
-        delete req.session.user;
-        delete req.session.userCase;
-        delete req.session.lang;
+        req.session.user = undefined;
+        req.session.userCase = undefined;
+        req.session.lang = undefined;
         req.session.state = {};
         req.session.save(() => res.redirect('/'));
       })
