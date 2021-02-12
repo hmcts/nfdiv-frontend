@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { AppSession } from '../../../main/app/controller/AppRequest';
 import { SessionStateStorage } from '../../../main/app/step/SessionStateStorage';
 
-export const mockResponse = (session?: AppSession): Response<Record<string, unknown>> => {
+export const mockResponse = ({ session = {}, locals = {} } = {}): Response<Record<string, unknown>> => {
   const res = ({
     locals: {
       storage: new SessionStateStorage(({
@@ -11,6 +11,7 @@ export const mockResponse = (session?: AppSession): Response<Record<string, unkn
         save: jest.fn(done => done()),
         ...session,
       } as unknown) as AppSession),
+      ...locals,
     },
   } as unknown) as Response<Record<string, unknown>>;
   res.redirect = jest.fn().mockReturnValue(res);

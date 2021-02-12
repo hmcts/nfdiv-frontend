@@ -5,6 +5,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
 import { CosApi } from '../../app/api/CosApi';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
@@ -22,7 +23,7 @@ export class OidcMiddleware {
 
     app.get(
       SIGN_IN_URL,
-      errorHandler((req: Request, res) => {
+      errorHandler((req: AppRequest, res) => {
         const redirectUri = encodeURI(`${protocol}${res.locals.host}${port}/oauth2/callback`);
         res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
       })
@@ -30,7 +31,7 @@ export class OidcMiddleware {
 
     app.get(
       '/oauth2/callback',
-      errorHandler(async (req: Request, res: Response) => {
+      errorHandler(async (req: AppRequest, res: Response) => {
         const redirectUri = encodeURI(`${protocol}${res.locals.host}${port}/oauth2/callback`);
         const response = await Axios.post(
           tokenUrl,
@@ -55,9 +56,11 @@ export class OidcMiddleware {
 
     app.get(
       SIGN_OUT_URL,
-      errorHandler((req: Request, res) => {
+      errorHandler((req: AppRequest, res) => {
         req.session.user = undefined;
         req.session.userCase = undefined;
+        req.session.lang = undefined;
+        req.session.state = {};
         req.session.save(() => res.redirect('/'));
       })
     );
@@ -97,8 +100,8 @@ export class OidcMiddleware {
 
 declare module 'express-session' {
   export interface SessionData {
-    user: Record<string, Record<string, unknown>>;
-    userCase: Record<string, string>;
+    user: Record<string, Record<string, unknown>> | undefined;
+    userCase: Record<string, string> | undefined;
   }
 }
 

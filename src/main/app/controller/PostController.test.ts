@@ -4,7 +4,6 @@ import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps/sequence';
 import { SIGN_OUT_URL } from '../../steps/urls';
 
-import { AppSession } from './AppRequest';
 import { PostController } from './PostController';
 
 jest.mock('../../steps/sequence');
@@ -23,8 +22,8 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ mockField: 'falafel' });
-    const res = mockResponse(req.session);
+    const req = mockRequest({ body: { mockField: 'falafel' } });
+    const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
     expect(res.locals.storage.getCurrentState()).toEqual({ 'test-step': { mockField: 'falafel' } });
@@ -40,8 +39,8 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ mockField: 'falafel' });
-    const res = mockResponse(req.session);
+    const req = mockRequest({ body: { mockField: 'falafel' } });
+    const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
     expect(res.locals.storage.getCurrentState()).toEqual({ 'test-step': { mockField: 'falafel' } });
@@ -56,8 +55,8 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ mockField: 'falafel', saveAndSignOut: true });
-    const res = mockResponse(req.session);
+    const req = mockRequest({ body: { mockField: 'falafel', saveAndSignOut: true } });
+    const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
     expect(res.locals.storage.getCurrentState()).toEqual({
@@ -75,8 +74,8 @@ describe('PostController', () => {
     const controller = new NewPostController(mockForm, 'test-step');
 
     const mockSave = jest.fn(done => done('An error while saving session'));
-    const req = mockRequest({ mockField: 'falafel' }, ({ save: mockSave } as unknown) as AppSession);
-    const res = mockResponse(req.session);
+    const req = mockRequest({ body: { mockField: 'falafel' }, session: { save: mockSave } });
+    const res = mockResponse({ session: req.session });
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
     expect(mockSave).toHaveBeenCalled();
