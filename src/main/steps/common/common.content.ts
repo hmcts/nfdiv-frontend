@@ -61,6 +61,11 @@ const en = {
     'November',
     'December',
   ],
+  dateFormat: {
+    day: 'Day',
+    month: 'Month',
+    year: 'Year',
+  },
 };
 
 const cy: typeof en = {
@@ -126,6 +131,11 @@ const cy: typeof en = {
     'Tachwedd',
     'Rhagfyr',
   ],
+  dateFormat: {
+    day: 'Diwrnod',
+    month: 'Mis',
+    year: 'Blwyddyn',
+  },
 };
 
 export const commonContent = { en, cy };

@@ -1,6 +1,11 @@
 import { Request } from 'express';
 
-import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
+import {
+  HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_URL,
+  RELATIONSHIP_NOT_BROKEN_URL,
+  YOUR_DETAILS_URL,
+} from './urls';
 
 export interface Step {
   id: string;
@@ -36,6 +41,12 @@ const sequence: Step[] = [
         finalPage: true,
       },
     ],
+  },
+  {
+    id: 'relationship-date',
+    title: 'When did you get married?',
+    field: 'relationshipDate',
+    url: RELATIONSHIP_DATE_URL,
   },
 ];
 

@@ -3,6 +3,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
 <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -44,6 +45,21 @@
             },
             items: formItems(field.values, formState[fieldName])
           }) }}
+        {% case 'date' %}
+        {{ govukDateInput({
+          id: fieldName,
+          namePrefix: fieldName,
+          fieldset: {
+            legend: {
+              text: getContent(field.label),
+              classes: "govuk-visually-hidden"
+            }
+          },
+          hint: {
+            text: hint
+          },
+          items: formItems(field.values, formState[fieldName])
+        }) }}
         {% default %}
           {{ govukInput({
             label: {

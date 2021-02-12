@@ -22,6 +22,8 @@ export class Nunjucks {
     env.addGlobal('formItems', function (items: FormInput[], userSelection: string) {
       return items.map(i => ({
         text: this.env.globals.getContent.call(this, i.label),
+        name: i.name || this.env.globals.getContent.call(this, i.label),
+        classes: i.classes,
         value: i.value,
         checked: i.selected || i.value === userSelection,
         conditional: !i.warning
