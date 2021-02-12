@@ -1,7 +1,7 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { getNextStepUrl, getSteps } from './sequence';
+import { getLatestIncompleteStepUrl, getNextStepUrl, getSteps } from './sequence';
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
 describe('Sequence', () => {
@@ -48,6 +48,27 @@ describe('Sequence', () => {
     it("returns a step not found URL if it doesn't exist", () => {
       mockReq.originalUrl = "I don't exist";
       expect(getNextStepUrl(mockReq)).toBe('/step-not-found');
+    });
+  });
+
+  describe('getLatestIncompleteStepUrl()', () => {
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
+    });
+
+    it('returns the first url if there is no session', () => {
+      expect(getLatestIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
+    });
+
+    it('returns the last incomplete step if there are validation errors', () => {
+      mockReq.session.state = { ['your-details']: { partnerGender: '' } };
+      expect(getLatestIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
+    });
+
+    it('returns the next incomplete step if previous is valid', () => {
+      mockReq.session.state = { ['your-details']: { partnerGender: 'valid' } };
+      expect(getLatestIncompleteStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
   });
 });

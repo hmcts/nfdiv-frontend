@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { AppRequest } from '../app/controller/AppRequest';
 
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
@@ -11,7 +11,7 @@ export interface Step {
 }
 
 interface SubStep extends Step {
-  when: (response: Record<string, string>) => boolean;
+  when: (response: Record<string, unknown>) => boolean;
   finalPage?: boolean;
 }
 
@@ -49,7 +49,7 @@ export const getSteps = (steps: Step[] = [], start = sequence): Step[] => {
   return steps;
 };
 
-export const getNextStepUrl = (req: Request): string => {
+export const getNextStepUrl = (req: AppRequest): string => {
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
 
@@ -65,4 +65,28 @@ export const getNextStepUrl = (req: Request): string => {
   }
   const index = sequence.indexOf(currentStep);
   return `${sequence[index + 1]?.url || path}${queryString}`;
+};
+
+export const getLatestIncompleteStepUrl = (req: AppRequest): string => {
+  const state = req.session.state;
+
+  if (!state || Object.keys(state).length === 0) {
+    return sequence[0].url;
+  }
+
+  for (const step of [...sequence].reverse()) {
+    if (!state[step.id]) {
+      continue;
+    }
+
+    if (step.field && state[step.id]?.[step.field]) {
+      const foundStepIdx = sequence.findIndex(s => s.id === step.id);
+      if (foundStepIdx !== -1) {
+        const nextStep = sequence[foundStepIdx + 1] || sequence[foundStepIdx];
+        return nextStep.url;
+      }
+    }
+  }
+
+  return sequence[0].url;
 };
