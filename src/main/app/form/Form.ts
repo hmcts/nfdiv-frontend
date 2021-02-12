@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
@@ -6,13 +8,15 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public parseBody(body: AnyObject): void {
+  public getParseBody(body: AnyObject): AnyObject {
+    const clonedBody = cloneDeep(body);
     Object.keys(this.form.fields)
       .filter(key => this.form.fields[key].parser !== undefined)
       .forEach(propertyName => {
         const field = <FormField & { parser: Parser }>this.form.fields[propertyName];
-        field.parser(body);
+        field.parser(clonedBody);
       });
+    return clonedBody;
   }
 
   /**
@@ -34,7 +38,7 @@ type LanguageLookup = (lang: Record<string, never>) => string;
 
 type ValidationCheck = (value: string | Record<string, never>) => void | string;
 
-type Parser = (value: Record<string, never>) => void | string;
+type Parser = (value: Record<string, unknown>) => void;
 
 type Label = string | LanguageLookup;
 

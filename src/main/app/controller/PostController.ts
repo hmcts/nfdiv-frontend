@@ -17,8 +17,8 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    this.form.parseBody(req.body);
-    const errors = this.form.getErrors(req.body);
+    const parsedBody = this.form.getParseBody(req.body);
+    const errors = this.form.getErrors(parsedBody);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
     const { saveAndSignOut, ...formData } = req.body;
