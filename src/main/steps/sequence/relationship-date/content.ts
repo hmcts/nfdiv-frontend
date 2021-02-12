@@ -50,9 +50,9 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('relationshipDate', body),
       validator: value =>
-        isDatesFilledIn(value as Record<string, never>) ||
-        isDateInputNumeric(value as Record<string, never>) ||
-        isFutureDate(value as Record<string, never>),
+        isDatesFilledIn(value as Record<string, string>) ||
+        isDateInputNumeric(value as Record<string, string>) ||
+        isFutureDate(value as Record<string, string>),
     },
   },
   submit: {

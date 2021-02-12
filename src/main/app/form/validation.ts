@@ -1,5 +1,5 @@
 export type Validator = (value: string | Record<string, string>) => void | string;
-export type DateValidator = (value: Record<string, never>) => void | string;
+export type DateValidator = (value: Record<string, string>) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value) {
@@ -16,7 +16,7 @@ export const isDatesFilledIn: DateValidator = fields => {
 };
 
 export const isFutureDate: DateValidator = date => {
-  const enteredDate = new Date(date.year, date.month, date.day);
+  const enteredDate = new Date(+date.year, +date.month, +date.day);
   if (new Date() < enteredDate) {
     return 'invalidDate';
   }
@@ -24,7 +24,7 @@ export const isFutureDate: DateValidator = date => {
 
 export const isDateInputNumeric: DateValidator = date => {
   for (const value in date) {
-    if (isNaN(date[value])) {
+    if (isNaN(+date[value])) {
       return 'invalidInput';
     }
   }
