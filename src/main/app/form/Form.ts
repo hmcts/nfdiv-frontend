@@ -27,7 +27,7 @@ export class Form {
       .filter(key => this.form.fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>this.form.fields[propertyName];
-        const errorType = field.validator(body[propertyName]);
+        const errorType = field.validator(body[propertyName] as string | Record<string, string>);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
@@ -36,7 +36,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | Record<string, never>) => void | string;
+type ValidationCheck = (value: string | Record<string, string>) => void | string;
 
 type Parser = (value: Record<string, unknown>) => void;
 

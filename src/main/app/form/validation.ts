@@ -1,4 +1,4 @@
-export type Validator = (value: string | Record<string, never>) => void | string;
+export type Validator = (value: string | Record<string, string>) => void | string;
 export type DateValidator = (value: Record<string, never>) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
