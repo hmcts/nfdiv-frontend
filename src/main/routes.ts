@@ -6,7 +6,7 @@ import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
-import { getSteps } from './steps/sequence';
+import { getSteps } from './steps';
 import { CSRF_TOKEN_ERROR_URL, HOME_URL, SAVE_SIGN_OUT_URL, TERMS_AND_CONDITIONS_URL } from './steps/urls';
 
 export class Routes {

@@ -1,10 +1,10 @@
 import { Application } from 'express';
 
 import { Routes } from './routes';
-import { Step, getSteps } from './steps/sequence';
+import { Step, getSteps } from './steps';
 import { generateContent } from './steps/sequence/your-details/content';
 
-jest.mock('./steps/sequence');
+jest.mock('./steps');
 jest.mock('./steps/sequence/your-details/content');
 
 const getStepsMock = getSteps as jest.Mock<Step[]>;
