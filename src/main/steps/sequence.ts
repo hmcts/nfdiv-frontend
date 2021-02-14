@@ -10,7 +10,7 @@ export interface Step {
 
 export interface SubStep extends Step {
   when: (response: Record<string, unknown>) => boolean;
-  finalPage?: boolean;
+  isFinalPage?: boolean;
 }
 
 export const sequence: Step[] = [
@@ -31,7 +31,7 @@ export const sequence: Step[] = [
         title: 'You cannot apply to get a divorce',
         when: res => res.screenHasUnionBroken === 'No',
         url: RELATIONSHIP_NOT_BROKEN_URL,
-        finalPage: true,
+        isFinalPage: true,
       },
     ],
   },

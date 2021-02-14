@@ -98,6 +98,7 @@ describe('Steps', () => {
                   field: 'bbaResponse',
                   when: res => res.bbResponse === 'goto bba',
                   url: 'bba',
+                  isFinalPage: true,
                 },
                 {
                   id: 'bbb',
@@ -181,6 +182,17 @@ describe('Steps', () => {
           c: { cResponse: 'complete as well' },
         };
         expect(getLatestIncompleteStepUrl(mockReq)).toBe('a');
+      });
+
+      it("doesn't return final steps as the next incomplete step", () => {
+        const { getLatestIncompleteStepUrl } = require('./');
+
+        mockReq.session.state = {
+          a: { aResponse: 'goto b' },
+          b: { bResponse: 'goto bb' },
+          bb: { bbResponse: 'goto bba' },
+        };
+        expect(getLatestIncompleteStepUrl(mockReq)).toBe('bb');
       });
     });
   });

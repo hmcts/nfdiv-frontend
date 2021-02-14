@@ -1,6 +1,11 @@
+import fs from 'fs';
+
 import { AppRequest } from '../app/controller/AppRequest';
+import { AnyObject } from '../app/controller/PostController';
+import { Form } from '../app/form/Form';
 
 import { Step, SubStep, sequence } from './sequence';
+
 export { Step, SubStep } from './sequence';
 
 export const getSteps = (steps: Step[] = [], start = sequence): Step[] => {
@@ -48,13 +53,28 @@ export const getLatestIncompleteStepUrl = (
   for (const step of [...currSequence].reverse()) {
     if (!state[step.id]) {
       incompleteSteps.push(step.url);
+      continue;
     }
 
-    if (step.field && state[step.id]?.[step.field]) {
+    if (step.field && state[step.id]?.[step.field] !== undefined) {
       const stepState = state[step.id];
+
+      const stepContentFile = `${__dirname}/sequence/${step.id}/content.ts`;
+      if (fs.existsSync(stepContentFile)) {
+        const form = new Form(require(stepContentFile).form);
+        if (form.getErrors(stepState as AnyObject).length) {
+          incompleteSteps.push(step.url);
+          continue;
+        }
+      }
+
       if (step.subSteps && stepState) {
         const matchingSubstep = step.subSteps.find(subStep => subStep.when(stepState));
         if (matchingSubstep) {
+          if (matchingSubstep.isFinalPage) {
+            incompleteSteps.push(step.url);
+            continue;
+          }
           getLatestIncompleteStepUrl(req, state as State, [matchingSubstep], incompleteSteps);
         }
       }
