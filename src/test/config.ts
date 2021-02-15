@@ -4,4 +4,8 @@ export const config = {
   TestSlowMo: 250,
   TestUser: 'hmcts.nfdiv@gmail.com',
   TestPass: 'Pa55word11',
+  Gherkin: {
+    features: './features/*.feature',
+    steps: ['../steps/common.ts', '../steps/homepage.ts'],
+  },
 };
