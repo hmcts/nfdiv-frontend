@@ -12,5 +12,5 @@ Feature: Footer Links
     Then the page should include "Terms and conditions"
 
   Scenario: Load Cookies Page
-    When I click the "Cookies" link
+    When I click "Cookies"
     Then the page should include "Cookies"
