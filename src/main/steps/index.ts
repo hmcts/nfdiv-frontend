@@ -19,7 +19,7 @@ export const getSteps = (steps: Step[] = [], start = sequence, depth = 0): StepW
       getSteps(steps, step.subSteps, depth + 1);
     }
   }
-  return steps as StepWithDepth[];
+  return steps;
 };
 
 export const getNextStepUrl = (
@@ -27,8 +27,7 @@ export const getNextStepUrl = (
   currSequence: Step[] | SubStep[] = sequence,
   nextSteps: Step[] = []
 ): string => {
-  const [path, searchParams] = req.originalUrl.split('?');
-  const queryString = searchParams ? `?${searchParams}` : '';
+  const { path, queryString } = getPathAndQueryString(req);
 
   for (const step of [...currSequence].reverse()) {
     if (step.subSteps) {
@@ -100,9 +99,13 @@ export const getNextIncompleteStepUrl = (
     }
   }
 
-  const searchParams = req.originalUrl.split('?')[1];
-  const queryString = searchParams ? `?${searchParams}` : '';
-
   const url = incompleteSteps.length === 0 ? currSequence[0].url : [...incompleteSteps].reverse()[0];
+  const { queryString } = getPathAndQueryString(req);
   return `${url}${queryString}`;
+};
+
+const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
+  const [path, searchParams] = req.originalUrl.split('?');
+  const queryString = searchParams ? `?${searchParams}` : '';
+  return { path, queryString };
 };
