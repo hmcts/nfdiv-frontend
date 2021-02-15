@@ -19,7 +19,7 @@ nodejs:
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     REDIS_HOST: 'nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
-    COS_URL: 'http://nfdiv-cos-{{ .Values.global.environment }}.service.core-compute-aat.internal'
+    COS_URL: 'http://nfdiv-cos-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
   autoscaling:
     enabled: true
     maxReplicas: 16

@@ -12,5 +12,5 @@ Feature: Footer Links
     Then the page should include "Terms and conditions"
 
   Scenario: Load Accessibility Statement Page
-    When I click the "Accessibility statement" link
+    When I click "Accessibility statement"
     Then the page should include "Accessibility Statement"
