@@ -6,7 +6,7 @@ nodejs:
     enabled: true
     prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
-    
+
 idam-pr:
   enabled: true
   redirect_uris:

@@ -61,6 +61,8 @@ describe('Accessibility', () => {
   // testing accessibility of the home page
   testAccessibility('/');
   testAccessibility('/terms-and-conditions');
+  testAccessibility('/cookies');
+  testAccessibility('/accessibility-statement');
   testAccessibility('/date-from-certificate');
 
   // TODO: include each path of your application in accessibility checks
