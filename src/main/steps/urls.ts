@@ -6,6 +6,7 @@ export const SIGN_OUT_URL: PageLink = '/logout';
 export const SAVE_SIGN_OUT_URL: PageLink = '/save-and-sign-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
+export const COOKIES_URL: PageLink = '/cookies';
 
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/screening-questions/has-relationship-broken';

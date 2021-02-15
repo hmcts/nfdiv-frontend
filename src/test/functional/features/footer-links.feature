@@ -10,3 +10,7 @@ Feature: Footer Links
   Scenario: Load Terms and Conditions Page
     When I click "Terms and conditions"
     Then the page should include "Terms and conditions"
+
+  Scenario: Load Cookies Page
+    When I click "Cookies"
+    Then the page should include "Cookies"
