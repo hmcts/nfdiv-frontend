@@ -1,6 +1,6 @@
 import { Translations } from '../../app/controller/GetController';
 
-export const generateContent = (isDivorce: boolean): Translations => {
+export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translations => {
   const en = {
     title: 'Accessibility Statement',
     statement: `Accessibility statement for the apply ${

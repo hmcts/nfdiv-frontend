@@ -14,7 +14,7 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generateContent(true).en,
+      ...generateContent({ isDivorce: true }).en,
       ...commonContent.en,
       sessionErrors: [],
     });
@@ -28,7 +28,7 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generateContent(false).en,
+      ...generateContent({ isDivorce: false }).en,
       ...commonContent.en,
       sessionErrors: [],
     });
