@@ -9,7 +9,7 @@ import { Step, SubStep, sequence } from './sequence';
 export { Step, SubStep } from './sequence';
 
 interface StepWithDepth extends Step {
-  depth: number;
+  depth?: number;
 }
 
 export const getSteps = (steps: Step[] = [], start = sequence, depth = 0): StepWithDepth[] => {
