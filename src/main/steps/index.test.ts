@@ -3,7 +3,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
-import { Step, getLatestIncompleteStepUrl, getNextStepUrl, getSteps } from './';
+import { Step, getNextIncompleteStepUrl, getNextStepUrl, getSteps } from './';
 
 describe('Steps', () => {
   describe('getSteps()', () => {
@@ -63,7 +63,7 @@ describe('Steps', () => {
     });
   });
 
-  describe('getLatestIncompleteStepUrl()', () => {
+  describe('getNextIncompleteStepUrl()', () => {
     let mockReq: AppRequest;
     beforeEach(() => {
       jest.resetModules();
@@ -71,17 +71,17 @@ describe('Steps', () => {
     });
 
     it('returns the first url if there is no session', () => {
-      expect(getLatestIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
+      expect(getNextIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
     });
 
     it('returns the last incomplete step if there are validation errors', () => {
       mockReq.session.state = { ['your-details']: { partnerGender: '' } };
-      expect(getLatestIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
+      expect(getNextIncompleteStepUrl(mockReq)).toBe(YOUR_DETAILS_URL);
     });
 
     it('returns the next incomplete step if previous is valid', () => {
       mockReq.session.state = { ['your-details']: { partnerGender: 'valid' } };
-      expect(getLatestIncompleteStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+      expect(getNextIncompleteStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
     it('keeps the query string', () => {
@@ -98,7 +98,7 @@ describe('Steps', () => {
           a: { aResponse: 'goto b' },
           b: { bResponse: 'goto bc' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bc');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bc');
       });
 
       it('handles a subsubnested step', () => {
@@ -107,7 +107,7 @@ describe('Steps', () => {
           b: { bResponse: 'goto bb' },
           bb: { bbResponse: 'goto bbb' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bbb');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bbb');
       });
 
       it('handles a different subsubnested step', () => {
@@ -116,7 +116,7 @@ describe('Steps', () => {
           b: { bResponse: 'goto bb' },
           bb: { bbResponse: 'goto bbc' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bbc');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bbc');
       });
 
       it('handles subsubnested steps and then pops back onto the main line', () => {
@@ -126,7 +126,7 @@ describe('Steps', () => {
           bb: { bbResponse: 'goto bbc' },
           bbc: { bbcResponse: 'keep on going (back)' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('c');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('c');
       });
 
       it('goes to the first step if there are no incomplete steps', () => {
@@ -138,7 +138,7 @@ describe('Steps', () => {
           c: { cResponse: 'complete as well' },
           d: { dResponse: 'complete' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('a');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('a');
       });
 
       it("doesn't return final steps as the next incomplete step", () => {
@@ -147,7 +147,7 @@ describe('Steps', () => {
           b: { bResponse: 'goto bb' },
           bb: { bbResponse: 'goto bba' },
         };
-        expect(getLatestIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bb');
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('bb');
       });
     });
   });

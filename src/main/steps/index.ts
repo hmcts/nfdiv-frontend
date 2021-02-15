@@ -57,7 +57,7 @@ export const getNextStepUrl = (
 
 type State = Record<string, Record<string, string>>;
 
-export const getLatestIncompleteStepUrl = (
+export const getNextIncompleteStepUrl = (
   req: AppRequest,
   currSequence: Step[] | SubStep[] = sequence,
   currState?: State,
@@ -94,7 +94,7 @@ export const getLatestIncompleteStepUrl = (
             incompleteSteps.push(step.url);
             continue;
           }
-          getLatestIncompleteStepUrl(req, [matchingSubstep], state as State, incompleteSteps);
+          getNextIncompleteStepUrl(req, [matchingSubstep], state as State, incompleteSteps);
         }
       }
     }
