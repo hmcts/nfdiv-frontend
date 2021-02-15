@@ -34,6 +34,11 @@ describe('Form', () => {
   test('Should validate a form', async () => {
     const errors = form.getErrors({
       field: 'Yes',
+      dateField: {
+        day: '1',
+        month: '1',
+        year: '2000',
+      },
     });
 
     expect(errors).toStrictEqual([]);
@@ -45,6 +50,10 @@ describe('Form', () => {
     expect(errors).toStrictEqual([
       {
         propertyName: 'field',
+        errorType: 'required',
+      },
+      {
+        propertyName: 'dateField',
         errorType: 'required',
       },
     ]);
