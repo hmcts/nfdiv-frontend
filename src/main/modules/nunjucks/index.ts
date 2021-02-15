@@ -19,12 +19,12 @@ export class Nunjucks {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
 
-    env.addGlobal('formItems', function (items: FormInput[], userSelection: string) {
+    env.addGlobal('formItems', function (items: FormInput[], userSelection: string | Record<string, string>) {
       return items.map(i => ({
         text: this.env.globals.getContent.call(this, i.label),
-        name: i.name || this.env.globals.getContent.call(this, i.label),
+        name: i.name,
         classes: i.classes,
-        value: i.value,
+        value: i.value || userSelection[i.name as string],
         checked: i.selected || i.value === userSelection,
         conditional: !i.warning
           ? undefined

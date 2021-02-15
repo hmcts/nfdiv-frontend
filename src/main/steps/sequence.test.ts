@@ -29,8 +29,9 @@ describe('Sequence', () => {
     });
 
     it('returns the next step when correct details a passed', () => {
-      mockReq.originalUrl = YOUR_DETAILS_URL;
-      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+      const lastUrl = RELATIONSHIP_DATE_URL;
+      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
+      expect(getNextStepUrl(mockReq)).toBe(lastUrl);
     });
 
     it('returns current step if there is no next step', () => {
