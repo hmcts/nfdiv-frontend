@@ -8,7 +8,7 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParseBody(body: AnyObject): AnyObject {
+  public getParsedBody(body: AnyObject): AnyObject {
     const clonedBody = cloneDeep(body);
     Object.keys(this.form.fields)
       .filter(key => this.form.fields[key].parser !== undefined)

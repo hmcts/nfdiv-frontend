@@ -1,4 +1,5 @@
 import { Form, FormContent } from './Form';
+import { covertToDateObject } from './parser';
 import { isFieldFilledIn } from './validation';
 
 describe('Form', () => {
@@ -10,6 +11,16 @@ describe('Form', () => {
           { label: l => l.no, value: 'No' },
           { label: l => l.yes, value: 'Yes' },
         ],
+        validator: value => isFieldFilledIn(value),
+      },
+      dateField: {
+        type: 'date',
+        values: [
+          { label: l => l.dateFormat['day'], name: 'day' },
+          { label: l => l.dateFormat['month'], name: 'month' },
+          { label: l => l.dateFormat['year'], name: 'year' },
+        ],
+        parser: value => covertToDateObject('dateField', value),
         validator: value => isFieldFilledIn(value),
       },
     },
@@ -37,5 +48,23 @@ describe('Form', () => {
         errorType: 'required',
       },
     ]);
+  });
+
+  test('Should parse a form body', async () => {
+    const parsedBody = form.getParsedBody({
+      field: 'Yes',
+      'dateField-day': '1',
+      'dateField-month': '1',
+      'dateField-year': '2000',
+    });
+
+    expect(parsedBody).toStrictEqual({
+      field: 'Yes',
+      dateField: {
+        day: '1',
+        month: '1',
+        year: '2000',
+      },
+    });
   });
 });
