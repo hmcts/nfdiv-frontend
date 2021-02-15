@@ -29,14 +29,14 @@ describe('Sequence', () => {
     });
 
     it('returns the next step when correct details a passed', () => {
-      const lastUrl = RELATIONSHIP_DATE_URL;
-      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      expect(getNextStepUrl(mockReq)).toBe(lastUrl);
+      mockReq.originalUrl = YOUR_DETAILS_URL;
+      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
     it('returns current step if there is no next step', () => {
-      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      expect(getNextStepUrl(mockReq)).toBe(RELATIONSHIP_DATE_URL);
+      const lastUrl = RELATIONSHIP_DATE_URL;
+      mockReq.originalUrl = lastUrl;
+      expect(getNextStepUrl(mockReq)).toBe(lastUrl);
     });
 
     it('moves into the substep when the response matches', () => {
