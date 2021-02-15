@@ -5,6 +5,7 @@ import type { LoggerInstance } from 'winston';
 import { AccessibilityStatementGetController } from '../../steps/accessibility-statement/get';
 import { ErrorController } from '../../steps/error/error.controller';
 import { HomeGetController } from '../../steps/home/get';
+import { SaveSignOutGetController } from '../../steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from '../../steps/terms-and-conditions/get';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -18,6 +19,7 @@ export class Container {
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register({
       logger: asValue(logger),
       homeGetController: asValue(new HomeGetController()),
+      saveSignOutGetController: asValue(new SaveSignOutGetController()),
       termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
       accessibilityStatementGetController: asValue(new AccessibilityStatementGetController()),
       errorController: asClass(ErrorController),

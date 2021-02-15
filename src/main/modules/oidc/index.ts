@@ -1,7 +1,7 @@
 import { AwilixContainer, asClass, asValue } from 'awilix';
 import Axios from 'axios';
 import config from 'config';
-import { Application, NextFunction, Request, Response } from 'express';
+import { Application, NextFunction, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
 import { CosApi } from '../../app/api/CosApi';
@@ -23,7 +23,7 @@ export class OidcMiddleware {
 
     app.get(
       SIGN_IN_URL,
-      errorHandler((req: AppRequest, res) => {
+      errorHandler((req: AppRequest, res: Response) => {
         const redirectUri = encodeURI(`${protocol}${res.locals.host}${port}/oauth2/callback`);
         res.redirect(`${loginUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`);
       })
@@ -54,14 +54,24 @@ export class OidcMiddleware {
       })
     );
 
+    app.use(
+      errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
+        req.logout = async () => {
+          req.session.user = undefined;
+          req.session.userCase = undefined;
+          req.session.lang = undefined;
+          req.session.state = {};
+          return new Promise((resolve, reject) => req.session.save(err => (err ? reject(err) : resolve())));
+        };
+        next();
+      })
+    );
+
     app.get(
       SIGN_OUT_URL,
-      errorHandler((req: AppRequest, res) => {
-        req.session.user = undefined;
-        req.session.userCase = undefined;
-        req.session.lang = undefined;
-        req.session.state = {};
-        req.session.save(() => res.redirect('/'));
+      errorHandler(async (req: AppRequest, res: Response) => {
+        await req.logout();
+        res.redirect('/');
       })
     );
 
@@ -105,6 +115,6 @@ declare module 'express-session' {
   }
 }
 
-export interface RequestWithScope extends Request {
+export interface RequestWithScope extends AppRequest {
   scope?: AwilixContainer;
 }
