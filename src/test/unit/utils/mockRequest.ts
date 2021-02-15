@@ -1,6 +1,6 @@
-import { AppRequest, AppSession } from '../../../main/app/controller/AppRequest';
+import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = (body = {}, session?: AppSession): AppRequest<never> =>
+export const mockRequest = ({ session = {}, body = {} } = {}): AppRequest<never> =>
   (({
     body,
     scope: {
@@ -15,4 +15,5 @@ export const mockRequest = (body = {}, session?: AppSession): AppRequest<never> 
     path: '/request',
     url: '/request',
     originalUrl: '/request',
+    logout: jest.fn(),
   } as unknown) as AppRequest<never>);

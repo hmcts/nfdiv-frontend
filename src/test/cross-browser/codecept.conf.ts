@@ -46,10 +46,7 @@ if (process.env.IE === 'true') {
 }
 
 export const config: CodeceptJS.Config = {
-  gherkin: {
-    features: './features/*.feature',
-    steps: ['../steps/homepage.ts'],
-  },
+  gherkin: testConfig.Gherkin,
   output: '../../../functional-output/crossbrowser/reports',
   helpers,
   multiple: {

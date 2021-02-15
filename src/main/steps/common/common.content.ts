@@ -45,6 +45,8 @@ const en = {
   termsAndConditions: 'Terms and conditions',
   husband: 'husband',
   wife: 'wife',
+  civilPartner: 'civil partner',
+  partner: 'partner',
   withHim: 'with him',
   withHer: 'with her',
   months: [
@@ -69,22 +71,18 @@ const en = {
 };
 
 const cy: typeof en = {
+  ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   feedback:
     'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   pageHeader: {
+    ...en.pageHeader, // @TODO delete me to get a list of missing translations
     divorce: 'Gwneud cais am ysgariad',
-    civil: 'TODO',
-  },
-  pageTitle: {
-    divorce: 'Divorce - GOV.UK',
-    civil: 'Civil partnership - GOV.UK',
   },
   back: 'Yn ôl',
   continue: 'Parhau',
   download: 'Llwytho i lawr',
-  warning: 'Warning',
   ogl:
     'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   cookieText:

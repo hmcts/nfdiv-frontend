@@ -22,7 +22,9 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
+          maxAge: 20 * (60 * 1000), // 20 minutes
         },
+        rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(),
       })
     );
