@@ -1,7 +1,8 @@
+import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-export const generateContent = (title: string) => (isDivorce: boolean): Record<string, unknown> => {
+export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
   const en = {
     title: isDivorce ? title : 'Are you male or female?',
     masculine: isDivorce ? 'My husband' : 'Male',

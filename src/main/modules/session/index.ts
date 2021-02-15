@@ -13,8 +13,8 @@ const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
 export class SessionStorage {
-  public enableFor(server: Application): void {
-    server.use(
+  public enableFor(app: Application): void {
+    app.use(
       session({
         name: 'nfdiv-session',
         resave: false,
@@ -22,12 +22,14 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
+          maxAge: 20 * (60 * 1000), // 20 minutes
         },
+        rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(),
       })
     );
 
-    server.use((req, res, next) => {
+    app.use((req, res, next) => {
       const session = req.session as AppSession;
       session.state = session.state || {};
       res.locals.storage = new SessionStateStorage(session);

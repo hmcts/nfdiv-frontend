@@ -15,7 +15,9 @@ export interface AppRequest<T = Record<string, unknown>> extends Request {
 }
 
 export interface AppSession extends Session {
-  lang: string;
+  user: Record<string, Record<string, unknown>> | undefined;
+  userCase: Record<string, string> | undefined;
+  lang: string | undefined;
   errors: FormError[] | undefined;
-  state: Record<string, unknown>;
+  state: Record<string, Record<string, string> | undefined>;
 }

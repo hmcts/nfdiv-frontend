@@ -1,4 +1,6 @@
-export const generateContent = (title: string) => (isDivorce: boolean): Record<string, unknown> => {
+import { TranslationFn } from '../../../app/controller/GetController';
+
+export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
   const en = {
     title: isDivorce ? title : 'You cannot apply to end your civil partnership',
     line1: `Your ${isDivorce ? 'marriage' : 'relationship'} must have irretrievably broken down

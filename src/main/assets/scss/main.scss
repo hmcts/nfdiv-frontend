@@ -2,3 +2,16 @@
 
 @import './banner';
 @import './header';
+
+.hmcts-button-link {
+  @extend %govuk-body-m;
+  @extend %govuk-link;
+  @include govuk-link-style-default;
+
+  background: none;
+  color: $govuk-link-colour;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}

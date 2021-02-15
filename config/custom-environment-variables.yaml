@@ -4,6 +4,8 @@ services:
     tokenURL: IDAM_API_URL
     clientID: IDAM_CLIENT_ID
     clientSecret: IDAM_SECRET
+  cos:
+    baseURL: COS_URL
 port: PORT
 session:
   redis:
