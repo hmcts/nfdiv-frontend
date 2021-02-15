@@ -24,7 +24,7 @@ export class Nunjucks {
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,
-        value: i.value || userSelection[i.name as string],
+        value: i.value || (userSelection && userSelection[i.name as string]),
         checked: i.selected || i.value === userSelection,
         conditional: !i.warning
           ? undefined
