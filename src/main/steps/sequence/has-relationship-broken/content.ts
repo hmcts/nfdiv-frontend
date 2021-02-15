@@ -19,9 +19,21 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     },
   };
 
-  // @TODO translations
   const cy: typeof en = {
-    ...en,
+    title: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
+    line1: `Rhaid bod eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu’n gyfan gwbl i chi allu ${
+      isDivorce ? 'cael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
+    }. Mae hyn yn golygu ni ellir ei hachub.`,
+    yes: `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`,
+    no: `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`,
+    notBrokenDownSelected: `Rhaid bod eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu’n gyfan gwbl i chi allu ${
+      isDivorce ? 'cael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
+    }. Dyma yw’r gyfraith yng Nghymru a Lloegr.`,
+    errors: {
+      screenHasUnionBroken: {
+        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn y gallwch barhau.',
+      },
+    },
   };
 
   const common = {
