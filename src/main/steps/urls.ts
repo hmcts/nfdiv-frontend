@@ -10,7 +10,7 @@ export const COOKIES_URL: PageLink = '/cookies';
 export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
 
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
-export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/screening-questions/has-relationship-broken';
-export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/screening-questions/relationship-has-not-broken';
+export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
+export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
 
 export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';

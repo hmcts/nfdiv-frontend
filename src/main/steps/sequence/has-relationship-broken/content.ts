@@ -10,7 +10,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     yes: `Yes, my ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down`,
     no: `No, my ${isDivorce ? 'marriage' : 'relationship'} has not irretrievably broken down`,
     notBrokenDownSelected: `Your ${isDivorce ? 'marriage' : 'relationship'}
-      must have irretrievably broken down for you to ${isDivorce ? 'end your civil partnership' : 'get a divorce'}.
+      must have irretrievably broken down for you to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.
       This is the law in England and Wales.`,
     errors: {
       screenHasUnionBroken: {
