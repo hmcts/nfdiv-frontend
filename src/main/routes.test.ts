@@ -25,6 +25,7 @@ describe('Routes', () => {
             saveSignOutGetController: { get: 'mock' },
             termsAndConditionsGetController: { get: 'mock' },
             cookiesGetController: { get: 'mock' },
+            accessibilityStatementGetController: { get: 'mock' },
             errorController: { get: 'mock' },
           },
         },

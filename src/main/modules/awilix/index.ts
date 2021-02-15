@@ -2,6 +2,7 @@ import { InjectionMode, asClass, asValue, createContainer } from 'awilix';
 import { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 
+import { AccessibilityStatementGetController } from '../../steps/accessibility-statement/get';
 import { CookiesGetController } from '../../steps/cookies/get';
 import { ErrorController } from '../../steps/error/error.controller';
 import { HomeGetController } from '../../steps/home/get';
@@ -22,6 +23,7 @@ export class Container {
       saveSignOutGetController: asValue(new SaveSignOutGetController()),
       termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
       cookiesGetController: asValue(new CookiesGetController()),
+      accessibilityStatementGetController: asValue(new AccessibilityStatementGetController()),
       errorController: asClass(ErrorController),
     });
   }
