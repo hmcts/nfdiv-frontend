@@ -7,13 +7,14 @@ import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
 import { getSteps } from './steps/sequence';
-import { CSRF_TOKEN_ERROR_URL, HOME_URL, TERMS_AND_CONDITIONS_URL } from './steps/urls';
+import { CSRF_TOKEN_ERROR_URL, HOME_URL, SAVE_SIGN_OUT_URL, TERMS_AND_CONDITIONS_URL } from './steps/urls';
 
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
 
     app.get(HOME_URL, errorHandler(app.locals.container.cradle.homeGetController.get));
+    app.get(SAVE_SIGN_OUT_URL, errorHandler(app.locals.container.cradle.saveSignOutGetController.get));
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
 
     for (const step of getSteps()) {

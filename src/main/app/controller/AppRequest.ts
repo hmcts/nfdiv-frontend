@@ -12,6 +12,7 @@ export interface AppRequest<T = Record<string, unknown>> extends Request {
     storage: StepStateStorage;
   };
   body: T;
+  logout: () => Promise<void>;
 }
 
 export interface AppSession extends Session {
