@@ -8,40 +8,59 @@ import { Step, SubStep, sequence } from './sequence';
 
 export { Step, SubStep } from './sequence';
 
-export const getSteps = (steps: Step[] = [], start = sequence): Step[] => {
+interface StepWithDepth extends Step {
+  depth: number;
+}
+
+export const getSteps = (steps: Step[] = [], start = sequence, depth = 0): StepWithDepth[] => {
   for (const step of start) {
-    steps.push(step);
+    steps.push({ ...step, depth } as StepWithDepth);
     if (step.subSteps) {
-      getSteps(steps, step.subSteps);
+      getSteps(steps, step.subSteps, depth + 1);
     }
   }
-  return steps;
+  return steps as StepWithDepth[];
 };
 
-export const getNextStepUrl = (req: AppRequest): string => {
+export const getNextStepUrl = (
+  req: AppRequest,
+  currSequence: Step[] | SubStep[] = sequence,
+  nextSteps: Step[] = []
+): string => {
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
 
-  const currentStep = sequence.find(step => step.url === path);
-  if (!currentStep) {
-    return '/step-not-found';
-  }
-  if (currentStep.subSteps?.length) {
-    const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(req.body));
-    if (foundMatchingSubstep?.url) {
-      return `${foundMatchingSubstep?.url}${queryString}`;
+  for (const step of [...currSequence].reverse()) {
+    if (step.subSteps) {
+      const matchingSubstep = step.subSteps.find(subStep => subStep.when(req.body));
+      if (matchingSubstep) {
+        getNextStepUrl(req, [matchingSubstep], nextSteps);
+      }
     }
+
+    if (step.url === path) {
+      break;
+    }
+
+    nextSteps.push(step);
   }
-  const index = sequence.indexOf(currentStep);
-  return `${sequence[index + 1]?.url || path}${queryString}`;
+
+  const currStep = getSteps([], currSequence).find(step => step.url === path);
+  let nextStepsProcessed = [...nextSteps].reverse();
+  if (currStep?.depth) {
+    nextStepsProcessed = nextStepsProcessed.slice(currStep.depth);
+  }
+
+  const url = nextSteps.length === 0 ? path : nextStepsProcessed[0].url;
+  return `${url}${queryString}`;
 };
 
 type State = Record<string, Record<string, string>>;
 
 export const getLatestIncompleteStepUrl = (
   req: AppRequest,
-  currState?: State,
   currSequence: Step[] | SubStep[] = sequence,
+  currState?: State,
   incompleteSteps: string[] = []
 ): string => {
   const state = currState || req.session.state;
@@ -75,11 +94,15 @@ export const getLatestIncompleteStepUrl = (
             incompleteSteps.push(step.url);
             continue;
           }
-          getLatestIncompleteStepUrl(req, state as State, [matchingSubstep], incompleteSteps);
+          getLatestIncompleteStepUrl(req, [matchingSubstep], state as State, incompleteSteps);
         }
       }
     }
   }
 
-  return incompleteSteps.length === 0 ? currSequence[0].url : [...incompleteSteps].reverse()[0];
+  const searchParams = req.originalUrl.split('?')[1];
+  const queryString = searchParams ? `?${searchParams}` : '';
+
+  const url = incompleteSteps.length === 0 ? currSequence[0].url : [...incompleteSteps].reverse()[0];
+  return `${url}${queryString}`;
 };
