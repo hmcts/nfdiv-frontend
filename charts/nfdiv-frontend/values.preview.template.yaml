@@ -6,7 +6,6 @@ nodejs:
     enabled: true
     prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
-  environment:
 
 idam-pr:
   enabled: true

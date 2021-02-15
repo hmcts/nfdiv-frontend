@@ -20,7 +20,7 @@
                   classes: "govuk-visually-hidden"
                 }
               },
-              items: formItems(field.values)
+              items: formItems(field.values, formState[fieldName])
             }) }}
         {% case 'checkboxes' %}
           {{ govukCheckboxes({
@@ -33,7 +33,7 @@
                 classes: "govuk-fieldset__legend--s"
               }
             },
-            items: formItems(field.values)
+            items: formItems(field.values, formState[fieldName])
           }) }}
         {% case 'option' %}
           {{ govukSelect({
@@ -42,7 +42,7 @@
             label: {
               text: getContent(field.label)
             },
-            items: formItems(field.values)
+            items: formItems(field.values, formState[fieldName])
           }) }}
         {% default %}
           {{ govukInput({
@@ -51,13 +51,24 @@
               classes: "govuk-label--l " + field.classes
             },
             id: fieldName,
-            name: fieldName
+            name: fieldName,
+            value: formState[fieldName]
           }) }}
       {% endswitch %}
     {% endfor %}
   {% endblock %}
 
   <div class="govuk-form-group">
-    {{ govukButton({ text: getContent(form.submit.text), preventDoubleClick: true }) }}
+    {{ govukButton({
+      text: getContent(form.submit.text),
+      type: "submit",
+      preventDoubleClick: true
+    }) }}
+
+    <p class="govuk-body">
+      <button class="hmcts-button-link" type="submit" name="saveAndSignOut" value="true" data-prevent-double-click="true" data-module="govuk-button" />
+        {{ saveAndSignOut }}
+      </button>
+    </p>
   </div>
 </form>

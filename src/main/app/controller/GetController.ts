@@ -6,11 +6,15 @@ import { commonContent } from '../../steps/common/common.content';
 import { AppRequest } from './AppRequest';
 
 export type Translations = Record<'en' | 'cy' | 'common', Record<string, unknown>>;
-export type TranslationFn = (isDivorce: boolean) => Translations;
+export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partner: string }) => Translations;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
+  constructor(
+    protected readonly view: string,
+    protected readonly content: TranslationFn | Translations,
+    protected readonly stepId: string | undefined = undefined
+  ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -19,18 +23,48 @@ export class GetController {
       return;
     }
 
-    const isDivorce = res.locals.serviceType !== 'civil';
-    const derivedContent = typeof this.content === 'function' ? this.content(isDivorce) : this.content;
-
     const language = req.session.lang || 'en';
-    const languageContent = derivedContent[language];
     const commonLanguageContent = commonContent[language];
-    const commonPageContent = derivedContent.common || {};
+    const content = this.getContent(req, res, commonLanguageContent);
+    const languageContent = content[language];
+    const commonPageContent = content.common || {};
 
     const sessionErrors = req.session.errors || [];
 
     req.session.errors = undefined;
 
-    res.render(this.view, { ...languageContent, ...commonPageContent, ...commonLanguageContent, sessionErrors });
+    res.render(this.view, {
+      ...languageContent,
+      ...commonPageContent,
+      ...commonLanguageContent,
+      sessionErrors,
+      ...(this.stepId && { formState: req.session.state?.[this.stepId] }),
+    });
+  }
+
+  private getContent(req: AppRequest, res: Response, translations: Translations): Translations {
+    if (typeof this.content !== 'function') {
+      return this.content;
+    }
+
+    const isDivorce = res.locals.serviceType !== 'civil';
+
+    const getPartner = (): string => {
+      if (!isDivorce) {
+        return translations['civilPartner'];
+      }
+
+      const selectedPartnerGender = req.session.state['your-details']?.partnerGender;
+      if (selectedPartnerGender === 'Masculine') {
+        return translations['husband'];
+      }
+      if (selectedPartnerGender === 'Feminine') {
+        return translations['wife'];
+      }
+
+      return translations['partner'];
+    };
+
+    return this.content({ isDivorce, partner: getPartner() });
   }
 }

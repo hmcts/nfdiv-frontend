@@ -50,6 +50,12 @@ yarn start
 
 The application's home page will be available at [https://localhost:3001](https://localhost:3001).
 
+### Running end-to-end
+
+The application makes calls to
+[case orchestration service](https://github.com/hmcts/nfdiv-case-orchestration-service).
+Make sure you have this running to run the frontend e2e.
+
 ### Running with Docker
 
 Create docker image:
