@@ -22,6 +22,7 @@ describe('Routes', () => {
         container: {
           cradle: {
             homeGetController: { get: 'mock' },
+            saveSignOutGetController: { get: 'mock' },
             termsAndConditionsGetController: { get: 'mock' },
             cookiesGetController: { get: 'mock' },
             errorController: { get: 'mock' },

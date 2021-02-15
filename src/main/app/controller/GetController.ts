@@ -5,7 +5,8 @@ import { commonContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
-export type Translations = Record<'en' | 'cy' | 'common', Record<string, unknown>>;
+type Translation = Record<string, unknown>;
+export type Translations = { en: Translation; cy: Translation; common: Translation | undefined };
 export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partner: string }) => Translations;
 
 @autobind
@@ -38,7 +39,7 @@ export class GetController {
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
-      ...(this.stepId && { formState: req.session.state?.[this.stepId] }),
+      ...(this.stepId && { formState: req.session.state[this.stepId] }),
     });
   }
 
