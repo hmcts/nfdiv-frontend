@@ -31,9 +31,10 @@
       text: phase
     },
     html: feedback + languageToggle
-  })
-  }}
-  <a href="#" class="govuk-back-link">{{ back }}</a>
+  }) }}
+  {% if not hideBackButton %}
+    <a href="#" class="govuk-back-link">{{ back }}</a>
+  {% endif %}
 {% endblock %}
 
 {% block content %}

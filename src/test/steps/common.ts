@@ -16,6 +16,10 @@ Then('the page should include {string}', (text: string) => {
   I.see(text);
 });
 
+Then('the page should not include {string}', (text: string) => {
+  I.dontSee(text);
+});
+
 Then('{string} should be ticked', (text: string) => {
   I.seeCheckboxIsChecked(text);
 });

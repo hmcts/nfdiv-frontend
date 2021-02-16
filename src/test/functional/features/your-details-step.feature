@@ -6,6 +6,7 @@ Feature: Your details step
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     Then the page should include "Who are you applying to divorce?"
+    And the page should not include "Back"
 
   Scenario: Successfully completing the form
     Given I select "My husband"

@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
+import { YOUR_DETAILS_URL } from '../../steps/urls';
 
 import { GetController, Translations } from './GetController';
 
@@ -62,6 +63,22 @@ describe('GetController', () => {
       formState: {
         someInputData: 'falafel',
       },
+    });
+  });
+
+  it('hides the back button if the user is on the first question', async () => {
+    const firstQuestionUrl = YOUR_DETAILS_URL;
+    const controller = new GetController('page', {} as Translations, 'test-page');
+
+    const req = mockRequest();
+    const res = mockResponse();
+    req.originalUrl = firstQuestionUrl;
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith('page', {
+      ...commonContent.en,
+      sessionErrors: [],
+      hideBackButton: true,
     });
   });
 
