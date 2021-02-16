@@ -4,11 +4,18 @@ export const mockRequest = ({ session = {}, body = {} } = {}): AppRequest<never>
   (({
     body,
     scope: {
-      cradle: {},
+      cradle: {
+        api: {
+          updateCase: jest.fn(),
+        },
+      },
     },
     query: {},
     session: {
-      state: {},
+      userCase: {
+        id: '1234',
+        divorceOrDissolution: 'divorce',
+      },
       save: jest.fn(done => done()),
       ...session,
     },

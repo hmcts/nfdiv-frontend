@@ -3,6 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps/sequence';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
+import { Gender } from '../api/CosApi';
 
 import { PostController } from './PostController';
 
@@ -22,11 +23,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel' } });
-    const res = mockResponse({ session: req.session });
+    const req = mockRequest({ body: { partnerGender: Gender.Female } });
+    const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.locals.storage.getCurrentState()).toEqual({ 'test-step': { mockField: 'falafel' } });
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith(req.path);
@@ -39,11 +40,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel' } });
-    const res = mockResponse({ session: req.session });
+    const req = mockRequest({ body: { partnerGender: Gender.Female } });
+    const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.locals.storage.getCurrentState()).toEqual({ 'test-step': { mockField: 'falafel' } });
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -55,13 +56,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel', saveAndSignOut: true } });
-    const res = mockResponse({ session: req.session });
+    const req = mockRequest({ body: { partnerGender: Gender.Female, saveAndSignOut: true } });
+    const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.locals.storage.getCurrentState()).toEqual({
-      'test-step': { mockField: 'falafel' },
-    });
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);
@@ -75,7 +74,7 @@ describe('PostController', () => {
 
     const mockSave = jest.fn(done => done('An error while saving session'));
     const req = mockRequest({ body: { mockField: 'falafel' }, session: { save: mockSave } });
-    const res = mockResponse({ session: req.session });
+    const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
     expect(mockSave).toHaveBeenCalled();

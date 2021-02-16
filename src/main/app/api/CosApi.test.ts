@@ -11,6 +11,9 @@ describe('CosApi', () => {
       allocatedCourt: {
         court: 'court',
       },
+      data: {
+        divorceOrDissolution: 'divorce',
+      },
     },
   };
 
@@ -22,13 +25,12 @@ describe('CosApi', () => {
   } as never;
   const api = new CosApi(mockedAxios, mockLogger);
 
-  //TODO check the returned data once backend has been implemented
   test('Should return case data response', async () => {
     mockedAxios.get = jest.fn().mockResolvedValue(results);
 
     const userCase = await api.getCase();
 
-    expect(userCase).toBe(results.data);
+    expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: 'divorce' });
   });
 
   test('Should return false when case was not returned', async () => {
@@ -57,5 +59,25 @@ describe('CosApi', () => {
         divorceOrDissolution: 'divorce',
       })
     ).rejects.toThrow('Case could not be created.');
+  });
+
+  test('Should return case update response', async () => {
+    mockedAxios.patch = jest.fn().mockResolvedValue(results);
+
+    const userCase = await api.updateCase('1234', {
+      divorceOrDissolution: 'divorce',
+    });
+
+    expect(userCase).toBe(results.data);
+  });
+
+  test('Should throw error when case could not be updated', async () => {
+    mockedAxios.patch = jest.fn().mockRejectedValue(false);
+
+    await expect(
+      api.updateCase('not found', {
+        divorceOrDissolution: 'divorce',
+      })
+    ).rejects.toThrow('Case could not be updated.');
   });
 });

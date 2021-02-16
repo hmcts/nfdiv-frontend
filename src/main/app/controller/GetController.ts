@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
+import { Gender } from '../api/CosApi';
 
 import { AppRequest } from './AppRequest';
 
@@ -39,7 +40,7 @@ export class GetController {
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
-      ...(this.stepId && { formState: req.session.state[this.stepId] }),
+      ...(this.stepId && { formState: req.session.userCase }),
     });
   }
 
@@ -55,11 +56,11 @@ export class GetController {
         return translations['civilPartner'];
       }
 
-      const selectedPartnerGender = req.session.state['your-details']?.partnerGender;
-      if (selectedPartnerGender === 'Masculine') {
+      const selectedPartnerGender = req.session.userCase?.partnerGender;
+      if (selectedPartnerGender === Gender.Male) {
         return translations['husband'];
       }
-      if (selectedPartnerGender === 'Feminine') {
+      if (selectedPartnerGender === Gender.Female) {
         return translations['wife'];
       }
 

@@ -1,10 +1,10 @@
 import { AwilixContainer, asClass, asValue } from 'awilix';
 import Axios from 'axios';
 import config from 'config';
-import { Application, NextFunction, Response } from 'express';
+import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
-import { CosApi } from '../../app/api/CosApi';
+import { Case, CosApi } from '../../app/api/CosApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
@@ -54,26 +54,9 @@ export class OidcMiddleware {
       })
     );
 
-    app.use(
-      errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        req.logout = async () => {
-          req.session.user = undefined;
-          req.session.userCase = undefined;
-          req.session.lang = undefined;
-          req.session.state = {};
-          return new Promise((resolve, reject) => req.session.save(err => (err ? reject(err) : resolve())));
-        };
-        next();
-      })
-    );
-
-    app.get(
-      SIGN_OUT_URL,
-      errorHandler(async (req: AppRequest, res: Response) => {
-        await req.logout();
-        res.redirect('/');
-      })
-    );
+    app.get(SIGN_OUT_URL, (req: Request, res: Response) => {
+      req.session.destroy(() => res.redirect('/'));
+    });
 
     app.use(
       errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
@@ -94,9 +77,13 @@ export class OidcMiddleware {
           });
 
           if (!req.session.userCase) {
-            const userCase = await req.scope?.cradle.api.getCase();
-            req.session.userCase =
-              userCase || (await req.scope?.cradle.api.createCase({ divorceOrDissolution: res.locals.serviceType }));
+            req.session.userCase = await req.scope?.cradle.api.getCase();
+
+            if (!req.session.userCase) {
+              req.session.userCase = await req.scope?.cradle.api.createCase({
+                divorceOrDissolution: res.locals.serviceType === 'civil' ? 'dissolution' : 'divorce',
+              });
+            }
           }
 
           res.locals.isLoggedIn = true;
@@ -111,10 +98,10 @@ export class OidcMiddleware {
 declare module 'express-session' {
   export interface SessionData {
     user: Record<string, Record<string, unknown>> | undefined;
-    userCase: Record<string, string> | undefined;
+    userCase: Case | undefined;
   }
 }
 
-export interface RequestWithScope extends AppRequest {
+export interface RequestWithScope<T = unknown> extends AppRequest<T> {
   scope?: AwilixContainer;
 }

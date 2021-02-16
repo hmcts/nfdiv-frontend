@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
+import { Gender } from '../api/CosApi';
 
 import { GetController, Translations } from './GetController';
 
@@ -53,14 +54,16 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.state['test-page'] = { someInputData: 'falafel' };
+    req.session.userCase!.partnerGender = Gender.Female;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
       ...commonContent.en,
       sessionErrors: [],
       formState: {
-        someInputData: 'falafel',
+        id: '1234',
+        divorceOrDissolution: 'divorce',
+        partnerGender: Gender.Female,
       },
     });
   });
@@ -95,7 +98,7 @@ describe('GetController', () => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
           const controller = new GetController('page', getContentMock);
 
-          const req = mockRequest({ session: { lang, state: { ['your-details']: { partnerGender } } } });
+          const req = mockRequest({ session: { lang, userCase: { partnerGender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 

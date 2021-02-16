@@ -1,29 +1,63 @@
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
 export class CosApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  //TODO change return type when backend has been implemented.
-  public getCase(): Promise<Record<string, unknown>> {
+  public getCase(): Promise<CaseWithId | false> {
     return this.axios
       .get('/case')
-      .then(results => results.data)
+      .then(results => ({ id: results.data.caseId, ...results.data.data }))
       .catch(err => {
-        this.logger.error(err);
+        this.logError(err);
         return false;
       });
   }
 
-  public createCase(data: Record<string, string>): Promise<CaseCreationResponse> {
+  public createCase(data: Case): Promise<CaseWithId> {
     return this.axios
       .post('/case', data)
       .then(results => results.data)
       .catch(err => {
-        this.logger.error(err);
+        this.logError(err);
         throw new Error('Case could not be created.');
       });
   }
+
+  public updateCase(id: string, data: Partial<Case>): Promise<CaseCreationResponse> {
+    return this.axios
+      .patch('/case', { id, ...data })
+      .then(results => results.data)
+      .catch(err => {
+        this.logError(err);
+        throw new Error('Case could not be updated.');
+      });
+  }
+
+  private logError(error: AxiosError) {
+    if (error.response) {
+      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.info('Response: ', error.response.data);
+    } else if (error.request) {
+      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+    } else {
+      this.logger.error('API Error', error.message);
+    }
+  }
+}
+
+export interface Case {
+  divorceOrDissolution: 'divorce' | 'civil'; // TODO switch to use the type field and be Marriage or Civil Partnership
+  partnerGender?: Gender;
+}
+
+export enum Gender {
+  Male = 'Masculine',
+  Female = 'Feminine',
+}
+
+export interface CaseWithId extends Case {
+  id: string;
 }
 
 export interface CaseCreationResponse {
@@ -31,4 +65,5 @@ export interface CaseCreationResponse {
   error: string;
   status: string;
   allocatedCourt: Record<string, string>;
+  data: Case;
 }
