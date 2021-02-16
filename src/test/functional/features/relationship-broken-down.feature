@@ -1,4 +1,4 @@
-Feature: Marriage Broken Down
+Feature: Relationship broken down
 
   Background:
     Given I am on divorce homepage

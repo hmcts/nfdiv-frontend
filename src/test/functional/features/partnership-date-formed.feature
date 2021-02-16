@@ -1,4 +1,4 @@
-Feature: Citizen Divorce Journey
+Feature: Partnership date formed
 
   Background:
     Given I am on divorce homepage
