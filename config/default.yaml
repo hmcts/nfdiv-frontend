@@ -9,7 +9,7 @@ services:
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
   cos:
-    baseURL: 'http://nfdiv-cos-aat.service.core-compute-aat.internal'
+    baseURL: 'http://localhost:4012'
 health:
   timeout: 5000
   deadline: 15000
