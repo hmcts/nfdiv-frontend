@@ -1,4 +1,4 @@
-import { isDateInputNumeric, isDatesFilledIn, isFieldFilledIn, isFutureDate } from './validation';
+import { isDateInputNumeric, isDatesFilledIn, isFieldFilledIn, isFutureDate, isLessThanAYear } from './validation';
 
 describe('Validation', () => {
   test('Should check if value exist', async () => {
@@ -41,6 +41,23 @@ describe('Validation', () => {
     isValid = isFutureDate(date);
 
     expect(isValid).toStrictEqual('invalidDate');
+  });
+
+  test('Should check if date entered is less than a year', async () => {
+    const dateObj = new Date();
+    const date = {
+      day: dateObj.getUTCDate().toString(),
+      month: (dateObj.getUTCMonth() - 6).toString(),
+      year: dateObj.getUTCFullYear().toString(),
+    };
+    let isValid = isLessThanAYear(date);
+
+    expect(isValid).toStrictEqual('lessThanAYear');
+
+    date.year = (+date.year - 1).toString();
+    isValid = isLessThanAYear(date);
+
+    expect(isValid).toStrictEqual(undefined);
   });
 
   test('Should check if values in object is numeric', async () => {

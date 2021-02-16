@@ -15,17 +15,26 @@ export const isDatesFilledIn: DateValidator = fields => {
   }
 };
 
-export const isFutureDate: DateValidator = date => {
-  const enteredDate = new Date(+date.year, +date.month, +date.day);
-  if (new Date() < enteredDate) {
-    return 'invalidDate';
-  }
-};
-
 export const isDateInputNumeric: DateValidator = date => {
   for (const value in date) {
     if (isNaN(+date[value])) {
       return 'invalidInput';
     }
+  }
+};
+
+export const isFutureDate: DateValidator = date => {
+  const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
+  if (new Date() < enteredDate) {
+    return 'invalidDate';
+  }
+};
+
+export const isLessThanAYear: DateValidator = date => {
+  const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  if (!(enteredDate < oneYearAgo)) {
+    return 'lessThanAYear';
   }
 };

@@ -1,6 +1,6 @@
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
-import { isDateInputNumeric, isDatesFilledIn, isFutureDate } from '../../../app/form/validation';
+import { isDateInputNumeric, isDatesFilledIn, isFutureDate, isLessThanAYear } from '../../../app/form/validation';
 
 export const generateContent = (title: string) => (isDivorce: boolean): Record<string, unknown> => {
   const en = {
@@ -13,6 +13,7 @@ export const generateContent = (title: string) => (isDivorce: boolean): Record<s
         invalidDate:
           'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
         invalidInput: 'You have entered an invalid character. Enter the date using numbers.',
+        lessThanAYear: 'You have not been together longer than a year.',
       },
     },
   };
@@ -26,6 +27,8 @@ export const generateContent = (title: string) => (isDivorce: boolean): Record<s
         required: 'Nid ydych wedi nodi dyddiad. Nodwch ddyddiad i barhau.',
         invalidDate: 'Rydych wedi nodi dyddiad sydd yn y dyfodol. Nodwch ddyddiad sydd yn y gorffennol cyn parhau.',
         invalidInput: 'Rydych chi wedi rhoi nod annilys. Nodwch y dyddiad gan ddefnyddio rhifau.',
+        //TODO translate
+        lessThanAYear: 'You have not been together longer than a year.',
       },
     },
   };
@@ -52,7 +55,8 @@ export const form: FormContent = {
       validator: value =>
         isDatesFilledIn(value as Record<string, string>) ||
         isDateInputNumeric(value as Record<string, string>) ||
-        isFutureDate(value as Record<string, string>),
+        isFutureDate(value as Record<string, string>) ||
+        isLessThanAYear(value as Record<string, string>),
     },
   },
   submit: {
