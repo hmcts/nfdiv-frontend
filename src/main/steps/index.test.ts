@@ -1,7 +1,12 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
+import {
+  HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_URL,
+  RELATIONSHIP_NOT_BROKEN_URL,
+  YOUR_DETAILS_URL,
+} from './urls';
 
 import { Step, getNextIncompleteStepUrl, getNextStepUrl, getSteps } from './';
 
@@ -31,7 +36,7 @@ describe('Steps', () => {
 
     it('returns current step if there is no next step', () => {
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+      expect(getNextStepUrl(mockReq)).toBe(RELATIONSHIP_DATE_URL);
     });
 
     it('moves into the substep when the response matches', () => {
