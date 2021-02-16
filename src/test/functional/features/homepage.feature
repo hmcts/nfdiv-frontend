@@ -8,7 +8,7 @@ Feature: Homepage
     And I see the divorce homepage
 
   Scenario: Load divorce homepage
-    Then I expect the page header to be "Divorce - GOV.UK"
+    Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
     When I click "Cymraeg"
     Then the page should include "Mae hwn yn wasanaeth newydd"
     When I click "English"
@@ -16,7 +16,7 @@ Feature: Homepage
 
   Scenario: Load civil partnership homepage
     When I am on civil partnership homepage
-    Then I expect the page header to be "Civil partnership - GOV.UK"
+    Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
     And the page should include "Are you male or female?"
 
   Scenario: Save and sign out
