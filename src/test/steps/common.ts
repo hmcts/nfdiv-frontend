@@ -8,7 +8,7 @@ const iClick = (text: string) => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 
-Then('I expect the page header to be {string}', (title: string) => {
+Then('I expect the page title to be {string}', (title: string) => {
   I.seeInTitle(title);
 });
 

@@ -5,7 +5,7 @@ Feature: Footer Links
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
-    Then I expect the page header to be "Divorce - GOV.UK"
+    Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
 
   Scenario: Load Terms and Conditions Page
     When I click "Terms and conditions"

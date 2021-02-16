@@ -6,7 +6,7 @@ import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
-import { getSteps } from './steps/sequence';
+import { getSteps } from './steps';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,

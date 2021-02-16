@@ -19,6 +19,11 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
   // @TODO translations
   const cy: typeof en = {
     ...en,
+    errors: {
+      partnerGender: {
+        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn y gallwch barhau.',
+      },
+    },
   };
 
   const common = {

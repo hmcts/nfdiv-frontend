@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getNextStepUrl } from '../../steps/sequence';
+import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
 

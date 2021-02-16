@@ -1,5 +1,3 @@
-import { Request } from 'express';
-
 import {
   HAS_RELATIONSHIP_BROKEN_URL,
   RELATIONSHIP_DATE_URL,
@@ -15,12 +13,12 @@ export interface Step {
   subSteps?: SubStep[];
 }
 
-interface SubStep extends Step {
-  when: (response: Record<string, string>) => boolean;
-  finalPage?: boolean;
+export interface SubStep extends Step {
+  when: (response: Record<string, unknown>) => boolean;
+  isFinalPage?: boolean;
 }
 
-const sequence: Step[] = [
+export const sequence: Step[] = [
   {
     id: 'your-details',
     title: 'Who are you applying to divorce?',
@@ -38,7 +36,7 @@ const sequence: Step[] = [
         title: 'You cannot apply to get a divorce',
         when: res => res.screenHasUnionBroken === 'No',
         url: RELATIONSHIP_NOT_BROKEN_URL,
-        finalPage: true,
+        isFinalPage: true,
       },
     ],
   },
@@ -49,31 +47,3 @@ const sequence: Step[] = [
     url: RELATIONSHIP_DATE_URL,
   },
 ];
-
-export const getSteps = (steps: Step[] = [], start = sequence): Step[] => {
-  for (const step of start) {
-    steps.push(step);
-    if (step.subSteps) {
-      getSteps(steps, step.subSteps);
-    }
-  }
-  return steps;
-};
-
-export const getNextStepUrl = (req: Request): string => {
-  const [path, searchParams] = req.originalUrl.split('?');
-  const queryString = searchParams ? `?${searchParams}` : '';
-
-  const currentStep = sequence.find(step => step.url === path);
-  if (!currentStep) {
-    return '/step-not-found';
-  }
-  if (currentStep.subSteps?.length) {
-    const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(req.body));
-    if (foundMatchingSubstep?.url) {
-      return `${foundMatchingSubstep?.url}${queryString}`;
-    }
-  }
-  const index = sequence.indexOf(currentStep);
-  return `${sequence[index + 1]?.url || path}${queryString}`;
-};

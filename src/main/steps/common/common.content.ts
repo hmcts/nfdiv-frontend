@@ -7,10 +7,7 @@ const en = {
     divorce: 'Apply for a divorce',
     civil: 'End a civil partnership',
   },
-  pageTitle: {
-    divorce: 'Divorce - GOV.UK',
-    civil: 'Civil partnership - GOV.UK',
-  },
+  govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
   download: 'Download',
@@ -37,7 +34,7 @@ const en = {
   chatAlreadyOpen: 'A web chat window is already open.',
   chatOpeningHours: '{{courtOpeningHour}}.',
   saveAndSignOut: 'Save and sign out',
-  signOut: 'Sign Out',
+  signOut: 'Sign out',
   signIn: 'Sign in',
   accessibility: 'Accessibility statement',
   cookies: 'Cookies',
@@ -80,6 +77,7 @@ const cy: typeof en = {
     ...en.pageHeader, // @TODO delete me to get a list of missing translations
     divorce: 'Gwneud cais am ysgariad',
   },
+  govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
   download: 'Llwytho i lawr',
