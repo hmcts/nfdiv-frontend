@@ -1,12 +1,12 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { getNextStepUrl } from '../../steps/sequence';
+import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 
 import { PostController } from './PostController';
 
-jest.mock('../../steps/sequence');
+jest.mock('../../steps');
 
 const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 
