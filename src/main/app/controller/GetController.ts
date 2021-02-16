@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getSteps } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
@@ -31,8 +32,9 @@ export class GetController {
     const commonPageContent = content.common || {};
 
     const sessionErrors = req.session.errors || [];
-
     req.session.errors = undefined;
+
+    const shouldHideBackButton = this.stepId && getSteps().findIndex(step => step.url === req.originalUrl) === 0;
 
     res.render(this.view, {
       ...languageContent,
@@ -40,6 +42,7 @@ export class GetController {
       ...commonLanguageContent,
       sessionErrors,
       ...(this.stepId && { formState: req.session.state[this.stepId] }),
+      ...(shouldHideBackButton && { hideBackButton: true }),
     });
   }
 
