@@ -1,4 +1,10 @@
-import { CERTIFICATE_URL, HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
+import {
+  CERTIFICATE_URL,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  NO_CERTIFICATE_URL,
+  RELATIONSHIP_NOT_BROKEN_URL,
+  YOUR_DETAILS_URL,
+} from './urls';
 
 export interface Step {
   id: string;
@@ -40,5 +46,14 @@ export const sequence: Step[] = [
     title: 'Do you have your marriage certificate with you?',
     field: 'hasCertificate',
     url: CERTIFICATE_URL,
+    subSteps: [
+      {
+        id: 'has-no-certificate',
+        title: 'You need your marriage certificate',
+        when: res => res.hasCertificate === 'No',
+        url: NO_CERTIFICATE_URL,
+        isFinalPage: true,
+      },
+    ],
   },
 ];
