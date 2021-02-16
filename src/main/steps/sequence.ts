@@ -1,4 +1,4 @@
-import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
+import { CERTIFICATE_URL, HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
 export interface Step {
   id: string;
@@ -34,5 +34,11 @@ export const sequence: Step[] = [
         isFinalPage: true,
       },
     ],
+  },
+  {
+    id: 'has-certificate',
+    title: 'Do you have your marriage certificate with you?',
+    field: 'hasCertificate',
+    url: CERTIFICATE_URL,
   },
 ];
