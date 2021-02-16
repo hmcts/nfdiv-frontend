@@ -60,7 +60,7 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
-        if (req.session?.user) {
+        if (req.session.user) {
           const user = req.session.user;
           req.scope = req.app.locals.container.createScope();
           req.scope?.register({
@@ -97,8 +97,8 @@ export class OidcMiddleware {
 
 declare module 'express-session' {
   export interface SessionData {
-    user: Record<string, Record<string, unknown>> | undefined;
-    userCase: Case | undefined;
+    user: Record<string, Record<string, unknown>>;
+    userCase: Case;
   }
 }
 
