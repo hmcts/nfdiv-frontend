@@ -12,5 +12,6 @@ export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
+export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
 
 export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';
