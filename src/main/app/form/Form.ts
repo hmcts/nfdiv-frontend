@@ -45,11 +45,13 @@ export interface FormOptions {
 
 export interface FormInput {
   label: Label;
+  hint?: Label;
   classes?: string;
   selected?: boolean;
   value?: string | number;
   validator?: ValidationCheck;
   warning?: Warning;
+  subFields?: Record<string, FormField>;
 }
 
 export interface CsrfField {

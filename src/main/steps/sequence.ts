@@ -1,5 +1,6 @@
 import {
   HAS_RELATIONSHIP_BROKEN_URL,
+  HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_WITH_YOUR_FEE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_DETAILS_URL,
@@ -45,5 +46,14 @@ export const sequence: Step[] = [
     title: 'Do you need help paying the fee for your divorce?',
     field: 'helpPayingNeeded',
     url: HELP_WITH_YOUR_FEE_URL,
+    subSteps: [
+      {
+        id: 'help-paying-have-ref-no',
+        title: 'Have you already applied for help with your divorce fee?',
+        field: 'helpWithFeesRefNo',
+        when: res => res.helpPayingNeeded === 'Yes',
+        url: HELP_PAYING_HAVE_YOU_APPLIED,
+      },
+    ],
   },
 ];

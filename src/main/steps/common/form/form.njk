@@ -7,55 +7,7 @@
 <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}">
   {% block form_content %}
-    {% for fieldName, field in form.fields %}
-      {% switch field.type %}
-        {% case 'radios' %}
-          {{ govukRadios({
-              classes: field.classes,
-              idPrefix: fieldName,
-              name: fieldName,
-              fieldset: {
-                legend: {
-                  text: getContent(field.label),
-                  classes: "govuk-visually-hidden"
-                }
-              },
-              items: formItems(field.values, formState[fieldName])
-            }) }}
-        {% case 'checkboxes' %}
-          {{ govukCheckboxes({
-            classes: field.classes,
-            idPrefix: fieldName,
-            name: fieldName,
-            fieldset: {
-              legend: {
-                text: getContent(field.label),
-                classes: "govuk-fieldset__legend--s"
-              }
-            },
-            items: formItems(field.values, formState[fieldName])
-          }) }}
-        {% case 'option' %}
-          {{ govukSelect({
-            id: fieldName,
-            name: fieldName,
-            label: {
-              text: getContent(field.label)
-            },
-            items: formItems(field.values, formState[fieldName])
-          }) }}
-        {% default %}
-          {{ govukInput({
-            label: {
-              text: getContent(field.label),
-              classes: "govuk-label--l " + field.classes
-            },
-            id: fieldName,
-            name: fieldName,
-            value: formState[fieldName]
-          }) }}
-      {% endswitch %}
-    {% endfor %}
+    {% include "./fields.njk" %}
   {% endblock %}
 
   <div class="govuk-form-group">
