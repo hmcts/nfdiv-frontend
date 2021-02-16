@@ -63,6 +63,8 @@ describe('Accessibility', () => {
   testAccessibility('/terms-and-conditions');
   testAccessibility('/cookies');
   testAccessibility('/accessibility-statement');
+  testAccessibility('/do-you-have-your-certificate');
+  testAccessibility('/you-need-your-certificate');
 
   // TODO: include each path of your application in accessibility checks
 });

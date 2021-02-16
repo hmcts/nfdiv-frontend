@@ -19,3 +19,11 @@ Then('the page should include {string}', (text: string) => {
 Then('{string} should be ticked', (text: string) => {
   I.seeCheckboxIsChecked(text);
 });
+
+Then('I enter {string}', (text: string) => {
+  I.type(text);
+});
+
+Given('I go to {string}', (text: string) => {
+  I.amOnPage(text);
+});
