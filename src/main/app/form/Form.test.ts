@@ -60,14 +60,15 @@ describe('Form', () => {
   });
 
   test('Should parse a form body', async () => {
-    const parsedBody = form.getParsedBody({
+    const body = {
       field: 'Yes',
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
-    });
+    };
+    form.getParsedBody(body);
 
-    expect(parsedBody).toStrictEqual({
+    expect(body).toStrictEqual({
       field: 'Yes',
       dateField: {
         day: '1',
