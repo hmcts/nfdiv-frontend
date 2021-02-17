@@ -84,7 +84,7 @@
     "@types/webpack-dev-middleware": "^4.1.0",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
-    "@wdio/sauce-service": "^7.0.4",
+    "@wdio/sauce-service": "^7.0.5",
     "allure-commandline": "^2.13.8",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",

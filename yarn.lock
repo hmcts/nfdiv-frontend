@@ -1476,20 +1476,6 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.5.tgz#b6ab3bba29e16b821d84e09ecfaded462b816b00"
   integrity sha512-UEyp8LwZ4Dg30kVU2Q3amHHyTn1jEdhCIE59ANed76GaT1Vp76DD3ZWSAxgCrw6wJ0TqeoBpqmfUHiUDPs//HQ==
 
-"@types/puppeteer-core@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer-core/-/puppeteer-core-5.4.0.tgz#880a7917b4ede95cbfe2d5e81a558cfcb072c0fb"
-  integrity sha512-yqRPuv4EFcSkTyin6Yy17pN6Qz2vwVwTCJIDYMXbE3j8vTPhv0nCQlZOl5xfi0WHUkqvQsjAR8hAfjeMCoetwg==
-  dependencies:
-    "@types/puppeteer" "*"
-
-"@types/puppeteer@*":
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.2.tgz#80f3a1f54dedbbf750779716de81401549062072"
-  integrity sha512-yjbHoKjZFOGqA6bIEI2dfBE5UPqU0YGWzP+ipDVP1iGzmlhksVKTBVZfT3Aj3wnvmcJ2PQ9zcncwOwyavmafBw==
-  dependencies:
-    "@types/node" "*"
-
 "@types/qs@*":
   version "6.9.5"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
@@ -1721,16 +1707,16 @@
   dependencies:
     "@wdio/utils" "7.0.4"
 
-"@wdio/sauce-service@^7.0.4":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.0.4.tgz#8d2662d344f830487b478127a473d9ea6e0e5a0c"
-  integrity sha512-sgCgzj+nBy5Fqm0d94XzN68edDPB9zYNxNOC456HpMSJTDCJtuP4YHY/Bk01kyGKnf6b9ynIQSws54UKbdUfPg==
+"@wdio/sauce-service@^7.0.5":
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.0.5.tgz#59b8f8c6821ba465b8a621e1423bb2a98b7abb0f"
+  integrity sha512-Q38Xsl/G2d7bYobBj46lC6yk3jUUadVK33jI0fkQQT+pbrXfP11sZSHrfbwot73Co+qrM/yJn3VWWL+W/jSNtQ==
   dependencies:
     "@wdio/logger" "7.0.0"
     "@wdio/types" "7.0.4"
     "@wdio/utils" "7.0.4"
     saucelabs "^4.2.0"
-    webdriverio "7.0.4"
+    webdriverio "7.0.5"
 
 "@wdio/types@7.0.4":
   version "7.0.4"
@@ -4209,22 +4195,6 @@ devtools-protocol@^0.0.852555:
   version "0.0.852555"
   resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.852555.tgz#97f590995f0b7c005af2fe0312a6ae6824739944"
   integrity sha512-BZDh1grhLCm2K0DFj3hdildYJ776p8N1kGpUDM4a4FhUhCYZyoTMK3qWuroV2hll0VarNAgDCZLllAvgOdNvzw==
-
-devtools@7.0.4:
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/devtools/-/devtools-7.0.4.tgz#ed6f1362e073b91404b7402453f337d880f057d1"
-  integrity sha512-TtMJanS2NoIhZ/juwy3dDkzpc4Ko0Rxac9bBQlAxNKcGM5imXtc5xTgYGyCiDy3vKg2SHNtnhpHCwFVKuqkn2g==
-  dependencies:
-    "@wdio/config" "7.0.4"
-    "@wdio/logger" "7.0.0"
-    "@wdio/protocols" "7.0.0"
-    "@wdio/types" "7.0.4"
-    "@wdio/utils" "7.0.4"
-    chrome-launcher "^0.13.1"
-    edge-paths "^2.1.0"
-    puppeteer-core "^7.1.0"
-    ua-parser-js "^0.7.21"
-    uuid "^8.0.0"
 
 devtools@7.0.5:
   version "7.0.5"
@@ -11686,39 +11656,7 @@ webdriver@7.0.4:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.0.4:
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.4.tgz#8a1d4b4cabec1e67e12505099d31ca6d34ec4891"
-  integrity sha512-4cIzLbuLxeyquFTZ/4lkLI//No7IE4D7O97ndbiWi+G+RqPFcPefLduaFpbLU4Gsv92Ig0A9GESYwActltMmzg==
-  dependencies:
-    "@types/puppeteer-core" "^5.4.0"
-    "@wdio/config" "7.0.4"
-    "@wdio/logger" "7.0.0"
-    "@wdio/protocols" "7.0.0"
-    "@wdio/repl" "7.0.4"
-    "@wdio/types" "7.0.4"
-    "@wdio/utils" "7.0.4"
-    archiver "^5.0.0"
-    atob "^2.1.2"
-    css-shorthand-properties "^1.1.1"
-    css-value "^0.0.1"
-    devtools "7.0.4"
-    devtools-protocol "^0.0.852555"
-    fs-extra "^9.0.1"
-    get-port "^5.1.1"
-    grapheme-splitter "^1.0.2"
-    lodash.clonedeep "^4.5.0"
-    lodash.isobject "^3.0.2"
-    lodash.isplainobject "^4.0.6"
-    lodash.zip "^4.2.0"
-    minimatch "^3.0.4"
-    puppeteer-core "^7.1.0"
-    resq "^1.9.1"
-    rgb2hex "0.2.3"
-    serialize-error "^8.0.0"
-    webdriver "7.0.4"
-
-webdriverio@^7.0.5:
+webdriverio@7.0.5, webdriverio@^7.0.5:
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.5.tgz#08d27d495529ed057aa45a30957b571ec573728b"
   integrity sha512-pPTy8heOmRZ3VdtDXPcLaRl+km+ga8vt69bG1Wh8gUDwfOAdTMLGG7q8RIGrvoDEYkgjq1yWb+/cG11hMhl6Bw==
