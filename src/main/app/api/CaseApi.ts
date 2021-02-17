@@ -1,13 +1,16 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
+import { fromApiFormat } from './from-api-format';
+import { toApiFormat } from './to-api-format';
+
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public getCase(): Promise<CaseWithId | false> {
     return this.axios
       .get('/case')
-      .then(results => ({ id: results.data.caseId, ...results.data.data }))
+      .then(results => ({ id: results.data.caseId, ...fromApiFormat(results.data.data) }))
       .catch(err => {
         if (err.response?.status !== 404) {
           this.logError(err);
@@ -30,7 +33,7 @@ export class CaseApi {
 
   public updateCase(id: string, data: Partial<Case>): Promise<CaseCreationResponse> {
     return this.axios
-      .patch('/case', { id, ...data })
+      .patch('/case', { id, ...toApiFormat(data) })
       .then(results => results.data)
       .catch(err => {
         this.logError(err);
@@ -78,3 +81,5 @@ export interface CaseCreationResponse {
   allocatedCourt: Record<string, string>;
   data: Case;
 }
+
+export type ApiCase = Case;

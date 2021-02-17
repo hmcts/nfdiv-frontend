@@ -1,4 +1,4 @@
-import { Case, Gender, YesOrNo } from './CaseApi';
+import { ApiCase, Case, Gender, YesOrNo } from './CaseApi';
 
 const fields = {
   sameSex: data => ({
@@ -14,7 +14,7 @@ const fields = {
   }),
 };
 
-export function toApiFormat(data: Case): ApiCase {
+export function toApiFormat(data: Partial<Case>): ApiCase {
   const result = {};
 
   for (const field of Object.keys(data)) {
@@ -30,6 +30,3 @@ export function toApiFormat(data: Case): ApiCase {
 
 // TODO create separate definitions and plug the ApiCase structure into CaseApi and the Case structure into the session
 // move the ApiCase definition to CaseApi rather than here and move the Case definition out of CaseApi to somewhere else
-
-// TODO also add a from-api-format in another file then plug these functions into the CaseApi
-export type ApiCase = Case;
