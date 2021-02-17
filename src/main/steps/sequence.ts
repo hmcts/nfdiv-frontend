@@ -1,5 +1,8 @@
+import { isLessThanAYear } from '../app/form/validation';
+
 import {
   HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_DETAILS_URL,
@@ -45,5 +48,15 @@ export const sequence: Step[] = [
     title: 'When did you get married?',
     field: 'relationshipDate',
     url: RELATIONSHIP_DATE_URL,
+    //TODO change when ticket is picked up
+    subSteps: [
+      {
+        id: 'relationship-date-less-than-year',
+        title: 'You have not been married for long enough',
+        when: res => isLessThanAYear(res.relationshipDate as Record<string, string>) === 'lessThanAYear',
+        url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+        isFinalPage: true,
+      },
+    ],
   },
 ];

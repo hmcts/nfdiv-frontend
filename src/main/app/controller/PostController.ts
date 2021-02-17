@@ -17,11 +17,11 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const parsedBody = this.form.getParsedBody(req.body);
-    const errors = this.form.getErrors(parsedBody);
+    this.form.getParsedBody(req.body);
+    const errors = this.form.getErrors(req.body);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
-    const { saveAndSignOut, ...formData } = parsedBody;
+    const { saveAndSignOut, ...formData } = req.body;
     res.locals.storage.store({ [this.stepId]: formData });
 
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
