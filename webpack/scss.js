@@ -17,7 +17,12 @@ module.exports = {
       test: /\.scss$/,
       use: [
         'style-loader',
-        MiniCssExtractPlugin.loader,
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            esModule: false,
+          },
+        },
         'css-loader',
         'sass-loader',
       ],

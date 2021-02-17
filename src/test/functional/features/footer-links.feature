@@ -1,9 +1,24 @@
-Feature: Privacy policy
+Feature: Footer Links
 
-  Scenario: Load privacy policy
+  Background:
     Given I am on divorce homepage
     And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with my authenticated credentials "hmcts.nfdiv@gmail.com" "Pa55word11"
-    And click the Sign In button
-    When I click the "Privacy policy" link
+    When I fill in the Username and Password fields with a valid login
+    And I click "Sign in"
+    Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
+
+  Scenario: Load privacy policy
+    When I click the "Privacy policy"
     Then the page should include "Privacy policy"
+
+  Scenario: Load Terms and Conditions Page
+    When I click "Terms and conditions"
+    Then the page should include "Terms and conditions"
+
+  Scenario: Load Cookies Page
+    When I click "Cookies"
+    Then the page should include "Cookies"
+
+  Scenario: Load Accessibility Statement Page
+    When I click "Accessibility statement"
+    Then the page should include "Accessibility Statement"

@@ -1,17 +1,15 @@
-
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   registerAdditionalDns:
     enabled: true
-    prefix: dis
+    prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
-  environment:
 
 idam-pr:
   enabled: true
   redirect_uris:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
-      - https://dis-${SERVICE_FQDN}/oauth2/callback
+      - https://civil-${SERVICE_FQDN}/oauth2/callback

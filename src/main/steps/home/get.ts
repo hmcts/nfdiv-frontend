@@ -1,10 +1,10 @@
-import { GetController } from '../../app/controller/GetController';
-import { homeContent } from './content';
+import { Response } from 'express';
 
-export class HomeGetController extends GetController {
+import { AppRequest } from '../../app/controller/AppRequest';
+import { getNextIncompleteStepUrl } from '../../steps';
 
-  constructor() {
-    super(__dirname + '/template', homeContent);
+export class HomeGetController {
+  public async get(req: AppRequest, res: Response): Promise<void> {
+    res.redirect(getNextIncompleteStepUrl(req));
   }
-
 }

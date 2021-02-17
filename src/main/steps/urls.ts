@@ -1,11 +1,17 @@
-
 export type PageLink = `/${string}`;
 
 export const HOME_URL: PageLink = '/';
+export const SIGN_IN_URL: PageLink = '/login';
+export const SIGN_OUT_URL: PageLink = '/logout';
+export const SAVE_SIGN_OUT_URL: PageLink = '/save-and-sign-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const PRIVACY_POLICY_URL: PageLink = '/privacy-policy';
-export const FIRST_PAGE_URL: PageLink = '/first-page';
-export const LANGUAGE_PREFERENCE_URL: PageLink = '/screening-questions/language-preference';
-export const HAS_MARRIAGE_BROKEN_URL: PageLink = '/screening-questions/has-marriage-broken';
-export const RESPONDENT_ADDRESS_URL: PageLink = '/screening-questions/respondent-address';
-export const MARRIAGE_CERTIFICATE_URL: PageLink = '/screening-questions/marriage-certificate';
+export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
+export const COOKIES_URL: PageLink = '/cookies';
+export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
+
+export const YOUR_DETAILS_URL: PageLink = '/your-details';
+export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
+export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
+
+export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';
