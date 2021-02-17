@@ -40,5 +40,4 @@ Feature: Relationship date formed
     Given I select "Year"
     And I enter "2000"
     When I click "Continue"
-    #TODO change to the next page when implemented
-    Then the page should include "When did you get married?"
+    Then the page should include "Do you have your marriage certificate with you?"
