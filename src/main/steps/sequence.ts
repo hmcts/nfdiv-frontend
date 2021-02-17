@@ -1,7 +1,9 @@
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  CERTIFICATE_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
+  NO_CERTIFICATE_URL,
   RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -57,6 +59,20 @@ export const sequence: Step[] = [
           !!res.relationshipDate && isLessThanAYear(res.relationshipDate as Record<string, string>) === 'lessThanAYear',
         url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
         isFinalPage: true,
+      },
+    ],
+  },
+  {
+    id: 'has-certificate',
+    title: 'Do you have your marriage certificate with you?',
+    field: 'hasCertificate',
+    url: CERTIFICATE_URL,
+    subSteps: [
+      {
+        id: 'has-no-certificate',
+        title: 'You need your marriage certificate',
+        when: res => res.hasCertificate === 'No',
+        url: NO_CERTIFICATE_URL,
       },
     ],
   },

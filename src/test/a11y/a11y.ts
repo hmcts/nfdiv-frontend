@@ -2,9 +2,11 @@ import Axios from 'axios';
 
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  CERTIFICATE_URL,
   COOKIES_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
+  NO_CERTIFICATE_URL,
   PRIVACY_POLICY_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -78,6 +80,8 @@ describe('Accessibility', () => {
   testAccessibility(HAS_RELATIONSHIP_BROKEN_URL);
   testAccessibility(RELATIONSHIP_NOT_BROKEN_URL);
   testAccessibility(RELATIONSHIP_DATE_URL);
+  testAccessibility(CERTIFICATE_URL);
+  testAccessibility(NO_CERTIFICATE_URL);
 
   // TODO: include each path of your application in accessibility checks
 });

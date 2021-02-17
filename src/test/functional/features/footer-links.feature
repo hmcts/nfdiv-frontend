@@ -8,7 +8,7 @@ Feature: Footer Links
     Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
 
   Scenario: Load privacy policy
-    When I click the "Privacy policy"
+    When I click "Privacy policy"
     Then the page should include "Privacy policy"
 
   Scenario: Load Terms and Conditions Page
