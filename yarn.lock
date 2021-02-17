@@ -4260,6 +4260,22 @@ devtools@7.0.4:
     ua-parser-js "^0.7.21"
     uuid "^8.0.0"
 
+devtools@7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/devtools/-/devtools-7.0.5.tgz#d2eb6a12db7e70fd725c2f6e63d409b71a2ef19f"
+  integrity sha512-W7l2FspYlXd8L5cyBrlS8u6ko7MAqOTnJo7e0MR102NREiP3WFTMMOxfTqE3KeUqBR/GCUD/wEdaV1D+ZXG5kQ==
+  dependencies:
+    "@wdio/config" "7.0.4"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.0.0"
+    "@wdio/types" "7.0.4"
+    "@wdio/utils" "7.0.4"
+    chrome-launcher "^0.13.1"
+    edge-paths "^2.1.0"
+    puppeteer-core "^7.1.0"
+    ua-parser-js "^0.7.21"
+    uuid "^8.0.0"
+
 diagnostic-channel-publishers@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.4.4.tgz#57c3b80b7e7f576f95be3a257d5e94550f0082d6"
@@ -11706,7 +11722,7 @@ webdriver@7.0.4:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.0.4, webdriverio@^7.0.2:
+webdriverio@7.0.4:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.4.tgz#8a1d4b4cabec1e67e12505099d31ca6d34ec4891"
   integrity sha512-4cIzLbuLxeyquFTZ/4lkLI//No7IE4D7O97ndbiWi+G+RqPFcPefLduaFpbLU4Gsv92Ig0A9GESYwActltMmzg==
@@ -11723,6 +11739,37 @@ webdriverio@7.0.4, webdriverio@^7.0.2:
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"
     devtools "7.0.4"
+    devtools-protocol "^0.0.852555"
+    fs-extra "^9.0.1"
+    get-port "^5.1.1"
+    grapheme-splitter "^1.0.2"
+    lodash.clonedeep "^4.5.0"
+    lodash.isobject "^3.0.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.zip "^4.2.0"
+    minimatch "^3.0.4"
+    puppeteer-core "^7.1.0"
+    resq "^1.9.1"
+    rgb2hex "0.2.3"
+    serialize-error "^8.0.0"
+    webdriver "7.0.4"
+
+webdriverio@^7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.5.tgz#08d27d495529ed057aa45a30957b571ec573728b"
+  integrity sha512-pPTy8heOmRZ3VdtDXPcLaRl+km+ga8vt69bG1Wh8gUDwfOAdTMLGG7q8RIGrvoDEYkgjq1yWb+/cG11hMhl6Bw==
+  dependencies:
+    "@wdio/config" "7.0.4"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.0.0"
+    "@wdio/repl" "7.0.4"
+    "@wdio/types" "7.0.4"
+    "@wdio/utils" "7.0.4"
+    archiver "^5.0.0"
+    atob "^2.1.2"
+    css-shorthand-properties "^1.1.1"
+    css-value "^0.0.1"
+    devtools "7.0.5"
     devtools-protocol "^0.0.852555"
     fs-extra "^9.0.1"
     get-port "^5.1.1"
