@@ -14,5 +14,6 @@ export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
 export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
 export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
+export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
 
 export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';

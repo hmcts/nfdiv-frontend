@@ -56,7 +56,7 @@ export const form: FormContent = {
               classes: 'govuk-!-width-one-third',
               label: l => l.enterRefNo,
               hint: l => `
-                <span class="govuk-label">${l.refReceivedWhenApplied}</span>
+                <p class="govuk-label">${l.refReceivedWhenApplied}</p>
                 ${l.refExample}`,
               validator: (value: string): string | void => {
                 const fieldNotFilledIn = isFieldFilledIn(value);

@@ -29,11 +29,6 @@ describe('Steps', () => {
       expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
-    it('returns current step if there is no next step', () => {
-      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
-    });
-
     it('moves into the substep when the response matches', () => {
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.body = { screenHasUnionBroken: 'No' };
@@ -53,12 +48,22 @@ describe('Steps', () => {
         expect(getNextStepUrl(mockReq, getSteps([], mockNestedSequence))).toBe('bc');
       });
 
+      it('handles a subsubnested step', () => {
+        mockReq.originalUrl = 'bb';
+        mockReq.body = { bbResponse: 'goto bbb' };
+        expect(getNextStepUrl(mockReq, mockNestedSequence)).toBe('bbb');
+      });
+
       it('handles subsubnested steps and then pops back onto the main line', () => {
         mockReq.originalUrl = 'bbc';
-        mockReq.body = {
-          bbc: { bbcResponse: 'back to the main line' },
-        };
+        mockReq.body = { bbcResponse: 'back to the main line' };
         expect(getNextStepUrl(mockReq, getSteps([], mockNestedSequence))).toBe('c');
+      });
+
+      it('goes the first step from a substep if there are no steps left', () => {
+        mockReq.originalUrl = 'da';
+        mockReq.body = { daResponse: 'goto a' };
+        expect(getNextStepUrl(mockReq, mockNestedSequence)).toBe('a');
       });
     });
   });
@@ -141,6 +146,19 @@ describe('Steps', () => {
         expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('a');
       });
 
+      it('goes to the first step if there are no incomplete substeps', () => {
+        mockReq.session.state = {
+          a: { aResponse: 'goto b' },
+          b: { bResponse: 'goto bb' },
+          bb: { bbResponse: 'goto bbc' },
+          bbc: { bbcResponse: 'keep on going (back)' },
+          c: { cResponse: 'complete as well' },
+          d: { dResponse: 'goto da' },
+          da: { daResponse: 'complete' },
+        };
+        expect(getNextIncompleteStepUrl(mockReq, mockNestedSequence)).toBe('a');
+      });
+
       it("doesn't return final steps as the next incomplete step", () => {
         mockReq.session.state = {
           a: { aResponse: 'goto b' },
@@ -208,5 +226,17 @@ const mockNestedSequence = [
     ],
   },
   { id: 'c', field: 'cResponse', url: 'c' },
-  { id: 'd', field: 'dResponse', url: 'd' },
+  {
+    id: 'd',
+    field: 'dResponse',
+    url: 'd',
+    subSteps: [
+      {
+        id: 'da',
+        field: 'daResponse',
+        when: res => res.dResponse === 'goto da',
+        url: 'da',
+      },
+    ],
+  },
 ] as Step[];

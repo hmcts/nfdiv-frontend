@@ -8,13 +8,13 @@ import { Step, SubStep, sequence } from './sequence';
 
 export { Step, SubStep } from './sequence';
 
-interface StepWithDepth extends Step {
-  depth?: number;
+export interface StepWithDepth extends Step {
+  depth: number;
 }
 
-export const getSteps = (steps: Step[] = [], start = sequence, depth = 0): StepWithDepth[] => {
+export const getSteps = (steps: StepWithDepth[] = [], start = sequence, depth = 0): StepWithDepth[] => {
   for (const step of start) {
-    steps.push({ ...step, depth } as StepWithDepth);
+    steps.push({ ...step, depth });
     if (step.subSteps) {
       getSteps(steps, step.subSteps, depth + 1);
     }
@@ -44,9 +44,18 @@ export const getNextStepUrl = (
     nextSteps.push(step);
   }
 
-  const currStep = getSteps([], currSequence).find(step => step.url === path);
+  const steps = getSteps([], currSequence);
+  const currStep = steps.find(step => step.url === path);
+  if (currStep?.subSteps) {
+    const matchingSubstep = currStep.subSteps.find(subStep => subStep.when(req.body));
+    if (matchingSubstep) {
+      nextSteps.push(matchingSubstep);
+    }
+  }
+
   let nextStepsProcessed = [...nextSteps].reverse();
-  if (currStep?.depth) {
+  const maxDepth = steps.sort((a, b) => b.depth - a.depth)[0].depth;
+  if (currStep?.depth === maxDepth) {
     nextStepsProcessed = nextStepsProcessed.slice(currStep.depth);
   }
 

@@ -1,17 +1,17 @@
 import { Application } from 'express';
 
 import { Routes } from './routes';
-import { Step, getSteps } from './steps';
+import { StepWithDepth, getSteps } from './steps';
 import { generateContent } from './steps/sequence/your-details/content';
 
 jest.mock('./steps');
 jest.mock('./steps/sequence/your-details/content');
 
-const getStepsMock = getSteps as jest.Mock<Step[]>;
+const getStepsMock = getSteps as jest.Mock<StepWithDepth[]>;
 
 describe('Routes', () => {
   it('sets up dynamic step sequence routes', () => {
-    getStepsMock.mockReturnValue([{ id: 'your-details', title: 'Mock Title', url: '/mockUrl' } as Step]);
+    getStepsMock.mockReturnValue([{ id: 'your-details', title: 'Mock Title', url: '/mockUrl' } as StepWithDepth]);
 
     const appMock = ({
       get: jest.fn(),
