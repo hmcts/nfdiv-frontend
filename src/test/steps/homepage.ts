@@ -1,4 +1,4 @@
-import { HOME_URL, YOUR_DETAILS_URL } from '../../main/steps/urls';
+import { HOME_URL } from '../../main/steps/urls';
 import { config } from '../config';
 
 const { I } = inject();
@@ -19,8 +19,4 @@ Given('I am on the admin portal sign in page', () => {
 When('I fill in the Username and Password fields with a valid login', () => {
   I.fillField('username', config.TestUser);
   I.fillField('password', config.TestPass);
-});
-
-Given('I am on civil partnership homepage', () => {
-  I.amOnPage(`${YOUR_DETAILS_URL}?forceCivilMode`);
 });

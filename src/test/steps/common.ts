@@ -23,3 +23,7 @@ Then('the page should not include {string}', (text: string) => {
 Then('{string} should be ticked', (text: string) => {
   I.seeCheckboxIsChecked(text);
 });
+
+Given('I go to {string}', (text: string) => {
+  I.amOnPage(text);
+});
