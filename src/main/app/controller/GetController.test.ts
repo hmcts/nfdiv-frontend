@@ -64,7 +64,7 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.userCase.D8InferredRespondentGender = Gender.Female;
+    req.session.userCase.partnerGender = Gender.Female;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
@@ -73,7 +73,7 @@ describe('GetController', () => {
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
-        D8InferredRespondentGender: Gender.Female,
+        partnerGender: Gender.Female,
       },
     });
   });
@@ -102,30 +102,27 @@ describe('GetController', () => {
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { D8InferredRespondentGender: Gender.Male, partnerKey: 'husband' },
-          { D8InferredRespondentGender: Gender.Female, partnerKey: 'wife' },
+          { partnerGender: Gender.Male, partnerKey: 'husband' },
+          { partnerGender: Gender.Female, partnerKey: 'wife' },
           { partnerKey: 'partner' },
-        ])(
-          'calls getContent with correct arguments %s selected',
-          async ({ D8InferredRespondentGender, partnerKey }) => {
-            const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
-            const controller = new GetController('page', getContentMock);
+        ])('calls getContent with correct arguments %s selected', async ({ partnerGender, partnerKey }) => {
+          const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
+          const controller = new GetController('page', getContentMock);
 
-            const req = mockRequest({ session: { lang, userCase: { D8InferredRespondentGender } } });
-            const res = mockResponse({ locals: { serviceType } });
-            await controller.get(req, res);
+          const req = mockRequest({ session: { lang, userCase: { partnerGender } } });
+          const res = mockResponse({ locals: { serviceType } });
+          await controller.get(req, res);
 
-            expect(getContentMock).toHaveBeenCalledTimes(1);
-            const expectedPartner = commonContent[lang][civilKey || partnerKey];
-            expect(getContentMock).toHaveBeenCalledWith({ isDivorce, partner: expectedPartner });
-            expect(res.render).toBeCalledWith('page', {
-              ...commonContent[lang],
-              pageText: `something in ${lang}`,
-              sessionErrors: [],
-              formState: req.session.userCase,
-            });
-          }
-        );
+          expect(getContentMock).toHaveBeenCalledTimes(1);
+          const expectedPartner = commonContent[lang][civilKey || partnerKey];
+          expect(getContentMock).toHaveBeenCalledWith({ isDivorce, partner: expectedPartner });
+          expect(res.render).toBeCalledWith('page', {
+            ...commonContent[lang],
+            pageText: `something in ${lang}`,
+            sessionErrors: [],
+            formState: req.session.userCase,
+          });
+        });
       });
     });
   });

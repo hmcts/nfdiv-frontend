@@ -31,7 +31,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
 
 export const form: FormContent = {
   fields: {
-    D8InferredRespondentGender: {
+    partnerGender: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
@@ -41,10 +41,10 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-    D8MarriageIsSameSexCouple: {
+    sameSex: {
       type: 'checkboxes',
       label: l => l.sameSex,
-      values: [{ label: l => l.sameSexOption, value: 'Same-sex couple' }],
+      values: [{ label: l => l.sameSexOption, value: 'checked' }],
     },
   },
   submit: {

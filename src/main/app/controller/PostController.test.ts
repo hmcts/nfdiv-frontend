@@ -17,11 +17,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { D8InferredRespondentGender: Gender.Female } });
+    const req = mockRequest({ body: { partnerGender: Gender.Female } });
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.D8InferredRespondentGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith(req.path);
@@ -34,11 +34,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { D8InferredRespondentGender: Gender.Female } });
+    const req = mockRequest({ body: { partnerGender: Gender.Female } });
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.D8InferredRespondentGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -50,11 +50,11 @@ describe('PostController', () => {
     const mockForm = ({ getErrors: () => errors } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { D8InferredRespondentGender: Gender.Female, saveAndSignOut: true } });
+    const req = mockRequest({ body: { partnerGender: Gender.Female, saveAndSignOut: true } });
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.D8InferredRespondentGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
 
     expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);

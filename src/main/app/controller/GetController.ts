@@ -54,7 +54,7 @@ export class GetController {
       return translations['civilPartner'];
     }
 
-    const selectedPartnerGender = req.session.userCase?.D8InferredRespondentGender;
+    const selectedPartnerGender = req.session.userCase?.partnerGender;
     if (selectedPartnerGender === Gender.Male) {
       return translations['husband'];
     }

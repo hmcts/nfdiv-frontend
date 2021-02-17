@@ -52,9 +52,9 @@ export class CaseApi {
 
 export interface Case {
   divorceOrDissolution: 'divorce' | 'civil'; // TODO switch to use the type field and be Marriage or Civil Partnership
-  D8InferredRespondentGender?: Gender;
+  partnerGender?: Gender;
   D8InferredPetitionerGender?: Gender;
-  D8MarriageIsSameSexCouple?: YesOrNo;
+  sameSex?: YesOrNo;
 }
 
 export enum Gender {
