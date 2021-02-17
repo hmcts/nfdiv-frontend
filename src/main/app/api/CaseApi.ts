@@ -1,6 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
+import { Case, CaseCreationResponse, CaseWithId } from './case';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -51,35 +52,6 @@ export class CaseApi {
       this.logger.error('API Error', error.message);
     }
   }
-}
-
-export interface Case {
-  divorceOrDissolution: 'divorce' | 'civil'; // TODO switch to use the type field and be Marriage or Civil Partnership
-  partnerGender?: Gender;
-  D8InferredPetitionerGender?: Gender;
-  sameSex?: YesOrNo;
-}
-
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
-export enum YesOrNo {
-  Yes = 'YES',
-  No = 'NO',
-}
-
-export interface CaseWithId extends Case {
-  id: string;
-}
-
-export interface CaseCreationResponse {
-  caseId: string;
-  error: string;
-  status: string;
-  allocatedCourt: Record<string, string>;
-  data: Case;
 }
 
 export type ApiCase = Case;

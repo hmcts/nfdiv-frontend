@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps/sequence';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
-import { Gender } from '../api/CaseApi';
+import { Gender } from '../api/case';
 
 import { PostController } from './PostController';
 

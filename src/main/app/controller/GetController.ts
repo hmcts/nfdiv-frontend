@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
-import { Gender } from '../api/CaseApi';
+import { Gender } from '../api/case';
 
 import { AppRequest } from './AppRequest';
 

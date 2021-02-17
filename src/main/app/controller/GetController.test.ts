@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
-import { Gender } from '../api/CaseApi';
+import { Gender } from '../api/case';
 
 import { GetController, Translations } from './GetController';
 

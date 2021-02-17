@@ -1,4 +1,5 @@
-import { ApiCase, Case, Gender, YesOrNo } from './CaseApi';
+import { ApiCase } from './CaseApi';
+import { Case, Gender, YesOrNo, caseToNFDivFields } from './case';
 
 const fields = {
   sameSex: data => ({
@@ -21,7 +22,7 @@ export function toApiFormat(data: Partial<Case>): ApiCase {
     if (typeof fields[field] === 'function') {
       Object.assign(result, fields[field](data));
     } else {
-      result[field] = fields[field];
+      result[field] = caseToNFDivFields[field];
     }
   }
 
