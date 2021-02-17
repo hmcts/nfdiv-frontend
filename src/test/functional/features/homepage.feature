@@ -14,11 +14,6 @@ Feature: Homepage
     When I click "English"
     Then the page should include "This is a new service"
 
-  Scenario: Load civil partnership homepage
-    When I am on civil partnership homepage
-    Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
-    And the page should include "Are you male or female?"
-
   Scenario: Save and sign out
     When I click "Save and sign out"
     Then the page should include "Your application has been saved"
