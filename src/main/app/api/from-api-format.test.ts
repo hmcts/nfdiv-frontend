@@ -6,6 +6,7 @@ describe('from-api-format', () => {
     divorceOrDissolution: 'divorce',
     D8MarriageIsSameSexCouple: 'YES',
     D8InferredRespondentGender: 'Male',
+    D8InferredPetitionerGender: 'Male',
     D8ScreenHasMarriageBroken: 'YES',
   };
 

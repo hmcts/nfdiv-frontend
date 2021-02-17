@@ -1,7 +1,8 @@
 import { ApiCase } from './CaseApi';
-import { Case, Gender, YesOrNo, caseToNFDivFields } from './case';
+import { Case, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
+  ...formFieldsToCaseMapping,
   sameSex: data => ({
     D8MarriageIsSameSexCouple: data.sameSex === 'checked' ? YesOrNo.Yes : YesOrNo.No,
   }),
@@ -15,19 +16,4 @@ const fields = {
   }),
 };
 
-export function toApiFormat(data: Partial<Case>): ApiCase {
-  const result = {};
-
-  for (const field of Object.keys(data)) {
-    if (typeof fields[field] === 'function') {
-      Object.assign(result, fields[field](data));
-    } else {
-      result[field] = caseToNFDivFields[field];
-    }
-  }
-
-  return result as ApiCase;
-}
-
-// TODO create separate definitions and plug the ApiCase structure into CaseApi and the Case structure into the session
-// move the ApiCase definition to CaseApi rather than here and move the Case definition out of CaseApi to somewhere else
+export const toApiFormat = (data: Partial<Case>): ApiCase => formatCase(fields, data);
