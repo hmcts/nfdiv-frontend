@@ -64,7 +64,7 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.userCase!.D8InferredRespondentGender = Gender.Female;
+    req.session.userCase.D8InferredRespondentGender = Gender.Female;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {

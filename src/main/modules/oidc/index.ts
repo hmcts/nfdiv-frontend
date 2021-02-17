@@ -60,7 +60,7 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
-        if (req.session?.user) {
+        if (req.session.user) {
           res.locals.isLoggedIn = true;
 
           const user = req.session.user;
@@ -98,8 +98,8 @@ export class OidcMiddleware {
 
 declare module 'express-session' {
   export interface SessionData {
-    user: Record<string, Record<string, unknown>> | undefined;
-    userCase: Case | undefined;
+    user: Record<string, Record<string, unknown>>;
+    userCase: Case;
   }
 }
 
