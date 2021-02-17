@@ -1,4 +1,4 @@
-Feature: Partnership date formed
+Feature: Relationship date formed
 
   Background:
     Given I am on divorce homepage
