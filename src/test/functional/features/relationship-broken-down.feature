@@ -6,7 +6,7 @@ Feature: Relationship broken down
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     And I see the divorce homepage
-    And I go to '/screening-questions/has-relationship-broken'
+    And I go to '/irretrievable-breakdown'
 
   Scenario: Error when missing a required field
     When I click "Continue"
