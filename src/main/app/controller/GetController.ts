@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
-import { Gender } from '../api/CosApi';
+import { Gender } from '../api/CaseApi';
 
 import { AppRequest } from './AppRequest';
 
@@ -12,11 +12,7 @@ export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partn
 
 @autobind
 export class GetController {
-  constructor(
-    protected readonly view: string,
-    protected readonly content: TranslationFn | Translations,
-    protected readonly stepId: string | undefined = undefined
-  ) {}
+  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -30,7 +26,6 @@ export class GetController {
     const content = this.getContent(req, res, commonLanguageContent);
     const languageContent = content[language];
     const commonPageContent = content.common || {};
-
     const sessionErrors = req.session.errors || [];
 
     req.session.errors = undefined;
@@ -40,7 +35,7 @@ export class GetController {
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
-      ...(this.stepId && { formState: req.session.userCase }),
+      formState: req.session.userCase,
     });
   }
 
@@ -51,22 +46,22 @@ export class GetController {
 
     const isDivorce = res.locals.serviceType !== 'civil';
 
-    const getPartner = (): string => {
-      if (!isDivorce) {
-        return translations['civilPartner'];
-      }
+    return this.content({ isDivorce, partner: this.getPartnerContent(req, isDivorce, translations) });
+  }
 
-      const selectedPartnerGender = req.session.userCase?.partnerGender;
-      if (selectedPartnerGender === Gender.Male) {
-        return translations['husband'];
-      }
-      if (selectedPartnerGender === Gender.Female) {
-        return translations['wife'];
-      }
+  private getPartnerContent(req: AppRequest, isDivorce: boolean, translations: Translations): string {
+    if (!isDivorce) {
+      return translations['civilPartner'];
+    }
 
-      return translations['partner'];
-    };
+    const selectedPartnerGender = req.session.userCase?.D8InferredRespondentGender;
+    if (selectedPartnerGender === Gender.Male) {
+      return translations['husband'];
+    }
+    if (selectedPartnerGender === Gender.Female) {
+      return translations['wife'];
+    }
 
-    return this.content({ isDivorce, partner: getPartner() });
+    return translations['partner'];
   }
 }

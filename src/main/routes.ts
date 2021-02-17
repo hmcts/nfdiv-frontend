@@ -28,22 +28,15 @@ export class Routes {
 
     for (const step of getSteps()) {
       const stepDir = `${__dirname}/steps/sequence/${step.id}`;
-      const view = `${stepDir}/template.njk`;
       const { generateContent, form } = require(`${stepDir}/content.ts`);
+      const customView = `${stepDir}/template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${stepDir}/../template.njk`;
+      const controller = new GetController(view, generateContent(step.title));
 
-      app.get(
-        step.url,
-        errorHandler(
-          new GetController(
-            fs.existsSync(view) ? view : `${stepDir}/../template.njk`,
-            generateContent(step.title),
-            step.id
-          ).get
-        )
-      );
+      app.get(step.url, errorHandler(controller.get));
 
       if (form) {
-        app.post(step.url, errorHandler(new PostController(new Form(form), step.id).post));
+        app.post(step.url, errorHandler(new PostController(new Form(form)).post));
       }
     }
 

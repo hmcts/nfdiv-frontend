@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
-export class CosApi {
+export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public getCase(): Promise<CaseWithId | false> {
@@ -9,7 +9,11 @@ export class CosApi {
       .get('/case')
       .then(results => ({ id: results.data.caseId, ...results.data.data }))
       .catch(err => {
-        this.logError(err);
+        if (err.response?.status !== 404) {
+          this.logError(err);
+
+          throw new Error('Case could not be retrieved.');
+        }
         return false;
       });
   }
@@ -48,12 +52,19 @@ export class CosApi {
 
 export interface Case {
   divorceOrDissolution: 'divorce' | 'civil'; // TODO switch to use the type field and be Marriage or Civil Partnership
-  partnerGender?: Gender;
+  D8InferredRespondentGender?: Gender;
+  D8InferredPetitionerGender?: Gender;
+  D8MarriageIsSameSexCouple?: YesOrNo;
 }
 
 export enum Gender {
-  Male = 'Masculine',
-  Female = 'Feminine',
+  Male = 'male',
+  Female = 'female',
+}
+
+export enum YesOrNo {
+  Yes = 'YES',
+  No = 'NO',
 }
 
 export interface CaseWithId extends Case {

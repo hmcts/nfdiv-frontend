@@ -17,6 +17,7 @@ describe('TermsAndConditionsGetController', () => {
       ...termsAndConditionsContent.en,
       ...termsAndConditionsContent.common,
       ...commonContent.en,
+      formState: req.session.userCase,
       sessionErrors: [],
     });
   });

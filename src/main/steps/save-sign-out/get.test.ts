@@ -5,7 +5,7 @@ import { commonContent } from '../common/common.content';
 import { saveAndSignOutContent } from './content';
 import { SaveSignOutGetController } from './get';
 
-describe('HomeGetController', () => {
+describe('SaveAndSignOutController', () => {
   const controller = new SaveSignOutGetController();
 
   it('renders the save and sign out page', async () => {
@@ -18,6 +18,7 @@ describe('HomeGetController', () => {
       ...saveAndSignOutContent.en,
       ...saveAndSignOutContent.common,
       ...commonContent.en,
+      formState: req.session.userCase,
       sessionErrors: [],
       email: 'mock-user@example.com',
     });

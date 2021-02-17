@@ -1,3 +1,4 @@
+import { Gender } from '../../../app/api/CaseApi';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -5,8 +6,8 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
   const en = {
     title: isDivorce ? title : 'Are you male or female?',
-    masculine: isDivorce ? 'My husband' : 'Male',
-    feminine: isDivorce ? 'My wife' : 'Female',
+    male: isDivorce ? 'My husband' : 'Male',
+    female: isDivorce ? 'My wife' : 'Female',
     sameSex: 'Select the following if it applies to you:',
     sameSexOption: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
     errors: {
@@ -30,17 +31,17 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
 
 export const form: FormContent = {
   fields: {
-    partnerGender: {
+    D8InferredRespondentGender: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
       values: [
-        { label: l => l.masculine, value: 'Masculine' },
-        { label: l => l.feminine, value: 'Feminine' },
+        { label: l => l.male, value: Gender.Male },
+        { label: l => l.female, value: Gender.Female },
       ],
       validator: value => isFieldFilledIn(value),
     },
-    sameSex: {
+    D8MarriageIsSameSexCouple: {
       type: 'checkboxes',
       label: l => l.sameSex,
       values: [{ label: l => l.sameSexOption, value: 'Same-sex couple' }],

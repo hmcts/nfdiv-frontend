@@ -9,7 +9,7 @@ import { Form } from '../form/Form';
 
 @autobind
 export class PostController<T extends AnyObject> {
-  constructor(protected readonly form: Form, protected readonly stepId: string) {}
+  constructor(protected readonly form: Form) {}
 
   /**
    * Default handler for a POST request. Checks the body for errors, returning to the current page with errors in the
@@ -29,7 +29,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      req.scope?.cradle.api.updateCase(req.session.userCase?.id, updatedData);
+      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, updatedData);
       req.session.errors = undefined;
     }
 

@@ -4,7 +4,7 @@ import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
-import { Case, CosApi } from '../../app/api/CosApi';
+import { Case, CaseApi } from '../../app/api/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
@@ -61,6 +61,8 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
         if (req.session?.user) {
+          res.locals.isLoggedIn = true;
+
           const user = req.session.user;
           req.scope = req.app.locals.container.createScope();
           req.scope?.register({
@@ -73,7 +75,7 @@ export class OidcMiddleware {
                 },
               })
             ),
-            api: asClass(CosApi),
+            api: asClass(CaseApi),
           });
 
           if (!req.session.userCase) {
@@ -86,7 +88,6 @@ export class OidcMiddleware {
             }
           }
 
-          res.locals.isLoggedIn = true;
           return next();
         }
         res.redirect(SIGN_IN_URL);

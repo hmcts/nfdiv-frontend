@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { CosApi } from './CosApi';
+import { CaseApi } from './CaseApi';
 
-describe('CosApi', () => {
+describe('CaseApi', () => {
   const results = {
     data: {
       caseId: '1234',
@@ -22,8 +22,9 @@ describe('CosApi', () => {
 
   const mockLogger = {
     error: async (message: string) => message,
+    info: async (message: string) => message,
   } as never;
-  const api = new CosApi(mockedAxios, mockLogger);
+  const api = new CaseApi(mockedAxios, mockLogger);
 
   test('Should return case data response', async () => {
     mockedAxios.get = jest.fn().mockResolvedValue(results);
@@ -33,12 +34,29 @@ describe('CosApi', () => {
     expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: 'divorce' });
   });
 
-  test('Should return false when case was not returned', async () => {
-    mockedAxios.get = jest.fn().mockRejectedValue(false);
+  test('Should return false when case was not found', async () => {
+    mockedAxios.get = jest.fn().mockRejectedValue({
+      response: {
+        status: 404,
+      },
+    });
 
     const userCase = await api.getCase();
 
     expect(userCase).toBe(false);
+  });
+
+  test('Should throw error when case could not be retrieved', async () => {
+    mockedAxios.get = jest.fn().mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+
+    await expect(api.getCase()).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('Should return case creation response', async () => {
