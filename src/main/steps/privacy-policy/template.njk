@@ -91,13 +91,13 @@
     <p class="govuk-body">{{ mojProtection }}</p>
      <ul class="govuk-list govuk-list--bullet">
         <li>{{ pettyFrance }}</li>
-        <li>{{ emailing }}</li>
+        <li>{{ emailing | safe }}</li>
     </ul>
 
     <h2 class="govuk-heading-s">{{ howToComplain }}</h2>
     <p class="govuk-body">{{ seeOurComplaints | safe }}</p>
     <p class="govuk-body">{{ writeTo }}</p>
-    <p class="govuk-body">{{ email }}</p>
+    <p class="govuk-body">{{ email | safe }}</p>
     <p class="govuk-body">{{ youCanAlsoComplain | safe }}</p>
   </div>
 </div>

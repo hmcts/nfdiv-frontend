@@ -62,12 +62,14 @@ const en = {
   howWeCheck: 'how we check that the information we hold is accurate and up-to-date',
   mojProtection: 'You can contact the MoJ data protection officer, by:',
   pettyFrance: 'writing to us: Post point 10.38, 102 Petty France, London, SW1H 9AJ',
-  emailing: 'emailing: data.compliance@justice.gov.uk',
+  emailing:
+    'emailing: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to data.compliance@justice.gov.uk">data.compliance@justice.gov.uk</a>',
   howToComplain: 'How to complain',
   seeOurComplaints:
     "See our <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>complaints procedure</a> if you want to complain about how we’ve handled your personal data.",
   writeTo: 'Write to: Post point 10.38, 102 Petty France, London, SW1H 9AJ',
-  email: 'Email: data.compliance@justice.gov.uk',
+  email:
+    'Email: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to data.compliance@justice.gov.uk">data.compliance@justice.gov.uk</a>',
   youCanAlsoComplain:
     "You can also complain to the <a class='govuk-link' href='https://ico.org.uk/global/contact-us' target='_blank'>Information Commissioner’s Office</a> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.",
   sharingYourData: 'Sharing your data',
@@ -163,12 +165,14 @@ const cy: typeof en = {
   howWeCheck: 'sut rydym yn sicrhau bod yr wybodaeth sydd gennym yn gywir ac yn gyfredol',
   mojProtection: 'Gallwch gysylltu â swyddog diogelu data’r MoJ drwy:',
   pettyFrance: 'ysgrifennu atom: Post point 10.38, 102 Petty France, Llundain SW1H 9AJ',
-  emailing: 'anfon e-bost i: data.compliance@justice.gov.uk',
+  emailing:
+    'anfon e-bost i: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor neges e-bost newydd i data.compliance@justice.gov.uk">data.compliance@justice.gov.uk</a>',
   howToComplain: 'Sut i wneud cwyn',
   seeOurComplaints:
     "Gweler ein  <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>trefn gwyno</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
   writeTo: 'Ysgrifennwch i: Post Point 10.38, 102 Petty France, Llundain SW1H 9AJ',
-  email: 'anfonwch e-bost i: data.compliance@justice.gov.uk',
+  email:
+    'anfonwch e-bost i: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor neges e-bost newydd i HMCTSforms@justice.gov.uk">data.compliance@justice.gov.uk</a>',
   youCanAlsoComplain:
     "Gallwch yn ogystal gyflwyno cwyn i <a class='govuk-link' href='https://ico.org.uk/global/contact-us' target='_blank'>Swyddfa’r Comisiynydd Gwybodaeth</a> os ydych yn anfodlon â’n hymateb neu’n credu nad ydym yn prosesu eich data personol yn gyfreithlon.",
   sharingYourData: 'Rhannu eich data',
