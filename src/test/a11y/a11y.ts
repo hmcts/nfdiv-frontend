@@ -7,6 +7,7 @@ import {
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
   NO_CERTIFICATE_URL,
+  PRIVACY_POLICY_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   TERMS_AND_CONDITIONS_URL,
@@ -71,6 +72,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility', () => {
   testAccessibility(HOME_URL);
+  testAccessibility(PRIVACY_POLICY_URL);
   testAccessibility(TERMS_AND_CONDITIONS_URL);
   testAccessibility(COOKIES_URL);
   testAccessibility(ACCESSIBILITY_STATEMENT_URL);

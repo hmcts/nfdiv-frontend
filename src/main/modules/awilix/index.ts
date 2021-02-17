@@ -6,6 +6,7 @@ import { AccessibilityStatementGetController } from '../../steps/accessibility-s
 import { CookiesGetController } from '../../steps/cookies/get';
 import { ErrorController } from '../../steps/error/error.controller';
 import { HomeGetController } from '../../steps/home/get';
+import { PrivacyPolicyGetController } from '../../steps/privacy-policy/get';
 import { SaveSignOutGetController } from '../../steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from '../../steps/terms-and-conditions/get';
 
@@ -24,6 +25,7 @@ export class Container {
       termsAndConditionsGetController: asValue(new TermsAndConditionsGetController()),
       cookiesGetController: asValue(new CookiesGetController()),
       accessibilityStatementGetController: asValue(new AccessibilityStatementGetController()),
+      privacyPolicyGetController: asValue(new PrivacyPolicyGetController()),
       errorController: asClass(ErrorController),
     });
   }
