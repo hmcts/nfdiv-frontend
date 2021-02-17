@@ -9,7 +9,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
       'You’ll be asked to upload a digital photo of the certificate later in this application. You can use your phone to take the picture, if it has a camera.',
     line2: `It must be a photo of the original ${
       isDivorce ? 'marriage certificate' : 'civil partnership certificate'
-    } or a certified copy. You can <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">order a certified copy online (opens in a new tab)</a> if you ${
+    } or a certified copy. <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">You can order a certified copy online (opens in a new tab)</a>, if you ${
       isDivorce ? 'got married' : 'formed your civil partnership'
     } in England or Wales.`,
     line3:
@@ -29,7 +29,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
       "Gofynnir i chi lwytho llun digidol o'r dystysgrif yn ddiweddarach yn y cais hwn. Gallwch ddefnyddio'ch ffôn i dynnu'r llun, os oes ganddo gamera.",
     line2: `Rhaid iddo fod yn llun o'r ${
       isDivorce ? 'dystysgrif priodas' : 'dystysgrif partneriaeth sifil'
-    } wreiddiol neu gopi ardystiedig ohoni. <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">Gallwch archebu copi ardystiedig ar-lein (agor mewn tab newydd)</a> os wnaethoch chi ${
+    } wreiddiol neu gopi ardystiedig ohoni. <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">Gallwch archebu copi ardystiedig ar-lein (agor mewn tab newydd)</a>, os wnaethoch chi ${
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     } yng Nghymru neu Loegr.`,
     line3:
