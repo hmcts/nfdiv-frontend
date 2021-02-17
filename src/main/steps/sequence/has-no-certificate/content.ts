@@ -11,7 +11,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     } in England or Wales.`,
     line3: `If your original ${
       isDivorce ? 'marriage certificate' : 'civil partnership certificate'
-    } is not in English, you need to get it translated and certified. You can find translation services online which include certification as part of their service.`,
+    } is not in English, you need to get it <a href="https://www.gov.uk/certifying-a-document" class="govuk-link">translated and certified</a>. You can find translation services online which include certification as part of their service.`,
   };
 
   //TODO translation
@@ -25,7 +25,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     } in England or Wales.`,
     line3: `If your original ${
       isDivorce ? 'marriage certificate' : 'civil partnership certificate'
-    } is not in English, you need to get it translated and certified. You can find translation services online which include certification as part of their service.`,
+    } is not in English, you need to get it <a href="https://www.gov.uk/certifying-a-document" class="govuk-link">translated and certified</a>. You can find translation services online which include certification as part of their service.`,
   };
 
   const common = {};
