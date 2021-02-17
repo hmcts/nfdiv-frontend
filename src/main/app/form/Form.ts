@@ -16,14 +16,13 @@ export class Form {
         return errorType ? previous.concat({ errorType, propertyName: current }) : previous;
       }, []);
 
-    let subFieldErrors: FormError[] = [];
+    const subFieldErrors: FormError[] = [];
     for (const [key, value] of Object.entries(fields)) {
-      subFieldErrors =
-        (value as FormOptions)?.values
-          ?.filter(option => option.subFields !== undefined && body[key] === option.value)
-          .map(fieldWithSubFields => fieldWithSubFields.subFields)
-          .map(subField => this.getErrors(body, subField))
-          .flat() || [];
+      (value as FormOptions)?.values
+        ?.filter(option => option.subFields !== undefined && body[key] === option.value)
+        .map(fieldWithSubFields => fieldWithSubFields.subFields)
+        .map(subField => this.getErrors(body, subField))
+        .map(subErrors => subFieldErrors.push(...subErrors));
     }
 
     return [...errors, ...subFieldErrors];
