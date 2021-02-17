@@ -19,10 +19,14 @@ class NewPostController extends PostController<never> {
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { mockField: 'falafel' };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel' } });
+    const req = mockRequest({ body });
     const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
@@ -36,10 +40,14 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { mockField: 'falafel' };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel' } });
+    const req = mockRequest({ body });
     const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
@@ -52,10 +60,14 @@ describe('PostController', () => {
 
   test('saves and signs out even if there are errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { mockField: 'falafel', saveAndSignOut: true };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
-    const req = mockRequest({ body: { mockField: 'falafel', saveAndSignOut: true } });
+    const req = mockRequest({ body });
     const res = mockResponse({ session: req.session });
     await controller.post(req, res);
 
@@ -70,11 +82,15 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { mockField: 'falafel' };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new NewPostController(mockForm, 'test-step');
 
     const mockSave = jest.fn(done => done('An error while saving session'));
-    const req = mockRequest({ body: { mockField: 'falafel' }, session: { save: mockSave } });
+    const req = mockRequest({ body, session: { save: mockSave } });
     const res = mockResponse({ session: req.session });
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
