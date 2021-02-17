@@ -40,8 +40,8 @@ export enum DivorceOrCivilPartnership {
 }
 
 export enum Gender {
-  Male = 'Male',
-  Female = 'Female',
+  Male = 'male',
+  Female = 'female',
 }
 
 export enum YesOrNo {

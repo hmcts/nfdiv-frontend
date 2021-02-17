@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
 
-import { CaseWithId } from '../api/CaseApi';
+import { CaseWithId } from '../api/case';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Record<string, unknown>> extends Request {
