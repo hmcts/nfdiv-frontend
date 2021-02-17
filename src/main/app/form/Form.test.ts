@@ -38,4 +38,62 @@ describe('Form', () => {
       },
     ]);
   });
+
+  describe('subfield validation', () => {
+    const mockSubFieldForm: FormContent = {
+      fields: {
+        field: {
+          type: 'radios',
+          values: [
+            {
+              label: l => l.no,
+              value: 'No',
+              subFields: {
+                testSubField: {
+                  type: 'text',
+                  label: 'Subfield',
+                  validator: isFieldFilledIn,
+                },
+              },
+            },
+            { label: l => l.yes, value: 'Yes' },
+          ],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const subFieldForm = new Form(mockSubFieldForm);
+
+    it('returns the field error', () => {
+      const errors = subFieldForm.getErrors({});
+
+      expect(errors).toStrictEqual([
+        {
+          propertyName: 'field',
+          errorType: 'required',
+        },
+      ]);
+    });
+
+    it('does not return any subfields error if the field has not been selected', () => {
+      const errors = subFieldForm.getErrors({ field: 'Yes' });
+
+      expect(errors).toStrictEqual([]);
+    });
+
+    it('returns the subfield error when the field has been selected', () => {
+      const errors = subFieldForm.getErrors({ field: 'No' });
+
+      expect(errors).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'testSubField',
+        },
+      ]);
+    });
+  });
 });

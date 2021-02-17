@@ -12,7 +12,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     refExample: 'For example, HWF-A1B-23C',
     no: commonContent.en.no,
     errors: {
-      haveHelpWithFeesRefNo: {
+      alreadyAppliedForHelpPaying: {
         required: commonContent.en.required,
       },
       helpWithFeesRefNo: {
@@ -39,7 +39,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
 
 export const form: FormContent = {
   fields: {
-    helpPayingNeeded: {
+    alreadyAppliedForHelpPaying: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
@@ -48,13 +48,30 @@ export const form: FormContent = {
           label: l => l.yes,
           value: 'Yes',
           subFields: {
-            refNo: {
+            helpWithFeesRefNo: {
               type: 'text',
+              attributes: {
+                maxLength: 11,
+              },
               classes: 'govuk-!-width-one-third',
               label: l => l.enterRefNo,
               hint: l => `
                 <span class="govuk-label">${l.refReceivedWhenApplied}</span>
                 ${l.refExample}`,
+              validator: (value: string): string | void => {
+                const fieldNotFilledIn = isFieldFilledIn(value);
+                if (fieldNotFilledIn) {
+                  return fieldNotFilledIn;
+                }
+
+                if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
+                  return 'invalid';
+                }
+
+                if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
+                  return 'invalidUsedExample';
+                }
+              },
             },
           },
         },

@@ -53,7 +53,8 @@
         hint: {
           html: getContent(field.hint)
         },
-        value: formState[fieldName]
+        value: formState[fieldName],
+        attributes: field.attributes
       }) }}
   {% endswitch %}
 {% endfor %}

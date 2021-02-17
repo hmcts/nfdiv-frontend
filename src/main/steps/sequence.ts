@@ -50,7 +50,7 @@ export const sequence: Step[] = [
       {
         id: 'help-paying-have-ref-no',
         title: 'Have you already applied for help with your divorce fee?',
-        field: 'helpWithFeesRefNo',
+        field: 'alreadyAppliedForHelpPaying',
         when: res => res.helpPayingNeeded === 'Yes',
         url: HELP_PAYING_HAVE_YOU_APPLIED,
       },
