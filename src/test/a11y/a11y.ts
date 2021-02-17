@@ -6,6 +6,7 @@ import {
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
   PRIVACY_POLICY_URL,
+  RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   TERMS_AND_CONDITIONS_URL,
   YOUR_DETAILS_URL,
@@ -76,6 +77,7 @@ describe('Accessibility', () => {
   testAccessibility(YOUR_DETAILS_URL);
   testAccessibility(HAS_RELATIONSHIP_BROKEN_URL);
   testAccessibility(RELATIONSHIP_NOT_BROKEN_URL);
+  testAccessibility(RELATIONSHIP_DATE_URL);
 
   // TODO: include each path of your application in accessibility checks
 });

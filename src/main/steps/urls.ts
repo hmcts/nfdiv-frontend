@@ -13,5 +13,8 @@ export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
+export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
+//TODO change when ticket is picked up
+export const RELATIONSHIP_DATE_LESS_THAN_YEAR_URL: PageLink = '/less-than-year-together';
 
 export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';

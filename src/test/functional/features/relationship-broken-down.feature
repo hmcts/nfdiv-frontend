@@ -31,4 +31,4 @@ Feature: Relationship broken down
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
     When I select "Yes, my marriage has irretrievably broken down"
     Then I click "Continue"
-    And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
+    And the page should include "When did you get married?"

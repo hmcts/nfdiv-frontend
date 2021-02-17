@@ -29,11 +29,6 @@ describe('Steps', () => {
       expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
-    it('returns current step if there is no next step', () => {
-      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
-    });
-
     it('moves into the substep when the response matches', () => {
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.body = { screenHasUnionBroken: 'No' };
