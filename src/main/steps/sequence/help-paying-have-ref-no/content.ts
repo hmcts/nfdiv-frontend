@@ -6,11 +6,11 @@ import { commonContent } from '../../common/common.content';
 export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
   const en = {
     title: isDivorce ? title : 'Have you already applied for help with your fee?',
-    yes: commonContent.en.yes,
+    yes: 'Yes',
     enterRefNo: 'Enter your Help with Fees reference number:',
     refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
     refExample: 'For example, HWF-A1B-23C',
-    no: commonContent.en.no,
+    no: 'No',
     errors: {
       alreadyAppliedForHelpPaying: {
         required: commonContent.en.required,
@@ -58,18 +58,20 @@ export const form: FormContent = {
               hint: l => `
                 <p class="govuk-label">${l.refReceivedWhenApplied}</p>
                 ${l.refExample}`,
-              validator: (value: string): string | void => {
+              validator: (value: string | Record<string, string>): void | string => {
                 const fieldNotFilledIn = isFieldFilledIn(value);
                 if (fieldNotFilledIn) {
                   return fieldNotFilledIn;
                 }
 
-                if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
-                  return 'invalid';
-                }
+                if (typeof value === 'string') {
+                  if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
+                    return 'invalid';
+                  }
 
-                if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
-                  return 'invalidUsedExample';
+                  if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
+                    return 'invalidUsedExample';
+                  }
                 }
               },
             },

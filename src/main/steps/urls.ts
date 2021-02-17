@@ -16,4 +16,11 @@ export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
 export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
 export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
 
+export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
+//TODO change when ticket is picked up
+export const RELATIONSHIP_DATE_LESS_THAN_YEAR_URL: PageLink = '/less-than-year-together';
+
+export const CERTIFICATE_URL: PageLink = '/do-you-have-your-certificate';
+export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
+
 export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';

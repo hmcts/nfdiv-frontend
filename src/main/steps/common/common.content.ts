@@ -12,8 +12,6 @@ const en = {
   continue: 'Continue',
   download: 'Download',
   warning: 'Warning',
-  yes: 'Yes',
-  no: 'No',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   ogl:
     'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
@@ -63,6 +61,11 @@ const en = {
     'November',
     'December',
   ],
+  dateFormat: {
+    day: 'Day',
+    month: 'Month',
+    year: 'Year',
+  },
 };
 
 const cy: typeof en = {
@@ -126,6 +129,11 @@ const cy: typeof en = {
     'Tachwedd',
     'Rhagfyr',
   ],
+  dateFormat: {
+    day: 'Diwrnod',
+    month: 'Mis',
+    year: 'Blwyddyn',
+  },
 };
 
 export const commonContent = { en, cy };

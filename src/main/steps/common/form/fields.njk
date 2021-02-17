@@ -6,7 +6,6 @@
 {% for fieldName, field in form.fields %}
   {% switch field.type %}
     {% case 'radios' %}
-    </pre>
       {{ govukRadios({
           classes: field.classes,
           idPrefix: fieldName,
@@ -38,6 +37,21 @@
         name: fieldName,
         label: {
           text: getContent(field.label)
+        },
+        items: formItems(field.values, formState[fieldName])
+      }) }}
+    {% case 'date' %}
+      {{ govukDateInput({
+        id: fieldName,
+        namePrefix: fieldName,
+        fieldset: {
+          legend: {
+            text: getContent(field.label),
+            classes: "govuk-visually-hidden"
+          }
+        },
+        hint: {
+          text: hint
         },
         items: formItems(field.values, formState[fieldName])
       }) }}
