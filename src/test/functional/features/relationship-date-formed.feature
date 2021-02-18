@@ -20,7 +20,7 @@ Feature: Relationship date formed
     Given I select "Year"
     And I enter "abc"
     When I click "Continue"
-    Then the page should include "You have entered an invalid character. Enter the date using numbers."
+    Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
 
   Scenario: Error when entering future date value
     Given I select "Day"
