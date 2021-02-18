@@ -12,6 +12,7 @@ import {
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   HOME_URL,
+  PRIVACY_POLICY_URL,
   SAVE_SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
 } from './steps/urls';
@@ -22,6 +23,7 @@ export class Routes {
 
     app.get(HOME_URL, errorHandler(app.locals.container.cradle.homeGetController.get));
     app.get(SAVE_SIGN_OUT_URL, errorHandler(app.locals.container.cradle.saveSignOutGetController.get));
+    app.get(PRIVACY_POLICY_URL, app.locals.container.cradle.privacyPolicyGetController.get);
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
     app.get(COOKIES_URL, errorHandler(app.locals.container.cradle.cookiesGetController.get));
     app.get(ACCESSIBILITY_STATEMENT_URL, app.locals.container.cradle.accessibilityStatementGetController.get);
