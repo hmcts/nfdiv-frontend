@@ -1,4 +1,5 @@
 import { YesOrNo } from '../app/api/case';
+import { isLessThanAYear } from '../app/form/validation';
 
 import {
   CERTIFICATE_URL,
@@ -33,9 +34,10 @@ export const sequence: Step[] = [
   },
   {
     url: RELATIONSHIP_DATE_URL,
-    getNextStep: data => (data.relationshipDate === 'TODO' ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL : CERTIFICATE_URL),
-    // TODO date format is different
-    // !!data.relationshipDate && isLessThanAYear(data.relationshipDate as Record<string, string>) === 'lessThanAYear',
+    getNextStep: data =>
+      isLessThanAYear(data.relationshipDate) === 'lessThanAYear'
+        ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL
+        : CERTIFICATE_URL,
   },
   {
     url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
