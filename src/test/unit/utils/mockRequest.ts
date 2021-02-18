@@ -17,6 +17,7 @@ export const mockRequest = ({ session = {}, body = {} } = {}): AppRequest<never>
         divorceOrDissolution: 'divorce',
       },
       save: jest.fn(done => done()),
+      destroy: jest.fn(done => done()),
       ...session,
     },
     path: '/request',

@@ -13,7 +13,7 @@ describe('SaveAndSignOutController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(req.logout).toHaveBeenCalled();
+    expect(req.session.destroy).toHaveBeenCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...saveAndSignOutContent.en,
       ...saveAndSignOutContent.common,
