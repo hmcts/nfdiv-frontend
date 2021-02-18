@@ -9,11 +9,11 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
       'You’ll be asked to upload a digital photo of the certificate later in this application. You can use your phone to take the picture, if it has a camera.',
     line2: `It must be a photo of the original ${
       isDivorce ? 'marriage certificate' : 'civil partnership certificate'
-    } or a certified copy. <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">You can order a certified copy online (opens in a new tab)</a>, if you ${
+    } or a certified copy. You can <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" class="govuk-link" target="_blank">order a certified copy online (opens in a new tab)</a>, if you ${
       isDivorce ? 'got married' : 'formed your civil partnership'
     } in England or Wales.`,
     line3:
-      'If the original certificate is not in English, you’ll need to provide a <a href="https://www.gov.uk/certifying-a-document" class="govuk-link">certified translation</a>.',
+      'If the original certificate is not in English, you’ll need to provide a <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">certified translation</a>.',
     yes: `Yes, I have my ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
     no: `No, I do not have ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
     errors: {
@@ -33,7 +33,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     } yng Nghymru neu Loegr.`,
     line3:
-      'Os nad yw\'r dystysgrif wreiddiol yn Saesneg, bydd angen i chi ddarparu <a href="https://www.gov.uk/certifying-a-document" class="govuk-link">cyfieithiad ardystiedig</a>.',
+      'Os nad yw\'r dystysgrif wreiddiol yn Saesneg, bydd angen i chi ddarparu <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">cyfieithiad ardystiedig</a>.',
     yes: `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
     no: `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
     errors: {

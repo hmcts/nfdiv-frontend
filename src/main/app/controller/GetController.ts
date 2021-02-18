@@ -60,10 +60,10 @@ export class GetController {
 
       const selectedPartnerGender = req.session.state['your-details']?.partnerGender;
       if (selectedPartnerGender === 'Masculine') {
-        return translations['husband'];
+        return translations['wife'];
       }
       if (selectedPartnerGender === 'Feminine') {
-        return translations['wife'];
+        return translations['husband'];
       }
 
       return translations['partner'];

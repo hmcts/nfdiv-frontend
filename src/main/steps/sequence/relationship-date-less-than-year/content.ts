@@ -1,10 +1,10 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
 export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
-  //TODO change when ticket is picked up and implememnted
+  //TODO change when ticket is picked up and implemented
   const en = {
-    title: isDivorce ? title : 'You have not been together for long enough',
-    line1: 'you need to be married for longer',
+    isExitPage: true,
+    title: isDivorce ? title : 'You have not been together long enough',
   };
 
   const cy: typeof en = {

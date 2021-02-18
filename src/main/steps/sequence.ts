@@ -54,7 +54,7 @@ export const sequence: Step[] = [
     subSteps: [
       {
         id: 'relationship-date-less-than-year',
-        title: 'You have not been married for long enough',
+        title: 'You have not been married long enough',
         when: res =>
           !!res.relationshipDate && isLessThanAYear(res.relationshipDate as Record<string, string>) === 'lessThanAYear',
         url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,

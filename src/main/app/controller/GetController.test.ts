@@ -105,8 +105,8 @@ describe('GetController', () => {
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { partnerGender: 'Masculine', partnerKey: 'husband' },
-          { partnerGender: 'Feminine', partnerKey: 'wife' },
+          { partnerGender: 'Masculine', partnerKey: 'wife' },
+          { partnerGender: 'Feminine', partnerKey: 'husband' },
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ partnerGender, partnerKey }) => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
