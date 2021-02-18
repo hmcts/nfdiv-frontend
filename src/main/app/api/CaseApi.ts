@@ -11,7 +11,7 @@ export class CaseApi {
   public getCase(): Promise<CaseWithId | false> {
     return this.axios
       .get('/case')
-      .then(results => ({ id: results.data.caseId, ...fromApiFormat(results.data.data) }))
+      .then(results => ({ id: results.data.id, ...fromApiFormat(results.data.data) }))
       .catch(err => {
         if (err.response?.status !== 404) {
           this.logError(err);

@@ -6,7 +6,7 @@ import { CaseType } from './case';
 describe('CaseApi', () => {
   const results = {
     data: {
-      caseId: '1234',
+      id: '1234',
       error: null,
       status: 'success',
       allocatedCourt: {
