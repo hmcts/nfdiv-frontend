@@ -4,6 +4,7 @@ export const formFieldsToCaseMapping = {
   divorceOrDissolution: 'divorceOrDissolution',
   partnerGender: 'D8InferredRespondentGender',
   screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
+  hasCertificate: 'D8ScreenHasMarriageCert',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -29,7 +30,7 @@ export interface Case {
   partnerGender?: Gender;
   sameSex?: YesOrNo;
   screenHasUnionBroken?: YesOrNo;
-  relationshipDate?: string;
+  relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
 }
 
@@ -51,4 +52,10 @@ export enum Gender {
 export enum YesOrNo {
   Yes = 'YES',
   No = 'NO',
+}
+
+export interface CaseDate {
+  year: string;
+  month: string;
+  day: string;
 }

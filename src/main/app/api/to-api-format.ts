@@ -1,5 +1,5 @@
 import { ApiCase } from './CaseApi';
-import { Case, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...formFieldsToCaseMapping,
@@ -14,6 +14,13 @@ const fields = {
         ? Gender.Male
         : Gender.Female,
   }),
+  relationshipDate: data => ({
+    D8MarriageDate: toApiDate(data.relationshipDate),
+  }),
+};
+
+const toApiDate = (date: CaseDate) => {
+  return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 
 export const toApiFormat = (data: Partial<Case>): ApiCase => formatCase(fields, data);
