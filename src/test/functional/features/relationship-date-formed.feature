@@ -8,6 +8,7 @@ Feature: Relationship date formed
     And I go to '/date-from-certificate'
 
   Scenario: Error when missing a required field
+    Given I clear the form
     When I click "Continue"
     Then the page should include "You have not entered a date. Enter a date to continue."
 

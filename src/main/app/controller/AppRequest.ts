@@ -1,10 +1,10 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
 
-import { CaseWithId } from '../api/case';
+import { Case, CaseWithId } from '../api/case';
 import { FormError } from '../form/Form';
 
-export interface AppRequest<T = Record<string, unknown>> extends Request {
+export interface AppRequest<T = Partial<Case>> extends Request {
   session: AppSession;
   locals: {
     env: string;

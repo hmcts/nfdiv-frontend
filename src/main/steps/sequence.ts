@@ -1,4 +1,4 @@
-import { YesOrNo } from '../app/api/case';
+import { CaseWithId, YesOrNo } from '../app/api/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
@@ -15,7 +15,7 @@ import {
 
 export interface Step {
   url: string;
-  getNextStep: (CaseWithId) => PageLink;
+  getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
 export const sequence: Step[] = [

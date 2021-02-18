@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -52,10 +53,10 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.title,
       values: [
-        { label: l => l.yes, value: 'Yes' },
+        { label: l => l.yes, value: YesOrNo.Yes },
         {
           label: l => l.no,
-          value: 'No',
+          value: YesOrNo.No,
           warning: l => l.notBrokenDownSelected,
         },
       ],

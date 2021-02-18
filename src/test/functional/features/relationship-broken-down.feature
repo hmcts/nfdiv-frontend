@@ -8,6 +8,7 @@ Feature: Relationship broken down
     And I go to '/irretrievable-breakdown'
 
   Scenario: Error when missing a required field
+    Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 

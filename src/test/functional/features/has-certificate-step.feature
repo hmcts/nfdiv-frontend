@@ -10,9 +10,10 @@ Feature: Certificate step
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
-    Then the page should include "Do you have your marriage certificate with you?"
+    Then the page should include "Cookies"
 
   Scenario: Error when missing a required field
+    Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 

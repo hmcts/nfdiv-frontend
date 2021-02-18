@@ -14,7 +14,6 @@ export class SaveSignOutGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     this.content.common = { ...this.content.common, email: req.session?.user?.jwt.sub };
-    await req.logout();
-    super.get(req, res);
+    req.session.destroy(() => super.get(req, res));
   }
 }

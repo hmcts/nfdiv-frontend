@@ -1,3 +1,4 @@
+import { CaseDate } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
@@ -51,9 +52,7 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('relationshipDate', body),
       validator: value =>
-        isDatesFilledIn(value as Record<string, string>) ||
-        isDateInputNumeric(value as Record<string, string>) ||
-        isFutureDate(value as Record<string, string>),
+        isDatesFilledIn(value as CaseDate) || isDateInputNumeric(value as CaseDate) || isFutureDate(value as CaseDate),
     },
   },
   submit: {

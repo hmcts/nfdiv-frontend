@@ -22,7 +22,8 @@ Feature: Your details step
     And the page should include "Are you male or female?"
 
   Scenario: Error when missing a required field
-    Given I select "We were a same-sex couple when we got married"
-    When I click "Continue"
+    Given I clear the form
+    When I select "We were a same-sex couple when we got married"
+    And I click "Continue"
     Then the page should include "There was a problem"
     And "We were a same-sex couple when we got married" should be ticked
