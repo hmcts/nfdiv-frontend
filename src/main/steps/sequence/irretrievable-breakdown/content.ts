@@ -3,14 +3,16 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
+  const relationship = isDivorce ? 'marriage' : 'relationship';
+  const endRelationship = isDivorce ? 'get a divorce' : 'end your civil partnership';
   const en = {
-    title: 'Has your relationship irretrievably broken down (it cannot be saved)?',
-    line1: `Your ${isDivorce ? 'marriage' : 'relationship'} must have irretrievably broken down for you to
-      ${isDivorce ? 'get a divorce' : 'end your civil partnership'}. This means it cannot be saved.`,
-    yes: `Yes, my ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down`,
-    no: `No, my ${isDivorce ? 'marriage' : 'relationship'} has not irretrievably broken down`,
-    notBrokenDownSelected: `Your ${isDivorce ? 'marriage' : 'relationship'}
-      must have irretrievably broken down for you to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.
+    title: `Has your ${relationship} irretrievably broken down (it cannot be saved)?`,
+    line1: `Your ${relationship} must have irretrievably broken down for you to
+      ${endRelationship}. This means it cannot be saved.`,
+    yes: `Yes, my ${relationship} has irretrievably broken down`,
+    no: `No, my ${relationship} has not irretrievably broken down`,
+    notBrokenDownSelected: `Your ${relationship}
+      must have irretrievably broken down for you to ${endRelationship}.
       This is the law in England and Wales.`,
     errors: {
       screenHasUnionBroken: {
