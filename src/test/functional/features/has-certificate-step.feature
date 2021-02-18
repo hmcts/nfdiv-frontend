@@ -5,7 +5,6 @@ Feature: Certificate step
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
-    Then the page should include "Who are you applying to divorce?"
     And I go to '/do-you-have-your-certificate'
 
   Scenario: Successfully completing the form

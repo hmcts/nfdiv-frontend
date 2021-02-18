@@ -5,7 +5,6 @@ Feature: Relationship date formed
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
-    And I see the divorce homepage
     And I go to '/date-from-certificate'
 
   Scenario: Error when missing a required field

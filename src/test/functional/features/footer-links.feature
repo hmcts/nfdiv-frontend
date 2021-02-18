@@ -5,7 +5,7 @@ Feature: Footer Links
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
-    Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
+    Given I go to '/your-details'
 
   Scenario: Load privacy policy
     When I click "Privacy policy"
