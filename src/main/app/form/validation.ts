@@ -38,3 +38,20 @@ export const isLessThanAYear: DateValidator = date => {
     return 'lessThanAYear';
   }
 };
+
+export const isValidHelpWithFeesRef = (value: string | Record<string, string>): void | string => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (typeof value === 'string') {
+    if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
+      return 'invalid';
+    }
+
+    if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
+      return 'invalidUsedExample';
+    }
+  }
+};

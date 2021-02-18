@@ -1,4 +1,11 @@
-import { isDateInputNumeric, isDatesFilledIn, isFieldFilledIn, isFutureDate, isLessThanAYear } from './validation';
+import {
+  isDateInputNumeric,
+  isDatesFilledIn,
+  isFieldFilledIn,
+  isFutureDate,
+  isLessThanAYear,
+  isValidHelpWithFeesRef,
+} from './validation';
 
 describe('Validation', () => {
   test('Should check if value exist', async () => {
@@ -70,5 +77,25 @@ describe('Validation', () => {
     const isValid = isDateInputNumeric({ day: 'asd', month: '!', year: 'asfd' });
 
     expect(isValid).toStrictEqual('invalidInput');
+  });
+
+  describe('isValidHelpWithFeesRef()', () => {
+    it.each([
+      { mockRef: '', expected: 'required' },
+      { mockRef: '1', expected: 'invalid' },
+      { mockRef: '12345', expected: 'invalid' },
+      { mockRef: '1234567', expected: 'invalid' },
+      { mockRef: '12345!', expected: 'invalid' },
+      { mockRef: 'HWFA1B23C', expected: 'invalidUsedExample' },
+      { mockRef: 'A1B23C', expected: 'invalidUsedExample' },
+      { mockRef: 'A1B-23C', expected: 'invalidUsedExample' },
+      { mockRef: 'HWF-A1B-23C', expected: 'invalidUsedExample' },
+      { mockRef: 'HWF-AAA-BBB', expected: undefined },
+      { mockRef: 'AAA-BBB', expected: undefined },
+      { mockRef: 'AAABBB', expected: undefined },
+      { mockRef: '123456', expected: undefined },
+    ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
+      expect(isValidHelpWithFeesRef(mockRef)).toEqual(expected);
+    });
   });
 });

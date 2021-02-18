@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn, isValidHelpWithFeesRef } from '../../../app/form/validation';
 import { commonContent } from '../../common/common.content';
 
 export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
@@ -58,22 +58,7 @@ export const form: FormContent = {
               hint: l => `
                 <p class="govuk-label">${l.refReceivedWhenApplied}</p>
                 ${l.refExample}`,
-              validator: (value: string | Record<string, string>): void | string => {
-                const fieldNotFilledIn = isFieldFilledIn(value);
-                if (fieldNotFilledIn) {
-                  return fieldNotFilledIn;
-                }
-
-                if (typeof value === 'string') {
-                  if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
-                    return 'invalid';
-                  }
-
-                  if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
-                    return 'invalidUsedExample';
-                  }
-                }
-              },
+              validator: isValidHelpWithFeesRef,
             },
           },
         },

@@ -98,6 +98,7 @@ export const sequence: Step[] = [
             field: 'helpWithFeesRefNo',
             when: res => res.alreadyAppliedForHelpPaying === 'No',
             url: HELP_PAYING_NEED_TO_APPLY,
+            isFinalPage: true,
           },
         ],
       },
