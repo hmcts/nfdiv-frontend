@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
+import { sequence } from '../../steps/sequence';
 import { Gender } from '../api/case';
 
 import { AppRequest } from './AppRequest';
@@ -36,6 +37,7 @@ export class GetController {
       ...commonLanguageContent,
       sessionErrors,
       formState: req.session.userCase,
+      hideBackButton: req.originalUrl === sequence[0].url,
     });
   }
 

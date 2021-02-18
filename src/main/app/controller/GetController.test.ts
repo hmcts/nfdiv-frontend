@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
+import { YOUR_DETAILS_URL } from '../../steps/urls';
 import { Gender } from '../api/case';
 
 import { GetController, Translations } from './GetController';
@@ -17,6 +18,7 @@ describe('GetController', () => {
       ...commonContent.en,
       extraEnglish: 'text',
       formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });
@@ -33,6 +35,7 @@ describe('GetController', () => {
       ...commonContent.cy,
       extraWelsh: 'text',
       formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });
@@ -70,11 +73,29 @@ describe('GetController', () => {
     expect(res.render).toBeCalledWith('page', {
       ...commonContent.en,
       sessionErrors: [],
+      hideBackButton: false,
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
         partnerGender: Gender.Female,
       },
+    });
+  });
+
+  it('hides the back button if the user is on the first question', async () => {
+    const firstQuestionUrl = YOUR_DETAILS_URL;
+    const controller = new GetController('page', {} as Translations);
+
+    const req = mockRequest();
+    const res = mockResponse();
+    req.originalUrl = firstQuestionUrl;
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith('page', {
+      ...commonContent.en,
+      sessionErrors: [],
+      hideBackButton: true,
+      formState: req.session.userCase,
     });
   });
 
@@ -93,6 +114,7 @@ describe('GetController', () => {
         ...commonContent.en,
         sessionErrors: [],
         formState: req.session.userCase,
+        hideBackButton: false,
       });
     });
 
@@ -121,6 +143,7 @@ describe('GetController', () => {
             pageText: `something in ${lang}`,
             sessionErrors: [],
             formState: req.session.userCase,
+            hideBackButton: false,
           });
         });
       });

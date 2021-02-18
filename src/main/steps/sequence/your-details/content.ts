@@ -3,9 +3,9 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'Are you male or female?',
+    title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
     male: isDivorce ? 'My husband' : 'Male',
     female: isDivorce ? 'My wife' : 'Female',
     sameSex: 'Select the following if it applies to you:',
@@ -20,6 +20,11 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
   // @TODO translations
   const cy: typeof en = {
     ...en,
+    errors: {
+      partnerGender: {
+        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn y gallwch barhau.',
+      },
+    },
   };
 
   const common = {

@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
-import { Case, CaseCreationResponse, CaseWithId } from './case';
+import { Case, CaseType, CaseWithId, Gender, YesOrNo } from './case';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -22,7 +22,7 @@ export class CaseApi {
       });
   }
 
-  public createCase(data: Case): Promise<CaseWithId> {
+  public createCase(data: Case): Promise<ApiCaseWithId> {
     return this.axios
       .post('/case', data)
       .then(results => results.data)
@@ -54,4 +54,22 @@ export class CaseApi {
   }
 }
 
-export type ApiCase = Case;
+export interface ApiCase {
+  divorceOrDissolution: CaseType;
+  D8InferredPetitionerGender: Gender;
+  D8MarriageIsSameSexCouple: YesOrNo;
+  D8InferredRespondentGender: YesOrNo;
+  D8ScreenHasMarriageBroken: YesOrNo;
+}
+
+export interface ApiCaseWithId extends ApiCase {
+  id: string;
+}
+
+export interface CaseCreationResponse {
+  caseId: string;
+  error: string;
+  status: string;
+  allocatedCourt: Record<string, string>;
+  data: ApiCase;
+}

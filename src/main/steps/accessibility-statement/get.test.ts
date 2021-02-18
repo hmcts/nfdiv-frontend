@@ -17,6 +17,7 @@ describe('AccessibilityStatementGetController', () => {
       ...generateContent({ isDivorce: true }).en,
       ...commonContent.en,
       formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });
@@ -32,6 +33,7 @@ describe('AccessibilityStatementGetController', () => {
       ...generateContent({ isDivorce: false }).en,
       ...commonContent.en,
       formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });

@@ -1,23 +1,27 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { getNextStepUrl } from '../../steps/sequence';
+import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 import { Gender } from '../api/case';
 
 import { PostController } from './PostController';
 
-jest.mock('../../steps/sequence');
+jest.mock('../../steps');
 
 const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { partnerGender: Gender.Female };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { partnerGender: Gender.Female } });
+    const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -31,10 +35,14 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { partnerGender: Gender.Female };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { partnerGender: Gender.Female } });
+    const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -47,10 +55,14 @@ describe('PostController', () => {
 
   test('saves and signs out even if there are errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { partnerGender: Gender.Female, saveAndSignOut: true };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body: { partnerGender: Gender.Female, saveAndSignOut: true } });
+    const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -63,11 +75,15 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const mockForm = ({ getErrors: () => errors } as unknown) as Form;
+    const body = { partnerGender: Gender.Female };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
     const controller = new PostController(mockForm);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
-    const req = mockRequest({ body: { mockField: 'falafel' }, session: { save: mockSave } });
+    const req = mockRequest({ body, session: { save: mockSave } });
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 

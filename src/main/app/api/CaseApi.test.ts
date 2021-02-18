@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { CaseApi } from './CaseApi';
-import { DivorceOrCivilPartnership } from './case';
+import { CaseType } from './case';
 
 describe('CaseApi', () => {
   const results = {
@@ -64,7 +64,7 @@ describe('CaseApi', () => {
     mockedAxios.post = jest.fn().mockResolvedValue(results);
 
     const userCase = await api.createCase({
-      divorceOrDissolution: DivorceOrCivilPartnership.Divorce,
+      divorceOrDissolution: CaseType.Divorce,
     });
 
     expect(userCase).toBe(results.data);
@@ -75,7 +75,7 @@ describe('CaseApi', () => {
 
     await expect(
       api.createCase({
-        divorceOrDissolution: DivorceOrCivilPartnership.Divorce,
+        divorceOrDissolution: CaseType.Divorce,
       })
     ).rejects.toThrow('Case could not be created.');
   });
@@ -84,7 +84,7 @@ describe('CaseApi', () => {
     mockedAxios.patch = jest.fn().mockResolvedValue(results);
 
     const userCase = await api.updateCase('1234', {
-      divorceOrDissolution: DivorceOrCivilPartnership.Divorce,
+      divorceOrDissolution: CaseType.Divorce,
     });
 
     expect(userCase).toBe(results.data);
@@ -95,7 +95,7 @@ describe('CaseApi', () => {
 
     await expect(
       api.updateCase('not found', {
-        divorceOrDissolution: DivorceOrCivilPartnership.Divorce,
+        divorceOrDissolution: CaseType.Divorce,
       })
     ).rejects.toThrow('Case could not be updated.');
   });

@@ -5,7 +5,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
 import { CaseApi } from '../../app/api/CaseApi';
-import { Case, DivorceOrCivilPartnership } from '../../app/api/case';
+import { Case, CaseType } from '../../app/api/case';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
@@ -84,10 +84,7 @@ export class OidcMiddleware {
 
             if (!req.session.userCase) {
               req.session.userCase = await req.scope?.cradle.api.createCase({
-                divorceOrDissolution:
-                  res.locals.serviceType === 'civil'
-                    ? DivorceOrCivilPartnership.CivilPartnership
-                    : DivorceOrCivilPartnership.Divorce,
+                divorceOrDissolution: res.locals.serviceType === 'civil' ? CaseType.Dissolution : CaseType.Divorce,
               });
             }
           }

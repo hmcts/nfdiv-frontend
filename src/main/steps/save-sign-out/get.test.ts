@@ -19,6 +19,7 @@ describe('SaveAndSignOutController', () => {
       ...saveAndSignOutContent.common,
       ...commonContent.en,
       formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
       email: 'mock-user@example.com',
     });

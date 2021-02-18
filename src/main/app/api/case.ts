@@ -25,18 +25,22 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
-  divorceOrDissolution: DivorceOrCivilPartnership;
+  divorceOrDissolution: CaseType;
   partnerGender?: Gender;
-  D8InferredPetitionerGender?: Gender;
   sameSex?: YesOrNo;
   screenHasUnionBroken?: YesOrNo;
-  D8ScreenHasMarriageBroken?: YesOrNo;
+  relationshipDate?: string;
+  hasCertificate?: YesOrNo;
+}
+
+export interface CaseWithId extends Case {
+  id: string;
 }
 
 // TODO switch to use the type field and be Marriage or Civil Partnership (CCD Definitions)
-export enum DivorceOrCivilPartnership {
+export enum CaseType {
   Divorce = 'divorce',
-  CivilPartnership = 'dissolution',
+  Dissolution = 'dissolution',
 }
 
 export enum Gender {
@@ -47,16 +51,4 @@ export enum Gender {
 export enum YesOrNo {
   Yes = 'YES',
   No = 'NO',
-}
-
-export interface CaseWithId extends Case {
-  id: string;
-}
-
-export interface CaseCreationResponse {
-  caseId: string;
-  error: string;
-  status: string;
-  allocatedCourt: Record<string, string>;
-  data: Case;
 }

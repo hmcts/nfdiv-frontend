@@ -1,68 +1,52 @@
-import { Request } from 'express';
+import { YesOrNo } from '../app/api/case';
 
-import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
+import {
+  CERTIFICATE_URL,
+  COOKIES_URL,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  NO_CERTIFICATE_URL,
+  PageLink,
+  RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+  RELATIONSHIP_DATE_URL,
+  RELATIONSHIP_NOT_BROKEN_URL,
+  YOUR_DETAILS_URL,
+} from './urls';
 
 export interface Step {
-  id: string;
-  title: string;
-  field?: string;
   url: string;
-  subSteps?: SubStep[];
+  getNextStep: (CaseWithId) => PageLink;
 }
 
-interface SubStep extends Step {
-  when: (response: Record<string, string>) => boolean;
-  finalPage?: boolean;
-}
-
-const sequence: Step[] = [
+export const sequence: Step[] = [
   {
-    id: 'your-details',
-    title: 'Who are you applying to divorce?',
-    field: 'partnerGender',
     url: YOUR_DETAILS_URL,
+    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
   {
-    id: 'has-relationship-broken',
-    title: 'Has your marriage irretrievably broken down (it cannot be saved)?',
-    field: 'screenHasUnionBroken',
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    subSteps: [
-      {
-        id: 'relationship-not-broken',
-        title: 'You cannot apply to get a divorce',
-        when: res => res.screenHasUnionBroken === 'No',
-        url: RELATIONSHIP_NOT_BROKEN_URL,
-        finalPage: true,
-      },
-    ],
+    getNextStep: data =>
+      data.screenHasUnionBroken === YesOrNo.No ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
+  },
+  {
+    url: RELATIONSHIP_NOT_BROKEN_URL,
+    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
+  },
+  {
+    url: RELATIONSHIP_DATE_URL,
+    getNextStep: data => (data.relationshipDate === 'TODO' ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL : CERTIFICATE_URL),
+    // TODO date format is different
+    // !!data.relationshipDate && isLessThanAYear(data.relationshipDate as Record<string, string>) === 'lessThanAYear',
+  },
+  {
+    url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+    getNextStep: () => RELATIONSHIP_DATE_URL,
+  },
+  {
+    url: CERTIFICATE_URL,
+    getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : COOKIES_URL),
+  },
+  {
+    url: NO_CERTIFICATE_URL,
+    getNextStep: () => CERTIFICATE_URL,
   },
 ];
-
-export const getSteps = (steps: Step[] = [], start = sequence): Step[] => {
-  for (const step of start) {
-    steps.push(step);
-    if (step.subSteps) {
-      getSteps(steps, step.subSteps);
-    }
-  }
-  return steps;
-};
-
-export const getNextStepUrl = (req: Request): string => {
-  const [path, searchParams] = req.originalUrl.split('?');
-  const queryString = searchParams ? `?${searchParams}` : '';
-
-  const currentStep = sequence.find(step => step.url === path);
-  if (!currentStep) {
-    return '/step-not-found';
-  }
-  if (currentStep.subSteps?.length) {
-    const foundMatchingSubstep = currentStep.subSteps.find(subStep => subStep.when(req.body));
-    if (foundMatchingSubstep?.url) {
-      return `${foundMatchingSubstep?.url}${queryString}`;
-    }
-  }
-  const index = sequence.indexOf(currentStep);
-  return `${sequence[index + 1]?.url || path}${queryString}`;
-};

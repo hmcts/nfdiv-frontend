@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { omit } from 'lodash';
 
 import { RequestWithScope } from '../../modules/oidc';
-import { getNextStepUrl } from '../../steps/sequence';
+import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
 
@@ -17,6 +17,8 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: RequestWithScope<T>, res: Response): Promise<void> {
+    this.form.getParsedBody(req.body);
+
     const errors = this.form.getErrors(req.body);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
