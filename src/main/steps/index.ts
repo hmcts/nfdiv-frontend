@@ -26,9 +26,9 @@ export const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
     } else {
       // if there are no errors go to the next page and work out what to do
       const nextStepUrl = step.getNextStep(data);
-      const nextStep = sequence.find(s => s.url === nextStepUrl) || sequence[0];
+      const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return getNextIncompleteStep(data, nextStep);
+      return nextStep ? getNextIncompleteStep(data, nextStep) : YOUR_DETAILS_URL;
     }
   }
 
