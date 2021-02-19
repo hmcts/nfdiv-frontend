@@ -5,7 +5,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { Form } from '../app/form/Form';
 
 import { Step, sequence } from './sequence';
-import { YOUR_DETAILS_URL } from './urls';
+import { SUMMARY_URL } from './urls';
 
 const stepForms = {};
 
@@ -16,7 +16,12 @@ for (const step of sequence) {
   }
 }
 
-export const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
+const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
+  if (step.isExit) {
+    // if this is an exit page it should tell us was the previous step was
+    return step.getNextStep(data);
+  }
+
   // if this step has a form
   if (stepForms[step.url] !== undefined) {
     // and that form has errors
@@ -28,7 +33,7 @@ export const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep ? getNextIncompleteStep(data, nextStep) : YOUR_DETAILS_URL;
+      return nextStep ? getNextIncompleteStep(data, nextStep) : SUMMARY_URL;
     }
   }
 
@@ -46,7 +51,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 export const getNextStepUrl = (req: AppRequest): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequence.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(req.body) : YOUR_DETAILS_URL;
+  const url = nextStep ? nextStep.getNextStep(req.body) : SUMMARY_URL;
 
   return `${url}${queryString}`;
 };

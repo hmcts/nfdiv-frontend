@@ -1,7 +1,6 @@
 const en = {
   title: 'Summary holding page',
   checkYourAnswers: 'Please check your answers',
-  resetApplication: 'Reset application',
   submitApplication: 'Submit application',
 };
 

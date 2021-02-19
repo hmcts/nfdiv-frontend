@@ -48,10 +48,17 @@ describe('Steps', () => {
       expect(getNextIncompleteStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
+    it('returns the previous step if its a dead end', () => {
+      mockReq.session.userCase.partnerGender = Gender.Male;
+      mockReq.session.userCase.screenHasUnionBroken = YesOrNo.No;
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+    });
+
     it('keeps the query string', () => {
       mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
       mockReq.session.userCase.partnerGender = Gender.Male;
-      expect(getNextStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
+      expect(getNextIncompleteStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
   });
 });
