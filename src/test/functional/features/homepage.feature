@@ -5,6 +5,7 @@ Feature: Homepage
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
+    Given I go to '/your-details'
     And I see the divorce homepage
 
   Scenario: Load divorce homepage

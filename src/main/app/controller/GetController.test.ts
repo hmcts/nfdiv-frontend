@@ -2,6 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
 import { YOUR_DETAILS_URL } from '../../steps/urls';
+import { Gender } from '../api/case';
 
 import { GetController, Translations } from './GetController';
 
@@ -13,7 +14,13 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', { ...commonContent.en, extraEnglish: 'text', sessionErrors: [] });
+    expect(res.render).toBeCalledWith('page', {
+      ...commonContent.en,
+      extraEnglish: 'text',
+      formState: req.session.userCase,
+      hideBackButton: false,
+      sessionErrors: [],
+    });
   });
 
   test('Should render the page in Welsh', async () => {
@@ -24,7 +31,13 @@ describe('GetController', () => {
     req.session.lang = 'cy';
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', { ...commonContent.cy, extraWelsh: 'text', sessionErrors: [] });
+    expect(res.render).toBeCalledWith('page', {
+      ...commonContent.cy,
+      extraWelsh: 'text',
+      formState: req.session.userCase,
+      hideBackButton: false,
+      sessionErrors: [],
+    });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
@@ -50,25 +63,28 @@ describe('GetController', () => {
   });
 
   test('sends the current page form session state to the view', async () => {
-    const controller = new GetController('page', {} as Translations, 'test-page');
+    const controller = new GetController('page', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.state['test-page'] = { someInputData: 'falafel' };
+    req.session.userCase.partnerGender = Gender.Female;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
       ...commonContent.en,
       sessionErrors: [],
+      hideBackButton: false,
       formState: {
-        someInputData: 'falafel',
+        id: '1234',
+        divorceOrDissolution: 'divorce',
+        partnerGender: Gender.Female,
       },
     });
   });
 
   it('hides the back button if the user is on the first question', async () => {
     const firstQuestionUrl = YOUR_DETAILS_URL;
-    const controller = new GetController('page', {} as Translations, 'test-page');
+    const controller = new GetController('page', {} as Translations);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -79,6 +95,7 @@ describe('GetController', () => {
       ...commonContent.en,
       sessionErrors: [],
       hideBackButton: true,
+      formState: req.session.userCase,
     });
   });
 
@@ -96,6 +113,8 @@ describe('GetController', () => {
       expect(res.render).toBeCalledWith('page', {
         ...commonContent.en,
         sessionErrors: [],
+        formState: req.session.userCase,
+        hideBackButton: false,
       });
     });
 
@@ -105,14 +124,14 @@ describe('GetController', () => {
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { partnerGender: 'Masculine', partnerKey: 'wife' },
-          { partnerGender: 'Feminine', partnerKey: 'husband' },
+          { partnerGender: Gender.Male, partnerKey: 'wife' },
+          { partnerGender: Gender.Female, partnerKey: 'husband' },
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ partnerGender, partnerKey }) => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
           const controller = new GetController('page', getContentMock);
 
-          const req = mockRequest({ session: { lang, state: { ['your-details']: { partnerGender } } } });
+          const req = mockRequest({ session: { lang, userCase: { partnerGender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
@@ -123,6 +142,8 @@ describe('GetController', () => {
             ...commonContent[lang],
             pageText: `something in ${lang}`,
             sessionErrors: [],
+            formState: req.session.userCase,
+            hideBackButton: false,
           });
         });
       });

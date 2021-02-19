@@ -31,3 +31,22 @@ Then('I enter {string}', (text: string) => {
 Given('I go to {string}', (text: string) => {
   I.amOnPage(text);
 });
+
+Given('I clear the form', () => {
+  I.wait(1);
+  I.executeScript(() => {
+    const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
+    for (const checkedInput of checkedInputs) {
+      checkedInput.checked = false;
+    }
+
+    const clearInputs = (inputs: NodeListOf<HTMLInputElement | HTMLTextAreaElement>) => {
+      for (const input of inputs) {
+        input.value = '';
+      }
+    };
+
+    clearInputs(document.querySelectorAll('textarea'));
+    clearInputs(document.querySelectorAll('input[type="text"]'));
+  });
+});

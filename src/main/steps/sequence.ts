@@ -1,79 +1,54 @@
+import { CaseWithId, YesOrNo } from '../app/api/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
   CERTIFICATE_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
   NO_CERTIFICATE_URL,
+  PageLink,
   RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
+  SUMMARY_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
 export interface Step {
-  id: string;
-  title: string;
-  field?: string;
   url: string;
-  subSteps?: SubStep[];
-}
-
-export interface SubStep extends Step {
-  when: (response: Record<string, unknown>) => boolean;
-  isFinalPage?: boolean;
+  getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
 export const sequence: Step[] = [
   {
-    id: 'your-details',
-    title: 'Who are you applying to divorce?',
-    field: 'partnerGender',
     url: YOUR_DETAILS_URL,
+    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
   {
-    id: 'has-relationship-broken',
-    title: 'Has your marriage irretrievably broken down (it cannot be saved)?',
-    field: 'screenHasUnionBroken',
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    subSteps: [
-      {
-        id: 'relationship-not-broken',
-        title: 'You cannot apply to get a divorce',
-        when: res => res.screenHasUnionBroken === 'No',
-        url: RELATIONSHIP_NOT_BROKEN_URL,
-        isFinalPage: true,
-      },
-    ],
+    getNextStep: data =>
+      data.screenHasUnionBroken === YesOrNo.No ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
   {
-    id: 'relationship-date',
-    title: 'When did you get married?',
-    field: 'relationshipDate',
+    url: RELATIONSHIP_NOT_BROKEN_URL,
+    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
+  },
+  {
     url: RELATIONSHIP_DATE_URL,
-    //TODO change when ticket is picked up
-    subSteps: [
-      {
-        id: 'relationship-date-less-than-year',
-        title: 'You have not been married long enough',
-        when: res =>
-          !!res.relationshipDate && isLessThanAYear(res.relationshipDate as Record<string, string>) === 'lessThanAYear',
-        url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
-        isFinalPage: true,
-      },
-    ],
+    getNextStep: data =>
+      isLessThanAYear(data.relationshipDate) === 'lessThanAYear'
+        ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL
+        : CERTIFICATE_URL,
   },
   {
-    id: 'has-certificate',
-    title: 'Do you have your marriage certificate with you?',
-    field: 'hasCertificate',
+    url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+    getNextStep: () => RELATIONSHIP_DATE_URL,
+  },
+  {
     url: CERTIFICATE_URL,
-    subSteps: [
-      {
-        id: 'has-no-certificate',
-        title: 'You need your marriage certificate',
-        when: res => res.hasCertificate === 'No',
-        url: NO_CERTIFICATE_URL,
-      },
-    ],
+    getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : SUMMARY_URL),
+  },
+  {
+    url: NO_CERTIFICATE_URL,
+    getNextStep: () => CERTIFICATE_URL,
   },
 ];

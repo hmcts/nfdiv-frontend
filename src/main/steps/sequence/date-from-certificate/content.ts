@@ -1,10 +1,12 @@
+import { CaseDate } from '../../../app/api/case';
+import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import { isDateInputNumeric, isDatesFilledIn, isFutureDate } from '../../../app/form/validation';
 
-export const generateContent = (title: string) => (isDivorce: boolean): Record<string, unknown> => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'When did you form your civil partnership?',
+    title: isDivorce ? 'When did you get married?' : 'When did you form your civil partnership?',
     line1: `Enter the date from your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
     hint: 'For example, 31 3 2002',
     errors: {
@@ -50,9 +52,7 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('relationshipDate', body),
       validator: value =>
-        isDatesFilledIn(value as Record<string, string>) ||
-        isDateInputNumeric(value as Record<string, string>) ||
-        isFutureDate(value as Record<string, string>),
+        isDatesFilledIn(value as CaseDate) || isDateInputNumeric(value as CaseDate) || isFutureDate(value as CaseDate),
     },
   },
   submit: {

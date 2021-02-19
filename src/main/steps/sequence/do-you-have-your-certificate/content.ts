@@ -1,10 +1,13 @@
+import { YesOrNo } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'Do you have your civil partnership certificate with you?',
+    title: isDivorce
+      ? 'Do you have your marriage certificate with you?'
+      : 'Do you have your civil partnership certificate with you?',
     line1:
       'You’ll be asked to upload a digital photo of the certificate later in this application. You can use your phone to take the picture, if it has a camera.',
     line2: `It must be a photo of the original ${
@@ -57,8 +60,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.title,
       values: [
-        { label: l => l.yes, value: 'Yes' },
-        { label: l => l.no, value: 'No' },
+        { label: l => l.yes, value: YesOrNo.Yes },
+        { label: l => l.no, value: YesOrNo.No },
       ],
       validator: value => isFieldFilledIn(value),
     },

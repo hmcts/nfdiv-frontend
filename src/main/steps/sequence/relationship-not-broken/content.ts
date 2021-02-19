@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'You cannot apply to end your civil partnership',
+    title: isDivorce ? 'You cannot apply to get a divorce' : 'You cannot apply to end your civil partnership',
     line1: `Your ${isDivorce ? 'marriage' : 'relationship'} must have irretrievably broken down
       for you to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}. This is the law in England and Wales.`,
     line2: `If you are not sure about ${isDivorce ? 'getting a divorce' : 'ending your civil partnership'},
