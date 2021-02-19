@@ -4,12 +4,13 @@
 
 {% block content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <p class="govuk-body">{{ checkYourAnswers }}</p>
+
   <pre>
 {{ formState | json(2) }}
   </pre>
+
   {{ govukButton({
-  text: submitApplication,
-  preventDoubleClick: true
+    text: pay,
+    preventDoubleClick: true
   }) }}
 {% endblock %}

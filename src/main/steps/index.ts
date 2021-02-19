@@ -5,7 +5,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { Form } from '../app/form/Form';
 
 import { Step, sequence } from './sequence';
-import { SUMMARY_URL } from './urls';
+import { CHECK_ANSWERS_URL } from './urls';
 
 const stepForms = {};
 
@@ -32,7 +32,7 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep ? getNextIncompleteStep(data, nextStep) : SUMMARY_URL;
+      return nextStep ? getNextIncompleteStep(data, nextStep) : CHECK_ANSWERS_URL;
     }
   }
 
@@ -50,7 +50,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 export const getNextStepUrl = (req: AppRequest): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequence.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(req.body) : SUMMARY_URL;
+  const url = nextStep ? nextStep.getNextStep(req.body) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };
