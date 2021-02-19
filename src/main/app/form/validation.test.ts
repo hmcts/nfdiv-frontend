@@ -1,3 +1,5 @@
+import { CaseDate } from '../api/case';
+
 import { areFieldsFilledIn, isDateInputValid, isFieldFilledIn, isFutureDate, isLessThanAYear } from './validation';
 
 describe('Validation', () => {
@@ -79,7 +81,7 @@ describe('Validation', () => {
       { date: { day: 31, month: 13, year: 2000 }, expected: 'invalidDate' },
       { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalidDate' },
     ])('checks dates validity when %o', ({ date, expected }) => {
-      const isValid = isDateInputValid((date as unknown) as Record<string, string>);
+      const isValid = isDateInputValid((date as unknown) as CaseDate);
 
       expect(isValid).toStrictEqual(expected);
     });

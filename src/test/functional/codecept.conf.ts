@@ -12,7 +12,7 @@ export const config: CodeceptJS.Config = {
       url: testConfig.TEST_URL || 'http://localhost:3001',
       show: !testConfig.TestHeadlessBrowser,
       browser: 'chromium',
-      waitForTimeout: 15000,
+      waitForTimeout: testConfig.WaitForTimeout,
       ignoreHTTPSErrors: true,
     },
   },

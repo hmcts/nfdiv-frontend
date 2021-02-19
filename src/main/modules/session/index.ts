@@ -1,13 +1,9 @@
 import config from 'config';
 import ConnectRedis from 'connect-redis';
-import { Application, Request } from 'express';
+import { Application } from 'express';
 import session from 'express-session';
 import * as redis from 'redis';
 import FileStoreFactory from 'session-file-store';
-
-import { AppSession } from '../../app/controller/AppRequest';
-import { AnyObject } from '../../app/controller/PostController';
-import { SessionStateStorage } from '../../app/step/SessionStateStorage';
 
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
@@ -28,14 +24,6 @@ export class SessionStorage {
         store: this.getStore(),
       })
     );
-
-    app.use((req, res, next) => {
-      const session = req.session as AppSession;
-      session.state = session.state || {};
-      res.locals.storage = new SessionStateStorage(session);
-
-      next();
-    });
   }
 
   private getStore() {
@@ -52,7 +40,3 @@ export class SessionStorage {
         });
   }
 }
-
-export type ReqWithSession = Request & {
-  session: AnyObject;
-};

@@ -3,8 +3,8 @@ import { Translations } from '../../app/controller/GetController';
 export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translations => {
   const en = {
     title: 'Accessibility Statement',
-    statement: `Accessibility statement for the apply ${
-      isDivorce ? 'for a divorce' : 'end your civil partnership'
+    statement: `Accessibility statement for the ${
+      isDivorce ? 'apply for a divorce' : 'end your civil partnership'
     } service`,
     websiteRanBy: 'This website is run by HM Courts & Tribunals Service',
     asManyAsPossible:

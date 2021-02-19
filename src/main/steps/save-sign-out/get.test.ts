@@ -5,7 +5,7 @@ import { commonContent } from '../common/common.content';
 import { saveAndSignOutContent } from './content';
 import { SaveSignOutGetController } from './get';
 
-describe('HomeGetController', () => {
+describe('SaveAndSignOutController', () => {
   const controller = new SaveSignOutGetController();
 
   it('renders the save and sign out page', async () => {
@@ -13,11 +13,13 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(req.logout).toHaveBeenCalled();
+    expect(req.session.save).toHaveBeenCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...saveAndSignOutContent.en,
       ...saveAndSignOutContent.common,
       ...commonContent.en,
+      formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
       email: 'mock-user@example.com',
     });

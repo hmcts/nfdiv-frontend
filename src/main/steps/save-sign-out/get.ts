@@ -13,8 +13,8 @@ export class SaveSignOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    this.content.common = { ...this.content.common, email: req.session?.user?.jwt.sub };
-    await req.logout();
-    super.get(req, res);
+    this.content.common = { ...this.content.common, email: req.session.user?.jwt.sub };
+    req.session.user = {};
+    req.session.save(() => super.get(req, res));
   }
 }

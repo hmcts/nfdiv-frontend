@@ -16,6 +16,8 @@ describe('AccessibilityStatementGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generateContent({ isDivorce: true }).en,
       ...commonContent.en,
+      formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });
@@ -30,6 +32,8 @@ describe('AccessibilityStatementGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generateContent({ isDivorce: false }).en,
       ...commonContent.en,
+      formState: req.session.userCase,
+      hideBackButton: false,
       sessionErrors: [],
     });
   });
