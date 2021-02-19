@@ -33,10 +33,6 @@ export class Form {
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
   }
-
-  public getFields(): Record<string, FormField> {
-    return this.form?.fields;
-  }
 }
 
 type LanguageLookup = (lang: Record<string, never>) => string;

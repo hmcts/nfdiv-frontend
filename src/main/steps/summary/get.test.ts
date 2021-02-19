@@ -5,10 +5,10 @@ import { commonContent } from '../common/common.content';
 import { summaryContent } from './content';
 import { SummaryGetController } from './get';
 
-describe('PrivacyPolicyGetController', () => {
+describe('SummaryGetController', () => {
   const controller = new SummaryGetController();
 
-  test('Should render the privacy policy page', async () => {
+  test('Should render the summary page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
