@@ -71,6 +71,7 @@ export interface FormInput {
   classes?: string;
   selected?: boolean;
   value?: string | number;
+  attributes?: Partial<HTMLInputElement>;
   validator?: ValidationCheck;
   parser?: Parser;
   warning?: Warning;
