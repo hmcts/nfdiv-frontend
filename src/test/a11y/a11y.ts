@@ -1,18 +1,6 @@
 import Axios from 'axios';
 
-import {
-  ACCESSIBILITY_STATEMENT_URL,
-  CERTIFICATE_URL,
-  COOKIES_URL,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOME_URL,
-  NO_CERTIFICATE_URL,
-  PRIVACY_POLICY_URL,
-  RELATIONSHIP_DATE_URL,
-  RELATIONSHIP_NOT_BROKEN_URL,
-  TERMS_AND_CONDITIONS_URL,
-  YOUR_DETAILS_URL,
-} from '../../main/steps/urls';
+import * as urls from '../../main/steps/urls';
 import { config } from '../config';
 
 const pa11y = require('pa11y');
@@ -71,17 +59,7 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility', () => {
-  testAccessibility(HOME_URL);
-  testAccessibility(PRIVACY_POLICY_URL);
-  testAccessibility(TERMS_AND_CONDITIONS_URL);
-  testAccessibility(COOKIES_URL);
-  testAccessibility(ACCESSIBILITY_STATEMENT_URL);
-  testAccessibility(YOUR_DETAILS_URL);
-  testAccessibility(HAS_RELATIONSHIP_BROKEN_URL);
-  testAccessibility(RELATIONSHIP_NOT_BROKEN_URL);
-  testAccessibility(RELATIONSHIP_DATE_URL);
-  testAccessibility(CERTIFICATE_URL);
-  testAccessibility(NO_CERTIFICATE_URL);
-
-  // TODO: include each path of your application in accessibility checks
+  for (const url of Object.values(urls)) {
+    testAccessibility(url);
+  }
 });
