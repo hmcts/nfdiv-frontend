@@ -3,6 +3,7 @@ import { isLessThanAYear } from '../app/form/validation';
 
 import {
   CERTIFICATE_URL,
+  CHECK_ANSWERS_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
@@ -12,7 +13,6 @@ import {
   RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
-  SUMMARY_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -56,14 +56,19 @@ export const sequence: Step[] = [
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
-    getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : SUMMARY_URL),
+    getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : CHECK_ANSWERS_URL),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
-    getNextStep: data => (data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : SUMMARY_URL),
+    getNextStep: data =>
+      data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : CHECK_ANSWERS_URL,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
     getNextStep: () => HELP_WITH_YOUR_FEE_URL,
+  },
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];

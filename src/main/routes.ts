@@ -14,7 +14,6 @@ import {
   HOME_URL,
   PRIVACY_POLICY_URL,
   SAVE_SIGN_OUT_URL,
-  SUMMARY_URL,
   TERMS_AND_CONDITIONS_URL,
 } from './steps/urls';
 
@@ -31,7 +30,6 @@ export class Routes {
       ACCESSIBILITY_STATEMENT_URL,
       errorHandler(app.locals.container.cradle.accessibilityStatementGetController.get)
     );
-    app.get(SUMMARY_URL, errorHandler(app.locals.container.cradle.summaryGetController.get));
 
     for (const step of sequence) {
       const stepDir = `${__dirname}/steps/sequence${step.url}`;
