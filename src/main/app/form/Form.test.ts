@@ -1,3 +1,5 @@
+import { Case } from '../api/case';
+
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
 import { isFieldFilledIn } from './validation';
@@ -32,14 +34,14 @@ describe('Form', () => {
   const form = new Form(mockForm);
 
   test('Should validate a form', async () => {
-    const errors = form.getErrors({
+    const errors = form.getErrors(({
       field: 'Yes',
       dateField: {
         day: '1',
         month: '1',
         year: '2000',
       },
-    });
+    } as unknown) as Case);
 
     expect(errors).toStrictEqual([]);
   });

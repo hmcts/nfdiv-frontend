@@ -6,14 +6,16 @@ import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
-import { sequence } from './steps/sequence';
+import { getSteps } from './steps';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   HOME_URL,
   PRIVACY_POLICY_URL,
+  RESET_URL,
   SAVE_SIGN_OUT_URL,
+  SUMMARY_URL,
   TERMS_AND_CONDITIONS_URL,
 } from './steps/urls';
 
@@ -26,9 +28,14 @@ export class Routes {
     app.get(PRIVACY_POLICY_URL, app.locals.container.cradle.privacyPolicyGetController.get);
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
     app.get(COOKIES_URL, errorHandler(app.locals.container.cradle.cookiesGetController.get));
-    app.get(ACCESSIBILITY_STATEMENT_URL, app.locals.container.cradle.accessibilityStatementGetController.get);
+    app.get(
+      ACCESSIBILITY_STATEMENT_URL,
+      errorHandler(app.locals.container.cradle.accessibilityStatementGetController.get)
+    );
+    app.get(SUMMARY_URL, errorHandler(app.locals.container.cradle.summaryGetController.get));
+    app.get(RESET_URL, errorHandler(app.locals.container.cradle.summaryGetController.reset));
 
-    for (const step of sequence) {
+    for (const step of getSteps()) {
       const stepDir = `${__dirname}/steps/sequence${step.url}`;
       const { generateContent, form } = require(`${stepDir}/content.ts`);
       const customView = `${stepDir}/template.njk`;

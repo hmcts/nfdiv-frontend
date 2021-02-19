@@ -1,4 +1,4 @@
-import { CaseDate } from '../api/case';
+import { Case, CaseDate } from '../api/case';
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
@@ -19,7 +19,7 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: AnyObject): FormError[] {
+  public getErrors(body: Partial<Case>): FormError[] {
     if (!this.form?.fields) {
       return [];
     }
@@ -28,10 +28,14 @@ export class Form {
       .filter(key => this.form.fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>this.form.fields[propertyName];
-        const errorType = field.validator(body[propertyName] as string);
+        const errorType = field.validator(body?.[propertyName] as string);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
+  }
+
+  public getFields(): Record<string, FormField> {
+    return this.form?.fields;
   }
 }
 

@@ -22,21 +22,23 @@ export class GetController {
       return;
     }
 
-    const language = req.session.lang || 'en';
+    const language = req.session?.lang || 'en';
     const commonLanguageContent = commonContent[language];
     const content = this.getContent(req, res, commonLanguageContent);
     const languageContent = content[language];
     const commonPageContent = content.common || {};
-    const sessionErrors = req.session.errors || [];
+    const sessionErrors = req.session?.errors || [];
 
-    req.session.errors = undefined;
+    if (req.session?.errors) {
+      req.session.errors = undefined;
+    }
 
     res.render(this.view, {
       ...languageContent,
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
-      formState: req.session.userCase,
+      formState: req.session?.userCase,
       hideBackButton: req.originalUrl === sequence[0].url,
     });
   }

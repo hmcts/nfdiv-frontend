@@ -15,7 +15,7 @@ const fields = {
         : Gender.Female,
   }),
   relationshipDate: data => ({
-    D8MarriageDate: toApiDate(data.relationshipDate),
+    D8MarriageDate: data.relationshipDate ? toApiDate(data.relationshipDate) : '',
   }),
 };
 

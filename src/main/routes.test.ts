@@ -18,6 +18,7 @@ describe('Routes', () => {
             termsAndConditionsGetController: { get: 'mock' },
             cookiesGetController: { get: 'mock' },
             accessibilityStatementGetController: { get: 'mock' },
+            summaryGetController: { get: 'mock', reset: 'mock' },
             errorController: { get: 'mock' },
           },
         },

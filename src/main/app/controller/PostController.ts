@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { omit } from 'lodash';
 
 import { RequestWithScope } from '../../modules/oidc';
 import { getNextStepUrl } from '../../steps';
@@ -22,16 +21,15 @@ export class PostController<T extends AnyObject> {
     const errors = this.form.getErrors(req.body);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
-    const { saveAndSignOut, ...formData } = req.body;
-    const updatedData = omit(formData, '_csrf');
-    Object.assign(req.session.userCase, updatedData);
+    const { saveAndSignOut, _csrf, ...formData } = req.body;
+    Object.assign(req.session.userCase, formData);
 
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, updatedData);
+      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, formData);
       req.session.errors = undefined;
     }
 

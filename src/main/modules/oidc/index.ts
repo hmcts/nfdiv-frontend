@@ -61,7 +61,7 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
-        if (req.session.user) {
+        if (req.session.user?.id_token) {
           res.locals.isLoggedIn = true;
 
           const user = req.session.user;
