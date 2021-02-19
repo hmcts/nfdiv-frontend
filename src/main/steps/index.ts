@@ -12,16 +12,15 @@ const stepForms = {};
 for (const step of sequence) {
   const stepContentFile = `${__dirname}/sequence${step.url}/content.ts`;
   if (fs.existsSync(stepContentFile)) {
-    stepForms[step.url] = new Form(require(stepContentFile).form);
+    const content = require(stepContentFile);
+
+    if (content.form) {
+      stepForms[step.url] = new Form(content.form);
+    }
   }
 }
 
 const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
-  if (step.isExit) {
-    // if this is an exit page it should tell us was the previous step was
-    return step.getNextStep(data);
-  }
-
   // if this step has a form
   if (stepForms[step.url] !== undefined) {
     // and that form has errors

@@ -15,7 +15,6 @@ import {
 
 export interface Step {
   url: string;
-  isExit?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -32,7 +31,6 @@ export const sequence: Step[] = [
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
-    isExit: true,
   },
   {
     url: RELATIONSHIP_DATE_URL,
@@ -44,7 +42,6 @@ export const sequence: Step[] = [
   {
     url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
     getNextStep: () => RELATIONSHIP_DATE_URL,
-    isExit: true,
   },
   {
     url: CERTIFICATE_URL,
@@ -53,6 +50,5 @@ export const sequence: Step[] = [
   {
     url: NO_CERTIFICATE_URL,
     getNextStep: () => CERTIFICATE_URL,
-    isExit: true,
   },
 ];
