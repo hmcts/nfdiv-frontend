@@ -6,6 +6,7 @@ Feature: Relationship broken down
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     And I go to '/irretrievable-breakdown'
+    And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
   Scenario: Error when missing a required field
     Given I clear the form

@@ -6,7 +6,7 @@ Feature: Relationship date formed
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     And I go to '/date-from-certificate'
-    Then the page should include "When did you get married?"
+    And the page should include "When did you get married?"
     And I clear the form
 
   Scenario: Error when missing a required field

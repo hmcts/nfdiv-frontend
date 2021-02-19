@@ -6,7 +6,7 @@ Feature: Your details step
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     And I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
+    And the page should include "Who are you applying to divorce?"
     And I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
     And the page should not include "Back"
 

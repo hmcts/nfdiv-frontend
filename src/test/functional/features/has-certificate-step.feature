@@ -6,11 +6,12 @@ Feature: Certificate step
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
     And I go to '/do-you-have-your-certificate'
+    And the page should include "Do you have your marriage certificate with you?"
 
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
-    Then the page should include "Cookies"
+    Then the page should include "Summary"
 
   Scenario: Error when missing a required field
     Given I clear the form
