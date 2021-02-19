@@ -3,13 +3,13 @@ import { isLessThanAYear } from '../app/form/validation';
 
 import {
   CERTIFICATE_URL,
+  CHECK_ANSWERS_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
-  SUMMARY_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -45,10 +45,14 @@ export const sequence: Step[] = [
   },
   {
     url: CERTIFICATE_URL,
-    getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : SUMMARY_URL),
+    getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : CHECK_ANSWERS_URL),
   },
   {
     url: NO_CERTIFICATE_URL,
     getNextStep: () => CERTIFICATE_URL,
+  },
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => YOUR_DETAILS_URL,
   },
 ];
