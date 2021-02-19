@@ -53,6 +53,6 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => YOUR_DETAILS_URL,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
