@@ -5,15 +5,16 @@ Feature: Certificate step
     And I am on the admin portal sign in page
     When I fill in the Username and Password fields with a valid login
     And I click "Sign in"
-    Then the page should include "Who are you applying to divorce?"
     And I go to '/do-you-have-your-certificate'
+    And the page should include "Do you have your marriage certificate with you?"
 
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
-    Then the page should include "Do you have your marriage certificate with you?"
+    Then the page should include "Summary"
 
   Scenario: Error when missing a required field
+    Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 

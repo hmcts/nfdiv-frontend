@@ -9,10 +9,11 @@ export const PRIVACY_POLICY_URL: PageLink = '/privacy-policy';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
 export const COOKIES_URL: PageLink = '/cookies';
 export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
+export const SUMMARY_URL: PageLink = '/summary';
 
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
-export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/you-cannot-apply';
+export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/relationship-not-broken';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 //TODO change when ticket is picked up

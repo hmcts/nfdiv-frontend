@@ -1,9 +1,10 @@
 import autobind from 'autobind-decorator';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import type { LoggerInstance } from 'winston';
 
+import { AppRequest } from '../../app/controller/AppRequest';
 import { commonContent } from '../common/common.content';
 
 import { errorContent } from './content';
@@ -15,7 +16,7 @@ export class ErrorController {
   /**
    * Catch all for 404
    */
-  public notFound(req: Request, res: Response): void {
+  public notFound(req: AppRequest, res: Response): void {
     this.logger.info(`404 Not Found: ${req.originalUrl}`);
 
     res.status(StatusCodes.NOT_FOUND);
@@ -25,7 +26,7 @@ export class ErrorController {
   /**
    * Catch all for 500 errors
    */
-  public internalServerError(error: HTTPError | AxiosError | string | undefined, req: Request, res: Response): void {
+  public internalServerError(error: HTTPError | AxiosError | string | undefined, req: AppRequest, res: Response): void {
     const { message = error, stack = undefined } = typeof error === 'object' ? error : {};
 
     let response: AxiosResponse<string | Record<string, unknown>> | undefined;
@@ -42,15 +43,15 @@ export class ErrorController {
   /**
    * Catch all for CSRF Token errors
    */
-  public CSRFTokenError(req: Request, res: Response): void {
+  public CSRFTokenError(req: AppRequest, res: Response): void {
     this.logger.error('CSRF Token Failed');
 
     res.status(StatusCodes.BAD_REQUEST);
     this.render(req, res);
   }
 
-  private render(req: Request, res: Response) {
-    const lang = req.session['lang'] || 'en';
+  private render(req: AppRequest, res: Response) {
+    const lang = req.session?.lang || 'en';
     const errorText = errorContent[lang][res.statusCode] || errorContent[lang][StatusCodes.INTERNAL_SERVER_ERROR];
     res.locals.isError = true;
     res.render('error/error', { ...commonContent[lang], ...errorText });

@@ -2,23 +2,23 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../common/common.content';
 
-import { termsAndConditionsContent } from './content';
-import { TermsAndConditionsGetController } from './get';
+import { summaryContent } from './content';
+import { SummaryGetController } from './get';
 
-describe('TermsAndConditionsGetController', () => {
-  const controller = new TermsAndConditionsGetController();
+describe('SummaryGetController', () => {
+  const controller = new SummaryGetController();
 
-  test('Should render the accessibility statement page', async () => {
+  test('Should render the summary page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...termsAndConditionsContent.en,
-      ...termsAndConditionsContent.common,
+      ...summaryContent.en,
+      ...summaryContent.common,
       ...commonContent.en,
-      formState: req.session.userCase,
       hideBackButton: false,
+      formState: req.session.userCase,
       sessionErrors: [],
     });
   });
