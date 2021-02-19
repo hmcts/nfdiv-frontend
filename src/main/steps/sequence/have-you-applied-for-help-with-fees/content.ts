@@ -1,11 +1,12 @@
+import { YesOrNo } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isValidHelpWithFeesRef } from '../../../app/form/validation';
 import { commonContent } from '../../common/common.content';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'Have you already applied for help with your fee?',
+    title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
     yes: 'Yes',
     enterRefNo: 'Enter your Help with Fees reference number:',
     refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
@@ -26,13 +27,9 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
   };
 
   // @TODO translations
-  const cy: typeof en = {
-    ...en,
-  };
+  const cy: typeof en = { ...en };
 
-  const common = {
-    form,
-  };
+  const common = { form };
 
   return { en, cy, common };
 };
@@ -46,7 +43,7 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.yes,
-          value: 'Yes',
+          value: YesOrNo.Yes,
           subFields: {
             helpWithFeesRefNo: {
               type: 'text',
@@ -62,7 +59,7 @@ export const form: FormContent = {
             },
           },
         },
-        { label: l => l.no, value: 'No' },
+        { label: l => l.no, value: YesOrNo.No },
       ],
       validator: isFieldFilledIn,
     },

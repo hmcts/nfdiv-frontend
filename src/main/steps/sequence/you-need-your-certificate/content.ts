@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'You need your civil partnership certificate',
+    title: isDivorce ? 'You need your marriage certificate' : 'You need your civil partnership certificate',
     line1: `You need your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'} to use this service.`,
     line2: `You should ask your ${
       isDivorce ? 'husband / wife' : 'civil partner'
@@ -16,7 +16,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
 
   //TODO translation
   const cy: typeof en = {
-    title: isDivorce ? title : 'You need your civil partnership certificate',
+    title: isDivorce ? 'You need your marriage certificate' : 'You need your civil partnership certificate',
     line1: `You need your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'} to use this service.`,
     line2: `You should ask your ${
       isDivorce ? 'husband / wife' : 'civil partner'

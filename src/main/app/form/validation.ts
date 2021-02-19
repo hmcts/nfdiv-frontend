@@ -1,5 +1,7 @@
-export type Validator = (value: string | Record<string, string>) => void | string;
-export type DateValidator = (value: Record<string, string>) => void | string;
+import { CaseDate } from '../api/case';
+
+export type Validator = (value: string | CaseDate | undefined) => void | string;
+export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value) {
@@ -8,6 +10,10 @@ export const isFieldFilledIn: Validator = value => {
 };
 
 export const isDatesFilledIn: DateValidator = fields => {
+  if (typeof fields !== 'object' || Object.keys(fields).length !== 3) {
+    return 'required';
+  }
+
   for (const field in fields) {
     if (!fields[field]) {
       return 'required';
@@ -24,6 +30,10 @@ export const isDateInputNumeric: DateValidator = date => {
 };
 
 export const isFutureDate: DateValidator = date => {
+  if (!date) {
+    return;
+  }
+
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   if (new Date() < enteredDate) {
     return 'invalidDate';
@@ -31,6 +41,10 @@ export const isFutureDate: DateValidator = date => {
 };
 
 export const isLessThanAYear: DateValidator = date => {
+  if (!date) {
+    return;
+  }
+
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -39,7 +53,7 @@ export const isLessThanAYear: DateValidator = date => {
   }
 };
 
-export const isValidHelpWithFeesRef = (value: string | Record<string, string>): void | string => {
+export const isValidHelpWithFeesRef: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {
     return fieldNotFilledIn;

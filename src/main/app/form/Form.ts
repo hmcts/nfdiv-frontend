@@ -1,3 +1,4 @@
+import { Case, CaseDate } from '../api/case';
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
@@ -18,12 +19,16 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: AnyObject, fields = this.form.fields): FormError[] {
+  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
+    if (!fields) {
+      return [];
+    }
+
     const errors = Object.keys(fields)
       .filter(key => fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
-        const errorType = field.validator(body[propertyName] as string | Record<string, string>);
+        const errorType = field.validator(body?.[propertyName] as string);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
@@ -43,7 +48,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | Record<string, string>) => void | string;
+type ValidationCheck = (value: string | CaseDate | undefined) => void | string;
 
 type Parser = (value: Record<string, unknown>) => void;
 

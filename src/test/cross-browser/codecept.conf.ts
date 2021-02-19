@@ -12,7 +12,7 @@ if (process.env.IE === 'true') {
     WebDriver: {
       url,
       browser: 'internet explorer',
-      waitForTimeout: 15000,
+      waitForTimeout: testConfig.WaitForTimeout,
       capabilities: {
         'sauce:options': {
           idleTimeout: 300,
@@ -40,7 +40,7 @@ if (process.env.IE === 'true') {
       url,
       show: !testConfig.TestHeadlessBrowser,
       browser: 'chromium',
-      waitForTimeout: 15000,
+      waitForTimeout: testConfig.WaitForTimeout,
     },
   };
 }

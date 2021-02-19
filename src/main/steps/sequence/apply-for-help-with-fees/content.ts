@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'You need to apply for help with your fees',
+    title: `You need to apply for help with your ${isDivorce ? 'divorce' : ''} fees`,
     line1: `Your need to apply for <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">help with your fees (opens in new tab)</a> before you continue with this ${
       isDivorce ? 'divorce' : 'ending a civil partnership'
     } application. `,
@@ -14,9 +14,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
   };
 
   // @TODO translations
-  const cy: typeof en = {
-    ...en,
-  };
+  const cy: typeof en = { ...en };
 
   const common = {};
 

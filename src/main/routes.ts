@@ -6,7 +6,7 @@ import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
-import { getSteps } from './steps';
+import { sequence } from './steps/sequence';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
@@ -14,6 +14,7 @@ import {
   HOME_URL,
   PRIVACY_POLICY_URL,
   SAVE_SIGN_OUT_URL,
+  SUMMARY_URL,
   TERMS_AND_CONDITIONS_URL,
 } from './steps/urls';
 
@@ -26,26 +27,23 @@ export class Routes {
     app.get(PRIVACY_POLICY_URL, app.locals.container.cradle.privacyPolicyGetController.get);
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
     app.get(COOKIES_URL, errorHandler(app.locals.container.cradle.cookiesGetController.get));
-    app.get(ACCESSIBILITY_STATEMENT_URL, app.locals.container.cradle.accessibilityStatementGetController.get);
+    app.get(
+      ACCESSIBILITY_STATEMENT_URL,
+      errorHandler(app.locals.container.cradle.accessibilityStatementGetController.get)
+    );
+    app.get(SUMMARY_URL, errorHandler(app.locals.container.cradle.summaryGetController.get));
 
-    for (const step of getSteps()) {
-      const stepDir = `${__dirname}/steps/sequence/${step.id}`;
-      const view = `${stepDir}/template.njk`;
+    for (const step of sequence) {
+      const stepDir = `${__dirname}/steps/sequence${step.url}`;
       const { generateContent, form } = require(`${stepDir}/content.ts`);
+      const customView = `${stepDir}/template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${stepDir}/../template.njk`;
+      const controller = new GetController(view, generateContent);
 
-      app.get(
-        step.url,
-        errorHandler(
-          new GetController(
-            fs.existsSync(view) ? view : `${stepDir}/../template.njk`,
-            generateContent(step.title),
-            step.id
-          ).get
-        )
-      );
+      app.get(step.url, errorHandler(controller.get));
 
       if (form) {
-        app.post(step.url, errorHandler(new PostController(new Form(form), step.id).post));
+        app.post(step.url, errorHandler(new PostController(new Form(form)).post));
       }
     }
 

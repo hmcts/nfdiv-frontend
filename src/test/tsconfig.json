@@ -4,7 +4,7 @@
   },
   "compilerOptions": {
     "target": "es2018",
-    "lib": ["es2018", "DOM"],
+    "lib": ["es2018", "DOM", "dom.iterable"],
     "esModuleInterop": true,
     "module": "commonjs",
     "strictNullChecks": true,

@@ -1,11 +1,12 @@
+import { YesOrNo } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { commonContent } from '../../common/common.content';
 
-export const generateContent = (title: string): TranslationFn => ({ isDivorce }) => {
+export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: isDivorce ? title : 'Do you need help paying the fee for ending your civil partnership?',
+    title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
     line1: `This ${
       isDivorce ? 'divorce application' : 'application'
     } costs £550. You may be able to get help paying the fee if you:`,
@@ -40,9 +41,7 @@ export const generateContent = (title: string): TranslationFn => ({ isDivorce })
     },
   };
 
-  const common = {
-    form,
-  };
+  const common = { form };
 
   return { en, cy, common };
 };
@@ -54,8 +53,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.title,
       values: [
-        { label: l => l.yes, value: 'Yes' },
-        { label: l => l.no, value: 'No' },
+        { label: l => l.yes, value: YesOrNo.Yes },
+        { label: l => l.no, value: YesOrNo.No },
       ],
       validator: value => isFieldFilledIn(value),
     },
