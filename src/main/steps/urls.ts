@@ -10,7 +10,6 @@ export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
 export const COOKIES_URL: PageLink = '/cookies';
 export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
 export const SUMMARY_URL: PageLink = '/summary';
-export const RESET_URL: PageLink = '/summary/reset';
 
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';

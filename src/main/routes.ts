@@ -6,14 +6,13 @@ import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
-import { getSteps } from './steps';
+import { sequence } from './steps/sequence';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   HOME_URL,
   PRIVACY_POLICY_URL,
-  RESET_URL,
   SAVE_SIGN_OUT_URL,
   SUMMARY_URL,
   TERMS_AND_CONDITIONS_URL,
@@ -33,9 +32,8 @@ export class Routes {
       errorHandler(app.locals.container.cradle.accessibilityStatementGetController.get)
     );
     app.get(SUMMARY_URL, errorHandler(app.locals.container.cradle.summaryGetController.get));
-    app.get(RESET_URL, errorHandler(app.locals.container.cradle.summaryGetController.reset));
 
-    for (const step of getSteps()) {
+    for (const step of sequence) {
       const stepDir = `${__dirname}/steps/sequence${step.url}`;
       const { generateContent, form } = require(`${stepDir}/content.ts`);
       const customView = `${stepDir}/template.njk`;
