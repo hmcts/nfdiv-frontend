@@ -9,7 +9,7 @@ export const isFieldFilledIn: Validator = value => {
   }
 };
 
-export const isDatesFilledIn: DateValidator = fields => {
+export const areFieldsFilledIn: DateValidator = fields => {
   if (typeof fields !== 'object' || Object.keys(fields).length !== 3) {
     return 'required';
   }
@@ -21,11 +21,23 @@ export const isDatesFilledIn: DateValidator = fields => {
   }
 };
 
-export const isDateInputNumeric: DateValidator = date => {
+export const isDateInputValid: DateValidator = date => {
+  const invalid = 'invalidDate';
+  if (!date) {
+    return invalid;
+  }
+
   for (const value in date) {
     if (isNaN(+date[value])) {
-      return 'invalidInput';
+      return invalid;
     }
+  }
+
+  const year = parseInt(date.year, 10);
+  const month = parseInt(date.month, 10);
+  const day = parseInt(date.day, 10);
+  if (year < 1900 || month < 1 || month > 12 || day < 1 || day > 31) {
+    return invalid;
   }
 };
 
@@ -36,7 +48,7 @@ export const isFutureDate: DateValidator = date => {
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   if (new Date() < enteredDate) {
-    return 'invalidDate';
+    return 'invalidDateInFuture';
   }
 };
 
