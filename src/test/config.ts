@@ -12,7 +12,7 @@ if (!fileExistsSync(filename)) {
 }
 
 const content = readFileSync(filename).toString();
-const updatedContent = (content === '' || +content > 8 ? 0 : +content) + 1;
+const updatedContent = (content === '' || +content >= 8 ? 0 : +content) + 1;
 
 writeFileSync(filename, updatedContent + '');
 lockFile.unlockSync(lock);
