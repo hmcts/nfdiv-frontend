@@ -34,7 +34,7 @@ export class CaseApi {
 
   public updateCase(id: string, data: Partial<Case>): Promise<CaseCreationResponse> {
     return this.axios
-      .patch('/case', { id, ...toApiFormat(data) })
+      .patch('/case', { id, data: toApiFormat(data) })
       .then(results => results.data)
       .catch(err => {
         this.logError(err);
