@@ -25,6 +25,7 @@ export class Nunjucks {
         name: i.name,
         classes: i.classes,
         value: i.value || (userSelection && userSelection[i.name as string]),
+        attributes: i.attributes,
         checked: i.selected || i.value === userSelection,
         conditional: !i.warning
           ? undefined
