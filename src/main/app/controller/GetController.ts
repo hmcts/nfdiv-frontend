@@ -71,10 +71,10 @@ export class GetController {
 
     const selectedPartnerGender = req.session.userCase?.partnerGender;
     if (selectedPartnerGender === Gender.Male) {
-      return translations['wife'];
+      return translations['husband'];
     }
     if (selectedPartnerGender === Gender.Female) {
-      return translations['husband'];
+      return translations['wife'];
     }
 
     return translations['partner'];
