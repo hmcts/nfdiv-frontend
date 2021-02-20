@@ -109,7 +109,11 @@ describe('GetController', () => {
       await controller.get(req, res);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
-      expect(getContentMock).toHaveBeenCalledWith({ isDivorce: true, partner: 'partner' });
+      expect(getContentMock).toHaveBeenCalledWith({
+        isDivorce: true,
+        partner: 'partner',
+        formState: req.session.userCase,
+      });
       expect(res.render).toBeCalledWith('page', {
         ...commonContent.en,
         sessionErrors: [],
@@ -137,7 +141,11 @@ describe('GetController', () => {
 
           expect(getContentMock).toHaveBeenCalledTimes(1);
           const expectedPartner = commonContent[lang][civilKey || partnerKey];
-          expect(getContentMock).toHaveBeenCalledWith({ isDivorce, partner: expectedPartner });
+          expect(getContentMock).toHaveBeenCalledWith({
+            isDivorce,
+            partner: expectedPartner,
+            formState: req.session.userCase,
+          });
           expect(res.render).toBeCalledWith('page', {
             ...commonContent[lang],
             pageText: `something in ${lang}`,

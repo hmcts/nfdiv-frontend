@@ -1,8 +1,13 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-export const generateContent: TranslationFn = () => {
+export const generateContent: TranslationFn = ({ isDivorce, partner, formState }) => {
   const en = {
     title: 'Check your answers',
+    aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
+    change: 'Change',
+    yourDetails: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
+    yourDetailsA11y: 'Your details',
+    yourDetailsAnswer: `${isDivorce ? `My ${partner}` : formState.partnerGender}`,
     pay: 'Continue to payment',
   };
 
