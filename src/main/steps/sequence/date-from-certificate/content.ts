@@ -12,9 +12,12 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     errors: {
       relationshipDate: {
         required: 'You have not entered a date. Enter a date to continue.',
-        invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002',
+        invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
+        invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
         invalidDateInFuture:
           'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+        invalidDateTooFarInPast:
+          'You have entered a year which is too far in the past. Enter the year you got married.',
       },
     },
   };
@@ -27,8 +30,10 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
       relationshipDate: {
         required: 'Nid ydych wedi nodi dyddiad. Nodwch ddyddiad i barhau.',
         invalidDate: 'Rydych chi wedi rhoi nod annilys. Nodwch y dyddiad gan ddefnyddio rhifau.',
+        invalidYear: 'Rydych chi wedi rhoi nod annilys. Nodwch y dyddiad gan ddefnyddio rhifau.',
         invalidDateInFuture:
           'Rydych wedi nodi dyddiad sydd yn y dyfodol. Nodwch ddyddiad sydd yn y gorffennol cyn parhau.',
+        invalidDateTooFarInPast: 'Rydych chi wedi rhoi nod annilys. Nodwch y dyddiad gan ddefnyddio rhifau.',
       },
     },
   };

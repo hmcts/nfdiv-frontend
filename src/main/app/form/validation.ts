@@ -36,8 +36,15 @@ export const isDateInputValid: DateValidator = date => {
   const year = parseInt(date.year, 10);
   const month = parseInt(date.month, 10);
   const day = parseInt(date.day, 10);
-  if (year < 1900 || month < 1 || month > 12 || day < 1 || day > 31) {
+  if (month < 1 || month > 12 || day < 1 || day > 31) {
     return invalid;
+  }
+
+  if (year < 1900) {
+    if (year < 1000) {
+      return 'invalidYear';
+    }
+    return 'invalidDateTooFarInPast';
   }
 };
 
