@@ -38,6 +38,7 @@ Feature: Help with fee
     Given I select "I need help paying the fee"
     And I click "Continue"
     Then the page should include "Have you already applied for help with your divorce fee?"
+    And I clear the form
     And I select "Yes"
     And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
