@@ -20,7 +20,7 @@ const fields = {
 };
 
 const toApiDate = (date: CaseDate) => {
-  if (!date.year || !date.month || !date.day) {
+  if (!date?.year || !date?.month || !date?.day) {
     return '';
   }
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
