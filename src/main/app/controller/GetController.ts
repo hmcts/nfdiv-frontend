@@ -3,13 +3,20 @@ import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
-import { Gender } from '../api/case';
+import { Case, Gender } from '../api/case';
 
 import { AppRequest } from './AppRequest';
 
 type Translation = Record<string, unknown>;
 export type Translations = { en: Translation; cy: Translation; common: Translation | undefined };
-export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partner: string }) => Translations;
+export type TranslationFn = ({
+  isDivorce,
+  partner,
+}: {
+  isDivorce: boolean;
+  partner: string;
+  formState: Partial<Case>;
+}) => Translations;
 
 @autobind
 export class GetController {
@@ -50,7 +57,11 @@ export class GetController {
 
     const isDivorce = res.locals.serviceType !== 'civil';
 
-    return this.content({ isDivorce, partner: this.getPartnerContent(req, isDivorce, translations) });
+    return this.content({
+      isDivorce,
+      partner: this.getPartnerContent(req, isDivorce, translations),
+      formState: req.session?.userCase,
+    });
   }
 
   private getPartnerContent(req: AppRequest, isDivorce: boolean, translations: Translations): string {
