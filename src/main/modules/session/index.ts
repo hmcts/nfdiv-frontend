@@ -1,5 +1,6 @@
 import config from 'config';
 import ConnectRedis from 'connect-redis';
+import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
 import * as redis from 'redis';
@@ -10,6 +11,8 @@ const FileStore = FileStoreFactory(session);
 
 export class SessionStorage {
   public enableFor(app: Application): void {
+    app.use(cookieParser());
+
     app.use(
       session({
         name: 'nfdiv-session',

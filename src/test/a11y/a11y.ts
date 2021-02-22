@@ -71,7 +71,7 @@ describe('Accessibility', () => {
       await browser.close();
     }
 
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
 
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
