@@ -66,6 +66,8 @@ const en = {
     month: 'Month',
     year: 'Year',
   },
+  yes: 'Yes',
+  no: 'No',
 };
 
 const cy: typeof en = {

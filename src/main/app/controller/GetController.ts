@@ -41,9 +41,9 @@ export class GetController {
     }
 
     res.render(this.view, {
+      ...commonLanguageContent,
       ...languageContent,
       ...commonPageContent,
-      ...commonLanguageContent,
       sessionErrors,
       formState: req.session?.userCase,
       hideBackButton: req.originalUrl === sequence[0].url,
