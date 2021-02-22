@@ -1,6 +1,13 @@
 import { CaseDate } from '../api/case';
 
-import { areFieldsFilledIn, isDateInputValid, isFieldFilledIn, isFutureDate, isLessThanAYear } from './validation';
+import {
+  areFieldsFilledIn,
+  isDateInputValid,
+  isFieldFilledIn,
+  isFutureDate,
+  isLessThanAYear,
+  isValidHelpWithFeesRef,
+} from './validation';
 
 describe('Validation', () => {
   describe('isFieldFilledIn()', () => {
@@ -74,7 +81,9 @@ describe('Validation', () => {
     test.each([
       { date: { day: 1, month: 1, year: 1970 }, expected: undefined },
       { date: { day: 31, month: 12, year: 2000 }, expected: undefined },
-      { date: { day: 1, month: 1, year: 1 }, expected: 'invalidDate' },
+      { date: { day: 31, month: 12, year: 123 }, expected: 'invalidYear' },
+      { date: { day: 31, month: 12, year: 1800 }, expected: 'invalidDateTooFarInPast' },
+      { date: { day: 1, month: 1, year: 1 }, expected: 'invalidYear' },
       { date: { day: -31, month: 12, year: 2000 }, expected: 'invalidDate' },
       { date: { day: 31, month: -12, year: 2000 }, expected: 'invalidDate' },
       { date: { day: 32, month: 12, year: 2000 }, expected: 'invalidDate' },
@@ -84,6 +93,28 @@ describe('Validation', () => {
       const isValid = isDateInputValid((date as unknown) as CaseDate);
 
       expect(isValid).toStrictEqual(expected);
+    });
+  });
+
+  describe('isValidHelpWithFeesRef()', () => {
+    it.each([
+      { mockRef: '', expected: 'required' },
+      { mockRef: '1', expected: 'invalid' },
+      { mockRef: '12345', expected: 'invalid' },
+      { mockRef: '1234567', expected: 'invalid' },
+      { mockRef: '12345!', expected: 'invalid' },
+      { mockRef: 'HWFA1B23C', expected: 'invalid' },
+      { mockRef: 'A1B23C', expected: 'invalid' },
+      { mockRef: 'A1B-23C', expected: 'invalid' },
+      { mockRef: 'HWF-A1B-23C', expected: 'invalidUsedExample' },
+      { mockRef: 'HWF-AAA-BBB', expected: undefined },
+      { mockRef: 'HWF-A1A-B2B', expected: undefined },
+      { mockRef: 'HWF-123-456', expected: undefined },
+      { mockRef: 'AAA-BBB', expected: 'invalid' },
+      { mockRef: 'AAABBB', expected: 'invalid' },
+      { mockRef: '123456', expected: 'invalid' },
+    ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
+      expect(isValidHelpWithFeesRef(mockRef)).toEqual(expected);
     });
   });
 });

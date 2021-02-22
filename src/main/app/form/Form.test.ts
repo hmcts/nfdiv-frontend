@@ -1,4 +1,4 @@
-import { Case } from '../api/case';
+import { Case, YesOrNo } from '../api/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
@@ -10,8 +10,8 @@ describe('Form', () => {
       field: {
         type: 'radios',
         values: [
-          { label: l => l.no, value: 'No' },
-          { label: l => l.yes, value: 'Yes' },
+          { label: l => l.no, value: YesOrNo.Yes },
+          { label: l => l.yes, value: YesOrNo.No },
         ],
         validator: value => isFieldFilledIn(value),
       },
@@ -35,7 +35,7 @@ describe('Form', () => {
 
   test('Should validate a form', async () => {
     const errors = form.getErrors(({
-      field: 'Yes',
+      field: YesOrNo.Yes,
       dateField: {
         day: '1',
         month: '1',
@@ -61,9 +61,67 @@ describe('Form', () => {
     ]);
   });
 
+  describe('subfield validation', () => {
+    const mockSubFieldForm: FormContent = {
+      fields: {
+        field: {
+          type: 'radios',
+          values: [
+            {
+              label: l => l.no,
+              value: YesOrNo.No,
+              subFields: {
+                testSubField: {
+                  type: 'text',
+                  label: 'Subfield',
+                  validator: isFieldFilledIn,
+                },
+              },
+            },
+            { label: l => l.yes, value: YesOrNo.Yes },
+          ],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const subFieldForm = new Form(mockSubFieldForm);
+
+    it('returns the field error', () => {
+      const errors = subFieldForm.getErrors({});
+
+      expect(errors).toStrictEqual([
+        {
+          propertyName: 'field',
+          errorType: 'required',
+        },
+      ]);
+    });
+
+    it('does not return any subfields error if the field has not been selected', () => {
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.Yes } as unknown) as Case);
+
+      expect(errors).toStrictEqual([]);
+    });
+
+    it('returns the subfield error when the field has been selected', () => {
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.No } as unknown) as Case);
+
+      expect(errors).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'testSubField',
+        },
+      ]);
+    });
+  });
+
   test('Should parse a form body', async () => {
     const body = {
-      field: 'Yes',
+      field: YesOrNo.Yes,
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
@@ -71,7 +129,7 @@ describe('Form', () => {
     form.getParsedBody(body);
 
     expect(body).toStrictEqual({
-      field: 'Yes',
+      field: 'YES',
       dateField: {
         day: '1',
         month: '1',

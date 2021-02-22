@@ -32,6 +32,9 @@ export interface Case {
   screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
+  helpPayingNeeded?: YesOrNo;
+  alreadyAppliedForHelpPaying?: YesOrNo;
+  helpWithFeesRefNo?: string;
 }
 
 export interface CaseWithId extends Case {

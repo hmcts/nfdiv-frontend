@@ -36,8 +36,15 @@ export const isDateInputValid: DateValidator = date => {
   const year = parseInt(date.year, 10);
   const month = parseInt(date.month, 10);
   const day = parseInt(date.day, 10);
-  if (year < 1900 || month < 1 || month > 12 || day < 1 || day > 31) {
+  if (month < 1 || month > 12 || day < 1 || day > 31) {
     return invalid;
+  }
+
+  if (year < 1900) {
+    if (year < 1000) {
+      return 'invalidYear';
+    }
+    return 'invalidDateTooFarInPast';
   }
 };
 
@@ -62,5 +69,22 @@ export const isLessThanAYear: DateValidator = date => {
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
   if (!(enteredDate < oneYearAgo)) {
     return 'lessThanAYear';
+  }
+};
+
+export const isValidHelpWithFeesRef: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (typeof value === 'string') {
+    if (!value.match(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i)) {
+      return 'invalid';
+    }
+
+    if (value.toUpperCase() === 'HWF-A1B-23C') {
+      return 'invalidUsedExample';
+    }
   }
 };

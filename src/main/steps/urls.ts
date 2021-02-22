@@ -14,6 +14,9 @@ export const CHECK_ANSWERS_URL: PageLink = '/check-answers';
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/relationship-not-broken';
+export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
+export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
+export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 //TODO change when ticket is picked up

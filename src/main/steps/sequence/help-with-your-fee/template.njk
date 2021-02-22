@@ -1,0 +1,11 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for item in helpPayingWhen %}
+      <li>{{ item | safe }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

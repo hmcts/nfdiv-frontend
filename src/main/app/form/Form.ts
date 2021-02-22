@@ -19,19 +19,30 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>): FormError[] {
-    if (!this.form?.fields) {
+  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
+    if (!fields) {
       return [];
     }
 
-    return Object.keys(this.form.fields)
-      .filter(key => this.form.fields[key].validator !== undefined)
+    const errors = Object.keys(fields)
+      .filter(key => fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
-        const field = <FormField & { validator: ValidationCheck }>this.form.fields[propertyName];
+        const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
         const errorType = field.validator(body?.[propertyName] as string);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
+
+    const subFieldErrors: FormError[] = [];
+    for (const [key, value] of Object.entries(fields)) {
+      (value as FormOptions)?.values
+        ?.filter(option => option.subFields !== undefined && body[key] === option.value)
+        .map(fieldWithSubFields => fieldWithSubFields.subFields)
+        .map(subField => this.getErrors(body, subField))
+        .map(subErrors => subFieldErrors.push(...subErrors));
+    }
+
+    return [...errors, ...subFieldErrors];
   }
 }
 
@@ -68,6 +79,7 @@ export interface FormOptions {
 export interface FormInput {
   name?: Name;
   label: Label;
+  hint?: Label;
   classes?: string;
   selected?: boolean;
   value?: string | number;
@@ -75,6 +87,7 @@ export interface FormInput {
   validator?: ValidationCheck;
   parser?: Parser;
   warning?: Warning;
+  subFields?: Record<string, FormField>;
 }
 
 export interface CsrfField {

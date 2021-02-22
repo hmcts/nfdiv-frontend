@@ -24,7 +24,7 @@ Then('{string} should be ticked', (text: string) => {
   I.seeCheckboxIsChecked(text);
 });
 
-Then('I enter {string}', (text: string) => {
+Then('I type {string}', (text: string) => {
   I.type(text);
 });
 

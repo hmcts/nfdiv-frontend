@@ -27,14 +27,20 @@ export class Nunjucks {
         value: i.value || (userSelection && userSelection[i.name as string]),
         attributes: i.attributes,
         checked: i.selected || i.value === userSelection,
-        conditional: !i.warning
-          ? undefined
-          : {
-              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                message: this.env.globals.getContent.call(this, i.warning),
-                warning: this.ctx.warning,
-              }),
-            },
+        conditional:
+          i.warning || i.subFields
+            ? {
+                html: i.warning
+                  ? env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                      message: this.env.globals.getContent.call(this, i.warning),
+                      warning: this.ctx.warning,
+                    })
+                  : env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                      ...this.ctx,
+                      form: { fields: i.subFields },
+                    }),
+              }
+            : undefined,
       }));
     });
 

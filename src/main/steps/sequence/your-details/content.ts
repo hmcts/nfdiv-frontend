@@ -2,6 +2,7 @@ import { Gender } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { commonContent } from '../../common/common.content';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
@@ -12,7 +13,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     sameSexOption: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
     errors: {
       partnerGender: {
-        required: 'You have not answered the question. You need to select an answer before continuing.',
+        required: commonContent.en.required,
       },
     },
   };
@@ -22,7 +23,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     ...en,
     errors: {
       partnerGender: {
-        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn y gallwch barhau.',
+        required: commonContent.cy.required,
       },
     },
   };

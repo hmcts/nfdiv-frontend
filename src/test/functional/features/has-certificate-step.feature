@@ -11,7 +11,7 @@ Feature: Certificate step
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Do you need help paying the fee for your divorce?"
 
   Scenario: Error when missing a required field
     Given I clear the form

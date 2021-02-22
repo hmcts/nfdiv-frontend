@@ -1,0 +1,74 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% for fieldName, field in form.fields %}
+  {% switch field.type %}
+    {% case 'radios' %}
+      {{ govukRadios({
+          classes: field.classes,
+          idPrefix: fieldName,
+          name: fieldName,
+          fieldset: {
+            legend: {
+              text: getContent(field.label),
+              classes: "govuk-visually-hidden"
+            }
+          },
+          items: formItems(field.values, formState[fieldName])
+        }) }}
+    {% case 'checkboxes' %}
+      {{ govukCheckboxes({
+        classes: field.classes,
+        idPrefix: fieldName,
+        name: fieldName,
+        fieldset: {
+          legend: {
+            text: getContent(field.label),
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: formItems(field.values, formState[fieldName])
+      }) }}
+    {% case 'option' %}
+      {{ govukSelect({
+        id: fieldName,
+        name: fieldName,
+        label: {
+          text: getContent(field.label)
+        },
+        items: formItems(field.values, formState[fieldName])
+      }) }}
+    {% case 'date' %}
+      {{ govukDateInput({
+        id: fieldName,
+        namePrefix: fieldName,
+        fieldset: {
+          legend: {
+            text: getContent(field.label),
+            classes: "govuk-visually-hidden"
+          }
+        },
+        hint: {
+          text: hint
+        },
+        items: formItems(field.values, formState[fieldName])
+      }) }}
+    {% default %}
+      {{ govukInput({
+        id: fieldName,
+        name: fieldName,
+        classes: field.classes,
+        label: {
+          text: getContent(field.label),
+          classes: "govuk-label--m"
+        },
+        hint: {
+          html: getContent(field.hint)
+        },
+        value: formState[fieldName],
+        attributes: field.attributes
+      }) }}
+  {% endswitch %}
+{% endfor %}

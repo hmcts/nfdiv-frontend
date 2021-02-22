@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/api/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { commonContent } from '../../common/common.content';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const relationship = isDivorce ? 'marriage' : 'relationship';
@@ -17,7 +18,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
       This is the law in England and Wales.`,
     errors: {
       screenHasUnionBroken: {
-        required: 'You have not answered the question. You need to select an answer before continuing.',
+        required: commonContent.en.required,
       },
     },
   };
@@ -34,7 +35,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     }. Dyma yw’r gyfraith yng Nghymru a Lloegr.`,
     errors: {
       screenHasUnionBroken: {
-        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn y gallwch barhau.',
+        required: commonContent.cy.required,
       },
     },
   };
