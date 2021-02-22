@@ -1,12 +1,9 @@
 Feature: Certificate step
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
-    And I go to '/do-you-have-your-certificate'
-    And the page should include "Do you have your marriage certificate with you?"
+    Given I login
+    When I go to '/do-you-have-your-certificate'
+    Then the page should include "Do you have your marriage certificate with you?"
 
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"

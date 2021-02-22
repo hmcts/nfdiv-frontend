@@ -1,19 +1,12 @@
-import Axios from 'axios';
+import fs from 'fs';
 
-import {
-  ACCESSIBILITY_STATEMENT_URL,
-  CERTIFICATE_URL,
-  COOKIES_URL,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOME_URL,
-  NO_CERTIFICATE_URL,
-  PRIVACY_POLICY_URL,
-  RELATIONSHIP_DATE_URL,
-  RELATIONSHIP_NOT_BROKEN_URL,
-  TERMS_AND_CONDITIONS_URL,
-  YOUR_DETAILS_URL,
-} from '../../main/steps/urls';
+import Axios from 'axios';
+import puppeteer from 'puppeteer';
+
+import * as urls from '../../main/steps/urls';
 import { config } from '../config';
+
+const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL, urls.SAVE_SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
@@ -37,15 +30,18 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
   return axios.get(url);
 }
 
-function runPally(url: string): Promise<Pa11yResult> {
+function runPally(url: string, browser): Promise<Pa11yResult> {
+  let screenCapture: string | boolean = false;
+  if (!config.TestHeadlessBrowser) {
+    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
+    fs.mkdirSync(screenshotDir, { recursive: true });
+    screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
+  }
+
   const fullUrl = `${config.TEST_URL}${url}`;
   return pa11y(fullUrl, {
-    actions: [
-      `set field #username to ${config.TestUser}`,
-      `set field #password to ${config.TestPass}`,
-      'click element input[type="submit"]',
-      `navigate to ${fullUrl}`,
-    ],
+    browser,
+    screenCapture,
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
 }
@@ -59,29 +55,58 @@ function expectNoErrors(messages: PallyIssue[]): void {
   }
 }
 
-function testAccessibility(url: string): void {
-  describe(`Page ${url}`, () => {
+jest.retryTimes(3);
+jest.setTimeout(15000);
+
+describe('Accessibility', () => {
+  let browser;
+  let cookies;
+  let hasAfterAllRun = false;
+
+  const setup = async () => {
+    if (hasAfterAllRun) {
+      return;
+    }
+    if (browser) {
+      await browser.close();
+    }
+
+    browser = await puppeteer.launch();
+
+    // Login once only for other pages to reuse session
+    const page = await browser.newPage();
+    await page.goto(config.TEST_URL);
+    await page.type('#username', config.TestUser);
+    await page.type('#password', config.TestPass);
+    await page.click('input[type="submit"]');
+    cookies = await page.cookies(config.TEST_URL);
+    await page.close();
+
+    browser.on('disconnected', setup);
+  };
+
+  beforeAll(setup);
+
+  beforeEach(async () => {
+    const page = await browser.newPage();
+    await page.goto(config.TEST_URL);
+    await page.setCookie(...cookies);
+    await page.goto(`${config.TEST_URL}/info`);
+    await page.close();
+  });
+
+  afterAll(async () => {
+    hasAfterAllRun = true;
+    await browser.close();
+  });
+
+  const urlsNoSignOut = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
+  describe.each(urlsNoSignOut)('Page %s', url => {
     test('should have no accessibility errors', async () => {
       await ensurePageCallWillSucceed(url);
-      const result = await runPally(url);
+      const result = await runPally(url, browser);
       expect(result.issues).toEqual(expect.any(Array));
       expectNoErrors(result.issues);
     });
   });
-}
-
-describe('Accessibility', () => {
-  testAccessibility(HOME_URL);
-  testAccessibility(PRIVACY_POLICY_URL);
-  testAccessibility(TERMS_AND_CONDITIONS_URL);
-  testAccessibility(COOKIES_URL);
-  testAccessibility(ACCESSIBILITY_STATEMENT_URL);
-  testAccessibility(YOUR_DETAILS_URL);
-  testAccessibility(HAS_RELATIONSHIP_BROKEN_URL);
-  testAccessibility(RELATIONSHIP_NOT_BROKEN_URL);
-  testAccessibility(RELATIONSHIP_DATE_URL);
-  testAccessibility(CERTIFICATE_URL);
-  testAccessibility(NO_CERTIFICATE_URL);
-
-  // TODO: include each path of your application in accessibility checks
 });

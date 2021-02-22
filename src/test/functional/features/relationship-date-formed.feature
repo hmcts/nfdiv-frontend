@@ -1,12 +1,9 @@
 Feature: Relationship date formed
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
-    And I go to '/date-from-certificate'
-    And the page should include "When did you get married?"
+    Given I login
+    When I go to '/date-from-certificate'
+    Then the page should include "When did you get married?"
     And I clear the form
 
   Scenario: Error when missing a required field
