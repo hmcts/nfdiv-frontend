@@ -15,11 +15,14 @@ const fields = {
         : Gender.Female,
   }),
   relationshipDate: data => ({
-    D8MarriageDate: data.relationshipDate ? toApiDate(data.relationshipDate) : '',
+    D8MarriageDate: toApiDate(data.relationshipDate),
   }),
 };
 
 const toApiDate = (date: CaseDate) => {
+  if (!date.year || !date.month || !date.day) {
+    return '';
+  }
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 

@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
+import { CaseType } from '../../app/api/case';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -55,7 +56,8 @@ export class Nunjucks {
     app.use((req, res, next) => {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
-      res.locals.serviceType = res.locals.host.includes('civil') || 'forceCivilMode' in req.query ? 'civil' : 'divorce';
+      res.locals.serviceType =
+        res.locals.host.includes('civil') || 'forceCivilMode' in req.query ? CaseType.Dissolution : CaseType.Divorce;
       next();
     });
   }

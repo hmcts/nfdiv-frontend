@@ -1,14 +1,16 @@
 import { Response } from 'express';
 
-export const mockResponse = ({ locals = {} } = {}): Response<Record<string, unknown>> => {
-  const res = { locals } as Response<Record<string, unknown>>;
+import { CaseType } from '../../../main/app/api/case';
+
+export const mockResponse = ({ locals = { serviceType: CaseType.Divorce } } = {}): Response => {
+  const res: Partial<Response> = { locals };
   res.redirect = jest.fn().mockReturnValue(res);
   res.render = jest.fn().mockReturnValue(res);
   res.cookie = jest.fn();
-  res.status = (code: number) => {
+  res.status = jest.fn().mockImplementation((code = 200) => {
     res.statusCode = code;
     return res;
-  };
+  });
 
-  return res;
+  return (res as unknown) as Response;
 };

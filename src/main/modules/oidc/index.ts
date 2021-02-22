@@ -84,7 +84,8 @@ export class OidcMiddleware {
 
             if (!req.session.userCase) {
               req.session.userCase = await req.scope?.cradle.api.createCase({
-                divorceOrDissolution: res.locals.serviceType === 'civil' ? CaseType.Dissolution : CaseType.Divorce,
+                divorceOrDissolution:
+                  res.locals.serviceType === CaseType.Dissolution ? CaseType.Dissolution : CaseType.Divorce,
               });
             }
           }
@@ -109,5 +110,5 @@ declare module 'express-session' {
 }
 
 export interface RequestWithScope<T = unknown> extends AppRequest<T> {
-  scope?: AwilixContainer;
+  scope: AwilixContainer;
 }

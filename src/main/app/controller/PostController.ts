@@ -22,14 +22,20 @@ export class PostController<T extends AnyObject> {
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
 
     const { saveAndSignOut, _csrf, ...formData } = req.body;
-    Object.assign(req.session.userCase, formData);
+    const userCase = Object.assign(req.session.userCase, formData);
+
+    if (userCase?.divorceOrDissolution !== res.locals.serviceType) {
+      throw new Error(
+        `User case type: ${userCase?.divorceOrDissolution} doesn't match current service type: ${res.locals.serviceType}`
+      );
+    }
 
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, formData);
+      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, userCase);
       req.session.errors = undefined;
     }
 

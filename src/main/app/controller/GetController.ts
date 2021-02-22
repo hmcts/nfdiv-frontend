@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
-import { Case, Gender } from '../api/case';
+import { Case, CaseType, Gender } from '../api/case';
 
 import { AppRequest } from './AppRequest';
 
@@ -55,7 +55,7 @@ export class GetController {
       return this.content;
     }
 
-    const isDivorce = res.locals.serviceType !== 'civil';
+    const isDivorce = res.locals.serviceType === CaseType.Divorce;
 
     return this.content({
       isDivorce,
