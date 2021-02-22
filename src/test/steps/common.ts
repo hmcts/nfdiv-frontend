@@ -1,4 +1,13 @@
-const { I } = inject();
+const { I, login } = inject();
+
+Before(test => {
+  // Retry failed scenarios x times
+  test.retries(3);
+});
+
+Given('I login', () => {
+  login('user');
+});
 
 const iClick = (text: string) => {
   I.waitForText(text);

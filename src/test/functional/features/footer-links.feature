@@ -1,10 +1,9 @@
 Feature: Footer Links
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
+    Given I login
+    When I go to '/your-details'
+    Then the page should include "Apply for a divorce"
 
   Scenario: Load privacy policy
     When I click "Privacy policy"

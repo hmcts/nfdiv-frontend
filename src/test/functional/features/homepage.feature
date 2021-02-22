@@ -1,12 +1,9 @@
 Feature: Homepage
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
-    Given I go to '/your-details'
-    And I see the divorce homepage
+    Given I login
+    When I go to '/your-details'
+    Then the page should include "Apply for a divorce"
 
   Scenario: Load divorce homepage
     Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
@@ -16,7 +13,7 @@ Feature: Homepage
     Then the page should include "This is a new service"
 
   Scenario: Save and sign out
-    When I click "Save and sign out"
+    Given I click "Save and sign out"
     Then the page should include "Your application has been saved"
-    And I go back to the homepage
-    Then I am on the admin portal sign in page
+    When I go to '/your-details'
+    Then the page should include "Sign in or create an account"

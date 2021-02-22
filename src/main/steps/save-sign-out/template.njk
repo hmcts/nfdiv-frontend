@@ -2,7 +2,9 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ applicationSentTo }}</p>
-  <p class="govuk-body govuk-!-font-weight-bold">{{ email }}</p>
+  {% if email %}
+    <p class="govuk-body">{{ applicationSentTo }}</p>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ email }}</p>
+  {% endif %}
   <p class="govuk-body">{{ applicationSavedFor6Months }}</p>
 {% endblock %}

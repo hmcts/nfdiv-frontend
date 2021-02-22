@@ -1,12 +1,9 @@
 Feature: Help with fee
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
-    And I go to '/help-with-your-fee'
-    And the page should include "Do you need help paying the fee for your divorce?"
+    Given I login
+    When I go to '/help-with-your-fee'
+    Then the page should include "Do you need help paying the fee for your divorce?"
 
   Scenario: Error when missing a required field
     Given I clear the form

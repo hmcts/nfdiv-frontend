@@ -1,12 +1,9 @@
 Feature: Relationship broken down
 
   Background:
-    Given I am on divorce homepage
-    And I am on the admin portal sign in page
-    When I fill in the Username and Password fields with a valid login
-    And I click "Sign in"
-    And I go to '/irretrievable-breakdown'
-    And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
+    Given I login
+    When I go to '/irretrievable-breakdown'
+    Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
   Scenario: Error when missing a required field
     Given I clear the form

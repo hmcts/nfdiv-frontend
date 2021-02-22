@@ -19,6 +19,7 @@ export const config: CodeceptJS.Config = {
   bootstrap: null,
   name: 'nfdiv-frontend',
   plugins: {
+    autoLogin: testConfig.AutoLogin,
     allure: {},
     pauseOnFail: {},
     retryFailedStep: {

@@ -7,7 +7,7 @@ import jwt_decode from 'jwt-decode';
 import { CaseApi } from '../../app/api/CaseApi';
 import { Case, CaseType } from '../../app/api/case';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -91,7 +91,11 @@ export class OidcMiddleware {
 
           return next();
         }
-        res.redirect(SIGN_IN_URL);
+        if (req.originalUrl !== SAVE_SIGN_OUT_URL) {
+          res.redirect(SIGN_IN_URL);
+        } else {
+          return next();
+        }
       })
     );
   }

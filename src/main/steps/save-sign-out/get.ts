@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, Translations } from '../../app/controller/GetController';
+import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 
 import { saveAndSignOutContent } from './content';
 
@@ -13,8 +14,13 @@ export class SaveSignOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    this.content.common = { ...this.content.common, email: req.session.user?.jwt.sub };
-    req.session.user = {};
-    req.session.save(() => super.get(req, res));
+    if (req.session.user?.jwt.sub) {
+      res.cookie('nfdivEmail', req.session.user?.jwt.sub, { maxAge: 60000 });
+      req.session.destroy(() => res.redirect(SAVE_SIGN_OUT_URL));
+      return;
+    }
+
+    this.content.common = { ...this.content.common, email: req.cookies?.nfdivEmail };
+    super.get(req, res);
   }
 }
