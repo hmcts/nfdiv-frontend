@@ -1,6 +1,6 @@
-import { AppRequest } from '../../../main/app/controller/AppRequest';
+import { RequestWithScope } from '../../../main/modules/oidc';
 
-export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): AppRequest<never> =>
+export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): RequestWithScope<never> =>
   (({
     body,
     scope: {
@@ -15,6 +15,7 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): App
       userCase: {
         id: '1234',
         divorceOrDissolution: 'divorce',
+        ...userCase,
       },
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
@@ -25,4 +26,4 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): App
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
-  } as unknown) as AppRequest<never>);
+  } as unknown) as RequestWithScope<never>);

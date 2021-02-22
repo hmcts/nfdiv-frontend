@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
 import { YOUR_DETAILS_URL } from '../../steps/urls';
-import { Gender } from '../api/case';
+import { CaseType, Gender } from '../api/case';
 
 import { GetController, Translations } from './GetController';
 
@@ -123,8 +123,8 @@ describe('GetController', () => {
     });
 
     describe.each([
-      { serviceType: 'divorce', isDivorce: true },
-      { serviceType: 'civil', isDivorce: false, civilKey: 'civilPartner' },
+      { serviceType: CaseType.Divorce, isDivorce: true },
+      { serviceType: CaseType.Dissolution, isDivorce: false, civilKey: 'civilPartner' },
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([

@@ -14,7 +14,8 @@ Feature: Your details step
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
   Scenario: Loading the your details for civil partnership
-    Given I go to '/your-details?forceCivilMode'
+    Given I go to '/?forceCivilMode'
+    And I go to '/your-details?forceCivilMode'
     Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
     And the page should include "Are you male or female?"
 

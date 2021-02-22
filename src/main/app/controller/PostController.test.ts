@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
-import { Gender } from '../api/case';
+import { CaseType, Gender } from '../api/case';
 
 import { PostController } from './PostController';
 
@@ -91,5 +91,22 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toBe(undefined);
+  });
+
+  test('throws an error if the users case type does not match the service type', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const errors = [] as never[];
+    const body = { divorceOrDissolution: CaseType.Dissolution, partnerGender: Gender.Female };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await expect(controller.post(req, res)).rejects.toThrowError(
+      "User case type: dissolution doesn't match current service type: divorce"
+    );
   });
 });
