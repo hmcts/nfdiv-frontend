@@ -29,7 +29,7 @@ Feature: Help with fee
     Then the page should include "There was a problem"
     And I clear the form
     When I select "Yes"
-    When I select "Enter your Help with Fees reference number"
+    When I select "Enter your Help With Fees reference number"
     And I type "invalid"
     When I click "Continue"
     Then the page should include "There was a problem"
@@ -39,7 +39,7 @@ Feature: Help with fee
     And I click "Continue"
     Then the page should include "Have you already applied for help with your divorce fee?"
     And I select "Yes"
-    And I select "Enter your Help with Fees reference number"
+    And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
     When I click "Continue"
     Then the page should include "Check your answers"

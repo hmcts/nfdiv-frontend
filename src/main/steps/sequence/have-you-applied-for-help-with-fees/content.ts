@@ -8,7 +8,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
     title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
     yes: 'Yes',
-    enterRefNo: 'Enter your Help with Fees reference number:',
+    enterRefNo: 'Enter your Help With Fees reference number:',
     refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
     refExample: 'For example, HWF-A1B-23C',
     no: 'No',
@@ -21,7 +21,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
           'You need to enter your Help With Fees reference number before continuing. You received this when you applied.',
         invalid: 'You have entered an invalid Help With Fees reference number. Check the number and enter it again.',
         invalidUsedExample:
-          'You have entered the example Help with Fees number. Enter the number you were sent before continuing.',
+          'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
       },
     },
   };
