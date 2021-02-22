@@ -5,7 +5,7 @@
   <p class="govuk-body">{{ line1 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for item in helpPayingWhen %}
-      <li>{{ item }}</li>
+      <li>{{ item | safe }}</li>
     {% endfor %}
   </ul>
 {% endblock %}

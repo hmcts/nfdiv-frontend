@@ -10,7 +10,11 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     line1: `This ${
       isDivorce ? 'divorce application' : 'application'
     } costs £550. You may be able to get help paying the fee if you:`,
-    helpPayingWhen: ['are on certain benefits or', 'have a little or no savings or', 'have low income'],
+    helpPayingWhen: [
+      'are on certain benefits <em>or</em>',
+      'have a little or no savings <em>or</em>',
+      'have low income',
+    ],
     yes: 'I need help paying the fee',
     no: 'I do not need help paying the fee',
     errors: {
@@ -28,8 +32,8 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
       isDivorce ? 'cais am ysgariad' : 'cais'
     } hwn yn costio £550. Efallai y byddwch yn gallu cael help i dalu'r ffi:`,
     helpPayingWhen: [
-      'os ydych yn cael budd-daliadau penodol, neu',
-      'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl, neu',
+      'os ydych yn cael budd-daliadau penodol, <em>neu</em>',
+      'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl, <em>neu</em>',
       'os ydych ar incwm isel',
     ],
     yes: "Mae angen help arnaf i dalu'r ffi",
