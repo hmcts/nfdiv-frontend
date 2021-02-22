@@ -65,7 +65,7 @@ export const sequence: Step[] = [
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
-    getNextStep: () => HELP_WITH_YOUR_FEE_URL,
+    getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
   },
   {
     url: CHECK_ANSWERS_URL,
