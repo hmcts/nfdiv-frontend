@@ -72,11 +72,11 @@ export const isValidHelpWithFeesRef: Validator = value => {
   }
 
   if (typeof value === 'string') {
-    if (!value.replace(/HWF|-/gi, '').match(/^[A-Z0-9]{6}$/i)) {
+    if (!value.match(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i)) {
       return 'invalid';
     }
 
-    if (value.replace(/HWF|-/gi, '').toUpperCase() === 'A1B23C') {
+    if (value.toUpperCase() === 'HWF-A1B-23C') {
       return 'invalidUsedExample';
     }
   }

@@ -101,14 +101,16 @@ describe('Validation', () => {
       { mockRef: '12345', expected: 'invalid' },
       { mockRef: '1234567', expected: 'invalid' },
       { mockRef: '12345!', expected: 'invalid' },
-      { mockRef: 'HWFA1B23C', expected: 'invalidUsedExample' },
-      { mockRef: 'A1B23C', expected: 'invalidUsedExample' },
-      { mockRef: 'A1B-23C', expected: 'invalidUsedExample' },
+      { mockRef: 'HWFA1B23C', expected: 'invalid' },
+      { mockRef: 'A1B23C', expected: 'invalid' },
+      { mockRef: 'A1B-23C', expected: 'invalid' },
       { mockRef: 'HWF-A1B-23C', expected: 'invalidUsedExample' },
       { mockRef: 'HWF-AAA-BBB', expected: undefined },
-      { mockRef: 'AAA-BBB', expected: undefined },
-      { mockRef: 'AAABBB', expected: undefined },
-      { mockRef: '123456', expected: undefined },
+      { mockRef: 'HWF-A1A-B2B', expected: undefined },
+      { mockRef: 'HWF-123-456', expected: undefined },
+      { mockRef: 'AAA-BBB', expected: 'invalid' },
+      { mockRef: 'AAABBB', expected: 'invalid' },
+      { mockRef: '123456', expected: 'invalid' },
     ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
       expect(isValidHelpWithFeesRef(mockRef)).toEqual(expected);
     });
