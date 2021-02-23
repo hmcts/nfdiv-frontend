@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
+import { JwtPayload } from 'jwt-decode';
 import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
@@ -18,8 +19,13 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 }
 
 export interface AppSession extends Session {
-  user: Record<string, Record<string, unknown>>;
+  user: UserDetails;
   userCase: CaseWithId;
   lang: string | undefined;
   errors: FormError[] | undefined;
+}
+
+export interface UserDetails {
+  accessToken: string;
+  jwt: JwtPayload;
 }
