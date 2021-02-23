@@ -1,4 +1,4 @@
-import { Gender } from '../../../app/case/case';
+import { Checkbox, Gender } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -50,7 +50,7 @@ export const form: FormContent = {
     sameSex: {
       type: 'checkboxes',
       label: l => l.sameSex,
-      values: [{ label: l => l.sameSexOption, value: 'checked' }],
+      values: [{ label: l => l.sameSexOption, value: Checkbox.Checked }],
     },
   },
   submit: {

@@ -17,14 +17,13 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    this.form.getParsedBody(req.body);
+    const parsedBody = this.form.getParsedBody(req.body);
+    const { saveAndSignOut, _csrf, ...formData } = parsedBody;
 
-    const errors = this.form.getErrors(req.body);
-    const isSaveAndSignOut = !!req.body.saveAndSignOut;
-
-    const { saveAndSignOut, _csrf, ...formData } = req.body;
     const userCase = Object.assign(req.session.userCase, formData);
 
+    const errors = this.form.getErrors(formData);
+    const isSaveAndSignOut = !!req.body.saveAndSignOut;
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;

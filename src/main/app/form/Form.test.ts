@@ -126,9 +126,8 @@ describe('Form', () => {
       'dateField-month': '1',
       'dateField-year': '2000',
     };
-    form.getParsedBody(body);
 
-    expect(body).toStrictEqual({
+    expect(form.getParsedBody(body)).toStrictEqual({
       field: 'YES',
       dateField: {
         day: '1',

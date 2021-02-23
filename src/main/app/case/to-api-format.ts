@@ -1,18 +1,18 @@
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
 import { ApiCase } from './CaseApi';
-import { Case, CaseDate, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...formFieldsToCaseMapping,
   sameSex: data => ({
-    D8MarriageIsSameSexCouple: data.sameSex === 'checked' ? YesOrNo.Yes : YesOrNo.No,
+    D8MarriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
   partnerGender: data => ({
     D8InferredRespondentGender: data.partnerGender,
     D8InferredPetitionerGender:
-      (data.partnerGender === Gender.Male && data.sameSex === 'checked') ||
-      (data.partnerGender === Gender.Female && data.sameSex !== 'checked')
+      (data.partnerGender === Gender.Male && data.sameSex === Checkbox.Checked) ||
+      (data.partnerGender === Gender.Female && data.sameSex !== Checkbox.Checked)
         ? Gender.Male
         : Gender.Female,
   }),

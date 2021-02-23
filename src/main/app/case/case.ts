@@ -31,7 +31,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 export interface Case {
   divorceOrDissolution: CaseType;
   partnerGender?: Gender;
-  sameSex?: YesOrNo;
+  sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
@@ -58,6 +58,11 @@ export enum Gender {
 export enum YesOrNo {
   Yes = 'YES',
   No = 'NO',
+}
+
+export enum Checkbox {
+  Checked = 'checked',
+  Unchecked = '',
 }
 
 export interface CaseDate {

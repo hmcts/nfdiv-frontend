@@ -1,4 +1,4 @@
-import { Case, CaseDate } from '../case/case';
+import { CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
@@ -7,19 +7,28 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject): void {
-    Object.keys(this.form.fields)
-      .filter(key => this.form.fields[key].parser !== undefined)
-      .forEach(propertyName => {
-        const field = <FormField & { parser: Parser }>this.form.fields[propertyName];
-        field.parser(body);
-      });
+  public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
+    const parsedBody = Object.entries(this.form.fields)
+      .map(([key, field]) => {
+        if ((field as FormOptions)?.type === 'checkboxes') {
+          field.parser = formData => {
+            const checkbox = formData[key] as string[];
+            return checkbox[checkbox.length - 1];
+          };
+        }
+
+        return [key, field];
+      })
+      .filter(([, field]) => typeof (field as FormOptions)?.parser === 'function')
+      .map(([key, field]) => [key, (field as FormOptions)?.parser?.(body)]);
+
+    return { ...body, ...Object.fromEntries(parsedBody) };
   }
 
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
+  public getErrors(body: Partial<CaseWithFormData>, fields = this.form?.fields): FormError[] {
     if (!fields) {
       return [];
     }
@@ -98,3 +107,8 @@ export type FormError = {
   propertyName: string;
   errorType: string;
 };
+
+interface CaseWithFormData extends CaseWithId {
+  _csrf: string;
+  saveAndSignOut?: string;
+}

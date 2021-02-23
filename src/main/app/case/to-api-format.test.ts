@@ -1,10 +1,10 @@
 import { ApiCase } from './CaseApi';
-import { Gender, YesOrNo } from './case';
+import { Checkbox, Gender, YesOrNo } from './case';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
   const results = {
-    sameSex: 'checked',
+    sameSex: Checkbox.Checked,
     partnerGender: Gender.Male,
     relationshipDate: { year: '1900', month: '1', day: '4' },
     helpWithFeesRefNo: 'HWF-123-ABC',
