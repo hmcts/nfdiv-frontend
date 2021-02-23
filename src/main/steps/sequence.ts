@@ -10,9 +10,9 @@ import {
   HELP_WITH_YOUR_FEE_URL,
   NO_CERTIFICATE_URL,
   PageLink,
-  RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
+  RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -38,12 +38,10 @@ export const sequence: Step[] = [
   {
     url: RELATIONSHIP_DATE_URL,
     getNextStep: data =>
-      isLessThanAYear(data.relationshipDate) === 'lessThanAYear'
-        ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL
-        : CERTIFICATE_URL,
+      isLessThanAYear(data.relationshipDate) === 'lessThanAYear' ? RELATIONSHIP_NOT_LONG_ENOUGH_URL : CERTIFICATE_URL,
   },
   {
-    url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+    url: RELATIONSHIP_NOT_LONG_ENOUGH_URL,
     getNextStep: () => RELATIONSHIP_DATE_URL,
   },
   {

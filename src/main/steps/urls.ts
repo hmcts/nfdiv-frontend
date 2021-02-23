@@ -19,8 +19,7 @@ export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-hel
 export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
-//TODO change when ticket is picked up
-export const RELATIONSHIP_DATE_LESS_THAN_YEAR_URL: PageLink = '/less-than-year-together';
+export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
 
 export const CERTIFICATE_URL: PageLink = '/do-you-have-your-certificate';
 export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
