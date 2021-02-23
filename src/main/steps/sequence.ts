@@ -1,4 +1,4 @@
-import { CaseWithId, YesOrNo } from '../app/api/case';
+import { CaseWithId, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {

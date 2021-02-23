@@ -1,4 +1,4 @@
-import { CaseDate } from '../api/case';
+import { CaseDate } from '../case/case';
 
 export type Validator = (value: string | CaseDate | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;

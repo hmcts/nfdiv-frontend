@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
 import { YOUR_DETAILS_URL } from '../../steps/urls';
-import { CaseType, Gender } from '../api/case';
+import { CaseType, Gender } from '../case/case';
 
 import { GetController, Translations } from './GetController';
 

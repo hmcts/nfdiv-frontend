@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { CaseType } from '../../../main/app/api/case';
+import { CaseType } from '../../../main/app/case/case';
 
 export const mockResponse = ({ locals = { serviceType: CaseType.Divorce } } = {}): Response => {
   const res: Partial<Response> = { locals };

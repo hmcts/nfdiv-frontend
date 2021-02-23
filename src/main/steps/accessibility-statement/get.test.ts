@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CaseType } from '../../app/api/case';
+import { CaseType } from '../../app/case/case';
 import { commonContent } from '../common/common.content';
 
 import { generateContent } from './content';

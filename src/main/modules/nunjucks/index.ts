@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
-import { CaseType } from '../../app/api/case';
+import { CaseType } from '../../app/case/case';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {

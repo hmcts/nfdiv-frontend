@@ -1,4 +1,4 @@
-import { Case, CaseDate } from '../api/case';
+import { Case, CaseDate } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
