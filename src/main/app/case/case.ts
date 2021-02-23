@@ -7,6 +7,7 @@ export const formFieldsToCaseMapping = {
   hasCertificate: 'D8ScreenHasMarriageCert',
   helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
   alreadyAppliedForHelpPaying: 'D8HelpWithFeesAppliedForFees',
+  helpWithFeesRefNo: 'D8HelpWithFeesReferenceNumber',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
