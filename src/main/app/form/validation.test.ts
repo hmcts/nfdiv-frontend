@@ -1,4 +1,4 @@
-import { CaseDate } from '../api/case';
+import { CaseDate } from '../case/case';
 
 import {
   areFieldsFilledIn,

@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
 
-import { Case, CaseWithId } from '../api/case';
+import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {

@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CaseType } from '../../app/api/case';
+import { CaseType } from '../../app/case/case';
 import { YOUR_DETAILS_URL } from '../urls';
 
 import { HomeGetController } from './get';

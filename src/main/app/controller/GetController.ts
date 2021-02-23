@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
-import { Case, CaseType, Gender } from '../api/case';
+import { Case, CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 

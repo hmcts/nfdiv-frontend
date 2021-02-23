@@ -4,8 +4,8 @@ import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
-import { CaseApi } from '../../app/api/CaseApi';
-import { Case, CaseType } from '../../app/api/case';
+import { CaseApi } from '../../app/case/CaseApi';
+import { Case, CaseType } from '../../app/case/case';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 

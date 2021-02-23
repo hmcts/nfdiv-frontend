@@ -1,4 +1,4 @@
-import { Gender } from '../../../app/api/case';
+import { Gender } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';

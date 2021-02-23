@@ -1,5 +1,5 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { Gender, YesOrNo } from '../app/api/case';
+import { Gender, YesOrNo } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';

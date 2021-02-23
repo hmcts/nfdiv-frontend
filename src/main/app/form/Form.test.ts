@@ -1,4 +1,4 @@
-import { Case, YesOrNo } from '../api/case';
+import { Case, YesOrNo } from '../case/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
