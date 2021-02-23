@@ -7,20 +7,20 @@ import { PageLink } from '../../../steps/urls';
 import { CaseApi } from '../../case/CaseApi';
 import { UserDetails } from '../../controller/AppRequest';
 
-const loginUrl: string = config.get('services.idam.authorizationURL');
-const tokenUrl: string = config.get('services.idam.tokenURL');
-const id: string = config.get('services.idam.clientID');
-const secret: string = config.get('services.idam.clientSecret');
-
 export const CALLBACK_URL: PageLink = '/oauth2/callback';
 
 export const getRedirectUrl = (serviceUrl: string): string => {
+  const id: string = config.get('services.idam.clientID');
+  const loginUrl: string = config.get('services.idam.authorizationURL');
   const callbackUrl = encodeURI(serviceUrl + CALLBACK_URL);
 
   return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
 };
 
 export const getUserDetails = async (serviceUrl: string, rawCode: string): Promise<UserDetails> => {
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.clientSecret');
+  const tokenUrl: string = config.get('services.idam.tokenURL');
   const redirectUri = getRedirectUrl(serviceUrl);
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${redirectUri}&code=${code}`;
