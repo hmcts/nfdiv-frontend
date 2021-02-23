@@ -3,7 +3,6 @@ import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt_decode from 'jwt-decode';
 
-import { getAuthToken } from '../../app/auth/service/get-auth-token';
 import { CaseApi } from '../../app/case/CaseApi';
 import { Case, CaseType } from '../../app/case/case';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -68,7 +67,6 @@ export class OidcMiddleware {
               baseURL: config.get('services.cos.baseURL'),
               headers: {
                 Authorization: 'Bearer ' + req.session.user.access_token,
-                ServiceAuthorization: getAuthToken(),
               },
             }),
             req.locals.logger
