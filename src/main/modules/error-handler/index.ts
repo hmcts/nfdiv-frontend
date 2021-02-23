@@ -17,6 +17,8 @@ const errorController = new ErrorController();
 
 export class ErrorHandler {
   public enableFor(app: Application, logger: LoggerInstance): void {
+    app.use((req: AppRequest) => (req.locals.logger = logger));
+
     process.on('unhandledRejection', (reason, p) => {
       logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason);
     });
