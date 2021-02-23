@@ -25,12 +25,6 @@ export class PostController<T extends AnyObject> {
     const { saveAndSignOut, _csrf, ...formData } = req.body;
     const userCase = Object.assign(req.session.userCase, formData);
 
-    if (userCase?.divorceOrDissolution !== res.locals.serviceType) {
-      throw new Error(
-        `User case type: ${userCase?.divorceOrDissolution} doesn't match current service type: ${res.locals.serviceType}`
-      );
-    }
-
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
     if (!isSaveAndSignOut && errors.length > 0) {
       req.session.errors = errors;
