@@ -1,3 +1,5 @@
+import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
+
 import { ApiCase } from './CaseApi';
 import { Case, CaseDate, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
@@ -16,6 +18,9 @@ const fields = {
   }),
   relationshipDate: data => ({
     D8MarriageDate: toApiDate(data.relationshipDate),
+  }),
+  helpWithFeesRefNo: (data: Case) => ({
+    D8HelpWithFeesReferenceNumber: isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? '' : data.helpWithFeesRefNo,
   }),
 };
 

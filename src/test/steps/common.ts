@@ -42,7 +42,6 @@ Given('I go to {string}', (text: string) => {
 });
 
 Given('I clear the form', () => {
-  I.wait(1);
   I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
     for (const checkedInput of checkedInputs) {

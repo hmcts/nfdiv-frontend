@@ -5,6 +5,8 @@ export const formFieldsToCaseMapping = {
   partnerGender: 'D8InferredRespondentGender',
   screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
   hasCertificate: 'D8ScreenHasMarriageCert',
+  helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
+  alreadyAppliedForHelpPaying: 'D8HelpWithFeesAppliedForFees',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
