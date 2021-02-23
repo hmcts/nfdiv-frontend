@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import type { LoggerInstance } from 'winston';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { commonContent } from '../common/common.content';
@@ -11,13 +10,11 @@ import { errorContent } from './content';
 
 @autobind
 export class ErrorController {
-  constructor(private readonly logger: LoggerInstance) {}
-
   /**
    * Catch all for 404
    */
   public notFound(req: AppRequest, res: Response): void {
-    this.logger.info(`404 Not Found: ${req.originalUrl}`);
+    req.locals.logger.info(`404 Not Found: ${req.originalUrl}`);
 
     res.status(StatusCodes.NOT_FOUND);
     this.render(req, res);
@@ -26,7 +23,7 @@ export class ErrorController {
   /**
    * Catch all for 500 errors
    */
-  public internalServerError(error: HTTPError | AxiosError | string | undefined, req: AppRequest, res: Response): void {
+  public internalServerError(error: Errors, req: AppRequest, res: Response): void {
     const { message = error, stack = undefined } = typeof error === 'object' ? error : {};
 
     let response: AxiosResponse<string | Record<string, unknown>> | undefined;
@@ -34,7 +31,7 @@ export class ErrorController {
       response = (error as AxiosError).response?.data;
     }
 
-    this.logger.error(`${stack || message}`, response);
+    req.locals.logger.error(`${stack || message}`, response);
 
     res.status((error as HTTPError)?.status || StatusCodes.INTERNAL_SERVER_ERROR);
     this.render(req, res);
@@ -44,7 +41,7 @@ export class ErrorController {
    * Catch all for CSRF Token errors
    */
   public CSRFTokenError(req: AppRequest, res: Response): void {
-    this.logger.error('CSRF Token Failed');
+    req.locals.logger.error('CSRF Token Failed');
 
     res.status(StatusCodes.BAD_REQUEST);
     this.render(req, res);
@@ -65,3 +62,5 @@ export class HTTPError extends Error {
     this.status = status;
   }
 }
+
+export type Errors = Error | HTTPError | AxiosError | string | undefined;

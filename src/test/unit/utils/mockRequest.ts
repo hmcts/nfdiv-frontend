@@ -1,13 +1,15 @@
-import { RequestWithScope } from '../../../main/modules/oidc';
+import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): RequestWithScope<never> =>
+export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
   (({
     body,
-    scope: {
-      cradle: {
-        api: {
-          updateCase: jest.fn(),
-        },
+    locals: {
+      api: {
+        updateCase: jest.fn(),
+      },
+      logger: {
+        info: jest.fn(),
+        error: jest.fn(),
       },
     },
     query: {},
@@ -26,4 +28,4 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = 
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
-  } as unknown) as RequestWithScope<never>);
+  } as unknown) as AppRequest);

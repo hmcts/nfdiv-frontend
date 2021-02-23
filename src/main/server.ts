@@ -7,7 +7,6 @@ import favicon from 'serve-favicon';
 import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights';
-import { Container } from './modules/awilix';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
 import { HealthCheck } from './modules/health';
@@ -36,7 +35,6 @@ app.use((req, res, next) => {
 });
 
 new PropertiesVolume().enableFor(app);
-new Container().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);

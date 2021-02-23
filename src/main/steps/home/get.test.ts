@@ -23,7 +23,7 @@ describe('HomeGetController', () => {
     });
     await controller.get(req, res);
 
-    expect(req.scope.cradle.api.updateCase).toHaveBeenCalledWith('1234', {
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', {
       id: '1234',
       divorceOrDissolution: 'dissolution',
       emptyThisAnswer: '',

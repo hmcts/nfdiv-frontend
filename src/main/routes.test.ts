@@ -10,18 +10,6 @@ describe('Routes', () => {
       use: jest.fn(),
       locals: {
         errorHandler: jest.fn(),
-        container: {
-          cradle: {
-            homeGetController: { get: 'mock' },
-            saveSignOutGetController: { get: 'mock' },
-            privacyPolicyGetController: { get: 'mock' },
-            termsAndConditionsGetController: { get: 'mock' },
-            cookiesGetController: { get: 'mock' },
-            accessibilityStatementGetController: { get: 'mock' },
-            summaryGetController: { get: 'mock' },
-            errorController: { get: 'mock' },
-          },
-        },
       },
     } as unknown) as Application;
 

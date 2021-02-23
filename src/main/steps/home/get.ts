@@ -1,11 +1,10 @@
 import { Response } from 'express';
 
-import { AnyObject } from '../../app/controller/PostController';
-import { RequestWithScope } from '../../modules/oidc';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { getNextIncompleteStepUrl } from '../../steps';
 
 export class HomeGetController {
-  public async get(req: RequestWithScope<AnyObject>, res: Response): Promise<void> {
+  public async get(req: AppRequest, res: Response): Promise<void> {
     if (req.session.userCase?.divorceOrDissolution !== res.locals.serviceType) {
       // Clear current application if the user changes between the divorce and civil dissolution services
       Object.assign(req.session.userCase, {
@@ -16,7 +15,7 @@ export class HomeGetController {
         divorceOrDissolution: res.locals.serviceType,
       });
 
-      await req.scope?.cradle.api.updateCase(req.session.userCase.id, req.session.userCase);
+      await req.locals.api.updateCase(req.session.userCase.id, req.session.userCase);
       await new Promise<void>((resolve, reject): void => {
         req.session.save(err => (err ? reject(err) : resolve()));
       });

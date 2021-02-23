@@ -1,10 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { RequestWithScope } from '../../modules/oidc';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
+
+import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -15,7 +16,7 @@ export class PostController<T extends AnyObject> {
    * session if there were any. Assuming no errors, store the updated state then ask the base class which page to
    * redirect to.
    */
-  public async post(req: RequestWithScope<T>, res: Response): Promise<void> {
+  public async post(req: AppRequest<T>, res: Response): Promise<void> {
     this.form.getParsedBody(req.body);
 
     const errors = this.form.getErrors(req.body);
@@ -35,7 +36,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.scope?.cradle.api.updateCase(req.session.userCase?.id, userCase);
+      await req.locals.api.updateCase(req.session.userCase?.id, userCase);
       req.session.errors = undefined;
     }
 
