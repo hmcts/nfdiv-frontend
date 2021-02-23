@@ -17,14 +17,17 @@ const errorController = new ErrorController();
 
 export class ErrorHandler {
   public enableFor(app: Application, logger: LoggerInstance): void {
-    app.use((req: AppRequest) => (req.locals.logger = logger));
+    app.use((req, res, next) => {
+      req['locals'] = req['locals'] || {};
+      req['locals'].logger = logger;
+      next();
+    });
 
     process.on('unhandledRejection', (reason, p) => {
       logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason);
     });
 
-    const errorHandler = setupErrorHandler(errorController.internalServerError);
-    app.locals.errorHandler = render => errorHandler(render);
+    app.locals.errorHandler = setupErrorHandler(errorController.internalServerError);
   }
 
   public handleNextErrorsFor(app: Application): void {

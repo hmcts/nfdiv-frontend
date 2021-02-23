@@ -15,7 +15,6 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     api: CaseApi;
   };
   body: T;
-  logout: () => Promise<void>;
 }
 
 export interface AppSession extends Session {
