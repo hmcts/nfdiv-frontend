@@ -1,9 +1,9 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Form } from '../../app/form/Form';
+import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
-import { Gender } from '../case/case';
+import { Checkbox, Gender } from '../case/case';
 
 import { PostController } from './PostController';
 
@@ -91,5 +91,24 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toBe(undefined);
+  });
+
+  test('uses the last (not hidden) input for checkboxes', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const body = { sameSex: [0, Checkbox.Checked] };
+    const mockFormContent = ({
+      fields: {
+        sameSex: {
+          type: 'checkboxes',
+        },
+      },
+    } as unknown) as FormContent;
+    const controller = new PostController(new Form(mockFormContent));
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase?.sameSex).toEqual(Checkbox.Checked);
   });
 });
