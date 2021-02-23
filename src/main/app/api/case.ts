@@ -15,7 +15,7 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 
     if (typeof value === 'function') {
       Object.assign(result, value(data));
-    } else if (typeof fields[field] === 'string') {
+    } else if (typeof value === 'string') {
       result[value] = data[field];
     }
   }
