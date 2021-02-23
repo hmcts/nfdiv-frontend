@@ -21,14 +21,6 @@ describe('HomeGetController', () => {
     const res = mockResponse({
       locals: { serviceType: CaseType.Dissolution },
     });
-    await controller.get(req, res);
-
-    expect(req.scope.cradle.api.updateCase).toHaveBeenCalledWith('1234', {
-      id: '1234',
-      divorceOrDissolution: 'dissolution',
-      emptyThisAnswer: '',
-    });
-    expect(req.session.save).toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
+    expect(() => controller.get(req, res)).toThrowError(new Error('Invalid case type'));
   });
 });
