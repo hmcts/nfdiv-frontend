@@ -30,6 +30,16 @@ Feature: Relationship date formed
     When I click "Continue"
     Then the page should include "You have entered a date that is in the future. Enter a date that is in the past before continuing."
 
+  Scenario: Entering date less than a year
+    Given I select "Day"
+    And I type "1"
+    Given I select "Month"
+    And I type "1"
+    Given I select "Year"
+    And I type "2021"
+    When I click "Continue"
+    Then the page should include "You have not been married long enough to apply for a divorce"
+
   Scenario: Successfully completing the form
     Given I select "Day"
     And I type "1"

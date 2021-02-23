@@ -24,7 +24,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     }`,
     line1: `Dim ond ar ôl i chi ${
       isDivorce ? 'fod yn briod' : 'fod mewn partneriaeth sifil'
-    } am o leiaf blwyddyn, y gallwch wneud cais ${isDivorce ? 'am ysgariad' : " i'w therfynu"} yng Nghymru neu Loegr.`,
+    } am o leiaf blwyddyn, y gallwch wneud cais ${isDivorce ? 'am ysgariad' : "i'w therfynu"} yng Nghymru neu Loegr.`,
     line2: `Gallwch aros nes ei bod yn flwyddyn ers i chi ${
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     } ac yna gwneud cais. Neu os na allwch aros, <a href="https://www.gov.uk/legal-separation" class="govuk-link">gallwch wneud cais am ymwahaniad cyfreithiol</a>.`,
