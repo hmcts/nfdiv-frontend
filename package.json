@@ -70,7 +70,7 @@
     "http-status-codes": "^2.1.4",
     "jwt-decode": "^3.1.2",
     "lockfile": "^1.0.4",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "nunjucks": "^3.2.3",
     "redis": "^3.0.2",
     "require-directory": "^2.1.1",
