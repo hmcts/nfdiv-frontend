@@ -6,17 +6,12 @@ describe('Parser', () => {
       'date-day': '1',
       'date-month': '1',
       'date-year': '1',
-      'additional-property': 'for additional element on the page',
     };
-    covertToDateObject('date', date);
 
-    expect(date).toStrictEqual({
-      date: {
-        day: '1',
-        month: '1',
-        year: '1',
-      },
-      'additional-property': 'for additional element on the page',
+    expect(covertToDateObject('date', date)).toStrictEqual({
+      day: '1',
+      month: '1',
+      year: '1',
     });
   });
 });

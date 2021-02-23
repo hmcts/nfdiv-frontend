@@ -7,13 +7,22 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject): void {
-    Object.keys(this.form.fields)
-      .filter(key => this.form.fields[key].parser !== undefined)
-      .forEach(propertyName => {
-        const field = <FormField & { parser: Parser }>this.form.fields[propertyName];
-        field.parser(body);
-      });
+  public getParsedBody(body: AnyObject): Partial<Case> {
+    const parsedBody = Object.entries(this.form.fields)
+      .map(([key, field]) => {
+        if ((field as FormOptions)?.type === 'checkboxes') {
+          field.parser = formData => {
+            const checkbox = formData[key] as string[];
+            return checkbox[checkbox.length - 1];
+          };
+        }
+
+        return [key, field];
+      })
+      .filter(([, field]) => typeof (field as FormOptions)?.parser === 'function')
+      .map(([key, field]) => [key, (field as FormOptions)?.parser?.(body)]);
+
+    return { ...body, ...Object.fromEntries(parsedBody) };
   }
 
   /**
