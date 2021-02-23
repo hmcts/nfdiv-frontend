@@ -14,8 +14,10 @@ export class PropertiesVolume {
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
       this.setSecret('secrets.nfdiv.idam-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.nfdiv.frontend-secret', 'services.authProvider.secret');
     } else {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
     }
   }
 
