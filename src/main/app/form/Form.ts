@@ -1,4 +1,4 @@
-import { Case, CaseDate } from '../case/case';
+import { CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 export class Form {
@@ -7,7 +7,7 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject): Partial<Case> {
+  public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
     const parsedBody = Object.entries(this.form.fields)
       .map(([key, field]) => {
         if ((field as FormOptions)?.type === 'checkboxes') {
@@ -28,7 +28,7 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
+  public getErrors(body: Partial<CaseWithFormData>, fields = this.form?.fields): FormError[] {
     if (!fields) {
       return [];
     }
@@ -107,3 +107,8 @@ export type FormError = {
   propertyName: string;
   errorType: string;
 };
+
+interface CaseWithFormData extends CaseWithId {
+  _csrf: string;
+  saveAndSignOut?: string;
+}

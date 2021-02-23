@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
@@ -18,7 +17,7 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const parsedBody = this.form.getParsedBody(req.body) as CaseWithFormData;
+    const parsedBody = this.form.getParsedBody(req.body);
     const { saveAndSignOut, _csrf, ...formData } = parsedBody;
 
     const userCase = Object.assign(req.session.userCase, formData);
@@ -44,8 +43,3 @@ export class PostController<T extends AnyObject> {
 }
 
 export type AnyObject = Record<string, unknown>;
-
-interface CaseWithFormData extends CaseWithId {
-  _csrf: string;
-  saveAndSignOut?: string;
-}
