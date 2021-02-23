@@ -21,6 +21,7 @@ describe('HomeGetController', () => {
     const res = mockResponse({
       locals: { serviceType: CaseType.Dissolution },
     });
+
     expect(() => controller.get(req, res)).toThrowError(new Error('Invalid case type'));
   });
 });

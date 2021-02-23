@@ -1,4 +1,3 @@
-import { AwilixContainer, asClass, asValue } from 'awilix';
 import Axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
@@ -60,33 +59,30 @@ export class OidcMiddleware {
     });
 
     app.use(
-      errorHandler(async (req: RequestWithScope, res: Response, next: NextFunction) => {
-        if (req.session.user?.id_token) {
+      errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
+        if (req.session.user) {
           res.locals.isLoggedIn = true;
-
-          const user = req.session.user;
-          req.scope = req.app.locals.container.createScope();
-          req.scope?.register({
-            axios: asValue(
-              Axios.create({
-                baseURL: config.get('services.cos.baseURL'),
-                headers: {
-                  Authorization: 'Bearer ' + user.access_token,
-                  IdToken: user.id_token,
-                },
-              })
-            ),
-            api: asClass(CaseApi),
-          });
+          req.locals.api = new CaseApi(
+            Axios.create({
+              baseURL: config.get('services.cos.baseURL'),
+              headers: {
+                Authorization: 'Bearer ' + req.session.user.access_token,
+                IdToken: req.session.user.id_token,
+              },
+            }),
+            req.locals.logger
+          );
 
           if (!req.session.userCase) {
-            req.session.userCase = await req.scope?.cradle.api.getCase();
+            const userCase = await req.locals.api.getCase();
 
-            if (!req.session.userCase) {
-              req.session.userCase = await req.scope?.cradle.api.createCase({
+            if (!userCase) {
+              req.session.userCase = await req.locals.api.createCase({
                 divorceOrDissolution:
                   res.locals.serviceType === CaseType.Dissolution ? CaseType.Dissolution : CaseType.Divorce,
               });
+            } else {
+              req.session.userCase = userCase;
             }
           }
 
@@ -107,8 +103,4 @@ declare module 'express-session' {
     user: Record<string, Record<string, unknown>>;
     userCase: Case;
   }
-}
-
-export interface RequestWithScope<T = unknown> extends AppRequest<T> {
-  scope: AwilixContainer;
 }
