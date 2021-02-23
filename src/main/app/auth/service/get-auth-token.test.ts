@@ -1,11 +1,16 @@
+jest.mock('axios');
+jest.mock('@hmcts/nodejs-logging');
+jest.useFakeTimers();
+
+import { Logger } from '@hmcts/nodejs-logging';
 import Axios, { AxiosStatic } from 'axios';
+const logger = {
+  info: jest.fn(),
+  error: jest.fn(),
+};
+Logger.getLogger.mockReturnValue(logger);
 
 import { getAuthToken, initAuthToken } from './get-auth-token';
-
-import anything = jasmine.anything;
-
-jest.mock('axios');
-jest.useFakeTimers();
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
@@ -18,14 +23,26 @@ describe('initAuthToken', () => {
       'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/lease',
       {
         microservice: 'divorce_frontend',
-        oneTimePassword: anything(),
+        oneTimePassword: expect.anything(),
       }
     );
+  });
+
+  test('Should log errors', () => {
+    mockedAxios.post.mockRejectedValue('Muh errorz');
+
+    initAuthToken();
+    return new Promise<void>(resolve => {
+      setImmediate(() => {
+        expect(logger.error).toHaveBeenCalledWith('Muh errorz');
+        resolve();
+      });
+    });
   });
 });
 
 describe('getAuthToken', () => {
-  test('Return a token', async () => {
+  test('Should return a token', async () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
 
     initAuthToken();
