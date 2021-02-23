@@ -11,6 +11,7 @@ const fields = {
   D8MarriageDate: data => ({
     relationshipDate: fromApiDate(data.D8MarriageDate),
   }),
+  D8HelpWithFeesReferenceNumber: 'helpWithFeesRefNo',
 };
 
 const fromApiDate = (date: string) => {

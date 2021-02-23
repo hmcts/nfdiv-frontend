@@ -8,6 +8,7 @@ describe('from-api-format', () => {
     D8InferredRespondentGender: 'Male',
     D8InferredPetitionerGender: 'Male',
     D8ScreenHasMarriageBroken: 'YES',
+    D8HelpWithFeesReferenceNumber: 'HWF-ABC-123',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -18,6 +19,7 @@ describe('from-api-format', () => {
       sameSex: 'checked',
       partnerGender: 'Male',
       screenHasUnionBroken: 'YES',
+      helpWithFeesRefNo: 'HWF-ABC-123',
     });
   });
 });
