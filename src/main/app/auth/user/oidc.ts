@@ -21,9 +21,9 @@ export const getUserDetails = async (serviceUrl: string, rawCode: string): Promi
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
-  const redirectUri = getRedirectUrl(serviceUrl);
+  const callbackUrl = encodeURI(serviceUrl + CALLBACK_URL);
   const code = encodeURIComponent(rawCode);
-  const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${redirectUri}&code=${code}`;
+  const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response = await Axios.post(tokenUrl, data, { headers });
 

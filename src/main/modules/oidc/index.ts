@@ -29,7 +29,7 @@ export class OidcMiddleware {
         if (req.session.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user.accessToken, req.locals.logger);
-          req.session.userCase = req.session.userCase || req.locals.api.getOrCreateCase(res.locals.serviceType);
+          req.session.userCase = req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType));
 
           return next();
         } else if (req.originalUrl !== SAVE_SIGN_OUT_URL) {
