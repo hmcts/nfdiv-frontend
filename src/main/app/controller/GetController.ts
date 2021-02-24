@@ -69,11 +69,11 @@ export class GetController {
       return translations['civilPartner'];
     }
 
-    const selectedPartnerGender = req.session.userCase?.partnerGender;
-    if (selectedPartnerGender === Gender.Male) {
+    const selectedGender = req.session.userCase?.gender;
+    if (selectedGender === Gender.Male) {
       return translations['husband'];
     }
-    if (selectedPartnerGender === Gender.Female) {
+    if (selectedGender === Gender.Female) {
       return translations['wife'];
     }
 

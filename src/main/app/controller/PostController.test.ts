@@ -14,7 +14,7 @@ const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -25,7 +25,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.gender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith(req.path);
@@ -35,7 +35,7 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -46,7 +46,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.gender).toEqual(Gender.Female);
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -55,7 +55,7 @@ describe('PostController', () => {
 
   test('saves and signs out even if there are errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { partnerGender: Gender.Female, saveAndSignOut: true };
+    const body = { gender: Gender.Female, saveAndSignOut: true };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -66,7 +66,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase?.gender).toEqual(Gender.Female);
 
     expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);
@@ -75,7 +75,7 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,

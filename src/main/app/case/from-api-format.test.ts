@@ -17,7 +17,7 @@ describe('from-api-format', () => {
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: 'divorce',
       sameSex: 'checked',
-      partnerGender: 'Male',
+      gender: 'Male',
       screenHasUnionBroken: 'YES',
       helpWithFeesRefNo: 'HWF-ABC-123',
     });

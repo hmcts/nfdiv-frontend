@@ -2,7 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 export const formFieldsToCaseMapping = {
   divorceOrDissolution: 'divorceOrDissolution',
-  partnerGender: 'D8InferredRespondentGender',
+  gender: 'D8InferredRespondentGender',
   screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
   hasCertificate: 'D8ScreenHasMarriageCert',
   helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
@@ -30,7 +30,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   divorceOrDissolution: CaseType;
-  partnerGender?: Gender;
+  gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
