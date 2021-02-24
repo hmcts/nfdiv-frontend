@@ -1,22 +1,36 @@
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
 import { ApiCase } from './CaseApi';
-import { Case, CaseDate, Checkbox, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, CaseType, Checkbox, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...formFieldsToCaseMapping,
-  sameSex: data => ({
+  sameSex: (data: Case) => ({
     D8MarriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
-  partnerGender: data => ({
-    D8InferredRespondentGender: data.partnerGender,
-    D8InferredPetitionerGender:
-      (data.partnerGender === Gender.Male && data.sameSex === Checkbox.Checked) ||
-      (data.partnerGender === Gender.Female && data.sameSex !== Checkbox.Checked)
-        ? Gender.Male
-        : Gender.Female,
-  }),
-  relationshipDate: data => ({
+  gender: (data: Case) => {
+    // Petitioner makes the request
+    let inferredPetitionerGender = data.gender;
+
+    // Respondent receives the request
+    let inferredRespondentGender = data.gender;
+
+    if (data.sameSex !== Checkbox.Checked) {
+      if (data.divorceOrDissolution === CaseType.Dissolution) {
+        inferredPetitionerGender = data.gender;
+        inferredRespondentGender = data.gender === Gender.Male ? Gender.Female : Gender.Male;
+      } else {
+        inferredPetitionerGender = data.gender === Gender.Male ? Gender.Female : Gender.Male;
+        inferredRespondentGender = data.gender;
+      }
+    }
+
+    return {
+      D8InferredPetitionerGender: inferredPetitionerGender,
+      D8InferredRespondentGender: inferredRespondentGender,
+    };
+  },
+  relationshipDate: (data: Case) => ({
     D8MarriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
@@ -24,7 +38,7 @@ const fields = {
   }),
 };
 
-const toApiDate = (date: CaseDate) => {
+const toApiDate = (date: CaseDate | undefined) => {
   if (!date?.year || !date?.month || !date?.day) {
     return '';
   }

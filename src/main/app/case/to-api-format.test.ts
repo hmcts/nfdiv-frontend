@@ -1,11 +1,11 @@
 import { ApiCase } from './CaseApi';
-import { Checkbox, Gender, YesOrNo } from './case';
+import { Case, CaseType, Checkbox, Gender, YesOrNo } from './case';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
   const results = {
+    gender: Gender.Male,
     sameSex: Checkbox.Checked,
-    partnerGender: Gender.Male,
     relationshipDate: { year: '1900', month: '1', day: '4' },
     helpWithFeesRefNo: 'HWF-123-ABC',
   };
@@ -33,4 +33,48 @@ describe('to-api-format', () => {
       D8MarriageDate: '',
     });
   });
+
+  test.each([
+    {
+      gender: Gender.Male,
+      sameSex: Checkbox.Unchecked,
+      expected: { petitioner: Gender.Female, respondent: Gender.Male },
+    },
+    {
+      gender: Gender.Female,
+      sameSex: Checkbox.Unchecked,
+      expected: { petitioner: Gender.Male, respondent: Gender.Female },
+    },
+    {
+      gender: Gender.Male,
+      sameSex: Checkbox.Checked,
+      expected: { petitioner: Gender.Male, respondent: Gender.Male },
+    },
+    {
+      divorceOrDissolution: CaseType.Dissolution,
+      gender: Gender.Male,
+      sameSex: Checkbox.Unchecked,
+      expected: { petitioner: Gender.Male, respondent: Gender.Female },
+    },
+    {
+      divorceOrDissolution: CaseType.Dissolution,
+      gender: Gender.Female,
+      sameSex: Checkbox.Unchecked,
+      expected: { petitioner: Gender.Female, respondent: Gender.Male },
+    },
+    {
+      divorceOrDissolution: CaseType.Dissolution,
+      gender: Gender.Female,
+      sameSex: Checkbox.Checked,
+      expected: { petitioner: Gender.Female, respondent: Gender.Female },
+    },
+  ])(
+    'gets the correct inferred gender of the petitioner and respondent: %o',
+    ({ divorceOrDissolution = CaseType.Divorce, gender, sameSex, expected }) => {
+      expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
+        D8InferredPetitionerGender: expected.petitioner,
+        D8InferredRespondentGender: expected.respondent,
+      });
+    }
+  );
 });
