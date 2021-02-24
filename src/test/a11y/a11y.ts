@@ -72,6 +72,7 @@ describe('Accessibility', () => {
     }
 
     browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
+    browser.on('disconnected', setup);
 
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
@@ -81,8 +82,6 @@ describe('Accessibility', () => {
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
-
-    browser.on('disconnected', setup);
   };
 
   beforeAll(setup);

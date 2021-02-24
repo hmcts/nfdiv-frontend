@@ -25,7 +25,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.gender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).not.toHaveBeenCalled();
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith(req.path);
@@ -46,7 +47,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.gender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -54,7 +56,7 @@ describe('PostController', () => {
   });
 
   test('saves and signs out even if there are errors', async () => {
-    const errors = [{ field: 'field1', errorName: 'fail' }];
+    const errors = [{ field: 'gender', errorName: 'required' }];
     const body = { gender: Gender.Female, saveAndSignOut: true };
     const mockForm = ({
       getErrors: () => errors,
@@ -66,7 +68,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.gender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
 
     expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);

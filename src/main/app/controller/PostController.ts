@@ -17,10 +17,9 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const parsedBody = this.form.getParsedBody(req.body);
-    const { saveAndSignOut, _csrf, ...formData } = parsedBody;
+    const { saveAndSignOut, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
-    const userCase = Object.assign(req.session.userCase, formData);
+    Object.assign(req.session.userCase, formData);
 
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
@@ -29,7 +28,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.updateCase(req.session.userCase?.id, userCase);
+      await req.locals.api.updateCase(req.session.userCase?.id, formData);
       req.session.errors = undefined;
     }
 
