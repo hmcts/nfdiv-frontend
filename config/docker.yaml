@@ -2,5 +2,5 @@ services:
   idam:
     authorizationURL: 'http://localhost:3501/login'
     tokenURL: 'http://localhost:5000/o/token'
-  cos:
-    baseURL: 'http://localhost:4012'
+  case:
+    url: 'http://localhost:4452'

@@ -12,8 +12,8 @@ services:
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
-  cos:
-    baseURL: 'http://localhost:4012'
+  case:
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
 health:
   timeout: 5000
   deadline: 15000
