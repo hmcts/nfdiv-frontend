@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../../app/api/case';
+import { YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
