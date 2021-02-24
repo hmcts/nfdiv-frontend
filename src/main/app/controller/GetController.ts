@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
+import { CHECK_ANSWERS_URL } from '../../steps/urls';
 import { Case, CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -31,7 +33,12 @@ export class GetController {
 
     const language = req.session?.lang || 'en';
     const commonLanguageContent = commonContent[language];
-    const content = this.getContent(req, res, commonLanguageContent);
+
+    const isDivorce = res.locals.serviceType === CaseType.Divorce;
+    const selectedGender = req.session.userCase?.gender as Gender;
+    const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
+    const content = this.getContent(isDivorce, req.session.userCase, partner);
+
     const languageContent = content[language];
     const commonPageContent = content.common || {};
     const sessionErrors = req.session?.errors || [];
@@ -45,31 +52,32 @@ export class GetController {
       ...commonPageContent,
       ...commonLanguageContent,
       sessionErrors,
+      language,
+      isDivorce,
+      partner,
       formState: req.session?.userCase,
-      hideBackButton: req.originalUrl === sequence[0].url,
+      hideBackButton: [sequence[0].url, CHECK_ANSWERS_URL].includes(req.originalUrl),
+      nextIncompleteStepUrl: getNextIncompleteStepUrl(req),
     });
   }
 
-  private getContent(req: AppRequest, res: Response, translations: Translations): Translations {
+  private getContent(isDivorce: boolean, userCase: Partial<Case>, partner: string): Translations {
     if (typeof this.content !== 'function') {
       return this.content;
     }
 
-    const isDivorce = res.locals.serviceType === CaseType.Divorce;
-
     return this.content({
       isDivorce,
-      partner: this.getPartnerContent(req, isDivorce, translations),
-      formState: req.session?.userCase,
+      partner,
+      formState: userCase,
     });
   }
 
-  private getPartnerContent(req: AppRequest, isDivorce: boolean, translations: Translations): string {
+  private getPartnerContent(selectedGender: Gender, isDivorce: boolean, translations: Translations): string {
     if (!isDivorce) {
       return translations['civilPartner'];
     }
 
-    const selectedGender = req.session.userCase?.gender;
     if (selectedGender === Gender.Male) {
       return translations['husband'];
     }

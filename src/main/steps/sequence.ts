@@ -16,18 +16,30 @@ import {
   YOUR_DETAILS_URL,
 } from './urls';
 
+export enum Sections {
+  AboutPartnership = 'aboutPartnership',
+  ConnectionsToEnglandWales = 'connectionsToEnglandWales',
+  AboutPartners = 'aboutPartners',
+  AboutDissolution = 'aboutDissolution',
+  Documents = 'documents',
+  Payment = 'payment',
+}
+
 export interface Step {
   url: string;
+  showInSection?: Sections;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
 export const sequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
+    showInSection: Sections.AboutPartnership,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
+    showInSection: Sections.AboutPartnership,
     getNextStep: data =>
       data.screenHasUnionBroken === YesOrNo.No ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
@@ -37,6 +49,7 @@ export const sequence: Step[] = [
   },
   {
     url: RELATIONSHIP_DATE_URL,
+    showInSection: Sections.AboutPartnership,
     getNextStep: data =>
       isLessThanAYear(data.relationshipDate) === 'lessThanAYear'
         ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL
@@ -48,6 +61,7 @@ export const sequence: Step[] = [
   },
   {
     url: CERTIFICATE_URL,
+    showInSection: Sections.AboutPartnership,
     getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
   },
   {
@@ -56,10 +70,12 @@ export const sequence: Step[] = [
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
+    showInSection: Sections.Payment,
     getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : CHECK_ANSWERS_URL),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
+    showInSection: Sections.Payment,
     getNextStep: data =>
       data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : CHECK_ANSWERS_URL,
   },

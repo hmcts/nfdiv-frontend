@@ -6,6 +6,8 @@ import * as nunjucks from 'nunjucks';
 import { CaseType } from '../../app/case/case';
 import { FormInput } from '../../app/form/Form';
 
+import { getCheckAnswersRows } from './getCheckAnswersRows';
+
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
@@ -44,6 +46,8 @@ export class Nunjucks {
             : undefined,
       }));
     });
+
+    env.addGlobal('getCheckAnswersRows', getCheckAnswersRows);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {

@@ -6,36 +6,21 @@
 {% block content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
-  <h2 class="govuk-heading-m">{{ aboutPartnership}}</h2>
+  {% for key, section in sections %}
+    {% set rows = getCheckAnswersRows(section) %}
+    {% if rows | length %}
+      <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
-  {{ govukSummaryList({
-    rows: [
-      {
-        key: {
-          text: yourDetails
-        },
-        value: {
-          text: yourDetailsAnswer | title
-        },
-        actions: {
-          items: [
-            {
-              href: "/your-details",
-              text: change,
-              visuallyHiddenText: yourDetailsA11y
-            }
-          ]
-        }
-      }
-    ]
-  }) }}
-
-  <pre>
-{{ formState | json(2) }}
-  </pre>
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: rows
+      }) }}
+    {% endif %}
+  {% endfor %}
 
   {{ govukButton({
-    text: pay,
+    text: continueApplication if nextIncompleteStepUrl else continuePay,
+    href: nextIncompleteStepUrl,
     preventDoubleClick: true
   }) }}
 {% endblock %}

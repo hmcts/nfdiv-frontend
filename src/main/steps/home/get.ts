@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { getNextIncompleteStepUrl } from '../../steps';
+import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL } from '../../steps/urls';
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
@@ -9,6 +9,10 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    res.redirect(getNextIncompleteStepUrl(req));
+    const isCasePartiallyComplete = Object.entries(req.session.userCase).some(
+      ([key, value]) => !['id', 'divorceOrDissolution', 'sameSex'].includes(key) && value
+    );
+
+    res.redirect(isCasePartiallyComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
   }
 }
