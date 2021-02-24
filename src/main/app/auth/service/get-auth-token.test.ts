@@ -32,26 +32,21 @@ describe('initAuthToken', () => {
     mockedAxios.post.mockRejectedValue({ response: { status: 500, data: 'Error' } });
 
     initAuthToken();
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(logger.error).toHaveBeenCalledWith(500, 'Error');
-        resolve();
-      });
+
+    setImmediate(() => {
+      expect(logger.error).toHaveBeenCalledWith(500, 'Error');
     });
   });
 });
 
 describe('getAuthToken', () => {
-  test('Should return a token', async () => {
+  test('Should return a token', () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
 
     initAuthToken();
 
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(getAuthToken()).not.toBeUndefined();
-        resolve();
-      });
+    setImmediate(() => {
+      expect(getAuthToken()).not.toBeUndefined();
     });
   });
 });
