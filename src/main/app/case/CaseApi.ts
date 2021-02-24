@@ -52,6 +52,12 @@ export class CaseApi {
       this.logger.error('API Error', error.message);
     }
   }
+
+  public async getOrCreateCase(serviceType: CaseType): Promise<CaseWithId> {
+    const userCase = await this.getCase();
+
+    return userCase || this.createCase({ divorceOrDissolution: serviceType });
+  }
 }
 
 export interface ApiCase {
