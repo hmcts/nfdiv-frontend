@@ -1,9 +1,9 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Form } from '../../app/form/Form';
+import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
-import { Gender } from '../case/case';
+import { Checkbox, Gender } from '../case/case';
 
 import { PostController } from './PostController';
 
@@ -14,7 +14,7 @@ const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -25,7 +25,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).not.toHaveBeenCalled();
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith(req.path);
@@ -35,7 +36,7 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -46,7 +47,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
 
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -54,8 +56,8 @@ describe('PostController', () => {
   });
 
   test('saves and signs out even if there are errors', async () => {
-    const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { partnerGender: Gender.Female, saveAndSignOut: true };
+    const errors = [{ field: 'gender', errorName: 'required' }];
+    const body = { gender: Gender.Female, saveAndSignOut: true };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -66,7 +68,8 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase?.partnerGender).toEqual(Gender.Female);
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
 
     expect(res.redirect).toBeCalledWith(SAVE_SIGN_OUT_URL);
     expect(req.session.errors).toBe(undefined);
@@ -75,7 +78,7 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { partnerGender: Gender.Female };
+    const body = { gender: Gender.Female };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -91,5 +94,24 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req);
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toBe(undefined);
+  });
+
+  test('uses the last (not hidden) input for checkboxes', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const body = { sameSex: [0, Checkbox.Checked] };
+    const mockFormContent = ({
+      fields: {
+        sameSex: {
+          type: 'checkboxes',
+        },
+      },
+    } as unknown) as FormContent;
+    const controller = new PostController(new Form(mockFormContent));
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase?.sameSex).toEqual(Checkbox.Checked);
   });
 });

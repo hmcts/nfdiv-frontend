@@ -44,7 +44,7 @@ export const config = {
           I.fillField('username', TestUser);
           I.fillField('password', TestPass);
           I.click('Sign in');
-          I.waitForText('Apply for a divorce');
+          I.waitForText('Apply for a divorce', 10);
         },
         check: (I: CodeceptJS.I): void => {
           I.amOnPage(HOME_URL);

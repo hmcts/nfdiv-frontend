@@ -1,12 +1,12 @@
 import { invert } from 'lodash';
 
 import { ApiCase } from './CaseApi';
-import { Case, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...invert(formFieldsToCaseMapping),
   D8MarriageIsSameSexCouple: data => ({
-    sameSex: data.D8MarriageIsSameSexCouple === YesOrNo.Yes ? 'checked' : '',
+    sameSex: data.D8MarriageIsSameSexCouple === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
   }),
   D8MarriageDate: data => ({
     relationshipDate: fromApiDate(data.D8MarriageDate),

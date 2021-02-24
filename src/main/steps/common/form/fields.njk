@@ -2,6 +2,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
 {% for fieldName, field in form.fields %}
   {% switch field.type %}
@@ -19,6 +20,9 @@
           items: formItems(field.values, formState[fieldName])
         }) }}
     {% case 'checkboxes' %}
+      {# Required for sending an empty value when the checkbox has not been checked #}
+      <input type="hidden" value="" name="{{ fieldName }}">
+
       {{ govukCheckboxes({
         classes: field.classes,
         idPrefix: fieldName,

@@ -1,11 +1,14 @@
-export type Parser = (property: string, body: Record<string, unknown>) => void;
+import { CaseDate } from '../../app/case/case';
 
-export const covertToDateObject: Parser = (property, body) => {
-  const dateObject = ['day', 'month', 'year'].reduce((newDateObj: string | Record<string, string>, date: string) => {
-    const propertyName = `${property}-${date}`;
-    newDateObj[date] = body[propertyName];
-    delete body[propertyName];
-    return newDateObj;
-  }, {});
-  body[property] = dateObject;
-};
+export type DateParser = (property: string, body: Record<string, unknown>) => CaseDate;
+
+export const covertToDateObject: DateParser = (property, body) =>
+  ['day', 'month', 'year'].reduce(
+    (newDateObj: CaseDate, date: string) => {
+      const propertyName = `${property}-${date}`;
+      newDateObj[date] = body[propertyName];
+      delete body[propertyName];
+      return newDateObj;
+    },
+    { year: '', month: '', day: '' }
+  );

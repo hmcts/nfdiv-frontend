@@ -7,7 +7,7 @@ export const generateContent: TranslationFn = ({ isDivorce, partner, formState }
     change: 'Change',
     yourDetails: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
     yourDetailsA11y: 'Your details',
-    yourDetailsAnswer: `${isDivorce ? `My ${partner}` : formState.partnerGender}`,
+    yourDetailsAnswer: `${isDivorce ? `My ${partner}` : formState.gender}`,
     pay: 'Continue to payment',
   };
 

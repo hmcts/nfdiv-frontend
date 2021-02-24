@@ -72,7 +72,7 @@ export const isLessThanAYear: DateValidator = date => {
   }
 };
 
-export const isValidHelpWithFeesRef: Validator = value => {
+export const isInvalidHelpWithFeesRef: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {
     return fieldNotFilledIn;

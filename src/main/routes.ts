@@ -1,12 +1,19 @@
 import fs from 'fs';
 
-import { Application } from 'express';
+import { Application, RequestHandler } from 'express';
 
 import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
+import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { CookiesGetController } from './steps/cookies/get';
+import { ErrorController } from './steps/error/error.controller';
+import { HomeGetController } from './steps/home/get';
+import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { sequence } from './steps/sequence';
+import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
@@ -20,16 +27,15 @@ import {
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
+    const errorController = new ErrorController();
 
-    app.get(HOME_URL, errorHandler(app.locals.container.cradle.homeGetController.get));
-    app.get(SAVE_SIGN_OUT_URL, errorHandler(app.locals.container.cradle.saveSignOutGetController.get));
-    app.get(PRIVACY_POLICY_URL, app.locals.container.cradle.privacyPolicyGetController.get);
-    app.get(TERMS_AND_CONDITIONS_URL, errorHandler(app.locals.container.cradle.termsAndConditionsGetController.get));
-    app.get(COOKIES_URL, errorHandler(app.locals.container.cradle.cookiesGetController.get));
-    app.get(
-      ACCESSIBILITY_STATEMENT_URL,
-      errorHandler(app.locals.container.cradle.accessibilityStatementGetController.get)
-    );
+    app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
+    app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(SAVE_SIGN_OUT_URL, errorHandler(new SaveSignOutGetController().get));
+    app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
+    app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
+    app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
+    app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
 
     for (const step of sequence) {
       const stepDir = `${__dirname}/steps/sequence${step.url}`;
@@ -45,7 +51,6 @@ export class Routes {
       }
     }
 
-    app.get(CSRF_TOKEN_ERROR_URL, errorHandler(app.locals.container.cradle.errorController.CSRFTokenError));
-    app.use(app.locals.container.cradle.errorController.notFound);
+    app.use((errorController.notFound as unknown) as RequestHandler);
   }
 }

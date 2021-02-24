@@ -2,9 +2,12 @@ import { AnyObject } from '../controller/PostController';
 
 export const formFieldsToCaseMapping = {
   divorceOrDissolution: 'divorceOrDissolution',
-  partnerGender: 'D8InferredRespondentGender',
+  gender: 'D8InferredRespondentGender',
   screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
   hasCertificate: 'D8ScreenHasMarriageCert',
+  helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
+  alreadyAppliedForHelpPaying: 'D8HelpWithFeesAppliedForFees',
+  helpWithFeesRefNo: 'D8HelpWithFeesReferenceNumber',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -27,8 +30,8 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   divorceOrDissolution: CaseType;
-  partnerGender?: Gender;
-  sameSex?: YesOrNo;
+  gender?: Gender;
+  sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
@@ -55,6 +58,11 @@ export enum Gender {
 export enum YesOrNo {
   Yes = 'YES',
   No = 'NO',
+}
+
+export enum Checkbox {
+  Checked = 'checked',
+  Unchecked = '',
 }
 
 export interface CaseDate {
