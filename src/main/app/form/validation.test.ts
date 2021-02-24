@@ -1,12 +1,12 @@
-import { CaseDate } from '../api/case';
+import { CaseDate } from '../case/case';
 
 import {
   areFieldsFilledIn,
   isDateInputValid,
   isFieldFilledIn,
   isFutureDate,
+  isInvalidHelpWithFeesRef,
   isLessThanAYear,
-  isValidHelpWithFeesRef,
 } from './validation';
 
 describe('Validation', () => {
@@ -96,7 +96,7 @@ describe('Validation', () => {
     });
   });
 
-  describe('isValidHelpWithFeesRef()', () => {
+  describe('isInvalidHelpWithFeesRef()', () => {
     it.each([
       { mockRef: '', expected: 'required' },
       { mockRef: '1', expected: 'invalid' },
@@ -114,7 +114,7 @@ describe('Validation', () => {
       { mockRef: 'AAABBB', expected: 'invalid' },
       { mockRef: '123456', expected: 'invalid' },
     ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
-      expect(isValidHelpWithFeesRef(mockRef)).toEqual(expected);
+      expect(isInvalidHelpWithFeesRef(mockRef)).toEqual(expected);
     });
   });
 });

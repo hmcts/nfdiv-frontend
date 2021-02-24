@@ -1,5 +1,5 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { Gender, YesOrNo } from '../app/api/case';
+import { Gender, YesOrNo } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
@@ -15,7 +15,7 @@ describe('Steps', () => {
 
     it('returns the next step when correct details a passed', () => {
       mockReq.originalUrl = YOUR_DETAILS_URL;
-      mockReq.body = { partnerGender: Gender.Male };
+      mockReq.body = { gender: Gender.Male };
       expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
@@ -28,7 +28,7 @@ describe('Steps', () => {
 
     it('keeps the query string', () => {
       mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
-      mockReq.body = { partnerGender: Gender.Male };
+      mockReq.body = { gender: Gender.Male };
       expect(getNextStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
   });
@@ -44,12 +44,12 @@ describe('Steps', () => {
     });
 
     it('returns the next incomplete step if previous is valid', () => {
-      mockReq.session.userCase.partnerGender = Gender.Male;
+      mockReq.session.userCase.gender = Gender.Male;
       expect(getNextIncompleteStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
     it('returns the previous step if its a dead end', () => {
-      mockReq.session.userCase.partnerGender = Gender.Male;
+      mockReq.session.userCase.gender = Gender.Male;
       mockReq.session.userCase.screenHasUnionBroken = YesOrNo.No;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(HAS_RELATIONSHIP_BROKEN_URL);
@@ -57,7 +57,7 @@ describe('Steps', () => {
 
     it('keeps the query string', () => {
       mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
-      mockReq.session.userCase.partnerGender = Gender.Male;
+      mockReq.session.userCase.gender = Gender.Male;
       expect(getNextIncompleteStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
   });

@@ -1,4 +1,4 @@
-import { Case, YesOrNo } from '../api/case';
+import { Case, YesOrNo } from '../case/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
@@ -126,9 +126,8 @@ describe('Form', () => {
       'dateField-month': '1',
       'dateField-year': '2000',
     };
-    form.getParsedBody(body);
 
-    expect(body).toStrictEqual({
+    expect(form.getParsedBody(body)).toStrictEqual({
       field: 'YES',
       dateField: {
         day: '1',

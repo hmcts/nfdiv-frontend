@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
-import { Case, Gender } from '../api/case';
+import { Case, CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 
@@ -55,7 +55,7 @@ export class GetController {
       return this.content;
     }
 
-    const isDivorce = res.locals.serviceType !== 'civil';
+    const isDivorce = res.locals.serviceType === CaseType.Divorce;
 
     return this.content({
       isDivorce,
@@ -69,11 +69,11 @@ export class GetController {
       return translations['civilPartner'];
     }
 
-    const selectedPartnerGender = req.session.userCase?.partnerGender;
-    if (selectedPartnerGender === Gender.Male) {
+    const selectedGender = req.session.userCase?.gender;
+    if (selectedGender === Gender.Male) {
       return translations['husband'];
     }
-    if (selectedPartnerGender === Gender.Female) {
+    if (selectedGender === Gender.Female) {
       return translations['wife'];
     }
 

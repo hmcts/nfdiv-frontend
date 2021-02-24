@@ -1,4 +1,4 @@
-import { Gender } from '../../../app/api/case';
+import { Checkbox, Gender } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -12,7 +12,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     sameSex: 'Select the following if it applies to you:',
     sameSexOption: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
     errors: {
-      partnerGender: {
+      gender: {
         required: commonContent.en.required,
       },
     },
@@ -22,7 +22,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
   const cy: typeof en = {
     ...en,
     errors: {
-      partnerGender: {
+      gender: {
         required: commonContent.cy.required,
       },
     },
@@ -37,7 +37,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
 
 export const form: FormContent = {
   fields: {
-    partnerGender: {
+    gender: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
@@ -50,7 +50,7 @@ export const form: FormContent = {
     sameSex: {
       type: 'checkboxes',
       label: l => l.sameSex,
-      values: [{ label: l => l.sameSexOption, value: 'checked' }],
+      values: [{ label: l => l.sameSexOption, value: Checkbox.Checked }],
     },
   },
   submit: {

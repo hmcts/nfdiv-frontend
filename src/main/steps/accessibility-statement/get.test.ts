@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { CaseType } from '../../app/case/case';
 import { commonContent } from '../common/common.content';
 
 import { generateContent } from './content';
@@ -14,7 +15,7 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generateContent({ isDivorce: true }).en,
+      ...generateContent({ isDivorce: true, partner: '', formState: {} }).en,
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
@@ -25,12 +26,12 @@ describe('AccessibilityStatementGetController', () => {
   test('Should render the accessibility statement page', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    res.locals.serviceType = 'civil';
+    res.locals.serviceType = CaseType.Dissolution;
 
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generateContent({ isDivorce: false }).en,
+      ...generateContent({ isDivorce: false, partner: '', formState: {} }).en,
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,

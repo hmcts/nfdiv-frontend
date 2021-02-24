@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
 import { YOUR_DETAILS_URL } from '../../steps/urls';
-import { Gender } from '../api/case';
+import { CaseType, Gender } from '../case/case';
 
 import { GetController, Translations } from './GetController';
 
@@ -67,7 +67,7 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.userCase.partnerGender = Gender.Female;
+    req.session.userCase.gender = Gender.Female;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
@@ -77,7 +77,7 @@ describe('GetController', () => {
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
-        partnerGender: Gender.Female,
+        gender: Gender.Female,
       },
     });
   });
@@ -123,19 +123,19 @@ describe('GetController', () => {
     });
 
     describe.each([
-      { serviceType: 'divorce', isDivorce: true },
-      { serviceType: 'civil', isDivorce: false, civilKey: 'civilPartner' },
+      { serviceType: CaseType.Divorce, isDivorce: true },
+      { serviceType: CaseType.Dissolution, isDivorce: false, civilKey: 'civilPartner' },
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { partnerGender: Gender.Male, partnerKey: 'husband' },
-          { partnerGender: Gender.Female, partnerKey: 'wife' },
+          { gender: Gender.Male, partnerKey: 'husband' },
+          { gender: Gender.Female, partnerKey: 'wife' },
           { partnerKey: 'partner' },
-        ])('calls getContent with correct arguments %s selected', async ({ partnerGender, partnerKey }) => {
+        ])('calls getContent with correct arguments %s selected', async ({ gender, partnerKey }) => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
           const controller = new GetController('page', getContentMock);
 
-          const req = mockRequest({ session: { lang, userCase: { partnerGender } } });
+          const req = mockRequest({ session: { lang, userCase: { gender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 

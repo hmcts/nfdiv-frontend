@@ -1,4 +1,3 @@
-
 nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
@@ -12,7 +11,3 @@ nodejs:
 
 idam-pr:
   enabled: false
-  redirect_uris:
-    divorce:
-      - https://${SERVICE_FQDN}/oauth2/callback
-      - https://civil-${SERVICE_FQDN}/oauth2/callback

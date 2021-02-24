@@ -1,13 +1,15 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): AppRequest<never> =>
+export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
   (({
     body,
-    scope: {
-      cradle: {
-        api: {
-          updateCase: jest.fn(),
-        },
+    locals: {
+      api: {
+        updateCase: jest.fn(),
+      },
+      logger: {
+        info: jest.fn(),
+        error: jest.fn(),
       },
     },
     query: {},
@@ -15,6 +17,7 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): App
       userCase: {
         id: '1234',
         divorceOrDissolution: 'divorce',
+        ...userCase,
       },
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
@@ -25,4 +28,4 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {} } = {}): App
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
-  } as unknown) as AppRequest<never>);
+  } as unknown) as AppRequest);

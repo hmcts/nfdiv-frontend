@@ -1,4 +1,4 @@
-import { CaseDate } from '../../../app/api/case';
+import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';

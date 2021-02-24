@@ -1,7 +1,7 @@
-import { YesOrNo } from '../../../app/api/case';
+import { YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isValidHelpWithFeesRef } from '../../../app/form/validation';
+import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../app/form/validation';
 import { commonContent } from '../../common/common.content';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
@@ -55,7 +55,7 @@ export const form: FormContent = {
               hint: l => `
                 <p class="govuk-label">${l.refReceivedWhenApplied}</p>
                 ${l.refExample}`,
-              validator: isValidHelpWithFeesRef,
+              validator: isInvalidHelpWithFeesRef,
             },
           },
         },

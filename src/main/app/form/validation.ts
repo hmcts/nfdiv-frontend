@@ -1,4 +1,4 @@
-import { CaseDate } from '../api/case';
+import { CaseDate } from '../case/case';
 
 export type Validator = (value: string | CaseDate | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
@@ -72,7 +72,7 @@ export const isLessThanAYear: DateValidator = date => {
   }
 };
 
-export const isValidHelpWithFeesRef: Validator = value => {
+export const isInvalidHelpWithFeesRef: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {
     return fieldNotFilledIn;

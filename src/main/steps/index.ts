@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { CaseWithId } from '../app/api/case';
+import { CaseWithId } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { Form } from '../app/form/Form';
 
