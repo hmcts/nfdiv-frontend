@@ -1,11 +1,12 @@
 import fs from 'fs';
 
-import { Application, RequestHandler } from 'express';
+import { Application, RequestHandler, Response } from 'express';
 
 import { GetController } from '../main/app/controller/GetController';
 import { PostController } from '../main/app/controller/PostController';
 import { Form } from '../main/app/form/Form';
 
+import { AppRequest } from './app/controller/AppRequest';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -21,6 +22,7 @@ import {
   HOME_URL,
   PRIVACY_POLICY_URL,
   SAVE_SIGN_OUT_URL,
+  SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
 } from './steps/urls';
 
@@ -50,6 +52,15 @@ export class Routes {
         app.post(step.url, errorHandler(new PostController(new Form(form)).post));
       }
     }
+
+    app.get(
+      '/active',
+      errorHandler((req: AppRequest, res: Response) => {
+        if (!req.session.user) {
+          return res.redirect(SIGN_OUT_URL);
+        }
+      })
+    );
 
     app.use((errorController.notFound as unknown) as RequestHandler);
   }

@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_SIGN_OUT_URL } from '../../steps/urls';
+import { SAVE_SIGN_OUT_URL, TIMED_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -17,14 +17,15 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const { saveAndSignOut, _csrf, ...formData } = this.form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     Object.assign(req.session.userCase, formData);
 
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
+    const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
     let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
-    if (!isSaveAndSignOut && errors.length > 0) {
+    if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
@@ -36,7 +37,11 @@ export class PostController<T extends AnyObject> {
       if (err) {
         throw err;
       }
-      res.redirect(nextUrl);
+      if (isSessionTimeout) {
+        res.status(200).json({ redirectUrl: TIMED_OUT_URL, message: 'session saved!' });
+      } else {
+        res.redirect(nextUrl);
+      }
     });
   }
 }
