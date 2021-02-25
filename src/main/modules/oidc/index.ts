@@ -1,7 +1,8 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { CALLBACK_URL, getCaseApi, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { CALLBACK_URL, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
