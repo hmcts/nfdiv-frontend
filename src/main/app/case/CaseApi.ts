@@ -1,6 +1,8 @@
-import { AxiosError, AxiosInstance } from 'axios';
+import Axios, { AxiosError, AxiosInstance } from 'axios';
+import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CASE_TYPE, Case, CaseType, CaseWithId, Gender, JURISDICTION, YesOrNo } from './case';
@@ -15,18 +17,24 @@ export class CaseApi {
   ) {}
 
   public async getCase(): Promise<CaseWithId | false> {
+    const cases = await this.getCases();
+
+    if (cases.length === 1) {
+      return { id: cases[0].id, ...fromApiFormat(cases[0].case_data) };
+    } else if (cases.length === 0) {
+      return false;
+    } else {
+      throw new Error('Too many cases assigned to user.');
+    }
+  }
+
+  private async getCases(): Promise<GetCaseResponse[]> {
     try {
       const response = await this.axios.get(
         `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
       );
 
-      if (response.data.length === 1) {
-        return { id: response.data[0].id, ...fromApiFormat(response.data[0].case_data) };
-      } else if (response.data.length === 0) {
-        return false;
-      } else {
-        throw new Error('Too many cases assigned to user.');
-      }
+      return response.data;
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -77,6 +85,28 @@ export class CaseApi {
 
     return userCase || this.createCase({ divorceOrDissolution: serviceType });
   }
+}
+
+export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
+  return new CaseApi(
+    Axios.create({
+      baseURL: config.get('services.case.url'),
+      headers: {
+        Authorization: 'Bearer ' + userDetails.accessToken,
+        ServiceAuthorization: getServiceAuthToken(),
+        experimental: 'true',
+        Accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    }),
+    userDetails,
+    logger
+  );
+};
+
+interface GetCaseResponse {
+  id: string;
+  case_data: ApiCase;
 }
 
 export interface ApiCase {

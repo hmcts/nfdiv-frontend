@@ -14,7 +14,7 @@ export class SaveSignOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.user.email) {
+    if (req.session.user?.email) {
       res.cookie('nfdivEmail', req.session.user.email, { maxAge: 60000 });
       req.session.destroy(() => res.redirect(SAVE_SIGN_OUT_URL));
       return;

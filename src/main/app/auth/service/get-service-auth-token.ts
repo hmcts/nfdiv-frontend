@@ -25,6 +25,6 @@ export const initAuthToken = (): void => {
   setInterval(getTokenFromApi, 1000 * 60 * 60);
 };
 
-export const getAuthToken = (): string => {
+export const getServiceAuthToken = (): string => {
   return token;
 };

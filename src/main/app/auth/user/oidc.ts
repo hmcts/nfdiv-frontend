@@ -1,12 +1,9 @@
 import Axios from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
-import type { LoggerInstance } from 'winston';
 
 import { PageLink } from '../../../steps/urls';
-import { CaseApi } from '../../case/CaseApi';
 import { UserDetails } from '../../controller/AppRequest';
-import { getAuthToken } from '../service/get-auth-token';
 
 export const CALLBACK_URL: PageLink = '/oauth2/callback';
 
@@ -36,23 +33,6 @@ export const getUserDetails = async (serviceUrl: string, rawCode: string): Promi
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
-};
-
-export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
-  return new CaseApi(
-    Axios.create({
-      baseURL: config.get('services.case.url'),
-      headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        ServiceAuthorization: getAuthToken(),
-        experimental: 'true',
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-      },
-    }),
-    userDetails,
-    logger
-  );
 };
 
 interface IdTokenJwtPayload {
