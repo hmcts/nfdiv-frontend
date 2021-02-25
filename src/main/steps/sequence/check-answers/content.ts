@@ -14,13 +14,15 @@ export const generateContent: TranslationFn = ({ isDivorce, partner, formState }
       [Sections.Payment]: 'Payment',
     },
     stepQuestions: {
-      [urls.YOUR_DETAILS_URL]: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
-      [`${urls.YOUR_DETAILS_URL}-sameSex`]: 'Type of relationship',
+      [urls.YOUR_DETAILS_URL]: {
+        gender: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
+        sameSex: 'Type of relationship',
+      },
       [urls.RELATIONSHIP_DATE_URL]: `Date ${isDivorce ? 'of marriage' : 'on civil partnership certificate'}`,
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: 'Help With Fees number',
     },
     stepAnswers: {
-      [urls.YOUR_DETAILS_URL]: `${isDivorce ? `My ${partner}` : formState.gender}`,
+      [urls.YOUR_DETAILS_URL]: { gender: `${isDivorce ? `My ${partner}` : formState.gender}` },
       [urls.RELATIONSHIP_DATE_URL]: `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: formState.helpWithFeesRefNo,
     },

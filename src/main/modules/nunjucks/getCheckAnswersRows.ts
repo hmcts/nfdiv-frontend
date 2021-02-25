@@ -1,8 +1,7 @@
 import { Case } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
+import type { FormContent, FormOptions } from '../../app/form/Form';
 import { Sections, Step } from '../../steps/sequence';
-import { YOUR_DETAILS_URL } from '../../steps/urls';
 
 export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
@@ -22,46 +21,41 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
   return steps
     .filter(step => step.showInSection === section)
     .flatMap(step => {
-      const answer = formState?.[Object.keys(step.form.fields)[0]?.toString()];
-      if (!answer) {
-        return [];
-      }
-
+      const fieldKeys = Object.keys(step.form.fields);
       const stepContent = step.generateContent({ isDivorce, partner, formState })[language];
+      const questionAnswers: GovUkNunjucksSummary[] = [];
 
-      const additionalQuestions: GovUkNunjucksSummary[] = [];
-      if (step.url === YOUR_DETAILS_URL && formState.sameSex) {
-        const question = this.ctx.stepQuestions[`${YOUR_DETAILS_URL}-sameSex`];
-        additionalQuestions.push({
+      for (const fieldKey of fieldKeys) {
+        const answer = formState?.[fieldKey];
+        if (!answer) {
+          continue;
+        }
+
+        const customQuestion = this.ctx.stepQuestions?.[step.url];
+        const questionText =
+          typeof customQuestion === 'object' ? customQuestion?.[fieldKey] : customQuestion || stepContent?.title;
+        const visuallyHiddenText = this.ctx.a11yChange?.[step.url] || questionText;
+
+        const customAnswer = this.ctx.stepAnswers?.[step.url];
+        const customAnswerText = typeof customAnswer === 'object' ? customAnswer?.[fieldKey] : customAnswer;
+
+        let checkedInputLabel = '';
+        const field = step.form.fields[fieldKey] as FormOptions;
+        if (field.type === 'checkboxes') {
+          const checkedInput = field.values.find(field => field.value === answer);
+
+          if (typeof checkedInput?.label === 'function') {
+            checkedInputLabel = checkedInput.label(stepContent as Record<string, never>);
+          }
+        }
+
+        questionAnswers.push({
           key: {
-            text: question,
+            text: questionText,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            text: stepContent.sameSexOption as string,
-          },
-          actions: {
-            items: [
-              {
-                href: step.url,
-                text: this.ctx.change,
-                visuallyHiddenText: question,
-              },
-            ],
-          },
-        });
-      }
-
-      const question = this.ctx.stepQuestions?.[step.url] || stepContent?.title;
-      const visuallyHiddenText = this.ctx.a11yChange?.[step.url] || question;
-      return [
-        {
-          key: {
-            text: question,
-            classes: 'govuk-!-width-two-thirds',
-          },
-          value: {
-            text: this.ctx.stepAnswers?.[step.url] || this.ctx[answer?.toLowerCase()] || answer,
+            text: customAnswerText || checkedInputLabel || this.ctx[answer?.toLowerCase()] || answer,
           },
           actions: {
             items: [
@@ -72,9 +66,10 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
               },
             ],
           },
-        },
-        ...additionalQuestions,
-      ];
+        });
+      }
+
+      return questionAnswers;
     });
 };
 

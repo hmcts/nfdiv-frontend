@@ -3,9 +3,12 @@ import { Sections } from '../../steps/sequence';
 import { getCheckAnswersRows } from './getCheckAnswersRows';
 
 describe('getCheckAnswersRows()', () => {
-  it('converts steps into the correct check answers rows when there no answers', () => {
-    const mockGenerateContent = jest.fn();
+  let mockGenerateContent;
+  beforeEach(() => {
+    mockGenerateContent = jest.fn().mockReturnValue({ en: {} });
+  });
 
+  it('converts steps into the correct check answers rows when there no answers', () => {
     const actual = getCheckAnswersRows.bind({
       ctx: {
         language: 'en',
@@ -27,16 +30,12 @@ describe('getCheckAnswersRows()', () => {
       },
     })(Sections.AboutPartnership);
 
-    expect(mockGenerateContent).not.toHaveBeenCalled();
     expect(actual).toEqual([]);
   });
 
   describe('when we have response', () => {
-    let mockGenerateContent;
     let mockCtx;
     beforeEach(() => {
-      mockGenerateContent = jest.fn().mockReturnValue({ en: {} });
-
       mockCtx = {
         language: 'en',
         isDivorce: true,
@@ -124,6 +123,57 @@ describe('getCheckAnswersRows()', () => {
           },
           value: {
             text: 'Custom answer text',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows with checkboxes', () => {
+      mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
+
+      const actual = getCheckAnswersRows.bind({
+        ctx: {
+          ...mockCtx,
+          steps: [
+            {
+              url: 'pick-this-one',
+              showInSection: Sections.AboutPartnership,
+              generateContent: mockGenerateContent,
+              form: {
+                fields: {
+                  falafel: {
+                    type: 'checkboxes',
+                    values: [{ label: () => 'You ticket tasty falafel', value: 'tasty' }],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      })(Sections.AboutPartnership);
+
+      expect(mockGenerateContent).toHaveBeenCalledWith({
+        formState: { falafel: 'tasty' },
+        isDivorce: true,
+        partner: 'husband',
+      });
+      expect(actual).toEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: 'pick-this-one',
+                text: 'Change me',
+                visuallyHiddenText: 'mock question',
+              },
+            ],
+          },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'mock question',
+          },
+          value: {
+            text: 'You ticket tasty falafel',
           },
         },
       ]);
