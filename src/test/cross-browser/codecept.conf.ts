@@ -65,7 +65,9 @@ export const config: CodeceptJS.Config = {
     allure: {
       enabled: true,
     },
-    pauseOnFail: {},
+    pauseOnFail: {
+      enabled: !testConfig.TestHeadlessBrowser,
+    },
     retryFailedStep: {
       enabled: true,
     },
