@@ -1,9 +1,6 @@
 import Axios, { AxiosStatic } from 'axios';
-import type { LoggerInstance } from 'winston';
 
-import { CaseApi } from '../../case/CaseApi';
-
-import { getCaseApi, getRedirectUrl, getUserDetails } from './oidc';
+import { getRedirectUrl, getUserDetails } from './oidc';
 
 jest.mock('axios');
 
@@ -20,7 +17,7 @@ describe('getRedirectUrl', () => {
 describe('getUserDetails', () => {
   test('should exchange a code for a token and decode a JWT to get the user details', async () => {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIn0.Rxb9hi3u67L4djtxLsPMZyg-_UhO-1apsmcYJIRL4ow';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyJ9.KaDIFSDdD3ZIYCl_qavvYbQ3a4abk47iBOZhB1-9mUQ';
 
     mockedAxios.post.mockResolvedValue({
       data: {
@@ -32,15 +29,10 @@ describe('getUserDetails', () => {
     const result = await getUserDetails('http://localhost', '123');
     expect(result).toStrictEqual({
       accessToken: token,
-      jwt: {
-        sub: 'test@test.com',
-      },
+      email: 'test@test.com',
+      givenName: 'John',
+      familyName: 'Dorian',
+      id: '123',
     });
-  });
-});
-
-describe('getCaseApi', () => {
-  test('should create a CaseApi', () => {
-    expect(getCaseApi('token', ({} as unknown) as LoggerInstance)).toBeInstanceOf(CaseApi);
   });
 });

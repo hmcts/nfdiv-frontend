@@ -1,7 +1,8 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { CALLBACK_URL, getCaseApi, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { CALLBACK_URL, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
@@ -19,8 +20,12 @@ export class OidcMiddleware {
     app.get(
       CALLBACK_URL,
       errorHandler(async (req, res) => {
-        req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code as string);
-        req.session.save(() => res.redirect('/'));
+        if (typeof req.query.code === 'string') {
+          req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code);
+          req.session.save(() => res.redirect('/'));
+        } else {
+          res.redirect(SIGN_IN_URL);
+        }
       })
     );
 
@@ -28,7 +33,7 @@ export class OidcMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session.user) {
           res.locals.isLoggedIn = true;
-          req.locals.api = getCaseApi(req.session.user.accessToken, req.locals.logger);
+          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           req.session.userCase = req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType));
 
           return next();

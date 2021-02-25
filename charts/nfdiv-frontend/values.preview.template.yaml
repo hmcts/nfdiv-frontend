@@ -6,6 +6,8 @@ nodejs:
     enabled: true
     prefix: civil
     primaryIngressHost: ${SERVICE_FQDN}
+  autoscaling:
+    enabled: false
 
 idam-pr:
   enabled: true
