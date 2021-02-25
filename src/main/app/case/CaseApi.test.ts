@@ -20,7 +20,7 @@ describe('CaseApi', () => {
   const api = new CaseApi(mockedAxios, userDetails, mockLogger);
 
   test('Should return case data response', async () => {
-    mockedAxios.get = jest.fn().mockResolvedValue({
+    mockedAxios.get.mockResolvedValue({
       data: [
         {
           id: '1234',
