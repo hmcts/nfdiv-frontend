@@ -1,19 +1,6 @@
-import fs from 'fs';
-
 import { TranslationFn } from '../../../app/controller/GetController';
-import { Sections, sequence } from '../../../steps/sequence';
+import { Sections } from '../../../steps/sequence';
 import * as urls from '../../urls';
-
-const steps = sequence
-  .filter(step => step.showInSection)
-  .map(step => {
-    const stepContentFile = `${__dirname}/..${step.url}/content.ts`;
-    let content = {};
-    if (fs.existsSync(stepContentFile)) {
-      content = require(stepContentFile);
-    }
-    return { ...step, ...content };
-  });
 
 export const generateContent: TranslationFn = ({ isDivorce, partner, formState }) => {
   const en = {
@@ -57,7 +44,6 @@ export const generateContent: TranslationFn = ({ isDivorce, partner, formState }
     cy,
     common: {
       sections: Sections,
-      steps,
     },
   };
 };

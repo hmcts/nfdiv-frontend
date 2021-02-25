@@ -57,7 +57,7 @@ export class GetController {
       partner,
       formState: req.session?.userCase,
       hideBackButton: [sequence[0].url, CHECK_ANSWERS_URL].includes(req.originalUrl),
-      nextIncompleteStepUrl: getNextIncompleteStepUrl(req),
+      getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }
 

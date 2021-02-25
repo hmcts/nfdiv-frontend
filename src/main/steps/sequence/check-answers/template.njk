@@ -20,7 +20,7 @@
 
   {{ govukButton({
     text: continueApplication if nextIncompleteStepUrl else continuePay,
-    href: nextIncompleteStepUrl,
+    href: getNextIncompleteStepUrl(),
     preventDoubleClick: true
   }) }}
 {% endblock %}
