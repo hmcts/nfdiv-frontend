@@ -918,6 +918,11 @@
     lodash.mapvalues "^4.6.0"
     request-promise-native "^1.0.5"
 
+"@hmcts/nfdiv-case-definition@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.8.tgz#9cacf6c1128387c8d81021c4557a373e3f7154b8"
+  integrity sha512-jmOg8QTUlQWkIpv7FM45o6NNXoUk4eAdPBiTOJPvQcU4oi9bBuO7GlXH9sPy73G+adB8N/35jxyP6GFfEHAzWQ==
+
 "@hmcts/nodejs-healthcheck@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-healthcheck/-/nodejs-healthcheck-1.7.0.tgz#82b496d8f23f32d9670564ada3e773a55f544721"
