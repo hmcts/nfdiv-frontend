@@ -10,8 +10,6 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
 
-      console.log(config.get('secrets'));
-
       this.setSecret('secrets.nfdiv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
