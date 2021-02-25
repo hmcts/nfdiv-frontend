@@ -16,7 +16,7 @@ export const generateContent: TranslationFn = ({ isDivorce, partner, formState }
     stepQuestions: {
       [urls.YOUR_DETAILS_URL]: {
         gender: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
-        sameSex: 'Type of relationship',
+        appliesToYou: 'Type of relationship',
       },
       [urls.RELATIONSHIP_DATE_URL]: `Date ${isDivorce ? 'of marriage' : 'on civil partnership certificate'}`,
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: 'Help With Fees number',

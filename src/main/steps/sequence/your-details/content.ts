@@ -9,8 +9,8 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
     male: isDivorce ? 'My husband' : 'Male',
     female: isDivorce ? 'My wife' : 'Female',
-    sameSex: 'Select the following if it applies to you:',
-    sameSexOption: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
+    appliesToYou: 'Select the following if it applies to you:',
+    sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
     errors: {
       gender: {
         required: commonContent.en.required,
@@ -47,10 +47,10 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-    sameSex: {
+    appliesToYou: {
       type: 'checkboxes',
       label: l => l.sameSex,
-      values: [{ name: 'sameSex', label: l => l.sameSexOption, value: Checkbox.Checked }],
+      values: [{ name: 'sameSex', label: l => l.sameSex, value: Checkbox.Checked }],
     },
   },
   submit: {

@@ -8,20 +8,24 @@ export class Form {
    * Pass the form body to any fields with a parser and return mutated body;
    */
   public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
+    const removeFromBody: string[] = [];
     const parsedBody = Object.entries(this.form.fields)
       .map(([key, field]) => {
         if ((field as FormOptions)?.type === 'checkboxes') {
-          field.parser = formData => {
-            const checkbox = formData[key] as string[];
-            return checkbox[checkbox.length - 1];
-          };
+          field.parser = formData =>
+            (field as FormOptions).values.reduce((previous, currentCheckbox) => {
+              const checkboxName = currentCheckbox.name as string;
+              const checkboxValue = formData[currentCheckbox.name as string] as string[];
+              removeFromBody.push(checkboxName);
+              return { ...previous, [checkboxName]: checkboxValue[checkboxValue.length - 1] };
+            }, {});
         }
-
         return [key, field];
       })
       .filter(([, field]) => typeof (field as FormOptions)?.parser === 'function')
-      .map(([key, field]) => [key, (field as FormOptions)?.parser?.(body)]);
+      .map(([key, field]) => [key, (field as FormOptions).parser?.(body)]);
 
+    removeFromBody.forEach(prop => delete body[prop]);
     return { ...body, ...Object.fromEntries(parsedBody) };
   }
 

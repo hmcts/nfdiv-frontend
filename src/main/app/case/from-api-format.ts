@@ -5,10 +5,10 @@ import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './
 
 const fields = {
   ...invert(formFieldsToCaseMapping),
-  D8MarriageIsSameSexCouple: data => ({
-    sameSex: data.D8MarriageIsSameSexCouple === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  D8MarriageIsSameSexCouple: (data): Partial<Case> => ({
+    appliesToYou: { sameSex: data.D8MarriageIsSameSexCouple === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked },
   }),
-  D8MarriageDate: data => ({
+  D8MarriageDate: (data): Partial<Case> => ({
     relationshipDate: fromApiDate(data.D8MarriageDate),
   }),
 };

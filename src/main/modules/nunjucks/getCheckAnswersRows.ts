@@ -39,13 +39,20 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
         const customAnswer = this.ctx.stepAnswers?.[step.url];
         const customAnswerText = typeof customAnswer === 'object' ? customAnswer?.[fieldKey] : customAnswer;
 
-        let checkedInputLabel = '';
+        let checkedInputLabels: undefined | string[];
         const field = step.form.fields[fieldKey] as FormOptions;
         if (field.type === 'checkboxes') {
-          const checkedInput = field.values.find(field => field.value === answer);
+          checkedInputLabels = field.values
+            .filter(field => field.value === answer[field.name])
+            .map(field => {
+              if (typeof field?.label === 'function') {
+                return field.label(stepContent as Record<string, never>) as string;
+              }
+              return field?.label;
+            });
 
-          if (typeof checkedInput?.label === 'function') {
-            checkedInputLabel = checkedInput.label(stepContent as Record<string, never>);
+          if (!checkedInputLabels.length) {
+            continue;
           }
         }
 
@@ -55,7 +62,7 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            text: customAnswerText || checkedInputLabel || this.ctx[answer?.toLowerCase()] || answer,
+            text: customAnswerText || checkedInputLabels || this.ctx[answer?.toLowerCase()] || answer,
           },
           actions: {
             items: [

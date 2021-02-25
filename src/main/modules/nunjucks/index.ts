@@ -29,7 +29,7 @@ export class Nunjucks {
         classes: i.classes,
         value: i.value || (userSelection && userSelection[i.name as string]),
         attributes: i.attributes,
-        checked: i.selected || i.value === userSelection,
+        checked: i.selected || i.value === ((userSelection && userSelection[i.name as string]) || userSelection),
         conditional:
           i.warning || i.subFields
             ? {
