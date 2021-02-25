@@ -1,6 +1,7 @@
+import { CaseData } from '@hmcts/nfdiv-case-definition';
+
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-import { ApiCase } from './CaseApi';
 import { Case, CaseDate, CaseType, Checkbox, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
@@ -45,4 +46,4 @@ const toApiDate = (date: CaseDate | undefined) => {
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 
-export const toApiFormat = (data: Partial<Case>): ApiCase => formatCase(fields, data);
+export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

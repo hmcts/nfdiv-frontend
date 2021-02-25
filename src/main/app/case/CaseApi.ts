@@ -1,3 +1,4 @@
+import { CaseData, CaseEvent } from '@hmcts/nfdiv-case-definition';
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
@@ -5,7 +6,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CASE_TYPE, Case, CaseType, CaseWithId, Gender, JURISDICTION, YesOrNo } from './case';
+import { CASE_TYPE, Case, CaseType, CaseWithId, JURISDICTION } from './case';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -42,9 +43,9 @@ export class CaseApi {
   }
 
   public async createCase(data: Case): Promise<CaseWithId> {
-    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CaseEvent.CREATE}`);
+    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CaseEvent.DRAFT_CREATE}`);
     const token = tokenResponse.data.token;
-    const event = { id: CaseEvent.CREATE };
+    const event = { id: CaseEvent.DRAFT_CREATE };
 
     try {
       const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
@@ -57,8 +58,8 @@ export class CaseApi {
   }
 
   public async updateCase(id: string, caseData: Partial<Case>): Promise<void> {
-    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${CaseEvent.PATCH}`);
-    const event = { id: CaseEvent.PATCH };
+    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${CaseEvent.PATCH_CASE}`);
+    const event = { id: CaseEvent.PATCH_CASE };
     const data = toApiFormat(caseData);
 
     try {
@@ -106,22 +107,5 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
 
 interface GetCaseResponse {
   id: string;
-  case_data: ApiCase;
-}
-
-export interface ApiCase {
-  divorceOrDissolution: CaseType;
-  D8InferredPetitionerGender: Gender;
-  D8MarriageIsSameSexCouple: YesOrNo;
-  D8InferredRespondentGender: YesOrNo;
-  D8ScreenHasMarriageBroken: YesOrNo;
-}
-
-export interface ApiCaseWithId extends ApiCase {
-  id: string;
-}
-
-export enum CaseEvent {
-  CREATE = 'draftCreate',
-  PATCH = 'patchCase',
+  case_data: CaseData;
 }

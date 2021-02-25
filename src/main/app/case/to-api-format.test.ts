@@ -1,4 +1,3 @@
-import { ApiCase } from './CaseApi';
 import { Case, CaseType, Checkbox, Gender, YesOrNo } from './case';
 import { toApiFormat } from './to-api-format';
 
@@ -11,7 +10,7 @@ describe('to-api-format', () => {
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
-    const apiFormat = toApiFormat(results as Partial<ApiCase>);
+    const apiFormat = toApiFormat(results as Partial<Case>);
 
     expect(apiFormat).toStrictEqual({
       D8MarriageIsSameSexCouple: YesOrNo.Yes,
@@ -26,7 +25,7 @@ describe('to-api-format', () => {
     const apiFormat = toApiFormat({
       helpWithFeesRefNo: '123-ABC',
       relationshipDate: { year: '123' },
-    } as Partial<ApiCase>);
+    } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
       D8HelpWithFeesReferenceNumber: '',
