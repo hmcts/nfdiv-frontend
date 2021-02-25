@@ -4,7 +4,7 @@ port: 3001
 timeout: 30000
 services:
   authProvider:
-    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/lease'
+    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'divorce_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:

@@ -19,8 +19,6 @@ export class PropertiesVolume {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
     }
-
-    console.log(config.get('services'));
   }
 
   private setSecret(fromPath: string, toPath: string): void {

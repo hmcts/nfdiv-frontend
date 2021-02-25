@@ -9,7 +9,7 @@ let token;
 const getTokenFromApi = () => {
   logger.info('Refreshing service auth token');
 
-  const url: string = config.get('services.authProvider.url');
+  const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = new OTP({ secret }).totp();
