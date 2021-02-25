@@ -37,7 +37,7 @@ describe('CaseApi', () => {
   });
 
   test('Should return false when case was not found', async () => {
-    mockedAxios.get = jest.fn().mockResolvedValue({
+    mockedAxios.get.mockResolvedValue({
       data: [],
     });
 
@@ -47,7 +47,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw an error if too many cases are found', async () => {
-    mockedAxios.get = jest.fn().mockResolvedValue({
+    mockedAxios.get.mockResolvedValue({
       data: [{}, {}],
     });
 
@@ -55,7 +55,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw error when case could not be retrieved', async () => {
-    mockedAxios.get = jest.fn().mockRejectedValue({
+    mockedAxios.get.mockRejectedValue({
       response: {
         status: 500,
       },
@@ -76,8 +76,8 @@ describe('CaseApi', () => {
         },
       },
     };
-    mockedAxios.post = jest.fn().mockResolvedValue(results);
-    mockedAxios.get = jest.fn().mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockResolvedValue(results);
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
 
     const userCase = await api.createCase({
       divorceOrDissolution: CaseType.Divorce,
@@ -87,7 +87,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw error when case could not be created', async () => {
-    mockedAxios.post = jest.fn().mockRejectedValue(false);
+    mockedAxios.post.mockRejectedValue(false);
 
     await expect(
       api.createCase({
@@ -97,8 +97,8 @@ describe('CaseApi', () => {
   });
 
   test('Should update case', async () => {
-    mockedAxios.get = jest.fn().mockResolvedValue({ data: { token: '123' } });
-    mockedAxios.post = jest.fn().mockResolvedValue({});
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockResolvedValue({});
 
     await api.updateCase('1234', {
       divorceOrDissolution: CaseType.Divorce,
@@ -114,7 +114,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw error when case could not be updated', async () => {
-    mockedAxios.post = jest.fn().mockRejectedValue(false);
+    mockedAxios.post.mockRejectedValue(false);
 
     await expect(
       api.updateCase('not found', {
