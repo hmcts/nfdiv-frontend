@@ -10,7 +10,7 @@ const logger = {
 };
 Logger.getLogger.mockReturnValue(logger);
 
-import { getAuthToken, initAuthToken } from './get-auth-token';
+import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
@@ -41,7 +41,7 @@ describe('initAuthToken', () => {
   });
 });
 
-describe('getAuthToken', () => {
+describe('getServiceAuthToken', () => {
   test('Should return a token', async () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
 
@@ -49,7 +49,7 @@ describe('getAuthToken', () => {
 
     return new Promise<void>(resolve => {
       setImmediate(() => {
-        expect(getAuthToken()).not.toBeUndefined();
+        expect(getServiceAuthToken()).not.toBeUndefined();
         resolve();
       });
     });
