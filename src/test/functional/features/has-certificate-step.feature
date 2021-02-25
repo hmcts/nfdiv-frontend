@@ -4,17 +4,19 @@ Feature: Certificate step
     Given I login
     When I go to '/do-you-have-your-certificate'
     Then the page should include "Do you have your marriage certificate with you?"
-
+  @e2e
   Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
     Then the page should include "Do you need help paying the fee for your divorce?"
 
+  @e2e
   Scenario: Error when missing a required field
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @e2e
   Scenario: Exit page
     Given I select "No, I do not have marriage certificate"
     When I click "Continue"

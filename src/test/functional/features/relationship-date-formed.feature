@@ -30,6 +30,7 @@ Feature: Relationship date formed
     When I click "Continue"
     Then the page should include "You have entered a date that is in the future. Enter a date that is in the past before continuing."
 
+  @e2e
   Scenario: Successfully completing the form
     Given I select "Day"
     And I type "1"

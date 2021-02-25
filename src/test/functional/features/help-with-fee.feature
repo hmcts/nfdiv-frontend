@@ -4,12 +4,13 @@ Feature: Help with fee
     Given I login
     When I go to '/help-with-your-fee'
     Then the page should include "Do you need help paying the fee for your divorce?"
-
+  
   Scenario: Error when missing a required field
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @e2e
   Scenario: Selecting options for exit page
     Given I select "I need help paying the fee"
     And I click "Continue"
@@ -17,7 +18,7 @@ Feature: Help with fee
     And I select "No"
     And I click "Continue"
     Then the page should include "You need to apply for help with your divorce fees"
-
+  
   Scenario: Error when missing required reference number
     Given I go to '/have-you-applied-for-help-with-fees'
     And I clear the form
@@ -31,6 +32,7 @@ Feature: Help with fee
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @e2e
   Scenario: Successfully completing the form with a reference number
     Given I select "I need help paying the fee"
     And I click "Continue"

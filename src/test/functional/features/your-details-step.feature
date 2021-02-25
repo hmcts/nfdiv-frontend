@@ -7,12 +7,14 @@ Feature: Your details step
     And I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
     And the page should not include "Back"
 
+  @e2e
   Scenario: Successfully completing the form
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"
     When I click "Continue"
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
+  @e2e
   Scenario: Loading the your details for civil partnership
     Given I go to '/your-details?forceCivilMode'
     Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
