@@ -1,7 +1,7 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CaseType } from '../../app/case/case';
-import { commonContent } from '../common/common.content';
 
 import { generateContent } from './content';
 import { AccessibilityStatementGetController } from './get';
@@ -15,11 +15,9 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...generateContent({ isDivorce: true, partner: '', formState: {} }).en,
-      ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -31,11 +29,9 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...generateContent({ isDivorce: false, partner: '', formState: {} }).en,
-      ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 });
