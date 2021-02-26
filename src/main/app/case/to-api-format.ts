@@ -7,7 +7,7 @@ import { Case, CaseDate, CaseType, Checkbox, Gender, YesOrNo, formFieldsToCaseMa
 const fields = {
   ...formFieldsToCaseMapping,
   sameSex: (data: Case) => ({
-    D8MarriageIsSameSexCouple: data.appliesToYou?.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+    D8MarriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
   gender: (data: Case) => {
     // Petitioner makes the request
@@ -16,7 +16,7 @@ const fields = {
     // Respondent receives the request
     let inferredRespondentGender = data.gender;
 
-    if (data.appliesToYou?.sameSex !== Checkbox.Checked) {
+    if (data.sameSex !== Checkbox.Checked) {
       if (data.divorceOrDissolution === CaseType.Dissolution) {
         inferredPetitionerGender = data.gender;
         inferredRespondentGender = data.gender === Gender.Male ? Gender.Female : Gender.Male;

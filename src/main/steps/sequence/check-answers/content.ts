@@ -1,8 +1,9 @@
+import { Case } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { Sections } from '../../../steps/sequence';
 import * as urls from '../../urls';
 
-export const generateContent: TranslationFn = ({ isDivorce, partner, formState }) => {
+export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
   const en = {
     title: 'Check your answers so far',
     sectionTitles: {
@@ -22,9 +23,12 @@ export const generateContent: TranslationFn = ({ isDivorce, partner, formState }
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: 'Help With Fees number',
     },
     stepAnswers: {
-      [urls.YOUR_DETAILS_URL]: { gender: `${isDivorce ? `My ${partner}` : formState.gender}` },
-      [urls.RELATIONSHIP_DATE_URL]: `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,
-      [urls.HELP_PAYING_HAVE_YOU_APPLIED]: formState.helpWithFeesRefNo,
+      [urls.YOUR_DETAILS_URL]: {
+        gender: (formState: Partial<Case>) => `${isDivorce ? `My ${partner}` : formState.gender}`,
+      },
+      [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) =>
+        `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,
+      [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) => formState.helpWithFeesRefNo,
     },
     a11yChange: {
       [urls.HAS_RELATIONSHIP_BROKEN_URL]: `${isDivorce ? 'Marriage' : 'Civil partnership'} irretrievably broken down`,

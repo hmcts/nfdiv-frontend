@@ -5,20 +5,13 @@ import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
 import { CHECK_ANSWERS_URL } from '../../steps/urls';
-import { Case, CaseType, Gender } from '../case/case';
+import { CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 
 type Translation = Record<string, unknown>;
 export type Translations = { en: Translation; cy: Translation; common: Translation | undefined };
-export type TranslationFn = ({
-  isDivorce,
-  partner,
-}: {
-  isDivorce: boolean;
-  partner: string;
-  formState: Partial<Case>;
-}) => Translations;
+export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partner: string }) => Translations;
 
 @autobind
 export class GetController {
@@ -37,7 +30,7 @@ export class GetController {
     const isDivorce = res.locals.serviceType === CaseType.Divorce;
     const selectedGender = req.session.userCase?.gender as Gender;
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
-    const content = this.getContent(isDivorce, req.session.userCase, partner);
+    const content = this.getContent(isDivorce, partner);
 
     const languageContent = content[language];
     const commonPageContent = content.common || {};
@@ -61,7 +54,7 @@ export class GetController {
     });
   }
 
-  private getContent(isDivorce: boolean, userCase: Partial<Case>, partner: string): Translations {
+  private getContent(isDivorce: boolean, partner: string): Translations {
     if (typeof this.content !== 'function') {
       return this.content;
     }
@@ -69,7 +62,6 @@ export class GetController {
     return this.content({
       isDivorce,
       partner,
-      formState: userCase,
     });
   }
 

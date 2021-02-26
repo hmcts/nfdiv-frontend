@@ -1,4 +1,4 @@
-import { Case } from '../../app/case/case';
+import { Case, Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import type { FormContent, FormOptions } from '../../app/form/Form';
 import { Sections, Step } from '../../steps/sequence';
@@ -22,13 +22,40 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = step.generateContent({ isDivorce, partner, formState })[language];
+      const stepContent = step.generateContent({ isDivorce, partner })[language];
       const questionAnswers: GovUkNunjucksSummary[] = [];
 
       for (const fieldKey of fieldKeys) {
-        const answer = formState?.[fieldKey];
+        const field = step.form.fields[fieldKey] as FormOptions;
+        let answer =
+          field.type === 'checkboxes'
+            ? field.values.reduce(
+                (previous, current) => [...previous, [current.name, formState?.[current.name as string]]],
+                [] as string[][]
+              )
+            : formState?.[fieldKey];
+
         if (!answer) {
           continue;
+        }
+
+        if (field.type === 'checkboxes') {
+          const checkedInputLabels = answer
+            .filter(([, value]) => value === Checkbox.Checked)
+            .map(([key]) => {
+              const checkbox = field.values.find(field => field.name === key);
+              if (typeof checkbox?.label === 'function') {
+                return checkbox.label(stepContent as Record<string, never>) as string;
+              }
+              return checkbox?.label;
+            });
+
+          if (!checkedInputLabels?.length) {
+            continue;
+          }
+
+          answer = checkedInputLabels.join('\n');
+          formState[fieldKey] = answer;
         }
 
         const customQuestion = this.ctx.stepQuestions?.[step.url];
@@ -37,24 +64,8 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
         const visuallyHiddenText = this.ctx.a11yChange?.[step.url] || questionText;
 
         const customAnswer = this.ctx.stepAnswers?.[step.url];
-        const customAnswerText = typeof customAnswer === 'object' ? customAnswer?.[fieldKey] : customAnswer;
-
-        let checkedInputLabels: undefined | string[];
-        const field = step.form.fields[fieldKey] as FormOptions;
-        if (field.type === 'checkboxes') {
-          checkedInputLabels = field.values
-            .filter(field => field.value === answer[field.name])
-            .map(field => {
-              if (typeof field?.label === 'function') {
-                return field.label(stepContent as Record<string, never>) as string;
-              }
-              return field?.label;
-            });
-
-          if (!checkedInputLabels.length) {
-            continue;
-          }
-        }
+        const customAnswerText =
+          typeof customAnswer === 'object' ? customAnswer?.[fieldKey]?.(formState) : customAnswer?.(formState);
 
         questionAnswers.push({
           key: {
@@ -62,7 +73,9 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            text: customAnswerText || checkedInputLabels || this.ctx[answer?.toLowerCase()] || answer,
+            html: this.env.filters.nl2br(
+              this.env.filters.escape(customAnswerText || this.ctx[answer?.toLowerCase()] || answer)
+            ),
           },
           actions: {
             items: [
@@ -86,7 +99,7 @@ interface GovUkNunjucksSummary {
     classes: string;
   };
   value: {
-    text: string;
+    html: string;
   };
   actions: {
     items: [
