@@ -106,7 +106,6 @@ describe('GetController', () => {
       expect(getContentMock).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'partner',
-        formState: req.session.userCase,
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -136,7 +135,6 @@ describe('GetController', () => {
           expect(getContentMock).toHaveBeenCalledWith({
             isDivorce,
             partner: expectedPartner,
-            formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
             ...defaultViewArgs,

@@ -16,7 +16,7 @@ describe('AccessibilityStatementGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generateContent({ isDivorce: true, partner: '', formState: {} }).en,
+      ...generateContent({ isDivorce: true, partner: '' }).en,
       formState: req.session.userCase,
     });
   });
@@ -30,7 +30,7 @@ describe('AccessibilityStatementGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generateContent({ isDivorce: false, partner: '', formState: {} }).en,
+      ...generateContent({ isDivorce: false, partner: '' }).en,
       formState: req.session.userCase,
     });
   });

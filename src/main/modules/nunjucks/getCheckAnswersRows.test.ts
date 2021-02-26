@@ -1,15 +1,26 @@
+import { Checkbox } from '../../app/case/case';
 import { Sections } from '../../steps/sequence';
 
 import { getCheckAnswersRows } from './getCheckAnswersRows';
 
 describe('getCheckAnswersRows()', () => {
   let mockGenerateContent;
+  let mockNunjucksEnv;
   beforeEach(() => {
     mockGenerateContent = jest.fn().mockReturnValue({ en: {} });
+    mockNunjucksEnv = {
+      env: {
+        filters: {
+          nl2br: jest.fn(value => value),
+          escape: jest.fn(value => value),
+        },
+      },
+    };
   });
 
   it('converts steps into the correct check answers rows when there no answers', () => {
     const actual = getCheckAnswersRows.bind({
+      ...mockNunjucksEnv,
       ctx: {
         language: 'en',
         isDivorce: true,
@@ -17,11 +28,11 @@ describe('getCheckAnswersRows()', () => {
         formState: {},
         steps: [
           {
-            url: 'dont-pick-this-one',
+            url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
           },
           {
-            url: 'pick this one',
+            url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
             generateContent: mockGenerateContent,
             form: { fields: { foo: {} } },
@@ -44,11 +55,11 @@ describe('getCheckAnswersRows()', () => {
         change: 'Change me',
         steps: [
           {
-            url: 'dont-pick-this-one',
+            url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
           },
           {
-            url: 'pick-this-one',
+            url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
             generateContent: mockGenerateContent,
             form: { fields: { falafel: { type: 'text' } } },
@@ -61,11 +72,11 @@ describe('getCheckAnswersRows()', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 
       const actual = getCheckAnswersRows.bind({
+        ...mockNunjucksEnv,
         ctx: mockCtx,
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
-        formState: { falafel: 'tasty' },
         isDivorce: true,
         partner: 'husband',
       });
@@ -74,7 +85,7 @@ describe('getCheckAnswersRows()', () => {
           actions: {
             items: [
               {
-                href: 'pick-this-one',
+                href: 'pickThisOne',
                 text: 'Change me',
                 visuallyHiddenText: 'mock question',
               },
@@ -85,7 +96,7 @@ describe('getCheckAnswersRows()', () => {
             text: 'mock question',
           },
           value: {
-            text: 'tasty',
+            html: 'tasty',
           },
         },
       ]);
@@ -93,16 +104,16 @@ describe('getCheckAnswersRows()', () => {
 
     it('converts steps into the correct check answers rows with overridden values', () => {
       const actual = getCheckAnswersRows.bind({
+        ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepQuestions: { 'pick-this-one': 'Custom question title' },
-          a11yChange: { 'pick-this-one': 'Custom a11y text' },
-          stepAnswers: { 'pick-this-one': 'Custom answer text' },
+          stepQuestions: { pickThisOne: 'Custom question title' },
+          a11yChange: { pickThisOne: 'Custom a11y text' },
+          stepAnswers: { pickThisOne: data => `Custom answer text. Original answer: ${data.falafel}` },
         },
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
-        formState: { falafel: 'tasty' },
         isDivorce: true,
         partner: 'husband',
       });
@@ -111,7 +122,7 @@ describe('getCheckAnswersRows()', () => {
           actions: {
             items: [
               {
-                href: 'pick-this-one',
+                href: 'pickThisOne',
                 text: 'Change me',
                 visuallyHiddenText: 'Custom a11y text',
               },
@@ -122,7 +133,7 @@ describe('getCheckAnswersRows()', () => {
             text: 'Custom question title',
           },
           value: {
-            text: 'Custom answer text',
+            html: 'Custom answer text. Original answer: tasty',
           },
         },
       ]);
@@ -132,18 +143,20 @@ describe('getCheckAnswersRows()', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 
       const actual = getCheckAnswersRows.bind({
+        ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
+          formState: { falafel: Checkbox.Checked },
           steps: [
             {
-              url: 'pick-this-one',
+              url: 'pickThisOne',
               showInSection: Sections.AboutPartnership,
               generateContent: mockGenerateContent,
               form: {
                 fields: {
-                  falafel: {
+                  someCheckboxes: {
                     type: 'checkboxes',
-                    values: [{ label: () => 'You ticket tasty falafel', value: 'tasty' }],
+                    values: [{ name: 'falafel', label: () => 'You ticked tasty falafel', value: Checkbox.Checked }],
                   },
                 },
               },
@@ -153,7 +166,6 @@ describe('getCheckAnswersRows()', () => {
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
-        formState: { falafel: 'tasty' },
         isDivorce: true,
         partner: 'husband',
       });
@@ -162,7 +174,7 @@ describe('getCheckAnswersRows()', () => {
           actions: {
             items: [
               {
-                href: 'pick-this-one',
+                href: 'pickThisOne',
                 text: 'Change me',
                 visuallyHiddenText: 'mock question',
               },
@@ -173,7 +185,7 @@ describe('getCheckAnswersRows()', () => {
             text: 'mock question',
           },
           value: {
-            text: 'You ticket tasty falafel',
+            html: 'You ticked tasty falafel',
           },
         },
       ]);
