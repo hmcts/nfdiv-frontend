@@ -1,3 +1,5 @@
+import { startCase } from 'lodash';
+
 import { Case, YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { Sections } from '../../../steps/sequence';
@@ -24,7 +26,7 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     },
     stepAnswers: {
       [urls.YOUR_DETAILS_URL]: {
-        gender: (formState: Partial<Case>) => `${isDivorce ? `My ${partner}` : formState.gender}`,
+        gender: (formState: Partial<Case>) => (isDivorce ? `My ${partner}` : startCase(formState.gender)),
       },
       [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) =>
         `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,

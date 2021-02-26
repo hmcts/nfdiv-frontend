@@ -8,11 +8,12 @@ Feature: Check Your Answers
     And I clear the form
     And I click "My wife"
     And I click "Continue"
-    When I go to '/check-answers'
+    When I go to '/'
     Then the page should include "About your marriage"
-    And the page should include "Who are you divorcing?"
-    And the page should include "My wife"
+    And the page should include "Who are you divorcing?	My wife"
     And the page should not include "same-sex couple"
+    When I go to '/check-answers?forceCivilMode'
+    And the page should include "Are you male or female?	Female"
 
   Scenario: Selecting Husband same gender
     Given I go to '/your-details'
