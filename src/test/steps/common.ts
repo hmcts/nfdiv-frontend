@@ -1,8 +1,18 @@
+import { config as testConfig } from '../config';
+
 const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
   test.retries(3);
+});
+
+Given('I go to {string}', (text: string) => {
+  const url = new URL(text, testConfig.TEST_URL);
+  if (!url.searchParams.has('lng')) {
+    url.searchParams.set('lng', 'en');
+  }
+  I.amOnPage(url.pathname);
 });
 
 Given('I login', () => {
@@ -35,10 +45,6 @@ Then('{string} should be ticked', (text: string) => {
 
 Then('I type {string}', (text: string) => {
   I.type(text);
-});
-
-Given('I go to {string}', (text: string) => {
-  I.amOnPage(text);
 });
 
 Given('I clear the form', () => {
