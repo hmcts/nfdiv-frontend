@@ -14,7 +14,7 @@ export class Form {
           field.parser = formData =>
             (field as FormOptions).values.reduce((previous, currentCheckbox) => {
               const checkboxName = currentCheckbox.name as string;
-              const checkboxValue = formData[currentCheckbox.name as string] as string[];
+              const checkboxValue = formData[checkboxName] as string[];
               return [...previous, [checkboxName, checkboxValue[checkboxValue.length - 1]]];
             }, [] as string[][]);
         }
