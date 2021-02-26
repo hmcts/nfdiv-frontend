@@ -67,6 +67,10 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
         const customAnswerText =
           typeof customAnswer === 'object' ? customAnswer?.[fieldKey]?.(formState) : customAnswer?.(formState);
 
+        if (customAnswerText === false) {
+          continue;
+        }
+
         questionAnswers.push({
           key: {
             text: questionText,

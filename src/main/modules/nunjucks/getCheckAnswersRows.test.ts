@@ -139,6 +139,20 @@ describe('getCheckAnswersRows()', () => {
       ]);
     });
 
+    it('removes steps if check your answer page considerers it incomplete', () => {
+      const actual = getCheckAnswersRows.bind({
+        ...mockNunjucksEnv,
+        ctx: {
+          ...mockCtx,
+          stepQuestions: { pickThisOne: 'Custom question title' },
+          a11yChange: { pickThisOne: 'Custom a11y text' },
+          stepAnswers: { pickThisOne: () => false },
+        },
+      })(Sections.AboutPartnership);
+
+      expect(actual).toEqual([]);
+    });
+
     it('converts steps into the correct check answers rows with checkboxes', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 

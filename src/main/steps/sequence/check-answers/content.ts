@@ -1,4 +1,4 @@
-import { Case } from '../../../app/case/case';
+import { Case, YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { Sections } from '../../../steps/sequence';
 import * as urls from '../../urls';
@@ -28,7 +28,8 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
       },
       [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) =>
         `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,
-      [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) => formState.helpWithFeesRefNo,
+      [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
+        formState.alreadyAppliedForHelpPaying === YesOrNo.Yes ? formState.helpWithFeesRefNo : false,
     },
     a11yChange: {
       [urls.HAS_RELATIONSHIP_BROKEN_URL]: `${isDivorce ? 'Marriage' : 'Civil partnership'} irretrievably broken down`,
