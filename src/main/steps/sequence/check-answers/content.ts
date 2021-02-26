@@ -29,7 +29,10 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
         gender: (formState: Partial<Case>) => (isDivorce ? `My ${partner}` : startCase(formState.gender)),
       },
       [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) =>
-        `${formState.relationshipDate?.day}/${formState.relationshipDate?.month}/${formState.relationshipDate?.year}`,
+        Object.values(formState.relationshipDate || {})
+          .filter(value => !!value)
+          .reverse()
+          .join('/'),
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
         formState.alreadyAppliedForHelpPaying === YesOrNo.Yes ? formState.helpWithFeesRefNo : false,
     },

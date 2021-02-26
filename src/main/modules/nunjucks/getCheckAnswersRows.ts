@@ -78,7 +78,7 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
           },
           value: {
             html: this.env.filters.nl2br(
-              this.env.filters.escape(customAnswerText || this.ctx[answer?.toLowerCase()] || answer)
+              this.env.filters.escape(customAnswerText ?? (this.ctx[answer.toLowerCase?.()] || answer))
             ),
           },
           actions: {

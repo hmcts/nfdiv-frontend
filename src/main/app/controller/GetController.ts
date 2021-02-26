@@ -49,7 +49,7 @@ export class GetController {
       isDivorce,
       partner,
       formState: req.session?.userCase,
-      hideBackButton: [sequence[0].url, CHECK_ANSWERS_URL].includes(req.originalUrl),
+      hideBackButton: [sequence[0].url, CHECK_ANSWERS_URL].includes(req.path),
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }

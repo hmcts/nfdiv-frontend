@@ -12,7 +12,8 @@ Given('I go to {string}', (text: string) => {
   if (!url.searchParams.has('lng')) {
     url.searchParams.set('lng', 'en');
   }
-  I.amOnPage(url.pathname);
+  console.log(url.toString());
+  I.amOnPage(url.toString());
 });
 
 Given('I login', () => {

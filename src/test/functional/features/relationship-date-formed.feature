@@ -10,6 +10,7 @@ Feature: Relationship date formed
     When I click "Continue"
     Then the page should include "You have not entered a date. Enter a date to continue."
 
+  @wip
   Scenario: Error when entering non numeric value
     Given I select "Day"
     And I type "!"

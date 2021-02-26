@@ -3,7 +3,7 @@ import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
 import * as lockFile from 'lockfile';
 import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
 
-import { HOME_URL } from '../main/steps/urls';
+import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 const lock = '/tmp/concepts.worker.lock';
 lockFile.lockSync(lock);
@@ -39,7 +39,7 @@ export const config = {
     users: {
       user: {
         login: (I: CodeceptJS.I): void => {
-          I.amOnPage(HOME_URL);
+          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
           I.waitForText('Sign in or create an account');
           I.fillField('username', TestUser);
           I.fillField('password', TestPass);
@@ -47,7 +47,7 @@ export const config = {
           I.waitForText('Apply for a divorce', 10);
         },
         check: (I: CodeceptJS.I): void => {
-          I.amOnPage(HOME_URL);
+          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
           I.waitForText('Apply for a divorce');
         },
       },

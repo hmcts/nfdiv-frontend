@@ -153,6 +153,26 @@ describe('getCheckAnswersRows()', () => {
       expect(actual).toEqual([]);
     });
 
+    it('keeps a steps if check your answer page returns an empty string', () => {
+      const actual = getCheckAnswersRows.bind({
+        ...mockNunjucksEnv,
+        ctx: {
+          ...mockCtx,
+          stepQuestions: { pickThisOne: 'Custom question title' },
+          a11yChange: { pickThisOne: 'Custom a11y text' },
+          stepAnswers: { pickThisOne: () => '' },
+        },
+      })(Sections.AboutPartnership);
+
+      expect(actual).toEqual([
+        {
+          actions: { items: [{ href: 'pickThisOne', text: 'Change me', visuallyHiddenText: 'Custom a11y text' }] },
+          key: { classes: 'govuk-!-width-two-thirds', text: 'Custom question title' },
+          value: { html: '' },
+        },
+      ]);
+    });
+
     it('converts steps into the correct check answers rows with checkboxes', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 

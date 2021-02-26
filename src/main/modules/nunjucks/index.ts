@@ -29,7 +29,7 @@ export class Nunjucks {
           text: this.env.globals.getContent.call(this, i.label),
           name: i.name,
           classes: i.classes,
-          value: i.value || userAnswer?.[i.name as string] || userAnswer,
+          value: (i.value || userAnswer?.[i.name as string]) ?? userAnswer,
           attributes: i.attributes,
           checked: i.selected || type === 'checkboxes' ? userAnswer?.[i.name as string] : i.value === userAnswer,
           conditional:
