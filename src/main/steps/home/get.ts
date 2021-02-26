@@ -10,7 +10,7 @@ export class HomeGetController {
     }
 
     const isCasePartiallyComplete = Object.entries(req.session.userCase).some(
-      ([key, value]) => !['id', 'divorceOrDissolution', 'sameSex'].includes(key) && value
+      ([key, value]) => !['id', 'divorceOrDissolution'].includes(key) && value
     );
 
     res.redirect(isCasePartiallyComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
