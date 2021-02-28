@@ -62,8 +62,12 @@ export const config: CodeceptJS.Config = {
   name: 'nfdiv-frontend',
   plugins: {
     autoLogin: testConfig.AutoLogin,
-    allure: {},
-    pauseOnFail: {},
+    allure: {
+      enabled: true,
+    },
+    pauseOnFail: {
+      enabled: !testConfig.TestHeadlessBrowser,
+    },
     retryFailedStep: {
       enabled: true,
     },

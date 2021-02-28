@@ -9,7 +9,7 @@ let token;
 const getTokenFromApi = () => {
   logger.info('Refreshing service auth token');
 
-  const url: string = config.get('services.authProvider.url');
+  const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = new OTP({ secret }).totp();
@@ -25,6 +25,6 @@ export const initAuthToken = (): void => {
   setInterval(getTokenFromApi, 1000 * 60 * 60);
 };
 
-export const getAuthToken = (): string => {
+export const getServiceAuthToken = (): string => {
   return token;
 };

@@ -1,4 +1,5 @@
-import { ApiCase } from './CaseApi';
+import { CaseData } from '@hmcts/nfdiv-case-definition';
+
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -12,7 +13,7 @@ describe('from-api-format', () => {
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(results as ApiCase);
+    const nfdivFormat = fromApiFormat((results as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: 'divorce',

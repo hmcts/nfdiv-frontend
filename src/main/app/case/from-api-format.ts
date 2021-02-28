@@ -1,6 +1,6 @@
+import { CaseData } from '@hmcts/nfdiv-case-definition';
 import { invert } from 'lodash';
 
-import { ApiCase } from './CaseApi';
 import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
@@ -18,4 +18,4 @@ const fromApiDate = (date: string) => {
   return { year, month, day };
 };
 
-export const fromApiFormat = (data: ApiCase): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
