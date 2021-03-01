@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
 import { sequence } from '../../steps/sequence';
+import { TIMED_OUT_URL } from '../../steps/urls';
 import { Case, CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -46,7 +47,8 @@ export class GetController {
       ...commonLanguageContent,
       sessionErrors,
       formState: req.session?.userCase,
-      hideBackButton: req.originalUrl === sequence[0].url,
+      hideNavigationButton: req.path === TIMED_OUT_URL,
+      hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.path),
     });
   }
 

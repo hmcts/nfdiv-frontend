@@ -24,7 +24,7 @@ export class PostController<T extends AnyObject> {
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
     const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
-    let nextUrl = isSaveAndSignOut ? SAVE_SIGN_OUT_URL : getNextStepUrl(req);
+    let nextUrl = isSaveAndSignOut || isSessionTimeout ? this.getExitUrl(isSessionTimeout) : getNextStepUrl(req);
     if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
@@ -37,12 +37,16 @@ export class PostController<T extends AnyObject> {
       if (err) {
         throw err;
       }
-      if (isSessionTimeout) {
-        res.status(200).json({ redirectUrl: TIMED_OUT_URL, message: 'session saved!' });
-      } else {
-        res.redirect(nextUrl);
-      }
+      res.redirect(nextUrl);
     });
+  }
+
+  private getExitUrl(isSessionTimeout) {
+    if (isSessionTimeout) {
+      return TIMED_OUT_URL;
+    } else {
+      return SAVE_SIGN_OUT_URL;
+    }
   }
 }
 

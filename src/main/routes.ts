@@ -15,6 +15,7 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { sequence } from './steps/sequence';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
+import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
@@ -24,6 +25,7 @@ import {
   SAVE_SIGN_OUT_URL,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
+  TIMED_OUT_URL,
 } from './steps/urls';
 
 export class Routes {
@@ -34,6 +36,7 @@ export class Routes {
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     app.get(SAVE_SIGN_OUT_URL, errorHandler(new SaveSignOutGetController().get));
+    app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));

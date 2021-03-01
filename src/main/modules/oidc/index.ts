@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 import { CALLBACK_URL, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { PageLink, SAVE_SIGN_OUT_URL, SIGN_IN_URL, SIGN_OUT_URL, TIMED_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -37,7 +37,7 @@ export class OidcMiddleware {
           req.session.userCase = req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType));
 
           return next();
-        } else if (req.originalUrl !== SAVE_SIGN_OUT_URL) {
+        } else if (![SAVE_SIGN_OUT_URL, TIMED_OUT_URL].includes(req.originalUrl as PageLink)) {
           res.redirect(SIGN_IN_URL);
         } else {
           return next();

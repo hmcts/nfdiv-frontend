@@ -17,13 +17,11 @@ const saveBeforeSessionTimeout = () => {
       'csrf-token': body._csrf as string,
     },
     body: JSON.stringify(body),
-  })
-    .then(result => result.json())
-    .then(data => {
-      if (data) {
-        window.location.href = data.redirectUrl;
-      }
-    });
+  }).then(response => {
+    if (response.redirected) {
+      window.location.href = response.url;
+    }
+  });
 };
 
 const setSaveTimeout = () => {
@@ -39,5 +37,5 @@ const pingUserActive = _.throttle(() => {
   });
 }, eventThrottleTimer);
 
-['click', 'touchstart', 'mousemove'].forEach(evt => document.addEventListener(evt, pingUserActive));
+['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
 setSaveTimeout();

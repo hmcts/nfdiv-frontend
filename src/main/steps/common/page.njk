@@ -12,12 +12,12 @@
     containerClasses: "govuk-width-container",
     serviceName: pageHeader[serviceType],
     serviceUrl: (globals.basePath if globals.basePath) + "/",
-    navigation: [
+    navigation: ([
       {
         href: "/logout" if isLoggedIn else "/login",
         text: signOut if isLoggedIn else signIn
       }
-    ]
+    ]) if not hideNavigationButton
   }) }}
 {% endblock %}
 
