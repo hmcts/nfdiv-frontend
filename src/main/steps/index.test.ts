@@ -16,20 +16,20 @@ describe('Steps', () => {
     it('returns the next step when correct details a passed', () => {
       mockReq.originalUrl = YOUR_DETAILS_URL;
       mockReq.body = { gender: Gender.Male };
-      expect(getNextStepUrl(mockReq)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+      expect(getNextStepUrl(mockReq, mockReq.body)).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });
 
     it('moves into a dead end when the response matches', () => {
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.body = { screenHasUnionBroken: YesOrNo.No };
-      const actual = getNextStepUrl(mockReq);
+      const actual = getNextStepUrl(mockReq, mockReq.body);
       expect(actual).toBe(RELATIONSHIP_NOT_BROKEN_URL);
     });
 
     it('keeps the query string', () => {
       mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
       mockReq.body = { gender: Gender.Male };
-      expect(getNextStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
+      expect(getNextStepUrl(mockReq, mockReq.body)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
   });
 
