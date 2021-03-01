@@ -10,7 +10,7 @@ describe('SaveAndSignOutController', () => {
   const controller = new SaveSignOutGetController();
 
   it('destroys the session and redirects to the save and sign out page', async () => {
-    const req = mockRequest({ session: { user: { jwt: { sub: 'mock-user@example.com' } } } });
+    const req = mockRequest({ session: { user: { email: 'mock-user@example.com' } } });
     const res = mockResponse();
     await controller.get(req, res);
 
