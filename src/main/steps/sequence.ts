@@ -20,7 +20,11 @@ export enum Sections {
   AboutPartnership = 'aboutPartnership',
   ConnectionsToEnglandWales = 'connectionsToEnglandWales',
   AboutPartners = 'aboutPartners',
-  AboutDissolution = 'aboutDissolution',
+  ContactYou = 'contactYou',
+  ContactThem = 'contactThem',
+  OtherCourtCases = 'otherCourtCases',
+  DividingAssets = 'dividingAssets',
+  Costs = 'costs',
   Documents = 'documents',
   Payment = 'payment',
 }

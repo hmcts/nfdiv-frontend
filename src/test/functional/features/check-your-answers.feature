@@ -12,7 +12,7 @@ Feature: Check Your Answers
     Then the page should include "About your marriage"
     And the page should include "Who are you divorcing?	My wife"
     And the page should not include "same-sex couple"
-    And I go to '/check-answers?forceCivilMode'
+    And I go to '/check-your-answers?forceCivilMode'
     And the page should include "Are you male or female?	Female"
 
   Scenario: Selecting Husband same gender
@@ -31,7 +31,7 @@ Feature: Check Your Answers
     And I clear the form
     And I click "Female"
     And I click "Continue"
-    When I go to '/check-answers?forceCivilMode'
+    When I go to '/check-your-answers?forceCivilMode'
     Then the page should include "About your civil partnership"
     And the page should include "Are you male or female?	Female"
 
@@ -66,5 +66,5 @@ Feature: Check Your Answers
     Given I go to '/help-with-your-fee'
     And I select "I need help paying the fee"
     And I click "Continue"
-    Given I go to '/check-answers?lng=cy'
+    Given I go to '/check-your-answers?lng=cy'
     And the page should include "A oes angen help arnoch i dalu'r ffi am eich ysgariad?	Ydy"

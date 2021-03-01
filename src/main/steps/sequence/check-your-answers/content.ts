@@ -11,10 +11,14 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     sectionTitles: {
       [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
       [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
-      [Sections.AboutPartners]: `About you and your ${isDivorce ? 'husband or wife' : 'civil partner'}`,
-      [Sections.AboutDissolution]: `About your ${isDivorce ? 'divorce' : 'dissolution'}`,
-      [Sections.Documents]: 'Documents',
-      [Sections.Payment]: 'Payment',
+      [Sections.AboutPartners]: `About you and your ${isDivorce ? partner : 'civil partner'}`,
+      [Sections.ContactYou]: 'How the court will contact you',
+      [Sections.ContactThem]: `How the court will contact your ${isDivorce ? partner : 'civil partner'}`,
+      [Sections.OtherCourtCases]: 'Other court cases',
+      [Sections.DividingAssets]: 'Dividing your money and property',
+      [Sections.Costs]: 'Costs',
+      [Sections.Documents]: 'Your documents',
+      [Sections.Payment]: 'Payment and help with fees',
     },
     stepQuestions: {
       [urls.YOUR_DETAILS_URL]: {
