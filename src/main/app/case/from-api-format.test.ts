@@ -20,11 +20,7 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       gender: GenderLocal.Male,
       screenHasUnionBroken: YesOrNo.Yes,
-      relationshipDate: {
-        day: '',
-        month: '',
-        year: '',
-      },
+      relationshipDate: undefined,
     });
   });
 

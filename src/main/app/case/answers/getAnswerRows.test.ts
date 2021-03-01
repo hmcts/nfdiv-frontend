@@ -1,9 +1,9 @@
-import { Checkbox } from '../../app/case/case';
-import { Sections } from '../../steps/sequence';
+import { Sections } from '../../../steps/sequence';
+import { Checkbox } from '../case';
 
-import { getCheckAnswersRows } from './getCheckAnswersRows';
+import { getAnswerRows } from './getAnswerRows';
 
-describe('getCheckAnswersRows()', () => {
+describe('getAnswerRows()', () => {
   let mockGenerateContent;
   let mockNunjucksEnv;
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('getCheckAnswersRows()', () => {
   });
 
   it('converts steps into the correct check answers rows when there no answers', () => {
-    const actual = getCheckAnswersRows.bind({
+    const actual = getAnswerRows.bind({
       ...mockNunjucksEnv,
       ctx: {
         language: 'en',
@@ -71,7 +71,7 @@ describe('getCheckAnswersRows()', () => {
     it('converts steps into the correct check answers rows', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 
-      const actual = getCheckAnswersRows.bind({
+      const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
       })(Sections.AboutPartnership);
@@ -103,7 +103,7 @@ describe('getCheckAnswersRows()', () => {
     });
 
     it('converts steps into the correct check answers rows with overridden values', () => {
-      const actual = getCheckAnswersRows.bind({
+      const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
@@ -140,7 +140,7 @@ describe('getCheckAnswersRows()', () => {
     });
 
     it('removes steps if check your answer page considerers it incomplete', () => {
-      const actual = getCheckAnswersRows.bind({
+      const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
@@ -154,7 +154,7 @@ describe('getCheckAnswersRows()', () => {
     });
 
     it('keeps a steps if check your answer page returns an empty string', () => {
-      const actual = getCheckAnswersRows.bind({
+      const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
@@ -176,7 +176,7 @@ describe('getCheckAnswersRows()', () => {
     it('converts steps into the correct check answers rows with checkboxes', () => {
       mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
 
-      const actual = getCheckAnswersRows.bind({
+      const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,

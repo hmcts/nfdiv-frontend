@@ -1,9 +1,11 @@
-import { Case, Checkbox } from '../../app/case/case';
-import { TranslationFn } from '../../app/controller/GetController';
-import type { FormContent, FormOptions } from '../../app/form/Form';
-import { Sections, Step } from '../../steps/sequence';
+import { Sections, Step } from '../../../steps/sequence';
+import { TranslationFn } from '../../controller/GetController';
+import type { FormContent, FormOptions } from '../../form/Form';
+import { Case, Checkbox } from '../case';
 
-export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSummary[] {
+import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
+
+export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
@@ -27,35 +29,18 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
 
       for (const fieldKey of fieldKeys) {
         const field = step.form.fields[fieldKey] as FormOptions;
-        let answer =
-          field.type === 'checkboxes'
-            ? field.values.reduce(
-                (previous, current) => [...previous, [current.name, formState?.[current.name as string]]],
-                [] as string[][]
-              )
-            : formState?.[fieldKey];
-
+        let answer = getAnswer(formState, field, fieldKey);
         if (!answer) {
           continue;
         }
 
         if (field.type === 'checkboxes') {
-          const checkedInputLabels = answer
-            .filter(([, value]) => value === Checkbox.Checked)
-            .map(([key]) => {
-              const checkbox = field.values.find(field => field.name === key);
-              if (typeof checkbox?.label === 'function') {
-                return checkbox.label(stepContent as Record<string, never>) as string;
-              }
-              return checkbox?.label;
-            });
-
-          if (!checkedInputLabels?.length) {
+          const checkedLabels = getCheckedLabels(answer, field, stepContent);
+          if (!checkedLabels?.length) {
             continue;
           }
 
-          answer = checkedInputLabels.join('\n');
-          formState[fieldKey] = answer;
+          answer = checkedLabels.join('\n');
         }
 
         const customQuestion = this.ctx.stepQuestions?.[step.url];
@@ -97,21 +82,21 @@ export const getCheckAnswersRows = function (section: Sections): GovUkNunjucksSu
     });
 };
 
-interface GovUkNunjucksSummary {
-  key: {
-    text: string;
-    classes: string;
-  };
-  value: {
-    html: string;
-  };
-  actions: {
-    items: [
-      {
-        href: string;
-        text: string;
-        visuallyHiddenText: string;
+const getAnswer = (formState: Partial<Case>, field: FormOptions, fieldKey: string) =>
+  field.type === 'checkboxes'
+    ? field.values.reduce(
+        (previous, current) => [...previous, [current.name, formState?.[current.name as string]]],
+        [] as string[][]
+      )
+    : formState?.[fieldKey];
+
+const getCheckedLabels = (answer: string[][], field: FormOptions, stepContent: Record<string, unknown>) =>
+  answer
+    .filter(([, value]) => value === Checkbox.Checked)
+    .map(([key]) => {
+      const checkbox = field.values.find(field => field.name === key);
+      if (typeof checkbox?.label === 'function') {
+        return checkbox.label(stepContent as Record<string, never>) as string;
       }
-    ];
-  };
-}
+      return checkbox?.label;
+    });

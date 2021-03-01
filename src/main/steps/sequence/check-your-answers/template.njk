@@ -10,7 +10,7 @@
   <h1 class="govuk-heading-xl">{{ title }} {{soFar if not isLastStep}}</h1>
 
   {% for key, section in sections %}
-    {% set rows = getCheckAnswersRows(section) %}
+    {% set rows = getAnswerRows(section) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 

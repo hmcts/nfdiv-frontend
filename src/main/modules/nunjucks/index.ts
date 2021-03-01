@@ -3,10 +3,9 @@ import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
+import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { CaseType } from '../../app/case/case';
 import { FormInput } from '../../app/form/Form';
-
-import { getCheckAnswersRows } from './getCheckAnswersRows';
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
@@ -47,7 +46,7 @@ export class Nunjucks {
       }));
     });
 
-    env.addGlobal('getCheckAnswersRows', getCheckAnswersRows);
+    env.addGlobal('getAnswerRows', getAnswerRows);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
