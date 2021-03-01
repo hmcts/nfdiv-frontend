@@ -1,6 +1,6 @@
 import { startCase } from 'lodash';
 
-import { Case, YesOrNo } from '../../../app/case/case';
+import { Case, CaseDate, YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { Sections } from '../../../steps/sequence';
 import * as urls from '../../urls';
@@ -33,11 +33,7 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
       [urls.YOUR_DETAILS_URL]: {
         gender: (formState: Partial<Case>) => (isDivorce ? `My ${partner}` : startCase(formState.gender)),
       },
-      [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) =>
-        Object.values(formState.relationshipDate || {})
-          .filter(value => !!value)
-          .reverse()
-          .join('/') || false,
+      [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) => getFormattedDate(formState.relationshipDate),
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
         formState.helpPayingNeeded === YesOrNo.Yes && formState.alreadyAppliedForHelpPaying === YesOrNo.Yes
           ? formState.helpWithFeesRefNo
@@ -66,3 +62,9 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     },
   };
 };
+
+const getFormattedDate = (caseDate: CaseDate | undefined) =>
+  Object.values(caseDate || {})
+    .filter(value => !!value)
+    .reverse()
+    .join('/') || false;
