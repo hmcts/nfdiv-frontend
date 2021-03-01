@@ -7,7 +7,8 @@ import * as urls from '../../urls';
 
 export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
   const en = {
-    title: 'Check your answers so far',
+    title: 'Check your answers',
+    soFar: 'so far',
     sectionTitles: {
       [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
       [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
@@ -36,9 +37,11 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
         Object.values(formState.relationshipDate || {})
           .filter(value => !!value)
           .reverse()
-          .join('/'),
+          .join('/') || false,
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
-        formState.alreadyAppliedForHelpPaying === YesOrNo.Yes ? formState.helpWithFeesRefNo : false,
+        formState.helpPayingNeeded === YesOrNo.Yes && formState.alreadyAppliedForHelpPaying === YesOrNo.Yes
+          ? formState.helpWithFeesRefNo
+          : false,
     },
     a11yChange: {
       [urls.HAS_RELATIONSHIP_BROKEN_URL]: `${isDivorce ? 'Marriage' : 'Civil partnership'} irretrievably broken down`,

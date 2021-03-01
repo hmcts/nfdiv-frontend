@@ -6,6 +6,7 @@ describe('to-api-format', () => {
     gender: Gender.Male,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
+    helpPayingNeeded: YesOrNo.Yes,
     alreadyAppliedForHelpPaying: YesOrNo.Yes,
     helpWithFeesRefNo: 'HWF-123-ABC',
   };
@@ -18,6 +19,7 @@ describe('to-api-format', () => {
       D8InferredRespondentGender: Gender.Male,
       D8InferredPetitionerGender: Gender.Male,
       D8MarriageDate: '1900-01-04',
+      D8HelpWithFeesNeedHelp: YesOrNo.Yes,
       D8HelpWithFeesAppliedForFees: YesOrNo.Yes,
       D8HelpWithFeesReferenceNumber: 'HWF-123-ABC',
     });

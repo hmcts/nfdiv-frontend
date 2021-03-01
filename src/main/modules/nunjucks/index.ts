@@ -22,33 +22,30 @@ export class Nunjucks {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
 
-    env.addGlobal(
-      'formItems',
-      function (items: FormInput[], userAnswer: string | Record<string, string>, type: string) {
-        return items.map(i => ({
-          text: this.env.globals.getContent.call(this, i.label),
-          name: i.name,
-          classes: i.classes,
-          value: (i.value || userAnswer?.[i.name as string]) ?? userAnswer,
-          attributes: i.attributes,
-          checked: i.selected || type === 'checkboxes' ? userAnswer?.[i.name as string] : i.value === userAnswer,
-          conditional:
-            i.warning || i.subFields
-              ? {
-                  html: i.warning
-                    ? env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                        message: this.env.globals.getContent.call(this, i.warning),
-                        warning: this.ctx.warning,
-                      })
-                    : env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                        ...this.ctx,
-                        form: { fields: i.subFields },
-                      }),
-                }
-              : undefined,
-        }));
-      }
-    );
+    env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
+      return items.map(i => ({
+        text: this.env.globals.getContent.call(this, i.label),
+        name: i.name,
+        classes: i.classes,
+        value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
+        attributes: i.attributes,
+        checked: i.selected ?? userAnswer?.[i.name as string] ?? i.value === userAnswer,
+        conditional:
+          i.warning || i.subFields
+            ? {
+                html: i.warning
+                  ? env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                      message: this.env.globals.getContent.call(this, i.warning),
+                      warning: this.ctx.warning,
+                    })
+                  : env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                      ...this.ctx,
+                      form: { fields: i.subFields },
+                    }),
+              }
+            : undefined,
+      }));
+    });
 
     env.addGlobal('getCheckAnswersRows', getCheckAnswersRows);
 

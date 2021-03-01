@@ -6,7 +6,7 @@ import { Case, CaseDate, CaseType, Checkbox, Gender, YesOrNo, formFieldsToCaseMa
 
 const fields = {
   ...formFieldsToCaseMapping,
-  sameSex: (data: Case) => ({
+  sameSex: (data: Case): Partial<CaseData> => ({
     D8MarriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
   gender: (data: Case) => {
@@ -31,12 +31,14 @@ const fields = {
       D8InferredRespondentGender: inferredRespondentGender,
     };
   },
-  relationshipDate: (data: Case) => ({
+  relationshipDate: (data: Case): Partial<CaseData> => ({
     D8MarriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
     D8HelpWithFeesReferenceNumber:
-      data.alreadyAppliedForHelpPaying === YesOrNo.Yes && !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo)
+      data.helpPayingNeeded === YesOrNo.Yes &&
+      data.alreadyAppliedForHelpPaying === YesOrNo.Yes &&
+      !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo)
         ? data.helpWithFeesRefNo
         : '',
   }),
