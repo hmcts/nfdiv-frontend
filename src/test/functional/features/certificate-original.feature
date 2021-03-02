@@ -1,4 +1,4 @@
-Feature: Marriage certificate in English
+Feature: Certificate Original
 
   Background:
     Given I login
