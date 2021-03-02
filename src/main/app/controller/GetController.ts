@@ -41,9 +41,9 @@ export class GetController {
     }
 
     res.render(this.view, {
+      ...commonLanguageContent,
       ...languageContent,
       ...commonPageContent,
-      ...commonLanguageContent,
       sessionErrors,
       language,
       isDivorce,

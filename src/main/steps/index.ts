@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { CaseWithId } from '../app/case/case';
+import { Case, CaseWithId } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { Form } from '../app/form/Form';
 
@@ -47,10 +47,10 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   return `${url}${queryString}`;
 };
 
-export const getNextStepUrl = (req: AppRequest): string => {
+export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequence.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(req.body) : CHECK_ANSWERS_URL;
+  const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };

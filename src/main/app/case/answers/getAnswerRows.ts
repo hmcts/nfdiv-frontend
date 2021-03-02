@@ -24,7 +24,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = step.generateContent({ isDivorce, partner })[language];
+      const stepContent = { ...this.ctx, ...step.generateContent({ isDivorce, partner })[language] };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 
       for (const fieldKey of fieldKeys) {

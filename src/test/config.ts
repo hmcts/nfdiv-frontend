@@ -31,7 +31,7 @@ export const config = {
   TestPass,
   Gherkin: {
     features: './features/*.feature',
-    steps: ['../steps/common.ts'],
+    steps: ['../steps/common.ts', '../steps/date.ts'],
   },
   AutoLogin: {
     enabled: true,

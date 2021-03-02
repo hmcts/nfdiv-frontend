@@ -19,7 +19,7 @@ Given('I login', () => {
   login('user');
 });
 
-const iClick = (text: string) => {
+export const iClick = (text: string): void => {
   I.waitForText(text);
   I.click(text);
 };
