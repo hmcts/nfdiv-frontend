@@ -24,7 +24,8 @@ export class PostController<T extends AnyObject> {
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
     const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
-    let nextUrl = isSaveAndSignOut || isSessionTimeout ? this.getExitUrl(isSessionTimeout) : getNextStepUrl(req);
+    let nextUrl =
+      isSaveAndSignOut || isSessionTimeout ? this.getExitUrl(isSessionTimeout) : getNextStepUrl(req, formData);
     if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;

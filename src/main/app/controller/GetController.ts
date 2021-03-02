@@ -47,8 +47,8 @@ export class GetController {
       ...commonPageContent,
       sessionErrors,
       formState: req.session?.userCase,
-      hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.path),
-      hideNavigationButton: req.path === TIMED_OUT_URL,
+      hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.originalUrl),
+      hideNavigationButton: req.originalUrl === TIMED_OUT_URL,
     });
   }
 
