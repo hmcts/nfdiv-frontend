@@ -46,7 +46,7 @@ export class GetController {
       ...commonPageContent,
       sessionErrors,
       formState: req.session?.userCase,
-      hideBackButton: req.originalUrl === sequence[0].url,
+      hideBackButton: req.path === sequence[0].url,
     });
   }
 

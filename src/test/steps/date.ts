@@ -11,14 +11,14 @@ const enterDate = (day: string, month: string, year: string) => {
   I.type(year);
 };
 
-Given(/I enter a date (\d+) (?:month|months) ago/, (month: number) => {
+Given(/I enter a date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
-  date.setMonth(date.getMonth() - month);
+  date.setMonth(date.getMonth() - parseInt(month, 10));
   enterDate(date.getDay().toString(), date.getMonth().toString(), date.getFullYear().toString());
 });
 
-Given(/I enter a date (\d+) (?:year|years) ahead/, (year: number) => {
+Given(/I enter a date (\d+) (?:year|years) ahead/, (year: string) => {
   const date = new Date();
-  date.setFullYear(date.getFullYear() + year);
+  date.setFullYear(date.getFullYear() + parseInt(year, 10));
   enterDate(date.getDay().toString(), date.getMonth().toString(), date.getFullYear().toString());
 });

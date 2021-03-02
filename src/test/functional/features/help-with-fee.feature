@@ -40,7 +40,7 @@ Feature: Help with fee
     And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Did you get married in the UK?"
 
   Scenario: You do not need help paying the fee
     Given I select "I do not need help paying the fee"
