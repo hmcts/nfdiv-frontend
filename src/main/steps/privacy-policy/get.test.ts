@@ -18,6 +18,7 @@ describe('PrivacyPolicyGetController', () => {
       ...privacyPolicyContent.common,
       ...commonContent.en,
       hideBackButton: false,
+      hideNavigationButton: false,
       formState: req.session.userCase,
       sessionErrors: [],
     });

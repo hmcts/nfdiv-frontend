@@ -42,13 +42,13 @@ export class GetController {
     }
 
     res.render(this.view, {
-      ...languageContent,
       ...commonPageContent,
       ...commonLanguageContent,
+      ...languageContent,
       sessionErrors,
       formState: req.session?.userCase,
-      hideNavigationButton: req.path === TIMED_OUT_URL,
       hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.path),
+      hideNavigationButton: req.path === TIMED_OUT_URL,
     });
   }
 

@@ -19,6 +19,7 @@ describe('AccessibilityStatementGetController', () => {
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
+      hideNavigationButton: false,
       sessionErrors: [],
     });
   });
@@ -35,6 +36,7 @@ describe('AccessibilityStatementGetController', () => {
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
+      hideNavigationButton: false,
       sessionErrors: [],
     });
   });

@@ -14,6 +14,9 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = 
     },
     query: {},
     session: {
+      user: {
+        name: 'test',
+      },
       userCase: {
         id: '1234',
         divorceOrDissolution: 'divorce',
