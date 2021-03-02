@@ -22,8 +22,7 @@ export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
-//TODO change when ticket is picked up
-export const RELATIONSHIP_DATE_LESS_THAN_YEAR_URL: PageLink = '/less-than-year-together';
+export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
 
 export const CERTIFICATE_URL: PageLink = '/do-you-have-your-certificate';
 export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
