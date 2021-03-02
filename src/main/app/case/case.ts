@@ -8,6 +8,9 @@ export const formFieldsToCaseMapping = {
   helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
   alreadyAppliedForHelpPaying: 'D8HelpWithFeesAppliedForFees',
   helpWithFeesRefNo: 'D8HelpWithFeesReferenceNumber',
+  inTheUk: 'D8MarriedInUk',
+  certificateInEnglish: 'D8CertificateInEnglish',
+  certifiedTranslation: 'D8CertifiedTranslation',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -38,6 +41,9 @@ export interface Case {
   helpPayingNeeded?: YesOrNo;
   alreadyAppliedForHelpPaying?: YesOrNo;
   helpWithFeesRefNo?: string;
+  inTheUk?: YesOrNo;
+  certificateInEnglish?: YesOrNo;
+  certifiedTranslation?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
