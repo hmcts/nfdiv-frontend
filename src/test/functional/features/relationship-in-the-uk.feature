@@ -5,6 +5,7 @@ Feature: Help with fee
     When I go to '/in-the-UK'
     Then the page should include "Did you get married in the UK?"
 
+  @nightly
   Scenario: Error when not answering did you get married in the UK?
     Given I clear the form
     When I click "Continue"
