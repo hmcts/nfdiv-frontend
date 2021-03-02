@@ -5,6 +5,7 @@ Feature: Certificate Original
     When I go to '/certificate-in-english'
     Then the page should include "Is your original marriage certificate in English?"
 
+  @nightly
   Scenario: Error when not answering
     Given I clear the form
     When I click "Continue"
