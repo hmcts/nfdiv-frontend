@@ -34,16 +34,19 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           continue;
         }
 
+        let question = stepContent?.title || '';
+        if (field.type === 'radios') {
+          answer = getSelectedRadioLabel(answer, field, stepContent);
+        }
         if (field.type === 'checkboxes') {
-          const checkedLabels = getCheckedLabels(answer, field, stepContent);
+          const { checkboxQuestion, checkedLabels } = getCheckedLabels(answer, field, stepContent);
           if (!checkedLabels?.length) {
             continue;
           }
 
+          question = checkboxQuestion;
           answer = checkedLabels.join('\n');
         }
-
-        const questionText = (stepContent?.title as string) || '';
 
         const customAnswer = this.ctx.stepAnswers?.[step.url];
         const customAnswerText =
@@ -55,20 +58,18 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
 
         questionAnswers.push({
           key: {
-            text: questionText,
+            text: question as string,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            html: this.env.filters.nl2br(
-              this.env.filters.escape(customAnswerText ?? (this.ctx[answer.toLowerCase?.()] || answer))
-            ),
+            html: this.env.filters.nl2br(this.env.filters.escape(customAnswerText ?? answer)),
           },
           actions: {
             items: [
               {
                 href: step.url,
                 text: this.ctx.change,
-                visuallyHiddenText: questionText,
+                visuallyHiddenText: question as string,
               },
             ],
           },
@@ -79,21 +80,26 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     });
 };
 
-const getAnswer = (formState: Partial<Case>, field: FormOptions, fieldKey: string) =>
+const getAnswer = (formState, field, fieldKey) =>
   field.type === 'checkboxes'
-    ? field.values.reduce(
-        (previous, current) => [...previous, [current.name, formState?.[current.name as string]]],
-        [] as string[][]
-      )
+    ? field.values.reduce((previous, current) => [...previous, [current.name, formState?.[current.name]]], [])
     : formState?.[fieldKey];
 
-const getCheckedLabels = (answer: string[][], field: FormOptions, stepContent: Record<string, unknown>) =>
-  answer
+const getCheckedLabels = (answer, field, stepContent) => {
+  const checkedLabels = answer
     .filter(([, value]) => value === Checkbox.Checked)
     .map(([key]) => {
       const checkbox = field.values.find(field => field.name === key);
       if (typeof checkbox?.label === 'function') {
-        return checkbox.label(stepContent as Record<string, never>) as string;
+        return checkbox.label(stepContent);
       }
       return checkbox?.label;
     });
+
+  return { checkboxQuestion: field.label(stepContent), checkedLabels };
+};
+
+const getSelectedRadioLabel = (answer, field, stepContent) => {
+  const selectedRadio = field.values.find(radio => radio.value === answer);
+  return typeof selectedRadio?.label === 'function' ? selectedRadio.label(stepContent) : selectedRadio?.label;
+};

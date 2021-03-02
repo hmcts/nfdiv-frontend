@@ -49,7 +49,7 @@ export const form: FormContent = {
     },
     appliesToYou: {
       type: 'checkboxes',
-      label: l => l.sameSex,
+      label: l => l.appliesToYou,
       values: [{ name: 'sameSex', label: l => l.sameSex, value: Checkbox.Checked }],
     },
   },

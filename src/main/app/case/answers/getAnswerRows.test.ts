@@ -182,6 +182,7 @@ describe('getAnswerRows()', () => {
                 fields: {
                   someCheckboxes: {
                     type: 'checkboxes',
+                    label: () => 'Mock Checkboxes',
                     values: [
                       { name: 'mockField1', label: () => 'Mock checkbox title 1', value: Checkbox.Checked },
                       { name: 'mockField2', label: () => 'Another checkbox title 2', value: Checkbox.Checked },
@@ -205,13 +206,13 @@ describe('getAnswerRows()', () => {
               {
                 href: 'pickThisOne',
                 text: 'Change',
-                visuallyHiddenText: 'Mock question title',
+                visuallyHiddenText: 'Mock Checkboxes',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            text: 'Mock Checkboxes',
           },
           value: {
             html: 'newlineToBr(escaped(Mock checkbox title 1\nAnother checkbox title 2))',

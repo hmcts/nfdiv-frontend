@@ -1,5 +1,3 @@
-import { startCase } from 'lodash';
-
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Case, YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -22,9 +20,6 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
       [Sections.Payment]: 'Payment and help with fees',
     },
     stepAnswers: {
-      [urls.YOUR_DETAILS_URL]: {
-        gender: (formState: Partial<Case>) => (isDivorce ? `My ${partner}` : startCase(formState.gender)),
-      },
       [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) => getFormattedDate(formState.relationshipDate),
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
         formState.helpPayingNeeded === YesOrNo.Yes && formState.alreadyAppliedForHelpPaying === YesOrNo.Yes
