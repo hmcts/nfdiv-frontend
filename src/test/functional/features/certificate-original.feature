@@ -1,4 +1,4 @@
-Feature: Help with fee
+Feature: Certificate Original
 
   Background:
     Given I login
