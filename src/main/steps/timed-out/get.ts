@@ -3,7 +3,6 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { SIGN_IN_URL } from '../urls';
 
 import { timedOutContent } from './content';
 
@@ -17,7 +16,7 @@ export class TimedOutGetController extends GetController {
     if (req.session.user) {
       req.session.destroy(() => super.get(req, res));
     } else {
-      res.redirect(SIGN_IN_URL);
+      super.get(req, res);
     }
   }
 }
