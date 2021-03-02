@@ -1,0 +1,28 @@
+Feature: Help with fee
+
+  Background:
+    Given I login
+    When I go to '/certificate-in-english'
+    Then the page should include "Is your original marriage certificate in English?"
+
+  Scenario: Error when not answering
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+  Scenario: does not have the original marriage certificate in English?
+    And I select "No"
+    When I click "Continue"
+    Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
+
+  Scenario: Error when not answering 'Do you have a ‘certified translation’ of your marriage certificate?'
+    And I select "No"
+    When I click "Continue"
+    Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+  Scenario: Successfully completing the form
+    And I select "Yes"
+    And I click "Continue"
+    Then the page should include "Check your answers"

@@ -2,17 +2,20 @@ import { CaseWithId, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
+  CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  IN_THE_UK,
   NO_CERTIFICATE_URL,
   PageLink,
-  RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
+  RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -38,12 +41,10 @@ export const sequence: Step[] = [
   {
     url: RELATIONSHIP_DATE_URL,
     getNextStep: data =>
-      isLessThanAYear(data.relationshipDate) === 'lessThanAYear'
-        ? RELATIONSHIP_DATE_LESS_THAN_YEAR_URL
-        : CERTIFICATE_URL,
+      isLessThanAYear(data.relationshipDate) === 'lessThanAYear' ? RELATIONSHIP_NOT_LONG_ENOUGH_URL : CERTIFICATE_URL,
   },
   {
-    url: RELATIONSHIP_DATE_LESS_THAN_YEAR_URL,
+    url: RELATIONSHIP_NOT_LONG_ENOUGH_URL,
     getNextStep: () => RELATIONSHIP_DATE_URL,
   },
   {
@@ -56,7 +57,7 @@ export const sequence: Step[] = [
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
-    getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : CHECK_ANSWERS_URL),
+    getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
@@ -66,6 +67,18 @@ export const sequence: Step[] = [
   {
     url: HELP_PAYING_NEED_TO_APPLY,
     getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
+  },
+  {
+    url: IN_THE_UK,
+    getNextStep: data => (data.inTheUk === YesOrNo.No ? CERTIFICATE_IN_ENGLISH : CHECK_ANSWERS_URL),
+  },
+  {
+    url: CERTIFICATE_IN_ENGLISH,
+    getNextStep: data => (data.certificateInEnglish === YesOrNo.No ? CERTIFIED_TRANSLATION : CHECK_ANSWERS_URL),
+  },
+  {
+    url: CERTIFIED_TRANSLATION,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,

@@ -42,9 +42,9 @@ export class GetController {
     }
 
     res.render(this.view, {
-      ...commonPageContent,
       ...commonLanguageContent,
       ...languageContent,
+      ...commonPageContent,
       sessionErrors,
       formState: req.session?.userCase,
       hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.path),

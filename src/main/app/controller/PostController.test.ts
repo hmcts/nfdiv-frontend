@@ -28,7 +28,7 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
     expect(req.locals.api.updateCase).not.toHaveBeenCalled();
 
-    expect(getNextStepUrlMock).toBeCalledWith(req);
+    expect(getNextStepUrlMock).toBeCalledWith(req, mockForm.getParsedBody(body));
     expect(res.redirect).toBeCalledWith(req.path);
     expect(req.session.errors).toBe(errors);
   });
@@ -50,7 +50,7 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
     expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
 
-    expect(getNextStepUrlMock).toBeCalledWith(req);
+    expect(getNextStepUrlMock).toBeCalledWith(req, mockForm.getParsedBody(body));
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
   });
@@ -91,7 +91,7 @@ describe('PostController', () => {
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
     expect(mockSave).toHaveBeenCalled();
-    expect(getNextStepUrlMock).toBeCalledWith(req);
+    expect(getNextStepUrlMock).toBeCalledWith(req, mockForm.getParsedBody(body));
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toBe(undefined);
   });
@@ -113,5 +113,34 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase?.sameSex).toEqual(Checkbox.Checked);
+  });
+
+  test('Should save the users data and redirect to the next page if the form is valid with parsed body', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const errors = [] as never[];
+    const body = { day: '1', month: '1', year: '2000' };
+    const parsedBody = {
+      date: { day: '1', month: '1', year: '2000' },
+    };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => parsedBody,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({
+      divorceOrDissolution: 'divorce',
+      date: { day: '1', month: '1', year: '2000' },
+      id: '1234',
+    });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { date: { day: '1', month: '1', year: '2000' } });
+
+    expect(getNextStepUrlMock).toBeCalledWith(req, parsedBody);
+    expect(res.redirect).toBeCalledWith('/next-step-url');
+    expect(req.session.errors).toBe(undefined);
   });
 });
