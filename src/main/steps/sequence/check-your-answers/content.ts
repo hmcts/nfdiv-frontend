@@ -1,6 +1,7 @@
 import { startCase } from 'lodash';
 
-import { Case, CaseDate, YesOrNo } from '../../../app/case/case';
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { Case, YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { Sections } from '../../../steps/sequence';
 import * as urls from '../../urls';
@@ -48,9 +49,3 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     },
   };
 };
-
-const getFormattedDate = (caseDate: CaseDate | undefined) =>
-  Object.values(caseDate || {})
-    .filter(value => !!value)
-    .reverse()
-    .join('/') || false;

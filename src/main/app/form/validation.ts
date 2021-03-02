@@ -21,7 +21,7 @@ export const areFieldsFilledIn: DateValidator = fields => {
   }
 };
 
-export const isDateInputValid: DateValidator = date => {
+export const isDateInputInvalid: DateValidator = date => {
   const invalid = 'invalidDate';
   if (!date) {
     return invalid;
@@ -33,9 +33,9 @@ export const isDateInputValid: DateValidator = date => {
     }
   }
 
-  const year = parseInt(date.year, 10);
-  const month = parseInt(date.month, 10);
-  const day = parseInt(date.day, 10);
+  const year = parseInt(date.year, 10) || 0;
+  const month = parseInt(date.month, 10) || 0;
+  const day = parseInt(date.day, 10) || 0;
   if (month < 1 || month > 12 || day < 1 || day > 31) {
     return invalid;
   }
