@@ -21,14 +21,6 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
       [Sections.Documents]: 'Your documents',
       [Sections.Payment]: 'Payment and help with fees',
     },
-    stepQuestions: {
-      [urls.YOUR_DETAILS_URL]: {
-        gender: `${isDivorce ? 'Who are you divorcing' : 'Are you male or female'}?`,
-        appliesToYou: 'Type of relationship',
-      },
-      [urls.RELATIONSHIP_DATE_URL]: `Date ${isDivorce ? 'of marriage' : 'on civil partnership certificate'}`,
-      [urls.HELP_PAYING_HAVE_YOU_APPLIED]: 'Help With Fees number',
-    },
     stepAnswers: {
       [urls.YOUR_DETAILS_URL]: {
         gender: (formState: Partial<Case>) => (isDivorce ? `My ${partner}` : startCase(formState.gender)),
@@ -36,13 +28,9 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
       [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) => getFormattedDate(formState.relationshipDate),
       [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
         formState.helpPayingNeeded === YesOrNo.Yes && formState.alreadyAppliedForHelpPaying === YesOrNo.Yes
-          ? formState.helpWithFeesRefNo
+          ? `Yes
+             ${formState.helpWithFeesRefNo}`
           : false,
-    },
-    a11yChange: {
-      [urls.HAS_RELATIONSHIP_BROKEN_URL]: `${isDivorce ? 'Marriage' : 'Civil partnership'} irretrievably broken down`,
-      [urls.CERTIFICATE_URL]: `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`,
-      [urls.HELP_WITH_YOUR_FEE_URL]: 'Help paying the fee',
     },
     yes: 'Yes',
     no: 'No',

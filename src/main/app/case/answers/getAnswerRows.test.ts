@@ -11,8 +11,8 @@ describe('getAnswerRows()', () => {
     mockNunjucksEnv = {
       env: {
         filters: {
-          nl2br: jest.fn(value => value),
-          escape: jest.fn(value => value),
+          nl2br: jest.fn(value => (value === '' ? '' : `newlineToBr(${value})`)),
+          escape: jest.fn(value => (value === '' ? '' : `escaped(${value})`)),
         },
       },
     };
@@ -47,12 +47,14 @@ describe('getAnswerRows()', () => {
   describe('when we have response', () => {
     let mockCtx;
     beforeEach(() => {
+      mockGenerateContent.mockReturnValue({ en: { title: 'Mock question title' } });
+
       mockCtx = {
         language: 'en',
         isDivorce: true,
         partner: 'husband',
-        formState: { falafel: 'tasty' },
-        change: 'Change me',
+        formState: { mockField: 'example response' },
+        change: 'Change',
         steps: [
           {
             url: 'dont-pickThisOne',
@@ -62,15 +64,13 @@ describe('getAnswerRows()', () => {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
             generateContent: mockGenerateContent,
-            form: { fields: { falafel: { type: 'text' } } },
+            form: { fields: { mockField: { type: 'text' } } },
           },
         ],
       };
     });
 
     it('converts steps into the correct check answers rows', () => {
-      mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
-
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
@@ -86,17 +86,17 @@ describe('getAnswerRows()', () => {
             items: [
               {
                 href: 'pickThisOne',
-                text: 'Change me',
-                visuallyHiddenText: 'mock question',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'mock question',
+            text: 'Mock question title',
           },
           value: {
-            html: 'tasty',
+            html: 'newlineToBr(escaped(example response))',
           },
         },
       ]);
@@ -107,9 +107,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepQuestions: { pickThisOne: 'Custom question title' },
-          a11yChange: { pickThisOne: 'Custom a11y text' },
-          stepAnswers: { pickThisOne: data => `Custom answer text. Original answer: ${data.falafel}` },
+          stepAnswers: { pickThisOne: data => `Custom answer text. Original answer: ${data.mockField}` },
         },
       })(Sections.AboutPartnership);
 
@@ -123,17 +121,17 @@ describe('getAnswerRows()', () => {
             items: [
               {
                 href: 'pickThisOne',
-                text: 'Change me',
-                visuallyHiddenText: 'Custom a11y text',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question title',
+            text: 'Mock question title',
           },
           value: {
-            html: 'Custom answer text. Original answer: tasty',
+            html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))',
           },
         },
       ]);
@@ -144,8 +142,6 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepQuestions: { pickThisOne: 'Custom question title' },
-          a11yChange: { pickThisOne: 'Custom a11y text' },
           stepAnswers: { pickThisOne: () => false },
         },
       })(Sections.AboutPartnership);
@@ -158,29 +154,25 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepQuestions: { pickThisOne: 'Custom question title' },
-          a11yChange: { pickThisOne: 'Custom a11y text' },
           stepAnswers: { pickThisOne: () => '' },
         },
       })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
-          actions: { items: [{ href: 'pickThisOne', text: 'Change me', visuallyHiddenText: 'Custom a11y text' }] },
-          key: { classes: 'govuk-!-width-two-thirds', text: 'Custom question title' },
+          actions: { items: [{ href: 'pickThisOne', text: 'Change', visuallyHiddenText: 'Mock question title' }] },
+          key: { classes: 'govuk-!-width-two-thirds', text: 'Mock question title' },
           value: { html: '' },
         },
       ]);
     });
 
     it('converts steps into the correct check answers rows with checkboxes', () => {
-      mockGenerateContent.mockReturnValue({ en: { title: 'mock question' } });
-
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          formState: { falafel: Checkbox.Checked },
+          formState: { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked },
           steps: [
             {
               url: 'pickThisOne',
@@ -190,7 +182,10 @@ describe('getAnswerRows()', () => {
                 fields: {
                   someCheckboxes: {
                     type: 'checkboxes',
-                    values: [{ name: 'falafel', label: () => 'You ticked tasty falafel', value: Checkbox.Checked }],
+                    values: [
+                      { name: 'mockField1', label: () => 'Mock checkbox title 1', value: Checkbox.Checked },
+                      { name: 'mockField2', label: () => 'Another checkbox title 2', value: Checkbox.Checked },
+                    ],
                   },
                 },
               },
@@ -209,17 +204,17 @@ describe('getAnswerRows()', () => {
             items: [
               {
                 href: 'pickThisOne',
-                text: 'Change me',
-                visuallyHiddenText: 'mock question',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'mock question',
+            text: 'Mock question title',
           },
           value: {
-            html: 'You ticked tasty falafel',
+            html: 'newlineToBr(escaped(Mock checkbox title 1\nAnother checkbox title 2))',
           },
         },
       ]);

@@ -43,10 +43,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customQuestion = this.ctx.stepQuestions?.[step.url];
-        const questionText =
-          typeof customQuestion === 'object' ? customQuestion?.[fieldKey] : customQuestion || stepContent?.title;
-        const visuallyHiddenText = this.ctx.a11yChange?.[step.url] || questionText;
+        const questionText = (stepContent?.title as string) || '';
 
         const customAnswer = this.ctx.stepAnswers?.[step.url];
         const customAnswerText =
@@ -71,7 +68,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
               {
                 href: step.url,
                 text: this.ctx.change,
-                visuallyHiddenText,
+                visuallyHiddenText: questionText,
               },
             ],
           },
