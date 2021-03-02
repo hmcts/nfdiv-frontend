@@ -81,7 +81,8 @@ export const sequence: Step[] = [
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     showInSection: Sections.Payment,
-    getNextStep: data => (data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK),
+    getNextStep: data =>
+      data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : CHECK_ANSWERS_URL,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,

@@ -84,7 +84,7 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.originalUrl = firstQuestionUrl;
+    req.path = firstQuestionUrl;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
