@@ -7,8 +7,7 @@ import * as urls from '../../urls';
 
 export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
   const en = {
-    title: 'Check your answers',
-    soFar: 'so far',
+    title: 'Check your answers so far',
     sectionTitles: {
       [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
       [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
@@ -36,7 +35,6 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     no: 'No',
     change: 'Change',
     continueApplication: 'Continue application',
-    continuePay: 'Continue to payment',
   };
 
   // @TODO translations

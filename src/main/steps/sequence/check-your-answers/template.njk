@@ -4,10 +4,7 @@
 {% extends "common/page.njk" %}
 
 {% block content %}
-  {% set nextIncompleteStepUrl = getNextIncompleteStepUrl() %}
-  {% set isLastStep = nextIncompleteStepUrl === pagePath %}
-
-  <h1 class="govuk-heading-xl">{{ title }} {{soFar if not isLastStep}}</h1>
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
 
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}
@@ -22,8 +19,8 @@
   {% endfor %}
 
   {{ govukButton({
-    text: continuePay if isLastStep else continueApplication,
-    href: nextIncompleteStepUrl,
+    text: continueApplication,
+    href: getNextIncompleteStepUrl(),
     preventDoubleClick: true
   }) }}
 {% endblock %}
