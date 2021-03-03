@@ -67,6 +67,7 @@ describe('getAnswerRows()', () => {
             form: { fields: { mockField: { type: 'text' } } },
           },
         ],
+        stepAnswers: {},
       };
     });
 

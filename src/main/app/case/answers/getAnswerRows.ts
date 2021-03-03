@@ -48,11 +48,8 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customAnswer = this.ctx.stepAnswers?.[step.url];
-        const customAnswerText =
-          typeof customAnswer === 'object' ? customAnswer?.[fieldKey]?.(formState) : customAnswer?.(formState);
-
-        if (customAnswerText === false) {
+        const customAnswer = this.ctx.stepAnswers[step.url]?.(formState);
+        if (customAnswer === false) {
           continue;
         }
 
@@ -62,7 +59,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            html: this.env.filters.nl2br(this.env.filters.escape(customAnswerText ?? answer)),
+            html: this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
           },
           actions: {
             items: [
