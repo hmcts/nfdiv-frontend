@@ -1,26 +1,27 @@
-import { CaseData, Gender, LegalProcessEnum } from '@hmcts/nfdiv-case-definition';
+import { CaseData } from '@hmcts/nfdiv-case-definition';
 
-import { Checkbox, Gender as GenderLocal, YesOrNo } from './case';
+import { CaseType, Checkbox, Gender, YesOrNo } from './case';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<CaseData> = {
-    D8legalProcess: LegalProcessEnum.DIVORCE,
+  const results = {
+    divorceOrDissolution: 'divorce',
     D8MarriageIsSameSexCouple: 'YES',
-    D8InferredRespondentGender: Gender.MALE,
-    D8InferredPetitionerGender: Gender.MALE,
+    D8InferredRespondentGender: 'male',
+    D8InferredPetitionerGender: 'male',
     D8ScreenHasMarriageBroken: 'YES',
-    D8MarriageDate: '',
+    D8HelpWithFeesReferenceNumber: 'HWF-ABC-123',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
     const nfdivFormat = fromApiFormat((results as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: CaseType.Divorce,
       sameSex: Checkbox.Checked,
-      gender: GenderLocal.Male,
+      gender: Gender.Male,
       screenHasUnionBroken: YesOrNo.Yes,
-      relationshipDate: undefined,
+      helpWithFeesRefNo: 'HWF-ABC-123',
     });
   });
 
@@ -28,14 +29,16 @@ describe('from-api-format', () => {
     const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-12-31' } as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: CaseType.Divorce,
+      gender: Gender.Male,
       sameSex: Checkbox.Checked,
-      gender: GenderLocal.Male,
       screenHasUnionBroken: YesOrNo.Yes,
       relationshipDate: {
         day: '31',
         month: '12',
         year: '2000',
       },
+      helpWithFeesRefNo: 'HWF-ABC-123',
     });
   });
 });

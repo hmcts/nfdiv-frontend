@@ -32,9 +32,9 @@
     },
     html: feedback + languageToggle
   }) }}
-  {% if not hideBackButton %}
+  {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
-  {% endif %}
+  {% endblock %}
 {% endblock %}
 
 {% block content %}

@@ -14,6 +14,7 @@ Feature: Check Your Answers
     And the page should not include "same-sex couple"
     And I go to '/check-your-answers?forceCivilMode'
     And the page should include "Are you male or female?	Female"
+    And the page should not include "Back"
 
   Scenario: Selecting Husband same gender
     Given I go to '/your-details'
