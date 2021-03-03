@@ -1,10 +1,19 @@
 {% extends "common/page.njk" %}
 
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: pageHeader[serviceType],
+    serviceUrl: (globals.basePath if globals.basePath) + "/"
+  }) }}
+{% endblock %}
+
+{% block backLink %}{% endblock %}
+
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  {% if email %}
-    <p class="govuk-body">{{ applicationSentTo }}</p>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ email }}</p>
-  {% endif %}
+  <p class="govuk-body">{{ applicationSentTo }} {{ email }}</p>
   <p class="govuk-body">{{ applicationSavedFor6Months }}</p>
+  <p class="govuk-body">{{ beenSignedOut }}</p>
+  <p class="govuk-body"> <a class="govuk-link" href="/">{{ signBackIn }}</a></p>
 {% endblock %}
