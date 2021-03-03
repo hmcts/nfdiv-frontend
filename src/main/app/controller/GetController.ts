@@ -48,7 +48,6 @@ export class GetController {
       sessionErrors,
       formState: req.session?.userCase,
       hideBackButton: [sequence[0].url, TIMED_OUT_URL].includes(req.originalUrl),
-      hideNavigationButton: req.originalUrl === TIMED_OUT_URL,
     });
   }
 

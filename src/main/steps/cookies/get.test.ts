@@ -19,7 +19,6 @@ describe('CookiesGetController', () => {
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
-      hideNavigationButton: false,
       sessionErrors: [],
     });
   });
@@ -35,7 +34,6 @@ describe('CookiesGetController', () => {
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
-      hideNavigationButton: false,
       sessionErrors: [],
     });
   });

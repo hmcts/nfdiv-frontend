@@ -19,7 +19,6 @@ describe('GetController', () => {
       extraEnglish: 'text',
       formState: req.session.userCase,
       hideBackButton: false,
-      hideNavigationButton: false,
       sessionErrors: [],
     });
   });
@@ -37,7 +36,6 @@ describe('GetController', () => {
       extraWelsh: 'text',
       formState: req.session.userCase,
       hideBackButton: false,
-      hideNavigationButton: false,
       sessionErrors: [],
     });
   });
@@ -76,7 +74,6 @@ describe('GetController', () => {
       ...commonContent.en,
       sessionErrors: [],
       hideBackButton: false,
-      hideNavigationButton: false,
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
@@ -98,7 +95,6 @@ describe('GetController', () => {
       ...commonContent.en,
       sessionErrors: [],
       hideBackButton: true,
-      hideNavigationButton: false,
       formState: req.session.userCase,
     });
   });
@@ -123,7 +119,6 @@ describe('GetController', () => {
         sessionErrors: [],
         formState: req.session.userCase,
         hideBackButton: false,
-        hideNavigationButton: false,
       });
     });
 
@@ -157,7 +152,6 @@ describe('GetController', () => {
             sessionErrors: [],
             formState: req.session.userCase,
             hideBackButton: false,
-            hideNavigationButton: false,
           });
         });
       });

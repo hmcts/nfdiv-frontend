@@ -19,7 +19,6 @@ describe('TermsAndConditionsGetController', () => {
       ...commonContent.en,
       formState: req.session.userCase,
       hideBackButton: false,
-      hideNavigationButton: false,
       sessionErrors: [],
     });
   });

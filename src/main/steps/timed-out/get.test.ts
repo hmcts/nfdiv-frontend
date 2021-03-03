@@ -21,7 +21,6 @@ describe('TimedOutGetController', () => {
       ...timedOutContent.en,
       sessionErrors: [],
       formState: req.session.userCase,
-      hideNavigationButton: true,
       hideBackButton: true,
     });
   });
@@ -41,7 +40,6 @@ describe('TimedOutGetController', () => {
       ...timedOutContent.en,
       sessionErrors: [],
       formState: req.session.userCase,
-      hideNavigationButton: true,
       hideBackButton: true,
     });
   });
