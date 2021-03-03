@@ -15,5 +15,8 @@ Feature: Homepage
   Scenario: Save and sign out
     Given I click "Save and sign out"
     Then the page should include "Your application has been saved"
+    And I expect the page title to be "Your application has been saved - GOV.UK"
+    And the page should not include "Apply for a divorce"
+    And the page should not include "Back"
     When I click "Sign back in and continue"
     Then the page should include "Sign in or create an account"
