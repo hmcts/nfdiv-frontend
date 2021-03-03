@@ -16,7 +16,13 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
   };
 
   const cy: typeof en = {
-    ...en,
+    title: `A wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yn y DU?`,
+    line1: "Mae'r DU yn cynnwys Cymru, Lloegr, Yr Alban a Gogledd Iwerddon.",
+    errors: {
+      inTheUk: {
+        required: commonContent.cy.required,
+      },
+    },
   };
 
   const common = {
