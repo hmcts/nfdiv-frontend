@@ -18,7 +18,6 @@ describe('CookiesGetController', () => {
       ...generateContent({ isDivorce: true }).en,
       ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
       sessionErrors: [],
     });
   });
@@ -33,7 +32,6 @@ describe('CookiesGetController', () => {
       ...generateContent({ isDivorce: false }).en,
       ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
       sessionErrors: [],
     });
   });

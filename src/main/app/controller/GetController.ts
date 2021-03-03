@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { commonContent } from '../../steps/common/common.content';
-import { sequence } from '../../steps/sequence';
 import { Case, CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -46,7 +45,6 @@ export class GetController {
       ...commonPageContent,
       sessionErrors,
       formState: req.session?.userCase,
-      hideBackButton: req.path === sequence[0].url,
     });
   }
 
