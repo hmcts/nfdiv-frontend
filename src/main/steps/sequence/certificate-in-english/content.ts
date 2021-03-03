@@ -17,7 +17,14 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
   };
 
   const cy: typeof en = {
-    ...en,
+    title: `A yw eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} wreiddiol yn Saesneg?`,
+    line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
+    line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
+    errors: {
+      certificateInEnglish: {
+        required: commonContent.cy.required,
+      },
+    },
   };
 
   const common = {
