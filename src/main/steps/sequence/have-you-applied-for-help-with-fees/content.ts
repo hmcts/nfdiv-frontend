@@ -26,8 +26,27 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     },
   };
 
-  // @TODO translations
-  const cy: typeof en = { ...en };
+  const cy: typeof en = {
+    title: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
+    yes: 'Do',
+    enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
+    refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
+    refExample: 'Er enghraifft, HWF-A1B-23C',
+    no: 'Naddo',
+    errors: {
+      alreadyAppliedForHelpPaying: {
+        required: commonContent.cy.required,
+      },
+      helpWithFeesRefNo: {
+        required:
+          'Mae angen i chi nodi eich cyfeirnod Help i Dalu Ffioedd cyn parhau. Fe gawsoch hwn pan wnaethoch y cais.',
+        invalid: 'Rydych wedi nodi cyfeirnod Help i Dalu Ffioedd annilys. Gwiriwch y rhif a nodwch ef eto.',
+        invalidUsedExample:
+          'Rydych wedi nodi’r rhif Help i Dalu Ffioedd sy’n cael ei ddefnyddio fel enghraifft. ' +
+          'Nodwch y rhif a anfonwyd atoch cyn parhau.',
+      },
+    },
+  };
 
   const common = { form };
 
