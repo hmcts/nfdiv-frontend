@@ -44,10 +44,10 @@ new Helmet(config.get('security')).enableFor(app);
 new HealthCheck().enableFor(app);
 new AppInsights().enable();
 new SessionStorage().enableFor(app);
-new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
+new CSRFToken().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 

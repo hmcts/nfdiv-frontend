@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 import { CALLBACK_URL, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -15,16 +15,21 @@ export class OidcMiddleware {
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
 
-    app.get(SIGN_IN_URL, (req, res) => res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`)));
-    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
+    const redirectToSignIn = (req: AppRequest, res: Response): void => {
+      req.session.redirectUri = req.originalUrl;
+      req.session.save(() => res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`)));
+    };
+
+    app.get(SIGN_IN_URL, (req, res) => res.redirect(HOME_URL));
+    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect(HOME_URL)));
     app.get(
       CALLBACK_URL,
-      errorHandler(async (req, res) => {
+      errorHandler(async (req: AppRequest, res: Response) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code);
-          req.session.save(() => res.redirect('/'));
+          req.session.save(() => res.redirect(req.session.redirectUri || HOME_URL));
         } else {
-          res.redirect(SIGN_IN_URL);
+          redirectToSignIn(req, res);
         }
       })
     );
@@ -38,7 +43,7 @@ export class OidcMiddleware {
 
           return next();
         } else {
-          res.redirect(SIGN_IN_URL);
+          redirectToSignIn(req, res);
         }
       })
     );
