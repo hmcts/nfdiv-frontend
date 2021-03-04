@@ -9,7 +9,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     managedBy:
       'This service is managed by HM Courts and Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
     moj:
-      "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter' target='_blank'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
+      "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
     responsibleForDeciding:
       'As part of the MoJ, HMCTS is responsible for deciding how your personal data is used and for protecting the personal data you provide.',
     moreInformation:
@@ -83,7 +83,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     weMayAskForPermission:
       'We will ask for your permission to use your email address to send you emails using GOV.UK Notify. This system processes emails only within the European Economic Area until the point where emails are handed over to the email provider you use.',
     weUseCookies:
-      "We use <a class='govuk-link' href='cookie'>cookies</a> to collect data that tells us about how you’re using this service, including:",
+      "We use <a class='govuk-link' href='/cookies'>cookies</a> to collect data that tells us about how you’re using this service, including:",
     ifYouOpenEmail: 'if you open an email from us or click on a link in an email',
     yourComputer: 'your computer, phone or tablet’s IP address',
     theRegion: 'the region or town where you’re using your computer, phone or tablet',
@@ -99,7 +99,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     crime:
       'In some circumstances we may share your data for example, to prevent or detect crime, or to produce anonymised statistics.',
     weUse:
-      "We use Google Analytics to collect data about how a website is used. This anonymous data is shared with Google. Find out about this in our <a class='govuk-link' href='terms-and-conditions'>terms and conditions</a>.",
+      "We use Google Analytics to collect data about how a website is used. This anonymous data is shared with Google. Find out about this in our <a class='govuk-link' href='/terms-and-conditions'>terms and conditions</a>.",
     storeAndShare: 'Storing and sharing your data internationally',
     personalInformation:
       'Sometimes we need to send your personal information outside of the UK. When we do this we comply with data protection law.',
@@ -113,7 +113,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
       'that access to the personal data is restricted (for example, you can ask to have your data stored for longer and not automatically deleted)',
     ifYouWantToSeePersonal: 'If you want to see the personal data that we hold on you, you can:',
     completeForm:
-      "complete a form to make a <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj' target='_blank'>subject access request</a> - your request goes to the MoJ as data controller",
+      "complete a form to make a <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj'>subject access request</a> - your request goes to the MoJ as data controller",
     writeToUs: 'write to us: Disclosure Team, Post point 10.38, 102 Petty France, London, SW1H 9AJ',
     askMoreInformation: 'You can ask for more information about:',
     agreementsWeHave: 'agreements we have on sharing information with other organisations',
@@ -126,12 +126,12 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
       'emailing: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link">data.compliance@justice.gov.uk</a>',
     howToComplain: 'How to complain',
     seeOurComplaints:
-      "See our <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>complaints procedure</a> if you want to complain about how we've handled your personal data.",
+      "See our <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure'>complaints procedure</a> if you want to complain about how we've handled your personal data.",
     writeTo: 'Write to: Post point 10.38, 102 Petty France, London, SW1H 9AJ',
     email:
       'Email: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link">data.compliance@justice.gov.uk</a>',
     youCanAlsoComplain:
-      "You can also complain to the <a class='govuk-link' href='https://ico.org.uk/global/contact-us' target='_blank'>Information Commissioner’s Office</a> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.",
+      "You can also complain to the <a class='govuk-link' href='https://ico.org.uk/global/contact-us'>Information Commissioner’s Office</a> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.",
   };
 
   const cy: typeof en = {
@@ -142,7 +142,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     managedBy:
       'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy’n rheoli’r gwasanaeth hwn, sef un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).',
     moj:
-      "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter' target='_blank'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
+      "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
     responsibleForDeciding:
       "Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac am ddiogelu'r data personol rydych yn ei ddarparu.",
     moreInformation:
@@ -213,7 +213,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     weMayAskForPermission:
       'Byddwn yn gofyn am eich caniatâd i ddefnyddio’ch cyfeiriad e-bost i anfon negeseuon e-bost atoch trwy’r system GOV.UK Notify. O fewn Ardal Economaidd Ewrop yn unig y mae’r system yn prosesu negeseuon e-bost hyd nes y pwynt y mae negeseuon e-bost yn cael eu trosglwyddo i’r darparwr e-bost rydych chi’n ei ddefnyddio.',
     weUseCookies:
-      "Rydym yn defnyddio <a class='govuk-link' href='cookie'>cwcis</a> i gasglu data am sut rydych yn defnyddio'r gwasanaeth hwn, yn cynnwys:",
+      "Rydym yn defnyddio <a class='govuk-link' href='/cookies'>cwcis</a> i gasglu data am sut rydych yn defnyddio'r gwasanaeth hwn, yn cynnwys:",
     ifYouOpenEmail: 'os byddwch yn agor neges e-bost gennym neu’n clicio ar ddolen mewn e-bost',
     yourComputer: 'cyfeiriad IP eich cyfrifiadur, ffôn symudol neu dabled',
     theRegion: 'yr ardal neu’r dref lle rydych yn defnyddio’ch cyfrifiadur, ffôn symudol neu dabled',
@@ -229,7 +229,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
     crime:
       'Mewn rhai amgylchiadau efallai y byddwn yn rhannu eich data, er enghraifft er mwyn atal neu i ddatrys trosedd, neu i gynhyrchu ystadegau cyffredinol.',
     weUse:
-      "Rydym yn defnyddio Google Analytics i gasglu data am sut y defnyddir gwefan. Mae'r data cyffredinol hwn yn cael ei rannu gyda Google. Mae rhagor o wybodaeth am hyn yn ein <a class='govuk-link' href='terms-and-conditions'>telerau ac amodau</a>.",
+      "Rydym yn defnyddio Google Analytics i gasglu data am sut y defnyddir gwefan. Mae'r data cyffredinol hwn yn cael ei rannu gyda Google. Mae rhagor o wybodaeth am hyn yn ein <a class='govuk-link' href='/terms-and-conditions'>telerau ac amodau</a>.",
     storeAndShare: 'Storio a rhannu eich data’n rhyngwladol',
     personalInformation:
       "Weithiau efallai y bydd angen inni anfon eich gwybodaeth bersonol tu allan i'r DU. Pan fyddwn yn gwneud hyn, byddwn yn cydymffurfio â chyfraith diogelu data.",
@@ -243,7 +243,7 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
       "i gyfyngu ar y mynediad at y data personol (er enghraifft, gallwch ofyn i'ch data gael ei storio am gyfnod hirach a pheidio â chael ei ddileu'n awtomatig)",
     ifYouWantToSeePersonal: 'Os ydych eisiau gweld y data personol rydym yn ei gadw amdanoch, gallwch:',
     completeForm:
-      "lenwi ffurflen i wneud <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj' target='_blank'>cais gwrthrych am wybodaeth</a> - bydd eich cais yn mynd i'r rheolydd data, sef MoJ",
+      "lenwi ffurflen i wneud <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj'>cais gwrthrych am wybodaeth</a> - bydd eich cais yn mynd i'r rheolydd data, sef MoJ",
     writeToUs: 'ysgrifennu atom yn: Disclosure Team, Post point 10.38, 102 Petty France, Llundain, SW1H 9AJ',
     askMoreInformation: 'Gallwch ofyn am fwy o wybodaeth am:',
     agreementsWeHave: 'gytundebau sydd gennym ar rannu gwybodaeth gyda sefydliadau eraill',
@@ -256,12 +256,12 @@ export const generateContent = ({ isDivorce }: { isDivorce: boolean }): Translat
       'anfon neges e-bost i: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link">data.compliance@justice.gov.uk</a>',
     howToComplain: 'Sut i gwyno',
     seeOurComplaints:
-      "Gweler ein <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>proses gwyno</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
+      "Gweler ein <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure'>proses gwyno</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
     writeTo: 'Ysgrifennwch at: Post point 10.38, 102 Petty France, Llundain, SW1H 9AJ',
     email:
       'Anfonwch neges e-bost i: <a href="mailto:data.compliance@justice.gov.uk" class="govuk-link">data.compliance@justice.gov.uk</a>',
     youCanAlsoComplain:
-      "Gallwch hefyd gyflwyno cwyn i <a class='govuk-link' href='https://ico.org.uk/global/contact-us' target='_blank'>Swyddfa’r Comisiynydd Gwybodaeth</a> os ydych yn anfodlon â’n hymateb neu'n credu nad ydym yn prosesu eich data personol yn gyfreithlon.",
+      "Gallwch hefyd gyflwyno cwyn i <a class='govuk-link' href='https://ico.org.uk/global/contact-us'>Swyddfa’r Comisiynydd Gwybodaeth</a> os ydych yn anfodlon â’n hymateb neu'n credu nad ydym yn prosesu eich data personol yn gyfreithlon.",
   };
 
   const common = {};
