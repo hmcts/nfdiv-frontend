@@ -106,6 +106,7 @@ const cy: typeof en = {
   chatClosed: 'Mae’r gwasanaeth sgwrsio dros y we yn awr wedi cau.\\n Dyma’r oriau agor {{courtOpeningHour}}.',
   chatAlreadyOpen: 'Mae ffenestr sgwrsio dros y we ar agor yn barod.',
   chatOpeningHours: '{{courtOpeningHour}}.',
+  saveAndSignOut: 'Cadw ac allgofnodi',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
   accessibility: 'Datganiad Hygyrchedd',
