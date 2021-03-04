@@ -13,7 +13,11 @@ const fields = {
   }),
 };
 
-const fromApiDate = (date: string) => {
+const fromApiDate = date => {
+  if (!date) {
+    return;
+  }
+
   const [year, month, day] = date.split('-');
   return { year, month, day };
 };

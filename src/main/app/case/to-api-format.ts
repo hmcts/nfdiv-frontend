@@ -35,7 +35,12 @@ const fields = {
     D8MarriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
-    D8HelpWithFeesReferenceNumber: isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? '' : data.helpWithFeesRefNo,
+    D8HelpWithFeesReferenceNumber:
+      data.helpPayingNeeded === YesOrNo.Yes &&
+      data.alreadyAppliedForHelpPaying === YesOrNo.Yes &&
+      !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo)
+        ? data.helpWithFeesRefNo
+        : '',
   }),
 };
 

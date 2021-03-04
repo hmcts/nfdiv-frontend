@@ -1,6 +1,8 @@
 import { CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
+import { setupCheckboxParser } from './parser';
+
 export class Form {
   constructor(private readonly form: FormContent) {}
 
@@ -9,18 +11,12 @@ export class Form {
    */
   public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
     const parsedBody = Object.entries(this.form.fields)
-      .map(([key, field]) => {
-        if ((field as FormOptions)?.type === 'checkboxes') {
-          field.parser = formData => {
-            const checkbox = formData[key] as string[];
-            return checkbox[checkbox.length - 1];
-          };
-        }
-
-        return [key, field];
-      })
-      .filter(([, field]) => typeof (field as FormOptions)?.parser === 'function')
-      .map(([key, field]) => [key, (field as FormOptions)?.parser?.(body)]);
+      .map(setupCheckboxParser)
+      .filter(([, field]) => typeof field?.parser === 'function')
+      .flatMap(([key, field]) => {
+        const parsed = field.parser?.(body);
+        return Array.isArray(parsed) ? parsed : [[key, parsed]];
+      });
 
     return { ...body, ...Object.fromEntries(parsedBody) };
   }
