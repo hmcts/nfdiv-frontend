@@ -1,7 +1,7 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CaseType } from '../../app/case/case';
-import { commonContent } from '../common/common.content';
 
 import { generateContent } from './content';
 import { CookiesGetController } from './get';
@@ -15,11 +15,9 @@ describe('CookiesGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...generateContent({ isDivorce: true }).en,
-      ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -30,11 +28,9 @@ describe('CookiesGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...generateContent({ isDivorce: false }).en,
-      ...commonContent.en,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 });

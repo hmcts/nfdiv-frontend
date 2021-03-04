@@ -1,3 +1,4 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
@@ -15,11 +16,9 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
+      ...defaultViewArgs,
       extraEnglish: 'text',
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -32,11 +31,10 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
+      ...defaultViewArgs,
       ...commonContent.cy,
       extraWelsh: 'text',
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -71,9 +69,7 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
-      sessionErrors: [],
-      hideBackButton: false,
+      ...defaultViewArgs,
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
@@ -88,13 +84,11 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.originalUrl = firstQuestionUrl;
+    req.path = firstQuestionUrl;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
-      sessionErrors: [],
-      hideBackButton: true,
+      ...defaultViewArgs,
       formState: req.session.userCase,
     });
   });
@@ -112,13 +106,10 @@ describe('GetController', () => {
       expect(getContentMock).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'partner',
-        formState: req.session.userCase,
       });
       expect(res.render).toBeCalledWith('page', {
-        ...commonContent.en,
-        sessionErrors: [],
+        ...defaultViewArgs,
         formState: req.session.userCase,
-        hideBackButton: false,
       });
     });
 
@@ -144,14 +135,15 @@ describe('GetController', () => {
           expect(getContentMock).toHaveBeenCalledWith({
             isDivorce,
             partner: expectedPartner,
-            formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
+            ...defaultViewArgs,
             ...commonContent[lang],
-            pageText: `something in ${lang}`,
-            sessionErrors: [],
+            isDivorce,
+            partner: expectedPartner,
             formState: req.session.userCase,
-            hideBackButton: false,
+            language: lang,
+            pageText: `something in ${lang}`,
           });
         });
       });

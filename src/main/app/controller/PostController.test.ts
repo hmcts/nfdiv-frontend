@@ -101,8 +101,9 @@ describe('PostController', () => {
     const body = { sameSex: [0, Checkbox.Checked] };
     const mockFormContent = ({
       fields: {
-        sameSex: {
+        appliesToYou: {
           type: 'checkboxes',
+          values: [{ name: 'sameSex', value: Checkbox.Checked }],
         },
       },
     } as unknown) as FormContent;
