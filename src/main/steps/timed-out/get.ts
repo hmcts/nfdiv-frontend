@@ -13,10 +13,6 @@ export class TimedOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.user) {
-      req.session.destroy(() => super.get(req, res));
-    } else {
-      super.get(req, res);
-    }
+    req.session.destroy(() => super.get(req, res));
   }
 }
