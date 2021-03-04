@@ -3,7 +3,6 @@ import { Response } from 'express';
 
 import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
-import { sequence } from '../../steps/sequence';
 import { CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -48,7 +47,6 @@ export class GetController {
       isDivorce,
       partner,
       formState: req.session?.userCase,
-      hideBackButton: req.originalUrl === sequence[0].url,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }

@@ -11,7 +11,7 @@ Feature: Married in the UK
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: did not you get married in the UK?
+  Scenario: Did not get married in the UK?
     And I select "No"
     When I click "Continue"
     Then the page should include "Is your original marriage certificate in English?"

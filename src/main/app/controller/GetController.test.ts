@@ -2,7 +2,6 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
-import { YOUR_DETAILS_URL } from '../../steps/urls';
 import { CaseType, Gender } from '../case/case';
 
 import { GetController, Translations } from './GetController';
@@ -75,21 +74,6 @@ describe('GetController', () => {
         divorceOrDissolution: 'divorce',
         gender: Gender.Female,
       },
-    });
-  });
-
-  it('hides the back button if the user is on the first question', async () => {
-    const firstQuestionUrl = YOUR_DETAILS_URL;
-    const controller = new GetController('page', {} as Translations);
-
-    const req = mockRequest();
-    const res = mockResponse();
-    req.path = firstQuestionUrl;
-    await controller.get(req, res);
-
-    expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      formState: req.session.userCase,
     });
   });
 
