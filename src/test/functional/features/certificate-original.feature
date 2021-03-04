@@ -28,7 +28,7 @@ Feature: Certificate Original
     And I select "No"
     When I click "Continue"
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
-    And I select "No"
+    And I select "No, I do not have a certified translation"
     When I click "Continue"
     Then the page should include "You need to get a ‘certified translation’ of your marriage certificate?"
 
