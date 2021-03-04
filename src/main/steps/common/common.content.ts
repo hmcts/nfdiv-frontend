@@ -139,6 +139,8 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  yes: 'Ydy',
+  no: 'Nac ydy',
 };
 
 export const commonContent = { en, cy };
