@@ -30,7 +30,7 @@ Feature: Certificate Original
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
     And I select "No"
     When I click "Continue"
-    Then the page should include "You need to get a ‘certified translation’ of your marriage certificate "
+    Then the page should include "You need to get a ‘certified translation’ of your marriage certificate?"
 
   Scenario: Successfully completing the form
     And I select "Yes"
