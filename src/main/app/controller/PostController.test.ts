@@ -2,8 +2,6 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
-import { commonContent } from '../../steps/common/common.content';
-import { saveAndSignOutContent } from '../../steps/save-sign-out/content';
 import { Checkbox, Gender } from '../case/case';
 
 import { PostController } from './PostController';
@@ -54,31 +52,6 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req, mockForm.getParsedBody(body));
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
-  });
-
-  test('saves and signs out even if there are errors', async () => {
-    const errors = [{ field: 'gender', errorName: 'required' }];
-    const body = { gender: Gender.Female, saveAndSignOut: true };
-    const mockForm = ({
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown) as Form;
-    const controller = new PostController(mockForm);
-
-    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
-    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
-
-    expect(req.session.errors).toBe(undefined);
-    expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.render).toHaveBeenCalledWith(`${__dirname}/../../steps/save-sign-out/template.njk`, {
-      ...commonContent['en'],
-      ...saveAndSignOutContent['en'],
-      email: 'test@example.com',
-    });
   });
 
   test('rejects with an error when unable to save session data', async () => {
