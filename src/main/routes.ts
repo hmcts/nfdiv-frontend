@@ -62,6 +62,7 @@ export class Routes {
         if (!req.session.user) {
           return res.redirect(SIGN_OUT_URL);
         }
+        return res.end();
       })
     );
 
