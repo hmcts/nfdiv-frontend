@@ -1,0 +1,28 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  {% for key, section in sections %}
+    {% set rows = getAnswerRows(section) %}
+    {% if rows | length %}
+      <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
+
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: rows
+      }) }}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukButton({
+    text: continueApplication,
+    href: getNextIncompleteStepUrl(),
+    preventDoubleClick: true
+  }) }}
+{% endblock %}

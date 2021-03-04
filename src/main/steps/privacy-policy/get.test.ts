@@ -1,7 +1,7 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CaseType } from '../../app/case/case';
-import { commonContent } from '../common/common.content';
 
 import { generateContent } from './content';
 import { PrivacyPolicyGetController } from './get';
@@ -16,10 +16,8 @@ describe('PrivacyPolicyGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generateContent({ isDivorce: true }).en,
-      ...commonContent.en,
+      ...defaultViewArgs,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -31,10 +29,8 @@ describe('PrivacyPolicyGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generateContent({ isDivorce: false }).en,
-      ...commonContent.en,
+      ...defaultViewArgs,
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 });

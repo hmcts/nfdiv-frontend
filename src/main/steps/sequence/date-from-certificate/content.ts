@@ -2,7 +2,7 @@ import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
-import { areFieldsFilledIn, isDateInputValid, isFutureDate } from '../../../app/form/validation';
+import { areFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../app/form/validation';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
@@ -73,7 +73,9 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('relationshipDate', body),
       validator: value =>
-        areFieldsFilledIn(value as CaseDate) || isDateInputValid(value as CaseDate) || isFutureDate(value as CaseDate),
+        areFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
     },
   },
   submit: {
