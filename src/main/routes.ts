@@ -34,17 +34,19 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
 
+    app.locals.steps = sequence;
     for (const step of sequence) {
       const stepDir = `${__dirname}/steps/sequence${step.url}`;
-      const { generateContent, form } = require(`${stepDir}/content.ts`);
+      const content = require(`${stepDir}/content.ts`);
+      Object.assign(step, content);
       const customView = `${stepDir}/template.njk`;
       const view = fs.existsSync(customView) ? customView : `${stepDir}/../template.njk`;
-      const controller = new GetController(view, generateContent);
+      const controller = new GetController(view, content.generateContent);
 
       app.get(step.url, errorHandler(controller.get));
 
-      if (form) {
-        app.post(step.url, errorHandler(new PostController(new Form(form)).post));
+      if (content.form) {
+        app.post(step.url, errorHandler(new PostController(new Form(content.form)).post));
       }
     }
 

@@ -2,7 +2,7 @@ import { CaseDate } from '../case/case';
 
 import {
   areFieldsFilledIn,
-  isDateInputValid,
+  isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
   isInvalidHelpWithFeesRef,
@@ -77,7 +77,7 @@ describe('Validation', () => {
     });
   });
 
-  describe('isDateInputValid()', () => {
+  describe('isDateInputInvalid()', () => {
     test.each([
       { date: { day: 1, month: 1, year: 1970 }, expected: undefined },
       { date: { day: 31, month: 12, year: 2000 }, expected: undefined },
@@ -90,7 +90,7 @@ describe('Validation', () => {
       { date: { day: 31, month: 13, year: 2000 }, expected: 'invalidDate' },
       { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalidDate' },
     ])('checks dates validity when %o', ({ date, expected }) => {
-      const isValid = isDateInputValid((date as unknown) as CaseDate);
+      const isValid = isDateInputInvalid((date as unknown) as CaseDate);
 
       expect(isValid).toStrictEqual(expected);
     });
