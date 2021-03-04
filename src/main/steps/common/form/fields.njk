@@ -20,8 +20,10 @@
           items: formItems(field.values, formState[fieldName])
         }) }}
     {% case 'checkboxes' %}
-      {# Required for sending an empty value when the checkbox has not been checked #}
-      <input type="hidden" value="" name="{{ fieldName }}">
+      {% for checkbox in field.values %}
+        {# Required for sending an empty value when the checkbox has not been checked #}
+        <input type="hidden" value="" name="{{ checkbox.name }}">
+      {% endfor %}
 
       {{ govukCheckboxes({
         classes: field.classes,
@@ -33,7 +35,7 @@
             classes: "govuk-fieldset__legend--s"
           }
         },
-        items: formItems(field.values, formState[fieldName])
+        items: formItems(field.values, formState)
       }) }}
     {% case 'option' %}
       {{ govukSelect({

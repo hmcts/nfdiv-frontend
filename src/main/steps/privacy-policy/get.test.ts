@@ -1,6 +1,6 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { commonContent } from '../common/common.content';
 
 import { privacyPolicyContent } from './content';
 import { PrivacyPolicyGetController } from './get';
@@ -14,11 +14,10 @@ describe('PrivacyPolicyGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...privacyPolicyContent.en,
       ...privacyPolicyContent.common,
-      ...commonContent.en,
       formState: req.session.userCase,
-      sessionErrors: [],
     });
   });
 });

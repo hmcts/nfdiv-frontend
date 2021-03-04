@@ -18,6 +18,7 @@ Feature: Your details step
     Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
     And the page should include "Are you male or female?"
 
+  @nightly
   Scenario: Error when missing a required field
     Given I clear the form
     When I select "We were a same-sex couple when we got married"

@@ -1,6 +1,6 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { commonContent } from '../common/common.content';
 import { SAVE_SIGN_OUT_URL } from '../urls';
 
 import { saveAndSignOutContent } from './content';
@@ -24,11 +24,10 @@ describe('SaveAndSignOutController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...defaultViewArgs,
       ...saveAndSignOutContent.en,
       ...saveAndSignOutContent.common,
-      ...commonContent.en,
       formState: req.session.userCase,
-      sessionErrors: [],
       email: 'mock-user@example.com',
     });
   });
