@@ -920,10 +920,10 @@
     lodash.mapvalues "^4.6.0"
     request-promise-native "^1.0.5"
 
-"@hmcts/nfdiv-case-definition@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.14.tgz#97e2f98ac7659d1188c0f8647239150d41fa8031"
-  integrity sha512-F9HRMPdgEZuS9zhqvYDBnBtn4YJgYHe91dGSi7paZGcigXbNc2ux2Qwi2pwOxaFAHEgDPZirnCFgnYHnbA8tIA==
+"@hmcts/nfdiv-case-definition@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.22.tgz#c5911fc683fb56d523da03ac107b2ab81b40cd16"
+  integrity sha512-Et3YOYobCGxU+i3gPxdKahm5BGv6K8HHMwJyXhWA50j17xXaX/XGo8/rUsJT1BbdLorvtThylPwuSNe0rlKVkg==
 
 "@hmcts/nodejs-healthcheck@^1.7.0":
   version "1.7.0"
@@ -11330,10 +11330,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.2.tgz#1450f020618f872db0ea17317d16d8da8ddb8c4c"
-  integrity sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
+typescript@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
+  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
 
 ua-parser-js@^0.7.21:
   version "0.7.23"

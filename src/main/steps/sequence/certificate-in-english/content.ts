@@ -6,7 +6,9 @@ import { commonContent } from '../../common/common.content';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
-    title: `Is your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate in English?`,
+    title: `Is your original ${
+      isDivorce ? commonContent.en.marriage : commonContent.en.civilPartnership
+    } certificate in English?`,
     line1: 'If your original certificate contains an English version, select ‘yes’.',
     line2: 'If you have an English translation as a separate document, select ‘no’.',
     errors: {
@@ -17,7 +19,16 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
   };
 
   const cy: typeof en = {
-    ...en,
+    title: `A yw eich tystysgrif ${
+      isDivorce ? commonContent.cy.marriage : commonContent.cy.civilPartnership
+    } wreiddiol yn Saesneg?`,
+    line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
+    line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
+    errors: {
+      certificateInEnglish: {
+        required: commonContent.cy.required,
+      },
+    },
   };
 
   const common = {

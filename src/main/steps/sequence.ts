@@ -6,6 +6,7 @@ import {
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
+  GET_CERTIFIED_TRANSLATION,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
@@ -100,6 +101,10 @@ export const sequence: Step[] = [
   {
     url: CERTIFIED_TRANSLATION,
     showInSection: Sections.AboutPartnership,
+    getNextStep: data => (data.certifiedTranslation === YesOrNo.No ? GET_CERTIFIED_TRANSLATION : CHECK_ANSWERS_URL),
+  },
+  {
+    url: GET_CERTIFIED_TRANSLATION,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
