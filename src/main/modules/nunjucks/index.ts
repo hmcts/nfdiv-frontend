@@ -1,10 +1,10 @@
 import * as path from 'path';
 
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
 import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
-import { CaseType } from '../../app/case/case';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -60,7 +60,9 @@ export class Nunjucks {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
       res.locals.serviceType =
-        res.locals.host.includes('civil') || 'forceCivilMode' in req.query ? CaseType.Dissolution : CaseType.Divorce;
+        res.locals.host.includes('civil') || 'forceCivilMode' in req.query
+          ? DivorceOrDissolution.DISSOLUTION
+          : DivorceOrDissolution.DIVORCE;
       next();
     });
   }
