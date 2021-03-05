@@ -19,28 +19,6 @@ describe('TimedOutGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...commonContent.en,
       ...timedOutContent.en,
-      sessionErrors: [],
-      formState: req.session.userCase,
-      hideBackButton: true,
-    });
-  });
-
-  test('Should redirect to login page if no user is found', async () => {
-    const req = mockRequest({
-      session: {
-        user: undefined,
-      },
-    });
-    req.originalUrl = TIMED_OUT_URL;
-    const res = mockResponse();
-    await controller.get(req, res);
-
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...commonContent.en,
-      ...timedOutContent.en,
-      sessionErrors: [],
-      formState: req.session.userCase,
-      hideBackButton: true,
     });
   });
 });
