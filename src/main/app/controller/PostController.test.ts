@@ -1,8 +1,10 @@
+import { Gender } from '@hmcts/nfdiv-case-definition';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
-import { Checkbox, Gender } from '../case/case';
+import { Checkbox } from '../case/case';
 
 import { PostController } from './PostController';
 
@@ -13,7 +15,7 @@ const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -35,7 +37,7 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -57,7 +59,7 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,

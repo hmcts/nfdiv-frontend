@@ -1,3 +1,5 @@
+import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
+
 import { AnyObject } from '../controller/PostController';
 
 export const formFieldsToCaseMapping = {
@@ -32,7 +34,7 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
-  divorceOrDissolution: CaseType;
+  divorceOrDissolution: DivorceOrDissolution;
   gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
@@ -48,17 +50,6 @@ export interface Case {
 
 export interface CaseWithId extends Case {
   id: string;
-}
-
-// TODO switch to use the type field and be Marriage or Civil Partnership (CCD Definitions)
-export enum CaseType {
-  Divorce = 'divorce',
-  Dissolution = 'dissolution',
-}
-
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
 }
 
 export enum YesOrNo {
