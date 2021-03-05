@@ -38,11 +38,11 @@ export class Routes {
 
     app.locals.steps = sequence;
     for (const step of sequence) {
-      const stepDir = `${__dirname}/steps/sequence${step.url}`;
+      const stepDir = `${__dirname}/steps${step.url}`;
       const content = require(`${stepDir}/content.ts`);
       Object.assign(step, content);
       const customView = `${stepDir}/template.njk`;
-      const view = fs.existsSync(customView) ? customView : `${stepDir}/../template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${stepDir}/../common/template.njk`;
       const controller = new GetController(view, content.generateContent);
 
       app.get(step.url, errorHandler(controller.get));
