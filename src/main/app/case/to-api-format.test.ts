@@ -1,9 +1,11 @@
-import { Case, CaseType, Checkbox, Gender, YesOrNo } from './case';
+import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
+
+import { Case, Checkbox, YesOrNo } from './case';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
   const results: Partial<Case> = {
-    gender: Gender.Male,
+    gender: Gender.MALE,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
     helpPayingNeeded: YesOrNo.Yes,
@@ -16,8 +18,8 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       D8MarriageIsSameSexCouple: YesOrNo.Yes,
-      D8InferredRespondentGender: Gender.Male,
-      D8InferredPetitionerGender: Gender.Male,
+      D8InferredRespondentGender: Gender.MALE,
+      D8InferredPetitionerGender: Gender.MALE,
       D8MarriageDate: '1900-01-04',
       D8HelpWithFeesNeedHelp: YesOrNo.Yes,
       D8HelpWithFeesAppliedForFees: YesOrNo.Yes,
@@ -50,41 +52,41 @@ describe('to-api-format', () => {
 
   test.each([
     {
-      gender: Gender.Male,
+      gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.Female, respondent: Gender.Male },
+      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
     },
     {
-      gender: Gender.Female,
+      gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.Male, respondent: Gender.Female },
+      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
     },
     {
-      gender: Gender.Male,
+      gender: Gender.MALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.Male, respondent: Gender.Male },
+      expected: { petitioner: Gender.MALE, respondent: Gender.MALE },
     },
     {
-      divorceOrDissolution: CaseType.Dissolution,
-      gender: Gender.Male,
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.Male, respondent: Gender.Female },
+      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
     },
     {
-      divorceOrDissolution: CaseType.Dissolution,
-      gender: Gender.Female,
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.Female, respondent: Gender.Male },
+      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
     },
     {
-      divorceOrDissolution: CaseType.Dissolution,
-      gender: Gender.Female,
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      gender: Gender.FEMALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.Female, respondent: Gender.Female },
+      expected: { petitioner: Gender.FEMALE, respondent: Gender.FEMALE },
     },
   ])(
     'gets the correct inferred gender of the petitioner and respondent: %o',
-    ({ divorceOrDissolution = CaseType.Divorce, gender, sameSex, expected }) => {
+    ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
         D8InferredPetitionerGender: expected.petitioner,
         D8InferredRespondentGender: expected.respondent,

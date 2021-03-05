@@ -1,8 +1,9 @@
+import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
+
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
-import { CaseType, Gender } from '../case/case';
 
 import { GetController, Translations } from './GetController';
 
@@ -64,7 +65,7 @@ describe('GetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-    req.session.userCase.gender = Gender.Female;
+    req.session.userCase.gender = Gender.FEMALE;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
@@ -72,7 +73,7 @@ describe('GetController', () => {
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
-        gender: Gender.Female,
+        gender: Gender.FEMALE,
       },
     });
   });
@@ -98,13 +99,13 @@ describe('GetController', () => {
     });
 
     describe.each([
-      { serviceType: CaseType.Divorce, isDivorce: true },
-      { serviceType: CaseType.Dissolution, isDivorce: false, civilKey: 'civilPartner' },
+      { serviceType: DivorceOrDissolution.DIVORCE, isDivorce: true },
+      { serviceType: DivorceOrDissolution.DISSOLUTION, isDivorce: false, civilKey: 'civilPartner' },
     ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
       describe.each(['en', 'cy'])('Language %s', lang => {
         test.each([
-          { gender: Gender.Male, partnerKey: 'husband' },
-          { gender: Gender.Female, partnerKey: 'wife' },
+          { gender: Gender.MALE, partnerKey: 'husband' },
+          { gender: Gender.FEMALE, partnerKey: 'wife' },
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ gender, partnerKey }) => {
           const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
