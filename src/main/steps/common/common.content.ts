@@ -47,8 +47,6 @@ const en = {
   wife: 'wife',
   partner: 'partner',
   civilPartner: 'civil partner',
-  marriage: 'marriage',
-  civilPartnership: 'civil partnership',
   withHim: 'with him',
   withHer: 'with her',
   months: [
@@ -123,8 +121,6 @@ const cy: typeof en = {
   wife: 'gwraig',
   partner: 'partner',
   civilPartner: 'partner sifil',
-  marriage: 'priodas',
-  civilPartnership: 'partneriaeth sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
   months: [
