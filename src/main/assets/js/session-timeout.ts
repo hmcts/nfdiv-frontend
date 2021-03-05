@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import { TIMED_OUT_URL } from '../../steps/urls';
 
@@ -32,7 +32,7 @@ const setSaveTimeout = () => {
   }, sessionTimeoutInterval);
 };
 
-const pingUserActive = _.throttle(() => {
+const pingUserActive = throttle(() => {
   fetch('/active').then(() => {
     setSaveTimeout();
   });
