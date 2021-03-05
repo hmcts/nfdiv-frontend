@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { commonContent } from '../../../steps/common/common.content';
 
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
@@ -21,7 +22,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     no: `No, I do not have ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
     errors: {
       hasCertificate: {
-        required: 'You have not answered the question. You need to select an answer before continuing.',
+        required: commonContent.en.required,
       },
     },
   };
@@ -41,7 +42,7 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     no: `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
     errors: {
       hasCertificate: {
-        required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
+        required: commonContent.cy.required,
       },
     },
   };
