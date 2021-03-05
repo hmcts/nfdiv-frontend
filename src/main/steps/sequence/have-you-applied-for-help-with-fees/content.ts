@@ -7,11 +7,9 @@ import { commonContent } from '../../common/common.content';
 export const generateContent: TranslationFn = ({ isDivorce }) => {
   const en = {
     title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
-    yes: commonContent.en.yes,
     enterRefNo: 'Enter your Help With Fees reference number:',
     refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
     refExample: 'For example, HWF-A1B-23C',
-    no: commonContent.en.no,
     errors: {
       alreadyAppliedForHelpPaying: {
         required: commonContent.en.required,
@@ -28,11 +26,9 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
 
   const cy: typeof en = {
     title: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
-    yes: commonContent.cy.yes,
     enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
     refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
     refExample: 'Er enghraifft, HWF-A1B-23C',
-    no: commonContent.cy.no,
     errors: {
       alreadyAppliedForHelpPaying: {
         required: commonContent.cy.required,
