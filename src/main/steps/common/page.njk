@@ -32,9 +32,9 @@
     },
     html: feedback + languageToggle
   }) }}
-  {% if not hideBackButton %}
+  {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
-  {% endif %}
+  {% endblock %}
 {% endblock %}
 
 {% block content %}
@@ -58,12 +58,12 @@
     meta: {
       items: [
         {
-          href: "/privacy-policy",
-          text: privacyPolicy
-        },
-        {
           href: "/cookies",
           text: cookies
+        },
+        {
+          href: "/privacy-policy",
+          text: privacyPolicy
         },
         {
           href: "/accessibility-statement",

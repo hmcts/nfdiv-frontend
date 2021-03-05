@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_SIGN_OUT_URL, TIMED_OUT_URL } from '../../steps/urls';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -24,14 +23,17 @@ export class PostController<T extends AnyObject> {
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
     const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
-    let nextUrl =
-      isSaveAndSignOut || isSessionTimeout ? this.getExitUrl(isSessionTimeout) : getNextStepUrl(req, formData);
+    let nextUrl: string;
     if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
       await req.locals.api.updateCase(req.session.userCase?.id, formData);
+      if (isSaveAndSignOut || isSessionTimeout) {
+        return;
+      }
       req.session.errors = undefined;
+      nextUrl = getNextStepUrl(req, formData);
     }
 
     req.session.save(err => {
@@ -40,14 +42,6 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
-  }
-
-  private getExitUrl(isSessionTimeout) {
-    if (isSessionTimeout) {
-      return TIMED_OUT_URL;
-    } else {
-      return SAVE_SIGN_OUT_URL;
-    }
   }
 }
 

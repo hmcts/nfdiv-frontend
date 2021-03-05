@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
+import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { CaseType } from '../../app/case/case';
 import { FormInput } from '../../app/form/Form';
 
@@ -20,14 +21,14 @@ export class Nunjucks {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
 
-    env.addGlobal('formItems', function (items: FormInput[], userSelection: string | Record<string, string>) {
+    env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,
-        value: i.value || (userSelection && userSelection[i.name as string]),
+        value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
         attributes: i.attributes,
-        checked: i.selected || i.value === userSelection,
+        checked: i.selected ?? userAnswer?.[i.name as string] ?? i.value === userAnswer,
         conditional:
           i.warning || i.subFields
             ? {
@@ -44,6 +45,8 @@ export class Nunjucks {
             : undefined,
       }));
     });
+
+    env.addGlobal('getAnswerRows', getAnswerRows);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {

@@ -1,7 +1,7 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { commonContent } from '../../steps/common/common.content';
-import { YOUR_DETAILS_URL } from '../../steps/urls';
 import { CaseType, Gender } from '../case/case';
 
 import { GetController, Translations } from './GetController';
@@ -15,11 +15,9 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
+      ...defaultViewArgs,
       extraEnglish: 'text',
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -32,11 +30,10 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
+      ...defaultViewArgs,
       ...commonContent.cy,
       extraWelsh: 'text',
       formState: req.session.userCase,
-      hideBackButton: false,
-      sessionErrors: [],
     });
   });
 
@@ -71,31 +68,12 @@ describe('GetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
-      sessionErrors: [],
-      hideBackButton: false,
+      ...defaultViewArgs,
       formState: {
         id: '1234',
         divorceOrDissolution: 'divorce',
         gender: Gender.Female,
       },
-    });
-  });
-
-  it('hides the back button if the user is on the first question', async () => {
-    const firstQuestionUrl = YOUR_DETAILS_URL;
-    const controller = new GetController('page', {} as Translations);
-
-    const req = mockRequest();
-    const res = mockResponse();
-    req.originalUrl = firstQuestionUrl;
-    await controller.get(req, res);
-
-    expect(res.render).toBeCalledWith('page', {
-      ...commonContent.en,
-      sessionErrors: [],
-      hideBackButton: true,
-      formState: req.session.userCase,
     });
   });
 
@@ -112,13 +90,10 @@ describe('GetController', () => {
       expect(getContentMock).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'partner',
-        formState: req.session.userCase,
       });
       expect(res.render).toBeCalledWith('page', {
-        ...commonContent.en,
-        sessionErrors: [],
+        ...defaultViewArgs,
         formState: req.session.userCase,
-        hideBackButton: false,
       });
     });
 
@@ -144,14 +119,15 @@ describe('GetController', () => {
           expect(getContentMock).toHaveBeenCalledWith({
             isDivorce,
             partner: expectedPartner,
-            formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
+            ...defaultViewArgs,
             ...commonContent[lang],
-            pageText: `something in ${lang}`,
-            sessionErrors: [],
+            isDivorce,
+            partner: expectedPartner,
             formState: req.session.userCase,
-            hideBackButton: false,
+            language: lang,
+            pageText: `something in ${lang}`,
           });
         });
       });

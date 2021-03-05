@@ -13,8 +13,17 @@ export const generateContent: TranslationFn = ({ isDivorce }) => {
     } application.`,
   };
 
-  // @TODO translations
-  const cy: typeof en = { ...en };
+  const cy: typeof en = {
+    title: `Mae arnoch angen gwneud cais am help i dalu eich ffioedd ${isDivorce ? 'ysgaru' : ''}`,
+    line1: `Mae arnoch angen gwneud cais am <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">help i dalu eich ffioedd (agor mewn ffenest newydd)</a> cyn ichi barhau gyda'r cais hwn ${
+      isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    line2:
+      'Nodwch y rhif ffurflen llys \'D8\' pan ofynnir amdano. Dyma fydd un o\'r cwestiynau cyntaf pan fyddwch yn <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">gwneud cais am help i dalu eich ffioedd (agor mewn ffenest newydd)</a>.',
+    line3: `Ar ôl ichi wneud cais, fe gewch gyfeirnod Help i Dalu Ffioedd. Dylech nodi'r cyfeirnod pan fyddwch yn dychwelyd at y cais hwn ${
+      isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  };
 
   const common = {};
 

@@ -20,7 +20,12 @@ env.SAUCE_ACCESS_KEY = 'privatekey'
 env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
 withNightlyPipeline(type, product, component) {
+  enableFullFunctionalTest()
   enableCrossBrowserTest()
+
+  after('fullFunctionalTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
+  }
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
