@@ -17,7 +17,13 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public async getCase(): Promise<CaseWithId | false> {
+  public async getOrCreateCase(serviceType: CaseType, userDetails: UserDetails): Promise<CaseWithId> {
+    const userCase = await this.getCase();
+
+    return userCase || this.createCase(serviceType, userDetails);
+  }
+
+  private async getCase(): Promise<CaseWithId | false> {
     const cases = await this.getCases();
 
     if (cases.length === 1) {
@@ -42,10 +48,16 @@ export class CaseApi {
     }
   }
 
-  public async createCase(data: Case): Promise<CaseWithId> {
+  private async createCase(serviceType: CaseType, userDetails: UserDetails): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CaseEvent.DRAFT_CREATE}`);
     const token = tokenResponse.data.token;
     const event = { id: CaseEvent.DRAFT_CREATE };
+    const data = {
+      divorceOrDissolution: serviceType,
+      D8PetitionerFirstName: userDetails.givenName,
+      D8PetitionerLastName: userDetails.familyName,
+      D8PetitionerEmail: userDetails.email,
+    };
 
     try {
       const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
@@ -79,12 +91,6 @@ export class CaseApi {
     } else {
       this.logger.error('API Error', error.message);
     }
-  }
-
-  public async getOrCreateCase(serviceType: CaseType): Promise<CaseWithId> {
-    const userCase = await this.getCase();
-
-    return userCase || this.createCase({ divorceOrDissolution: serviceType });
   }
 }
 
