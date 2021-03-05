@@ -29,8 +29,10 @@ export class PostController<T extends AnyObject> {
       nextUrl = req.url;
     } else {
       await req.locals.api.updateCase(req.session.userCase?.id, formData);
-      if (isSaveAndSignOut || isSessionTimeout) {
+      if (isSaveAndSignOut) {
         return;
+      } else if (isSessionTimeout) {
+        return res.end();
       }
       req.session.errors = undefined;
       nextUrl = getNextStepUrl(req, formData);
