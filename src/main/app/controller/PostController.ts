@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { Form } from '../form/Form';
+import { omitUnreachableAnswers } from '../form/parser';
 
 import { AppRequest } from './AppRequest';
 
@@ -18,7 +19,12 @@ export class PostController<T extends AnyObject> {
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
-    Object.assign(req.session.userCase, formData);
+    const { id, divorceOrDissolution } = req.session.userCase;
+    req.session.userCase = {
+      id,
+      divorceOrDissolution,
+      ...omitUnreachableAnswers({ ...req.session.userCase, ...formData }),
+    };
 
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;

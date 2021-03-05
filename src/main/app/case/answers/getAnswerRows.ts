@@ -24,7 +24,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = { ...this.ctx, ...step.generateContent({ isDivorce, partner })[language] };
+      const stepContent = { ...this.ctx, ...step.generateContent({ isDivorce, partner, formState })[language] };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 
       for (const fieldKey of fieldKeys) {
@@ -34,17 +34,15 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           continue;
         }
 
-        let question = stepContent?.title || '';
+        const question = typeof field.label === 'function' ? field.label(stepContent) : field.label;
         if (field.type === 'radios') {
           answer = getSelectedRadioLabel(answer, field, stepContent);
         }
         if (field.type === 'checkboxes') {
-          const { checkboxQuestion, checkedLabels } = getCheckedLabels(answer, field, stepContent);
+          const checkedLabels = getCheckedLabels(answer, field, stepContent);
           if (!checkedLabels?.length) {
             continue;
           }
-
-          question = checkboxQuestion;
           answer = checkedLabels.join('\n');
         }
 
@@ -93,7 +91,7 @@ const getCheckedLabels = (answer, field, stepContent) => {
       return checkbox?.label;
     });
 
-  return { checkboxQuestion: field.label(stepContent), checkedLabels };
+  return checkedLabels;
 };
 
 const getSelectedRadioLabel = (answer, field, stepContent) => {
