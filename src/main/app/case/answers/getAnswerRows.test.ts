@@ -46,14 +46,16 @@ describe('getAnswerRows()', () => {
 
   describe('when we have response', () => {
     let mockCtx;
+    let mockFormState;
     beforeEach(() => {
       mockGenerateContent.mockReturnValue({ en: { title: 'Mock question title' } });
 
+      mockFormState = { mockField: 'example response' };
       mockCtx = {
         language: 'en',
         isDivorce: true,
         partner: 'husband',
-        formState: { mockField: 'example response' },
+        formState: mockFormState,
         change: 'Change',
         steps: [
           {
@@ -64,7 +66,7 @@ describe('getAnswerRows()', () => {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
             generateContent: mockGenerateContent,
-            form: { fields: { mockField: { type: 'text' } } },
+            form: { fields: { mockField: { type: 'text', label: l => l.title } } },
           },
         ],
         stepAnswers: {},
@@ -80,6 +82,7 @@ describe('getAnswerRows()', () => {
       expect(mockGenerateContent).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'husband',
+        formState: mockFormState,
       });
       expect(actual).toEqual([
         {
@@ -115,6 +118,7 @@ describe('getAnswerRows()', () => {
       expect(mockGenerateContent).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'husband',
+        formState: mockFormState,
       });
       expect(actual).toEqual([
         {
@@ -169,11 +173,12 @@ describe('getAnswerRows()', () => {
     });
 
     it('converts steps into the correct check answers rows with checkboxes', () => {
+      mockFormState = { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked };
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          formState: { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked },
+          formState: mockFormState,
           steps: [
             {
               url: 'pickThisOne',
@@ -199,6 +204,7 @@ describe('getAnswerRows()', () => {
       expect(mockGenerateContent).toHaveBeenCalledWith({
         isDivorce: true,
         partner: 'husband',
+        formState: mockFormState,
       });
       expect(actual).toEqual([
         {

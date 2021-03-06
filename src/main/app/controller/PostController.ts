@@ -23,7 +23,7 @@ export class PostController<T extends AnyObject> {
     req.session.userCase = {
       id,
       divorceOrDissolution,
-      ...omitUnreachableAnswers({ ...req.session.userCase, ...formData }),
+      ...omitUnreachableAnswers({ ...req.session.userCase, ...formData }, req.app.locals.steps),
     };
 
     const errors = this.form.getErrors(formData);

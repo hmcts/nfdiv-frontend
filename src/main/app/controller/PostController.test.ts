@@ -90,7 +90,17 @@ describe('PostController', () => {
     } as unknown) as FormContent;
     const controller = new PostController(new Form(mockFormContent));
 
-    const req = mockRequest({ body });
+    const req = mockRequest({
+      body,
+      appLocals: {
+        steps: [
+          {
+            getNextStep: () => '',
+            form: { fields: { sameSex: {} } },
+          },
+        ],
+      },
+    });
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -110,7 +120,17 @@ describe('PostController', () => {
     } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({
+      body,
+      appLocals: {
+        steps: [
+          {
+            getNextStep: () => '',
+            form: { fields: { date: { type: 'date' } } },
+          },
+        ],
+      },
+    });
     const res = mockResponse();
     await controller.post(req, res);
 

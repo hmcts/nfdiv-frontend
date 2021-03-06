@@ -1,6 +1,12 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
+export const mockRequest = ({
+  session = {},
+  body = {},
+  cookies = {},
+  userCase = {},
+  appLocals = {},
+} = {}): AppRequest =>
   (({
     body,
     locals: {
@@ -25,6 +31,17 @@ export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = 
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
       ...session,
+    },
+    app: {
+      locals: {
+        steps: [
+          {
+            getNextStep: () => '',
+            form: { fields: { gender: { type: 'radios' } } },
+          },
+        ],
+        ...appLocals,
+      },
     },
     cookies,
     path: '/request',

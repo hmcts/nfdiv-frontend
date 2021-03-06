@@ -1,6 +1,6 @@
 import { pick } from 'lodash';
 
-import { Step, sequence } from '../../steps/sequence';
+import { Step } from '../../steps/sequence';
 import { Case, CaseDate } from '../case/case';
 
 import { FormContent, FormField, FormOptions } from './Form';
@@ -34,8 +34,8 @@ export const setupCheckboxParser: CheckboxParser = ([key, field]) => {
 
 type StepWithForm = { form?: FormContent } & Step;
 
-export const omitUnreachableAnswers = (caseState: Partial<Case>): Partial<Case> => {
-  const sequenceWithForms = (sequence as StepWithForm[]).filter(step => step.form);
+export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]): Partial<Case> => {
+  const sequenceWithForms = (steps as StepWithForm[]).filter(step => step.form);
 
   const getPossibleFields = (step = sequenceWithForms[0], fields = [] as string[]) => {
     const stepFields = step.form?.fields;
