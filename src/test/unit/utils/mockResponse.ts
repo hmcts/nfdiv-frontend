@@ -1,8 +1,7 @@
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import { Response } from 'express';
 
-import { CaseType } from '../../../main/app/case/case';
-
-export const mockResponse = ({ locals = { serviceType: CaseType.Divorce } } = {}): Response => {
+export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVORCE } } = {}): Response => {
   const res: Partial<Response> = { locals };
   res.redirect = jest.fn().mockReturnValue(res);
   res.render = jest.fn().mockReturnValue(res);

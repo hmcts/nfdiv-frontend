@@ -1,7 +1,8 @@
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
+
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CaseType } from '../../app/case/case';
 
 import { generateContent } from './content';
 import { PrivacyPolicyGetController } from './get';
@@ -24,7 +25,7 @@ describe('PrivacyPolicyGetController', () => {
   test('Should render the privacy policy page with civil content', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    res.locals.serviceType = CaseType.Dissolution;
+    res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
     await controller.get(req, res);
 
     expect(res.render).toBeCalledWith(expect.anything(), {

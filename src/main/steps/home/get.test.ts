@@ -1,6 +1,7 @@
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CaseType } from '../../app/case/case';
 import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL } from '../urls';
 
 import { HomeGetController } from './get';
@@ -13,7 +14,7 @@ describe('HomeGetController', () => {
       session: {
         userCase: {
           id: '123',
-          divorceOrDissolution: CaseType.Divorce,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         },
       },
     });
@@ -28,7 +29,7 @@ describe('HomeGetController', () => {
       session: {
         userCase: {
           id: '123',
-          divorceOrDissolution: CaseType.Divorce,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           gender: 'male',
         },
       },
@@ -42,7 +43,7 @@ describe('HomeGetController', () => {
   test('throws an error if the user switches service type', async () => {
     const req = mockRequest();
     const res = mockResponse({
-      locals: { serviceType: CaseType.Dissolution },
+      locals: { serviceType: DivorceOrDissolution.DISSOLUTION },
     });
 
     expect(() => controller.get(req, res)).toThrowError(new Error('Invalid case type'));

@@ -1,6 +1,6 @@
-import { CaseData } from '@hmcts/nfdiv-case-definition';
+import { CaseData, DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 
-import { CaseType, Checkbox, Gender, YesOrNo } from './case';
+import { Checkbox, YesOrNo } from './case';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -17,9 +17,9 @@ describe('from-api-format', () => {
     const nfdivFormat = fromApiFormat((results as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
-      divorceOrDissolution: CaseType.Divorce,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       sameSex: Checkbox.Checked,
-      gender: Gender.Male,
+      gender: Gender.MALE,
       screenHasUnionBroken: YesOrNo.Yes,
       helpWithFeesRefNo: 'HWF-ABC-123',
     });
@@ -29,8 +29,8 @@ describe('from-api-format', () => {
     const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-12-31' } as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
-      divorceOrDissolution: CaseType.Divorce,
-      gender: Gender.Male,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      gender: Gender.MALE,
       sameSex: Checkbox.Checked,
       screenHasUnionBroken: YesOrNo.Yes,
       relationshipDate: {
