@@ -805,6 +805,21 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
+"@babel/runtime-corejs3@^7.10.2":
+  version "7.13.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.13.9.tgz#b2fa9a6e5690ef8d4c4f2d30cac3ec1a8bb633ce"
+  integrity sha512-p6WSr71+5u/VBf1KDS/Y4dK3ZwbV+DD6wQO3X2EbUVluEOiyXUk09DzcwSaUH4WomYXrEPC+i2rqzuthhZhOJw==
+  dependencies:
+    core-js-pure "^3.0.0"
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.10.2":
+  version "7.13.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.9.tgz#97dbe2116e2630c489f22e0656decd60aaa1fcee"
+  integrity sha512-aY2kU+xgJ3dJ1eU6FMB9EH8dIe8dmusF1xEku52joLvw6eAFN0AI+WxCLDnpev2LEejWBAy2sBvBOBAjI3zmvA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.8.4":
   version "7.13.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.9.tgz#97dbe2116e2630c489f22e0656decd60aaa1fcee"
@@ -903,10 +918,10 @@
     lodash.mapvalues "^4.6.0"
     request-promise-native "^1.0.5"
 
-"@hmcts/nfdiv-case-definition@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.22.tgz#c5911fc683fb56d523da03ac107b2ab81b40cd16"
-  integrity sha512-Et3YOYobCGxU+i3gPxdKahm5BGv6K8HHMwJyXhWA50j17xXaX/XGo8/rUsJT1BbdLorvtThylPwuSNe0rlKVkg==
+"@hmcts/nfdiv-case-definition@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.24.tgz#516eef2cc2ab14d6ff78854e579b5814f6a7c3d9"
+  integrity sha512-Fg1PVSdhpVPSaUZPqkybzCXyG3MqXY4jqLJyR/YXsMFCswomEEpMwBy/2rI1Xn9jw7XhQrIZM+5sP/b6Dy0Bfw==
 
 "@hmcts/nodejs-healthcheck@^1.7.0":
   version "1.7.0"
@@ -1198,6 +1213,11 @@
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
+
+"@types/aria-query@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.1.tgz#78b5433344e2f92e8b306c06a5622c50c245bf6b"
+  integrity sha512-S6oPal772qJZHoRZLFc/XoZW2gFvwXusYUmXPXkgxJLuEk2vOt7jc4Yo6z/vtI0EBkbPBVrJJ0B+prLIKiWqHg==
 
 "@types/autobind-decorator@^2.1.0":
   version "2.1.0"
@@ -2181,6 +2201,14 @@ argparse@^1.0.7:
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+aria-query@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-4.2.2.tgz#0d2ca6c9aceb56b8977e9fed6aed7e15bbd2f83b"
+  integrity sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==
+  dependencies:
+    "@babel/runtime" "^7.10.2"
+    "@babel/runtime-corejs3" "^7.10.2"
 
 arr-diff@^4.0.0:
   version "4.0.0"
@@ -3686,6 +3714,11 @@ core-js-compat@^3.8.1, core-js-compat@^3.9.0:
   dependencies:
     browserslist "^4.16.3"
     semver "7.0.0"
+
+core-js-pure@^3.0.0:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.9.1.tgz#677b322267172bd490e4464696f790cbc355bec5"
+  integrity sha512-laz3Zx0avrw9a4QEIdmIblnVuJz8W51leY9iLThatCsFawWxC3sE4guASC78JbCin+DkwMpCdp1AVAuzL/GN7A==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -11547,7 +11580,7 @@ webdriver@7.0.7:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.0.9, webdriverio@^7.0.9:
+webdriverio@7.0.9:
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.9.tgz#b98f05ea025ae6d05ff4fb742b13f6950524406d"
   integrity sha512-Ko9JtH3cz4Oc0a9eXDXfVKimSQrh1FhErLl5IPVr0Ocp0g44CVGRHlAKqIUlS7PmM/zs1mbZ5TsneIOLL42U8Q==
@@ -11559,6 +11592,39 @@ webdriverio@7.0.9, webdriverio@^7.0.9:
     "@wdio/types" "7.0.7"
     "@wdio/utils" "7.0.7"
     archiver "^5.0.0"
+    atob "^2.1.2"
+    css-shorthand-properties "^1.1.1"
+    css-value "^0.0.1"
+    devtools "7.0.9"
+    devtools-protocol "^0.0.856957"
+    fs-extra "^9.0.1"
+    get-port "^5.1.1"
+    grapheme-splitter "^1.0.2"
+    lodash.clonedeep "^4.5.0"
+    lodash.isobject "^3.0.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.zip "^4.2.0"
+    minimatch "^3.0.4"
+    puppeteer-core "^7.1.0"
+    resq "^1.9.1"
+    rgb2hex "0.2.3"
+    serialize-error "^8.0.0"
+    webdriver "7.0.7"
+
+webdriverio@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.1.0.tgz#12d40d329d8cb83859efbc5e6050d9c18399b0df"
+  integrity sha512-YCSy7m54FoeA3VkijYtaYakUC6AKyG862tYfkX/TtPW6xclNcb9txbAtIflA6QhZyAKwSj0iGaheIFGvfrYTpQ==
+  dependencies:
+    "@types/aria-query" "^4.2.1"
+    "@wdio/config" "7.0.7"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.0.0"
+    "@wdio/repl" "7.0.7"
+    "@wdio/types" "7.0.7"
+    "@wdio/utils" "7.0.7"
+    archiver "^5.0.0"
+    aria-query "^4.2.2"
     atob "^2.1.2"
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"

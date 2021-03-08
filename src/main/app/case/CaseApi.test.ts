@@ -1,9 +1,9 @@
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import axios from 'axios';
 
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { CaseType } from './case';
 
 jest.mock('axios');
 
@@ -25,7 +25,7 @@ describe('CaseApi', () => {
 
   const api = new CaseApi(mockedAxios, userDetails, mockLogger);
 
-  const serviceType = CaseType.Divorce;
+  const serviceType = DivorceOrDissolution.DIVORCE;
 
   test('Should return case data response', async () => {
     mockedAxios.get.mockResolvedValue({
@@ -74,7 +74,7 @@ describe('CaseApi', () => {
 
     const userCase = await api.getOrCreateCase(serviceType, userDetails);
 
-    expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: CaseType.Divorce });
+    expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE });
   });
 
   test('Should throw error when case could not be created', async () => {
@@ -100,7 +100,7 @@ describe('CaseApi', () => {
     mockedAxios.post.mockResolvedValue({});
 
     await api.updateCase('1234', {
-      divorceOrDissolution: CaseType.Divorce,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
 
     const expectedRequest = {
@@ -117,7 +117,7 @@ describe('CaseApi', () => {
 
     await expect(
       api.updateCase('not found', {
-        divorceOrDissolution: CaseType.Divorce,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       })
     ).rejects.toThrow('Case could not be updated.');
   });

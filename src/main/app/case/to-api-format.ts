@@ -1,8 +1,8 @@
-import { CaseData } from '@hmcts/nfdiv-case-definition';
+import { CaseData, DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-import { Case, CaseDate, CaseType, Checkbox, Gender, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...formFieldsToCaseMapping,
@@ -17,11 +17,11 @@ const fields = {
     let inferredRespondentGender = data.gender;
 
     if (data.sameSex !== Checkbox.Checked) {
-      if (data.divorceOrDissolution === CaseType.Dissolution) {
+      if (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) {
         inferredPetitionerGender = data.gender;
-        inferredRespondentGender = data.gender === Gender.Male ? Gender.Female : Gender.Male;
+        inferredRespondentGender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
       } else {
-        inferredPetitionerGender = data.gender === Gender.Male ? Gender.Female : Gender.Male;
+        inferredPetitionerGender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
         inferredRespondentGender = data.gender;
       }
     }

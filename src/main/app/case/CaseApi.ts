@@ -1,4 +1,4 @@
-import { CaseData, CaseEvent } from '@hmcts/nfdiv-case-definition';
+import { CaseData, CaseEvent, DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
@@ -6,7 +6,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CASE_TYPE, Case, CaseType, CaseWithId, JURISDICTION } from './case';
+import { CASE_TYPE, Case, CaseWithId, JURISDICTION } from './case';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -17,7 +17,7 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public async getOrCreateCase(serviceType: CaseType, userDetails: UserDetails): Promise<CaseWithId> {
+  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase();
 
     return userCase || this.createCase(serviceType, userDetails);
@@ -48,7 +48,7 @@ export class CaseApi {
     }
   }
 
-  private async createCase(serviceType: CaseType, userDetails: UserDetails): Promise<CaseWithId> {
+  private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CaseEvent.DRAFT_CREATE}`);
     const token = tokenResponse.data.token;
     const event = { id: CaseEvent.DRAFT_CREATE };

@@ -16,20 +16,23 @@ export class PostController<T extends AnyObject> {
    * redirect to.
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const { saveAndSignOut, _csrf, ...formData } = this.form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     Object.assign(req.session.userCase, formData);
 
     const errors = this.form.getErrors(formData);
     const isSaveAndSignOut = !!req.body.saveAndSignOut;
+    const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
     let nextUrl: string;
-    if (!isSaveAndSignOut && errors.length > 0) {
+    if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
       await req.locals.api.updateCase(req.session.userCase?.id, formData);
       if (isSaveAndSignOut) {
         return;
+      } else if (isSessionTimeout) {
+        return res.end();
       }
       req.session.errors = undefined;
       nextUrl = getNextStepUrl(req, formData);

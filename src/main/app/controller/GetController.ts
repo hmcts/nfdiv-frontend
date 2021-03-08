@@ -1,9 +1,9 @@
+import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
-import { CaseType, Gender } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 
@@ -25,7 +25,7 @@ export class GetController {
     const language = req.session?.lang || 'en';
     const commonLanguageContent = commonContent[language];
 
-    const isDivorce = res.locals.serviceType === CaseType.Divorce;
+    const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const selectedGender = req.session.userCase?.gender as Gender;
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
     const content = this.getContent(isDivorce, partner);
@@ -67,10 +67,10 @@ export class GetController {
       return translations['civilPartner'];
     }
 
-    if (selectedGender === Gender.Male) {
+    if (selectedGender === Gender.MALE) {
       return translations['husband'];
     }
-    if (selectedGender === Gender.Female) {
+    if (selectedGender === Gender.FEMALE) {
       return translations['wife'];
     }
 

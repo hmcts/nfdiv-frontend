@@ -1,8 +1,10 @@
+import { Gender } from '@hmcts/nfdiv-case-definition';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
-import { Checkbox, Gender } from '../case/case';
+import { Checkbox } from '../case/case';
 
 import { PostController } from './PostController';
 
@@ -13,7 +15,7 @@ const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -35,7 +37,7 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -57,7 +59,7 @@ describe('PostController', () => {
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { gender: Gender.Female };
+    const body = { gender: Gender.FEMALE };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -122,5 +124,23 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req, parsedBody);
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
+  });
+
+  test('Should save the users data and end response for session timeout', async () => {
+    const body = { gender: Gender.FEMALE, saveBeforeSessionTimeout: true };
+    const mockForm = ({
+      getErrors: () => [],
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
+
+    expect(res.end).toBeCalled();
   });
 });
