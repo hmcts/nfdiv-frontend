@@ -61,6 +61,8 @@ type Label = string | LanguageLookup;
 
 type Warning = Label;
 
+type Name = Label;
+
 export interface FormContent {
   submit: {
     text: Label;
@@ -80,7 +82,7 @@ export interface FormOptions {
 }
 
 export interface FormInput {
-  name?: string;
+  name?: Name;
   label: Label;
   hint?: Label;
   classes?: string;
