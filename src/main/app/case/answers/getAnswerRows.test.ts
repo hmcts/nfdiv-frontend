@@ -30,10 +30,12 @@ describe('getAnswerRows()', () => {
           {
             url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
+            getNextStep: () => 'pickThisOne',
           },
           {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
+            getNextStep: () => '',
             generateContent: mockGenerateContent,
             form: { fields: { foo: {} } },
           },
@@ -61,10 +63,12 @@ describe('getAnswerRows()', () => {
           {
             url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
+            getNextStep: () => 'pickThisOne',
           },
           {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
+            getNextStep: () => '',
             generateContent: mockGenerateContent,
             form: { fields: { mockField: { type: 'text', label: l => l.title } } },
           },
@@ -183,6 +187,7 @@ describe('getAnswerRows()', () => {
             {
               url: 'pickThisOne',
               showInSection: Sections.AboutPartnership,
+              getNextStep: () => '',
               generateContent: mockGenerateContent,
               form: {
                 fields: {

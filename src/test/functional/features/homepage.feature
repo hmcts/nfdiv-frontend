@@ -12,6 +12,7 @@ Feature: Homepage
     When I click "English"
     Then the page should include "This is a new service"
 
+  @nightly
   Scenario: Save and sign out
     Given I click "Save and sign out"
     Then the page should include "Your application has been saved"
