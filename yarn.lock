@@ -920,10 +920,10 @@
     lodash.mapvalues "^4.6.0"
     request-promise-native "^1.0.5"
 
-"@hmcts/nfdiv-case-definition@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.24.tgz#516eef2cc2ab14d6ff78854e579b5814f6a7c3d9"
-  integrity sha512-Fg1PVSdhpVPSaUZPqkybzCXyG3MqXY4jqLJyR/YXsMFCswomEEpMwBy/2rI1Xn9jw7XhQrIZM+5sP/b6Dy0Bfw==
+"@hmcts/nfdiv-case-definition@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@hmcts/nfdiv-case-definition/-/nfdiv-case-definition-0.0.26.tgz#fdb37d6de2cf86d85b3c03d2d321ec08a8ef3c62"
+  integrity sha512-KXiSuzq8FLFCq6yj/qUDE9vQnHUA/s14sidXPaBYS2COXaLHlbnAEfzrSCooEXV4ZzfFTOYzRt3X7h+zcpXFPQ==
 
 "@hmcts/nodejs-healthcheck@^1.7.0":
   version "1.7.0"
