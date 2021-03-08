@@ -107,4 +107,5 @@ export type FormError = {
 interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
+  saveBeforeSessionTimeout?: string;
 }
