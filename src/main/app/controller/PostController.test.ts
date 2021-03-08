@@ -123,4 +123,22 @@ describe('PostController', () => {
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
   });
+
+  test('Should save the users data and end response for session timeout', async () => {
+    const body = { gender: Gender.Female, saveBeforeSessionTimeout: true };
+    const mockForm = ({
+      getErrors: () => [],
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
+
+    expect(res.end).toBeCalled();
+  });
 });
