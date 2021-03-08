@@ -127,7 +127,7 @@ describe('PostController', () => {
   });
 
   test('Should save the users data and end response for session timeout', async () => {
-    const body = { gender: Gender.Female, saveBeforeSessionTimeout: true };
+    const body = { gender: Gender.FEMALE, saveBeforeSessionTimeout: true };
     const mockForm = ({
       getErrors: () => [],
       getParsedBody: () => body,
