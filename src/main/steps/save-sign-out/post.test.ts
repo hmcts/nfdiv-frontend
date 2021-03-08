@@ -27,7 +27,7 @@ describe('SaveSignOutPostController', () => {
 
     expect(req.session.errors).toBe(undefined);
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.render).toHaveBeenCalledWith(`${__dirname}/../../steps/save-sign-out/template.njk`, {
+    expect(res.render).toHaveBeenCalledWith(`${__dirname}/template`, {
       ...commonContent['en'],
       ...saveAndSignOutContent['en'],
       email: 'test@example.com',

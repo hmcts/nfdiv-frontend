@@ -24,7 +24,7 @@ export class SaveSignOutPostController<T extends AnyObject> extends PostControll
         throw err;
       }
 
-      res.render(`${__dirname}/../../steps/save-sign-out/template.njk`, {
+      res.render(`${__dirname}/template`, {
         ...commonContent[language],
         ...saveAndSignOutContent[language],
         email,
