@@ -6,6 +6,7 @@ import {
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
+  COUNTRY_AND_PLACE,
   GET_CERTIFIED_TRANSLATION,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
@@ -96,15 +97,20 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_IN_ENGLISH,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.certificateInEnglish === YesOrNo.No ? CERTIFIED_TRANSLATION : CHECK_ANSWERS_URL),
+    getNextStep: data => (data.certificateInEnglish === YesOrNo.No ? CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
     url: CERTIFIED_TRANSLATION,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.certifiedTranslation === YesOrNo.No ? GET_CERTIFIED_TRANSLATION : CHECK_ANSWERS_URL),
+    getNextStep: data => (data.certifiedTranslation === YesOrNo.No ? GET_CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
     url: GET_CERTIFIED_TRANSLATION,
+    getNextStep: () => CERTIFIED_TRANSLATION,
+  },
+  {
+    url: COUNTRY_AND_PLACE,
+    showInSection: Sections.AboutPartnership,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
