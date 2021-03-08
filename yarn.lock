@@ -1766,16 +1766,16 @@
   dependencies:
     "@wdio/utils" "7.0.7"
 
-"@wdio/sauce-service@^7.0.9":
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.0.9.tgz#d5ae96e33bf762867a0e58d5299c353afff922ad"
-  integrity sha512-h6wHnlmvPOBaj/PHqTqB32oiH/iSO9ozdBhCHCXrkoBCWVnlESZwaGD3GgZUExjPv+xrLAWWyDf0MrGSj/EhLQ==
+"@wdio/sauce-service@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.1.0.tgz#7cf3054a0e43520012ec6714372287e18078f875"
+  integrity sha512-70cWKI0644sRIEOVukX/gxAT/+NXhjYXHRWGF+NmDRG5H6F0GUk2mZX7F0NU5ybt7oK9PkNK+Uo0S4P0jXqq+A==
   dependencies:
     "@wdio/logger" "7.0.0"
     "@wdio/types" "7.0.7"
     "@wdio/utils" "7.0.7"
     saucelabs "^4.2.0"
-    webdriverio "7.0.9"
+    webdriverio "7.1.0"
 
 "@wdio/types@7.0.7":
   version "7.0.7"
@@ -11719,38 +11719,7 @@ webdriver@7.0.7:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.0.9:
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.0.9.tgz#b98f05ea025ae6d05ff4fb742b13f6950524406d"
-  integrity sha512-Ko9JtH3cz4Oc0a9eXDXfVKimSQrh1FhErLl5IPVr0Ocp0g44CVGRHlAKqIUlS7PmM/zs1mbZ5TsneIOLL42U8Q==
-  dependencies:
-    "@wdio/config" "7.0.7"
-    "@wdio/logger" "7.0.0"
-    "@wdio/protocols" "7.0.0"
-    "@wdio/repl" "7.0.7"
-    "@wdio/types" "7.0.7"
-    "@wdio/utils" "7.0.7"
-    archiver "^5.0.0"
-    atob "^2.1.2"
-    css-shorthand-properties "^1.1.1"
-    css-value "^0.0.1"
-    devtools "7.0.9"
-    devtools-protocol "^0.0.856957"
-    fs-extra "^9.0.1"
-    get-port "^5.1.1"
-    grapheme-splitter "^1.0.2"
-    lodash.clonedeep "^4.5.0"
-    lodash.isobject "^3.0.2"
-    lodash.isplainobject "^4.0.6"
-    lodash.zip "^4.2.0"
-    minimatch "^3.0.4"
-    puppeteer-core "^7.1.0"
-    resq "^1.9.1"
-    rgb2hex "0.2.3"
-    serialize-error "^8.0.0"
-    webdriver "7.0.7"
-
-webdriverio@^7.1.0:
+webdriverio@7.1.0, webdriverio@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.1.0.tgz#12d40d329d8cb83859efbc5e6050d9c18399b0df"
   integrity sha512-YCSy7m54FoeA3VkijYtaYakUC6AKyG862tYfkX/TtPW6xclNcb9txbAtIflA6QhZyAKwSj0iGaheIFGvfrYTpQ==
