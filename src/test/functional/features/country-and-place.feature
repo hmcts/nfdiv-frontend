@@ -23,7 +23,7 @@ Feature: Country and Place
     Given I click "Yes"
     And I click "Continue"
     And the page should include "Where you got married"
-    And the page should include "For example, United States of America"
+    And the page should include "For example, Australia"
     And the page should include "the place, exactly as it appears on your certificate."
     When I select "Enter the country you got married in"
     And I type "Australia"

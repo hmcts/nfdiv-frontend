@@ -9,9 +9,7 @@ export const generateContent: TranslationFn = ({ isDivorce, formState }) => {
   const en = {
     title: `Where you ${formedCeremonyEn}`,
     ceremonyCountry: `Enter the country you ${formedCeremonyEn} in`,
-    ceremonyCountryHint: `For example, ${
-      formState.certificateInEnglish === YesOrNo.Yes ? 'United States of America' : 'France'
-    }.`,
+    ceremonyCountryHint: `For example, ${formState.certificateInEnglish === YesOrNo.Yes ? 'Australia' : 'France'}.`,
     ceremonyPlace: `Enter the place you ${formedCeremonyEn}`,
     ceremonyPlaceHint: `Copy all the information relating to the place, exactly as it appears on your ${
       formState.certificateInEnglish === YesOrNo.No ? 'translated' : ''
