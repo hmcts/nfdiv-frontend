@@ -41,10 +41,12 @@ const en = {
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
+  marriage: 'marriage',
+  civilPartnership: 'civil partnership',
   husband: 'husband',
   wife: 'wife',
-  civilPartner: 'civil partner',
   partner: 'partner',
+  civilPartner: 'civil partner',
   withHim: 'with him',
   withHer: 'with her',
   months: [
@@ -84,7 +86,7 @@ const cy: typeof en = {
   back: 'Yn ôl',
   continue: 'Parhau',
   download: 'Llwytho i lawr',
-  required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
+  required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   ogl:
     'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   cookieText:
@@ -113,8 +115,12 @@ const cy: typeof en = {
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
+  marriage: 'priodas',
+  civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
+  partner: 'partner',
+  civilPartner: 'partner sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
   months: [

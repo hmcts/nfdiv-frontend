@@ -21,6 +21,7 @@ Feature: Certificate Original
     And I select "No"
     When I click "Continue"
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
+    And I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 
