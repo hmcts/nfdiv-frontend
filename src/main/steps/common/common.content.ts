@@ -88,6 +88,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   download: 'Llwytho i lawr',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
+  notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   ogl:
     'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   cookieText:

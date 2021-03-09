@@ -24,9 +24,25 @@ export const generateContent: TranslationFn = ({ isDivorce, formState }) => {
     },
   };
 
-  // @TODO translations
+  const formedCeremonyCy = isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil';
   const cy: typeof en = {
-    ...en,
+    title: `Lle y gwnaethoch ${formedCeremonyCy}`,
+    ceremonyCountry: `Nodwch enw'r wlad lle y gwnaethoch ${formedCeremonyCy}`,
+    ceremonyCountryHint: `Er enghraifft, ${
+      formState.certificateInEnglish === YesOrNo.Yes ? 'Unol Daleithiau' : 'Ffrainc'
+    }.`,
+    ceremonyPlace: `Nodwch enw'r lle y gwnaethoch ${formedCeremonyCy}`,
+    ceremonyPlaceHint: `Copïwch yr holl wybodaeth am y lle, yn union fel y mae'n ymddangos ar eich tystysgrif${
+      formState.certificateInEnglish === YesOrNo.No ? ' cyfieithiad' : ''
+    }.`,
+    errors: {
+      ceremonyCountry: {
+        required: `${commonContent.cy.notAnswered} Mae angen ichi nodi'r wlad.`,
+      },
+      ceremonyPlace: {
+        required: `${commonContent.cy.notAnswered} Mae angen i chi nodi enw'r lle.`,
+      },
+    },
   };
 
   const common = {
