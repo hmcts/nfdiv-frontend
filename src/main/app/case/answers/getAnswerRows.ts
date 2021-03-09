@@ -1,10 +1,10 @@
 import { Sections, Step } from '../../../steps/sequence';
 import { TranslationFn } from '../../controller/GetController';
 import type { FormContent, FormOptions } from '../../form/Form';
-import { omitUnreachableAnswers } from '../../form/parser';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
+import { omitUnreachableAnswers } from './omitUnreachableAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
