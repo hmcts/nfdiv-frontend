@@ -4,7 +4,6 @@ import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
-import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -45,8 +44,6 @@ export class Nunjucks {
             : undefined,
       }));
     });
-
-    env.addGlobal('getAnswerRows', getAnswerRows);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
