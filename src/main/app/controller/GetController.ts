@@ -4,12 +4,21 @@ import { Response } from 'express';
 
 import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
+import { Case } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 
 type Translation = Record<string, unknown>;
 export type Translations = { en: Translation; cy: Translation; common: Translation | undefined };
-export type TranslationFn = ({ isDivorce, partner }: { isDivorce: boolean; partner: string }) => Translations;
+export type TranslationFn = ({
+  isDivorce,
+  partner,
+  formState,
+}: {
+  isDivorce: boolean;
+  partner: string;
+  formState: Partial<Case>;
+}) => Translations;
 
 @autobind
 export class GetController {
@@ -26,9 +35,10 @@ export class GetController {
     const commonLanguageContent = commonContent[language];
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
-    const selectedGender = req.session.userCase?.gender as Gender;
+    const formState = req.session?.userCase;
+    const selectedGender = formState?.gender as Gender;
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
-    const content = this.getContent(isDivorce, partner);
+    const content = this.getContent(isDivorce, partner, formState);
 
     const languageContent = content[language];
     const commonPageContent = content.common || {};
@@ -46,12 +56,12 @@ export class GetController {
       language,
       isDivorce,
       partner,
-      formState: req.session?.userCase,
+      formState,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }
 
-  private getContent(isDivorce: boolean, partner: string): Translations {
+  private getContent(isDivorce: boolean, partner: string, formState: Partial<Case>): Translations {
     if (typeof this.content !== 'function') {
       return this.content;
     }
@@ -59,6 +69,7 @@ export class GetController {
     return this.content({
       isDivorce,
       partner,
+      formState,
     });
   }
 

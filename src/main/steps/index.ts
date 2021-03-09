@@ -10,7 +10,7 @@ import { CHECK_ANSWERS_URL } from './urls';
 const stepForms = {};
 
 for (const step of sequence) {
-  const stepContentFile = `${__dirname}/sequence${step.url}/content.ts`;
+  const stepContentFile = `${__dirname}${step.url}/content.ts`;
   if (fs.existsSync(stepContentFile)) {
     const content = require(stepContentFile);
 
