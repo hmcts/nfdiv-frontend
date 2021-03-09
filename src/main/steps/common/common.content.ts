@@ -1,3 +1,5 @@
+import { Gender } from '@hmcts/nfdiv-case-definition';
+
 const en = {
   phase: 'Beta',
   feedback:
@@ -145,6 +147,33 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
+};
+
+export const generateCommonContent = ({
+  language,
+  isDivorce,
+  selectedGender,
+}: {
+  language: string;
+  isDivorce: boolean;
+  selectedGender: string;
+}): { commonTranslations: Record<string, unknown>; partner: string } => {
+  const commonTranslations = language === 'en' ? en : cy;
+  let partner;
+  if (!isDivorce) {
+    partner = commonTranslations['civilPartner'];
+  } else if (selectedGender === Gender.MALE) {
+    partner = commonTranslations['husband'];
+  } else if (selectedGender === Gender.FEMALE) {
+    partner = commonTranslations['wife'];
+  } else {
+    partner = commonTranslations['partner'];
+  }
+
+  return {
+    commonTranslations,
+    partner,
+  };
 };
 
 export const commonContent = { en, cy };

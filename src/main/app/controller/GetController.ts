@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextIncompleteStepUrl } from '../../steps';
-import { commonContent } from '../../steps/common/common.content';
+import { generateCommonContent } from '../../steps/common/common.content';
 import { Case } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -32,12 +32,11 @@ export class GetController {
     }
 
     const language = req.session?.lang || 'en';
-    const commonLanguageContent = commonContent[language];
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const formState = req.session?.userCase;
     const selectedGender = formState?.gender as Gender;
-    const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
+    const { commonTranslations, partner } = generateCommonContent({ language, isDivorce, selectedGender });
     const content = this.getContent(isDivorce, partner, formState);
 
     const languageContent = content[language];
@@ -49,7 +48,7 @@ export class GetController {
     }
 
     res.render(this.view, {
-      ...commonLanguageContent,
+      ...commonTranslations,
       ...languageContent,
       ...commonPageContent,
       sessionErrors,
@@ -71,20 +70,5 @@ export class GetController {
       partner,
       formState,
     });
-  }
-
-  private getPartnerContent(selectedGender: Gender, isDivorce: boolean, translations: Translations): string {
-    if (!isDivorce) {
-      return translations['civilPartner'];
-    }
-
-    if (selectedGender === Gender.MALE) {
-      return translations['husband'];
-    }
-    if (selectedGender === Gender.FEMALE) {
-      return translations['wife'];
-    }
-
-    return translations['partner'];
   }
 }
