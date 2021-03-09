@@ -6,7 +6,10 @@ const en = {
 };
 
 const cy: typeof en = {
-  ...en,
+  title: 'Cawsoch eich allgofnodi i amddiffyn eich preifatrwydd',
+  line1: "Ni chafodd unrhyw beth ei wneud i'ch cais am dros 20 munud, felly cawsoch eich allgofnodi.",
+  line2: "Mae'r hyn a wnaethoch wedi cael ei gadw.",
+  signBackInAndContinue: 'Mewngofnodi eto a pharhau',
 };
 
 export const timedOutContent = { en, cy, common: {} };
