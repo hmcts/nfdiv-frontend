@@ -22,7 +22,11 @@ export type TranslationFn = ({
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
+  constructor(
+    protected readonly view: string,
+    protected readonly content: TranslationFn | Translations,
+    protected language = 'en'
+  ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -31,7 +35,7 @@ export class GetController {
       return;
     }
 
-    const language = req.session?.lang || 'en';
+    const language = req.session?.lang || this.language;
     const commonLanguageContent = commonContent[language];
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
