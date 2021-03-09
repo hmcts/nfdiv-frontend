@@ -15,7 +15,7 @@ Feature: Your details step
 
   Scenario: Loading the your details for civil partnership
     Given I go to '/your-details?forceCivilMode'
-    Then I expect the page title to be "End a civil partnership - Are you male or female? - GOV.UK"
+    Then I expect the page title to be "Apply to end a civil partnership - Are you male or female? - GOV.UK"
     And the page should include "Are you male or female?"
 
   @nightly
