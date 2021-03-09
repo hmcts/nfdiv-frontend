@@ -1,4 +1,5 @@
 import { getFormattedDate } from '../../app/case/answers/formatDate';
+import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { Case, YesOrNo } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { Sections } from '../sequence';
@@ -41,6 +42,7 @@ export const generateContent: TranslationFn = ({ isDivorce, partner }) => {
     cy,
     common: {
       sections: Sections,
+      getAnswerRows,
     },
   };
 };
