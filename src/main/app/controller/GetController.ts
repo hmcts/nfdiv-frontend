@@ -24,11 +24,7 @@ export type TranslationFn = ({
 
 @autobind
 export class GetController {
-  constructor(
-    protected readonly view: string,
-    protected readonly content: TranslationFn | Translations,
-    protected language = 'en'
-  ) {}
+  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -46,7 +42,7 @@ export class GetController {
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
     const content = this.getContent(isDivorce, partner, formState);
 
-    const languageContent = content[this.language];
+    const languageContent = content[language];
     const commonPageContent = content.common || {};
     const sessionErrors = req.session?.errors || [];
 

@@ -14,10 +14,6 @@ export class SaveSignOutGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     this.content['common']['email'] = req.session.user?.email;
 
-    if (req.session?.lang) {
-      this.language = req.session.lang;
-    }
-
     req.session.destroy(err => {
       if (err) {
         throw err;
