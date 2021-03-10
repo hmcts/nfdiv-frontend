@@ -1,5 +1,8 @@
 import { Gender } from '@hmcts/nfdiv-case-definition';
 
+import { Case } from '../../app/case/case';
+import { PageContent, TranslationFn } from '../../app/controller/GetController';
+
 const en = {
   phase: 'Beta',
   feedback:
@@ -149,16 +152,14 @@ const cy: typeof en = {
   no: 'Naddo',
 };
 
-export const generateCommonContent = ({
-  language,
-  isDivorce,
-  selectedGender,
-}: {
-  language: string;
-  isDivorce: boolean;
-  selectedGender: string;
-}): { commonTranslations: Record<string, unknown>; partner: string } => {
-  const commonTranslations = language === 'en' ? en : cy;
+export const generatePageContent = (
+  language: string,
+  pageContent?: TranslationFn,
+  isDivorce?: boolean,
+  formState?: Partial<Case>
+): PageContent => {
+  const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const selectedGender = formState?.gender as Gender;
   let partner;
   if (!isDivorce) {
     partner = commonTranslations['civilPartner'];
@@ -170,10 +171,22 @@ export const generateCommonContent = ({
     partner = commonTranslations['partner'];
   }
 
-  return {
+  const content = {
     commonTranslations,
     partner,
+    language,
+    isDivorce,
+    formState,
+  };
+
+  if (pageContent) {
+    Object.assign(content, pageContent(content));
+  }
+
+  return {
+    ...commonTranslations,
+    ...content,
   };
 };
 
-export const commonContent = { en, cy };
+export type commonContent = typeof en;

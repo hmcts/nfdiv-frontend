@@ -1,3 +1,5 @@
+import { TranslationFn } from '../../app/controller/GetController';
+
 const en = {
   title: 'Your application has been saved',
   applicationSentTo: 'A link to your application has been sent to:',
@@ -14,4 +16,6 @@ const cy: typeof en = {
   signBackIn: 'Mewngofnodi eto a pharhau',
 };
 
-export const saveAndSignOutContent = { en, cy, common: {} };
+export const generateContent: TranslationFn = ({ language }) => {
+  return language === 'cy' ? cy : en;
+};

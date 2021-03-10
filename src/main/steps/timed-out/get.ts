@@ -3,14 +3,14 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { commonContent } from '../common/common.content';
+import { generatePageContent } from '../common/common.content';
 
-import { timedOutContent } from './content';
+import { generateContent } from './content';
 
 @autobind
 export class TimedOutGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', timedOutContent);
+    super(__dirname + '/template', generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -20,14 +20,10 @@ export class TimedOutGetController extends GetController {
       }
 
       const language = req.session?.lang || 'en';
-      const commonLanguageContent = commonContent[language];
-      const languageContent = timedOutContent[language];
-      const commonPageContent = timedOutContent.common || {};
+      const commonContent = generatePageContent(language, generateContent);
 
       res.render(this.view, {
-        ...commonLanguageContent,
-        ...languageContent,
-        ...commonPageContent,
+        ...commonContent,
       });
     });
   }

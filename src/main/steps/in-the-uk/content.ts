@@ -2,35 +2,26 @@ import { YesOrNo } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { commonContent } from '../common/common.content';
 
-export const generateContent: TranslationFn = ({ isDivorce }) => {
-  const en = {
-    title: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
-    line1: 'The UK is made up of England, Scotland, Wales and Northern Ireland.',
-    errors: {
-      inTheUk: {
-        required: commonContent.en.required,
-      },
+const en = (isDivorce, commonTranslations) => ({
+  title: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
+  line1: 'The UK is made up of England, Scotland, Wales and Northern Ireland.',
+  errors: {
+    inTheUk: {
+      required: commonTranslations.required,
     },
-  };
+  },
+});
 
-  const cy: typeof en = {
-    title: `A wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yn y DU?`,
-    line1: "Mae'r DU yn cynnwys Cymru, Lloegr, Yr Alban a Gogledd Iwerddon.",
-    errors: {
-      inTheUk: {
-        required: commonContent.cy.required,
-      },
+const cy: typeof en = (isDivorce, commonTranslations) => ({
+  title: `A wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yn y DU?`,
+  line1: "Mae'r DU yn cynnwys Cymru, Lloegr, Yr Alban a Gogledd Iwerddon.",
+  errors: {
+    inTheUk: {
+      required: commonTranslations.required,
     },
-  };
-
-  const common = {
-    form,
-  };
-
-  return { en, cy, common };
-};
+  },
+});
 
 export const form: FormContent = {
   fields: {
@@ -48,4 +39,12 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+};
+
+export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
+  const translations = language === 'cy' ? cy(isDivorce, commonTranslations) : en(isDivorce, commonTranslations);
+  return {
+    ...translations,
+    form,
+  };
 };

@@ -4,38 +4,29 @@ import { Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { commonContent } from '../common/common.content';
 
-export const generateContent: TranslationFn = ({ isDivorce }) => {
-  const en = {
-    title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
-    male: isDivorce ? 'My husband' : 'Male',
-    female: isDivorce ? 'My wife' : 'Female',
-    appliesToYou: 'Select the following if it applies to you:',
-    sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
-    errors: {
-      gender: {
-        required: commonContent.en.required,
-      },
+const en = (isDivorce, commonContent) => ({
+  title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
+  male: isDivorce ? 'My husband' : 'Male',
+  female: isDivorce ? 'My wife' : 'Female',
+  appliesToYou: 'Select the following if it applies to you:',
+  sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
+  errors: {
+    gender: {
+      required: commonContent.required,
     },
-  };
+  },
+});
 
-  // @TODO translations
-  const cy: typeof en = {
-    ...en,
-    errors: {
-      gender: {
-        required: commonContent.cy.required,
-      },
+// @TODO translations
+const cy = (isDivorce, commonContent) => ({
+  ...en,
+  errors: {
+    gender: {
+      required: commonContent.cy.required,
     },
-  };
-
-  const common = {
-    form,
-  };
-
-  return { en, cy, common };
-};
+  },
+});
 
 export const form: FormContent = {
   fields: {
@@ -58,4 +49,12 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+};
+
+export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
+  const translations = language !== 'en' ? cy(isDivorce, commonTranslations) : en(isDivorce, commonTranslations);
+  return {
+    ...translations,
+    form,
+  };
 };

@@ -4,8 +4,8 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form } from '../../app/form/Form';
-import { commonContent } from '../../steps/common/common.content';
-import { saveAndSignOutContent } from '../../steps/save-sign-out/content';
+import { generatePageContent } from '../../steps/common/common.content';
+import { generateContent } from '../../steps/save-sign-out/content';
 
 @autobind
 export class SaveSignOutPostController<T extends AnyObject> extends PostController<T> {
@@ -24,9 +24,10 @@ export class SaveSignOutPostController<T extends AnyObject> extends PostControll
         throw err;
       }
 
+      const commonContent = generatePageContent(language, generateContent);
+
       res.render(`${__dirname}/../../steps/save-sign-out/template.njk`, {
-        ...commonContent[language],
-        ...saveAndSignOutContent[language],
+        ...commonContent,
         email,
       });
     });
