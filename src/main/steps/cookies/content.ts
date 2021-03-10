@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = isDivorce => ({
+const en = ({ isDivorce }) => ({
   title: 'Cookies',
   paragraph1:
     'A cookie is a small piece of data that&rsquo;s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly.',
@@ -73,7 +73,7 @@ const en = isDivorce => ({
   securityCookieExpiry2: 'When you close your browser',
 });
 
-const cy: typeof en = isDivorce => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: 'Cwcis',
   paragraph1:
     'Darn bach o ddata sy&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
@@ -147,6 +147,11 @@ const cy: typeof en = isDivorce => ({
   securityCookieExpiry2: 'Pan fyddwch chi’n cau’ch porwr',
 });
 
-export const generateContent: TranslationFn = ({ language, isDivorce }) => {
-  return language === 'cy' ? cy(isDivorce) : en(isDivorce);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language](content);
 };

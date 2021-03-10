@@ -3,11 +3,11 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = (formedCeremonyEn, formState, commonTranslations) => ({
-  title: `Where you ${formedCeremonyEn}`,
-  ceremonyCountry: `Enter the country where you ${formedCeremonyEn}`,
+const en = ({ formedCeremony, formState, commonTranslations }) => ({
+  title: `Where you ${formedCeremony}`,
+  ceremonyCountry: `Enter the country where you ${formedCeremony}`,
   ceremonyCountryHint: `For example, ${formState.certificateInEnglish === YesOrNo.Yes ? 'Australia' : 'France'}.`,
-  ceremonyPlace: `Enter the place where you ${formedCeremonyEn}`,
+  ceremonyPlace: `Enter the place where you ${formedCeremony}`,
   ceremonyPlaceHint: `Copy all the information relating to the place, exactly as it appears on your ${
     formState.certificateInEnglish === YesOrNo.No ? 'translated' : ''
   } certificate.`,
@@ -22,8 +22,8 @@ const en = (formedCeremonyEn, formState, commonTranslations) => ({
 });
 
 // @TODO translations
-const cy: typeof en = (formedCeremonyEn, formState, commonTranslations) =>
-  en(formedCeremonyEn, formState, commonTranslations);
+const cy: typeof en = ({ formedCeremony, formState, commonTranslations }) =>
+  en({ formedCeremony, formState, commonTranslations });
 
 export const form: FormContent = {
   fields: {
@@ -45,12 +45,15 @@ export const form: FormContent = {
     text: l => l.continue,
   },
 };
-export const generateContent: TranslationFn = ({ language, isDivorce, formState, commonTranslations }) => {
-  const formedCeremonyEn = isDivorce ? 'got married' : 'formed your civil partnership';
-  const translations =
-    language !== 'en'
-      ? cy(formedCeremonyEn, formState, commonTranslations)
-      : en(formedCeremonyEn, formState, commonTranslations);
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const formedCeremony = content.isDivorce ? 'got married' : 'formed your civil partnership';
+  const translations = languages[content.language]({ ...content, formedCeremony });
   return {
     ...translations,
     form,

@@ -3,12 +3,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextIncompleteStepUrl } from '../../steps';
-import { generatePageContent } from '../../steps/common/common.content';
+import { CommonContent, generatePageContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
 export type PageContent = Record<string, unknown>;
-export type TranslationFn = (content: Record<string, unknown>) => PageContent;
+export type TranslationFn = (content: CommonContent) => PageContent;
 
 @autobind
 export class GetController {

@@ -94,6 +94,11 @@ const cy: typeof en = {
     'Uned yr Iaith Gymraeg<br>Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF<br>',
 };
 
-export const generateContent: TranslationFn = ({ language }) => {
-  return language !== 'en' ? cy : en;
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language];
 };

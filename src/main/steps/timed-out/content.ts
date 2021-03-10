@@ -11,6 +11,11 @@ const cy: typeof en = {
   ...en,
 };
 
-export const generateContent: TranslationFn = ({ language }) => {
-  return language !== 'en' ? cy : en;
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language];
 };

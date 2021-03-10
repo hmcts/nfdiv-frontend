@@ -16,6 +16,11 @@ const cy: typeof en = {
   signBackIn: 'Mewngofnodi eto a pharhau',
 };
 
-export const generateContent: TranslationFn = ({ language }) => {
-  return language === 'cy' ? cy : en;
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language];
 };

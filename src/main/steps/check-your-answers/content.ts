@@ -5,7 +5,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
 
-const en = (isDivorce, partner) => ({
+const en = ({ isDivorce, partner }) => ({
   title: 'Check your answers so far',
   sectionTitles: {
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
@@ -34,10 +34,15 @@ const en = (isDivorce, partner) => ({
 });
 
 // @TODO translations
-const cy: typeof en = (isDivorce, partner) => ({ ...en(isDivorce, partner), yes: 'Ydy', no: 'Nac' });
+const cy: typeof en = ({ isDivorce, partner }) => ({ ...en({ isDivorce, partner }), yes: 'Ydy', no: 'Nac' });
 
-export const generateContent: TranslationFn = ({ language, isDivorce, partner }) => {
-  const translations = language !== 'en' ? cy(isDivorce, partner) : en(isDivorce, partner);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
   return {
     ...translations,
     sections: Sections,

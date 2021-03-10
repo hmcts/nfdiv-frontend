@@ -159,12 +159,10 @@ export const generatePageContent = (
   formState?: Partial<Case>
 ): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
   const content = {
-    commonTranslations,
     partner,
     language,
     isDivorce,
@@ -172,7 +170,7 @@ export const generatePageContent = (
   };
 
   if (pageContent) {
-    Object.assign(content, pageContent(content));
+    Object.assign(content, pageContent({ commonTranslations, ...content } as CommonContent));
   }
 
   return {
@@ -194,4 +192,12 @@ const getPartnerContent = (translations, selectedGender: Gender, isDivorce = tru
   return translations['partner'];
 };
 
-export type commonContent = typeof en;
+export type CommonContent = {
+  //TODO define type
+  language: 'en' | 'cy';
+  commonTranslations: Record<string, unknown>;
+  pageContent?: TranslationFn;
+  isDivorce: boolean;
+  formState: Partial<Case>;
+  partner: string;
+};

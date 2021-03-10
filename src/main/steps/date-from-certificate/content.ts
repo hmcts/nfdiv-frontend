@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { covertToDateObject } from '../../app/form/parser';
 import { areFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../app/form/validation';
 
-const en = isDivorce => ({
+const en = ({ isDivorce }) => ({
   title: isDivorce ? 'When did you get married?' : 'When did you form your civil partnership?',
   line1: `Enter the date from your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
   hint: 'For example, 31 3 2002',
@@ -20,7 +20,7 @@ const en = isDivorce => ({
   },
 });
 
-const cy: typeof en = isDivorce => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
   line1: `Nodwch y dyddiad sydd ar eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
   hint: 'Er enghraifft, 31 3 2002',
@@ -74,8 +74,13 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = ({ language, isDivorce }) => {
-  const translations = language === 'cy' ? cy(isDivorce) : en(isDivorce);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

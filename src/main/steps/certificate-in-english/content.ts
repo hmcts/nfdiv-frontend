@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = (isDivorce, commonTranslations) => ({
+const en = ({ isDivorce, commonTranslations }) => ({
   title: `Is your original ${
     isDivorce ? commonTranslations.marriage : commonTranslations.civilPartnership
   } certificate in English?`,
@@ -16,7 +16,7 @@ const en = (isDivorce, commonTranslations) => ({
   },
 });
 
-const cy: typeof en = (isDivorce, commonTranslations) => ({
+const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
   title: `A yw eich tystysgrif ${
     isDivorce ? commonTranslations.marriage : commonTranslations.civilPartnership
   } wreiddiol yn Saesneg?`,
@@ -47,8 +47,13 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
-  const translations = language !== 'en' ? cy(isDivorce, commonTranslations) : en(isDivorce, commonTranslations);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

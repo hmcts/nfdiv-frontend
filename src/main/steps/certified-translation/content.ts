@@ -2,11 +2,10 @@ import { YesOrNo } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { commonContent } from '../common/common.content';
 
-const en = (relationshipEn, commonTranslations) => ({
-  title: `Do you have a ‘certified translation’ of your ${relationshipEn} certificate?`,
-  line1: `You need to provide an English translation of your ${relationshipEn} certificate. The translation also has to be <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">certified</a>.`,
+const en = ({ relationshipType, commonTranslations }) => ({
+  title: `Do you have a ‘certified translation’ of your ${relationshipType} certificate?`,
+  line1: `You need to provide an English translation of your ${relationshipType} certificate. The translation also has to be <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">certified</a>.`,
   yes: 'Yes, I have a certified translation',
   no: 'No, I do not have a certified translation',
   errors: {
@@ -16,9 +15,9 @@ const en = (relationshipEn, commonTranslations) => ({
   },
 });
 
-const cy: typeof en = (relationshipCy, commonTranslations) => ({
-  title: `A oes gennych 'gyfieithiad ardystiedig' o'ch tystysgrif ${relationshipCy}?`,
-  line1: `Mae arnoch angen darparu cyfieithiad Saesneg o'ch tystysgrif ${relationshipCy}. Rhaid bod y cyfieithiad wedi cael ei <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">ardystio</a> hefyd.`,
+const cy: typeof en = ({ relationshipType, commonTranslations }) => ({
+  title: `A oes gennych 'gyfieithiad ardystiedig' o'ch tystysgrif ${relationshipType}?`,
+  line1: `Mae arnoch angen darparu cyfieithiad Saesneg o'ch tystysgrif ${relationshipType}. Rhaid bod y cyfieithiad wedi cael ei <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">ardystio</a> hefyd.`,
   yes: 'Oes, mae gen i gyfieithiad ardystiedig',
   no: 'Nac oes, nid oes gen i gyfieithiad ardystiedig',
   errors: {
@@ -46,10 +45,16 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
-  const common = commonTranslations as commonContent;
-  const relationship = isDivorce ? common.marriage : common.civilPartnership;
-  const translations = language !== 'en' ? cy(relationship, commonTranslations) : en(relationship, commonTranslations);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const relationshipType = content.isDivorce
+    ? content.commonTranslations.marriage
+    : content.commonTranslations.civilPartnership;
+  const translations = languages[content.language]({ ...content, relationshipType });
   return {
     ...translations,
     form,

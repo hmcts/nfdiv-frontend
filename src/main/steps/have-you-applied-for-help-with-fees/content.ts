@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-const en = (isDivorce, commonTranslations) => ({
+const en = ({ isDivorce, commonTranslations }) => ({
   title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
   enterRefNo: 'Enter your Help With Fees reference number:',
   refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
@@ -22,7 +22,7 @@ const en = (isDivorce, commonTranslations) => ({
   },
 });
 
-const cy: typeof en = (isDivorce, commonTranslations) => ({
+const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
   title: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
   enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
   refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
@@ -77,8 +77,13 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
-  const translations = language !== 'en' ? cy(isDivorce, commonTranslations) : en(isDivorce, commonTranslations);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

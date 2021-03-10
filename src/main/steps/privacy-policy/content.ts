@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
-import { form } from '../country-and-place/content';
 
-const en = isDivorce => ({
+const en = ({ isDivorce }) => ({
   title: 'Privacy policy',
   info:
     'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
@@ -133,7 +132,7 @@ const en = isDivorce => ({
     "You can also complain to the <a class='govuk-link' href='https://ico.org.uk/global/contact-us'>Information Commissioner’s Office</a> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.",
 });
 
-const cy: typeof en = isDivorce => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: 'Polisi preifatrwydd',
   info:
     'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
@@ -261,10 +260,11 @@ const cy: typeof en = isDivorce => ({
     "Gallwch hefyd gyflwyno cwyn i <a class='govuk-link' href='https://ico.org.uk/global/contact-us'>Swyddfa’r Comisiynydd Gwybodaeth</a> os ydych yn anfodlon â’n hymateb neu'n credu nad ydym yn prosesu eich data personol yn gyfreithlon.",
 });
 
-export const generateContent: TranslationFn = ({ language, isDivorce }) => {
-  const translations = language === 'cy' ? cy(isDivorce) : en(isDivorce);
-  return {
-    ...translations,
-    form,
-  };
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language](content);
 };

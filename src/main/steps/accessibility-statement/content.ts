@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = isDivorce => ({
+const en = ({ isDivorce }) => ({
   title: 'Accessibility Statement',
   statement: `Accessibility statement for the ${
     isDivorce ? 'apply for a divorce' : 'end your civil partnership'
@@ -74,7 +74,7 @@ const en = isDivorce => ({
   statementPrepared: 'This statement was prepared on 19 September 2019.',
 });
 
-const cy: typeof en = isDivorce => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: 'Datganiad Hygyrchedd',
   statement: `Datganiad hygyrchedd ar gyfer y gwasanaeth gwneud cais ${
     isDivorce ? 'am ysgariad' : 'i ddod â phartneriaeth sifil i ben'
@@ -147,6 +147,11 @@ const cy: typeof en = isDivorce => ({
   statementPrepared: 'Paratowyd y datganiad hwn ar 19 Medi 2019.',
 });
 
-export const generateContent: TranslationFn = ({ language, isDivorce }) => {
-  return language === 'cy' ? cy(isDivorce) : en(isDivorce);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language](content);
 };

@@ -5,7 +5,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = (isDivorce, commonContent) => ({
+const en = ({ isDivorce, commonTranslations }) => ({
   title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
   male: isDivorce ? 'My husband' : 'Male',
   female: isDivorce ? 'My wife' : 'Female',
@@ -13,17 +13,17 @@ const en = (isDivorce, commonContent) => ({
   sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
   errors: {
     gender: {
-      required: commonContent.required,
+      required: commonTranslations.required,
     },
   },
 });
 
 // @TODO translations
-const cy = (isDivorce, commonContent) => ({
-  ...en,
+const cy = ({ isDivorce, commonTranslations }) => ({
+  ...en({ isDivorce, commonTranslations }),
   errors: {
     gender: {
-      required: commonContent.cy.required,
+      required: commonTranslations.required,
     },
   },
 });
@@ -51,8 +51,13 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = ({ language, isDivorce, commonTranslations }) => {
-  const translations = language !== 'en' ? cy(isDivorce, commonTranslations) : en(isDivorce, commonTranslations);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

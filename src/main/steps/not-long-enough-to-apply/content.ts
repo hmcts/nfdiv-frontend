@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = isDivorce => ({
+const en = ({ isDivorce }) => ({
   title: `You have not been ${isDivorce ? 'married' : 'in a civil partnership'} long enough to apply ${
     isDivorce ? 'for a divorce' : 'to end it'
   }`,
@@ -17,7 +17,7 @@ const en = isDivorce => ({
   }</a>.`,
 });
 
-const cy: typeof en = isDivorce => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: `Nid ydych wedi bod ${isDivorce ? 'yn briod' : 'mewn partneriaeth sifil'} ers digon o amser i wneud cais ${
     isDivorce ? 'am ysgariad' : "i'w therfynu"
   }`,
@@ -34,6 +34,11 @@ const cy: typeof en = isDivorce => ({
   }</a>.`,
 });
 
-export const generateContent: TranslationFn = ({ language, isDivorce }) => {
-  return language !== 'en' ? cy(isDivorce) : en(isDivorce);
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language](content);
 };
