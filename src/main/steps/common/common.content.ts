@@ -159,17 +159,9 @@ export const generatePageContent = (
   formState?: Partial<Case>
 ): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
+
   const selectedGender = formState?.gender as Gender;
-  let partner;
-  if (!isDivorce) {
-    partner = commonTranslations['civilPartner'];
-  } else if (selectedGender === Gender.MALE) {
-    partner = commonTranslations['husband'];
-  } else if (selectedGender === Gender.FEMALE) {
-    partner = commonTranslations['wife'];
-  } else {
-    partner = commonTranslations['partner'];
-  }
+  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
   const content = {
     commonTranslations,
@@ -187,6 +179,19 @@ export const generatePageContent = (
     ...commonTranslations,
     ...content,
   };
+};
+
+const getPartnerContent = (translations, selectedGender: Gender, isDivorce = true): string => {
+  if (!isDivorce) {
+    return translations['civilPartner'];
+  }
+  if (selectedGender === Gender.MALE) {
+    return translations['husband'];
+  }
+  if (selectedGender === Gender.FEMALE) {
+    return translations['wife'];
+  }
+  return translations['partner'];
 };
 
 export type commonContent = typeof en;
