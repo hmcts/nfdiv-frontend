@@ -1,3 +1,4 @@
+@flaky
 Feature: Check Your Answers
 
   Background:
