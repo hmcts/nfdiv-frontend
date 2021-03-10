@@ -1,7 +1,8 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({ session = {}, body = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
+export const mockRequest = ({ headers = {}, body = {}, session = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
   (({
+    headers: { 'accept-language': 'en', ...headers },
     body,
     locals: {
       api: {
