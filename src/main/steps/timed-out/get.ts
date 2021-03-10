@@ -13,10 +13,6 @@ export class TimedOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (req.session?.lang) {
-      this.language = req.session.lang;
-    }
-
     req.session.destroy(err => {
       if (err) {
         throw err;

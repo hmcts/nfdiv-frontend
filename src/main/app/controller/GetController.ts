@@ -1,7 +1,9 @@
 import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import Negotiator from 'negotiator';
 
+import { LanguageToggle } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { commonContent } from '../../steps/common/common.content';
 import { Case } from '../case/case';
@@ -22,11 +24,7 @@ export type TranslationFn = ({
 
 @autobind
 export class GetController {
-  constructor(
-    protected readonly view: string,
-    protected readonly content: TranslationFn | Translations,
-    protected language = 'en'
-  ) {}
+  constructor(protected readonly view: string, protected readonly content: TranslationFn | Translations) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -35,11 +33,8 @@ export class GetController {
       return;
     }
 
-    if (req.session?.lang) {
-      this.language = req.session?.lang;
-    }
-
-    const commonLanguageContent = commonContent[this.language];
+    const language = this.getPreferredLanguage(req);
+    const commonLanguageContent = commonContent[language];
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const formState = req.session?.userCase;
@@ -47,7 +42,7 @@ export class GetController {
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
     const content = this.getContent(isDivorce, partner, formState);
 
-    const languageContent = content[this.language];
+    const languageContent = content[language];
     const commonPageContent = content.common || {};
     const sessionErrors = req.session?.errors || [];
 
@@ -60,7 +55,8 @@ export class GetController {
       ...languageContent,
       ...commonPageContent,
       sessionErrors,
-      language: this.language,
+      htmlLang: language,
+      language,
       isDivorce,
       partner,
       formState,
@@ -93,5 +89,22 @@ export class GetController {
     }
 
     return translations['partner'];
+  }
+
+  private getPreferredLanguage(req: AppRequest) {
+    // User selected language
+    const requestedLanguage = req.query['lng'] as string;
+    if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
+      return requestedLanguage;
+    }
+
+    // Saved session language
+    if (req.session?.lang) {
+      return req.session.lang;
+    }
+
+    // Browsers default language
+    const negotiator = new Negotiator(req);
+    return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
   }
 }

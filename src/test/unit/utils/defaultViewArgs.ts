@@ -8,4 +8,5 @@ export const defaultViewArgs = {
   partner: expect.any(String),
   formState: expect.any(Object),
   language: expect.any(String),
+  htmlLang: expect.any(String),
 };
