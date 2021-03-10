@@ -46,7 +46,7 @@ export class GetController {
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
     const content = this.getContent(isDivorce, partner, formState);
 
-    const languageContent = content[language];
+    const languageContent = content[this.language];
     const commonPageContent = content.common || {};
     const sessionErrors = req.session?.errors || [];
 
