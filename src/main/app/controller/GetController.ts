@@ -35,8 +35,11 @@ export class GetController {
       return;
     }
 
-    const language = req.session?.lang || this.language;
-    const commonLanguageContent = commonContent[language];
+    if (req.session?.lang) {
+      this.language = req.session?.lang;
+    }
+
+    const commonLanguageContent = commonContent[this.language];
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const formState = req.session?.userCase;
@@ -44,7 +47,7 @@ export class GetController {
     const partner = this.getPartnerContent(selectedGender, isDivorce, commonLanguageContent);
     const content = this.getContent(isDivorce, partner, formState);
 
-    const languageContent = content[language];
+    const languageContent = content[this.language];
     const commonPageContent = content.common || {};
     const sessionErrors = req.session?.errors || [];
 
@@ -57,7 +60,7 @@ export class GetController {
       ...languageContent,
       ...commonPageContent,
       sessionErrors,
-      language,
+      language: this.language,
       isDivorce,
       partner,
       formState,
