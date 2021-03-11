@@ -3,28 +3,24 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
-  title: `Is your original ${
-    isDivorce ? commonTranslations.marriage : commonTranslations.civilPartnership
-  } certificate in English?`,
+const en = ({ isDivorce, marriage, civilPartnership, required }) => ({
+  title: `Is your original ${isDivorce ? marriage : civilPartnership} certificate in English?`,
   line1: 'If your original certificate contains an English version, select ‘yes’.',
   line2: 'If you have an English translation as a separate document, select ‘no’.',
   errors: {
     certificateInEnglish: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
-  title: `A yw eich tystysgrif ${
-    isDivorce ? commonTranslations.marriage : commonTranslations.civilPartnership
-  } wreiddiol yn Saesneg?`,
+const cy: typeof en = ({ isDivorce, marriage, civilPartnership, required }) => ({
+  title: `A yw eich tystysgrif ${isDivorce ? marriage : civilPartnership} wreiddiol yn Saesneg?`,
   line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
   line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
   errors: {
     certificateInEnglish: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });

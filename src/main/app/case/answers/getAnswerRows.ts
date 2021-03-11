@@ -1,3 +1,4 @@
+import { generatePageContent } from '../../../steps/common/common.content';
 import { Sections, Step } from '../../../steps/sequence';
 import { TranslationFn } from '../../controller/GetController';
 import type { FormContent, FormOptions } from '../../form/Form';
@@ -9,7 +10,6 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
   const {
     language,
     isDivorce,
-    partner,
     formState,
     steps,
   }: {
@@ -26,7 +26,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       const fieldKeys = Object.keys(step.form.fields);
       const stepContent = {
         ...this.ctx,
-        ...step.generateContent({ language, isDivorce, partner, formState, commonTranslations: {} }),
+        ...generatePageContent(language, step.generateContent, isDivorce, formState),
       };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 

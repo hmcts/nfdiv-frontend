@@ -163,7 +163,7 @@ export const generatePageContent = (
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
   const content: CommonContent = {
-    commonTranslations,
+    ...commonTranslations,
     partner,
     language,
     isDivorce,
@@ -190,10 +190,8 @@ const getPartnerContent = (translations, selectedGender: Gender, isDivorce: bool
   return translations['partner'];
 };
 
-export type CommonContent = {
-  //TODO define type
+export type CommonContent = typeof en & {
   language: Language;
-  commonTranslations: Record<string, unknown>;
   pageContent?: TranslationFn;
   isDivorce: boolean;
   formState?: Partial<Case>;

@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ formState, commonTranslations }: CommonContent, formedCeremony: string) => ({
+const en = ({ formState, notAnswered }: CommonContent, formedCeremony: string) => ({
   title: `Where you ${formedCeremony}`,
   ceremonyCountry: `Enter the country where you ${formedCeremony}`,
   ceremonyCountryHint: `For example, ${formState?.certificateInEnglish === YesOrNo.Yes ? 'Australia' : 'France'}.`,
@@ -14,10 +14,10 @@ const en = ({ formState, commonTranslations }: CommonContent, formedCeremony: st
   } certificate.`,
   errors: {
     ceremonyCountry: {
-      required: `${commonTranslations.notAnswered} You need to enter the country.`,
+      required: `${notAnswered} You need to enter the country.`,
     },
     ceremonyPlace: {
-      required: `${commonTranslations.notAnswered} You need to enter the place.`,
+      required: `${notAnswered} You need to enter the place.`,
     },
   },
 });

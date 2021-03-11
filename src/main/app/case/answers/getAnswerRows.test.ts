@@ -79,13 +79,6 @@ describe('getAnswerRows()', () => {
         ctx: mockCtx,
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        commonTranslations: {},
-        language: 'en',
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {
@@ -117,13 +110,6 @@ describe('getAnswerRows()', () => {
         },
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        commonTranslations: {},
-        language: 'en',
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {
@@ -205,13 +191,6 @@ describe('getAnswerRows()', () => {
         },
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        commonTranslations: {},
-        language: 'en',
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {

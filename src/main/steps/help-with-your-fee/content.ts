@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
+const en = ({ isDivorce, required }) => ({
   title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
   line1: `This ${
     isDivorce ? 'divorce application' : 'application'
@@ -13,12 +13,12 @@ const en = ({ isDivorce, commonTranslations }) => ({
   no: 'I do not need help paying the fee',
   errors: {
     helpPayingNeeded: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,
@@ -34,7 +34,7 @@ const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
   no: "Nid oes angen help arnaf i dalu'r ffi",
   errors: {
     helpPayingNeeded: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });

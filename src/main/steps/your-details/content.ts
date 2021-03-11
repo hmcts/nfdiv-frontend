@@ -5,7 +5,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
+const en = ({ isDivorce, required }) => ({
   title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
   male: isDivorce ? 'My husband' : 'Male',
   female: isDivorce ? 'My wife' : 'Female',
@@ -13,12 +13,12 @@ const en = ({ isDivorce, commonTranslations }) => ({
   sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
   errors: {
     gender: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });
 
-const cy = ({ isDivorce, commonTranslations }) => ({
+const cy = ({ isDivorce, required }) => ({
   title: isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru?' : "Ydych chi'n wryw ynteu'n fenyw?",
   male: isDivorce ? 'Fy ngŵr' : 'Gwryw',
   female: isDivorce ? 'Fy ngwraig' : 'Benyw',
@@ -26,7 +26,7 @@ const cy = ({ isDivorce, commonTranslations }) => ({
   sameSex: `Roedden ni'n gwpl o'r un rhyw pan wnaethom ni ${isDivorce ? 'briodi ' : 'ffurfio ein partneriaeth sifil'}`,
   errors: {
     gender: {
-      required: commonTranslations.cy.required,
+      required,
     },
   },
 });

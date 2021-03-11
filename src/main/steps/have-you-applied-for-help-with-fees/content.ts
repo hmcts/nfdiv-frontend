@@ -3,14 +3,14 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
+const en = ({ isDivorce, required }) => ({
   title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
   enterRefNo: 'Enter your Help With Fees reference number:',
   refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
     alreadyAppliedForHelpPaying: {
-      required: commonTranslations.required,
+      required,
     },
     helpWithFeesRefNo: {
       required:
@@ -22,15 +22,13 @@ const en = ({ isDivorce, commonTranslations }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
   enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
   refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
   refExample: 'Er enghraifft, HWF-A1B-23C',
   errors: {
-    alreadyAppliedForHelpPaying: {
-      required: commonTranslations.required,
-    },
+    alreadyAppliedForHelpPaying: { required },
     helpWithFeesRefNo: {
       required:
         'Mae angen i chi nodi eich cyfeirnod Help i Dalu Ffioedd cyn parhau. Fe gawsoch hwn pan wnaethoch y cais.',

@@ -3,22 +3,22 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
+const en = ({ isDivorce, required }) => ({
   title: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
   line1: 'The UK is made up of England, Scotland, Wales and Northern Ireland.',
   errors: {
     inTheUk: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yn y DU?`,
   line1: "Mae'r DU yn cynnwys Cymru, Lloegr, Yr Alban a Gogledd Iwerddon.",
   errors: {
     inTheUk: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });

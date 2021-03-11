@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => {
+const en = ({ isDivorce, required }) => {
   const relationship = isDivorce ? 'marriage' : 'relationship';
   const endRelationship = isDivorce ? 'get a divorce' : 'end your civil partnership';
   return {
@@ -17,13 +17,13 @@ const en = ({ isDivorce, commonTranslations }) => {
       This is the law in England and Wales.`,
     errors: {
       screenHasUnionBroken: {
-        required: commonTranslations.required,
+        required,
       },
     },
   };
 };
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
   line1: `Rhaid bod eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu’n gyfan gwbl i chi allu ${
     isDivorce ? 'cael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
@@ -35,7 +35,7 @@ const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
   }. Dyma yw’r gyfraith yng Nghymru a Lloegr.`,
   errors: {
     screenHasUnionBroken: {
-      required: commonTranslations.required,
+      required,
     },
   },
 });

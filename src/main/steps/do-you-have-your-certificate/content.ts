@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, commonTranslations }) => ({
+const en = ({ isDivorce, required }) => ({
   title: isDivorce
     ? 'Do you have your marriage certificate with you?'
     : 'Do you have your civil partnership certificate with you?',
@@ -19,13 +19,11 @@ const en = ({ isDivorce, commonTranslations }) => ({
   yes: `Yes, I have my ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
   no: `No, I do not have ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
   errors: {
-    hasCertificate: {
-      required: commonTranslations.required,
-    },
+    hasCertificate: { required },
   },
 });
 
-const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
   line1:
     "Gofynnir i chi lwytho llun digidol o'r dystysgrif yn ddiweddarach yn y cais hwn. Gallwch ddefnyddio'ch ffôn i dynnu'r llun, os oes ganddo gamera.",
@@ -39,9 +37,7 @@ const cy: typeof en = ({ isDivorce, commonTranslations }) => ({
   yes: `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
   no: `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
   errors: {
-    hasCertificate: {
-      required: commonTranslations.required,
-    },
+    hasCertificate: { required },
   },
 });
 
