@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../app/form/validation';
 const en = ({ required }) => ({
   title: 'Have you been living in England or Wales for the last 6 months?',
   errors: {
-    inEnglandWalesSixMonth: {
+    livingInEnglandWalesSixMonths: {
       required,
     },
   },
@@ -18,7 +18,7 @@ const cy: typeof en = ({ required }) => ({
 
 export const form: FormContent = {
   fields: {
-    inEnglandWalesSixMonth: {
+    livingInEnglandWalesSixMonths: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.title,
