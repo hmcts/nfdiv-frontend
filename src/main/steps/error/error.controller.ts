@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { generatePageContent } from '../common/common.content';
+import { Language, generatePageContent } from '../common/common.content';
 
 import { errorContent } from './content';
 
@@ -48,7 +48,7 @@ export class ErrorController {
   }
 
   private render(req: AppRequest, res: Response) {
-    const lang = req.session?.lang || 'en';
+    const lang = (req.session?.lang || 'en') as Language;
     const errorText = errorContent[lang][res.statusCode] || errorContent[lang][StatusCodes.INTERNAL_SERVER_ERROR];
     const commonContent = generatePageContent(lang);
     res.locals.isError = true;

@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form } from '../../app/form/Form';
-import { generatePageContent } from '../../steps/common/common.content';
+import { Language, generatePageContent } from '../../steps/common/common.content';
 import { generateContent } from '../../steps/save-sign-out/content';
 
 @autobind
@@ -17,7 +17,7 @@ export class SaveSignOutPostController<T extends AnyObject> extends PostControll
     super.post(req, res);
 
     const email = req.session.user?.email;
-    const language = req.session?.lang || 'en';
+    const language = (req.session?.lang || 'en') as Language;
 
     req.session.destroy(err => {
       if (err) {

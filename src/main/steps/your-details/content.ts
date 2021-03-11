@@ -18,12 +18,15 @@ const en = ({ isDivorce, commonTranslations }) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ isDivorce, commonTranslations }) => ({
-  ...en({ isDivorce, commonTranslations }),
+  title: isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru?' : "Ydych chi'n wryw ynteu'n fenyw?",
+  male: isDivorce ? 'Fy ngŵr' : 'Gwryw',
+  female: isDivorce ? 'Fy ngwraig' : 'Benyw',
+  appliesToYou: "Dewiswch y canlynol os yw'n berthnasol ichi:",
+  sameSex: `Roedden ni'n gwpl o'r un rhyw pan wnaethom ni ${isDivorce ? 'briodi ' : 'ffurfio ein partneriaeth sifil'}`,
   errors: {
     gender: {
-      required: commonTranslations.required,
+      required: commonTranslations.cy.required,
     },
   },
 });
