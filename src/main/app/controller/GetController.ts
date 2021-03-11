@@ -1,7 +1,9 @@
 import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import Negotiator from 'negotiator';
 
+import { LanguageToggle } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generatePageContent } from '../../steps/common/common.content';
 
@@ -21,7 +23,7 @@ export class GetController {
       return;
     }
 
-    const language = req.session?.lang || 'en';
+    const language = this.getPreferredLanguage(req);
 
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const formState = req.session?.userCase;
@@ -36,8 +38,25 @@ export class GetController {
     res.render(this.view, {
       ...content,
       sessionErrors,
-      formState,
+      htmlLang: language,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
+  }
+
+  private getPreferredLanguage(req: AppRequest) {
+    // User selected language
+    const requestedLanguage = req.query['lng'] as string;
+    if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
+      return requestedLanguage;
+    }
+
+    // Saved session language
+    if (req.session?.lang) {
+      return req.session.lang;
+    }
+
+    // Browsers default language
+    const negotiator = new Negotiator(req);
+    return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
   }
 }

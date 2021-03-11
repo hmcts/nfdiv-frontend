@@ -10,7 +10,7 @@ const en = {
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   pageHeader: {
     divorce: 'Apply for a divorce',
-    dissolution: 'End a civil partnership',
+    dissolution: 'Apply to end a civil partnership',
   },
   govUk: 'GOV.UK',
   back: 'Back',

@@ -3,7 +3,7 @@ Feature: Footer Links
   Background:
     Given I login
     When I go to '/your-details'
-    Then the page should include "Apply for a divorce"
+    Then the page should include "Who are you applying to divorce?"
 
   Scenario: Load privacy policy
     When I click "Privacy policy"

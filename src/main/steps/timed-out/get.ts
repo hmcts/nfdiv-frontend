@@ -3,7 +3,6 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
 
@@ -19,12 +18,7 @@ export class TimedOutGetController extends GetController {
         throw err;
       }
 
-      const language = req.session?.lang || 'en';
-      const commonContent = generatePageContent(language, generateContent);
-
-      res.render(this.view, {
-        ...commonContent,
-      });
+      super.get(req, res);
     });
   }
 }

@@ -31,18 +31,59 @@ describe('GetController', () => {
     });
   });
 
-  test('Should render the page in Welsh', async () => {
-    const controller = new GetController('page', generateContent);
+  describe('Getting the users preferred language', () => {
+    test('Language via query string', async () => {
+      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
 
-    const req = mockRequest();
-    const res = mockResponse();
-    req.session.lang = 'cy';
-    await controller.get(req, res);
+      const req = mockRequest();
+      const res = mockResponse();
+      req.query.lng = 'cy';
+      await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      ...generatePageContent('cy', generateContent, true, req.session.userCase),
-      text: 'welsh',
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...commonContent.cy,
+        extraWelsh: 'text',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
+    });
+
+    test('Language via session', async () => {
+      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      req.session.lang = 'cy';
+      await controller.get(req, res);
+
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...commonContent.cy,
+        extraWelsh: 'text',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
+    });
+
+    test('Language via browser settings', async () => {
+      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+
+      const req = mockRequest({ headers: { 'accept-language': 'cy' } });
+      const res = mockResponse();
+      req.query.lng = 'cy';
+      await controller.get(req, res);
+
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...commonContent.cy,
+        extraWelsh: 'text',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
     });
   });
 
