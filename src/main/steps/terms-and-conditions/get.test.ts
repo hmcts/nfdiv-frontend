@@ -15,10 +15,12 @@ describe('TermsAndConditionsGetController', () => {
     await controller.get(req, res);
     const language = 'en';
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
-      ...generatePageContent(language, generateContent),
-      formState: req.session.userCase,
-    });
+    expect(res.render).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent(language, generateContent),
+        ...defaultViewArgs,
+      })
+    );
   });
 });

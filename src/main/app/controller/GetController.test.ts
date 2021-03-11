@@ -3,7 +3,7 @@ import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { generatePageContent } from '../../steps/common/common.content';
+import { Language, generatePageContent } from '../../steps/common/common.content';
 
 import { GetController } from './GetController';
 
@@ -141,11 +141,10 @@ describe('GetController', () => {
       await controller.get(req, res);
 
       const commonContent = generatePageContent('en');
-      ['language', 'isDivorce', 'formState'].forEach(property => delete commonContent[property]);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
-        commonTranslations: commonContent,
+        ...commonContent,
         language: 'en',
         isDivorce: true,
         formState: req.session.userCase,
@@ -160,13 +159,13 @@ describe('GetController', () => {
     describe.each([
       { serviceType: DivorceOrDissolution.DIVORCE, isDivorce: true },
       { serviceType: DivorceOrDissolution.DISSOLUTION, isDivorce: false, civilKey: 'civilPartner' },
-    ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
-      describe.each(['en', 'cy'])('Language %s', lang => {
+    ])('Service type %s', ({ serviceType, isDivorce }) => {
+      describe.each(['en', 'cy'] as Language[])('Language %s', lang => {
         test.each([
           { gender: Gender.MALE, partnerKey: 'husband' },
           { gender: Gender.FEMALE, partnerKey: 'wife' },
           { partnerKey: 'partner' },
-        ])('calls getContent with correct arguments %s selected', async ({ gender, partnerKey }) => {
+        ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
           const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${lang}` });
           const controller = new GetController('page', getContentMock);
 
@@ -174,23 +173,19 @@ describe('GetController', () => {
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
-          const commonContent = generatePageContent(lang);
-          ['language', 'isDivorce', 'formState'].forEach(property => delete commonContent[property]);
+          const commonContent = generatePageContent(lang, getContentMock, isDivorce, { gender });
 
-          expect(getContentMock).toHaveBeenCalledTimes(1);
-          const expectedPartner = generatePageContent(lang)[civilKey || partnerKey];
+          expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
-            commonTranslations: commonContent,
+            ...commonContent,
             isDivorce,
-            partner: expectedPartner,
             language: lang,
             formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
             ...defaultViewArgs,
-            ...generatePageContent(lang),
+            ...commonContent,
             isDivorce,
-            partner: expectedPartner,
             formState: req.session.userCase,
             language: lang,
             pageText: `something in ${lang}`,
