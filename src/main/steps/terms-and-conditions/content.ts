@@ -1,4 +1,4 @@
-import { TERMS_AND_CONDITIONS_URL } from '../urls';
+import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   title: 'Terms and conditions',
@@ -94,8 +94,11 @@ const cy: typeof en = {
     'Uned yr Iaith Gymraeg<br>Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF<br>',
 };
 
-const common = {
-  link: TERMS_AND_CONDITIONS_URL,
+const languages = {
+  en,
+  cy,
 };
 
-export const termsAndConditionsContent = { en, cy, common };
+export const generateContent: TranslationFn = content => {
+  return languages[content.language];
+};

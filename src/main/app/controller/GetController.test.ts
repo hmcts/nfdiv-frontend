@@ -3,13 +3,22 @@ import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { commonContent } from '../../steps/common/common.content';
+import { Language, generatePageContent } from '../../steps/common/common.content';
 
-import { GetController, Translations } from './GetController';
+import { GetController } from './GetController';
 
 describe('GetController', () => {
+  const languages = {
+    en: {
+      text: 'english',
+    },
+    cy: {
+      text: 'welsh',
+    },
+  };
+  const generateContent = content => languages[content.language];
   test('Should render the page', async () => {
-    const controller = new GetController('page', ({ en: { extraEnglish: 'text' } } as unknown) as Translations);
+    const controller = new GetController('page', generateContent);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -17,29 +26,72 @@ describe('GetController', () => {
 
     expect(res.render).toBeCalledWith('page', {
       ...defaultViewArgs,
-      extraEnglish: 'text',
+      text: 'english',
       formState: req.session.userCase,
     });
   });
 
-  test('Should render the page in Welsh', async () => {
-    const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+  describe('Getting the users preferred language', () => {
+    test('Language via query string', async () => {
+      const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
-    const res = mockResponse();
-    req.session.lang = 'cy';
-    await controller.get(req, res);
+      const language = 'cy';
+      const req = mockRequest();
+      const res = mockResponse();
+      req.query.lng = language;
+      await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      ...commonContent.cy,
-      extraWelsh: 'text',
-      formState: req.session.userCase,
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
+    });
+
+    test('Language via session', async () => {
+      const controller = new GetController('page', generateContent);
+
+      const language = 'cy';
+      const req = mockRequest();
+      const res = mockResponse();
+      req.session.lang = language;
+      await controller.get(req, res);
+
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
+    });
+
+    test('Language via browser settings', async () => {
+      const controller = new GetController('page', generateContent);
+
+      const language = 'cy';
+      const req = mockRequest({ headers: { 'accept-language': language } });
+      const res = mockResponse();
+      req.query.lng = language;
+      await controller.get(req, res);
+
+      expect(res.render).toBeCalledWith('page', {
+        ...defaultViewArgs,
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
+        language: 'cy',
+        htmlLang: 'cy',
+        formState: req.session.userCase,
+      });
     });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new GetController('page', {} as Translations);
+    const controller = new GetController('page', generateContent);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -50,7 +102,7 @@ describe('GetController', () => {
   });
 
   test("Doesn't call render if headers have already been sent already upstream", async () => {
-    const controller = new GetController('page', {} as Translations);
+    const controller = new GetController('page', generateContent);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -61,7 +113,7 @@ describe('GetController', () => {
   });
 
   test('sends the current page form session state to the view', async () => {
-    const controller = new GetController('page', {} as Translations);
+    const controller = new GetController('page', generateContent);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -75,11 +127,12 @@ describe('GetController', () => {
         divorceOrDissolution: 'divorce',
         gender: Gender.FEMALE,
       },
+      text: 'english',
     });
   });
 
-  describe('getContent()', () => {
-    test('calls getContent with correct arguments for new sessions', async () => {
+  describe('generatePageContent()', () => {
+    test('calls generatePageContent with correct arguments for new sessions', async () => {
       const getContentMock = jest.fn().mockReturnValue({});
       const controller = new GetController('page', getContentMock);
 
@@ -87,11 +140,15 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
+      const commonContent = generatePageContent('en');
+
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
+        ...commonContent,
+        language: 'en',
         isDivorce: true,
-        partner: 'partner',
         formState: req.session.userCase,
+        partner: 'partner',
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -102,32 +159,33 @@ describe('GetController', () => {
     describe.each([
       { serviceType: DivorceOrDissolution.DIVORCE, isDivorce: true },
       { serviceType: DivorceOrDissolution.DISSOLUTION, isDivorce: false, civilKey: 'civilPartner' },
-    ])('Service type %s', ({ serviceType, isDivorce, civilKey }) => {
-      describe.each(['en', 'cy'])('Language %s', lang => {
+    ])('Service type %s', ({ serviceType, isDivorce }) => {
+      describe.each(['en', 'cy'] as Language[])('Language %s', lang => {
         test.each([
           { gender: Gender.MALE, partnerKey: 'husband' },
           { gender: Gender.FEMALE, partnerKey: 'wife' },
           { partnerKey: 'partner' },
-        ])('calls getContent with correct arguments %s selected', async ({ gender, partnerKey }) => {
-          const getContentMock = jest.fn().mockReturnValue({ [lang]: { pageText: `something in ${lang}` } });
+        ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
+          const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${lang}` });
           const controller = new GetController('page', getContentMock);
 
           const req = mockRequest({ session: { lang, userCase: { gender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
-          expect(getContentMock).toHaveBeenCalledTimes(1);
-          const expectedPartner = commonContent[lang][civilKey || partnerKey];
+          const commonContent = generatePageContent(lang, getContentMock, isDivorce, { gender });
+
+          expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
+            ...commonContent,
             isDivorce,
-            partner: expectedPartner,
+            language: lang,
             formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
             ...defaultViewArgs,
-            ...commonContent[lang],
+            ...commonContent,
             isDivorce,
-            partner: expectedPartner,
             formState: req.session.userCase,
             language: lang,
             pageText: `something in ${lang}`,

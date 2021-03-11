@@ -4,6 +4,7 @@
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Running the application](#running-the-application)
+    - [Running end-to-end](#running-end-to-end)
     - [Running with Docker](#running-with-docker)
   - [Developing](#developing)
     - [Code style](#code-style)
@@ -80,7 +81,7 @@ Starting the server in development mode:
 
 ```bash
 yarn build
-yarn start:dev
+DEBUG=axios yarn start:dev
 ```
 
 ### Code style
