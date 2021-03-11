@@ -3,8 +3,8 @@ import { Gender } from '@hmcts/nfdiv-case-definition';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { commonContent } from '../../steps/common/common.content';
-import { saveAndSignOutContent } from '../../steps/save-sign-out/content';
+import { generatePageContent } from '../../steps/common/common.content';
+import { generateContent } from '../../steps/save-sign-out/content';
 
 import { SaveSignOutPostController } from './post';
 
@@ -28,8 +28,7 @@ describe('SaveSignOutPostController', () => {
     expect(req.session.errors).toBe(undefined);
     expect(req.session.destroy).toHaveBeenCalled();
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/../../steps/save-sign-out/template.njk`, {
-      ...commonContent['en'],
-      ...saveAndSignOutContent['en'],
+      ...generatePageContent('en', generateContent),
       email: 'test@example.com',
     });
   });

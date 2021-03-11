@@ -155,7 +155,7 @@ const cy: typeof en = {
 export const generatePageContent = (
   language: string,
   pageContent?: TranslationFn,
-  isDivorce?: boolean,
+  isDivorce = true,
   formState?: Partial<Case>
 ): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;

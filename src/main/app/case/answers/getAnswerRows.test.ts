@@ -48,7 +48,7 @@ describe('getAnswerRows()', () => {
     let mockCtx;
     let mockFormState;
     beforeEach(() => {
-      mockGenerateContent.mockReturnValue({ en: { title: 'Mock question title' } });
+      mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
       mockFormState = { mockField: 'example response' };
       mockCtx = {
@@ -80,6 +80,8 @@ describe('getAnswerRows()', () => {
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
+        commonTranslations: {},
+        language: 'en',
         isDivorce: true,
         partner: 'husband',
         formState: mockFormState,
@@ -116,6 +118,8 @@ describe('getAnswerRows()', () => {
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
+        commonTranslations: {},
+        language: 'en',
         isDivorce: true,
         partner: 'husband',
         formState: mockFormState,
@@ -202,6 +206,8 @@ describe('getAnswerRows()', () => {
       })(Sections.AboutPartnership);
 
       expect(mockGenerateContent).toHaveBeenCalledWith({
+        commonTranslations: {},
+        language: 'en',
         isDivorce: true,
         partner: 'husband',
         formState: mockFormState,
