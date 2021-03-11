@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVORCE } } = {}): Response => {
   const res: Partial<Response> = { locals };
+
   res.redirect = jest.fn().mockReturnValue(res);
   res.render = jest.fn().mockReturnValue(res);
   res.end = jest.fn();

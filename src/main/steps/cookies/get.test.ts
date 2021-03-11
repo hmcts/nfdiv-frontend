@@ -3,21 +3,24 @@ import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
 import { CookiesGetController } from './get';
 
 describe('CookiesGetController', () => {
   const controller = new CookiesGetController();
+  const language = 'en';
 
   test('Should render the cookie page with divorce content', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
+    const isDivorce = true;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generateContent({ isDivorce: true }).en,
+      ...generatePageContent(language, generateContent, isDivorce),
       formState: req.session.userCase,
     });
   });
@@ -27,10 +30,11 @@ describe('CookiesGetController', () => {
     const res = mockResponse();
     res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
     await controller.get(req, res);
+    const isDivorce = false;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generateContent({ isDivorce: false }).en,
+      ...generatePageContent(language, generateContent, isDivorce),
       formState: req.session.userCase,
     });
   });

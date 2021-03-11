@@ -4,12 +4,12 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
 
-import { timedOutContent } from './content';
+import { generateContent } from './content';
 
 @autobind
 export class TimedOutGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', timedOutContent);
+    super(__dirname + '/template', generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

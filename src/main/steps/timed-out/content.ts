@@ -1,3 +1,5 @@
+import { TranslationFn } from '../../app/controller/GetController';
+
 const en = {
   title: 'You were signed out to protect your privacy',
   line1: 'Your application was inactive for more than 20 minutes so you were signed out.',
@@ -12,4 +14,11 @@ const cy: typeof en = {
   signBackInAndContinue: 'Mewngofnodi eto a pharhau',
 };
 
-export const timedOutContent = { en, cy, common: {} };
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  return languages[content.language];
+};

@@ -1,8 +1,9 @@
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { generatePageContent } from '../common/common.content';
 
-import { termsAndConditionsContent } from './content';
+import { generateContent } from './content';
 import { TermsAndConditionsGetController } from './get';
 
 describe('TermsAndConditionsGetController', () => {
@@ -12,12 +13,14 @@ describe('TermsAndConditionsGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
+    const language = 'en';
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
-      ...termsAndConditionsContent.en,
-      ...termsAndConditionsContent.common,
-      formState: req.session.userCase,
-    });
+    expect(res.render).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent(language, generateContent),
+        ...defaultViewArgs,
+      })
+    );
   });
 });
