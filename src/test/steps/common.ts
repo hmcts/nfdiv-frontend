@@ -15,6 +15,10 @@ Given('I go to {string}', (text: string) => {
   I.amOnPage(url.toString());
 });
 
+Then('the page URL should be {string}', (url: string) => {
+  I.waitUrlEquals(url);
+});
+
 Given('I login', () => {
   login('user');
 });
