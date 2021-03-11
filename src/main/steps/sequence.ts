@@ -12,13 +12,16 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  INTERSTITIAL,
   IN_THE_UK,
+  LIVING_ENGLAND_WALES_TWELVE_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   YOUR_DETAILS_URL,
+  YOUR_DOMICILE,
 } from './urls';
 
 export enum Sections {
@@ -111,6 +114,18 @@ export const sequence: Step[] = [
   {
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.AboutPartnership,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: LIVING_ENGLAND_WALES_TWELVE_MONTHS,
+    getNextStep: data => (data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? YOUR_DOMICILE : INTERSTITIAL),
+  },
+  {
+    url: INTERSTITIAL,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: YOUR_DOMICILE,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

@@ -23,6 +23,9 @@ export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
+export const LIVING_ENGLAND_WALES_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
+export const INTERSTITIAL: PageLink = '/interstitial';
+export const YOUR_DOMICILE: PageLink = '/your-domicile';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
