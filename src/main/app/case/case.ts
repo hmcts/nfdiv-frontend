@@ -46,6 +46,8 @@ export interface Case {
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
+  yourLifeBasedInEnglandAndWales?: YesOrNo;
+  partnersLifeBasedInEnglandAndWales?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
