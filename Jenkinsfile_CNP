@@ -1,47 +1,20 @@
 #!groovy
 
-properties([
-  // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-  //pipelineTriggers([cron('H 04 * * *')]),
-  parameters([
-    string(name: 'TEST_URL', defaultValue: 'https://nfdiv.aat.platform.hmcts.net', description: 'The URL you want to run tests against'),
-  ])
-])
-
 @Library("Infrastructure")
 
 def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
 
-// SAUCELABS config - configured on Jenkins
-env.SAUCE_USERNAME = 'username'
-env.SAUCE_ACCESS_KEY = 'privatekey'
-env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+def branchesToSync = ['demo', 'perftest', 'ithc']
 
-withNightlyPipeline(type, product, component) {
-  enableFullFunctionalTest()
-  enableCrossBrowserTest()
+withPipeline(type, product, component) {
+  disableLegacyDeployment()
+  syncBranchesWithMaster(branchesToSync)
 
-  before('fullFunctionalTest') {
-    sh "ls -lha"
+  after('build') {
+    yarnBuilder.yarn('build')
   }
 
-  after('fullFunctionalTest') {
-    sh "ls -lha"
-    sh "ls -lha functional-output"
-    sh "ls -lha functional-output/functional/reports/"
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
-  }
-
-  before('crossBrowserTest') {
-    sh "ls -lha"
-  }
-
-  after('crossBrowserTest') {
-    sh "ls -lha"
-    sh "ls -lha functional-output"
-    sh "ls -lha functional-output/crossbrowser/reports/"
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
-  }
 }
