@@ -37,6 +37,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
+      labelHidden: true,
       values: [
         { label: l => l.male, value: Gender.MALE },
         { label: l => l.female, value: Gender.FEMALE },

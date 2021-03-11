@@ -18,6 +18,7 @@ import {
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -111,6 +112,11 @@ export const sequence: Step[] = [
   {
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.AboutPartnership,
+    getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
+  },
+  {
+    url: WHERE_YOUR_LIVES_ARE_BASED_URL,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

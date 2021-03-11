@@ -30,4 +30,4 @@ export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-a
 export const CERTIFICATE_URL: PageLink = '/do-you-have-your-certificate';
 export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
 
-export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';
+export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';

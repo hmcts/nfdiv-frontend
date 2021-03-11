@@ -27,6 +27,10 @@ export const iClick = (text: string): void => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 
+When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+  I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+});
+
 Then('I expect the page title to be {string}', (title: string) => {
   I.seeInTitle(title);
 });

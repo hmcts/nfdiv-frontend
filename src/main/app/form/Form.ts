@@ -76,6 +76,7 @@ export type FormField = FormInput | FormOptions;
 export interface FormOptions {
   type: string;
   label?: Label;
+  labelHidden?: boolean;
   values: FormInput[];
   validator?: ValidationCheck;
   parser?: Parser;
