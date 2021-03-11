@@ -23,11 +23,25 @@ withNightlyPipeline(type, product, component) {
   enableFullFunctionalTest()
   enableCrossBrowserTest()
 
+  before('fullFunctionalTest') {
+    sh "ls -lha"
+    sh "ls -lha functional-output/functional/reports/"
+  }
+
   after('fullFunctionalTest') {
+    sh "ls -lha"
+    sh "ls -lha functional-output/functional/reports/"
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
   }
 
+  before('crossBrowserTest') {
+    sh "ls -lha"
+    sh "ls -lha functional-output/crossbrowser/reports/"
+  }
+
   after('crossBrowserTest') {
+    sh "ls -lha"
+    sh "ls -lha functional-output/functional/reports/"
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
   }
 }
