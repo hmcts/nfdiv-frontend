@@ -1,9 +1,9 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { commonContent } from '../common/common.content';
-import { TIMED_OUT_URL } from '../urls';
+import { generatePageContent } from '../common/common.content';
 
-import { timedOutContent } from './content';
+import { generateContent } from './content';
 import { TimedOutGetController } from './get';
 
 describe('TimedOutGetController', () => {
@@ -11,14 +11,16 @@ describe('TimedOutGetController', () => {
 
   test('Should destroy session and render timeout page', async () => {
     const req = mockRequest();
-    req.originalUrl = TIMED_OUT_URL;
     const res = mockResponse();
     await controller.get(req, res);
+    const language = 'en';
+    const isDivorce = true;
+    const formState = req.session.userCase;
 
     expect(req.session.destroy).toBeCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...commonContent.en,
-      ...timedOutContent.en,
+      ...defaultViewArgs,
+      ...generatePageContent(language, generateContent, isDivorce, formState),
     });
   });
 });

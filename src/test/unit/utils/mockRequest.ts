@@ -1,13 +1,17 @@
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
+
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
 export const mockRequest = ({
-  session = {},
+  headers = {},
   body = {},
+  session = {},
   cookies = {},
   userCase = {},
   appLocals = {},
 } = {}): AppRequest =>
   (({
+    headers: { 'accept-language': 'en', ...headers },
     body,
     locals: {
       api: {
@@ -25,7 +29,7 @@ export const mockRequest = ({
       },
       userCase: {
         id: '1234',
-        divorceOrDissolution: 'divorce',
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         ...userCase,
       },
       save: jest.fn(done => done()),

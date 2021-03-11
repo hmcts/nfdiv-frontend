@@ -4,6 +4,7 @@ Feature: Homepage
     Given I login
     When I go to '/your-details'
     Then the page should include "Apply for a divorce"
+    And the page should include "Who are you applying to divorce?"
 
   Scenario: Load divorce homepage
     Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
