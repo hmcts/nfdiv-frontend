@@ -153,7 +153,7 @@ const cy: typeof en = {
 };
 
 export const generatePageContent = (
-  language: string,
+  language: Language,
   pageContent?: TranslationFn,
   isDivorce = true,
   formState?: Partial<Case>
@@ -162,7 +162,8 @@ export const generatePageContent = (
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
-  const content = {
+  const content: CommonContent = {
+    commonTranslations,
     partner,
     language,
     isDivorce,
@@ -170,16 +171,13 @@ export const generatePageContent = (
   };
 
   if (pageContent) {
-    Object.assign(content, pageContent({ commonTranslations, ...content } as CommonContent));
+    Object.assign(content, pageContent(content));
   }
 
-  return {
-    ...commonTranslations,
-    ...content,
-  };
+  return content;
 };
 
-const getPartnerContent = (translations, selectedGender: Gender, isDivorce = true): string => {
+const getPartnerContent = (translations, selectedGender: Gender, isDivorce: boolean): string => {
   if (!isDivorce) {
     return translations['civilPartner'];
   }
@@ -194,10 +192,12 @@ const getPartnerContent = (translations, selectedGender: Gender, isDivorce = tru
 
 export type CommonContent = {
   //TODO define type
-  language: 'en' | 'cy';
+  language: Language;
   commonTranslations: Record<string, unknown>;
   pageContent?: TranslationFn;
   isDivorce: boolean;
-  formState: Partial<Case>;
+  formState?: Partial<Case>;
   partner: string;
 };
+
+export type Language = 'en' | 'cy';

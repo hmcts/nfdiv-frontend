@@ -5,7 +5,7 @@ import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
-import { CommonContent, generatePageContent } from '../../steps/common/common.content';
+import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 
 import { AppRequest } from './AppRequest';
 
@@ -23,8 +23,7 @@ export class GetController {
       return;
     }
 
-    const language = this.getPreferredLanguage(req);
-
+    const language = this.getPreferredLanguage(req) as Language;
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const formState = req.session?.userCase;
     const content = generatePageContent(language, this.content, isDivorce, formState);
