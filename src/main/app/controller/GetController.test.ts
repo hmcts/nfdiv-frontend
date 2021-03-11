@@ -33,17 +33,18 @@ describe('GetController', () => {
 
   describe('Getting the users preferred language', () => {
     test('Language via query string', async () => {
-      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+      const controller = new GetController('page', generateContent);
 
+      const language = 'cy';
       const req = mockRequest();
       const res = mockResponse();
-      req.query.lng = 'cy';
+      req.query.lng = language;
       await controller.get(req, res);
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...commonContent.cy,
-        extraWelsh: 'text',
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
@@ -51,17 +52,18 @@ describe('GetController', () => {
     });
 
     test('Language via session', async () => {
-      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+      const controller = new GetController('page', generateContent);
 
+      const language = 'cy';
       const req = mockRequest();
       const res = mockResponse();
-      req.session.lang = 'cy';
+      req.session.lang = language;
       await controller.get(req, res);
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...commonContent.cy,
-        extraWelsh: 'text',
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
@@ -69,17 +71,18 @@ describe('GetController', () => {
     });
 
     test('Language via browser settings', async () => {
-      const controller = new GetController('page', ({ cy: { extraWelsh: 'text' } } as unknown) as Translations);
+      const controller = new GetController('page', generateContent);
 
-      const req = mockRequest({ headers: { 'accept-language': 'cy' } });
+      const language = 'cy';
+      const req = mockRequest({ headers: { 'accept-language': language } });
       const res = mockResponse();
-      req.query.lng = 'cy';
+      req.query.lng = language;
       await controller.get(req, res);
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...commonContent.cy,
-        extraWelsh: 'text',
+        ...generatePageContent(language, generateContent),
+        text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,

@@ -1,3 +1,4 @@
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../common/common.content';
@@ -13,10 +14,13 @@ describe('TimedOutGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
     const language = 'en';
+    const isDivorce = true;
+    const formState = req.session.userCase;
 
     expect(req.session.destroy).toBeCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent(language, generateContent),
+      ...defaultViewArgs,
+      ...generatePageContent(language, generateContent, isDivorce, formState),
     });
   });
 });
