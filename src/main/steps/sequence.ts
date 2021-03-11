@@ -13,6 +13,7 @@ import {
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   IN_THE_UK,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -111,6 +112,10 @@ export const sequence: Step[] = [
   {
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.AboutPartnership,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
