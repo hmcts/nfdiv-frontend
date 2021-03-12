@@ -4,7 +4,7 @@ import { Application, RequestHandler, Response } from 'express';
 
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
-import { AnyObject, PostController } from './app/controller/PostController';
+import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
@@ -12,7 +12,6 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
-import { SaveSignOutPostController } from './steps/save-sign-out/post';
 import { sequence } from './steps/sequence';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -46,7 +45,6 @@ export class Routes {
     for (const step of sequence) {
       const stepDir = `${__dirname}/steps${step.url}`;
       const content = require(`${stepDir}/content.ts`);
-      Object.assign(step, content);
       const customView = `${stepDir}/template.njk`;
       const view = fs.existsSync(customView) ? customView : `${stepDir}/../common/template.njk`;
       const controller = new GetController(view, content.generateContent);
@@ -54,15 +52,7 @@ export class Routes {
       app.get(step.url, errorHandler(controller.get));
 
       if (content.form) {
-        const form = new Form(content.form);
-        app.post(
-          step.url,
-          errorHandler((req: AppRequest<AnyObject>, res: Response) =>
-            req.body.saveAndSignOut
-              ? new SaveSignOutPostController(form).post(req, res)
-              : new PostController(form).post(req, res)
-          )
-        );
+        app.post(step.url, errorHandler(new PostController(new Form(content.form)).post));
       }
     }
 
