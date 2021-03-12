@@ -119,11 +119,6 @@ export const sequence: Step[] = [
     getNextStep: () => CHECK_JURISDICTION,
   },
   {
-    url: COUNTRY_AND_PLACE,
-    showInSection: Sections.AboutPartnership,
-    getNextStep: () => CHECK_JURISDICTION,
-  },
-  {
     url: CHECK_JURISDICTION,
     getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
   },
