@@ -35,7 +35,7 @@ export class PostController<T extends AnyObject> {
         return res.end();
       }
       req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, formData);
+      nextUrl = getNextStepUrl(req, req.session.userCase);
     }
 
     req.session.save(err => {
