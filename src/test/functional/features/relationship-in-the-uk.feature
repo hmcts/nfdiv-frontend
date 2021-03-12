@@ -19,4 +19,4 @@ Feature: Married in the UK
   Scenario: Successfully completing the form
     And I select "Yes"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Check if you can get a divorce in England and Wales"
