@@ -2,6 +2,7 @@ import { CaseWithId, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  CAN_USE_ENGLISH_OR_WELSH_COURTS,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
@@ -12,7 +13,6 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
-  INTERSTITIAL,
   IN_THE_UK,
   LIVING_ENGLAND_WALES_TWELVE_MONTHS,
   NO_CERTIFICATE_URL,
@@ -118,10 +118,11 @@ export const sequence: Step[] = [
   },
   {
     url: LIVING_ENGLAND_WALES_TWELVE_MONTHS,
-    getNextStep: data => (data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? YOUR_DOMICILE : INTERSTITIAL),
+    getNextStep: data =>
+      data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? YOUR_DOMICILE : CAN_USE_ENGLISH_OR_WELSH_COURTS,
   },
   {
-    url: INTERSTITIAL,
+    url: CAN_USE_ENGLISH_OR_WELSH_COURTS,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

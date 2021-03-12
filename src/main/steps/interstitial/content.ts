@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
-  title: 'Interstitial',
+  title: 'You can use the English or Welsh court....',
 };
 
 const cy: typeof en = {
