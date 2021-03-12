@@ -32,6 +32,7 @@ Feature: Country and Place
     And I type "Sydney"
     Then I click "Continue"
     And the page URL should be "/check-jurisdiction"
+    And the page should include "Check if you can get a divorce in England and Wales"
 
   Scenario: Successfully completing the form (with certificate not in English)
     Given I click "No"
@@ -49,3 +50,4 @@ Feature: Country and Place
     And I type "Bangkok"
     Then I click "Continue"
     And the page URL should be "/check-jurisdiction"
+    And the page should include "Check if you can get a divorce in England and Wales"
