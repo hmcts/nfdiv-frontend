@@ -24,7 +24,7 @@ export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
 export const LIVING_ENGLAND_WALES_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
-export const CAN_USE_ENGLISH_OR_WELSH_COURTS: PageLink = '/interstitial';
+export const CAN_USE_ENGLISH_OR_WELSH_COURTS: PageLink = '/jurisdiction/interstitial';
 export const YOUR_DOMICILE: PageLink = '/your-domicile';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
