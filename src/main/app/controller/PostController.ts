@@ -1,7 +1,7 @@
+import { PATCH_CASE, SAVE_AND_CLOSE } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { PATCH_CASE, SAVE_AND_CLOSE } from '../../../../../nfdiv-case-api/ccd-definitions';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case } from '../case/case';
