@@ -14,9 +14,9 @@ Feature: Living in England or Wales for the last 6 months
   Scenario: Have not lived in England or Wales for the last 6 months??
     And I select "No"
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
 
   Scenario: Successfully completing the form
     And I select "Yes"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "You can use English or Welsh courts to get a divorce"
