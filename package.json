@@ -31,7 +31,7 @@
     "test:crossbrowser:codeceptjs": "codeceptjs --config ./src/test/cross-browser/codecept.conf.js",
     "cichecks": "yarn && yarn build && yarn lint && yarn test",
     "linkdefs": "yarn link @hmcts/nfdiv-case-definition",
-    "unlinkdefs": "yarn unlink @hmcts/nfdiv-case-definition"
+    "unlinkdefs": "yarn unlink @hmcts/nfdiv-case-definition; yarn install --force"
   },
   "dependencies": {
     "@hmcts/info-provider": "^1.0.0",
