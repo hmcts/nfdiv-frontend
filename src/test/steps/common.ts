@@ -72,3 +72,9 @@ Given('I clear the form', () => {
     clearInputs(document.querySelectorAll('input[type="text"]'));
   });
 });
+
+Given("I've said I'm divorcing my husband", () => {
+  I.amOnPage('/your-details');
+  I.checkOption('My husband');
+  I.click('Continue');
+});

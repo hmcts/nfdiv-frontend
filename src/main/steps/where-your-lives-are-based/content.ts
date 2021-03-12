@@ -4,19 +4,16 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce, required }: CommonContent) => {
-  const partners = isDivorce ? 'husband’s / wife’s' : 'civil partner’s';
-  return {
-    title: 'Where your lives are based',
-    line1: `The court needs to know whether you and your ${partners} lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
-    yourLifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
-    partnersLifeBasedInEnglandAndWales: `Is your ${partners} life mainly based in England or Wales?`,
-    errors: {
-      yourLifeBasedInEnglandAndWales: { required },
-      partnersLifeBasedInEnglandAndWales: { required },
-    },
-  };
-};
+const en = ({ partner, required }: CommonContent) => ({
+  title: 'Where your lives are based',
+  line1: `The court needs to know whether you and your ${partner}’s lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
+  yourLifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
+  partnersLifeBasedInEnglandAndWales: `Is your ${partner}’s life mainly based in England or Wales?`,
+  errors: {
+    yourLifeBasedInEnglandAndWales: { required },
+    partnersLifeBasedInEnglandAndWales: { required },
+  },
+});
 
 // @TODO translations
 const cy = en;
