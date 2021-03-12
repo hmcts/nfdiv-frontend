@@ -24,10 +24,6 @@ export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
 export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
-export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
-export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
-export const CANT_DIVORCE: PageLink = '/cant-divorce';
-export const INTERSTITIAL: PageLink = '/interstitial';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
