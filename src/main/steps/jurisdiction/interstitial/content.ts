@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController';
 
 const en = {
   title: 'You can use the English or Welsh court....',
