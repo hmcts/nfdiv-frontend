@@ -1,7 +1,7 @@
 import { CaseData } from '@hmcts/nfdiv-case-definition';
 import { invert } from 'lodash';
 
-import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
 const fields = {
   ...invert(formFieldsToCaseMapping),
@@ -10,6 +10,10 @@ const fields = {
   }),
   D8MarriageDate: data => ({
     relationshipDate: fromApiDate(data.D8MarriageDate),
+  }),
+  LanguagePreferenceWelsh: data => ({
+    englishOrWelsh:
+      data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
 };
 

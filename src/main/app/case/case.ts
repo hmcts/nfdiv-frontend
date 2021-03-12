@@ -46,6 +46,7 @@ export interface Case {
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
+  englishOrWelsh?: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {
@@ -66,6 +67,11 @@ export interface CaseDate {
   year: string;
   month: string;
   day: string;
+}
+
+export enum LanguagePreference {
+  English = 'english',
+  Welsh = 'welsh',
 }
 
 export const JURISDICTION = 'DIVORCE';
