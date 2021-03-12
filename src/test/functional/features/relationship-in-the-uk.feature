@@ -12,11 +12,11 @@ Feature: Married in the UK
     Then the page should include "There was a problem"
 
   Scenario: Did not get married in the UK?
-    And I select "No"
+    Given I select "No"
     When I click "Continue"
     Then the page should include "Is your original marriage certificate in English?"
 
   Scenario: Successfully completing the form
-    And I select "Yes"
-    And I click "Continue"
-    Then the page should include "Check your answers"
+    Given I select "Yes"
+    When I click "Continue"
+    Then the page URL should be "/check-jurisdiction"

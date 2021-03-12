@@ -2,7 +2,7 @@ import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 
 import { AnyObject } from '../controller/PostController';
 
-export const formFieldsToCaseMapping = {
+export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'D8InferredRespondentGender',
   screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
@@ -13,6 +13,8 @@ export const formFieldsToCaseMapping = {
   inTheUk: 'D8MarriedInUk',
   certificateInEnglish: 'D8CertificateInEnglish',
   certifiedTranslation: 'D8CertifiedTranslation',
+  yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
+  partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
