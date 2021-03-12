@@ -8,7 +8,7 @@ export const mockRequest = ({ headers = {}, body = {}, session = {}, cookies = {
     body,
     locals: {
       api: {
-        updateCase: jest.fn(),
+        triggerEvent: jest.fn(),
       },
       logger: {
         info: jest.fn(),

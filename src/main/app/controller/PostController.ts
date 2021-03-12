@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { PATCH_CASE } from '../../../../../nfdiv-case-api/ccd-definitions';
 import { getNextStepUrl } from '../../steps';
 import { Form } from '../form/Form';
 
@@ -28,7 +29,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.updateCase(req.session.userCase?.id, formData);
+      await req.locals.api.triggerEvent(req.session.userCase?.id, formData, PATCH_CASE);
       if (isSaveAndSignOut) {
         return;
       } else if (isSessionTimeout) {

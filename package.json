@@ -30,8 +30,8 @@
     "test:crossbrowser:ie": "IE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs --config ./src/test/cross-browser/codecept.conf.js",
     "cichecks": "yarn && yarn build && yarn lint && yarn test",
-    "linkdefs": "yarn link --link-folder ../nfdiv-case-api/ccd-definitions/",
-    "unlinkdefs": "yarn unlink --link-folder ../nfdiv-case-api/ccd-definitions/"
+    "linkdefs": "yarn link @hmcts/nfdiv-case-definition",
+    "unlinkdefs": "yarn unlink @hmcts/nfdiv-case-definition"
   },
   "dependencies": {
     "@hmcts/info-provider": "^1.0.0",

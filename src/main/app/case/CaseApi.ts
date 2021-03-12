@@ -1,11 +1,4 @@
-import {
-  CASE_TYPE,
-  CREATE_DRAFT,
-  CaseData,
-  DivorceOrDissolution,
-  JURISDICTION,
-  PATCH_CASE,
-} from '@hmcts/nfdiv-case-definition';
+import { CASE_TYPE, CREATE_DRAFT, CaseData, DivorceOrDissolution, JURISDICTION } from '@hmcts/nfdiv-case-definition';
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
@@ -76,9 +69,9 @@ export class CaseApi {
     }
   }
 
-  public async updateCase(id: string, caseData: Partial<Case>): Promise<void> {
-    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${PATCH_CASE}`);
-    const event = { id: PATCH_CASE };
+  public async triggerEvent(id: string, caseData: Partial<Case>, eventName: string): Promise<void> {
+    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${eventName}`);
+    const event = { id: eventName };
     const data = toApiFormat(caseData);
 
     try {
