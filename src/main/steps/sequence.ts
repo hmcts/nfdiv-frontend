@@ -15,14 +15,17 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
-  INTERSTITIAL,
   IN_THE_UK,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_INTERSTITIAL_URL,
+  JURISDICTION_LAST_TWELVE_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -120,7 +123,25 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_JURISDICTION,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
+  },
+  {
+    url: WHERE_YOUR_LIVES_ARE_BASED_URL,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourLifeBasedInEnglandAndWales}${data.partnersLifeBasedInEnglandAndWales}`) {
+        case `${Yes}${Yes}`:
+        case `${No}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return JURISDICTION_LAST_TWELVE_MONTHS;
+
+        default:
+          return JURISDICTION_DOMICILE;
+      }
+    },
   },
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -131,7 +152,7 @@ export const sequence: Step[] = [
       } else if (data.lastHabituallyResident === YesOrNo.No) {
         return CANT_DIVORCE;
       } else {
-        return INTERSTITIAL;
+        return JURISDICTION_INTERSTITIAL_URL;
       }
     },
   },
