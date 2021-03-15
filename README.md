@@ -57,6 +57,11 @@ The application makes calls to
 [case orchestration service](https://github.com/hmcts/nfdiv-case-orchestration-service).
 Make sure you have this running to run the frontend e2e.
 
+Running the scripts present would require zsh to be installed.
+
+Please see https://www.freecodecamp.org/news/how-to-configure-your-macos-terminal-with-zsh-like-a-pro-c0ab3f3c1156/
+if zsh is not installed on your machine. Steps 1 to 3 of the above link should suffice.
+
 ### Running with Docker
 
 Create docker image:
@@ -114,6 +119,26 @@ TEST_HEADLESS=false yarn test:cucumber
 
 Note: By default tests are run heedlessly (i.e. without displaying the browser) setting the `TEST_HEADLESS` flag to `false` will open the test browser window allowing you to see whats happening in realtime.
 
+Running a single test:
+
+```bash
+yarn test:cucumber:grep 'Name of Feature, Scenario, or @tag'
+```
+
+Viewing functional test reports locally:
+
+```bash
+yarn test:cucumber:reports
+```
+
+To view the report from Jenkins, navigate to the build artefacts page scroll to the bottom and click “Download All”.
+
+Then extract it and run:
+
+```bash
+npx allure-commandline serve ~/Downloads/archive/functional-output/functional/reports
+```
+
 #### Accessibility tests
 
 Running accessibility tests:
@@ -122,7 +147,7 @@ Running accessibility tests:
 yarn test:a11y
 ```
 
-Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
+By default all of the pages in listed [urls.ts](src/main/steps/urls.ts) will be tested.
 
 #### Cross browser tests
 

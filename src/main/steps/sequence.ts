@@ -6,6 +6,7 @@ import {
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
+  CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_WELSH_COURTS,
   GET_CERTIFIED_TRANSLATION,
@@ -95,7 +96,7 @@ export const sequence: Step[] = [
   {
     url: IN_THE_UK,
     showInSection: Sections.ConnectionsToEnglandWales,
-    getNextStep: data => (data.inTheUk === YesOrNo.No ? CERTIFICATE_IN_ENGLISH : CHECK_ANSWERS_URL),
+    getNextStep: data => (data.inTheUk === YesOrNo.No ? CERTIFICATE_IN_ENGLISH : CHECK_JURISDICTION),
   },
   {
     url: CERTIFICATE_IN_ENGLISH,
@@ -114,6 +115,10 @@ export const sequence: Step[] = [
   {
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.AboutPartnership,
+    getNextStep: () => CHECK_JURISDICTION,
+  },
+  {
+    url: CHECK_JURISDICTION,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
