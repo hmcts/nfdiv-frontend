@@ -1,8 +1,8 @@
-import { CaseWithId, YesOrNo } from '../app/case/case';
+import { CaseWithId, Checkbox, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
-  CAN_USE_ENGLISH_OR_WELSH_COURTS,
+  CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
@@ -10,19 +10,23 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   GET_CERTIFIED_TRANSLATION,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   IN_THE_UK,
-  LIVING_ENGLAND_WALES_TWELVE_MONTHS,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_INTERSTITIAL_URL,
+  JURISDICTION_LAST_TWELVE_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
+  RESIDUAL_JURISDICTION,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
-  YOUR_DOMICILE,
 } from './urls';
 
 export enum Sections {
@@ -119,19 +123,50 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_JURISDICTION,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
   },
   {
-    url: LIVING_ENGLAND_WALES_TWELVE_MONTHS,
+    url: WHERE_YOUR_LIVES_ARE_BASED_URL,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourLifeBasedInEnglandAndWales}${data.partnersLifeBasedInEnglandAndWales}`) {
+        case `${Yes}${Yes}`:
+        case `${No}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return JURISDICTION_LAST_TWELVE_MONTHS;
+
+        default:
+          return JURISDICTION_DOMICILE;
+      }
+    },
+  },
+  {
+    url: HABITUALLY_RESIDENT_ENGLAND_WALES,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.lastHabituallyResident === YesOrNo.No && data.sameSex === Checkbox.Checked) {
+        return RESIDUAL_JURISDICTION;
+      } else if (data.lastHabituallyResident === YesOrNo.No) {
+        return CANT_DIVORCE;
+      } else {
+        return JURISDICTION_INTERSTITIAL_URL;
+      }
+    },
+  },
+  {
+    url: JURISDICTION_LAST_TWELVE_MONTHS,
     getNextStep: data =>
-      data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? YOUR_DOMICILE : CAN_USE_ENGLISH_OR_WELSH_COURTS,
+      data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
-    url: CAN_USE_ENGLISH_OR_WELSH_COURTS,
+    url: JURISDICTION_INTERSTITIAL_URL,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
-    url: YOUR_DOMICILE,
+    url: JURISDICTION_DOMICILE,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

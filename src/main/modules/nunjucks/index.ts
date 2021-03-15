@@ -20,6 +20,22 @@ export class Nunjucks {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
 
+    env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
+      const { form, sessionErrors, errors } = this.ctx;
+
+      const hasMoreThanTwoFields = Object.keys(form.fields).length >= 2;
+      if (!sessionErrors?.length || !hasMoreThanTwoFields) {
+        return false;
+      }
+
+      const fieldError = sessionErrors.find(error => error.propertyName === fieldName);
+      if (!fieldError) {
+        return false;
+      }
+
+      return { text: errors[fieldName][fieldError.errorType] };
+    });
+
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
         text: this.env.globals.getContent.call(this, i.label),
