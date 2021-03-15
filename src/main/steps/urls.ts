@@ -23,6 +23,7 @@ export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
+export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
