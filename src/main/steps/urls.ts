@@ -35,3 +35,6 @@ export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-b
 export const JURISDICTION_INTERSTITIAL_URL: PageLink = '/jurisdiction/interstitial';
 export const JURISDICTION_LAST_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
 export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
+export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
+export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
+export const CANT_DIVORCE: PageLink = '/cant-divorce';
