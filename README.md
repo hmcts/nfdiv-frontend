@@ -57,8 +57,10 @@ The application makes calls to
 [case orchestration service](https://github.com/hmcts/nfdiv-case-orchestration-service).
 Make sure you have this running to run the frontend e2e.
 
-Some older versions of MacOS would require zsh to be installed and setup. This could help to avoid seeing
-weird connection issues that could come in the way of the Frontend successfully making calls to the backend layer.
+Running the scripts present would require zsh to be installed.
+
+Please see https://www.freecodecamp.org/news/how-to-configure-your-macos-terminal-with-zsh-like-a-pro-c0ab3f3c1156/
+if zsh is not installed on your machine. Steps 1 to 3 of the above link should suffice.
 
 ### Running with Docker
 
