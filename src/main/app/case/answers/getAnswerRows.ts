@@ -5,6 +5,7 @@ import type { FormContent, FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
+import { omitUnreachableAnswers } from './omitUnreachableAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
@@ -20,19 +21,21 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     steps: ({ generateContent: TranslationFn; form: FormContent } & Step)[];
   } = this.ctx;
 
+  const processedFormState = omitUnreachableAnswers(formState, steps);
+
   return steps
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
       const stepContent = {
         ...this.ctx,
-        ...generatePageContent(language, step.generateContent, isDivorce, formState),
+        ...generatePageContent(language, step.generateContent, isDivorce, processedFormState),
       };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 
       for (const fieldKey of fieldKeys) {
         const field = step.form.fields[fieldKey] as FormOptions;
-        let answer = getAnswer(formState, field, fieldKey);
+        let answer = getAnswer(processedFormState, field, fieldKey);
         if (!answer) {
           continue;
         }
@@ -49,7 +52,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customAnswer = this.ctx.stepAnswers[step.url]?.(formState);
+        const customAnswer = this.ctx.stepAnswers[step.url]?.(processedFormState);
         if (customAnswer === false) {
           continue;
         }
