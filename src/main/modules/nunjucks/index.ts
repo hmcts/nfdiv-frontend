@@ -24,7 +24,7 @@ export class Nunjucks {
       const { form, sessionErrors, errors } = this.ctx;
 
       const hasMoreThanTwoFields = Object.keys(form.fields).length >= 2;
-      if (!hasMoreThanTwoFields || !sessionErrors.length) {
+      if (!sessionErrors?.length || !hasMoreThanTwoFields) {
         return false;
       }
 
