@@ -23,6 +23,7 @@ export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
+export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 export const LIVING_ENGLAND_WALES_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
 export const CAN_USE_ENGLISH_OR_WELSH_COURTS: PageLink = '/jurisdiction/interstitial';
 export const YOUR_DOMICILE: PageLink = '/your-domicile';

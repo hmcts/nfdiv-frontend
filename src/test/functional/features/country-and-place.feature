@@ -25,12 +25,13 @@ Feature: Country and Place
     And the page should include "Where you got married"
     And the page should include "For example, Australia"
     And the page should include "the place, exactly as it appears on your certificate."
+    And I clear the form
     When I select "Enter the country where you got married"
     And I type "Australia"
     And I select "Enter the place where you got married"
     And I type "Sydney"
     Then I click "Continue"
-    And the page should include "Check your answers"
+    And the page should include "Check if you can get a divorce in England and Wales"
 
   Scenario: Successfully completing the form (with certificate not in English)
     Given I click "No"
@@ -41,9 +42,10 @@ Feature: Country and Place
     And the page should include "Where you got married"
     And the page should include "For example, France"
     And the page should include "the place, exactly as it appears on your translated certificate"
+    And I clear the form
     When I select "Enter the country where you got married"
     And I type "Thailand"
     And I select "Enter the place where you got married"
     And I type "Bangkok"
     Then I click "Continue"
-    And the page should include "Check your answers"
+    And the page should include "Check if you can get a divorce in England and Wales"
