@@ -2,6 +2,9 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
+import { CaseApi } from '../case/CaseApi';
+import { getAllPossibleAnswers } from '../case/answers/possibleAnswers';
+import { Case } from '../case/case';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -28,7 +31,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.updateCase(req.session.userCase?.id, formData);
+      await req.locals.api.updateCase(req.session.userCase?.id, { ...this.getUnreachableAsNull(req), ...formData });
       if (isSaveAndSignOut) {
         return;
       } else if (isSessionTimeout) {
@@ -44,6 +47,20 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
+  }
+
+  private getUnreachableAsNull(req: AppRequest<T>): Partial<Case> {
+    const possibleAnswers = getAllPossibleAnswers(req.session.userCase, req.app.locals.steps);
+    return Object.fromEntries(
+      Object.keys(req.session.userCase)
+        .filter(
+          key =>
+            !CaseApi.READONLY_FIELDS.includes(key) &&
+            !possibleAnswers.includes(key) &&
+            req.session.userCase[key] !== null
+        )
+        .map(key => [key, null])
+    );
   }
 }
 

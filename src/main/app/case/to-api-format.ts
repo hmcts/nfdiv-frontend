@@ -1,6 +1,6 @@
 import { CaseData, DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
 
-import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
+import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 
@@ -35,12 +35,7 @@ const fields = {
     D8MarriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
-    D8HelpWithFeesReferenceNumber:
-      data.helpPayingNeeded === YesOrNo.Yes &&
-      data.alreadyAppliedForHelpPaying === YesOrNo.Yes &&
-      !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo)
-        ? data.helpWithFeesRefNo
-        : '',
+    D8HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
   }),
 };
 

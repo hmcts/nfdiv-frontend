@@ -17,6 +17,8 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
+  public static READONLY_FIELDS = ['id', 'divorceOrDissolution'];
+
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase();
 

@@ -1,7 +1,7 @@
 import { Step } from '../../../steps/sequence';
 import { Case } from '../case';
 
-import { omitUnreachableAnswers } from './omitUnreachableAnswers';
+import { omitUnreachableAnswers } from './possibleAnswers';
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answers', () => {
