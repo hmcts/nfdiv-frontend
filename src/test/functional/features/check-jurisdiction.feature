@@ -8,4 +8,4 @@ Feature: Check Jurisdiction
 
   Scenario: Continuing
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Where your lives are based"

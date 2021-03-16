@@ -1,7 +1,8 @@
-import { CaseWithId, YesOrNo } from '../app/case/case';
+import { CaseWithId, Checkbox, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
@@ -10,16 +11,22 @@ import {
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
   GET_CERTIFIED_TRANSLATION,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   IN_THE_UK,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_INTERSTITIAL_URL,
+  JURISDICTION_LAST_TWELVE_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
+  RESIDUAL_JURISDICTION,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -122,7 +129,38 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_JURISDICTION,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
+  },
+  {
+    url: WHERE_YOUR_LIVES_ARE_BASED_URL,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourLifeBasedInEnglandAndWales}${data.partnersLifeBasedInEnglandAndWales}`) {
+        case `${Yes}${Yes}`:
+        case `${No}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return JURISDICTION_LAST_TWELVE_MONTHS;
+
+        default:
+          return JURISDICTION_DOMICILE;
+      }
+    },
+  },
+  {
+    url: HABITUALLY_RESIDENT_ENGLAND_WALES,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.lastHabituallyResident === YesOrNo.No && data.sameSex === Checkbox.Checked) {
+        return RESIDUAL_JURISDICTION;
+      } else if (data.lastHabituallyResident === YesOrNo.No) {
+        return CANT_DIVORCE;
+      } else {
+        return JURISDICTION_INTERSTITIAL_URL;
+      }
+    },
   },
   {
     url: CHECK_ANSWERS_URL,
