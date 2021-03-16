@@ -1,7 +1,6 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { DivorceOrDissolution } from '../../app/case/definition';
 import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL } from '../urls';
 
 import { HomeGetController } from './get';

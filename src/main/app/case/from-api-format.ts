@@ -1,7 +1,7 @@
-import { CaseData } from '@hmcts/nfdiv-case-definition';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData } from './definition';
 
 const fields = {
   ...invert(formFieldsToCaseMapping),

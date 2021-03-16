@@ -1,9 +1,9 @@
 import * as path from 'path';
 
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
+import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
