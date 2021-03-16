@@ -29,13 +29,13 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await req.locals.api.triggerEvent(req.session.userCase.id, formData, SAVE_AND_CLOSE);
+    await this.save(req, formData, SAVE_AND_CLOSE);
 
     res.redirect(SAVE_AND_SIGN_OUT);
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
+    await this.save(req, formData, PATCH_CASE);
 
     res.end();
   }
@@ -51,9 +51,14 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
-      req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, req.session.userCase);
+      const wasSaved = await this.save(req, formData, PATCH_CASE);
+      if (wasSaved) {
+        req.session.errors = undefined;
+        nextUrl = getNextStepUrl(req, req.session.userCase);
+      } else {
+        req.session.errors = [{ errorType: 'errorSaving', propertyName: '*' }];
+        nextUrl = req.url;
+      }
     }
 
     req.session.save(err => {
@@ -62,6 +67,15 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
+  }
+
+  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<boolean> {
+    try {
+      await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 

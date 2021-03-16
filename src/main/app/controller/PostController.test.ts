@@ -13,6 +13,10 @@ jest.mock('../../steps');
 const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 
 describe('PostController', () => {
+  afterEach(() => {
+    getNextStepUrlMock.mockClear();
+  });
+
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
     const body = { gender: Gender.FEMALE };
@@ -58,6 +62,33 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
+  });
+
+  it('redirects back to the current page with a session error if there was an problem saving data', async () => {
+    const errors = [] as never[];
+    const body = { gender: Gender.FEMALE };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, PATCH_CASE);
+
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toBeCalledWith('/request');
+    expect(req.session.errors).toEqual([
+      {
+        errorType: 'errorSaving',
+        propertyName: '*',
+      },
+    ]);
   });
 
   test('rejects with an error when unable to save session data', async () => {
@@ -166,6 +197,25 @@ describe('PostController', () => {
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, SAVE_AND_CLOSE);
+
+    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+  });
+
+  it('saves and signs out even if was an error saving data', async () => {
+    const errors = [{ field: 'gender', errorName: 'required' }];
+    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
