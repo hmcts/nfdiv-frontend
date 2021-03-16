@@ -2,7 +2,14 @@ import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({ headers = {}, body = {}, session = {}, cookies = {}, userCase = {} } = {}): AppRequest =>
+export const mockRequest = ({
+  headers = {},
+  body = {},
+  session = {},
+  cookies = {},
+  userCase = {},
+  appLocals = {},
+} = {}): AppRequest =>
   (({
     headers: { 'accept-language': 'en', ...headers },
     body,
@@ -28,6 +35,17 @@ export const mockRequest = ({ headers = {}, body = {}, session = {}, cookies = {
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
       ...session,
+    },
+    app: {
+      locals: {
+        steps: [
+          {
+            getNextStep: () => '',
+            form: { fields: { gender: { type: 'radios' } } },
+          },
+        ],
+        ...appLocals,
+      },
     },
     cookies,
     path: '/request',

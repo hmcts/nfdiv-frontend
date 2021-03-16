@@ -53,7 +53,7 @@ export class PostController<T extends AnyObject> {
     } else {
       await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
       req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, formData);
+      nextUrl = getNextStepUrl(req, req.session.userCase);
     }
 
     req.session.save(err => {

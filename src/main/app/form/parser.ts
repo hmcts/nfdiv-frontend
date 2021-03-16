@@ -1,4 +1,4 @@
-import { CaseDate } from '../../app/case/case';
+import { CaseDate } from '../case/case';
 
 import { FormField, FormOptions } from './Form';
 
