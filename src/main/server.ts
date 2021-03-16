@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 new AxiosLogger().enableFor(app);
+new AppInsights().enableFor(logger);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
@@ -44,7 +45,6 @@ new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new HealthCheck().enableFor(app);
-new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
