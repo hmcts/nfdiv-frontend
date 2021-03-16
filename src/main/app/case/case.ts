@@ -73,6 +73,3 @@ export interface CaseDate {
   month: string;
   day: string;
 }
-
-export const JURISDICTION = 'DIVORCE';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE';

@@ -4,7 +4,7 @@ import { Application, RequestHandler, Response } from 'express';
 
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
-import { AnyObject, PostController } from './app/controller/PostController';
+import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
@@ -12,7 +12,6 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
-import { SaveSignOutPostController } from './steps/save-sign-out/post';
 import { sequence } from './steps/sequence';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -54,15 +53,7 @@ export class Routes {
       app.get(step.url, errorHandler(controller.get));
 
       if (content.form) {
-        const form = new Form(content.form);
-        app.post(
-          step.url,
-          errorHandler((req: AppRequest<AnyObject>, res: Response) =>
-            req.body.saveAndSignOut
-              ? new SaveSignOutPostController(form).post(req, res)
-              : new PostController(form).post(req, res)
-          )
-        );
+        app.post(step.url, errorHandler(new PostController(new Form(content.form)).post));
       }
     }
 

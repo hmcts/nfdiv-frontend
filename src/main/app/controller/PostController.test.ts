@@ -4,6 +4,8 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/CaseApi';
 import { Checkbox } from '../case/case';
 
 import { PostController } from './PostController';
@@ -27,7 +29,7 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
-    expect(req.locals.api.updateCase).not.toHaveBeenCalled();
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith(req.path);
@@ -49,7 +51,7 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
-    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, PATCH_CASE);
 
     const userCase = {
       ...req.session.userCase,
@@ -128,7 +130,11 @@ describe('PostController', () => {
       id: '1234',
     };
     expect(req.session.userCase).toEqual(userCase);
-    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { date: { day: '1', month: '1', year: '2000' } });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { date: { day: '1', month: '1', year: '2000' } },
+      PATCH_CASE
+    );
 
     expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -147,9 +153,26 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase).toEqual({ divorceOrDissolution: 'divorce', gender: 'female', id: '1234' });
-    expect(req.locals.api.updateCase).toHaveBeenCalledWith('1234', { gender: 'female' });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, PATCH_CASE);
 
     expect(res.end).toBeCalled();
+  });
+
+  it('saves and signs out even if there are errors', async () => {
+    const errors = [{ field: 'gender', errorName: 'required' }];
+    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, SAVE_AND_CLOSE);
+
+    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 });
