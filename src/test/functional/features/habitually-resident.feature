@@ -13,7 +13,7 @@ Feature: Habitually Resident
   Scenario: Was last habitually resident in England or Wales and does one of you still live here?
     And I select "Yes"
     When I click "Continue"
-    Then the page URL should be "/jurisdiction/interstitial"
+    Then the page should include "You can use the English or Welsh court"
 
   Scenario: Was not last habitually resident in England or Wales and is same sex?
     When I go to '/your-details'
