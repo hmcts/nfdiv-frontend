@@ -2,7 +2,8 @@ import * as fs from 'fs';
 
 import { Case, CaseWithId } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
-import { Form } from '../app/form/Form';
+import { TranslationFn } from '../app/controller/GetController';
+import { Form, FormContent } from '../app/form/Form';
 
 import { Step, sequence } from './sequence';
 import { CHECK_ANSWERS_URL } from './urls';
@@ -60,3 +61,13 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
+
+export type StepWithContent = ({ generateContent: TranslationFn; form: FormContent } & Step)[];
+export const stepsWithContent = ((): StepWithContent => {
+  const results: StepWithContent = [];
+  for (const step of sequence) {
+    const content = require(`${__dirname}${step.url}/content.ts`);
+    results.push({ ...step, ...content });
+  }
+  return results;
+})();
