@@ -152,8 +152,6 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
-  english: 'English',
-  welsh: 'Welsh',
 };
 
 export const generatePageContent = (
