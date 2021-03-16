@@ -1,8 +1,7 @@
-import { CaseData, DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
-
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
 import { Case, CaseDate, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData, DivorceOrDissolution, Gender } from './definition';
 
 const fields = {
   ...formFieldsToCaseMapping,
