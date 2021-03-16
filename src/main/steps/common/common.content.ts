@@ -1,6 +1,5 @@
-import { Gender } from '@hmcts/nfdiv-case-definition';
-
 import { Case } from '../../app/case/case';
+import { Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {

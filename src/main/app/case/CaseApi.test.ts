@@ -1,9 +1,9 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import axios from 'axios';
 
 import { UserDetails } from '../controller/AppRequest';
 
-import { CaseApi, PATCH_CASE, getCaseApi } from './CaseApi';
+import { CaseApi, getCaseApi } from './CaseApi';
+import { DivorceOrDissolution, PATCH_CASE } from './definition';
 
 jest.mock('axios');
 
