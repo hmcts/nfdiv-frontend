@@ -1,9 +1,9 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import axios from 'axios';
 
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
+import { DivorceOrDissolution, PATCH_CASE } from './definition';
 
 jest.mock('axios');
 
@@ -98,14 +98,12 @@ describe('CaseApi', () => {
   test('Should update case', async () => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
     mockedAxios.post.mockResolvedValue({});
-
-    await api.updateCase('1234', {
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-    });
+    const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
+    await api.triggerEvent('1234', caseData, PATCH_CASE);
 
     const expectedRequest = {
-      data: { divorceOrDissolution: 'divorce' },
-      event: { id: 'patchCase' },
+      data: caseData,
+      event: { id: PATCH_CASE },
       event_token: '123',
     };
 
@@ -116,9 +114,7 @@ describe('CaseApi', () => {
     mockedAxios.post.mockRejectedValue(false);
 
     await expect(
-      api.updateCase('not found', {
-        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-      })
+      api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, PATCH_CASE)
     ).rejects.toThrow('Case could not be updated.');
   });
 });

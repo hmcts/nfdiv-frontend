@@ -1,6 +1,5 @@
-import { Gender } from '@hmcts/nfdiv-case-definition';
-
 import { Checkbox } from '../../app/case/case';
+import { Gender } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';

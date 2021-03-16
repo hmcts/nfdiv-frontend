@@ -1,4 +1,3 @@
-import { CaseData, CaseEvent, DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
@@ -6,7 +5,8 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CASE_TYPE, Case, CaseWithId, JURISDICTION } from './case';
+import { Case, CaseWithId } from './case';
+import { CASE_TYPE, CREATE_DRAFT, CaseData, DivorceOrDissolution, JURISDICTION } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -49,9 +49,9 @@ export class CaseApi {
   }
 
   private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CaseEvent.DRAFT_CREATE}`);
+    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CREATE_DRAFT}`);
     const token = tokenResponse.data.token;
-    const event = { id: CaseEvent.DRAFT_CREATE };
+    const event = { id: CREATE_DRAFT };
     const data = {
       divorceOrDissolution: serviceType,
       D8PetitionerFirstName: userDetails.givenName,
@@ -69,13 +69,13 @@ export class CaseApi {
     }
   }
 
-  public async updateCase(id: string, caseData: Partial<Case>): Promise<void> {
-    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${CaseEvent.PATCH_CASE}`);
-    const event = { id: CaseEvent.PATCH_CASE };
+  public async triggerEvent(caseId: string, caseData: Partial<Case>, eventName: string): Promise<void> {
+    const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
+    const event = { id: eventName };
     const data = toApiFormat(caseData);
 
     try {
-      await this.axios.post(`/cases/${id}/events`, { event, data, event_token: tokenResponse.data.token });
+      await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: tokenResponse.data.token });
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

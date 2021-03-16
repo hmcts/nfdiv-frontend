@@ -1,6 +1,6 @@
-import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
-
 import { AnyObject } from '../controller/PostController';
+
+import { DivorceOrDissolution, Gender } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   divorceOrDissolution: 'divorceOrDissolution',
@@ -77,6 +77,3 @@ export interface CaseDate {
   month: string;
   day: string;
 }
-
-export const JURISDICTION = 'DIVORCE';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE';
