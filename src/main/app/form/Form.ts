@@ -1,4 +1,4 @@
-import { CaseDate, CaseWithId } from '../case/case';
+import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
@@ -24,7 +24,7 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<CaseWithFormData>, fields = this.form?.fields): FormError[] {
+  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
     if (!fields) {
       return [];
     }

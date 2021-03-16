@@ -15,7 +15,7 @@ export const mockRequest = ({
     body,
     locals: {
       api: {
-        updateCase: jest.fn(),
+        triggerEvent: jest.fn(),
       },
       logger: {
         info: jest.fn(),
