@@ -1,8 +1,7 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
-
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { DivorceOrDissolution } from '../../app/case/definition';
 import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';

@@ -1,4 +1,3 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
@@ -6,6 +5,7 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
+import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
 
