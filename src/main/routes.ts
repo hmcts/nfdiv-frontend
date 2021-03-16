@@ -2,17 +2,16 @@ import fs from 'fs';
 
 import { Application, RequestHandler, Response } from 'express';
 
-import { AppRequest } from '../main/app/controller/AppRequest';
-import { GetController } from '../main/app/controller/GetController';
-import { AnyObject, PostController } from '../main/app/controller/PostController';
-import { Form } from '../main/app/form/Form';
-import { SaveSignOutPostController } from '../main/steps/save-sign-out/post';
-
+import { AppRequest } from './app/controller/AppRequest';
+import { GetController } from './app/controller/GetController';
+import { PostController } from './app/controller/PostController';
+import { Form } from './app/form/Form';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { sequence } from './steps/sequence';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -22,6 +21,7 @@ import {
   CSRF_TOKEN_ERROR_URL,
   HOME_URL,
   PRIVACY_POLICY_URL,
+  SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
@@ -34,6 +34,7 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
@@ -52,15 +53,7 @@ export class Routes {
       app.get(step.url, errorHandler(controller.get));
 
       if (content.form) {
-        const form = new Form(content.form);
-        app.post(
-          step.url,
-          errorHandler((req: AppRequest<AnyObject>, res: Response) =>
-            req.body.saveAndSignOut
-              ? new SaveSignOutPostController(form).post(req, res)
-              : new PostController(form).post(req, res)
-          )
-        );
+        app.post(step.url, errorHandler(new PostController(new Form(content.form)).post));
       }
     }
 

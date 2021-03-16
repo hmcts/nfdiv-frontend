@@ -15,6 +15,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   certifiedTranslation: 'D8CertifiedTranslation',
   ceremonyCountry: 'D8CountryName',
   ceremonyPlace: 'D8MarriagePlaceOfMarriage',
+  yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
+  partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
+  lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -50,6 +53,9 @@ export interface Case {
   certifiedTranslation?: YesOrNo;
   ceremonyCountry?: string;
   ceremonyPlace?: string;
+  yourLifeBasedInEnglandAndWales?: YesOrNo;
+  partnersLifeBasedInEnglandAndWales?: YesOrNo;
+  lastHabituallyResident?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
@@ -71,6 +77,3 @@ export interface CaseDate {
   month: string;
   day: string;
 }
-
-export const JURISDICTION = 'DIVORCE';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE';

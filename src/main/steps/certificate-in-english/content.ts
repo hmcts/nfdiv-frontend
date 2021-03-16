@@ -2,41 +2,28 @@ import { YesOrNo } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { commonContent } from '../common/common.content';
 
-export const generateContent: TranslationFn = ({ isDivorce }) => {
-  const en = {
-    title: `Is your original ${
-      isDivorce ? commonContent.en.marriage : commonContent.en.civilPartnership
-    } certificate in English?`,
-    line1: 'If your original certificate contains an English version, select ‘yes’.',
-    line2: 'If you have an English translation as a separate document, select ‘no’.',
-    errors: {
-      certificateInEnglish: {
-        required: commonContent.en.required,
-      },
+const en = ({ isDivorce, marriage, civilPartnership, required }) => ({
+  title: `Is your original ${isDivorce ? marriage : civilPartnership} certificate in English?`,
+  line1: 'If your original certificate contains an English version, select ‘yes’.',
+  line2: 'If you have an English translation as a separate document, select ‘no’.',
+  errors: {
+    certificateInEnglish: {
+      required,
     },
-  };
+  },
+});
 
-  const cy: typeof en = {
-    title: `A yw eich tystysgrif ${
-      isDivorce ? commonContent.cy.marriage : commonContent.cy.civilPartnership
-    } wreiddiol yn Saesneg?`,
-    line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
-    line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
-    errors: {
-      certificateInEnglish: {
-        required: commonContent.cy.required,
-      },
+const cy: typeof en = ({ isDivorce, marriage, civilPartnership, required }) => ({
+  title: `A yw eich tystysgrif ${isDivorce ? marriage : civilPartnership} wreiddiol yn Saesneg?`,
+  line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
+  line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
+  errors: {
+    certificateInEnglish: {
+      required,
     },
-  };
-
-  const common = {
-    form,
-  };
-
-  return { en, cy, common };
-};
+  },
+});
 
 export const form: FormContent = {
   fields: {
@@ -44,6 +31,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.title,
+      labelHidden: true,
       values: [
         { label: l => l.yes, value: YesOrNo.Yes },
         { label: l => l.no, value: YesOrNo.No },
@@ -54,4 +42,17 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  return {
+    ...translations,
+    form,
+  };
 };

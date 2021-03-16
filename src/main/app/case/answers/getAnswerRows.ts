@@ -1,15 +1,16 @@
+import { generatePageContent } from '../../../steps/common/common.content';
 import { Sections, Step } from '../../../steps/sequence';
 import { TranslationFn } from '../../controller/GetController';
 import type { FormContent, FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
+import { omitUnreachableAnswers } from './omitUnreachableAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
-    partner,
     formState,
     steps,
   }: {
@@ -20,16 +21,21 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     steps: ({ generateContent: TranslationFn; form: FormContent } & Step)[];
   } = this.ctx;
 
+  const processedFormState = omitUnreachableAnswers(formState, steps);
+
   return steps
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = { ...this.ctx, ...step.generateContent({ isDivorce, partner, formState })[language] };
+      const stepContent = {
+        ...this.ctx,
+        ...generatePageContent(language, step.generateContent, isDivorce, processedFormState),
+      };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 
       for (const fieldKey of fieldKeys) {
         const field = step.form.fields[fieldKey] as FormOptions;
-        let answer = getAnswer(formState, field, fieldKey);
+        let answer = getAnswer(processedFormState, field, fieldKey);
         if (!answer) {
           continue;
         }
@@ -46,7 +52,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customAnswer = this.ctx.stepAnswers[step.url]?.(formState);
+        const customAnswer = this.ctx.stepAnswers[step.url]?.(processedFormState);
         if (customAnswer === false) {
           continue;
         }

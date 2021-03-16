@@ -30,10 +30,12 @@ describe('getAnswerRows()', () => {
           {
             url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
+            getNextStep: () => 'pickThisOne',
           },
           {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
+            getNextStep: () => '',
             generateContent: mockGenerateContent,
             form: { fields: { foo: {} } },
           },
@@ -48,7 +50,7 @@ describe('getAnswerRows()', () => {
     let mockCtx;
     let mockFormState;
     beforeEach(() => {
-      mockGenerateContent.mockReturnValue({ en: { title: 'Mock question title' } });
+      mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
       mockFormState = { mockField: 'example response' };
       mockCtx = {
@@ -61,10 +63,12 @@ describe('getAnswerRows()', () => {
           {
             url: 'dont-pickThisOne',
             showInSection: Sections.Payment,
+            getNextStep: () => 'pickThisOne',
           },
           {
             url: 'pickThisOne',
             showInSection: Sections.AboutPartnership,
+            getNextStep: () => '',
             generateContent: mockGenerateContent,
             form: { fields: { mockField: { type: 'text', label: l => l.title } } },
           },
@@ -79,11 +83,6 @@ describe('getAnswerRows()', () => {
         ctx: mockCtx,
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {
@@ -115,11 +114,6 @@ describe('getAnswerRows()', () => {
         },
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {
@@ -183,6 +177,7 @@ describe('getAnswerRows()', () => {
             {
               url: 'pickThisOne',
               showInSection: Sections.AboutPartnership,
+              getNextStep: () => '',
               generateContent: mockGenerateContent,
               form: {
                 fields: {
@@ -201,11 +196,6 @@ describe('getAnswerRows()', () => {
         },
       })(Sections.AboutPartnership);
 
-      expect(mockGenerateContent).toHaveBeenCalledWith({
-        isDivorce: true,
-        partner: 'husband',
-        formState: mockFormState,
-      });
       expect(actual).toEqual([
         {
           actions: {

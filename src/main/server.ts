@@ -8,6 +8,7 @@ import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
+import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
 import { HealthCheck } from './modules/health';
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
+new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
