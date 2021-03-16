@@ -1,9 +1,9 @@
-import { DivorceOrDissolution, PATCH_CASE } from '@hmcts/nfdiv-case-definition';
+import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import axios from 'axios';
 
 import { UserDetails } from '../controller/AppRequest';
 
-import { CaseApi, getCaseApi } from './CaseApi';
+import { CaseApi, PATCH_CASE, getCaseApi } from './CaseApi';
 
 jest.mock('axios');
 
@@ -107,7 +107,7 @@ describe('CaseApi', () => {
       event_token: '123',
     };
 
-    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest, PATCH_CASE);
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
   });
 
   test('Should throw error when case could not be updated', async () => {

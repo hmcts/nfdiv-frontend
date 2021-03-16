@@ -1,4 +1,4 @@
-import { CASE_TYPE, CREATE_DRAFT, CaseData, DivorceOrDissolution, JURISDICTION } from '@hmcts/nfdiv-case-definition';
+import { CaseData, DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
@@ -69,13 +69,13 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(id: string, caseData: Partial<Case>, eventName: string): Promise<void> {
-    const tokenResponse = await this.axios.get(`/cases/${id}/event-triggers/${eventName}`);
+  public async triggerEvent(caseId: string, caseData: Partial<Case>, eventName: string): Promise<void> {
+    const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const event = { id: eventName };
     const data = toApiFormat(caseData);
 
     try {
-      await this.axios.post(`/cases/${id}/events`, { event, data, event_token: tokenResponse.data.token });
+      await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: tokenResponse.data.token });
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
@@ -115,3 +115,9 @@ interface GetCaseResponse {
   id: string;
   case_data: CaseData;
 }
+
+export const PATCH_CASE = 'patch-case';
+export const CREATE_DRAFT = 'create-draft';
+export const SAVE_AND_CLOSE = 'save-and-close';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE';
+export const JURISDICTION = 'DIVORCE';

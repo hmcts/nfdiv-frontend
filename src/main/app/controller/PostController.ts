@@ -1,9 +1,9 @@
-import { PATCH_CASE, SAVE_AND_CLOSE } from '@hmcts/nfdiv-case-definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/CaseApi';
 import { Case } from '../case/case';
 import { Form } from '../form/Form';
 
@@ -35,7 +35,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await req.locals.api.triggerEvent(req.session.userCase.id, formData, SAVE_AND_CLOSE);
+    await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
 
     res.end();
   }
