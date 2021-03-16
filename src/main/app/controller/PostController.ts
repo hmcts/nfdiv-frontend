@@ -3,9 +3,10 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { CaseApi, PATCH_CASE, SAVE_AND_CLOSE } from '../case/CaseApi';
+import { CaseApi } from '../case/CaseApi';
 import { getAllPossibleAnswers } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
+import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';

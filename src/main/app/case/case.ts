@@ -1,6 +1,6 @@
-import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
-
 import { AnyObject } from '../controller/PostController';
+
+import { DivorceOrDissolution, Gender } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   divorceOrDissolution: 'divorceOrDissolution',
@@ -16,6 +16,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
   partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
+  livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -52,6 +53,7 @@ export interface Case {
   yourLifeBasedInEnglandAndWales?: YesOrNo;
   partnersLifeBasedInEnglandAndWales?: YesOrNo;
   lastHabituallyResident?: YesOrNo;
+  livingInEnglandWalesTwelveMonths?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

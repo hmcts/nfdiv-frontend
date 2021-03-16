@@ -1,12 +1,10 @@
-import { Gender } from '@hmcts/nfdiv-case-definition';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/CaseApi';
 import { Checkbox, YesOrNo } from '../case/case';
+import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 
 import { PostController } from './PostController';
 
