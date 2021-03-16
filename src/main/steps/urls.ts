@@ -23,7 +23,6 @@ export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
 export const GET_CERTIFIED_TRANSLATION: PageLink = '/get-certified-translation';
 export const COUNTRY_AND_PLACE: PageLink = '/country-and-place';
-export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 
 export const RELATIONSHIP_DATE_URL: PageLink = '/date-from-certificate';
 export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-apply';
@@ -31,4 +30,11 @@ export const RELATIONSHIP_NOT_LONG_ENOUGH_URL: PageLink = '/not-long-enough-to-a
 export const CERTIFICATE_URL: PageLink = '/do-you-have-your-certificate';
 export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
 
-export const UNION_CERTIFICATE_URL: PageLink = '/screening-questions/union-certificate';
+export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
+export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';
+export const JURISDICTION_INTERSTITIAL_URL: PageLink = '/jurisdiction/interstitial';
+export const JURISDICTION_LAST_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
+export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
+export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
+export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
+export const CANT_DIVORCE: PageLink = '/cant-divorce';

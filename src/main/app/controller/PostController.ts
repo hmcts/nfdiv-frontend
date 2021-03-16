@@ -2,7 +2,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { CaseApi } from '../case/CaseApi';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { CaseApi, PATCH_CASE, SAVE_AND_CLOSE } from '../case/CaseApi';
 import { getAllPossibleAnswers } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 import { Form } from '../form/Form';
@@ -14,31 +15,50 @@ export class PostController<T extends AnyObject> {
   constructor(protected readonly form: Form) {}
 
   /**
-   * Default handler for a POST request. Checks the body for errors, returning to the current page with errors in the
-   * session if there were any. Assuming no errors, store the updated state then ask the base class which page to
-   * redirect to.
+   * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
+    if (req.body.saveAndSignOut) {
+      await this.saveAndSignOut(req, res, formData);
+    } else if (req.body.saveBeforeSessionTimeout) {
+      await this.saveBeforeSessionTimeout(req, res, formData);
+    } else {
+      await this.saveAndContinue(req, res, formData);
+    }
+  }
+
+  private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+    await req.locals.api.triggerEvent(req.session.userCase.id, formData, SAVE_AND_CLOSE);
+
+    res.redirect(SAVE_AND_SIGN_OUT);
+  }
+
+  private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+    await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
+
+    res.end();
+  }
+
+  private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
 
     const errors = this.form.getErrors(formData);
-    const isSaveAndSignOut = !!req.body.saveAndSignOut;
     const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
     let nextUrl: string;
-    if (!isSaveAndSignOut && !isSessionTimeout && errors.length > 0) {
+
+    if (!isSessionTimeout && errors.length > 0) {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.updateCase(req.session.userCase?.id, { ...this.getUnreachableAsNull(req), ...formData });
-      if (isSaveAndSignOut) {
-        return;
-      } else if (isSessionTimeout) {
-        return res.end();
-      }
+      await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        { ...this.getAnsweredUnreachableResponsesAsNull(req), ...formData },
+        PATCH_CASE
+      );
       req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, formData);
+      nextUrl = getNextStepUrl(req, req.session.userCase);
     }
 
     req.session.save(err => {
@@ -49,7 +69,7 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private getUnreachableAsNull(req: AppRequest<T>): Partial<Case> {
+  private getAnsweredUnreachableResponsesAsNull(req: AppRequest<T>): Partial<Case> {
     const possibleAnswers = getAllPossibleAnswers(req.session.userCase, req.app.locals.steps);
     return Object.fromEntries(
       Object.keys(req.session.userCase)

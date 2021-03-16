@@ -16,6 +16,10 @@ export const iAmOnPage = (text: string): void => {
 };
 Given('I go to {string}', iAmOnPage);
 
+Then('the page URL should be {string}', (url: string) => {
+  I.waitUrlEquals(url);
+});
+
 Given('I login', () => {
   login('user');
 });
@@ -27,6 +31,10 @@ export const iClick = (text: string): void => {
 
 When('I click {string}', iClick);
 When('I select {string}', iClick);
+
+When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+  I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+});
 
 Then('I expect the page title to be {string}', (title: string) => {
   I.seeInTitle(title);
@@ -66,3 +74,9 @@ export const iClearTheForm = (): void => {
   });
 };
 Given('I clear the form', iClearTheForm);
+
+Given("I've said I'm divorcing my husband", () => {
+  I.amOnPage('/your-details');
+  I.checkOption('My husband');
+  I.click('Continue');
+});
