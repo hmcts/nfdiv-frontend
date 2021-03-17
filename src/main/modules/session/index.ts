@@ -38,7 +38,7 @@ export class SessionStorage {
             password: config.get('session.redis.key') as string,
             port: 6380,
             tls: true,
-            connect_timeout: 5000,
+            connect_timeout: 15000,
           }),
         });
   }
