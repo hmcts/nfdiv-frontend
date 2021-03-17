@@ -20,6 +20,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
+      labelHidden: true,
       values: [
         { label: l => l.english, value: LanguagePreference.English },
         { label: l => l.welsh, value: LanguagePreference.Welsh },
