@@ -13,11 +13,11 @@ const en = ({ isDivorce, relationship, partner }) => ({
   hint: 'Include all the text related to the name',
   errors: {
     fullNameOnCertificate: {
-      required: 'You have not entered anything. Enter your full name as it appears on your marriage certificate',
+      required: 'You have not entered anything. Enter your full name as it appears on your marriage certificate.',
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     partnersFullNameOnCertificate: {
-      required: 'You have not entered anything. Enter their full name as it appears on your marriage certificate',
+      required: 'You have not entered anything. Enter their full name as it appears on your marriage certificate.',
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
