@@ -19,6 +19,7 @@ import {
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
+  JURISDICTION_LIVING_HERE_FOR_6_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -140,6 +141,22 @@ export const sequence: Step[] = [
 
         default:
           return JURISDICTION_DOMICILE;
+      }
+    },
+  },
+  {
+    url: JURISDICTION_DOMICILE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
+        case `${Yes}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return JURISDICTION_LIVING_HERE_FOR_6_MONTHS;
+
+        default:
+          return HABITUALLY_RESIDENT_ENGLAND_WALES;
       }
     },
   },
