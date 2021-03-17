@@ -4,6 +4,7 @@ import { isLessThanAYear } from '../app/form/validation';
 import {
   CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
+  CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
@@ -167,6 +168,11 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: CERTIFICATE_NAME,
+    showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

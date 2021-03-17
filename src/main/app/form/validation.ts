@@ -88,3 +88,9 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
     }
   }
 };
+
+export const isFieldLetters: Validator = value => {
+  if (!(value as string).match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
+    return 'invalid';
+  }
+};

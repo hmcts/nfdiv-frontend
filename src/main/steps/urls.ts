@@ -38,3 +38,4 @@ export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
 export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
 export const CANT_DIVORCE: PageLink = '/cant-divorce';
+export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
