@@ -1,6 +1,5 @@
-import { DivorceOrDissolution, Gender } from '@hmcts/nfdiv-case-definition';
-
 import { Case, Checkbox, YesOrNo } from './case';
+import { DivorceOrDissolution, Gender } from './definition';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {

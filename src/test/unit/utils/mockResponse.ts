@@ -1,5 +1,6 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import { Response } from 'express';
+
+import { DivorceOrDissolution } from '../../../main/app/case/definition';
 
 export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVORCE } } = {}): Response => {
   const res: Partial<Response> = { locals };
