@@ -163,6 +163,19 @@ export const sequence: Step[] = [
     },
   },
   {
+    url: JURISDICTION_LAST_TWELVE_MONTHS,
+    getNextStep: data =>
+      data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
+  },
+  {
+    url: JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: JURISDICTION_DOMICILE,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: CHECK_ANSWERS_URL,
     getNextStep: () => CHECK_ANSWERS_URL,
   },

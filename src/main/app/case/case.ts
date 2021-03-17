@@ -16,6 +16,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
   partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
+  livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -52,6 +53,7 @@ export interface Case {
   yourLifeBasedInEnglandAndWales?: YesOrNo;
   partnersLifeBasedInEnglandAndWales?: YesOrNo;
   lastHabituallyResident?: YesOrNo;
+  livingInEnglandWalesTwelveMonths?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
 }
 
@@ -79,6 +81,3 @@ export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
 }
-
-export const JURISDICTION = 'DIVORCE';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE';
