@@ -20,7 +20,6 @@ import {
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
-  JURISDICTION_LIVING_HERE_FOR_6_MONTHS,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
@@ -155,7 +154,7 @@ export const sequence: Step[] = [
           return JURISDICTION_INTERSTITIAL_URL;
 
         case `${Yes}${No}`:
-          return JURISDICTION_LIVING_HERE_FOR_6_MONTHS;
+          return LIVING_ENGLAND_WALES_SIX_MONTHS;
 
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
@@ -185,20 +184,12 @@ export const sequence: Step[] = [
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
-    url: JURISDICTION_DOMICILE,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     getNextStep: data =>
       data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
   },
   {
     url: ENGLISH_WELSH_COURTS,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
