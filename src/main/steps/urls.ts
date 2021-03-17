@@ -39,3 +39,5 @@ export const JURISDICTION_LIVING_HERE_FOR_6_MONTHS: PageLink = '/living-england-
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
 export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
 export const CANT_DIVORCE: PageLink = '/cant-divorce';
+export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-six-months';
+export const ENGLISH_WELSH_COURTS: PageLink = '/english-welsh-courts';
