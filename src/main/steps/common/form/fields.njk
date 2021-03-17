@@ -14,10 +14,11 @@
           fieldset: {
             legend: {
               text: getContent(field.label),
-              classes: "govuk-visually-hidden"
+              classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
             }
           },
-          items: formItems(field.values, formState[fieldName])
+          items: formItems(field.values, formState[fieldName]),
+          errorMessage: getError(fieldName)
         }) }}
     {% case 'checkboxes' %}
       {% for checkbox in field.values %}
@@ -35,7 +36,8 @@
             classes: "govuk-fieldset__legend--s"
           }
         },
-        items: formItems(field.values, formState)
+        items: formItems(field.values, formState),
+        errorMessage: getError(fieldName)
       }) }}
     {% case 'option' %}
       {{ govukSelect({
@@ -44,7 +46,8 @@
         label: {
           text: getContent(field.label)
         },
-        items: formItems(field.values, formState[fieldName])
+        items: formItems(field.values, formState[fieldName]),
+        errorMessage: getError(fieldName)
       }) }}
     {% case 'date' %}
       {{ govukDateInput({
@@ -53,13 +56,14 @@
         fieldset: {
           legend: {
             text: getContent(field.label),
-            classes: "govuk-visually-hidden"
+            classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
           }
         },
         hint: {
           text: hint
         },
-        items: formItems(field.values, formState[fieldName])
+        items: formItems(field.values, formState[fieldName]),
+        errorMessage: getError(fieldName)
       }) }}
     {% default %}
       {{ govukInput({
@@ -74,7 +78,8 @@
           html: getContent(field.hint)
         },
         value: formState[fieldName],
-        attributes: field.attributes
+        attributes: field.attributes,
+        errorMessage: getError(fieldName)
       }) }}
   {% endswitch %}
 {% endfor %}

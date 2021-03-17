@@ -1,6 +1,5 @@
-import { Gender } from '@hmcts/nfdiv-case-definition';
-
 import { Checkbox } from '../../app/case/case';
+import { Gender } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -37,6 +36,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
+      labelHidden: true,
       values: [
         { label: l => l.male, value: Gender.MALE },
         { label: l => l.female, value: Gender.FEMALE },

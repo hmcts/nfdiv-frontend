@@ -1,7 +1,6 @@
-import { Gender } from '@hmcts/nfdiv-case-definition';
-
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { YesOrNo } from '../app/case/case';
+import { Gender } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';

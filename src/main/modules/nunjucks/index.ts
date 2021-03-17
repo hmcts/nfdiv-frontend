@@ -1,9 +1,9 @@
 import * as path from 'path';
 
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
 
+import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -18,6 +18,22 @@ export class Nunjucks {
 
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
+    });
+
+    env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
+      const { form, sessionErrors, errors } = this.ctx;
+
+      const hasMoreThanTwoFields = Object.keys(form.fields).length >= 2;
+      if (!sessionErrors?.length || !hasMoreThanTwoFields) {
+        return false;
+      }
+
+      const fieldError = sessionErrors.find(error => error.propertyName === fieldName);
+      if (!fieldError) {
+        return false;
+      }
+
+      return { text: errors[fieldName][fieldError.errorType] };
     });
 
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {

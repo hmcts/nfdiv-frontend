@@ -1,5 +1,4 @@
-import { DivorceOrDissolution } from '@hmcts/nfdiv-case-definition';
-
+import { DivorceOrDissolution } from '../../../main/app/case/definition';
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
 export const mockRequest = ({
@@ -15,7 +14,7 @@ export const mockRequest = ({
     body,
     locals: {
       api: {
-        updateCase: jest.fn(),
+        triggerEvent: jest.fn(),
       },
       logger: {
         info: jest.fn(),
