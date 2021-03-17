@@ -2,7 +2,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
+import { JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
@@ -51,9 +52,16 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
+      nextUrl = getNextStepUrl(req, req.session.userCase);
+      if (nextUrl === JURISDICTION_INTERSTITIAL_URL) {
+        const connection = addConnection(req.session.userCase);
+        if (connection) {
+          formData.connections?.push(connection);
+          Object.assign(req.session.userCase, formData);
+        }
+      }
       await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
       req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, req.session.userCase);
     }
 
     req.session.save(err => {

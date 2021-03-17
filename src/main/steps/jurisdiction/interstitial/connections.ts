@@ -1,4 +1,5 @@
-import { CaseData } from '../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { Connection } from '../../../app/case/definition';
 
 const isHabituallyResident = (who, data) => {
   return data['${who}LifeBasedInEnglandAndWales'] === 'Yes';
@@ -44,26 +45,24 @@ const hasResidualJurisdiction = data => {
   return data['jurisdictionResidualEligible'] === 'Yes';
 };
 
-export const addConnection = (data: CaseData): string => {
+export const addConnection = (data: Partial<CaseWithId>): Connection | void => {
   if (areBothHabituallyResident(data)) {
-    return 'A';
+    return Connection.A;
   } else if (onlyRespondentHabituallyResident(data)) {
-    return 'C';
+    return Connection.C;
   } else if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
-    return 'D';
+    return Connection.D;
   } else if (
     isHabituallyResidentForSixMonths(data) &&
     onlyPetitionerHabituallyResident(data) &&
     onlyPetitionerDomiciled(data)
   ) {
-    return 'E';
+    return Connection.E;
   } else if (areBothDomiciled(data)) {
-    return 'F';
+    return Connection.F;
   } else if (areBothLastHabituallyResident(data)) {
-    return 'B';
+    return Connection.B;
   } else if (hasResidualJurisdiction(data)) {
-    return 'G';
-  } else {
-    return '';
+    return Connection.G;
   }
 };

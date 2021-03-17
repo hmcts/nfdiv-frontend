@@ -148,6 +148,17 @@ export const enum ConfidentialAddress {
   SHARE = 'share',
   KEEP = 'keep',
 }
+
+export const enum Connection {
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E',
+  F = 'F',
+  G = 'G',
+}
+
 export const PATCH_CASE = 'patch-case';
 export const CREATE_DRAFT = 'create-draft';
 export const SAVE_AND_CLOSE = 'save-and-close';
