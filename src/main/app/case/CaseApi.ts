@@ -69,13 +69,18 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, caseData: Partial<Case>, eventName: string): Promise<void> {
+  public async triggerEvent(caseId: string, caseData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const event = { id: eventName };
     const data = toApiFormat(caseData);
 
     try {
-      await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: tokenResponse.data.token });
+      const response = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: tokenResponse.data.token,
+      });
+      return { id: response.data.id, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

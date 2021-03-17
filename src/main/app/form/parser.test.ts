@@ -11,8 +11,8 @@ describe('Parser', () => {
       };
 
       expect(covertToDateObject('date', date)).toStrictEqual({
-        day: '1',
-        month: '1',
+        day: '01',
+        month: '01',
         year: '1',
       });
     });

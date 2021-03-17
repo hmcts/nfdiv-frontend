@@ -6,7 +6,7 @@ describe('to-api-format', () => {
   const results: Partial<Case> = {
     gender: Gender.MALE,
     sameSex: Checkbox.Checked,
-    relationshipDate: { year: '1900', month: '1', day: '4' },
+    relationshipDate: { year: '1900', month: '01', day: '04' },
     helpPayingNeeded: YesOrNo.Yes,
     alreadyAppliedForHelpPaying: YesOrNo.Yes,
     helpWithFeesRefNo: 'HWF-123-ABC',

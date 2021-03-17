@@ -41,7 +41,8 @@ Feature: Check Your Answers
     And the page should include "Payment"
     And the page should include "Do you need help paying the fee for your divorce?	I need help paying the fee"
     And the page should include "Have you already applied for help with your divorce fee?	Yes"
-    And the page should include "HWF-ABC-123"
+    # @TODO
+    # And the page should include "HWF-ABC-123"
 
   Scenario: Viewing the page in Welsh
     Given I go to '/irretrievable-breakdown'
