@@ -60,6 +60,7 @@ export interface Case {
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
+  englishOrWelsh?: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {
@@ -80,4 +81,9 @@ export interface CaseDate {
   year: string;
   month: string;
   day: string;
+}
+
+export enum LanguagePreference {
+  English = 'english',
+  Welsh = 'welsh',
 }

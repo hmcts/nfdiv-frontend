@@ -9,6 +9,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
+  ENGLISH_OR_WELSH,
   ENGLISH_WELSH_COURTS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -122,6 +123,11 @@ export const sequence: Step[] = [
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.AboutPartnership,
     getNextStep: () => CHECK_JURISDICTION,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_JURISDICTION,
