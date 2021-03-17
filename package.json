@@ -128,7 +128,7 @@
     "ts-jest": "^26.5.3",
     "ts-loader": "^8.0.18",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webdriverio": "^7.1.1",
+    "webdriverio": "^7.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^4.5.0",
     "webpack-dev-middleware": "^4.1.0",
