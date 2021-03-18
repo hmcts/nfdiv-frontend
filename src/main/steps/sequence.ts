@@ -191,10 +191,6 @@ export const sequence: Step[] = [
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
-    url: JURISDICTION_DOMICILE,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     getNextStep: data =>
       data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
