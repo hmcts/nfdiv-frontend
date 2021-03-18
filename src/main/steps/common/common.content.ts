@@ -75,6 +75,8 @@ const en = {
   },
   yes: 'Yes',
   no: 'No',
+  english: 'English',
+  welsh: 'Welsh',
 };
 
 const cy: typeof en = {

@@ -15,8 +15,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   certifiedTranslation: 'D8CertifiedTranslation',
   yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
   partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
+  yourDomicileInEnglandWales: 'JurisdictionPetitionerDomicile',
+  partnersDomicileInEnglandWales: 'JurisdictionRespondentDomicile',
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
+  livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
   fullNameOnCertificate: 'D8MarriagePetitionerName',
   partnersFullNameOnCertificate: 'D8MarriageRespondentName',
 };
@@ -54,8 +57,12 @@ export interface Case {
   certifiedTranslation?: YesOrNo;
   yourLifeBasedInEnglandAndWales?: YesOrNo;
   partnersLifeBasedInEnglandAndWales?: YesOrNo;
+  yourDomicileInEnglandWales?: YesOrNo;
+  partnersDomicileInEnglandWales?: YesOrNo;
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
+  livingInEnglandWalesSixMonths?: YesOrNo;
+  englishOrWelsh?: LanguagePreference;
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
 }
@@ -78,4 +85,9 @@ export interface CaseDate {
   year: string;
   month: string;
   day: string;
+}
+
+export enum LanguagePreference {
+  English = 'english',
+  Welsh = 'welsh',
 }

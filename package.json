@@ -125,7 +125,7 @@
     "sass-loader": "^10.1.1",
     "sonar-scanner": "^3.1.0",
     "style-loader": "^2.0.0",
-    "ts-jest": "^26.5.3",
+    "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.18",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webdriverio": "^7.1.1",

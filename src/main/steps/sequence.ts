@@ -10,6 +10,8 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
+  ENGLISH_OR_WELSH,
+  ENGLISH_WELSH_COURTS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -20,6 +22,7 @@ import {
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -123,6 +126,11 @@ export const sequence: Step[] = [
     getNextStep: () => CHECK_JURISDICTION,
   },
   {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: CHECK_JURISDICTION,
     getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
   },
@@ -141,6 +149,22 @@ export const sequence: Step[] = [
 
         default:
           return JURISDICTION_DOMICILE;
+      }
+    },
+  },
+  {
+    url: JURISDICTION_DOMICILE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
+        case `${Yes}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return LIVING_ENGLAND_WALES_SIX_MONTHS;
+
+        default:
+          return HABITUALLY_RESIDENT_ENGLAND_WALES;
       }
     },
   },
@@ -168,6 +192,15 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: LIVING_ENGLAND_WALES_SIX_MONTHS,
+    getNextStep: data =>
+      data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
+  },
+  {
+    url: ENGLISH_WELSH_COURTS,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
