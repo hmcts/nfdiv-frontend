@@ -25,7 +25,7 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     And I select "No"
     When I click "Continue"
-    Then the page should include "Page not found"
+    Then the page URL should be "/residual-jurisdiction"
 
   Scenario: Was not last habitually resident in England or Wales and is not same sex?
     When I go to '/your-details'
@@ -36,4 +36,4 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     And I select "No"
     When I click "Continue"
-    Then the page should include "Page not found"
+    Then the page URL should be "/cant-divorce"
