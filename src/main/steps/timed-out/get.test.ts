@@ -19,8 +19,8 @@ describe('TimedOutGetController', () => {
 
     expect(req.session.destroy).toBeCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
       ...generatePageContent(language, generateContent, isDivorce, formState),
+      ...defaultViewArgs,
     });
   });
 });

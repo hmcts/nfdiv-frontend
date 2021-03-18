@@ -27,6 +27,7 @@ describe('GetController', () => {
       ...defaultViewArgs,
       text: 'english',
       formState: req.session.userCase,
+      userEmail: 'test@example.com',
     });
   });
 
@@ -47,6 +48,7 @@ describe('GetController', () => {
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
+        userEmail: 'test@example.com',
       });
     });
 
@@ -66,6 +68,7 @@ describe('GetController', () => {
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
+        userEmail: 'test@example.com',
       });
     });
 
@@ -85,6 +88,7 @@ describe('GetController', () => {
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
+        userEmail: 'test@example.com',
       });
     });
   });
@@ -127,6 +131,7 @@ describe('GetController', () => {
         gender: Gender.FEMALE,
       },
       text: 'english',
+      userEmail: 'test@example.com',
     });
   });
 
@@ -148,6 +153,7 @@ describe('GetController', () => {
         isDivorce: true,
         formState: req.session.userCase,
         partner: 'partner',
+        userEmail: 'test@example.com',
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -188,6 +194,7 @@ describe('GetController', () => {
             formState: req.session.userCase,
             language: lang,
             pageText: `something in ${lang}`,
+            userEmail: 'test@example.com',
           });
         });
       });

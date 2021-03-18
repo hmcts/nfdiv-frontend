@@ -88,3 +88,13 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
     }
   }
 };
+
+export const isPhoneNoValid: Validator = value => {
+  if (!value) {
+    return;
+  }
+
+  if (typeof value === 'string') {
+    return !value.match(/^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;
+  }
+};

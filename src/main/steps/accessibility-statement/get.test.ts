@@ -19,8 +19,8 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
       ...generatePageContent(language, generateContent, isDivorce, formState),
+      ...defaultViewArgs,
       formState: req.session.userCase,
     });
   });
@@ -35,8 +35,8 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
       ...generatePageContent(language, generateContent, isDivorce, formState),
+      ...defaultViewArgs,
       formState: req.session.userCase,
     });
   });

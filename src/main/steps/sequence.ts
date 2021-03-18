@@ -17,6 +17,7 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
@@ -125,11 +126,6 @@ export const sequence: Step[] = [
     getNextStep: () => CHECK_JURISDICTION,
   },
   {
-    url: ENGLISH_OR_WELSH,
-    showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
     url: CHECK_JURISDICTION,
     getNextStep: () => WHERE_YOUR_LIVES_ARE_BASED_URL,
   },
@@ -187,7 +183,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -196,6 +192,16 @@ export const sequence: Step[] = [
   },
   {
     url: ENGLISH_WELSH_COURTS,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

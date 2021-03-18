@@ -9,4 +9,5 @@ export const defaultViewArgs = {
   formState: expect.any(Object),
   language: expect.any(String),
   htmlLang: expect.any(String),
+  userEmail: expect.any(String),
 };

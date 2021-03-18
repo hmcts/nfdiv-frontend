@@ -157,7 +157,8 @@ export const generatePageContent = (
   language: Language,
   pageContent?: TranslationFn,
   isDivorce = true,
-  formState?: Partial<Case>
+  formState?: Partial<Case>,
+  userEmail?: string
 ): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const selectedGender = formState?.gender as Gender;
@@ -169,6 +170,7 @@ export const generatePageContent = (
     language,
     isDivorce,
     formState,
+    userEmail,
   };
 
   if (pageContent) {
@@ -197,6 +199,7 @@ export type CommonContent = typeof en & {
   isDivorce: boolean;
   formState?: Partial<Case>;
   partner: string;
+  userEmail?: string;
 };
 
 export type Language = 'en' | 'cy';

@@ -1,4 +1,5 @@
 import { StepWithContent } from '../../../steps';
+import * as commonContent from '../../../steps/common/common.content';
 import { Sections } from '../../../steps/sequence';
 import { Checkbox } from '../case';
 
@@ -11,6 +12,8 @@ jest.mock('../../../steps', () => ({
     return mockStepsWithContent();
   },
 }));
+
+const generatePageContentSpy = jest.spyOn(commonContent, 'generatePageContent');
 
 describe('getAnswerRows()', () => {
   let mockGenerateContent;
@@ -52,9 +55,11 @@ describe('getAnswerRows()', () => {
         isDivorce: true,
         partner: 'husband',
         formState: {},
+        userEmail: 'test@example.com',
       },
     })(Sections.AboutPartnership);
 
+    expect(generatePageContentSpy).toHaveBeenCalledWith('en', mockGenerateContent, true, {}, 'test@example.com');
     expect(actual).toEqual([]);
   });
 

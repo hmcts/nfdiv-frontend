@@ -7,6 +7,7 @@ import {
   isFutureDate,
   isInvalidHelpWithFeesRef,
   isLessThanAYear,
+  isPhoneNoValid,
 } from './validation';
 
 describe('Validation', () => {
@@ -115,6 +116,24 @@ describe('Validation', () => {
       { mockRef: '123456', expected: 'invalid' },
     ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
       expect(isInvalidHelpWithFeesRef(mockRef)).toEqual(expected);
+    });
+  });
+
+  describe('isPhoneNoValid()', () => {
+    it.each([
+      { mockTel: '', expected: undefined },
+      { mockTel: '1', expected: 'invalid' },
+      { mockTel: '12345', expected: 'invalid' },
+      { mockTel: '1234567', expected: 'invalid' },
+      { mockTel: '12345!', expected: 'invalid' },
+      { mockTel: 'A1B23C', expected: 'invalid' },
+      { mockTel: '123456', expected: 'invalid' },
+      { mockTel: '0123456789', expected: undefined },
+      { mockTel: '01234567890', expected: undefined },
+      { mockTel: '+1 (0)12345678901', expected: undefined },
+      { mockTel: '+1 (0)12345678901$', expected: 'invalid' },
+    ])('validates a phone number when %o', ({ mockTel, expected }) => {
+      expect(isPhoneNoValid(mockTel)).toEqual(expected);
     });
   });
 });
