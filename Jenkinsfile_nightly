@@ -19,15 +19,21 @@ env.SAUCE_USERNAME = 'username'
 env.SAUCE_ACCESS_KEY = 'privatekey'
 env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
-withNightlyPipeline(type, product, component) {
-  enableFullFunctionalTest()
-  enableCrossBrowserTest()
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-  after('fullFunctionalTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
+withNightlyPipeline(type, product, component) {
+  enableCrossBrowserTest()
+  enableFullFunctionalTest()
+
+  before('crossBrowserTest') {
+    yarnBuilder.smokeTest()
   }
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
+  }
+
+  after('fullFunctionalTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
   }
 }

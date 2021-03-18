@@ -27,22 +27,31 @@ describe('CaseApi', () => {
 
   const serviceType = DivorceOrDissolution.DIVORCE;
 
-  test('Should return case data response', async () => {
-    mockedAxios.get.mockResolvedValue({
-      data: [
-        {
-          id: '1234',
-          case_data: {
-            divorceOrDissolution: 'divorce',
+  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+    'Should return %s case data response',
+    async caseType => {
+      mockedAxios.get.mockResolvedValue({
+        data: [
+          {
+            id: '1234',
+            case_data: {
+              divorceOrDissolution: 'divorce',
+            },
           },
-        },
-      ],
-    });
+          {
+            id: '1234',
+            case_data: {
+              divorceOrDissolution: 'dissolution',
+            },
+          },
+        ],
+      });
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+      const userCase = await api.getOrCreateCase(caseType, userDetails);
 
-    expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: 'divorce' });
-  });
+      expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: caseType });
+    }
+  );
 
   test('Should throw error when case could not be retrieved', async () => {
     mockedAxios.get.mockRejectedValue({
@@ -88,8 +97,10 @@ describe('CaseApi', () => {
   });
 
   test('Should throw an error if too many cases are found', async () => {
+    const mockCase = { case_data: { divorceOrDissolution: serviceType } };
+
     mockedAxios.get.mockResolvedValue({
-      data: [{}, {}],
+      data: [mockCase, mockCase],
     });
 
     await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Too many cases assigned to user.');
