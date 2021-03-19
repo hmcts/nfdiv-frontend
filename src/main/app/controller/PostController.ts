@@ -55,7 +55,7 @@ export class PostController<T extends AnyObject> {
       nextUrl = getNextStepUrl(req, req.session.userCase);
       if (nextUrl === JURISDICTION_INTERSTITIAL_URL) {
         const connection = addConnection(req.session.userCase);
-        if (connection) {
+        if (connection && !formData.connections?.includes(connection)) {
           formData.connections?.push(connection);
           Object.assign(req.session.userCase, formData);
         }
