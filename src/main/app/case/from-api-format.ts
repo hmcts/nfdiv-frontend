@@ -15,6 +15,9 @@ const fields = {
     englishOrWelsh:
       data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
+  PetitionerAgreedToReceiveEmails: data => ({
+    agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
 };
 
 const fromApiDate = date => {
