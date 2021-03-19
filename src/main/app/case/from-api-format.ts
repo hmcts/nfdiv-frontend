@@ -1,6 +1,6 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData } from './definition';
 
 const fields = {
@@ -10,6 +10,10 @@ const fields = {
   }),
   D8MarriageDate: data => ({
     relationshipDate: fromApiDate(data.D8MarriageDate),
+  }),
+  LanguagePreferenceWelsh: data => ({
+    englishOrWelsh:
+      data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
 };
 
