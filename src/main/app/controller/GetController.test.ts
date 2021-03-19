@@ -127,6 +127,7 @@ describe('GetController', () => {
         gender: Gender.FEMALE,
       },
       text: 'english',
+      selectedGender: Gender.FEMALE,
     });
   });
 
