@@ -149,6 +149,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const { Yes, No } = YesOrNo;
       switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
@@ -178,6 +179,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_LAST_TWELVE_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
@@ -187,6 +189,7 @@ export const sequence: Step[] = [
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
   },
