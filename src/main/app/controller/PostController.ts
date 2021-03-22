@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getNextStepUrl } from '../../steps';
+import { getNextStepUrl, stepsWithContent } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { CaseApi } from '../case/CaseApi';
 import { getAllPossibleAnswers } from '../case/answers/possibleAnswers';
@@ -71,7 +71,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private getAnsweredUnreachableResponsesAsNull(req: AppRequest<T>): Partial<Case> {
-    const possibleAnswers = getAllPossibleAnswers(req.session.userCase, req.app.locals.steps);
+    const possibleAnswers = getAllPossibleAnswers(req.session.userCase, stepsWithContent);
     return Object.fromEntries(
       Object.keys(req.session.userCase)
         .filter(

@@ -1,16 +1,14 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
-import { getNextStepUrl } from '../../steps';
+import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Checkbox, YesOrNo } from '../case/case';
 import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 
 import { PostController } from './PostController';
 
-jest.mock('../../steps');
-
-const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
+const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
