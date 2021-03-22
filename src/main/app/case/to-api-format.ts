@@ -1,6 +1,6 @@
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-import { Case, CaseDate, Checkbox, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, DivorceOrDissolution, Gender } from './definition';
 
 const fields = {
@@ -35,6 +35,9 @@ const fields = {
   }),
   helpWithFeesRefNo: (data: Case) => ({
     D8HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
+  }),
+  englishOrWelsh: (data: Case) => ({
+    LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
 };
 

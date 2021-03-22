@@ -20,20 +20,22 @@ export class CaseApi {
   public static READONLY_FIELDS = ['id', 'divorceOrDissolution'];
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const userCase = await this.getCase();
+    const userCase = await this.getCase(serviceType);
 
     return userCase || this.createCase(serviceType, userDetails);
   }
 
-  private async getCase(): Promise<CaseWithId | false> {
+  private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
     const cases = await this.getCases();
 
-    if (cases.length === 1) {
-      return { id: cases[0].id, ...fromApiFormat(cases[0].case_data) };
-    } else if (cases.length === 0) {
-      return false;
-    } else {
-      throw new Error('Too many cases assigned to user.');
+    const serviceCases = cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
+    switch (serviceCases.length) {
+      case 0:
+        return false;
+      case 1:
+        return { id: serviceCases[0].id, ...fromApiFormat(serviceCases[0].case_data) };
+      default:
+        throw new Error('Too many cases assigned to user.');
     }
   }
 

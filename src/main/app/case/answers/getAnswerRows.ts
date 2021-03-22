@@ -1,7 +1,7 @@
+import { stepsWithContent } from '../../../steps';
 import { generatePageContent } from '../../../steps/common/common.content';
-import { Sections, Step } from '../../../steps/sequence';
-import { TranslationFn } from '../../controller/GetController';
-import type { FormContent, FormOptions } from '../../form/Form';
+import { Sections } from '../../../steps/sequence';
+import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
@@ -12,18 +12,16 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     language,
     isDivorce,
     formState,
-    steps,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     partner: string;
     formState: Partial<Case>;
-    steps: ({ generateContent: TranslationFn; form: FormContent } & Step)[];
   } = this.ctx;
 
-  const processedFormState = omitUnreachableAnswers(formState, steps);
+  const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
-  return steps
+  return stepsWithContent
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
