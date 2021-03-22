@@ -42,11 +42,10 @@ const fields = {
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
-  const dateParts = ['year', 'month', 'day'];
-  if (!date || !dateParts.every(r => Object.keys(date).includes(r))) {
+  if (!date?.year || !date?.month || !date?.day) {
     return '';
   }
-  return dateParts.map(part => date[part]).join('-');
+  return ['year', 'month', 'day'].map(part => date[part]).join('-');
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

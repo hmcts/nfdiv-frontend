@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { LoggerInstance } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest';
 
@@ -18,12 +19,20 @@ const userDetails: UserDetails = {
 describe('CaseApi', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-  const mockLogger = {
-    error: async (message: string) => message,
-    info: async (message: string) => message,
-  } as never;
+  let mockLogger = ({
+    error: jest.fn().mockImplementation((message: string) => message),
+    info: jest.fn().mockImplementation((message: string) => message),
+  } as unknown) as LoggerInstance;
 
-  const api = new CaseApi(mockedAxios, userDetails, mockLogger);
+  let api = new CaseApi(mockedAxios, userDetails, mockLogger);
+  beforeEach(() => {
+    mockLogger = ({
+      error: jest.fn().mockImplementation((message: string) => message),
+      info: jest.fn().mockImplementation((message: string) => message),
+    } as unknown) as LoggerInstance;
+
+    api = new CaseApi(mockedAxios, userDetails, mockLogger);
+  });
 
   const serviceType = DivorceOrDissolution.DIVORCE;
 
@@ -91,9 +100,14 @@ describe('CaseApi', () => {
       data: [],
     });
     mockedAxios.get.mockResolvedValueOnce({ data: { token: '123' } });
-    mockedAxios.post.mockRejectedValue(false);
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      request: 'mock request',
+    });
 
     await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com');
   });
 
   test('Should throw an error if too many cases are found', async () => {
@@ -108,7 +122,9 @@ describe('CaseApi', () => {
 
   test('Should update case', async () => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
-    mockedAxios.post.mockResolvedValue({ data: { data: { id: '1234' } } });
+    mockedAxios.post.mockResolvedValue({
+      data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
+    });
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
     await api.triggerEvent('1234', caseData, PATCH_CASE);
 
@@ -122,11 +138,34 @@ describe('CaseApi', () => {
   });
 
   test('Should throw error when case could not be updated', async () => {
-    mockedAxios.post.mockRejectedValue(false);
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      response: { status: 500, data: 'mock error' },
+    });
 
     await expect(
       api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, PATCH_CASE)
     ).rejects.toThrow('Case could not be updated.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
+    expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
+  });
+
+  test('throws an error when the updated case does not match the submitted case', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockResolvedValue({ data: { data: { D8MarriageDate: '2000-12-31' } } });
+    const formData = {
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      relationshipDate: { day: '11', month: '12', year: '2000' },
+    };
+
+    await expect(api.triggerEvent('1234', formData, PATCH_CASE)).rejects.toThrow('Case could not be updated.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith(
+      'API Error',
+      'Data not updated correctly. API "divorceOrDissolution" field value did not match users input/form value.'
+    );
+    expect(mockLogger.info).not.toHaveBeenCalled();
   });
 });
 

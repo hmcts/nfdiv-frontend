@@ -1,5 +1,6 @@
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
+import { isEqual } from 'lodash';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -71,10 +72,10 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, caseData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const event = { id: eventName };
-    const data = toApiFormat(caseData);
+    const data = toApiFormat(userData);
 
     try {
       const response = await this.axios.post(`/cases/${caseId}/events`, {
@@ -82,7 +83,15 @@ export class CaseApi {
         data,
         event_token: tokenResponse.data.token,
       });
-      return { id: response.data.id, ...fromApiFormat(response.data.data) };
+      const caseData = { id: response.data.id, ...fromApiFormat(response.data.data) };
+
+      for (const [key, value] of Object.entries(userData)) {
+        if (!isEqual(caseData[key], value ?? '')) {
+          throw new Error(`Data not updated correctly. API "${key}" field value did not match users input/form value.`);
+        }
+      }
+
+      return caseData;
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

@@ -96,42 +96,6 @@ describe('PostController', () => {
     ]);
   });
 
-  it('redirects back to the current page with a session error if the data from the API does not match the form', async () => {
-    const errors = [] as never[];
-    const body = { date: { day: '11', month: '12', year: '2000' } };
-    const mockForm = ({
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown) as Form;
-    const controller = new PostController(mockForm);
-
-    const expectedUserCase = {
-      divorceOrDissolution: 'divorce',
-      date: { day: '11', month: '12', year: '2000' },
-      id: '1234',
-    };
-
-    const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({
-      ...expectedUserCase,
-      date: { day: '11', month: '12', year: '1999' },
-    });
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.session.userCase).toEqual(expectedUserCase);
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, PATCH_CASE);
-
-    expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith('/request');
-    expect(req.session.errors).toEqual([
-      {
-        errorType: 'errorSaving',
-        propertyName: '*',
-      },
-    ]);
-  });
-
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];

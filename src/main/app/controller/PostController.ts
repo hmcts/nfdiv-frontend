@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { isEqual } from 'lodash';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
@@ -30,13 +29,13 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await this.saveAndUpdateSession(req, formData, SAVE_AND_CLOSE);
+    await this.save(req, formData, SAVE_AND_CLOSE);
 
     res.redirect(SAVE_AND_SIGN_OUT);
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await this.saveAndUpdateSession(req, formData, PATCH_CASE);
+    await this.save(req, formData, PATCH_CASE);
 
     res.end();
   }
@@ -52,7 +51,7 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      const caseData = await this.saveAndUpdateSession(req, formData, PATCH_CASE);
+      const caseData = await this.save(req, formData, PATCH_CASE);
       if (caseData) {
         req.session.userCase = caseData;
         req.session.errors = undefined;
@@ -71,23 +70,11 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private async saveAndUpdateSession(
-    req: AppRequest<T>,
-    formData: Partial<Case>,
-    eventName: string
-  ): Promise<CaseWithId | undefined> {
+  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId | false> {
     try {
-      const caseData = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-
-      for (const [key, value] of Object.entries(formData)) {
-        if (!isEqual(caseData[key], value ?? '')) {
-          return;
-        }
-      }
-
-      return caseData;
+      return await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch {
-      return;
+      return false;
     }
   }
 }
