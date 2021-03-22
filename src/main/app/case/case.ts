@@ -13,8 +13,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   inTheUk: 'D8MarriedInUk',
   certificateInEnglish: 'D8CertificateInEnglish',
   certifiedTranslation: 'D8CertifiedTranslation',
+  ceremonyCountry: 'D8CountryName',
+  ceremonyPlace: 'D8MarriagePlaceOfMarriage',
   yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
   partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
+  yourDomicileInEnglandWales: 'JurisdictionPetitionerDomicile',
+  partnersDomicileInEnglandWales: 'JurisdictionRespondentDomicile',
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
@@ -51,11 +55,16 @@ export interface Case {
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
+  ceremonyCountry?: string;
+  ceremonyPlace?: string;
   yourLifeBasedInEnglandAndWales?: YesOrNo;
   partnersLifeBasedInEnglandAndWales?: YesOrNo;
+  yourDomicileInEnglandWales?: YesOrNo;
+  partnersDomicileInEnglandWales?: YesOrNo;
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
+  englishOrWelsh?: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {
@@ -76,4 +85,9 @@ export interface CaseDate {
   year: string;
   month: string;
   day: string;
+}
+
+export enum LanguagePreference {
+  English = 'english',
+  Welsh = 'welsh',
 }

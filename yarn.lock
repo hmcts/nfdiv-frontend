@@ -1409,10 +1409,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.20":
-  version "26.0.20"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.20.tgz#cd2f2702ecf69e86b586e1f5223a60e454056307"
-  integrity sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
+"@types/jest@^26.0.21":
+  version "26.0.21"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.21.tgz#3a73c2731e7e4f0fbaea56ce7ff8c79cf812bd24"
+  integrity sha512-ab9TyM/69yg7eew9eOwKMUmvIZAKEGZYlq/dhe5/0IMUd/QLJv5ldRMdddSn+u22N13FP3s5jYyktxuBwY0kDA==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -1700,6 +1700,16 @@
     deepmerge "^4.0.0"
     glob "^7.1.2"
 
+"@wdio/config@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@wdio/config/-/config-7.2.1.tgz#4aaabfeba54882660805330a24cecdb6191e07fe"
+  integrity sha512-AJElmOz/MHilUKChvJZJ8kyCXgyPpNEgSAglJJNizrBau4wbj9xblze5vtnn/psksjiGr0bld0xYZnWNGc9eDw==
+  dependencies:
+    "@wdio/logger" "7.0.0"
+    "@wdio/types" "7.2.1"
+    deepmerge "^4.0.0"
+    glob "^7.1.2"
+
 "@wdio/logger@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-7.0.0.tgz#d2e7a595b3daf1285da29571cc0fd7cfcc3c1a68"
@@ -1722,6 +1732,13 @@
   dependencies:
     "@wdio/utils" "7.2.0"
 
+"@wdio/repl@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@wdio/repl/-/repl-7.2.1.tgz#550cb2e8a510a4c33544458f7896b13321d8ff0b"
+  integrity sha512-mbXkSXP1DEbhNTUdpgL/h/dpnU+I9Og8FodeBN6jtYTOiv15NgUlMf50Sz/dP6GFrPT0YTckFyoXvhBjda8RQA==
+  dependencies:
+    "@wdio/utils" "7.2.1"
+
 "@wdio/sauce-service@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.2.0.tgz#5eddedc10e43ffd6e3cc08d5fbb4943378a5b401"
@@ -1740,6 +1757,13 @@
   dependencies:
     got "^11.8.1"
 
+"@wdio/types@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@wdio/types/-/types-7.2.1.tgz#fe1070251b524c9215d3211eeefc083b16d2fdae"
+  integrity sha512-05+nxO2I/9asQvjgTT2ZteDi7PguAruoOw1Vu8zAVqE+yP5YQxW1CX3galRost8UlQ6Vft/RgmsYLabdxJzzag==
+  dependencies:
+    got "^11.8.1"
+
 "@wdio/utils@7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-7.2.0.tgz#0cfd0881ce3dadababb6d386e81a070969c207af"
@@ -1747,6 +1771,14 @@
   dependencies:
     "@wdio/logger" "7.0.0"
     "@wdio/types" "7.2.0"
+
+"@wdio/utils@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-7.2.1.tgz#edf6f8a2ee2cd0574269ba420a9578ad0617bffc"
+  integrity sha512-SRi+zQ8h32TQz2yrqTWgEe+SLGFHCTDPmK5YiGth4SM3JshR6WhuPoxFFyQfmcYOSYCy9mpvlk+S1Ao34BPvZw==
+  dependencies:
+    "@wdio/logger" "7.0.0"
+    "@wdio/types" "7.2.1"
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -4236,6 +4268,22 @@ devtools@7.2.0:
     ua-parser-js "^0.7.21"
     uuid "^8.0.0"
 
+devtools@7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/devtools/-/devtools-7.2.1.tgz#0c58f65f7d5bb865a967d440ce91e1be22646cea"
+  integrity sha512-aAREyP9xrA7CAbQPraZZWV9bWQj85gaKgT4vpUavXp65fKSNeEqy6chA+DO5MCJw0lKwGjW8BHt8SacxkTdyWQ==
+  dependencies:
+    "@wdio/config" "7.2.1"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.1.1"
+    "@wdio/types" "7.2.1"
+    "@wdio/utils" "7.2.1"
+    chrome-launcher "^0.13.1"
+    edge-paths "^2.1.0"
+    puppeteer-core "^7.1.0"
+    ua-parser-js "^0.7.21"
+    uuid "^8.0.0"
+
 diagnostic-channel-publishers@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.4.4.tgz#57c3b80b7e7f576f95be3a257d5e94550f0082d6"
@@ -4681,10 +4729,10 @@ eslint-plugin-import@^2.22.1:
     resolve "^1.17.0"
     tsconfig-paths "^3.9.0"
 
-eslint-plugin-jest@^24.3.1:
-  version "24.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-24.3.1.tgz#c8df037847b83397940bef7fbc2cc168ab466bcc"
-  integrity sha512-RQt59rfMSHyvedImT72iaf8JcvCcR4P7Uq499dALtjY8mrCjbwWrFi1UceG4sid2wVIeDi+0tjxXZ8CZEVO7Zw==
+eslint-plugin-jest@^24.3.2:
+  version "24.3.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-24.3.2.tgz#30a8b2dea6278d0da1d6fb9d6cd530aaf58050a1"
+  integrity sha512-cicWDr+RvTAOKS3Q/k03+Z3odt3VCiWamNUHWd6QWbVQWcYJyYgUTu8x0mx9GfeDEimawU5kQC+nQ3MFxIM6bw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^4.0.1"
 
@@ -11593,7 +11641,20 @@ webdriver@7.2.0:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.2.0, webdriverio@^7.1.1:
+webdriver@7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.2.1.tgz#61d215987577cfe25e880679d9fe28b3388c3cfc"
+  integrity sha512-j1LxpYifp3JQMm7L1c+jQXKCqhfw99zzsSw2FMCrKwsfgdTJOblt9cEjet6ImBOgXS81LdYqVw6BFTZ9vRkvnw==
+  dependencies:
+    "@wdio/config" "7.2.1"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.1.1"
+    "@wdio/types" "7.2.1"
+    "@wdio/utils" "7.2.1"
+    got "^11.0.2"
+    lodash.merge "^4.6.1"
+
+webdriverio@7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.2.0.tgz#bff6d9880d76543c440c22cf9057e57b3cdd41c8"
   integrity sha512-W/FgaH9axfrWoqzozH9490VWq1dWlSsWwCjTWGRHq2PkhpIRLBFoE0j9gjfANtRjFocene015o4fRxZnpmTWnQ==
@@ -11625,6 +11686,39 @@ webdriverio@7.2.0, webdriverio@^7.1.1:
     rgb2hex "0.2.3"
     serialize-error "^8.0.0"
     webdriver "7.2.0"
+
+webdriverio@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.2.1.tgz#a6683304c6d4ab1ceca94554b6b7a714e78c4016"
+  integrity sha512-lHnOJ+4fvgBObgjQA9wDk8/S039C9c59EgB57euQP8jBD+G3kDHsUTiP6KC9nMdXZTgecSLfrqzMgR+O4CfB5w==
+  dependencies:
+    "@types/aria-query" "^4.2.1"
+    "@wdio/config" "7.2.1"
+    "@wdio/logger" "7.0.0"
+    "@wdio/protocols" "7.1.1"
+    "@wdio/repl" "7.2.1"
+    "@wdio/types" "7.2.1"
+    "@wdio/utils" "7.2.1"
+    archiver "^5.0.0"
+    aria-query "^4.2.2"
+    atob "^2.1.2"
+    css-shorthand-properties "^1.1.1"
+    css-value "^0.0.1"
+    devtools "7.2.1"
+    devtools-protocol "^0.0.862770"
+    fs-extra "^9.0.1"
+    get-port "^5.1.1"
+    grapheme-splitter "^1.0.2"
+    lodash.clonedeep "^4.5.0"
+    lodash.isobject "^3.0.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.zip "^4.2.0"
+    minimatch "^3.0.4"
+    puppeteer-core "^7.1.0"
+    resq "^1.9.1"
+    rgb2hex "0.2.3"
+    serialize-error "^8.0.0"
+    webdriver "7.2.1"
 
 webidl-conversions@^5.0.0:
   version "5.0.0"

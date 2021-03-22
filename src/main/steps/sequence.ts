@@ -9,6 +9,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
+  ENGLISH_OR_WELSH,
   ENGLISH_WELSH_COURTS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -146,6 +147,23 @@ export const sequence: Step[] = [
     },
   },
   {
+    url: JURISDICTION_DOMICILE,
+    showInSection: Sections.ConnectionsToEnglandWales,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const { Yes, No } = YesOrNo;
+      switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
+        case `${Yes}${Yes}`:
+          return JURISDICTION_INTERSTITIAL_URL;
+
+        case `${Yes}${No}`:
+          return LIVING_ENGLAND_WALES_SIX_MONTHS;
+
+        default:
+          return HABITUALLY_RESIDENT_ENGLAND_WALES;
+      }
+    },
+  },
+  {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
@@ -160,24 +178,27 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_LAST_TWELVE_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: JURISDICTION_DOMICILE,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => ENGLISH_OR_WELSH,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
   },
   {
     url: ENGLISH_WELSH_COURTS,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
