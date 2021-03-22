@@ -1,7 +1,16 @@
+import { StepWithContent } from '../../../steps';
 import { Sections } from '../../../steps/sequence';
 import { Checkbox } from '../case';
 
 import { getAnswerRows } from './getAnswerRows';
+
+const mockStepsWithContent: jest.Mock<StepWithContent> = jest.fn();
+
+jest.mock('../../../steps', () => ({
+  get stepsWithContent() {
+    return mockStepsWithContent();
+  },
+}));
 
 describe('getAnswerRows()', () => {
   let mockGenerateContent;
@@ -19,6 +28,23 @@ describe('getAnswerRows()', () => {
   });
 
   it('converts steps into the correct check answers rows when there no answers', () => {
+    mockStepsWithContent.mockReturnValue([
+      {
+        url: 'dont-pickThisOne',
+        showInSection: Sections.Payment,
+        getNextStep: () => '/pickThisOne',
+        form: { fields: {}, submit: { text: '' } },
+        generateContent: () => ({}),
+      },
+      {
+        url: 'pickThisOne',
+        showInSection: Sections.AboutPartnership,
+        getNextStep: () => '/',
+        generateContent: mockGenerateContent,
+        form: { fields: {}, submit: { text: '' } },
+      },
+    ]);
+
     const actual = getAnswerRows.bind({
       ...mockNunjucksEnv,
       ctx: {
@@ -26,20 +52,6 @@ describe('getAnswerRows()', () => {
         isDivorce: true,
         partner: 'husband',
         formState: {},
-        steps: [
-          {
-            url: 'dont-pickThisOne',
-            showInSection: Sections.Payment,
-            getNextStep: () => 'pickThisOne',
-          },
-          {
-            url: 'pickThisOne',
-            showInSection: Sections.AboutPartnership,
-            getNextStep: () => '',
-            generateContent: mockGenerateContent,
-            form: { fields: { foo: {} } },
-          },
-        ],
       },
     })(Sections.AboutPartnership);
 
@@ -50,6 +62,23 @@ describe('getAnswerRows()', () => {
     let mockCtx;
     let mockFormState;
     beforeEach(() => {
+      mockStepsWithContent.mockReturnValue([
+        {
+          url: 'dont-pickThisOne',
+          showInSection: Sections.Payment,
+          getNextStep: () => '/pickThisOne',
+          generateContent: () => ({}),
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+        },
+        {
+          url: 'pickThisOne',
+          showInSection: Sections.AboutPartnership,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+        },
+      ]);
+
       mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
       mockFormState = { mockField: 'example response' };
@@ -59,20 +88,6 @@ describe('getAnswerRows()', () => {
         partner: 'husband',
         formState: mockFormState,
         change: 'Change',
-        steps: [
-          {
-            url: 'dont-pickThisOne',
-            showInSection: Sections.Payment,
-            getNextStep: () => 'pickThisOne',
-          },
-          {
-            url: 'pickThisOne',
-            showInSection: Sections.AboutPartnership,
-            getNextStep: () => '',
-            generateContent: mockGenerateContent,
-            form: { fields: { mockField: { type: 'text', label: l => l.title } } },
-          },
-        ],
         stepAnswers: {},
       };
     });
@@ -167,32 +182,34 @@ describe('getAnswerRows()', () => {
     });
 
     it('converts steps into the correct check answers rows with checkboxes', () => {
+      mockStepsWithContent.mockReturnValue([
+        {
+          url: 'pickThisOne',
+          showInSection: Sections.AboutPartnership,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              someCheckboxes: {
+                type: 'checkboxes',
+                label: () => 'Mock Checkboxes',
+                values: [
+                  { name: 'mockField1', label: () => 'Mock checkbox title 1', value: Checkbox.Checked },
+                  { name: 'mockField2', label: () => 'Another checkbox title 2', value: Checkbox.Checked },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+        },
+      ]);
+
       mockFormState = { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked };
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
           formState: mockFormState,
-          steps: [
-            {
-              url: 'pickThisOne',
-              showInSection: Sections.AboutPartnership,
-              getNextStep: () => '',
-              generateContent: mockGenerateContent,
-              form: {
-                fields: {
-                  someCheckboxes: {
-                    type: 'checkboxes',
-                    label: () => 'Mock Checkboxes',
-                    values: [
-                      { name: 'mockField1', label: () => 'Mock checkbox title 1', value: Checkbox.Checked },
-                      { name: 'mockField2', label: () => 'Another checkbox title 2', value: Checkbox.Checked },
-                    ],
-                  },
-                },
-              },
-            },
-          ],
         },
       })(Sections.AboutPartnership);
 
