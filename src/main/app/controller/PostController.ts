@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
-import { JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { ENGLISH_WELSH_COURTS, JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
@@ -53,12 +53,12 @@ export class PostController<T extends AnyObject> {
       nextUrl = req.url;
     } else {
       nextUrl = getNextStepUrl(req, req.session.userCase);
-      if (nextUrl === JURISDICTION_INTERSTITIAL_URL) {
+      if (nextUrl === ENGLISH_WELSH_COURTS || JURISDICTION_INTERSTITIAL_URL) {
         const connection = addConnection(req.session.userCase);
-        if (connection && !formData.connections?.includes(connection)) {
-          formData.connections?.push(connection);
-          Object.assign(req.session.userCase, formData);
+        if (connection) {
+          formData.connections = [connection];
         }
+        Object.assign(req.session.userCase, formData);
       }
       await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
       req.session.errors = undefined;

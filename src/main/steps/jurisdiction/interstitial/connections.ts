@@ -2,11 +2,11 @@ import { CaseWithId } from '../../../app/case/case';
 import { Connection } from '../../../app/case/definition';
 
 const isHabituallyResident = (who, data) => {
-  return data['${who}LifeBasedInEnglandAndWales'] === 'Yes';
+  return data[who + 'LifeBasedInEnglandAndWales'] === 'YES';
 };
 
 const isDomiciled = (who, data) => {
-  return data['Jurisdiction%{who}Domicile'] === 'Yes';
+  return data[who + 'DomicileInEnglandWales'] === 'YES';
 };
 
 const areBothHabituallyResident = data => {
@@ -18,31 +18,31 @@ const onlyPetitionerHabituallyResident = data => {
 };
 
 const onlyRespondentHabituallyResident = data => {
-  return isHabituallyResident('your', data) && !isHabituallyResident('partners', data);
+  return !isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
 
 const areBothLastHabituallyResident = data => {
-  return data['lastHabituallyResident'] === 'Yes';
+  return data.lastHabituallyResident === 'YES';
 };
 
 const isHabituallyResidentForTwelveMonths = data => {
-  return data['jurisdictionPetHabituallyResLastTwelveMonths'] === 'Yes';
+  return data.livingInEnglandWalesTwelveMonths === 'YES';
 };
 
 const isHabituallyResidentForSixMonths = data => {
-  return data['jurisdictionPetHabituallyResLastSixMonths'] === 'Yes';
+  return data.livingInEnglandWalesSixMonths === 'YES';
 };
 
 const areBothDomiciled = data => {
-  return isDomiciled('petitioner', data) && isDomiciled('respondent', data);
+  return isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
 const onlyPetitionerDomiciled = data => {
-  return isDomiciled('petitioner', data) && !isDomiciled('respondent', data);
+  return isDomiciled('your', data) && !isDomiciled('partners', data);
 };
 
 const hasResidualJurisdiction = data => {
-  return data['jurisdictionResidualEligible'] === 'Yes';
+  return data['jurisdictionResidualEligible'] === 'YES';
 };
 
 export const addConnection = (data: Partial<CaseWithId>): Connection | void => {
