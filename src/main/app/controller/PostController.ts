@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
 import { JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
@@ -57,10 +58,12 @@ export class PostController<T extends AnyObject> {
         const connection = addConnection(req.session.userCase);
         if (connection) {
           formData.connections = [connection];
+          Object.assign(req.session.userCase, formData);
         }
-        Object.assign(req.session.userCase, formData);
       }
-      await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
+      const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
+      const dataToSave = { ...unreachableAnswersAsNull, ...formData };
+      await req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, PATCH_CASE);
       req.session.errors = undefined;
     }
 

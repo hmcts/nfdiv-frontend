@@ -1,18 +1,19 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { getNextStepUrl } from '../../steps';
+import * as steps from '../../steps';
 import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
 import { JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Checkbox, YesOrNo } from '../case/case';
+import * as possibleAnswers from '../case/answers/possibleAnswers';
+import { Case, Checkbox, YesOrNo } from '../case/case';
 import { Connection, Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form, FormContent } from '../form/Form';
 
 import { PostController } from './PostController';
 
+const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 jest.mock('../../steps/jurisdiction/interstitial/connections');
-jest.mock('../../steps');
 
-const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
 const addConnectionMock = addConnection as jest.Mock<Connection>;
 
 describe('PostController', () => {
@@ -61,6 +62,43 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toBe(undefined);
+  });
+
+  test('sets unreachable answers as null', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const errors = [] as never[];
+    const body = { inTheUk: YesOrNo.Yes };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    getUnreachableAnswersAsNullMock.mockReturnValueOnce({
+      exampleExistingField: null,
+    } as Partial<Case>);
+
+    const req = mockRequest({
+      body,
+      userCase: { exampleExistingField: 'you need to null me' },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({
+      id: '1234',
+      divorceOrDissolution: 'divorce',
+      inTheUk: YesOrNo.Yes,
+      exampleExistingField: 'you need to null me',
+    });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        inTheUk: YesOrNo.Yes,
+        exampleExistingField: null,
+      },
+      PATCH_CASE
+    );
   });
 
   test('rejects with an error when unable to save session data', async () => {
