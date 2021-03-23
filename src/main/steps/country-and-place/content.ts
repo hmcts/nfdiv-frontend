@@ -4,16 +4,16 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ isDivorce, formState, notAnswered }: CommonContent) => {
+const en = ({ isDivorce, notAnswered }: CommonContent, certInEnglish: boolean) => {
   const formedCeremony = isDivorce ? 'got married' : 'formed your civil partnership';
 
   return {
     title: `Where you ${formedCeremony}`,
     ceremonyCountry: `Enter the country where you ${formedCeremony}`,
-    ceremonyCountryHint: `For example, ${formState?.certificateInEnglish === YesOrNo.Yes ? 'Australia' : 'France'}.`,
+    ceremonyCountryHint: `For example, ${certInEnglish ? 'Australia' : 'France'}.`,
     ceremonyPlace: `Enter the place where you ${formedCeremony}`,
     ceremonyPlaceHint: `Copy all the information relating to the place, exactly as it appears on your ${
-      formState?.certificateInEnglish === YesOrNo.No ? 'translated' : ''
+      !certInEnglish ? 'translated' : ''
     } certificate.`,
     errors: {
       ceremonyCountry: {
@@ -26,16 +26,16 @@ const en = ({ isDivorce, formState, notAnswered }: CommonContent) => {
   };
 };
 
-const cy = ({ isDivorce, formState, notAnswered }: CommonContent) => {
+const cy = ({ isDivorce, notAnswered }: CommonContent, certInEnglish: boolean) => {
   const formedCeremony = isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil';
 
   return {
     title: `Lle y gwnaethoch ${formedCeremony}`,
     ceremonyCountry: `Nodwch enw'r wlad lle y gwnaethoch ${formedCeremony}`,
-    ceremonyCountryHint: `Er enghraifft, ${formState?.certificateInEnglish === YesOrNo.Yes ? 'Awstralia' : 'Ffrainc'}.`,
+    ceremonyCountryHint: `Er enghraifft, ${certInEnglish ? 'Awstralia' : 'Ffrainc'}.`,
     ceremonyPlace: `Nodwch enw'r lle y gwnaethoch ${formedCeremony}`,
     ceremonyPlaceHint: `Copïwch yr holl wybodaeth am y lle, yn union fel y mae'n ymddangos ar eich tystysgrif${
-      formState?.certificateInEnglish === YesOrNo.No ? " wedi'i chyfieithu" : ''
+      !certInEnglish ? " wedi'i chyfieithu" : ''
     }.`,
     errors: {
       ceremonyCountry: {
@@ -75,7 +75,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const certInEnglish = content.formState?.certificateInEnglish === YesOrNo.Yes;
+  const translations = languages[content.language](content, certInEnglish);
   return {
     ...translations,
     form,
