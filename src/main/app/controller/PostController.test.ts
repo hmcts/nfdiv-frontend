@@ -10,10 +10,10 @@ import { Form, FormContent } from '../form/Form';
 
 import { PostController } from './PostController';
 
-const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 jest.mock('../../steps/jurisdiction/interstitial/connections');
 
+const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 const addConnectionMock = addConnection as jest.Mock<Connection>;
 
 describe('PostController', () => {
