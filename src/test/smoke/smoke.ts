@@ -22,7 +22,12 @@ describe('Smoke Test', () => {
       test(`${name}: ${parsedUrl}`, async () => {
         const checkService = async () => {
           try {
-            const response = await axios.get(parsedUrl);
+            const response = await axios.get(parsedUrl, {
+              headers: {
+                'Accept-Encoding': 'gzip',
+                accept: 'application/json',
+              },
+            });
             if (response.status !== 200 || response.data?.status !== 'UP') {
               throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
             }
