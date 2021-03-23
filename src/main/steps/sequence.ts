@@ -6,6 +6,7 @@ import {
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
+  CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
@@ -195,6 +196,11 @@ export const sequence: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: CHANGES_TO_YOUR_NAME_URL,
     showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },

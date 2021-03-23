@@ -17,6 +17,9 @@
               classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
             }
           },
+          hint: {
+            html: getContent(field.hint)
+          },
           items: formItems(field.values, formState[fieldName]),
           errorMessage: getError(fieldName)
         }) }}
