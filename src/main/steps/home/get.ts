@@ -1,5 +1,6 @@
 import { Response } from 'express';
 
+import { CaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL } from '../../steps/urls';
 
@@ -10,7 +11,7 @@ export class HomeGetController {
     }
 
     const isCasePartiallyComplete = Object.entries(req.session.userCase).some(
-      ([key, value]) => !['id', 'divorceOrDissolution'].includes(key) && value
+      ([key, value]) => !CaseApi.READONLY_FIELDS.includes(key) && value
     );
 
     res.redirect(isCasePartiallyComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);

@@ -1,16 +1,16 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
-import { getNextStepUrl } from '../../steps';
+import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Checkbox } from '../case/case';
+import * as possibleAnswers from '../case/answers/possibleAnswers';
+import { Case, Checkbox, YesOrNo } from '../case/case';
 import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 
 import { PostController } from './PostController';
 
-jest.mock('../../steps');
-
-const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
+const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 
 describe('PostController', () => {
   afterEach(() => {
@@ -94,6 +94,43 @@ describe('PostController', () => {
         propertyName: '*',
       },
     ]);
+  });
+
+  test('sets unreachable answers as null', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const errors = [] as never[];
+    const body = { inTheUk: YesOrNo.Yes };
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    getUnreachableAnswersAsNullMock.mockReturnValueOnce({
+      exampleExistingField: null,
+    } as Partial<Case>);
+
+    const req = mockRequest({
+      body,
+      userCase: { exampleExistingField: 'you need to null me' },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.session.userCase).toEqual({
+      id: '1234',
+      divorceOrDissolution: 'divorce',
+      inTheUk: YesOrNo.Yes,
+      exampleExistingField: 'you need to null me',
+    });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        inTheUk: YesOrNo.Yes,
+        exampleExistingField: null,
+      },
+      PATCH_CASE
+    );
   });
 
   test('rejects with an error when unable to save session data', async () => {

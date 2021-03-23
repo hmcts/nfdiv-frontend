@@ -18,6 +18,8 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
+  public static READONLY_FIELDS = ['id', 'divorceOrDissolution'];
+
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
 
@@ -86,7 +88,7 @@ export class CaseApi {
       const caseData = { id: response.data.id, ...fromApiFormat(response.data.data) };
 
       for (const [key, value] of Object.entries(userData)) {
-        if (!isEqual(caseData[key], value)) {
+        if (value !== null && !isEqual(caseData[key], value)) {
           throw new Error(`Data not updated correctly. API "${key}" field value did not match users input/form value.`);
         }
       }

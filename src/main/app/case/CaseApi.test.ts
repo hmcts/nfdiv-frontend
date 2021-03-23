@@ -154,12 +154,13 @@ describe('CaseApi', () => {
   test('throws an error when the updated case does not match the submitted case', async () => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
     mockedAxios.post.mockResolvedValue({ data: { data: { D8MarriageDate: '2000-12-31' } } });
-    const formData = {
+    const userData = {
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       relationshipDate: { day: '11', month: '12', year: '2000' },
+      nullField: null,
     };
 
-    await expect(api.triggerEvent('1234', formData, PATCH_CASE)).rejects.toThrow('Case could not be updated.');
+    await expect(api.triggerEvent('1234', userData, PATCH_CASE)).rejects.toThrow('Case could not be updated.');
 
     expect(mockLogger.error).toHaveBeenCalledWith(
       'API Error',

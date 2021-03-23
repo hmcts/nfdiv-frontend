@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
@@ -51,7 +52,9 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      const caseData = await this.save(req, formData, PATCH_CASE);
+      const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
+      const dataToSave = { ...unreachableAnswersAsNull, ...formData };
+      const caseData = await this.save(req, dataToSave, PATCH_CASE);
       if (caseData) {
         req.session.userCase = caseData;
         req.session.errors = undefined;
