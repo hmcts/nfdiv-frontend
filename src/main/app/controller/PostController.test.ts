@@ -9,6 +9,7 @@ import { Form, FormContent } from '../form/Form';
 
 import { PostController } from './PostController';
 
+jest.mock('../../steps/jurisdiction/interstitial/connections');
 jest.mock('../../steps');
 
 const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
