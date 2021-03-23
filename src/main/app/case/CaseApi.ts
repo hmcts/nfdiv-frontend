@@ -86,7 +86,7 @@ export class CaseApi {
       const caseData = { id: response.data.id, ...fromApiFormat(response.data.data) };
 
       for (const [key, value] of Object.entries(userData)) {
-        if (!isEqual(caseData[key], value ?? '')) {
+        if (!isEqual(caseData[key], value)) {
           throw new Error(`Data not updated correctly. API "${key}" field value did not match users input/form value.`);
         }
       }

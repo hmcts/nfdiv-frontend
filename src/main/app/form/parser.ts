@@ -23,8 +23,11 @@ export const setupCheckboxParser: CheckboxParser = ([key, field]) => {
     field.parser = formData =>
       (field as FormOptions).values.reduce((previous, currentCheckbox) => {
         const checkboxName = currentCheckbox.name as string;
-        const checkboxValue = formData[checkboxName] as string[];
-        return [...previous, [checkboxName, checkboxValue[checkboxValue.length - 1]]];
+        const checkboxValues = formData[checkboxName] as string | string[];
+        const checkboxValue = Array.isArray(checkboxValues)
+          ? checkboxValues[checkboxValues.length - 1]
+          : checkboxValues;
+        return [...previous, [checkboxName, checkboxValue]];
       }, [] as string[][]);
   }
   return [key, field];

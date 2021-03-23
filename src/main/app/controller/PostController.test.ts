@@ -145,9 +145,9 @@ describe('PostController', () => {
   test('Should save the users data and redirect to the next page if the form is valid with parsed body', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { day: '11', month: '12', year: '2000' };
+    const body = { day: '1', month: '1', year: '2000' };
     const parsedBody = {
-      date: { day: '11', month: '12', year: '2000' },
+      date: { day: '01', month: '01', year: '2000' },
     };
     const mockForm = ({
       getErrors: () => errors,
@@ -157,7 +157,7 @@ describe('PostController', () => {
 
     const expectedUserCase = {
       divorceOrDissolution: 'divorce',
-      date: { day: '11', month: '12', year: '2000' },
+      date: { day: '01', month: '01', year: '2000' },
       id: '1234',
     };
 
@@ -169,7 +169,7 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { date: { day: '11', month: '12', year: '2000' } },
+      { date: { day: '01', month: '01', year: '2000' } },
       PATCH_CASE
     );
 

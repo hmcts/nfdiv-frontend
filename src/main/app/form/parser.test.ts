@@ -26,18 +26,20 @@ describe('Parser', () => {
           values: [
             { name: 'checkbox1', value: 'checked' },
             { name: 'checkbox2', value: 'checked' },
+            { name: 'checkbox3', value: 'checked' },
           ],
         } as FormField,
       };
 
       setupCheckboxParser(Object.entries(mockFormWithCheckbox)[0]);
 
-      const mockFormData = { checkbox1: ['', 'checked'], checkbox2: ['', 'checked'] };
+      const mockFormData = { checkbox1: ['', 'checked'], checkbox2: '', checkbox3: ['', 'checked'] };
       const actual = mockFormWithCheckbox.field.parser?.(mockFormData);
 
       expect(actual).toEqual([
         ['checkbox1', 'checked'],
-        ['checkbox2', 'checked'],
+        ['checkbox2', ''],
+        ['checkbox3', 'checked'],
       ]);
     });
   });
