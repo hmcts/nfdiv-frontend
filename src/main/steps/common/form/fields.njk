@@ -63,7 +63,7 @@
           }
         },
         hint: {
-          text: hint
+          html: getContent(field.hint)
         },
         items: formItems(field.values, formState[fieldName]),
         errorMessage: getError(fieldName)
