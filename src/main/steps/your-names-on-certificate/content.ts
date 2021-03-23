@@ -16,11 +16,11 @@ const en = ({ isDivorce, relationship, partner, selectedGender }) => {
     }. They can sometimes be different from your current names. For example, if ${personOfMaidenName} had a maiden name.`,
     warningText: `Copy the ${relationship} certificate exactly. For example, if it says ‘Sarah Brown (formerly known as Sarah Smith)’, then enter that.`,
     fullNameOnCertificate: `Copy your full name from the ${relationship} certificate`,
-    partnersFullNameOnCertificate: `Copy your ${partner} full name from the ${relationship} certificate`,
+    partnersFullNameOnCertificate: `Copy your ${partner}'s full name from the ${relationship} certificate`,
     hint: 'Include all the text related to the name',
     errors: {
       fullNameOnCertificate: {
-        required: 'You have not entered anything. Enter your full name as it appears on your marriage certificate.',
+        required: 'You have not entered anything. Enter y our full name as it appears on your marriage certificate.',
         invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
       },
       partnersFullNameOnCertificate: {
