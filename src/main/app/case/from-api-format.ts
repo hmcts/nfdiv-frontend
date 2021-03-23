@@ -22,8 +22,8 @@ const fromApiDate = date => {
     return;
   }
 
-  const [year, month, day] = date.split('-');
-  return { year, month, day };
+  const [y, m, d] = date.split('-');
+  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

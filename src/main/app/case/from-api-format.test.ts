@@ -25,7 +25,7 @@ describe('from-api-format', () => {
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-12-31' } as unknown) as CaseData);
+    const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-09-02' } as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -33,8 +33,8 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       screenHasUnionBroken: YesOrNo.Yes,
       relationshipDate: {
-        day: '31',
-        month: '12',
+        day: '2',
+        month: '9',
         year: '2000',
       },
       helpWithFeesRefNo: 'HWF-ABC-123',
