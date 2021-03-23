@@ -6,25 +6,25 @@ Feature: Your domicile
     When I go to "/your-domicile"
     Then the page should include "Your domicile"
 
-  Scenario: Successfully completing the form Yes/Yes (Your domicile)
+  Scenario: Successfully completing the form Yes/Yes
     Given I select "Yes" for "Is your domicile in England or Wales?"
     And I select "Yes" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"
     Then the page URL should be "/jurisdiction/interstitial"
 
-  Scenario: Successfully completing the form Yes/No (Your domicile)
+  Scenario: Successfully completing the form Yes/No
     Given I select "Yes" for "Is your domicile in England or Wales?"
     And I select "No" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"
     Then the page URL should be "/living-england-wales-six-months"
 
-  Scenario: Successfully completing the form No/Yes (Your domicile)
+  Scenario: Successfully completing the form No/Yes
     Given I select "No" for "Is your domicile in England or Wales?"
     And I select "Yes" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"
     Then the page URL should be "/habitually-resident-england-wales"
 
-  Scenario: Successfully completing the form No/No (Your domicile)
+  Scenario: Successfully completing the form No/No
     Given I select "No" for "Is your domicile in England or Wales?"
     And I select "No" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"

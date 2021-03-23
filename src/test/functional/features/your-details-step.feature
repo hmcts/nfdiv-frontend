@@ -7,7 +7,7 @@ Feature: Your details step
     And I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
     And the page should not include "Back"
 
-  Scenario: Successfully completing the form (Your details)
+  Scenario: Successfully completing the form
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"
     When I click "Continue"

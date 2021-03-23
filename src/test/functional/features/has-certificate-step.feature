@@ -5,7 +5,7 @@ Feature: Certificate step
     When I go to '/do-you-have-your-certificate'
     Then the page should include "Do you have your marriage certificate with you?"
 
-  Scenario: Successfully completing the form (Certificate)
+  Scenario: Successfully completing the form
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
     Then the page should include "Do you need help paying the fee for your divorce?"
