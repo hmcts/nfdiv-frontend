@@ -16,7 +16,7 @@ Feature: Married in the UK
     When I click "Continue"
     Then the page should include "Is your original marriage certificate in English?"
 
-  Scenario: Successfully completing the form
+  Scenario: Successfully completing the form (Married in the UK)
     Given I select "Yes"
     When I click "Continue"
     Then the page URL should be "/check-jurisdiction"

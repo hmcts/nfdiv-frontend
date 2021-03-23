@@ -24,7 +24,7 @@ Feature: Relationship broken down
     When I click "Continue"
     Then the page should include "You cannot apply to end your civil partnership"
 
-  Scenario: Successfully completing the form
+  Scenario: Successfully completing the form (Relationship broken down)
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
     When I select "Yes, my marriage has irretrievably broken down"
     Then I click "Continue"

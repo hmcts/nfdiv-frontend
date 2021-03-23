@@ -33,7 +33,7 @@ Feature: Relationship date formed
     When I click "Continue"
     Then the page should include "You have not been married long enough to apply for a divorce"
 
-  Scenario: Successfully completing the form
+  Scenario: Successfully completing the form (Relationship date formed)
     Given I select "Day"
     And I type "1"
     Given I select "Month"
