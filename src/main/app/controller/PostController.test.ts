@@ -1,18 +1,60 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Form, FormContent } from '../../app/form/Form';
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Checkbox } from '../case/case';
-import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
+import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
+import { JURISDICTION_INTERSTITIAL_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { Checkbox, YesOrNo } from '../case/case';
+import { Connection, Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
+import { Form, FormContent } from '../form/Form';
 
 import { PostController } from './PostController';
 
 jest.mock('../../steps');
 
 const getNextStepUrlMock = getNextStepUrl as jest.Mock<string>;
+const addConnectionMock = addConnection as jest.Mock<Connection>;
 
 describe('PostController', () => {
+  test('Given the next url is /jurisdiction/interstitial, jurisdiction connection should be found', async () => {
+    getNextStepUrlMock.mockReturnValue(JURISDICTION_INTERSTITIAL_URL);
+    addConnectionMock.mockReturnValue(Connection.A);
+    const errors = [] as never[];
+    const body = { yourLifeBasedInEnglandAndWales: YesOrNo.Yes, partnersLifeBasedInEnglandAndWales: YesOrNo.Yes };
+
+    const mockForm = ({
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown) as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    const userCase = {
+      divorceOrDissolution: 'divorce',
+      yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      id: '1234',
+      connections: [Connection.A],
+    };
+    expect(req.session.userCase).toEqual(userCase);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+        partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
+        connections: [Connection.A],
+      },
+      PATCH_CASE
+    );
+
+    expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
+    expect(addConnectionMock).toBeCalledWith(userCase);
+    expect(res.redirect).toBeCalledWith(JURISDICTION_INTERSTITIAL_URL);
+    expect(req.session.errors).toBe(undefined);
+  });
+
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
     const body = { gender: Gender.FEMALE };
