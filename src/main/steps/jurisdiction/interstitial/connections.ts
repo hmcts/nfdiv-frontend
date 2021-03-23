@@ -9,6 +9,10 @@ const isDomiciled = (who, data) => {
   return data[who + 'DomicileInEnglandWales'] === 'YES';
 };
 
+const isHabituallyResidentForGivenTime = (data, months) => {
+  return data['livingInEnglandWales' + months + 'Months'] === 'YES';
+};
+
 const areBothHabituallyResident = data => {
   return isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
@@ -26,11 +30,11 @@ const areBothLastHabituallyResident = data => {
 };
 
 const isHabituallyResidentForTwelveMonths = data => {
-  return data.livingInEnglandWalesTwelveMonths === 'YES';
+  return isHabituallyResidentForGivenTime(data, 'Twelve');
 };
 
 const isHabituallyResidentForSixMonths = data => {
-  return data.livingInEnglandWalesSixMonths === 'YES';
+  return isHabituallyResidentForGivenTime(data, 'Six');
 };
 
 const areBothDomiciled = data => {

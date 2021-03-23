@@ -65,6 +65,7 @@ export interface Case {
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
+  jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
   connections: Connection[];
 }
