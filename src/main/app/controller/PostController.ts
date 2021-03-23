@@ -1,10 +1,9 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getNextStepUrl, stepsWithContent } from '../../steps';
+import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { CaseApi } from '../case/CaseApi';
-import { getAllPossibleAnswers } from '../case/answers/possibleAnswers';
+import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
@@ -53,11 +52,9 @@ export class PostController<T extends AnyObject> {
       req.session.errors = errors;
       nextUrl = req.url;
     } else {
-      await req.locals.api.triggerEvent(
-        req.session.userCase.id,
-        { ...this.getAnsweredUnreachableResponsesAsNull(req), ...formData },
-        PATCH_CASE
-      );
+      const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
+      const dataToSave = { ...unreachableAnswersAsNull, ...formData };
+      await req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, PATCH_CASE);
       req.session.errors = undefined;
       nextUrl = getNextStepUrl(req, req.session.userCase);
     }
@@ -68,20 +65,6 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
-  }
-
-  private getAnsweredUnreachableResponsesAsNull(req: AppRequest<T>): Partial<Case> {
-    const possibleAnswers = getAllPossibleAnswers(req.session.userCase, stepsWithContent);
-    return Object.fromEntries(
-      Object.keys(req.session.userCase)
-        .filter(
-          key =>
-            !CaseApi.READONLY_FIELDS.includes(key) &&
-            !possibleAnswers.includes(key) &&
-            req.session.userCase[key] !== null
-        )
-        .map(key => [key, null])
-    );
   }
 }
 

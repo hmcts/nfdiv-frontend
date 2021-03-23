@@ -1,7 +1,7 @@
 import { Step } from '../../../steps/sequence';
-import { Case } from '../case';
+import { Case, YesOrNo } from '../case';
 
-import { omitUnreachableAnswers } from './possibleAnswers';
+import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answers', () => {
@@ -93,5 +93,24 @@ describe('omitUnreachableAnswers()', () => {
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 
     expect(actual).toEqual({ valid1: 'pick-me' });
+  });
+
+  test('returns unreachable answers as null', async () => {
+    const userCase = {
+      inTheUk: YesOrNo.Yes,
+      certificateInEnglish: YesOrNo.No,
+      certifiedTranslation: YesOrNo.Yes,
+      ceremonyCountry: 'Northern Ireland',
+      ceremonyPlace: 'Belfast',
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      certificateInEnglish: null,
+      certifiedTranslation: null,
+      ceremonyCountry: null,
+      ceremonyPlace: null,
+    });
   });
 });

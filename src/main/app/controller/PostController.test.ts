@@ -3,12 +3,14 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Checkbox, YesOrNo } from '../case/case';
+import * as possibleAnswers from '../case/answers/possibleAnswers';
+import { Case, Checkbox, YesOrNo } from '../case/case';
 import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 
 import { PostController } from './PostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
@@ -68,16 +70,13 @@ describe('PostController', () => {
     } as unknown) as Form;
     const controller = new PostController(mockForm);
 
-    const userCase = {
-      inTheUk: YesOrNo.No,
-      certificateInEnglish: YesOrNo.No,
-      certifiedTranslation: YesOrNo.Yes,
-      ceremonyCountry: 'Northern Ireland',
-      ceremonyPlace: 'Belfast',
-    };
+    getUnreachableAnswersAsNullMock.mockReturnValueOnce({
+      exampleExistingField: null,
+    } as Partial<Case>);
+
     const req = mockRequest({
       body,
-      userCase,
+      userCase: { exampleExistingField: 'you need to null me' },
     });
     const res = mockResponse();
     await controller.post(req, res);
@@ -85,17 +84,14 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual({
       id: '1234',
       divorceOrDissolution: 'divorce',
-      ...userCase,
       inTheUk: YesOrNo.Yes,
+      exampleExistingField: 'you need to null me',
     });
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
         inTheUk: YesOrNo.Yes,
-        ceremonyCountry: null,
-        ceremonyPlace: null,
-        certificateInEnglish: null,
-        certifiedTranslation: null,
+        exampleExistingField: null,
       },
       PATCH_CASE
     );
