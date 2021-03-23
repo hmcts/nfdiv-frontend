@@ -29,6 +29,7 @@ import {
   RESIDUAL_JURISDICTION,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
+  YOU_CANNOT_APPLY_IN_ENGLAND_OR_WALES,
 } from './urls';
 
 export enum Sections {
@@ -196,6 +197,10 @@ export const sequence: Step[] = [
   {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: YOU_CANNOT_APPLY_IN_ENGLAND_OR_WALES,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
