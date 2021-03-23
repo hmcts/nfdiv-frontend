@@ -10,7 +10,6 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
-  ENGLISH_WELSH_COURTS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -190,11 +189,9 @@ export const sequence: Step[] = [
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
-      data.livingInEnglandWalesSixMonths === YesOrNo.No ? HABITUALLY_RESIDENT_ENGLAND_WALES : ENGLISH_WELSH_COURTS,
-  },
-  {
-    url: ENGLISH_WELSH_COURTS,
-    getNextStep: () => ENGLISH_OR_WELSH,
+      data.livingInEnglandWalesSixMonths === YesOrNo.No
+        ? HABITUALLY_RESIDENT_ENGLAND_WALES
+        : JURISDICTION_INTERSTITIAL_URL,
   },
   {
     url: ENGLISH_OR_WELSH,
