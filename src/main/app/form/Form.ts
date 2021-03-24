@@ -75,6 +75,7 @@ export interface FormOptions {
   type: string;
   label?: Label;
   labelHidden?: boolean;
+  labelSize?: string | null;
   values: FormInput[];
   validator?: ValidationCheck;
   parser?: Parser;

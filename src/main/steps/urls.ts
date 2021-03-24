@@ -40,3 +40,6 @@ export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident
 export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
 export const CANT_DIVORCE: PageLink = '/cant-divorce';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
+
+export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
+export const ENTER_YOUR_UK_ADDRESS: PageLink = '/enter-your-uk-address';

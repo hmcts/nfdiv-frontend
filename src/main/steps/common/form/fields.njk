@@ -66,13 +66,14 @@
         errorMessage: getError(fieldName)
       }) }}
     {% default %}
+      {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
       {{ govukInput({
         id: fieldName,
         name: fieldName,
         classes: field.classes,
         label: {
           text: getContent(field.label),
-          classes: "govuk-label--m"
+          classes: "govuk-visually-hidden" if field.labelHidden else labelClasses
         },
         hint: {
           html: getContent(field.hint)

@@ -29,7 +29,6 @@ const en = ({ isDivorce, partner }) => ({
   },
   yes: 'Yes',
   no: 'No',
-  change: 'Change',
   continueApplication: 'Continue application',
 });
 

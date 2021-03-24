@@ -1,0 +1,26 @@
+{% extends "common/page.njk" %}
+
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <h2 class="govuk-heading-m">{{ postcode }}</h2>
+  <p class="govuk-body">
+    <strong class="govuk-label govuk-!-font-weight-bold">{{ formState.yourAddressPostcode }}</strong>
+    <a href="/enter-your-address" class="govuk-link" aria-label="{{ change }} {{ postcode }}">{{ change }}</a>
+  </p>
+
+  {{ govukSelect({
+    id: "findAddress",
+    name: "findAddress",
+    label: {
+      text: selectAddress
+    },
+    items: foundAddresses
+  }) }}
+
+  <p class="govuk-body">
+    <a href="#cannot-find-address" class="govuk-link">{{ cannotFindAddress }}</a>
+  </p>
+{% endblock %}

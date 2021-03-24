@@ -10,6 +10,8 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_UK_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -196,6 +198,14 @@ export const sequence: Step[] = [
   {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.Documents,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ENTER_YOUR_UK_ADDRESS,
+  },
+  {
+    url: ENTER_YOUR_UK_ADDRESS,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

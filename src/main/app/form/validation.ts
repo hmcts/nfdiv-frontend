@@ -88,3 +88,16 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
     }
   }
 };
+
+export const isInvalidPostcode: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (typeof value === 'string') {
+    if (!value.match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+      return 'invalid';
+    }
+  }
+};

@@ -15,6 +15,26 @@ const fields = {
     englishOrWelsh:
       data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
+  D8DerivedPetitionerHomeAddress: data => {
+    if (!data.D8DerivedPetitionerHomeAddress) {
+      return {};
+    }
+
+    const [
+      yourAddress1,
+      yourAddress2,
+      yourAddressTown,
+      yourAddressCounty,
+      yourAddressPostcode,
+    ] = data.D8DerivedPetitionerHomeAddress.split('\n');
+    return {
+      yourAddress1,
+      yourAddress2,
+      yourAddressTown,
+      yourAddressCounty,
+      yourAddressPostcode,
+    };
+  },
 };
 
 const fromApiDate = date => {

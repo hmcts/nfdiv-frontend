@@ -39,6 +39,21 @@ const fields = {
   englishOrWelsh: (data: Case) => ({
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
+  yourAddressPostcode: ({
+    yourAddress1,
+    yourAddress2,
+    yourAddressTown,
+    yourAddressCounty,
+    yourAddressPostcode,
+  }: Case) => ({
+    D8DerivedPetitionerHomeAddress: [
+      yourAddress1,
+      yourAddress2,
+      yourAddressTown,
+      yourAddressCounty,
+      yourAddressPostcode,
+    ].join('\n'),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

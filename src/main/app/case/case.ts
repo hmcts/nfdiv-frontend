@@ -65,6 +65,11 @@ export interface Case {
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  yourAddress1?: string;
+  yourAddress2?: string;
+  yourAddressTown?: string;
+  yourAddressCounty?: string;
+  yourAddressPostcode?: string;
 }
 
 export interface CaseWithId extends Case {
