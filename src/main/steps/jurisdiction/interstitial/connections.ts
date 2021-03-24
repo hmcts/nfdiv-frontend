@@ -51,22 +51,22 @@ const hasResidualJurisdiction = data => {
 
 export const addConnection = (data: Partial<CaseWithId>): Connection | void => {
   if (areBothHabituallyResident(data)) {
-    return Connection.A;
+    return Connection.PET_RESP_RESIDENT;
   } else if (onlyRespondentHabituallyResident(data)) {
-    return Connection.C;
+    return Connection.RESP_RESIDENT;
   } else if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
-    return Connection.D;
+    return Connection.PET_RESIDENT_TWELVE_MONTHS;
   } else if (
     isHabituallyResidentForSixMonths(data) &&
     onlyPetitionerHabituallyResident(data) &&
     onlyPetitionerDomiciled(data)
   ) {
-    return Connection.E;
+    return Connection.PET_RESIDENT_SIX_MONTHS;
   } else if (areBothDomiciled(data)) {
-    return Connection.F;
+    return Connection.PET_RESP_DOMICILED;
   } else if (areBothLastHabituallyResident(data)) {
-    return Connection.B;
+    return Connection.PET_RESP_LAST_RESIDENT;
   } else if (hasResidualJurisdiction(data)) {
-    return Connection.G;
+    return Connection.RESIDUAL_JURISDICTION;
   }
 };

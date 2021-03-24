@@ -150,13 +150,13 @@ export const enum ConfidentialAddress {
 }
 
 export const enum Connection {
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  F = 'F',
-  G = 'G',
+  PET_RESP_RESIDENT = 'A',
+  PET_RESP_LAST_RESIDENT = 'B',
+  RESP_RESIDENT = 'C',
+  PET_RESIDENT_TWELVE_MONTHS = 'D',
+  PET_RESIDENT_SIX_MONTHS = 'E',
+  PET_RESP_DOMICILED = 'F',
+  RESIDUAL_JURISDICTION = 'G',
 }
 
 export const PATCH_CASE = 'patch-case';
@@ -164,5 +164,5 @@ export const CREATE_DRAFT = 'create-draft';
 export const SAVE_AND_CLOSE = 'save-and-close';
 export const SOLICITOR_UPDATE = 'solicitorUpdate';
 export const SOLICITOR_CREATE = 'solicitorCreate';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE2';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE3';
 export const JURISDICTION = 'DIVORCE';
