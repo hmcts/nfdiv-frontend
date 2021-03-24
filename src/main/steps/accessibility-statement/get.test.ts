@@ -19,7 +19,13 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent(language, generateContent, isDivorce, formState),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        formState,
+        userEmail: 'test@example.com',
+      }),
       ...defaultViewArgs,
       formState: req.session.userCase,
     });
@@ -35,7 +41,13 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent(language, generateContent, isDivorce, formState),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        formState,
+        userEmail: 'test@example.com',
+      }),
       ...defaultViewArgs,
       formState: req.session.userCase,
     });

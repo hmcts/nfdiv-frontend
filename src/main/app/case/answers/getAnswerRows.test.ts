@@ -59,7 +59,13 @@ describe('getAnswerRows()', () => {
       },
     })(Sections.AboutPartnership);
 
-    expect(generatePageContentSpy).toHaveBeenCalledWith('en', mockGenerateContent, true, {}, 'test@example.com');
+    expect(generatePageContentSpy).toHaveBeenCalledWith({
+      formState: {},
+      isDivorce: true,
+      language: 'en',
+      pageContent: mockGenerateContent,
+      userEmail: 'test@example.com',
+    });
     expect(actual).toEqual([]);
   });
 

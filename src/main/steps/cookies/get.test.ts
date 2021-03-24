@@ -18,7 +18,7 @@ describe('CookiesGetController', () => {
     const isDivorce = true;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent(language, generateContent, isDivorce),
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
       formState: req.session.userCase,
     });
@@ -32,7 +32,7 @@ describe('CookiesGetController', () => {
     const isDivorce = false;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent(language, generateContent, isDivorce),
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
       formState: req.session.userCase,
     });

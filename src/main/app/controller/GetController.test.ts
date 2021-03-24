@@ -15,6 +15,7 @@ describe('GetController', () => {
       text: 'welsh',
     },
   };
+  const userEmail = 'test@example.com';
   const generateContent = content => languages[content.language];
   test('Should render the page', async () => {
     const controller = new GetController('page', generateContent);
@@ -27,7 +28,7 @@ describe('GetController', () => {
       ...defaultViewArgs,
       text: 'english',
       formState: req.session.userCase,
-      userEmail: 'test@example.com',
+      userEmail,
     });
   });
 
@@ -43,12 +44,12 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent(language, generateContent),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
-        userEmail: 'test@example.com',
+        userEmail,
       });
     });
 
@@ -63,12 +64,12 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent(language, generateContent),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
-        userEmail: 'test@example.com',
+        userEmail,
       });
     });
 
@@ -83,12 +84,12 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent(language, generateContent),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
         formState: req.session.userCase,
-        userEmail: 'test@example.com',
+        userEmail,
       });
     });
   });
@@ -131,7 +132,7 @@ describe('GetController', () => {
         gender: Gender.FEMALE,
       },
       text: 'english',
-      userEmail: 'test@example.com',
+      userEmail,
     });
   });
 
@@ -144,7 +145,7 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      const commonContent = generatePageContent('en');
+      const commonContent = generatePageContent({ language: 'en', userEmail });
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
@@ -153,7 +154,7 @@ describe('GetController', () => {
         isDivorce: true,
         formState: req.session.userCase,
         partner: 'partner',
-        userEmail: 'test@example.com',
+        userEmail,
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -165,26 +166,32 @@ describe('GetController', () => {
       { serviceType: DivorceOrDissolution.DIVORCE, isDivorce: true },
       { serviceType: DivorceOrDissolution.DISSOLUTION, isDivorce: false, civilKey: 'civilPartner' },
     ])('Service type %s', ({ serviceType, isDivorce }) => {
-      describe.each(['en', 'cy'] as Language[])('Language %s', lang => {
+      describe.each(['en', 'cy'] as Language[])('Language %s', language => {
         test.each([
           { gender: Gender.MALE, partnerKey: 'husband' },
           { gender: Gender.FEMALE, partnerKey: 'wife' },
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
-          const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${lang}` });
+          const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${language}` });
           const controller = new GetController('page', getContentMock);
 
-          const req = mockRequest({ session: { lang, userCase: { gender } } });
+          const req = mockRequest({ session: { lang: language, userCase: { gender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
-          const commonContent = generatePageContent(lang, getContentMock, isDivorce, { gender });
+          const commonContent = generatePageContent({
+            language,
+            pageContent: getContentMock,
+            isDivorce,
+            formState: { gender },
+            userEmail,
+          });
 
           expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
             ...commonContent,
             isDivorce,
-            language: lang,
+            language,
             formState: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
@@ -192,9 +199,9 @@ describe('GetController', () => {
             ...commonContent,
             isDivorce,
             formState: req.session.userCase,
-            language: lang,
-            pageText: `something in ${lang}`,
-            userEmail: 'test@example.com',
+            language,
+            pageText: `something in ${language}`,
+            userEmail,
           });
         });
       });

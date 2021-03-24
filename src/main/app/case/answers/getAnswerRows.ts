@@ -17,7 +17,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     language: 'en' | 'cy';
     isDivorce: boolean;
     partner: string;
-    userEmail?: string;
+    userEmail: string;
     formState: Partial<Case>;
   } = this.ctx;
 
@@ -29,7 +29,13 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       const fieldKeys = Object.keys(step.form.fields);
       const stepContent = {
         ...this.ctx,
-        ...generatePageContent(language, step.generateContent, isDivorce, processedFormState, userEmail),
+        ...generatePageContent({
+          language,
+          pageContent: step.generateContent,
+          isDivorce,
+          formState: processedFormState,
+          userEmail,
+        }),
       };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 

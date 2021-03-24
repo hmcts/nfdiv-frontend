@@ -154,13 +154,19 @@ const cy: typeof en = {
   no: 'Naddo',
 };
 
-export const generatePageContent = (
-  language: Language,
-  pageContent?: TranslationFn,
+export const generatePageContent = ({
+  language,
+  pageContent,
   isDivorce = true,
-  formState?: Partial<Case>,
-  userEmail?: string
-): PageContent => {
+  formState,
+  userEmail,
+}: {
+  language: Language;
+  pageContent?: TranslationFn;
+  isDivorce?: boolean;
+  formState?: Partial<Case>;
+  userEmail: string;
+}): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
