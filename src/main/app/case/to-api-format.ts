@@ -39,6 +39,9 @@ const fields = {
   englishOrWelsh: (data: Case) => ({
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
+  agreeToReceiveEmails: (data: Case) => ({
+    PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

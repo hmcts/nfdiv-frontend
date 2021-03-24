@@ -18,8 +18,8 @@ describe('CookiesGetController', () => {
     const isDivorce = true;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
-      ...generatePageContent(language, generateContent, isDivorce),
       formState: req.session.userCase,
     });
   });
@@ -32,8 +32,8 @@ describe('CookiesGetController', () => {
     const isDivorce = false;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
-      ...generatePageContent(language, generateContent, isDivorce),
       formState: req.session.userCase,
     });
   });

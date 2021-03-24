@@ -1,4 +1,4 @@
-import { Case, YesOrNo } from '../case/case';
+import { Case, Checkbox, YesOrNo } from '../case/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
@@ -25,6 +25,18 @@ describe('Form', () => {
         parser: value => covertToDateObject('dateField', value),
         validator: value => isFieldFilledIn(value),
       },
+      someCheckboxes: {
+        type: 'checkboxes',
+        values: [
+          { name: 'optionalCheckbox', label: () => 'optional', value: Checkbox.Checked },
+          {
+            name: 'requiredCheckbox',
+            label: () => 'required checkbox',
+            value: Checkbox.Checked,
+            validator: isFieldFilledIn,
+          },
+        ],
+      },
     },
     submit: {
       text: l => l.continue,
@@ -41,6 +53,7 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
+      requiredCheckbox: Checkbox.Checked,
     } as unknown) as Case);
 
     expect(errors).toStrictEqual([]);
@@ -56,6 +69,10 @@ describe('Form', () => {
       },
       {
         propertyName: 'dateField',
+        errorType: 'required',
+      },
+      {
+        propertyName: 'someCheckboxes',
         errorType: 'required',
       },
     ]);
@@ -125,6 +142,8 @@ describe('Form', () => {
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
+      optionalCheckbox: [''],
+      requiredCheckbox: ['', Checkbox.Checked],
     };
 
     expect(form.getParsedBody(body)).toStrictEqual({
@@ -134,6 +153,8 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
+      optionalCheckbox: '',
+      requiredCheckbox: 'checked',
     });
   });
 });
