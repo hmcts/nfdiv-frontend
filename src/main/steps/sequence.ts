@@ -17,6 +17,8 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
+  HOW_THE_COURT_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
@@ -202,7 +204,10 @@ export const sequence: Step[] = [
   {
     url: CHANGES_TO_YOUR_NAME_URL,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: data =>
+      data.lastNameChangeWhenMarried === YesOrNo.Yes || data.anyNameChangeSinceMarriage === YesOrNo.Yes
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURT_WILL_CONTACT_YOU,
   },
   {
     url: CHECK_ANSWERS_URL,

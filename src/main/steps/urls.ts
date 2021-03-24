@@ -41,3 +41,5 @@ export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
 export const CANT_DIVORCE: PageLink = '/cant-divorce';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
+export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
+export const HOW_THE_COURT_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
