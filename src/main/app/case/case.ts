@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { Connection, DivorceOrDissolution, Gender } from './definition';
+import { DivorceOrDissolution, Gender, JurisdictionConnections } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   divorceOrDissolution: 'divorceOrDissolution',
@@ -22,6 +22,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
+  jurisdictionResidualEligible: 'JurisdictionResidualEligible',
   connections: 'JurisdictionConnections',
 };
 
@@ -67,7 +68,7 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
-  connections: Connection[];
+  connections: JurisdictionConnections[];
 }
 
 export interface CaseWithId extends Case {

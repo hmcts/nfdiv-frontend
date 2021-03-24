@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Connection } from '../../../app/case/definition';
+import { JurisdictionConnections } from '../../../app/case/definition';
 
 const isHabituallyResident = (who, data) => {
   return data[who + 'LifeBasedInEnglandAndWales'] === 'YES';
@@ -49,24 +49,24 @@ const hasResidualJurisdiction = data => {
   return data['jurisdictionResidualEligible'] === 'YES';
 };
 
-export const addConnection = (data: Partial<CaseWithId>): Connection | void => {
+export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections | void => {
   if (areBothHabituallyResident(data)) {
-    return Connection.PET_RESP_RESIDENT;
+    return JurisdictionConnections.PET_RESP_RESIDENT;
   } else if (onlyRespondentHabituallyResident(data)) {
-    return Connection.RESP_RESIDENT;
+    return JurisdictionConnections.RESP_RESIDENT;
   } else if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
-    return Connection.PET_RESIDENT_TWELVE_MONTHS;
+    return JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS;
   } else if (
     isHabituallyResidentForSixMonths(data) &&
     onlyPetitionerHabituallyResident(data) &&
     onlyPetitionerDomiciled(data)
   ) {
-    return Connection.PET_RESIDENT_SIX_MONTHS;
+    return JurisdictionConnections.PET_RESIDENT_SIX_MONTHS;
   } else if (areBothDomiciled(data)) {
-    return Connection.PET_RESP_DOMICILED;
+    return JurisdictionConnections.PET_RESP_DOMICILED;
   } else if (areBothLastHabituallyResident(data)) {
-    return Connection.PET_RESP_LAST_RESIDENT;
+    return JurisdictionConnections.PET_RESP_LAST_RESIDENT;
   } else if (hasResidualJurisdiction(data)) {
-    return Connection.RESIDUAL_JURISDICTION;
+    return JurisdictionConnections.RESIDUAL_JURISDICTION;
   }
 };

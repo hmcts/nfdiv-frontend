@@ -1,4 +1,5 @@
 import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
+import { addConnection } from '../../steps/jurisdiction/interstitial/connections';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, DivorceOrDissolution, Gender } from './definition';
@@ -39,6 +40,104 @@ const fields = {
   englishOrWelsh: (data: Case) => ({
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
+  partnersLifeBasedInEnglandAndWales: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionRespondentResidence: data.partnersLifeBasedInEnglandAndWales,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionRespondentResidence: data.partnersLifeBasedInEnglandAndWales,
+      };
+    }
+  },
+  yourDomicileInEnglandWales: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionPetitionerDomicile: data.yourDomicileInEnglandWales,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionPetitionerDomicile: data.yourDomicileInEnglandWales,
+      };
+    }
+  },
+  partnersDomicileInEnglandWales: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionRespondentDomicile: data.partnersDomicileInEnglandWales,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionRespondentDomicile: data.partnersDomicileInEnglandWales,
+      };
+    }
+  },
+  lastHabituallyResident: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionBothLastHabituallyResident: data.lastHabituallyResident,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionBothLastHabituallyResident: data.lastHabituallyResident,
+      };
+    }
+  },
+  livingInEnglandWalesTwelveMonths: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionPetHabituallyResLastTwelveMonths: data.livingInEnglandWalesTwelveMonths,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionPetHabituallyResLastTwelveMonths: data.livingInEnglandWalesTwelveMonths,
+      };
+    }
+  },
+  livingInEnglandWalesSixMonths: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionPetHabituallyResLastSixMonths: data.livingInEnglandWalesSixMonths,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionPetHabituallyResLastSixMonths: data.livingInEnglandWalesSixMonths,
+      };
+    }
+  },
+  jurisdictionResidualEligible: (data: Case) => {
+    const connection = addConnection(data);
+    if (connection) {
+      return {
+        JurisdictionConnections: [addConnection(data)],
+        JurisdictionResidualEligible: data.jurisdictionResidualEligible,
+      };
+    } else {
+      return {
+        JurisdictionConnections: [],
+        JurisdictionResidualEligible: data.jurisdictionResidualEligible,
+      };
+    }
+  },
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
