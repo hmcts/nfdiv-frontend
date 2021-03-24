@@ -32,9 +32,9 @@ export class PostController<T extends AnyObject> {
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
       this.save(req, formData, SAVE_AND_CLOSE);
-    } catch (err) {}
-
-    res.redirect(SAVE_AND_SIGN_OUT);
+    } finally {
+      res.redirect(SAVE_AND_SIGN_OUT);
+    }
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {

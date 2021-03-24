@@ -76,6 +76,5 @@ module.exports = {
         ignoreMemberSort: false,
       },
     ],
-    'no-empty': 0,
   },
 };
