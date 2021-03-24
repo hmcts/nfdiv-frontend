@@ -31,15 +31,19 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
-      this.save(req, formData, SAVE_AND_CLOSE);
-    } finally {
-      res.redirect(SAVE_AND_SIGN_OUT);
+      await this.save(req, formData, SAVE_AND_CLOSE);
+    } catch {
+      // ignore
     }
+    res.redirect(SAVE_AND_SIGN_OUT);
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await this.save(req, formData, PATCH_CASE);
-
+    try {
+      await this.save(req, formData, PATCH_CASE);
+    } catch {
+      // ignore
+    }
     res.end();
   }
 
@@ -50,7 +54,7 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length === 0) {
       try {
         req.session.userCase = await this.save(req, formData, PATCH_CASE);
-      } catch (err) {
+      } catch {
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
     }
