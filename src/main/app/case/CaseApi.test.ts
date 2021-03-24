@@ -150,24 +150,6 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
-
-  test('throws an error when the updated case does not match the submitted case', async () => {
-    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
-    mockedAxios.post.mockResolvedValue({ data: { data: { D8MarriageDate: '2000-12-31' } } });
-    const userData = {
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-      relationshipDate: { day: '11', month: '12', year: '2000' },
-      nullField: null,
-    };
-
-    await expect(api.triggerEvent('1234', userData, PATCH_CASE)).rejects.toThrow('Case could not be updated.');
-
-    expect(mockLogger.error).toHaveBeenCalledWith(
-      'API Error',
-      'Data not updated correctly. API "divorceOrDissolution" field value did not match users input/form value.'
-    );
-    expect(mockLogger.info).not.toHaveBeenCalled();
-  });
 });
 
 describe('getCaseApi', () => {

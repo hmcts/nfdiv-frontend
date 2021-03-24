@@ -30,7 +30,9 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await this.save(req, formData, SAVE_AND_CLOSE);
+    try {
+      this.save(req, formData, SAVE_AND_CLOSE);
+    } catch (err) {}
 
     res.redirect(SAVE_AND_SIGN_OUT);
   }
@@ -43,27 +45,17 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
+    req.session.errors = this.form.getErrors(formData);
 
-    const errors = this.form.getErrors(formData);
-    const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
-    let nextUrl: string;
-
-    if (!isSessionTimeout && errors.length > 0) {
-      req.session.errors = errors;
-      nextUrl = req.url;
-    } else {
-      const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
-      const dataToSave = { ...unreachableAnswersAsNull, ...formData };
-      const caseData = await this.save(req, dataToSave, PATCH_CASE);
-      if (caseData) {
-        req.session.userCase = caseData;
-        req.session.errors = undefined;
-        nextUrl = getNextStepUrl(req, req.session.userCase);
-      } else {
-        req.session.errors = [{ errorType: 'errorSaving', propertyName: '*' }];
-        nextUrl = req.url;
+    if (req.session.errors.length === 0) {
+      try {
+        req.session.userCase = await this.save(req, formData, PATCH_CASE);
+      } catch (err) {
+        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
     }
+
+    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
 
     req.session.save(err => {
       if (err) {
@@ -73,12 +65,11 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId | false> {
-    try {
-      return await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-    } catch {
-      return false;
-    }
+  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
+    const dataToSave = { ...unreachableAnswersAsNull, ...formData };
+
+    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
   }
 }
 

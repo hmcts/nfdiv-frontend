@@ -66,7 +66,7 @@ describe('PostController', () => {
 
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
-    expect(req.session.errors).toBe(undefined);
+    expect(req.session.errors).toStrictEqual([]);
   });
 
   it('redirects back to the current page with a session error if there was an problem saving data', async () => {
@@ -117,12 +117,6 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.session.userCase).toEqual({
-      id: '1234',
-      divorceOrDissolution: 'divorce',
-      inTheUk: YesOrNo.Yes,
-      exampleExistingField: 'you need to null me',
-    });
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
@@ -156,7 +150,7 @@ describe('PostController', () => {
     expect(mockSave).toHaveBeenCalled();
     expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
     expect(res.redirect).not.toHaveBeenCalled();
-    expect(req.session.errors).toBe(undefined);
+    expect(req.session.errors).toStrictEqual([]);
   });
 
   test('uses the last (not hidden) input for checkboxes', async () => {
@@ -174,9 +168,11 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ sameSex: Checkbox.Checked });
+
     await controller.post(req, res);
 
-    expect(req.session.userCase?.sameSex).toEqual(Checkbox.Checked);
+    expect(req.session.userCase.sameSex).toEqual(Checkbox.Checked);
   });
 
   test('Should save the users data and redirect to the next page if the form is valid with parsed body', async () => {
@@ -212,7 +208,7 @@ describe('PostController', () => {
 
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
-    expect(req.session.errors).toBe(undefined);
+    expect(req.session.errors).toStrictEqual([]);
   });
 
   test('Should save the users data and end response for session timeout', async () => {
