@@ -28,17 +28,6 @@ describe('to-api-format', () => {
     });
   });
 
-  test('removes optional fields based on other fields data', async () => {
-    const apiFormat = toApiFormat({
-      // Missing alreadyAppliedForHelpPaying
-      helpWithFeesRefNo: 'HWF-123-ABC',
-    } as Partial<Case>);
-
-    expect(apiFormat).toMatchObject({
-      D8HelpWithFeesReferenceNumber: '',
-    });
-  });
-
   test('handles invalid data correctly', async () => {
     const apiFormat = toApiFormat({
       helpWithFeesRefNo: '123-ABC',

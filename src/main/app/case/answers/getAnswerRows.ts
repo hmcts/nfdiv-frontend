@@ -5,7 +5,7 @@ import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
-import { omitUnreachableAnswers } from './omitUnreachableAnswers';
+import { omitUnreachableAnswers } from './possibleAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {

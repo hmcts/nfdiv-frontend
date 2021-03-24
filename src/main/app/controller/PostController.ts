@@ -3,7 +3,8 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Case } from '../case/case';
+import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
+import { Case, CaseWithId } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -29,32 +30,32 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await req.locals.api.triggerEvent(req.session.userCase.id, formData, SAVE_AND_CLOSE);
-
-    res.redirect(SAVE_AND_SIGN_OUT);
+    try {
+      this.save(req, formData, SAVE_AND_CLOSE);
+    } finally {
+      res.redirect(SAVE_AND_SIGN_OUT);
+    }
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
+    await this.save(req, formData, PATCH_CASE);
 
     res.end();
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
+    req.session.errors = this.form.getErrors(formData);
 
-    const errors = this.form.getErrors(formData);
-    const isSessionTimeout = !!req.body.saveBeforeSessionTimeout;
-    let nextUrl: string;
-
-    if (!isSessionTimeout && errors.length > 0) {
-      req.session.errors = errors;
-      nextUrl = req.url;
-    } else {
-      await req.locals.api.triggerEvent(req.session.userCase.id, formData, PATCH_CASE);
-      req.session.errors = undefined;
-      nextUrl = getNextStepUrl(req, req.session.userCase);
+    if (req.session.errors.length === 0) {
+      try {
+        req.session.userCase = await this.save(req, formData, PATCH_CASE);
+      } catch (err) {
+        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+      }
     }
+
+    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
 
     req.session.save(err => {
       if (err) {
@@ -62,6 +63,13 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
+  }
+
+  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
+    const dataToSave = { ...unreachableAnswersAsNull, ...formData };
+
+    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
   }
 }
 
