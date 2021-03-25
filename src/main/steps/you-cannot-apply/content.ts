@@ -1,9 +1,9 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
 const en = ({ isDivorce }) => ({
-  title: 'You can’t apply for a divorce in England or Wales',
-  line1: `Your answers indicate that the courts of England and Wales do not have jurisdiction to grant you a ${
-    isDivorce ? 'divorce' : 'dissolve to your civil partnership'
+  title: `You can’t apply for a ${isDivorce ? 'for a divorce' : 'to end your civil partnership'} in England or Wales`,
+  line1: `Your answers indicate that the courts of England and Wales do not have the legal power (jurisdiction) to ${
+    isDivorce ? 'grant you a divorce' : 'end your civil partnership'
   }.`,
 });
 
