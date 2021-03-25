@@ -19,4 +19,4 @@ Feature: Living in England or Wales for the last 6 months
   Scenario: Successfully completing the form
     And I select "Yes"
     And I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
+    Then the page should include "You can use the English or Welsh court"

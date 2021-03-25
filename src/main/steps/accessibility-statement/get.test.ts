@@ -19,8 +19,14 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        formState,
+        userEmail: 'test@example.com',
+      }),
       ...defaultViewArgs,
-      ...generatePageContent(language, generateContent, isDivorce, formState),
       formState: req.session.userCase,
     });
   });
@@ -35,8 +41,14 @@ describe('AccessibilityStatementGetController', () => {
     const formState = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        formState,
+        userEmail: 'test@example.com',
+      }),
       ...defaultViewArgs,
-      ...generatePageContent(language, generateContent, isDivorce, formState),
       formState: req.session.userCase,
     });
   });

@@ -25,6 +25,7 @@ export const mockRequest = ({
     session: {
       user: {
         name: 'test',
+        email: 'test@example.com',
       },
       userCase: {
         id: '1234',

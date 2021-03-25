@@ -13,6 +13,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   inTheUk: 'D8MarriedInUk',
   certificateInEnglish: 'D8CertificateInEnglish',
   certifiedTranslation: 'D8CertifiedTranslation',
+  ceremonyCountry: 'D8CountryName',
+  ceremonyPlace: 'D8MarriagePlaceOfMarriage',
   yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
   partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
   yourDomicileInEnglandWales: 'JurisdictionPetitionerDomicile',
@@ -20,6 +22,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
+  phoneNumber: 'D8PetitionerPhoneNumber',
   fullNameOnCertificate: 'D8MarriagePetitionerName',
   partnersFullNameOnCertificate: 'D8MarriageRespondentName',
 };
@@ -55,6 +58,8 @@ export interface Case {
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
+  ceremonyCountry?: string;
+  ceremonyPlace?: string;
   yourLifeBasedInEnglandAndWales?: YesOrNo;
   partnersLifeBasedInEnglandAndWales?: YesOrNo;
   yourDomicileInEnglandWales?: YesOrNo;
@@ -63,6 +68,8 @@ export interface Case {
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  phoneNumber?: string;
+  agreeToReceiveEmails?: Checkbox;
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
 }

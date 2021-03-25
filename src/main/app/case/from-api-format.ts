@@ -15,6 +15,9 @@ const fields = {
     englishOrWelsh:
       data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
+  PetitionerAgreedToReceiveEmails: data => ({
+    agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
 };
 
 const fromApiDate = date => {
@@ -22,8 +25,8 @@ const fromApiDate = date => {
     return;
   }
 
-  const [year, month, day] = date.split('-');
-  return { year, month, day };
+  const [y, m, d] = date.split('-');
+  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

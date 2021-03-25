@@ -6,13 +6,13 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
+import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
-import { sequence } from './steps/sequence';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -41,19 +41,16 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
 
-    app.locals.steps = sequence;
-    for (const step of sequence) {
+    for (const step of stepsWithContent) {
       const stepDir = `${__dirname}/steps${step.url}`;
-      const content = require(`${stepDir}/content.ts`);
-      Object.assign(step, content);
       const customView = `${stepDir}/template.njk`;
       const view = fs.existsSync(customView) ? customView : `${stepDir}/../common/template.njk`;
-      const controller = new GetController(view, content.generateContent);
+      const controller = new GetController(view, step.generateContent);
 
       app.get(step.url, errorHandler(controller.get));
 
-      if (content.form) {
-        app.post(step.url, errorHandler(new PostController(new Form(content.form)).post));
+      if (step.form) {
+        app.post(step.url, errorHandler(new PostController(new Form(step.form)).post));
       }
     }
 
