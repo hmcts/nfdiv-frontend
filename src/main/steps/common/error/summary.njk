@@ -3,10 +3,16 @@
 {% if sessionErrors and sessionErrors.length > 0 %}
   {% set errorList = [] %}
   {% for item in sessionErrors %}
-    {% set errorList = (errorList.push({
-      href: '#' + item.propertyName,
-      text: errors[item.propertyName][item.errorType]
-    }), errorList) %}
+    {% if item.errorType === 'errorSaving' %}
+      {% set errorList = (errorList.push({
+        text: errorSaving
+      }), errorList) %}
+    {% else %}
+      {% set errorList = (errorList.push({
+        href: '#' + item.propertyName,
+        text: errors[item.propertyName][item.errorType]
+      }), errorList) %}
+    {% endif %}
   {% endfor %}
   {{ govukErrorSummary({
     "titleText": errorSummaryHeading,

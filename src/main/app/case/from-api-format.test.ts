@@ -10,6 +10,7 @@ describe('from-api-format', () => {
     D8InferredPetitionerGender: 'male',
     D8ScreenHasMarriageBroken: 'YES',
     D8HelpWithFeesReferenceNumber: 'HWF-ABC-123',
+    PetitionerAgreedToReceiveEmails: 'YES',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -21,11 +22,12 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       screenHasUnionBroken: YesOrNo.Yes,
       helpWithFeesRefNo: 'HWF-ABC-123',
+      agreeToReceiveEmails: Checkbox.Checked,
     });
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-12-31' } as unknown) as CaseData);
+    const nfdivFormat = fromApiFormat(({ ...results, D8MarriageDate: '2000-09-02' } as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -33,11 +35,12 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       screenHasUnionBroken: YesOrNo.Yes,
       relationshipDate: {
-        day: '31',
-        month: '12',
+        day: '2',
+        month: '9',
         year: '2000',
       },
       helpWithFeesRefNo: 'HWF-ABC-123',
+      agreeToReceiveEmails: Checkbox.Checked,
     });
   });
 });

@@ -22,6 +22,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
+  phoneNumber: 'D8PetitionerPhoneNumber',
   lastNameChangeWhenMarried: 'LastNameChangedWhenMarried',
   anyNameChangeSinceMarriage: 'D8PetitionerNameDifferentToMarriageCert',
 };
@@ -67,6 +68,8 @@ export interface Case {
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  phoneNumber?: string;
+  agreeToReceiveEmails?: Checkbox;
   lastNameChangeWhenMarried?: YesOrNo;
   anyNameChangeSinceMarriage?: YesOrNo;
 }

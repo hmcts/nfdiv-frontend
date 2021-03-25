@@ -10,6 +10,7 @@ describe('to-api-format', () => {
     helpPayingNeeded: YesOrNo.Yes,
     alreadyAppliedForHelpPaying: YesOrNo.Yes,
     helpWithFeesRefNo: 'HWF-123-ABC',
+    agreeToReceiveEmails: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -23,6 +24,7 @@ describe('to-api-format', () => {
       D8HelpWithFeesNeedHelp: YesOrNo.Yes,
       D8HelpWithFeesAppliedForFees: YesOrNo.Yes,
       D8HelpWithFeesReferenceNumber: 'HWF-123-ABC',
+      PetitionerAgreedToReceiveEmails: YesOrNo.Yes,
     });
   });
 

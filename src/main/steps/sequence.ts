@@ -18,7 +18,7 @@ import {
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
-  HOW_THE_COURT_WILL_CONTACT_YOU,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
@@ -186,7 +186,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => ENGLISH_OR_WELSH,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -195,6 +195,11 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesSixMonths === YesOrNo.No
         ? HABITUALLY_RESIDENT_ENGLAND_WALES
         : JURISDICTION_INTERSTITIAL_URL,
+  },
+  {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
   },
   {
     url: ENGLISH_OR_WELSH,
@@ -207,7 +212,7 @@ export const sequence: Step[] = [
     getNextStep: data =>
       data.lastNameChangeWhenMarried === YesOrNo.Yes || data.anyNameChangeSinceMarriage === YesOrNo.Yes
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
-        : HOW_THE_COURT_WILL_CONTACT_YOU,
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: CHECK_ANSWERS_URL,

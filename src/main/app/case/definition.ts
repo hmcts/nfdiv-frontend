@@ -153,5 +153,5 @@ export const CREATE_DRAFT = 'create-draft';
 export const SAVE_AND_CLOSE = 'save-and-close';
 export const SOLICITOR_UPDATE = 'solicitorUpdate';
 export const SOLICITOR_CREATE = 'solicitorCreate';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE2';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE3';
 export const JURISDICTION = 'DIVORCE';
