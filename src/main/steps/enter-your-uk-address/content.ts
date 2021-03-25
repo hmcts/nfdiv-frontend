@@ -1,13 +1,9 @@
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
-import { getAddressesFromPostcode } from '../../app/services/postcodeLookup';
 
-const en = (addressesFound: number) => ({
+const en = {
   title: 'Enter your postal address',
-  selectAddress: 'Select an address',
-  addressesFound: `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
-  cannotFindAddress: 'I cannot find the address in the list',
   street: 'Building and street',
   town: 'Town or city',
   county: 'County',
@@ -25,7 +21,7 @@ const en = (addressesFound: number) => ({
       invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
     },
   },
-});
+};
 
 // @TODO translations
 const cy = en;
@@ -77,17 +73,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const foundAddresses = content.formState?.yourAddressPostcode
-    ? getAddressesFromPostcode(content.formState?.yourAddressPostcode).map(address => ({
-        value: '',
-        text: address.fullAddress,
-      }))
-    : [];
-
-  const translations = languages[content.language](foundAddresses.length);
+  const translations = languages[content.language];
   return {
     ...translations,
-    foundAddresses: [{ value: '', text: translations.addressesFound }, ...foundAddresses],
     form,
   };
 };

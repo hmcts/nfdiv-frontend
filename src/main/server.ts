@@ -40,7 +40,7 @@ new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
-new Nunjucks().enableFor(app);
+new Nunjucks().enableFor(app, logger);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new HealthCheck().enableFor(app);

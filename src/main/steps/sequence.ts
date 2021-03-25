@@ -30,6 +30,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  SELECT_YOUR_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -208,10 +209,15 @@ export const sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: () => ENTER_YOUR_UK_ADDRESS,
+    getNextStep: () => SELECT_YOUR_ADDRESS,
+  },
+  {
+    url: SELECT_YOUR_ADDRESS,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: ENTER_YOUR_UK_ADDRESS,
+    showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

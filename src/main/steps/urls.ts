@@ -44,4 +44,6 @@ export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-co
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
+export const SELECT_YOUR_ADDRESS: PageLink = '/select-your-address';
 export const ENTER_YOUR_UK_ADDRESS: PageLink = '/enter-your-uk-address';
+export const ENTER_YOUR_INTERNATIONAL_ADDRESS: PageLink = '/enter-your-international-address';
