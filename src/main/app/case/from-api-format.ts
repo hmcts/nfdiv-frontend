@@ -35,6 +35,9 @@ const fields = {
       yourAddressPostcode,
     };
   },
+  PetitionerAgreedToReceiveEmails: data => ({
+    agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
 };
 
 const fromApiDate = date => {

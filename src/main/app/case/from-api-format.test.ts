@@ -10,6 +10,7 @@ describe('from-api-format', () => {
     D8InferredPetitionerGender: 'male',
     D8ScreenHasMarriageBroken: 'YES',
     D8HelpWithFeesReferenceNumber: 'HWF-ABC-123',
+    PetitionerAgreedToReceiveEmails: 'YES',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -21,6 +22,7 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       screenHasUnionBroken: YesOrNo.Yes,
       helpWithFeesRefNo: 'HWF-ABC-123',
+      agreeToReceiveEmails: Checkbox.Checked,
     });
   });
 
@@ -38,6 +40,7 @@ describe('from-api-format', () => {
         year: '2000',
       },
       helpWithFeesRefNo: 'HWF-ABC-123',
+      agreeToReceiveEmails: Checkbox.Checked,
     });
   });
 });

@@ -101,3 +101,9 @@ export const isInvalidPostcode: Validator = value => {
     }
   }
 };
+
+export const isPhoneNoValid: Validator = value => {
+  if (typeof value === 'string') {
+    return !value.match(/^$|^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;
+  }
+};

@@ -54,6 +54,9 @@ const fields = {
       yourAddressPostcode,
     ].join('\n'),
   }),
+  agreeToReceiveEmails: (data: Case) => ({
+    PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

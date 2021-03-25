@@ -18,7 +18,10 @@ describe('ErrorController', () => {
 
     expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
     expect(res.statusCode).toBe(404);
-    expect(res.render).toBeCalledWith('error/error', { ...generatePageContent('en'), ...errorContent.en[404] });
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[404],
+    });
   });
 
   test('Should render error page with supplied status code', async () => {
@@ -30,7 +33,10 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(err.status);
-    expect(res.render).toBeCalledWith('error/error', { ...generatePageContent('en'), ...errorContent.en[400] });
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[400],
+    });
   });
 
   test('Should render error pages and fall back to a 500 error if status not given', async () => {
@@ -42,7 +48,10 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(500);
-    expect(res.render).toBeCalledWith('error/error', { ...generatePageContent('en'), ...errorContent.en[500] });
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[500],
+    });
   });
 
   test('Renders the error page with correct status code and logs the details', async () => {
@@ -54,7 +63,10 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('HTTPError: Bad request');
     expect(res.statusCode).toBe(400);
-    expect(res.render).toBeCalledWith('error/error', { ...generatePageContent('en'), ...errorContent.en[400] });
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[400],
+    });
   });
 
   test('Should render CSRF token error page', async () => {
@@ -65,7 +77,10 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('CSRF Token Failed');
     expect(res.statusCode).toBe(400);
-    expect(res.render).toBeCalledWith('error/error', { ...generatePageContent('en'), ...errorContent.en[400] });
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[400],
+    });
   });
 });
 
