@@ -8,21 +8,21 @@ describe('connections', () => {
     const body = { yourLifeBasedInEnglandAndWales: YesOrNo.Yes, partnersLifeBasedInEnglandAndWales: YesOrNo.Yes };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual(JurisdictionConnections.PET_RESP_RESIDENT);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_RESIDENT]);
   });
 
   test('Given petitioner and respondent are both last habitually resident, ' + 'should find connection B', async () => {
     const body = { lastHabituallyResident: YesOrNo.Yes };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual(JurisdictionConnections.PET_RESP_LAST_RESIDENT);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_LAST_RESIDENT]);
   });
 
   test('Given only respondent is habitually resident, should find connection C', async () => {
     const body = { yourLifeBasedInEnglandAndWales: YesOrNo.No, partnersLifeBasedInEnglandAndWales: YesOrNo.Yes };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual(JurisdictionConnections.RESP_RESIDENT);
+    expect(connectionAdded).toEqual([JurisdictionConnections.RESP_RESIDENT]);
   });
 
   test(
@@ -35,7 +35,7 @@ describe('connections', () => {
       };
 
       const connectionAdded = addConnection(body);
-      expect(connectionAdded).toEqual(JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS);
+      expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]);
     }
   );
 
@@ -52,7 +52,7 @@ describe('connections', () => {
       };
 
       const connectionAdded = addConnection(body);
-      expect(connectionAdded).toEqual(JurisdictionConnections.PET_RESIDENT_SIX_MONTHS);
+      expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]);
     }
   );
 
@@ -60,13 +60,13 @@ describe('connections', () => {
     const body = { yourDomicileInEnglandWales: YesOrNo.Yes, partnersDomicileInEnglandWales: YesOrNo.Yes };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual(JurisdictionConnections.PET_RESP_DOMICILED);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_DOMICILED]);
   });
 
   test('Given there is residual jurisdiction, should find connection G', async () => {
     const body = { jurisdictionResidualEligible: YesOrNo.Yes };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual(JurisdictionConnections.RESIDUAL_JURISDICTION);
+    expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
   });
 });
