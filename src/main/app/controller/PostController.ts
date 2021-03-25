@@ -19,7 +19,10 @@ export class PostController<T extends AnyObject> {
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
+    await this.postCase(req, res, formData);
+  }
 
+  public async postCase(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
