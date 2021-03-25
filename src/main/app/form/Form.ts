@@ -38,6 +38,18 @@ export class Form {
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
 
+    const checkboxErrors: FormError[] = [];
+    for (const [key, value] of Object.entries(fields)) {
+      (value as FormOptions)?.values
+        ?.filter(option => option.validator !== undefined)
+        .map(option => {
+          const errorType = option.validator?.(body?.[option.name as string]);
+          if (errorType) {
+            checkboxErrors.push({ errorType, propertyName: key });
+          }
+        });
+    }
+
     const subFieldErrors: FormError[] = [];
     for (const [key, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
@@ -47,7 +59,7 @@ export class Form {
         .map(subErrors => subFieldErrors.push(...subErrors));
     }
 
-    return [...errors, ...subFieldErrors];
+    return [...errors, ...checkboxErrors, ...subFieldErrors];
   }
 }
 
@@ -75,6 +87,7 @@ export interface FormOptions {
   type: string;
   label?: Label;
   labelHidden?: boolean;
+  labelSize?: string;
   values: FormInput[];
   validator?: ValidationCheck;
   parser?: Parser;
