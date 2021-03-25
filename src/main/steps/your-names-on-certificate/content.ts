@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../app/form/validation';
 
 const en = ({ isDivorce, relationship, partner, selectedGender }) => {
-  let personOfMaidenName = 'you and your civil partner';
+  let personOfMaidenName = 'you or your civil partner';
   if (isDivorce) {
     personOfMaidenName = selectedGender === Gender.MALE ? 'you' : 'your wife';
   }
