@@ -12,7 +12,7 @@
   </p>
 
   {% set addresses = formState.yourAddressPostcode | getAddressesFromPostcode %}
-  {% set foundAddresses = [{value: -1, text: addressesFound(addresses.length)}] %}
+  {% set foundAddresses = [{value: -1, text: addressesFound(addresses.length), selected: true}] %}
   {% for address in addresses %}
     {% set foundAddresses = (foundAddresses.push({
       value: loop.index0,
@@ -21,13 +21,16 @@
   {% endfor %}
 
   {{ govukSelect({
-    id: "findAddress",
-    name: "findAddress",
+    id: "selectAddress",
+    name: "selectAddress",
     classes: "govuk-!-width-three-quarters",
     label: {
       text: selectAddress
     },
-    items: foundAddresses
+    items: foundAddresses,
+    attributes: {
+      autocomplete: "off"
+    }
   }) }}
 
   <script id="addresses" type="application/json">{{ addresses | json }}</script>

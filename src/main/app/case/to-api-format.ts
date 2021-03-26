@@ -45,14 +45,11 @@ const fields = {
     yourAddressTown,
     yourAddressCounty,
     yourAddressPostcode,
+    myAddressIsInternational,
   }: Case) => ({
-    D8DerivedPetitionerHomeAddress: [
-      yourAddress1,
-      yourAddress2,
-      yourAddressTown,
-      yourAddressCounty,
-      yourAddressPostcode,
-    ].join('\n'),
+    D8DerivedPetitionerHomeAddress: !myAddressIsInternational
+      ? [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n')
+      : 'international_format',
   }),
   agreeToReceiveEmails: (data: Case) => ({
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,

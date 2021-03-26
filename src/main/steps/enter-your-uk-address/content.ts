@@ -5,6 +5,7 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 const en = {
   title: 'Enter your postal address',
   street: 'Building and street',
+  line2: 'Second line of address',
   town: 'Town or city',
   county: 'County',
   postcode: 'Postcode',
@@ -38,7 +39,7 @@ export const form: FormContent = {
     yourAddress2: {
       type: 'text',
       classes: 'govuk-label',
-      label: l => l.street,
+      label: l => l.line2,
       labelHidden: true,
     },
     yourAddressTown: {

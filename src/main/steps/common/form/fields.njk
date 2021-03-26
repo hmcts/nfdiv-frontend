@@ -3,8 +3,11 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% for fieldName, field in form.fields %}
+  {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
+
   {% switch field.type %}
     {% case 'radios' %}
       {{ govukRadios({
@@ -31,10 +34,10 @@
         classes: field.classes,
         idPrefix: fieldName,
         name: fieldName,
-        fieldset: {
+        fieldset: null if field.labelHidden else {
           legend: {
             text: getContent(field.label),
-            classes: "govuk-visually-hidden" if field.labelHidden else legendClasses
+            classes: legendClasses
           }
         },
         hint: {
@@ -69,8 +72,23 @@
         items: formItems(field.values, formState[fieldName]),
         errorMessage: getError(fieldName)
       }) }}
+    {% case 'textarea' %}
+      {{ govukTextarea({
+        name: fieldName,
+        id: fieldName,
+        label: {
+          text: getContent(field.label),
+          classes: "govuk-visually-hidden" if field.labelHidden else labelClasses
+        },
+        hint: {
+          html: getContent(field.hint)
+        },
+        value: formState[fieldName],
+        rows: field.attributes.rows,
+        attributes: field.attributes,
+        errorMessage: getError(fieldName)
+      }) }}
     {% default %}
-      {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
       {{ govukInput({
         id: fieldName,
         name: fieldName,
@@ -83,7 +101,7 @@
         hint: {
           html: getContent(field.hint)
         },
-        value: formState[fieldName],
+        value: field.value if field.value !== undefined else formState[fieldName],
         attributes: field.attributes,
         errorMessage: getError(fieldName)
       }) }}

@@ -11,6 +11,7 @@ import {
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_INTERNATIONAL_ADDRESS,
   ENTER_YOUR_UK_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -209,7 +210,8 @@ export const sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: () => SELECT_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.myAddressIsInternational === Checkbox.Checked ? ENTER_YOUR_INTERNATIONAL_ADDRESS : SELECT_YOUR_ADDRESS,
   },
   {
     url: SELECT_YOUR_ADDRESS,
@@ -217,6 +219,11 @@ export const sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_UK_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: ENTER_YOUR_INTERNATIONAL_ADDRESS,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
   },

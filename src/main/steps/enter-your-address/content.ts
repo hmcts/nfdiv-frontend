@@ -1,3 +1,4 @@
+import { Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isInvalidPostcode } from '../../app/form/validation';
@@ -25,7 +26,26 @@ export const form: FormContent = {
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcode,
       labelSize: null,
-      validator: isInvalidPostcode,
+      validator: (value, form) => {
+        if (form?.myAddressIsInternational === Checkbox.Checked) {
+          return;
+        }
+        return isInvalidPostcode(value);
+      },
+    },
+    yourAddressInternational: {
+      type: 'checkboxes',
+      classes: 'govuk-visually-hidden',
+      labelHidden: true,
+      values: [
+        {
+          name: 'myAddressIsInternational',
+          label: l => l.notUK,
+          value: Checkbox.Checked,
+          selected: false,
+          attributes: { autocomplete: 'off' },
+        },
+      ],
     },
   },
   submit: {

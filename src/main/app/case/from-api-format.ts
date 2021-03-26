@@ -20,13 +20,15 @@ const fields = {
       return {};
     }
 
-    const [
-      yourAddress1,
-      yourAddress2,
-      yourAddressTown,
-      yourAddressCounty,
-      yourAddressPostcode,
-    ] = data.D8DerivedPetitionerHomeAddress.split('\n');
+    const addressParts = data.D8DerivedPetitionerHomeAddress.split('\n');
+    if (addressParts.length !== 5) {
+      return {
+        yourFullAddress: data.D8DerivedPetitionerHomeAddress.replace('international_format', ''),
+        myAddressIsInternational: Checkbox.Checked,
+      };
+    }
+
+    const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
     return {
       yourAddress1,
       yourAddress2,

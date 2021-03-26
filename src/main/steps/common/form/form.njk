@@ -6,6 +6,8 @@
     {% include "./fields.njk" %}
   {% endblock %}
 
+  {% block after_fields %}{% endblock %}
+
   <div class="govuk-form-group">
     {{ govukButton({
       text: getContent(form.submit.text),
