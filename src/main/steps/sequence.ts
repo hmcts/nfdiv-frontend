@@ -16,6 +16,7 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
@@ -201,6 +202,11 @@ export const sequence: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },

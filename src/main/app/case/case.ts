@@ -23,6 +23,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
   phoneNumber: 'D8PetitionerPhoneNumber',
+  changedNameHow: 'D8PetitionerNameChangedHow',
+  changedNameHowAnotherWay: 'D8PetitionerNameChangedHowOtherDetails',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -68,6 +70,8 @@ export interface Case {
   englishOrWelsh?: LanguagePreference;
   phoneNumber?: string;
   agreeToReceiveEmails?: Checkbox;
+  changedNameHow?: ChangedNameHow;
+  changedNameHowAnotherWay?: string;
 }
 
 export interface CaseWithId extends Case {
@@ -93,4 +97,10 @@ export interface CaseDate {
 export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
+}
+
+export enum ChangedNameHow {
+  MarriageCertificate = 'Marriage certificate',
+  DeedPoll = 'Deed poll',
+  Other = 'Other',
 }

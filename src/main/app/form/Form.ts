@@ -104,6 +104,7 @@ export interface FormInput {
   validator?: ValidationCheck;
   parser?: Parser;
   warning?: Warning;
+  conditionalText?: Label;
   subFields?: Record<string, FormField>;
 }
 
