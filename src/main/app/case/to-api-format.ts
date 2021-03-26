@@ -1,4 +1,4 @@
-import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
+import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, DivorceOrDissolution, Gender } from './definition';
