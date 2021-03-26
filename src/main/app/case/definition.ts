@@ -253,5 +253,5 @@ export const SUBMIT_PETITION = 'submit-petition';
 export const SOLICITOR_UPDATE = 'solicitor-update';
 export const CREATE_DRAFT = 'create-draft';
 export const PATCH_CASE = 'patch-case';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE3';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE4';
 export const JURISDICTION = 'DIVORCE';
