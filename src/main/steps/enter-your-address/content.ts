@@ -26,6 +26,7 @@ export const form: FormContent = {
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcode,
       labelSize: null,
+      hideError: true,
       validator: (value, form) => {
         if (form?.myAddressIsInternational === Checkbox.Checked) {
           return;

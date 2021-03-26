@@ -36,6 +36,10 @@ When('I select {string} for {string}', (optionLabel: string, fieldLabel: string)
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 });
 
+Given('I choose {string} from {string}', (option: string, select: string) => {
+  I.selectOption(select, option);
+});
+
 Then('I expect the page title to be {string}', (title: string) => {
   I.seeInTitle(title);
 });
@@ -46,6 +50,10 @@ Then('the page should include {string}', (text: string) => {
 
 Then('the page should not include {string}', (text: string) => {
   I.dontSee(text);
+});
+
+Then('the form input {string} should be {string}', (formInput: string, value: string) => {
+  I.seeInField(formInput, value);
 });
 
 Then('{string} should be ticked', (text: string) => {

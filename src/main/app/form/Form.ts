@@ -88,6 +88,7 @@ export interface FormOptions {
   label?: Label;
   labelHidden?: boolean;
   labelSize?: string | null;
+  hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
   validator?: ValidationCheck;

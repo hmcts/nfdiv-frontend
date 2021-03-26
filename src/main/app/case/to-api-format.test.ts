@@ -83,4 +83,33 @@ describe('to-api-format', () => {
       });
     }
   );
+
+  describe('converting your address between UK and international', () => {
+    test('converts to UK format', () => {
+      const apiFormat = toApiFormat(({
+        ...results,
+        yourAddress1: 'Line 1',
+        yourAddress2: 'Line 2',
+        yourAddressTown: 'Town',
+        yourAddressCounty: 'County',
+        yourAddressPostcode: 'Postcode',
+      } as unknown) as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        D8DerivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+      });
+    });
+
+    test('converts to an international format', () => {
+      const apiFormat = toApiFormat(({
+        ...results,
+        yourAddressPostcode: '',
+        myAddressIsInternational: Checkbox.Checked,
+      } as unknown) as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        D8DerivedPetitionerHomeAddress: 'international_format',
+      });
+    });
+  });
 });

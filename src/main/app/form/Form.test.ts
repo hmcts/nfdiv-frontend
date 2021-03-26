@@ -13,7 +13,7 @@ describe('Form', () => {
           { label: l => l.no, value: YesOrNo.Yes },
           { label: l => l.yes, value: YesOrNo.No },
         ],
-        validator: value => isFieldFilledIn(value),
+        validator: jest.fn().mockImplementation(isFieldFilledIn),
       },
       dateField: {
         type: 'date',
@@ -23,7 +23,7 @@ describe('Form', () => {
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
         parser: value => covertToDateObject('dateField', value),
-        validator: value => isFieldFilledIn(value),
+        validator: isFieldFilledIn,
       },
       someCheckboxes: {
         type: 'checkboxes',
@@ -56,6 +56,11 @@ describe('Form', () => {
       requiredCheckbox: Checkbox.Checked,
     } as unknown) as Case);
 
+    expect(mockForm.fields.field.validator).toHaveBeenCalledWith(YesOrNo.Yes, {
+      field: YesOrNo.Yes,
+      dateField: { day: '1', month: '1', year: '2000' },
+      requiredCheckbox: Checkbox.Checked,
+    });
     expect(errors).toStrictEqual([]);
   });
 
