@@ -17,7 +17,7 @@ const en = ({ required }) => ({
     changedNameHow: {
       required,
     },
-    howDidNameChangeAnotherWay: {
+    changedNameHowAnotherWay: {
       required:
         'You have said you changed your name another way but not provided details. Provide details of how you changed your name.',
     },
