@@ -51,7 +51,7 @@
     "@types/lockfile": "^1.0.1",
     "@types/lodash": "^4.14.168",
     "@types/negotiator": "^0.6.1",
-    "@types/node": "^14.14.34",
+    "@types/node": "^14.14.36",
     "@types/nunjucks": "^3.1.4",
     "@types/redis": "^2.8.28",
     "@types/require-directory": "^2.1.1",
