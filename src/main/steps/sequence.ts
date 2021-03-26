@@ -4,6 +4,7 @@ import { isLessThanAYear } from '../app/form/validation';
 import {
   CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
+  CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHECK_ANSWERS_URL,
@@ -188,7 +189,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -197,6 +198,11 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesSixMonths === YesOrNo.No
         ? HABITUALLY_RESIDENT_ENGLAND_WALES
         : JURISDICTION_INTERSTITIAL_URL,
+  },
+  {
+    url: CERTIFICATE_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,

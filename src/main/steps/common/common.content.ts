@@ -174,6 +174,7 @@ export const generatePageContent = ({
 
   const content: CommonContent = {
     ...commonTranslations,
+    selectedGender,
     partner,
     language,
     isDivorce,
@@ -208,6 +209,7 @@ export type CommonContent = typeof en & {
   formState?: Partial<Case>;
   partner: string;
   userEmail?: string;
+  selectedGender: Gender;
 };
 
 export type Language = 'en' | 'cy';

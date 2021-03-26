@@ -133,6 +133,7 @@ describe('GetController', () => {
       },
       text: 'english',
       userEmail,
+      selectedGender: Gender.FEMALE,
     });
   });
 
