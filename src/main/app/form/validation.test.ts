@@ -4,6 +4,7 @@ import {
   areFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
+  isFieldLetters,
   isFutureDate,
   isInvalidHelpWithFeesRef,
   isLessThanAYear,
@@ -134,6 +135,19 @@ describe('Validation', () => {
       { mockTel: '+1 (0)12345678901$', expected: 'invalid' },
     ])('validates a phone number when %o', ({ mockTel, expected }) => {
       expect(isPhoneNoValid(mockTel)).toEqual(expected);
+    });
+  });
+  describe('isFieldLetters()', () => {
+    test('Should check if value only letters', async () => {
+      const isValid = isFieldLetters('Firstname Lastname');
+
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should check if value has a number in it', async () => {
+      const isValid = isFieldLetters('1stname Lastname');
+
+      expect(isValid).toStrictEqual('invalid');
     });
   });
 });

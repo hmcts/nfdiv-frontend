@@ -1311,12 +1311,12 @@
   dependencies:
     "@types/express" "*"
 
-"@types/copy-webpack-plugin@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@types/copy-webpack-plugin/-/copy-webpack-plugin-6.4.0.tgz#225f86bc60a62052df39a110f7cbf7bc5156a0c1"
-  integrity sha512-f5mQG5c7xH3zLGrEmKgzLLFSGNB7Y4+4a+a1X4DvjgfbTEWEZUNNXUqGs5tBVCtb5qKPzm2z+6ixX3xirWmOCg==
+"@types/copy-webpack-plugin@^6.4.1":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@types/copy-webpack-plugin/-/copy-webpack-plugin-6.4.1.tgz#f2ab07def407c6a1fcfe626864b326c3584e2167"
+  integrity sha512-jnM0aMsaMTBr+xlMIO/fu+ZXIbSncmj4UB9ZHTXVfZJsUwGqtdfdSfz1/S8O99R9k7G5V6KhbAd8+QL0f2kUkg==
   dependencies:
-    "@types/webpack" "*"
+    "@types/webpack" "^4"
 
 "@types/csurf@^1.9.36":
   version "1.11.0"
@@ -1459,12 +1459,12 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
-"@types/mini-css-extract-plugin@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@types/mini-css-extract-plugin/-/mini-css-extract-plugin-1.2.2.tgz#e6031da8d60777b3da3f5b4daf285437d7b6580b"
-  integrity sha512-EoHBJ4rcrd5j7weAFE4yU1gxedx53EFCWKso03G7DW0h2YvtwjKYz/NnuFHudcQDI1HpTLqoQFTwEgfJxygYCw==
+"@types/mini-css-extract-plugin@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@types/mini-css-extract-plugin/-/mini-css-extract-plugin-1.2.3.tgz#199037f2f3e11fa0fa3e7606d762a6cd56a22785"
+  integrity sha512-kWuO6PeoOqlxaP+6NCSfM7x+NowqXwLnS03w/G6gYYhOviIx5bC3jeOhp5zloqe75pNJuBxfuJPKN+ABc4Xklw==
   dependencies:
-    "@types/webpack" "*"
+    "@types/webpack" "^4"
 
 "@types/minimatch@*":
   version "3.0.3"

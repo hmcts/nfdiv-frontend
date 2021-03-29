@@ -94,3 +94,9 @@ export const isPhoneNoValid: Validator = value => {
     return !value.match(/^$|^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;
   }
 };
+
+export const isFieldLetters: Validator = value => {
+  if (!(value as string).match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
+    return 'invalid';
+  }
+};

@@ -6,7 +6,14 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step, sequence } from './sequence';
-import { CHECK_ANSWERS_URL } from './urls';
+import {
+  CHECK_ANSWERS_URL,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+} from './urls';
 
 const stepForms = {};
 
@@ -71,3 +78,11 @@ export const stepsWithContent = ((): StepWithContent => {
   }
   return results;
 })();
+
+export const jurisdictionSteps = [
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
+];
