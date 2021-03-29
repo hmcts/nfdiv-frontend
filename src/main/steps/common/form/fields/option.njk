@@ -1,0 +1,11 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{{ govukSelect({
+  id: fieldName,
+  name: fieldName,
+  label: {
+    text: getContent(field.label)
+  },
+  items: formItems(field.values, formState[fieldName]),
+  errorMessage: getError(fieldName)
+}) }}

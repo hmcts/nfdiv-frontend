@@ -1,0 +1,17 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{{ govukDateInput({
+  id: fieldName,
+  namePrefix: fieldName,
+  fieldset: {
+    legend: {
+      text: getContent(field.label),
+      classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
+    }
+  },
+  hint: {
+    text: hint
+  },
+  items: formItems(field.values, formState[fieldName]),
+  errorMessage: getError(fieldName)
+}) }}
