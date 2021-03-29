@@ -210,7 +210,7 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_NAME,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
