@@ -27,8 +27,8 @@ export const form: FormContent = {
       label: l => l.postcode,
       labelSize: null,
       hideError: true,
-      validator: (value, form) => {
-        if (form?.myAddressIsInternational === Checkbox.Checked) {
+      validator: (value, form = {}) => {
+        if (form.myAddressIsInternational === Checkbox.Checked) {
           return;
         }
         return isInvalidPostcode(value);

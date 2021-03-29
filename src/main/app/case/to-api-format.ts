@@ -2,6 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, DivorceOrDissolution, Gender } from './definition';
+import { toApi as formatAddress } from './formatter/address';
 
 const fields = {
   ...formFieldsToCaseMapping,
@@ -39,18 +40,7 @@ const fields = {
   englishOrWelsh: (data: Case) => ({
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
-  yourAddressPostcode: ({
-    yourAddress1,
-    yourAddress2,
-    yourAddressTown,
-    yourAddressCounty,
-    yourAddressPostcode,
-    myAddressIsInternational,
-  }: Case) => ({
-    D8DerivedPetitionerHomeAddress: !myAddressIsInternational
-      ? [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n')
-      : 'international_format',
-  }),
+  yourAddressPostcode: formatAddress,
   agreeToReceiveEmails: (data: Case) => ({
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),

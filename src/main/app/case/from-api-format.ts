@@ -2,6 +2,7 @@ import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData } from './definition';
+import { fromApi as formatAddress } from './formatter/address';
 
 const fields = {
   ...invert(formFieldsToCaseMapping),
@@ -15,28 +16,7 @@ const fields = {
     englishOrWelsh:
       data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  D8DerivedPetitionerHomeAddress: data => {
-    if (!data.D8DerivedPetitionerHomeAddress) {
-      return {};
-    }
-
-    const addressParts = data.D8DerivedPetitionerHomeAddress.split('\n');
-    if (addressParts.length !== 5) {
-      return {
-        yourFullAddress: data.D8DerivedPetitionerHomeAddress.replace('international_format', ''),
-        myAddressIsInternational: Checkbox.Checked,
-      };
-    }
-
-    const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
-    return {
-      yourAddress1,
-      yourAddress2,
-      yourAddressTown,
-      yourAddressCounty,
-      yourAddressPostcode,
-    };
-  },
+  D8DerivedPetitionerHomeAddress: formatAddress,
   PetitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
   }),
