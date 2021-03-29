@@ -105,7 +105,7 @@ describe('Postcode Lookup', () => {
   });
 
   it('returns an empty array with an invalid postcode', async () => {
-    mockedAxios.get.mockRejectedValueOnce({ data: invalidPostcode400Response });
+    mockedAxios.get.mockRejectedValueOnce({ response: { data: invalidPostcode400Response } });
 
     const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
 
@@ -114,11 +114,20 @@ describe('Postcode Lookup', () => {
   });
 
   it('returns an empty array when the token is incorrect and logs the error', async () => {
-    mockedAxios.get.mockRejectedValueOnce({ response: { status: 401 }, data: invalidPostcodeKey401Response });
+    mockedAxios.get.mockRejectedValueOnce({ response: { status: 401, data: invalidPostcodeKey401Response } });
 
     const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
 
     expect(mockLogger.error).toHaveBeenCalledWith('Postcode lookup key is invalid');
+    expect(actual).toEqual([]);
+  });
+
+  it('returns an empty array when the request fails', async () => {
+    mockedAxios.get.mockRejectedValueOnce({ code: 'ECONNABORTED' });
+
+    const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
+
+    expect(mockLogger.error).toHaveBeenCalledWith('Postcode lookup service error', { code: 'ECONNABORTED' });
     expect(actual).toEqual([]);
   });
 });
