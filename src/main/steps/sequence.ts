@@ -2,7 +2,6 @@ import { CaseWithId, Checkbox, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
-  CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -22,6 +21,7 @@ import {
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
+  JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
@@ -171,7 +171,7 @@ export const sequence: Step[] = [
       if (data.lastHabituallyResident === YesOrNo.No && data.sameSex === Checkbox.Checked) {
         return RESIDUAL_JURISDICTION;
       } else if (data.lastHabituallyResident === YesOrNo.No) {
-        return CANT_DIVORCE;
+        return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
       }
@@ -212,6 +212,10 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
