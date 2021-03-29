@@ -108,7 +108,7 @@ export enum LanguagePreference {
 }
 
 export enum ChangedNameHow {
-  MarriageCertificate = 'Marriage certificate',
-  DeedPoll = 'Deed poll',
-  Other = 'Other',
+  MarriageCertificate = 'marriageCertificate',
+  DeedPoll = 'deedPoll',
+  Other = 'other',
 }
