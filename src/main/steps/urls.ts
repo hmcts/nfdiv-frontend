@@ -42,4 +42,5 @@ export const CANT_DIVORCE: PageLink = '/cant-divorce';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
+export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
