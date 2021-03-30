@@ -1,12 +1,14 @@
 import { pick } from 'lodash';
 
+import { stepsWithContent } from '../../../steps';
 import { Step } from '../../../steps/sequence';
 import { FormContent, FormOptions } from '../../form/Form';
+import { CaseApi } from '../CaseApi';
 import { Case } from '../case';
 
 type StepWithForm = { form?: FormContent } & Step;
 
-export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]): Partial<Case> => {
+export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {
   const sequenceWithForms = (steps as StepWithForm[]).filter(step => step.form);
 
   const getPossibleFields = (step: StepWithForm, fields = [] as string[]) => {
@@ -37,5 +39,17 @@ export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]):
     return fields;
   };
 
-  return pick(caseState, getPossibleFields(sequenceWithForms[0]));
+  return getPossibleFields(sequenceWithForms[0]);
+};
+
+export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]): Partial<Case> =>
+  pick(caseState, getAllPossibleAnswers(caseState, steps));
+
+export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
+  const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
+  return Object.fromEntries(
+    Object.keys(userCase)
+      .filter(key => !CaseApi.READONLY_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
+      .map(key => [key, null])
+  );
 };

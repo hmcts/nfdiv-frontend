@@ -1,4 +1,4 @@
-import { isInvalidHelpWithFeesRef } from '../../app/form/validation';
+import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, DivorceOrDissolution, Gender } from './definition';
@@ -34,15 +34,13 @@ const fields = {
     D8MarriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
-    D8HelpWithFeesReferenceNumber:
-      data.helpPayingNeeded === YesOrNo.Yes &&
-      data.alreadyAppliedForHelpPaying === YesOrNo.Yes &&
-      !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo)
-        ? data.helpWithFeesRefNo
-        : '',
+    D8HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
   }),
   englishOrWelsh: (data: Case) => ({
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
+  }),
+  agreeToReceiveEmails: (data: Case) => ({
+    PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
 };
 

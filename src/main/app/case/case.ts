@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { DivorceOrDissolution, Gender } from './definition';
+import { DivorceOrDissolution, Gender, JurisdictionConnections } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   divorceOrDissolution: 'divorceOrDissolution',
@@ -22,6 +22,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
+  phoneNumber: 'D8PetitionerPhoneNumber',
+  jurisdictionResidualEligible: 'JurisdictionResidualEligible',
+  connections: 'JurisdictionConnections',
+  fullNameOnCertificate: 'D8MarriagePetitionerName',
+  partnersFullNameOnCertificate: 'D8MarriageRespondentName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -64,7 +69,13 @@ export interface Case {
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
+  jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  phoneNumber?: string;
+  agreeToReceiveEmails?: Checkbox;
+  connections: JurisdictionConnections[];
+  fullNameOnCertificate?: string;
+  partnersFullNameOnCertificate?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -5,17 +5,19 @@ import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
-import { omitUnreachableAnswers } from './omitUnreachableAnswers';
+import { omitUnreachableAnswers } from './possibleAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
     formState,
+    userEmail,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     partner: string;
+    userEmail: string;
     formState: Partial<Case>;
   } = this.ctx;
 
@@ -27,7 +29,13 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       const fieldKeys = Object.keys(step.form.fields);
       const stepContent = {
         ...this.ctx,
-        ...generatePageContent(language, step.generateContent, isDivorce, processedFormState),
+        ...generatePageContent({
+          language,
+          pageContent: step.generateContent,
+          isDivorce,
+          formState: processedFormState,
+          userEmail,
+        }),
       };
       const questionAnswers: GovUkNunjucksSummary[] = [];
 

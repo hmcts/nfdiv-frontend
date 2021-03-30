@@ -10,6 +10,7 @@ describe('to-api-format', () => {
     helpPayingNeeded: YesOrNo.Yes,
     alreadyAppliedForHelpPaying: YesOrNo.Yes,
     helpWithFeesRefNo: 'HWF-123-ABC',
+    agreeToReceiveEmails: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -23,17 +24,7 @@ describe('to-api-format', () => {
       D8HelpWithFeesNeedHelp: YesOrNo.Yes,
       D8HelpWithFeesAppliedForFees: YesOrNo.Yes,
       D8HelpWithFeesReferenceNumber: 'HWF-123-ABC',
-    });
-  });
-
-  test('removes optional fields based on other fields data', async () => {
-    const apiFormat = toApiFormat({
-      // Missing alreadyAppliedForHelpPaying
-      helpWithFeesRefNo: 'HWF-123-ABC',
-    } as Partial<Case>);
-
-    expect(apiFormat).toMatchObject({
-      D8HelpWithFeesReferenceNumber: '',
+      PetitionerAgreedToReceiveEmails: YesOrNo.Yes,
     });
   });
 

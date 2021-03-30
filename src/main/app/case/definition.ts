@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-03-16 10:42:02.
+// Generated using typescript-generator version 2.30.840 on 2021-03-24 18:19:07.
 
 export interface Address {
   AddressLine1: string;
@@ -20,6 +20,20 @@ export interface Document {
   document_url: string;
   document_filename: string;
   document_binary_url: string;
+}
+
+export interface DynamicElementIndicator {}
+
+export interface DynamicList {
+  value: DynamicListElement;
+  valueLabel: string;
+  valueCode: string;
+  list_items: DynamicListElement[];
+}
+
+export interface DynamicListElement {
+  code: string;
+  label: string;
 }
 
 export interface Fee {
@@ -54,9 +68,12 @@ export interface CaseData {
   D8MarriedInUk: YesOrNo;
   D8CertificateInEnglish: YesOrNo;
   D8CertifiedTranslation: YesOrNo;
+  D8CountryName: string;
+  D8MarriagePlaceOfMarriage: string;
   D8PetitionerFirstName: string;
   D8PetitionerLastName: string;
   D8PetitionerEmail: string;
+  PetitionerAgreedToReceiveEmails: YesOrNo;
   JurisdictionPetitionerResidence: YesOrNo;
   JurisdictionRespondentResidence: YesOrNo;
   JurisdictionPetitionerDomicile: YesOrNo;
@@ -84,6 +101,27 @@ export interface CaseData {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   DerivedPetitionerSolicitorAddr: string;
   PetitionerOrganisationPolicy: string;
+  D8MarriagePetitionerName: string;
+  D8MarriageRespondentName: string;
+  SolUrgentCase: YesOrNo;
+  SolUrgentCaseSupportingInformation: string;
+  D8DivorceCostsClaim: YesOrNo;
+  D8FinancialOrder: YesOrNo;
+  SolServiceMethod: SolServiceMethod;
+  SolStatementOfReconciliationCertify: YesOrNo;
+  SolStatementOfReconciliationDiscussed: YesOrNo;
+  D8StatementOfTruth: YesOrNo;
+  SolSignStatementOfTruth: YesOrNo;
+  SolStatementOfReconciliationName: string;
+  SolStatementOfReconciliationFirm: string;
+  StatementOfReconciliationComments: string;
+  SolApplicationFeeInPounds: string;
+  SolPaymentHowToPay: SolToPay;
+  PbaNumbers: DynamicList;
+  FeeAccountReference: string;
+  SolApplicationFeeOrderSummary: OrderSummary;
+  LastNameChangedWhenMarried: YesOrNo;
+  JurisdictionConnections: JurisdictionConnections[];
 }
 
 export const enum FieldType {
@@ -100,6 +138,7 @@ export const enum FieldType {
   Address = 'Address',
   CaseLink = 'CaseLink',
   OrderSummary = 'OrderSummary',
+  MultiSelectList = 'MultiSelectList',
 }
 
 export const enum YesOrNo {
@@ -110,6 +149,8 @@ export const enum YesOrNo {
 export const enum State {
   Draft = 'Draft',
   SOTAgreementPayAndSubmitRequired = 'SOTAgreementPayAndSubmitRequired',
+  Submitted = 'Submitted',
+  SolicitorAwaitingPaymentConfirmation = 'SolicitorAwaitingPaymentConfirmation',
 }
 
 export const enum UserRole {
@@ -148,10 +189,69 @@ export const enum ConfidentialAddress {
   SHARE = 'share',
   KEEP = 'keep',
 }
-export const PATCH_CASE = 'patch-case';
-export const CREATE_DRAFT = 'create-draft';
+
+export const enum SolServiceMethod {
+  PERSONAL_SERVICE = 'personalService',
+  COURT_SERVICE = 'courtService',
+}
+
+export const enum SolToPay {
+  FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
+  FEES_HELP_WITH = 'feesHelpWith',
+}
+
+/**
+ * Values:
+ * - `A` - The Petitioner and Respondent are habitually resident
+ * - `B` - The Petitioner and Respondent were last habitually resident in England and Wales
+ * - `C` - The Respondent habitually resides in England and Wales
+ * - `D` - The Petitioner is habitually resident in England and Wales and has been for 12 months
+ * - `E` - The Petitioner is habitually resident in England and Wales and has been for 6 months
+ * - `F` - The Petitioner and Respondent are both domiciled in England and Wales
+ * - `G` - Eligible for Residual Jurisdiction
+ */
+export const enum JurisdictionConnections {
+  /**
+   * The Petitioner and Respondent are habitually resident
+   */
+  PET_RESP_RESIDENT = 'A',
+  /**
+   * The Petitioner and Respondent were last habitually resident in England and Wales
+   */
+  PET_RESP_LAST_RESIDENT = 'B',
+  /**
+   * The Respondent habitually resides in England and Wales
+   */
+  RESP_RESIDENT = 'C',
+  /**
+   * The Petitioner is habitually resident in England and Wales and has been for 12 months
+   */
+  PET_RESIDENT_TWELVE_MONTHS = 'D',
+  /**
+   * The Petitioner is habitually resident in England and Wales and has been for 6 months
+   */
+  PET_RESIDENT_SIX_MONTHS = 'E',
+  /**
+   * The Petitioner and Respondent are both domiciled in England and Wales
+   */
+  PET_RESP_DOMICILED = 'F',
+  /**
+   * Eligible for Residual Jurisdiction
+   */
+  RESIDUAL_JURISDICTION = 'G',
+}
+export const D_8_PETITIONER_FIRST_NAME = 'D8PetitionerFirstName';
+export const D_8_PETITIONER_LAST_NAME = 'D8PetitionerLastName';
+export const D_8_PETITIONER_EMAIL = 'D8PetitionerEmail';
+export const FIRSTNAME = 'FirstName';
+export const LASTNAME = 'LastName';
+export const EMAIL = 'Email';
 export const SAVE_AND_CLOSE = 'save-and-close';
-export const SOLICITOR_UPDATE = 'solicitorUpdate';
-export const SOLICITOR_CREATE = 'solicitorCreate';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE2';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const SUBMIT_PETITION = 'submit-petition';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const CREATE_DRAFT = 'create-draft';
+export const PATCH_CASE = 'patch-case';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE3';
 export const JURISDICTION = 'DIVORCE';
