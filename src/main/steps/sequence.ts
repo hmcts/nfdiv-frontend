@@ -214,7 +214,7 @@ export const sequence: Step[] = [
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: CHECK_ANSWERS_URL,
