@@ -83,6 +83,14 @@ export const iClearTheForm = (): void => {
 };
 Given('I clear the form', iClearTheForm);
 
+Given('I reset the postcode lookup form', () => {
+  iClearTheForm();
+
+  I.executeScript(() => {
+    (document.querySelector('[data-link="resetPostcodeLookup"]') as HTMLAnchorElement).click();
+  });
+});
+
 Given("I've said I'm divorcing my husband", () => {
   I.amOnPage('/your-details');
   I.checkOption('My husband');

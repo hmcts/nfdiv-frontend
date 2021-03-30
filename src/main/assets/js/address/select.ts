@@ -1,30 +1,29 @@
+import { getById, hidden } from '../selectors';
+
 import { hideErrors, showError } from './errors';
 
-const selectAddressInput = document.getElementById('selectAddressInput') as HTMLInputElement | null;
+const selectAddressInput = getById('selectAddressInput') as HTMLInputElement | null;
 if (selectAddressInput) {
   const updateAddressInputs = () => {
     const selectedValue = selectAddressInput.value;
     if (selectedValue !== '-1') {
       const selectedAddress = JSON.parse(selectedValue);
-      (document.getElementById('address1') as HTMLInputElement).value = selectedAddress.street1;
-      (document.getElementById('address2') as HTMLInputElement).value = selectedAddress.street2;
-      (document.getElementById('addressTown') as HTMLInputElement).value = selectedAddress.town;
-      (document.getElementById('addressCounty') as HTMLInputElement).value = selectedAddress.county;
-      (document.getElementById('addressPostcode') as HTMLInputElement).value = selectedAddress.postcode;
+      (getById('address1') as HTMLInputElement).value = selectedAddress.street1;
+      (getById('address2') as HTMLInputElement).value = selectedAddress.street2;
+      (getById('addressTown') as HTMLInputElement).value = selectedAddress.town;
+      (getById('addressCounty') as HTMLInputElement).value = selectedAddress.county;
+      (getById('addressPostcode') as HTMLInputElement).value = selectedAddress.postcode;
     }
   };
 
   selectAddressInput.onchange = updateAddressInputs;
   updateAddressInputs();
 
-  (document.getElementById('main-form') as HTMLFormElement).onsubmit = () => {
+  (getById('main-form') as HTMLFormElement).onsubmit = () => {
     updateAddressInputs();
     hideErrors();
 
-    if (
-      !document.getElementById('selectAddress')?.classList.contains('govuk-visually-hidden') &&
-      selectAddressInput.value === '-1'
-    ) {
+    if (!getById('selectAddress')?.classList.contains(hidden) && selectAddressInput.value === '-1') {
       showError('errorAddressNotSelected');
       return false;
     }

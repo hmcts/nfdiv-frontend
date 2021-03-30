@@ -45,6 +45,18 @@ describe('from-api-format', () => {
   });
 
   describe('converting your address between UK and international', () => {
+    test('works correctly when not set', () => {
+      const nfdivFormat = fromApiFormat(({
+        ...results,
+        D8DerivedPetitionerHomeAddress: undefined,
+      } as unknown) as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        isInternationalAddress: undefined,
+        yourInternationalAddress: undefined,
+      });
+    });
+
     test('converts to UK format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
@@ -57,17 +69,19 @@ describe('from-api-format', () => {
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
+        isInternationalAddress: YesOrNo.No,
       });
     });
 
     test('converts to an international format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
-        D8DerivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry international_format',
+        D8DerivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry ',
+        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        isInternationalAddress: YesOrNo.Yes,
       });
     });
   });

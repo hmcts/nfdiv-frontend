@@ -41,6 +41,7 @@ const fields = {
     LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
   }),
   yourAddressPostcode: formatAddress,
+  yourInternationalAddress: formatAddress,
   agreeToReceiveEmails: (data: Case) => ({
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),

@@ -2,7 +2,7 @@ import { Case, YesOrNo } from '../case';
 import { CaseData } from '../definition';
 
 export const fromApi = (data: CaseData): Partial<Case> => {
-  const addressParts = data.D8DerivedPetitionerHomeAddress.split('\n');
+  const addressParts = data.D8DerivedPetitionerHomeAddress?.split('\n') || [];
   if (addressParts.length !== 5) {
     return {
       isInternationalAddress: addressParts.length ? YesOrNo.Yes : undefined,

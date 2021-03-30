@@ -14,5 +14,8 @@
   },
   value: field.value if field.value !== undefined else formState[fieldName],
   attributes: field.attributes,
-  errorMessage: null if field.hideError else getError(fieldName)
+  errorMessage: null if field.hideError else getError(fieldName),
+  formGroup: {
+    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+  }
 }) }}

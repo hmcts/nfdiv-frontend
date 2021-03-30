@@ -2,12 +2,13 @@ import { isInvalidPostcode as checkIfPostcodeInvalid } from '../../../app/form/v
 import type { CommonContent } from '../../../steps/common/common.content';
 import { generateContent } from '../../../steps/enter-your-address/content';
 import { POSTCODE_LOOKUP } from '../../../steps/urls';
+import { getById, hidden } from '../selectors';
 
 import { hideErrors, showError } from './errors';
 
-const postcodeLookupForm = document.getElementById('postcodeLookup') as HTMLFormElement | null;
-const findAddressButton = document.getElementById('findAddressButton') as HTMLInputElement | null;
-const selectAddress = document.getElementById('selectAddressInput') as HTMLSelectElement | null;
+const postcodeLookupForm = getById('postcodeLookup') as HTMLFormElement | null;
+const findAddressButton = getById('findAddressButton') as HTMLInputElement | null;
+const selectAddress = getById('selectAddressInput') as HTMLSelectElement | null;
 
 if (postcodeLookupForm && findAddressButton && selectAddress) {
   postcodeLookupForm.onsubmit = async function (e) {
@@ -41,10 +42,10 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
 
       const addresses = await response.json();
 
-      (document.getElementById('notInternationalAddress') as HTMLInputElement).checked = true;
-      (document.getElementById('postcode') as HTMLElement).textContent = postcode;
+      (getById('notInternationalAddress') as HTMLInputElement).checked = true;
+      (getById('postcode') as HTMLElement).textContent = postcode;
 
-      const totalFound = document.getElementById('totalAddressesFound') as HTMLOptionElement;
+      const totalFound = getById('totalAddressesFound') as HTMLOptionElement;
       if (totalFound) {
         const content = generateContent({
           language: document.documentElement.lang,
@@ -64,9 +65,9 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
       document.body.style.cursor = 'default';
       findAddressButton.style.cursor = 'pointer';
 
-      (document.getElementById('enterPostcode') as HTMLElement).classList.add('govuk-visually-hidden');
-      (document.getElementById('selectAddress') as HTMLElement).classList.remove('govuk-visually-hidden');
-      (document.getElementById('main-form-submit') as HTMLElement).classList.remove('govuk-visually-hidden');
+      (getById('enterPostcode') as HTMLElement).classList.add(hidden);
+      (getById('selectAddress') as HTMLElement).classList.remove(hidden);
+      (getById('main-form-submit') as HTMLElement).classList.remove(hidden);
     }
   };
 }

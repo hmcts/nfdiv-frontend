@@ -7,5 +7,8 @@
     text: getContent(field.label)
   },
   items: formItems(field.values, formState[fieldName]),
-  errorMessage: getError(fieldName)
+  errorMessage: getError(fieldName),
+  formGroup: {
+    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+  }
 }) }}

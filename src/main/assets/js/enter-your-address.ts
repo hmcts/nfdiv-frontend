@@ -1,11 +1,12 @@
 import { YesOrNo } from '../../app/case/case';
 
 import { hideLookupPostcode, showInternationalAddressFields, showUkAddressFields } from './address/links';
+import { getById } from './selectors';
 
 import './address/select';
 import './address/submit';
 
-const form = document.getElementById('main-form') as HTMLFormElement | null;
+const form = getById('main-form') as HTMLFormElement | null;
 if (form) {
   const formData = new FormData(form);
   const isInternationalAddress = formData.get('isInternationalAddress');

@@ -101,13 +101,15 @@ describe('to-api-format', () => {
     });
 
     test('converts to an international format', () => {
+      const mockInternationalAddress = 'Parliament House, Parliament Dr, Canberra ACT 2600, Australia';
       const apiFormat = toApiFormat(({
         ...results,
-        yourAddressPostcode: '',
+        isInternationalAddress: YesOrNo.Yes,
+        yourInternationalAddress: mockInternationalAddress,
       } as unknown) as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        D8DerivedPetitionerHomeAddress: 'international_format',
+        D8DerivedPetitionerHomeAddress: mockInternationalAddress,
       });
     });
   });

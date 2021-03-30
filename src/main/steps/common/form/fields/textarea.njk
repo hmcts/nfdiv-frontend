@@ -13,5 +13,8 @@
   value: formState[fieldName],
   rows: field.attributes.rows,
   attributes: field.attributes,
-  errorMessage: null if field.hideError else getError(fieldName)
+  errorMessage: null if field.hideError else getError(fieldName),
+  formGroup: {
+    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+  }
 }) }}
