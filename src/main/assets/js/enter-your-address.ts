@@ -1,6 +1,6 @@
 import { YesOrNo } from '../../app/case/case';
 
-import { hideLookupPostcode, showInternationalAddressFields, showUkAddressFields } from './address/links';
+import { hideEnterPostcode, showInternationalAddressFields, showUkAddressFields } from './address/links';
 import { getById } from './selectors';
 
 import './address/select';
@@ -12,12 +12,12 @@ if (form) {
   const isInternationalAddress = formData.get('isInternationalAddress');
 
   if (isInternationalAddress === YesOrNo.No) {
-    hideLookupPostcode();
+    hideEnterPostcode();
     showUkAddressFields();
   }
 
   if (isInternationalAddress === YesOrNo.Yes) {
-    hideLookupPostcode();
+    hideEnterPostcode();
     showInternationalAddressFields();
   }
 }

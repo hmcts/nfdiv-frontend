@@ -43,7 +43,7 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
       const addresses = await response.json();
 
       (getById('notInternationalAddress') as HTMLInputElement).checked = true;
-      (getById('postcode') as HTMLElement).textContent = postcode;
+      (getById('userPostcode') as HTMLElement).textContent = postcode;
 
       const totalFound = getById('totalAddressesFound') as HTMLOptionElement;
       if (totalFound) {

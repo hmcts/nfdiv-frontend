@@ -1,10 +1,12 @@
-import { getById, hidden, qs } from '../selectors';
+import { getById, hidden, qs, qsa } from '../selectors';
 
 import { hideErrors } from './errors';
 
 const toggleLookupPostcode = (toggle: string) => (getById('enterPostcode') as HTMLElement).classList[toggle](hidden);
-export const hideLookupPostcode = (): void => toggleLookupPostcode('add');
-export const showPostcodeLookup = (): void => toggleLookupPostcode('remove');
+export const hideEnterPostcode = (): void => toggleLookupPostcode('add');
+export const showEnterPostcode = (): void => toggleLookupPostcode('remove');
+
+const hideSelectAddress = () => (getById('selectAddress') as HTMLElement).classList.add(hidden);
 
 const toggleInternationalAddressFields = (toggle: string) => {
   (qs('.govuk-form-group.internationalAddress') as HTMLElement).classList[toggle](hidden);
@@ -32,7 +34,7 @@ if (cannotEnterUkPostcode) {
 
     (getById('isInternationalAddress') as HTMLInputElement).checked = true;
 
-    hideLookupPostcode();
+    hideEnterPostcode();
     showInternationalAddressFields();
   };
 }
@@ -53,9 +55,17 @@ if (resetPostcodeLookupLinks) {
   const resetPostcodeLookupClick = e => {
     e.preventDefault();
     hideErrors();
-    hideLookupPostcode();
+    hideSelectAddress();
     hideInternationalAddressFields();
-    showPostcodeLookup();
+
+    for (const el of qsa('option:not([value="-1"])')) {
+      el.remove();
+    }
+    for (const el of qsa('.govuk-error-summary:not([id="addressErrorSummary"])')) {
+      el.remove();
+    }
+
+    showEnterPostcode();
   };
   for (const el of resetPostcodeLookupLinks) {
     el.onclick = resetPostcodeLookupClick;
