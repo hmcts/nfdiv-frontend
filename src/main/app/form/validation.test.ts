@@ -25,6 +25,12 @@ describe('Validation', () => {
 
       expect(isValid).toStrictEqual('required');
     });
+
+    test('Should check if value is only whitespaces', async () => {
+      const isValid = isFieldFilledIn('    ');
+
+      expect(isValid).toStrictEqual('required');
+    });
   });
 
   describe('areFieldsFilledIn()', () => {
