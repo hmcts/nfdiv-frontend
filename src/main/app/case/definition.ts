@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-03-24 18:19:07.
+// Generated using typescript-generator version 2.30.840 on 2021-03-30 12:28:41.
 
 export interface Address {
   AddressLine1: string;
@@ -84,7 +84,7 @@ export interface CaseData {
   JurisdictionBothLastHabituallyResident: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   D8PetitionerNameDifferentToMarriageCert: YesOrNo;
-  D8PetitionerNameChangedHow: ChangedNameHow[];
+  D8PetitionerNameChangedHow: ChangedNameHow;
   D8PetitionerNameChangedHowOtherDetails: string;
   D8DivorceWho: WhoDivorcing;
   D8DerivedPetitionerHomeAddress: string;
@@ -253,5 +253,5 @@ export const SUBMIT_PETITION = 'submit-petition';
 export const SOLICITOR_UPDATE = 'solicitor-update';
 export const CREATE_DRAFT = 'create-draft';
 export const PATCH_CASE = 'patch-case';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE3';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE4';
 export const JURISDICTION = 'DIVORCE';

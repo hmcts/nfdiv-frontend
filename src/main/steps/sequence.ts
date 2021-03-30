@@ -2,6 +2,7 @@ import { CaseWithId, Checkbox, YesOrNo } from '../app/case/case';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  ADDRESS_PRIVATE,
   CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
@@ -11,6 +12,7 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -203,7 +205,12 @@ export const sequence: Step[] = [
   {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: CERTIFICATE_NAME,

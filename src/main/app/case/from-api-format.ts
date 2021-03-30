@@ -1,7 +1,7 @@
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData } from './definition';
+import { CaseData, ConfidentialAddress } from './definition';
 
 const fields = {
   ...invert(formFieldsToCaseMapping),
@@ -17,6 +17,9 @@ const fields = {
   }),
   PetitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
+  D8PetitionerContactDetailsConfidential: data => ({
+    addressPrivate: data.D8PetitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.Yes : YesOrNo.No,
   }),
 };
 

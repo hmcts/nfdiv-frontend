@@ -76,6 +76,7 @@ export interface Case {
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
+  addressPrivate: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

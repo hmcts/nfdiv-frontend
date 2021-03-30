@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, DivorceOrDissolution, Gender } from './definition';
+import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender } from './definition';
 
 const fields = {
   ...formFieldsToCaseMapping,
@@ -41,6 +41,10 @@ const fields = {
   }),
   agreeToReceiveEmails: (data: Case) => ({
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+  }),
+  addressPrivate: (data: Case) => ({
+    D8PetitionerContactDetailsConfidential:
+      data.addressPrivate === YesOrNo.Yes ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
 };
 
