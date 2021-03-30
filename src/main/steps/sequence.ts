@@ -216,7 +216,8 @@ export const sequence: Step[] = [
     url: CHANGES_TO_YOUR_NAME_URL,
     showInSection: Sections.Documents,
     getNextStep: data =>
-      data.lastNameChangeWhenMarried === YesOrNo.Yes || data.anyNameChangeSinceMarriage === YesOrNo.Yes
+      data.lastNameChangeWhenRelationshipFormed === YesOrNo.Yes ||
+      data.anyNameChangeSinceRelationshipFormed === YesOrNo.Yes
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },

@@ -27,8 +27,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   connections: 'JurisdictionConnections',
   fullNameOnCertificate: 'D8MarriagePetitionerName',
   partnersFullNameOnCertificate: 'D8MarriageRespondentName',
-  lastNameChangeWhenMarried: 'LastNameChangedWhenMarried',
-  anyNameChangeSinceMarriage: 'D8PetitionerNameDifferentToMarriageCert',
+  lastNameChangeWhenRelationshipFormed: 'LastNameChangedWhenMarried',
+  anyNameChangeSinceRelationshipFormed: 'D8PetitionerNameDifferentToMarriageCert',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -78,8 +78,8 @@ export interface Case {
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
-  lastNameChangeWhenMarried?: YesOrNo;
-  anyNameChangeSinceMarriage?: YesOrNo;
+  lastNameChangeWhenRelationshipFormed?: YesOrNo;
+  anyNameChangeSinceRelationshipFormed?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

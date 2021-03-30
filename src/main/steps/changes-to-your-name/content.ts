@@ -3,41 +3,44 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ required }) => ({
+const en = ({ isDivorce, required }) => ({
   title: 'Changes to your name',
   line1: 'The court needs to know if you have changed your name.',
-  lastNameChangeWhenMarried: 'Did you change your last name when you got married?',
-  lastNameChangeWhenMarriedHint: 'For example, from a maiden name',
-  anyNameChangeSinceMarriage: 'Have you changed any part of your name since getting married?',
-  anyNameChangeSinceMarriageHint: 'For example, by deed poll',
+  lastNameChangeWhenRelationshipFormed: `Did you change your last name when you ${
+    isDivorce ? 'got married' : 'formed your civil partnership'
+  }?`,
+  lastNameChangeWhenRelationshipFormedHint: 'For example, from a maiden name',
+  anyNameChangeSinceRelationshipFormed: `Have you changed any part of your name since ${
+    isDivorce ? 'getting married' : 'forming your civil partnership'
+  }?`,
+  anyNameChangeSinceRelationshipFormedHint: 'For example, by deed poll',
   errors: {
-    lastNameChangeWhenMarried: { required },
-    anyNameChangeSinceMarriage: { required },
+    lastNameChangeWhenRelationshipFormed: { required },
+    anyNameChangeSinceRelationshipFormed: { required },
   },
 });
 
-const cy: typeof en = ({ required }) => ({
-  ...en({ required }),
-});
+//TODO translation
+const cy = en;
 
 export const form: FormContent = {
   fields: {
-    lastNameChangeWhenMarried: {
+    lastNameChangeWhenRelationshipFormed: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.lastNameChangeWhenMarried,
-      hint: l => l.lastNameChangeWhenMarriedHint,
+      label: l => l.lastNameChangeWhenRelationshipFormed,
+      hint: l => l.lastNameChangeWhenRelationshipFormedHint,
       values: [
         { label: l => l.yes, value: YesOrNo.Yes },
         { label: l => l.no, value: YesOrNo.No },
       ],
       validator: value => isFieldFilledIn(value),
     },
-    anyNameChangeSinceMarriage: {
+    anyNameChangeSinceRelationshipFormed: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.anyNameChangeSinceMarriage,
-      hint: l => l.anyNameChangeSinceMarriageHint,
+      label: l => l.anyNameChangeSinceRelationshipFormed,
+      hint: l => l.anyNameChangeSinceRelationshipFormedHint,
       values: [
         { label: l => l.yes, value: YesOrNo.Yes },
         { label: l => l.no, value: YesOrNo.No },
