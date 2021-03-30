@@ -8,12 +8,12 @@ Feature: How did you change your name
   Scenario: Successfully completing the form By sending off my marriage certificate
     Given I select "By sending off my marriage certificate"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page should include "How the court will contact you"
 
   Scenario: Successfully completing the form By deed poll or ‘statutory declaration’
     Given I select "By deed poll or ‘statutory declaration’"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page should include "How the court will contact you"
 
   Scenario: Error when completing the form Another way but not entering anything
     Given I select "Another way"
@@ -25,7 +25,7 @@ Feature: How did you change your name
     And I select "Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here."
     And I type "Test Another Way"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page should include "How the court will contact you"
 
   @nightly
   Scenario: Error when missing a required field
