@@ -84,6 +84,7 @@ export interface FormContent {
 export type FormField = FormInput | FormOptions;
 
 export interface FormOptions {
+  id?: string;
   type: string;
   label?: Label;
   labelHidden?: boolean;
@@ -96,10 +97,12 @@ export interface FormOptions {
 }
 
 export interface FormInput {
+  id?: string;
   name?: string;
   label: Label;
   hint?: Label;
   classes?: string;
+  hidden?: boolean;
   selected?: boolean;
   value?: string | number;
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;

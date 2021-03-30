@@ -67,8 +67,7 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourFullAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry ',
-        myAddressIsInternational: Checkbox.Checked,
+        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry ',
       });
     });
   });

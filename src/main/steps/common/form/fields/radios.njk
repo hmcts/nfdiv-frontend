@@ -2,7 +2,7 @@
 
 {{ govukRadios({
     classes: field.classes,
-    idPrefix: fieldName,
+    idPrefix: field.id if field.id else fieldName,
     name: fieldName,
     fieldset: {
       legend: {

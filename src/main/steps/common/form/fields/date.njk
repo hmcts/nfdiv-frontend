@@ -1,7 +1,7 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
 {{ govukDateInput({
-  id: fieldName,
+  id: field.id if field.id else fieldName,
   namePrefix: fieldName,
   fieldset: {
     legend: {

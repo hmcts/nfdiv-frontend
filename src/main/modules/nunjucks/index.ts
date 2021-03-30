@@ -2,14 +2,12 @@ import path from 'path';
 
 import express from 'express';
 import nunjucks from 'nunjucks';
-import { LoggerInstance } from 'winston';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
-import { Address, getAddressesFromPostcode } from '../../app/services/postcodeLookup';
 
 export class Nunjucks {
-  enableFor(app: express.Express, logger: LoggerInstance): void {
+  enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath], {
@@ -40,6 +38,7 @@ export class Nunjucks {
 
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
+        id: i.id,
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,
@@ -62,14 +61,6 @@ export class Nunjucks {
             : undefined,
       }));
     });
-
-    env.addFilter(
-      'getAddressesFromPostcode',
-      async (postcode: string, callback: (error: null | string, value: Address[]) => void) => {
-        callback(null, await getAddressesFromPostcode(postcode, logger));
-      },
-      true
-    );
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {

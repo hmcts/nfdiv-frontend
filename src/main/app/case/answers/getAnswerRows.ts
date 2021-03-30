@@ -42,7 +42,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       for (const fieldKey of fieldKeys) {
         const field = step.form.fields[fieldKey] as FormOptions;
         let answer = getAnswer(processedFormState, field, fieldKey);
-        if (!answer) {
+        if (!field.label || !answer) {
           continue;
         }
 

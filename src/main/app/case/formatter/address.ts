@@ -1,17 +1,18 @@
-import { Case, Checkbox } from '../case';
+import { Case, YesOrNo } from '../case';
 import { CaseData } from '../definition';
 
 export const fromApi = (data: CaseData): Partial<Case> => {
   const addressParts = data.D8DerivedPetitionerHomeAddress.split('\n');
   if (addressParts.length !== 5) {
     return {
-      yourFullAddress: data.D8DerivedPetitionerHomeAddress.replace('international_format', ''),
-      myAddressIsInternational: Checkbox.Checked,
+      isInternationalAddress: addressParts.length ? YesOrNo.Yes : undefined,
+      yourInternationalAddress: data.D8DerivedPetitionerHomeAddress,
     };
   }
 
   const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
   return {
+    isInternationalAddress: addressParts.filter(Boolean).length ? YesOrNo.No : undefined,
     yourAddress1,
     yourAddress2,
     yourAddressTown,
@@ -26,9 +27,11 @@ export const toApi = ({
   yourAddressTown,
   yourAddressCounty,
   yourAddressPostcode,
-  myAddressIsInternational,
+  yourInternationalAddress,
+  isInternationalAddress,
 }: Case): Partial<CaseData> => ({
-  D8DerivedPetitionerHomeAddress: !myAddressIsInternational
-    ? [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n')
-    : 'international_format',
+  D8DerivedPetitionerHomeAddress:
+    isInternationalAddress === YesOrNo.Yes
+      ? yourInternationalAddress
+      : [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n'),
 });

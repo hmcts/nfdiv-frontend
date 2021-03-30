@@ -1,17 +1,38 @@
-import { Checkbox } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { isInvalidPostcode } from '../../app/form/validation';
+import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 
 const en = {
   title: 'Enter your postal address',
-  postcode: 'Enter a UK postcode',
+  enterPostcode: 'Enter a UK postcode',
+  street: 'Building and street',
+  line2: 'Second line of address',
+  town: 'Town or city',
+  county: 'County',
+  postcode: 'Postcode',
+  internationalAddress: 'Full address',
   findAddress: 'Find address',
   notUK: 'I cannot enter a UK postcode',
+  enterUkPostcode: 'Enter UK postcode',
+  selectAddress: 'Select an address',
+  addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
+  cannotFindAddress: 'I cannot find the address in the list',
   errors: {
+    yourAddress1: {
+      required:
+        'You have not entered your building and street address. Enter your building and street address before continuing.',
+    },
+    yourAddressTown: {
+      required: 'You have not entered your town or city. Enter your town or city before continuing.',
+    },
     yourAddressPostcode: {
-      required: 'You have not entered your address. Enter your address before continuing.',
+      required: 'You have not entered your postcode. Enter your postcode before continuing.',
       invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+      notSelected: 'You have not selected your address. Select your address from the list before continuing.',
+    },
+    yourInternationalAddress: {
+      required: 'You have not entered your full address. Enter your full address before continuing.',
     },
   },
 };
@@ -21,36 +42,92 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
+    isInternationalAddress: {
+      type: 'radios',
+      hidden: true,
+      values: [
+        { id: 'isInternationalAddress', label: l => l.yes, value: YesOrNo.Yes },
+        { id: 'notInternationalAddress', label: l => l.no, value: YesOrNo.No },
+      ],
+    },
+    yourAddress1: {
+      id: 'address1',
+      type: 'text',
+      classes: 'govuk-label',
+      hidden: true,
+      label: l => l.street,
+      labelSize: null,
+      validator: (value, form = {}) => {
+        if (form.isInternationalAddress === YesOrNo.Yes) {
+          return;
+        }
+        return isFieldFilledIn(value);
+      },
+    },
+    yourAddress2: {
+      id: 'address2',
+      type: 'text',
+      classes: 'govuk-label',
+      hidden: true,
+      label: l => l.line2,
+      labelHidden: true,
+    },
+    yourAddressTown: {
+      id: 'addressTown',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      hidden: true,
+      label: l => l.town,
+      labelSize: null,
+      validator: (value, form = {}) => {
+        if (form.isInternationalAddress === YesOrNo.Yes) {
+          return;
+        }
+        return isFieldFilledIn(value);
+      },
+    },
+    yourAddressCounty: {
+      id: 'addressCounty',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      hidden: true,
+      label: l => l.county,
+      labelSize: null,
+    },
     yourAddressPostcode: {
+      id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
+      hidden: true,
       label: l => l.postcode,
       labelSize: null,
-      hideError: true,
       validator: (value, form = {}) => {
-        if (form.myAddressIsInternational === Checkbox.Checked) {
+        if (form.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
         return isInvalidPostcode(value);
       },
     },
-    yourAddressInternational: {
-      type: 'checkboxes',
-      classes: 'govuk-visually-hidden',
-      labelHidden: true,
-      values: [
-        {
-          name: 'myAddressIsInternational',
-          label: l => l.notUK,
-          value: Checkbox.Checked,
-          selected: false,
-          attributes: { autocomplete: 'off' },
-        },
-      ],
+    yourInternationalAddress: {
+      id: 'internationalAddress',
+      type: 'textarea',
+      classes: 'govuk-label',
+      hidden: true,
+      hideError: true,
+      label: l => l.internationalAddress,
+      labelSize: null,
+      attributes: { rows: 8 },
+      validator: (value, form = {}) => {
+        if (form.isInternationalAddress === YesOrNo.No) {
+          return;
+        }
+        return isFieldFilledIn(value);
+      },
     },
   },
   submit: {
-    text: l => l.findAddress,
+    text: l => l.continue,
+    classes: 'govuk-visually-hidden',
   },
 };
 

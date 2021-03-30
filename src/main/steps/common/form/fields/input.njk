@@ -1,7 +1,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {{ govukInput({
-  id: fieldName,
+  id: field.id if field.id else fieldName,
   name: fieldName,
   type: field.type,
   classes: field.classes,

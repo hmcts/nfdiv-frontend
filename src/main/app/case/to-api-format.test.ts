@@ -104,7 +104,6 @@ describe('to-api-format', () => {
       const apiFormat = toApiFormat(({
         ...results,
         yourAddressPostcode: '',
-        myAddressIsInternational: Checkbox.Checked,
       } as unknown) as Partial<Case>);
 
       expect(apiFormat).toMatchObject({

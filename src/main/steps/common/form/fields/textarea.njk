@@ -1,8 +1,8 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {{ govukTextarea({
+  id: field.id if field.id else fieldName,
   name: fieldName,
-  id: fieldName,
   label: {
     text: getContent(field.label),
     classes: "govuk-visually-hidden" if field.labelHidden else labelClasses
@@ -13,5 +13,5 @@
   value: formState[fieldName],
   rows: field.attributes.rows,
   attributes: field.attributes,
-  errorMessage: getError(fieldName)
+  errorMessage: null if field.hideError else getError(fieldName)
 }) }}

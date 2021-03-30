@@ -1,7 +1,7 @@
 {% extends "common/form/form.njk"%}
 
-{% block after_form %}
-  <p class="govuk-body">
-    <a href="#" id="cannot-enter-uk-postcode" class="govuk-link">{{ notUK }}</a>
+{% block after_fields %}
+  <p id="enterUkPostcode" class="govuk-body govuk-visually-hidden">
+    <a href="#" data-link="resetPostcodeLookup" class="govuk-link">{{ enterUkPostcode }}</a>
   </p>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {{ govukSelect({
-  id: fieldName,
+  id: field.id if field.id else fieldName,
   name: fieldName,
   label: {
     text: getContent(field.label)
