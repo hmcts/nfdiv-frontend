@@ -13,9 +13,9 @@ Feature: Language Preference
   Scenario: Select English as preferred language
     And I select "English"
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page URL should be "/address-private"
 
   Scenario: Select Welsh as preferred language
     And I select "Welsh"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page URL should be "/address-private"
