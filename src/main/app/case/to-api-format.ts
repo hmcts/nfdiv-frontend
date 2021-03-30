@@ -43,7 +43,7 @@ const fields = {
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
   addressPrivate: (data: Case) => ({
-    D8PetitionerContactDetailsConfidential:
+    petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.Yes ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
 };

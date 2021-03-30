@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-03-30 12:28:41.
+// Generated using typescript-generator version 2.30.840 on 2021-03-30 14:44:06.
 
 export interface Address {
   AddressLine1: string;
@@ -26,8 +26,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -55,6 +55,7 @@ export interface OrderSummary {
 }
 
 export interface CaseData {
+  petitionerContactDetailsConfidential: ConfidentialAddress;
   divorceOrDissolution: DivorceOrDissolution;
   D8ScreenHasMarriageBroken: YesOrNo;
   D8MarriageIsSameSexCouple: YesOrNo;
@@ -89,7 +90,6 @@ export interface CaseData {
   D8DivorceWho: WhoDivorcing;
   D8DerivedPetitionerHomeAddress: string;
   D8PetitionerPhoneNumber: string;
-  D8PetitionerContactDetailsConfidential: ConfidentialAddress;
   D8RespondentFirstName: string;
   D8RespondentLastName: string;
   D8RespondentNameAsOnMarriageCertificate: YesOrNo;
@@ -163,6 +163,11 @@ export const enum UserRole {
   CASEWORKER_DIVORCE_SYSTEMUPDATE = 'CASEWORKER_DIVORCE_SYSTEMUPDATE',
 }
 
+export const enum ConfidentialAddress {
+  SHARE = 'share',
+  KEEP = 'keep',
+}
+
 export const enum DivorceOrDissolution {
   DIVORCE = 'divorce',
   DISSOLUTION = 'dissolution',
@@ -183,11 +188,6 @@ export const enum ChangedNameHow {
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
-}
-
-export const enum ConfidentialAddress {
-  SHARE = 'share',
-  KEEP = 'keep',
 }
 
 export const enum SolServiceMethod {

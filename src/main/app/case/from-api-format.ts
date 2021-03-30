@@ -18,8 +18,8 @@ const fields = {
   PetitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
   }),
-  D8PetitionerContactDetailsConfidential: data => ({
-    addressPrivate: data.D8PetitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.Yes : YesOrNo.No,
+  petitionerContactDetailsConfidential: data => ({
+    addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.Yes : YesOrNo.No,
   }),
 };
 
