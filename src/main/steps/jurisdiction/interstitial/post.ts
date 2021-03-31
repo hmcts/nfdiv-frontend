@@ -8,7 +8,7 @@ import { Form } from '../../../app/form/Form';
 import { addConnection } from './connections';
 
 @autobind
-export class JurisdictionPostController extends PostController<AnyObject> {
+export default class JurisdictionPostController extends PostController<AnyObject> {
   constructor(protected readonly form: Form) {
     super(form);
   }

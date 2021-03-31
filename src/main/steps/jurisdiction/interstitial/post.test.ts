@@ -5,7 +5,7 @@ import { JurisdictionConnections, PATCH_CASE } from '../../../app/case/definitio
 import { Form } from '../../../app/form/Form';
 
 import { addConnection } from './connections';
-import { JurisdictionPostController } from './post';
+import JurisdictionPostController from './post';
 
 jest.mock('../../../steps/jurisdiction/interstitial/connections');
 const addConnectionMock = addConnection as jest.Mock<JurisdictionConnections[]>;
