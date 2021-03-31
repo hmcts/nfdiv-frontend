@@ -74,11 +74,12 @@ if (resetPostcodeLookupLinks) {
   }
 }
 
+const postcodeEntry = getById('enterPostcode') as HTMLElement | null;
 const backLink = qs('.govuk-back-link');
-if (backLink) {
+if (postcodeEntry && backLink) {
   backLink.onclick = function (e) {
     e.preventDefault();
-    const notOnPostcodeEntry = (getById('enterPostcode') as HTMLElement).classList.contains(hidden);
+    const notOnPostcodeEntry = postcodeEntry.classList.contains(hidden);
     if (notOnPostcodeEntry) {
       (e.target as HTMLAnchorElement).blur();
       onResetPostcodeLookup(e);
