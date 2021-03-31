@@ -13,7 +13,7 @@ Feature: Names on Certificate
     And I select "Copy your husband's full name from the marriage certificate"
     And I type "Husbands name"
     And I click "Continue"
-    Then the page should include "How the court will contact you"
+    Then the page should include "Changes to your name"
 
   Scenario: Error when entering a number in the fields
     Given I clear the form

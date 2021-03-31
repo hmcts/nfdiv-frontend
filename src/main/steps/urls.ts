@@ -49,3 +49,5 @@ export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 
 export const THEIR_EMAIL: PageLink = '/their-email-address';
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
+export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
+export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
