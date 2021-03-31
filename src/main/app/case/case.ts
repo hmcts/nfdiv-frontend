@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, DivorceOrDissolution, Gender, JurisdictionConnections, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, JurisdictionConnections, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   divorceOrDissolution: 'divorceOrDissolution',
