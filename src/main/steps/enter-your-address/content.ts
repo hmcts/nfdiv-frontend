@@ -57,8 +57,8 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.street,
       labelSize: null,
-      validator: (value, form = {}) => {
-        if (form.isInternationalAddress === YesOrNo.Yes) {
+      validator: (value, formData = {}) => {
+        if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
         return isFieldFilledIn(value);
@@ -79,8 +79,8 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.town,
       labelSize: null,
-      validator: (value, form = {}) => {
-        if (form.isInternationalAddress === YesOrNo.Yes) {
+      validator: (value, formData = {}) => {
+        if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
         return isFieldFilledIn(value);
@@ -101,8 +101,8 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.postcode,
       labelSize: null,
-      validator: (value, form = {}) => {
-        if (form.isInternationalAddress === YesOrNo.Yes) {
+      validator: (value, formData = {}) => {
+        if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
         return isInvalidPostcode(value);
@@ -117,8 +117,8 @@ export const form: FormContent = {
       label: l => l.internationalAddress,
       labelSize: null,
       attributes: { rows: 8 },
-      validator: (value, form = {}) => {
-        if (form.isInternationalAddress === YesOrNo.No) {
+      validator: (value, formData = {}) => {
+        if (formData.isInternationalAddress === YesOrNo.No) {
           return;
         }
         return isFieldFilledIn(value);
