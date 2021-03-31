@@ -1,5 +1,6 @@
 import { Step } from '../../../steps/sequence';
-import { Case, YesOrNo } from '../case';
+import { Case } from '../case';
+import { YesOrNo } from '../definition';
 
 import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
 
@@ -97,9 +98,9 @@ describe('omitUnreachableAnswers()', () => {
 
   test('returns unreachable answers as null', async () => {
     const userCase = {
-      inTheUk: YesOrNo.Yes,
-      certificateInEnglish: YesOrNo.No,
-      certifiedTranslation: YesOrNo.Yes,
+      inTheUk: YesOrNo.YES,
+      certificateInEnglish: YesOrNo.NO,
+      certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',
       ceremonyPlace: 'Belfast',
     };

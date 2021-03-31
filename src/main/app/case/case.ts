@@ -1,32 +1,32 @@
 import { AnyObject } from '../controller/PostController';
 
-import { DivorceOrDissolution, Gender, JurisdictionConnections } from './definition';
+import { CaseData, DivorceOrDissolution, Gender, JurisdictionConnections, YesOrNo } from './definition';
 
-export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
+export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   divorceOrDissolution: 'divorceOrDissolution',
-  gender: 'D8InferredRespondentGender',
-  screenHasUnionBroken: 'D8ScreenHasMarriageBroken',
-  hasCertificate: 'D8ScreenHasMarriageCert',
-  helpPayingNeeded: 'D8HelpWithFeesNeedHelp',
-  alreadyAppliedForHelpPaying: 'D8HelpWithFeesAppliedForFees',
-  helpWithFeesRefNo: 'D8HelpWithFeesReferenceNumber',
-  inTheUk: 'D8MarriedInUk',
-  certificateInEnglish: 'D8CertificateInEnglish',
-  certifiedTranslation: 'D8CertifiedTranslation',
-  ceremonyCountry: 'D8CountryName',
-  ceremonyPlace: 'D8MarriagePlaceOfMarriage',
-  yourLifeBasedInEnglandAndWales: 'JurisdictionPetitionerResidence',
-  partnersLifeBasedInEnglandAndWales: 'JurisdictionRespondentResidence',
-  yourDomicileInEnglandWales: 'JurisdictionPetitionerDomicile',
-  partnersDomicileInEnglandWales: 'JurisdictionRespondentDomicile',
-  lastHabituallyResident: 'JurisdictionBothLastHabituallyResident',
-  livingInEnglandWalesTwelveMonths: 'JurisdictionPetHabituallyResLastTwelveMonths',
-  livingInEnglandWalesSixMonths: 'JurisdictionPetHabituallyResLastSixMonths',
-  phoneNumber: 'D8PetitionerPhoneNumber',
-  jurisdictionResidualEligible: 'JurisdictionResidualEligible',
-  connections: 'JurisdictionConnections',
-  fullNameOnCertificate: 'D8MarriagePetitionerName',
-  partnersFullNameOnCertificate: 'D8MarriageRespondentName',
+  gender: 'inferredRespondentGender',
+  screenHasUnionBroken: 'screenHasMarriageBroken',
+  hasCertificate: 'screenHasMarriageCert',
+  helpPayingNeeded: 'helpWithFeesNeedHelp',
+  alreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
+  helpWithFeesRefNo: 'helpWithFeesReferenceNumber',
+  inTheUk: 'marriedInUk',
+  certificateInEnglish: 'certificateInEnglish',
+  certifiedTranslation: 'certifiedTranslation',
+  ceremonyCountry: 'countryName',
+  ceremonyPlace: 'marriagePlaceOfMarriage',
+  yourLifeBasedInEnglandAndWales: 'jurisdictionPetitionerResidence',
+  partnersLifeBasedInEnglandAndWales: 'jurisdictionRespondentResidence',
+  yourDomicileInEnglandWales: 'jurisdictionPetitionerDomicile',
+  partnersDomicileInEnglandWales: 'jurisdictionRespondentDomicile',
+  lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
+  livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
+  livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
+  phoneNumber: 'petitionerPhoneNumber',
+  jurisdictionResidualEligible: 'jurisdictionResidualEligible',
+  connections: 'jurisdictionConnections',
+  fullNameOnCertificate: 'marriagePetitionerName',
+  partnersFullNameOnCertificate: 'marriageRespondentName',
   lastNameChangeWhenRelationshipFormed: 'LastNameChangedWhenMarried',
   anyNameChangeSinceRelationshipFormed: 'D8PetitionerNameDifferentToMarriageCert',
 };
@@ -84,11 +84,6 @@ export interface Case {
 
 export interface CaseWithId extends Case {
   id: string;
-}
-
-export enum YesOrNo {
-  Yes = 'YES',
-  No = 'NO',
 }
 
 export enum Checkbox {
