@@ -27,6 +27,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, string>> = {
   connections: 'JurisdictionConnections',
   fullNameOnCertificate: 'D8MarriagePetitionerName',
   partnersFullNameOnCertificate: 'D8MarriageRespondentName',
+  respondentEmailAddress: 'RespondentEmailAddress',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -76,6 +77,8 @@ export interface Case {
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
+  respondentEmailAddress?: string;
+  doNotKnowRespondentEmailAddress?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

@@ -33,7 +33,9 @@ export class Form {
       .filter(key => fields[key].validator !== undefined)
       .reduce((errors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
-        const errorType = field.validator(body?.[propertyName] as string);
+        const errorType = field.allDataValidator
+          ? field.validator(body)
+          : field.validator(body?.[propertyName] as string);
 
         return errorType ? errors.concat({ errorType, propertyName }) : errors;
       }, []);
@@ -43,7 +45,9 @@ export class Form {
       (value as FormOptions)?.values
         ?.filter(option => option.validator !== undefined)
         .map(option => {
-          const errorType = option.validator?.(body?.[option.name as string]);
+          const errorType = option.allDataValidator
+            ? option.validator?.(body)
+            : option.validator?.(body?.[option.name as string]);
           if (errorType) {
             checkboxErrors.push({ errorType, propertyName: key });
           }
@@ -65,7 +69,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | CaseDate | undefined) => void | string;
+type ValidationCheck = (value: string | CaseDate | Partial<Case> | undefined) => void | string;
 
 type Parser = (value: Record<string, unknown>) => void;
 
@@ -90,6 +94,7 @@ export interface FormOptions {
   labelSize?: string;
   values: FormInput[];
   validator?: ValidationCheck;
+  allDataValidator?: boolean;
   parser?: Parser;
 }
 
@@ -102,6 +107,7 @@ export interface FormInput {
   value?: string | number;
   attributes?: Partial<HTMLInputElement>;
   validator?: ValidationCheck;
+  allDataValidator?: boolean;
   parser?: Parser;
   warning?: Warning;
   subFields?: Record<string, FormField>;

@@ -42,6 +42,10 @@ const fields = {
   agreeToReceiveEmails: (data: Case) => ({
     PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
   }),
+  doNotKnowRespondentEmailAddress: (data: Case) => ({
+    PetitionerKnowsRespondentsAddress:
+      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

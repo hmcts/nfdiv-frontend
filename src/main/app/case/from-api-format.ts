@@ -18,6 +18,10 @@ const fields = {
   PetitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
   }),
+  PetitionerKnowsRespondentsAddress: data => ({
+    doNotKnowRespondentEmailAddress:
+      data.PetitionerKnowsRespondentsAddress === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
 };
 
 const fromApiDate = date => {
