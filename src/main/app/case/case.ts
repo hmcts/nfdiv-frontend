@@ -27,6 +27,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   connections: 'jurisdictionConnections',
   fullNameOnCertificate: 'marriagePetitionerName',
   partnersFullNameOnCertificate: 'marriageRespondentName',
+  lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
+  anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
 };
@@ -78,6 +80,8 @@ export interface Case {
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
+  lastNameChangeWhenRelationshipFormed?: YesOrNo;
+  anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
 }
