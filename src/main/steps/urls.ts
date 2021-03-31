@@ -44,3 +44,4 @@ export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-co
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
+export const THEIR_POSTAL_ADDRESS: PageLink = '/their-postal-address';

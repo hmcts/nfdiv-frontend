@@ -30,6 +30,7 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
+  THEIR_POSTAL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -214,7 +215,7 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => THEIR_POSTAL_ADDRESS,
   },
   {
     url: CHECK_ANSWERS_URL,

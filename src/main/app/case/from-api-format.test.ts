@@ -11,6 +11,7 @@ describe('from-api-format', () => {
     D8ScreenHasMarriageBroken: 'YES',
     D8HelpWithFeesReferenceNumber: 'HWF-ABC-123',
     PetitionerAgreedToReceiveEmails: 'YES',
+    PetitionerKnowsRespondentsAddress: 'YES',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -23,6 +24,7 @@ describe('from-api-format', () => {
       screenHasUnionBroken: YesOrNo.Yes,
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });
 
@@ -41,6 +43,7 @@ describe('from-api-format', () => {
       },
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });
 });

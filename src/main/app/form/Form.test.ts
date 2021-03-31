@@ -2,7 +2,7 @@ import { Case, Checkbox, YesOrNo } from '../case/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
-import { isFieldFilledIn } from './validation';
+import { isEitherFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -37,6 +37,12 @@ describe('Form', () => {
           },
         ],
       },
+      partnersEmail: {
+        type: 'text',
+        label: 'label',
+        allDataValidator: true,
+        validator: value => isEitherFieldsFilledIn(value as Partial<Case>),
+      },
     },
     submit: {
       text: l => l.continue,
@@ -54,6 +60,7 @@ describe('Form', () => {
         year: '2000',
       },
       requiredCheckbox: Checkbox.Checked,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     } as unknown) as Case);
 
     expect(errors).toStrictEqual([]);
@@ -69,6 +76,10 @@ describe('Form', () => {
       },
       {
         propertyName: 'dateField',
+        errorType: 'required',
+      },
+      {
+        propertyName: 'partnersEmail',
         errorType: 'required',
       },
       {
