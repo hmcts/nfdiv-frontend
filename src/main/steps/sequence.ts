@@ -7,6 +7,7 @@ import {
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
+  CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
@@ -17,6 +18,7 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
@@ -212,7 +214,16 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_NAME,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+  },
+  {
+    url: CHANGES_TO_YOUR_NAME_URL,
+    showInSection: Sections.Documents,
+    getNextStep: data =>
+      data.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
+      data.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: YOU_CANNOT_APPLY,

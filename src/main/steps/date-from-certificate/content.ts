@@ -43,6 +43,7 @@ export const form: FormContent = {
       classes: 'govuk-date-input',
       label: l => l.title,
       labelHidden: true,
+      hint: l => l.hint,
       values: [
         {
           label: l => l.dateFormat['day'],
