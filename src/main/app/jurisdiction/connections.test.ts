@@ -1,5 +1,5 @@
-import { YesOrNo } from '../../../app/case/case';
-import { JurisdictionConnections } from '../../../app/case/definition';
+import { YesOrNo } from '../case/case';
+import { JurisdictionConnections } from '../case/definition';
 
 import { addConnection } from './connections';
 
