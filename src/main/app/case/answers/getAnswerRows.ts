@@ -96,7 +96,7 @@ const getCheckedLabels = (answer, field, stepContent) => {
   const checkedLabels = answer
     .filter(([, value]) => value === Checkbox.Checked)
     .map(([key]) => {
-      const checkbox = field.values.find(field => field.name === key);
+      const checkbox = field.values.find(checkboxField => checkboxField.name === key);
       if (typeof checkbox?.label === 'function') {
         return checkbox.label(stepContent);
       }
