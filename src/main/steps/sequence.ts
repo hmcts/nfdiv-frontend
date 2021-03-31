@@ -34,6 +34,7 @@ import {
   THEIR_EMAIL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
+  YOU_CANNOT_APPLY,
 } from './urls';
 
 export enum Sections {
@@ -223,6 +224,10 @@ export const sequence: Step[] = [
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
     getNextStep: () => THEIR_EMAIL,
+  },
+  {
+    url: YOU_CANNOT_APPLY,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,

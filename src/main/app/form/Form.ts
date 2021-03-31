@@ -31,11 +31,11 @@ export class Form {
 
     const errors = Object.keys(fields)
       .filter(key => fields[key].validator !== undefined)
-      .reduce((errors: FormError[], propertyName: string) => {
+      .reduce((formErrors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
         const errorType = field.validator(body?.[propertyName] as string, body);
 
-        return errorType ? errors.concat({ errorType, propertyName }) : errors;
+        return errorType ? formErrors.concat({ errorType, propertyName }) : formErrors;
       }, []);
 
     const checkboxErrors: FormError[] = [];

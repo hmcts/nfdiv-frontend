@@ -48,3 +48,4 @@ export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 
 export const THEIR_EMAIL: PageLink = '/their-email-address';
+export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
