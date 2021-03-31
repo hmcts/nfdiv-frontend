@@ -1,4 +1,5 @@
-import { CaseWithId, Checkbox, YesOrNo } from '../app/case/case';
+import { CaseWithId, Checkbox } from '../app/case/case';
+import { YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
@@ -62,7 +63,7 @@ export const sequence: Step[] = [
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
     getNextStep: data =>
-      data.screenHasUnionBroken === YesOrNo.No ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
+      data.screenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
@@ -81,7 +82,7 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.hasCertificate === YesOrNo.No ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
+    getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
   },
   {
     url: NO_CERTIFICATE_URL,
@@ -90,12 +91,12 @@ export const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.Payment,
-    getNextStep: data => (data.helpPayingNeeded === YesOrNo.Yes ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
+    getNextStep: data => (data.helpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     showInSection: Sections.Payment,
-    getNextStep: data => (data.alreadyAppliedForHelpPaying === YesOrNo.No ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK),
+    getNextStep: data => (data.alreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK),
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
@@ -104,17 +105,17 @@ export const sequence: Step[] = [
   {
     url: IN_THE_UK,
     showInSection: Sections.ConnectionsToEnglandWales,
-    getNextStep: data => (data.inTheUk === YesOrNo.No ? CERTIFICATE_IN_ENGLISH : CHECK_JURISDICTION),
+    getNextStep: data => (data.inTheUk === YesOrNo.NO ? CERTIFICATE_IN_ENGLISH : CHECK_JURISDICTION),
   },
   {
     url: CERTIFICATE_IN_ENGLISH,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.certificateInEnglish === YesOrNo.No ? CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
+    getNextStep: data => (data.certificateInEnglish === YesOrNo.NO ? CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
     url: CERTIFIED_TRANSLATION,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.certifiedTranslation === YesOrNo.No ? GET_CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
+    getNextStep: data => (data.certifiedTranslation === YesOrNo.NO ? GET_CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
     url: GET_CERTIFIED_TRANSLATION,
@@ -133,13 +134,14 @@ export const sequence: Step[] = [
     url: WHERE_YOUR_LIVES_ARE_BASED_URL,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      const { Yes, No } = YesOrNo;
+      const YES = YesOrNo.YES;
+      const NO = YesOrNo.NO;
       switch (`${data.yourLifeBasedInEnglandAndWales}${data.partnersLifeBasedInEnglandAndWales}`) {
-        case `${Yes}${Yes}`:
-        case `${No}${Yes}`:
+        case `${YES}${YES}`:
+        case `${NO}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
 
-        case `${Yes}${No}`:
+        case `${YES}${NO}`:
           return JURISDICTION_LAST_TWELVE_MONTHS;
 
         default:
@@ -151,12 +153,13 @@ export const sequence: Step[] = [
     url: JURISDICTION_DOMICILE,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      const { Yes, No } = YesOrNo;
+      const YES = YesOrNo.YES;
+      const NO = YesOrNo.NO;
       switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
-        case `${Yes}${Yes}`:
+        case `${YES}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
 
-        case `${Yes}${No}`:
+        case `${YES}${NO}`:
           return LIVING_ENGLAND_WALES_SIX_MONTHS;
 
         default:
@@ -168,9 +171,9 @@ export const sequence: Step[] = [
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.lastHabituallyResident === YesOrNo.No && data.sameSex === Checkbox.Checked) {
+      if (data.lastHabituallyResident === YesOrNo.NO && data.sameSex === Checkbox.Checked) {
         return RESIDUAL_JURISDICTION;
-      } else if (data.lastHabituallyResident === YesOrNo.No) {
+      } else if (data.lastHabituallyResident === YesOrNo.NO) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
@@ -181,7 +184,7 @@ export const sequence: Step[] = [
     url: JURISDICTION_LAST_TWELVE_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
-      data.livingInEnglandWalesTwelveMonths === YesOrNo.No ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
+      data.livingInEnglandWalesTwelveMonths === YesOrNo.NO ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
@@ -191,7 +194,7 @@ export const sequence: Step[] = [
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
-      data.livingInEnglandWalesSixMonths === YesOrNo.No
+      data.livingInEnglandWalesSixMonths === YesOrNo.NO
         ? HABITUALLY_RESIDENT_ENGLAND_WALES
         : JURISDICTION_INTERSTITIAL_URL,
   },
