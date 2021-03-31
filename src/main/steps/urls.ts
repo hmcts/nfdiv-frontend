@@ -43,6 +43,11 @@ export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-t
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
+
+export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
+export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
+
+export const THEIR_EMAIL: PageLink = '/their-email-address';
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
