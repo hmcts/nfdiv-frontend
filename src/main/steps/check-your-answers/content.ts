@@ -1,6 +1,7 @@
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
-import { Case, YesOrNo } from '../../app/case/case';
+import { Case } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
@@ -22,7 +23,7 @@ const en = ({ isDivorce, partner }) => ({
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) => getFormattedDate(formState.relationshipDate),
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
-      formState.helpPayingNeeded === YesOrNo.Yes && formState.alreadyAppliedForHelpPaying === YesOrNo.Yes
+      formState.helpPayingNeeded === YesOrNo.YES && formState.alreadyAppliedForHelpPaying === YesOrNo.YES
         ? `Yes
              ${formState.helpWithFeesRefNo}`
         : false,
