@@ -31,6 +31,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  THEIR_EMAIL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -200,6 +201,10 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
+    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: CERTIFICATE_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -217,14 +222,10 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => THEIR_EMAIL,
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];

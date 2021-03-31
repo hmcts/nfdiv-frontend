@@ -14,7 +14,7 @@ Feature: Your address
     And the page should include "1 address found"
     Given I choose "BUCKINGHAM PALACE, LONDON, SW1A 1AA" from "Select an address"
     When I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page URL should be "/their-email-address"
     Given I go to "/enter-your-address"
     Then the form input "Building and street" should be "BUCKINGHAM PALACE"
     And the form input "Town or city" should be "LONDON"
@@ -28,7 +28,7 @@ Feature: Your address
     Given I select "Full address"
     And I type "My example international address"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page URL should be "/their-email-address"
     When I go to "/enter-your-address"
     Then the form input "Full address" should be "My example international address"
 
