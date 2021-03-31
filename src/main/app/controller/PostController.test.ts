@@ -4,8 +4,8 @@ import { Form, FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import * as possibleAnswers from '../case/answers/possibleAnswers';
-import { Case, Checkbox, YesOrNo } from '../case/case';
-import { Gender, PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
+import { Case, Checkbox } from '../case/case';
+import { Gender, PATCH_CASE, SAVE_AND_CLOSE, YesOrNo } from '../case/definition';
 
 import { PostController } from './PostController';
 
@@ -99,7 +99,7 @@ describe('PostController', () => {
   test('sets unreachable answers as null', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { inTheUk: YesOrNo.Yes };
+    const body = { inTheUk: YesOrNo.YES };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -120,7 +120,7 @@ describe('PostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
-        inTheUk: YesOrNo.Yes,
+        inTheUk: YesOrNo.YES,
         exampleExistingField: null,
       },
       PATCH_CASE

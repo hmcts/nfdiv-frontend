@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-03-24 18:19:07.
+// Generated using typescript-generator version 2.30.840 on 2021-03-30 12:31:36.
 
 export interface Address {
   AddressLine1: string;
@@ -56,72 +56,72 @@ export interface OrderSummary {
 
 export interface CaseData {
   divorceOrDissolution: DivorceOrDissolution;
-  D8ScreenHasMarriageBroken: YesOrNo;
-  D8MarriageIsSameSexCouple: YesOrNo;
-  D8InferredPetitionerGender: Gender;
-  D8InferredRespondentGender: Gender;
-  D8MarriageDate: string;
-  D8HelpWithFeesReferenceNumber: string;
-  D8HelpWithFeesNeedHelp: YesOrNo;
-  D8ScreenHasMarriageCert: YesOrNo;
-  D8HelpWithFeesAppliedForFees: YesOrNo;
-  D8MarriedInUk: YesOrNo;
-  D8CertificateInEnglish: YesOrNo;
-  D8CertifiedTranslation: YesOrNo;
-  D8CountryName: string;
-  D8MarriagePlaceOfMarriage: string;
-  D8PetitionerFirstName: string;
-  D8PetitionerLastName: string;
-  D8PetitionerEmail: string;
-  PetitionerAgreedToReceiveEmails: YesOrNo;
-  JurisdictionPetitionerResidence: YesOrNo;
-  JurisdictionRespondentResidence: YesOrNo;
-  JurisdictionPetitionerDomicile: YesOrNo;
-  JurisdictionRespondentDomicile: YesOrNo;
-  JurisdictionPetHabituallyResLastTwelveMonths: YesOrNo;
-  JurisdictionPetHabituallyResLastSixMonths: YesOrNo;
-  JurisdictionResidualEligible: YesOrNo;
-  JurisdictionBothLastHabituallyResident: YesOrNo;
-  LanguagePreferenceWelsh: YesOrNo;
-  D8PetitionerNameDifferentToMarriageCert: YesOrNo;
-  D8PetitionerNameChangedHow: ChangedNameHow[];
-  D8PetitionerNameChangedHowOtherDetails: string;
-  D8DivorceWho: WhoDivorcing;
-  D8DerivedPetitionerHomeAddress: string;
-  D8PetitionerPhoneNumber: string;
-  D8PetitionerContactDetailsConfidential: ConfidentialAddress;
-  D8RespondentFirstName: string;
-  D8RespondentLastName: string;
-  D8RespondentNameAsOnMarriageCertificate: YesOrNo;
-  RespNameDifferentToMarriageCertExplain: string;
-  PetitionerSolicitorName: string;
-  D8SolicitorReference: string;
-  PetitionerSolicitorPhone: string;
-  PetitionerSolicitorEmail: string;
-  SolicitorAgreeToReceiveEmails: YesOrNo;
-  DerivedPetitionerSolicitorAddr: string;
-  PetitionerOrganisationPolicy: string;
-  D8MarriagePetitionerName: string;
-  D8MarriageRespondentName: string;
-  SolUrgentCase: YesOrNo;
-  SolUrgentCaseSupportingInformation: string;
-  D8DivorceCostsClaim: YesOrNo;
-  D8FinancialOrder: YesOrNo;
-  SolServiceMethod: SolServiceMethod;
-  SolStatementOfReconciliationCertify: YesOrNo;
-  SolStatementOfReconciliationDiscussed: YesOrNo;
-  D8StatementOfTruth: YesOrNo;
-  SolSignStatementOfTruth: YesOrNo;
-  SolStatementOfReconciliationName: string;
-  SolStatementOfReconciliationFirm: string;
-  StatementOfReconciliationComments: string;
-  SolApplicationFeeInPounds: string;
-  SolPaymentHowToPay: SolToPay;
-  PbaNumbers: DynamicList;
-  FeeAccountReference: string;
-  SolApplicationFeeOrderSummary: OrderSummary;
-  LastNameChangedWhenMarried: YesOrNo;
-  JurisdictionConnections: JurisdictionConnections[];
+  screenHasMarriageBroken: YesOrNo;
+  marriageIsSameSexCouple: YesOrNo;
+  inferredPetitionerGender: Gender;
+  inferredRespondentGender: Gender;
+  marriageDate: string;
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  screenHasMarriageCert: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
+  marriedInUk: YesOrNo;
+  certificateInEnglish: YesOrNo;
+  certifiedTranslation: YesOrNo;
+  countryName: string;
+  marriagePlaceOfMarriage: string;
+  petitionerFirstName: string;
+  petitionerLastName: string;
+  petitionerEmail: string;
+  petitionerAgreedToReceiveEmails: YesOrNo;
+  jurisdictionPetitionerResidence: YesOrNo;
+  jurisdictionRespondentResidence: YesOrNo;
+  jurisdictionPetitionerDomicile: YesOrNo;
+  jurisdictionRespondentDomicile: YesOrNo;
+  jurisdictionPetHabituallyResLastTwelveMonths: YesOrNo;
+  jurisdictionPetHabituallyResLastSixMonths: YesOrNo;
+  jurisdictionResidualEligible: YesOrNo;
+  jurisdictionBothLastHabituallyResident: YesOrNo;
+  languagePreferenceWelsh: YesOrNo;
+  petitionerNameDifferentToMarriageCertificate: YesOrNo;
+  petitionerNameChangedHow: ChangedNameHow;
+  petitionerNameChangedHowOtherDetails: string;
+  divorceWho: WhoDivorcing;
+  derivedPetitionerHomeAddress: string;
+  petitionerPhoneNumber: string;
+  petitionerContactDetailsConfidential: ConfidentialAddress;
+  respondentFirstName: string;
+  respondentLastName: string;
+  respondentNameAsOnMarriageCertificate: YesOrNo;
+  respNameDifferentToMarriageCertExplain: string;
+  petitionerSolicitorName: string;
+  solicitorReference: string;
+  petitionerSolicitorPhone: string;
+  petitionerSolicitorEmail: string;
+  solicitorAgreeToReceiveEmails: YesOrNo;
+  derivedPetitionerSolicitorAddress: string;
+  petitionerOrganisationPolicy: string;
+  marriagePetitionerName: string;
+  marriageRespondentName: string;
+  solUrgentCase: YesOrNo;
+  solUrgentCaseSupportingInformation: string;
+  divorceCostsClaim: YesOrNo;
+  financialOrder: YesOrNo;
+  solServiceMethod: SolServiceMethod;
+  solStatementOfReconciliationCertify: YesOrNo;
+  solStatementOfReconciliationDiscussed: YesOrNo;
+  statementOfTruth: YesOrNo;
+  solSignStatementOfTruth: YesOrNo;
+  solStatementOfReconciliationName: string;
+  solStatementOfReconciliationFirm: string;
+  statementOfReconciliationComments: string;
+  solApplicationFeeInPounds: string;
+  solPaymentHowToPay: SolToPay;
+  pbaNumbers: DynamicList;
+  feeAccountReference: string;
+  solApplicationFeeOrderSummary: OrderSummary;
+  lastNameChangedWhenMarried: YesOrNo;
+  jurisdictionConnections: JurisdictionConnections[];
 }
 
 export const enum FieldType {
@@ -240,18 +240,18 @@ export const enum JurisdictionConnections {
    */
   RESIDUAL_JURISDICTION = 'G',
 }
-export const D_8_PETITIONER_FIRST_NAME = 'D8PetitionerFirstName';
-export const D_8_PETITIONER_LAST_NAME = 'D8PetitionerLastName';
-export const D_8_PETITIONER_EMAIL = 'D8PetitionerEmail';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE5';
+export const JURISDICTION = 'DIVORCE';
+export const PATCH_CASE = 'patch-case';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const SUBMIT_PETITION = 'submit-petition';
+export const CREATE_DRAFT = 'create-draft';
+export const SAVE_AND_CLOSE = 'save-and-close';
+export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
+export const PETITIONER_LAST_NAME = 'petitionerLastName';
+export const PETITIONER_EMAIL = 'petitionerEmail';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
-export const SAVE_AND_CLOSE = 'save-and-close';
-export const SOLICITOR_CREATE = 'solicitor-create';
-export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const SUBMIT_PETITION = 'submit-petition';
-export const SOLICITOR_UPDATE = 'solicitor-update';
-export const CREATE_DRAFT = 'create-draft';
-export const PATCH_CASE = 'patch-case';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE4';
-export const JURISDICTION = 'DIVORCE';

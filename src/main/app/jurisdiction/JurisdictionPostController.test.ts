@@ -1,13 +1,12 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { YesOrNo } from '../../../app/case/case';
-import { JurisdictionConnections, PATCH_CASE } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { JurisdictionConnections, PATCH_CASE, YesOrNo } from '../case/definition';
+import { Form } from '../form/Form';
 
+import { JurisdictionPostController } from './JurisdictionPostController';
 import { addConnection } from './connections';
-import { JurisdictionPostController } from './post';
 
-jest.mock('../../../steps/jurisdiction/interstitial/connections');
+jest.mock('./connections');
 const addConnectionMock = addConnection as jest.Mock<JurisdictionConnections[]>;
 
 describe('JurisdictionPostController', () => {
@@ -15,10 +14,10 @@ describe('JurisdictionPostController', () => {
     addConnectionMock.mockReturnValue([JurisdictionConnections.PET_RESP_RESIDENT]);
 
     const errors = [] as never[];
-    const body = { partnersLifeBasedInEnglandAndWales: YesOrNo.Yes, yourLifeBasedInEnglandAndWales: YesOrNo.Yes };
+    const body = { partnersLifeBasedInEnglandAndWales: YesOrNo.YES, yourLifeBasedInEnglandAndWales: YesOrNo.YES };
     const bodyWithConnection = {
-      partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
-      yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.YES,
+      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
     const mockForm = ({
@@ -29,8 +28,8 @@ describe('JurisdictionPostController', () => {
     const jurisdictionController = new JurisdictionPostController(mockForm);
     const expectedUserCase = {
       id: '1234',
-      partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
-      yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.YES,
+      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
 

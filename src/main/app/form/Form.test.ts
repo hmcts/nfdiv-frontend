@@ -1,4 +1,5 @@
-import { Case, CaseDate, Checkbox, YesOrNo } from '../case/case';
+import { Case, CaseDate, Checkbox } from '../case/case';
+import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
@@ -10,8 +11,8 @@ describe('Form', () => {
       field: {
         type: 'radios',
         values: [
-          { label: l => l.no, value: YesOrNo.Yes },
-          { label: l => l.yes, value: YesOrNo.No },
+          { label: l => l.no, value: YesOrNo.YES },
+          { label: l => l.yes, value: YesOrNo.NO },
         ],
         validator: value => isFieldFilledIn(value),
       },
@@ -47,7 +48,7 @@ describe('Form', () => {
 
   test('Should validate a form', async () => {
     const errors = form.getErrors(({
-      field: YesOrNo.Yes,
+      field: YesOrNo.YES,
       dateField: {
         day: '1',
         month: '1',
@@ -86,7 +87,7 @@ describe('Form', () => {
           values: [
             {
               label: l => l.no,
-              value: YesOrNo.No,
+              value: YesOrNo.NO,
               subFields: {
                 testSubField: {
                   type: 'text',
@@ -95,7 +96,7 @@ describe('Form', () => {
                 },
               },
             },
-            { label: l => l.yes, value: YesOrNo.Yes },
+            { label: l => l.yes, value: YesOrNo.YES },
           ],
           validator: isFieldFilledIn,
         },
@@ -119,13 +120,13 @@ describe('Form', () => {
     });
 
     it('does not return any subfields error if the field has not been selected', () => {
-      const errors = subFieldForm.getErrors(({ field: YesOrNo.Yes } as unknown) as Case);
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.YES } as unknown) as Case);
 
       expect(errors).toStrictEqual([]);
     });
 
     it('returns the subfield error when the field has been selected', () => {
-      const errors = subFieldForm.getErrors(({ field: YesOrNo.No } as unknown) as Case);
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.NO } as unknown) as Case);
 
       expect(errors).toStrictEqual([
         {
@@ -138,7 +139,7 @@ describe('Form', () => {
 
   test('Should parse a form body', async () => {
     const body = {
-      field: YesOrNo.Yes,
+      field: YesOrNo.YES,
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
