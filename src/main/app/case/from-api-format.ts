@@ -1,24 +1,26 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData } from './definition';
+import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 
-const fields = {
+type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
+
+const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
-  D8MarriageIsSameSexCouple: data => ({
-    sameSex: data.D8MarriageIsSameSexCouple === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  marriageIsSameSexCouple: data => ({
+    sameSex: data.marriageIsSameSexCouple === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
   }),
-  D8MarriageDate: data => ({
-    relationshipDate: fromApiDate(data.D8MarriageDate),
+  marriageDate: data => ({
+    relationshipDate: fromApiDate(data.marriageDate),
   }),
-  LanguagePreferenceWelsh: data => ({
+  languagePreferenceWelsh: data => ({
     englishOrWelsh:
-      data.LanguagePreferenceWelsh === YesOrNo.Yes ? LanguagePreference.Welsh : LanguagePreference.English,
+      data.languagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  D8DerivedPetitionerHomeAddress: formatAddress,
-  PetitionerAgreedToReceiveEmails: data => ({
-    agreeToReceiveEmails: data.PetitionerAgreedToReceiveEmails === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+  derivedPetitionerHomeAddress: formatAddress,
+  petitionerAgreedToReceiveEmails: data => ({
+    agreeToReceiveEmails: data.petitionerAgreedToReceiveEmails === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
   }),
 };
 

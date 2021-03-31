@@ -1,18 +1,18 @@
-import { Case, YesOrNo } from '../case';
-import { CaseData } from '../definition';
+import { Case } from '../case';
+import { CaseData, YesOrNo } from '../definition';
 
-export const fromApi = (data: CaseData): Partial<Case> => {
-  const addressParts = data.D8DerivedPetitionerHomeAddress?.split('\n') || [];
+export const fromApi = (data: Partial<CaseData>): Partial<Case> => {
+  const addressParts = data.derivedPetitionerHomeAddress?.split('\n') || [];
   if (addressParts.length !== 5) {
     return {
-      isInternationalAddress: addressParts.length ? YesOrNo.Yes : undefined,
-      yourInternationalAddress: data.D8DerivedPetitionerHomeAddress,
+      isInternationalAddress: addressParts.length ? YesOrNo.YES : undefined,
+      yourInternationalAddress: data.derivedPetitionerHomeAddress,
     };
   }
 
   const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
   return {
-    isInternationalAddress: addressParts.filter(Boolean).length ? YesOrNo.No : undefined,
+    isInternationalAddress: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,
     yourAddress1,
     yourAddress2,
     yourAddressTown,
@@ -29,9 +29,9 @@ export const toApi = ({
   yourAddressPostcode,
   yourInternationalAddress,
   isInternationalAddress,
-}: Case): Partial<CaseData> => ({
-  D8DerivedPetitionerHomeAddress:
-    isInternationalAddress === YesOrNo.Yes
+}: Partial<Case>): Partial<CaseData> => ({
+  derivedPetitionerHomeAddress:
+    isInternationalAddress === YesOrNo.YES
       ? yourInternationalAddress
       : [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n'),
 });

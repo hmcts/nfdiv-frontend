@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -75,7 +75,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const certInEnglish = content.formState?.certificateInEnglish === YesOrNo.Yes;
+  const certInEnglish = content.formState?.certificateInEnglish === YesOrNo.YES;
   const translations = languages[content.language](content, certInEnglish);
   return {
     ...translations,

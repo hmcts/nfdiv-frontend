@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
@@ -46,8 +46,8 @@ export const form: FormContent = {
       type: 'radios',
       hidden: true,
       values: [
-        { id: 'isInternationalAddress', label: l => l.yes, value: YesOrNo.Yes },
-        { id: 'notInternationalAddress', label: l => l.no, value: YesOrNo.No },
+        { id: 'isInternationalAddress', label: l => l.yes, value: YesOrNo.YES },
+        { id: 'notInternationalAddress', label: l => l.no, value: YesOrNo.NO },
       ],
     },
     yourAddress1: {
@@ -58,7 +58,7 @@ export const form: FormContent = {
       label: l => l.street,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isInternationalAddress === YesOrNo.Yes) {
+        if (formData.isInternationalAddress === YesOrNo.YES) {
           return;
         }
         return isFieldFilledIn(value);
@@ -80,7 +80,7 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isInternationalAddress === YesOrNo.Yes) {
+        if (formData.isInternationalAddress === YesOrNo.YES) {
           return;
         }
         return isFieldFilledIn(value);
@@ -102,7 +102,7 @@ export const form: FormContent = {
       label: l => l.postcode,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isInternationalAddress === YesOrNo.Yes) {
+        if (formData.isInternationalAddress === YesOrNo.YES) {
           return;
         }
         return isInvalidPostcode(value);
@@ -118,7 +118,7 @@ export const form: FormContent = {
       labelSize: null,
       attributes: { rows: 8 },
       validator: (value, formData) => {
-        if (formData.isInternationalAddress === YesOrNo.No) {
+        if (formData.isInternationalAddress === YesOrNo.NO) {
           return;
         }
         return isFieldFilledIn(value);
