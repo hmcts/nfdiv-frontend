@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -24,8 +24,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.addressPrivate,
       values: [
-        { label: l => l.detailsPrivate, value: YesOrNo.Yes },
-        { label: l => l.detailsNotPrivate, value: YesOrNo.No },
+        { label: l => l.detailsPrivate, value: YesOrNo.YES },
+        { label: l => l.detailsNotPrivate, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
