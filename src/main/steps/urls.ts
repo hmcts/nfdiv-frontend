@@ -38,7 +38,7 @@ export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
 export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-six-months';
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
 export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
-export const CANT_DIVORCE: PageLink = '/cant-divorce';
+export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
