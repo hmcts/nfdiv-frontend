@@ -1,8 +1,8 @@
-import { Case, Checkbox, YesOrNo } from '../case/case';
+import { Case, CaseDate, Checkbox, YesOrNo } from '../case/case';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
-import { isFieldFilledIn } from './validation';
+import { areFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -23,7 +23,7 @@ describe('Form', () => {
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
         parser: value => covertToDateObject('dateField', value),
-        validator: value => isFieldFilledIn(value),
+        validator: value => areFieldsFilledIn(value as CaseDate),
       },
       someCheckboxes: {
         type: 'checkboxes',
