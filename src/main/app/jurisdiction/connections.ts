@@ -1,5 +1,5 @@
-import { CaseWithId } from '../../../app/case/case';
-import { JurisdictionConnections } from '../../../app/case/definition';
+import { CaseWithId } from '../case/case';
+import { JurisdictionConnections } from '../case/definition';
 
 const isHabituallyResident = (who, data) => {
   return data[who + 'LifeBasedInEnglandAndWales'] === 'YES';

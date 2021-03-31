@@ -1,4 +1,4 @@
-import { JurisdictionConnections, YesOrNo } from '../../../app/case/definition';
+import { JurisdictionConnections, YesOrNo } from '../case/definition';
 
 import { addConnection } from './connections';
 
