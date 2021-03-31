@@ -29,6 +29,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  THEIR_EMAIL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -207,6 +208,11 @@ export const sequence: Step[] = [
   },
   {
     url: CERTIFICATE_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
