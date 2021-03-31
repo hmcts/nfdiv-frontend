@@ -33,6 +33,7 @@ import {
   RESIDUAL_JURISDICTION,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
+  YOU_CANNOT_APPLY,
 } from './urls';
 
 export enum Sections {
@@ -212,6 +213,10 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_NAME,
     showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: YOU_CANNOT_APPLY,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
