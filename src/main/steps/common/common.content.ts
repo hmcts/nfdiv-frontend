@@ -14,6 +14,7 @@ const en = {
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
+  change: 'Change',
   download: 'Download',
   warning: 'Warning',
   required: 'You have not answered the question. You need to select an answer before continuing.',

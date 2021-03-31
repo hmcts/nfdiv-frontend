@@ -75,6 +75,13 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  isInternationalAddress?: YesOrNo;
+  yourAddress1?: string;
+  yourAddress2?: string;
+  yourAddressTown?: string;
+  yourAddressCounty?: string;
+  yourAddressPostcode?: string;
+  yourInternationalAddress?: string;
   phoneNumber?: string;
   agreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];

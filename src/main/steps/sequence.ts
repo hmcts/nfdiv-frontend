@@ -12,6 +12,7 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -32,6 +33,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  THEIR_EMAIL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -191,7 +193,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -202,13 +204,7 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
-    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
-    showInSection: Sections.ContactYou,
-    getNextStep: () => ENGLISH_OR_WELSH,
-  },
-  {
-    url: ENGLISH_OR_WELSH,
-    showInSection: Sections.Documents,
+    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
@@ -226,8 +222,23 @@ export const sequence: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.Documents,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
     url: YOU_CANNOT_APPLY,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => THEIR_EMAIL,
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
@@ -236,10 +247,6 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];

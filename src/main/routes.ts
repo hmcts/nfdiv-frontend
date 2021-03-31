@@ -11,6 +11,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
+import { PostcodeLookupPostController } from './steps/postcode-lookup/post';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -20,6 +21,7 @@ import {
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   HOME_URL,
+  POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
@@ -40,6 +42,7 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
+    app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     for (const step of stepsWithContent) {
       const dir = `${__dirname}/steps${step.url}`;

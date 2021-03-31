@@ -43,4 +43,46 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
     });
   });
+
+  describe('converting your address between UK and international', () => {
+    test('works correctly when not set', () => {
+      const nfdivFormat = fromApiFormat(({
+        ...results,
+        derivedPetitionerHomeAddress: undefined,
+      } as unknown) as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        isInternationalAddress: undefined,
+        yourInternationalAddress: undefined,
+      });
+    });
+
+    test('converts to UK format', () => {
+      const nfdivFormat = fromApiFormat(({
+        ...results,
+        derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+      } as unknown) as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        yourAddress1: 'Line 1',
+        yourAddress2: 'Line 2',
+        yourAddressTown: 'Town',
+        yourAddressCounty: 'County',
+        yourAddressPostcode: 'Postcode',
+        isInternationalAddress: YesOrNo.NO,
+      });
+    });
+
+    test('converts to an international format', () => {
+      const nfdivFormat = fromApiFormat(({
+        ...results,
+        derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+      } as unknown) as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        isInternationalAddress: YesOrNo.YES,
+      });
+    });
+  });
 });

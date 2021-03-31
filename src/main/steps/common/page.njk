@@ -45,10 +45,16 @@
         {% include "common/error/summary.njk" %}
       {% endblock %}
 
-      {% block page_content %}{% endblock %}
+      {% block page_content %}
+        {% if title %}
+          <h1 class="govuk-heading-l">{{ title }}</h1>
+        {% endif %}
+      {% endblock %}
 
       {% if form %}
-        {% include "common/form/form.njk"%}
+        {% block form %}
+          {% include "common/form/form.njk"%}
+        {% endblock %}
       {% endif %}
     </div>
   </div>

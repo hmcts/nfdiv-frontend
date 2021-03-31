@@ -7,6 +7,7 @@ import {
   isFieldLetters,
   isFutureDate,
   isInvalidHelpWithFeesRef,
+  isInvalidPostcode,
   isLessThanAYear,
   isPhoneNoValid,
 } from './validation';
@@ -123,6 +124,23 @@ describe('Validation', () => {
       { mockRef: '123456', expected: 'invalid' },
     ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
       expect(isInvalidHelpWithFeesRef(mockRef)).toEqual(expected);
+    });
+  });
+
+  describe('isInvalidPostcode()', () => {
+    it.each([
+      { mockRef: '', expected: 'required' },
+      { mockRef: '1', expected: 'invalid' },
+      { mockRef: '12345', expected: 'invalid' },
+      { mockRef: '@£$£@$%', expected: 'invalid' },
+      { mockRef: 'not a postcode', expected: 'invalid' },
+      { mockRef: 'SW1A 1AA', expected: undefined },
+      { mockRef: 'SW1A1AA', expected: undefined },
+      { mockRef: 'sw1a1aa', expected: undefined },
+      { mockRef: 'sw1a 1aa', expected: undefined },
+      { mockRef: 'SW1A!1AA', expected: 'invalid' },
+    ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
+      expect(isInvalidPostcode(mockRef)).toEqual(expected);
     });
   });
 
