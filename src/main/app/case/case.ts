@@ -27,8 +27,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   connections: 'jurisdictionConnections',
   fullNameOnCertificate: 'marriagePetitionerName',
   partnersFullNameOnCertificate: 'marriageRespondentName',
-  changedNameHow: 'D8PetitionerNameChangedHow',
-  changedNameHowAnotherWay: 'D8PetitionerNameChangedHowOtherDetails',
+  changedNameHow: 'petitionerNameChangedHow',
+  changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -100,10 +100,4 @@ export interface CaseDate {
 export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
-}
-
-export enum ChangedNameHow {
-  MarriageCertificate = 'marriageCertificate',
-  DeedPoll = 'deedPoll',
-  Other = 'other',
 }

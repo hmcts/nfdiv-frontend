@@ -1,4 +1,4 @@
-import { ChangedNameHow } from '../../app/case/case';
+import { ChangedNameHow } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -35,15 +35,15 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.sendingOffMarriageCertificate, value: ChangedNameHow.MarriageCertificate },
+        { label: l => l.sendingOffMarriageCertificate, value: ChangedNameHow.MARRIAGE_CERTIFICATE },
         {
           label: l => l.deedPoll,
-          value: ChangedNameHow.DeedPoll,
+          value: ChangedNameHow.DEED_POLL,
           conditionalText: l => `<p class="govuk-label">${l.deedPollMoreDetails}</p>`,
         },
         {
           label: l => l.anotherWay,
-          value: ChangedNameHow.Other,
+          value: ChangedNameHow.OTHER,
           subFields: {
             changedNameHowAnotherWay: {
               type: 'textarea',
