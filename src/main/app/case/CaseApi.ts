@@ -58,9 +58,9 @@ export class CaseApi {
     const event = { id: CREATE_DRAFT };
     const data = {
       divorceOrDissolution: serviceType,
-      D8PetitionerFirstName: userDetails.givenName,
-      D8PetitionerLastName: userDetails.familyName,
-      D8PetitionerEmail: userDetails.email,
+      petitionerFirstName: userDetails.givenName,
+      petitionerLastName: userDetails.familyName,
+      petitionerEmail: userDetails.email,
     };
 
     try {

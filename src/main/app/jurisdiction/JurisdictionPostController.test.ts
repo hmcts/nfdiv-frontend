@@ -1,7 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { YesOrNo } from '../case/case';
-import { JurisdictionConnections, PATCH_CASE } from '../case/definition';
+import { JurisdictionConnections, PATCH_CASE, YesOrNo } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
@@ -15,10 +14,10 @@ describe('JurisdictionPostController', () => {
     addConnectionMock.mockReturnValue([JurisdictionConnections.PET_RESP_RESIDENT]);
 
     const errors = [] as never[];
-    const body = { partnersLifeBasedInEnglandAndWales: YesOrNo.Yes, yourLifeBasedInEnglandAndWales: YesOrNo.Yes };
+    const body = { partnersLifeBasedInEnglandAndWales: YesOrNo.YES, yourLifeBasedInEnglandAndWales: YesOrNo.YES };
     const bodyWithConnection = {
-      partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
-      yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.YES,
+      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
     const mockForm = ({
@@ -29,8 +28,8 @@ describe('JurisdictionPostController', () => {
     const jurisdictionController = new JurisdictionPostController(mockForm);
     const expectedUserCase = {
       id: '1234',
-      partnersLifeBasedInEnglandAndWales: YesOrNo.Yes,
-      yourLifeBasedInEnglandAndWales: YesOrNo.Yes,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.YES,
+      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
 

@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -36,8 +36,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.yourDomicileInEnglandWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.Yes },
-        { label: l => l.no, value: YesOrNo.No },
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -46,8 +46,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.partnersDomicileInEnglandWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.Yes },
-        { label: l => l.no, value: YesOrNo.No },
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
