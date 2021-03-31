@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../app/form/validation';
@@ -50,7 +50,7 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.yes,
-          value: YesOrNo.Yes,
+          value: YesOrNo.YES,
           subFields: {
             helpWithFeesRefNo: {
               type: 'text',
@@ -66,7 +66,7 @@ export const form: FormContent = {
             },
           },
         },
-        { label: l => l.no, value: YesOrNo.No },
+        { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },

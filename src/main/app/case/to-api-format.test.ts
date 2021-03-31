@@ -1,5 +1,5 @@
-import { Case, Checkbox, YesOrNo } from './case';
-import { DivorceOrDissolution, Gender } from './definition';
+import { Case, Checkbox } from './case';
+import { DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -7,8 +7,8 @@ describe('to-api-format', () => {
     gender: Gender.MALE,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
-    helpPayingNeeded: YesOrNo.Yes,
-    alreadyAppliedForHelpPaying: YesOrNo.Yes,
+    helpPayingNeeded: YesOrNo.YES,
+    alreadyAppliedForHelpPaying: YesOrNo.YES,
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
     doNotKnowRespondentEmailAddress: Checkbox.Checked,
@@ -18,15 +18,15 @@ describe('to-api-format', () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
 
     expect(apiFormat).toStrictEqual({
-      D8MarriageIsSameSexCouple: YesOrNo.Yes,
-      D8InferredRespondentGender: Gender.MALE,
-      D8InferredPetitionerGender: Gender.MALE,
-      D8MarriageDate: '1900-01-04',
-      D8HelpWithFeesNeedHelp: YesOrNo.Yes,
-      D8HelpWithFeesAppliedForFees: YesOrNo.Yes,
-      D8HelpWithFeesReferenceNumber: 'HWF-123-ABC',
-      PetitionerAgreedToReceiveEmails: YesOrNo.Yes,
-      PetitionerKnowsRespondentsAddress: YesOrNo.Yes,
+      marriageIsSameSexCouple: YesOrNo.YES,
+      inferredRespondentGender: Gender.MALE,
+      inferredPetitionerGender: Gender.MALE,
+      marriageDate: '1900-01-04',
+      helpWithFeesNeedHelp: YesOrNo.YES,
+      helpWithFeesAppliedForFees: YesOrNo.YES,
+      helpWithFeesReferenceNumber: 'HWF-123-ABC',
+      petitionerAgreedToReceiveEmails: YesOrNo.YES,
+      petitionerKnowsRespondentsAddress: YesOrNo.YES,
     });
   });
 
@@ -37,8 +37,8 @@ describe('to-api-format', () => {
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      D8HelpWithFeesReferenceNumber: '',
-      D8MarriageDate: '',
+      helpWithFeesReferenceNumber: '',
+      marriageDate: '',
     });
   });
 
@@ -80,8 +80,8 @@ describe('to-api-format', () => {
     'gets the correct inferred gender of the petitioner and respondent: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
-        D8InferredPetitionerGender: expected.petitioner,
-        D8InferredRespondentGender: expected.respondent,
+        inferredPetitionerGender: expected.petitioner,
+        inferredRespondentGender: expected.respondent,
       });
     }
   );

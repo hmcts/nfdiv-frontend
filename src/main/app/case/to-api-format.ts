@@ -1,14 +1,16 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { Case, CaseDate, Checkbox, LanguagePreference, YesOrNo, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, DivorceOrDissolution, Gender } from './definition';
+import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 
-const fields = {
+type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => Partial<CaseData>)>>;
+
+const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
-  sameSex: (data: Case) => ({
-    D8MarriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+  sameSex: data => ({
+    marriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
-  gender: (data: Case) => {
+  gender: data => {
     // Petitioner makes the request
     let inferredPetitionerGender = data.gender;
 
@@ -25,22 +27,19 @@ const fields = {
       }
     }
 
-    return {
-      D8InferredPetitionerGender: inferredPetitionerGender,
-      D8InferredRespondentGender: inferredRespondentGender,
-    };
+    return { inferredPetitionerGender, inferredRespondentGender };
   },
   relationshipDate: (data: Case) => ({
-    D8MarriageDate: toApiDate(data.relationshipDate),
+    marriageDate: toApiDate(data.relationshipDate),
   }),
   helpWithFeesRefNo: (data: Case) => ({
-    D8HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
+    helpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
   }),
   englishOrWelsh: (data: Case) => ({
-    LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.Yes : YesOrNo.No,
+    languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
   agreeToReceiveEmails: (data: Case) => ({
-    PetitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+    petitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
   doNotKnowRespondentEmailAddress: (data: Case) => ({
     PetitionerKnowsRespondentsAddress:

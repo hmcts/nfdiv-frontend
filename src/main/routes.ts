@@ -6,12 +6,11 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
-import { jurisdictionSteps, stepsWithContent } from './steps';
+import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
-import { JurisdictionPostController } from './steps/jurisdiction/interstitial/post';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -43,19 +42,16 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
 
     for (const step of stepsWithContent) {
-      const stepDir = `${__dirname}/steps${step.url}`;
-      const customView = `${stepDir}/template.njk`;
-      const view = fs.existsSync(customView) ? customView : `${stepDir}/../common/template.njk`;
-      const controller = new GetController(view, step.generateContent);
+      const dir = `${__dirname}/steps${step.url}`;
+      const customView = `${dir}/template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
+      const getController = fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
 
-      app.get(step.url, errorHandler(controller.get));
+      app.get(step.url, errorHandler(new getController(view, step.generateContent).get));
 
       if (step.form) {
-        if (jurisdictionSteps.map(String).includes(step.url)) {
-          app.post(step.url, errorHandler(new JurisdictionPostController(new Form(step.form)).post));
-        } else {
-          app.post(step.url, errorHandler(new PostController(new Form(step.form)).post));
-        }
+        const postController = fs.existsSync(`${dir}/post.ts`) ? require(`${dir}/post.ts`).default : PostController;
+        app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
       }
     }
 
