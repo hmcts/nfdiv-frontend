@@ -43,7 +43,7 @@ export class Form {
       (value as FormOptions)?.values
         ?.filter(option => option.validator !== undefined)
         .map(option => {
-          const errorType = option.validator?.(body?.[option.name as string]);
+          const errorType = option.validator?.(body?.[option.name as string], body);
           if (errorType) {
             checkboxErrors.push({ errorType, propertyName: key });
           }
@@ -65,7 +65,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | CaseDate | undefined, formData?: Partial<Case>) => void | string;
+type ValidationCheck = (value: string | CaseDate | undefined, formData: Partial<Case>) => void | string;
 
 type Parser = (value: Record<string, unknown>) => void;
 

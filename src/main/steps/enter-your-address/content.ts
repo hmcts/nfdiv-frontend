@@ -57,7 +57,7 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.street,
       labelSize: null,
-      validator: (value, formData = {}) => {
+      validator: (value, formData) => {
         if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
@@ -79,7 +79,7 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.town,
       labelSize: null,
-      validator: (value, formData = {}) => {
+      validator: (value, formData) => {
         if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
@@ -101,7 +101,7 @@ export const form: FormContent = {
       hidden: true,
       label: l => l.postcode,
       labelSize: null,
-      validator: (value, formData = {}) => {
+      validator: (value, formData) => {
         if (formData.isInternationalAddress === YesOrNo.Yes) {
           return;
         }
@@ -117,7 +117,7 @@ export const form: FormContent = {
       label: l => l.internationalAddress,
       labelSize: null,
       attributes: { rows: 8 },
-      validator: (value, formData = {}) => {
+      validator: (value, formData) => {
         if (formData.isInternationalAddress === YesOrNo.No) {
           return;
         }
