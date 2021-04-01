@@ -36,4 +36,4 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     And I select "No"
     When I click "Continue"
-    Then the page URL should be "/cant-divorce"
+    Then the page URL should be "/you-may-not-be-able-to-england-and-wales"

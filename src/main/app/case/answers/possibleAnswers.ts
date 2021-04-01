@@ -31,7 +31,7 @@ export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): 
     }
 
     const nextStepUrl = step.getNextStep(caseState);
-    const nextStep = sequenceWithForms.find(step => step.url === nextStepUrl);
+    const nextStep = sequenceWithForms.find(sequenceStep => sequenceStep.url === nextStepUrl);
     if (nextStep) {
       return getPossibleFields(nextStep, fields);
     }

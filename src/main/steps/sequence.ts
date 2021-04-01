@@ -4,11 +4,11 @@ import { isLessThanAYear } from '../app/form/validation';
 
 import {
   ADDRESS_PRIVATE,
-  CANT_DIVORCE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
+  CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
@@ -20,11 +20,13 @@ import {
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
+  JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
   PageLink,
@@ -32,8 +34,10 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  THEIR_EMAIL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
+  YOU_CANNOT_APPLY,
 } from './urls';
 
 export enum Sections {
@@ -176,7 +180,7 @@ export const sequence: Step[] = [
       if (data.lastHabituallyResident === YesOrNo.NO && data.sameSex === Checkbox.Checked) {
         return RESIDUAL_JURISDICTION;
       } else if (data.lastHabituallyResident === YesOrNo.NO) {
-        return CANT_DIVORCE;
+        return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
       }
@@ -190,7 +194,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -199,6 +203,24 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesSixMonths === YesOrNo.NO
         ? HABITUALLY_RESIDENT_ENGLAND_WALES
         : JURISDICTION_INTERSTITIAL_URL,
+  },
+  {
+    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: CERTIFICATE_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+  },
+  {
+    url: CHANGES_TO_YOUR_NAME_URL,
+    showInSection: Sections.Documents,
+    getNextStep: data =>
+      data.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
+      data.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -216,9 +238,13 @@ export const sequence: Step[] = [
     getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
-    url: CERTIFICATE_NAME,
-    showInSection: Sections.Documents,
+    url: YOU_CANNOT_APPLY,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => THEIR_EMAIL,
   },
   {
     url: CHECK_ANSWERS_URL,

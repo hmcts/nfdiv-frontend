@@ -1,7 +1,7 @@
-import * as path from 'path';
+import path from 'path';
 
-import * as express from 'express';
-import * as nunjucks from 'nunjucks';
+import express from 'express';
+import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
@@ -38,6 +38,7 @@ export class Nunjucks {
 
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
+        id: i.id,
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,

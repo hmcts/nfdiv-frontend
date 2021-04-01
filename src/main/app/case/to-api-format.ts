@@ -2,6 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { toApi as formatAddress } from './formatter/address';
 
 type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => Partial<CaseData>)>>;
 
@@ -38,6 +39,8 @@ const fields: ToApiConverters = {
   englishOrWelsh: (data: Case) => ({
     languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
+  yourAddressPostcode: formatAddress,
+  yourInternationalAddress: formatAddress,
   agreeToReceiveEmails: (data: Case) => ({
     petitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
