@@ -45,8 +45,8 @@ const fields: ToApiConverters = {
     petitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
   doNotKnowRespondentEmailAddress: (data: Case) => ({
-    PetitionerKnowsRespondentsAddress:
-      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.Yes : YesOrNo.No,
+    petitionerKnowsRespondentsAddress:
+      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
 };
 

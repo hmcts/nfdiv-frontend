@@ -22,9 +22,9 @@ const fields: FromApiConverters = {
   petitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: data.petitionerAgreedToReceiveEmails === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
   }),
-  PetitionerKnowsRespondentsAddress: data => ({
+  petitionerKnowsRespondentsAddress: data => ({
     doNotKnowRespondentEmailAddress:
-      data.PetitionerKnowsRespondentsAddress === YesOrNo.Yes ? Checkbox.Checked : Checkbox.Unchecked,
+      data.petitionerKnowsRespondentsAddress === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
   }),
 };
 
