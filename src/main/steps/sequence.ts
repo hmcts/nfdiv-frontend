@@ -7,16 +7,19 @@ import {
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
+  CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
@@ -191,7 +194,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -202,6 +205,24 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
+    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: CERTIFICATE_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+  },
+  {
+    url: CHANGES_TO_YOUR_NAME_URL,
+    showInSection: Sections.Documents,
+    getNextStep: data =>
+      data.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
+      data.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
@@ -209,16 +230,16 @@ export const sequence: Step[] = [
   {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: CERTIFICATE_NAME,
-    showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: YOU_CANNOT_APPLY,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -227,10 +248,6 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];

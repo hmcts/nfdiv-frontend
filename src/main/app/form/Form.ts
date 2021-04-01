@@ -33,9 +33,7 @@ export class Form {
       .filter(key => fields[key].validator !== undefined)
       .reduce((formErrors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
-        const errorType = field.allDataValidator
-          ? field.validator(body)
-          : field.validator(body?.[propertyName] as string);
+        const errorType = field.validator(body?.[propertyName] as string, body);
 
         return errorType ? formErrors.concat({ errorType, propertyName }) : formErrors;
       }, []);
@@ -45,9 +43,7 @@ export class Form {
       (value as FormOptions)?.values
         ?.filter(option => option.validator !== undefined)
         .map(option => {
-          const errorType = option.allDataValidator
-            ? option.validator?.(body)
-            : option.validator?.(body?.[option.name as string]);
+          const errorType = option.validator?.(body?.[option.name as string], body);
           if (errorType) {
             checkboxErrors.push({ errorType, propertyName: key });
           }
@@ -69,7 +65,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | CaseDate | Partial<Case> | undefined) => void | string;
+type ValidationCheck = (value: string | CaseDate | undefined, formData: Partial<Case>) => void | string;
 
 type Parser = (value: Record<string, unknown>) => void;
 
@@ -88,26 +84,29 @@ export interface FormContent {
 export type FormField = FormInput | FormOptions;
 
 export interface FormOptions {
+  id?: string;
   type: string;
   label?: Label;
   labelHidden?: boolean;
-  labelSize?: string;
+  labelSize?: string | null;
+  hideError?: boolean;
   values: FormInput[];
+  attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
   validator?: ValidationCheck;
-  allDataValidator?: boolean;
   parser?: Parser;
 }
 
 export interface FormInput {
+  id?: string;
   name?: string;
   label: Label;
   hint?: Label;
   classes?: string;
+  hidden?: boolean;
   selected?: boolean;
   value?: string | number;
-  attributes?: Partial<HTMLInputElement>;
+  attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
   validator?: ValidationCheck;
-  allDataValidator?: boolean;
   parser?: Parser;
   warning?: Warning;
   subFields?: Record<string, FormField>;

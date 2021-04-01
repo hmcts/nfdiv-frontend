@@ -91,6 +91,17 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 };
 
+export const isInvalidPostcode: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (!(value as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+    return 'invalid';
+  }
+};
+
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
     return !value.match(/^$|^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;

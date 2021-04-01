@@ -27,6 +27,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   connections: 'jurisdictionConnections',
   fullNameOnCertificate: 'marriagePetitionerName',
   partnersFullNameOnCertificate: 'marriageRespondentName',
+  lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
+  anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   respondentEmailAddress: 'respondentEmailAddress',
 };
 
@@ -72,11 +74,20 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  isInternationalAddress?: YesOrNo;
+  yourAddress1?: string;
+  yourAddress2?: string;
+  yourAddressTown?: string;
+  yourAddressCounty?: string;
+  yourAddressPostcode?: string;
+  yourInternationalAddress?: string;
   phoneNumber?: string;
   agreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
+  lastNameChangeWhenRelationshipFormed?: YesOrNo;
+  anyNameChangeSinceRelationshipFormed?: YesOrNo;
   respondentEmailAddress?: string;
   doNotKnowRespondentEmailAddress?: Checkbox;
 }

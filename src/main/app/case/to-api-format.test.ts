@@ -85,4 +85,34 @@ describe('to-api-format', () => {
       });
     }
   );
+
+  describe('converting your address between UK and international', () => {
+    test('converts to UK format', () => {
+      const apiFormat = toApiFormat(({
+        ...results,
+        yourAddress1: 'Line 1',
+        yourAddress2: 'Line 2',
+        yourAddressTown: 'Town',
+        yourAddressCounty: 'County',
+        yourAddressPostcode: 'Postcode',
+      } as unknown) as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+      });
+    });
+
+    test('converts to an international format', () => {
+      const mockInternationalAddress = 'Parliament House, Parliament Dr, Canberra ACT 2600, Australia';
+      const apiFormat = toApiFormat(({
+        ...results,
+        isInternationalAddress: YesOrNo.YES,
+        yourInternationalAddress: mockInternationalAddress,
+      } as unknown) as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        derivedPetitionerHomeAddress: mockInternationalAddress,
+      });
+    });
+  });
 });
