@@ -8,10 +8,12 @@
   <!-- {{ formState.id }} -->
 {% endblock %}
 
+{% set serviceName = (applyForDivorce if isDivorce else applyForDissolution) | capitalize %}
+
 {% block header %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
-    serviceName: pageHeader[serviceType],
+    serviceName: serviceName,
     serviceUrl: (globals.basePath if globals.basePath) + "/",
     navigation: [
       {
@@ -23,7 +25,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageHeader[serviceType] }} - {{ title }} - {{ govUk }}
+  {{ serviceName }} - {{ title }} - {{ govUk }}
 {% endblock %}
 
 {% block beforeContent %}

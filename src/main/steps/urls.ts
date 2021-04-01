@@ -32,7 +32,7 @@ export const NO_CERTIFICATE_URL: PageLink = '/you-need-your-certificate';
 
 export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';
-export const JURISDICTION_INTERSTITIAL_URL: PageLink = '/jurisdiction/interstitial';
+export const JURISDICTION_INTERSTITIAL_URL: PageLink = '/you-can-use-english-welsh-courts';
 export const JURISDICTION_LAST_TWELVE_MONTHS: PageLink = '/living-england-wales-twelve-months';
 export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
 export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-six-months';

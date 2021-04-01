@@ -166,7 +166,10 @@ export const sequence: Step[] = [
           return JURISDICTION_INTERSTITIAL_URL;
 
         case `${YES}${NO}`:
-          return LIVING_ENGLAND_WALES_SIX_MONTHS;
+          if (data.yourLifeBasedInEnglandAndWales === YES) {
+            return LIVING_ENGLAND_WALES_SIX_MONTHS;
+          }
+          return HABITUALLY_RESIDENT_ENGLAND_WALES;
 
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
