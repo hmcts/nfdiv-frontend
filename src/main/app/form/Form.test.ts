@@ -41,8 +41,7 @@ describe('Form', () => {
       partnersEmail: {
         type: 'text',
         label: 'label',
-        allDataValidator: true,
-        validator: value => isEitherFieldsFilledIn(value as Partial<Case>),
+        validator: (value, formData) => isEitherFieldsFilledIn(formData),
       },
     },
     submit: {

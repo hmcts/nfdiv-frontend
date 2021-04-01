@@ -1,4 +1,4 @@
-import { Case, Checkbox } from '../../app/case/case';
+import { Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { doesNotKnowEmail, isEitherFieldsFilledIn, isEmailValid } from '../../app/form/validation';
@@ -29,11 +29,10 @@ export const form: FormContent = {
     respondentEmailAddress: {
       type: 'text',
       label: l => l.respondentEmailAddress,
-      allDataValidator: true,
-      validator: data => {
-        const validation = isEitherFieldsFilledIn(data as Partial<Case>) || doesNotKnowEmail(data as Partial<Case>);
-        if ((data as Partial<Case>).doNotKnowRespondentEmailAddress !== Checkbox.Checked) {
-          return validation || isEmailValid((data as Partial<Case>).respondentEmailAddress);
+      validator: (value, formData) => {
+        const validation = isEitherFieldsFilledIn(formData) || doesNotKnowEmail(formData);
+        if (value !== Checkbox.Checked) {
+          return validation || isEmailValid(value);
         }
         return validation;
       },
