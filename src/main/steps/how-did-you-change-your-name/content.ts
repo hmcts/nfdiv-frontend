@@ -48,7 +48,7 @@ export const form: FormContent = {
             changedNameHowAnotherWay: {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
-              classes: 'govuk-label',
+              labelSize: null,
               validator: isFieldFilledIn,
             },
           },
