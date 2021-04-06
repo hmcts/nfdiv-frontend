@@ -4,7 +4,7 @@ export type Validator = (value: string | CaseDate | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
-  if (!value) {
+  if (!value || (value as string).trim().length === 0) {
     return 'required';
   }
 };
