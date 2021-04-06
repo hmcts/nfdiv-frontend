@@ -1,3 +1,5 @@
+import { capitalize } from 'lodash';
+
 import { Case } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
@@ -165,11 +167,13 @@ export const generatePageContent = ({
   userEmail: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
   const content: CommonContent = {
     ...commonTranslations,
+    serviceName,
     selectedGender,
     partner,
     language,
@@ -185,21 +189,27 @@ export const generatePageContent = ({
   return content;
 };
 
-const getPartnerContent = (translations, selectedGender: Gender, isDivorce: boolean): string => {
+const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
+  const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
+  return capitalize(serviceName);
+};
+
+const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
   if (!isDivorce) {
-    return translations['civilPartner'];
+    return translations.civilPartner;
   }
   if (selectedGender === Gender.MALE) {
-    return translations['husband'];
+    return translations.husband;
   }
   if (selectedGender === Gender.FEMALE) {
-    return translations['wife'];
+    return translations.wife;
   }
-  return translations['partner'];
+  return translations.partner;
 };
 
 export type CommonContent = typeof en & {
   language: Language;
+  serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
   formState?: Partial<Case>;

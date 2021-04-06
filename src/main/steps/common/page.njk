@@ -8,8 +8,6 @@
   <!-- {{ formState.id }} -->
 {% endblock %}
 
-{% set serviceName = (applyForDivorce if isDivorce else applyForDissolution) | capitalize %}
-
 {% block header %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
