@@ -4,13 +4,9 @@ Feature: Habitually Resident
     Given I login
     And I've completed all questions correctly to get to the jurisdiction section
     When I go to '/habitually-resident-england-wales'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click "Continue"
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
     Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
 
+  @nightly
   Scenario: Error when not answering did you get married in the UK?
     Given I clear the form
     When I click "Continue"
@@ -19,9 +15,9 @@ Feature: Habitually Resident
   Scenario: Was last habitually resident in England or Wales and does one of you still live here?
     And I select "Yes"
     When I click "Continue"
-    Then the page should include "You can use the English or Welsh court"
+    Then the page should include "You can use English or Welsh courts"
 
-  Scenario: Was not last habitually resident in England or Wales and is same sex?
+  Scenario: Was not last habitually resident in England or Wales and is same sex
     When I go to '/your-details'
     Then the page should include "Who are you applying to divorce?"
     Given I clear the form
@@ -33,7 +29,7 @@ Feature: Habitually Resident
     When I click "Continue"
     Then the page URL should be "/residual-jurisdiction"
 
-  Scenario: Was not last habitually resident in England or Wales and is not same sex?
+  Scenario: Was not last habitually resident in England or Wales and is not same sex
     When I go to '/your-details'
     Then the page should include "Who are you applying to divorce?"
     Given I clear the form
