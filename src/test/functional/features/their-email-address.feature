@@ -4,7 +4,7 @@ Feature: Their email address
     Given I login
     And I've said I'm divorcing my husband
     When I go to '/their-email-address'
-    Then the page should include "Enter your civil partner's email address"
+    Then the page should include "Enter your husband's email address"
 
   Scenario: Successfully enter their email address
     Given I clear the form
