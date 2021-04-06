@@ -51,6 +51,10 @@ export const config = {
           I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
           I.waitForText('Apply for a divorce');
         },
+        restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
+          I.amOnPage('/info');
+          I.setCookie(cookies);
+        },
       },
     },
   },
