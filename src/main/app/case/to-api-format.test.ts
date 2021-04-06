@@ -1,5 +1,5 @@
 import { Case, Checkbox } from './case';
-import { DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -11,6 +11,7 @@ describe('to-api-format', () => {
     alreadyAppliedForHelpPaying: YesOrNo.YES,
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
+    addressPrivate: YesOrNo.YES,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -25,6 +26,7 @@ describe('to-api-format', () => {
       helpWithFeesAppliedForFees: YesOrNo.YES,
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
+      petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
     });
   });
 
