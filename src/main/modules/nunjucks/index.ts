@@ -45,20 +45,29 @@ export class Nunjucks {
         value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
         attributes: i.attributes,
         checked: i.selected ?? userAnswer?.[i.name as string] ?? i.value === userAnswer,
-        conditional:
-          i.warning || i.subFields
-            ? {
-                html: i.warning
-                  ? env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                      message: this.env.globals.getContent.call(this, i.warning),
-                      warning: this.ctx.warning,
-                    })
-                  : env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                      ...this.ctx,
-                      form: { fields: i.subFields },
-                    }),
-              }
-            : undefined,
+        conditional: (() => {
+          if (i.warning) {
+            return {
+              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                message: this.env.globals.getContent.call(this, i.warning),
+                warning: this.ctx.warning,
+              }),
+            };
+          } else if (i.conditionalText) {
+            return {
+              html: this.env.globals.getContent.call(this, i.conditionalText),
+            };
+          } else if (i.subFields) {
+            return {
+              html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                ...this.ctx,
+                form: { fields: i.subFields },
+              }),
+            };
+          } else {
+            return undefined;
+          }
+        })(),
       }));
     });
 

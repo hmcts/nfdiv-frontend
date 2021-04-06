@@ -247,6 +247,11 @@ export const sequence: Step[] = [
     getNextStep: () => THEIR_POSTAL_ADDRESS,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: CHECK_ANSWERS_URL,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
