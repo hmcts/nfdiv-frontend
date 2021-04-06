@@ -1,7 +1,7 @@
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, YesOrNo } from './definition';
+import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
@@ -25,6 +25,9 @@ const fields: FromApiConverters = {
   petitionerKnowsRespondentsAddress: data => ({
     doNotKnowRespondentEmailAddress:
       data.petitionerKnowsRespondentsAddress === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
+  petitionerContactDetailsConfidential: data => ({
+    addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
   }),
 };
 

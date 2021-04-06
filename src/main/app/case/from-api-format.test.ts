@@ -11,6 +11,7 @@ describe('from-api-format', () => {
     screenHasMarriageBroken: 'YES',
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
+    petitionerContactDetailsConfidential: 'keep',
     petitionerKnowsRespondentsAddress: 'YES',
   };
 
@@ -24,6 +25,7 @@ describe('from-api-format', () => {
       screenHasUnionBroken: YesOrNo.YES,
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
+      addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });
@@ -43,6 +45,7 @@ describe('from-api-format', () => {
       },
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
+      addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });

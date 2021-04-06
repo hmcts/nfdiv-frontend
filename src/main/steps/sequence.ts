@@ -3,6 +3,7 @@ import { YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
+  ADDRESS_PRIVATE,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -230,6 +231,11 @@ export const sequence: Step[] = [
   {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.Documents,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
