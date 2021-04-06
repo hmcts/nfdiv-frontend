@@ -31,7 +31,7 @@ export const form: FormContent = {
       label: l => l.respondentEmailAddress,
       validator: (value, formData) => {
         const validation = isEitherFieldsFilledIn(formData) || doesNotKnowEmail(formData);
-        if (value !== Checkbox.Checked) {
+        if (formData.doNotKnowRespondentEmailAddress !== Checkbox.Checked) {
           return validation || isEmailValid(value);
         }
         return validation;

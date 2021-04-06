@@ -1,4 +1,4 @@
-import * as EmailValidator from 'email-validator';
+import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate, Checkbox } from '../case/case';
 
@@ -109,7 +109,7 @@ export const isPhoneNoValid: Validator = value => {
 };
 
 export const isEmailValid: Validator = value => {
-  if (!EmailValidator.validate(value as string)) {
+  if (!isValidEmail(value as string)) {
     return 'invalid';
   }
 };
