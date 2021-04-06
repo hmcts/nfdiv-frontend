@@ -3,10 +3,13 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { doesNotKnowEmail, isEitherFieldsFilledIn, isEmailValid } from '../../app/form/validation';
 
-const en = ({ partner }) => ({
+const en = ({ partner, isDivorce }) => ({
   title: `Enter your ${partner}'s email address`,
-  line1:
-    'It’s important you provide their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the divorce papers will be served (delivered) by post. The emails will also contain information and updates relating to the divorce.',
+  line1: `It’s important you provide their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
+    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  } will be served (delivered) by post. The emails will also contain information and updates relating to ${
+    isDivorce ? 'the divorce' : 'ending your civil partnership'
+  }.`,
   line2: 'If you use their work email address, you should ask their permission first.',
   respondentEmailAddress: `Your ${partner}'s email address`,
   doNotKnowRespondentEmailAddress: 'I do not know their email address',
