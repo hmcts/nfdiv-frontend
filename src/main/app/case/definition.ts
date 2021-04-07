@@ -122,6 +122,7 @@ export interface CaseData {
   solApplicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  petitionerKnowsRespondentsAddress: YesOrNo;
 }
 
 export const enum FieldType {

@@ -1,0 +1,9 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 | safe }}</p>
+  <p class="govuk-body govuk-inset-text">
+      {{ line2 }}<br><br>{{ line3 }}
+  </p>
+{% endblock %}
