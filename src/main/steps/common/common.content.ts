@@ -1,4 +1,4 @@
-import { Case } from '../../app/case/case';
+import { Case, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -171,6 +171,7 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
+  const partnerEmailProvided = formState?.doNotKnowRespondentEmailAddress !== Checkbox.Checked;
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -180,6 +181,7 @@ export const generatePageContent = ({
     isDivorce,
     formState,
     userEmail,
+    partnerEmailProvided,
   };
 
   if (pageContent) {
@@ -210,6 +212,7 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   selectedGender: Gender;
+  partnerEmailProvided: boolean;
 };
 
 export type Language = 'en' | 'cy';

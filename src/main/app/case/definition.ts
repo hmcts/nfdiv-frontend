@@ -124,7 +124,6 @@ export interface CaseData {
   jurisdictionConnections: JurisdictionConnections[];
   respondentEmailAddress: string;
   petitionerKnowsRespondentsAddress: YesOrNo;
-  petitionerKnowsRespondentsAddress: YesOrNo;
 }
 
 export const enum FieldType {

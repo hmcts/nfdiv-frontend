@@ -38,7 +38,6 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
-  THEIR_POSTAL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -253,7 +252,7 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => THEIR_POSTAL_ADDRESS,
+    getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
