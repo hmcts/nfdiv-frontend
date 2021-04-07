@@ -52,10 +52,7 @@ Feature: Your address
     And I select "Enter a UK postcode"
     And I type "SW1A 1AA"
     And I click "Find address"
-    And I choose "BUCKINGHAM PALACE, LONDON, SW1A 1AA" from "Select an address"
-    And I click "Continue"
-    When I go to "/enter-your-address"
-    And I clear the form
+    And I click "I cannot find the address in the list"
     And I click "Continue"
     Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
