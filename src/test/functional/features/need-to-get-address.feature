@@ -8,7 +8,7 @@ Feature: You need to get their address
   Scenario: Successfully completing the form
     Given I select "I want to apply to have the divorce papers ‘served’ (delivered) to them another way"
     When I click "Continue"
-    Then the page URL should be "/other-court-cases"
+    Then the page URL should be "/how-to-apply-to-serve"
 
   @nightly
   Scenario: Error when missing a required field
