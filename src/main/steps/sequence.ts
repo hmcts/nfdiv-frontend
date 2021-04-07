@@ -29,6 +29,7 @@ import {
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
+  OTHER_COURT_CASES,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -38,6 +39,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
+  YOU_NEED_TO_GET_THEIR_ADDRESS,
 } from './urls';
 
 export enum Sections {
@@ -223,6 +225,11 @@ export const sequence: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
@@ -247,9 +254,9 @@ export const sequence: Step[] = [
     getNextStep: () => THEIR_EMAIL,
   },
   {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    url: YOU_NEED_TO_GET_THEIR_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: CHECK_ANSWERS_URL,

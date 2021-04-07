@@ -1,0 +1,64 @@
+import { Checkbox } from '../../app/case/case';
+import { TranslationFn } from '../../app/controller/GetController';
+import { FormContent } from '../../app/form/Form';
+import { isFieldFilledIn } from '../../app/form/validation';
+import type { CommonContent } from '../../steps/common/common.content';
+
+const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
+  const dissolution = isDivorce ? divorce : endingCivilPartnership;
+  return {
+    title: 'You need to get their address',
+    line1:
+      'Save your application and try to find their address. It can be their postal address or their solicitor’s address. It can be UK or international. If you use their work address, you need to ask their permission.',
+    line2: 'To find their address you could try contacting their:',
+    bullet1: 'relatives',
+    bullet2: 'friends',
+    bullet3: 'last-known employer',
+    bullet4: 'trade union or professional organisation',
+    cannotGetAddressTitle: 'If you cannot get their address',
+    cannotGetAddressLine1: `If you know you cannot get their address then you can apply to have the ${dissolution} papers ‘served’ (delivered) to them another way. For example by email, text message or social media. This is a separate application which will be reviewed by a judge and cost an additional £50.`,
+    iWantToHavePapersServed: `I want to apply to have the ${dissolution} papers ‘served’ (delivered) to them another way.`,
+    errors: {
+      cannotGetAddress: {
+        required:
+          'If you want to apply to have the papers served to them another way then you need to check the box before continuing. Otherwise save your application and find their address.',
+      },
+    },
+  };
+};
+
+// @TODO translations
+const cy: typeof en = en;
+
+export const form: FormContent = {
+  fields: {
+    cannotGetAddress: {
+      type: 'checkboxes',
+      labelHidden: true,
+      values: [
+        {
+          name: 'iWantToHavePapersServed',
+          label: l => l.iWantToHavePapersServed,
+          value: Checkbox.Checked,
+          validator: isFieldFilledIn,
+        },
+      ],
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  return {
+    ...translations,
+    form,
+  };
+};
