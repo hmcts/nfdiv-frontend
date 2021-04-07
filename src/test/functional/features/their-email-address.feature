@@ -11,13 +11,13 @@ Feature: Their email address
     Given I select "Your husband's email address"
     And I type "test@test.com"
     When I click "Continue"
-    Then the page URL should be "/their-postal-address"
+    Then the page URL should be "/do-you-have-address"
 
   Scenario: Successfully enter do not know their email
     Given I clear the form
     Given I select "I do not know their email address"
     When I click "Continue"
-    Then the page URL should be "/their-postal-address"
+    Then the page URL should be "/do-you-have-address"
 
   Scenario: Error when entering both their email and selecting I do not know their email
     Given I clear the form
