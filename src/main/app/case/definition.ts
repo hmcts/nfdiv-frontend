@@ -122,6 +122,8 @@ export interface CaseData {
   solApplicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  respondentEmailAddress: string;
+  petitionerKnowsRespondentsAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
 }
 

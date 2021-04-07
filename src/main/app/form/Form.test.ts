@@ -3,7 +3,7 @@ import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
-import { areFieldsFilledIn, isFieldFilledIn } from './validation';
+import { areFieldsFilledIn, isEitherFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -38,6 +38,11 @@ describe('Form', () => {
           },
         ],
       },
+      partnersEmail: {
+        type: 'text',
+        label: 'label',
+        validator: (value, formData) => isEitherFieldsFilledIn(formData),
+      },
     },
     submit: {
       text: l => l.continue,
@@ -55,12 +60,14 @@ describe('Form', () => {
         year: '2000',
       },
       requiredCheckbox: Checkbox.Checked,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     } as unknown) as Case);
 
     expect(mockForm.fields.field.validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
       requiredCheckbox: Checkbox.Checked,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
     expect(errors).toStrictEqual([]);
   });
@@ -75,6 +82,10 @@ describe('Form', () => {
       },
       {
         propertyName: 'dateField',
+        errorType: 'required',
+      },
+      {
+        propertyName: 'partnersEmail',
         errorType: 'required',
       },
       {

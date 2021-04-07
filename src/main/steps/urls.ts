@@ -47,10 +47,11 @@ export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 
-export const THEIR_EMAIL: PageLink = '/their-email-address';
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
+export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
+export const THEIR_POSTAL_ADDRESS: PageLink = '/their-postal-address';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';

@@ -31,6 +31,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
+  respondentEmailAddress: 'respondentEmailAddress',
   knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
 };
 
@@ -93,6 +94,8 @@ export interface Case {
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
+  respondentEmailAddress?: string;
+  doNotKnowRespondentEmailAddress?: Checkbox;
   knowPartnersAddress?: YesOrNo;
 }
 
