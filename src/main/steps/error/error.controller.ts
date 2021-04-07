@@ -16,7 +16,7 @@ export class ErrorController {
   public notFound(req: AppRequest, res: Response): void {
     req.locals.logger.info(`404 Not Found: ${req.originalUrl}`);
 
-    res.status(StatusCodes.NOT_FOUND);
+    res.statusCode = StatusCodes.NOT_FOUND;
     this.render(req, res);
   }
 
@@ -31,9 +31,9 @@ export class ErrorController {
       response = (error as AxiosError).response?.data;
     }
 
-    req.locals.logger.error(`${stack || message}`, response);
+    req.locals.logger.error(`${stack || message || 'Internal Server Error'}`, response);
 
-    res.status((error as HTTPError)?.status || StatusCodes.INTERNAL_SERVER_ERROR);
+    res.statusCode = (error as HTTPError)?.status || StatusCodes.INTERNAL_SERVER_ERROR;
     this.render(req, res);
   }
 
@@ -43,16 +43,24 @@ export class ErrorController {
   public CSRFTokenError(req: AppRequest, res: Response): void {
     req.locals.logger.error('CSRF Token Failed');
 
-    res.status(StatusCodes.BAD_REQUEST);
+    res.statusCode = StatusCodes.BAD_REQUEST;
     this.render(req, res);
   }
 
   private render(req: AppRequest, res: Response) {
+    if (res.locals.isError || res.headersSent) {
+      // If there's an async error, it wil have already rendered an error page upstream,
+      // so we don't want to call render again
+      return;
+    }
+
     const language = (req.session?.lang || 'en') as Language;
     const errorText =
       errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
     const commonContent = generatePageContent({ language, userEmail: req.session?.user.email });
     res.locals.isError = true;
+
+    res.status(res.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
     res.render('error/error', { ...commonContent, ...errorText });
   }
 }
