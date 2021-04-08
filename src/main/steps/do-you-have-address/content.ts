@@ -16,10 +16,10 @@ const en = ({ partner, isDivorce, partnerEmailProvided, required }) => ({
   }`,
   line2:
     'It can be their home address or their solicitor’s address. It can be UK or international. If you use their work address, you need to ask their permission.',
-  line3: `${
-    partnerEmailProvided
-      ? 'If you do not know their current address then you can use their last-known address.'
-      : 'If you do not know their current address then you can use their last-known address. If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
+  line3: `If you do not know their current address then you can use their last-known address. ${
+    !partnerEmailProvided
+      ? 'If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
+      : ''
   }`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
