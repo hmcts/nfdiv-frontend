@@ -255,13 +255,13 @@ export const sequence: Step[] = [
     getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
+    url: DO_YOU_HAVE_ADDRESS,
+    getNextStep: data => (data.knowPartnersAddress === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
+  },
+  {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
-  },
-  {
-    url: DO_YOU_HAVE_ADDRESS,
-    getNextStep: data => (data.knowPartnersAddress === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
   },
   {
     url: CHECK_ANSWERS_URL,
