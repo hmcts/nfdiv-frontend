@@ -55,7 +55,7 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        isInternationalAddress: undefined,
+        isYourAddressInternational: undefined,
         yourInternationalAddress: undefined,
       });
     });
@@ -72,7 +72,7 @@ describe('from-api-format', () => {
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
-        isInternationalAddress: YesOrNo.NO,
+        isYourAddressInternational: YesOrNo.NO,
       });
     });
 
@@ -84,7 +84,7 @@ describe('from-api-format', () => {
 
       expect(nfdivFormat).toMatchObject({
         yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
-        isInternationalAddress: YesOrNo.YES,
+        isYourAddressInternational: YesOrNo.YES,
       });
     });
   });

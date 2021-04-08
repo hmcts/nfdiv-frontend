@@ -106,7 +106,7 @@ describe('to-api-format', () => {
       const mockInternationalAddress = 'Parliament House, Parliament Dr, Canberra ACT 2600, Australia';
       const apiFormat = toApiFormat(({
         ...results,
-        isInternationalAddress: YesOrNo.YES,
+        isYourAddressInternational: YesOrNo.YES,
         yourInternationalAddress: mockInternationalAddress,
       } as unknown) as Partial<Case>);
 

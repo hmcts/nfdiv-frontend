@@ -75,7 +75,7 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
-  isInternationalAddress?: YesOrNo;
+  isYourAddressInternational?: YesOrNo;
   yourAddress1?: string;
   yourAddress2?: string;
   yourAddressTown?: string;
@@ -88,6 +88,13 @@ export interface Case {
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
   addressPrivate: YesOrNo;
+  isTheirAddressInternational?: YesOrNo;
+  theirAddress1?: string;
+  theirAddress2?: string;
+  theirAddressTown?: string;
+  theirAddressCounty?: string;
+  theirAddressPostcode?: string;
+  theirInternationalAddress?: string;
   lastNameChangeWhenRelationshipFormed?: YesOrNo;
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
