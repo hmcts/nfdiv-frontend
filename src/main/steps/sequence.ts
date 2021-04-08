@@ -13,6 +13,7 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -256,7 +257,8 @@ export const sequence: Step[] = [
   {
     url: YOU_NEED_TO_GET_THEIR_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
+    getNextStep: data =>
+      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
   },
   {
     url: CHECK_ANSWERS_URL,

@@ -12,6 +12,7 @@ describe('to-api-format', () => {
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
+    iWantToHavePapersServedAnotherWay: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -27,6 +28,7 @@ describe('to-api-format', () => {
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
       petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
+      petitionerWantsToHavePapersServedAnotherWay: YesOrNo.YES,
     });
   });
 

@@ -54,3 +54,4 @@ export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-
 
 export const YOU_NEED_TO_GET_THEIR_ADDRESS: PageLink = '/need-to-get-address';
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
+export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';

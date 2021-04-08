@@ -48,6 +48,10 @@ const fields: ToApiConverters = {
     petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
+  iWantToHavePapersServedAnotherWay: data => ({
+    petitionerWantsToHavePapersServedAnotherWay:
+      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

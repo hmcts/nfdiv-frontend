@@ -31,7 +31,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
-  iWantToHavePapersServedAnotherWay: 'petitionerWantsToHavePapersServedAnotherWay',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -93,7 +92,7 @@ export interface Case {
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
-  iWantToHavePapersServedAnotherWay?: YesOrNo;
+  iWantToHavePapersServedAnotherWay?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

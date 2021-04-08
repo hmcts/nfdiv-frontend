@@ -3,7 +3,7 @@ import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results = {
+  const results: Partial<Record<keyof CaseData, string>> = {
     divorceOrDissolution: 'divorce',
     marriageIsSameSexCouple: 'YES',
     inferredRespondentGender: 'male',
@@ -12,6 +12,7 @@ describe('from-api-format', () => {
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
+    petitionerWantsToHavePapersServedAnotherWay: 'YES',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -25,6 +26,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: Checkbox.Checked,
     });
   });
 
@@ -44,6 +46,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: Checkbox.Checked,
     });
   });
 

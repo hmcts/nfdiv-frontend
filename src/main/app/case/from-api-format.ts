@@ -25,6 +25,10 @@ const fields: FromApiConverters = {
   petitionerContactDetailsConfidential: data => ({
     addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
   }),
+  petitionerWantsToHavePapersServedAnotherWay: data => ({
+    iWantToHavePapersServedAnotherWay:
+      data.petitionerWantsToHavePapersServedAnotherWay === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
+  }),
 };
 
 const fromApiDate = date => {
