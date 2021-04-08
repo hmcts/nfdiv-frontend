@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-03-30 12:31:36.
+// Generated using typescript-generator version 2.30.840 on 2021-04-08 10:26:15.
 
 export interface Address {
   AddressLine1: string;
@@ -26,8 +26,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -123,6 +123,7 @@ export interface CaseData {
   lastNameChangedWhenMarried: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   respondentEmailAddress: string;
+  petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
 }
 
@@ -163,6 +164,9 @@ export const enum UserRole {
   CASEWORKER_DIVORCE_SUPERUSER = 'CASEWORKER_DIVORCE_SUPERUSER',
   CASEWORKER_DIVORCE_COURTADMIN_LA = 'CASEWORKER_DIVORCE_COURTADMIN_LA',
   CASEWORKER_DIVORCE_SYSTEMUPDATE = 'CASEWORKER_DIVORCE_SYSTEMUPDATE',
+  RESPONDENT_SOLICITOR = 'RESPONDENT_SOLICITOR',
+  PETITIONER_SOLICITOR = 'PETITIONER_SOLICITOR',
+  CREATOR = 'CREATOR',
 }
 
 export const enum DivorceOrDissolution {
@@ -244,16 +248,16 @@ export const enum JurisdictionConnections {
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE5';
 export const JURISDICTION = 'DIVORCE';
-export const PATCH_CASE = 'patch-case';
-export const SOLICITOR_CREATE = 'solicitor-create';
-export const SOLICITOR_UPDATE = 'solicitor-update';
-export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const SUBMIT_PETITION = 'submit-petition';
-export const CREATE_DRAFT = 'create-draft';
-export const SAVE_AND_CLOSE = 'save-and-close';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
 export const PETITIONER_EMAIL = 'petitionerEmail';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
+export const SAVE_AND_CLOSE = 'save-and-close';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const SUBMIT_PETITION = 'submit-petition';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const CREATE_DRAFT = 'create-draft';
+export const PATCH_CASE = 'patch-case';
