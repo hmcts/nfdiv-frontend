@@ -50,7 +50,7 @@ const fields: ToApiConverters = {
   }),
   doNotKnowRespondentEmailAddress: (data: Case) => ({
     petitionerKnowsRespondentsAddress:
-      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
 };
 

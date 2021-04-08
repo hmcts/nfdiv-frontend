@@ -24,7 +24,7 @@ const fields: FromApiConverters = {
   }),
   petitionerKnowsRespondentsAddress: data => ({
     doNotKnowRespondentEmailAddress:
-      data.petitionerKnowsRespondentsAddress === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
+      data.petitionerKnowsRespondentsAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
   petitionerContactDetailsConfidential: data => ({
     addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,

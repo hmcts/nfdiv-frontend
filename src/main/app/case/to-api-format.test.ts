@@ -28,7 +28,7 @@ describe('to-api-format', () => {
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
       petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
-      petitionerKnowsRespondentsAddress: YesOrNo.YES,
+      petitionerKnowsRespondentsAddress: YesOrNo.NO,
     });
   });
 
