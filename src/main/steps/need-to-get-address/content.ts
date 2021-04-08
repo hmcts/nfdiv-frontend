@@ -16,8 +16,8 @@ const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
     bullet3: 'last-known employer',
     bullet4: 'trade union or professional organisation',
     cannotGetAddressTitle: 'If you cannot get their address',
-    cannotGetAddressLine1: `If you know you cannot get their address then you can apply to have the ${dissolution} papers ‘served’ (delivered) to them another way. For example by email, text message or social media. This is a separate application which will be reviewed by a judge and cost an additional £50.`,
-    iWantToHavePapersServed: `I want to apply to have the ${dissolution} papers ‘served’ (delivered) to them another way.`,
+    cannotGetAddressLine1: `If you know you cannot get their address then you can apply to have the ${dissolution} papers ‘served’ (delivered) to them another way. For example by email, text message or social media. This is a separate application which will be reviewed by a judge and costs an additional £50.`,
+    iWantToHavePapersServedAnotherWay: `I want to apply to have the ${dissolution} papers ‘served’ (delivered) to them another way.`,
     errors: {
       cannotGetAddress: {
         required:
@@ -37,8 +37,8 @@ export const form: FormContent = {
       labelHidden: true,
       values: [
         {
-          name: 'iWantToHavePapersServed',
-          label: l => l.iWantToHavePapersServed,
+          name: 'iWantToHavePapersServedAnotherWay',
+          label: l => l.iWantToHavePapersServedAnotherWay,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
         },
