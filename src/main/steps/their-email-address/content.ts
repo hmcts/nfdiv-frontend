@@ -1,7 +1,7 @@
-import { Checkbox } from '../../app/case/case';
+import { Case, Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { doesNotKnowEmail, isEmailValid, isRespondentEmailFilledOrNotKnown } from '../../app/form/validation';
+import { doesNotKnowEmail, isEmailValid, isFieldFilledIn } from '../../app/form/validation';
 
 const en = ({ partner, isDivorce }) => ({
   title: `Enter your ${partner}'s email address`,
@@ -67,4 +67,13 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
   };
+};
+
+const isRespondentEmailFilledOrNotKnown = (value: Partial<Case>): string | void => {
+  if (
+    isFieldFilledIn(value.respondentEmailAddress) === 'required' &&
+    value.doNotKnowRespondentEmailAddress !== Checkbox.Checked
+  ) {
+    return 'required';
+  }
 };

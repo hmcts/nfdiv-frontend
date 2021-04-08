@@ -125,12 +125,3 @@ export const doesNotKnowEmail = (value: Partial<Case>): string | void => {
     return 'incorrect';
   }
 };
-
-export const isRespondentEmailFilledOrNotKnown = (value: Partial<Case>): string | void => {
-  if (
-    isFieldFilledIn(value.respondentEmailAddress) === 'required' &&
-    value.doNotKnowRespondentEmailAddress !== Checkbox.Checked
-  ) {
-    return 'required';
-  }
-};
