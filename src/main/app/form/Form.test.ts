@@ -3,7 +3,7 @@ import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
-import { areFieldsFilledIn, isFieldFilledIn, isRespondentEmailFilledOrNotKnown } from './validation';
+import { areFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -37,11 +37,6 @@ describe('Form', () => {
             validator: isFieldFilledIn,
           },
         ],
-      },
-      partnersEmail: {
-        type: 'text',
-        label: 'label',
-        validator: (value, formData) => isRespondentEmailFilledOrNotKnown(formData),
       },
     },
     submit: {
@@ -82,10 +77,6 @@ describe('Form', () => {
       },
       {
         propertyName: 'dateField',
-        errorType: 'required',
-      },
-      {
-        propertyName: 'partnersEmail',
         errorType: 'required',
       },
       {
