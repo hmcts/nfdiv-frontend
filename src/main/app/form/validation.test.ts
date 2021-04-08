@@ -4,7 +4,6 @@ import {
   areFieldsFilledIn,
   doesNotKnowEmail,
   isDateInputInvalid,
-  isEitherFieldsFilledIn,
   isEmailValid,
   isFieldFilledIn,
   isFieldLetters,
@@ -13,6 +12,7 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isPhoneNoValid,
+  isRespondentEmailFilledOrNotKnown,
 } from './validation';
 
 describe('Validation', () => {
@@ -213,7 +213,7 @@ describe('Validation', () => {
 
   describe('isEitherFieldsFilledIn()', () => {
     test('Should check if email is at least filled in', async () => {
-      const isValid = isEitherFieldsFilledIn({
+      const isValid = isRespondentEmailFilledOrNotKnown({
         respondentEmailAddress: 'test@test.com',
       });
 
@@ -221,7 +221,7 @@ describe('Validation', () => {
     });
 
     test('Should check if checkbox is checked', async () => {
-      const isValid = isEitherFieldsFilledIn({
+      const isValid = isRespondentEmailFilledOrNotKnown({
         doNotKnowRespondentEmailAddress: Checkbox.Checked,
       });
 
@@ -229,7 +229,7 @@ describe('Validation', () => {
     });
 
     test('Should check if either email is filled or checkbox is checked', async () => {
-      const isValid = isEitherFieldsFilledIn({});
+      const isValid = isRespondentEmailFilledOrNotKnown({});
 
       expect(isValid).toStrictEqual('required');
     });
