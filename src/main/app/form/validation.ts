@@ -126,7 +126,7 @@ export const doesNotKnowEmail = (value: Partial<Case>): string | void => {
   }
 };
 
-export const isEitherFieldsFilledIn = (value: Partial<Case>): string | void => {
+export const isRespondentEmailFilledOrNotKnown = (value: Partial<Case>): string | void => {
   if (
     isFieldFilledIn(value.respondentEmailAddress) === 'required' &&
     value.doNotKnowRespondentEmailAddress !== Checkbox.Checked

@@ -1,7 +1,7 @@
 import { Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { doesNotKnowEmail, isEitherFieldsFilledIn, isEmailValid } from '../../app/form/validation';
+import { doesNotKnowEmail, isEmailValid, isRespondentEmailFilledOrNotKnown } from '../../app/form/validation';
 
 const en = ({ partner, isDivorce }) => ({
   title: `Enter your ${partner}'s email address`,
@@ -33,7 +33,7 @@ export const form: FormContent = {
       type: 'text',
       label: l => l.respondentEmailAddress,
       validator: (value, formData) => {
-        const validation = isEitherFieldsFilledIn(formData) || doesNotKnowEmail(formData);
+        const validation = isRespondentEmailFilledOrNotKnown(formData) || doesNotKnowEmail(formData);
         if (formData.doNotKnowRespondentEmailAddress !== Checkbox.Checked) {
           return validation || isEmailValid(value);
         }
