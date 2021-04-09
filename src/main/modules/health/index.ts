@@ -1,9 +1,9 @@
 import os from 'os';
 
 import { infoRequestHandler } from '@hmcts/info-provider';
+import healthcheck from '@hmcts/nodejs-healthcheck';
+import config from 'config';
 import { Application } from 'express';
-
-const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 /**
  * Sets up the HMCTS info and health endpoints
@@ -26,30 +26,29 @@ export class HealthCheck {
       )
     );
 
-    // const healthOptions = () => {
-    //   return {
-    //     callback: (err: Error, res: Request): Promise<void> => {
-    //       if (err) {
-    //         console.log('Health check failed!');
-    //       }
-    //       return res.body.status == 'good' ? healthcheck.up() : healthcheck.down();
-    //     },
-    //     timeout: config.get('health.timeout'),
-    //     deadline: config.get('health.deadline'),
-    //   };
-    // };
+    const redis = app.locals.redisClient
+      ? healthcheck.raw(() => (app.locals.redisClient.ping() ? healthcheck.up() : healthcheck.down()))
+      : null;
 
-    const healthCheckConfig = {
+    healthcheck.addTo(app, {
       checks: {
-        // 'fact-api': healthcheck.web(`${config.get('services.api.url')}/health`, healthOptions),
+        ...(redis ? { redis } : {}),
+        'authProvider-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
+        'idam-api': healthcheck.web(new URL('/health', config.get('services.idam.tokenURL'))),
+        'case-api': healthcheck.web(new URL('/health', config.get('services.case.url'))),
       },
+      ...(redis
+        ? {
+            readinessChecks: {
+              redis,
+            },
+          }
+        : {}),
       buildInfo: {
         name: 'nfdiv-frontend',
         host: os.hostname(),
         uptime: process.uptime(),
       },
-    };
-
-    healthcheck.addTo(app, healthCheckConfig);
+    });
   }
 }
