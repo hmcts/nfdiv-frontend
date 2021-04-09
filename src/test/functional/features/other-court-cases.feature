@@ -1,0 +1,31 @@
+Feature: Other court cases
+
+  Background:
+    Given I login
+    And I've said I'm divorcing my husband
+    When I go to '/other-court-cases'
+    Then the page should include "Other court cases"
+
+  Scenario: Failed to fill in the form
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+  Scenario: Successfully completing the form
+    Given I select "No"
+    When I click "Continue"
+    Then the page should include "Check your answers so far"
+
+  Scenario: Successfully completing the form
+    Given I select "Yes"
+    Given I select "Our marriage"
+    Given I select "Our property"
+    When I click "Continue"
+    Then the page should include "Check your answers so far"
+
+  @nightly
+  Scenario: Error when missing a required field
+    Given I clear the form
+    When I select "Yes"
+    And I click "Continue"
+    Then the page should include "There was a problem"
