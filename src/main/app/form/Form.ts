@@ -24,8 +24,8 @@ export class Form {
         ?.filter(option => option.subFields !== undefined)
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
         .map(subField => this.getParsedBody(body, subField))
-        .forEach(subErrors => {
-          subFieldsParsedBody = { ...subFieldsParsedBody, ...subErrors };
+        .forEach(parsedSubField => {
+          subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
         });
     }
 

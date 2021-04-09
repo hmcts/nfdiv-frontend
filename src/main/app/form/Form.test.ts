@@ -1,4 +1,4 @@
-import { Case, CaseDate, Checkbox } from '../case/case';
+import { Case, CaseDate } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';
@@ -26,16 +26,12 @@ describe('Form', () => {
         parser: value => covertToDateObject('dateField', value as Record<string, unknown>),
         validator: value => areDateFieldsFilledIn(value as CaseDate),
       },
-      someCheckboxes: {
+      checkboxes: {
         type: 'checkboxes',
+        validator: isFieldFilledIn,
         values: [
-          { name: 'optionalCheckbox', label: () => 'optional', value: Checkbox.Checked },
-          {
-            name: 'requiredCheckbox',
-            label: () => 'required checkbox',
-            value: Checkbox.Checked,
-            validator: isFieldFilledIn,
-          },
+          { name: 'checkboxes', label: () => 'checkbox1', value: 'checkbox1' },
+          { name: 'checkboxes', label: () => 'checkbox2', value: 'checkbox2' },
         ],
       },
     },
@@ -54,13 +50,13 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      requiredCheckbox: Checkbox.Checked,
+      checkboxes: 'checkbox1',
     } as unknown) as Case);
 
     expect(mockForm.fields.field.validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
-      requiredCheckbox: Checkbox.Checked,
+      checkboxes: 'checkbox1',
     });
     expect(errors).toStrictEqual([]);
   });
@@ -78,7 +74,7 @@ describe('Form', () => {
         errorType: 'required',
       },
       {
-        propertyName: 'someCheckboxes',
+        propertyName: 'checkboxes',
         errorType: 'required',
       },
     ]);
@@ -148,8 +144,7 @@ describe('Form', () => {
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
-      optionalCheckbox: [''],
-      requiredCheckbox: ['', Checkbox.Checked],
+      checkboxes: ['', '', 'checkbox1', 'checkbox2'],
     };
 
     expect(form.getParsedBody(body)).toStrictEqual({
@@ -159,8 +154,7 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      optionalCheckbox: '',
-      requiredCheckbox: 'checked',
+      checkboxes: ['checkbox1', 'checkbox2'],
     });
   });
 });
