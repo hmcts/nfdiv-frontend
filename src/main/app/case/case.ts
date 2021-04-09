@@ -1,6 +1,14 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, JurisdictionConnections, YesOrNo } from './definition';
+import {
+  CaseData,
+  ChangedNameHow,
+  DivorceOrDissolution,
+  Gender,
+  JurisdictionConnections,
+  LegalProceedingsRelated,
+  YesOrNo,
+} from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   divorceOrDissolution: 'divorceOrDissolution',
@@ -31,6 +39,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
+  legalProceedings: 'legalProceedings',
+  legalProceedingsRelated: 'legalProceedingsRelated',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -92,6 +102,8 @@ export interface Case {
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
+  legalProceedings?: YesOrNo;
+  legalProceedingsRelated?: LegalProceedingsRelated[];
 }
 
 export interface CaseWithId extends Case {

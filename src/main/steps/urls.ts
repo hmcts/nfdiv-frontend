@@ -46,6 +46,7 @@ export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
+export const OTHER_COURT_CASE: PageLink = '/other-court-cases';
 
 export const THEIR_EMAIL: PageLink = '/their-email-address';
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';

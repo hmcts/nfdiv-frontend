@@ -13,12 +13,7 @@ const en = ({ required }) => ({
 });
 
 const cy: typeof en = ({ required }) => ({
-  title: 'A ydych wedi bod yn byw yng Nghymru neu Loegr am y 6 mis diwethaf?',
-  errors: {
-    livingInEnglandWalesSixMonths: {
-      required,
-    },
-  },
+  ...en({ required }),
 });
 
 export const form: FormContent = {

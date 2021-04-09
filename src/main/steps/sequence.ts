@@ -29,6 +29,7 @@ import {
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
+  OTHER_COURT_CASE,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -250,6 +251,11 @@ export const sequence: Step[] = [
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: OTHER_COURT_CASE,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,

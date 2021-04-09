@@ -1,7 +1,7 @@
 import { CaseDate } from '../case/case';
 
 import {
-  areFieldsFilledIn,
+  areDateFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
   isFieldLetters,
@@ -36,13 +36,13 @@ describe('Validation', () => {
 
   describe('areFieldsFilledIn()', () => {
     test('Should check if values in object exist', async () => {
-      const isValid = areFieldsFilledIn({ day: '1', month: '1', year: '1' });
+      const isValid = areDateFieldsFilledIn({ day: '1', month: '1', year: '1' });
 
       expect(isValid).toStrictEqual(undefined);
     });
 
     test('Should check if values in object does not exist', async () => {
-      const isValid = areFieldsFilledIn({ day: '', month: '', year: '' });
+      const isValid = areDateFieldsFilledIn({ day: '', month: '', year: '' });
 
       expect(isValid).toStrictEqual('required');
     });
