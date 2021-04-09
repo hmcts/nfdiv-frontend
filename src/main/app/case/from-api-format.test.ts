@@ -56,7 +56,6 @@ describe('from-api-format', () => {
 
       expect(nfdivFormat).toMatchObject({
         isYourAddressInternational: undefined,
-        yourInternationalAddress: undefined,
       });
     });
 
@@ -64,6 +63,7 @@ describe('from-api-format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
         derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+        petitionerHomeAddressIsInternational: YesOrNo.NO,
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -80,6 +80,7 @@ describe('from-api-format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
         derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        petitionerHomeAddressIsInternational: YesOrNo.YES,
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({

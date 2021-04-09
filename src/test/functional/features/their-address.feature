@@ -29,7 +29,7 @@ Feature: Their address
     Given I select "Full address"
     And I type "Their international address"
     And I click "Continue"
-    Then the page URL should be "/their-email-address"
+    Then the page URL should be "/other-court-cases"
     When I go to "/enter-their-address"
     Then the form input "Full address" should be "Their international address"
 

@@ -22,6 +22,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
+  isYourAddressInternational: 'petitionerHomeAddressIsInternational',
+  isTheirAddressInternational: 'respondentHomeAddressIsInternational',
   phoneNumber: 'petitionerPhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',

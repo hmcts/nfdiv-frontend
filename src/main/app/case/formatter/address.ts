@@ -4,15 +4,18 @@ import { Case } from '../case';
 import { CaseData, YesOrNo } from '../definition';
 
 export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
-  const apiAddressField = address === 'your' ? data.derivedPetitionerHomeAddress : data.derivedRespondentHomeAddress;
-  const addressParts = apiAddressField?.split('\n') || [];
-  if (addressParts.length !== 5) {
+  const isPetitionerAddress = address === 'your';
+  const apiAddress = isPetitionerAddress ? data.derivedPetitionerHomeAddress : data.derivedRespondentHomeAddress;
+  const apiIsAddressInternational = isPetitionerAddress
+    ? data.petitionerHomeAddressIsInternational
+    : data.respondentHomeAddressIsInternational;
+  if (apiIsAddressInternational === YesOrNo.YES) {
     return {
-      [`is${capitalize(address)}AddressInternational`]: addressParts.length ? YesOrNo.YES : undefined,
-      [`${address}InternationalAddress`]: apiAddressField,
+      [`${address}InternationalAddress`]: apiAddress,
     };
   }
 
+  const addressParts = apiAddress?.split('\n') || [];
   const [address1, address2, addressTown, addressCounty, addressPostcode] = addressParts;
   return {
     [`is${capitalize(address)}AddressInternational`]: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,

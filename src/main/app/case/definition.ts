@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-08 15:57:02.
+// Generated using typescript-generator version 2.30.840 on 2021-04-09 17:57:40.
 
 export interface Address {
   AddressLine1: string;
@@ -26,8 +26,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -52,6 +52,16 @@ export interface OrderSummary {
   PaymentReference: string;
   Fees: ListValue<Fee>[];
   PaymentTotal: string;
+}
+
+export interface Organisation {
+  OrganisationID: string;
+}
+
+export interface OrganisationPolicy<R> {
+  Organisation: Organisation;
+  OrgPolicyReference: string;
+  OrgPolicyCaseAssignedRole: R;
 }
 
 export interface CaseData {
@@ -88,6 +98,7 @@ export interface CaseData {
   petitionerNameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
   derivedPetitionerHomeAddress: string;
+  petitionerHomeAddressIsInternational: YesOrNo;
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
@@ -100,7 +111,7 @@ export interface CaseData {
   petitionerSolicitorEmail: string;
   solicitorAgreeToReceiveEmails: YesOrNo;
   derivedPetitionerSolicitorAddress: string;
-  petitionerOrganisationPolicy: string;
+  petitionerOrganisationPolicy: OrganisationPolicy<UserRole>;
   marriagePetitionerName: string;
   marriageRespondentName: string;
   solUrgentCase: YesOrNo;
@@ -127,6 +138,7 @@ export interface CaseData {
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
   derivedRespondentHomeAddress: string;
+  respondentHomeAddressIsInternational: YesOrNo;
   legalProceedings: YesOrNo;
   legalProceedingsRelated: LegalProceedingsRelated[];
   divorceClaimFrom: ClaimsCostFrom[];
@@ -177,16 +189,16 @@ export const enum State {
 }
 
 export const enum UserRole {
-  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'CASEWORKER_DIVORCE_COURTADMIN_BETA',
-  CASEWORKER_DIVORCE_COURTADMIN = 'CASEWORKER_DIVORCE_COURTADMIN',
-  CITIZEN = 'CITIZEN',
-  CASEWORKER_DIVORCE_SOLICITOR = 'CASEWORKER_DIVORCE_SOLICITOR',
-  CASEWORKER_DIVORCE_SUPERUSER = 'CASEWORKER_DIVORCE_SUPERUSER',
-  CASEWORKER_DIVORCE_COURTADMIN_LA = 'CASEWORKER_DIVORCE_COURTADMIN_LA',
-  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'CASEWORKER_DIVORCE_SYSTEMUPDATE',
-  RESPONDENT_SOLICITOR = 'RESPONDENT_SOLICITOR',
-  PETITIONER_SOLICITOR = 'PETITIONER_SOLICITOR',
-  CREATOR = 'CREATOR',
+  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'caseworker-divorce-courtadmin_beta',
+  CASEWORKER_DIVORCE_COURTADMIN = 'caseworker-divorce-courtadmin',
+  CITIZEN = 'citizen',
+  CASEWORKER_DIVORCE_SOLICITOR = 'caseworker-divorce-solicitor',
+  CASEWORKER_DIVORCE_SUPERUSER = 'caseworker-divorce-superuser',
+  CASEWORKER_DIVORCE_COURTADMIN_LA = 'caseworker-divorce-courtadmin-la',
+  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  RESPONDENT_SOLICITOR = '[RESPSOLICITOR]',
+  PETITIONER_SOLICITOR = '[PETSOLICITOR]',
+  CREATOR = '[CREATOR]',
 }
 
 export const enum DivorceOrDissolution {
@@ -290,7 +302,7 @@ export const enum Court {
 export const enum DocumentType {
   Petition = 'petition',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE5';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE6';
 export const JURISDICTION = 'DIVORCE';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
