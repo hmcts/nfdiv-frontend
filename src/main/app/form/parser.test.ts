@@ -38,5 +38,20 @@ describe('Parser', () => {
 
       expect(actual).toEqual([['checkboxField', ['checked', 'checked']]]);
     });
+    test('correctly sets up checkbox parser when type is a checkbox and only 1 checkbox is present', () => {
+      const mockFormWithCheckbox = {
+        checkboxField: {
+          type: 'checkboxes',
+          values: [{ name: 'checkboxField', value: 'checked' }],
+        } as FormField,
+      };
+
+      setupCheckboxParser(Object.entries(mockFormWithCheckbox)[0]);
+
+      const mockFormData = { checkboxField: ['', 'checked', 'checked'] };
+      const actual = mockFormWithCheckbox.checkboxField.parser?.(mockFormData);
+
+      expect(actual).toEqual([['checkboxField', 'checked']]);
+    });
   });
 });

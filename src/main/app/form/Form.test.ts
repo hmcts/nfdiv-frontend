@@ -80,7 +80,7 @@ describe('Form', () => {
     ]);
   });
 
-  describe('subfield validation', () => {
+  describe('subfield validation and parser', () => {
     const mockSubFieldForm: FormContent = {
       fields: {
         field: {
@@ -94,6 +94,14 @@ describe('Form', () => {
                   type: 'text',
                   label: 'Subfield',
                   validator: isFieldFilledIn,
+                },
+                checkboxes: {
+                  type: 'checkboxes',
+                  validator: isFieldFilledIn,
+                  values: [
+                    { name: 'checkboxes', label: () => 'checkbox1', value: 'checkbox1' },
+                    { name: 'checkboxes', label: () => 'checkbox2', value: 'checkbox2' },
+                  ],
                 },
               },
             },
@@ -134,7 +142,21 @@ describe('Form', () => {
           errorType: 'required',
           propertyName: 'testSubField',
         },
+        {
+          errorType: 'required',
+          propertyName: 'checkboxes',
+        },
       ]);
+    });
+
+    it('returns the parsed body of subfields', () => {
+      const body = { field: YesOrNo.YES, testSubField: 'test', checkboxes: ['', '', 'checkbox1', 'checkbox2'] };
+
+      expect(subFieldForm.getParsedBody(body)).toStrictEqual({
+        field: 'YES',
+        testSubField: 'test',
+        checkboxes: ['checkbox1', 'checkbox2'],
+      });
     });
   });
 
