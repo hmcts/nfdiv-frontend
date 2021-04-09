@@ -23,7 +23,7 @@ describe('Form', () => {
           { label: l => l.dateFormat['month'], name: 'month' },
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
-        parser: value => covertToDateObject('dateField', value),
+        parser: value => covertToDateObject('dateField', value as Record<string, unknown>),
         validator: value => areDateFieldsFilledIn(value as CaseDate),
       },
       someCheckboxes: {
