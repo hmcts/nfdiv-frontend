@@ -163,4 +163,36 @@ describe('Form', () => {
       requiredCheckbox: 'checked',
     });
   });
+
+  test('returns all of the field name for the current form', () => {
+    expect(form.getFieldNames()).toEqual(new Set(['field', 'dateField', 'optionalCheckbox', 'requiredCheckbox']));
+  });
+
+  describe('isComplete()', () => {
+    test('returns false if none of the fields are complete', () => {
+      expect(form.isComplete({})).toBe(false);
+    });
+
+    test('returns false if all the fields are null/incomplete', () => {
+      expect(
+        form.isComplete(({
+          field: null,
+          dateField: null,
+          optionalCheckbox: null,
+          requiredCheckbox: null,
+        } as unknown) as Case)
+      ).toBe(false);
+    });
+
+    test('returns true if all the fields have been completed with empty data', () => {
+      expect(
+        form.isComplete(({
+          field: '',
+          dateField: '',
+          optionalCheckbox: Checkbox.Unchecked,
+          requiredCheckbox: Checkbox.Unchecked,
+        } as unknown) as Case)
+      ).toBe(true);
+    });
+  });
 });

@@ -4,12 +4,22 @@ import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, 
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { toApi as formatAddress } from './formatter/address';
 
-type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => Partial<CaseData>)>>;
+export type OrNull<T> = { [K in keyof T]: T[K] | null };
+
+type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
+
+const checkboxConverter = (value: string | undefined) => {
+  if (!value) {
+    return null;
+  }
+
+  return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+};
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
   sameSex: data => ({
-    marriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+    marriageIsSameSexCouple: checkboxConverter(data.sameSex),
   }),
   gender: data => {
     // Petitioner makes the request
@@ -42,15 +52,14 @@ const fields: ToApiConverters = {
   yourAddressPostcode: formatAddress,
   yourInternationalAddress: formatAddress,
   agreeToReceiveEmails: (data: Case) => ({
-    petitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+    petitionerAgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
   addressPrivate: (data: Case) => ({
     petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
-    petitionerWantsToHavePapersServedAnotherWay:
-      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+    petitionerWantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
 };
 

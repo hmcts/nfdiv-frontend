@@ -13,6 +13,7 @@ export const fromApi = (data: Partial<CaseData>): Partial<Case> => {
   const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
   return {
     isInternationalAddress: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,
+    yourInternationalAddress: '',
     yourAddress1,
     yourAddress2,
     yourAddressTown,

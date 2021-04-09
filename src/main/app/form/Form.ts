@@ -39,6 +39,7 @@ export class Form {
       }, []);
 
     const checkboxErrors: FormError[] = [];
+    const subFieldErrors: FormError[] = [];
     for (const [key, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
         ?.filter(option => option.validator !== undefined)
@@ -48,10 +49,7 @@ export class Form {
             checkboxErrors.push({ errorType, propertyName: key });
           }
         });
-    }
 
-    const subFieldErrors: FormError[] = [];
-    for (const [key, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
         ?.filter(option => option.subFields !== undefined && body[key] === option.value)
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
@@ -60,6 +58,40 @@ export class Form {
     }
 
     return [...errors, ...checkboxErrors, ...subFieldErrors];
+  }
+
+  public getFieldNames(): Set<string> {
+    const fields: Set<string> = new Set();
+    for (const fieldKey in this.form.fields) {
+      const stepField = this.form.fields[fieldKey] as FormOptions;
+      if (stepField.values && stepField.type !== 'date') {
+        for (const [, value] of Object.entries(stepField.values)) {
+          if (value.name) {
+            fields.add(value.name);
+          } else if (value.subFields) {
+            for (const field of Object.keys(value.subFields)) {
+              fields.add(field);
+            }
+          } else {
+            fields.add(fieldKey);
+          }
+        }
+      } else {
+        fields.add(fieldKey);
+      }
+    }
+
+    return fields;
+  }
+
+  public isComplete(body: Partial<Case>): boolean {
+    for (const field of this.getFieldNames().values()) {
+      if (body[field] === undefined || body[field] === null) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 
