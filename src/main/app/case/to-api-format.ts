@@ -48,6 +48,9 @@ const fields: ToApiConverters = {
     petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
+  legalProceedingsRelated: (data: Case) => ({
+    legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
