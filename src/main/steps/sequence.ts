@@ -230,6 +230,11 @@ export const sequence: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
@@ -266,6 +271,11 @@ export const sequence: Step[] = [
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: ENTER_THEIR_ADDRESS,
+    showInSection: Sections.ContactThem,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,

@@ -92,6 +92,7 @@ describe('to-api-format', () => {
     test('converts to UK format', () => {
       const apiFormat = toApiFormat(({
         ...results,
+        isYourAddressInternational: YesOrNo.NO,
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',
@@ -108,7 +109,7 @@ describe('to-api-format', () => {
       const mockInternationalAddress = 'Parliament House, Parliament Dr, Canberra ACT 2600, Australia';
       const apiFormat = toApiFormat(({
         ...results,
-        isInternationalAddress: YesOrNo.YES,
+        isYourAddressInternational: YesOrNo.YES,
         yourInternationalAddress: mockInternationalAddress,
       } as unknown) as Partial<Case>);
 
