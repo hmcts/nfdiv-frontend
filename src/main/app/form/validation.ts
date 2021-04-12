@@ -1,6 +1,8 @@
-import { CaseDate } from '../case/case';
+import { validate as isValidEmail } from 'email-validator';
 
-export type Validator = (value: string | CaseDate | undefined) => void | string;
+import { Case, CaseDate, Checkbox } from '../case/case';
+
+export type Validator = (value: string | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
@@ -106,8 +108,20 @@ export const isPhoneNoValid: Validator = value => {
   }
 };
 
+export const isEmailValid: Validator = value => {
+  if (!isValidEmail(value as string)) {
+    return 'invalid';
+  }
+};
+
 export const isFieldLetters: Validator = value => {
   if (!(value as string).match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
     return 'invalid';
+  }
+};
+
+export const doesNotKnowEmail = (value: Partial<Case>): string | void => {
+  if (value.respondentEmailAddress && value.doNotKnowRespondentEmailAddress === Checkbox.Checked) {
+    return 'incorrect';
   }
 };
