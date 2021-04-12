@@ -38,7 +38,6 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
-  THEIR_POSTAL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -262,7 +261,7 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => THEIR_POSTAL_ADDRESS,
+    getNextStep: () => ENTER_THEIR_ADDRESS,
   },
   {
     url: YOU_NEED_TO_GET_THEIR_ADDRESS,
@@ -270,6 +269,11 @@ export const sequence: Step[] = [
     excludeFromContinueApplication: true,
     getNextStep: data =>
       data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+  },
+  {
+    url: ENTER_THEIR_ADDRESS,
+    showInSection: Sections.ContactThem,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,

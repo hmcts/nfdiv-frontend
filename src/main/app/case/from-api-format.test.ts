@@ -13,7 +13,6 @@ describe('from-api-format', () => {
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
     petitionerKnowsRespondentsAddress: 'NO',
-    petitionerWantsToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -28,7 +27,6 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
-      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -49,7 +47,6 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
-      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -60,26 +57,24 @@ describe('from-api-format', () => {
         derivedPetitionerHomeAddress: undefined,
       } as unknown) as CaseData);
 
-      expect(nfdivFormat).toMatchObject({
-        isInternationalAddress: undefined,
-        yourInternationalAddress: undefined,
-      });
+      expect(nfdivFormat.isYourAddressInternational).toBeUndefined();
+      expect(nfdivFormat.isTheirAddressInternational).toBeUndefined();
     });
 
     test('converts to UK format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
         derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+        petitionerHomeAddressIsInternational: YesOrNo.NO,
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourInternationalAddress: '',
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
-        isInternationalAddress: YesOrNo.NO,
+        isYourAddressInternational: YesOrNo.NO,
       });
     });
 
@@ -87,11 +82,12 @@ describe('from-api-format', () => {
       const nfdivFormat = fromApiFormat(({
         ...results,
         derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        petitionerHomeAddressIsInternational: YesOrNo.YES,
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
         yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
-        isInternationalAddress: YesOrNo.YES,
+        isYourAddressInternational: YesOrNo.YES,
       });
     });
   });

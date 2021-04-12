@@ -26,7 +26,7 @@ const fields: FromApiConverters = {
     englishOrWelsh:
       data.languagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  derivedPetitionerHomeAddress: formatAddress,
+  derivedPetitionerHomeAddress: data => formatAddress(data, 'your'),
   petitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: checkboxConverter(data.petitionerAgreedToReceiveEmails),
   }),
@@ -40,6 +40,7 @@ const fields: FromApiConverters = {
   petitionerWantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
   }),
+  derivedRespondentHomeAddress: data => formatAddress(data, 'their'),
 };
 
 const fromApiDate = date => {

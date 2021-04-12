@@ -2,7 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
-import { toApi as formatAddress } from './formatter/address';
+import { theirAddressToApi, yourAddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -49,8 +49,8 @@ const fields: ToApiConverters = {
   englishOrWelsh: (data: Case) => ({
     languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
-  yourAddressPostcode: formatAddress,
-  yourInternationalAddress: formatAddress,
+  yourAddressPostcode: yourAddressToApi,
+  yourInternationalAddress: yourAddressToApi,
   agreeToReceiveEmails: (data: Case) => ({
     petitionerAgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
@@ -58,6 +58,8 @@ const fields: ToApiConverters = {
     petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
+  theirAddressPostcode: theirAddressToApi,
+  theirInternationalAddress: theirAddressToApi,
   doNotKnowRespondentEmailAddress: (data: Case) => ({
     petitionerKnowsRespondentsAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
