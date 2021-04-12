@@ -15,8 +15,16 @@ const en = ({ partner, required }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ partner, required }) => ({
+  title: 'Lle mae eich bywydau wedi`u lleoli',
+  line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${partner} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
+  yourLifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
+  partnersLifeBasedInEnglandAndWales: `A yw bywyd eich ${partner} gan amlaf yng Nghymru neu Loegr?`,
+  errors: {
+    yourLifeBasedInEnglandAndWales: { required },
+    partnersLifeBasedInEnglandAndWales: { required },
+  },
+});
 
 export const form: FormContent = {
   fields: {
