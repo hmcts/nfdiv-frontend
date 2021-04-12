@@ -12,6 +12,7 @@ describe('from-api-format', () => {
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
+    petitionerKnowsRespondentsAddress: 'NO',
     petitionerWantsToHavePapersServedAnotherWay: null,
   };
 
@@ -26,6 +27,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
@@ -46,6 +48,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });

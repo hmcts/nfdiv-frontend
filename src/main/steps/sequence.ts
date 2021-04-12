@@ -37,7 +37,8 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
-  THEIR_EMAIL,
+  THEIR_EMAIL_ADDRESS,
+  THEIR_POSTAL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -256,7 +257,12 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => THEIR_EMAIL,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
+  },
+  {
+    url: THEIR_EMAIL_ADDRESS,
+    showInSection: Sections.Documents,
+    getNextStep: () => THEIR_POSTAL_ADDRESS,
   },
   {
     url: YOU_NEED_TO_GET_THEIR_ADDRESS,

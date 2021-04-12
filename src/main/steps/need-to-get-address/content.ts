@@ -25,7 +25,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    cannotGetAddress: {
+    iWantToHavePapersServedAnotherWay: {
       type: 'checkboxes',
       labelHidden: true,
       values: [

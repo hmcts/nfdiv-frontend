@@ -30,6 +30,10 @@ const fields: FromApiConverters = {
   petitionerAgreedToReceiveEmails: data => ({
     agreeToReceiveEmails: checkboxConverter(data.petitionerAgreedToReceiveEmails),
   }),
+  petitionerKnowsRespondentsAddress: data => ({
+    doNotKnowRespondentEmailAddress:
+      data.petitionerKnowsRespondentsAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
+  }),
   petitionerContactDetailsConfidential: data => ({
     addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
   }),
