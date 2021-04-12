@@ -30,7 +30,7 @@ import {
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
-  OTHER_COURT_CASE,
+  OTHER_COURT_CASES,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -263,10 +263,10 @@ export const sequence: Step[] = [
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
-    getNextStep: () => OTHER_COURT_CASE,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
-    url: OTHER_COURT_CASE,
+    url: OTHER_COURT_CASES,
     showInSection: Sections.Documents,
     getNextStep: () => CHECK_ANSWERS_URL,
   },

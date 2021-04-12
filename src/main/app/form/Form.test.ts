@@ -1,4 +1,4 @@
-import { Case, CaseDate } from '../case/case';
+import { Case, CaseDate, Checkbox } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';

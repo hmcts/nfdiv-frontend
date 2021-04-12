@@ -2,7 +2,7 @@ import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate, Checkbox } from '../case/case';
 
-export type Validator = (value: string | CaseDate | Partial<Case> | undefined) => void | string;
+export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
