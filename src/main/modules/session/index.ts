@@ -24,22 +24,26 @@ export class SessionStorage {
           maxAge: 21 * (60 * 1000), // 21 minutes
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
-        store: this.getStore(),
+        store: this.getStore(app),
       })
     );
   }
 
-  private getStore() {
-    return !config.get('session.redis.host')
-      ? new FileStore({ path: '/tmp' })
-      : new RedisStore({
-          client: redis.createClient({
-            host: config.get('session.redis.host') as string,
-            password: config.get('session.redis.key') as string,
-            port: 6380,
-            tls: true,
-            connect_timeout: 15000,
-          }),
-        });
+  private getStore(app: Application) {
+    const redisHost = config.get('session.redis.host');
+    if (redisHost) {
+      const client = redis.createClient({
+        host: redisHost as string,
+        password: config.get('session.redis.key') as string,
+        port: 6380,
+        tls: true,
+        connect_timeout: 15000,
+      });
+
+      app.locals.redisClient = client;
+      return new RedisStore({ client });
+    }
+
+    return new FileStore({ path: '/tmp' });
   }
 }

@@ -82,6 +82,24 @@ describe('ErrorController', () => {
       ...errorContent.en[400],
     });
   });
+
+  test('Only calls res.render() once when multiple errors have been caught', () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    controller.internalServerError(undefined, req, res);
+    controller.internalServerError(undefined, req, res);
+    controller.internalServerError(undefined, req, res);
+    const logger = (req.locals.logger as unknown) as MockedLogger;
+
+    expect(logger.error).toHaveBeenCalledTimes(3);
+    expect(logger.error.mock.calls[0][0]).toBe('Internal Server Error');
+    expect(res.statusCode).toBe(500);
+    expect(res.render).toHaveBeenCalledTimes(1);
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[500],
+    });
+  });
 });
 
 interface MockedLogger {
