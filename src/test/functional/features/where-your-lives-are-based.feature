@@ -10,7 +10,7 @@ Feature: Where your lives are based
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
-    Then the page URL should be "/jurisdiction/interstitial"
+    Then the page URL should be "/you-can-use-english-welsh-courts"
 
   Scenario: Successfully completing the form Yes/No
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
@@ -22,7 +22,7 @@ Feature: Where your lives are based
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
-    Then the page URL should be "/jurisdiction/interstitial"
+    Then the page URL should be "/you-can-use-english-welsh-courts"
 
   Scenario: Successfully completing the form No/No
     Given I select "No" for "Is your life mainly based in England or Wales?"
