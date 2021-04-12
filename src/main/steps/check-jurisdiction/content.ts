@@ -10,8 +10,13 @@ const en = ({ isDivorce }: CommonContent) => ({
   line2: 'The following questions will find out what connections you have to England or Wales.',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
+  title: `Gwiriwch a allwch ${isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"} yng Nghymru neu Loegr`,
+  line1: `Rhaid bod gennych ryw fath o gysylltiad â Chymru neu Loegr i'r llysoedd feddu ar y pŵer cyfreithiol i ${
+    isDivorce ? 'ganiatáu eich ysgariad' : "dod a'ch partneriaeth sifil i ben"
+  }. Gelwir y pwer cyfreithiol hwn yn awdurdodaeth.`,
+  line2: 'Bydd y cwestiynau canlynol yn canfod pa gysylltiadau sydd gennych â Chymru neu Loegr.',
+});
 
 export const form: FormContent = {
   fields: {},
