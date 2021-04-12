@@ -92,6 +92,7 @@ describe('to-api-format', () => {
     test('converts to UK format', () => {
       const apiFormat = toApiFormat(({
         ...results,
+        isYourAddressInternational: YesOrNo.NO,
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',

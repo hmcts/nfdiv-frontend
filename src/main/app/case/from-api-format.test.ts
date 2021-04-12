@@ -57,9 +57,8 @@ describe('from-api-format', () => {
         derivedPetitionerHomeAddress: undefined,
       } as unknown) as CaseData);
 
-      expect(nfdivFormat).toMatchObject({
-        isYourAddressInternational: undefined,
-      });
+      expect(nfdivFormat.isYourAddressInternational).toBeUndefined();
+      expect(nfdivFormat.isTheirAddressInternational).toBeUndefined();
     });
 
     test('converts to UK format', () => {
