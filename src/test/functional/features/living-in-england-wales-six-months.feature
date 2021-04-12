@@ -11,9 +11,9 @@ Feature: Living in England or Wales for the last 6 months
     And I click "Continue"
     And I select "Yes" for "Is your domicile in England or Wales?"
     And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click "Continue"
-    When I go to '/living-england-wales-six-months'
-    Then the page should include "Have you been living in England or Wales for the last 6 months?"
+    When I click "Continue"
+    Then the page URL should be "/living-england-wales-six-months"
+    And the page should include "Have you been living in England or Wales for the last 6 months?"
 
   @nightly
   Scenario: Error when not answering Have you been living in England or Wales for the last 6 months?
