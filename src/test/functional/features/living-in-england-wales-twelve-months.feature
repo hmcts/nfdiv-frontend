@@ -2,7 +2,11 @@ Feature: Living in England or Wales for the last 12 months
 
   Background:
     Given I login
-    When I go to '/living-england-wales-twelve-months'
+    And I've completed all questions correctly to get to the jurisdiction section
+    And I click "Continue"
+    And I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
     Then the page should include "Have you been living in England or Wales for the last 12 months?"
 
   @nightly
@@ -19,4 +23,4 @@ Feature: Living in England or Wales for the last 12 months
   Scenario: Successfully completing the form
     And I select "Yes"
     And I click "Continue"
-    Then the page should include "You can use the English or Welsh court"
+    Then the page should include "You can use English or Welsh courts"

@@ -2,6 +2,16 @@ Feature: Living in England or Wales for the last 6 months
 
   Background:
     Given I login
+    And I've completed all questions correctly to get to the jurisdiction section
+    And I click "Continue"
+    And I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
+    And I select "No"
+    And I click "Continue"
+    And I select "Yes" for "Is your domicile in England or Wales?"
+    And I select "No" for "Is your husband’s domicile in England or Wales?"
+    And I click "Continue"
     When I go to '/living-england-wales-six-months'
     Then the page should include "Have you been living in England or Wales for the last 6 months?"
 
@@ -11,7 +21,7 @@ Feature: Living in England or Wales for the last 6 months
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Have not lived in England or Wales for the last 6 months??
+  Scenario: Have not lived in England or Wales for the last 6 months?
     And I select "No"
     When I click "Continue"
     Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
@@ -19,4 +29,4 @@ Feature: Living in England or Wales for the last 6 months
   Scenario: Successfully completing the form
     And I select "Yes"
     And I click "Continue"
-    Then the page should include "You can use the English or Welsh court"
+    Then the page should include "You can use English or Welsh courts"
