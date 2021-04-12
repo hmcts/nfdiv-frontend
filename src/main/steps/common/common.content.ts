@@ -1,16 +1,16 @@
+import { capitalize } from 'lodash';
+
 import { Case } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   phase: 'Beta',
+  applyForDivorce: 'apply for a divorce',
+  applyForDissolution: 'apply to end a civil partnership',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
-  pageHeader: {
-    divorce: 'Apply for a divorce',
-    dissolution: 'Apply to end a civil partnership',
-  },
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
@@ -86,13 +86,11 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
+  applyForDivorce: 'gwneud cais am ysgariad',
+  applyForDissolution: 'gwneud cais am ddiddymu partneriaeth sifil',
   feedback:
     'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
-  pageHeader: {
-    ...en.pageHeader, // @TODO delete me to get a list of missing translations
-    divorce: 'Gwneud cais am ysgariad',
-  },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
@@ -171,11 +169,13 @@ export const generatePageContent = ({
   userEmail: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
 
   const content: CommonContent = {
     ...commonTranslations,
+    serviceName,
     selectedGender,
     partner,
     language,
@@ -191,21 +191,27 @@ export const generatePageContent = ({
   return content;
 };
 
-const getPartnerContent = (translations, selectedGender: Gender, isDivorce: boolean): string => {
+const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
+  const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
+  return capitalize(serviceName);
+};
+
+const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
   if (!isDivorce) {
-    return translations['civilPartner'];
+    return translations.civilPartner;
   }
   if (selectedGender === Gender.MALE) {
-    return translations['husband'];
+    return translations.husband;
   }
   if (selectedGender === Gender.FEMALE) {
-    return translations['wife'];
+    return translations.wife;
   }
-  return translations['partner'];
+  return translations.partner;
 };
 
 export type CommonContent = typeof en & {
   language: Language;
+  serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
   formState?: Partial<Case>;

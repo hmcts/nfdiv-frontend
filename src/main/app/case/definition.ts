@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-08 11:08:10.
+// Generated using typescript-generator version 2.30.840 on 2021-04-12 10:47:39.
 
 export interface Address {
   AddressLine1: string;
@@ -26,8 +26,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -52,6 +52,16 @@ export interface OrderSummary {
   PaymentReference: string;
   Fees: ListValue<Fee>[];
   PaymentTotal: string;
+}
+
+export interface Organisation {
+  OrganisationID: string;
+}
+
+export interface OrganisationPolicy<R> {
+  Organisation: Organisation;
+  OrgPolicyReference: string;
+  OrgPolicyCaseAssignedRole: R;
 }
 
 export interface CaseData {
@@ -88,6 +98,7 @@ export interface CaseData {
   petitionerNameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
   derivedPetitionerHomeAddress: string;
+  petitionerHomeAddressIsInternational: YesOrNo;
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
@@ -100,7 +111,7 @@ export interface CaseData {
   petitionerSolicitorEmail: string;
   solicitorAgreeToReceiveEmails: YesOrNo;
   derivedPetitionerSolicitorAddress: string;
-  petitionerOrganisationPolicy: string;
+  petitionerOrganisationPolicy: OrganisationPolicy<UserRole>;
   marriagePetitionerName: string;
   marriageRespondentName: string;
   solUrgentCase: YesOrNo;
@@ -126,8 +137,25 @@ export interface CaseData {
   respondentEmailAddress: string;
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
+  derivedRespondentHomeAddress: string;
+  respondentHomeAddressIsInternational: YesOrNo;
   legalProceedings: YesOrNo;
   legalProceedingsRelated: LegalProceedingsRelated[];
+  divorceClaimFrom: ClaimsCostFrom[];
+  createdDate: Date;
+  divorceUnit: Court;
+  selectedDivorceCentreSiteId: string;
+  respondentSolicitorReference: string;
+  documentsGenerated: DivorceDocument[];
+}
+
+export interface DivorceDocument {
+  documentDateAdded: Date;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export const enum FieldType {
@@ -145,6 +173,7 @@ export const enum FieldType {
   CaseLink = 'CaseLink',
   OrderSummary = 'OrderSummary',
   MultiSelectList = 'MultiSelectList',
+  Collection = 'Collection',
 }
 
 export const enum YesOrNo {
@@ -160,16 +189,16 @@ export const enum State {
 }
 
 export const enum UserRole {
-  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'CASEWORKER_DIVORCE_COURTADMIN_BETA',
-  CASEWORKER_DIVORCE_COURTADMIN = 'CASEWORKER_DIVORCE_COURTADMIN',
-  CITIZEN = 'CITIZEN',
-  CASEWORKER_DIVORCE_SOLICITOR = 'CASEWORKER_DIVORCE_SOLICITOR',
-  CASEWORKER_DIVORCE_SUPERUSER = 'CASEWORKER_DIVORCE_SUPERUSER',
-  CASEWORKER_DIVORCE_COURTADMIN_LA = 'CASEWORKER_DIVORCE_COURTADMIN_LA',
-  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'CASEWORKER_DIVORCE_SYSTEMUPDATE',
-  RESPONDENT_SOLICITOR = 'RESPONDENT_SOLICITOR',
-  PETITIONER_SOLICITOR = 'PETITIONER_SOLICITOR',
-  CREATOR = 'CREATOR',
+  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'caseworker-divorce-courtadmin_beta',
+  CASEWORKER_DIVORCE_COURTADMIN = 'caseworker-divorce-courtadmin',
+  CITIZEN = 'citizen',
+  CASEWORKER_DIVORCE_SOLICITOR = 'caseworker-divorce-solicitor',
+  CASEWORKER_DIVORCE_SUPERUSER = 'caseworker-divorce-superuser',
+  CASEWORKER_DIVORCE_COURTADMIN_LA = 'caseworker-divorce-courtadmin-la',
+  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  RESPONDENT_SOLICITOR = '[RESPSOLICITOR]',
+  PETITIONER_SOLICITOR = '[PETSOLICITOR]',
+  CREATOR = '[CREATOR]',
 }
 
 export const enum DivorceOrDissolution {
@@ -255,7 +284,25 @@ export const enum LegalProceedingsRelated {
   PROPERTY = 'property',
   CHILDREN = 'children',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE5';
+
+export const enum ClaimsCostFrom {
+  RESPONDENT = 'respondent',
+  CORRESPONDENT = 'correspondent',
+}
+
+export const enum Court {
+  SERVICE_CENTRE = 'serviceCentre',
+  EAST_MIDLANDS = 'eastMidlands',
+  WEST_MIDLANDS = 'westMidlands',
+  SOUTH_WEST = 'southWest',
+  NORTH_WEST = 'northWest',
+  BURY_ST_EDMUNDS = 'buryStEdmunds',
+}
+
+export const enum DocumentType {
+  Petition = 'petition',
+}
+export const CASE_TYPE = 'NO_FAULT_DIVORCE6';
 export const JURISDICTION = 'DIVORCE';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
@@ -270,3 +317,29 @@ export const SUBMIT_PETITION = 'submit-petition';
 export const SOLICITOR_UPDATE = 'solicitor-update';
 export const CREATE_DRAFT = 'create-draft';
 export const PATCH_CASE = 'patch-case';
+export const CHANNEL = 'channel';
+export const EVENT = 'event';
+export const JURISDICTION_1 = 'jurisdiction1';
+export const JURISDICTION_2 = 'jurisdiction2';
+export const SERVICE = 'service';
+export const KEYWORD = 'keyword';
+export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
+export const SUBMITTED_WEBHOOK = '/Submitted';
+export const ABOUT_TO_START_WEBHOOK = '/AboutToStart';
+export const ABOUT_TO_SUBMIT_WEBHOOK = '/AboutToSubmit';
+export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
+export const BEARER_PREFIX = 'Bearer' + ' ';
+export const FIRST_NAME = 'first name';
+export const LAST_NAME = 'last name';
+export const RELATIONSHIP = 'relationship';
+export const DIVORCE_APPLICATION = 'divorce application';
+export const APPLICATION_TO_END_CIVIL_PARTNERSHIP = 'application to end your civil partnership';
+export const SIGN_IN_URL_NOTIFY_KEY = 'signin url';
+export const RELATIONSHIP_COURT_HEADER = 'relationship court header';
+export const APPLY_FOR_DIVORCE = 'Apply for a divorce';
+export const END_CIVIL_PARTNERSHIP = 'End a civil partnership';
+export const SIGN_IN_DIVORCE_URL = 'signInDivorceUrl';
+export const SIGN_IN_DISSOLUTION_URL = 'signInDissolutionUrl';
+export const COURT_EMAIL = 'court email';
+export const DOCUMENT_FILENAME_FMT = '%s%s';
+export const DOCUMENT_NAME = 'draft-mini-petition-';

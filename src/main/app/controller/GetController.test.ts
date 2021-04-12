@@ -26,6 +26,9 @@ describe('GetController', () => {
 
     expect(res.render).toBeCalledWith('page', {
       ...defaultViewArgs,
+      language: 'en',
+      serviceName: 'Apply for a divorce',
+      isDivorce: true,
       text: 'english',
       formState: req.session.userCase,
       userEmail,

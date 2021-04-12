@@ -31,6 +31,7 @@ import {
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NO_CERTIFICATE_URL,
+  OTHER_COURT_CASES,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -170,7 +171,9 @@ export const sequence: Step[] = [
           return JURISDICTION_INTERSTITIAL_URL;
 
         case `${YES}${NO}`:
-          return LIVING_ENGLAND_WALES_SIX_MONTHS;
+          return data.yourLifeBasedInEnglandAndWales === YES
+            ? LIVING_ENGLAND_WALES_SIX_MONTHS
+            : HABITUALLY_RESIDENT_ENGLAND_WALES;
 
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
@@ -261,6 +264,10 @@ export const sequence: Step[] = [
     excludeFromContinueApplication: true,
     getNextStep: data =>
       data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+  },
+  {
+    url: HOW_TO_APPLY_TO_SERVE,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: CHECK_ANSWERS_URL,
