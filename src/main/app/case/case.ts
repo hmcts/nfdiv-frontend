@@ -30,6 +30,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
+  isYourAddressInternational: 'petitionerHomeAddressIsInternational',
+  isTheirAddressInternational: 'respondentHomeAddressIsInternational',
   phoneNumber: 'petitionerPhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
@@ -40,6 +42,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
   respondentEmailAddress: 'respondentEmailAddress',
+  knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
   legalProceedings: 'legalProceedings',
   legalProceedingsRelated: 'legalProceedingsRelated',
 };
@@ -86,7 +89,7 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
-  isInternationalAddress?: YesOrNo;
+  isYourAddressInternational?: YesOrNo;
   yourAddress1?: string;
   yourAddress2?: string;
   yourAddressTown?: string;
@@ -99,12 +102,20 @@ export interface Case {
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
   addressPrivate: YesOrNo;
+  isTheirAddressInternational?: YesOrNo;
+  theirAddress1?: string;
+  theirAddress2?: string;
+  theirAddressTown?: string;
+  theirAddressCounty?: string;
+  theirAddressPostcode?: string;
+  theirInternationalAddress?: string;
   lastNameChangeWhenRelationshipFormed?: YesOrNo;
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
   respondentEmailAddress?: string;
   doNotKnowRespondentEmailAddress?: Checkbox;
+  knowPartnersAddress?: YesOrNo;
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
 }

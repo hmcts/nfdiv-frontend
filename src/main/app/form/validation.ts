@@ -1,6 +1,6 @@
 import { validate as isValidEmail } from 'email-validator';
 
-import { Case, CaseDate, Checkbox } from '../case/case';
+import { Case, CaseDate } from '../case/case';
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
@@ -123,11 +123,5 @@ export const isEmailValid: Validator = value => {
 export const isFieldLetters: Validator = value => {
   if (!(value as string).match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
     return 'invalid';
-  }
-};
-
-export const doesNotKnowEmail = (value: Partial<Case>): string | void => {
-  if (value.respondentEmailAddress && value.doNotKnowRespondentEmailAddress === Checkbox.Checked) {
-    return 'incorrect';
   }
 };

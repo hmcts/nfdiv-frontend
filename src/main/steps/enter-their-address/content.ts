@@ -2,9 +2,10 @@ import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
+import type { CommonContent } from '../../steps/common/common.content';
 
-const en = {
-  title: 'Enter your postal address',
+const en = ({ partner }: CommonContent) => ({
+  title: `Enter your ${partner}’s postal address`,
   enterPostcode: 'Enter a UK postcode',
   street: 'Building and street',
   line2: 'Second line of address',
@@ -19,30 +20,29 @@ const en = {
   addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
   cannotFindAddress: 'I cannot find the address in the list',
   errors: {
-    yourAddress1: {
-      required:
-        'You have not entered your building and street address. Enter your building and street address before continuing.',
+    theirAddress1: {
+      required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
     },
-    yourAddressTown: {
-      required: 'You have not entered your town or city. Enter your town or city before continuing.',
+    theirAddressTown: {
+      required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
     },
-    yourAddressPostcode: {
-      required: 'You have not entered your postcode. Enter your postcode before continuing.',
+    theirAddressPostcode: {
+      required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
       invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-      notSelected: 'You have not selected your address. Select your address from the list before continuing.',
+      notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
     },
-    yourInternationalAddress: {
-      required: 'You have not entered your full address. Enter your full address before continuing.',
+    theirInternationalAddress: {
+      required: `You have not entered your ${partner}’s full address. Enter their full address before continuing.`,
     },
   },
-};
+});
 
 // @TODO translations
 const cy = en;
 
 export const form: FormContent = {
   fields: {
-    isYourAddressInternational: {
+    isTheirAddressInternational: {
       type: 'radios',
       hidden: true,
       values: [
@@ -50,7 +50,7 @@ export const form: FormContent = {
         { id: 'addressNotInternational', label: l => l.no, value: YesOrNo.NO },
       ],
     },
-    yourAddress1: {
+    theirAddress1: {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
@@ -58,13 +58,13 @@ export const form: FormContent = {
       label: l => l.street,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isYourAddressInternational === YesOrNo.YES) {
+        if (formData.isTheirAddressInternational === YesOrNo.YES) {
           return;
         }
         return isFieldFilledIn(value);
       },
     },
-    yourAddress2: {
+    theirAddress2: {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
@@ -72,7 +72,7 @@ export const form: FormContent = {
       label: l => l.line2,
       labelHidden: true,
     },
-    yourAddressTown: {
+    theirAddressTown: {
       id: 'addressTown',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
@@ -80,13 +80,13 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isYourAddressInternational === YesOrNo.YES) {
+        if (formData.isTheirAddressInternational === YesOrNo.YES) {
           return;
         }
         return isFieldFilledIn(value);
       },
     },
-    yourAddressCounty: {
+    theirAddressCounty: {
       id: 'addressCounty',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
@@ -94,7 +94,7 @@ export const form: FormContent = {
       label: l => l.county,
       labelSize: null,
     },
-    yourAddressPostcode: {
+    theirAddressPostcode: {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
@@ -102,13 +102,13 @@ export const form: FormContent = {
       label: l => l.postcode,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.isYourAddressInternational === YesOrNo.YES) {
+        if (formData.isTheirAddressInternational === YesOrNo.YES) {
           return;
         }
         return isInvalidPostcode(value);
       },
     },
-    yourInternationalAddress: {
+    theirInternationalAddress: {
       id: 'internationalAddress',
       type: 'textarea',
       classes: 'govuk-label',
@@ -118,7 +118,7 @@ export const form: FormContent = {
       labelSize: null,
       attributes: { rows: 8 },
       validator: (value, formData) => {
-        if (formData.isYourAddressInternational === YesOrNo.NO) {
+        if (formData.isTheirAddressInternational === YesOrNo.NO) {
           return;
         }
         return isFieldFilledIn(value);
@@ -137,7 +137,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
