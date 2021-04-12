@@ -51,7 +51,6 @@ export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
-export const THEIR_POSTAL_ADDRESS: PageLink = '/their-postal-address';
 
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
