@@ -10,7 +10,7 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonCon
   line3: `For example, you could apply to have the papers served (delivered) by ${
     formState?.respondentEmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
   }.`,
-  line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+  line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
 
 // @TODO translations
