@@ -96,3 +96,9 @@ Given("I've said I'm divorcing my husband", () => {
   I.checkOption('My husband');
   I.click('Continue');
 });
+
+Given("I've said I do not have my husband's email address", () => {
+  I.amOnPage('/their-email-address');
+  I.checkOption('I do not know their email address');
+  I.click('Continue');
+});
