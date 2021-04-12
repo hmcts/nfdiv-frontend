@@ -1,8 +1,7 @@
-import { CaseDate, Checkbox } from '../case/case';
+import { CaseDate } from '../case/case';
 
 import {
   areFieldsFilledIn,
-  doesNotKnowEmail,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -188,25 +187,6 @@ describe('Validation', () => {
       const isValid = isFieldLetters('1stname Lastname');
 
       expect(isValid).toStrictEqual('invalid');
-    });
-  });
-
-  describe('doesNotKnowEmail()', () => {
-    test('Should check if user knows the email', async () => {
-      const isValid = doesNotKnowEmail({
-        doNotKnowRespondentEmailAddress: Checkbox.Checked,
-      });
-
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('Should check if value has a number in it', async () => {
-      const isValid = doesNotKnowEmail({
-        respondentEmailAddress: 'test@test.com',
-        doNotKnowRespondentEmailAddress: Checkbox.Checked,
-      });
-
-      expect(isValid).toStrictEqual('incorrect');
     });
   });
 });

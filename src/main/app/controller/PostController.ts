@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
-import { Case, CaseWithId } from '../case/case';
+import { Case, CaseWithId, Checkbox } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -31,6 +31,11 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
+      for (const prop in formData) {
+        if (formData[prop] === Checkbox.Unchecked) {
+          formData[prop] = null;
+        }
+      }
       await this.save(req, formData, SAVE_AND_CLOSE);
     } catch {
       // ignore

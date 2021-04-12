@@ -13,7 +13,8 @@ describe('to-api-format', () => {
     agreeToReceiveEmails: Checkbox.Checked,
     doNotKnowRespondentEmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
-    iWantToHavePapersServedAnotherWay: null,
+    knowPartnersAddress: YesOrNo.NO,
+    iWantToHavePapersServedAnotherWay: undefined,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -30,6 +31,7 @@ describe('to-api-format', () => {
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
       petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
       petitionerKnowsRespondentsAddress: YesOrNo.NO,
+      petitionerKnowsRespondentsEmailAddress: YesOrNo.NO,
       petitionerWantsToHavePapersServedAnotherWay: null,
     });
   });

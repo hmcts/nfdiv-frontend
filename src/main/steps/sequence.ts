@@ -12,6 +12,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
+  DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
@@ -30,6 +31,7 @@ import {
   JURISDICTION_LAST_TWELVE_MONTHS,
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
+  NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PageLink,
@@ -261,7 +263,16 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => ENTER_THEIR_ADDRESS,
+    getNextStep: () => DO_YOU_HAVE_ADDRESS,
+  },
+  {
+    url: DO_YOU_HAVE_ADDRESS,
+    getNextStep: data => (data.knowPartnersAddress === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
+  },
+  {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: YOU_NEED_TO_GET_THEIR_ADDRESS,

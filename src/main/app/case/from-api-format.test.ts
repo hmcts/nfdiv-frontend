@@ -12,7 +12,8 @@ describe('from-api-format', () => {
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
-    petitionerKnowsRespondentsAddress: 'NO',
+    petitionerKnowsRespondentsEmailAddress: 'NO',
+    petitionerWantsToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -27,6 +28,7 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -47,6 +49,7 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -69,12 +72,13 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
+        isYourAddressInternational: YesOrNo.NO,
+        yourInternationalAddress: '',
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
-        isYourAddressInternational: YesOrNo.NO,
       });
     });
 
@@ -86,8 +90,13 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
         isYourAddressInternational: YesOrNo.YES,
+        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        yourAddress1: '',
+        yourAddress2: '',
+        yourAddressTown: '',
+        yourAddressCounty: '',
+        yourAddressPostcode: '',
       });
     });
   });

@@ -61,7 +61,7 @@ const fields: ToApiConverters = {
   theirAddressPostcode: theirAddressToApi,
   theirInternationalAddress: theirAddressToApi,
   doNotKnowRespondentEmailAddress: (data: Case) => ({
-    petitionerKnowsRespondentsAddress:
+    petitionerKnowsRespondentsEmailAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
