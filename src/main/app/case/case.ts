@@ -92,6 +92,7 @@ export interface Case {
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
+  respondentEmailAddress?: string;
 }
 
 export interface CaseWithId extends Case {
