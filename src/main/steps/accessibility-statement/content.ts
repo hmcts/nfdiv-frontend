@@ -1,10 +1,9 @@
-import { TranslationFn } from '../../app/controller/GetController';
+import type { TranslationFn } from '../../app/controller/GetController';
+import type { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce }) => ({
+const en = ({ isDivorce, applyForDivorce, applyForDissolution }: CommonContent) => ({
   title: 'Accessibility Statement',
-  statement: `Accessibility statement for the ${
-    isDivorce ? 'apply for a divorce' : 'end your civil partnership'
-  } service`,
+  statement: `Accessibility statement for the ${isDivorce ? applyForDivorce : applyForDissolution} service`,
   websiteRanBy: 'This website is run by HM Courts & Tribunals Service',
   asManyAsPossible:
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
