@@ -49,7 +49,7 @@ const fields: ToApiConverters = {
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
   doNotKnowRespondentEmailAddress: (data: Case) => ({
-    petitionerKnowsRespondentsEmailAddress:
+    petitionerKnowsRespondentsAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
 };

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-08 10:26:15.
+// Generated using typescript-generator version 2.30.840 on 2021-04-09 15:19:06.
 
 export interface Address {
   AddressLine1: string;
@@ -54,6 +54,16 @@ export interface OrderSummary {
   PaymentTotal: string;
 }
 
+export interface Organisation {
+  OrganisationID: string;
+}
+
+export interface OrganisationPolicy<R> {
+  Organisation: Organisation;
+  OrgPolicyReference: string;
+  OrgPolicyCaseAssignedRole: R;
+}
+
 export interface CaseData {
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
@@ -88,6 +98,7 @@ export interface CaseData {
   petitionerNameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
   derivedPetitionerHomeAddress: string;
+  petitionerHomeAddressIsInternational: YesOrNo;
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
@@ -100,13 +111,14 @@ export interface CaseData {
   petitionerSolicitorEmail: string;
   solicitorAgreeToReceiveEmails: YesOrNo;
   derivedPetitionerSolicitorAddress: string;
-  petitionerOrganisationPolicy: string;
+  petitionerOrganisationPolicy: OrganisationPolicy<UserRole>;
   marriagePetitionerName: string;
   marriageRespondentName: string;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
   financialOrder: YesOrNo;
+  petitionerWantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
@@ -125,6 +137,25 @@ export interface CaseData {
   respondentEmailAddress: string;
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
+  derivedRespondentHomeAddress: string;
+  respondentHomeAddressIsInternational: YesOrNo;
+  legalProceedings: YesOrNo;
+  legalProceedingsRelated: LegalProceedingsRelated[];
+  divorceClaimFrom: ClaimsCostFrom[];
+  createdDate: Date;
+  divorceUnit: Court;
+  selectedDivorceCentreSiteId: string;
+  respondentSolicitorReference: string;
+  documentsGenerated: DivorceDocument[];
+}
+
+export interface DivorceDocument {
+  documentDateAdded: Date;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export const enum FieldType {
@@ -142,6 +173,7 @@ export const enum FieldType {
   CaseLink = 'CaseLink',
   OrderSummary = 'OrderSummary',
   MultiSelectList = 'MultiSelectList',
+  Collection = 'Collection',
 }
 
 export const enum YesOrNo {
@@ -157,16 +189,16 @@ export const enum State {
 }
 
 export const enum UserRole {
-  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'CASEWORKER_DIVORCE_COURTADMIN_BETA',
-  CASEWORKER_DIVORCE_COURTADMIN = 'CASEWORKER_DIVORCE_COURTADMIN',
-  CITIZEN = 'CITIZEN',
-  CASEWORKER_DIVORCE_SOLICITOR = 'CASEWORKER_DIVORCE_SOLICITOR',
-  CASEWORKER_DIVORCE_SUPERUSER = 'CASEWORKER_DIVORCE_SUPERUSER',
-  CASEWORKER_DIVORCE_COURTADMIN_LA = 'CASEWORKER_DIVORCE_COURTADMIN_LA',
-  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'CASEWORKER_DIVORCE_SYSTEMUPDATE',
-  RESPONDENT_SOLICITOR = 'RESPONDENT_SOLICITOR',
-  PETITIONER_SOLICITOR = 'PETITIONER_SOLICITOR',
-  CREATOR = 'CREATOR',
+  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'caseworker-divorce-courtadmin_beta',
+  CASEWORKER_DIVORCE_COURTADMIN = 'caseworker-divorce-courtadmin',
+  CITIZEN = 'citizen',
+  CASEWORKER_DIVORCE_SOLICITOR = 'caseworker-divorce-solicitor',
+  CASEWORKER_DIVORCE_SUPERUSER = 'caseworker-divorce-superuser',
+  CASEWORKER_DIVORCE_COURTADMIN_LA = 'caseworker-divorce-courtadmin-la',
+  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  RESPONDENT_SOLICITOR = '[RESPSOLICITOR]',
+  PETITIONER_SOLICITOR = '[PETSOLICITOR]',
+  CREATOR = '[CREATOR]',
 }
 
 export const enum DivorceOrDissolution {
@@ -246,18 +278,42 @@ export const enum JurisdictionConnections {
    */
   RESIDUAL_JURISDICTION = 'G',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE5';
+
+export const enum LegalProceedingsRelated {
+  MARRIAGE = 'marriage',
+  PROPERTY = 'property',
+  CHILDREN = 'children',
+}
+
+export const enum ClaimsCostFrom {
+  RESPONDENT = 'respondent',
+  CORRESPONDENT = 'correspondent',
+}
+
+export const enum Court {
+  SERVICE_CENTRE = 'serviceCentre',
+  EAST_MIDLANDS = 'eastMidlands',
+  WEST_MIDLANDS = 'westMidlands',
+  SOUTH_WEST = 'southWest',
+  NORTH_WEST = 'northWest',
+  BURY_ST_EDMUNDS = 'buryStEdmunds',
+}
+
+export const enum DocumentType {
+  Petition = 'petition',
+}
+export const CASE_TYPE = 'NO_FAULT_DIVORCE6';
 export const JURISDICTION = 'DIVORCE';
+export const PATCH_CASE = 'patch-case';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const SUBMIT_PETITION = 'submit-petition';
+export const CREATE_DRAFT = 'create-draft';
+export const SAVE_AND_CLOSE = 'save-and-close';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
 export const PETITIONER_EMAIL = 'petitionerEmail';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
-export const SAVE_AND_CLOSE = 'save-and-close';
-export const SOLICITOR_CREATE = 'solicitor-create';
-export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const SUBMIT_PETITION = 'submit-petition';
-export const SOLICITOR_UPDATE = 'solicitor-update';
-export const CREATE_DRAFT = 'create-draft';
-export const PATCH_CASE = 'patch-case';

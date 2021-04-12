@@ -12,7 +12,7 @@ describe('from-api-format', () => {
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
-    petitionerKnowsRespondentsEmailAddress: 'NO',
+    petitionerKnowsRespondentsAddress: 'NO',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {

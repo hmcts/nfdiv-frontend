@@ -20,6 +20,7 @@ describe('CookiesGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
+      serviceName: 'Apply for a divorce',
       formState: req.session.userCase,
     });
   });
@@ -34,6 +35,7 @@ describe('CookiesGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
+      serviceName: 'Apply to end a civil partnership',
       formState: req.session.userCase,
     });
   });

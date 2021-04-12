@@ -24,6 +24,7 @@ import {
   HELP_WITH_YOUR_FEE_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HOW_TO_APPLY_TO_SERVE,
   IN_THE_UK,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
@@ -32,6 +33,7 @@ import {
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
+  OTHER_COURT_CASES,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -169,7 +171,9 @@ export const sequence: Step[] = [
           return JURISDICTION_INTERSTITIAL_URL;
 
         case `${YES}${NO}`:
-          return LIVING_ENGLAND_WALES_SIX_MONTHS;
+          return data.yourLifeBasedInEnglandAndWales === YES
+            ? LIVING_ENGLAND_WALES_SIX_MONTHS
+            : HABITUALLY_RESIDENT_ENGLAND_WALES;
 
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
@@ -262,6 +266,10 @@ export const sequence: Step[] = [
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: HOW_TO_APPLY_TO_SERVE,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: CHECK_ANSWERS_URL,
