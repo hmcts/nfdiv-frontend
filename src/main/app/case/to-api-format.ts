@@ -50,6 +50,10 @@ const fields: ToApiConverters = {
   }),
   theirAddressPostcode: theirAddressToApi,
   theirInternationalAddress: theirAddressToApi,
+  doNotKnowRespondentEmailAddress: (data: Case) => ({
+    petitionerKnowsRespondentsAddress:
+      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

@@ -12,6 +12,7 @@ describe('from-api-format', () => {
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
+    petitionerKnowsRespondentsAddress: 'NO',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -25,6 +26,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });
 
@@ -44,6 +46,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
+      doNotKnowRespondentEmailAddress: Checkbox.Checked,
     });
   });
 

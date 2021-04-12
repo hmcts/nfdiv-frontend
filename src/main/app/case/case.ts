@@ -33,6 +33,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
   changedNameHow: 'petitionerNameChangedHow',
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
+  respondentEmailAddress: 'respondentEmailAddress',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -102,6 +103,7 @@ export interface Case {
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
   respondentEmailAddress?: string;
+  doNotKnowRespondentEmailAddress?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

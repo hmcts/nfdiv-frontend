@@ -11,6 +11,7 @@ describe('to-api-format', () => {
     alreadyAppliedForHelpPaying: YesOrNo.YES,
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
+    doNotKnowRespondentEmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
   };
 
@@ -27,6 +28,7 @@ describe('to-api-format', () => {
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
       petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
+      petitionerKnowsRespondentsAddress: YesOrNo.NO,
     });
   });
 
