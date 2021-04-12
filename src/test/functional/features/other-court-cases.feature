@@ -14,14 +14,14 @@ Feature: Other court cases
   Scenario: Successfully completing the form
     Given I select "No"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page URL should be "/money-property"
 
   Scenario: Successfully completing the form
     Given I select "Yes"
     Given I select "Our marriage"
     Given I select "Our property"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page URL should be "/other-court-cases-details"
 
   @nightly
   Scenario: Error when missing a required field

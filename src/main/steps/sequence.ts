@@ -31,9 +31,11 @@ import {
   JURISDICTION_LAST_TWELVE_MONTHS,
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
+  MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
+  OTHER_COURT_CASES_DETAILS,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -284,7 +286,7 @@ export const sequence: Step[] = [
   {
     url: OTHER_COURT_CASES,
     showInSection: Sections.Documents,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
   },
   {
     url: CHECK_ANSWERS_URL,
