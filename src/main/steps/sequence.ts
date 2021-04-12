@@ -13,6 +13,7 @@ import {
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
   ENGLISH_OR_WELSH,
+  ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -37,7 +38,6 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
-  THEIR_POSTAL_ADDRESS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -228,6 +228,11 @@ export const sequence: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.Documents,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
@@ -254,12 +259,12 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.Documents,
-    getNextStep: () => THEIR_POSTAL_ADDRESS,
+    getNextStep: () => ENTER_THEIR_ADDRESS,
   },
   {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
-    showInSection: Sections.Documents,
-    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+    url: ENTER_THEIR_ADDRESS,
+    showInSection: Sections.ContactThem,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,

@@ -9,14 +9,15 @@ import './address/submit';
 const form = getById('main-form') as HTMLFormElement | null;
 if (form) {
   const formData = new FormData(form);
-  const isInternationalAddress = formData.get('isInternationalAddress');
+  const isYourAddressInternational = formData.get('isYourAddressInternational');
+  const isTheirAddressInternational = formData.get('isTheirAddressInternational');
 
-  if (isInternationalAddress === YesOrNo.NO) {
+  if (isYourAddressInternational === YesOrNo.NO || isTheirAddressInternational === YesOrNo.NO) {
     hideEnterPostcode();
     showUkAddressFields();
   }
 
-  if (isInternationalAddress === YesOrNo.YES) {
+  if (isYourAddressInternational === YesOrNo.YES || isTheirAddressInternational === YesOrNo.YES) {
     hideEnterPostcode();
     showInternationalAddressFields();
   }

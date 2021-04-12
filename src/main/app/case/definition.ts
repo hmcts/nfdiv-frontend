@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-09 15:19:06.
+// Generated using typescript-generator version 2.30.840 on 2021-04-12 10:47:39.
 
 export interface Address {
   AddressLine1: string;
@@ -304,16 +304,42 @@ export const enum DocumentType {
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE6';
 export const JURISDICTION = 'DIVORCE';
-export const PATCH_CASE = 'patch-case';
-export const SOLICITOR_CREATE = 'solicitor-create';
-export const SOLICITOR_UPDATE = 'solicitor-update';
-export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const SUBMIT_PETITION = 'submit-petition';
-export const CREATE_DRAFT = 'create-draft';
-export const SAVE_AND_CLOSE = 'save-and-close';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
 export const PETITIONER_EMAIL = 'petitionerEmail';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
+export const SAVE_AND_CLOSE = 'save-and-close';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const SUBMIT_PETITION = 'submit-petition';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const CREATE_DRAFT = 'create-draft';
+export const PATCH_CASE = 'patch-case';
+export const CHANNEL = 'channel';
+export const EVENT = 'event';
+export const JURISDICTION_1 = 'jurisdiction1';
+export const JURISDICTION_2 = 'jurisdiction2';
+export const SERVICE = 'service';
+export const KEYWORD = 'keyword';
+export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
+export const SUBMITTED_WEBHOOK = '/Submitted';
+export const ABOUT_TO_START_WEBHOOK = '/AboutToStart';
+export const ABOUT_TO_SUBMIT_WEBHOOK = '/AboutToSubmit';
+export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
+export const BEARER_PREFIX = 'Bearer' + ' ';
+export const FIRST_NAME = 'first name';
+export const LAST_NAME = 'last name';
+export const RELATIONSHIP = 'relationship';
+export const DIVORCE_APPLICATION = 'divorce application';
+export const APPLICATION_TO_END_CIVIL_PARTNERSHIP = 'application to end your civil partnership';
+export const SIGN_IN_URL_NOTIFY_KEY = 'signin url';
+export const RELATIONSHIP_COURT_HEADER = 'relationship court header';
+export const APPLY_FOR_DIVORCE = 'Apply for a divorce';
+export const END_CIVIL_PARTNERSHIP = 'End a civil partnership';
+export const SIGN_IN_DIVORCE_URL = 'signInDivorceUrl';
+export const SIGN_IN_DISSOLUTION_URL = 'signInDissolutionUrl';
+export const COURT_EMAIL = 'court email';
+export const DOCUMENT_FILENAME_FMT = '%s%s';
+export const DOCUMENT_NAME = 'draft-mini-petition-';

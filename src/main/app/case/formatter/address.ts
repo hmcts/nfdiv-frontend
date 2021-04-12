@@ -1,37 +1,65 @@
+import { capitalize } from 'lodash';
+
 import { Case } from '../case';
 import { CaseData, YesOrNo } from '../definition';
 
-export const fromApi = (data: Partial<CaseData>): Partial<Case> => {
-  const addressParts = data.derivedPetitionerHomeAddress?.split('\n') || [];
-  if (addressParts.length !== 5) {
-    return {
-      isInternationalAddress: addressParts.length ? YesOrNo.YES : undefined,
-      yourInternationalAddress: data.derivedPetitionerHomeAddress,
-    };
-  }
+export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
+  const isPetitionerAddress = address === 'your';
+  const apiAddress = isPetitionerAddress ? data.derivedPetitionerHomeAddress : data.derivedRespondentHomeAddress;
+  const isAddressInternational = isPetitionerAddress
+    ? data.petitionerHomeAddressIsInternational
+    : data.respondentHomeAddressIsInternational;
 
-  const [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode] = addressParts;
-  return {
-    isInternationalAddress: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,
-    yourAddress1,
-    yourAddress2,
-    yourAddressTown,
-    yourAddressCounty,
-    yourAddressPostcode,
-  };
+  switch (isAddressInternational) {
+    case YesOrNo.YES:
+      return {
+        [`${address}InternationalAddress`]: apiAddress,
+      };
+
+    case YesOrNo.NO: {
+      const addressParts = apiAddress?.split('\n') || [];
+      const [address1, address2, addressTown, addressCounty, addressPostcode] = addressParts;
+      return {
+        [`is${capitalize(address)}AddressInternational`]: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,
+        [`${address}Address1`]: address1,
+        [`${address}Address2`]: address2,
+        [`${address}AddressTown`]: addressTown,
+        [`${address}AddressCounty`]: addressCounty,
+        [`${address}AddressPostcode`]: addressPostcode,
+      };
+    }
+
+    default:
+      return {};
+  }
 };
 
-export const toApi = ({
+export const yourAddressToApi = ({
   yourAddress1,
   yourAddress2,
   yourAddressTown,
   yourAddressCounty,
   yourAddressPostcode,
   yourInternationalAddress,
-  isInternationalAddress,
+  isYourAddressInternational,
 }: Partial<Case>): Partial<CaseData> => ({
   derivedPetitionerHomeAddress:
-    isInternationalAddress === YesOrNo.YES
-      ? yourInternationalAddress
-      : [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n'),
+    isYourAddressInternational === YesOrNo.NO
+      ? [yourAddress1, yourAddress2, yourAddressTown, yourAddressCounty, yourAddressPostcode].join('\n')
+      : yourInternationalAddress,
+});
+
+export const theirAddressToApi = ({
+  theirAddress1,
+  theirAddress2,
+  theirAddressTown,
+  theirAddressCounty,
+  theirAddressPostcode,
+  theirInternationalAddress,
+  isTheirAddressInternational,
+}: Partial<Case>): Partial<CaseData> => ({
+  derivedRespondentHomeAddress:
+    isTheirAddressInternational === YesOrNo.NO
+      ? [theirAddress1, theirAddress2, theirAddressTown, theirAddressCounty, theirAddressPostcode].join('\n')
+      : theirInternationalAddress,
 });

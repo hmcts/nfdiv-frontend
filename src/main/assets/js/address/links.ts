@@ -34,7 +34,7 @@ if (cannotEnterUkPostcode) {
     e.preventDefault();
     hideErrors();
 
-    (getById('isInternationalAddress') as HTMLInputElement).checked = true;
+    (getById('addressIsInternational') as HTMLInputElement).checked = true;
 
     hideEnterPostcode();
     showInternationalAddressFields();
