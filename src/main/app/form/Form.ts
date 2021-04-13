@@ -11,7 +11,7 @@ export class Form {
    */
   public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
     const parsedBody = Object.entries(this.form.fields)
-      .map(setupCheckboxParser)
+      .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
         const parsed = field.parser?.(body);

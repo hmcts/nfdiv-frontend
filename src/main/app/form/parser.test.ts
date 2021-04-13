@@ -19,7 +19,10 @@ describe('Parser', () => {
   });
 
   describe('setupCheckboxParser()', () => {
-    test('correctly sets up checkbox parser when type is a checkbox', () => {
+    test.each([
+      { isSaveAndSignOut: false, expectedEmpty: '' },
+      { isSaveAndSignOut: true, expectedEmpty: null },
+    ])('correctly sets up checkbox parser when type is a checkbox for %o', ({ isSaveAndSignOut, expectedEmpty }) => {
       const mockFormWithCheckbox = {
         field: {
           type: 'checkboxes',
@@ -31,14 +34,14 @@ describe('Parser', () => {
         } as FormField,
       };
 
-      setupCheckboxParser(Object.entries(mockFormWithCheckbox)[0]);
+      setupCheckboxParser(isSaveAndSignOut)(Object.entries(mockFormWithCheckbox)[0]);
 
       const mockFormData = { checkbox1: ['', 'checked'], checkbox2: '', checkbox3: ['', 'checked'] };
       const actual = mockFormWithCheckbox.field.parser?.(mockFormData);
 
       expect(actual).toEqual([
         ['checkbox1', 'checked'],
-        ['checkbox2', ''],
+        ['checkbox2', expectedEmpty],
         ['checkbox3', 'checked'],
       ]);
     });

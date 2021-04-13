@@ -1,4 +1,4 @@
-import { CaseDate } from '../case/case';
+import { CaseDate, Checkbox } from '../case/case';
 
 import { FormField, FormOptions } from './Form';
 
@@ -15,19 +15,24 @@ export const covertToDateObject: DateParser = (property, body) =>
     { year: '', month: '', day: '' }
   );
 
-type CheckboxParser = ([key, field]: [string, FormField]) => [string, FormField];
+type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string, FormField]) => [string, FormField];
 
-export const setupCheckboxParser: CheckboxParser = ([key, field]) => {
+export const setupCheckboxParser: CheckboxParser = isSavingAndSigningOut => ([key, field]) => {
   if ((field as FormOptions)?.type === 'checkboxes') {
     field.parser = formData =>
       (field as FormOptions).values.reduce((previous, currentCheckbox) => {
         const checkboxName = currentCheckbox.name as string;
         const checkboxValues = formData[checkboxName] as string | string[];
-        const checkboxValue = Array.isArray(checkboxValues)
+        let checkboxValue: string | null = Array.isArray(checkboxValues)
           ? checkboxValues[checkboxValues.length - 1]
           : checkboxValues;
+
+        if (isSavingAndSigningOut && checkboxValue === Checkbox.Unchecked) {
+          checkboxValue = null;
+        }
+
         return [...previous, [checkboxName, checkboxValue]];
-      }, [] as string[][]);
+      }, [] as (string | null)[][]);
   }
   return [key, field];
 };

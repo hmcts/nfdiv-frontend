@@ -115,7 +115,7 @@ export interface CaseWithId extends Case {
 
 export enum Checkbox {
   Checked = 'checked',
-  Unchecked = 'unchecked',
+  Unchecked = '',
 }
 
 export interface CaseDate {

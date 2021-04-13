@@ -230,7 +230,7 @@ describe('PostController', () => {
 
   it('saves and signs out even if there are errors', async () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
-    const body = { gender: Gender.FEMALE, sameSex: Checkbox.Unchecked, saveAndSignOut: true };
+    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -241,18 +241,14 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { gender: 'female', sameSex: null },
-      SAVE_AND_CLOSE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, SAVE_AND_CLOSE);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
   it('saves and signs out even if was an error saving data', async () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
-    const body = { gender: Gender.FEMALE, sameSex: Checkbox.Unchecked, saveAndSignOut: true };
+    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const mockForm = ({
       getErrors: () => errors,
       getParsedBody: () => body,
@@ -264,11 +260,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { gender: 'female', sameSex: null },
-      SAVE_AND_CLOSE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, SAVE_AND_CLOSE);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
