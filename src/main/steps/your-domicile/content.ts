@@ -32,10 +32,10 @@ const cy = ({ partner }: CommonContent) => ({
     'Gan amlaf, eich domisil yw lle y cawsoch eich geni, y lle yr ydych yn meddwl amdano fel eich cartref parhaol a’r lle y mae eich teulu a’ch ffrindiau agosaf yn byw.',
   line2:
     'Ond, gall eich domisil fod yn fwy cymhleth, er enghraifft os ydych chi neu eich rhieni wedi symud o un wlad i’r llall yn y gorffennol.',
-  readMore: 'Darllenwch fwy am beth yw domisil ',
+  readMore: 'Darllenwch fwy am beth yw domisil',
   more1: "Dylech ddewis Ydy os yw unrhyw un o'r mathau canlynol o ddomisil yng Nghymru neu Loegr yn berthnasol i chi.",
-  more2: "Pan gewch eich geni, rhoddir <strong>‘domisil gwreiddiol’</strong> i chi. Fel arfer, hon yw'r wlad: ",
-  moreBullet1: "yr oedd eich tad â'i ddomisil ynddi os oedd eich rhieni'n briod ",
+  more2: "Pan gewch eich geni, rhoddir <strong>‘domisil gwreiddiol’</strong> i chi. Fel arfer, hon yw'r wlad:",
+  moreBullet1: "yr oedd eich tad â'i ddomisil ynddi os oedd eich rhieni'n briod",
   moreBullet2:
     'yr oedd eich mam â’i domisil ynddi os nad oedd eich rhieni yn briod, neu os oedd eich tad wedi marw cyn ichi gael eich geni',
   more3:
