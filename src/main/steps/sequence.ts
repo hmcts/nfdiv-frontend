@@ -4,6 +4,7 @@ import { isLessThanAYear } from '../app/form/validation';
 
 import {
   ADDRESS_PRIVATE,
+  APPLY_CLAIM_COSTS,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -40,6 +41,7 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
+  UPLOAD_YOUR_DOCUMENTS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -280,6 +282,10 @@ export const sequence: Step[] = [
   {
     url: HOW_TO_APPLY_TO_SERVE,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: APPLY_CLAIM_COSTS,
+    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: CHECK_ANSWERS_URL,

@@ -35,6 +35,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
   respondentEmailAddress: 'respondentEmailAddress',
   knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
+  claimCosts: 'divorceCostsClaim',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -106,6 +107,7 @@ export interface Case {
   respondentEmailAddress?: string;
   doNotKnowRespondentEmailAddress?: Checkbox;
   knowPartnersAddress?: YesOrNo;
+  claimCosts?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
