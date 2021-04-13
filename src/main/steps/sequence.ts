@@ -285,6 +285,7 @@ export const sequence: Step[] = [
   },
   {
     url: APPLY_CLAIM_COSTS,
+    showInSection: Sections.Costs,
     getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
