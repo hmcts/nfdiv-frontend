@@ -15,9 +15,9 @@ const en = ({ partner, isDivorce, required }: CommonContent) => ({
   line3: `This is only asking you about costs relating to ${
     isDivorce ? 'your divorce' : 'ending your civil partnership'
   }. How you divide money and property is dealt with separately.`,
-  claimCosts: 'Yes, I want to apply to claim costs',
-  doNotClaimCosts: 'No, I do not want to apply to claim costs',
-  claimCostsSelected: 'You still need to pay the fee when you submit this application.',
+  wantToClaimCosts: 'Yes, I want to apply to claim costs',
+  doNotWantToClaimCosts: 'No, I do not want to apply to claim costs',
+  wantToClaimCostsSelected: 'You still need to pay the fee when you submit this application.',
   errors: {
     claimCosts: { required },
   },
@@ -35,11 +35,11 @@ export const form: FormContent = {
       labelHidden: true,
       values: [
         {
-          label: l => l.claimCosts,
+          label: l => l.wantToClaimCosts,
           value: YesOrNo.YES,
-          conditionalText: l => `<p class="govuk-label govuk-!-font-weight-bold">${l.claimCostsSelected}</p>`,
+          conditionalText: l => `<p class="govuk-label govuk-!-font-weight-bold">${l.wantToClaimCostsSelected}</p>`,
         },
-        { label: l => l.doNotClaimCosts, value: YesOrNo.NO },
+        { label: l => l.doNotWantToClaimCosts, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
