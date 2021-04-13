@@ -12,7 +12,7 @@ Feature: Apply claim costs
     Then the page URL should be "/upload-your-documents"
 
   @nightly
-  Scenario: Error when not answering Do you need your contact details kept private from your husband?
+  Scenario: Error when not answering Do you want to claim divorce costs from your husband?
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
