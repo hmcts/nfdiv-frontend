@@ -175,7 +175,7 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   isDivorce?: boolean;
   formState?: Partial<Case>;
-  userEmail: string;
+  userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
