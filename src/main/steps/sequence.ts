@@ -225,7 +225,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_JURISDICTION,
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
@@ -267,7 +267,7 @@ export const sequence: Step[] = [
   },
   {
     url: YOU_CANNOT_APPLY,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_JURISDICTION,
   },
   {
     url: ENTER_YOUR_ADDRESS,

@@ -6,7 +6,14 @@
 {% block backLink %}{% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+  {% set isApplicationReadyToSubmit = nextIncompleteStep === '/check-your-answers' %}
+
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  <h1 class="govuk-heading-xl">{{ titleSubmit if isApplicationReadyToSubmit else titleSoFar }}</h1>
 
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}
@@ -20,9 +27,19 @@
     {% endif %}
   {% endfor %}
 
-  {{ govukButton({
-    text: continueApplication,
-    href: getNextIncompleteStepUrl(),
-    preventDoubleClick: true
-  }) }}
+  {% if isApplicationReadyToSubmit %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "./form.njk" %}
+        </div>
+      </div>
+    {% endblock %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
 {% endblock %}

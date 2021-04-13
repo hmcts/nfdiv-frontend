@@ -1,13 +1,17 @@
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
-import { Case } from '../../app/case/case';
+import { Checkbox } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
+import { FormContent } from '../../app/form/Form';
+import { isFieldFilledIn } from '../../app/form/validation';
+import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
 
-const en = ({ isDivorce, partner }) => ({
-  title: 'Check your answers so far',
+const en = ({ isDivorce, partner, formState }: CommonContent) => ({
+  titleSoFar: 'Check your answers so far',
+  titleSubmit: 'Check your answers',
   sectionTitles: {
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
@@ -21,20 +25,78 @@ const en = ({ isDivorce, partner }) => ({
     [Sections.Payment]: 'Payment and help with fees',
   },
   stepAnswers: {
-    [urls.RELATIONSHIP_DATE_URL]: (formState: Partial<Case>) => getFormattedDate(formState.relationshipDate),
-    [urls.HELP_PAYING_HAVE_YOU_APPLIED]: (formState: Partial<Case>) =>
-      formState.helpPayingNeeded === YesOrNo.YES && formState.alreadyAppliedForHelpPaying === YesOrNo.YES
+    [urls.RELATIONSHIP_DATE_URL]: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
+    [urls.HELP_PAYING_HAVE_YOU_APPLIED]:
+      formState?.helpPayingNeeded === YesOrNo.YES && formState?.alreadyAppliedForHelpPaying === YesOrNo.YES
         ? `Yes
-             ${formState.helpWithFeesRefNo}`
+             ${formState?.helpWithFeesRefNo}`
         : false,
   },
-  yes: 'Yes',
-  no: 'No',
   continueApplication: 'Continue application',
+  confirm: `Confirm before ${formState?.helpWithFeesRefNo ? 'continuing' : 'submitting'}`,
+  confirmPrayer: 'I confirm that I’m applying to the court to:',
+  confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
+    <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
+    <li>order my ${partner} to pay costs associated with ${
+    isDivorce ? 'the divorce' : 'ending my my civil partnership application'
+  }</li>
+    <li>decide how our money and property will be split (known as a financial order)</li>
+  </ul>
+  <p class="govuk-body govuk-!-margin-bottom-0">This confirms what you are asking the court to do. It’s known as ‘the prayer’.</p>`,
+  confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
+  confirmApplicationIsTrueHint:
+    '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
+  youCouldBeFined: 'You could be fined or imprisoned if you deliberately submit false information.',
+  continueToPayment: 'Continue to payment',
+  errors: {
+    iConfirmPrayer: {
+      required:
+        'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
+    },
+    iBelieveApplicationIsTrue: {
+      required:
+        'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
+    },
+  },
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce, partner }) => ({ ...en({ isDivorce, partner }), yes: 'Ydy', no: 'Nac' });
+const cy: typeof en = en;
+
+export const form: FormContent = {
+  fields: {
+    iConfirmPrayer: {
+      type: 'checkboxes',
+      label: l => l.confirm,
+      labelSize: 'm',
+      values: [
+        {
+          name: 'iConfirmPrayer',
+          label: l => l.confirmPrayer,
+          hint: l => l.confirmPrayerHint,
+          value: Checkbox.Checked,
+          validator: isFieldFilledIn,
+        },
+      ],
+    },
+    iBelieveApplicationIsTrue: {
+      type: 'checkboxes',
+      labelHidden: true,
+      values: [
+        {
+          name: 'iBelieveApplicationIsTrue',
+          label: l => l.confirmApplicationIsTrue,
+          hint: l => l.confirmApplicationIsTrueHint,
+          value: Checkbox.Checked,
+          validator: isFieldFilledIn,
+        },
+      ],
+    },
+  },
+  submit: {
+    text: l => l.continueToPayment,
+  },
+};
 
 const languages = {
   en,
@@ -47,5 +109,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     sections: Sections,
     getAnswerRows,
+    form,
   };
 };

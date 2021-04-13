@@ -58,7 +58,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customAnswer = this.ctx.stepAnswers[step.url]?.(processedFormState);
+        const customAnswer = this.ctx.stepAnswers[step.url];
         if (customAnswer === false) {
           continue;
         }
