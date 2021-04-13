@@ -12,8 +12,15 @@ const en = ({ required }) => ({
   },
 });
 
-const cy: typeof en = ({ required }) => ({
-  ...en({ required }),
+const cy: typeof en = () => ({
+  title: 'Ydych chi wedi bod yn byw yng Nghymru neu Loegr am y 12 mis diwethaf?',
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  errors: {
+    livingInEnglandWalesTwelveMonths: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
+    },
+  },
 });
 
 export const form: FormContent = {
