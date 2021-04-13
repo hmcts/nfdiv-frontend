@@ -26,8 +26,32 @@ const en = ({ partner, required }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy = ({ partner }: CommonContent) => ({
+  title: 'Eich domisil',
+  line1:
+    'Gan amlaf, eich domisil yw lle y cawsoch eich geni, y lle yr ydych yn meddwl amdano fel eich cartref parhaol a’r lle y mae eich teulu a’ch ffrindiau agosaf yn byw.',
+  line2:
+    'Ond, gall eich domisil fod yn fwy cymhleth, er enghraifft os ydych chi neu eich rhieni wedi symud o un wlad i’r llall yn y gorffennol.',
+  readMore: 'Darllenwch fwy am beth yw domisil ',
+  more1: "Dylech ddewis Ydy os yw unrhyw un o'r mathau canlynol o ddomisil yng Nghymru neu Loegr yn berthnasol i chi.",
+  more2: "Pan gewch eich geni, rhoddir <strong>‘domisil gwreiddiol’</strong> i chi. Fel arfer, hon yw'r wlad: ",
+  moreBullet1: "yr oedd eich tad â'i ddomisil ynddi os oedd eich rhieni'n briod ",
+  moreBullet2:
+    'yr oedd eich mam â’i domisil ynddi os nad oedd eich rhieni yn briod, neu os oedd eich tad wedi marw cyn ichi gael eich geni',
+  more3:
+    'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymgartrefu mewn gwlad arall fel oedolyn, yna gallai’r wlad newydd ddod yn <strong>‘ddomisil dewisol’</strong> ichi.',
+  more4: 'Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.',
+  yourDomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
+  yes: 'Ydy',
+  no: 'Nac ydy',
+  partnersDomicileInEnglandWales: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
+  errors: {
+    yourDomicileInEnglandWales: { required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.' },
+    partnersDomicileInEnglandWales: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
