@@ -52,9 +52,7 @@ const en = (
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
     clarification: `You only need to do this if your ${partner} may disagree that you are habitually resident and have lived here for at least 12 months.`,
   };
-  const enPetResidentSixMonths = {
-    line1:
-      'Your answers indicate that you’re domiciled and habitually resident and have lived here for at least 6 months.',
+  const enHabitualAndDomicileHelp = {
     readMore: 'Read more about your connections',
     helpText1: '<h3 class="govuk-heading-s">Habitual residence</h3>',
     helpText2:
@@ -70,6 +68,11 @@ const en = (
     helpText7:
       "If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.",
     helpText8: 'If you’re not sure about your habitual residence or domicile you should get legal advice.',
+  };
+  const enPetResidentSixMonths = {
+    line1:
+      'Your answers indicate that you’re domiciled and habitually resident and have lived here for at least 6 months.',
+    ...enHabitualAndDomicileHelp,
     clarification: `You only need to do this if your ${partner} may disagree that you’re domiciled and habitually resident and have lived here for at least 6 months.`,
   };
   const enPetRespDomiciled = {
@@ -83,6 +86,11 @@ const en = (
     helpText4: 'If you’re not sure about your domicile you should get legal advice.',
     clarification: `You only need to do this if your ${partner} may disagree that both of you are domiciled in England or Wales.`,
   };
+  const enResidualJurisdiction = {
+    line1: `Your answers indicate that you can ${apply} in England and Wales because the courts of England and Wales have jurisdiction on a residual basis.`,
+    ...enHabitualAndDomicileHelp,
+    clarification: '',
+  };
 
   const enConnections: Record<JurisdictionConnections, typeof enPetRespResident | undefined> = {
     [JurisdictionConnections.PET_RESP_RESIDENT]: enPetRespResident,
@@ -91,7 +99,7 @@ const en = (
     [JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]: enPetResidentTwelveMonths,
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]: undefined,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
   };
 
   return {
@@ -102,7 +110,7 @@ const en = (
 
 const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConnections[]) => {
   const apply = isDivorce ? 'cais am ysgariad' : 'cais';
-  const enPetRespResident = {
+  const cyPetRespResident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -113,7 +121,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yng Nghymru neu Loegr.`,
   };
-  const enPetRespLastResident = {
+  const cyPetRespLastResident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol a bod un ohonoch yn dal i fyw yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -124,7 +132,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yma’n fwyaf diweddar a bod un ohonoch yn dal i fyw yma.`,
   };
-  const enRespResident = {
+  const cyRespResident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${partner} yn preswylio’n arferol yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -135,7 +143,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno ei fod/bod yn preswylio’n arferol.`,
   };
-  const enPetResidentTwelveMonths = {
+  const cyPetResidentTwelveMonths = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod yn preswylio yno’n arferol a’ch bod wedi byw yma am o leiaf 12 mis.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -146,9 +154,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr ddihysbydd o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf blwyddyn.`,
   };
-  const enPetResidentSixMonths = {
-    line1:
-      'Dengys eich atebion fod eich domisil yng Nghymru neu Loegr, a’ch bod yn preswylio yno’n arferol ac wedi byw yno am o leiaf chwe mis.',
+  const cyHabitualAndDomicileHelp = {
     readMore: 'Darllen mwy am eich cysylltiadau',
     helpText1: '<h3 class="govuk-heading-s">Habitual residence</h3>',
     helpText2:
@@ -165,9 +171,14 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymsefydlu mewn gwlad arall fel oedolyn, yna gallai’r wlad newydd ddod yn ‘ddomisil dewisol’ ichi.',
     helpText8:
       'Os nad ydych chi’n siwr ynglyn â’ch preswylfa arferol neu eich domisil, dylech ofyn am gyngor cyfreithiol.',
+  };
+  const cyPetResidentSixMonths = {
+    line1:
+      'Dengys eich atebion fod eich domisil yng Nghymru neu Loegr, a’ch bod yn preswylio yno’n arferol ac wedi byw yno am o leiaf chwe mis.',
+    ...cyHabitualAndDomicileHelp,
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno bod eich domisil yma, eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf 6 mis.`,
   };
-  const enPetRespDomiciled = {
+  const cyPetRespDomiciled = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am mai yng Nghymru a Lloegr y mae domisil y ddau ohonoch.`,
     readMore: 'Darllenwch fwy am beth yw domisil',
     helpText1:
@@ -178,22 +189,27 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     helpText4: 'Os nad ydych chi’n siwr am eich domisil, dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau â’ch domisil yng Nghymru neu Loegr.`,
   };
+  const cyResidualJurisdiction = {
+    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am bod gan lysoedd Cymru a Lloegr awdurdodaeth ar sail weddillol.`,
+    ...cyHabitualAndDomicileHelp,
+    clarification: '',
+  };
 
-  const enConnections: Record<JurisdictionConnections, typeof enPetRespResident | undefined> = {
-    [JurisdictionConnections.PET_RESP_RESIDENT]: enPetRespResident,
-    [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: enPetRespLastResident,
-    [JurisdictionConnections.RESP_RESIDENT]: enRespResident,
-    [JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]: enPetResidentTwelveMonths,
-    [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
-    [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]: undefined,
+  const cyConnections: Record<JurisdictionConnections, typeof cyPetRespResident | undefined> = {
+    [JurisdictionConnections.PET_RESP_RESIDENT]: cyPetRespResident,
+    [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: cyPetRespLastResident,
+    [JurisdictionConnections.RESP_RESIDENT]: cyRespResident,
+    [JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]: cyPetResidentTwelveMonths,
+    [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
+    [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
   };
 
   return {
     title: `Gallwch ddefnyddio llys yng Nghymru neu Loegr ${
       isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
     }`,
-    ...enConnections[connections[0]],
+    ...cyConnections[connections[0]],
   };
 };
 
@@ -209,9 +225,6 @@ const languages = { en, cy };
 export const generateContent: TranslationFn = content => {
   if (!content.formState?.connections?.length) {
     throw new Error('User cannot view English/Welsh courts page if they have no connections');
-  }
-  if (content.formState.connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)) {
-    throw new Error('English/Welsh courts page should not be used for Residual Jurisdiction');
   }
 
   const translations = languages[content.language](content, content.formState.connections);
