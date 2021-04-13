@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../common/common.content';
@@ -97,6 +99,37 @@ describe('ErrorController', () => {
     expect(res.render).toHaveBeenCalledTimes(1);
     expect(res.render).toBeCalledWith('error/error', {
       ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...errorContent.en[500],
+    });
+  });
+
+  test("Doesn't throw an error if it cannot retrieve the user email e.g. if the service-auth-token is invalid/VPN down", () => {
+    const req = mockRequest({ session: { user: undefined, userCase: undefined } });
+    const res = mockResponse();
+
+    controller.internalServerError(
+      ({
+        isAxiosError: true,
+        response: {
+          data: {
+            error_description: 'Authorization code expired.',
+            error: 'invalid_grant',
+          },
+        },
+        message: 'Error: Request failed with status code 400',
+      } as unknown) as AxiosError,
+      req,
+      res
+    );
+    const logger = (req.locals.logger as unknown) as MockedLogger;
+
+    expect(logger.error).toHaveBeenCalledWith('Error: Request failed with status code 400', {
+      error_description: 'Authorization code expired.',
+      error: 'invalid_grant',
+    });
+    expect(res.statusCode).toBe(500);
+    expect(res.render).toBeCalledWith('error/error', {
+      ...generatePageContent({ language: 'en' }),
       ...errorContent.en[500],
     });
   });
