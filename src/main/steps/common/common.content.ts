@@ -81,6 +81,15 @@ const en = {
   no: 'No',
   english: 'English',
   welsh: 'Welsh',
+  contactUs: 'Contact us for help',
+  webChat: 'Web chat',
+  webChatDetails:
+    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.',
+  sendUsAMessage: 'Send us a message',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 days',
+  telephone: 'Telephone',
+  telephoneNumber: '0300 303 0642',
+  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
 };
 
 const cy: typeof en = {
