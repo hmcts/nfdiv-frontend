@@ -67,6 +67,9 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     petitionerWantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
+  legalProceedingsRelated: (data: Case) => ({
+    legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

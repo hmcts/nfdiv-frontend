@@ -23,7 +23,11 @@ describe('Parser', () => {
       const mockFormWithCheckbox = {
         checkboxField: {
           type: 'checkboxes',
-          values: [{ value: 'checked1' }, { value: 'checked2' }, { value: 'checked3' }],
+          values: [
+            { name: 'checkboxField', value: 'checked1' },
+            { name: 'checkboxField', value: 'checked2' },
+            { name: 'checkboxField', value: 'checked3' },
+          ],
         } as FormField,
       };
 
@@ -39,7 +43,7 @@ describe('Parser', () => {
       const mockFormWithCheckbox = {
         checkboxField: {
           type: 'checkboxes',
-          values: [{ value: 'checked' }],
+          values: [{ name: 'checkboxField', value: 'checked' }],
         } as FormField,
       };
 
