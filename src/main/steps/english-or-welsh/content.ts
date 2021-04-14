@@ -15,7 +15,7 @@ const en = ({ required }) => ({
 const cy = () => ({
   title: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
   errors: {
-    englishOrWelsh: { required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.' },
+    englishOrWelsh: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
   },
 });
 
