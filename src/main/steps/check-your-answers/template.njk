@@ -3,17 +3,18 @@
 
 {% extends "common/page.njk" %}
 
+{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+{% set isApplicationReadyToSubmit = nextIncompleteStep === '/check-your-answers' %}
+{% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
+
 {% block backLink %}{% endblock %}
 
 {% block content %}
-  {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-  {% set isApplicationReadyToSubmit = nextIncompleteStep === '/check-your-answers' %}
-
   {% block error_summary %}
     {% include "common/error/summary.njk" %}
   {% endblock %}
 
-  <h1 class="govuk-heading-xl">{{ titleSubmit if isApplicationReadyToSubmit else titleSoFar }}</h1>
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
 
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}

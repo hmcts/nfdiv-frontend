@@ -4,7 +4,6 @@ import { Checkbox } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
@@ -33,28 +32,37 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         : false,
   },
   continueApplication: 'Continue application',
-  confirm: `Confirm before ${formState?.helpWithFeesRefNo ? 'continuing' : 'submitting'}`,
+  confirm: `Confirm before ${formState?.helpWithFeesRefNo ? 'submitting' : 'continuing'}`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
-    <li>order my ${partner} to pay costs associated with ${
-    isDivorce ? 'the divorce' : 'ending my my civil partnership application'
-  }</li>
-    <li>decide how our money and property will be split (known as a financial order)</li>
+    ${
+      formState?.claimCosts === YesOrNo.YES
+        ? `<li>order my ${partner} to pay costs associated with ${
+            isDivorce ? 'the divorce' : 'ending my my civil partnership application'
+          }</li>`
+        : ''
+    }
+    ${
+      // @TODO update this once financial order has been implemented
+      // eslint-disable-next-line
+      // @ts-ignore
+      formState?.financialOrder === YesOrNo.YES
+        ? '<li>decide how our money and property will be split (known as a financial order)</li>'
+        : ''
+    }
   </ul>
-  <p class="govuk-body govuk-!-margin-bottom-0">This confirms what you are asking the court to do. It’s known as ‘the prayer’.</p>`,
+  <p class="govuk-body">This confirms what you are asking the court to do. It’s known as ‘the prayer’.</p>`,
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   youCouldBeFined: 'You could be fined or imprisoned if you deliberately submit false information.',
-  continueToPayment: 'Continue to payment',
+  continue: formState?.helpWithFeesRefNo ? 'Submit application' : 'Continue to payment',
   errors: {
-    iConfirmPrayer: {
-      required:
+    prayer: {
+      confirmPrayer:
         'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
-    },
-    iBelieveApplicationIsTrue: {
-      required:
+      confirmApplicationIsTrue:
         'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
     },
   },
@@ -65,7 +73,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    iConfirmPrayer: {
+    prayer: {
       type: 'checkboxes',
       label: l => l.confirm,
       labelSize: 'm',
@@ -75,26 +83,20 @@ export const form: FormContent = {
           label: l => l.confirmPrayer,
           hint: l => l.confirmPrayerHint,
           value: Checkbox.Checked,
-          validator: isFieldFilledIn,
+          validator: value => (!value ? 'confirmPrayer' : ''),
         },
-      ],
-    },
-    iBelieveApplicationIsTrue: {
-      type: 'checkboxes',
-      labelHidden: true,
-      values: [
         {
           name: 'iBelieveApplicationIsTrue',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,
           value: Checkbox.Checked,
-          validator: isFieldFilledIn,
+          validator: value => (!value ? 'confirmApplicationIsTrue' : ''),
         },
       ],
     },
   },
   submit: {
-    text: l => l.continueToPayment,
+    text: l => l.continue,
   },
 };
 

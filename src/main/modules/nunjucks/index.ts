@@ -4,7 +4,7 @@ import express from 'express';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
-import { FormInput } from '../../app/form/Form';
+import { Form, FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
@@ -23,7 +23,7 @@ export class Nunjucks {
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
       const { form, sessionErrors, errors } = this.ctx;
 
-      const hasMoreThanTwoFields = Object.keys(form.fields).length >= 2;
+      const hasMoreThanTwoFields = new Form(form).getFieldNames().size >= 2;
       if (!sessionErrors?.length || !hasMoreThanTwoFields) {
         return false;
       }

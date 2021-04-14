@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-12 10:47:39.
+// Generated using typescript-generator version 2.30.840 on 2021-04-14 14:19:04.
 
 export interface Address {
   AddressLine1: string;
@@ -122,6 +122,7 @@ export interface CaseData {
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
+  prayerHasBeenGiven: YesOrNo;
   statementOfTruth: YesOrNo;
   solSignStatementOfTruth: YesOrNo;
   solStatementOfReconciliationName: string;
@@ -140,6 +141,7 @@ export interface CaseData {
   derivedRespondentHomeAddress: string;
   respondentHomeAddressIsInternational: YesOrNo;
   legalProceedings: YesOrNo;
+  legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
   divorceClaimFrom: ClaimsCostFrom[];
   createdDate: Date;
@@ -147,6 +149,15 @@ export interface CaseData {
   selectedDivorceCentreSiteId: string;
   respondentSolicitorReference: string;
   documentsGenerated: DivorceDocument[];
+  respondentSolicitorRepresented: YesOrNo;
+  respondentSolicitorName: string;
+  respondentSolicitorPhone: string;
+  respondentSolicitorEmail: string;
+  derivedRespondentSolicitorAddr: string;
+  respSolDigital: YesOrNo;
+  respondentOrganisationPolicy: OrganisationPolicy<UserRole>;
+  derivedRespondentCorrespondenceAddr: string;
+  financialOrderFor: FinancialOrderFor[];
 }
 
 export interface DivorceDocument {
@@ -297,6 +308,11 @@ export const enum Court {
   SOUTH_WEST = 'southWest',
   NORTH_WEST = 'northWest',
   BURY_ST_EDMUNDS = 'buryStEdmunds',
+}
+
+export const enum FinancialOrderFor {
+  CHILDREN = 'children',
+  PETITIONER = 'petitioner',
 }
 
 export const enum DocumentType {

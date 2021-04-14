@@ -121,6 +121,8 @@ export interface Case {
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
   claimCosts?: YesOrNo;
+  iConfirmPrayer?: Checkbox;
+  iBelieveApplicationIsTrue?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

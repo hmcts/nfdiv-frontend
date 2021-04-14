@@ -136,7 +136,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: data => `Custom answer text. Original answer: ${data.mockField}` },
+          stepAnswers: { pickThisOne: 'Custom answer text. Original answer: example response' },
         },
       })(Sections.AboutPartnership);
 
@@ -167,7 +167,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: () => false },
+          stepAnswers: { pickThisOne: false },
         },
       })(Sections.AboutPartnership);
 
@@ -179,7 +179,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: () => '' },
+          stepAnswers: { pickThisOne: '' },
         },
       })(Sections.AboutPartnership);
 

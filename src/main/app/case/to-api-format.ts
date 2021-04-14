@@ -40,35 +40,41 @@ const fields: ToApiConverters = {
 
     return { inferredPetitionerGender, inferredRespondentGender };
   },
-  relationshipDate: (data: Case) => ({
+  relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
   }),
-  helpWithFeesRefNo: (data: Case) => ({
+  helpWithFeesRefNo: data => ({
     helpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
   }),
-  englishOrWelsh: (data: Case) => ({
+  englishOrWelsh: data => ({
     languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
   yourAddressPostcode: yourAddressToApi,
   yourInternationalAddress: yourAddressToApi,
-  agreeToReceiveEmails: (data: Case) => ({
+  agreeToReceiveEmails: data => ({
     petitionerAgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
-  addressPrivate: (data: Case) => ({
+  addressPrivate: data => ({
     petitionerContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
   theirAddressPostcode: theirAddressToApi,
   theirInternationalAddress: theirAddressToApi,
-  doNotKnowRespondentEmailAddress: (data: Case) => ({
+  doNotKnowRespondentEmailAddress: data => ({
     petitionerKnowsRespondentsEmailAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
     petitionerWantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
-  legalProceedingsRelated: (data: Case) => ({
+  legalProceedingsRelated: data => ({
     legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
+  }),
+  iConfirmPrayer: data => ({
+    prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),
+  }),
+  iBelieveApplicationIsTrue: data => ({
+    statementOfTruth: checkboxConverter(data.iBelieveApplicationIsTrue),
   }),
 };
 
