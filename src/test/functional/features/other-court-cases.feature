@@ -11,12 +11,12 @@ Feature: Other court cases
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Successfully completing the form
+  Scenario: Successfully completing the form with No option
     Given I select "No"
     When I click "Continue"
     Then the page URL should be "/money-property"
 
-  Scenario: Successfully completing the form
+  Scenario: Successfully completing the form with Yes option
     Given I select "Yes"
     Given I select "Our marriage"
     Given I select "Our property"
