@@ -1,7 +1,7 @@
 <details class="govuk-details" data-module="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      {{ contactUs }}
+      {{ contactUsForHelp }}
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -13,7 +13,7 @@
 
       <li>
         <h4 class="govuk-heading-s">{{ sendUsAMessage }}</h4>
-        <a class="govuk-link" href="mailto:contactdivorce@justice.gov.uk">{{ sendUsAMessage }}</a>
+        {{ sendUsAMessageEmail | safe }}
         <p class="govuk-body">{{ sendUsAMessageDetails }}</p>
       </li>
 
