@@ -6,10 +6,18 @@ import { fromApi as formatAddress } from './formatter/address';
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
+const checkboxConverter = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+
+  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+};
+
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   marriageIsSameSexCouple: data => ({
-    sameSex: data.marriageIsSameSexCouple === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
+    sameSex: checkboxConverter(data.marriageIsSameSexCouple),
   }),
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
@@ -20,7 +28,7 @@ const fields: FromApiConverters = {
   }),
   derivedPetitionerHomeAddress: data => formatAddress(data, 'your'),
   petitionerAgreedToReceiveEmails: data => ({
-    agreeToReceiveEmails: data.petitionerAgreedToReceiveEmails === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
+    agreeToReceiveEmails: checkboxConverter(data.petitionerAgreedToReceiveEmails),
   }),
   petitionerKnowsRespondentsEmailAddress: data => ({
     doNotKnowRespondentEmailAddress:
@@ -28,6 +36,9 @@ const fields: FromApiConverters = {
   }),
   petitionerContactDetailsConfidential: data => ({
     addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+  }),
+  petitionerWantsToHavePapersServedAnotherWay: data => ({
+    iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
   }),
   derivedRespondentHomeAddress: data => formatAddress(data, 'their'),
 };

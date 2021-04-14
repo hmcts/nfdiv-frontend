@@ -45,6 +45,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
+  YOU_NEED_TO_GET_THEIR_ADDRESS,
 } from './urls';
 
 export enum Sections {
@@ -63,6 +64,7 @@ export enum Sections {
 export interface Step {
   url: string;
   showInSection?: Sections;
+  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -273,6 +275,13 @@ export const sequence: Step[] = [
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     showInSection: Sections.Documents,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: YOU_NEED_TO_GET_THEIR_ADDRESS,
+    showInSection: Sections.Documents,
+    excludeFromContinueApplication: true,
+    getNextStep: data =>
+      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
   },
   {
     url: ENTER_THEIR_ADDRESS,

@@ -116,6 +116,7 @@ export interface Case {
   respondentEmailAddress?: string;
   doNotKnowRespondentEmailAddress?: Checkbox;
   knowPartnersAddress?: YesOrNo;
+  iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
 }

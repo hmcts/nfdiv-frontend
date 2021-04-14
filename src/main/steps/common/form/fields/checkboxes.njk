@@ -10,15 +10,15 @@
   classes: field.classes,
   idPrefix: field.id if field.id else fieldName,
   name: fieldName,
-  fieldset: null if field.labelHidden else {
+  fieldset: {
     legend: {
       text: getContent(field.label),
       classes: legendClasses
     }
-  },
+  } if not field.labelHidden,
   hint: {
     html: getContent(field.hint)
-  },
+  } if field.hint,
   items: formItems(field.values, formState),
   errorMessage: getError(fieldName),
   formGroup: {
