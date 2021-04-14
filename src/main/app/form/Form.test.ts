@@ -3,7 +3,7 @@ import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent } from './Form';
 import { covertToDateObject } from './parser';
-import { areFieldsFilledIn, isFieldFilledIn } from './validation';
+import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -23,19 +23,15 @@ describe('Form', () => {
           { label: l => l.dateFormat['month'], name: 'month' },
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
-        parser: value => covertToDateObject('dateField', value),
-        validator: value => areFieldsFilledIn(value as CaseDate),
+        parser: value => covertToDateObject('dateField', value as Record<string, unknown>),
+        validator: value => areDateFieldsFilledIn(value as CaseDate),
       },
-      someCheckboxes: {
+      checkboxes: {
         type: 'checkboxes',
+        validator: isFieldFilledIn,
         values: [
-          { name: 'optionalCheckbox', label: () => 'optional', value: Checkbox.Checked },
-          {
-            name: 'requiredCheckbox',
-            label: () => 'required checkbox',
-            value: Checkbox.Checked,
-            validator: isFieldFilledIn,
-          },
+          { name: 'checkboxes', label: () => 'checkbox1', value: 'checkbox1' },
+          { name: 'checkboxes', label: () => 'checkbox2', value: 'checkbox2' },
         ],
       },
     },
@@ -54,15 +50,15 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      requiredCheckbox: Checkbox.Checked,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      checkboxes: 'checkbox1',
     } as unknown) as Case);
 
     expect(mockForm.fields.field.validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
-      requiredCheckbox: Checkbox.Checked,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      checkboxes: 'checkbox1',
     });
     expect(errors).toStrictEqual([]);
   });
@@ -80,13 +76,13 @@ describe('Form', () => {
         errorType: 'required',
       },
       {
-        propertyName: 'someCheckboxes',
+        propertyName: 'checkboxes',
         errorType: 'required',
       },
     ]);
   });
 
-  describe('subfield validation', () => {
+  describe('subfield validation and parser', () => {
     const mockSubFieldForm: FormContent = {
       fields: {
         field: {
@@ -100,6 +96,14 @@ describe('Form', () => {
                   type: 'text',
                   label: 'Subfield',
                   validator: isFieldFilledIn,
+                },
+                checkboxes: {
+                  type: 'checkboxes',
+                  validator: isFieldFilledIn,
+                  values: [
+                    { name: 'checkboxes', label: () => 'checkbox1', value: 'checkbox1' },
+                    { name: 'checkboxes', label: () => 'checkbox2', value: 'checkbox2' },
+                  ],
                 },
               },
             },
@@ -140,7 +144,21 @@ describe('Form', () => {
           errorType: 'required',
           propertyName: 'testSubField',
         },
+        {
+          errorType: 'required',
+          propertyName: 'checkboxes',
+        },
       ]);
+    });
+
+    it('returns the parsed body of subfields', () => {
+      const body = { field: YesOrNo.YES, testSubField: 'test', checkboxes: ['', '', 'checkbox1', 'checkbox2'] };
+
+      expect(subFieldForm.getParsedBody(body)).toStrictEqual({
+        field: 'YES',
+        testSubField: 'test',
+        checkboxes: ['checkbox1', 'checkbox2'],
+      });
     });
   });
 
@@ -150,8 +168,7 @@ describe('Form', () => {
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
-      optionalCheckbox: [''],
-      requiredCheckbox: ['', Checkbox.Checked],
+      checkboxes: ['', '', 'checkbox1', 'checkbox2'],
     };
 
     expect(form.getParsedBody(body)).toStrictEqual({
@@ -161,40 +178,7 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      optionalCheckbox: '',
-      requiredCheckbox: 'checked',
-    });
-  });
-
-  test('returns all of the field name for the current form', () => {
-    expect(form.getFieldNames()).toEqual(new Set(['field', 'dateField', 'optionalCheckbox', 'requiredCheckbox']));
-  });
-
-  describe('isComplete()', () => {
-    test('returns false if none of the fields are complete', () => {
-      expect(form.isComplete({})).toBe(false);
-    });
-
-    test('returns false if all the fields are null/incomplete', () => {
-      expect(
-        form.isComplete(({
-          field: null,
-          dateField: null,
-          optionalCheckbox: null,
-          requiredCheckbox: null,
-        } as unknown) as Case)
-      ).toBe(false);
-    });
-
-    test('returns true if all the fields have been completed with empty data', () => {
-      expect(
-        form.isComplete(({
-          field: '',
-          dateField: '',
-          optionalCheckbox: Checkbox.Unchecked,
-          requiredCheckbox: Checkbox.Unchecked,
-        } as unknown) as Case)
-      ).toBe(true);
+      checkboxes: ['checkbox1', 'checkbox2'],
     });
   });
 });

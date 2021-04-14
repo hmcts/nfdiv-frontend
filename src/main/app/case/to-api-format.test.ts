@@ -14,7 +14,7 @@ describe('to-api-format', () => {
     doNotKnowRespondentEmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
     knowPartnersAddress: YesOrNo.NO,
-    iWantToHavePapersServedAnotherWay: undefined,
+    iWantToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {

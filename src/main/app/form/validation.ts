@@ -2,7 +2,7 @@ import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
 
-export type Validator = (value: string | CaseDate | Partial<Case> | undefined) => void | string;
+export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
@@ -11,7 +11,13 @@ export const isFieldFilledIn: Validator = value => {
   }
 };
 
-export const areFieldsFilledIn: DateValidator = fields => {
+export const atLeastOneFieldIsChecked: Validator = fields => {
+  if (!fields || (fields as []).length === 0) {
+    return 'required';
+  }
+};
+
+export const areDateFieldsFilledIn: DateValidator = fields => {
   if (typeof fields !== 'object' || Object.keys(fields).length !== 3) {
     return 'required';
   }

@@ -21,7 +21,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. Your phone number will not be shared with your ${partner}.`,
   phoneNumber: 'Enter your phone number (optional)',
   errors: {
-    agree: {
+    agreeToReceiveEmails: {
       required: 'You have to agree to receive email notifications in order to use this online service.',
     },
     phoneNumber: {
@@ -35,19 +35,19 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    agree: {
+    agreeToReceiveEmails: {
       type: 'checkboxes',
       label: l => l.byEmail,
       labelSize: 'm',
       hint: l =>
         `<p class="govuk-body">${l.byEmailLine1}</p>
         <p class="govuk-body">${l.byEmailLine2} <strong>${l.userEmail}</strong></p>`,
+      validator: isFieldFilledIn,
       values: [
         {
           name: 'agreeToReceiveEmails',
           label: l => l.agreeToReceiveEmails,
           value: Checkbox.Checked,
-          validator: isFieldFilledIn,
         },
       ],
     },

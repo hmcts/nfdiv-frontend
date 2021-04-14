@@ -9,7 +9,7 @@ export type OrNull<T> = { [K in keyof T]: T[K] | null };
 type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
 
 const checkboxConverter = (value: string | undefined) => {
-  if (!value) {
+  if (value === null) {
     return null;
   }
 

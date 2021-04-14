@@ -1,4 +1,4 @@
-import { CaseDate, Checkbox } from '../case/case';
+import { CaseDate } from '../case/case';
 
 import { FormField, FormOptions } from './Form';
 
@@ -19,20 +19,21 @@ type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string
 
 export const setupCheckboxParser: CheckboxParser = isSavingAndSigningOut => ([key, field]) => {
   if ((field as FormOptions)?.type === 'checkboxes') {
-    field.parser = formData =>
-      (field as FormOptions).values.reduce((previous, currentCheckbox) => {
-        const checkboxName = currentCheckbox.name as string;
-        const checkboxValues = formData[checkboxName] as string | string[];
-        let checkboxValue: string | null = Array.isArray(checkboxValues)
-          ? checkboxValues[checkboxValues.length - 1]
-          : checkboxValues;
+    field.parser = formData => {
+      const checkbox = formData[key] ?? [];
+      let checkboxValues;
+      if ((field as FormOptions).values.length > 1) {
+        checkboxValues = checkbox.filter(Boolean);
+      } else {
+        checkboxValues = checkbox[checkbox.length - 1];
+      }
 
-        if (isSavingAndSigningOut && checkboxValue === Checkbox.Unchecked) {
-          checkboxValue = null;
-        }
+      if (isSavingAndSigningOut && !checkboxValues) {
+        checkboxValues = null;
+      }
 
-        return [...previous, [checkboxName, checkboxValue]];
-      }, [] as (string | null)[][]);
+      return [[key, checkboxValues]];
+    };
   }
   return [key, field];
 };
