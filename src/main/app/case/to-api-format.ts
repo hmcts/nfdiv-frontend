@@ -54,6 +54,9 @@ const fields: ToApiConverters = {
     petitionerKnowsRespondentsEmailAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
+  legalProceedingsRelated: (data: Case) => ({
+    legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

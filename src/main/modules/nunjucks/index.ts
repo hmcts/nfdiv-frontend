@@ -44,7 +44,7 @@ export class Nunjucks {
         classes: i.classes,
         value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
         attributes: i.attributes,
-        checked: i.selected ?? userAnswer?.[i.name as string] ?? i.value === userAnswer,
+        checked: i.selected ?? userAnswer?.[i.name as string]?.includes(i.value as string) ?? i.value === userAnswer,
         conditional: (() => {
           if (i.warning) {
             return {

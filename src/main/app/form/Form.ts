@@ -9,8 +9,8 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
-    const parsedBody = Object.entries(this.form.fields)
+  public getParsedBody(body: AnyObject, fields = this.form?.fields): Partial<CaseWithFormData> {
+    const parsedBody = Object.entries(fields)
       .map(setupCheckboxParser)
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
@@ -18,7 +18,18 @@ export class Form {
         return Array.isArray(parsed) ? parsed : [[key, parsed]];
       });
 
-    return { ...body, ...Object.fromEntries(parsedBody) };
+    let subFieldsParsedBody = {};
+    for (const [, value] of Object.entries(fields)) {
+      (value as FormOptions)?.values
+        ?.filter(option => option.subFields !== undefined)
+        .map(fieldWithSubFields => fieldWithSubFields.subFields)
+        .map(subField => this.getParsedBody(body, subField))
+        .forEach(parsedSubField => {
+          subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
+        });
+    }
+
+    return { ...body, ...Object.fromEntries(parsedBody), ...subFieldsParsedBody };
   }
 
   /**
@@ -65,9 +76,9 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | CaseDate | undefined, formData: Partial<Case>) => void | string;
+type ValidationCheck = (value: string | string[] | CaseDate | undefined, formData: Partial<Case>) => void | string;
 
-type Parser = (value: Record<string, unknown>) => void;
+type Parser = (value: Record<string, unknown> | string[]) => void;
 
 type Label = string | LanguageLookup;
 
