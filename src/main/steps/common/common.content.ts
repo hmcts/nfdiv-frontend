@@ -70,8 +70,6 @@ const en = {
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageEmail:
-    '<a class="govuk-link" href="mailto:contactdivorce@justice.gov.uk" aria-label="Send us a message at contactdivorce@justice.gov.uk, this link opens a new email.">Send us a message</a>',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
@@ -152,6 +150,7 @@ export const generatePageContent = ({
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const partnerEmailProvided = formState?.doNotKnowRespondentEmailAddress !== Checkbox.Checked;
+  const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -162,6 +161,7 @@ export const generatePageContent = ({
     isDivorce,
     formState,
     userEmail,
+    contactEmail,
     partnerEmailProvided,
   };
 
@@ -198,6 +198,7 @@ export type CommonContent = typeof en & {
   formState?: Partial<Case>;
   partner: string;
   userEmail?: string;
+  contactEmail?: string;
   selectedGender: Gender;
   partnerEmailProvided: boolean;
 };
