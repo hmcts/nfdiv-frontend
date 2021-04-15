@@ -26,6 +26,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   IN_THE_UK,
+  JURISDICTION_CHANGE_YOUR_ANSWERS,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -296,6 +297,10 @@ export const sequence: Step[] = [
     url: OTHER_COURT_CASES,
     showInSection: Sections.Documents,
     getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
+  },
+  {
+    url: JURISDICTION_CHANGE_YOUR_ANSWERS,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,

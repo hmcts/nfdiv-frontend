@@ -1,0 +1,35 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ line2 }}</li>
+  </ul>
+  <details class="govuk-details" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        {{ findOutMore }}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <h3 class="govuk-heading-m">{{ habitualResident }}</h1>
+      <p class="govuk-body">{{ line3 }}</p>
+      <p class="govuk-body">{{ line4 }}</p>
+      <p class="govuk-body">{{ line5 }}</p>
+
+      <h3 class="govuk-heading-m">{{ domicile }}</h1>
+      <p class="govuk-body">{{ line6 }}</p>
+      <p class="govuk-body">{{ line7 }}</p>
+      <p class="govuk-body">{{ line8 }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ bulletPoint1 }}</li>
+        <li>{{ bulletPoint2 }}</li>
+      </ul>
+      <p class="govuk-body">{{ line9 }}</p>
+      <p class="govuk-body">{{ line10 }}</p>
+    </div>
+  </details>
+{% endblock %}
