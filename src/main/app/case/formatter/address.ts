@@ -1,11 +1,9 @@
-import { capitalize } from 'lodash';
-
 import { Case } from '../case';
 import { CaseData, YesOrNo } from '../definition';
 
 export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
   const isPetitionerAddress = address === 'your';
-  const apiAddress = isPetitionerAddress ? data.derivedPetitionerHomeAddress : data.derivedRespondentHomeAddress;
+  const fullAddress = isPetitionerAddress ? data.derivedPetitionerHomeAddress : data.derivedRespondentHomeAddress;
   const isAddressInternational = isPetitionerAddress
     ? data.petitionerHomeAddressIsInternational
     : data.respondentHomeAddressIsInternational;
@@ -13,14 +11,19 @@ export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Par
   switch (isAddressInternational) {
     case YesOrNo.YES:
       return {
-        [`${address}InternationalAddress`]: apiAddress,
+        [`${address}InternationalAddress`]: fullAddress,
+        [`${address}Address1`]: '',
+        [`${address}Address2`]: '',
+        [`${address}AddressTown`]: '',
+        [`${address}AddressCounty`]: '',
+        [`${address}AddressPostcode`]: '',
       };
 
     case YesOrNo.NO: {
-      const addressParts = apiAddress?.split('\n') || [];
+      const addressParts = fullAddress?.split('\n') || [];
       const [address1, address2, addressTown, addressCounty, addressPostcode] = addressParts;
       return {
-        [`is${capitalize(address)}AddressInternational`]: addressParts.filter(Boolean).length ? YesOrNo.NO : undefined,
+        [`${address}InternationalAddress`]: '',
         [`${address}Address1`]: address1,
         [`${address}Address2`]: address2,
         [`${address}AddressTown`]: addressTown,

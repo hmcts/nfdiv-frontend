@@ -37,7 +37,7 @@ export const JURISDICTION_LAST_TWELVE_MONTHS: PageLink = '/living-england-wales-
 export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
 export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-six-months';
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
-export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
+export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-jurisdiction';
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
@@ -52,8 +52,14 @@ export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 
+export const YOU_NEED_TO_GET_THEIR_ADDRESS: PageLink = '/need-to-get-address';
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
+export const OTHER_COURT_CASES_DETAILS: PageLink = '/other-court-cases-details';
+export const MONEY_PROPERTY: PageLink = '/money-property';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
+
+export const APPLY_CLAIM_COSTS: PageLink = '/apply-claim-costs';
+export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';

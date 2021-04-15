@@ -27,7 +27,7 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     And I select "No"
     When I click "Continue"
-    Then the page URL should be "/residual-jurisdiction"
+    Then the page URL should be "/are-you-eligible-for-residual-jurisdiction"
 
   Scenario: Was not last habitually resident in England or Wales and is not same sex
     When I go to '/your-details'

@@ -1,9 +1,9 @@
 import { Case, Checkbox } from './case';
 import { ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
-import { toApiFormat } from './to-api-format';
+import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
-  const results: Partial<Case> = {
+  const results: OrNull<Partial<Case>> = {
     gender: Gender.MALE,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
@@ -13,6 +13,8 @@ describe('to-api-format', () => {
     agreeToReceiveEmails: Checkbox.Checked,
     doNotKnowRespondentEmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
+    knowPartnersAddress: YesOrNo.NO,
+    iWantToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -28,7 +30,9 @@ describe('to-api-format', () => {
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
       petitionerAgreedToReceiveEmails: YesOrNo.YES,
       petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
+      petitionerKnowsRespondentsAddress: YesOrNo.NO,
       petitionerKnowsRespondentsEmailAddress: YesOrNo.NO,
+      petitionerWantsToHavePapersServedAnotherWay: null,
     });
   });
 

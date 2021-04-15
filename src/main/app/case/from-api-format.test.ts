@@ -3,7 +3,7 @@ import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results = {
+  const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: 'divorce',
     marriageIsSameSexCouple: 'YES',
     inferredRespondentGender: 'male',
@@ -13,6 +13,7 @@ describe('from-api-format', () => {
     petitionerAgreedToReceiveEmails: 'YES',
     petitionerContactDetailsConfidential: 'keep',
     petitionerKnowsRespondentsEmailAddress: 'NO',
+    petitionerWantsToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -27,6 +28,7 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -47,6 +49,7 @@ describe('from-api-format', () => {
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
@@ -69,12 +72,13 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
+        isYourAddressInternational: YesOrNo.NO,
+        yourInternationalAddress: '',
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
-        isYourAddressInternational: YesOrNo.NO,
       });
     });
 
@@ -86,8 +90,13 @@ describe('from-api-format', () => {
       } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
         isYourAddressInternational: YesOrNo.YES,
+        yourInternationalAddress: 'Line 1\nLine 2\nTown\nState\nZip code\nCountry',
+        yourAddress1: '',
+        yourAddress2: '',
+        yourAddressTown: '',
+        yourAddressCounty: '',
+        yourAddressPostcode: '',
       });
     });
   });

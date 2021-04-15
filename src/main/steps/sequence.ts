@@ -1,9 +1,10 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { DivorceOrDissolution, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
   ADDRESS_PRIVATE,
+  APPLY_CLAIM_COSTS,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -31,18 +32,22 @@ import {
   JURISDICTION_LAST_TWELVE_MONTHS,
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
+  MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
+  OTHER_COURT_CASES_DETAILS,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
+  UPLOAD_YOUR_DOCUMENTS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
+  YOU_NEED_TO_GET_THEIR_ADDRESS,
 } from './urls';
 
 export enum Sections {
@@ -61,6 +66,7 @@ export enum Sections {
 export interface Step {
   url: string;
   showInSection?: Sections;
+  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -184,7 +190,10 @@ export const sequence: Step[] = [
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.lastHabituallyResident === YesOrNo.NO && data.sameSex === Checkbox.Checked) {
+      if (
+        data.lastHabituallyResident === YesOrNo.NO &&
+        (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || data.sameSex === Checkbox.Checked)
+      ) {
         return RESIDUAL_JURISDICTION;
       } else if (data.lastHabituallyResident === YesOrNo.NO) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
@@ -200,10 +209,6 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesTwelveMonths === YesOrNo.NO ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
-    url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => CERTIFICATE_NAME,
-  },
-  {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
@@ -212,8 +217,19 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
+    url: RESIDUAL_JURISDICTION,
+    getNextStep: data =>
+      data.jurisdictionResidualEligible === YesOrNo.YES
+        ? JURISDICTION_INTERSTITIAL_URL
+        : JURISDICTION_MAY_NOT_BE_ABLE_TO,
+  },
+  {
     url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: CERTIFICATE_NAME,
@@ -273,6 +289,13 @@ export const sequence: Step[] = [
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: YOU_NEED_TO_GET_THEIR_ADDRESS,
+    showInSection: Sections.Documents,
+    excludeFromContinueApplication: true,
+    getNextStep: data =>
+      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+  },
+  {
     url: ENTER_THEIR_ADDRESS,
     showInSection: Sections.ContactThem,
     getNextStep: () => OTHER_COURT_CASES,
@@ -280,6 +303,16 @@ export const sequence: Step[] = [
   {
     url: HOW_TO_APPLY_TO_SERVE,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: OTHER_COURT_CASES,
+    showInSection: Sections.Documents,
+    getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
+  },
+  {
+    url: APPLY_CLAIM_COSTS,
+    showInSection: Sections.Costs,
+    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: CHECK_ANSWERS_URL,

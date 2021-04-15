@@ -40,7 +40,7 @@ export const form: FormContent = {
         }
       },
     },
-    doNotKnowEmailAddress: {
+    doNotKnowRespondentEmailAddress: {
       type: 'checkboxes',
       values: [
         {

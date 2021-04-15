@@ -1,7 +1,8 @@
 import { CaseDate } from '../case/case';
 
 import {
-  areFieldsFilledIn,
+  areDateFieldsFilledIn,
+  atLeastOneFieldIsChecked,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -37,13 +38,13 @@ describe('Validation', () => {
 
   describe('areFieldsFilledIn()', () => {
     test('Should check if values in object exist', async () => {
-      const isValid = areFieldsFilledIn({ day: '1', month: '1', year: '1' });
+      const isValid = areDateFieldsFilledIn({ day: '1', month: '1', year: '1' });
 
       expect(isValid).toStrictEqual(undefined);
     });
 
     test('Should check if values in object does not exist', async () => {
-      const isValid = areFieldsFilledIn({ day: '', month: '', year: '' });
+      const isValid = areDateFieldsFilledIn({ day: '', month: '', year: '' });
 
       expect(isValid).toStrictEqual('required');
     });
@@ -187,6 +188,20 @@ describe('Validation', () => {
       const isValid = isFieldLetters('1stname Lastname');
 
       expect(isValid).toStrictEqual('invalid');
+    });
+  });
+
+  describe('atLeastOneFieldIsChecked()', () => {
+    test('Should check if value exist', async () => {
+      const isValid = atLeastOneFieldIsChecked(['Yes']);
+
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should check if value does not exist', async () => {
+      const isValid = atLeastOneFieldIsChecked([]);
+
+      expect(isValid).toStrictEqual('required');
     });
   });
 });
