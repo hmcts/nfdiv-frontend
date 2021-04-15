@@ -43,7 +43,7 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-    appliesToYou: {
+    sameSex: {
       type: 'checkboxes',
       label: l => l.appliesToYou,
       values: [{ name: 'sameSex', label: l => l.sameSex, value: Checkbox.Checked }],

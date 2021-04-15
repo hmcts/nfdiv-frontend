@@ -23,7 +23,12 @@ module.exports = {
             esModule: false,
           },
         },
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            url: false,
+          },
+        },
         'sass-loader',
       ],
     },
