@@ -68,7 +68,7 @@ const en = {
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
   webChatDetails:
-    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.',
+    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
   sendUsAMessageEmail:
     '<a class="govuk-link" href="mailto:contactdivorce@justice.gov.uk" aria-label="Send us a message at contactdivorce@justice.gov.uk, this link opens a new email.">Send us a message</a>',
