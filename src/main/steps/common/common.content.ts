@@ -153,6 +153,8 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
+  english: 'Saesneg',
+  welsh: 'Cymraeg',
 };
 
 export const generatePageContent = ({

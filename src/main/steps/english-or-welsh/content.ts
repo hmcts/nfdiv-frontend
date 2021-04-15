@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
 const en = ({ required }) => ({
-  title: 'What language do you want to receive emails and documents in? ',
+  title: 'What language do you want to receive emails and documents in?',
   errors: {
     englishOrWelsh: {
       required,
@@ -12,7 +12,14 @@ const en = ({ required }) => ({
   },
 });
 
-const cy: typeof en = ({ required }) => ({ ...en({ required }) });
+const cy = () => ({
+  title: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
+  errors: {
+    englishOrWelsh: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
