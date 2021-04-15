@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { DivorceOrDissolution, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
@@ -190,7 +190,10 @@ export const sequence: Step[] = [
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.lastHabituallyResident === YesOrNo.NO && data.sameSex === Checkbox.Checked) {
+      if (
+        data.lastHabituallyResident === YesOrNo.NO &&
+        (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || data.sameSex === Checkbox.Checked)
+      ) {
         return RESIDUAL_JURISDICTION;
       } else if (data.lastHabituallyResident === YesOrNo.NO) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
@@ -206,10 +209,6 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesTwelveMonths === YesOrNo.NO ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
-    url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => CERTIFICATE_NAME,
-  },
-  {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
@@ -218,8 +217,19 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
+    url: RESIDUAL_JURISDICTION,
+    getNextStep: data =>
+      data.jurisdictionResidualEligible === YesOrNo.YES
+        ? JURISDICTION_INTERSTITIAL_URL
+        : JURISDICTION_MAY_NOT_BE_ABLE_TO,
+  },
+  {
     url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: CERTIFICATE_NAME,
