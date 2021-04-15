@@ -4428,6 +4428,22 @@ devtools@7.4.2:
     ua-parser-js "^0.7.21"
     uuid "^8.0.0"
 
+devtools@7.4.5:
+  version "7.4.5"
+  resolved "https://registry.yarnpkg.com/devtools/-/devtools-7.4.5.tgz#f302a5036f96b242c74d00d030cdcd90cd77fd86"
+  integrity sha512-D0RUjKLwFuEN0O9KXuhXD9M/BvxYh4xVNipt4+cgJ45sX2NBGt0x+XUnlk2zkbiPzgcxeFiUt55U8CfpMVFLcg==
+  dependencies:
+    "@wdio/config" "7.4.2"
+    "@wdio/logger" "7.4.2"
+    "@wdio/protocols" "7.4.2"
+    "@wdio/types" "7.4.2"
+    "@wdio/utils" "7.4.2"
+    chrome-launcher "^0.13.1"
+    edge-paths "^2.1.0"
+    puppeteer-core "^7.1.0"
+    ua-parser-js "^0.7.21"
+    uuid "^8.0.0"
+
 diagnostic-channel-publishers@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.4.4.tgz#57c3b80b7e7f576f95be3a257d5e94550f0082d6"
@@ -11847,7 +11863,7 @@ webdriver@7.4.2:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.4.2, webdriverio@^7.4.2:
+webdriverio@7.4.2:
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.4.2.tgz#36cc1a0b7f7033c1ccb0c7d89a4c4a756c48530a"
   integrity sha512-ZGT1L7ulPQKavCuAt+7mz5ggpYtQCwWo+BCh1KxQwTnq5HMayRo0S87m/nxtrD7bNBNylnlFhMevACSh13U7Ag==
@@ -11865,6 +11881,39 @@ webdriverio@7.4.2, webdriverio@^7.4.2:
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"
     devtools "7.4.2"
+    devtools-protocol "^0.0.863986"
+    fs-extra "^9.0.1"
+    get-port "^5.1.1"
+    grapheme-splitter "^1.0.2"
+    lodash.clonedeep "^4.5.0"
+    lodash.isobject "^3.0.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.zip "^4.2.0"
+    minimatch "^3.0.4"
+    puppeteer-core "^7.1.0"
+    resq "^1.9.1"
+    rgb2hex "0.2.3"
+    serialize-error "^8.0.0"
+    webdriver "7.4.2"
+
+webdriverio@^7.4.5:
+  version "7.4.5"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.4.5.tgz#24e122b764668a4e728d16fdcf0c0f1468880a9a"
+  integrity sha512-hVXoTgfXz4NAfeprHn60nC2R8zQUyyvF1xavYWoAIxOzZC8HDI27T5E83baN1QUsO8+pyLi0dB5CndsADLo/Kw==
+  dependencies:
+    "@types/aria-query" "^4.2.1"
+    "@wdio/config" "7.4.2"
+    "@wdio/logger" "7.4.2"
+    "@wdio/protocols" "7.4.2"
+    "@wdio/repl" "7.4.2"
+    "@wdio/types" "7.4.2"
+    "@wdio/utils" "7.4.2"
+    archiver "^5.0.0"
+    aria-query "^4.2.2"
+    atob "^2.1.2"
+    css-shorthand-properties "^1.1.1"
+    css-value "^0.0.1"
+    devtools "7.4.5"
     devtools-protocol "^0.0.863986"
     fs-extra "^9.0.1"
     get-port "^5.1.1"
