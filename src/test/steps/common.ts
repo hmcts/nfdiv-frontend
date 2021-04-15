@@ -32,8 +32,10 @@ export const iClick = (text: string): void => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 
-When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+  checkOptionFor(optionLabel, fieldLabel);
 });
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
@@ -83,13 +85,14 @@ export const iClearTheForm = (): void => {
 };
 Given('I clear the form', iClearTheForm);
 
-Given('I reset the postcode lookup form', () => {
+export const iResetThePostCodeLookUpForm = (): void => {
   iClearTheForm();
 
   I.executeScript(() => {
     (document.querySelector('[data-link="resetPostcodeLookup"]') as HTMLAnchorElement).click();
   });
-});
+};
+Given('I reset the postcode lookup form', iResetThePostCodeLookUpForm);
 
 Given("I've said I'm divorcing my husband", () => {
   I.amOnPage('/your-details');

@@ -31,7 +31,13 @@ export const config = {
   TestPass,
   Gherkin: {
     features: './features/*.feature',
-    steps: ['../steps/common.ts', '../steps/date.ts', '../steps/check-your-answers.ts', '../steps/jurisdiction.ts'],
+    steps: [
+      '../steps/common.ts',
+      '../steps/date.ts',
+      '../steps/check-your-answers.ts',
+      '../steps/jurisdiction.ts',
+      '../steps/happy-path.ts',
+    ],
   },
   AutoLogin: {
     enabled: true,

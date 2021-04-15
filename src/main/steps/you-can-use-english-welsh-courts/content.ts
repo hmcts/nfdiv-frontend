@@ -214,7 +214,13 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    connections: {
+      type: 'hidden',
+      label: l => l.title,
+      labelHidden: true,
+    },
+  },
   submit: {
     text: l => l.continue,
   },
@@ -223,11 +229,10 @@ export const form: FormContent = {
 const languages = { en, cy };
 
 export const generateContent: TranslationFn = content => {
-  if (!content.formState?.connections?.length) {
-    throw new Error('User cannot view English/Welsh courts page if they have no connections');
-  }
+  const translations = content.formState?.connections
+    ? languages[content.language](content, content.formState.connections)
+    : {};
 
-  const translations = languages[content.language](content, content.formState.connections);
   return {
     ...translations,
     form,

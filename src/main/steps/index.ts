@@ -6,7 +6,7 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step, sequence } from './sequence';
-import { CHECK_ANSWERS_URL } from './urls';
+import { APPLICATION_SUBMITTED } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -43,7 +43,7 @@ const getNextIncompleteStep = (
 
       return nextStep
         ? getNextIncompleteStep(data, nextStep, removeExcluded, checkedSteps.concat(step))
-        : CHECK_ANSWERS_URL;
+        : APPLICATION_SUBMITTED;
     }
   }
 
@@ -61,7 +61,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequence.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
+  const url = nextStep ? nextStep.getNextStep(data) : APPLICATION_SUBMITTED;
 
   return `${url}${queryString}`;
 };

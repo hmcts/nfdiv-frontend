@@ -46,6 +46,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   legalProceedings: 'legalProceedings',
   legalProceedingsRelated: 'legalProceedingsRelated',
   claimCosts: 'divorceCostsClaim',
+  applyForFinancialOrder: 'financialOrder',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -120,6 +121,7 @@ export interface Case {
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
+  applyForFinancialOrder?: YesOrNo;
   claimCosts?: YesOrNo;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;

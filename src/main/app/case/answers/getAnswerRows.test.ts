@@ -34,7 +34,7 @@ describe('getAnswerRows()', () => {
     mockStepsWithContent.mockReturnValue([
       {
         url: 'dont-pickThisOne',
-        showInSection: Sections.Payment,
+        showInSection: Sections.Costs,
         getNextStep: () => '/pickThisOne',
         form: { fields: {}, submit: { text: '' } },
         generateContent: () => ({}),
@@ -76,7 +76,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContent.mockReturnValue([
         {
           url: 'dont-pickThisOne',
-          showInSection: Sections.Payment,
+          showInSection: Sections.Costs,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -99,7 +99,9 @@ describe('getAnswerRows()', () => {
         partner: 'husband',
         formState: mockFormState,
         change: 'Change',
+        stepQuestions: {},
         stepAnswers: {},
+        stepLinks: {},
       };
     });
 
@@ -136,7 +138,9 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: 'Custom answer text. Original answer: example response' },
+          stepQuestions: { pickThisOne: 'Custom question text' },
+          stepAnswers: { pickThisOne: () => 'Custom answer text. Original answer: example response' },
+          stepLinks: { pickThisOne: '/custom-link' },
         },
       })(Sections.AboutPartnership);
 
@@ -145,15 +149,15 @@ describe('getAnswerRows()', () => {
           actions: {
             items: [
               {
-                href: 'pickThisOne',
+                href: '/custom-link',
                 text: 'Change',
-                visuallyHiddenText: 'Mock question title',
+                visuallyHiddenText: 'Custom question text',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            text: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))',
