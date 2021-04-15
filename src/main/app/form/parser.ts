@@ -15,19 +15,25 @@ export const covertToDateObject: DateParser = (property, body) =>
     { year: '', month: '', day: '' }
   );
 
-type CheckboxParser = ([key, field]: [string, FormField]) => [string, FormField];
+type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string, FormField]) => [string, FormField];
 
-export const setupCheckboxParser: CheckboxParser = ([key, field]) => {
+export const setupCheckboxParser: CheckboxParser = isSavingAndSigningOut => ([key, field]) => {
   if ((field as FormOptions)?.type === 'checkboxes') {
-    field.parser = formData =>
-      (field as FormOptions).values.reduce((previous, currentCheckbox) => {
-        const checkboxName = currentCheckbox.name as string;
-        const checkboxValues = formData[checkboxName] as string | string[];
-        const checkboxValue = Array.isArray(checkboxValues)
-          ? checkboxValues[checkboxValues.length - 1]
-          : checkboxValues;
-        return [...previous, [checkboxName, checkboxValue]];
-      }, [] as string[][]);
+    field.parser = formData => {
+      const checkbox = formData[key] ?? [];
+      let checkboxValues;
+      if ((field as FormOptions).values.length > 1) {
+        checkboxValues = checkbox.filter(Boolean);
+      } else {
+        checkboxValues = checkbox[checkbox.length - 1];
+      }
+
+      if (isSavingAndSigningOut && !checkboxValues) {
+        checkboxValues = null;
+      }
+
+      return [[key, checkboxValues]];
+    };
   }
   return [key, field];
 };

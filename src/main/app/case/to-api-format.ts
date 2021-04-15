@@ -4,12 +4,22 @@ import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, 
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { theirAddressToApi, yourAddressToApi } from './formatter/address';
 
-type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => Partial<CaseData>)>>;
+export type OrNull<T> = { [K in keyof T]: T[K] | null };
+
+type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
+
+const checkboxConverter = (value: string | undefined) => {
+  if (value === null) {
+    return null;
+  }
+
+  return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+};
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
   sameSex: data => ({
-    marriageIsSameSexCouple: data.sameSex === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+    marriageIsSameSexCouple: checkboxConverter(data.sameSex),
   }),
   gender: data => {
     // Petitioner makes the request
@@ -42,7 +52,7 @@ const fields: ToApiConverters = {
   yourAddressPostcode: yourAddressToApi,
   yourInternationalAddress: yourAddressToApi,
   agreeToReceiveEmails: (data: Case) => ({
-    petitionerAgreedToReceiveEmails: data.agreeToReceiveEmails === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
+    petitionerAgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
   addressPrivate: (data: Case) => ({
     petitionerContactDetailsConfidential:
@@ -53,6 +63,12 @@ const fields: ToApiConverters = {
   doNotKnowRespondentEmailAddress: (data: Case) => ({
     petitionerKnowsRespondentsEmailAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+  }),
+  iWantToHavePapersServedAnotherWay: data => ({
+    petitionerWantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
+  }),
+  legalProceedingsRelated: (data: Case) => ({
+    legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
   }),
 };
 

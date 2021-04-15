@@ -8,7 +8,7 @@ import { Form, FormContent } from '../app/form/Form';
 import { Step, sequence } from './sequence';
 import { CHECK_ANSWERS_URL } from './urls';
 
-const stepForms = {};
+const stepForms: Record<string, Form> = {};
 
 for (const step of sequence) {
   const stepContentFile = `${__dirname}${step.url}/content.ts`;
@@ -21,19 +21,29 @@ for (const step of sequence) {
   }
 }
 
-const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
+const getNextIncompleteStep = (
+  data: CaseWithId,
+  step: Step,
+  removeExcluded = false,
+  checkedSteps: Step[] = []
+): string => {
+  const stepForm = stepForms[step.url];
   // if this step has a form
-  if (stepForms[step.url] !== undefined) {
+  if (stepForm !== undefined) {
     // and that form has errors
-    if (stepForms[step.url].getErrors(data).length > 0) {
+    if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
       // go to that step
-      return step.url;
+      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
+        ? checkedSteps[checkedSteps.length - 1].url
+        : step.url;
     } else {
       // if there are no errors go to the next page and work out what to do
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep ? getNextIncompleteStep(data, nextStep) : CHECK_ANSWERS_URL;
+      return nextStep
+        ? getNextIncompleteStep(data, nextStep, removeExcluded, checkedSteps.concat(step))
+        : CHECK_ANSWERS_URL;
     }
   }
 
@@ -43,7 +53,7 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step): string => {
 
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0]);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[0], true);
 
   return `${url}${queryString}`;
 };

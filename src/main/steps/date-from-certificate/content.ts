@@ -2,7 +2,7 @@ import { CaseDate } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { covertToDateObject } from '../../app/form/parser';
-import { areFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../app/form/validation';
+import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../app/form/validation';
 
 const en = ({ isDivorce }) => ({
   title: isDivorce ? 'When did you get married?' : 'When did you form your civil partnership?',
@@ -64,9 +64,9 @@ export const form: FormContent = {
           attributes: { maxLength: 4 },
         },
       ],
-      parser: body => covertToDateObject('relationshipDate', body),
+      parser: body => covertToDateObject('relationshipDate', body as Record<string, unknown>),
       validator: value =>
-        areFieldsFilledIn(value as CaseDate) ||
+        areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
         isFutureDate(value as CaseDate),
     },

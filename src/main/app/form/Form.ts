@@ -9,16 +9,27 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject): Partial<CaseWithFormData> {
-    const parsedBody = Object.entries(this.form.fields)
-      .map(setupCheckboxParser)
+  public getParsedBody(body: AnyObject, fields = this.form?.fields): Partial<CaseWithFormData> {
+    const parsedBody = Object.entries(fields)
+      .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
         const parsed = field.parser?.(body);
         return Array.isArray(parsed) ? parsed : [[key, parsed]];
       });
 
-    return { ...body, ...Object.fromEntries(parsedBody) };
+    let subFieldsParsedBody = {};
+    for (const [, value] of Object.entries(fields)) {
+      (value as FormOptions)?.values
+        ?.filter(option => option.subFields !== undefined)
+        .map(fieldWithSubFields => fieldWithSubFields.subFields)
+        .map(subField => this.getParsedBody(body, subField))
+        .forEach(parsedSubField => {
+          subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
+        });
+    }
+
+    return { ...body, ...Object.fromEntries(parsedBody), ...subFieldsParsedBody };
   }
 
   /**
@@ -39,6 +50,7 @@ export class Form {
       }, []);
 
     const checkboxErrors: FormError[] = [];
+    const subFieldErrors: FormError[] = [];
     for (const [key, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
         ?.filter(option => option.validator !== undefined)
@@ -48,10 +60,7 @@ export class Form {
             checkboxErrors.push({ errorType, propertyName: key });
           }
         });
-    }
 
-    const subFieldErrors: FormError[] = [];
-    for (const [key, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
         ?.filter(option => option.subFields !== undefined && body[key] === option.value)
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
@@ -61,13 +70,47 @@ export class Form {
 
     return [...errors, ...checkboxErrors, ...subFieldErrors];
   }
+
+  public getFieldNames(): Set<string> {
+    const fields: Set<string> = new Set();
+    for (const fieldKey in this.form.fields) {
+      const stepField = this.form.fields[fieldKey] as FormOptions;
+      if (stepField.values && stepField.type !== 'date') {
+        for (const [, value] of Object.entries(stepField.values)) {
+          if (value.name) {
+            fields.add(value.name);
+          } else if (value.subFields) {
+            for (const field of Object.keys(value.subFields)) {
+              fields.add(field);
+            }
+          } else {
+            fields.add(fieldKey);
+          }
+        }
+      } else {
+        fields.add(fieldKey);
+      }
+    }
+
+    return fields;
+  }
+
+  public isComplete(body: Partial<Case>): boolean {
+    for (const field of this.getFieldNames().values()) {
+      if (body[field] === undefined || body[field] === null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | CaseDate | undefined, formData: Partial<Case>) => void | string;
+type ValidationCheck = (value: string | string[] | CaseDate | undefined, formData: Partial<Case>) => void | string;
 
-type Parser = (value: Record<string, unknown>) => void;
+type Parser = (value: Record<string, unknown> | string[]) => void;
 
 type Label = string | LanguageLookup;
 

@@ -31,9 +31,11 @@ import {
   JURISDICTION_LAST_TWELVE_MONTHS,
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
+  MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
+  OTHER_COURT_CASES_DETAILS,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -43,6 +45,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
+  YOU_NEED_TO_GET_THEIR_ADDRESS,
 } from './urls';
 
 export enum Sections {
@@ -61,6 +64,7 @@ export enum Sections {
 export interface Step {
   url: string;
   showInSection?: Sections;
+  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -273,6 +277,13 @@ export const sequence: Step[] = [
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: YOU_NEED_TO_GET_THEIR_ADDRESS,
+    showInSection: Sections.Documents,
+    excludeFromContinueApplication: true,
+    getNextStep: data =>
+      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+  },
+  {
     url: ENTER_THEIR_ADDRESS,
     showInSection: Sections.ContactThem,
     getNextStep: () => OTHER_COURT_CASES,
@@ -280,6 +291,11 @@ export const sequence: Step[] = [
   {
     url: HOW_TO_APPLY_TO_SERVE,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: OTHER_COURT_CASES,
+    showInSection: Sections.Documents,
+    getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
   },
   {
     url: CHECK_ANSWERS_URL,
