@@ -93,6 +93,7 @@ Given('I reset the postcode lookup form', () => {
 
 Given("I've said I'm divorcing my husband", () => {
   I.amOnPage('/your-details');
+  iClearTheForm();
   I.checkOption('My husband');
   I.click('Continue');
 });

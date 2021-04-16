@@ -4,6 +4,7 @@ const { I } = inject();
 
 Given("I've completed all questions correctly to get to the check your answers page", () => {
   iAmOnPage('/your-details');
+  iClearTheForm();
   iClick('My husband');
   iClick('Continue');
 
