@@ -25,22 +25,6 @@ const en = {
   cookieText:
     'GOV.UK uses cookies to make the site simpler. <a class="govuk-link" href="#" title="Find out more about cookies">Find out more about cookies</a>',
   errorSummaryHeading: 'There was a problem',
-  problemWithThisPage: 'Contact us for help',
-  phoneTitle: 'Telephone',
-  phoneToCallIfProblems: '{{courtPhoneNumberEn}}<br>{{courtOpeningHourEn}}.',
-  emailTitle: 'Send us a message',
-  emailIfProblems:
-    '<a class="govuk-link" href="mailto:{{ courtEmail }}" aria-label="Send us a message at at {{ courtEmail }}, this link opens a new email.">Send us a message</a>',
-  responseTime: 'We aim to get back to you within 5 days',
-  webChatTitle: 'Web chat',
-  chatDown: 'The web chat service is temporarily unavailable, please try again later.',
-  chatWithAnAgent: 'Chat online with an agent',
-  noAgentsAvailable: 'No agents are available, please try again later.',
-  allAgentsBusy:
-    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.',
-  chatClosed: 'Web chat is now closed.\\nOpening hours are {{courtOpeningHour}}.',
-  chatAlreadyOpen: 'A web chat window is already open.',
-  chatOpeningHours: '{{courtOpeningHour}}.',
   saveAndSignOut: 'Save and sign out',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -81,6 +65,15 @@ const en = {
   no: 'No',
   english: 'English',
   welsh: 'Welsh',
+  contactUsForHelp: 'Contact us for help',
+  webChat: 'Web chat',
+  webChatDetails:
+    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+  sendUsAMessage: 'Send us a message',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 days',
+  telephone: 'Telephone',
+  telephoneNumber: '0300 303 0642',
+  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
 };
 
 const cy: typeof en = {
@@ -101,22 +94,6 @@ const cy: typeof en = {
   cookieText:
     'Mae GOV.UK yn defnyddio cwcis i wneud y safle’n symlach. <a class="govuk-link" href="#" title="Find out more about cookies" >Rhagor o wybodaeth am gwcis</a>',
   errorSummaryHeading: 'Roedd yna broblem',
-  problemWithThisPage: 'Cysylltwch â ni am gymorth',
-  phoneTitle: 'Rhif ffôn',
-  phoneToCallIfProblems: '{{courtPhoneNumberCy}}<br>{{courtOpeningHourCy}}.',
-  emailTitle: 'Anfonwch neges atom:',
-  emailIfProblems:
-    '<a class="govuk-link" href="mailto:divorcecase@justice.gov.uk" aria-label="Anfonwch neges atom i ymholiadaucymraeg@justice.gov.uk, mae’r ddolen hon yn agor neges e-bost newydd." >Anfonwch neges atom</a>',
-  responseTime: 'Rydym yn amcanu ymateb o fewn 5 diwrnod gwaith',
-  webChatTitle: 'Sgwrsio dros y we',
-  chatDown: 'Nid yw’r gwasanaeth sgwrsio dros y we ar gael ar hyn o bryd; rhowch gynnig arall arni yn nes ymlaen.',
-  chatWithAnAgent: 'Sgwrsio dros y we gydag asiant',
-  noAgentsAvailable: 'Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn nes ymlaen.',
-  allAgentsBusy:
-    'Mae ein gwasanaeth sgwrsio dros y we i gyd yn brysur yn helpu eraill. Rhowch gynnig arall arni hwyrach ymlaen neu cysylltwch â ni gan ddefnyddio un o’r dulliau uchod.',
-  chatClosed: 'Mae’r gwasanaeth sgwrsio dros y we yn awr wedi cau.\\n Dyma’r oriau agor {{courtOpeningHour}}.',
-  chatAlreadyOpen: 'Mae ffenestr sgwrsio dros y we ar agor yn barod.',
-  chatOpeningHours: '{{courtOpeningHour}}.',
   saveAndSignOut: 'Cadw ac allgofnodi',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
@@ -175,6 +152,7 @@ export const generatePageContent = ({
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const partnerEmailProvided = formState?.doNotKnowRespondentEmailAddress !== Checkbox.Checked;
+  const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -185,6 +163,7 @@ export const generatePageContent = ({
     isDivorce,
     formState,
     userEmail,
+    contactEmail,
     partnerEmailProvided,
   };
 
@@ -221,6 +200,7 @@ export type CommonContent = typeof en & {
   formState?: Partial<Case>;
   partner: string;
   userEmail?: string;
+  contactEmail?: string;
   selectedGender: Gender;
   partnerEmailProvided: boolean;
 };
