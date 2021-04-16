@@ -1,4 +1,4 @@
-Feature: Relationship date formed
+Feature: Date union formed
 
   Background:
     Given I login
@@ -7,7 +7,7 @@ Feature: Relationship date formed
     And I clear the form
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: They have not entered the date their union happened
     When I click "Continue"
     Then the page should include "You have not entered a date. Enter a date to continue."
 
@@ -33,7 +33,7 @@ Feature: Relationship date formed
     When I click "Continue"
     Then the page should include "You have not been married long enough to apply for a divorce"
 
-  Scenario: Successfully completing the form
+  Scenario: Entering a correct date of the union
     Given I select "Day"
     And I type "1"
     Given I select "Month"

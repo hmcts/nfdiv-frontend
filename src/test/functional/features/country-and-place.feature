@@ -9,7 +9,7 @@ Feature: Country and Place
     When the page should include "Is your original marriage certificate in English?"
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: Not completing where the union happened
     Given I click "Yes"
     And I click "Continue"
     And the page should include "Where you got married"
@@ -19,7 +19,7 @@ Feature: Country and Place
     And the page should include "You need to enter the country"
     And the page should include "You need to enter the place"
 
-  Scenario: Successfully completing the form (with certificate in English)
+  Scenario: Their union certificate is in English, but didn't happen in the UK
     Given I click "Yes"
     And I click "Continue"
     And the page should include "Where you got married"
@@ -34,7 +34,7 @@ Feature: Country and Place
     Then the page URL should be "/check-jurisdiction"
     And the page should include "Check if you can get a divorce in England and Wales"
 
-  Scenario: Successfully completing the form (with certificate not in English)
+  Scenario: Their union certificate is not in English, but they have a certified translation
     Given I click "No"
     And I click "Continue"
     And the page should include "Do you have a ‘certified translation’ of your marriage certificate?"

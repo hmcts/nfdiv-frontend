@@ -94,7 +94,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because the courts of England and Wales have jurisdiction on a residual basis."
     And the page should include "Read more about your connections"
 
-  Scenario: Go back
+  Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"

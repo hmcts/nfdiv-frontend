@@ -6,7 +6,7 @@ Feature: How to apply to serve (deliver) the papers another way
     Then the page should include "How to apply to serve (deliver) the papers another way"
     And the page should include "You have to make a separate application to serve the divorce papers another way"
 
-  Scenario: Continuing
+  Scenario: They click Continue on the "How to apply to serve" page
     Given I click "Continue"
     Then the page URL should be "/other-court-cases"
 

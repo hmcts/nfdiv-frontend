@@ -13,6 +13,6 @@ Feature: May not be able to get a divorce in England and Wales
     When I select "Exit this service"
     Then I go to '/logout'
 
-  Scenario: Go back
+  Scenario: Clicking Back takes them to the "Where your lives are based" page
     When I click "Back"
     Then I go to '/where-your-lives-are-based'

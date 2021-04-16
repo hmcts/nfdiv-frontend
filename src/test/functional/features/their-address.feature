@@ -6,7 +6,7 @@ Feature: Their address
     When I go to "/enter-their-address"
     Then the page should include "Enter your husband’s postal address"
 
-  Scenario: Successfully entering a UK postcode
+  Scenario: Entering their partners UK postcode
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
@@ -22,7 +22,7 @@ Feature: Their address
     And the form input "County" should be "CITY OF WESTMINSTER"
     And the form input "Postcode" should be "SW1H 9AJ"
 
-  Scenario: Successfully entering an international address
+  Scenario: Entering their partners international address
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"
     Then the page should include "Full address"
@@ -34,13 +34,13 @@ Feature: Their address
     Then the form input "Full address" should be "Their international address"
 
   @nightly
-  Scenario: Error when missing the postcode
+  Scenario: Not entering their partners postcode
     Given I reset the postcode lookup form
     When I click "Find address"
     Then the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
 
   @nightly
-  Scenario: Error when postcode is invalid
+  Scenario: Their partners postcode is invalid
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
     And I type "not a postcode!"
@@ -48,7 +48,7 @@ Feature: Their address
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
 
   @nightly
-  Scenario: Error when missing a required UK address field
+  Scenario: They miss a field when entering their partners UK address
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
@@ -60,7 +60,7 @@ Feature: Their address
     And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
 
   @nightly
-  Scenario: Error when missing a required international address field
+  Scenario: They haven't completed their partners international address
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"
     When I click "Continue"

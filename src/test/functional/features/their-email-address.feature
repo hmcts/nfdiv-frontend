@@ -35,7 +35,7 @@ Feature: Their email address
     Then the page should include "There was a problem"
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: They have not indicated their partners email address or chosen that that don't know it
     Given I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"

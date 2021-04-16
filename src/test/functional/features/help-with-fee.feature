@@ -6,12 +6,12 @@ Feature: Help with fee
     Then the page should include "Do you need help paying the fee for your divorce?"
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: They have not indicated if they need help paying for the fees
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Selecting options for exit page
+  Scenario: They need help paying for the fees, but don't have a HWF reference number
     Given I select "I need help paying the fee"
     And I click "Continue"
     Then the page should include "Have you already applied for help with your divorce fee?"
@@ -33,7 +33,7 @@ Feature: Help with fee
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Successfully completing the form with a reference number
+  Scenario: They need help paying the fee and have a valid reference number
     Given I select "I need help paying the fee"
     And I click "Continue"
     Then the page should include "Have you already applied for help with your divorce fee?"
@@ -44,7 +44,7 @@ Feature: Help with fee
     When I click "Continue"
     Then the page should include "Did you get married in the UK?"
 
-  Scenario: You do not need help paying the fee
+  Scenario: They do not need help paying the fee
     Given I select "I do not need help paying the fee"
     When I click "Continue"
     Then the page should include "Did you get married in the UK?"

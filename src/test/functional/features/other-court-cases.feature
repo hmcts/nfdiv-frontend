@@ -11,12 +11,12 @@ Feature: Other court cases
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Successfully completing the form with No option
+  Scenario: They don't have any other court cases
     Given I select "No"
     When I click "Continue"
     Then the page URL should be "/money-property"
 
-  Scenario: Successfully completing the form with Yes option
+  Scenario: They do have other court cases
     Given I select "Yes"
     Given I select "Our marriage"
     Given I select "Our property"
@@ -24,7 +24,7 @@ Feature: Other court cases
     Then the page URL should be "/other-court-cases-details"
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: They don't indicate if they have any other court cases
     Given I clear the form
     When I select "Yes"
     And I click "Continue"

@@ -12,7 +12,7 @@ Feature: Contact details kept private
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Successfully completing the form (contact details kept private)
+  Scenario: They want to keep their details private
     And I select "Keep my contact details private"
     And I click "Continue"
     Then the page URL should be "/enter-your-address"
