@@ -229,10 +229,11 @@ export const form: FormContent = {
 const languages = { en, cy };
 
 export const generateContent: TranslationFn = content => {
-  const translations = content.formState?.connections
-    ? languages[content.language](content, content.formState.connections)
-    : {};
+  if (!content.formState?.connections?.length) {
+    throw new Error('User cannot view "You can use English/Welsh courts" page if they have no connections');
+  }
 
+  const translations = languages[content.language](content, content.formState.connections);
   return {
     ...translations,
     form,

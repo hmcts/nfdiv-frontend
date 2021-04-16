@@ -28,16 +28,22 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = {
-        ...this.ctx,
-        ...generatePageContent({
-          language,
-          pageContent: step.generateContent,
-          isDivorce,
-          formState: processedFormState,
-          userEmail,
-        }),
-      };
+      let stepContent;
+      try {
+        stepContent = {
+          ...this.ctx,
+          ...generatePageContent({
+            language,
+            pageContent: step.generateContent,
+            isDivorce,
+            formState: processedFormState,
+            userEmail,
+          }),
+        };
+      } catch {
+        // Some steps may throw an error if the user is not allowed to view them yet
+        return [];
+      }
 
       const questionAnswers: GovUkNunjucksSummary[] = [];
       const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
