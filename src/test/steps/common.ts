@@ -85,6 +85,12 @@ export const iClearTheForm = (): void => {
 };
 Given('I clear the form', iClearTheForm);
 
+export const iWaitForPostcodeLookUpResults = (): void => {
+  I.waitForText('Select an address');
+  I.waitForElement('option[value^="{\\"fullAddress"]');
+};
+Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpResults);
+
 export const iResetThePostCodeLookUpForm = (): void => {
   iClearTheForm();
 

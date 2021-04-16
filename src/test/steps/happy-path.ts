@@ -1,4 +1,11 @@
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iResetThePostCodeLookUpForm } from './common';
+import {
+  checkOptionFor,
+  iAmOnPage,
+  iClearTheForm,
+  iClick,
+  iResetThePostCodeLookUpForm,
+  iWaitForPostcodeLookUpResults,
+} from './common';
 
 const { I } = inject();
 
@@ -76,7 +83,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Enter a UK postcode');
   I.type('SW1A 1AA');
   iClick('Find address');
-  I.see('1 address found');
+  iWaitForPostcodeLookUpResults();
   I.selectOption('Select an address', 'BUCKINGHAM PALACE, LONDON, SW1A 1AA');
   iClick('Continue');
 
@@ -95,7 +102,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Enter a UK postcode');
   I.type('SW1H 9AJ');
   iClick('Find address');
-  I.see('1 address found');
+  iWaitForPostcodeLookUpResults();
   I.selectOption('Select an address', 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
   iClick('Continue');
 

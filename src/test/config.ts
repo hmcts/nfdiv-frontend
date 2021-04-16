@@ -50,7 +50,6 @@ export const config = {
           I.fillField('username', TestUser);
           I.fillField('password', TestPass);
           I.click('Sign in');
-          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
           I.waitForText('Apply for a divorce');
         },
         check: (I: CodeceptJS.I): void => {
