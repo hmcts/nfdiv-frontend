@@ -23,6 +23,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
+      labelHidden: true,
       values: [
         { label: l => l.detailsPrivate, value: YesOrNo.YES },
         { label: l => l.detailsNotPrivate, value: YesOrNo.NO },

@@ -1,16 +1,16 @@
 import { CaseWithId } from '../case/case';
-import { JurisdictionConnections } from '../case/definition';
+import { JurisdictionConnections, YesOrNo } from '../case/definition';
 
 const isHabituallyResident = (who, data) => {
-  return data[who + 'LifeBasedInEnglandAndWales'] === 'YES';
+  return data[`${who}LifeBasedInEnglandAndWales`] === YesOrNo.YES;
 };
 
 const isDomiciled = (who, data) => {
-  return data[who + 'DomicileInEnglandWales'] === 'YES';
+  return data[`${who}DomicileInEnglandWales`] === YesOrNo.YES;
 };
 
 const isHabituallyResidentForGivenTime = (data, months) => {
-  return data['livingInEnglandWales' + months + 'Months'] === 'YES';
+  return data[`livingInEnglandWales${months}Months`] === YesOrNo.YES;
 };
 
 const areBothHabituallyResident = data => {
@@ -26,7 +26,7 @@ const onlyRespondentHabituallyResident = data => {
 };
 
 const areBothLastHabituallyResident = data => {
-  return data.lastHabituallyResident === 'YES';
+  return data.lastHabituallyResident === YesOrNo.YES;
 };
 
 const isHabituallyResidentForTwelveMonths = data => {
@@ -46,7 +46,7 @@ const onlyPetitionerDomiciled = data => {
 };
 
 const hasResidualJurisdiction = data => {
-  return data['jurisdictionResidualEligible'] === 'YES';
+  return data['jurisdictionResidualEligible'] === YesOrNo.YES;
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {

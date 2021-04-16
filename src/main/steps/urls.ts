@@ -37,7 +37,7 @@ export const JURISDICTION_LAST_TWELVE_MONTHS: PageLink = '/living-england-wales-
 export const JURISDICTION_DOMICILE: PageLink = '/your-domicile';
 export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-six-months';
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
-export const RESIDUAL_JURISDICTION: PageLink = '/residual-jurisdiction';
+export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-jurisdiction';
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 export const JURISDICTION_CHANGE_YOUR_ANSWERS: PageLink = '/change-your-answers';
 
@@ -61,3 +61,6 @@ export const MONEY_PROPERTY: PageLink = '/money-property';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
+
+export const APPLY_CLAIM_COSTS: PageLink = '/apply-claim-costs';
+export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';

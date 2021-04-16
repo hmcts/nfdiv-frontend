@@ -4,6 +4,7 @@ const { I } = inject();
 
 Given("I've completed all questions correctly to get to the jurisdiction section", () => {
   iAmOnPage('/your-details');
+  iClearTheForm();
   iClick('My husband');
   iClick('Continue');
 

@@ -1,9 +1,10 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { DivorceOrDissolution, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 
 import {
   ADDRESS_PRIVATE,
+  APPLY_CLAIM_COSTS,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -43,6 +44,7 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
+  UPLOAD_YOUR_DOCUMENTS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
   YOU_CANNOT_APPLY,
@@ -189,7 +191,10 @@ export const sequence: Step[] = [
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.lastHabituallyResident === YesOrNo.NO && data.sameSex === Checkbox.Checked) {
+      if (
+        data.lastHabituallyResident === YesOrNo.NO &&
+        (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || data.sameSex === Checkbox.Checked)
+      ) {
         return RESIDUAL_JURISDICTION;
       } else if (data.lastHabituallyResident === YesOrNo.NO) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
@@ -205,10 +210,6 @@ export const sequence: Step[] = [
       data.livingInEnglandWalesTwelveMonths === YesOrNo.NO ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
   },
   {
-    url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => CERTIFICATE_NAME,
-  },
-  {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
@@ -217,8 +218,19 @@ export const sequence: Step[] = [
         : JURISDICTION_INTERSTITIAL_URL,
   },
   {
+    url: RESIDUAL_JURISDICTION,
+    getNextStep: data =>
+      data.jurisdictionResidualEligible === YesOrNo.YES
+        ? JURISDICTION_INTERSTITIAL_URL
+        : JURISDICTION_MAY_NOT_BE_ABLE_TO,
+  },
+  {
     url: JURISDICTION_MAY_NOT_BE_ABLE_TO,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: CERTIFICATE_NAME,
@@ -297,6 +309,11 @@ export const sequence: Step[] = [
     url: OTHER_COURT_CASES,
     showInSection: Sections.Documents,
     getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
+  },
+  {
+    url: APPLY_CLAIM_COSTS,
+    showInSection: Sections.Costs,
+    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: JURISDICTION_CHANGE_YOUR_ANSWERS,
