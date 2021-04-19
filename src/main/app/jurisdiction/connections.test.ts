@@ -1,4 +1,5 @@
-import { JurisdictionConnections, YesOrNo } from '../case/definition';
+import { Checkbox } from '../case/case';
+import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 import { addConnection } from './connections';
 
@@ -62,9 +63,23 @@ describe('connections', () => {
     expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_DOMICILED]);
   });
 
-  test('Given there is residual jurisdiction, should find connection G', async () => {
-    const body = { jurisdictionResidualEligible: YesOrNo.YES };
-
+  test.each([
+    {
+      sameSex: Checkbox.Checked,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+      yourDomicileInEnglandWales: YesOrNo.NO,
+      partnersDomicileInEnglandWales: YesOrNo.NO,
+      jurisdictionResidualEligible: YesOrNo.YES,
+    },
+    {
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
+      partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+      yourDomicileInEnglandWales: YesOrNo.NO,
+      partnersDomicileInEnglandWales: YesOrNo.NO,
+      jurisdictionResidualEligible: YesOrNo.YES,
+    },
+  ])('Given there is residual jurisdiction, should find connection G', async body => {
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
   });
