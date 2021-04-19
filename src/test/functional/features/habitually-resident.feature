@@ -38,4 +38,20 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     And I select "No"
     When I click "Continue"
+    Then the page URL should be "/connection-summary"
+
+  Scenario: Was not last habitually resident and not domicile in England or Wales
+    When I go to '/your-details'
+    Then the page should include "Who are you applying to divorce?"
+    Given I clear the form
+    Given I select "My husband"
+    When I go to '/your-domicile'
+    Then the page should include "Your domicile"
+    Given I clear the form
+    When I select "No" for "Is your domicile in England or Wales?"
+    And I select "No" for "Is your husband’s domicile in England or Wales?"
+    And I click "Continue"
+    When I go to '/habitually-resident-england-wales'
+    And I select "No"
+    When I click "Continue"
     Then the page URL should be "/you-may-not-be-able-to-england-and-wales"
