@@ -27,7 +27,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   IN_THE_UK,
-  JURISDICTION_CHANGE_YOUR_ANSWERS,
+  JURISDICTION_CONNECTION_SUMMARY,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -196,8 +196,16 @@ export const sequence: Step[] = [
         (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || data.sameSex === Checkbox.Checked)
       ) {
         return RESIDUAL_JURISDICTION;
-      } else if (data.lastHabituallyResident === YesOrNo.NO) {
+      } else if (
+        data.yourLifeBasedInEnglandAndWales === YesOrNo.NO &&
+        data.partnersLifeBasedInEnglandAndWales === YesOrNo.NO &&
+        data.yourDomicileInEnglandWales === YesOrNo.NO &&
+        data.partnersDomicileInEnglandWales === YesOrNo.NO &&
+        data.lastHabituallyResident === YesOrNo.NO
+      ) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
+      } else if (data.lastHabituallyResident === YesOrNo.NO) {
+        return JURISDICTION_CONNECTION_SUMMARY;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
       }
@@ -221,7 +229,7 @@ export const sequence: Step[] = [
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
       data.jurisdictionResidualEligible === YesOrNo.YES
-        ? JURISDICTION_INTERSTITIAL_URL
+        ? JURISDICTION_CONNECTION_SUMMARY
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
   {
@@ -316,7 +324,7 @@ export const sequence: Step[] = [
     getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
-    url: JURISDICTION_CHANGE_YOUR_ANSWERS,
+    url: JURISDICTION_CONNECTION_SUMMARY,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

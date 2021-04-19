@@ -1,7 +1,4 @@
-import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn } from '../../app/form/validation';
 
 const en = ({ partner }) => ({
   title: 'You can use English or Welsh courts to get a divorce',
@@ -35,33 +32,8 @@ const en = ({ partner }) => ({
 
 const cy = en;
 
-export const form: FormContent = {
-  fields: {
-    changeYourAnswers: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.question,
-      hint: l => l.hint,
-      values: [
-        { label: l => l.confident, value: YesOrNo.YES },
-        { label: l => l.needInfo, value: YesOrNo.YES },
-        { label: l => l.showAll, value: YesOrNo.NO },
-      ],
-      validator: value => isFieldFilledIn(value),
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
 const languages = { en, cy };
 
 export const generateContent: TranslationFn = content => {
-  const apply = content.isDivorce ? content.applyForDivorce : content.applyForDissolution;
-  const translations = languages[content.language]({ ...content, apply });
-  return {
-    ...translations,
-    form,
-  };
+  return languages[content.language](content);
 };
