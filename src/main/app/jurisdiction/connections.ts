@@ -1,5 +1,5 @@
-import { CaseWithId } from '../case/case';
-import { JurisdictionConnections, YesOrNo } from '../case/definition';
+import { CaseWithId, Checkbox } from '../case/case';
+import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 const isHabituallyResident = (who, data) => {
   return data[`${who}LifeBasedInEnglandAndWales`] === YesOrNo.YES;
@@ -45,8 +45,17 @@ const onlyPetitionerDomiciled = data => {
   return isDomiciled('your', data) && !isDomiciled('partners', data);
 };
 
+export const allowedToAnswerResidualJurisdiction = (data: Partial<CaseWithId>): boolean => {
+  return (
+    (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
+    data.partnersLifeBasedInEnglandAndWales === YesOrNo.NO &&
+    !isDomiciled('your', data) &&
+    !isDomiciled('partners', data)
+  );
+};
+
 const hasResidualJurisdiction = data => {
-  return data['jurisdictionResidualEligible'] === YesOrNo.YES;
+  return allowedToAnswerResidualJurisdiction(data) && data.jurisdictionResidualEligible === YesOrNo.YES;
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
