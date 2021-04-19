@@ -8,28 +8,18 @@
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ line2 }}</li>
   </ul>
-  <details class="govuk-details" data-module="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        {{ findOutMore }}
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-      <h3 class="govuk-heading-m">{{ habitualResident }}</h1>
-      <p class="govuk-body">{{ line3 }}</p>
-      <p class="govuk-body">{{ line4 }}</p>
-      <p class="govuk-body">{{ line5 }}</p>
-
-      <h3 class="govuk-heading-m">{{ domicile }}</h1>
-      <p class="govuk-body">{{ line6 }}</p>
-      <p class="govuk-body">{{ line7 }}</p>
-      <p class="govuk-body">{{ line8 }}</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>{{ bulletPoint1 }}</li>
-        <li>{{ bulletPoint2 }}</li>
-      </ul>
-      <p class="govuk-body">{{ line9 }}</p>
-      <p class="govuk-body">{{ line10 }}</p>
-    </div>
-  </details>
+  {% set summary %}
+    <p>{{ helpText1 | safe }}</p>
+    <p>{{ helpText2 }}</p>
+    <p>{{ helpText3 }}</p>
+    <p>{{ helpText4 }}</p>
+    <p>{{ helpText5 | safe }}</p>
+    <p>{{ helpText6 | safe }}</p>
+    <p>{{ helpText7 }}</p>
+    <p>{{ helpText8 }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: readMore,
+    html: summary
+  }) }}
 {% endblock %}
