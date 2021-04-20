@@ -1,7 +1,12 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
-import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connections';
+import {
+  allowedToAnswerResidualJurisdiction,
+  areBothDomiciled,
+  areBothHabituallyResident,
+  areBothLastHabituallyResident,
+} from '../app/jurisdiction/connections';
 
 import {
   ADDRESS_PRIVATE,
@@ -194,15 +199,9 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
-      } else if (
-        data.yourLifeBasedInEnglandAndWales === YesOrNo.NO &&
-        data.partnersLifeBasedInEnglandAndWales === YesOrNo.NO &&
-        data.yourDomicileInEnglandWales === YesOrNo.NO &&
-        data.partnersDomicileInEnglandWales === YesOrNo.NO &&
-        data.lastHabituallyResident === YesOrNo.NO
-      ) {
+      } else if (!areBothHabituallyResident(data) && !areBothDomiciled(data) && !areBothLastHabituallyResident(data)) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
-      } else if (data.lastHabituallyResident === YesOrNo.NO) {
+      } else if (!areBothLastHabituallyResident(data)) {
         return JURISDICTION_CONNECTION_SUMMARY;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
