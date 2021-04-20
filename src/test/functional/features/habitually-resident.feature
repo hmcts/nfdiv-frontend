@@ -17,17 +17,8 @@ Feature: Habitually Resident
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts"
 
-  Scenario: Was not last habitually resident in England or Wales and is same sex
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    Given I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click "Continue"
-    When I go to '/habitually-resident-england-wales'
-    And I select "No"
-    When I click "Continue"
-    Then the page URL should be "/are-you-eligible-for-residual-jurisdiction"
+  # Scenario: Was not last habitually resident in England or Wales and is same sex
+  # Tested in can-use-english-or-welsh-courts.feature: G Eligible for Residual Jurisdiction
 
   Scenario: Was not last habitually resident in England or Wales and is not same sex
     When I go to '/your-details'
