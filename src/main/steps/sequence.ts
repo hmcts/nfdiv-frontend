@@ -44,9 +44,11 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   THEIR_EMAIL_ADDRESS,
+  THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_DETAILS_URL,
+  YOUR_NAME,
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_GET_THEIR_ADDRESS,
 } from './urls';
@@ -227,6 +229,16 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => YOUR_NAME,
+  },
+  {
+    url: YOUR_NAME,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => THEIR_NAME,
+  },
+  {
+    url: THEIR_NAME,
+    showInSection: Sections.ContactThem,
     getNextStep: () => CERTIFICATE_NAME,
   },
   {

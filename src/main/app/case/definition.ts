@@ -81,6 +81,7 @@ export interface CaseData {
   countryName: string;
   marriagePlaceOfMarriage: string;
   petitionerFirstName: string;
+  petitionerMiddleName: string;
   petitionerLastName: string;
   petitionerEmail: string;
   petitionerAgreedToReceiveEmails: YesOrNo;
@@ -102,6 +103,7 @@ export interface CaseData {
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
+  respondentMiddleName: string;
   respondentLastName: string;
   respondentNameAsOnMarriageCertificate: YesOrNo;
   respNameDifferentToMarriageCertExplain: string;

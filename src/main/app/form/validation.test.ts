@@ -178,16 +178,23 @@ describe('Validation', () => {
   });
 
   describe('isFieldLetters()', () => {
-    test('Should check if value only letters', async () => {
-      const isValid = isFieldLetters('Firstname Lastname');
+    test.each([
+      { input: 'Firstname Lastname', expected: undefined },
+      { input: 'Firstname Middle-Double-barrelled Lastname', expected: undefined },
+      { input: 'Firştnåmé Midğlø Lâßtnámê', expected: undefined },
+      { input: '1stname Lastname', expected: 'invalid' },
+      { input: 'Firstname! La$tname', expected: 'invalid' },
+      { input: 'имя Фамилия', expected: 'invalid' },
+      { input: 'όνομα επίθετο', expected: 'invalid' },
+      { input: '名姓', expected: 'invalid' },
+      { input: '名前苗字', expected: 'invalid' },
+      { input: '이름 성', expected: 'invalid' },
+      { input: 'họ và tên', expected: undefined },
+      { input: '💔', expected: 'invalid' },
+    ])('validates only latin based letters, spaces, hyphens %s', ({ input, expected }) => {
+      const isValid = isFieldLetters(input);
 
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('Should check if value has a number in it', async () => {
-      const isValid = isFieldLetters('1stname Lastname');
-
-      expect(isValid).toStrictEqual('invalid');
+      expect(isValid).toStrictEqual(expected);
     });
   });
 

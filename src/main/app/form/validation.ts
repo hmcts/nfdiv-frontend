@@ -121,7 +121,7 @@ export const isEmailValid: Validator = value => {
 };
 
 export const isFieldLetters: Validator = value => {
-  if (!(value as string).match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
+  if (!(value as string).match(/^[\p{Script=Latin}\-\s]*$/gu)) {
     return 'invalid';
   }
 };
