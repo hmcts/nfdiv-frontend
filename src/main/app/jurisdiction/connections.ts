@@ -13,7 +13,7 @@ const isHabituallyResidentForGivenTime = (data, months) => {
   return data[`livingInEnglandWales${months}Months`] === YesOrNo.YES;
 };
 
-export const areBothHabituallyResident = (data: Partial<CaseWithId>): boolean => {
+const areBothHabituallyResident = data => {
   return isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
 
@@ -25,7 +25,7 @@ const onlyRespondentHabituallyResident = data => {
   return !isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
 
-export const areBothLastHabituallyResident = (data: Partial<CaseWithId>): boolean => {
+const areBothLastHabituallyResident = data => {
   return data.lastHabituallyResident === YesOrNo.YES;
 };
 
@@ -37,7 +37,7 @@ const isHabituallyResidentForSixMonths = data => {
   return isHabituallyResidentForGivenTime(data, 'Six');
 };
 
-export const areBothDomiciled = (data: Partial<CaseWithId>): boolean => {
+const areBothDomiciled = data => {
   return isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
