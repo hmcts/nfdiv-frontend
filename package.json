@@ -104,7 +104,7 @@
     "codeceptjs": "^3.0.6",
     "concurrently": "^6.0.2",
     "copy-webpack-plugin": "^8.1.1",
-    "css-loader": "^5.2.2",
+    "css-loader": "^5.2.4",
     "debug": "^4.3.1",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
