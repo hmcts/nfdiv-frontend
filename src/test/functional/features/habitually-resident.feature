@@ -45,6 +45,12 @@ Feature: Habitually Resident
     Then the page should include "Who are you applying to divorce?"
     Given I clear the form
     Given I select "My husband"
+    When I go to '/where-your-lives-are-based'
+    Then the page should include "Where your lives are based"
+    Given I clear the form
+    When I select "No" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
     When I go to '/your-domicile'
     Then the page should include "Your domicile"
     Given I clear the form

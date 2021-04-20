@@ -91,7 +91,7 @@ Feature: Can use English or Welsh courts
     And I select "Yes" for "Are you eligible for residual jurisdiction?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to apply for a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because the courts of England and Wales have jurisdiction on a residual basis."
+    And the page should include "the courts of England and Wales have jurisdiction on a residual basis"
     And the page should include "Read more about your connections"
 
   Scenario: Go back

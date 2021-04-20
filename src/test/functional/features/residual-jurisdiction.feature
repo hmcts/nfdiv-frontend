@@ -16,7 +16,7 @@ Feature: Residual Jurisdiction
     When I click "Continue"
     Then the page should include "You may not be able to get a divorce in England and Wales"
 
-  Scenario: eligible for residual jurisdiction
+  Scenario: Eligible for residual jurisdiction
     Given I select "Yes"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
+    Then the page should include "You can use English or Welsh courts to apply for a divorce"
