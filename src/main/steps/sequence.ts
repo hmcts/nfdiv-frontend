@@ -1,6 +1,7 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { DivorceOrDissolution, YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
+import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connections';
 
 import {
   ADDRESS_PRIVATE,
@@ -191,10 +192,7 @@ export const sequence: Step[] = [
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (
-        data.lastHabituallyResident === YesOrNo.NO &&
-        (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || data.sameSex === Checkbox.Checked)
-      ) {
+      if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
       } else if (
         data.yourLifeBasedInEnglandAndWales === YesOrNo.NO &&

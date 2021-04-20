@@ -24,7 +24,8 @@ Feature: Names on Certificate
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
-  Scenario: Error when missing a required field
+  @nightly
+  Scenario: They have not entered their names on the certificate
     Given I clear the form
     And I click "Continue"
     Then the page should include "You have not entered anything. Enter your full name as it appears on your marriage certificate."

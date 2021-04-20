@@ -8,7 +8,7 @@ Feature: Your details step
     And I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
     And the page should not include "Back"
 
-  Scenario: Successfully completing the form
+  Scenario: They're dissolving their union with their male partner
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"
     When I click "Continue"
@@ -20,7 +20,7 @@ Feature: Your details step
     And the page should include "Are you male or female?"
 
   @nightly
-  Scenario: Error when missing a required field
+  Scenario: They have not selected who they are applying to dissolve the union from
     Given I clear the form
     When I select "We were a same-sex couple when we got married"
     And I click "Continue"
