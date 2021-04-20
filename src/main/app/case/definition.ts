@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-12 10:47:39.
+// Generated using typescript-generator version 2.30.840 on 2021-04-20 11:26:23.
 
 export interface Address {
   AddressLine1: string;
@@ -118,6 +118,7 @@ export interface CaseData {
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
   financialOrder: YesOrNo;
+  financialOrderFor: FinancialOrderFor[];
   petitionerWantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
@@ -288,6 +289,11 @@ export const enum LegalProceedingsRelated {
 export const enum ClaimsCostFrom {
   RESPONDENT = 'respondent',
   CORRESPONDENT = 'correspondent',
+}
+
+export const enum FinancialOrderFor {
+  CHILDREN = 'children',
+  PETITIONER = 'petitioner',
 }
 
 export const enum Court {
