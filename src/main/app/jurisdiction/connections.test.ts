@@ -83,4 +83,43 @@ describe('connections', () => {
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
   });
+
+  test('Given both petitioner is domiciled, should find connection H', async () => {
+    const body = { yourDomicileInEnglandWales: YesOrNo.YES };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_DOMICILED]);
+  });
+
+  test('Given both respondent is domiciled, should find connection I', async () => {
+    const body = { partnersDomicileInEnglandWales: YesOrNo.YES };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.RESP_DOMICILED]);
+  });
+
+  test('Given connection has already been made, it adds another connections', async () => {
+    const body = {
+      yourDomicileInEnglandWales: YesOrNo.YES,
+      partnersDomicileInEnglandWales: YesOrNo.YES,
+      connections: [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS],
+    };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([
+      JurisdictionConnections.PET_RESIDENT_SIX_MONTHS,
+      JurisdictionConnections.PET_RESP_DOMICILED,
+    ]);
+  });
+
+  test('Given connection has already been made, no duplicates are returned', async () => {
+    const body = {
+      yourDomicileInEnglandWales: YesOrNo.YES,
+      partnersDomicileInEnglandWales: YesOrNo.YES,
+      connections: [JurisdictionConnections.PET_RESP_DOMICILED],
+    };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_DOMICILED]);
+  });
 });

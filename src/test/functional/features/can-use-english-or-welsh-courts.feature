@@ -118,6 +118,37 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because the courts of England and Wales have jurisdiction on a residual basis."
     And the page should include "Read more about your connections"
 
+  Scenario: H The Petitioner is domiciled in England and Wales
+    Given I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
+    And I select "No"
+    And I click "Continue"
+    And I select "Yes" for "Is your domicile in England or Wales?"
+    And I select "No" for "Is your husband’s domicile in England or Wales?"
+    When I click "Continue"
+    Then the page should include "You can use English or Welsh courts to apply for a divorce"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are 'domiciled' in England or Wales."
+    And the page should include "Read more about domicile"
+
+  Scenario: I The Respondent is domiciled in England and Wales
+    Given I go to '/your-details'
+    And the page should include "Who are you applying to divorce?"
+    And I clear the form
+    And I select "My husband"
+    And I click "Continue"
+    Given I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
+    And I select "No"
+    And I click "Continue"
+    And I select "No" for "Is your domicile in England or Wales?"
+    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
+    When I click "Continue"
+    Then the page should include "You can use English or Welsh courts to apply for a divorce"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because your husband is 'domiciled' in England or Wales."
+    And the page should include "Read more about domicile"
+
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
