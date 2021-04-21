@@ -181,6 +181,7 @@ describe('Validation', () => {
     test.each([
       { input: 'Firstname Lastname', expected: undefined },
       { input: 'Firstname Middle-Double-barrelled Lastname', expected: undefined },
+      { input: "O'Firstname O’Lastname", expected: undefined },
       { input: 'Firştnåmé Midğlø Lâßtnámê', expected: undefined },
       { input: '1stname Lastname', expected: 'invalid' },
       { input: 'Firstname! La$tname', expected: 'invalid' },
