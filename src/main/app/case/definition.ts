@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-12 10:47:39.
+// Generated using typescript-generator version 2.30.840 on 2021-04-20 17:10:39.
 
 export interface Address {
   AddressLine1: string;
@@ -277,6 +277,14 @@ export const enum JurisdictionConnections {
    * Eligible for Residual Jurisdiction
    */
   RESIDUAL_JURISDICTION = 'G',
+  /**
+   * The Petitioner is domiciled in England and Wales
+   */
+  PET_DOMICILED = 'H',
+  /**
+   * The Respondent is domiciled in England and Wales
+   */
+  RESP_DOMICILED = 'I',
 }
 
 export const enum LegalProceedingsRelated {
