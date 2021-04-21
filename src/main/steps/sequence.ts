@@ -38,6 +38,7 @@ import {
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   OTHER_COURT_CASES_DETAILS,
+  PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -314,6 +315,10 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: PAY_YOUR_FEE,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
