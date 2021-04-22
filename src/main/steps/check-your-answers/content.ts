@@ -38,6 +38,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   },
   stepLinks: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
+    [urls.APPLY_FINANCIAL_ORDER]: urls.MONEY_PROPERTY,
   },
   continueApplication: 'Continue application',
   confirm: `Confirm before ${formState?.helpWithFeesRefNo ? 'submitting' : 'continuing'}`,
