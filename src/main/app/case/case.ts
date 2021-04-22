@@ -4,6 +4,7 @@ import {
   CaseData,
   ChangedNameHow,
   DivorceOrDissolution,
+  FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   LegalProceedingsRelated,
@@ -46,6 +47,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   legalProceedings: 'legalProceedings',
   legalProceedingsRelated: 'legalProceedingsRelated',
   claimCosts: 'divorceCostsClaim',
+  applyForFinancialOrder: 'financialOrder',
+  whoIsFinancialOrderFor: 'financialOrderFor',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -121,6 +124,8 @@ export interface Case {
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
   claimCosts?: YesOrNo;
+  applyForFinancialOrder?: YesOrNo;
+  whoIsFinancialOrderFor?: FinancialOrderFor[];
 }
 
 export interface CaseWithId extends Case {
