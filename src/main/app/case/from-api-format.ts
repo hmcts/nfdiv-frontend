@@ -41,6 +41,12 @@ const fields: FromApiConverters = {
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
   }),
   derivedRespondentHomeAddress: data => formatAddress(data, 'their'),
+  prayerHasBeenGiven: data => ({
+    iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
+  }),
+  statementOfTruth: data => ({
+    iBelieveApplicationIsTrue: checkboxConverter(data.statementOfTruth),
+  }),
 };
 
 const fromApiDate = date => {

@@ -3,9 +3,21 @@
 
 {% extends "common/page.njk" %}
 
+{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+{% set isApplicationReadyToSubmit =
+        nextIncompleteStep.startsWith('/check-your-answers') or
+        nextIncompleteStep.startsWith('/pay-fee') or
+        nextIncompleteStep.startsWith('/application-submitted')
+%}
+{% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
+
 {% block backLink %}{% endblock %}
 
 {% block content %}
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
   {% for key, section in sections %}
@@ -20,11 +32,21 @@
     {% endif %}
   {% endfor %}
 
-  {{ govukButton({
-    text: continueApplication,
-    href: getNextIncompleteStepUrl(),
-    preventDoubleClick: true
-  }) }}
+  {% if isApplicationReadyToSubmit %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "./form.njk" %}
+        </div>
+      </div>
+    {% endblock %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
 
   {% include "common/contact-us.njk" %}
 {% endblock %}

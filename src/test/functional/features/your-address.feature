@@ -11,7 +11,7 @@ Feature: Your address
     And I type "SW1A 1AA"
     When I click "Find address"
     Then the page should include "SW1A 1AA"
-    And the page should include "1 address found"
+    And I wait for the postcode lookup to return results
     Given I choose "BUCKINGHAM PALACE, LONDON, SW1A 1AA" from "Select an address"
     When I click "Continue"
     Then the page URL should be "/their-email-address"

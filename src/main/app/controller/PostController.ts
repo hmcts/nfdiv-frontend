@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
-import { Case, CaseWithId } from '../case/case';
+import { Case, CaseWithId, Checkbox } from '../case/case';
 import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -20,12 +20,19 @@ export class PostController<T extends AnyObject> {
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
+    // Reset users pray/application truth when changing other questions
+    const stepData = {
+      iConfirmPrayer: Checkbox.Unchecked,
+      iBelieveApplicationIsTrue: Checkbox.Unchecked,
+      ...formData,
+    };
+
     if (req.body.saveAndSignOut) {
-      await this.saveAndSignOut(req, res, formData);
+      await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
-      await this.saveBeforeSessionTimeout(req, res, formData);
+      await this.saveBeforeSessionTimeout(req, res, stepData);
     } else {
-      await this.saveAndContinue(req, res, formData);
+      await this.saveAndContinue(req, res, stepData);
     }
   }
 

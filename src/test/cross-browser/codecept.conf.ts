@@ -7,18 +7,19 @@ setHeadlessWhen(testConfig.TestHeadlessBrowser);
 const url = testConfig.TEST_URL || 'http://localhost:3001';
 let helpers = {};
 let plugins = {};
-if (process.env.IE === 'true') {
+if (process.env.SAUCE === 'true') {
   helpers = {
     WebDriver: {
       url,
-      browser: 'internet explorer',
+      browser: 'MicrosoftEdge',
       waitForTimeout: testConfig.WaitForTimeout,
       keepCookies: true,
       capabilities: {
+        platformName: 'Windows 10',
         'sauce:options': {
           idleTimeout: 300,
           tunnelIdentifier: process.env.SAUCE_TUNNEL_IDENTIFIER || 'reformtunnel',
-          name: 'No fault divorce - IE latest',
+          name: 'No fault divorce - Windows 10 Edge latest',
           tags: ['NF_divorce'],
         },
       },
