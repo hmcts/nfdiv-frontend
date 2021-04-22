@@ -45,13 +45,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
     ${
-      formState?.claimCosts === YesOrNo.YES
-        ? `<li>order my ${partner} to pay some or all of the costs associated with ${
-            isDivorce ? 'the divorce' : 'ending a civil partnership'
-          }</li>`
-        : ''
-    }
-    ${
       formState?.applyForFinancialOrder === YesOrNo.YES
         ? '<li>decide how our money and property will be split (known as a financial order)</li>'
         : ''
