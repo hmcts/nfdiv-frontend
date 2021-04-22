@@ -87,21 +87,21 @@ describe('connections', () => {
     expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
   });
 
-  test('Given both petitioner is domiciled, should find connection H', async () => {
+  test('Given petitioner is domiciled, should find connection H', async () => {
     const body = { yourDomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.PET_DOMICILED]);
   });
 
-  test('Given both respondent is domiciled, should find connection I', async () => {
+  test('Given respondent is domiciled, should find connection I', async () => {
     const body = { partnersDomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.RESP_DOMICILED]);
   });
 
-  test('Given both respondent is domiciled and both were last habitually resident in England or Wales, should find connection B and I', async () => {
+  test('Given respondent is domiciled and both were last habitually resident in England or Wales, should find connection B and I', async () => {
     const body = { partnersDomicileInEnglandWales: YesOrNo.YES, lastHabituallyResident: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
