@@ -1812,16 +1812,16 @@
   dependencies:
     "@wdio/utils" "7.4.6"
 
-"@wdio/sauce-service@^7.5.0":
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.5.0.tgz#d8cd6430c11bed6d629bc6d664abf93ac891b9e4"
-  integrity sha512-1mO0FStfzpB5tybaPw2I2q6Lk4YJLlyYEgu+ylgcHrQJyMRJgo8THDMMyfM2NvDIpxd23ZARgCyRjdHCml95og==
+"@wdio/sauce-service@^7.5.1":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.5.1.tgz#52709d12f67641236ef5045ec46f1eb32498e029"
+  integrity sha512-85MenQ5py7T9MT0GjdDIA+vJ5FAoEd/6nBBUDpUXsTV3cfV1qOoFJu4Cr/wLNBDbU3xgzXFPD31k42s5yxGj+w==
   dependencies:
     "@wdio/logger" "7.4.2"
     "@wdio/types" "7.4.2"
     "@wdio/utils" "7.4.6"
     saucelabs "^4.2.0"
-    webdriverio "7.5.0"
+    webdriverio "7.5.1"
 
 "@wdio/types@7.4.2":
   version "7.4.2"
@@ -11037,41 +11037,7 @@ webdriver@7.5.0:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@7.5.0:
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.5.0.tgz#60b2da2a832d686875e21e76a229d116314767aa"
-  integrity sha512-eTfWBySMu7B/wUOoNjy+1OZxa1iZvYMjQT3MUbLs8rZCO9f53Vk2BTshZh5NPrwuiR3YEGUg56Ra1vGVInX+0A==
-  dependencies:
-    "@types/aria-query" "^4.2.1"
-    "@wdio/config" "7.5.0"
-    "@wdio/logger" "7.4.2"
-    "@wdio/protocols" "7.4.2"
-    "@wdio/repl" "7.4.6"
-    "@wdio/types" "7.4.2"
-    "@wdio/utils" "7.4.6"
-    archiver "^5.0.0"
-    aria-query "^4.2.2"
-    atob "^2.1.2"
-    css-shorthand-properties "^1.1.1"
-    css-value "^0.0.1"
-    devtools "7.5.0"
-    devtools-protocol "^0.0.873728"
-    fs-extra "^9.0.1"
-    get-port "^5.1.1"
-    grapheme-splitter "^1.0.2"
-    lodash.clonedeep "^4.5.0"
-    lodash.isobject "^3.0.2"
-    lodash.isplainobject "^4.0.6"
-    lodash.zip "^4.2.0"
-    minimatch "^3.0.4"
-    puppeteer-core "^7.1.0"
-    query-selector-shadow-dom "^1.0.0"
-    resq "^1.9.1"
-    rgb2hex "0.2.3"
-    serialize-error "^8.0.0"
-    webdriver "7.5.0"
-
-webdriverio@^7.5.1:
+webdriverio@7.5.1, webdriverio@^7.5.1:
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.5.1.tgz#e85ec63b7b907495e1f5668665be9bb8db27337e"
   integrity sha512-0DwMeu71tOoUoQbo7iAZa3Qt5KjU3/m16leUasqO7VVJU5356ejeF71XJiE9qq5kXcmZX+5LXxItXvenzq5xww==
@@ -11155,10 +11121,10 @@ webpack-merge@^5.7.3:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
 
-webpack-node-externals@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-2.5.2.tgz#178e017a24fec6015bc9e672c77958a6afac861d"
-  integrity sha512-aHdl/y2N7PW2Sx7K+r3AxpJO+aDMcYzMQd60Qxefq3+EwhewSbTBqNumOsCE1JsCUNoyfGj5465N0sSf6hc/5w==
+webpack-node-externals@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-3.0.0.tgz#1a3407c158d547a9feb4229a9e3385b7b60c9917"
+  integrity sha512-LnL6Z3GGDPht/AigwRh2dvL9PQPFQ8skEpVrWZXLWBYmqcaojHNN0onvHzie6rq7EWKrrBfPYqNEzTJgiwEQDQ==
 
 webpack-sources@^1.1.0, webpack-sources@^1.4.0:
   version "1.4.3"
