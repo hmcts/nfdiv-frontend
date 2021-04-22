@@ -38,15 +38,15 @@ const isHabituallyResidentForSixMonths = data => {
 };
 
 const areBothDomiciled = data => {
-  return isPetitionerDomiciled(data) && isRespondentDomiciled(data);
+  return isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
-const isPetitionerDomiciled = data => {
-  return isDomiciled('your', data);
+const isOnlyPetitionerDomiciled = data => {
+  return isDomiciled('your', data) && !isDomiciled('partners', data);
 };
 
-const isRespondentDomiciled = data => {
-  return isDomiciled('partners', data);
+const isOnlyRespondentDomiciled = data => {
+  return !isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
 const onlyPetitionerDomiciled = data => {
@@ -67,29 +67,37 @@ const hasResidualJurisdiction = data => {
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
-  const connections = data.connections || [];
+  const connections: JurisdictionConnections[] = [];
   if (areBothHabituallyResident(data)) {
     connections.push(JurisdictionConnections.PET_RESP_RESIDENT);
-  } else if (onlyRespondentHabituallyResident(data)) {
+  }
+  if (onlyRespondentHabituallyResident(data)) {
     connections.push(JurisdictionConnections.RESP_RESIDENT);
-  } else if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
+  }
+  if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
     connections.push(JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS);
-  } else if (
+  }
+  if (
     isHabituallyResidentForSixMonths(data) &&
     onlyPetitionerHabituallyResident(data) &&
     onlyPetitionerDomiciled(data)
   ) {
     connections.push(JurisdictionConnections.PET_RESIDENT_SIX_MONTHS);
-  } else if (areBothDomiciled(data)) {
+  }
+  if (areBothDomiciled(data)) {
     connections.push(JurisdictionConnections.PET_RESP_DOMICILED);
-  } else if (isPetitionerDomiciled(data)) {
+  }
+  if (isOnlyPetitionerDomiciled(data)) {
     connections.push(JurisdictionConnections.PET_DOMICILED);
-  } else if (isRespondentDomiciled(data)) {
+  }
+  if (isOnlyRespondentDomiciled(data)) {
     connections.push(JurisdictionConnections.RESP_DOMICILED);
-  } else if (areBothLastHabituallyResident(data)) {
+  }
+  if (areBothLastHabituallyResident(data)) {
     connections.push(JurisdictionConnections.PET_RESP_LAST_RESIDENT);
-  } else if (hasResidualJurisdiction(data)) {
+  }
+  if (hasResidualJurisdiction(data)) {
     connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION);
   }
-  return [...new Set(connections)];
+  return connections;
 };

@@ -52,7 +52,10 @@ describe('connections', () => {
       };
 
       const connectionAdded = addConnection(body);
-      expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]);
+      expect(connectionAdded).toEqual([
+        JurisdictionConnections.PET_RESIDENT_SIX_MONTHS,
+        JurisdictionConnections.PET_DOMICILED,
+      ]);
     }
   );
 
@@ -98,28 +101,13 @@ describe('connections', () => {
     expect(connectionAdded).toEqual([JurisdictionConnections.RESP_DOMICILED]);
   });
 
-  test('Given connection has already been made, it adds another connections', async () => {
-    const body = {
-      yourDomicileInEnglandWales: YesOrNo.YES,
-      partnersDomicileInEnglandWales: YesOrNo.YES,
-      connections: [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS],
-    };
+  test('Given both respondent is domiciled and both were last habitually resident in England or Wales, should find connection B and I', async () => {
+    const body = { partnersDomicileInEnglandWales: YesOrNo.YES, lastHabituallyResident: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([
-      JurisdictionConnections.PET_RESIDENT_SIX_MONTHS,
-      JurisdictionConnections.PET_RESP_DOMICILED,
+      JurisdictionConnections.RESP_DOMICILED,
+      JurisdictionConnections.PET_RESP_LAST_RESIDENT,
     ]);
-  });
-
-  test('Given connection has already been made, no duplicates are returned', async () => {
-    const body = {
-      yourDomicileInEnglandWales: YesOrNo.YES,
-      partnersDomicileInEnglandWales: YesOrNo.YES,
-      connections: [JurisdictionConnections.PET_RESP_DOMICILED],
-    };
-
-    const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESP_DOMICILED]);
   });
 });
