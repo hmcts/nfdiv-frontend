@@ -36,7 +36,7 @@ export class Helmet {
           connectSrc: [self],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
-          imgSrc: [self, googleAnalyticsDomain],
+          imgSrc: [self, 'data:', googleAnalyticsDomain],
           objectSrc: [self],
           scriptSrc,
           styleSrc: [self],

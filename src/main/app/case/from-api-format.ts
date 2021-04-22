@@ -1,6 +1,6 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { ApiDocumentMetadata, Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 
@@ -41,6 +41,22 @@ const fields: FromApiConverters = {
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
   }),
   derivedRespondentHomeAddress: data => formatAddress(data, 'their'),
+  supportingDocumentMetadata: data => ({
+    uploadedDocuments: JSON.stringify(
+      data.supportingDocumentMetadata?.map(file => {
+        const f = (file as unknown) as ApiDocumentMetadata;
+        return {
+          id: `${f.id}`,
+          name: `${f.value?.documentFileName}`,
+        };
+      }) || '[]'
+    ),
+    supportingDocumentMetadata: (data.supportingDocumentMetadata as unknown) as ApiDocumentMetadata[],
+  }),
+  cannotUploadSupportingDocument: data => ({
+    cannotUpload: data.cannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
+    cannotUploadDocuments: data.cannotUploadSupportingDocument,
+  }),
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),

@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import { Application, RequestHandler, Response } from 'express';
+import multer from 'multer';
 
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
@@ -16,10 +17,12 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
+import { DocumentManagerController } from './steps/upload-your-documents/document-manager';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
+  DOCUMENT_MANAGER,
   HOME_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
@@ -28,6 +31,8 @@ import {
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
 } from './steps/urls';
+
+const handleUploads = multer();
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -43,6 +48,10 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
+
+    const documentManagerController = new DocumentManagerController();
+    app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+    app.delete(DOCUMENT_MANAGER, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
       const dir = `${__dirname}/steps${step.url}`;

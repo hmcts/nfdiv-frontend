@@ -134,4 +134,12 @@ Given("I've completed all happy path questions correctly to get to check your an
   I.waitInUrl('/apply-claim-costs');
   iClick('No, I do not want to apply to claim costs');
   iClick('Continue');
+
+  I.waitInUrl('/upload-your-documents');
+  iClearTheForm();
+  iClick('I cannot upload some or all of my documents');
+  iClick('My original marriage certificate');
+  iClick('Continue');
+
+  I.waitInUrl('/check-your-answers');
 });

@@ -144,6 +144,7 @@ export interface FormInput {
   name?: string;
   label: Label;
   hint?: Label;
+  subtext?: Label;
   classes?: string;
   hidden?: boolean;
   selected?: boolean;

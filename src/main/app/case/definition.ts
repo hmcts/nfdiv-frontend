@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-22 15:46:37.
+// Generated using typescript-generator version 2.30.840 on 2021-04-26 14:28:54.
 
 export interface Address {
   AddressLine1: string;
@@ -156,6 +156,8 @@ export interface CaseData {
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
   divorceClaimFrom: ClaimsCostFrom[];
+  supportingDocumentMetadata: DivorceDocument[];
+  cannotUploadSupportingDocument: SupportingDocumentType[];
   createdDate: Date;
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
@@ -170,28 +172,6 @@ export interface CaseData {
   respondentOrganisationPolicy: OrganisationPolicy<UserRole>;
   derivedRespondentCorrespondenceAddr: string;
   financialOrderFor: FinancialOrderFor[];
-}
-
-export interface CaseDetails {
-  state: string;
-  case_data: CaseData;
-  id: number;
-}
-
-export interface CcdCallbackRequest {
-  token: string;
-  event_id: string;
-  case_details: CaseDetails;
-}
-
-/**
- * The response to a callback from ccd
- */
-export interface CcdCallbackResponse {
-  data: { [index: string]: any };
-  errors: string[];
-  warnings: string[];
-  state: string;
 }
 
 export interface DivorceDocument {
@@ -378,6 +358,13 @@ export const enum State {
   SolicitorAwaitingPaymentConfirmation = 'SolicitorAwaitingPaymentConfirmation',
 }
 
+export const enum SupportingDocumentType {
+  UNION_CERTIFICATE = 'unionCertificate',
+  FOREIGN_UNION_CERTIFICATE = 'foreignUnionCertificate',
+  FOREIGN_UNION_CERTIFICATE_TRANSLATION = 'foreignUnionCertificateTranslation',
+  NAME_CHANGE_PROOF = 'nameChangeProof',
+}
+
 export const enum UserRole {
   CASEWORKER_DIVORCE_COURTADMIN_BETA = 'caseworker-divorce-courtadmin_beta',
   CASEWORKER_DIVORCE_COURTADMIN = 'caseworker-divorce-courtadmin',
@@ -424,9 +411,12 @@ export const JURISDICTION = 'DIVORCE';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
 export const PETITIONER_EMAIL = 'petitionerEmail';
+export const PETITIONER_ORGANISATION_POLICY = 'petitionerOrganisationPolicy';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
+export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
+export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
 export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
 export const DOCUMENT_FILENAME_FMT = '%s%s';
 export const DOCUMENT_NAME = 'draft-mini-petition-';

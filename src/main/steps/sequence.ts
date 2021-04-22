@@ -336,6 +336,11 @@ export const sequence: Step[] = [
     getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
+    url: UPLOAD_YOUR_DOCUMENTS,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: CHECK_ANSWERS_URL,
     getNextStep: data => (data.helpWithFeesRefNo ? APPLICATION_SUBMITTED : PAY_YOUR_FEE),
   },

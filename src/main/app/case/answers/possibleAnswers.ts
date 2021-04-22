@@ -36,7 +36,7 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
   const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
   return Object.fromEntries(
     Object.keys(userCase)
-      .filter(key => !CaseApi.READONLY_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
+      .filter(key => !CaseApi.SPECIAL_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
       .map(key => [key, null])
   );
 };

@@ -85,8 +85,8 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customQuestion = this.ctx.stepQuestions[step.url];
-        const customAnswerFn = this.ctx.stepAnswers[step.url];
+        const customQuestion = this.ctx.stepQuestions[step.url]?.[fieldKey];
+        const customAnswerFn = this.ctx.stepAnswers[step.url]?.[fieldKey];
         const customAnswer =
           customAnswerFn && typeof customAnswerFn === 'function' ? customAnswerFn(stepContent) : customAnswerFn;
         if (customAnswer === false) {
