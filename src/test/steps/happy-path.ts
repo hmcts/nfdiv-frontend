@@ -110,5 +110,14 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('No');
   iClick('Continue');
 
-  I.waitInUrl('/money-property');
+  I.waitInUrl('/dividing-money-property');
+  iClick('Continue');
+
+  I.waitInUrl('/do-you-want-to-apply-financial-order');
+  iClick('No');
+  iClick('Continue');
+
+  I.waitInUrl('/apply-claim-costs');
+  iClick('No, I do not want to apply to claim costs');
+  iClick('Continue');
 });

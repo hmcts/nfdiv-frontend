@@ -100,6 +100,8 @@ const en = (
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
+    [JurisdictionConnections.PET_DOMICILED]: undefined,
+    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {
@@ -203,6 +205,8 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
+    [JurisdictionConnections.PET_DOMICILED]: undefined,
+    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {

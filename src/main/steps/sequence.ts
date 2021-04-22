@@ -7,6 +7,8 @@ import {
   ADDRESS_PRIVATE,
   APPLICATION_SUBMITTED,
   APPLY_CLAIM_COSTS,
+  APPLY_FINANCIAL_ORDER,
+  APPLY_FINANCIAL_ORDER_DETAILS,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -300,6 +302,20 @@ export const sequence: Step[] = [
     url: OTHER_COURT_CASES,
     showInSection: Sections.OtherCourtCases,
     getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
+  },
+  {
+    url: MONEY_PROPERTY,
+    getNextStep: () => APPLY_FINANCIAL_ORDER,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER,
+    showInSection: Sections.DividingAssets,
+    getNextStep: data =>
+      data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : APPLY_CLAIM_COSTS,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    getNextStep: () => APPLY_CLAIM_COSTS,
   },
   {
     url: APPLY_CLAIM_COSTS,

@@ -20,8 +20,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [Sections.ContactYou]: 'How the court will contact you',
     [Sections.ContactThem]: `How the court will contact your ${isDivorce ? partner : 'civil partner'}`,
     [Sections.OtherCourtCases]: 'Other court cases',
-    [Sections.DividingAssets]: 'Dividing your money and property',
     [Sections.Costs]: 'Costs',
+    [Sections.DividingAssets]: 'Dividing your money and property',
     [Sections.Documents]: 'Your documents',
   },
   stepQuestions: {
