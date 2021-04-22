@@ -31,7 +31,13 @@ export const config = {
   TestPass,
   Gherkin: {
     features: './features/*.feature',
-    steps: ['../steps/common.ts', '../steps/date.ts', '../steps/check-your-answers.ts', '../steps/jurisdiction.ts'],
+    steps: [
+      '../steps/common.ts',
+      '../steps/date.ts',
+      '../steps/check-your-answers.ts',
+      '../steps/jurisdiction.ts',
+      '../steps/happy-path.ts',
+    ],
   },
   AutoLogin: {
     enabled: true,
@@ -44,7 +50,6 @@ export const config = {
           I.fillField('username', TestUser);
           I.fillField('password', TestPass);
           I.click('Sign in');
-          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
           I.waitForText('Apply for a divorce');
         },
         check: (I: CodeceptJS.I): void => {

@@ -34,7 +34,7 @@ describe('getAnswerRows()', () => {
     mockStepsWithContent.mockReturnValue([
       {
         url: 'dont-pickThisOne',
-        showInSection: Sections.Payment,
+        showInSection: Sections.Costs,
         getNextStep: () => '/pickThisOne',
         form: { fields: {}, submit: { text: '' } },
         generateContent: () => ({}),
@@ -76,7 +76,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContent.mockReturnValue([
         {
           url: 'dont-pickThisOne',
-          showInSection: Sections.Payment,
+          showInSection: Sections.Costs,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -99,11 +99,60 @@ describe('getAnswerRows()', () => {
         partner: 'husband',
         formState: mockFormState,
         change: 'Change',
+        stepQuestions: {},
         stepAnswers: {},
+        stepLinks: {},
       };
     });
 
     it('converts steps into the correct check answers rows', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: mockCtx,
+      })(Sections.AboutPartnership);
+
+      expect(actual).toEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: 'pickThisOne',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
+              },
+            ],
+          },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('ignores steps that throw exception', () => {
+      mockStepsWithContent.mockReturnValue([
+        {
+          url: 'dont-pickThisOne',
+          showInSection: Sections.AboutPartnership,
+          getNextStep: () => '/pickThisOne',
+          generateContent: () => {
+            throw new Error('You cannot see this page');
+          },
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+        },
+        {
+          url: 'pickThisOne',
+          showInSection: Sections.AboutPartnership,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+        },
+      ]);
+
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
@@ -136,7 +185,9 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: data => `Custom answer text. Original answer: ${data.mockField}` },
+          stepQuestions: { pickThisOne: 'Custom question text' },
+          stepAnswers: { pickThisOne: () => 'Custom answer text. Original answer: example response' },
+          stepLinks: { pickThisOne: '/custom-link' },
         },
       })(Sections.AboutPartnership);
 
@@ -145,15 +196,15 @@ describe('getAnswerRows()', () => {
           actions: {
             items: [
               {
-                href: 'pickThisOne',
+                href: '/custom-link',
                 text: 'Change',
-                visuallyHiddenText: 'Mock question title',
+                visuallyHiddenText: 'Custom question text',
               },
             ],
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            text: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))',
@@ -167,7 +218,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: () => false },
+          stepAnswers: { pickThisOne: false },
         },
       })(Sections.AboutPartnership);
 
@@ -179,7 +230,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: () => '' },
+          stepAnswers: { pickThisOne: '' },
         },
       })(Sections.AboutPartnership);
 

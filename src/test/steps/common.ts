@@ -17,7 +17,7 @@ export const iAmOnPage = (text: string): void => {
 Given('I go to {string}', iAmOnPage);
 
 Then('the page URL should be {string}', (url: string) => {
-  I.waitUrlEquals(url);
+  I.waitInUrl(url);
 });
 
 Given('I login', () => {
@@ -32,8 +32,10 @@ export const iClick = (text: string): void => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 
-When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
+  checkOptionFor(optionLabel, fieldLabel);
 });
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
@@ -83,13 +85,20 @@ export const iClearTheForm = (): void => {
 };
 Given('I clear the form', iClearTheForm);
 
-Given('I reset the postcode lookup form', () => {
+export const iWaitForPostcodeLookUpResults = (): void => {
+  I.waitForText('Select an address');
+  I.waitForElement('option[value^="{\\"fullAddress"]');
+};
+Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpResults);
+
+export const iResetThePostCodeLookUpForm = (): void => {
   iClearTheForm();
 
   I.executeScript(() => {
     (document.querySelector('[data-link="resetPostcodeLookup"]') as HTMLAnchorElement).click();
   });
-});
+};
+Given('I reset the postcode lookup form', iResetThePostCodeLookUpForm);
 
 Given("I've said I'm divorcing my husband", () => {
   I.amOnPage('/your-details');
