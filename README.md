@@ -1,4 +1,4 @@
-# nfdiv-frontend
+# nfdiv-frontend.
 
 - [nfdiv-frontend](#nfdiv-frontend)
   - [Getting Started](#getting-started)
