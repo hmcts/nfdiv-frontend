@@ -151,7 +151,7 @@ By default all of the pages in listed [urls.ts](src/main/steps/urls.ts) will be 
 
 #### Cross browser tests
 
-Cross browser tests are run via [CodeceptJS](https://codecept.io/) using the [Playwright](https://playwright.dev/) plugin which tests Chrome/Edge, Safari and Firefox and [WebDriver](https://www.w3.org/TR/webdriver/) plugin which tests Internet Explorer via [Sauce Labs](https://saucelabs.com/).
+Cross browser tests are run via [CodeceptJS](https://codecept.io/) using the [Playwright](https://playwright.dev/) plugin which tests Chrome/Edge, Safari and Firefox. The [WebDriver](https://www.w3.org/TR/webdriver/) plugin is used to test Edge on Windows via [Sauce Labs](https://saucelabs.com/).
 
 Cross browser tests are automatically run via the nightly Jenkins pipeline.
 
@@ -159,15 +159,15 @@ Running cross browser tests locally, start the server then run:
 
 ```bash
 # Playwright - Chrome/Edge, Safari and Firefox
-TEST_HEADLESS=false yarn test:crossbrowser:latest
+TEST_HEADLESS=false yarn test:crossbrowser:playwright
 ```
 
-To run the cross browser tests in Internet Explorer will need to install the [Sauce Labs connect proxy tunnel](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) and set the following environment variables with your own [Sauce Labs](https://saucelabs.com/) account details: `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`, and `SAUCE_TUNNEL_IDENTIFIER`.
+To run the cross browser tests using Sauce Labs, install the [Sauce Labs connect proxy tunnel](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) and set the following environment variables with your own [Sauce Labs](https://saucelabs.com/) account details: `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`, and `SAUCE_TUNNEL_IDENTIFIER`.
 
 ```bash
-# WebDriver - Internet Explorer (via Sauce Labs)
+# WebDriver (via Sauce Labs)
 sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -x https://eu-central-1.saucelabs.com/rest/v1 -i $SAUCE_TUNNEL_IDENTIFIER -B all
-yarn test:crossbrowser:ie
+yarn test:crossbrowser:sauce
 ```
 
 ### Security

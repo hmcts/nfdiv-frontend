@@ -52,11 +52,12 @@ export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
 export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 
-export const YOU_NEED_TO_GET_THEIR_ADDRESS: PageLink = '/need-to-get-address';
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
 export const OTHER_COURT_CASES_DETAILS: PageLink = '/other-court-cases-details';
-export const MONEY_PROPERTY: PageLink = '/money-property';
+export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
+export const APPLY_FINANCIAL_ORDER: PageLink = '/do-you-want-to-apply-financial-order';
+export const APPLY_FINANCIAL_ORDER_DETAILS: PageLink = '/how-to-apply-financial-order';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
@@ -64,3 +65,5 @@ export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 export const APPLY_CLAIM_COSTS: PageLink = '/apply-claim-costs';
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
+
+export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';

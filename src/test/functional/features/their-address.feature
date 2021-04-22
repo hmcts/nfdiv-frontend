@@ -12,7 +12,7 @@ Feature: Their address
     And I type "SW1H 9AJ"
     When I click "Find address"
     Then the page should include "SW1H 9AJ"
-    And the page should include "1 address found"
+    And I wait for the postcode lookup to return results
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
     When I click "Continue"
     Then the page URL should be "/other-court-cases"

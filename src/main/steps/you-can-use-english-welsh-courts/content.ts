@@ -100,6 +100,8 @@ const en = (
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
+    [JurisdictionConnections.PET_DOMICILED]: undefined,
+    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {
@@ -203,6 +205,8 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
+    [JurisdictionConnections.PET_DOMICILED]: undefined,
+    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {
@@ -214,7 +218,13 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    connections: {
+      type: 'hidden',
+      label: l => l.title,
+      labelHidden: true,
+    },
+  },
   submit: {
     text: l => l.continue,
   },
@@ -224,7 +234,7 @@ const languages = { en, cy };
 
 export const generateContent: TranslationFn = content => {
   if (!content.formState?.connections?.length) {
-    throw new Error('User cannot view English/Welsh courts page if they have no connections');
+    throw new Error('User cannot view "You can use English/Welsh courts" page if they have no connections');
   }
 
   const translations = languages[content.language](content, content.formState.connections);
