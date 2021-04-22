@@ -123,9 +123,11 @@ export interface Case {
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
   legalProceedingsRelated?: LegalProceedingsRelated[];
-  claimCosts?: YesOrNo;
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
+  claimCosts?: YesOrNo;
+  iConfirmPrayer?: Checkbox;
+  iBelieveApplicationIsTrue?: Checkbox;
 }
 
 export interface CaseWithId extends Case {
