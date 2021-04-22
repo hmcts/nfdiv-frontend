@@ -7,11 +7,19 @@ const en = ({ isDivorce }: CommonContent) => ({
     isDivorce ? 'grant you a divorce' : 'end your civil partnership'
   }.`,
   checkJurisdictionAgain: 'Check how you’re legally connected to England or Wales again',
-  exitService: 'Exit this service ',
+  exitService: 'Exit this service',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
+  title: `Mae'n bosib na fyddwch yn gallu ${
+    isDivorce ? 'cael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+  } yng Nghymru a Lloegr`,
+  line1: `Dengys eich atebion nad oes gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i roi caniatâd ichi ${
+    isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+  }.`,
+  checkJurisdictionAgain: 'Gwiriwch eich cysylltiadau cyfreithiol â Chymru neu Loegr eto',
+  exitService: 'Gadael y gwasanaeth hwn',
+});
 
 const languages = {
   en,
