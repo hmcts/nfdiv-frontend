@@ -14,4 +14,4 @@ Feature: No fault union dissolution application submission
     When I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     And I click "Continue to payment"
-    Then the page URL should be "/pay-fee"
+    Then the page URL should be "/pay-your-fee"
