@@ -71,6 +71,9 @@ export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnection
   if (areBothHabituallyResident(data)) {
     connections.push(JurisdictionConnections.PET_RESP_RESIDENT);
   }
+  if (areBothLastHabituallyResident(data)) {
+    connections.push(JurisdictionConnections.PET_RESP_LAST_RESIDENT);
+  }
   if (onlyRespondentHabituallyResident(data)) {
     connections.push(JurisdictionConnections.RESP_RESIDENT);
   }
@@ -86,9 +89,6 @@ export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnection
   }
   if (areBothDomiciled(data)) {
     connections.push(JurisdictionConnections.PET_RESP_DOMICILED);
-  }
-  if (areBothLastHabituallyResident(data)) {
-    connections.push(JurisdictionConnections.PET_RESP_LAST_RESIDENT);
   }
   if (hasResidualJurisdiction(data)) {
     connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION);
