@@ -36,6 +36,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   phoneNumber: 'petitionerPhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
+  yourFirstNames: 'petitionerFirstName',
+  yourMiddleNames: 'petitionerMiddleName',
+  yourLastNames: 'petitionerLastName',
+  theirFirstNames: 'respondentFirstName',
+  theirMiddleNames: 'respondentMiddleName',
+  theirLastNames: 'respondentLastName',
   fullNameOnCertificate: 'marriagePetitionerName',
   partnersFullNameOnCertificate: 'marriageRespondentName',
   lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
@@ -93,6 +99,9 @@ export interface Case {
   livingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
+  yourFirstNames?: string;
+  yourMiddleNames?: string;
+  yourLastNames?: string;
   isYourAddressInternational?: YesOrNo;
   yourAddress1?: string;
   yourAddress2?: string;
@@ -106,6 +115,9 @@ export interface Case {
   fullNameOnCertificate?: string;
   partnersFullNameOnCertificate?: string;
   addressPrivate: YesOrNo;
+  theirFirstNames?: string;
+  theirMiddleNames?: string;
+  theirLastNames?: string;
   isTheirAddressInternational?: YesOrNo;
   theirAddress1?: string;
   theirAddress2?: string;

@@ -52,6 +52,20 @@ Given("I've completed all happy path questions correctly to get to check your an
   I.waitInUrl('/you-can-use-english-welsh-courts');
   iClick('Continue');
 
+  I.waitInUrl('/enter-your-name');
+  iClick('first name');
+  I.type('Test your name');
+  iClick('last name');
+  I.type('Test your last name');
+  iClick('Continue');
+
+  I.waitInUrl('/enter-their-name');
+  iClick('first name');
+  I.type('Test their name');
+  iClick('last name');
+  I.type('Test their last name');
+  iClick('Continue');
+
   I.waitInUrl('/your-names-on-certificate');
   iClearTheForm();
   iClick('Copy your full name');
