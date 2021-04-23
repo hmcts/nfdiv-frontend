@@ -91,16 +91,8 @@ const en = (
     ...enHabitualAndDomicileHelp,
     clarification: '',
   };
-  const enPetDomiciled = {
-    ...enPetRespDomiciled,
-    line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'domiciled' in England or Wales.`,
-  };
-  const enRespDomiciled = {
-    ...enPetRespDomiciled,
-    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${partner} is 'domiciled' in England or Wales.`,
-  };
 
-  const enConnections: Record<JurisdictionConnections, typeof enPetRespResident | undefined> = {
+  const enConnections: Partial<Record<JurisdictionConnections, typeof enPetRespResident | undefined>> = {
     [JurisdictionConnections.PET_RESP_RESIDENT]: enPetRespResident,
     [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: enPetRespLastResident,
     [JurisdictionConnections.RESP_RESIDENT]: enRespResident,
@@ -108,13 +100,11 @@ const en = (
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
-    [JurisdictionConnections.PET_DOMICILED]: enPetDomiciled,
-    [JurisdictionConnections.RESP_DOMICILED]: enRespDomiciled,
   };
 
   return {
     title: `You can use English or Welsh courts to ${apply}`,
-    ...enConnections[connections[connections.length - 1]],
+    ...enConnections[connections[0]],
   };
 };
 
@@ -205,7 +195,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     clarification: '',
   };
 
-  const cyConnections: Record<JurisdictionConnections, typeof cyPetRespResident | undefined> = {
+  const cyConnections: Partial<Record<JurisdictionConnections, typeof cyPetRespResident | undefined>> = {
     [JurisdictionConnections.PET_RESP_RESIDENT]: cyPetRespResident,
     [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: cyPetRespLastResident,
     [JurisdictionConnections.RESP_RESIDENT]: cyRespResident,
@@ -213,15 +203,13 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
-    [JurisdictionConnections.PET_DOMICILED]: undefined,
-    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {
     title: `Gallwch ddefnyddio llys yng Nghymru neu Loegr ${
       isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
     }`,
-    ...cyConnections[connections[connections.length - 1]],
+    ...cyConnections[connections[0]],
   };
 };
 
