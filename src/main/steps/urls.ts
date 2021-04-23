@@ -66,6 +66,6 @@ export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
 export const APPLY_CLAIM_COSTS: PageLink = '/apply-claim-costs';
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
+export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
-export const PAY_FEE: PageLink = '/pay-fee';
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
