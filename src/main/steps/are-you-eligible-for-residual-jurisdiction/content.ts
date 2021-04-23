@@ -11,6 +11,12 @@ const en = ({ isDivorce, required }) => ({
     isDivorce ? 'for a divorce' : 'to end your civil partnership'
   } in England or Wales based on the court’s ‘residual jurisdiction’.`,
   line2:
+    'If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:',
+  bulletpoint1: `you ${isDivorce ? 'married' : 'formed your civil partnership'} in England or Wales and`,
+  bulletpoint2: `it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
+    isDivorce ? 'divorce' : 'civil partnerships to be ended'
+  } between same-sex couples.`,
+  line3:
     'Residual jurisdiction can be more complex. If you’re not sure if it applies to you, you should seek legal advice.',
   jurisdictionResidualEligible: 'Are you eligible for residual jurisdiction?',
   errors: {
