@@ -118,6 +118,33 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because the courts of England and Wales have jurisdiction on a residual basis."
     And the page should include "Read more about your connections"
 
+# TODO connections H and I only appear on the connection summary page (not yet implemented)
+#  Scenario: H The Petitioner is domiciled in England and Wales
+#    Given I select "No" for "Is your life mainly based in England or Wales?"
+#    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+#    And I click "Continue"
+#    And I select "Yes" for "Is your domicile in England or Wales?"
+#    And I select "No" for "Is your husband’s domicile in England or Wales?"
+#    When I click "Continue"
+#    And I select "No"
+#    And I click "Continue"
+#    Then the page should include "You can use English or Welsh courts to apply for a divorce"
+#    And the page should include "you are 'domiciled' in England or Wales."
+#    And the page should include "Read more about domicile"
+#
+#  Scenario: I The Respondent is domiciled in England and Wales
+#    Given I select "No" for "Is your life mainly based in England or Wales?"
+#    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+#    And I click "Continue"
+#    And I select "No" for "Is your domicile in England or Wales?"
+#    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
+#    When I click "Continue"
+#    And I select "No"
+#    And I click "Continue"
+#    Then the page should include "You can use English or Welsh courts to apply for a divorce"
+#    And the page should include "your husband is 'domiciled' in England or Wales."
+#    And the page should include "Read more about domicile"
+
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
