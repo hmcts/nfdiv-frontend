@@ -33,15 +33,15 @@ Feature: Check Your Answers
     Then the page should include "Yes, my marriage has irretrievably broken down"
     And the page should include "When did you get married?	31 December 1999"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
+    And the page should include "Help with fees"
+    And the page should include "Do you need help paying the fee for your divorce?	I need help paying the fee"
+    And the page should include "Have you already applied for help with your divorce fee?	Yes"
+    And the page should include "HWF-ABC-123"
     And the page should include "Is your original marriage certificate in English?	No"
     And the page should include "Do you have a ‘certified translation’ of your marriage certificate?	Yes, I have a certified translation"
     And the page should include "Enter the country where you got married	Mozambique"
     And the page should include "Enter the place where you got married	Maputo"
     And the page should include "Did you get married in the UK?	No"
-    And the page should include "Payment"
-    And the page should include "Do you need help paying the fee for your divorce?	I need help paying the fee"
-    And the page should include "Have you already applied for help with your divorce fee?	Yes"
-    And the page should include "HWF-ABC-123"
 
   Scenario: Viewing the page in Welsh
     Given I go to '/irretrievable-breakdown'
@@ -50,3 +50,14 @@ Feature: Check Your Answers
     And the page should include "When did you get married?"
     Given I go to '/check-your-answers?lng=cy'
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
+
+  Scenario: Completed all required questions and confirming
+    Given I've completed all happy path questions correctly to get to check your answers page
+    And I go to '/check-your-answers'
+    And I clear the form
+    And I click "Continue to payment"
+    And the page should include "You have not confirmed"
+    When I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    And I click "Continue to payment"
+    Then the page URL should be "/pay-fee"

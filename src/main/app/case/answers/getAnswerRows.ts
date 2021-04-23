@@ -1,6 +1,7 @@
 import { stepsWithContent } from '../../../steps';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { Sections } from '../../../steps/sequence';
+import { PageLink } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
 
@@ -27,17 +28,43 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     .filter(step => step.showInSection === section)
     .flatMap(step => {
       const fieldKeys = Object.keys(step.form.fields);
-      const stepContent = {
-        ...this.ctx,
-        ...generatePageContent({
-          language,
-          pageContent: step.generateContent,
-          isDivorce,
-          formState: processedFormState,
-          userEmail,
-        }),
-      };
+      let stepContent;
+      try {
+        stepContent = {
+          ...this.ctx,
+          ...generatePageContent({
+            language,
+            pageContent: step.generateContent,
+            isDivorce,
+            formState: processedFormState,
+            userEmail,
+          }),
+        };
+      } catch {
+        // Some steps may throw an error if the user is not allowed to view them yet
+        return [];
+      }
+
       const questionAnswers: GovUkNunjucksSummary[] = [];
+      const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
+        questionAnswers.push({
+          key: {
+            text: question,
+            classes: 'govuk-!-width-two-thirds',
+          },
+          value: {
+            html: answer,
+          },
+          actions: {
+            items: [
+              {
+                href: link || step.url,
+                text: this.ctx.change,
+                visuallyHiddenText: question,
+              },
+            ],
+          },
+        });
 
       for (const fieldKey of fieldKeys) {
         const field = step.form.fields[fieldKey] as FormOptions;
@@ -58,29 +85,19 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           answer = checkedLabels.join('\n');
         }
 
-        const customAnswer = this.ctx.stepAnswers[step.url]?.(processedFormState);
+        const customQuestion = this.ctx.stepQuestions[step.url];
+        const customAnswerFn = this.ctx.stepAnswers[step.url];
+        const customAnswer =
+          customAnswerFn && typeof customAnswerFn === 'function' ? customAnswerFn(stepContent) : customAnswerFn;
         if (customAnswer === false) {
           continue;
         }
 
-        questionAnswers.push({
-          key: {
-            text: question as string,
-            classes: 'govuk-!-width-two-thirds',
-          },
-          value: {
-            html: this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
-          },
-          actions: {
-            items: [
-              {
-                href: step.url,
-                text: this.ctx.change,
-                visuallyHiddenText: question as string,
-              },
-            ],
-          },
-        });
+        addQuestionAnswer(
+          customQuestion || (question as string),
+          this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
+          this.ctx.stepLinks[step.url]
+        );
       }
 
       return questionAnswers;
