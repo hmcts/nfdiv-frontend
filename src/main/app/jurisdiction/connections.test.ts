@@ -101,13 +101,13 @@ describe('connections', () => {
     expect(connectionAdded).toEqual([JurisdictionConnections.RESP_DOMICILED]);
   });
 
-  test('Given respondent is domiciled and both were last habitually resident in England or Wales, should find connection B and I', async () => {
-    const body = { partnersDomicileInEnglandWales: YesOrNo.YES, lastHabituallyResident: YesOrNo.YES };
+  test('Given both were last habitually resident in England or Wales and respondent is domiciled, should find connection B and I', async () => {
+    const body = { lastHabituallyResident: YesOrNo.YES, partnersDomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([
-      JurisdictionConnections.RESP_DOMICILED,
       JurisdictionConnections.PET_RESP_LAST_RESIDENT,
+      JurisdictionConnections.RESP_DOMICILED,
     ]);
   });
 });
