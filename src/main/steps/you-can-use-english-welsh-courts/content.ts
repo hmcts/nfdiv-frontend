@@ -92,7 +92,7 @@ const en = (
     clarification: '',
   };
 
-  const enConnections: Record<JurisdictionConnections, typeof enPetRespResident | undefined> = {
+  const enConnections: Partial<Record<JurisdictionConnections, typeof enPetRespResident | undefined>> = {
     [JurisdictionConnections.PET_RESP_RESIDENT]: enPetRespResident,
     [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: enPetRespLastResident,
     [JurisdictionConnections.RESP_RESIDENT]: enRespResident,
@@ -100,8 +100,6 @@ const en = (
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
-    [JurisdictionConnections.PET_DOMICILED]: undefined,
-    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {
@@ -197,7 +195,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     clarification: '',
   };
 
-  const cyConnections: Record<JurisdictionConnections, typeof cyPetRespResident | undefined> = {
+  const cyConnections: Partial<Record<JurisdictionConnections, typeof cyPetRespResident | undefined>> = {
     [JurisdictionConnections.PET_RESP_RESIDENT]: cyPetRespResident,
     [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: cyPetRespLastResident,
     [JurisdictionConnections.RESP_RESIDENT]: cyRespResident,
@@ -205,8 +203,6 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
     [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
-    [JurisdictionConnections.PET_DOMICILED]: undefined,
-    [JurisdictionConnections.RESP_DOMICILED]: undefined,
   };
 
   return {

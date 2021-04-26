@@ -52,7 +52,10 @@ describe('connections', () => {
       };
 
       const connectionAdded = addConnection(body);
-      expect(connectionAdded).toEqual([JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]);
+      expect(connectionAdded).toEqual([
+        JurisdictionConnections.PET_RESIDENT_SIX_MONTHS,
+        JurisdictionConnections.PET_DOMICILED,
+      ]);
     }
   );
 
@@ -82,5 +85,29 @@ describe('connections', () => {
   ])('Given there is residual jurisdiction, should find connection G', async body => {
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
+  });
+
+  test('Given petitioner is domiciled, should find connection H', async () => {
+    const body = { yourDomicileInEnglandWales: YesOrNo.YES };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.PET_DOMICILED]);
+  });
+
+  test('Given respondent is domiciled, should find connection I', async () => {
+    const body = { partnersDomicileInEnglandWales: YesOrNo.YES };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.RESP_DOMICILED]);
+  });
+
+  test('Given both were last habitually resident in England or Wales and respondent is domiciled, should find connection B and I', async () => {
+    const body = { lastHabituallyResident: YesOrNo.YES, partnersDomicileInEnglandWales: YesOrNo.YES };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([
+      JurisdictionConnections.PET_RESP_LAST_RESIDENT,
+      JurisdictionConnections.RESP_DOMICILED,
+    ]);
   });
 });
