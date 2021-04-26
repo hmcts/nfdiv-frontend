@@ -14,6 +14,7 @@ export const config: CodeceptJS.Config = {
       browser: 'chromium',
       waitForTimeout: testConfig.WaitForTimeout,
       waitForAction: 1000,
+      waitForNavigation: 'networkidle0',
       ignoreHTTPSErrors: true,
     },
   },
