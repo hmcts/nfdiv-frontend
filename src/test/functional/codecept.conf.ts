@@ -11,7 +11,7 @@ export const config: CodeceptJS.Config = {
     Playwright: {
       url: testConfig.TEST_URL || 'http://localhost:3001',
       show: !testConfig.TestHeadlessBrowser,
-      browser: 'firefox',
+      browser: 'chromium',
       waitForTimeout: testConfig.WaitForTimeout,
       waitForAction: 1000,
       ignoreHTTPSErrors: true,
