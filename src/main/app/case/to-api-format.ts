@@ -77,7 +77,7 @@ const fields: ToApiConverters = {
           ? [data.cannotUploadDocuments]
           : data.cannotUploadDocuments
         : [],
-    ...(!data.uploadedDocuments || data.uploadedDocuments === '[]' ? { supportingDocumentMetadata: [] } : {}),
+    ...(!data.uploadedDocuments || !data.uploadedDocuments.length ? { supportingDocumentMetadata: [] } : {}),
   }),
   iConfirmPrayer: data => ({
     prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),

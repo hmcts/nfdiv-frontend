@@ -1,11 +1,13 @@
+import { isObject } from 'lodash';
+
 import { Checkbox } from '../../app/case/case';
 import { SupportingDocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent, FormOptions } from '../../app/form/Form';
+import { FormContent, FormInput, FormOptions } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce }: CommonContent) => {
+const en = ({ isDivorce, required }: CommonContent) => {
   const union = isDivorce ? 'marriage' : 'civil partnership';
   return {
     title: 'Upload your documents',
@@ -46,10 +48,11 @@ const en = ({ isDivorce }: CommonContent) => {
     errors: {
       uploadedDocuments: {
         errorUploading:
-          'Sorry, we’re having technical problems uploading your documents. Please try again in a few minutes.',
+          'Sorry, we’re having technical problems uploading your documents. Please check your documents meet the file requirements below or try again in a few minutes.',
       },
       cannotUpload: {
-        required: 'You have not uploaded anything. Upload your documents or select ‘I cannot upload my document’.',
+        required,
+        notUploaded: 'You have not uploaded anything. Upload your documents or select ‘I cannot upload my document’.',
       },
     },
   };
@@ -64,16 +67,19 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
+      parser: data => {
+        return { ...data, uploadedDocuments: JSON.parse((data as Record<string, string>).uploadedDocuments || '[]') };
+      },
     },
     cannotUpload: {
       type: 'checkboxes',
       label: l => l.cannotUploadDocuments,
       labelHidden: true,
       validator: (value, formData) => {
-        if (
-          (!formData.uploadedDocuments || formData.uploadedDocuments === '[]') &&
-          (!value || !formData.cannotUploadDocuments?.length)
-        ) {
+        if (formData.uploadedDocuments?.toString() === '[]' && !formData.cannotUploadDocuments?.length) {
+          return 'notUploaded';
+        }
+        if (value && !formData.cannotUploadDocuments?.length) {
           return 'required';
         }
       },
@@ -106,7 +112,7 @@ const languages = {
   cy,
 };
 
-const addCannotUploadReasonCheckboxes = content => {
+const addCannotUploadReasonCheckboxes = (content: CommonContent) => {
   const checkboxes = [
     {
       name: 'cannotUploadDocuments',
@@ -146,6 +152,9 @@ const addCannotUploadReasonCheckboxes = content => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  (form.fields.uploadedDocuments as FormInput).value = isObject(content.formState?.uploadedDocuments)
+    ? JSON.stringify(content.formState?.uploadedDocuments || [])
+    : content.formState?.uploadedDocuments || '[]';
   addCannotUploadReasonCheckboxes(content);
 
   return {

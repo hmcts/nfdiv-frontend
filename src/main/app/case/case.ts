@@ -141,7 +141,7 @@ export interface Case {
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   claimCosts?: YesOrNo;
-  uploadedDocuments?: string;
+  uploadedDocuments?: UploadedDocument[];
   supportingDocumentMetadata?: ApiDocumentMetadata[];
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: SupportingDocumentType | SupportingDocumentType[];
@@ -169,7 +169,12 @@ export enum LanguagePreference {
   Welsh = 'welsh',
 }
 
-export interface ApiDocumentMetadata {
+export interface UploadedDocument {
   id: string;
+  name: string;
+}
+
+export interface ApiDocumentMetadata {
+  id: string | null;
   value: Partial<DivorceDocument> | null;
 }

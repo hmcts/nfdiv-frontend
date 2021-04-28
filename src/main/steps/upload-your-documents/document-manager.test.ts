@@ -13,7 +13,10 @@ describe('DocumentManagerController', () => {
       },
     });
     const res = mockResponse();
-    req.files = ([{ originalname: 'uploaded-file.jpg' }] as unknown) as Express.Multer.File[];
+    req.files = ([
+      { originalname: 'uploaded-file.jpg' },
+      { originalname: 'another-uploaded-file.jpg' },
+    ] as unknown) as Express.Multer.File[];
 
     (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
       uploadedDocuments: ['an-existing-doc', 'processed-doc'],
@@ -27,14 +30,31 @@ describe('DocumentManagerController', () => {
         supportingDocumentMetadata: [
           'an-existing-doc-from-the-api',
           {
-            id: '1',
+            id: expect.any(String),
             value: {
               documentComment: 'Uploaded by applicant',
               documentFileName: 'uploaded-file.jpg',
               documentLink: {
-                document_binary_url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/1/binary',
+                document_binary_url: expect.stringContaining('/binary'),
                 document_filename: 'uploaded-file.jpg',
-                document_url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/1',
+                document_url: expect.stringContaining(
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/'
+                ),
+              },
+              documentType: 'petition',
+            },
+          },
+          {
+            id: expect.any(String),
+            value: {
+              documentComment: 'Uploaded by applicant',
+              documentFileName: 'another-uploaded-file.jpg',
+              documentLink: {
+                document_binary_url: expect.stringContaining('/binary'),
+                document_filename: 'another-uploaded-file.jpg',
+                document_url: expect.stringContaining(
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/'
+                ),
               },
               documentType: 'petition',
             },
@@ -44,8 +64,16 @@ describe('DocumentManagerController', () => {
       'patch-case'
     );
 
-    expect(res.type).toHaveBeenCalledWith('application/json');
-    expect(res.send).toHaveBeenCalledWith(['an-existing-doc', 'processed-doc']);
+    expect(res.json).toHaveBeenCalledWith([
+      {
+        id: expect.any(String),
+        name: 'uploaded-file.jpg',
+      },
+      {
+        id: expect.any(String),
+        name: 'another-uploaded-file.jpg',
+      },
+    ]);
   });
 
   it('handles empty post requests', async () => {
@@ -66,8 +94,7 @@ describe('DocumentManagerController', () => {
       'patch-case'
     );
 
-    expect(res.type).toHaveBeenCalledWith('application/json');
-    expect(res.send).toHaveBeenCalledWith(['an-existing-doc']);
+    expect(res.json).toHaveBeenCalledWith([]);
   });
 
   it('deletes an existing file', async () => {
@@ -108,7 +135,6 @@ describe('DocumentManagerController', () => {
       'patch-case'
     );
 
-    expect(res.type).toHaveBeenCalledWith('application/json');
-    expect(res.send).toHaveBeenCalledWith(['an-existing-doc']);
+    expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
   });
 });

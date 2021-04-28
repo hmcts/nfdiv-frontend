@@ -1,5 +1,6 @@
 import config from 'config';
 import type { Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ApiDocumentMetadata, CaseWithId } from '../../app/case/case';
 import { DocumentType, PATCH_CASE } from '../../app/case/definition';
@@ -7,15 +8,12 @@ import type { AppRequest } from '../../app/controller/AppRequest';
 
 export class DocumentManagerController {
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const { supportingDocumentMetadata } = req.session.userCase;
+    const docManagementUrl: string = config.get('services.documentManagement.url');
 
-    const lastFileId = parseInt(supportingDocumentMetadata?.[supportingDocumentMetadata?.length - 1]?.id || '0', 10);
-
-    let files: ApiDocumentMetadata[] = [];
+    let newUploads: ApiDocumentMetadata[] = [];
     if (Array.isArray(req.files)) {
-      files = req.files.map((file, idx) => {
-        const id = `${lastFileId + (idx + 1)}`;
-        const docManagementUrl: string = config.get('services.documentManagement.url');
+      newUploads = req.files.map(file => {
+        const id = uuidv4();
         const docUrl = `${docManagementUrl}/documents/${id}`;
         return {
           id,
@@ -33,7 +31,10 @@ export class DocumentManagerController {
       });
     }
 
-    const updatedSupportingDocumentMetadata = [...(req.session.userCase.supportingDocumentMetadata || []), ...files];
+    const updatedSupportingDocumentMetadata = [
+      ...(req.session.userCase.supportingDocumentMetadata || []),
+      ...newUploads,
+    ];
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
@@ -45,16 +46,16 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.type('application/json').send(req.session.userCase.uploadedDocuments);
+      res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
     });
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const { supportingDocumentMetadata } = req.session.userCase;
+    const { supportingDocumentMetadata = [] } = req.session.userCase;
 
     const documentToDelete = supportingDocumentMetadata?.findIndex(i => i.id === req.body.id) ?? -1;
     if (documentToDelete === -1 || !supportingDocumentMetadata) {
-      res.type('application/json').send(req.session.userCase.uploadedDocuments);
+      res.json({ deletedId: null });
       return;
     }
 
@@ -70,7 +71,7 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.type('application/json').send(req.session.userCase.uploadedDocuments);
+      res.json({ deletedId: req.body.id });
     });
   }
 }

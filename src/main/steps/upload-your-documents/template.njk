@@ -23,9 +23,12 @@
   <p class="govuk-body">{{ youNeed }}</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ certificate }}</li>
-    <li>{{ certificateForeign }}</li>
-    <li>{{ certificateForeignTranslation }}</li>
-    <li>{{ proofOfNameChange }}</li>
+    {% if formState.inTheUk === 'NO' %}<li>{{ certificateForeign }}</li>{% endif %}
+    {% if formState.certifiedTranslation === 'YES' %}<li>{{ certificateForeignTranslation }}</li>{% endif %}
+    {% if formState.lastNameChangeWhenRelationshipFormed === 'YES' or
+          formState.anyNameChangeSinceRelationshipFormed === 'YES'%}
+      <li>{{ proofOfNameChange }}</li>
+    {% endif %}
   </ul>
   {{ govukWarningText({
     text: warningPhoto,

@@ -42,15 +42,14 @@ const fields: FromApiConverters = {
   }),
   derivedRespondentHomeAddress: data => formatAddress(data, 'their'),
   supportingDocumentMetadata: data => ({
-    uploadedDocuments: JSON.stringify(
+    uploadedDocuments:
       data.supportingDocumentMetadata?.map(file => {
         const f = (file as unknown) as ApiDocumentMetadata;
         return {
           id: `${f.id}`,
           name: `${f.value?.documentFileName}`,
         };
-      }) || '[]'
-    ),
+      }) || [],
     supportingDocumentMetadata: (data.supportingDocumentMetadata as unknown) as ApiDocumentMetadata[],
   }),
   cannotUploadSupportingDocument: data => ({

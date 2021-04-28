@@ -7,6 +7,7 @@ export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVO
 
   res.redirect = jest.fn().mockReturnValue(res);
   res.render = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
   res.send = jest.fn().mockReturnValue(res);
   res.type = jest.fn().mockReturnValue(res);
   res.end = jest.fn();

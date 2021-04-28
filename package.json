@@ -75,6 +75,7 @@
     "express": "^4.17.1",
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.17.1",
+    "form-data": "^4.0.0",
     "glob": "^7.1.6",
     "govuk-frontend": "^3.11.0",
     "helmet": "^4.5.0",
@@ -92,7 +93,8 @@
     "session-file-store": "^1.5.0",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
