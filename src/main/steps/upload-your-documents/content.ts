@@ -49,6 +49,9 @@ const en = ({ isDivorce, required }: CommonContent) => {
       uploadedDocuments: {
         errorUploading:
           'Sorry, we’re having technical problems uploading your documents. Please check your documents meet the file requirements below or try again in a few minutes.',
+        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
+        fileWrongFormat:
+          'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },
       cannotUpload: {
         required,
@@ -105,6 +108,8 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+  isComplete: formState =>
+    !!formState.uploadedDocuments?.length || !!(formState.cannotUpload && formState.cannotUploadDocuments?.length),
 };
 
 const languages = {
@@ -113,21 +118,22 @@ const languages = {
 };
 
 const addCannotUploadReasonCheckboxes = (content: CommonContent) => {
-  const checkboxes = [
-    {
+  const checkboxes: FormInput[] = [];
+
+  if (content.formState?.inTheUk === YesOrNo.YES) {
+    checkboxes.push({
       name: 'cannotUploadDocuments',
       label: l => l.cannotUploadCertificate,
       value: SupportingDocumentType.UNION_CERTIFICATE,
-    },
-  ];
-
-  if (content.formState?.inTheUk === YesOrNo.NO) {
+    });
+  } else {
     checkboxes.push({
       name: 'cannotUploadDocuments',
       label: l => l.cannotUploadForeignCertificate,
       value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE,
     });
   }
+
   if (content.formState?.certifiedTranslation === YesOrNo.YES) {
     checkboxes.push({
       name: 'cannotUploadDocuments',
@@ -135,6 +141,7 @@ const addCannotUploadReasonCheckboxes = (content: CommonContent) => {
       value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE_TRANSLATION,
     });
   }
+
   if (
     content.formState?.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
     content.formState?.anyNameChangeSinceRelationshipFormed === YesOrNo.YES

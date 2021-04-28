@@ -1,28 +1,41 @@
-import type { Uppy } from '@uppy/core';
+import type { State, Uppy } from '@uppy/core';
 
 import { getById } from '../selectors';
 
 import { UploadedDocuments } from './uploadedDocuments';
 
 const uploadProcessEl = getById('uploadProgressBar');
-
-const errorUploadingEl = getById('uploadErrorSummary');
 const uploadGroupEl = getById('uploadGroup');
 
-export const onError = (): void => {
-  errorUploadingEl?.classList.remove('govuk-visually-hidden');
+const errorUploadingEl = getById('uploadErrorSummary');
+const errorUploadingGenericEl = getById('errorGeneric');
+const errorUploadingTooBigEl = getById('errorFileSizeTooBig');
+const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
+
+const HIDDEN = 'govuk-visually-hidden';
+
+export const onError = (state: State): void => {
+  if (state.info?.message.includes('exceeds maximum allowed size')) {
+    errorUploadingTooBigEl?.classList.remove(HIDDEN);
+  } else if (state.info?.message.includes('You can only upload: image/jpeg')) {
+    errorUploadingWrongFormatEl?.classList.remove(HIDDEN);
+  } else {
+    errorUploadingGenericEl?.classList.remove(HIDDEN);
+  }
+
+  errorUploadingEl?.classList.remove(HIDDEN);
   location.hash = '#uploadErrorSummary';
   errorUploadingEl?.focus();
 };
 
 export const onFilesSelected = async (uppy: Uppy<'strict'>, uploadedDocuments: UploadedDocuments): Promise<void> => {
-  errorUploadingEl?.classList.add('govuk-visually-hidden');
+  resetErrorMessages();
   uploadProcessEl?.classList.add('govuk-!-margin-top-5');
 
   const result = await uppy.upload();
   location.hash = '#';
   if (result.failed.length || !result.successful.length) {
-    return onError();
+    return onError(uppy.getState());
   }
 
   if (result.successful?.[0].response?.body) {
@@ -34,4 +47,11 @@ export const onFilesSelected = async (uppy: Uppy<'strict'>, uploadedDocuments: U
 
   uploadGroupEl?.classList.add('uploaded');
   uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
+};
+
+const resetErrorMessages = () => {
+  errorUploadingEl?.classList.add(HIDDEN);
+  errorUploadingGenericEl?.classList.add(HIDDEN);
+  errorUploadingTooBigEl?.classList.add(HIDDEN);
+  errorUploadingWrongFormatEl?.classList.add(HIDDEN);
 };

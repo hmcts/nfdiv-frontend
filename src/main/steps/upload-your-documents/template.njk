@@ -14,7 +14,27 @@
     errorList: [
       {
         text: errors.uploadedDocuments.errorUploading,
-        href: "#upload"
+        href: "#upload",
+        attributes: {
+          id: "errorGeneric",
+          class: "govuk-visually-hidden"
+        }
+      },
+      {
+        text: errors.uploadedDocuments.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+          id: "errorFileSizeTooBig",
+          class: "govuk-visually-hidden"
+        }
+      },
+      {
+        text: errors.uploadedDocuments.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+          id: "errorFileWrongFormat",
+          class: "govuk-visually-hidden"
+        }
       }
     ]
   }) }}
@@ -22,8 +42,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ certificate }}</li>
-    {% if formState.inTheUk === 'NO' %}<li>{{ certificateForeign }}</li>{% endif %}
+    <li>{{ certificate if formState.inTheUk === 'YES' else certificateForeign }}</li>
     {% if formState.certifiedTranslation === 'YES' %}<li>{{ certificateForeignTranslation }}</li>{% endif %}
     {% if formState.lastNameChangeWhenRelationshipFormed === 'YES' or
           formState.anyNameChangeSinceRelationshipFormed === 'YES'%}

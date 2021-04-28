@@ -96,6 +96,10 @@ export class Form {
   }
 
   public isComplete(body: Partial<Case>): boolean {
+    if (this.form.isComplete) {
+      return this.form.isComplete(body);
+    }
+
     for (const field of this.getFieldNames().values()) {
       if (body[field] === undefined || body[field] === null) {
         return false;
@@ -122,6 +126,7 @@ export interface FormContent {
     classes?: string;
   };
   fields: Record<string, FormField>;
+  isComplete?: (formState: Partial<Case>) => boolean;
 }
 
 export type FormField = FormInput | FormOptions;

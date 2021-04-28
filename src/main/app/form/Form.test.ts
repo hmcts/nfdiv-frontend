@@ -181,4 +181,47 @@ describe('Form', () => {
       checkboxes: ['checkbox1', 'checkbox2'],
     });
   });
+
+  describe('checks if the form is complete', () => {
+    test.each([
+      { body: {}, expected: false },
+      {
+        body: {
+          field: 'YES',
+          dateField: {
+            day: '1',
+            month: '1',
+            year: '2000',
+          },
+          checkboxes: ['checkbox1'],
+        },
+        expected: true,
+      },
+    ])('checks if complete when %o', ({ body, expected }: { body: Record<string, unknown>; expected: boolean }) => {
+      expect(form.isComplete(body)).toBe(expected);
+    });
+
+    test('when theres a custom form.isComplete', () => {
+      const mockIsComplete = jest.fn().mockReturnValue(false);
+
+      const mockIsCompleteForm: FormContent = {
+        fields: {
+          field: {
+            label: 'test',
+          },
+        },
+        submit: {
+          text: l => l.continue,
+        },
+        isComplete: mockIsComplete,
+      };
+
+      const isCompleteForm = new Form(mockIsCompleteForm);
+
+      const actual = isCompleteForm.isComplete(({ field: 'mock' } as unknown) as Partial<Case>);
+
+      expect(actual).toBe(false);
+      expect(mockIsComplete).toHaveBeenCalledWith({ field: 'mock' });
+    });
+  });
 });

@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
+import { UserDetails } from '../../app/controller/AppRequest';
+
 import { Classification, DocumentManagementClient, UploadedFiles } from './document-management-client';
 
 jest.mock('axios');
@@ -14,7 +16,7 @@ describe('DocumentManagementClient', () => {
     const client = new DocumentManagementClient({
       url: 'http://localhost',
       authToken: 'abcd',
-      user: { id: 'userId', accessToken: 'userAccessToken' },
+      user: ({ id: 'userId', accessToken: 'userAccessToken' } as unknown) as UserDetails,
     });
 
     const actual = await client.create({
@@ -41,7 +43,7 @@ describe('DocumentManagementClient', () => {
     const client = new DocumentManagementClient({
       url: 'http://localhost',
       authToken: 'abcd',
-      user: { id: 'userId', accessToken: 'userAccessToken' },
+      user: ({ id: 'userId', accessToken: 'userAccessToken' } as unknown) as UserDetails,
     });
 
     const actual = await client.delete({ url: 'http://localhost/doc' });

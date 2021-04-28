@@ -2,6 +2,9 @@ Feature: Upload your documents
 
   Background:
     Given I login
+    And I go to '/in-the-uk'
+    And I select "Yes"
+    And I click "Continue"
     When I go to '/upload-your-documents'
     And I clear the form
     Then the page should include "Upload your documents"
