@@ -19,12 +19,14 @@ import '@uppy/progress-bar/src/style.scss';
     return;
   }
 
+  const endpoint = DOCUMENT_MANAGER;
   const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value;
-  const endpoint = `${DOCUMENT_MANAGER}?_csrf=${csrfToken}`;
+  const csrfQuery = `?_csrf=${csrfToken}`;
+  const endpointConfig = { url: endpoint, csrfQuery };
   location.hash = '';
 
   const uploadedDocuments = new UploadedDocuments();
-  updateFileList(uploadedDocuments, endpoint);
+  updateFileList(uploadedDocuments, endpointConfig);
 
   const uppy = Uppy<Uppy.StrictTypes>({
     restrictions: {
@@ -47,12 +49,12 @@ import '@uppy/progress-bar/src/style.scss';
       target: '#uploadProgressBar',
       hideAfterFinish: true,
     })
-    .use(XHRUpload, { endpoint, bundle: true })
+    .use(XHRUpload, { endpoint: `${endpoint}${csrfQuery}`, bundle: true })
     .on('files-added', async () => {
       document.body.style.cursor = 'wait';
       try {
         await onFilesSelected(uppy, uploadedDocuments);
-        updateFileList(uploadedDocuments, endpoint);
+        updateFileList(uploadedDocuments, endpointConfig);
       } finally {
         uppy.reset();
         document.body.style.cursor = 'default';

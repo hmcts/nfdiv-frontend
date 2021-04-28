@@ -21,7 +21,7 @@ describe('Routes', () => {
     expect(appMock.get).toHaveBeenCalledWith('/', undefined);
     expect(appMock.get).toHaveBeenCalledWith('/terms-and-conditions', undefined);
     expect(appMock.get).toHaveBeenCalledWith('/your-details', undefined);
-    expect(appMock.delete).toHaveBeenCalledWith('/document-manager', undefined);
+    expect(appMock.delete).toHaveBeenCalledWith('/document-manager/:id', undefined);
 
     expect(appMock.use).toHaveBeenCalled();
   });

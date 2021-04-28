@@ -6,7 +6,10 @@ import { UploadedDocuments } from './uploadedDocuments';
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
 
-export const updateFileList = (uploadedDocuments: UploadedDocuments, endpoint: string): void => {
+export const updateFileList = (
+  uploadedDocuments: UploadedDocuments,
+  endpoint: { url: string; csrfQuery: string }
+): void => {
   if (noFilesUploadedEl) {
     if (uploadedDocuments.length) {
       noFilesUploadedEl.classList.add('govuk-visually-hidden');
@@ -32,15 +35,15 @@ export const updateFileList = (uploadedDocuments: UploadedDocuments, endpoint: s
         document.body.style.cursor = 'wait';
 
         try {
-          const request = await fetch(endpoint, {
+          const request = await fetch(`${endpoint.url}/${file.id}${endpoint.csrfQuery}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: file.id }),
           });
           const res = await request.json();
           uploadedDocuments.remove(res.deletedId);
           updateFileList(uploadedDocuments, endpoint);
         } finally {
+          (e.target as HTMLAnchorElement).style.cursor = 'default';
           document.body.style.cursor = 'default';
         }
       };

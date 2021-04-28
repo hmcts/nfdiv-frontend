@@ -3,58 +3,57 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { DocumentManagerController } from './document-manager';
 
+const { mockCreate, mockDelete } = require('./document-management-client');
+
+jest.mock('./document-management-client');
+
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();
 
   it('handles file uploads', async () => {
     const req = mockRequest({
       userCase: {
-        supportingDocumentMetadata: ['an-existing-doc-from-the-api'],
+        supportingDocumentMetadata: ['an-existing-doc'],
       },
     });
     const res = mockResponse();
-    req.files = ([
-      { originalname: 'uploaded-file.jpg' },
-      { originalname: 'another-uploaded-file.jpg' },
-    ] as unknown) as Express.Multer.File[];
+    req.files = ([{ originalname: 'uploaded-file.jpg' }] as unknown) as Express.Multer.File[];
+
+    (mockCreate as jest.Mock).mockReturnValue([
+      {
+        originalDocumentName: 'uploaded-file.jpg',
+        _links: {
+          self: { href: 'https://link-self-processed-doc' },
+          binary: { href: 'https://link-binary-processed-doc' },
+        },
+      },
+    ]);
 
     (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
-      uploadedDocuments: ['an-existing-doc', 'processed-doc'],
+      uploadedDocuments: ['an-existing-doc', 'uploaded-file.jpg'],
     });
 
     await documentManagerController.post(req, res);
+
+    expect(mockCreate).toHaveBeenCalledWith({
+      classification: 'PUBLIC',
+      files: [{ originalname: 'uploaded-file.jpg' }],
+    });
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
         supportingDocumentMetadata: [
-          'an-existing-doc-from-the-api',
+          'an-existing-doc',
           {
-            id: expect.any(String),
+            id: 'link-self-processed-doc',
             value: {
               documentComment: 'Uploaded by applicant',
               documentFileName: 'uploaded-file.jpg',
               documentLink: {
-                document_binary_url: expect.stringContaining('/binary'),
+                document_binary_url: 'https://link-binary-processed-doc',
                 document_filename: 'uploaded-file.jpg',
-                document_url: expect.stringContaining(
-                  'http://dm-store-aat.service.core-compute-aat.internal/documents/'
-                ),
-              },
-              documentType: 'petition',
-            },
-          },
-          {
-            id: expect.any(String),
-            value: {
-              documentComment: 'Uploaded by applicant',
-              documentFileName: 'another-uploaded-file.jpg',
-              documentLink: {
-                document_binary_url: expect.stringContaining('/binary'),
-                document_filename: 'another-uploaded-file.jpg',
-                document_url: expect.stringContaining(
-                  'http://dm-store-aat.service.core-compute-aat.internal/documents/'
-                ),
+                document_url: 'https://link-self-processed-doc',
               },
               documentType: 'petition',
             },
@@ -69,58 +68,34 @@ describe('DocumentManagerController', () => {
         id: expect.any(String),
         name: 'uploaded-file.jpg',
       },
-      {
-        id: expect.any(String),
-        name: 'another-uploaded-file.jpg',
-      },
     ]);
-  });
-
-  it('handles empty post requests', async () => {
-    const req = mockRequest({
-      userCase: {
-        supportingDocumentMetadata: ['an-existing-doc-from-the-api'],
-      },
-    });
-    const res = mockResponse();
-
-    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({ uploadedDocuments: ['an-existing-doc'] });
-
-    await documentManagerController.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { supportingDocumentMetadata: ['an-existing-doc-from-the-api'] },
-      'patch-case'
-    );
-
-    expect(res.json).toHaveBeenCalledWith([]);
   });
 
   it('deletes an existing file', async () => {
     const req = mockRequest({
       userCase: {
         supportingDocumentMetadata: [
-          { id: '1', value: 'object-of-doc-not-to-delete' },
-          { id: '2', value: 'object-of-doc-to-delete' },
-          { id: '3', value: 'object-of-doc-not-to-delete' },
+          { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
+          { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
         ],
       },
-      body: { id: '2' },
     });
+    req.params = { id: '2' };
     const res = mockResponse();
 
     (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({ uploadedDocuments: ['an-existing-doc'] });
 
     await documentManagerController.delete(req, res);
 
+    expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
         supportingDocumentMetadata: [
           {
             id: '1',
-            value: 'object-of-doc-not-to-delete',
+            value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
           },
           {
             id: '2',
@@ -128,7 +103,7 @@ describe('DocumentManagerController', () => {
           },
           {
             id: '3',
-            value: 'object-of-doc-not-to-delete',
+            value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
           },
         ],
       },

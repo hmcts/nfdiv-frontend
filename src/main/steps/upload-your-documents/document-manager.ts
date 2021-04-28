@@ -1,30 +1,45 @@
 import config from 'config';
 import type { Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 
+import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { ApiDocumentMetadata, CaseWithId } from '../../app/case/case';
 import { DocumentType, PATCH_CASE } from '../../app/case/definition';
-import type { AppRequest } from '../../app/controller/AppRequest';
+import type { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+
+import { Classification, DocumentManagementClient } from './document-management-client';
 
 export class DocumentManagerController {
+  private getDocumentManagementClient(user: UserDetails) {
+    return new DocumentManagementClient({
+      url: config.get('services.documentManagement.url'),
+      authToken: getServiceAuthToken(),
+      user,
+    });
+  }
+
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const docManagementUrl: string = config.get('services.documentManagement.url');
+    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+
+    const filesCreated = await documentManagementClient.create({
+      files: req.files,
+      classification: Classification.Public,
+    });
 
     let newUploads: ApiDocumentMetadata[] = [];
-    if (Array.isArray(req.files)) {
-      newUploads = req.files.map(file => {
-        const id = uuidv4();
-        const docUrl = `${docManagementUrl}/documents/${id}`;
+    if (Array.isArray(filesCreated)) {
+      newUploads = filesCreated.map(file => {
+        const docUrlParts = file._links.self.href.split('/');
+        const id = docUrlParts[docUrlParts.length - 1];
         return {
           id,
           value: {
             documentComment: 'Uploaded by applicant',
-            documentFileName: file.originalname,
+            documentFileName: file.originalDocumentName,
             documentType: DocumentType.Petition,
             documentLink: {
-              document_url: docUrl,
-              document_filename: file.originalname,
-              document_binary_url: `${docUrl}/binary`,
+              document_url: file._links.self.href,
+              document_filename: file.originalDocumentName,
+              document_binary_url: file._links.binary.href,
             },
           },
         };
@@ -53,13 +68,19 @@ export class DocumentManagerController {
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const { supportingDocumentMetadata = [] } = req.session.userCase;
 
-    const documentToDelete = supportingDocumentMetadata?.findIndex(i => i.id === req.body.id) ?? -1;
-    if (documentToDelete === -1 || !supportingDocumentMetadata) {
+    const documentIndexToDelete = supportingDocumentMetadata?.findIndex(i => i.id === req.params.id) ?? -1;
+    const documentToDelete = supportingDocumentMetadata[documentIndexToDelete];
+    if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
       res.json({ deletedId: null });
       return;
     }
 
-    supportingDocumentMetadata[documentToDelete].value = null;
+    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+    await documentManagementClient.delete({
+      url: documentToDelete.value.documentLink.document_url,
+    });
+
+    supportingDocumentMetadata[documentIndexToDelete].value = null;
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
@@ -71,7 +92,7 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.json({ deletedId: req.body.id });
+      res.json({ deletedId: req.params.id });
     });
   }
 }
