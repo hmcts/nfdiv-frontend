@@ -2,8 +2,8 @@ import config from 'config';
 import type { Response } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { ApiDocumentMetadata, CaseWithId } from '../../app/case/case';
-import { DocumentType, PATCH_CASE } from '../../app/case/definition';
+import { Case, CaseWithId } from '../../app/case/case';
+import { PATCH_CASE } from '../../app/case/definition';
 import type { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 
 import { Classification, DocumentManagementClient } from './document-management-client';
@@ -25,7 +25,7 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    let newUploads: ApiDocumentMetadata[] = [];
+    let newUploads: Case['supportingDocumentMetadata'] = [];
     if (Array.isArray(filesCreated)) {
       newUploads = filesCreated.map(file => {
         const docUrlParts = file._links.self.href.split('/');
@@ -35,7 +35,6 @@ export class DocumentManagerController {
           value: {
             documentComment: 'Uploaded by applicant',
             documentFileName: file.originalDocumentName,
-            documentType: DocumentType.Petition,
             documentLink: {
               document_url: file._links.self.href,
               document_filename: file.originalDocumentName,
@@ -61,7 +60,7 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+      res.json(newUploads?.map(file => ({ id: file.id, name: file.value?.documentFileName })));
     });
   }
 

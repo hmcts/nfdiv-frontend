@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.30.840 on 2021-04-26 14:28:54.
+// Generated using typescript-generator version 2.31.861 on 2021-04-29 10:30:52.
 
 export interface Address {
   AddressLine1: string;
@@ -75,6 +75,7 @@ export interface PreviousOrganisation {
 }
 
 export interface CaseData {
+  soleOrJoinApplicant: YesOrNo;
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
   marriageIsSameSexCouple: YesOrNo;
@@ -147,6 +148,7 @@ export interface CaseData {
   solApplicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  legalConnections: LegalConnections[];
   respondentEmailAddress: string;
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
@@ -156,13 +158,14 @@ export interface CaseData {
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
   divorceClaimFrom: ClaimsCostFrom[];
-  supportingDocumentMetadata: DivorceDocument[];
+  documentsUploaded: ListValue<DivorceDocument>[];
+  supportingDocumentMetadata: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: SupportingDocumentType[];
   createdDate: Date;
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   respondentSolicitorReference: string;
-  documentsGenerated: DivorceDocument[];
+  documentsGenerated: ListValue<DivorceDocument>[];
   respondentSolicitorRepresented: YesOrNo;
   respondentSolicitorName: string;
   respondentSolicitorPhone: string;
@@ -172,6 +175,7 @@ export interface CaseData {
   respondentOrganisationPolicy: OrganisationPolicy<UserRole>;
   derivedRespondentCorrespondenceAddr: string;
   financialOrderFor: FinancialOrderFor[];
+  dateSubmitted: Date;
 }
 
 export interface DivorceDocument {
@@ -265,7 +269,50 @@ export const enum DivorceOrDissolution {
 }
 
 export const enum DocumentType {
-  Petition = 'petition',
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  GENERAL_ORDER = 'generalOrder',
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  WELSH_TRANSLATION = 'welshTranslation',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DECREE_NISI_REFUSAL = 'decreeNisiRefusal',
+  AOS_OFFLINE_ADULTERY_FORM_CO_RESPONDENT = 'aosOfflineAdulteryFormCoRespondent',
+  AOS_OFFLINE_ADULTERY_FORM_RESPONDENT = 'aosOfflineAdulteryFormRespondent',
+  AOS_OFFLINE_UNREASONABLE_BEHAVIOUR_FORM = 'aosOfflineUnreasonableBehaviourForm',
+  AOS_OFFLINE_FIVE_YEAR_SEPARATION_FORM = 'aosOfflineFiveYearSeparationForm',
+  AOS_OFFLINE_TWO_YEAR_SEPARATION_FORM = 'aosOfflineTwoYearSeparationForm',
+  AOS_OFFLINE_INVITATION_LETTER_CO_RESPONDENT = 'aosOfflineInvitationLetterCoRespondent',
+  AOS_OFFLINE_INVITATION_LETTER_RESPONDENT = 'aosOfflineInvitationLetterRespondent',
+  PERSONAL_SERVICE = 'personalService',
+  OTHER = 'other',
+  DECREE_NISI_ANSWERS = 'decreeNisiAnswers',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  PETITION = 'petition',
+  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
+  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  EMAIL = 'email',
+  D9H = 'D9H',
+  D9D = 'D9D',
+  D84A = 'D84A',
+  D79 = 'D79',
+  D30 = 'D30',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  DECREE_NISI_GRANTED = 'decreeNisiGranted',
+  DECREE_NISI_APPLICATION = 'decreeNisiApplication',
+  DECREE_ABSOLUTE_GRANTED = 'decreeAbsoluteGranted',
+  DECREE_ABSOLUTE_APPLICATION = 'decreeAbsoluteApplication',
+  COSTS_ORDER = 'costsOrder',
+  COSTS = 'costs',
+  CORRESPONDENCE = 'correspondence',
+  CO_RESPONDENT_ANSWERS = 'coRespondentAnswers',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  BAILIFF_SERVICE = 'bailiffService',
+  ANNEX_A = 'annexA',
+  ACKNOWLEDGEMENT_OF_SERVICE_CO_RESPONDENT = 'acknowledgementOfServiceCoRespondent',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
 }
 
 export const enum FinancialOrderFor {
@@ -335,6 +382,16 @@ export const enum LanguagePreference {
   WELSH = 'WELSH',
 }
 
+export const enum LegalConnections {
+  COURTS_RESIDUAL_JURISDICTION = 'A',
+  PET_RESP_DOMICILED = 'B',
+  PET_DOMICILED_RESIDENT = 'C',
+  PET_RESIDENT = 'D',
+  RESP_RESIDENT = 'E',
+  PET_RESP_ONE_RESIDENT = 'F',
+  PET_RESP_RESIDENT = 'G',
+}
+
 export const enum LegalProceedingsRelated {
   MARRIAGE = 'marriage',
   PROPERTY = 'property',
@@ -389,21 +446,26 @@ export const DIVORCE_APPLICATION = 'divorce application';
 export const APPLICATION_TO_END_CIVIL_PARTNERSHIP = 'application to end your civil partnership';
 export const SIGN_IN_URL_NOTIFY_KEY = 'signin url';
 export const RELATIONSHIP_COURT_HEADER = 'relationship court header';
-export const APPLY_FOR_DIVORCE = 'Apply for a divorce';
-export const END_CIVIL_PARTNERSHIP = 'End a civil partnership';
 export const SIGN_IN_DIVORCE_URL = 'signInDivorceUrl';
 export const SIGN_IN_DISSOLUTION_URL = 'signInDissolutionUrl';
+export const DIVORCE_COURT_EMAIL = 'divorceCourtEmail';
+export const DISSOLUTION_COURT_EMAIL = 'dissolutionCourtEmail';
 export const COURT_EMAIL = 'court email';
+export const SUBMISSION_RESPONSE_DATE = 'date of response';
+export const APPLICATION_REFERENCE = 'reference number';
 export const CHANNEL = 'channel';
 export const EVENT = 'event';
 export const JURISDICTION_1 = 'jurisdiction1';
 export const JURISDICTION_2 = 'jurisdiction2';
 export const SERVICE = 'service';
 export const KEYWORD = 'keyword';
+export const SOLICITOR_UPDATE_CONTACT_DETAILS = 'solicitor-update-contact-details';
+export const SOLICITOR_UPDATE_LANGUAGE = 'solicitor-update-language';
 export const SOLICITOR_CREATE = 'solicitor-create';
 export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
 export const SOLICITOR_UPDATE = 'solicitor-update';
 export const SAVE_AND_CLOSE = 'save-and-close';
+export const PAYMENT_MADE = 'payment-made';
 export const CREATE_DRAFT = 'create-draft';
 export const PATCH_CASE = 'patch-case';
 export const CASE_TYPE = 'NO_FAULT_DIVORCE6';

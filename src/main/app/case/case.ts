@@ -9,6 +9,7 @@ import {
   Gender,
   JurisdictionConnections,
   LegalProceedingsRelated,
+  ListValue,
   SupportingDocumentType,
   YesOrNo,
 } from './definition';
@@ -142,7 +143,7 @@ export interface Case {
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   claimCosts?: YesOrNo;
   uploadedDocuments?: UploadedDocument[];
-  supportingDocumentMetadata?: ApiDocumentMetadata[];
+  supportingDocumentMetadata?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: SupportingDocumentType | SupportingDocumentType[];
   iConfirmPrayer?: Checkbox;
@@ -172,9 +173,4 @@ export enum LanguagePreference {
 export interface UploadedDocument {
   id: string;
   name: string;
-}
-
-export interface ApiDocumentMetadata {
-  id: string | null;
-  value: Partial<DivorceDocument> | null;
 }

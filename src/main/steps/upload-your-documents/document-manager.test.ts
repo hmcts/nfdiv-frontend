@@ -55,7 +55,6 @@ describe('DocumentManagerController', () => {
                 document_filename: 'uploaded-file.jpg',
                 document_url: 'https://link-self-processed-doc',
               },
-              documentType: 'petition',
             },
           },
         ],

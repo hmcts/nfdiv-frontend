@@ -1,6 +1,6 @@
 import { invert } from 'lodash';
 
-import { ApiDocumentMetadata, Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 
@@ -44,13 +44,12 @@ const fields: FromApiConverters = {
   supportingDocumentMetadata: data => ({
     uploadedDocuments:
       data.supportingDocumentMetadata?.map(file => {
-        const f = (file as unknown) as ApiDocumentMetadata;
         return {
-          id: `${f.id}`,
-          name: `${f.value?.documentFileName}`,
+          id: `${file.id}`,
+          name: `${file.value?.documentFileName}`,
         };
       }) || [],
-    supportingDocumentMetadata: (data.supportingDocumentMetadata as unknown) as ApiDocumentMetadata[],
+    supportingDocumentMetadata: data.supportingDocumentMetadata,
   }),
   cannotUploadSupportingDocument: data => ({
     cannotUpload: data.cannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
