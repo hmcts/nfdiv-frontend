@@ -40,9 +40,15 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
     [urls.UPLOAD_YOUR_DOCUMENTS]: {
-      uploadedDocuments: (formState?.supportingDocumentMetadata || []).length
-        ? formState?.supportingDocumentMetadata?.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
-        : false,
+      uploadedDocuments: stepContent => {
+        const cannotUpload = formState?.cannotUploadDocuments?.length ? stepContent.cannotUploadDocuments : false;
+        return (formState?.supportingDocumentMetadata || []).length
+          ? `${formState?.supportingDocumentMetadata?.reduce(
+              (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
+              ''
+            )}\n${cannotUpload || ''}`
+          : cannotUpload;
+      },
     },
   },
   stepLinks: {

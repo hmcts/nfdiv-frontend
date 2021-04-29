@@ -71,13 +71,11 @@ const fields: ToApiConverters = {
     legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
   }),
   cannotUpload: data => ({
-    cannotUploadSupportingDocument:
-      data.cannotUploadDocuments && data.cannotUpload?.includes(Checkbox.Checked)
-        ? !Array.isArray(data.cannotUploadDocuments)
-          ? [data.cannotUploadDocuments]
-          : data.cannotUploadDocuments
-        : [],
-    ...(!data.uploadedDocuments || !data.uploadedDocuments.length ? { supportingDocumentMetadata: [] } : {}),
+    cannotUploadSupportingDocument: data.cannotUploadDocuments
+      ? !Array.isArray(data.cannotUploadDocuments)
+        ? [data.cannotUploadDocuments]
+        : data.cannotUploadDocuments
+      : [],
   }),
   iConfirmPrayer: data => ({
     prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),
