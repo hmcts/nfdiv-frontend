@@ -34,7 +34,7 @@ describe('getAnswerRows()', () => {
     mockStepsWithContent.mockReturnValue([
       {
         url: 'dont-pickThisOne',
-        showInSection: Sections.Costs,
+        showInSection: Sections.AboutPartners,
         getNextStep: () => '/pickThisOne',
         form: { fields: {}, submit: { text: '' } },
         generateContent: () => ({}),
@@ -76,7 +76,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContent.mockReturnValue([
         {
           url: 'dont-pickThisOne',
-          showInSection: Sections.Costs,
+          showInSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
