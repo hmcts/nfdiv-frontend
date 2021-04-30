@@ -68,28 +68,29 @@
   }) }}
   <p class="govuk-body">{{ minRequirements }}</p>
 
+  <div id="uploadGroup" class="uploadGroup">
+    <h2 class="govuk-heading-s" id="uploadedFiles">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list"></ul>
+  </div>
+
+  <p class="govuk-body">
+    <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
+    <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
+  </p>
+
   <div class="govuk-form-group">
     <div class="govuk-panel upload">
       <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
 
       <div class="govuk-form-group">
-        <p class="govuk-body">
+        <p class="govuk-body govuk-!-margin-bottom-0">
           <span id="upload">{{ chooseFilePhoto }}</span>
           <strong>{{ orStr }}</strong><br>
           {{ dragDropHere }}
         </p>
-        <p class="govuk-body govuk-!-margin-bottom-0">
-          <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
-          <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
-        </p>
         <div id="uploadProgressBar"></div>
       </div>
     </div>
-  </div>
-
-  <div id="uploadGroup" class="govuk-!-width-one-half uploadGroup">
-    <h2 class="govuk-heading-s" id="uploadedFiles">{{ uploadFiles }}</h2>
-    <p class="govuk-body" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-    <ul id="filesUploaded" class="govuk-list"></ul>
   </div>
 {% endblock %}

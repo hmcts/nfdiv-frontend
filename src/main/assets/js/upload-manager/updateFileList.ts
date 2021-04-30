@@ -1,15 +1,13 @@
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById } from '../selectors';
 
-import { UploadedDocuments } from './uploadedDocuments';
+import { FileUploadEvents } from './FileUploadEvents';
+import { UploadedDocuments } from './UploadedDocuments';
 
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
 
-export const updateFileList = (
-  uploadedDocuments: UploadedDocuments,
-  endpoint: { url: string; csrfQuery: string }
-): void => {
+export const updateFileList = (uploadedDocuments: UploadedDocuments, events: FileUploadEvents): void => {
   if (noFilesUploadedEl) {
     if (uploadedDocuments.length) {
       noFilesUploadedEl.classList.add('govuk-visually-hidden');
@@ -22,31 +20,20 @@ export const updateFileList = (
     filesUploadedEl.innerHTML = '';
     for (const file of uploadedDocuments) {
       const filenameEl = document.createElement('li');
-      filenameEl.classList.add('uploadedFile');
+      filenameEl.classList.add(
+        'uploadedFile',
+        'govuk-!-padding-top-2',
+        'govuk-!-padding-bottom-3',
+        'govuk-section-break',
+        'govuk-section-break--visible'
+      );
       filenameEl.textContent = file.name;
 
       const deleteEl = document.createElement('a');
       deleteEl.classList.add('govuk-link--no-visited-state');
       deleteEl.href = `${DOCUMENT_MANAGER}/delete/${file.id}`;
       deleteEl.textContent = 'Delete';
-      deleteEl.onclick = async e => {
-        e.preventDefault();
-        (e.target as HTMLAnchorElement).style.cursor = 'wait';
-        document.body.style.cursor = 'wait';
-
-        try {
-          const request = await fetch(`${endpoint.url}/${file.id}${endpoint.csrfQuery}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          });
-          const res = await request.json();
-          uploadedDocuments.remove(res.deletedId);
-          updateFileList(uploadedDocuments, endpoint);
-        } finally {
-          (e.target as HTMLAnchorElement).style.cursor = 'default';
-          document.body.style.cursor = 'default';
-        }
-      };
+      deleteEl.onclick = events.onDeleteFile(file);
 
       filenameEl.appendChild(deleteEl);
       filesUploadedEl.appendChild(filenameEl);

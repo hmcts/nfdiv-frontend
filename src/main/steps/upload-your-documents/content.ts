@@ -7,7 +7,7 @@ import { FormContent, FormInput } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce, required }: CommonContent) => {
+const en = ({ isDivorce }: CommonContent) => {
   const union = isDivorce ? 'marriage' : 'civil partnership';
   return {
     title: 'Upload your documents',
@@ -49,10 +49,11 @@ const en = ({ isDivorce, required }: CommonContent) => {
     cannotUploadNameChangeProof: 'Proof that I changed my name',
     errors: {
       uploadedDocuments: {
-        required,
-        notUploaded: 'You have not uploaded anything. Upload your documents or select ‘I cannot upload my document’.',
+        required: 'Select which file you could not upload before continuing.',
+        notUploaded:
+          'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
-          'Sorry, we’re having technical problems uploading your documents. Please check your documents meet the file requirements below or try again in a few minutes.',
+          'Your file was not uploaded because the service is experiencing technical issues. Try uploading your file again.',
         fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
