@@ -8,8 +8,9 @@
   "scripts": {
     "prepare": "husky install",
     "start": "NODE_ENV=production ts-node -r tsconfig-paths/register src/main/server.ts",
-    "start:dev": "NODE_ENV=development concurrently --handle-input \"nodemon --config nodemon.express.json\" \"nodemon --config nodemon.assets.json\"",
-    "start:docker": "NODE_ENV=docker nodemon --config nodemon.express.json",
+    "start:dev": "NODE_ENV=development yarn start:watch",
+    "start:docker": "NODE_ENV=docker start:watch",
+    "start:watch": "concurrently --handle-input \"nodemon --config nodemon.express.json\" \"nodemon --config nodemon.assets.json\"",
     "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
     "build": "webpack --config webpack.config.js",
     "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
