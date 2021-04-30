@@ -36,6 +36,10 @@ export class DocumentManagementClient {
     return response.data?._embedded?.documents || [];
   }
 
+  async get({ url }: { url: string }): Promise<AxiosResponse> {
+    return this.client.get(`${url}/binary`, { headers: { 'user-id': this.user.id }, responseType: 'stream' });
+  }
+
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
     return this.client.delete(url, { headers: { 'user-id': this.user.id } });
   }

@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import config from 'config';
 import type { Response } from 'express';
 
@@ -11,6 +13,26 @@ import type { AppRequest, UserDetails } from './AppRequest';
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
+  }
+
+  public async get(req: AppRequest, res: Response): Promise<void> {
+    const { documentsUploaded = [] } = req.session.userCase;
+
+    const document = documentsUploaded?.find(i => i.id === req.params.id) ?? -1;
+
+    if (document !== -1 && document.value?.documentLink) {
+      const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+      const response = await documentManagementClient.get({ url: document.value.documentLink.document_url });
+      const writer = fs.createWriteStream(`/tmp/${document.value.documentFileName}`);
+      response.data.pipe(writer);
+
+      await new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+    }
+
+    res.json(document);
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {

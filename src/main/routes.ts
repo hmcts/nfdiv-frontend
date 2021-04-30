@@ -50,6 +50,7 @@ export class Routes {
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
+    app.get(`${DOCUMENT_MANAGER}/:id`, errorHandler(documentManagerController.get.bind(documentManagerController)));
     app.post(
       DOCUMENT_MANAGER,
       handleUploads.array('files[]', 5),
