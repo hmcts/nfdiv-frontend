@@ -4,6 +4,7 @@ import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AppRequest } from './app/controller/AppRequest';
+import { DocumentManagerController } from './app/controller/DocumentManagementController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
@@ -17,7 +18,6 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
-import { DocumentManagerController } from './steps/upload-your-documents/document-manager';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   COOKIES_URL,

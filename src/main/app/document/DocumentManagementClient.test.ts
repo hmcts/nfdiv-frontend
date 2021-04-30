@@ -1,8 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { UserDetails } from '../../app/controller/AppRequest';
+import { UserDetails } from '../controller/AppRequest';
 
-import { Classification, DocumentManagementClient, UploadedFiles } from './document-management-client';
+import { Classification, DocumentManagementClient, UploadedFiles } from './DocumentManagementClient';
 
 jest.mock('axios');
 
@@ -13,11 +13,10 @@ describe('DocumentManagementClient', () => {
     const mockPost = jest.fn().mockResolvedValue({ data: { _embedded: { documents: ['a-document'] } } });
     mockedAxios.create.mockReturnValueOnce(({ post: mockPost } as unknown) as AxiosInstance);
 
-    const client = new DocumentManagementClient({
-      url: 'http://localhost',
-      authToken: 'abcd',
-      user: ({ id: 'userId', accessToken: 'userAccessToken' } as unknown) as UserDetails,
-    });
+    const client = new DocumentManagementClient('http://localhost', 'abcd', ({
+      id: 'userId',
+      accessToken: 'userAccessToken',
+    } as unknown) as UserDetails);
 
     const actual = await client.create({
       files: ([{ buffer: '123', originalname: 'a-new-file' }] as unknown) as UploadedFiles,
@@ -40,11 +39,10 @@ describe('DocumentManagementClient', () => {
     const mockDelete = jest.fn().mockResolvedValue({ data: 'MOCKED-OK' });
     mockedAxios.create.mockReturnValueOnce(({ delete: mockDelete } as unknown) as AxiosInstance);
 
-    const client = new DocumentManagementClient({
-      url: 'http://localhost',
-      authToken: 'abcd',
-      user: ({ id: 'userId', accessToken: 'userAccessToken' } as unknown) as UserDetails,
-    });
+    const client = new DocumentManagementClient('http://localhost', 'abcd', ({
+      id: 'userId',
+      accessToken: 'userAccessToken',
+    } as unknown) as UserDetails);
 
     const actual = await client.delete({ url: 'http://localhost/doc' });
 

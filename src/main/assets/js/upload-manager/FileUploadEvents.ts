@@ -17,23 +17,11 @@ const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
 const HIDDEN = 'govuk-visually-hidden';
 
 export class FileUploadEvents {
-  uppy: Uppy<'strict'>;
-  endpoint;
-  uploadedDocuments: UploadedDocuments;
-
-  constructor({
-    uppy,
-    endpoint,
-    uploadedDocuments,
-  }: {
-    uppy: Uppy<'strict'>;
-    endpoint;
-    uploadedDocuments: UploadedDocuments;
-  }) {
-    this.uppy = uppy;
-    this.endpoint = endpoint;
-    this.uploadedDocuments = uploadedDocuments;
-  }
+  constructor(
+    private readonly uppy: Uppy<'strict'>,
+    private readonly endpoint: { url: string; csrfQuery: string },
+    private readonly uploadedDocuments: UploadedDocuments
+  ) {}
 
   public onError = (state: State): void => {
     if (state.info?.message.includes('exceeds maximum allowed size')) {

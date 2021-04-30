@@ -1,20 +1,16 @@
 import config from 'config';
 import type { Response } from 'express';
 
-import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { Case, CaseWithId } from '../../app/case/case';
-import { PATCH_CASE } from '../../app/case/definition';
-import type { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { Case, CaseWithId } from '../case/case';
+import { PATCH_CASE } from '../case/definition';
+import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
 
-import { Classification, DocumentManagementClient } from './document-management-client';
+import type { AppRequest, UserDetails } from './AppRequest';
 
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {
-    return new DocumentManagementClient({
-      url: config.get('services.documentManagement.url'),
-      authToken: getServiceAuthToken(),
-      user,
-    });
+    return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {

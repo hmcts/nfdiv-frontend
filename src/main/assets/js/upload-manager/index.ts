@@ -4,7 +4,7 @@ import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
-import { DOCUMENT_MANAGER, UPLOAD_YOUR_DOCUMENTS } from '../../../steps/urls';
+import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
@@ -30,7 +30,7 @@ const initUploadManager = (): void => {
   });
 
   const uploadedDocuments = new UploadedDocuments();
-  const fileUploadEvents = new FileUploadEvents({ endpoint, uploadedDocuments, uppy });
+  const fileUploadEvents = new FileUploadEvents(uppy, endpoint, uploadedDocuments);
   updateFileList(uploadedDocuments, fileUploadEvents);
 
   uppy
@@ -62,6 +62,6 @@ const initUploadManager = (): void => {
     .on('error', fileUploadEvents.onError);
 };
 
-if (document.location.pathname === UPLOAD_YOUR_DOCUMENTS) {
+if (getById('upload')) {
   initUploadManager();
 }

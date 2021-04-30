@@ -1,11 +1,11 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
-import { DocumentManagerController } from './document-manager';
+import { DocumentManagerController } from './DocumentManagementController';
 
-const { mockCreate, mockDelete } = require('./document-management-client');
+const { mockCreate, mockDelete } = require('../../app/document/DocumentManagementClient');
 
-jest.mock('./document-management-client');
+jest.mock('../../app/document/DocumentManagementClient');
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();

@@ -4,7 +4,6 @@ import { Checkbox } from '../../app/case/case';
 import { SupportingDocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent, FormInput } from '../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ isDivorce }: CommonContent) => {
@@ -148,11 +147,6 @@ const getFormWithCustomContent = (content: CommonContent) => {
       type: 'checkboxes',
       label: l => l.cannotUploadDocuments,
       labelHidden: true,
-      validator: (value, formData) => {
-        if (value && !formData.cannotUploadDocuments?.length) {
-          return 'required';
-        }
-      },
       values: [
         {
           name: 'cannotUpload',
@@ -164,7 +158,6 @@ const getFormWithCustomContent = (content: CommonContent) => {
               label: l => l.cannotUploadWhich,
               hint: l => l.checkAllThatApply,
               subtext: l => l.cannotUploadYouCanPost,
-              validator: atLeastOneFieldIsChecked,
               values: checkboxes.map(checkbox => ({
                 name: 'cannotUploadDocuments',
                 label: l => l[checkbox.id],
