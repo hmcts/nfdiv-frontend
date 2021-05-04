@@ -131,10 +131,6 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('No');
   iClick('Continue');
 
-  I.waitInUrl('/apply-claim-costs');
-  iClick('No, I do not want to apply to claim costs');
-  iClick('Continue');
-
   I.waitInUrl('/upload-your-documents');
   iClearTheForm();
   iClick('I cannot upload my original marriage certificate');

@@ -14,7 +14,7 @@ Feature: Apply for a financial order
     Then the page URL should be "/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
     And I click "Continue"
-    Then the page URL should be "/apply-claim-costs"
+    Then the page URL should be "/upload-your-documents"
 
   @nightly
   Scenario: Error when not answering if they want to apply for a financial order

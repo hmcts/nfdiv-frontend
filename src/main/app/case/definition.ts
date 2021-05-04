@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-04-29 10:30:52.
+// Generated using typescript-generator version 2.31.861 on 2021-05-04 10:22:38.
 
 export interface Address {
   AddressLine1: string;
@@ -26,8 +26,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
   list_items: DynamicListElement[];
 }
 
@@ -46,6 +46,10 @@ export interface Fee {
 export interface ListValue<T> {
   id: string;
   value: T;
+}
+
+export interface MoneyGBP {
+  amount: string;
 }
 
 export interface OrderSummary {
@@ -157,7 +161,6 @@ export interface CaseData {
   legalProceedings: YesOrNo;
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
-  divorceClaimFrom: ClaimsCostFrom[];
   documentsUploaded: ListValue<DivorceDocument>[];
   supportingDocumentMetadata: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: SupportingDocumentType[];
@@ -172,10 +175,12 @@ export interface CaseData {
   respondentSolicitorEmail: string;
   derivedRespondentSolicitorAddr: string;
   respSolDigital: YesOrNo;
+  respContactMethodIsDigital: YesOrNo;
   respondentOrganisationPolicy: OrganisationPolicy<UserRole>;
   derivedRespondentCorrespondenceAddr: string;
   financialOrderFor: FinancialOrderFor[];
   dateSubmitted: Date;
+  previousCaseId: CaseLink;
 }
 
 export interface DivorceDocument {
@@ -231,6 +236,7 @@ export const enum FieldType {
   OrderSummary = 'OrderSummary',
   MultiSelectList = 'MultiSelectList',
   Collection = 'Collection',
+  MoneyGBP = 'MoneyGBP',
 }
 
 export const enum YesOrNo {
@@ -242,11 +248,6 @@ export const enum ChangedNameHow {
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   DEED_POLL = 'deedPoll',
   OTHER = 'other',
-}
-
-export const enum ClaimsCostFrom {
-  RESPONDENT = 'respondent',
-  CORRESPONDENT = 'correspondent',
 }
 
 export const enum ConfidentialAddress {
@@ -473,13 +474,44 @@ export const JURISDICTION = 'DIVORCE';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
 export const PETITIONER_EMAIL = 'petitionerEmail';
-export const PETITIONER_ORGANISATION_POLICY = 'petitionerOrganisationPolicy';
 export const FIRSTNAME = 'FirstName';
 export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
 export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
 export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
 export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
+export const MARRIAGE_OR_RELATIONSHIP = 'marriageOrRelationship';
+export const MARRIAGE_OR_CIVIL_PARTNERSHIP = 'marriageOrCivilPartnership';
+export const DIVORCE_OR_END_CIVIL_PARTNERSHIP = 'divorceOrEndCivilPartnership';
+export const FINANCIAL_ORDER_OR_DISSOLUTION = 'financialOrderOrDissolution';
+export const DIVORCE_OR_DISSOLUTION_COST = 'divorceOrDissolutionCost';
+export const CCD_CASE_REFERENCE = 'ccdCaseReference';
+export const ISSUE_DATE = 'issueDate';
+export const APPLICANT_1_FIRST_NAME = 'applicant1FirstName';
+export const APPLICANT_1_MIDDLE_NAME = 'applicant1MiddleName';
+export const APPLICANT_1_LAST_NAME = 'applicant1LastName';
+export const APPLICANT_2_FIRST_NAME = 'applicant2FirstName';
+export const APPLICANT_2_MIDDLE_NAME = 'applicant2MiddleName';
+export const APPLICANT_2_LAST_NAME = 'applicant2LastName';
+export const APPLICANT_1_FULL_NAME = 'applicant1FullName';
+export const APPLICANT_2_FULL_NAME = 'applicant2FullName';
+export const MARRIAGE_DATE = 'marriageDate';
+export const COURT_CASE_DETAILS = 'courtCaseDetails';
+export const HAS_COST_ORDERS = 'hasCostOrders';
+export const HAS_FINANCIAL_ORDERS = 'hasFinancialOrders';
+export const HAS_FINANCIAL_ORDERS_FOR_CHILD = 'hasFinancialOrdersForChild';
+export const FINANCIAL_ORDER_CHILD = 'financialOrderChild';
+export const RESPONDENT_POSTAL_ADDRESS = 'respondentPostalAddress';
+export const FOR_A_DIVORCE = 'for a divorce';
+export const MARRIAGE = 'marriage';
+export const OF_THE_DIVORCE = 'of the divorce';
+export const CONDITIONAL_ORDER_OF_DIVORCE_FROM = 'for a final conditional order of divorce from';
+export const DIVORCE_COSTS = 'divorce costs';
+export const TO_END_A_CIVIL_PARTNERSHIP = 'to end a civil partnership';
+export const CIVIL_PARTNERSHIP = 'civil partnership';
+export const TO_END_THE_CIVIL_PARTNERSHIP = 'to end the civil partnership';
+export const DISSOLUTION_OF_THE_CIVIL_PARTNERSHIP_WITH = 'for the dissolution of the civil partnership with';
+export const COSTS_RELATED_TO_ENDING_THE_CIVIL_PARTNERSHIP = 'costs related to ending the civil partnership';
 export const DOCUMENT_FILENAME_FMT = '%s%s';
 export const DOCUMENT_NAME = 'draft-mini-petition-';
 export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
