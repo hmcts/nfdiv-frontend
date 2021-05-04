@@ -24,8 +24,26 @@ const en = ({ isDivorce, required }) => ({
   },
 });
 
-//TODO Translations
-const cy = en;
+const cy: typeof en = ({ isDivorce }) => ({
+  title: 'Sut wnaethoch chi newid eich enw?',
+  line1: "Mae'r llys angen gwybod sut y gwnaethoch newid eich enw fel ei fod yn gwybod pa ddogfen i'w gwirio.",
+  sendingOffMarriageCertificate: `Drwy anfon fy nhystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
+  deedPoll: "Drwy weithred newid enw neu 'ddatganiad statudol'",
+  deedPollMoreDetails:
+    "Mae'r llys angen gweld y weithred newid enw neu'r ddogfen 'datganiad statudol'. Gallwch uwchlwytho llun neu ei sganio yn nes ymlaen yn y cais hwn, neu gallwch ei phostio.",
+  anotherWay: 'Ffordd arall',
+  anotherWayMoreDetails:
+    "Rhowch fanylion pryd a sut y gwnaethoch newid eich enw. Gofynnir i chi uwchlwytho llun neu sgan o'r dogfennau sy'n profi eich bod wedi newid eich enw yn ddiweddarach yn y cais hwn, neu gallwch eu hanfon drwy'r post. Os nad oes gennych unrhyw ddogfennau, eglurwch pam yma.",
+  errors: {
+    changedNameHow: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
+    },
+    changedNameHowAnotherWay: {
+      required:
+        'Rydych wedi dweud eich bod wedi newid eich enw mewn ffordd arall ond heb ddarparu manylion. Rhowch fanylion am sut y gwnaethoch newid eich enw.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
