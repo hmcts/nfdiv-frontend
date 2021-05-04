@@ -128,7 +128,6 @@ export interface CaseData {
   marriageRespondentName: string;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
-  divorceCostsClaim: YesOrNo;
   financialOrder: YesOrNo;
   petitionerWantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
@@ -155,7 +154,6 @@ export interface CaseData {
   legalProceedings: YesOrNo;
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
-  divorceClaimFrom: ClaimsCostFrom[];
   createdDate: Date;
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
@@ -258,11 +256,6 @@ export const enum ChangedNameHow {
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   DEED_POLL = 'deedPoll',
   OTHER = 'other',
-}
-
-export const enum ClaimsCostFrom {
-  RESPONDENT = 'respondent',
-  CORRESPONDENT = 'correspondent',
 }
 
 export const enum ConfidentialAddress {
