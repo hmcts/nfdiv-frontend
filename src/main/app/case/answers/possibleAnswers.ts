@@ -13,7 +13,7 @@ export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): 
 
   const getPossibleFields = (step: StepWithForm, fields: string[] = []) => {
     if (step.form) {
-      const formFieldNames = new Form(step.form).getFieldNames().values();
+      const formFieldNames = new Form(step.form, caseState).getFieldNames().values();
       fields.push(...formFieldNames);
     }
 

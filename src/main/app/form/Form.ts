@@ -4,12 +4,27 @@ import { AnyObject } from '../controller/PostController';
 import { setupCheckboxParser } from './parser';
 
 export class Form {
-  constructor(private readonly form: FormContent) {}
+  constructor(private readonly form: FormContent, private formState: Partial<Case> = {}) {}
+
+  public setFormState(formState: Partial<Case>): void {
+    this.formState = formState;
+  }
+
+  public getFields(checkFields?: FormContent['fields']): FormContent['fields'] {
+    const fields = checkFields || this.form?.fields;
+    if (typeof fields === 'function') {
+      return fields(this.formState);
+    }
+
+    return fields;
+  }
 
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject, fields = this.form?.fields): Partial<CaseWithFormData> {
+  public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
+    const fields = this.getFields(checkFields);
+
     const parsedBody = Object.entries(fields)
       .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
@@ -35,7 +50,8 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>, fields = this.form?.fields): FormError[] {
+  public getErrors(body: Partial<Case>, checkFields = this.form?.fields): FormError[] {
+    const fields = this.getFields(checkFields);
     if (!fields) {
       return [];
     }
@@ -72,27 +88,28 @@ export class Form {
   }
 
   public getFieldNames(): Set<string> {
-    const fields: Set<string> = new Set();
-    for (const fieldKey in this.form.fields) {
-      const stepField = this.form.fields[fieldKey] as FormOptions;
+    const fields = this.getFields();
+    const fieldNames: Set<string> = new Set();
+    for (const fieldKey in fields) {
+      const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
           if (value.name) {
-            fields.add(value.name);
+            fieldNames.add(value.name);
           } else if (value.subFields) {
             for (const field of Object.keys(value.subFields)) {
-              fields.add(field);
+              fieldNames.add(field);
             }
           } else {
-            fields.add(fieldKey);
+            fieldNames.add(fieldKey);
           }
         }
       } else {
-        fields.add(fieldKey);
+        fieldNames.add(fieldKey);
       }
     }
 
-    return fields;
+    return fieldNames;
   }
 
   public isComplete(body: Partial<Case>): boolean {
@@ -116,12 +133,15 @@ type Label = string | LanguageLookup;
 
 type Warning = Label;
 
+export type FormFields = Record<string, FormField>;
+export type FormFieldsFn = (formState: Partial<Case>) => FormFields;
+
 export interface FormContent {
   submit: {
     text: Label;
     classes?: string;
   };
-  fields: Record<string, FormField>;
+  fields: FormFields | FormFieldsFn;
 }
 
 export type FormField = FormInput | FormOptions;

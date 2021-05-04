@@ -70,7 +70,7 @@ const fields: ToApiConverters = {
   legalProceedingsRelated: data => ({
     legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
   }),
-  cannotUpload: data => ({
+  cannotUploadDocuments: data => ({
     cannotUploadSupportingDocument: data.cannotUploadDocuments
       ? !Array.isArray(data.cannotUploadDocuments)
         ? [data.cannotUploadDocuments]

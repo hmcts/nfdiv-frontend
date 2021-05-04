@@ -3,7 +3,7 @@ import { generatePageContent } from '../../../steps/common/common.content';
 import { Sections } from '../../../steps/sequence';
 import { PageLink } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
-import { Case, Checkbox } from '../case';
+import { Case } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -27,7 +27,8 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
   return stepsWithContent
     .filter(step => step.showInSection === section)
     .flatMap(step => {
-      const fieldKeys = Object.keys(step.form.fields);
+      const fields = typeof step.form.fields === 'function' ? step.form.fields(processedFormState) : step.form.fields;
+      const fieldKeys = Object.keys(fields);
       let stepContent;
       try {
         stepContent = {
@@ -67,7 +68,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
         });
 
       for (const fieldKey of fieldKeys) {
-        const field = step.form.fields[fieldKey] as FormOptions;
+        const field = fields[fieldKey] as FormOptions;
         let answer = getAnswer(processedFormState, field, fieldKey);
         if (!field.label || !answer) {
           continue;
@@ -109,9 +110,9 @@ const getAnswer = (formState, field, fieldKey) =>
     ? field.values.reduce((previous, current) => [...previous, [current.name, formState?.[current.name]]], [])
     : formState?.[fieldKey];
 
-const getCheckedLabels = (answer, field, stepContent) => {
-  const checkedLabels = answer
-    .filter(([, value]) => value === Checkbox.Checked)
+const getCheckedLabels = (answer, field, stepContent) =>
+  answer
+    .filter(([, value]) => value?.length)
     .map(([key]) => {
       const checkbox = field.values.find(checkboxField => checkboxField.name === key);
       if (typeof checkbox?.label === 'function') {
@@ -119,9 +120,6 @@ const getCheckedLabels = (answer, field, stepContent) => {
       }
       return checkbox?.label;
     });
-
-  return checkedLabels;
-};
 
 const getSelectedRadioLabel = (answer, field, stepContent) => {
   const selectedRadio = field.values.find(radio => radio.value === answer);

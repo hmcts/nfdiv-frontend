@@ -54,7 +54,7 @@ describe('Form', () => {
       checkboxes: 'checkbox1',
     } as unknown) as Case);
 
-    expect(mockForm.fields.field.validator).toHaveBeenCalledWith(YesOrNo.YES, {
+    expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
       doNotKnowRespondentEmailAddress: Checkbox.Checked,
@@ -200,5 +200,20 @@ describe('Form', () => {
     ])('checks if complete when %o', ({ body, expected }: { body: Record<string, unknown>; expected: boolean }) => {
       expect(form.isComplete(body)).toBe(expected);
     });
+  });
+
+  test('Should build a form with a custom field function', async () => {
+    const mockFieldFnForm: FormContent = {
+      fields: formState => ({
+        ...(formState?.addressPrivate ? { customQuestion: { type: 'text', label: 'custom' } } : {}),
+      }),
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const fieldFnForm = new Form(mockFieldFnForm, { addressPrivate: YesOrNo.YES });
+
+    expect(fieldFnForm.getFields()).toEqual({ customQuestion: { label: 'custom', type: 'text' } });
   });
 });

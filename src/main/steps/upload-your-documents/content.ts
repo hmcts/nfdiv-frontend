@@ -1,9 +1,10 @@
-import { cloneDeep, isObject } from 'lodash';
+import { isObject } from 'lodash';
 
 import { Checkbox } from '../../app/case/case';
 import { SupportingDocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent, FormInput } from '../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ isDivorce }: CommonContent) => {
@@ -48,7 +49,6 @@ const en = ({ isDivorce }: CommonContent) => {
     cannotUploadNameChangeProof: 'Proof that I changed my name',
     errors: {
       uploadedDocuments: {
-        required: 'Select which file you could not upload before continuing.',
         notUploaded:
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
@@ -56,6 +56,9 @@ const en = ({ isDivorce }: CommonContent) => {
         fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
+      },
+      cannotUpload: {
+        required: 'Select which file you could not upload before continuing.',
       },
     },
   };
@@ -65,34 +68,105 @@ const en = ({ isDivorce }: CommonContent) => {
 const cy = en;
 
 export const form: FormContent = {
-  fields: {
-    uploadedDocuments: {
-      type: 'hidden',
-      label: l => l.uploadFiles,
-      labelHidden: true,
-      parser: data => {
-        const result = [['uploadedDocuments', JSON.parse((data as Record<string, string>).uploadedDocuments || '[]')]];
-        if (Array.isArray((data as Record<string, string[] | string>).cannotUploadDocuments)) {
-          result.push([
-            'cannotUploadDocuments',
-            (data as Record<string, string[]>).cannotUploadDocuments?.filter?.(Boolean),
-          ]);
-        }
-        return result;
-      },
-      validator: (value, formData) => {
-        const selectedCannotUpload = !!((formData.cannotUpload as unknown) as string[])?.filter?.(Boolean).length;
-        const selectedCannotUploadDocuments = !!(formData.cannotUploadDocuments as string[])?.filter?.(Boolean).length;
-        if (selectedCannotUpload && !selectedCannotUploadDocuments) {
-          return 'required';
-        }
+  fields: formState => {
+    const checkboxes: { id: string; value: SupportingDocumentType }[] = [];
 
-        const hasUploadedFiles = !!formData.uploadedDocuments?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-          return 'notUploaded';
-        }
+    if (formState?.inTheUk === YesOrNo.YES) {
+      checkboxes.push({
+        id: 'cannotUploadCertificate',
+        value: SupportingDocumentType.UNION_CERTIFICATE,
+      });
+    } else {
+      checkboxes.push({
+        id: 'cannotUploadForeignCertificate',
+        value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE,
+      });
+    }
+
+    if (formState?.certifiedTranslation === YesOrNo.YES) {
+      checkboxes.push({
+        id: 'cannotUploadForeignCertificateTranslation',
+        value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE_TRANSLATION,
+      });
+    }
+
+    if (
+      formState?.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
+      formState?.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+    ) {
+      checkboxes.push({
+        id: 'cannotUploadNameChangeProof',
+        value: SupportingDocumentType.NAME_CHANGE_PROOF,
+      });
+    }
+
+    return {
+      uploadedDocuments: {
+        type: 'hidden',
+        label: l => l.uploadFiles,
+        labelHidden: true,
+        value: isObject(formState?.uploadedDocuments)
+          ? JSON.stringify(formState?.uploadedDocuments || [])
+          : formState?.uploadedDocuments || '[]',
+        parser: data => JSON.parse((data as Record<string, string>).uploadedDocuments || '[]'),
+        validator: (value, formData) => {
+          const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+          const selectedCannotUploadDocuments = !!formData.cannotUploadDocuments?.length;
+          if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+            return 'notUploaded';
+          }
+        },
       },
-    },
+      ...(checkboxes.length > 1
+        ? {
+            cannotUpload: {
+              type: 'checkboxes',
+              label: l => l.cannotUploadDocuments,
+              labelHidden: true,
+              validator: (value, formData) => {
+                if ((value as string[])?.includes(Checkbox.Checked)) {
+                  return atLeastOneFieldIsChecked(formData?.cannotUploadDocuments);
+                }
+              },
+              values: [
+                {
+                  name: 'cannotUpload',
+                  label: l => l.cannotUploadDocuments,
+                  value: Checkbox.Checked,
+                  subFields: {
+                    cannotUploadDocuments: {
+                      type: 'checkboxes',
+                      label: l => l.cannotUploadWhich,
+                      hint: l => l.checkAllThatApply,
+                      subtext: l => l.cannotUploadYouCanPost,
+                      values: checkboxes.map(checkbox => ({
+                        name: 'cannotUploadDocuments',
+                        label: l => l[checkbox.id],
+                        value: checkbox.value,
+                      })),
+                    },
+                  },
+                },
+              ],
+            },
+          }
+        : {}),
+      ...(checkboxes.length === 1
+        ? {
+            cannotUploadDocuments: {
+              type: 'checkboxes',
+              label: l => l.cannotUploadDocuments,
+              labelHidden: true,
+              subtext: l => l.cannotUploadYouCanPost,
+              values: checkboxes.map(checkbox => ({
+                name: 'cannotUploadDocuments',
+                label: l => l[`${checkbox.id}Singular`],
+                value: checkbox.value,
+              })),
+            },
+          }
+        : {}),
+    };
   },
   submit: {
     text: l => l.continue,
@@ -104,89 +178,10 @@ const languages = {
   cy,
 };
 
-const getFormWithCustomContent = (content: CommonContent) => {
-  const newForm = cloneDeep(form);
-
-  (newForm.fields.uploadedDocuments as FormInput).value = isObject(content.formState?.uploadedDocuments)
-    ? JSON.stringify(content.formState?.uploadedDocuments || [])
-    : content.formState?.uploadedDocuments || '[]';
-
-  const checkboxes: { id: string; value: SupportingDocumentType }[] = [];
-
-  if (content.formState?.inTheUk === YesOrNo.YES) {
-    checkboxes.push({
-      id: 'cannotUploadCertificate',
-      value: SupportingDocumentType.UNION_CERTIFICATE,
-    });
-  } else {
-    checkboxes.push({
-      id: 'cannotUploadForeignCertificate',
-      value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE,
-    });
-  }
-
-  if (content.formState?.certifiedTranslation === YesOrNo.YES) {
-    checkboxes.push({
-      id: 'cannotUploadForeignCertificateTranslation',
-      value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE_TRANSLATION,
-    });
-  }
-
-  if (
-    content.formState?.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
-    content.formState?.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
-  ) {
-    checkboxes.push({
-      id: 'cannotUploadNameChangeProof',
-      value: SupportingDocumentType.NAME_CHANGE_PROOF,
-    });
-  }
-
-  if (checkboxes.length > 1) {
-    newForm.fields.cannotUpload = {
-      type: 'checkboxes',
-      label: l => l.cannotUploadDocuments,
-      labelHidden: true,
-      values: [
-        {
-          name: 'cannotUpload',
-          label: l => l.cannotUploadDocuments,
-          value: Checkbox.Checked,
-          subFields: {
-            cannotUploadDocuments: {
-              type: 'checkboxes',
-              label: l => l.cannotUploadWhich,
-              hint: l => l.checkAllThatApply,
-              subtext: l => l.cannotUploadYouCanPost,
-              values: checkboxes.map(checkbox => ({
-                name: 'cannotUploadDocuments',
-                label: l => l[checkbox.id],
-                value: checkbox.value,
-              })),
-            },
-          },
-        },
-      ],
-    };
-  } else {
-    newForm.fields.cannotUploadDocuments = {
-      type: 'checkboxes',
-      subtext: l => l.cannotUploadYouCanPost,
-      values: checkboxes.map(checkbox => ({
-        name: 'cannotUploadDocuments',
-        label: l => l[`${checkbox.id}Singular`],
-        value: checkbox.value,
-      })),
-    };
-  }
-
-  return newForm;
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: getFormWithCustomContent(content),
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.formState || {}) },
   };
 };
