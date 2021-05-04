@@ -31,9 +31,37 @@ const en = ({ isDivorce, relationship, partner, selectedGender }) => {
   };
 };
 
-const cy = ({ isDivorce, relationship, partner, selectedGender }) => ({
-  ...en({ isDivorce, relationship, partner, selectedGender }),
-});
+const cy = ({ isDivorce, relationship, partner, selectedGender }) => {
+  let personOfMaidenName = 'gan eich partner sifil';
+  if (isDivorce) {
+    personOfMaidenName = selectedGender === Gender.MALE ? 'gennych chi' : 'gan eich gwraig';
+  }
+
+  return {
+    title: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
+    line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
+      isDivorce ? 'were married' : 'formed your civil partnership'
+    }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd ${personOfMaidenName} enw cyn priodi.`,
+    warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
+    fullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
+    partnersFullNameOnCertificate: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
+    hint: 'Dylech gynnwys testun eich enw yn llawn',
+    errors: {
+      fullNameOnCertificate: {
+        required:
+          'Nid ydych wedi nodi unrhyw beth. Rhowch eich enw yn llawn fel y mae’n ymddangos ar eich tystysgrif priodas',
+        invalid:
+          'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+      },
+      partnersFullNameOnCertificate: {
+        required:
+          'Nid ydych wedi nodi unrhyw beth. Rhowch eu henw yn llawn fel y mae’n ymddangos ar eich tystysgrif priodas',
+        invalid:
+          'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: {
