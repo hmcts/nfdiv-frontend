@@ -8,6 +8,8 @@ const en = ({ partner, required }: CommonContent) => ({
   title: `Do you need your contact details kept private from your ${partner}?`,
   line1: `The court can keep your address, email address and phone number private from your ${partner}.`,
   detailsPrivate: 'Keep my contact details private',
+  detailsPrivateMoreDetails: 'If you think you might be experiencing domestic abuse or you feel unsafe, then',
+  supportAvailable: 'support is available',
   detailsNotPrivate: 'I do not need my contact details kept private',
   errors: {
     addressPrivate: { required },
@@ -25,7 +27,12 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.detailsPrivate, value: YesOrNo.YES },
+        {
+          label: l => l.detailsPrivate,
+          value: YesOrNo.YES,
+          conditionalText: l =>
+            `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
+        },
         { label: l => l.detailsNotPrivate, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
