@@ -8,7 +8,7 @@ const en = ({ isDivorce, required }) => ({
   title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
   male: isDivorce ? 'My husband' : 'Male',
   female: isDivorce ? 'My wife' : 'Female',
-  appliesToYou: 'Select the following if it applies to you:',
+  appliesToYou: 'Same-sex couples',
   sameSex: `We were a same-sex couple when we ${isDivorce ? 'got married' : 'formed our civil partnership'}`,
   errors: {
     gender: {
