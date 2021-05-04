@@ -10,9 +10,11 @@ const en = ({ isDivorce }) => ({
   line3: `After you have applied then you will receive a Help With Fees reference number. You should enter the reference number when you return to this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
   } application.`,
+  line4: 'If you have a Help With Fees reference number then you can <a href="/help-with-your-fee">enter it here.</a>',
 });
 
 const cy: typeof en = ({ isDivorce }) => ({
+  ...en({ isDivorce }),
   title: `Mae arnoch angen gwneud cais am help i dalu eich ffioedd ${isDivorce ? 'ysgaru' : ''}`,
   line1: `Mae arnoch angen gwneud cais am <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">help i dalu eich ffioedd (agor mewn ffenest newydd)</a> cyn ichi barhau gyda'r cais hwn ${
     isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
