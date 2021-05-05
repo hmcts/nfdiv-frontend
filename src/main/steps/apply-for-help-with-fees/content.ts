@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../app/controller/GetController';
+import { HELP_WITH_YOUR_FEE_URL } from '../urls';
 
 const en = ({ isDivorce }) => ({
   title: `You need to apply for help with your ${isDivorce ? 'divorce' : ''} fees`,
@@ -10,7 +11,7 @@ const en = ({ isDivorce }) => ({
   line3: `After you have applied then you will receive a Help With Fees reference number. You should enter the reference number when you return to this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
   } application.`,
-  line4: 'If you have a Help With Fees reference number then you can <a href="/help-with-your-fee">enter it here.</a>',
+  line4: `If you have a Help With Fees reference number then you can <a href="${HELP_WITH_YOUR_FEE_URL}">enter it here.</a>`,
 });
 
 const cy: typeof en = ({ isDivorce }) => ({
