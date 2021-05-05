@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../app/case/case';
-import { SupportingDocumentType, YesOrNo } from '../../app/case/definition';
+import { DocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../app/form/validation';
@@ -48,7 +48,7 @@ const en = ({ isDivorce }: CommonContent) => {
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
     cannotUploadNameChangeProof: 'Proof that I changed my name',
     errors: {
-      uploadedDocuments: {
+      uploadedFiles: {
         notUploaded:
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
@@ -69,24 +69,24 @@ const cy = en;
 
 export const form: FormContent = {
   fields: formState => {
-    const checkboxes: { id: string; value: SupportingDocumentType }[] = [];
+    const checkboxes: { id: string; value: DocumentType }[] = [];
 
     if (formState?.inTheUk === YesOrNo.YES) {
       checkboxes.push({
         id: 'cannotUploadCertificate',
-        value: SupportingDocumentType.UNION_CERTIFICATE,
+        value: DocumentType.MARRIAGE_CERTIFICATE,
       });
     } else {
       checkboxes.push({
         id: 'cannotUploadForeignCertificate',
-        value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE,
+        value: DocumentType.MARRIAGE_CERTIFICATE,
       });
     }
 
     if (formState?.certifiedTranslation === YesOrNo.YES) {
       checkboxes.push({
         id: 'cannotUploadForeignCertificateTranslation',
-        value: SupportingDocumentType.FOREIGN_UNION_CERTIFICATE_TRANSLATION,
+        value: DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION,
       });
     }
 
@@ -96,19 +96,19 @@ export const form: FormContent = {
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
-        value: SupportingDocumentType.NAME_CHANGE_PROOF,
+        value: DocumentType.NAME_CHANGE_EVIDENCE,
       });
     }
 
     return {
-      uploadedDocuments: {
+      uploadedFiles: {
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
-        value: isObject(formState?.uploadedDocuments)
-          ? JSON.stringify(formState?.uploadedDocuments || [])
-          : formState?.uploadedDocuments || '[]',
-        parser: data => JSON.parse((data as Record<string, string>).uploadedDocuments || '[]'),
+        value: isObject(formState?.uploadedFiles)
+          ? JSON.stringify(formState?.uploadedFiles || [])
+          : formState?.uploadedFiles || '[]',
+        parser: data => JSON.parse((data as Record<string, string>).uploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
           const selectedCannotUploadDocuments = !!formData.cannotUploadDocuments?.length;

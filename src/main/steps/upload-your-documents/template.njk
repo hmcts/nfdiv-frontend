@@ -13,7 +13,7 @@
     },
     errorList: [
       {
-        text: errors.uploadedDocuments.errorUploading,
+        text: errors.uploadedFiles.errorUploading,
         href: "#upload",
         attributes: {
           id: "errorGeneric",
@@ -21,7 +21,7 @@
         }
       },
       {
-        text: errors.uploadedDocuments.fileSizeTooBig,
+        text: errors.uploadedFiles.fileSizeTooBig,
         href: "#upload",
         attributes: {
           id: "errorFileSizeTooBig",
@@ -29,7 +29,7 @@
         }
       },
       {
-        text: errors.uploadedDocuments.fileWrongFormat,
+        text: errors.uploadedFiles.fileWrongFormat,
         href: "#upload",
         attributes: {
           id: "errorFileWrongFormat",
@@ -69,7 +69,7 @@
   <p class="govuk-body">{{ minRequirements }}</p>
 
   <div id="uploadGroup" class="uploadGroup">
-    <h2 class="govuk-heading-s" id="uploadedFiles">{{ uploadFiles }}</h2>
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
     <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3" id="noFilesUploaded">{{ noFilesUploaded }}</p>
     <ul id="filesUploaded" class="govuk-list"></ul>
   </div>

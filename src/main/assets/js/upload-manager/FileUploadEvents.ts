@@ -1,9 +1,9 @@
 import type { State, Uppy } from '@uppy/core';
 
-import { UploadedDocument } from '../../../app/case/case';
+import { UploadedFile } from '../../../app/case/case';
 import { getById } from '../selectors';
 
-import { UploadedDocuments } from './UploadedDocuments';
+import { UploadedFiles } from './UploadedFiles';
 import { updateFileList } from './updateFileList';
 
 const uploadProcessEl = getById('uploadProgressBar');
@@ -20,7 +20,7 @@ export class FileUploadEvents {
   constructor(
     private readonly uppy: Uppy<'strict'>,
     private readonly endpoint: { url: string; csrfQuery: string },
-    private readonly uploadedDocuments: UploadedDocuments
+    private readonly uploadedFiles: UploadedFiles
   ) {}
 
   public onError = (state: State): void => {
@@ -39,28 +39,28 @@ export class FileUploadEvents {
     this.uppy.reset();
   };
 
-  public onFilesSelected = async (uppy: Uppy<'strict'>, uploadedDocuments: UploadedDocuments): Promise<void> => {
+  public onFilesSelected = async (uppy: Uppy<'strict'>, uploadedFiles: UploadedFiles): Promise<void> => {
     this.resetErrorMessages();
     uploadProcessEl?.classList.add('govuk-!-margin-top-5');
 
     const result = await uppy.upload();
     location.hash = '#';
     if (result.successful[0]?.response?.body) {
-      uploadedDocuments.add(result.successful[0].response.body as []);
+      uploadedFiles.add(result.successful[0].response.body as []);
     }
     const uploadInfo = uppy.getState();
     if (result.failed.length || !result.successful.length || uploadInfo.info?.message) {
       return this.onError(uploadInfo);
     }
 
-    location.hash = '#uploadedFiles';
+    location.hash = '#uploadGroup';
     uploadProcessEl?.classList.remove('govuk-!-margin-top-5');
 
     uploadGroupEl?.classList.add('uploaded');
     uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
   };
 
-  public onDeleteFile = (file: UploadedDocument) => async (e: Event): Promise<void> => {
+  public onDeleteFile = (file: UploadedFile) => async (e: Event): Promise<void> => {
     e.preventDefault();
     this.resetErrorMessages();
     (e.target as HTMLAnchorElement).style.cursor = 'wait';
@@ -72,8 +72,8 @@ export class FileUploadEvents {
         headers: { 'Content-Type': 'application/json' },
       });
       const res = await request.json();
-      this.uploadedDocuments.remove(res.deletedId);
-      updateFileList(this.uploadedDocuments, this);
+      this.uploadedFiles.remove(res.deletedId);
+      updateFileList(this.uploadedFiles, this);
     } finally {
       (e.target as HTMLAnchorElement).style.cursor = 'default';
       document.body.style.cursor = 'default';

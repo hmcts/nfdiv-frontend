@@ -13,7 +13,7 @@ describe('DocumentManagerController', () => {
   it('handles file uploads', async () => {
     const req = mockRequest({
       userCase: {
-        supportingDocumentMetadata: ['an-existing-doc'],
+        documentsUploaded: ['an-existing-doc'],
       },
     });
     const res = mockResponse();
@@ -30,7 +30,7 @@ describe('DocumentManagerController', () => {
     ]);
 
     (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
-      uploadedDocuments: ['an-existing-doc', 'uploaded-file.jpg'],
+      uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
     });
 
     await documentManagerController.post(req, res);
@@ -43,7 +43,7 @@ describe('DocumentManagerController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
-        supportingDocumentMetadata: [
+        documentsUploaded: [
           'an-existing-doc',
           {
             id: 'link-self-processed-doc',
@@ -73,7 +73,7 @@ describe('DocumentManagerController', () => {
   it('deletes an existing file', async () => {
     const req = mockRequest({
       userCase: {
-        supportingDocumentMetadata: [
+        documentsUploaded: [
           { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
           { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
           { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
@@ -83,7 +83,7 @@ describe('DocumentManagerController', () => {
     req.params = { id: '2' };
     const res = mockResponse();
 
-    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({ uploadedDocuments: ['an-existing-doc'] });
+    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({ uploadedFiles: ['an-existing-doc'] });
 
     await documentManagerController.delete(req, res);
 
@@ -91,7 +91,7 @@ describe('DocumentManagerController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
-        supportingDocumentMetadata: [
+        documentsUploaded: [
           {
             id: '1',
             value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },

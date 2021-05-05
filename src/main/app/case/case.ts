@@ -5,12 +5,12 @@ import {
   ChangedNameHow,
   DivorceDocument,
   DivorceOrDissolution,
+  DocumentType,
   FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   LegalProceedingsRelated,
   ListValue,
-  SupportingDocumentType,
   YesOrNo,
 } from './definition';
 
@@ -57,7 +57,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   legalProceedingsRelated: 'legalProceedingsRelated',
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
-  supportingDocumentMetadata: 'supportingDocumentMetadata',
+  documentsUploaded: 'documentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -140,10 +140,10 @@ export interface Case {
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
-  uploadedDocuments?: UploadedDocument[];
-  supportingDocumentMetadata?: ListValue<Partial<DivorceDocument> | null>[];
+  uploadedFiles?: UploadedFile[];
+  documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
-  cannotUploadDocuments?: SupportingDocumentType | SupportingDocumentType[];
+  cannotUploadDocuments?: DocumentType | DocumentType[];
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
 }
@@ -168,7 +168,7 @@ export enum LanguagePreference {
   Welsh = 'welsh',
 }
 
-export interface UploadedDocument {
+export interface UploadedFile {
   id: string;
   name: string;
 }

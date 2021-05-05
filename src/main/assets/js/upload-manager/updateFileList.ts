@@ -2,14 +2,14 @@ import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
-import { UploadedDocuments } from './UploadedDocuments';
+import type { UploadedFiles } from './UploadedFiles';
 
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
 
-export const updateFileList = (uploadedDocuments: UploadedDocuments, events: FileUploadEvents): void => {
+export const updateFileList = (uploadedFiles: UploadedFiles, events: FileUploadEvents): void => {
   if (noFilesUploadedEl) {
-    if (uploadedDocuments.length) {
+    if (uploadedFiles.length) {
       noFilesUploadedEl.classList.add('govuk-visually-hidden');
     } else {
       noFilesUploadedEl.classList.remove('govuk-visually-hidden');
@@ -18,7 +18,7 @@ export const updateFileList = (uploadedDocuments: UploadedDocuments, events: Fil
 
   if (filesUploadedEl) {
     filesUploadedEl.innerHTML = '';
-    for (const file of uploadedDocuments) {
+    for (const file of uploadedFiles) {
       const filenameEl = document.createElement('li');
       filenameEl.classList.add(
         'uploadedFile',

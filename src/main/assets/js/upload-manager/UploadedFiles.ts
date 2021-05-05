@@ -1,16 +1,16 @@
-import { UploadedDocument } from '../../../app/case/case';
+import type { UploadedFile } from '../../../app/case/case';
 import { getById } from '../selectors';
 
-export class UploadedDocuments {
-  documents: UploadedDocument[];
+export class UploadedFiles {
+  documents: UploadedFile[];
   storeEl: HTMLInputElement;
 
   constructor() {
-    this.storeEl = getById('uploadedDocuments') as HTMLInputElement;
+    this.storeEl = getById('uploadedFiles') as HTMLInputElement;
     this.documents = JSON.parse(this.storeEl?.value || '[]');
   }
 
-  add(documents: UploadedDocument[]): void {
+  add(documents: UploadedFile[]): void {
     this.documents.push(...documents);
     this.updateStore();
   }
@@ -27,7 +27,7 @@ export class UploadedDocuments {
     return this.documents.length;
   }
 
-  [Symbol.iterator](): IterableIterator<UploadedDocument> {
+  [Symbol.iterator](): IterableIterator<UploadedFile> {
     return this.documents.values();
   }
 

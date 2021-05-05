@@ -8,7 +8,7 @@ import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
-import { UploadedDocuments } from './UploadedDocuments';
+import { UploadedFiles } from './UploadedFiles';
 import { updateFileList } from './updateFileList';
 
 import '@uppy/drop-target/src/style.scss';
@@ -29,9 +29,9 @@ const initUploadManager = (): void => {
     },
   });
 
-  const uploadedDocuments = new UploadedDocuments();
-  const fileUploadEvents = new FileUploadEvents(uppy, endpoint, uploadedDocuments);
-  updateFileList(uploadedDocuments, fileUploadEvents);
+  const uploadedFiles = new UploadedFiles();
+  const fileUploadEvents = new FileUploadEvents(uppy, endpoint, uploadedFiles);
+  updateFileList(uploadedFiles, fileUploadEvents);
 
   uppy
     .use(FileInput, {
@@ -52,8 +52,8 @@ const initUploadManager = (): void => {
     .on('files-added', async () => {
       document.body.style.cursor = 'wait';
       try {
-        await fileUploadEvents.onFilesSelected(uppy, uploadedDocuments);
-        updateFileList(uploadedDocuments, fileUploadEvents);
+        await fileUploadEvents.onFilesSelected(uppy, uploadedFiles);
+        updateFileList(uploadedFiles, fileUploadEvents);
       } finally {
         uppy.reset();
         document.body.style.cursor = 'default';

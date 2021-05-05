@@ -39,11 +39,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
     [urls.UPLOAD_YOUR_DOCUMENTS]: {
-      uploadedDocuments: (formState?.supportingDocumentMetadata || []).length
-        ? `${formState?.supportingDocumentMetadata?.reduce(
-            (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
-            ''
-          )}`
+      uploadedFiles: (formState?.documentsUploaded || []).length
+        ? `${formState?.documentsUploaded?.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')}`
         : false,
     },
   },

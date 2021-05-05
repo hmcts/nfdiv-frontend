@@ -162,8 +162,7 @@ export interface CaseData {
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
   documentsUploaded: ListValue<DivorceDocument>[];
-  supportingDocumentMetadata: ListValue<DivorceDocument>[];
-  cannotUploadSupportingDocument: SupportingDocumentType[];
+  cannotUploadSupportingDocument: DocumentType[];
   createdDate: Date;
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;

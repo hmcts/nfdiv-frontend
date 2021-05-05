@@ -21,7 +21,7 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    let newUploads: Case['supportingDocumentMetadata'] = [];
+    let newUploads: Case['documentsUploaded'] = [];
     if (Array.isArray(filesCreated)) {
       newUploads = filesCreated.map(file => {
         const docUrlParts = file._links.self.href.split('/');
@@ -41,14 +41,11 @@ export class DocumentManagerController {
       });
     }
 
-    const updatedSupportingDocumentMetadata = [
-      ...(req.session.userCase.supportingDocumentMetadata || []),
-      ...newUploads,
-    ];
+    const updatedDocumentsUploaded = [...(req.session.userCase.documentsUploaded || []), ...newUploads];
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { supportingDocumentMetadata: updatedSupportingDocumentMetadata },
+      { documentsUploaded: updatedDocumentsUploaded },
       PATCH_CASE
     );
 
@@ -61,10 +58,10 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const { supportingDocumentMetadata = [] } = req.session.userCase;
+    const { documentsUploaded = [] } = req.session.userCase;
 
-    const documentIndexToDelete = supportingDocumentMetadata?.findIndex(i => i.id === req.params.id) ?? -1;
-    const documentToDelete = supportingDocumentMetadata[documentIndexToDelete];
+    const documentIndexToDelete = documentsUploaded?.findIndex(i => i.id === req.params.id) ?? -1;
+    const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
       res.json({ deletedId: null });
       return;
@@ -75,11 +72,11 @@ export class DocumentManagerController {
       url: documentToDelete.value.documentLink.document_url,
     });
 
-    supportingDocumentMetadata[documentIndexToDelete].value = null;
+    documentsUploaded[documentIndexToDelete].value = null;
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { supportingDocumentMetadata },
+      { documentsUploaded },
       PATCH_CASE
     );
 
