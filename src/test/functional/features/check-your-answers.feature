@@ -25,7 +25,7 @@ Feature: Check Your Answers
     When I go to '/check-your-answers'
     Then the page should include "About your marriage"
     And the page should include "Who are you applying to divorce?	My husband"
-    And the page should include "Select the following if it applies to you:	We were a same-sex couple when we got married"
+    And the page should include "Same-sex couples:	We were a same-sex couple when we got married"
 
   Scenario: Checking answers
     Given I've completed all questions correctly to get to the check your answers page
