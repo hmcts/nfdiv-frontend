@@ -105,9 +105,9 @@ export const form: FormContent = {
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
-        value: isObject(formState?.uploadedFiles)
-          ? JSON.stringify(formState?.uploadedFiles || [])
-          : formState?.uploadedFiles || '[]',
+        value:
+          (isObject(formState.uploadedFiles) ? JSON.stringify(formState.uploadedFiles) : formState.uploadedFiles) ||
+          '[]',
         parser: data => JSON.parse((data as Record<string, string>).uploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
