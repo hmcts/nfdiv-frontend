@@ -10,6 +10,11 @@ jest.mock('../../app/document/DocumentManagementClient');
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();
 
+  beforeEach(() => {
+    mockCreate.mockClear();
+    mockDelete.mockClear();
+  });
+
   it('handles file uploads', async () => {
     const req = mockRequest({
       userCase: {
@@ -110,5 +115,25 @@ describe('DocumentManagerController', () => {
     );
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
+  });
+
+  it("returns null if file to deletes doesn't exist", async () => {
+    const req = mockRequest({
+      userCase: {
+        documentsUploaded: [
+          { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+        ],
+      },
+    });
+    req.params = { id: '2' };
+    const res = mockResponse();
+
+    await documentManagerController.delete(req, res);
+
+    expect(mockDelete).not.toHaveBeenCalled();
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+
+    expect(res.json).toHaveBeenCalledWith({ deletedId: null });
   });
 });
