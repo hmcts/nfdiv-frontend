@@ -41,6 +41,16 @@ const fields: FromApiConverters = {
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
   }),
   respondentHomeAddress: data => formatAddress(data, 'their'),
+  cannotUploadSupportingDocument: data => ({
+    uploadedFiles:
+      data.documentsUploaded?.map(file => ({
+        id: `${file.id}`,
+        name: `${file.value?.documentFileName}`,
+      })) || [],
+    documentsUploaded: data.documentsUploaded,
+    cannotUpload: data.cannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
+    cannotUploadDocuments: data.cannotUploadSupportingDocument,
+  }),
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),
