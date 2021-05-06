@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-05 15:13:35.
+// Generated using typescript-generator version 2.31.861 on 2021-05-06 09:35:28.
 
 export interface Address {
   AddressLine1: string;
@@ -78,8 +78,8 @@ export interface OrganisationPolicy<R> {
 }
 
 export interface PreviousOrganisation {
-  FromTimeStamp: Date;
-  ToTimeStamp: Date;
+  FromTimeStamp: DateAsString;
+  ToTimeStamp: DateAsString;
   OrganisationName: string;
   OrganisationAddress: string;
 }
@@ -91,7 +91,7 @@ export interface CaseData {
   marriageIsSameSexCouple: YesOrNo;
   inferredPetitionerGender: Gender;
   inferredRespondentGender: Gender;
-  marriageDate: string;
+  marriageDate: DateAsString;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -170,7 +170,6 @@ export interface CaseData {
   divorceClaimFrom: ClaimsCostFrom[];
   documentsUploaded: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: DocumentType[];
-  createdDate: Date;
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   respondentSolicitorReference: string;
@@ -186,14 +185,12 @@ export interface CaseData {
   respondentCorrespondenceAddress: AddressGlobalUK;
   financialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
-  dateSubmitted: Date;
+  dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
 }
 
-export interface CaseState {}
-
 export interface DivorceDocument {
-  documentDateAdded: Date;
+  documentDateAdded: DateAsString;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
@@ -230,15 +227,17 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  paymentDate: Date;
+  paymentDate: DateAsString;
   paymentFeeId: string;
-  paymentAmount: MoneyGBP;
+  paymentAmount: number;
   paymentSiteId: string;
   paymentStatus: PaymentStatus;
   paymentChannel: string;
   paymentReference: string;
   paymentTransactionId: string;
 }
+
+export type DateAsString = string;
 
 export const enum FieldType {
   Unspecified = 'Unspecified',
@@ -498,7 +497,7 @@ export const PAYMENT_MADE = 'payment-made';
 export const PETITIONER_STATEMENT_OF_TRUTH = 'petitioner-statement-of-truth';
 export const CREATE_DRAFT = 'create-draft';
 export const PATCH_CASE = 'patch-case';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE7';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE8';
 export const JURISDICTION = 'DIVORCE';
 export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
 export const PETITIONER_LAST_NAME = 'petitionerLastName';
@@ -542,7 +541,8 @@ export const CIVIL_PARTNERSHIP = 'civil partnership';
 export const TO_END_THE_CIVIL_PARTNERSHIP = 'to end the civil partnership';
 export const DISSOLUTION_OF_THE_CIVIL_PARTNERSHIP_WITH = 'for the dissolution of the civil partnership with';
 export const COSTS_RELATED_TO_ENDING_THE_CIVIL_PARTNERSHIP = 'costs related to ending the civil partnership';
-export const CHILDREN_OF_THE_APPLICANT_AND_THE_RESPONDENT = '';
+export const CHILDREN_OF_THE_APPLICANT_AND_THE_RESPONDENT =
+  ', and for the children of the applicant and the respondent';
 export const DOCUMENT_FILENAME_FMT = '%s%s';
 export const DOCUMENT_NAME = 'draft-mini-petition-';
 export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
