@@ -40,7 +40,7 @@ const cy = ({ isDivorce, relationship, partner, selectedGender }) => {
   return {
     title: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
     line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
-      isDivorce ? 'were married' : 'formed your civil partnership'
+      isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd ${personOfMaidenName} enw cyn priodi.`,
     warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
     fullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
