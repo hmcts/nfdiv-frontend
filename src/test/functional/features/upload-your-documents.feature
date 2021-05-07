@@ -24,4 +24,4 @@ Feature: Upload your documents
     And I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"
-    And the page should include "You have not uploaded anything. Upload your documents or select ‘I cannot upload my document’"
+    And the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
