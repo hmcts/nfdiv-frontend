@@ -17,6 +17,8 @@ services:
   postcodeLookup:
     url: 'https://api.ordnancesurvey.co.uk/places/v1'
     token: 'NEED TO INSERT SECRET'
+  documentManagement:
+    url: http://dm-store-aat.service.core-compute-aat.internal
 health:
   timeout: 5000
   deadline: 15000

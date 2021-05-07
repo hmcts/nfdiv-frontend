@@ -3,8 +3,10 @@
 @import './banner';
 @import './header';
 @import './contact-us';
+@import './upload-documents';
 
-.hmcts-button-link {
+.hmcts-button-link,
+.uppy-FileInput-btn {
   @extend %govuk-body-m;
   @extend %govuk-link;
   @include govuk-link-style-default;

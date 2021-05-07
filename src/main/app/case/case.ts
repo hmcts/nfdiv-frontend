@@ -3,11 +3,14 @@ import { AnyObject } from '../controller/PostController';
 import {
   CaseData,
   ChangedNameHow,
+  DivorceDocument,
   DivorceOrDissolution,
+  DocumentType,
   FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   LegalProceedingsRelated,
+  ListValue,
   YesOrNo,
 } from './definition';
 
@@ -54,6 +57,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   legalProceedingsRelated: 'legalProceedingsRelated',
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
+  documentsUploaded: 'documentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -136,6 +140,10 @@ export interface Case {
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
+  uploadedFiles?: UploadedFile[];
+  documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  cannotUpload?: Checkbox;
+  cannotUploadDocuments?: DocumentType | DocumentType[];
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
 }
@@ -158,4 +166,9 @@ export interface CaseDate {
 export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
+}
+
+export interface UploadedFile {
+  id: string;
+  name: string;
 }

@@ -21,9 +21,9 @@ export class Nunjucks {
     });
 
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
-      const { form, sessionErrors, errors } = this.ctx;
+      const { form, sessionErrors, errors, formState } = this.ctx;
 
-      const hasMoreThanTwoFields = new Form(form).getFieldNames().size >= 2;
+      const hasMoreThanTwoFields = new Form(form, formState).getFieldNames().size >= 2;
       if (!sessionErrors?.length || !hasMoreThanTwoFields) {
         return false;
       }
