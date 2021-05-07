@@ -5,7 +5,7 @@ Background:
   When I go to '/other-court-cases-details'
   Then the page should include "Details of the other legal proceedings"
 
-@nightly
+  @nightly
   Scenario: Failed to fill in the form
     Given I clear the form
     When I click "Continue"
