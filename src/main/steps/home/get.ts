@@ -11,11 +11,9 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const isFirstQuestionComplete = () => {
-      const firstQuestionForm = new Form(firstQuestionFormContent);
-      return firstQuestionForm.getErrors(req.session.userCase).length === 0;
-    };
+    const firstQuestionForm = new Form(firstQuestionFormContent);
+    const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
-    res.redirect(isFirstQuestionComplete() ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+    res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
   }
 }
