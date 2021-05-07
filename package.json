@@ -77,7 +77,7 @@
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.17.1",
     "form-data": "^4.0.0",
-    "glob": "^7.1.6",
+    "glob": "^7.1.7",
     "govuk-frontend": "^3.11.0",
     "helmet": "^4.6.0",
     "http-status-codes": "^2.1.4",
