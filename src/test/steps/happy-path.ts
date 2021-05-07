@@ -53,6 +53,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/enter-your-name');
+  iClearTheForm();
   iClick('first name');
   I.type('Test your name');
   iClick('last name');
@@ -60,6 +61,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/enter-their-name');
+  iClearTheForm();
   iClick('first name');
   I.type('Test their name');
   iClick('last name');
@@ -130,4 +132,11 @@ Given("I've completed all happy path questions correctly to get to check your an
   I.waitInUrl('/do-you-want-to-apply-financial-order');
   iClick('No');
   iClick('Continue');
+
+  I.waitInUrl('/upload-your-documents');
+  iClearTheForm();
+  iClick('I cannot upload my original marriage certificate');
+  iClick('Continue');
+
+  I.waitInUrl('/check-your-answers');
 });

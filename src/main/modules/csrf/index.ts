@@ -1,5 +1,5 @@
 import csurf from 'csurf';
-import { Application } from 'express';
+import type { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';

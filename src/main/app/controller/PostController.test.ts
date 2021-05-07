@@ -25,7 +25,9 @@ describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
     const body = { gender: Gender.FEMALE };
+    const setFormStateMock = jest.fn();
     const mockForm = ({
+      setFormState: setFormStateMock,
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -43,6 +45,7 @@ describe('PostController', () => {
     });
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
+    expect(setFormStateMock).toBeCalledWith(req.session.userCase);
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith(req.path);
     expect(req.session.errors).toBe(errors);
@@ -53,6 +56,7 @@ describe('PostController', () => {
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE, sameSex: undefined };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -84,6 +88,7 @@ describe('PostController', () => {
     const errors = [] as never[];
     const body = { iConfirmPrayer: Checkbox.Checked, iBelieveApplicationIsTrue: Checkbox.Checked };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -100,6 +105,7 @@ describe('PostController', () => {
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -137,6 +143,7 @@ describe('PostController', () => {
     const errors = [] as never[];
     const body = { inTheUk: YesOrNo.YES };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -169,6 +176,7 @@ describe('PostController', () => {
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -220,6 +228,7 @@ describe('PostController', () => {
       date: { day: '1', month: '1', year: '2000' },
     };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => parsedBody,
     } as unknown) as Form;
@@ -252,6 +261,7 @@ describe('PostController', () => {
   test('Should save the users data and end response for session timeout', async () => {
     const body = { gender: Gender.FEMALE, saveBeforeSessionTimeout: true };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => [],
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -274,6 +284,7 @@ describe('PostController', () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;
@@ -296,6 +307,7 @@ describe('PostController', () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;

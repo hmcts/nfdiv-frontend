@@ -7,6 +7,7 @@ describe('Routes', () => {
     const appMock = ({
       get: jest.fn(),
       post: jest.fn(),
+      delete: jest.fn(),
       use: jest.fn(),
       locals: {
         errorHandler: jest.fn(),
@@ -20,6 +21,7 @@ describe('Routes', () => {
     expect(appMock.get).toHaveBeenCalledWith('/', undefined);
     expect(appMock.get).toHaveBeenCalledWith('/terms-and-conditions', undefined);
     expect(appMock.get).toHaveBeenCalledWith('/your-details', undefined);
+    expect(appMock.delete).toHaveBeenCalledWith('/document-manager/:id', undefined);
 
     expect(appMock.use).toHaveBeenCalled();
   });

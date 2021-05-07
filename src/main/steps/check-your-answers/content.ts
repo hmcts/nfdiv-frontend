@@ -24,16 +24,25 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [Sections.Documents]: 'Your documents',
   },
   stepQuestions: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: 'How you’re connected to England and Wales',
+    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
   },
   stepAnswers: {
-    [urls.RELATIONSHIP_DATE_URL]: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
-    [urls.HELP_PAYING_HAVE_YOU_APPLIED]:
-      formState?.helpPayingNeeded === YesOrNo.YES && formState?.alreadyAppliedForHelpPaying === YesOrNo.YES
-        ? `Yes
+    [urls.RELATIONSHIP_DATE_URL]: {
+      relationshipDate: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
+    },
+    [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
+      alreadyAppliedForHelpPaying:
+        formState?.helpPayingNeeded === YesOrNo.YES && formState?.alreadyAppliedForHelpPaying === YesOrNo.YES
+          ? `Yes
           ${formState?.helpWithFeesRefNo}`
+          : false,
+    },
+    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
+    [urls.UPLOAD_YOUR_DOCUMENTS]: {
+      uploadedFiles: (formState?.documentsUploaded || []).length
+        ? `${formState?.documentsUploaded?.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')}`
         : false,
-    [urls.JURISDICTION_INTERSTITIAL_URL]: stepContent => stepContent.line1,
+    },
   },
   stepLinks: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
