@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-06 09:35:28.
+// Generated using typescript-generator version 2.31.861 on 2021-05-07 14:59:43.
 
 export interface Address {
   AddressLine1: string;
@@ -32,8 +32,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -120,7 +120,6 @@ export interface CaseData {
   petitionerNameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
   applicantHomeAddress: AddressGlobalUK;
-  petitionerHomeAddressIsInternational: YesOrNo;
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
@@ -163,7 +162,6 @@ export interface CaseData {
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
   respondentHomeAddress: AddressGlobalUK;
-  respondentHomeAddressIsInternational: YesOrNo;
   legalProceedings: YesOrNo;
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
@@ -293,53 +291,6 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
-export const enum DocumentType {
-  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
-  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
-  GENERAL_ORDER = 'generalOrder',
-  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
-  WELSH_TRANSLATION = 'welshTranslation',
-  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
-  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
-  DECREE_NISI_REFUSAL = 'decreeNisiRefusal',
-  AOS_OFFLINE_ADULTERY_FORM_CO_RESPONDENT = 'aosOfflineAdulteryFormCoRespondent',
-  AOS_OFFLINE_ADULTERY_FORM_RESPONDENT = 'aosOfflineAdulteryFormRespondent',
-  AOS_OFFLINE_UNREASONABLE_BEHAVIOUR_FORM = 'aosOfflineUnreasonableBehaviourForm',
-  AOS_OFFLINE_FIVE_YEAR_SEPARATION_FORM = 'aosOfflineFiveYearSeparationForm',
-  AOS_OFFLINE_TWO_YEAR_SEPARATION_FORM = 'aosOfflineTwoYearSeparationForm',
-  AOS_OFFLINE_INVITATION_LETTER_CO_RESPONDENT = 'aosOfflineInvitationLetterCoRespondent',
-  AOS_OFFLINE_INVITATION_LETTER_RESPONDENT = 'aosOfflineInvitationLetterRespondent',
-  PERSONAL_SERVICE = 'personalService',
-  OTHER = 'other',
-  DECREE_NISI_ANSWERS = 'decreeNisiAnswers',
-  RESPONDENT_ANSWERS = 'respondentAnswers',
-  PETITION = 'petition',
-  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
-  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
-  MARRIAGE_CERTIFICATE = 'marriageCertificate',
-  EMAIL = 'email',
-  D9H = 'D9H',
-  D9D = 'D9D',
-  D84A = 'D84A',
-  D79 = 'D79',
-  D30 = 'D30',
-  DISPENSE_WITH_SERVICE = 'dispenseWithService',
-  DEEMED_SERVICE = 'deemedService',
-  DECREE_NISI_GRANTED = 'decreeNisiGranted',
-  DECREE_NISI_APPLICATION = 'decreeNisiApplication',
-  DECREE_ABSOLUTE_GRANTED = 'decreeAbsoluteGranted',
-  DECREE_ABSOLUTE_APPLICATION = 'decreeAbsoluteApplication',
-  COSTS_ORDER = 'costsOrder',
-  COSTS = 'costs',
-  CORRESPONDENCE = 'correspondence',
-  CO_RESPONDENT_ANSWERS = 'coRespondentAnswers',
-  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
-  BAILIFF_SERVICE = 'bailiffService',
-  ANNEX_A = 'annexA',
-  ACKNOWLEDGEMENT_OF_SERVICE_CO_RESPONDENT = 'acknowledgementOfServiceCoRespondent',
-  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
-}
-
 export const enum FinancialOrderFor {
   CHILDREN = 'children',
   PETITIONER = 'petitioner',
@@ -459,6 +410,53 @@ export const enum WhoDivorcing {
   WIFE = 'wife',
 }
 
+export const enum DocumentType {
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  GENERAL_ORDER = 'generalOrder',
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  WELSH_TRANSLATION = 'welshTranslation',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DECREE_NISI_REFUSAL = 'decreeNisiRefusal',
+  AOS_OFFLINE_ADULTERY_FORM_CO_RESPONDENT = 'aosOfflineAdulteryFormCoRespondent',
+  AOS_OFFLINE_ADULTERY_FORM_RESPONDENT = 'aosOfflineAdulteryFormRespondent',
+  AOS_OFFLINE_UNREASONABLE_BEHAVIOUR_FORM = 'aosOfflineUnreasonableBehaviourForm',
+  AOS_OFFLINE_FIVE_YEAR_SEPARATION_FORM = 'aosOfflineFiveYearSeparationForm',
+  AOS_OFFLINE_TWO_YEAR_SEPARATION_FORM = 'aosOfflineTwoYearSeparationForm',
+  AOS_OFFLINE_INVITATION_LETTER_CO_RESPONDENT = 'aosOfflineInvitationLetterCoRespondent',
+  AOS_OFFLINE_INVITATION_LETTER_RESPONDENT = 'aosOfflineInvitationLetterRespondent',
+  PERSONAL_SERVICE = 'personalService',
+  OTHER = 'other',
+  DECREE_NISI_ANSWERS = 'decreeNisiAnswers',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  PETITION = 'petition',
+  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
+  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  EMAIL = 'email',
+  D9H = 'D9H',
+  D9D = 'D9D',
+  D84A = 'D84A',
+  D79 = 'D79',
+  D30 = 'D30',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  DECREE_NISI_GRANTED = 'decreeNisiGranted',
+  DECREE_NISI_APPLICATION = 'decreeNisiApplication',
+  DECREE_ABSOLUTE_GRANTED = 'decreeAbsoluteGranted',
+  DECREE_ABSOLUTE_APPLICATION = 'decreeAbsoluteApplication',
+  COSTS_ORDER = 'costsOrder',
+  COSTS = 'costs',
+  CORRESPONDENCE = 'correspondence',
+  CO_RESPONDENT_ANSWERS = 'coRespondentAnswers',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  BAILIFF_SERVICE = 'bailiffService',
+  ANNEX_A = 'annexA',
+  ACKNOWLEDGEMENT_OF_SERVICE_CO_RESPONDENT = 'acknowledgementOfServiceCoRespondent',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
+}
+
 export const enum PaymentStatus {
   IN_PROGRESS = 'inProgress',
   SUCCESS = 'success',
@@ -509,6 +507,10 @@ export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
 export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
 export const FINANCIAL_ORDER = 'financialOrder';
 export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
+export const USER_ROLES = 'user-roles';
+export const USER_ID = 'user-id';
+export const DOCUMENT_DELETE_URI = 'document_delete_uri';
+export const PERMANENT = 'permanent';
 export const MARRIAGE_OR_RELATIONSHIP = 'marriageOrRelationship';
 export const MARRIAGE_OR_CIVIL_PARTNERSHIP = 'marriageOrCivilPartnership';
 export const DIVORCE_OR_END_CIVIL_PARTNERSHIP = 'divorceOrEndCivilPartnership';

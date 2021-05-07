@@ -92,51 +92,28 @@ describe('to-api-format', () => {
     }
   );
 
-  describe('converting your address between UK and international', () => {
-    test('converts to UK format', () => {
-      const apiFormat = toApiFormat(({
-        ...results,
-        isYourAddressInternational: YesOrNo.NO,
-        yourAddress1: 'Line 1',
-        yourAddress2: 'Line 2',
-        yourAddressTown: 'Town',
-        yourAddressCounty: 'County',
-        yourAddressPostcode: 'Postcode',
-      } as unknown) as Partial<Case>);
+  test('converts your address to match API format', () => {
+    const apiFormat = toApiFormat(({
+      ...results,
+      yourAddress1: 'Line 1',
+      yourAddress2: 'Line 2',
+      yourAddress3: '',
+      yourAddressTown: 'Town',
+      yourAddressCounty: 'County',
+      yourAddressPostcode: 'Postcode',
+      yourAddressCountry: 'UK',
+    } as unknown) as Partial<Case>);
 
-      expect(apiFormat).toMatchObject({
-        applicantHomeAddress: {
-          AddressLine1: 'Line 1',
-          AddressLine2: 'Line 2',
-          AddressLine3: '',
-          PostTown: 'Town',
-          County: 'County',
-          PostCode: 'Postcode',
-          Country: '',
-        },
-      });
-    });
-
-    test('converts to an international format', () => {
-      const mockInternationalAddress =
-        'Room 1234\nParliament House\nParliament Dr\nCanberra\nAustralian Capital Territory\n2600\nAustralia';
-      const apiFormat = toApiFormat(({
-        ...results,
-        isYourAddressInternational: YesOrNo.YES,
-        yourInternationalAddress: mockInternationalAddress,
-      } as unknown) as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicantHomeAddress: {
-          AddressLine1: 'Room 1234',
-          AddressLine2: 'Parliament House',
-          AddressLine3: 'Parliament Dr',
-          PostTown: 'Canberra',
-          County: 'Australian Capital Territory',
-          PostCode: '2600',
-          Country: 'Australia',
-        },
-      });
+    expect(apiFormat).toMatchObject({
+      applicantHomeAddress: {
+        AddressLine1: 'Line 1',
+        AddressLine2: 'Line 2',
+        AddressLine3: '',
+        PostTown: 'Town',
+        County: 'County',
+        PostCode: 'Postcode',
+        Country: 'UK',
+      },
     });
   });
 });
