@@ -13,7 +13,7 @@ export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): 
 
   const getPossibleFields = (step: StepWithForm, fields: string[] = []) => {
     if (step.form) {
-      const formFieldNames = new Form(step.form).getFieldNames().values();
+      const formFieldNames = new Form(step.form, caseState).getFieldNames().values();
       fields.push(...formFieldNames);
     }
 
@@ -36,7 +36,7 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
   const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
   return Object.fromEntries(
     Object.keys(userCase)
-      .filter(key => !CaseApi.READONLY_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
+      .filter(key => !CaseApi.SPECIAL_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
       .map(key => [key, null])
   );
 };
