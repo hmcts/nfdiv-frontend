@@ -11,7 +11,7 @@ export class HomeGetController {
     }
 
     const isCasePartiallyComplete = Object.entries(req.session.userCase).some(
-      ([key, value]) => !CaseApi.READONLY_FIELDS.includes(key) && value
+      ([key, value]) => !CaseApi.SPECIAL_FIELDS.includes(key) && value
     );
 
     res.redirect(isCasePartiallyComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
