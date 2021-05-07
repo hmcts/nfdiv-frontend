@@ -315,6 +315,11 @@ export const sequence: Step[] = [
     getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
   },
   {
+    url: OTHER_COURT_CASES_DETAILS,
+    showInSection: Sections.OtherCourtCases,
+    getNextStep: () => MONEY_PROPERTY,
+  },
+  {
     url: MONEY_PROPERTY,
     getNextStep: () => APPLY_FINANCIAL_ORDER,
   },
