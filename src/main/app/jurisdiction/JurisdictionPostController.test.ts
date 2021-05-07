@@ -24,6 +24,7 @@ describe('JurisdictionPostController', () => {
       connections: ['A'],
     };
     const mockForm = ({
+      setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown) as Form;

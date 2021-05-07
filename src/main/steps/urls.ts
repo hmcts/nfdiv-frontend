@@ -64,8 +64,8 @@ export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
-export const APPLY_CLAIM_COSTS: PageLink = '/apply-claim-costs';
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
+export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';

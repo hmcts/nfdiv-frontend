@@ -105,12 +105,21 @@ describe('to-api-format', () => {
       } as unknown) as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        derivedPetitionerHomeAddress: 'Line 1\nLine 2\nTown\nCounty\nPostcode',
+        applicantHomeAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          AddressLine3: '',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+          Country: '',
+        },
       });
     });
 
     test('converts to an international format', () => {
-      const mockInternationalAddress = 'Parliament House, Parliament Dr, Canberra ACT 2600, Australia';
+      const mockInternationalAddress =
+        'Room 1234\nParliament House\nParliament Dr\nCanberra\nAustralian Capital Territory\n2600\nAustralia';
       const apiFormat = toApiFormat(({
         ...results,
         isYourAddressInternational: YesOrNo.YES,
@@ -118,7 +127,15 @@ describe('to-api-format', () => {
       } as unknown) as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        derivedPetitionerHomeAddress: mockInternationalAddress,
+        applicantHomeAddress: {
+          AddressLine1: 'Room 1234',
+          AddressLine2: 'Parliament House',
+          AddressLine3: 'Parliament Dr',
+          PostTown: 'Canberra',
+          County: 'Australian Capital Territory',
+          PostCode: '2600',
+          Country: 'Australia',
+        },
       });
     });
   });

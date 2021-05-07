@@ -10,9 +10,8 @@ node_modules/
 *log
 .DS_Store
 
-src/main/public/img/lib/*
-src/main/public/js/lib/**/*.js
-src/main/public/stylesheets/lib/*
+src/main/public/*
+!src/main/public/img
 
 node-rpm-packaging/
 mochawesome-report/
@@ -21,7 +20,6 @@ npm-debug.log.*
 .project
 .settings/
 dist/
-public/
 coverage/
 .env
 functional-output/

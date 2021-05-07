@@ -6,7 +6,6 @@ import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connect
 import {
   ADDRESS_PRIVATE,
   APPLICATION_SUBMITTED,
-  APPLY_CLAIM_COSTS,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
   CERTIFICATE_IN_ENGLISH,
@@ -66,7 +65,6 @@ export enum Sections {
   ContactThem = 'contactThem',
   OtherCourtCases = 'otherCourtCases',
   DividingAssets = 'dividingAssets',
-  Costs = 'costs',
   Documents = 'documents',
 }
 
@@ -324,16 +322,16 @@ export const sequence: Step[] = [
     url: APPLY_FINANCIAL_ORDER,
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
-      data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : APPLY_CLAIM_COSTS,
+      data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
-    getNextStep: () => APPLY_CLAIM_COSTS,
+    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
-    url: APPLY_CLAIM_COSTS,
-    showInSection: Sections.Costs,
-    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
+    url: UPLOAD_YOUR_DOCUMENTS,
+    showInSection: Sections.Documents,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,

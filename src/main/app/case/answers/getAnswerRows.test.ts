@@ -34,7 +34,7 @@ describe('getAnswerRows()', () => {
     mockStepsWithContent.mockReturnValue([
       {
         url: 'dont-pickThisOne',
-        showInSection: Sections.Costs,
+        showInSection: Sections.AboutPartners,
         getNextStep: () => '/pickThisOne',
         form: { fields: {}, submit: { text: '' } },
         generateContent: () => ({}),
@@ -76,7 +76,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContent.mockReturnValue([
         {
           url: 'dont-pickThisOne',
-          showInSection: Sections.Costs,
+          showInSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -185,8 +185,8 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepQuestions: { pickThisOne: 'Custom question text' },
-          stepAnswers: { pickThisOne: () => 'Custom answer text. Original answer: example response' },
+          stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
+          stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
           stepLinks: { pickThisOne: '/custom-link' },
         },
       })(Sections.AboutPartnership);
@@ -218,7 +218,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: false },
+          stepAnswers: { pickThisOne: { mockField: false } },
         },
       })(Sections.AboutPartnership);
 
@@ -230,7 +230,7 @@ describe('getAnswerRows()', () => {
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          stepAnswers: { pickThisOne: '' },
+          stepAnswers: { pickThisOne: { mockField: '' } },
         },
       })(Sections.AboutPartnership);
 
