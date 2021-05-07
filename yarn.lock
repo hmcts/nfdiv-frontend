@@ -1869,10 +1869,10 @@
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/drop-target@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.0.tgz#ae39911735a0b19864a5002ded7e3e68b6c222b7"
-  integrity sha512-UoTv2W4u99cdS79QP2/di2WY3e31+1/xvjIk8PnNET3GW7nm12ADIwBrTMrOmBrcju6YSaSdAQzIW4tmSjIiEQ==
+"@uppy/drop-target@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.1.tgz#5d837c3020e66457c43c34630defe8b33a82ad72"
+  integrity sha512-ooTFoIoacCYIKRpXeiFge7/23EWiwhfCJBRFGhMcB5JbLfJwdMC6aeUtVm6VhmYjBPyv7hR6d81uurqH14shEQ==
   dependencies:
     "@uppy/utils" "^3.5.0"
 
