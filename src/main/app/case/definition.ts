@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-07 14:59:43.
+// Generated using typescript-generator version 2.31.861 on 2021-05-10 09:26:53.
 
 export interface Address {
   AddressLine1: string;
@@ -32,8 +32,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
   list_items: DynamicListElement[];
 }
 
@@ -291,6 +291,35 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
+export const enum DocumentType {
+  DIVORCE_APPLICATION = 'divorceApplication',
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
+  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  SERVICE_SOLICITOR = 'serviceSolicitor',
+  SERVICE_DISPENSED_WITH = 'serviceDispensedWith',
+  SERVICE_DISPENSED_WITH_GRANTED = 'serviceDispensedWithGranted',
+  SERVICE_DEEMED = 'serviceDeemed',
+  SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
+  SERVICE_BALIFF = 'serviceBaliff',
+  AOS_OFFLINE_INVITATION_LETTER_TO_RESPONDENT = 'aosOfflineInvitationLetterToRespondent',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CONDITIONAL_ORDER_REFUSAL_CLARIFICATION_RESPONSE = 'conditionalOrderRefusalClarificationResponse',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_CERTIFICATE_OF_ENTITLEMENT = 'conditionalOrderCertificateOfEntitlement',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  CORRESPONDENCE = 'correspondence',
+  GENERAL_APPLICATION = 'generalApplication',
+  EMAIL = 'email',
+  OTHER = 'other',
+}
+
 export const enum FinancialOrderFor {
   CHILDREN = 'children',
   PETITIONER = 'petitioner',
@@ -408,53 +437,6 @@ export const enum UserRole {
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
-}
-
-export const enum DocumentType {
-  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
-  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
-  GENERAL_ORDER = 'generalOrder',
-  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
-  WELSH_TRANSLATION = 'welshTranslation',
-  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
-  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
-  DECREE_NISI_REFUSAL = 'decreeNisiRefusal',
-  AOS_OFFLINE_ADULTERY_FORM_CO_RESPONDENT = 'aosOfflineAdulteryFormCoRespondent',
-  AOS_OFFLINE_ADULTERY_FORM_RESPONDENT = 'aosOfflineAdulteryFormRespondent',
-  AOS_OFFLINE_UNREASONABLE_BEHAVIOUR_FORM = 'aosOfflineUnreasonableBehaviourForm',
-  AOS_OFFLINE_FIVE_YEAR_SEPARATION_FORM = 'aosOfflineFiveYearSeparationForm',
-  AOS_OFFLINE_TWO_YEAR_SEPARATION_FORM = 'aosOfflineTwoYearSeparationForm',
-  AOS_OFFLINE_INVITATION_LETTER_CO_RESPONDENT = 'aosOfflineInvitationLetterCoRespondent',
-  AOS_OFFLINE_INVITATION_LETTER_RESPONDENT = 'aosOfflineInvitationLetterRespondent',
-  PERSONAL_SERVICE = 'personalService',
-  OTHER = 'other',
-  DECREE_NISI_ANSWERS = 'decreeNisiAnswers',
-  RESPONDENT_ANSWERS = 'respondentAnswers',
-  PETITION = 'petition',
-  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
-  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
-  MARRIAGE_CERTIFICATE = 'marriageCertificate',
-  EMAIL = 'email',
-  D9H = 'D9H',
-  D9D = 'D9D',
-  D84A = 'D84A',
-  D79 = 'D79',
-  D30 = 'D30',
-  DISPENSE_WITH_SERVICE = 'dispenseWithService',
-  DEEMED_SERVICE = 'deemedService',
-  DECREE_NISI_GRANTED = 'decreeNisiGranted',
-  DECREE_NISI_APPLICATION = 'decreeNisiApplication',
-  DECREE_ABSOLUTE_GRANTED = 'decreeAbsoluteGranted',
-  DECREE_ABSOLUTE_APPLICATION = 'decreeAbsoluteApplication',
-  COSTS_ORDER = 'costsOrder',
-  COSTS = 'costs',
-  CORRESPONDENCE = 'correspondence',
-  CO_RESPONDENT_ANSWERS = 'coRespondentAnswers',
-  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
-  BAILIFF_SERVICE = 'bailiffService',
-  ANNEX_A = 'annexA',
-  ACKNOWLEDGEMENT_OF_SERVICE_CO_RESPONDENT = 'acknowledgementOfServiceCoRespondent',
-  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
 }
 
 export const enum PaymentStatus {
