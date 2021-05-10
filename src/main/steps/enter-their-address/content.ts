@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 import type { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ partner }: Partial<CommonContent>) => ({
   title: `Enter your ${partner}’s postal address`,
   enterPostcode: 'Enter a UK postcode',
   street: 'Building and street',
@@ -37,8 +37,17 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy = ({ partner }: CommonContent) => ({
+  // @TODO other address page translations
+  ...en({ partner }),
+  title: `Rhowch gyfeiriad post eich ${partner}`,
+  enterPostcode: 'Nodwch god post yn y DU',
+  internationalAddress: 'Cyfeiriad llawn',
+  findAddress: 'Dod o hyd i gyfeiriad',
+  notUK: 'Ni allaf nodi cod post yn y DU',
+  enterUkPostcode: 'Nodwch god post yn y DU',
+  cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
+});
 
 export const form: FormContent = {
   fields: {

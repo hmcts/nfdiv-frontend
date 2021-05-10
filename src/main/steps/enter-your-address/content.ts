@@ -37,8 +37,17 @@ const en = {
   },
 };
 
-// @TODO translations
-const cy = en;
+const cy = {
+  // @TODO other address page translations
+  ...en,
+  title: 'Rhowch gyfeiriad post eich',
+  enterPostcode: 'Nodwch god post yn y DU',
+  internationalAddress: 'Cyfeiriad llawn',
+  findAddress: 'Dod o hyd i gyfeiriad',
+  notUK: 'Ni allaf nodi cod post yn y DU',
+  enterUkPostcode: 'Nodwch god post yn y DU',
+  cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
+};
 
 export const form: FormContent = {
   fields: {
