@@ -22,7 +22,7 @@ describe('DocumentManagerController', () => {
       },
     });
     const res = mockResponse();
-    req.files = ([{ originalname: 'uploaded-file.jpg' }] as unknown) as Express.Multer.File[];
+    req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
     (mockCreate as jest.Mock).mockReturnValue([
       {

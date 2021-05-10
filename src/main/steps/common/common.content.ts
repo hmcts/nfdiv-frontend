@@ -20,8 +20,7 @@ const en = {
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
-  ogl:
-    'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
+  ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   cookieText:
     'GOV.UK uses cookies to make the site simpler. <a class="govuk-link" href="#" title="Find out more about cookies">Find out more about cookies</a>',
   errorSummaryHeading: 'There was a problem',
@@ -89,8 +88,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   download: 'Llwytho i lawr',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
-  ogl:
-    'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
+  ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   cookieText:
     'Mae GOV.UK yn defnyddio cwcis i wneud y safle’n symlach. <a class="govuk-link" href="#" title="Find out more about cookies" >Rhagor o wybodaeth am gwcis</a>',
   errorSummaryHeading: 'Roedd yna broblem',

@@ -94,7 +94,7 @@ describe('to-api-format', () => {
 
   describe('converting your address between UK and international', () => {
     test('converts to UK format', () => {
-      const apiFormat = toApiFormat(({
+      const apiFormat = toApiFormat({
         ...results,
         isYourAddressInternational: YesOrNo.NO,
         yourAddress1: 'Line 1',
@@ -102,7 +102,7 @@ describe('to-api-format', () => {
         yourAddressTown: 'Town',
         yourAddressCounty: 'County',
         yourAddressPostcode: 'Postcode',
-      } as unknown) as Partial<Case>);
+      } as unknown as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
         applicantHomeAddress: {
@@ -120,11 +120,11 @@ describe('to-api-format', () => {
     test('converts to an international format', () => {
       const mockInternationalAddress =
         'Room 1234\nParliament House\nParliament Dr\nCanberra\nAustralian Capital Territory\n2600\nAustralia';
-      const apiFormat = toApiFormat(({
+      const apiFormat = toApiFormat({
         ...results,
         isYourAddressInternational: YesOrNo.YES,
         yourInternationalAddress: mockInternationalAddress,
-      } as unknown) as Partial<Case>);
+      } as unknown as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
         applicantHomeAddress: {

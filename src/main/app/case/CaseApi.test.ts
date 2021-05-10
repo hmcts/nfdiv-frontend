@@ -19,17 +19,17 @@ const userDetails: UserDetails = {
 describe('CaseApi', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-  let mockLogger = ({
+  let mockLogger = {
     error: jest.fn().mockImplementation((message: string) => message),
     info: jest.fn().mockImplementation((message: string) => message),
-  } as unknown) as LoggerInstance;
+  } as unknown as LoggerInstance;
 
   let api = new CaseApi(mockedAxios, userDetails, mockLogger);
   beforeEach(() => {
-    mockLogger = ({
+    mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
       info: jest.fn().mockImplementation((message: string) => message),
-    } as unknown) as LoggerInstance;
+    } as unknown as LoggerInstance;
 
     api = new CaseApi(mockedAxios, userDetails, mockLogger);
   });
