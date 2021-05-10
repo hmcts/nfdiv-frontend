@@ -16,7 +16,7 @@ const en = {
   point8: 'the details of any orders that have been made',
   legalProceedingsDetails: 'Provide details about the other legal proceedings.',
   errors: {
-    legalProceedingsDetails: {
+    LegalProceedingsDetails: {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
     },
   },
