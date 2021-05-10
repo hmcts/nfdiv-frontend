@@ -17,8 +17,20 @@ const en = ({ partner }: CommonContent) => ({
     'Applying to the court to make a financial order is done separately, using another form. It costs an additional £255.',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ partner }: CommonContent) => ({
+  title: "Rhannu eich arian a'ch eiddo",
+  line1: `Gan amlaf, mae'n symlach ac yn llai costus os ydych yn cytuno â'ch ${partner} ynghylch sut i rannu eich cynilion, eiddo, pensiynau ac asedau eraill. Mae yna wasanaethau cyfryngu ar gael i'ch helpu i ddod i gytundeb. Byddwch yn cael dolenni i ragor o wybodaeth ar ôl i chi gyflwyno'r cais hwn.`,
+  agreeOnDividingAssets: 'Os ydych yn cytuno ynghylch rhannu arian ac eiddo',
+  agreeOnDividingAssetsDetails:
+    "Gallwch ofyn i'r llys wneud eich cytundeb yn gyfreithiol rwymol. Gelwir hyn yn gwneud cais am 'orchymyn cydsynio' (sef math o orchymyn ariannol). Mae ffi ychwanegol o £50. Gallwch gael cyngor cyfreithiol neu ofyn i gyfreithiwr ddrafftio gorchymyn cydsynio ar eich rhan. Byddwch yn cael dolenni i arweiniad pellach ar ôl i chi gyflwyno'r cais hwn.",
+  disagreeOnDividingAssets: 'Os ydych yn anghytuno ynghylch rhannu arian ac eiddo',
+  disagreeOnDividingAssetsDetails:
+    "Gallwch ofyn i'r llys benderfynu ar eich rhan. Gelwir hyn yn gofyn i'r llys wneud 'gorchymyn ariannol'. Mae hyn yn golygu y bydd y llys yn penderfynu sut y caiff asedau eu rhannu. Gallwch hefyd wneud cais am orchymyn ariannol i'ch plant, os yw'n briodol. Gall y llys hefyd orchymyn i daliadau cynhaliaeth gael eu gwneud.",
+  readMore: 'Darllenwch fwy am gynhaliaeth plant',
+  readMoreContent: `Dim ond o dan rai amgylchiadau y gall y llys wneud gorchmynion ariannol i blant. Gallwch ddod i gytundeb â'ch ${partner} a'i wneud yn gyfreithiol rwymol gyda gorchymyn cydsynio, neu gallwch ddefnyddio'r Gwasanaeth Cynhaliaeth Plant.`,
+  costs:
+    "Rhaid i chi wneud cais ar wahân i'r llys am orchymyn ariannol, gan ddefnyddio ffurflen arall. Mae'n costio £255 yn ychwanegol.",
+});
 
 export const form: FormContent = {
   fields: {},

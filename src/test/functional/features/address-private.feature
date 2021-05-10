@@ -14,5 +14,6 @@ Feature: Contact details kept private
 
   Scenario: They want to keep their details private
     And I select "Keep my contact details private"
+    Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
     And I click "Continue"
     Then the page URL should be "/enter-your-address"

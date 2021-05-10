@@ -18,15 +18,15 @@ const en = ({ isDivorce }) => ({
 });
 
 const cy: typeof en = ({ isDivorce }) => ({
-  title: `Nid ydych wedi bod ${isDivorce ? 'yn briod' : 'mewn partneriaeth sifil'} ers digon o amser i wneud cais ${
+  title: `Nid ydych wedi bod ${isDivorce ? 'yn briod' : 'mewn partneriaeth sifil'} yn ddigon hir i wneud cais ${
     isDivorce ? 'am ysgariad' : "i'w therfynu"
   }`,
-  line1: `Dim ond ar ôl i chi ${
-    isDivorce ? 'fod yn briod' : 'fod mewn partneriaeth sifil'
-  } am o leiaf blwyddyn, y gallwch wneud cais ${isDivorce ? 'am ysgariad' : "i'w therfynu"} yng Nghymru neu Loegr.`,
+  line1: `Dim ond os ydych wedi bod ${
+    isDivorce ? 'yn briod' : 'mewn partneriaeth sifil'
+  } am o leiaf blwyddyn y gallwch wneud cais ${isDivorce ? 'am ysgariad' : "i'w therfynu"} yng Nghymru neu Loegr.`,
   line2: `Gallwch aros nes ei bod yn flwyddyn ers i chi ${
     isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
-  } ac yna gwneud cais. Neu os na allwch aros, <a href="https://www.gov.uk/legal-separation" class="govuk-link">gallwch wneud cais am ymwahaniad cyfreithiol</a>.`,
+  } ac yna gwneud cais. Neu os na allwch aros, gallwch <a href="https://www.gov.uk/legal-separation" class="govuk-link">wneud cais am ymwahaniad cyfreithiol</a>.`,
   line3: `Os ydych chi'n credu nad oedd eich ${
     isDivorce ? 'priodas' : 'partneriaeth sifil'
   } erioed yn ddilys yn gyfreithiol neu ei bod yn 'ddirymadwy', yna efallai y gallwch <a href="https://www.gov.uk/how-to-annul-marriage" class="govuk-link">ddirymu eich ${
