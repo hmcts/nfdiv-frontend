@@ -1,4 +1,4 @@
-Feature: Other court cases details
+Feature: Details other proceedings
 
 Background:
   Given I login
