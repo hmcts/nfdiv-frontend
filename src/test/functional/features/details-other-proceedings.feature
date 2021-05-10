@@ -2,7 +2,7 @@ Feature: Other court cases details
 
 Background:
   Given I login
-  When I go to '/other-court-cases-details'
+  When I go to '"/details-other-proceedings"'
   Then the page should include "Details of the other legal proceedings"
 
   @nightly
