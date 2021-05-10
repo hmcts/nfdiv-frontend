@@ -31,7 +31,30 @@ const en = ({ partner, isDivorce, partnerEmailProvided, required }) => ({
 });
 
 const cy: typeof en = ({ partner, isDivorce, partnerEmailProvided, required }) => ({
-  ...en({ partner, isDivorce, partnerEmailProvided, required }),
+  title: `A oes gennych gyfeiriad post eich ${partner}?`,
+  line1: `${
+    partnerEmailProvided
+      ? `Mae angen cyfeiriad eich ${partner} ar y llys, i'w hysbysu am yr ${
+          isDivorce ? 'ysgariad' : 'y cais i ddod â phartneriaeth sifil i ben'
+        }.`
+      : `Mae'n bwysig eich bod yn darparu cyfeiriad eich ${partner}. Ni wnaethoch ddarparu ei gyfeiriad/chyfeiriad e-bost ac mae'r llys angen ffordd i 'gyflwyno' (danfon) y papurau ${
+          isDivorce ? 'ysgariad' : "dod â'ch partneriaeth sifil i ben"
+        } iddo/iddi.`
+  }`,
+  line2:
+    "Gall fod yn gyfeiriad cartref iddo/iddi neu'n gyfeiriad ei gyfreithiwr/chyfreithiwr. Gall fod yn y DU neu'n rhyngwladol. Os ydych yn defnyddio ei gyfeiriad/chyfeiriad gwaith, mae angen i chi ofyn am ganiatâd.",
+  line3: `Os nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad presennol yna gallwch ddefnyddio ei gyfeiriad/chyfeiriad hysbys diwethaf. ${
+    !partnerEmailProvided
+      ? "Os nad yw'n ymateb yn y cyfeiriad a roddwch, yna bydd angen i chi wneud cais ar wahân i gyflwyno (danfon) y papurau ato/ati mewn ffordd arall."
+      : ''
+  }`,
+  haveTheirAddress: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
+  doNotHaveTheirAddress: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
+  errors: {
+    knowPartnersAddress: {
+      required,
+    },
+  },
 });
 
 export const form: FormContent = {
