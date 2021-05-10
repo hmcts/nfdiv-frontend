@@ -60,25 +60,27 @@ export class FileUploadEvents {
     uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
   };
 
-  public onDeleteFile = (file: UploadedFile) => async (e: Event): Promise<void> => {
-    e.preventDefault();
-    this.resetErrorMessages();
-    (e.target as HTMLAnchorElement).style.cursor = 'wait';
-    document.body.style.cursor = 'wait';
+  public onDeleteFile =
+    (file: UploadedFile) =>
+    async (e: Event): Promise<void> => {
+      e.preventDefault();
+      this.resetErrorMessages();
+      (e.target as HTMLAnchorElement).style.cursor = 'wait';
+      document.body.style.cursor = 'wait';
 
-    try {
-      const request = await fetch(`${this.endpoint.url}/${file.id}${this.endpoint.csrfQuery}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const res = await request.json();
-      this.uploadedFiles.remove(res.deletedId);
-      updateFileList(this.uploadedFiles, this);
-    } finally {
-      (e.target as HTMLAnchorElement).style.cursor = 'default';
-      document.body.style.cursor = 'default';
-    }
-  };
+      try {
+        const request = await fetch(`${this.endpoint.url}/${file.id}${this.endpoint.csrfQuery}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const res = await request.json();
+        this.uploadedFiles.remove(res.deletedId);
+        updateFileList(this.uploadedFiles, this);
+      } finally {
+        (e.target as HTMLAnchorElement).style.cursor = 'default';
+        document.body.style.cursor = 'default';
+      }
+    };
 
   private resetErrorMessages = () => {
     errorUploadingEl?.classList.add(HIDDEN);

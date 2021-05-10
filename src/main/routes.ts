@@ -84,6 +84,6 @@ export class Routes {
       })
     );
 
-    app.use((errorController.notFound as unknown) as RequestHandler);
+    app.use(errorController.notFound as unknown as RequestHandler);
   }
 }

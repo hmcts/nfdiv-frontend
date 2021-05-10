@@ -17,5 +17,5 @@ export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVO
     return res;
   });
 
-  return (res as unknown) as Response;
+  return res as unknown as Response;
 };

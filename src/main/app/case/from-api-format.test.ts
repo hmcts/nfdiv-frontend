@@ -17,7 +17,7 @@ describe('from-api-format', () => {
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat((results as unknown) as CaseData);
+    const nfdivFormat = fromApiFormat(results as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -33,7 +33,7 @@ describe('from-api-format', () => {
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(({ ...results, marriageDate: '2000-09-02' } as unknown) as CaseData);
+    const nfdivFormat = fromApiFormat({ ...results, marriageDate: '2000-09-02' } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -55,7 +55,7 @@ describe('from-api-format', () => {
 
   describe('converting your address between UK and international', () => {
     test('converts to UK format', () => {
-      const nfdivFormat = fromApiFormat(({
+      const nfdivFormat = fromApiFormat({
         ...results,
         applicantHomeAddress: {
           AddressLine1: 'Line 1',
@@ -64,7 +64,7 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
-      } as unknown) as CaseData);
+      } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
         yourAddress1: 'Line 1',
@@ -76,7 +76,7 @@ describe('from-api-format', () => {
     });
 
     test('converts to an international format', () => {
-      const nfdivFormat = fromApiFormat(({
+      const nfdivFormat = fromApiFormat({
         ...results,
         applicantHomeAddress: {
           AddressLine1: 'Line 1',
@@ -87,7 +87,7 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
-      } as unknown) as CaseData);
+      } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
     });

@@ -16,7 +16,7 @@ describe('ErrorController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.notFound(req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
     expect(res.statusCode).toBe(404);
@@ -27,11 +27,11 @@ describe('ErrorController', () => {
   });
 
   test('Should render error page with supplied status code', async () => {
-    const err = ({ status: 400, message: 'Bad request' } as unknown) as HTTPError;
+    const err = { status: 400, message: 'Bad request' } as unknown as HTTPError;
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(err.status);
@@ -42,11 +42,11 @@ describe('ErrorController', () => {
   });
 
   test('Should render error pages and fall back to a 500 error if status not given', async () => {
-    const err = ({ message: 'Bad request' } as unknown) as HTTPError;
+    const err = { message: 'Bad request' } as unknown as HTTPError;
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(500);
@@ -61,7 +61,7 @@ describe('ErrorController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.internalServerError(err, req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error.mock.calls[0][0]).toContain('HTTPError: Bad request');
     expect(res.statusCode).toBe(400);
@@ -75,7 +75,7 @@ describe('ErrorController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.CSRFTokenError(req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error.mock.calls[0][0]).toContain('CSRF Token Failed');
     expect(res.statusCode).toBe(400);
@@ -91,7 +91,7 @@ describe('ErrorController', () => {
     controller.internalServerError(undefined, req, res);
     controller.internalServerError(undefined, req, res);
     controller.internalServerError(undefined, req, res);
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error).toHaveBeenCalledTimes(3);
     expect(logger.error.mock.calls[0][0]).toBe('Internal Server Error');
@@ -108,7 +108,7 @@ describe('ErrorController', () => {
     const res = mockResponse();
 
     controller.internalServerError(
-      ({
+      {
         isAxiosError: true,
         response: {
           data: {
@@ -117,11 +117,11 @@ describe('ErrorController', () => {
           },
         },
         message: 'Error: Request failed with status code 400',
-      } as unknown) as AxiosError,
+      } as unknown as AxiosError,
       req,
       res
     );
-    const logger = (req.locals.logger as unknown) as MockedLogger;
+    const logger = req.locals.logger as unknown as MockedLogger;
 
     expect(logger.error).toHaveBeenCalledWith('Error: Request failed with status code 400', {
       error_description: 'Authorization code expired.',

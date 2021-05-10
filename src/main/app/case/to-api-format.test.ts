@@ -93,7 +93,7 @@ describe('to-api-format', () => {
   );
 
   test('converts your address to match API format', () => {
-    const apiFormat = toApiFormat(({
+    const apiFormat = toApiFormat({
       ...results,
       yourAddress1: 'Line 1',
       yourAddress2: 'Line 2',
@@ -102,7 +102,7 @@ describe('to-api-format', () => {
       yourAddressCounty: 'County',
       yourAddressPostcode: 'Postcode',
       yourAddressCountry: 'UK',
-    } as unknown) as Partial<Case>);
+    } as unknown as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
       applicantHomeAddress: {

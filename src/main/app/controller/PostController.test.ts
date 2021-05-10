@@ -26,11 +26,11 @@ describe('PostController', () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
     const body = { gender: Gender.FEMALE };
     const setFormStateMock = jest.fn();
-    const mockForm = ({
+    const mockForm = {
       setFormState: setFormStateMock,
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
@@ -55,11 +55,11 @@ describe('PostController', () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE, sameSex: undefined };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const expectedUserCase = {
@@ -87,11 +87,11 @@ describe('PostController', () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
     const body = { iConfirmPrayer: Checkbox.Checked, iBelieveApplicationIsTrue: Checkbox.Checked };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
@@ -104,11 +104,11 @@ describe('PostController', () => {
   it('redirects back to the current page with a session error if there was an problem saving data', async () => {
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
@@ -142,11 +142,11 @@ describe('PostController', () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
     const body = { inTheUk: YesOrNo.YES };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     getUnreachableAnswersAsNullMock.mockReturnValueOnce({
@@ -175,11 +175,11 @@ describe('PostController', () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
     const body = { gender: Gender.FEMALE };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
@@ -201,14 +201,14 @@ describe('PostController', () => {
   test('uses the last (not hidden) input for checkboxes', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { sameSex: [0, Checkbox.Checked] };
-    const mockFormContent = ({
+    const mockFormContent = {
       fields: {
         sameSex: {
           type: 'checkboxes',
           values: [{ name: 'sameSex', value: Checkbox.Checked }],
         },
       },
-    } as unknown) as FormContent;
+    } as unknown as FormContent;
     const controller = new PostController(new Form(mockFormContent));
 
     const req = mockRequest({ body });
@@ -227,11 +227,11 @@ describe('PostController', () => {
     const parsedBody = {
       date: { day: '1', month: '1', year: '2000' },
     };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => parsedBody,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const expectedUserCase = {
@@ -260,11 +260,11 @@ describe('PostController', () => {
 
   test('Should save the users data and end response for session timeout', async () => {
     const body = { gender: Gender.FEMALE, saveBeforeSessionTimeout: true };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => [],
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
@@ -283,11 +283,11 @@ describe('PostController', () => {
   it('saves and signs out even if there are errors', async () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
@@ -306,11 +306,11 @@ describe('PostController', () => {
   it('saves and signs out even if was an error saving data', async () => {
     const errors = [{ field: 'gender', errorName: 'required' }];
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
