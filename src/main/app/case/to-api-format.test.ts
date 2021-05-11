@@ -22,17 +22,17 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       marriageIsSameSexCouple: YesOrNo.YES,
-      inferredRespondentGender: Gender.MALE,
-      inferredPetitionerGender: Gender.MALE,
+      inferredApplicant2Gender: Gender.MALE,
+      inferredApplicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
       helpWithFeesNeedHelp: YesOrNo.YES,
       helpWithFeesAppliedForFees: YesOrNo.YES,
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
-      petitionerAgreedToReceiveEmails: YesOrNo.YES,
-      petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
-      petitionerKnowsRespondentsAddress: YesOrNo.NO,
-      petitionerKnowsRespondentsEmailAddress: YesOrNo.NO,
-      petitionerWantsToHavePapersServedAnotherWay: null,
+      applicant1AgreedToReceiveEmails: YesOrNo.YES,
+      applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
+      applicant1KnowsApplicant2Address: YesOrNo.NO,
+      applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+      applicant1WantsToHavePapersServedAnotherWay: null,
     });
   });
 
@@ -86,8 +86,10 @@ describe('to-api-format', () => {
     'gets the correct inferred gender of the petitioner and respondent: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
-        inferredPetitionerGender: expected.petitioner,
-        inferredRespondentGender: expected.respondent,
+        inferredApplicant1Gender: expected.petitioner,
+        inferredApplicant2Gender: expected.respondent,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        marriageIsSameSexCouple: YesOrNo.NO,
       });
     }
   );
@@ -105,7 +107,9 @@ describe('to-api-format', () => {
       } as unknown as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicantHomeAddress: {
+        applicant1AgreedToReceiveEmails: YesOrNo.YES,
+        applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
+        applicant1HomeAddress: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           AddressLine3: '',
@@ -114,6 +118,17 @@ describe('to-api-format', () => {
           PostCode: 'Postcode',
           Country: '',
         },
+        applicant1HomeAddressIsInternational: YesOrNo.NO,
+        applicant1KnowsApplicant2Address: YesOrNo.NO,
+        applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+        applicant1WantsToHavePapersServedAnotherWay: null,
+        helpWithFeesAppliedForFees: YesOrNo.YES,
+        helpWithFeesNeedHelp: YesOrNo.YES,
+        helpWithFeesReferenceNumber: 'HWF-123-ABC',
+        inferredApplicant1Gender: 'male',
+        inferredApplicant2Gender: 'male',
+        marriageDate: '1900-01-04',
+        marriageIsSameSexCouple: YesOrNo.YES,
       });
     });
 
@@ -127,7 +142,7 @@ describe('to-api-format', () => {
       } as unknown as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicantHomeAddress: {
+        applicant1HomeAddress: {
           AddressLine1: 'Room 1234',
           AddressLine2: 'Parliament House',
           AddressLine3: 'Parliament Dr',

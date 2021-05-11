@@ -67,14 +67,14 @@ describe('from-api-format', () => {
     test('converts to UK format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        applicantHomeAddress: {
+        applicant1HomeAddress: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           PostTown: 'Town',
           County: 'County',
           PostCode: 'Postcode',
         },
-        petitionerHomeAddressIsInternational: YesOrNo.NO,
+        applicant1HomeAddressIsInternational: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -90,7 +90,7 @@ describe('from-api-format', () => {
     test('converts to an international format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        applicantHomeAddress: {
+        applicant1HomeAddress: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           AddressLine3: 'Line 3',
@@ -99,7 +99,7 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
-        petitionerHomeAddressIsInternational: YesOrNo.YES,
+        applicant1HomeAddressIsInternational: YesOrNo.YES,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
