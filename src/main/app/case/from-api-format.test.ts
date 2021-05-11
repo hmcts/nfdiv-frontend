@@ -6,14 +6,14 @@ describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: 'divorce',
     marriageIsSameSexCouple: 'YES',
-    inferredRespondentGender: 'male',
-    inferredPetitionerGender: 'male',
+    inferredApplicant2Gender: 'male',
+    inferredApplicant1Gender: 'male',
     screenHasMarriageBroken: 'YES',
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
-    petitionerAgreedToReceiveEmails: 'YES',
-    petitionerContactDetailsConfidential: 'keep',
-    petitionerKnowsRespondentsEmailAddress: 'NO',
-    petitionerWantsToHavePapersServedAnotherWay: null,
+    applicant1AgreedToReceiveEmails: 'YES',
+    applicant1ContactDetailsConfidential: 'keep',
+    applicant1KnowsApplicant2EmailAddress: 'NO',
+    applicant1WantsToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
