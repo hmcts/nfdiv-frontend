@@ -21,7 +21,7 @@ Feature: Other court cases
     Given I select "Our marriage"
     Given I select "Our property"
     When I click "Continue"
-    Then the page URL should be "/other-court-cases-details"
+    Then the page URL should be "/details-other-proceedings"
 
   @nightly
   Scenario: They don't indicate if they have any other court cases

@@ -54,6 +54,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentEmailAddress: 'respondentEmailAddress',
   knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
   legalProceedings: 'legalProceedings',
+  legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
@@ -137,6 +138,7 @@ export interface Case {
   knowPartnersAddress?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
+  legalProceedingsDetails?: string;
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
