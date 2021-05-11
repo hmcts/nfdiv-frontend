@@ -16,6 +16,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
   COUNTRY_AND_PLACE,
+  DETAILS_OTHER_PROCEEDINGS,
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
@@ -40,7 +41,6 @@ import {
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
-  OTHER_COURT_CASES_DETAILS,
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -312,7 +312,12 @@ export const sequence: Step[] = [
   {
     url: OTHER_COURT_CASES,
     showInSection: Sections.OtherCourtCases,
-    getNextStep: data => (data.legalProceedings === YesOrNo.YES ? OTHER_COURT_CASES_DETAILS : MONEY_PROPERTY),
+    getNextStep: data => (data.legalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
+  },
+  {
+    url: DETAILS_OTHER_PROCEEDINGS,
+    showInSection: Sections.OtherCourtCases,
+    getNextStep: () => MONEY_PROPERTY,
   },
   {
     url: MONEY_PROPERTY,

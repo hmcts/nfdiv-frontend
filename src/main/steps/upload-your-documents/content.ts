@@ -71,14 +71,14 @@ export const form: FormContent = {
   fields: formState => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
 
-    if (formState?.inTheUk === YesOrNo.YES) {
+    if (formState?.inTheUk === YesOrNo.NO) {
       checkboxes.push({
-        id: 'cannotUploadCertificate',
+        id: 'cannotUploadForeignCertificate',
         value: DocumentType.MARRIAGE_CERTIFICATE,
       });
     } else {
       checkboxes.push({
-        id: 'cannotUploadForeignCertificate',
+        id: 'cannotUploadCertificate',
         value: DocumentType.MARRIAGE_CERTIFICATE,
       });
     }
