@@ -3521,12 +3521,7 @@ commander@^6.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
-commander@^7.0.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-7.1.0.tgz#f2eaecf131f10e36e07d894698226e36ae0eb5ff"
-  integrity sha512-pRxBna3MJe6HKnBGsDyMv8ETbptw3axEdYHoqNh7gu5oDcew8fs0xnivZGm06Ogk8zGAJ9VX+OPEr2GXEQK4dg==
-
-commander@^7.2.0:
+commander@^7.0.0, commander@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
@@ -5872,7 +5867,7 @@ hoopy@^0.1.2:
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
 
-hosted-git-info@^2.8.9:
+hosted-git-info@^2.1.4:
   version "2.8.9"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
   integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
@@ -8804,10 +8799,10 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-playwright@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.10.0.tgz#a14d295f1ad886caf4cc5e674afe03ac832066bc"
-  integrity sha512-b7SGBcCPq4W3pb4ImEDmNXtO0ZkJbZMuWiShsaNJd+rGfY/6fqwgllsAojmxGSgFmijYw7WxCoPiAIEDIH16Kw==
+playwright@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.11.0.tgz#0796cf08f4756e8187e01c705315d8e1fb48e25f"
+  integrity sha512-s3FQBRpu/pW/vZ/lFYhG/Q3WBUbT2rvMgrgy1PHDA7QtPN910C2rj9Ovd6A/m8yxuLnltd/OKqvlAGevWISHKw==
   dependencies:
     commander "^6.1.0"
     debug "^4.1.1"
@@ -8822,6 +8817,7 @@ playwright@^1.10.0:
     rimraf "^3.0.2"
     stack-utils "^2.0.3"
     ws "^7.3.1"
+    yazl "^2.5.1"
 
 please-upgrade-node@^3.2.0:
   version "3.2.0"
@@ -11799,6 +11795,13 @@ yauzl@^2.10.0, yauzl@^2.4.2:
   dependencies:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
+
+yazl@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/yazl/-/yazl-2.5.1.tgz#a3d65d3dd659a5b0937850e8609f22fffa2b5c35"
+  integrity sha512-phENi2PLiHnHb6QBVot+dJnaAZ0xosj7p3fWl+znIjBDlnMI2PsZCJZ306BPTFOaHf5qdDEI8x5qFrSOBN5vrw==
+  dependencies:
+    buffer-crc32 "~0.2.3"
 
 yn@3.1.1:
   version "3.1.1"
