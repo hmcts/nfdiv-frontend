@@ -40,7 +40,7 @@ const en = {
 const cy: typeof en = {
   // @TODO other address page translations
   ...en,
-  title: 'Rhowch gyfeiriad post eich',
+  title: 'Nodwch eich cyfeiriad post',
   enterPostcode: 'Nodwch god post yn y DU',
   internationalAddress: 'Cyfeiriad llawn',
   findAddress: 'Dod o hyd i gyfeiriad',
@@ -52,6 +52,9 @@ const cy: typeof en = {
     yourAddressPostcode: {
       ...en.errors.yourAddressPostcode,
       required: 'Nodwch god post',
+    },
+    yourInternationalAddress: {
+      required: 'Nid ydych wedi nodi eich cyfeiriad. Nodwch ei gyfeiriad/chyfeiriad llawn cyn parhau.',
     },
   },
 };
