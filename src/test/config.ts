@@ -1,9 +1,13 @@
 import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
 
+import sysConfig from 'config';
+import dayjs from 'dayjs';
 import * as lockFile from 'lockfile';
 import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
 
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
+
+import { IdamUserManager } from './steps/IdamUserManager';
 
 const lock = '/tmp/concepts.worker.lock';
 lockFile.lockSync(lock);
@@ -19,8 +23,9 @@ const updatedContent = (content === '' || +content >= 8 ? 0 : +content) + 1;
 writeFileSync(filename, updatedContent + '');
 lockFile.unlockSync(lock);
 
-const TestUser = `nfdiv.frontend.test${updatedContent}@hmcts.net`;
+const TestUser = `nfdiv.frontend.test${updatedContent}.${dayjs().format('YYYYMMDD-HHmmss')}@hmcts.net`;
 const TestPass = 'Pa55word11';
+const testUser = new IdamUserManager(sysConfig.get('services.idam.tokenURL'), TestUser, TestPass);
 
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
@@ -39,6 +44,8 @@ export const config = {
       '../steps/happy-path.ts',
     ],
   },
+  bootstrap: async (): Promise<void> => testUser.create(),
+  teardown: async (): Promise<void> => testUser.delete(),
   AutoLogin: {
     enabled: true,
     saveToFile: false,
