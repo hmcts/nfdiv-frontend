@@ -37,17 +37,31 @@ const en = ({ partner }: Partial<CommonContent>) => ({
   },
 });
 
-const cy = ({ partner }: CommonContent) => ({
+const cy = ({ partner }: CommonContent) => {
   // @TODO other address page translations
-  ...en({ partner }),
-  title: `Rhowch gyfeiriad post eich ${partner}`,
-  enterPostcode: 'Nodwch god post yn y DU',
-  internationalAddress: 'Cyfeiriad llawn',
-  findAddress: 'Dod o hyd i gyfeiriad',
-  notUK: 'Ni allaf nodi cod post yn y DU',
-  enterUkPostcode: 'Nodwch god post yn y DU',
-  cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
-});
+  const todoEn = en({ partner });
+
+  return {
+    ...todoEn,
+    title: `Rhowch gyfeiriad post eich ${partner}`,
+    enterPostcode: 'Nodwch god post yn y DU',
+    internationalAddress: 'Cyfeiriad llawn',
+    findAddress: 'Dod o hyd i gyfeiriad',
+    notUK: 'Ni allaf nodi cod post yn y DU',
+    enterUkPostcode: 'Nodwch god post yn y DU',
+    cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
+    errors: {
+      ...todoEn.errors,
+      theirAddressPostcode: {
+        ...todoEn.errors.theirAddressPostcode,
+        required: 'Nodwch god post',
+      },
+      theirInternationalAddress: {
+        required: `Nid ydych wedi nodi cyfeiriad eich ${partner}. Rhowch ei gyfeiriad/chyfeiriad llawn cyn parhau.`,
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: {

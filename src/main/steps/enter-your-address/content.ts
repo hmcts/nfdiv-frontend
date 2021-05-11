@@ -37,7 +37,7 @@ const en = {
   },
 };
 
-const cy = {
+const cy: typeof en = {
   // @TODO other address page translations
   ...en,
   title: 'Rhowch gyfeiriad post eich',
@@ -47,6 +47,13 @@ const cy = {
   notUK: 'Ni allaf nodi cod post yn y DU',
   enterUkPostcode: 'Nodwch god post yn y DU',
   cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
+  errors: {
+    ...en.errors,
+    yourAddressPostcode: {
+      ...en.errors.yourAddressPostcode,
+      required: 'Nodwch god post',
+    },
+  },
 };
 
 export const form: FormContent = {
