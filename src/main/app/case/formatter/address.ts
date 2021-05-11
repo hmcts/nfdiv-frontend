@@ -4,9 +4,9 @@ import { AddressGlobalUK, CaseData, YesOrNo } from '../definition';
 export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
   const isPetitionerAddress = address === 'your';
   const isAddressInternational =
-    (isPetitionerAddress ? data.petitionerHomeAddressIsInternational : data.respondentHomeAddressIsInternational) ===
+    (isPetitionerAddress ? data.applicant1HomeAddressIsInternational : data.applicant2HomeAddressIsInternational) ===
     YesOrNo.YES;
-  const fullAddress = isPetitionerAddress ? data.applicantHomeAddress : data.respondentHomeAddress;
+  const fullAddress = isPetitionerAddress ? data.applicant1HomeAddress : data.applicant2HomeAddress;
 
   return {
     [`${address}InternationalAddress`]: isAddressInternational
@@ -67,9 +67,9 @@ const toApiAddress = (data: Partial<Case>, address: 'your' | 'their'): AddressGl
 };
 
 export const yourAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicantHomeAddress: toApiAddress(data, 'your'),
+  applicant1HomeAddress: toApiAddress(data, 'your'),
 });
 
 export const theirAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  respondentHomeAddress: toApiAddress(data, 'their'),
+  applicant2HomeAddress: toApiAddress(data, 'their'),
 });

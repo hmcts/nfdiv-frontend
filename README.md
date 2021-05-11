@@ -208,7 +208,7 @@ The application exposes a health endpoint [https://localhost:3001/health](https:
 
 ## Migrating backend field changes
 
-First, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
+Once you have created a NFDIV-Case-API Pull Request with the case definition changes, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
 
 For example: `CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-232.service.core-compute-preview.internal'`
 

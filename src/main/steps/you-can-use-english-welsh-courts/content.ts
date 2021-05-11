@@ -93,12 +93,12 @@ const en = (
   };
 
   const enConnections: Partial<Record<JurisdictionConnections, typeof enPetRespResident | undefined>> = {
-    [JurisdictionConnections.PET_RESP_RESIDENT]: enPetRespResident,
-    [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: enPetRespLastResident,
-    [JurisdictionConnections.RESP_RESIDENT]: enRespResident,
-    [JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]: enPetResidentTwelveMonths,
-    [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
-    [JurisdictionConnections.PET_RESP_DOMICILED]: enPetRespDomiciled,
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enPetRespResident,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enPetRespLastResident,
+    [JurisdictionConnections.APP_2_RESIDENT]: enRespResident,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enPetResidentTwelveMonths,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
   };
 
@@ -196,12 +196,12 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
   };
 
   const cyConnections: Partial<Record<JurisdictionConnections, typeof cyPetRespResident | undefined>> = {
-    [JurisdictionConnections.PET_RESP_RESIDENT]: cyPetRespResident,
-    [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: cyPetRespLastResident,
-    [JurisdictionConnections.RESP_RESIDENT]: cyRespResident,
-    [JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS]: cyPetResidentTwelveMonths,
-    [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
-    [JurisdictionConnections.PET_RESP_DOMICILED]: cyPetRespDomiciled,
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: cyPetRespResident,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: cyPetRespLastResident,
+    [JurisdictionConnections.APP_2_RESIDENT]: cyRespResident,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: cyPetResidentTwelveMonths,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: cyPetRespDomiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
   };
 
