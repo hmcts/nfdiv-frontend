@@ -26,21 +26,21 @@ const fields: FromApiConverters = {
     englishOrWelsh:
       data.languagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  applicantHomeAddress: data => formatAddress(data, 'your'),
-  petitionerAgreedToReceiveEmails: data => ({
-    agreeToReceiveEmails: checkboxConverter(data.petitionerAgreedToReceiveEmails),
+  applicant1HomeAddress: data => formatAddress(data, 'your'),
+  applicant1AgreedToReceiveEmails: data => ({
+    agreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
-  petitionerKnowsRespondentsEmailAddress: data => ({
+  applicant1KnowsApplicant2EmailAddress: data => ({
     doNotKnowRespondentEmailAddress:
-      data.petitionerKnowsRespondentsEmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
+      data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
-  petitionerContactDetailsConfidential: data => ({
-    addressPrivate: data.petitionerContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+  applicant1ContactDetailsConfidential: data => ({
+    addressPrivate: data.applicant1ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
   }),
-  petitionerWantsToHavePapersServedAnotherWay: data => ({
-    iWantToHavePapersServedAnotherWay: checkboxConverter(data.petitionerWantsToHavePapersServedAnotherWay),
+  applicant1WantsToHavePapersServedAnotherWay: data => ({
+    iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
-  respondentHomeAddress: data => formatAddress(data, 'their'),
+  applicant2HomeAddress: data => formatAddress(data, 'their'),
   cannotUploadSupportingDocument: data => ({
     uploadedFiles:
       data.documentsUploaded?.map(file => ({

@@ -23,22 +23,22 @@ const fields: ToApiConverters = {
   }),
   gender: data => {
     // Petitioner makes the request
-    let inferredPetitionerGender = data.gender;
+    let inferredApplicant1Gender = data.gender;
 
     // Respondent receives the request
-    let inferredRespondentGender = data.gender;
+    let inferredApplicant2Gender = data.gender;
 
     if (data.sameSex !== Checkbox.Checked) {
       if (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) {
-        inferredPetitionerGender = data.gender;
-        inferredRespondentGender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+        inferredApplicant1Gender = data.gender;
+        inferredApplicant2Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
       } else {
-        inferredPetitionerGender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
-        inferredRespondentGender = data.gender;
+        inferredApplicant1Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+        inferredApplicant2Gender = data.gender;
       }
     }
 
-    return { inferredPetitionerGender, inferredRespondentGender };
+    return { inferredApplicant1Gender, inferredApplicant2Gender };
   },
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
@@ -52,20 +52,20 @@ const fields: ToApiConverters = {
   yourAddressPostcode: yourAddressToApi,
   yourInternationalAddress: yourAddressToApi,
   agreeToReceiveEmails: data => ({
-    petitionerAgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
+    applicant1AgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
   addressPrivate: data => ({
-    petitionerContactDetailsConfidential:
+    applicant1ContactDetailsConfidential:
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
   theirAddressPostcode: theirAddressToApi,
   theirInternationalAddress: theirAddressToApi,
   doNotKnowRespondentEmailAddress: data => ({
-    petitionerKnowsRespondentsEmailAddress:
+    applicant1KnowsApplicant2EmailAddress:
       data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
-    petitionerWantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
+    applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
   legalProceedingsRelated: data => ({
     legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
