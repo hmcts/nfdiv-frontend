@@ -56,7 +56,7 @@ export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
-export const OTHER_COURT_CASES_DETAILS: PageLink = '/other-court-cases-details';
+export const DETAILS_OTHER_PROCEEDINGS: PageLink = '/details-other-proceedings';
 export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
 export const APPLY_FINANCIAL_ORDER: PageLink = '/do-you-want-to-apply-financial-order';
 export const APPLY_FINANCIAL_ORDER_DETAILS: PageLink = '/how-to-apply-financial-order';
