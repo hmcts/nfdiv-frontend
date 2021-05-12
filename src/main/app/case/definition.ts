@@ -120,7 +120,6 @@ export interface CaseData {
   petitionerNameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
   applicantHomeAddress: AddressGlobalUK;
-  petitionerHomeAddressIsInternational: YesOrNo;
   petitionerPhoneNumber: string;
   petitionerContactDetailsConfidential: ConfidentialAddress;
   respondentFirstName: string;
@@ -163,7 +162,6 @@ export interface CaseData {
   petitionerKnowsRespondentsEmailAddress: YesOrNo;
   petitionerKnowsRespondentsAddress: YesOrNo;
   respondentHomeAddress: AddressGlobalUK;
-  respondentHomeAddressIsInternational: YesOrNo;
   legalProceedings: YesOrNo;
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];

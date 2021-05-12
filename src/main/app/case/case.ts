@@ -34,8 +34,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
-  isYourAddressInternational: 'petitionerHomeAddressIsInternational',
-  isTheirAddressInternational: 'respondentHomeAddressIsInternational',
   phoneNumber: 'petitionerPhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
@@ -106,13 +104,13 @@ export interface Case {
   yourFirstNames?: string;
   yourMiddleNames?: string;
   yourLastNames?: string;
-  isYourAddressInternational?: YesOrNo;
   yourAddress1?: string;
   yourAddress2?: string;
+  yourAddress3?: string;
   yourAddressTown?: string;
   yourAddressCounty?: string;
   yourAddressPostcode?: string;
-  yourInternationalAddress?: string;
+  yourAddressCountry?: string;
   phoneNumber?: string;
   agreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
@@ -122,13 +120,13 @@ export interface Case {
   theirFirstNames?: string;
   theirMiddleNames?: string;
   theirLastNames?: string;
-  isTheirAddressInternational?: YesOrNo;
   theirAddress1?: string;
   theirAddress2?: string;
+  theirAddress3?: string;
   theirAddressTown?: string;
   theirAddressCounty?: string;
   theirAddressPostcode?: string;
-  theirInternationalAddress?: string;
+  theirAddressCountry?: string;
   lastNameChangeWhenRelationshipFormed?: YesOrNo;
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
