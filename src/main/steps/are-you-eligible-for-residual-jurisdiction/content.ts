@@ -26,8 +26,28 @@ const en = ({ isDivorce, required }) => ({
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, required }) => ({
+  title: 'Awdurdodaeth weddillol',
+  line1: `Dengys eich atebion nad yw'r prif resymau sy'n rhoi awdurdodaeth i lysoedd Cymru a Lloegr ystyried eich ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  } yn berthnasol. Fodd bynnag, efallai y byddwch dal yn gallu gwneud cais ${
+    isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+  } yng Nghymru a Lloegr yn seiliedig ar 'awdurdodaeth weddillol' y llys.`,
+  line2:
+    "Os ydych yn gwpl o'r un rhyw ac os nad oes unrhyw un o'r cysylltiadau eraill yn berthnasol, efallai y bydd gan y llys awdurdodaeth o hyd os:",
+  bulletpoint1: `bu ichi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yng Nghymru neu Loegr, a`,
+  bulletpoint2: `byddai er budd cyfiawnder i'r llys ystyried y cais. Er enghraifft, nid yw eich gwlad gartref yn caniatáu i gyplau o'r un rhyw ${
+    isDivorce ? 'gael ysgariad' : "ddod â'u partneriaeth sifil i ben"
+  }.`,
+  line3:
+    "Gall awdurdodaeth weddillol fod yn fwy cymhleth. Os nad ydych yn siŵr a yw'n berthnasol i chi, dylech geisio cyngor cyfreithiol.",
+  jurisdictionResidualEligible: "Ydych chi'n gymwys am awdurdodaeth weddilliol?",
+  errors: {
+    jurisdictionResidualEligible: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

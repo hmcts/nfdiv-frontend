@@ -50,7 +50,6 @@ const fields: ToApiConverters = {
     languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
   yourAddressPostcode: yourAddressToApi,
-  yourInternationalAddress: yourAddressToApi,
   agreeToReceiveEmails: data => ({
     applicant1AgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
   }),
@@ -59,7 +58,6 @@ const fields: ToApiConverters = {
       data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
   theirAddressPostcode: theirAddressToApi,
-  theirInternationalAddress: theirAddressToApi,
   doNotKnowApplicant2EmailAddress: data => ({
     applicant1KnowsApplicant2EmailAddress:
       data.doNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,

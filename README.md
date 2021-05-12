@@ -49,7 +49,7 @@ Start server:
 yarn start
 ```
 
-The application's home page will be available at [https://localhost:3001](https://localhost:3001).
+The application's home page will be available at [https://localhost:3001](https://localhost:3001)
 
 ### Running end-to-end
 

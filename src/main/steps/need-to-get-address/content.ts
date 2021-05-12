@@ -20,8 +20,22 @@ const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
   };
 };
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
+  const dissolution = isDivorce ? divorce : endingCivilPartnership;
+  return {
+    title: "Mae angen i chi ddod o hyd i'w gyfeiriad/chyfeiriad",
+    line1:
+      "Cadwch eich cais a cheisiwch ddod o hyd i'w gyfeiriad/chyfeiriad. Gall fod yn gyfeiriad post neu gyfeiriad ei gyfreithiwr/chyfreithiwr. Gall fod yn y DU neu'n rhyngwladol. Os ydych yn defnyddio ei gyfeiriad/chyfeiriad gwaith, mae angen i chi ofyn am ei ganiatâd/chaniatâd.",
+    line2: "I ddod o hyd i'w gyfeiriad/chyfeiriad gallech geisio cysylltu â'i:",
+    bullet1: 'b/pherthnasau',
+    bullet2: 'ffrindiau',
+    bullet3: 'cyflogwr hysbys diwethaf',
+    bullet4: 'undeb llafur neu sefydliad proffesiynol',
+    cannotGetAddressTitle: "Os na allwch ddod o hyd i'w gyfeiriad/chyfeiriad",
+    cannotGetAddressLine1: `Os ydych chi'n gwybod na allwch ddod o hyd i'w gyfeiriad/chyfeiriad, yna gallwch wneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall. Er enghraifft drwy e-bost, neges testun neu gyfryngau cymdeithasol. Bydd hwn yn gais ar wahân a fydd yn cael ei adolygu gan farnwr a bydd yn costio £50 yn ychwanegol.`,
+    iWantToHavePapersServedAnotherWay: `Rwyf eisiau gwneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall.`,
+  };
+};
 
 export const form: FormContent = {
   fields: {

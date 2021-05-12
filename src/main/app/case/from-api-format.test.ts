@@ -54,16 +54,6 @@ describe('from-api-format', () => {
   });
 
   describe('converting your address between UK and international', () => {
-    test('works correctly when not set', () => {
-      const nfdivFormat = fromApiFormat({
-        ...results,
-        derivedApplicant1HomeAddress: undefined,
-      } as unknown as CaseData);
-
-      expect(nfdivFormat.isYourAddressInternational).toBeUndefined();
-      expect(nfdivFormat.isTheirAddressInternational).toBeUndefined();
-    });
-
     test('converts to UK format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
@@ -74,11 +64,9 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
-        applicant1HomeAddressIsInternational: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        isYourAddressInternational: YesOrNo.NO,
         yourAddress1: 'Line 1',
         yourAddress2: 'Line 2',
         yourAddressTown: 'Town',
@@ -99,13 +87,9 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
-        applicant1HomeAddressIsInternational: YesOrNo.YES,
       } as unknown as CaseData);
 
-      expect(nfdivFormat).toMatchObject({
-        isYourAddressInternational: YesOrNo.YES,
-        yourInternationalAddress: 'Line 1\nLine 2\nLine 3\nTown\nState\nZip code\nCountry',
-      });
+      expect(nfdivFormat).toMatchObject({});
     });
   });
 });
