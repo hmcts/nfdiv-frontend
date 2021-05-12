@@ -22,5 +22,3 @@ Feature: How do you want to apply
     When I click "Continue"
     Then the page should include "Enter your husband's email address"
        
-
-    
