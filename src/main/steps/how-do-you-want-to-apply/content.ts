@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/definition';
+import { ApplicationType } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -17,19 +17,16 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line3: `If you apply jointly, your ${partner} joins and reviews this online application before it’s submitted. You will be applying together.`,
   line4:
     'How you divide your money and property is dealt with separately. It should not affect your decision on whether to do a sole or a joint application.',
-  line5: `Who pays the ${
-    isDivorce ? 'divorce fee' : 'fee to end your civil partnership'
-  } and claiming help paying the fee is different in a sole and joint application.`,
+  line5: `If you need help paying the fee for ${
+    isDivorce ? 'the divorce' : 'ending your civil partnership'
+  }, this works differently in a joint application.`,
   readMore: 'Find out more about paying the fees.',
   helpText1: `This ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } costs £550. In a sole application, the applicant has to pay the fee. In a joint application, either applicant can pay.`,
-  helpText2: 'Help can be claimed to pay the fee, if the applicant(s) are: ',
-  bulletpoint1: 'are on certain benefits or ',
-  bulletpoint2: 'have a little or no savings or  ',
-  bulletpoint3: 'have low income ',
-  helpText3:
-    'In a sole application, only the applicant has to be eligible for help with fees. In a joint application, both applicants have to be eligible.',
+  } costs £550. In a sole application you will have to pay the divorce fee. In a joint application, either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`,
+  helpText2: 'Help can be claimed to pay the fee, if the applicant: ',
+  helpPayingWhen: ['are on certain benefits <em>or</em>', 'have a little or no savings <em>or</em>', 'have low income'],
+  helpText3: `In a sole application, only you have to be eligible and claim help with fees. In a joint application, both you and your ${partner} have to be eligible and claim help with fees separately.`,
   yes: 'I want to apply on my own, as a sole applicant',
   no: `I want to apply jointly, with my ${partner}`,
   errors: {
@@ -50,8 +47,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l.yes, value: ApplicationType.SOLE_APPLICATION },
+        { label: l => l.no, value: ApplicationType.JOINT_APPLICATION },
       ],
       validator: value => isFieldFilledIn(value),
     },

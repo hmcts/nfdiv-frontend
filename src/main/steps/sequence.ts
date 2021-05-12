@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { ApplicationType, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connections';
 
@@ -114,8 +114,8 @@ export const sequence: Step[] = [
   {
     url: HOW_DO_YOU_WANT_TO_APPLY,
     showInSection: Sections.AboutPartnership,
-    getNextStep: () => HELP_WITH_YOUR_FEE_URL,
-    // getNextStep: data => (data.isSole === YesOrNo.YES ? YOUR_DETAILS_URL : THEIR_EMAIL_ADDRESS)
+    getNextStep: data =>
+      data.applicationType === ApplicationType.SOLE_APPLICATION ? HELP_WITH_YOUR_FEE_URL : THEIR_EMAIL_ADDRESS,
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,

@@ -17,9 +17,9 @@
     <p>{{ helpText1 }}</p>
     <p>{{ helpText2 }}</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>{{ bulletpoint1 }}</li>
-      <li>{{ bulletpoint2 }}</li>
-      <li>{{ bulletpoint3 }}</li>
+      {% for item in helpPayingWhen %}
+        <li>{{ item | safe }}</li>
+      {% endfor %}
     </ul>
     <p>{{ helpText3 }}</p>
   {% endset %}

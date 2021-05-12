@@ -85,7 +85,7 @@ export interface PreviousOrganisation {
 }
 
 export interface CaseData {
-  soleOrJoinApplicant: YesOrNo;
+  applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
   marriageIsSameSexCouple: YesOrNo;
@@ -293,6 +293,11 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
+export const enum ApplicationType {
+  SOLE_APPLICATION = 'soleApplication',
+  JOINT_APPLICATION = 'jointApplication',
+}
+
 export const enum DocumentType {
   DIVORCE_APPLICATION = 'divorceApplication',
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
@@ -489,6 +494,7 @@ export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
 export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
 export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
+export const APPLICATION_TYPE = 'applicationType';
 export const FINANCIAL_ORDER = 'financialOrder';
 export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
 export const USER_ROLES = 'user-roles';
