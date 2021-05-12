@@ -50,14 +50,14 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
     } as unknown as Case);
 
     expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
     });
     expect(errors).toStrictEqual([]);

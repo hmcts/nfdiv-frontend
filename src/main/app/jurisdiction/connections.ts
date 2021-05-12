@@ -17,11 +17,11 @@ const areBothHabituallyResident = data => {
   return isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
 
-const onlyPetitionerHabituallyResident = data => {
+const onlyApplicant1HabituallyResident = data => {
   return isHabituallyResident('your', data) && !isHabituallyResident('partners', data);
 };
 
-const onlyRespondentHabituallyResident = data => {
+const onlyApplicant2HabituallyResident = data => {
   return !isHabituallyResident('your', data) && isHabituallyResident('partners', data);
 };
 
@@ -41,15 +41,15 @@ const areBothDomiciled = data => {
   return isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
-const isOnlyPetitionerDomiciled = data => {
+const isOnlyApplicant1Domiciled = data => {
   return isDomiciled('your', data) && !isDomiciled('partners', data);
 };
 
-const isOnlyRespondentDomiciled = data => {
+const isOnlyApplicant2Domiciled = data => {
   return !isDomiciled('your', data) && isDomiciled('partners', data);
 };
 
-const onlyPetitionerDomiciled = data => {
+const onlyApplicant1Domiciled = data => {
   return isDomiciled('your', data) && !isDomiciled('partners', data);
 };
 
@@ -69,35 +69,35 @@ const hasResidualJurisdiction = data => {
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
   const connections: JurisdictionConnections[] = [];
   if (areBothHabituallyResident(data)) {
-    connections.push(JurisdictionConnections.PET_RESP_RESIDENT);
+    connections.push(JurisdictionConnections.APP_1_APP_2_RESIDENT);
   }
   if (areBothLastHabituallyResident(data)) {
-    connections.push(JurisdictionConnections.PET_RESP_LAST_RESIDENT);
+    connections.push(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT);
   }
-  if (onlyRespondentHabituallyResident(data)) {
-    connections.push(JurisdictionConnections.RESP_RESIDENT);
+  if (onlyApplicant2HabituallyResident(data)) {
+    connections.push(JurisdictionConnections.APP_2_RESIDENT);
   }
-  if (isHabituallyResidentForTwelveMonths(data) && onlyPetitionerHabituallyResident(data)) {
-    connections.push(JurisdictionConnections.PET_RESIDENT_TWELVE_MONTHS);
+  if (isHabituallyResidentForTwelveMonths(data) && onlyApplicant1HabituallyResident(data)) {
+    connections.push(JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS);
   }
   if (
     isHabituallyResidentForSixMonths(data) &&
-    onlyPetitionerHabituallyResident(data) &&
-    onlyPetitionerDomiciled(data)
+    onlyApplicant1HabituallyResident(data) &&
+    onlyApplicant1Domiciled(data)
   ) {
-    connections.push(JurisdictionConnections.PET_RESIDENT_SIX_MONTHS);
+    connections.push(JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS);
   }
   if (areBothDomiciled(data)) {
-    connections.push(JurisdictionConnections.PET_RESP_DOMICILED);
+    connections.push(JurisdictionConnections.APP_1_APP_2_DOMICILED);
   }
   if (hasResidualJurisdiction(data)) {
     connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION);
   }
-  if (isOnlyPetitionerDomiciled(data)) {
-    connections.push(JurisdictionConnections.PET_DOMICILED);
+  if (isOnlyApplicant1Domiciled(data)) {
+    connections.push(JurisdictionConnections.APP_1_DOMICILED);
   }
-  if (isOnlyRespondentDomiciled(data)) {
-    connections.push(JurisdictionConnections.RESP_DOMICILED);
+  if (isOnlyApplicant2Domiciled(data)) {
+    connections.push(JurisdictionConnections.APP_2_DOMICILED);
   }
   return connections;
 };

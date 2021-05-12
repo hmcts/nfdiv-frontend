@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-10 09:26:53.
+// Generated using typescript-generator version 2.31.861 on 2021-05-11 11:05:57.
 
 export interface Address {
   AddressLine1: string;
@@ -89,8 +89,8 @@ export interface CaseData {
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
   marriageIsSameSexCouple: YesOrNo;
-  inferredPetitionerGender: Gender;
-  inferredRespondentGender: Gender;
+  inferredApplicant1Gender: Gender;
+  inferredApplicant2Gender: Gender;
   marriageDate: DateAsString;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
@@ -101,46 +101,46 @@ export interface CaseData {
   certifiedTranslation: YesOrNo;
   countryName: string;
   marriagePlaceOfMarriage: string;
-  petitionerFirstName: string;
-  petitionerMiddleName: string;
-  petitionerLastName: string;
-  petitionerEmail: string;
-  petitionerAgreedToReceiveEmails: YesOrNo;
-  jurisdictionPetitionerResidence: YesOrNo;
-  jurisdictionRespondentResidence: YesOrNo;
-  jurisdictionPetitionerDomicile: YesOrNo;
-  jurisdictionRespondentDomicile: YesOrNo;
-  jurisdictionPetHabituallyResLastTwelveMonths: YesOrNo;
-  jurisdictionPetHabituallyResLastSixMonths: YesOrNo;
+  applicant1FirstName: string;
+  applicant1MiddleName: string;
+  applicant1LastName: string;
+  applicant1Email: string;
+  applicant1AgreedToReceiveEmails: YesOrNo;
+  jurisdictionApplicant1Residence: YesOrNo;
+  jurisdictionApplicant2Residence: YesOrNo;
+  jurisdictionApplicant1Domicile: YesOrNo;
+  jurisdictionApplicant2Domicile: YesOrNo;
+  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
+  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   languagePreferenceWelsh: YesOrNo;
-  petitionerNameDifferentToMarriageCertificate: YesOrNo;
-  petitionerNameChangedHow: ChangedNameHow;
-  petitionerNameChangedHowOtherDetails: string;
+  applicant1NameDifferentToMarriageCertificate: YesOrNo;
+  applicant1NameChangedHow: ChangedNameHow;
+  applicant1NameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
-  applicantHomeAddress: AddressGlobalUK;
-  petitionerPhoneNumber: string;
-  petitionerContactDetailsConfidential: ConfidentialAddress;
-  respondentFirstName: string;
-  respondentMiddleName: string;
-  respondentLastName: string;
-  respondentNameAsOnMarriageCertificate: YesOrNo;
-  respNameDifferentToMarriageCertExplain: string;
-  petitionerSolicitorName: string;
+  applicant1HomeAddress: AddressGlobalUK;
+  applicant1PhoneNumber: string;
+  applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant2FirstName: string;
+  applicant2MiddleName: string;
+  applicant2LastName: string;
+  applicant2NameAsOnMarriageCertificate: YesOrNo;
+  app2NameDifferentToMarriageCertExplain: string;
+  applicant1SolicitorName: string;
   solicitorReference: string;
-  petitionerSolicitorPhone: string;
-  petitionerSolicitorEmail: string;
+  applicant1SolicitorPhone: string;
+  applicant1SolicitorEmail: string;
   solicitorAgreeToReceiveEmails: YesOrNo;
-  derivedPetitionerSolicitorAddress: string;
-  petitionerOrganisationPolicy: OrganisationPolicy<UserRole>;
-  marriagePetitionerName: string;
-  marriageRespondentName: string;
+  derivedApplicant1SolicitorAddress: string;
+  applicant1OrganisationPolicy: OrganisationPolicy<UserRole>;
+  marriageApplicant1Name: string;
+  marriageApplicant2Name: string;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
   financialOrder: YesOrNo;
-  petitionerWantsToHavePapersServedAnotherWay: YesOrNo;
+  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
@@ -158,10 +158,10 @@ export interface CaseData {
   lastNameChangedWhenMarried: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   legalConnections: LegalConnections[];
-  respondentEmailAddress: string;
-  petitionerKnowsRespondentsEmailAddress: YesOrNo;
-  petitionerKnowsRespondentsAddress: YesOrNo;
-  respondentHomeAddress: AddressGlobalUK;
+  applicant2EmailAddress: string;
+  applicant1KnowsApplicant2EmailAddress: YesOrNo;
+  applicant1KnowsApplicant2Address: YesOrNo;
+  applicant2HomeAddress: AddressGlobalUK;
   legalProceedings: YesOrNo;
   legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
@@ -170,17 +170,17 @@ export interface CaseData {
   cannotUploadSupportingDocument: DocumentType[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
-  respondentSolicitorReference: string;
+  applicant2SolicitorReference: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  respondentSolicitorRepresented: YesOrNo;
-  respondentSolicitorName: string;
-  respondentSolicitorPhone: string;
-  respondentSolicitorEmail: string;
-  derivedRespondentSolicitorAddr: string;
-  respSolDigital: YesOrNo;
-  respContactMethodIsDigital: YesOrNo;
-  respondentOrganisationPolicy: OrganisationPolicy<UserRole>;
-  respondentCorrespondenceAddress: AddressGlobalUK;
+  applicant2SolicitorRepresented: YesOrNo;
+  applicant2SolicitorName: string;
+  applicant2SolicitorPhone: string;
+  applicant2SolicitorEmail: string;
+  derivedApplicant2SolicitorAddr: string;
+  app2SolDigital: YesOrNo;
+  app2ContactMethodIsDigital: YesOrNo;
+  applicant2OrganisationPolicy: OrganisationPolicy<UserRole>;
+  applicant2CorrespondenceAddress: AddressGlobalUK;
   financialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
@@ -268,8 +268,7 @@ export const enum ChangedNameHow {
 }
 
 export const enum ClaimsCostFrom {
-  RESPONDENT = 'respondent',
-  CORRESPONDENT = 'correspondent',
+  APPLICANT_2 = 'applicant2',
 }
 
 export const enum ConfidentialAddress {
@@ -291,38 +290,9 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
-export const enum DocumentType {
-  DIVORCE_APPLICATION = 'divorceApplication',
-  MARRIAGE_CERTIFICATE = 'marriageCertificate',
-  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
-  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
-  COSTS = 'costs',
-  COSTS_ORDER = 'costsOrder',
-  SERVICE_SOLICITOR = 'serviceSolicitor',
-  SERVICE_DISPENSED_WITH = 'serviceDispensedWith',
-  SERVICE_DISPENSED_WITH_GRANTED = 'serviceDispensedWithGranted',
-  SERVICE_DEEMED = 'serviceDeemed',
-  SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
-  SERVICE_BALIFF = 'serviceBaliff',
-  AOS_OFFLINE_INVITATION_LETTER_TO_RESPONDENT = 'aosOfflineInvitationLetterToRespondent',
-  RESPONDENT_ANSWERS = 'respondentAnswers',
-  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
-  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
-  CONDITIONAL_ORDER_REFUSAL_CLARIFICATION_RESPONSE = 'conditionalOrderRefusalClarificationResponse',
-  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
-  CONDITIONAL_ORDER_CERTIFICATE_OF_ENTITLEMENT = 'conditionalOrderCertificateOfEntitlement',
-  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
-  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
-  FINAL_ORDER_GRANTED = 'finalOrderGranted',
-  CORRESPONDENCE = 'correspondence',
-  GENERAL_APPLICATION = 'generalApplication',
-  EMAIL = 'email',
-  OTHER = 'other',
-}
-
 export const enum FinancialOrderFor {
   CHILDREN = 'children',
-  PETITIONER = 'petitioner',
+  APPLICANT_1 = 'applicant1',
 }
 
 export const enum Gender {
@@ -333,53 +303,53 @@ export const enum Gender {
 
 /**
  * Values:
- * - `A` - The Petitioner and Respondent are habitually resident
- * - `B` - The Petitioner and Respondent were last habitually resident in England and Wales
- * - `C` - The Respondent habitually resides in England and Wales
- * - `D` - The Petitioner is habitually resident in England and Wales and has been for 12 months
- * - `E` - The Petitioner is habitually resident in England and Wales and has been for 6 months
- * - `F` - The Petitioner and Respondent are both domiciled in England and Wales
+ * - `A` - Applicant 1 and Applicant 2 are habitually resident
+ * - `B` - Applicant 1 and Applicant 2 were last habitually resident in England and Wales
+ * - `C` - Applicant 2 habitually resides in England and Wales
+ * - `D` - Applicant 1 is habitually resident in England and Wales and has been for 12 months
+ * - `E` - Applicant 1 is habitually resident in England and Wales and has been for 6 months
+ * - `F` - Applicant 1 and Applicant 2 are both domiciled in England and Wales
  * - `G` - Eligible for Residual Jurisdiction
- * - `H` - The Petitioner is domiciled in England and Wales
- * - `I` - The Respondent is domiciled in England and Wales
+ * - `H` - Applicant 1 is domiciled in England and Wales
+ * - `I` - Applicant 2 is domiciled in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
-   * The Petitioner and Respondent are habitually resident
+   * Applicant 1 and Applicant 2 are habitually resident
    */
-  PET_RESP_RESIDENT = 'A',
+  APP_1_APP_2_RESIDENT = 'A',
   /**
-   * The Petitioner and Respondent were last habitually resident in England and Wales
+   * Applicant 1 and Applicant 2 were last habitually resident in England and Wales
    */
-  PET_RESP_LAST_RESIDENT = 'B',
+  APP_1_APP_2_LAST_RESIDENT = 'B',
   /**
-   * The Respondent habitually resides in England and Wales
+   * Applicant 2 habitually resides in England and Wales
    */
-  RESP_RESIDENT = 'C',
+  APP_2_RESIDENT = 'C',
   /**
-   * The Petitioner is habitually resident in England and Wales and has been for 12 months
+   * Applicant 1 is habitually resident in England and Wales and has been for 12 months
    */
-  PET_RESIDENT_TWELVE_MONTHS = 'D',
+  APP_1_RESIDENT_TWELVE_MONTHS = 'D',
   /**
-   * The Petitioner is habitually resident in England and Wales and has been for 6 months
+   * Applicant 1 is habitually resident in England and Wales and has been for 6 months
    */
-  PET_RESIDENT_SIX_MONTHS = 'E',
+  APP_1_RESIDENT_SIX_MONTHS = 'E',
   /**
-   * The Petitioner and Respondent are both domiciled in England and Wales
+   * Applicant 1 and Applicant 2 are both domiciled in England and Wales
    */
-  PET_RESP_DOMICILED = 'F',
+  APP_1_APP_2_DOMICILED = 'F',
   /**
    * Eligible for Residual Jurisdiction
    */
   RESIDUAL_JURISDICTION = 'G',
   /**
-   * The Petitioner is domiciled in England and Wales
+   * Applicant 1 is domiciled in England and Wales
    */
-  PET_DOMICILED = 'H',
+  APP_1_DOMICILED = 'H',
   /**
-   * The Respondent is domiciled in England and Wales
+   * Applicant 2 is domiciled in England and Wales
    */
-  RESP_DOMICILED = 'I',
+  APP_2_DOMICILED = 'I',
 }
 
 export const enum LanguagePreference {
@@ -389,12 +359,12 @@ export const enum LanguagePreference {
 
 export const enum LegalConnections {
   COURTS_RESIDUAL_JURISDICTION = 'A',
-  PET_RESP_DOMICILED = 'B',
-  PET_DOMICILED_RESIDENT = 'C',
-  PET_RESIDENT = 'D',
-  RESP_RESIDENT = 'E',
-  PET_RESP_ONE_RESIDENT = 'F',
-  PET_RESP_RESIDENT = 'G',
+  APP_1_APP_2_DOMICILED = 'B',
+  APP_1_DOMICILED_RESIDENT = 'C',
+  APP_1_RESIDENT = 'D',
+  APP_2_RESIDENT = 'E',
+  APP_1_APP_2_ONE_RESIDENT = 'F',
+  APP_1_APP_2_RESIDENT = 'G',
 }
 
 export const enum LegalProceedingsRelated {
@@ -429,14 +399,43 @@ export const enum UserRole {
   CASEWORKER_DIVORCE_SUPERUSER = 'caseworker-divorce-superuser',
   CASEWORKER_DIVORCE_COURTADMIN_LA = 'caseworker-divorce-courtadmin-la',
   CASEWORKER_DIVORCE_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
-  RESPONDENT_SOLICITOR = '[RESPSOLICITOR]',
-  PETITIONER_SOLICITOR = '[PETSOLICITOR]',
+  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
+  APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
   CREATOR = '[CREATOR]',
 }
 
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
+}
+
+export const enum DocumentType {
+  DIVORCE_APPLICATION = 'divorceApplication',
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
+  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  SERVICE_SOLICITOR = 'serviceSolicitor',
+  SERVICE_DISPENSED_WITH = 'serviceDispensedWith',
+  SERVICE_DISPENSED_WITH_GRANTED = 'serviceDispensedWithGranted',
+  SERVICE_DEEMED = 'serviceDeemed',
+  SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
+  SERVICE_BALIFF = 'serviceBaliff',
+  AOS_OFFLINE_INVITATION_LETTER_TO_APPLICANT_2 = 'aosOfflineInvitationLetterToApplicant2',
+  APPLICANT_2_ANSWERS = 'applicant2Answers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CONDITIONAL_ORDER_REFUSAL_CLARIFICATION_RESPONSE = 'conditionalOrderRefusalClarificationResponse',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_CERTIFICATE_OF_ENTITLEMENT = 'conditionalOrderCertificateOfEntitlement',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  CORRESPONDENCE = 'correspondence',
+  GENERAL_APPLICATION = 'generalApplication',
+  EMAIL = 'email',
+  OTHER = 'other',
 }
 
 export const enum PaymentStatus {
@@ -447,9 +446,13 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
+export const PATCH_CASE = 'patch-case';
+export const PAYMENT_MADE = 'payment-made';
+export const APPLICANT_1_STATEMENT_OF_TRUTH = 'applicant-1-statement-of-truth';
+export const CREATE_DRAFT = 'create-draft';
+export const SAVE_AND_CLOSE = 'save-and-close';
 export const FIRST_NAME = 'first name';
 export const LAST_NAME = 'last name';
-export const RELATIONSHIP = 'relationship';
 export const DIVORCE_APPLICATION = 'divorce application';
 export const APPLICATION_TO_END_CIVIL_PARTNERSHIP = 'application to end your civil partnership';
 export const SIGN_IN_URL_NOTIFY_KEY = 'signin url';
@@ -461,38 +464,7 @@ export const DISSOLUTION_COURT_EMAIL = 'dissolutionCourtEmail';
 export const COURT_EMAIL = 'court email';
 export const SUBMISSION_RESPONSE_DATE = 'date of response';
 export const APPLICATION_REFERENCE = 'reference number';
-export const CHANNEL = 'channel';
-export const EVENT = 'event';
-export const JURISDICTION_1 = 'jurisdiction1';
-export const JURISDICTION_2 = 'jurisdiction2';
-export const SERVICE = 'service';
-export const KEYWORD = 'keyword';
-export const SOLICITOR_UPDATE_CONTACT_DETAILS = 'solicitor-update-contact-details';
-export const SOLICITOR_UPDATE_LANGUAGE = 'solicitor-update-language';
-export const SOLICITOR_CREATE = 'solicitor-create';
-export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const SOLICITOR_UPDATE = 'solicitor-update';
-export const SAVE_AND_CLOSE = 'save-and-close';
-export const PAYMENT_MADE = 'payment-made';
-export const PETITIONER_STATEMENT_OF_TRUTH = 'petitioner-statement-of-truth';
-export const CREATE_DRAFT = 'create-draft';
-export const PATCH_CASE = 'patch-case';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE8';
-export const JURISDICTION = 'DIVORCE';
-export const PETITIONER_FIRST_NAME = 'petitionerFirstName';
-export const PETITIONER_LAST_NAME = 'petitionerLastName';
-export const PETITIONER_EMAIL = 'petitionerEmail';
-export const FIRSTNAME = 'FirstName';
-export const LASTNAME = 'LastName';
-export const EMAIL = 'Email';
-export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
 export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
-export const FINANCIAL_ORDER = 'financialOrder';
-export const DIVORCE_MINI_PETITION = 'DIVORCE_MINI_PETITION';
-export const USER_ROLES = 'user-roles';
-export const USER_ID = 'user-id';
-export const DOCUMENT_DELETE_URI = 'document_delete_uri';
-export const PERMANENT = 'permanent';
 export const MARRIAGE_OR_RELATIONSHIP = 'marriageOrRelationship';
 export const MARRIAGE_OR_CIVIL_PARTNERSHIP = 'marriageOrCivilPartnership';
 export const DIVORCE_OR_END_CIVIL_PARTNERSHIP = 'divorceOrEndCivilPartnership';
@@ -514,23 +486,39 @@ export const HAS_COST_ORDERS = 'hasCostOrders';
 export const HAS_FINANCIAL_ORDERS = 'hasFinancialOrders';
 export const HAS_FINANCIAL_ORDERS_FOR_CHILD = 'hasFinancialOrdersForChild';
 export const FINANCIAL_ORDER_CHILD = 'financialOrderChild';
-export const RESPONDENT_POSTAL_ADDRESS = 'respondentPostalAddress';
+export const APPLICANT_2_POSTAL_ADDRESS = 'applicant2PostalAddress';
 export const FOR_A_DIVORCE = 'for a divorce';
 export const MARRIAGE = 'marriage';
 export const OF_THE_DIVORCE = 'of the divorce';
 export const CONDITIONAL_ORDER_OF_DIVORCE_FROM = 'for a final conditional order of divorce from';
 export const DIVORCE_COSTS = 'divorce costs';
 export const TO_END_A_CIVIL_PARTNERSHIP = 'to end a civil partnership';
+export const RELATIONSHIP = 'relationship';
 export const CIVIL_PARTNERSHIP = 'civil partnership';
 export const TO_END_THE_CIVIL_PARTNERSHIP = 'to end the civil partnership';
 export const DISSOLUTION_OF_THE_CIVIL_PARTNERSHIP_WITH = 'for the dissolution of the civil partnership with';
 export const COSTS_RELATED_TO_ENDING_THE_CIVIL_PARTNERSHIP = 'costs related to ending the civil partnership';
-export const CHILDREN_OF_THE_APPLICANT_AND_THE_RESPONDENT =
-  ', and for the children of the applicant and the respondent';
+export const CHILDREN_OF_THE_APPLICANT_1_AND_APPLICANT_2 = ', and for the children of applicant 1 and applicant 2';
+export const DIVORCE_MINI_APPLICATION = 'DIVORCE_MINI_APPLICATION';
+export const USER_ROLES = 'user-roles';
+export const USER_ID = 'user-id';
+export const DOCUMENT_DELETE_URI = 'document_delete_uri';
+export const PERMANENT = 'permanent';
 export const DOCUMENT_FILENAME_FMT = '%s%s';
-export const DOCUMENT_NAME = 'draft-mini-petition-';
-export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
-export const BEARER_PREFIX = 'Bearer' + ' ';
+export const DOCUMENT_NAME = 'draft-mini-application-';
+export const SOLICITOR_UPDATE_CONTACT_DETAILS = 'solicitor-update-contact-details';
+export const SOLICITOR_CREATE = 'solicitor-create';
+export const SOLICITOR_UPDATE = 'solicitor-update';
+export const SOLICITOR_UPDATE_LANGUAGE = 'solicitor-update-language';
+export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE9';
+export const JURISDICTION = 'DIVORCE';
+export const APPLICANT_1_EMAIL = 'applicant1Email';
+export const FIRSTNAME = 'FirstName';
+export const LASTNAME = 'LastName';
+export const EMAIL = 'Email';
+export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
+export const FINANCIAL_ORDER = 'financialOrder';
 export const LESS_THAN_ONE_YEAR_AGO = ' can not be less than one year ago.';
 export const MORE_THAN_ONE_HUNDRED_YEARS_AGO = ' can not be more than 100 years ago.';
 export const IN_THE_FUTURE = ' can not be in the future.';
@@ -538,3 +526,11 @@ export const EMPTY = ' cannot be empty or null';
 export const MUST_BE_YES = ' must be YES';
 export const CONNECTION = 'Connection ';
 export const CANNOT_EXIST = ' cannot exist';
+export const SERVICE_AUTHORIZATION = 'ServiceAuthorization';
+export const BEARER_PREFIX = 'Bearer' + ' ';
+export const CHANNEL = 'channel';
+export const EVENT = 'event';
+export const JURISDICTION_1 = 'jurisdiction1';
+export const JURISDICTION_2 = 'jurisdiction2';
+export const SERVICE = 'service';
+export const KEYWORD = 'keyword';
