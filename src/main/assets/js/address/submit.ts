@@ -16,6 +16,7 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
 
     hideErrors();
 
+    (getById('addressCountry') as HTMLInputElement).value = 'UK';
     const formData = new FormData(postcodeLookupForm);
     const postcode = formData.get('postcode')?.toString() || '';
     const isInvalidPostcode = checkIfPostcodeInvalid(postcode);
@@ -42,7 +43,6 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
 
       const addresses = await response.json();
 
-      (getById('addressNotInternational') as HTMLInputElement).checked = true;
       (getById('userPostcode') as HTMLElement).textContent = postcode;
 
       const totalFound = getById('totalAddressesFound') as HTMLOptionElement;
