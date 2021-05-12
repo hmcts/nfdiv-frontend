@@ -5,6 +5,7 @@ import { config as testConfig } from '../config';
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
 export const config: CodeceptJS.Config = {
+  name: 'nfdiv-frontend-functional',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/functional/reports',
   helpers: {
@@ -18,8 +19,8 @@ export const config: CodeceptJS.Config = {
       ignoreHTTPSErrors: true,
     },
   },
-  bootstrap: null,
-  name: 'nfdiv-frontend',
+  bootstrap: testConfig.bootstrap,
+  teardown: testConfig.teardown,
   plugins: {
     autoLogin: testConfig.AutoLogin,
     allure: {

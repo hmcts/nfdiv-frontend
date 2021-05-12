@@ -48,6 +48,7 @@ if (process.env.SAUCE === 'true') {
 }
 
 export const config: CodeceptJS.Config = {
+  name: 'nfdiv-frontend-cross-browser',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/crossbrowser/reports',
   helpers,
@@ -59,8 +60,8 @@ export const config: CodeceptJS.Config = {
       browsers: [{ browser: 'chromium' }, { browser: 'webkit' }, { browser: 'firefox' }],
     },
   },
-  bootstrap: null,
-  name: 'nfdiv-frontend',
+  bootstrap: testConfig.bootstrap,
+  teardown: testConfig.teardown,
   plugins: {
     autoLogin: testConfig.AutoLogin,
     allure: {
