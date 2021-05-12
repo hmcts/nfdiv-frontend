@@ -25,6 +25,12 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   },
   stepQuestions: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
+    [urls.ENTER_YOUR_ADDRESS]: {
+      yourAddressCountry: 'Your postal address',
+    },
+    [urls.ENTER_THEIR_ADDRESS]: {
+      theirAddressCountry: `Your ${partner}’s postal address`,
+    },
   },
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
@@ -38,6 +44,44 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
           : false,
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
+    [urls.ENTER_YOUR_ADDRESS]: {
+      yourAddress1: false,
+      yourAddress2: false,
+      yourAddress3: false,
+      yourAddressTown: false,
+      yourAddressCounty: false,
+      yourAddressPostcode: false,
+      yourAddressCountry: [
+        formState?.yourAddress1,
+        formState?.yourAddress2,
+        formState?.yourAddress3,
+        formState?.yourAddressTown,
+        formState?.yourAddressCounty,
+        formState?.yourAddressPostcode,
+        formState?.yourAddressCountry,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+    },
+    [urls.ENTER_THEIR_ADDRESS]: {
+      theirAddress1: false,
+      theirAddress2: false,
+      theirAddress3: false,
+      theirAddressTown: false,
+      theirAddressCounty: false,
+      theirAddressPostcode: false,
+      theirAddressCountry: [
+        formState?.theirAddress1,
+        formState?.theirAddress2,
+        formState?.theirAddress3,
+        formState?.theirAddressTown,
+        formState?.theirAddressCounty,
+        formState?.theirAddressPostcode,
+        formState?.theirAddressCountry,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+    },
     [urls.UPLOAD_YOUR_DOCUMENTS]: {
       uploadedFiles: (formState?.documentsUploaded || []).length
         ? `${formState?.documentsUploaded?.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')}`

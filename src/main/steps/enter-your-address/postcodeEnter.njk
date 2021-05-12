@@ -28,3 +28,22 @@
     <a href="#" id="cannot-enter-uk-postcode" class="govuk-link">{{ notUK }}</a>
   </p>
 </div>
+
+<script id="addressFieldLabels" type="application/json">
+{
+  "uk": {
+    "line1": "{{ buildingStreet }}",
+    "line2": "",
+    "town": "{{ town }}",
+    "county": "{{ county }}",
+    "postcode": "{{ postcode }}"
+  },
+  "international": {
+    "line1": "{{ line1 }}",
+    "line2": "{{ line2Optional }}",
+    "town": "{{ townOptional }}",
+    "county": "{{ countyOptional }}",
+    "postcode": "{{ postcodeOptional }}"
+  }
+}
+</script>

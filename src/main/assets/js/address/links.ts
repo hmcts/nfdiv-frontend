@@ -8,8 +8,22 @@ export const showEnterPostcode = (): void => toggleLookupPostcode('remove');
 
 const hideSelectAddress = () => (getById('selectAddress') as HTMLElement).classList.add(hidden);
 
+const updateLabels = (type: 'uk' | 'international') => {
+  const labels = JSON.parse(getById('addressFieldLabels')?.textContent || '{}');
+  (qs('.govuk-form-group.address1 label') as HTMLLabelElement).textContent = labels[type].line1;
+  (qs('.govuk-form-group.address2 label') as HTMLLabelElement).textContent = labels[type].line2;
+  (qs('.govuk-form-group.addressTown label') as HTMLLabelElement).textContent = labels[type].town;
+  (qs('.govuk-form-group.addressCounty label') as HTMLLabelElement).textContent = labels[type].county;
+  (qs('.govuk-form-group.addressPostcode label') as HTMLLabelElement).textContent = labels[type].postcode;
+};
+
 const toggleInternationalAddressFields = (toggle: string) => {
-  (qs('.govuk-form-group.internationalAddress') as HTMLElement).classList[toggle](hidden);
+  if (toggle === 'remove') {
+    updateLabels('international');
+  }
+
+  (qs('.govuk-form-group.address3') as HTMLElement).classList[toggle](hidden);
+  (qs('.govuk-form-group.addressCountry') as HTMLElement).classList[toggle](hidden);
   (getById('enterUkPostcode') as HTMLElement).classList[toggle](hidden);
   (getById('main-form-submit') as HTMLElement).classList[toggle](hidden);
 };
@@ -17,6 +31,10 @@ export const showInternationalAddressFields = (): void => toggleInternationalAdd
 export const hideInternationalAddressFields = (): void => toggleInternationalAddressFields('add');
 
 const toggleUkAddressFields = (toggle: string): void => {
+  if (toggle === 'remove') {
+    updateLabels('uk');
+  }
+
   (getById('selectAddress') as HTMLElement).classList.add(hidden);
   (qs('.govuk-form-group.address1') as HTMLElement).classList[toggle](hidden);
   (qs('.govuk-form-group.address2') as HTMLElement).classList[toggle](hidden);
@@ -33,10 +51,8 @@ if (cannotEnterUkPostcode) {
   cannotEnterUkPostcode.onclick = e => {
     e.preventDefault();
     hideErrors();
-
-    (getById('addressIsInternational') as HTMLInputElement).checked = true;
-
     hideEnterPostcode();
+    showUkAddressFields();
     showInternationalAddressFields();
   };
 }
@@ -57,9 +73,6 @@ const onResetPostcodeLookup = e => {
   hideInternationalAddressFields();
   hideUkAddressFields();
 
-  for (const el of qsa('option:not([value="-1"])')) {
-    el.remove();
-  }
   for (const el of qsa('.govuk-error-summary:not([id="addressErrorSummary"])')) {
     el.remove();
   }

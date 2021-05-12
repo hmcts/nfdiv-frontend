@@ -2,8 +2,9 @@ import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
+import type { CommonContent } from '../common/common.content';
 
-const en = ({ required }) => ({
+const en = ({ required }: CommonContent) => ({
   title: 'Were you both last habitually resident in England or Wales and does one of you still live here?',
   line1:
     'For this to apply to you, England or Wales must be where you were both last habitually resident at the same time (but not necessarily as a couple) and one of you must still live here.',
@@ -20,8 +21,23 @@ const en = ({ required }) => ({
   },
 });
 
-const cy: typeof en = ({ required }) => ({
-  ...en({ required }),
+const cy = ({ required }: CommonContent) => ({
+  title:
+    "A oedd y ddau ohonoch yn preswylio'n arferol ddiwethaf yng Nghymru neu Loegr ac a yw un ohonoch yn dal i fyw yma?",
+  line1:
+    "Er mwyn i hyn fod yn berthnasol i chi, rhaid i Gymru neu Loegr fod lle'r oedd y ddau ohonoch yn preswylio'n arferol ddiwethaf ar yr un pryd (ond nid fel cwpl o reidrwydd) ac mae'n rhaid i un ohonoch barhau i fyw yma.",
+  readMore: 'Darllenwch fwy am breswylfa arferol',
+  line2:
+    "Os yw eich bywyd yn bennaf yng Nghymru neu Loegr, yna rydych yn yr hyn a elwir yn gyfreithiol yn 'preswylio'n arferol'.",
+  line3:
+    'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant yn yr ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
+  line4:
+    'Nid yw’r enghreifftiau hyn yn rhestr gynhwysfawr o amgylchiadau sy’n esiamplau o breswylio’n arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Dylech gael cyngor cyfreithiol os ydych yn ansicr ynghylch hyn.',
+  errors: {
+    lastHabituallyResident: {
+      required,
+    },
+  },
 });
 
 export const form: FormContent = {
