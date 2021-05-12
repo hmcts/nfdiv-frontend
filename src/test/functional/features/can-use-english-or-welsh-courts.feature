@@ -30,6 +30,8 @@ Feature: Can use English or Welsh courts
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
+    And I select "No"
+    And I click "Continue"
     And I select "No" for "Is your domicile in England or Wales?"
     And I select "No" for "Is your husband’s domicile in England or Wales?"
     And I click "Continue"
