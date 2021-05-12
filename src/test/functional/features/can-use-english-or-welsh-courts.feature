@@ -5,7 +5,7 @@ Feature: Can use English or Welsh courts
     When I've completed all questions correctly to get to the jurisdiction section
     Then I click "Continue"
 
-  Scenario: A The Petitioner and Respondent are habitually resident
+  Scenario: A Applicant 1 and Applicant 2 are habitually resident
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
@@ -13,7 +13,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you are 'habitually resident'"
     And the page should include "Read more about habitual residence"
 
-  Scenario: B The Petitioner and Respondent were last habitually resident in England and Wales
+  Scenario: B Applicant 1 and Applicant 2 were last habitually resident in England and Wales
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
@@ -26,7 +26,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you were last 'habitually resident' and one of you still lives here"
     And the page should include "Read more about habitual residence"
 
-  Scenario: C The Respondent habitually resides in England and Wales
+  Scenario: C Applicant 2 habitually resides in England and Wales
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
@@ -34,7 +34,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because your husband is 'habitually resident'"
     And the page should include "Read more about habitual residence"
 
-  Scenario: D The Petitioner is habitually resident in England and Wales and has been for 12 months
+  Scenario: D Applicant 1 is habitually resident in England and Wales and has been for 12 months
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
@@ -44,7 +44,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are 'habitually resident' and have lived here for at least 12 months"
     And the page should include "Read more about habitual residence"
 
-  Scenario: E The Petitioner is habitually resident in England and Wales and has been for 6 months
+  Scenario: E Applicant 1 is habitually resident in England and Wales and has been for 6 months
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
@@ -59,7 +59,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Your answers indicate that you’re domiciled and habitually resident and have lived here for at least 6 months"
     And the page should include "Read more about your connections"
 
-  Scenario: F The Petitioner and Respondent are both domiciled in England and Wales
+  Scenario: F Applicant 1 and Applicant 2 are both domiciled in England and Wales
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
@@ -119,7 +119,7 @@ Feature: Can use English or Welsh courts
     And the page should include "Read more about your connections"
 
 # TODO connections H and I only appear on the connection summary page (not yet implemented)
-#  Scenario: H The Petitioner is domiciled in England and Wales
+#  Scenario: H Applicant 1 is domiciled in England and Wales
 #    Given I select "No" for "Is your life mainly based in England or Wales?"
 #    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
 #    And I click "Continue"
@@ -132,7 +132,7 @@ Feature: Can use English or Welsh courts
 #    And the page should include "you are 'domiciled' in England or Wales."
 #    And the page should include "Read more about domicile"
 #
-#  Scenario: I The Respondent is domiciled in England and Wales
+#  Scenario: I Applicant 2 is domiciled in England and Wales
 #    Given I select "No" for "Is your life mainly based in England or Wales?"
 #    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
 #    And I click "Continue"

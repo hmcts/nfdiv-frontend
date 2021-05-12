@@ -27,7 +27,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
@@ -48,7 +48,7 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
@@ -57,7 +57,7 @@ describe('from-api-format', () => {
     test('works correctly when not set', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        derivedPetitionerHomeAddress: undefined,
+        derivedApplicant1HomeAddress: undefined,
       } as unknown as CaseData);
 
       expect(nfdivFormat.isYourAddressInternational).toBeUndefined();

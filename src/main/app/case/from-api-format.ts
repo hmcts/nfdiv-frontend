@@ -31,7 +31,7 @@ const fields: FromApiConverters = {
     agreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
   applicant1KnowsApplicant2EmailAddress: data => ({
-    doNotKnowRespondentEmailAddress:
+    doNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
   applicant1ContactDetailsConfidential: data => ({

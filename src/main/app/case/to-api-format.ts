@@ -22,10 +22,10 @@ const fields: ToApiConverters = {
     marriageIsSameSexCouple: checkboxConverter(data.sameSex),
   }),
   gender: data => {
-    // Petitioner makes the request
+    // Applicant 1 makes the request
     let inferredApplicant1Gender = data.gender;
 
-    // Respondent receives the request
+    // Applicant 2 receives the request
     let inferredApplicant2Gender = data.gender;
 
     if (data.sameSex !== Checkbox.Checked) {
@@ -60,9 +60,9 @@ const fields: ToApiConverters = {
   }),
   theirAddressPostcode: theirAddressToApi,
   theirInternationalAddress: theirAddressToApi,
-  doNotKnowRespondentEmailAddress: data => ({
+  doNotKnowApplicant2EmailAddress: data => ({
     applicant1KnowsApplicant2EmailAddress:
-      data.doNotKnowRespondentEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+      data.doNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),

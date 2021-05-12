@@ -2,11 +2,11 @@ import { Case } from '../case';
 import { AddressGlobalUK, CaseData, YesOrNo } from '../definition';
 
 export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
-  const isPetitionerAddress = address === 'your';
+  const isApplicant1Address = address === 'your';
   const isAddressInternational =
-    (isPetitionerAddress ? data.applicant1HomeAddressIsInternational : data.applicant2HomeAddressIsInternational) ===
+    (isApplicant1Address ? data.applicant1HomeAddressIsInternational : data.applicant2HomeAddressIsInternational) ===
     YesOrNo.YES;
-  const fullAddress = isPetitionerAddress ? data.applicant1HomeAddress : data.applicant2HomeAddress;
+  const fullAddress = isApplicant1Address ? data.applicant1HomeAddress : data.applicant2HomeAddress;
 
   return {
     [`${address}InternationalAddress`]: isAddressInternational

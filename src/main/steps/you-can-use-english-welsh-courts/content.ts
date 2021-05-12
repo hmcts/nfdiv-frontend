@@ -8,7 +8,7 @@ const en = (
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
-  const enPetRespResident = {
+  const enApp1App2Resident = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,
     readMore: 'Read more about habitual residence',
     helpText1:
@@ -19,7 +19,7 @@ const en = (
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
     clarification: `You only need to do this if your ${partner} may disagree that both of you are habitually resident.`,
   };
-  const enPetRespLastResident = {
+  const enApp1App2LastResident = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you were last 'habitually resident' and one of you still lives here.`,
     readMore: 'Read more about habitual residence',
     helpText1:
@@ -30,7 +30,7 @@ const en = (
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
     clarification: `You only need to do this if your ${partner} may disagree that both of you were last habitually resident and one of you still lives here.`,
   };
-  const enRespResident = {
+  const enApp2Resident = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because your ${partner} is 'habitually resident'.`,
     readMore: 'Read more about habitual residence',
     helpText1:
@@ -41,7 +41,7 @@ const en = (
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
     clarification: `You only need to do this if your ${partner} may disagree that they is habitually resident.`,
   };
-  const enPetResidentTwelveMonths = {
+  const enApp1ResidentTwelveMonths = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'habitually resident' and have lived here for at least 12 months.`,
     readMore: 'Read more about habitual residence',
     helpText1:
@@ -69,13 +69,13 @@ const en = (
       "If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.",
     helpText8: 'If you’re not sure about your habitual residence or domicile you should get legal advice.',
   };
-  const enPetResidentSixMonths = {
+  const enApp1ResidentSixMonths = {
     line1:
       'Your answers indicate that you’re domiciled and habitually resident and have lived here for at least 6 months.',
     ...enHabitualAndDomicileHelp,
     clarification: `You only need to do this if your ${partner} may disagree that you’re domiciled and habitually resident and have lived here for at least 6 months.`,
   };
-  const enPetRespDomiciled = {
+  const enApp1App2Domiciled = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,
     readMore: 'Read more about domicile',
     helpText1:
@@ -92,13 +92,13 @@ const en = (
     clarification: '',
   };
 
-  const enConnections: Partial<Record<JurisdictionConnections, typeof enPetRespResident | undefined>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enPetRespResident,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enPetRespLastResident,
-    [JurisdictionConnections.APP_2_RESIDENT]: enRespResident,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enPetResidentTwelveMonths,
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: enPetResidentSixMonths,
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enPetRespDomiciled,
+  const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident | undefined>> = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident,
+    [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: enApp1ResidentSixMonths,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction,
   };
 
@@ -110,7 +110,7 @@ const en = (
 
 const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConnections[]) => {
   const apply = isDivorce ? 'cais am ysgariad' : 'cais';
-  const cyPetRespResident = {
+  const cyApp1App2Resident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -121,7 +121,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yng Nghymru neu Loegr.`,
   };
-  const cyPetRespLastResident = {
+  const cyApp1App2LastResident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol a bod un ohonoch yn dal i fyw yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -132,7 +132,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yma’n fwyaf diweddar a bod un ohonoch yn dal i fyw yma.`,
   };
-  const cyRespResident = {
+  const cyApp2Resident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${partner} yn preswylio’n arferol yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -143,7 +143,7 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno ei fod/bod yn preswylio’n arferol.`,
   };
-  const cyPetResidentTwelveMonths = {
+  const cyApp1ResidentTwelveMonths = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod yn preswylio yno’n arferol a’ch bod wedi byw yma am o leiaf 12 mis.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
@@ -172,13 +172,13 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     helpText8:
       'Os nad ydych chi’n siwr ynglyn â’ch preswylfa arferol neu eich domisil, dylech ofyn am gyngor cyfreithiol.',
   };
-  const cyPetResidentSixMonths = {
+  const cyApp1ResidentSixMonths = {
     line1:
       'Dengys eich atebion fod eich domisil yng Nghymru neu Loegr, a’ch bod yn preswylio yno’n arferol ac wedi byw yno am o leiaf chwe mis.',
     ...cyHabitualAndDomicileHelp,
     clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno bod eich domisil yma, eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf 6 mis.`,
   };
-  const cyPetRespDomiciled = {
+  const cyApp1App2Domiciled = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am mai yng Nghymru a Lloegr y mae domisil y ddau ohonoch.`,
     readMore: 'Darllenwch fwy am beth yw domisil',
     helpText1:
@@ -195,13 +195,13 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
     clarification: '',
   };
 
-  const cyConnections: Partial<Record<JurisdictionConnections, typeof cyPetRespResident | undefined>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: cyPetRespResident,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: cyPetRespLastResident,
-    [JurisdictionConnections.APP_2_RESIDENT]: cyRespResident,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: cyPetResidentTwelveMonths,
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: cyPetResidentSixMonths,
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: cyPetRespDomiciled,
+  const cyConnections: Partial<Record<JurisdictionConnections, typeof cyApp1App2Resident | undefined>> = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: cyApp1App2Resident,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: cyApp1App2LastResident,
+    [JurisdictionConnections.APP_2_RESIDENT]: cyApp2Resident,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: cyApp1ResidentTwelveMonths,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: cyApp1ResidentSixMonths,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: cyApp1App2Domiciled,
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: cyResidualJurisdiction,
   };
 

@@ -11,10 +11,10 @@ const en = ({ partner, isDivorce }) => ({
     isDivorce ? 'the divorce' : 'ending your civil partnership'
   }.`,
   line2: 'If you use their work email address, you should ask their permission first.',
-  respondentEmailAddress: `Your ${partner}'s email address`,
-  doNotKnowRespondentEmailAddress: 'I do not know their email address',
+  applicant2EmailAddress: `Your ${partner}'s email address`,
+  doNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
-    respondentEmailAddress: {
+    applicant2EmailAddress: {
       required:
         'You have not entered their email address or said you do not know it. You have to do one or the other before continuing.',
       incorrect:
@@ -29,23 +29,23 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    respondentEmailAddress: {
+    applicant2EmailAddress: {
       type: 'text',
-      label: l => l.respondentEmailAddress,
+      label: l => l.applicant2EmailAddress,
       validator: (value, formData) => {
-        if (formData.doNotKnowRespondentEmailAddress !== Checkbox.Checked) {
+        if (formData.doNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isEmailValid(value);
         } else if (value) {
           return 'incorrect';
         }
       },
     },
-    doNotKnowRespondentEmailAddress: {
+    doNotKnowApplicant2EmailAddress: {
       type: 'checkboxes',
       values: [
         {
-          name: 'doNotKnowRespondentEmailAddress',
-          label: l => l.doNotKnowRespondentEmailAddress,
+          name: 'doNotKnowApplicant2EmailAddress',
+          label: l => l.doNotKnowApplicant2EmailAddress,
           value: Checkbox.Checked,
         },
       ],

@@ -11,7 +11,7 @@ describe('to-api-format', () => {
     alreadyAppliedForHelpPaying: YesOrNo.YES,
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
-    doNotKnowRespondentEmailAddress: Checkbox.Checked,
+    doNotKnowApplicant2EmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
     knowPartnersAddress: YesOrNo.NO,
     iWantToHavePapersServedAnotherWay: null,
@@ -52,42 +52,42 @@ describe('to-api-format', () => {
     {
       gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.MALE },
     },
     {
       gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.FEMALE },
     },
     {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.MALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.FEMALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.MALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.FEMALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.FEMALE },
     },
   ])(
-    'gets the correct inferred gender of the petitioner and respondent: %o',
+    'gets the correct inferred gender of applicant 1 and applicant 2: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
-        inferredApplicant1Gender: expected.petitioner,
-        inferredApplicant2Gender: expected.respondent,
+        inferredApplicant1Gender: expected.applicant1,
+        inferredApplicant2Gender: expected.applicant2,
       });
     }
   );
