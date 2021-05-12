@@ -100,6 +100,8 @@ const cy: typeof en = {
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
   marriage: 'priodas',
+  divorce: 'ysgariad',
+  endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
