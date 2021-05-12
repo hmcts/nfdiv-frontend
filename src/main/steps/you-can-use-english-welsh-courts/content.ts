@@ -76,7 +76,7 @@ const en = (
     clarification: `You only need to do this if your ${partner} may disagree that you’re domiciled and habitually resident and have lived here for at least 6 months.`,
   };
   const enPetRespDomiciled = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,
+    line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'domiciled' in England or Wales.`,
     readMore: 'Read more about domicile',
     helpText1:
       'When you’re born, you acquire a <strong>domicile of origin</strong>.  This is usually: <ul class="govuk-list govuk-list--bullet"> <li>the country your father was domiciled in if your parents were married</li> <li>the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li> </ul>',

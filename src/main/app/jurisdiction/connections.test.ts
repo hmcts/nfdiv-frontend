@@ -73,6 +73,7 @@ describe('connections', () => {
       yourDomicileInEnglandWales: YesOrNo.NO,
       partnersDomicileInEnglandWales: YesOrNo.NO,
       jurisdictionResidualEligible: YesOrNo.YES,
+      lastHabituallyResident: YesOrNo.NO,
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
@@ -81,6 +82,7 @@ describe('connections', () => {
       yourDomicileInEnglandWales: YesOrNo.NO,
       partnersDomicileInEnglandWales: YesOrNo.NO,
       jurisdictionResidualEligible: YesOrNo.YES,
+      lastHabituallyResident: YesOrNo.NO,
     },
   ])('Given there is residual jurisdiction, should find connection G', async body => {
     const connectionAdded = addConnection(body);
