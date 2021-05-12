@@ -57,7 +57,7 @@ export const allowedToAnswerResidualJurisdiction = (data: Partial<CaseWithId>): 
   return (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.lastHabituallyResident === YesOrNo.NO &&
-    previousConnectionMadeUptoLastHabituallyResident(data)
+    !previousConnectionMadeUptoLastHabituallyResident(data)
   );
 };
 

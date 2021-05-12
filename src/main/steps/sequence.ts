@@ -166,7 +166,7 @@ export const sequence: Step[] = [
         case `${YES}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
         case `${NO}${YES}`:
-          return data.sameSex === Checkbox.Checked ? JURISDICTION_INTERSTITIAL_URL : JURISDICTION_DOMICILE;
+          return data.sameSex === Checkbox.Checked ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL;
         case `${YES}${NO}`:
           return JURISDICTION_LAST_TWELVE_MONTHS;
         default:
@@ -199,10 +199,15 @@ export const sequence: Step[] = [
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
       } else if (
-        (data.lastHabituallyResident === YesOrNo.YES && !previousConnectionMadeUptoLastHabituallyResident(data)) ||
+        (data.lastHabituallyResident === YesOrNo.YES && previousConnectionMadeUptoLastHabituallyResident(data)) ||
         (data.lastHabituallyResident === YesOrNo.NO && previousConnectionMadeUptoLastHabituallyResident(data))
       ) {
         return JURISDICTION_CONNECTION_SUMMARY;
+      } else if (
+        data.lastHabituallyResident === YesOrNo.YES &&
+        !previousConnectionMadeUptoLastHabituallyResident(data)
+      ) {
+        return JURISDICTION_INTERSTITIAL_URL;
       } else {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       }
