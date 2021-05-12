@@ -24,7 +24,7 @@ nodejs:
     # CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-113.service.core-compute-preview.internal'
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 16
     targetCPUUtilizationPercentage: 80
 
