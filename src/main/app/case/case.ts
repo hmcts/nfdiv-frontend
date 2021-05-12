@@ -29,7 +29,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   ceremonyPlace: 'marriagePlaceOfMarriage',
   yourLifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
   partnersLifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
-  yourDomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
+  yourDomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
   partnersDomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
