@@ -37,31 +37,39 @@ const en = ({ partner }: Partial<CommonContent>) => ({
   },
 });
 
-const cy = ({ partner }: CommonContent) => {
-  // @TODO other address page translations
-  const todoEn = en({ partner });
-
-  return {
-    ...todoEn,
-    title: `Rhowch gyfeiriad post eich ${partner}`,
-    enterPostcode: 'Nodwch god post yn y DU',
-    internationalAddress: 'Cyfeiriad llawn',
-    findAddress: 'Dod o hyd i gyfeiriad',
-    notUK: 'Ni allaf nodi cod post yn y DU',
-    enterUkPostcode: 'Nodwch god post yn y DU',
-    cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
-    errors: {
-      ...todoEn.errors,
-      theirAddressPostcode: {
-        ...todoEn.errors.theirAddressPostcode,
-        required: 'Nodwch god post',
-      },
-      theirInternationalAddress: {
-        required: `Nid ydych wedi nodi cyfeiriad eich ${partner}. Rhowch ei gyfeiriad/chyfeiriad llawn cyn parhau.`,
-      },
+const cy = ({ partner }: CommonContent) => ({
+  title: `Rhowch gyfeiriad post eich ${partner}`,
+  enterPostcode: 'Nodwch god post yn y DU',
+  street: "Rhif neu enw'r adeilad, Stryd",
+  line2: '',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'Cod post',
+  internationalAddress: 'Cyfeiriad llawn',
+  findAddress: 'Dod o hyd i gyfeiriad',
+  notUK: 'Ni allaf nodi cod post yn y DU',
+  enterUkPostcode: 'Nodwch god post yn y DU',
+  selectAddress: 'Dewiswch gyfeiriad',
+  addressesFound: (addressesFound: number) =>
+    `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+  cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
+  errors: {
+    theirAddress1: {
+      required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
     },
-  };
-};
+    theirAddressTown: {
+      required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+    },
+    theirAddressPostcode: {
+      required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
+      invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
+      notSelected: `Nid ydych wedi rhoi cyfeiriad eich ${partner}. Rhowch cyfeiriad cyn parhau.`,
+    },
+    theirInternationalAddress: {
+      required: `Nid ydych wedi nodi cyfeiriad eich ${partner}. Rhowch ei gyfeiriad/chyfeiriad llawn cyn parhau.`,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

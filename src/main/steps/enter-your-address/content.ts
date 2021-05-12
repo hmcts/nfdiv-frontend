@@ -38,20 +38,32 @@ const en = {
 };
 
 const cy: typeof en = {
-  // @TODO other address page translations
-  ...en,
   title: 'Nodwch eich cyfeiriad post',
   enterPostcode: 'Nodwch god post yn y DU',
+  street: "Rhif neu enw'r adeilad, Stryd",
+  line2: '',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'Cod post',
   internationalAddress: 'Cyfeiriad llawn',
   findAddress: 'Dod o hyd i gyfeiriad',
   notUK: 'Ni allaf nodi cod post yn y DU',
   enterUkPostcode: 'Nodwch god post yn y DU',
-  cannotFindAddress: 'Ni allaf nodi cod post yn y DU',
+  selectAddress: 'Dewiswch gyfeiriad',
+  addressesFound: (addressesFound: number) =>
+    `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+  cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
   errors: {
-    ...en.errors,
+    yourAddress1: {
+      required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
+    },
+    yourAddressTown: {
+      required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+    },
     yourAddressPostcode: {
-      ...en.errors.yourAddressPostcode,
-      required: 'Nodwch god post',
+      required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
+      invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
+      notSelected: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
     },
     yourInternationalAddress: {
       required: 'Nid ydych wedi nodi eich cyfeiriad. Nodwch ei gyfeiriad/chyfeiriad llawn cyn parhau.',
