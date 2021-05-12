@@ -27,10 +27,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   helpText2: 'Help can be claimed to pay the fee, if the applicant: ',
   helpPayingWhen: ['are on certain benefits <em>or</em>', 'have a little or no savings <em>or</em>', 'have low income'],
   helpText3: `In a sole application, only you have to be eligible and claim help with fees. In a joint application, both you and your ${partner} have to be eligible and claim help with fees separately.`,
-  yes: 'I want to apply on my own, as a sole applicant',
-  no: `I want to apply jointly, with my ${partner}`,
+  soleApplication: 'I want to apply on my own, as a sole applicant',
+  jointApplication: `I want to apply jointly, with my ${partner}`,
   errors: {
-    screenSoleOrJoint: {
+    applicationType: {
       required: 'You have not answered the question. You need to select an answer before continuing.',
     },
   },
@@ -41,14 +41,14 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    screenSoleOrJoint: {
+    applicationType: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: ApplicationType.SOLE_APPLICATION },
-        { label: l => l.no, value: ApplicationType.JOINT_APPLICATION },
+        { label: l => l.soleApplication, value: ApplicationType.SOLE_APPLICATION },
+        { label: l => l.jointApplication, value: ApplicationType.JOINT_APPLICATION },
       ],
       validator: value => isFieldFilledIn(value),
     },

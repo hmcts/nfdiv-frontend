@@ -81,7 +81,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
-  applicationType: ApplicationType;
+  applicationType?: ApplicationType;
   gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
