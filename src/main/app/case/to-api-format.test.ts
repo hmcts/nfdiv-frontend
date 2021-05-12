@@ -88,8 +88,6 @@ describe('to-api-format', () => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
         inferredApplicant1Gender: expected.petitioner,
         inferredApplicant2Gender: expected.respondent,
-        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-        marriageIsSameSexCouple: YesOrNo.NO,
       });
     }
   );
