@@ -33,6 +33,10 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Yes, I have my marriage certificate');
   iClick('Continue');
 
+  I.waitInUrl('/how-do-you-want-to-apply');
+  iClick('I want to apply on my own, as a sole applicant');
+  iClick('Continue');
+
   I.waitInUrl('/help-with-your-fee');
   iClick('I do not need help paying the fee');
   iClick('Continue');
