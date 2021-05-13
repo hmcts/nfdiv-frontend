@@ -12,12 +12,12 @@ Feature: How do you want to apply
     Then the page should include "There was a problem"
     And the page should include "You have not answered the question. You need to select an answer before continuing."
 
-  Scenario: They want to apply as a sole application
+  Scenario: They want to apply as a sole applicant
     When I select "I want to apply on my own, as a sole applicant"
     When I click "Continue"
     Then the page should include "Do you need help paying the fee for your divorce?"
 
-  Scenario: They want to apply as a joint application
+  Scenario: They want to apply as a joint applicant
     When I select "I want to apply jointly, with my husband"
     When I click "Continue"
     Then the page should include "Enter your husband's email address"
