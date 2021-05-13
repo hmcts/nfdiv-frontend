@@ -18,9 +18,9 @@ describe('Postcode Lookup', () => {
   let mockLogger: LoggerInstance;
 
   beforeEach(() => {
-    mockLogger = ({
+    mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
-    } as unknown) as LoggerInstance;
+    } as unknown as LoggerInstance;
   });
 
   it('correctly returns an array of a addresses from a given postcode', async () => {

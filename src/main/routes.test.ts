@@ -4,7 +4,7 @@ import { Routes } from './routes';
 
 describe('Routes', () => {
   it('sets up dynamic step sequence routes', () => {
-    const appMock = ({
+    const appMock = {
       get: jest.fn(),
       post: jest.fn(),
       delete: jest.fn(),
@@ -12,7 +12,7 @@ describe('Routes', () => {
       locals: {
         errorHandler: jest.fn(),
       },
-    } as unknown) as Application;
+    } as unknown as Application;
 
     new Routes().enableFor(appMock);
 

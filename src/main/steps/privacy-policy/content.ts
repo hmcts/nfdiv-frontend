@@ -2,13 +2,11 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = ({ isDivorce }) => ({
   title: 'Privacy policy',
-  info:
-    'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
+  info: 'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
   whoManages: 'Who manages this service',
   managedBy:
     'This service is managed by HM Courts and Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
-  moj:
-    "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
+  moj: "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
   responsibleForDeciding:
     'As part of the MoJ, HMCTS is responsible for deciding how your personal data is used and for protecting the personal data you provide.',
   moreInformation:
@@ -134,13 +132,11 @@ const en = ({ isDivorce }) => ({
 
 const cy: typeof en = ({ isDivorce }) => ({
   title: 'Polisi preifatrwydd',
-  info:
-    'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
+  info: 'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
   whoManages: "Pwy sy’n rheoli'r gwasanaeth hwn",
   managedBy:
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy’n rheoli’r gwasanaeth hwn, sef un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).',
-  moj:
-    "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
+  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
   responsibleForDeciding:
     "Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac am ddiogelu'r data personol rydych yn ei ddarparu.",
   moreInformation:

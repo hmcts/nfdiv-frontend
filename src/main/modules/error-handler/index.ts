@@ -4,14 +4,17 @@ import { LoggerInstance } from 'winston';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController } from '../../steps/error/error.controller';
 
-const setupErrorHandler = renderError => render => async (...args): Promise<void> => {
-  try {
-    await render(...args);
-  } catch (err) {
-    const [req, res] = args as [AppRequest, Response];
-    renderError(err, req, res);
-  }
-};
+const setupErrorHandler =
+  renderError =>
+  render =>
+  async (...args): Promise<void> => {
+    try {
+      await render(...args);
+    } catch (err) {
+      const [req, res] = args as [AppRequest, Response];
+      renderError(err, req, res);
+    }
+  };
 
 const errorController = new ErrorController();
 

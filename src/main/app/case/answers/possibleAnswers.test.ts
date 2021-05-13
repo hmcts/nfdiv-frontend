@@ -6,13 +6,13 @@ import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleA
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answers', () => {
-    const caseStateWithUnreachableAnswers = ({
+    const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       valid2: 'pick-me',
       invalid1: 'dont-pick-me',
-    } as unknown) as Partial<Case>;
+    } as unknown as Partial<Case>;
 
-    const mockSteps = ([
+    const mockSteps = [
       {
         getNextStep: () => 'next-url',
         form: { fields: { valid1: {} } },
@@ -22,7 +22,7 @@ describe('omitUnreachableAnswers()', () => {
         getNextStep: () => '',
         form: { fields: { valid2: {} } },
       },
-    ] as unknown) as Step[];
+    ] as unknown as Step[];
 
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 
@@ -30,12 +30,12 @@ describe('omitUnreachableAnswers()', () => {
   });
 
   test('omits unreachable answers with checkboxes', () => {
-    const caseStateWithUnreachableAnswers = ({
+    const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       invalid1: 'dont-pick-me',
-    } as unknown) as Partial<Case>;
+    } as unknown as Partial<Case>;
 
-    const mockSteps = ([
+    const mockSteps = [
       {
         getNextStep: () => '',
         form: { fields: { someCheckboxes: { type: 'checkboxes', values: [{ name: 'valid1' }] } } },
@@ -45,7 +45,7 @@ describe('omitUnreachableAnswers()', () => {
         getNextStep: () => '',
         form: { fields: { someCheckboxes: { type: 'checkboxes', values: [{ name: 'invalid1' }] } } },
       },
-    ] as unknown) as Step[];
+    ] as unknown as Step[];
 
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 
@@ -53,13 +53,13 @@ describe('omitUnreachableAnswers()', () => {
   });
 
   test('omits unreachable answers with subfields', () => {
-    const caseStateWithUnreachableAnswers = ({
+    const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       valid2: 'pick-me',
       invalid1: 'dont-pick-me',
-    } as unknown) as Partial<Case>;
+    } as unknown as Partial<Case>;
 
-    const mockSteps = ([
+    const mockSteps = [
       {
         getNextStep: () => '',
         form: {
@@ -71,7 +71,7 @@ describe('omitUnreachableAnswers()', () => {
           },
         },
       },
-    ] as unknown) as Step[];
+    ] as unknown as Step[];
 
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 
@@ -79,17 +79,17 @@ describe('omitUnreachableAnswers()', () => {
   });
 
   test('omits unreachable answers with date', () => {
-    const caseStateWithUnreachableAnswers = ({
+    const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       invalid1: 'dont-pick-me',
-    } as unknown) as Partial<Case>;
+    } as unknown as Partial<Case>;
 
-    const mockSteps = ([
+    const mockSteps = [
       {
         getNextStep: () => '',
         form: { fields: { valid1: { type: 'date', values: [{ name: 'day' }] } } },
       },
-    ] as unknown) as Step[];
+    ] as unknown as Step[];
 
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 

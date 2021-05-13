@@ -23,11 +23,11 @@ describe('JurisdictionPostController', () => {
       yourLifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
-    const mockForm = ({
+    const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,
       getParsedBody: () => body,
-    } as unknown) as Form;
+    } as unknown as Form;
 
     const jurisdictionController = new JurisdictionPostController(mockForm);
     const expectedUserCase = {

@@ -9,7 +9,7 @@ export const mockRequest = ({
   userCase = {},
   appLocals = {},
 } = {}): AppRequest =>
-  (({
+  ({
     headers: { 'accept-language': 'en', ...headers },
     body,
     locals: {
@@ -52,4 +52,4 @@ export const mockRequest = ({
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
-  } as unknown) as AppRequest);
+  } as unknown as AppRequest);
