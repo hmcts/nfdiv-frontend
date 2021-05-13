@@ -11,7 +11,7 @@ describe('to-api-format', () => {
     alreadyAppliedForHelpPaying: YesOrNo.YES,
     helpWithFeesRefNo: 'HWF-123-ABC',
     agreeToReceiveEmails: Checkbox.Checked,
-    doNotKnowRespondentEmailAddress: Checkbox.Checked,
+    doNotKnowApplicant2EmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
     knowPartnersAddress: YesOrNo.NO,
     iWantToHavePapersServedAnotherWay: null,
@@ -22,17 +22,17 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       marriageIsSameSexCouple: YesOrNo.YES,
-      inferredRespondentGender: Gender.MALE,
-      inferredPetitionerGender: Gender.MALE,
+      inferredApplicant2Gender: Gender.MALE,
+      inferredApplicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
       helpWithFeesNeedHelp: YesOrNo.YES,
       helpWithFeesAppliedForFees: YesOrNo.YES,
       helpWithFeesReferenceNumber: 'HWF-123-ABC',
-      petitionerAgreedToReceiveEmails: YesOrNo.YES,
-      petitionerContactDetailsConfidential: ConfidentialAddress.KEEP,
-      petitionerKnowsRespondentsAddress: YesOrNo.NO,
-      petitionerKnowsRespondentsEmailAddress: YesOrNo.NO,
-      petitionerWantsToHavePapersServedAnotherWay: null,
+      applicant1AgreedToReceiveEmails: YesOrNo.YES,
+      applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
+      applicant1KnowsApplicant2Address: YesOrNo.NO,
+      applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+      applicant1WantsToHavePapersServedAnotherWay: null,
     });
   });
 
@@ -52,48 +52,48 @@ describe('to-api-format', () => {
     {
       gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.MALE },
     },
     {
       gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.FEMALE },
     },
     {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.MALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.MALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.MALE, applicant2: Gender.FEMALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.MALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.MALE },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.FEMALE,
       sameSex: Checkbox.Checked,
-      expected: { petitioner: Gender.FEMALE, respondent: Gender.FEMALE },
+      expected: { applicant1: Gender.FEMALE, applicant2: Gender.FEMALE },
     },
   ])(
-    'gets the correct inferred gender of the petitioner and respondent: %o',
+    'gets the correct inferred gender of applicant 1 and applicant 2: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
-        inferredPetitionerGender: expected.petitioner,
-        inferredRespondentGender: expected.respondent,
+        inferredApplicant1Gender: expected.applicant1,
+        inferredApplicant2Gender: expected.applicant2,
       });
     }
   );
 
   test('converts your address to match API format', () => {
-    const apiFormat = toApiFormat({
+    const apiFormat = toApiFormat(({
       ...results,
       yourAddress1: 'Line 1',
       yourAddress2: 'Line 2',
@@ -102,10 +102,10 @@ describe('to-api-format', () => {
       yourAddressCounty: 'County',
       yourAddressPostcode: 'Postcode',
       yourAddressCountry: 'UK',
-    } as unknown as Partial<Case>);
+    } as unknown) as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      applicantHomeAddress: {
+      applicant1HomeAddress: {
         AddressLine1: 'Line 1',
         AddressLine2: 'Line 2',
         AddressLine3: '',

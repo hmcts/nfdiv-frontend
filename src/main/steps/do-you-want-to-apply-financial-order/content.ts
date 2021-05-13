@@ -59,7 +59,7 @@ export const form: FormContent = {
                 {
                   name: 'whoIsFinancialOrderFor',
                   label: l => l.me,
-                  value: FinancialOrderFor.PETITIONER,
+                  value: FinancialOrderFor.APPLICANT_1,
                 },
                 {
                   name: 'whoIsFinancialOrderFor',

@@ -46,8 +46,41 @@ const en = () => {
   };
 };
 
-// @TODO translations
-const cy = en;
+const cy = () => {
+  const addressPostcode = {
+    required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
+    invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
+    notSelected: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+  };
+
+  return {
+    // @TODO translations for optional internation fields
+    ...en(),
+    title: 'Nodwch eich cyfeiriad post',
+    enterPostcode: 'Nodwch god post yn y DU',
+    buildingStreet: "Rhif neu enw'r adeilad, Stryd",
+    town: 'Tref neu ddinas',
+    county: 'Sir',
+    postcode: 'Cod post',
+    findAddress: 'Dod o hyd i gyfeiriad',
+    notUK: 'Ni allaf nodi cod post yn y DU',
+    enterUkPostcode: 'Nodwch god post yn y DU',
+    selectAddress: 'Dewiswch gyfeiriad',
+    addressesFound: (addressesFound: number) =>
+      `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+    cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
+    errors: {
+      yourAddress1: {
+        required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
+      },
+      yourAddressTown: {
+        required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+      },
+      addressPostcode,
+      yourAddressPostcode: addressPostcode,
+    },
+  };
+};
 
 const uk = 'UK';
 export const form: FormContent = {

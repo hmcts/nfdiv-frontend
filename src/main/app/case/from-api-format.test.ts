@@ -6,18 +6,18 @@ describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: 'divorce',
     marriageIsSameSexCouple: 'YES',
-    inferredRespondentGender: 'male',
-    inferredPetitionerGender: 'male',
+    inferredApplicant2Gender: 'male',
+    inferredApplicant1Gender: 'male',
     screenHasMarriageBroken: 'YES',
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
-    petitionerAgreedToReceiveEmails: 'YES',
-    petitionerContactDetailsConfidential: 'keep',
-    petitionerKnowsRespondentsEmailAddress: 'NO',
-    petitionerWantsToHavePapersServedAnotherWay: null,
+    applicant1AgreedToReceiveEmails: 'YES',
+    applicant1ContactDetailsConfidential: 'keep',
+    applicant1KnowsApplicant2EmailAddress: 'NO',
+    applicant1WantsToHavePapersServedAnotherWay: null,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(results as unknown as CaseData);
+    const nfdivFormat = fromApiFormat((results as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -27,13 +27,13 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat({ ...results, marriageDate: '2000-09-02' } as unknown as CaseData);
+    const nfdivFormat = fromApiFormat(({ ...results, marriageDate: '2000-09-02' } as unknown) as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -48,23 +48,23 @@ describe('from-api-format', () => {
       helpWithFeesRefNo: 'HWF-ABC-123',
       agreeToReceiveEmails: Checkbox.Checked,
       addressPrivate: YesOrNo.YES,
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
 
   describe('converting your address between UK and international', () => {
     test('converts to UK format', () => {
-      const nfdivFormat = fromApiFormat({
+      const nfdivFormat = fromApiFormat(({
         ...results,
-        applicantHomeAddress: {
+        applicant1HomeAddress: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           PostTown: 'Town',
           County: 'County',
           PostCode: 'Postcode',
         },
-      } as unknown as CaseData);
+      } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({
         yourAddress1: 'Line 1',
@@ -76,9 +76,9 @@ describe('from-api-format', () => {
     });
 
     test('converts to an international format', () => {
-      const nfdivFormat = fromApiFormat({
+      const nfdivFormat = fromApiFormat(({
         ...results,
-        applicantHomeAddress: {
+        applicant1HomeAddress: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           AddressLine3: 'Line 3',
@@ -87,7 +87,7 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
-      } as unknown as CaseData);
+      } as unknown) as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
     });

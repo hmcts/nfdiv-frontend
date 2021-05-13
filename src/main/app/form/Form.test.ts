@@ -43,21 +43,21 @@ describe('Form', () => {
   const form = new Form(mockForm);
 
   test('Should validate a form', async () => {
-    const errors = form.getErrors({
+    const errors = form.getErrors(({
       field: YesOrNo.YES,
       dateField: {
         day: '1',
         month: '1',
         year: '2000',
       },
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
-    } as unknown as Case);
+    } as unknown) as Case);
 
     expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
-      doNotKnowRespondentEmailAddress: Checkbox.Checked,
+      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
     });
     expect(errors).toStrictEqual([]);
@@ -131,13 +131,13 @@ describe('Form', () => {
     });
 
     it('does not return any subfields error if the field has not been selected', () => {
-      const errors = subFieldForm.getErrors({ field: YesOrNo.YES } as unknown as Case);
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.YES } as unknown) as Case);
 
       expect(errors).toStrictEqual([]);
     });
 
     it('returns the subfield error when the field has been selected', () => {
-      const errors = subFieldForm.getErrors({ field: YesOrNo.NO } as unknown as Case);
+      const errors = subFieldForm.getErrors(({ field: YesOrNo.NO } as unknown) as Case);
 
       expect(errors).toStrictEqual([
         {

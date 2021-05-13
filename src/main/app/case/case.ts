@@ -18,7 +18,7 @@ import {
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
-  gender: 'inferredRespondentGender',
+  gender: 'inferredApplicant2Gender',
   screenHasUnionBroken: 'screenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   helpPayingNeeded: 'helpWithFeesNeedHelp',
@@ -29,30 +29,30 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   certifiedTranslation: 'certifiedTranslation',
   ceremonyCountry: 'countryName',
   ceremonyPlace: 'marriagePlaceOfMarriage',
-  yourLifeBasedInEnglandAndWales: 'jurisdictionPetitionerResidence',
-  partnersLifeBasedInEnglandAndWales: 'jurisdictionRespondentResidence',
-  yourDomicileInEnglandWales: 'jurisdictionPetitionerDomicile',
-  partnersDomicileInEnglandWales: 'jurisdictionRespondentDomicile',
+  yourLifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
+  partnersLifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
+  yourDomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
+  partnersDomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
-  livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
-  livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
-  phoneNumber: 'petitionerPhoneNumber',
+  livingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
+  livingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
+  phoneNumber: 'applicant1PhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
-  yourFirstNames: 'petitionerFirstName',
-  yourMiddleNames: 'petitionerMiddleName',
-  yourLastNames: 'petitionerLastName',
-  theirFirstNames: 'respondentFirstName',
-  theirMiddleNames: 'respondentMiddleName',
-  theirLastNames: 'respondentLastName',
-  fullNameOnCertificate: 'marriagePetitionerName',
-  partnersFullNameOnCertificate: 'marriageRespondentName',
+  yourFirstNames: 'applicant1FirstName',
+  yourMiddleNames: 'applicant1MiddleName',
+  yourLastNames: 'applicant1LastName',
+  theirFirstNames: 'applicant2FirstName',
+  theirMiddleNames: 'applicant2MiddleName',
+  theirLastNames: 'applicant2LastName',
+  fullNameOnCertificate: 'marriageApplicant1Name',
+  partnersFullNameOnCertificate: 'marriageApplicant2Name',
   lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
-  anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
-  changedNameHow: 'petitionerNameChangedHow',
-  changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
-  respondentEmailAddress: 'respondentEmailAddress',
-  knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
+  anyNameChangeSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
+  changedNameHow: 'applicant1NameChangedHow',
+  changedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
+  applicant2EmailAddress: 'applicant2EmailAddress',
+  knowPartnersAddress: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
@@ -134,8 +134,8 @@ export interface Case {
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
-  respondentEmailAddress?: string;
-  doNotKnowRespondentEmailAddress?: Checkbox;
+  applicant2EmailAddress?: string;
+  doNotKnowApplicant2EmailAddress?: Checkbox;
   knowPartnersAddress?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;

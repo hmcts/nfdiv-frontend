@@ -2,11 +2,13 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = ({ isDivorce }) => ({
   title: 'Privacy policy',
-  info: 'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
+  info:
+    'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
   whoManages: 'Who manages this service',
   managedBy:
     'This service is managed by HM Courts and Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
-  moj: "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
+  moj:
+    "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
   responsibleForDeciding:
     'As part of the MoJ, HMCTS is responsible for deciding how your personal data is used and for protecting the personal data you provide.',
   moreInformation:
@@ -14,41 +16,41 @@ const en = ({ isDivorce }) => ({
   thePersonal: 'The personal data we need',
   whenYouUseDivorceService: 'We need the following personal data for this service:',
   applicantName: 'the applicant’s name',
-  respondentName: `the name of the person the applicant is ${
+  applicant2Name: `the name of the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   }`,
   changedApplicantName: `proof of the applicant’s name change if they’ve changed it since they ${
     isDivorce ? 'got married' : 'formed their civil partnership'
   }`,
-  changedRespondentName: `proof of the name change of the person the applicant is ${
+  changedApplicant2Name: `proof of the name change of the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } (if they changed it)`,
   marriageCert: `a copy of the ${
     isDivorce ? 'marriage certificate' : 'civil partnership certificate'
   } and the details from it`,
   countryApplicantMarried: 'the country in which the applicant is habitually resident',
-  countryRespondentMarried: `the country in which the person the applicant is ${
+  countryApplicant2Married: `the country in which the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } is habitually resident`,
   applicantHabitualResidence: 'whether the applicant is habitually resident in England or Wales',
-  respondentHabitualResidence: `whether the person the applicant is ${
+  applicant2HabitualResidence: `whether the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } is habitually resident in England or Wales`,
   applicantDomicile: 'whether the applicant is domiciled in England or Wales',
-  respondentDomicile: `whether the person the applicant is ${
+  applicant2Domicile: `whether the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } is domiciled in England or Wales`,
   applicantEmailAndPhone: 'the applicant’s addresses, email addresses and phone numbers',
-  respondentEmailAndPhone: `the address, email address and phone number of the person the applicant is ${
+  applicant2EmailAndPhone: `the address, email address and phone number of the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   }`,
   applicantAddressAndNames:
     'the address, email address and phone number of the applicant’s solicitors (if they have one)',
-  respondentAddressAndNames: `the address, email address and phone number of the solicitor of the person the applicant is ${
+  applicant2AddressAndNames: `the address, email address and phone number of the solicitor of the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } (if they have one)`,
   applicantOtherCourtCases: 'details of other court cases the applicant has been involved in',
-  respondentOtherCourtCases: `details of any other court cases the person the applicant is ${
+  applicant2OtherCourtCases: `details of any other court cases the person the applicant is ${
     isDivorce ? 'divorcing' : 'ending their civil partnership with'
   } has been involved in (if there are any)`,
   receivingNotifications: 'Receiving notifications',
@@ -90,7 +92,7 @@ const en = ({ isDivorce }) => ({
     'While processing your claim or application, another government department, agency or organisation might be involved and we may share your data with them.',
   dataSharedWithPrintingServiceProvider: `Any data you provide which needs to be printed will be shared with Xerox (UK) Ltd. For example, the ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
-  } application will be printed so that it can be sent to the respondent by post.`,
+  } application will be printed so that it can be sent to applicant 2 by post.`,
   ifYouContactUs:
     'If you contact us and ask for help with the service you’re using, your personal data may be shared with the Good Things Foundation. This is a company who we have partnered with to offer face to face support.',
   crime:
@@ -132,11 +134,13 @@ const en = ({ isDivorce }) => ({
 
 const cy: typeof en = ({ isDivorce }) => ({
   title: 'Polisi preifatrwydd',
-  info: 'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
+  info:
+    'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
   whoManages: "Pwy sy’n rheoli'r gwasanaeth hwn",
   managedBy:
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy’n rheoli’r gwasanaeth hwn, sef un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).',
-  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
+  moj:
+    "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>Mae siarter gwybodaeth bersonol yr MoJ</a> yn egluro sut mae'r MoJ yn prosesu data personol.",
   responsibleForDeciding:
     "Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac am ddiogelu'r data personol rydych yn ei ddarparu.",
   moreInformation:
@@ -144,36 +148,36 @@ const cy: typeof en = ({ isDivorce }) => ({
   thePersonal: 'Y data personol sydd ei angen arnom',
   whenYouUseDivorceService: 'Rydym angen y data personol canlynol ar gyfer y gwasanaeth hwn:',
   applicantName: "enw'r ceisydd",
-  respondentName: `enw'r unigolyn y mae'r ceisydd yn ${isDivorce ? 'ysgaru' : 'diddymu eu partneriaeth sifil â nhw'}`,
+  applicant2Name: `enw'r unigolyn y mae'r ceisydd yn ${isDivorce ? 'ysgaru' : 'diddymu eu partneriaeth sifil â nhw'}`,
   changedApplicantName: `tystiolaeth o newid enw'r ceisydd os yw wedi'i newid ers iddynt ${
     isDivorce ? 'briodi' : 'ffurfio eu partneriaeth sifil'
   }`,
-  changedRespondentName: `tystiolaeth o newid enw'r unigolyn y mae'r ceisydd eisiau ${
+  changedApplicant2Name: `tystiolaeth o newid enw'r unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } (os gwnaethant ei newid)`,
   marriageCert: `copi o'r ${isDivorce ? 'dystysgrif priodas' : 'dystysgrif partneriaeth sifil'} a'r manylion sydd arni`,
   countryApplicantMarried: 'y wlad y mae’r ceisydd yn preswylio’n arferol ynddi',
-  countryRespondentMarried: `y wlad y mae'r unigolyn y mae'r ceisydd eisiau ${
+  countryApplicant2Married: `y wlad y mae'r unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } yn preswylio'n arferol ynddi`,
   applicantHabitualResidence: "p'un a yw'r ceisydd yn preswylio'n arferol yng Nghymru neu Loegr",
-  respondentHabitualResidence: `p'un a yw'r unigolyn y mae'r ceisydd eisiau ${
+  applicant2HabitualResidence: `p'un a yw'r unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } yn preswylio'n arferol yng Nghymru neu Loegr`,
   applicantDomicile: "p'un a yw domisil y ceisydd yng Nghymru neu Loegr",
-  respondentDomicile: `p'un a yw domisil yr unigolyn y mae'r ceisydd eisiau ${
+  applicant2Domicile: `p'un a yw domisil yr unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } yng Nghymru neu Loegr`,
   applicantEmailAndPhone: 'cyfeiriadau, cyfeiriadau e-bost a rhifau ffôn y ceisydd',
-  respondentEmailAndPhone: `cyfeiriad, cyfeiriad e-bost a rhif ffôn yr unigolyn y mae'r ceisydd eisiau ${
+  applicant2EmailAndPhone: `cyfeiriad, cyfeiriad e-bost a rhif ffôn yr unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   }`,
   applicantAddressAndNames: 'cyfeiriad, cyfeiriad e-bost a rhif ffôn cyfreithiwr y ceisydd (os oes ganddynt un)',
-  respondentAddressAndNames: `cyfeiriad, cyfeiriad e-bost a rhif ffôn cyfreithiwr yr unigolyn y mae'r ceisydd eisiau ${
+  applicant2AddressAndNames: `cyfeiriad, cyfeiriad e-bost a rhif ffôn cyfreithiwr yr unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } (os oes ganddynt un)`,
   applicantOtherCourtCases: "manylion achosion llys eraill y mae'r ceisydd wedi bod yn ymwneud â nhw",
-  respondentOtherCourtCases: `manylion unrhyw achosion eraill y mae'r unigolyn y mae'r ceisydd eisiau ${
+  applicant2OtherCourtCases: `manylion unrhyw achosion eraill y mae'r unigolyn y mae'r ceisydd eisiau ${
     isDivorce ? 'ei ysgaru' : 'diddymu eu partneriaeth sifil â nhw'
   } wedi bod yn ymwneud â nhw (os oes rhai)`,
   receivingNotifications: 'Hysbysiadau',

@@ -8,7 +8,7 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonCon
     isDivorce ? divorce : endingCivilPartnership
   } papers another way. You will be given a link to the form after you have submitted this application. It will be reviewed by a judge and costs an additional £50.`,
   line3: `For example, you could apply to have the papers served (delivered) by ${
-    formState?.respondentEmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
+    formState?.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
   }.`,
   line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });

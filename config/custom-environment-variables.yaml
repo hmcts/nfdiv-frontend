@@ -8,6 +8,8 @@ services:
     clientSecret: IDAM_SECRET
   case:
     url: CCD_URL
+  documentManagement:
+    url: DOCUMENT_MANAGEMENT_URL
 port: PORT
 session:
   redis:
