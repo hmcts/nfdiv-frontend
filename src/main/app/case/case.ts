@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  ApplicationType,
   CaseData,
   ChangedNameHow,
   DivorceDocument,
@@ -15,6 +16,7 @@ import {
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'inferredApplicant2Gender',
   screenHasUnionBroken: 'screenHasMarriageBroken',
@@ -78,6 +80,7 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
+  applicationType?: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   gender?: Gender;
   sameSex?: Checkbox;

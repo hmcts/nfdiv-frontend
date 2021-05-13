@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { ApplicationType, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connections';
 
@@ -29,6 +29,7 @@ import {
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
+  HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   IN_THE_UK,
@@ -104,11 +105,17 @@ export const sequence: Step[] = [
   {
     url: CERTIFICATE_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
+    getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HOW_DO_YOU_WANT_TO_APPLY),
   },
   {
     url: NO_CERTIFICATE_URL,
     getNextStep: () => CERTIFICATE_URL,
+  },
+  {
+    url: HOW_DO_YOU_WANT_TO_APPLY,
+    showInSection: Sections.AboutPartnership,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.SOLE_APPLICATION ? HELP_WITH_YOUR_FEE_URL : THEIR_EMAIL_ADDRESS,
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
