@@ -113,3 +113,17 @@ Given("I've said I do not have my husband's email address", () => {
   I.checkOption('I do not know their email address');
   I.click('Continue');
 });
+
+Given('I delete any previously uploaded files', async () => {
+  const locator = '//a[text()="Delete"]';
+  let numberOfElements = await I.grabNumberOfVisibleElements(locator);
+
+  while (numberOfElements >= 1) {
+    I.click('Delete');
+    numberOfElements = await I.grabNumberOfVisibleElements(locator);
+  }
+});
+
+When('I upload the file {string}', (pathToFile: string) => {
+  I.attachFile('input[type="file"]', pathToFile);
+});

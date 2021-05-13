@@ -16,7 +16,7 @@ import {
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   divorceOrDissolution: 'divorceOrDissolution',
-  gender: 'inferredRespondentGender',
+  gender: 'inferredApplicant2Gender',
   screenHasUnionBroken: 'screenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   helpPayingNeeded: 'helpWithFeesNeedHelp',
@@ -27,33 +27,32 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   certifiedTranslation: 'certifiedTranslation',
   ceremonyCountry: 'countryName',
   ceremonyPlace: 'marriagePlaceOfMarriage',
-  yourLifeBasedInEnglandAndWales: 'jurisdictionPetitionerResidence',
-  partnersLifeBasedInEnglandAndWales: 'jurisdictionRespondentResidence',
-  yourDomicileInEnglandWales: 'jurisdictionPetitionerDomicile',
-  partnersDomicileInEnglandWales: 'jurisdictionRespondentDomicile',
+  yourLifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
+  partnersLifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
+  yourDomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
+  partnersDomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
-  livingInEnglandWalesTwelveMonths: 'jurisdictionPetHabituallyResLastTwelveMonths',
-  livingInEnglandWalesSixMonths: 'jurisdictionPetHabituallyResLastSixMonths',
-  isYourAddressInternational: 'petitionerHomeAddressIsInternational',
-  isTheirAddressInternational: 'respondentHomeAddressIsInternational',
-  phoneNumber: 'petitionerPhoneNumber',
+  livingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
+  livingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
+  phoneNumber: 'applicant1PhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
-  yourFirstNames: 'petitionerFirstName',
-  yourMiddleNames: 'petitionerMiddleName',
-  yourLastNames: 'petitionerLastName',
-  theirFirstNames: 'respondentFirstName',
-  theirMiddleNames: 'respondentMiddleName',
-  theirLastNames: 'respondentLastName',
-  fullNameOnCertificate: 'marriagePetitionerName',
-  partnersFullNameOnCertificate: 'marriageRespondentName',
+  yourFirstNames: 'applicant1FirstName',
+  yourMiddleNames: 'applicant1MiddleName',
+  yourLastNames: 'applicant1LastName',
+  theirFirstNames: 'applicant2FirstName',
+  theirMiddleNames: 'applicant2MiddleName',
+  theirLastNames: 'applicant2LastName',
+  fullNameOnCertificate: 'marriageApplicant1Name',
+  partnersFullNameOnCertificate: 'marriageApplicant2Name',
   lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
-  anyNameChangeSinceRelationshipFormed: 'petitionerNameDifferentToMarriageCertificate',
-  changedNameHow: 'petitionerNameChangedHow',
-  changedNameHowAnotherWay: 'petitionerNameChangedHowOtherDetails',
-  respondentEmailAddress: 'respondentEmailAddress',
-  knowPartnersAddress: 'petitionerKnowsRespondentsAddress',
+  anyNameChangeSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
+  changedNameHow: 'applicant1NameChangedHow',
+  changedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
+  applicant2EmailAddress: 'applicant2EmailAddress',
+  knowPartnersAddress: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
+  legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
@@ -105,13 +104,13 @@ export interface Case {
   yourFirstNames?: string;
   yourMiddleNames?: string;
   yourLastNames?: string;
-  isYourAddressInternational?: YesOrNo;
   yourAddress1?: string;
   yourAddress2?: string;
+  yourAddress3?: string;
   yourAddressTown?: string;
   yourAddressCounty?: string;
   yourAddressPostcode?: string;
-  yourInternationalAddress?: string;
+  yourAddressCountry?: string;
   phoneNumber?: string;
   agreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
@@ -121,22 +120,23 @@ export interface Case {
   theirFirstNames?: string;
   theirMiddleNames?: string;
   theirLastNames?: string;
-  isTheirAddressInternational?: YesOrNo;
   theirAddress1?: string;
   theirAddress2?: string;
+  theirAddress3?: string;
   theirAddressTown?: string;
   theirAddressCounty?: string;
   theirAddressPostcode?: string;
-  theirInternationalAddress?: string;
+  theirAddressCountry?: string;
   lastNameChangeWhenRelationshipFormed?: YesOrNo;
   anyNameChangeSinceRelationshipFormed?: YesOrNo;
   changedNameHow?: ChangedNameHow;
   changedNameHowAnotherWay?: string;
-  respondentEmailAddress?: string;
-  doNotKnowRespondentEmailAddress?: Checkbox;
+  applicant2EmailAddress?: string;
+  doNotKnowApplicant2EmailAddress?: Checkbox;
   knowPartnersAddress?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
+  legalProceedingsDetails?: string;
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];

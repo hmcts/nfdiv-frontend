@@ -49,7 +49,7 @@ Start server:
 yarn start
 ```
 
-The application's home page will be available at [https://localhost:3001](https://localhost:3001).
+The application's home page will be available at [https://localhost:3001](https://localhost:3001)
 
 ### Running end-to-end
 
@@ -205,6 +205,20 @@ Make sure you have those values set correctly for your application.
 ### Healthcheck
 
 The application exposes a health endpoint [https://localhost:3001/health](https://localhost:3001/health), created with the use of [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application. In particular, remember to replace the sample check with checks specific to your frontend app, e.g. the ones verifying the state of each service it depends on.
+
+## Migrating backend field changes
+
+Once you have created a NFDIV-Case-API Pull Request with the case definition changes, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
+
+For example: `CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-232.service.core-compute-preview.internal'`
+
+Next, run the `generateTypescript` Gradle task in the Case API. Once this has completed, navigate to `build/ts/index.ts` in the Case API and copy the contents of the file. Navigate back to the frontend repository and paste the contents of the file into [definition.ts](src/main/app/case/definition.ts). Depending on how your IDE is configured, the formatting of strings from double to single quotes should be carried out automatically.
+
+Once you have pasted the code into [definition.ts](src/main/app/case/definition.ts) you may notice some compilation errors in [case.ts](src/main/app/case/case.ts), [from-api-format.ts](src/main/app/case/from-api-format.ts) and [to-api-format.ts](src/main/app/case/to-api-format.ts). This is typically caused by either changes to the field name or to the field type. You will need to resolve these compilation errors manually.
+
+You will now be in a position to test your changes either in isolation (`yarn start:dev`) or with Docker (`yarn start:docker`).
+
+One final important point to remember is that the `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) will need to be reverted to their original values once migration is complete and before any Pull Requests into `master` are merged.
 
 ## License
 

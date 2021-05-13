@@ -70,7 +70,7 @@ const en = {
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 days',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
@@ -87,6 +87,7 @@ const cy: typeof en = {
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
+  change: 'Newid',
   download: 'Llwytho i lawr',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   ogl:
@@ -102,6 +103,8 @@ const cy: typeof en = {
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
   marriage: 'priodas',
+  divorce: 'ysgariad',
+  endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
@@ -132,6 +135,15 @@ const cy: typeof en = {
   no: 'Naddo',
   english: 'Saesneg',
   welsh: 'Cymraeg',
+  contactUsForHelp: 'Cysylltwch â ni am gymorth',
+  webChat: 'Sgwrsio dros y we',
+  webChatDetails:
+    "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
+  sendUsAMessage: 'Anfonwch neges atom',
+  sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
+  telephone: 'Ffoniwch',
+  telephoneNumber: '0300 303 5171',
+  telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
 };
 
 export const generatePageContent = ({
@@ -151,7 +163,7 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
-  const partnerEmailProvided = formState?.doNotKnowRespondentEmailAddress !== Checkbox.Checked;
+  const partnerEmailProvided = formState?.doNotKnowApplicant2EmailAddress !== Checkbox.Checked;
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {
