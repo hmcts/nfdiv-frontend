@@ -3,6 +3,15 @@ Feature: Upload your documents
   Background:
     Given I login
 
+  Scenario: They upload documents
+    Given I go to '/upload-your-documents'
+    And I delete any previously uploaded files
+    And the page should include 'No files uploaded'
+    When I upload the file '../../main/public/assets/images/govuk-logotype-crown.png'
+    Then the page should include 'govuk-logotype-crown.png'
+    And I click "Delete"
+    And the page should not include 'govuk-logotype-crown.png'
+
   Scenario: They cannot upload documents
     Given I go to '/in-the-uk'
     And I select "Yes"
