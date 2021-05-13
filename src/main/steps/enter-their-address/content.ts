@@ -3,7 +3,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 import type { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ partner }: CommonContent) => {
+const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {
     required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
     invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
@@ -46,8 +46,41 @@ const en = ({ partner }: CommonContent) => {
   };
 };
 
-// @TODO translations
-const cy = en;
+const cy = ({ partner }: CommonContent) => {
+  const addressPostcode = {
+    required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
+    invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
+    notSelected: `Nid ydych wedi rhoi cyfeiriad eich ${partner}. Rhowch cyfeiriad cyn parhau.`,
+  };
+
+  return {
+    // @TODO translations for optional internation fields
+    ...en({ partner }),
+    title: `Rhowch gyfeiriad post eich ${partner}`,
+    enterPostcode: 'Nodwch god post yn y DU',
+    buildingStreet: "Rhif neu enw'r adeilad, Stryd",
+    town: 'Tref neu ddinas',
+    county: 'Sir',
+    postcode: 'Cod post',
+    findAddress: 'Dod o hyd i gyfeiriad',
+    notUK: 'Ni allaf nodi cod post yn y DU',
+    enterUkPostcode: 'Nodwch god post yn y DU',
+    selectAddress: 'Dewiswch gyfeiriad',
+    addressesFound: (addressesFound: number) =>
+      `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+    cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
+    errors: {
+      theirAddress1: {
+        required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
+      },
+      theirAddressTown: {
+        required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+      },
+      addressPostcode,
+      theirAddressPostcode: addressPostcode,
+    },
+  };
+};
 
 const uk = 'UK';
 export const form: FormContent = {

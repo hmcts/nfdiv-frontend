@@ -32,18 +32,18 @@
 <script id="addressFieldLabels" type="application/json">
 {
   "uk": {
-    "line1": "{{ buildingStreet }}",
+    "line1": "{{ buildingStreet | safe }}",
     "line2": "",
-    "town": "{{ town }}",
-    "county": "{{ county }}",
-    "postcode": "{{ postcode }}"
+    "town": "{{ town | safe }}",
+    "county": "{{ county | safe }}",
+    "postcode": "{{ postcode | safe }}"
   },
   "international": {
-    "line1": "{{ line1 }}",
-    "line2": "{{ line2Optional }}",
-    "town": "{{ townOptional }}",
-    "county": "{{ countyOptional }}",
-    "postcode": "{{ postcodeOptional }}"
+    "line1": "{{ line1 | safe }}",
+    "line2": "{{ line2Optional | safe }}",
+    "town": "{{ townOptional | safe }}",
+    "county": "{{ countyOptional | safe }}",
+    "postcode": "{{ postcodeOptional | safe }}"
   }
 }
 </script>
