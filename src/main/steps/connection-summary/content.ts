@@ -32,9 +32,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
   ): typeof enHabitualResident | undefined => {
     if (
       connections &&
-      (connections.includes(JurisdictionConnections.PET_RESP_LAST_RESIDENT) ||
-        connections.includes(JurisdictionConnections.RESP_RESIDENT) ||
-        connections.includes(JurisdictionConnections.PET_RESIDENT_SIX_MONTHS))
+      (connections.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) ||
+        connections.includes(JurisdictionConnections.APP_2_RESIDENT) ||
+        connections.includes(JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS))
     ) {
       return enHabitualResident;
     }
@@ -45,9 +45,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
   ): typeof enDomicile | undefined => {
     if (
       connections &&
-      (connections.includes(JurisdictionConnections.PET_RESP_DOMICILED) ||
-        connections.includes(JurisdictionConnections.PET_DOMICILED) ||
-        connections.includes(JurisdictionConnections.RESP_DOMICILED))
+      (connections.includes(JurisdictionConnections.APP_1_APP_2_DOMICILED) ||
+        connections.includes(JurisdictionConnections.APP_1_DOMICILED) ||
+        connections.includes(JurisdictionConnections.APP_2_DOMICILED))
     ) {
       return enDomicile;
     }
@@ -59,15 +59,15 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
       isDivorce ? 'for a divorce' : 'to end your civil partnership'
     } in England and Wales because:`,
     connectionBulletPoints: {
-      [JurisdictionConnections.PET_RESP_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
-      [JurisdictionConnections.RESP_RESIDENT]: `your ${partner} is habitually resident`,
-      [JurisdictionConnections.PET_RESIDENT_SIX_MONTHS]:
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
+      [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
+      [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
         'you’re domiciled and habitually resident and have lived here for at least 6 months',
-      [JurisdictionConnections.PET_RESP_DOMICILED]: `both you and your ${partner} are domiciled`,
+      [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
       [JurisdictionConnections.RESIDUAL_JURISDICTION]:
         'the courts of England and Wales have jurisdiction on a residual basis',
-      [JurisdictionConnections.PET_DOMICILED]: 'you are domiciled in England or Wales',
-      [JurisdictionConnections.RESP_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
+      [JurisdictionConnections.APP_1_DOMICILED]: 'you are domiciled in England or Wales',
+      [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
     },
     readMore: 'Read more about your connections',
     ...enContainsHabitualResConnection(formState?.connections),
