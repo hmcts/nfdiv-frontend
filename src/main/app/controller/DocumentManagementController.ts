@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
-import { PATCH_CASE } from '../case/definition';
+import { PATCH_CASE, State } from '../case/definition';
 import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
@@ -14,6 +14,10 @@ export class DocumentManagerController {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
+    if (req.session.userCase.state !== State.Draft) {
+      throw new Error('Cannot upload new documents as case is not in draft state');
+    }
+
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
 
     const filesCreated = await documentManagementClient.create({
@@ -58,7 +62,10 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const { documentsUploaded = [] } = req.session.userCase;
+    const { documentsUploaded = [], state } = req.session.userCase;
+    if (state !== State.Draft) {
+      throw new Error('Cannot delete uploaded documents as case is not in draft state');
+    }
 
     const documentIndexToDelete = documentsUploaded?.findIndex(i => i.id === req.params.id) ?? -1;
     const documentToDelete = documentsUploaded[documentIndexToDelete];

@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -18,6 +19,7 @@ describe('DocumentManagerController', () => {
   it('handles file uploads', async () => {
     const req = mockRequest({
       userCase: {
+        state: State.Draft,
         documentsUploaded: ['an-existing-doc'],
       },
     });
@@ -75,9 +77,25 @@ describe('DocumentManagerController', () => {
     ]);
   });
 
+  it("uploading throws an error if the case isn't in a draft state", async () => {
+    const req = mockRequest({
+      userCase: {
+        state: State.Submitted,
+        documentsUploaded: ['an-existing-doc'],
+      },
+    });
+    const res = mockResponse();
+    req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+
+    await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
+      'Cannot upload new documents as case is not in draft state'
+    );
+  });
+
   it('deletes an existing file', async () => {
     const req = mockRequest({
       userCase: {
+        state: State.Draft,
         documentsUploaded: [
           { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
           { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
@@ -120,6 +138,7 @@ describe('DocumentManagerController', () => {
   it("returns null if file to deletes doesn't exist", async () => {
     const req = mockRequest({
       userCase: {
+        state: State.Draft,
         documentsUploaded: [
           { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
           { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
@@ -135,5 +154,23 @@ describe('DocumentManagerController', () => {
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: null });
+  });
+
+  it("deleting throws an error if the case isn't in a draft state", async () => {
+    const req = mockRequest({
+      userCase: {
+        state: State.Submitted,
+        documentsUploaded: [
+          { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+        ],
+      },
+    });
+    req.params = { id: '1' };
+    const res = mockResponse();
+
+    await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
+      'Cannot delete uploaded documents as case is not in draft state'
+    );
   });
 });

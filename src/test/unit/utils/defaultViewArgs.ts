@@ -5,6 +5,7 @@ export const defaultViewArgs = {
   serviceName: expect.any(String),
   sessionErrors: expect.any(Array),
   getNextIncompleteStepUrl: expect.any(Function),
+  isDraft: expect.any(Boolean),
   isDivorce: expect.any(Boolean),
   partner: expect.any(String),
   formState: expect.any(Object),
