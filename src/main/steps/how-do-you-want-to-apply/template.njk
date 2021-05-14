@@ -23,8 +23,10 @@
     </ul>
     <p>{{ helpText3 }}</p>
   {% endset %}
-    {{ govukDetails({
-    summaryText: readMore,
-    html: summary
-  }) }}
+  {{ 
+    govukDetails({
+      summaryText: readMore,
+      html: summary
+    }) 
+  }}
 {% endblock %}
