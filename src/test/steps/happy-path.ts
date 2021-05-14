@@ -1,9 +1,12 @@
+import { completeCase } from '../functional/fixtures/completeCase';
+
 import {
   checkOptionFor,
   iAmOnPage,
   iClearTheForm,
   iClick,
   iResetThePostCodeLookUpForm,
+  iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
 } from './common';
 
@@ -144,3 +147,5 @@ Given("I've completed all happy path questions correctly to get to check your an
 
   I.waitInUrl('/check-your-answers');
 });
+
+Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
