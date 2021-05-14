@@ -98,7 +98,6 @@ describe('omitUnreachableAnswers()', () => {
 
   test('returns unreachable answers as null', async () => {
     const userCase = {
-      inTheUk: YesOrNo.YES,
       certificateInEnglish: YesOrNo.NO,
       certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',

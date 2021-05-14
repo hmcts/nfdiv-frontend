@@ -69,3 +69,5 @@ export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
+
+export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
