@@ -189,12 +189,10 @@ export const sequence: Step[] = [
       switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
         case `${YES}${YES}`:
           return data.sameSex === Checkbox.Checked ? HABITUALLY_RESIDENT_ENGLAND_WALES : JURISDICTION_INTERSTITIAL_URL;
-
         case `${YES}${NO}`:
           return data.yourLifeBasedInEnglandAndWales === YES
             ? LIVING_ENGLAND_WALES_SIX_MONTHS
             : HABITUALLY_RESIDENT_ENGLAND_WALES;
-
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
       }
