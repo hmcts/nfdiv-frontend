@@ -4,17 +4,22 @@ import { FormContent } from '../../app/form/Form';
 import type { CommonContent } from '../common/common.content';
 
 const en = (
-  { isDivorce, partner, applyForDivorce, applyForDissolution }: CommonContent,
+  {
+    isDivorce,
+    partner,
+    applyForDivorce,
+    applyForDissolution,
+    habitualResidentHelpText1,
+    habitualResidentHelpText2,
+  }: CommonContent,
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
   const enHabitualResident = {
     helpText1:
       "If your life is mainly based in England or Wales then you’re what is legally known as 'habitually resident'.",
-    helpText2:
-      'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-    helpText3:
-      'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+    helpText2: habitualResidentHelpText1,
+    helpText3: habitualResidentHelpText2,
   };
   const enApp1App2Resident = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,

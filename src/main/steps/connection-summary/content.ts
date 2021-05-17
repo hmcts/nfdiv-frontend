@@ -3,15 +3,13 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => {
+const en = ({ isDivorce, partner, formState, habitualResidentHelpText1, habitualResidentHelpText2 }: CommonContent) => {
   const enHabitualResident = {
     helpText1: 'Habitual residence',
     helpText2:
       'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.',
-    helpText3:
-      'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-    helpText4:
-      'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+    helpText3: habitualResidentHelpText1,
+    helpText4: habitualResidentHelpText2,
   };
   const enDomicile = {
     helpText5: 'Domicile',
