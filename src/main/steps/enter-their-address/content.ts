@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
+
 import type { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
