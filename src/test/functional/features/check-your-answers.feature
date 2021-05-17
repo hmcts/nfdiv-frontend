@@ -28,7 +28,7 @@ Feature: Check Your Answers
     And the page should include "Same-sex couples	We were a same-sex couple when we got married"
 
   Scenario: Checking answers
-    Given I've completed all questions correctly to get to the check your answers page
+    Given I've completed enough questions correctly to get to the check your answers page
     When I go to '/check-your-answers'
     Then the page should include "Yes, my marriage has irretrievably broken down"
     And the page should include "When did you get married?	31 December 1999"
