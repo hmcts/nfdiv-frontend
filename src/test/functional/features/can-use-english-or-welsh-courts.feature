@@ -3,7 +3,7 @@ Feature: Can use English or Welsh courts
   Background:
     Given I login
     When I've completed all questions correctly to get to the jurisdiction section
-    Then I click "Continue"
+    Then I go to '/where-your-lives-are-based'
 
   Scenario: A Applicant 1 and Applicant 2 are habitually resident
     Given I select "Yes" for "Is your life mainly based in England or Wales?"

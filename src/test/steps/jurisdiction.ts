@@ -1,40 +1,22 @@
-import { iAmOnPage, iClearTheForm, iClick } from './common';
+import { Checkbox } from '../../main/app/case/case';
+import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 
-const { I } = inject();
+import { iSetTheUsersCaseTo } from './common';
 
 Given("I've completed all questions correctly to get to the jurisdiction section", () => {
-  iAmOnPage('/your-details');
-  iClearTheForm();
-  iClick('My husband');
-  iClick('Continue');
-
-  iAmOnPage('/irretrievable-breakdown');
-  iClick('Yes, my marriage has irretrievably broken down');
-  iClick('Continue');
-
-  iAmOnPage('/date-from-certificate');
-  iClearTheForm();
-  iClick('Day');
-  I.type('31');
-  iClick('Month');
-  I.type('12');
-  iClick('Year');
-  I.type('1999');
-  iClick('Continue');
-
-  iAmOnPage('/do-you-have-your-certificate');
-  iClick('Yes, I have my marriage certificate');
-  iClick('Continue');
-
-  I.waitInUrl('/how-do-you-want-to-apply');
-  iClick('I want to apply on my own, as a sole applicant');
-  iClick('Continue');
-
-  iAmOnPage('/help-with-your-fee');
-  iClick('I do not need help paying the fee');
-  iClick('Continue');
-
-  iAmOnPage('/in-the-uk');
-  iClick('Yes');
-  iClick('Continue');
+  iSetTheUsersCaseTo({
+    applicationType: ApplicationType.SOLE_APPLICATION,
+    divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    gender: Gender.MALE,
+    hasCertificate: YesOrNo.YES,
+    helpPayingNeeded: YesOrNo.NO,
+    inTheUk: YesOrNo.YES,
+    'relationshipDate-day': 31,
+    'relationshipDate-month': 12,
+    'relationshipDate-year': 1999,
+    sameSex: Checkbox.Unchecked,
+    screenHasUnionBroken: YesOrNo.YES,
+    yourFirstNames: 'Functional',
+    yourLastNames: 'Tests',
+  });
 });

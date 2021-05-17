@@ -1,13 +1,18 @@
+import { completeCase } from '../functional/fixtures/completeCase';
+
 import {
   checkOptionFor,
   iAmOnPage,
   iClearTheForm,
   iClick,
   iResetThePostCodeLookUpForm,
+  iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
 } from './common';
 
 const { I } = inject();
+
+Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
 
 Given("I've completed all happy path questions correctly to get to check your answers page", () => {
   iAmOnPage('/your-details');
