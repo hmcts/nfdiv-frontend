@@ -165,7 +165,7 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
-      switch (`${data.yourLifeBasedInEnglandAndWales}${data.partnersLifeBasedInEnglandAndWales}`) {
+      switch (`${data.yourLifeBasedInEnglandAndWales}${data.applicant2LifeBasedInEnglandAndWales}`) {
         case `${YES}${YES}`:
         case `${NO}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
@@ -183,7 +183,7 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
-      switch (`${data.yourDomicileInEnglandWales}${data.partnersDomicileInEnglandWales}`) {
+      switch (`${data.yourDomicileInEnglandWales}${data.applicant2DomicileInEnglandWales}`) {
         case `${YES}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
 
@@ -298,7 +298,7 @@ export const sequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     showInSection: Sections.ContactThem,
-    getNextStep: data => (data.knowPartnersAddress === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
+    getNextStep: data => (data.knowApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
   },
   {
     url: NEED_TO_GET_ADDRESS,

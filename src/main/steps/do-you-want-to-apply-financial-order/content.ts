@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ applicant2, required }: CommonContent) => ({
   title: 'Do you want to apply for a financial order?',
   line1: 'You’ll need to apply for a financial order if you:',
   point1:
@@ -15,7 +15,7 @@ const en = ({ partner, required }: CommonContent) => ({
     'Applying to the court for a consent order costs an additional £50. Asking the court to decide for you and make a financial order costs an additional £255. The court needs to know now if you want to apply.',
   selectYes: 'If you select yes:',
   yesPoint1: 'you do not have to proceed with the application.',
-  yesPoint2: `you can proceed with the application at any time, so long as your ${partner} is still alive.`,
+  yesPoint2: `you can proceed with the application at any time, so long as your ${applicant2} is still alive.`,
   selectNo: 'If you select no:',
   noPoint1: 'you can still apply in the future.',
   noPoint2:

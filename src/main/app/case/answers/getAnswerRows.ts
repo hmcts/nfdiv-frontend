@@ -18,7 +18,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
-    partner: string;
+    applicant2: string;
     userEmail: string;
     formState: Partial<Case>;
   } = this.ctx;

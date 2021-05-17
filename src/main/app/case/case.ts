@@ -30,9 +30,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   ceremonyCountry: 'countryName',
   ceremonyPlace: 'marriagePlaceOfMarriage',
   yourLifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
-  partnersLifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
+  applicant2LifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
   yourDomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
-  partnersDomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
+  applicant2DomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
   lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   livingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
   livingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
@@ -46,13 +46,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   theirMiddleNames: 'applicant2MiddleName',
   theirLastNames: 'applicant2LastName',
   fullNameOnCertificate: 'marriageApplicant1Name',
-  partnersFullNameOnCertificate: 'marriageApplicant2Name',
+  applicant2FullNameOnCertificate: 'marriageApplicant2Name',
   lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
   anyNameChangeSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
   changedNameHow: 'applicant1NameChangedHow',
   changedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2EmailAddress: 'applicant2EmailAddress',
-  knowPartnersAddress: 'applicant1KnowsApplicant2Address',
+  knowApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
@@ -96,9 +96,9 @@ export interface Case {
   ceremonyCountry?: string;
   ceremonyPlace?: string;
   yourLifeBasedInEnglandAndWales?: YesOrNo;
-  partnersLifeBasedInEnglandAndWales?: YesOrNo;
+  applicant2LifeBasedInEnglandAndWales?: YesOrNo;
   yourDomicileInEnglandWales?: YesOrNo;
-  partnersDomicileInEnglandWales?: YesOrNo;
+  applicant2DomicileInEnglandWales?: YesOrNo;
   lastHabituallyResident?: YesOrNo;
   livingInEnglandWalesTwelveMonths?: YesOrNo;
   livingInEnglandWalesSixMonths?: YesOrNo;
@@ -118,7 +118,7 @@ export interface Case {
   agreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
   fullNameOnCertificate?: string;
-  partnersFullNameOnCertificate?: string;
+  applicant2FullNameOnCertificate?: string;
   addressPrivate: YesOrNo;
   theirFirstNames?: string;
   theirMiddleNames?: string;
@@ -136,7 +136,7 @@ export interface Case {
   changedNameHowAnotherWay?: string;
   applicant2EmailAddress?: string;
   doNotKnowApplicant2EmailAddress?: Checkbox;
-  knowPartnersAddress?: YesOrNo;
+  knowApplicant2Address?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
   legalProceedingsDetails?: string;

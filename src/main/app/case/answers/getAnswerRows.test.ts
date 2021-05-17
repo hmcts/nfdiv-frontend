@@ -53,7 +53,7 @@ describe('getAnswerRows()', () => {
       ctx: {
         language: 'en',
         isDivorce: true,
-        partner: 'husband',
+        applicant2: 'husband',
         formState: {},
         userEmail: 'test@example.com',
       },

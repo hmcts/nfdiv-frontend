@@ -4,15 +4,15 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 
 import type { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ partner }: Partial<CommonContent>) => {
+const en = ({ applicant2 }: Partial<CommonContent>) => {
   const addressPostcode = {
-    required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
+    required: `You have not entered your ${applicant2}’s postcode. Enter their postcode before continuing.`,
     invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-    notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
+    notSelected: `You have not selected your ${applicant2}’s address. Select their address from the list before continuing.`,
   };
 
   return {
-    title: `Enter your ${partner}’s postal address`,
+    title: `Enter your ${applicant2}’s postal address`,
     enterPostcode: 'Enter a UK postcode',
     buildingStreet: 'Building and street',
     line1: 'Address line 1',
@@ -33,31 +33,31 @@ const en = ({ partner }: Partial<CommonContent>) => {
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
       theirAddress1: {
-        required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
+        required: `You have not entered your ${applicant2}’s building and street address. Enter their building and street address before continuing.`,
       },
       theirAddressTown: {
-        required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
+        required: `You have not entered your ${applicant2}’s town or city. Enter their town or city before continuing.`,
       },
       addressPostcode,
       theirAddressPostcode: addressPostcode,
       theirAddressCountry: {
-        required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
+        required: `You have not entered your ${applicant2}’s country. Enter their country before continuing.`,
       },
     },
   };
 };
 
-const cy = ({ partner }: CommonContent) => {
+const cy = ({ applicant2 }: CommonContent) => {
   const addressPostcode = {
     required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
     invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
-    notSelected: `Nid ydych wedi rhoi cyfeiriad eich ${partner}. Rhowch cyfeiriad cyn parhau.`,
+    notSelected: `Nid ydych wedi rhoi cyfeiriad eich ${applicant2}. Rhowch cyfeiriad cyn parhau.`,
   };
 
   return {
     // @TODO translations for optional internation fields
-    ...en({ partner }),
-    title: `Rhowch gyfeiriad post eich ${partner}`,
+    ...en({ applicant2 }),
+    title: `Rhowch gyfeiriad post eich ${applicant2}`,
     enterPostcode: 'Nodwch god post yn y DU',
     buildingStreet: "Rhif neu enw'r adeilad, Stryd",
     town: 'Tref neu ddinas',

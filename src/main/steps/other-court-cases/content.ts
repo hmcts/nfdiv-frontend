@@ -5,14 +5,14 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../app/form/valida
 
 import type { CommonContent } from '../common/common.content';
 
-const en = ({ isDivorce, partner, required, marriage, civilPartnership }: CommonContent) => {
+const en = ({ isDivorce, applicant2, required, marriage, civilPartnership }: CommonContent) => {
   const partnership = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Other court cases',
     line1: `The court needs to know if there are any other legal proceedings related to your ${partnership}, property or children. This includes any legal proceedings that are:`,
     point1: 'ongoing, finished or abandoned',
-    point2: `between you and your ${partner}`,
-    point3: `between you, your ${partner} and anyone else`,
+    point2: `between you and your ${applicant2}`,
+    point3: `between you, your ${applicant2} and anyone else`,
     question: `Are there, or have there ever been, any other legal proceedings relating to your ${partnership}, property or children?`,
     hint: 'Not including legal proceedings that may happen in the future.',
     subField: 'What do the legal proceedings relate to?',
@@ -31,14 +31,14 @@ const en = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
   };
 };
 
-const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: CommonContent) => {
+const cy = ({ isDivorce, applicant2, required, marriage, civilPartnership }: CommonContent) => {
   const partnership = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Achosion llys eraill',
     line1: `Mae'r llys angen gwybod os oes unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${partnership}, eich eiddo, neu'ch plant. Mae hyn yn cynnwys unrhyw achosion cyfreithiol sydd:`,
     point1: 'yn gyfredol, sydd wedi dod i ben, neu achos y rhoddwyd gorau iddo',
-    point2: `rhyngoch chi a'ch ${partner}`,
-    point3: `rhyngoch chi, eich ${partner} ac unrhyw un arall`,
+    point2: `rhyngoch chi a'ch ${applicant2}`,
+    point3: `rhyngoch chi, eich ${applicant2} ac unrhyw un arall`,
     question: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${partnership}, eich eiddo, neu'ch plant?`,
     hint: "Nid yw'n cynnwys unrhyw achosion cyfreithiol a all ddigwydd yn y dyfodol",
     subField: "Ynghylch beth y mae'r achos cyfreithiol?",
