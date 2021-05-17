@@ -1,6 +1,7 @@
 import { JurisdictionConnections } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
+
 import type { CommonContent } from '../common/common.content';
 
 const en = (

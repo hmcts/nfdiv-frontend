@@ -2,6 +2,7 @@ import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
+
 import type { UploadedFiles } from './UploadedFiles';
 
 const noFilesUploadedEl = getById('noFilesUploaded');
