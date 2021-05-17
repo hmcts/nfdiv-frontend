@@ -1,7 +1,7 @@
 import { Checkbox } from '../case/case';
 import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
-import { addConnection } from './connections';
+import { addConnection, previousConnectionMadeUptoLastHabituallyResident } from './connections';
 
 describe('connections', () => {
   test(
@@ -117,5 +117,33 @@ describe('connections', () => {
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
       JurisdictionConnections.APP_2_DOMICILED,
     ]);
+  });
+
+  test('Given previous connection made up to last habitually resident and connection B made, should return true', async () => {
+    const body = {
+      connections: [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT, JurisdictionConnections.APP_2_DOMICILED],
+    };
+    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(true);
+  });
+
+  test('Given no previous connection made up to last habitually resident and connection B made, should return false', async () => {
+    const body = {
+      connections: [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+    };
+    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(false);
+  });
+
+  test('Given previous connection made up to last habitually resident, should return true', async () => {
+    const body = {
+      connections: [JurisdictionConnections.APP_2_DOMICILED],
+    };
+    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(true);
+  });
+
+  test('Given no previous connection made up to last habitually resident, should return false', async () => {
+    const body = {
+      connections: [],
+    };
+    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(false);
   });
 });
