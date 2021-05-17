@@ -205,15 +205,9 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
-      } else if (
-        (data.lastHabituallyResident === YesOrNo.YES && previousConnectionMadeUptoLastHabituallyResident(data)) ||
-        (data.lastHabituallyResident === YesOrNo.NO && previousConnectionMadeUptoLastHabituallyResident(data))
-      ) {
+      } else if (previousConnectionMadeUptoLastHabituallyResident(data)) {
         return JURISDICTION_CONNECTION_SUMMARY;
-      } else if (
-        data.lastHabituallyResident === YesOrNo.YES &&
-        !previousConnectionMadeUptoLastHabituallyResident(data)
-      ) {
+      } else if (data.lastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;
       } else {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
