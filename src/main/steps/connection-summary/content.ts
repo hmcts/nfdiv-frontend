@@ -3,13 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { CommonContent } from '../common/common.content';
 
-const en = ({
-  isDivorce,
-  applicant2,
-  formState,
-  habitualResidentHelpText1,
-  habitualResidentHelpText2,
-}: CommonContent) => {
+const en = ({ isDivorce, partner, formState, habitualResidentHelpText1, habitualResidentHelpText2 }: CommonContent) => {
   const enHabitualResident = {
     helpText1: 'Habitual residence',
     helpText2:
@@ -63,15 +57,15 @@ const en = ({
       isDivorce ? 'for a divorce' : 'to end your civil partnership'
     } in England and Wales because:`,
     connectionBulletPoints: {
-      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${applicant2} were both last habitually resident and one of you still lives here`,
-      [JurisdictionConnections.APP_2_RESIDENT]: `your ${applicant2} is habitually resident`,
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
+      [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
       [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
         'you’re domiciled and habitually resident and have lived here for at least 6 months',
-      [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${applicant2} are domiciled`,
+      [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
       [JurisdictionConnections.RESIDUAL_JURISDICTION]:
         'the courts of England and Wales have jurisdiction on a residual basis',
       [JurisdictionConnections.APP_1_DOMICILED]: 'you are domiciled in England or Wales',
-      [JurisdictionConnections.APP_2_DOMICILED]: `your ${applicant2} is domiciled in England or Wales`,
+      [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
     },
     readMore: 'Read more about your connections',
     ...enContainsHabitualResConnection(formState?.connections),
