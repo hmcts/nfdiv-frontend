@@ -12,7 +12,7 @@ const en = ({ applicant2, isDivorce }) => ({
   }.`,
   line2: 'If you use their work email address, you should ask their permission first.',
   applicant2EmailAddress: `Your ${applicant2}'s email address`,
-  doNotKnowApplicant2EmailAddress: 'I do not know their email address',
+  applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
     applicant2EmailAddress: {
       required:
@@ -48,19 +48,19 @@ export const form: FormContent = {
       type: 'text',
       label: l => l.applicant2EmailAddress,
       validator: (value, formData) => {
-        if (formData.doNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
+        if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isEmailValid(value);
         } else if (value) {
           return 'incorrect';
         }
       },
     },
-    doNotKnowApplicant2EmailAddress: {
+    applicant1DoesNotKnowApplicant2EmailAddress: {
       type: 'checkboxes',
       values: [
         {
-          name: 'doNotKnowApplicant2EmailAddress',
-          label: l => l.doNotKnowApplicant2EmailAddress,
+          name: 'applicant1DoesNotKnowApplicant2EmailAddress',
+          label: l => l.applicant1DoesNotKnowApplicant2EmailAddress,
           value: Checkbox.Checked,
         },
       ],

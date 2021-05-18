@@ -12,7 +12,7 @@ const en = ({ isDivorce, required }) => ({
   yes: 'I need help paying the fee',
   no: 'I do not need help paying the fee',
   errors: {
-    helpPayingNeeded: {
+    applicant1HelpPayingNeeded: {
       required,
     },
   },
@@ -33,7 +33,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
   yes: "Mae angen help arnaf i dalu'r ffi",
   no: "Nid oes angen help arnaf i dalu'r ffi",
   errors: {
-    helpPayingNeeded: {
+    applicant1HelpPayingNeeded: {
       required,
     },
   },
@@ -41,7 +41,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
 
 export const form: FormContent = {
   fields: {
-    helpPayingNeeded: {
+    applicant1HelpPayingNeeded: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,

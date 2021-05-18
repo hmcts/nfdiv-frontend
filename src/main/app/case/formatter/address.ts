@@ -1,8 +1,8 @@
 import { Case } from '../case';
 import { AddressGlobalUK, CaseData } from '../definition';
 
-export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Partial<Case> => {
-  const isApplicant1Address = address === 'your';
+export const fromApi = (data: Partial<CaseData>, address: 'applicant1' | 'applicant2'): Partial<Case> => {
+  const isApplicant1Address = address === 'applicant1';
   const fullAddress = isApplicant1Address ? data.applicant1HomeAddress : data.applicant2HomeAddress;
 
   return {
@@ -16,7 +16,7 @@ export const fromApi = (data: Partial<CaseData>, address: 'your' | 'their'): Par
   };
 };
 
-const toApiAddress = (data: Partial<Case>, address: 'your' | 'their'): AddressGlobalUK => ({
+const toApiAddress = (data: Partial<Case>, address: 'applicant1' | 'applicant2'): AddressGlobalUK => ({
   AddressLine1: data[`${address}Address1`],
   AddressLine2: data[`${address}Address2`],
   AddressLine3: data[`${address}Address3`],
@@ -26,10 +26,10 @@ const toApiAddress = (data: Partial<Case>, address: 'your' | 'their'): AddressGl
   Country: data[`${address}AddressCountry`],
 });
 
-export const yourAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicant1HomeAddress: toApiAddress(data, 'your'),
+export const applicant1AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant1HomeAddress: toApiAddress(data, 'applicant1'),
 });
 
-export const theirAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicant2HomeAddress: toApiAddress(data, 'their'),
+export const applicant2AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant2HomeAddress: toApiAddress(data, 'applicant2'),
 });

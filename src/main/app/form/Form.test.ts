@@ -50,14 +50,14 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
     } as unknown as Case);
 
     expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES, {
       field: YesOrNo.YES,
       dateField: { day: '1', month: '1', year: '2000' },
-      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       checkboxes: 'checkbox1',
     });
     expect(errors).toStrictEqual([]);
@@ -205,14 +205,14 @@ describe('Form', () => {
   test('Should build a form with a custom field function', async () => {
     const mockFieldFnForm: FormContent = {
       fields: formState => ({
-        ...(formState?.addressPrivate ? { customQuestion: { type: 'text', label: 'custom' } } : {}),
+        ...(formState?.applicant1AddressPrivate ? { customQuestion: { type: 'text', label: 'custom' } } : {}),
       }),
       submit: {
         text: l => l.continue,
       },
     };
 
-    const fieldFnForm = new Form(mockFieldFnForm, { addressPrivate: YesOrNo.YES });
+    const fieldFnForm = new Form(mockFieldFnForm, { applicant1AddressPrivate: YesOrNo.YES });
 
     expect(fieldFnForm.getFields()).toEqual({ customQuestion: { label: 'custom', type: 'text' } });
   });

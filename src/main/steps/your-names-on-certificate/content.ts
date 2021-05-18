@@ -15,11 +15,11 @@ const en = ({ isDivorce, relationship, applicant2, selectedGender }) => {
       isDivorce ? 'were married' : 'formed your civil partnership'
     }. They can sometimes be different from your current names. For example, if ${personOfMaidenName} had a maiden name.`,
     warningText: `Copy the ${relationship} certificate exactly. For example, if it says ‘Sarah Brown (formerly known as Sarah Smith)’, then enter that.`,
-    fullNameOnCertificate: `Copy your full name from the ${relationship} certificate`,
+    applicant1FullNameOnCertificate: `Copy your full name from the ${relationship} certificate`,
     applicant2FullNameOnCertificate: `Copy your ${applicant2}'s full name from the ${relationship} certificate`,
     hint: 'Include all the text related to the name',
     errors: {
-      fullNameOnCertificate: {
+      applicant1FullNameOnCertificate: {
         required: 'You have not entered anything. Enter your full name as it appears on your marriage certificate.',
         invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
       },
@@ -43,11 +43,11 @@ const cy = ({ isDivorce, relationship, applicant2, selectedGender }) => {
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd ${personOfMaidenName} enw cyn priodi.`,
     warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
-    fullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
+    applicant1FullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
     applicant2FullNameOnCertificate: `Copïwch enw llawn eich ${applicant2} fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
     hint: 'Dylech gynnwys testun eich enw yn llawn',
     errors: {
-      fullNameOnCertificate: {
+      applicant1FullNameOnCertificate: {
         required:
           'Nid ydych wedi nodi unrhyw beth. Rhowch eich enw yn llawn fel y mae’n ymddangos ar eich tystysgrif priodas',
         invalid:
@@ -65,10 +65,10 @@ const cy = ({ isDivorce, relationship, applicant2, selectedGender }) => {
 
 export const form: FormContent = {
   fields: {
-    fullNameOnCertificate: {
+    applicant1FullNameOnCertificate: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.fullNameOnCertificate,
+      label: l => l.applicant1FullNameOnCertificate,
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     },

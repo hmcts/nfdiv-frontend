@@ -26,21 +26,22 @@ const fields: FromApiConverters = {
     englishOrWelsh:
       data.languagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  applicant1HomeAddress: data => formatAddress(data, 'your'),
+  applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
-    agreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
+    applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
   applicant1KnowsApplicant2EmailAddress: data => ({
-    doNotKnowApplicant2EmailAddress:
+    applicant1DoesNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
   applicant1ContactDetailsConfidential: data => ({
-    addressPrivate: data.applicant1ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+    applicant1AddressPrivate:
+      data.applicant1ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
-  applicant2HomeAddress: data => formatAddress(data, 'their'),
+  applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
   cannotUploadSupportingDocument: data => ({
     uploadedFiles:
       data.documentsUploaded?.map(file => ({

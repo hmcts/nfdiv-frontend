@@ -8,9 +8,9 @@ const form = getById('main-form') as HTMLFormElement | null;
 if (form) {
   const formData = new FormData(form);
   const uk = 'UK';
-  const yourAddressCountry = formData.get('yourAddressCountry');
-  const theirAddressCountry = formData.get('theirAddressCountry');
-  const addressCountry = yourAddressCountry || theirAddressCountry;
+  const applicant1AddressCountry = formData.get('applicant1AddressCountry');
+  const applicant2AddressCountry = formData.get('applicant2AddressCountry');
+  const addressCountry = applicant1AddressCountry || applicant2AddressCountry;
   const hasBackendError = qsa('.govuk-error-summary').length > 1;
 
   if (addressCountry || hasBackendError) {

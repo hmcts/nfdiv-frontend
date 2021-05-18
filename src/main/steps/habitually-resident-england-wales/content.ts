@@ -16,7 +16,7 @@ const en = ({ required }: CommonContent) => ({
   line4:
     'These examples aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
   errors: {
-    lastHabituallyResident: {
+    bothLastHabituallyResident: {
       required,
     },
   },
@@ -35,7 +35,7 @@ const cy = ({ required }: CommonContent) => ({
   line4:
     'Nid yw’r enghreifftiau hyn yn rhestr gynhwysfawr o amgylchiadau sy’n esiamplau o breswylio’n arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Dylech gael cyngor cyfreithiol os ydych yn ansicr ynghylch hyn.',
   errors: {
-    lastHabituallyResident: {
+    bothLastHabituallyResident: {
       required,
     },
   },
@@ -43,7 +43,7 @@ const cy = ({ required }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    lastHabituallyResident: {
+    bothLastHabituallyResident: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.title,
