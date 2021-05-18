@@ -1,7 +1,8 @@
 import { Checkbox } from '../../app/case/case';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import type { CommonContent } from '../../steps/common/common.content';
+
+import type { CommonContent } from '../common/common.content';
 
 const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
   const dissolution = isDivorce ? divorce : endingCivilPartnership;

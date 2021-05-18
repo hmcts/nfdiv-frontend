@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import { isDateInputInvalid } from '../../form/validation';
+
 import type { CaseDate } from '../case';
 
 export const getFormattedDate = (date: CaseDate | undefined): string | false =>
