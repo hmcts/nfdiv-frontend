@@ -18,5 +18,7 @@ Given("I've completed all questions correctly to get to the jurisdiction section
     screenHasUnionBroken: YesOrNo.YES,
     yourFirstNames: 'Functional',
     yourLastNames: 'Tests',
+    yourLifeBasedInEnglandAndWales: YesOrNo.YES,
+    applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   });
 });
