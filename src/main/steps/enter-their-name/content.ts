@@ -3,14 +3,14 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ partner }: CommonContent) => {
+const en = ({ applicant2 }: CommonContent) => {
   const invalid = 'You have entered an invalid character, like a number. Enter their name using letters only.';
   return {
-    title: `Enter your ${partner}’s name`,
-    line1: `The court needs to know your ${partner}’s full name.`,
-    firstNames: `Your ${partner}’s first name(s)`,
-    middleNames: `Your ${partner}’s middle name(s)`,
-    lastNames: `Your ${partner}’s last name(s)`,
+    title: `Enter your ${applicant2}’s name`,
+    line1: `The court needs to know your ${applicant2}’s full name.`,
+    firstNames: `Your ${applicant2}’s first name(s)`,
+    middleNames: `Your ${applicant2}’s middle name(s)`,
+    lastNames: `Your ${applicant2}’s last name(s)`,
     errors: {
       theirFirstNames: {
         required: 'You have not entered their first name. Enter it before continuing.',

@@ -2,9 +2,9 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ partner, isDivorce }: CommonContent) => ({
+const en = ({ applicant2, isDivorce }: CommonContent) => ({
   title: 'How to apply for a financial order',
-  line1: `You will need to complete another form (Form A) and pay an additional fee. You can apply at any time, so long as your ${partner} is still alive.`,
+  line1: `You will need to complete another form (Form A) and pay an additional fee. You can apply at any time, so long as your ${applicant2} is still alive.`,
   line2: `You will be given a link to Form A and more guidance after you have submitted this ${
     isDivorce ? 'divorce' : 'ending your civil partnership'
   } application. You can get legal advice or ask a solicitor to draft a financial order for you.`,

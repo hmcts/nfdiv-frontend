@@ -14,15 +14,15 @@ const isHabituallyResidentForGivenTime = (data, months) => {
 };
 
 const areBothHabituallyResident = data => {
-  return isHabituallyResident('your', data) && isHabituallyResident('partners', data);
+  return isHabituallyResident('your', data) && isHabituallyResident('applicant2', data);
 };
 
 const onlyApplicant1HabituallyResident = data => {
-  return isHabituallyResident('your', data) && !isHabituallyResident('partners', data);
+  return isHabituallyResident('your', data) && !isHabituallyResident('applicant2', data);
 };
 
 const onlyApplicant2HabituallyResident = data => {
-  return !isHabituallyResident('your', data) && isHabituallyResident('partners', data);
+  return !isHabituallyResident('your', data) && isHabituallyResident('applicant2', data);
 };
 
 const areBothLastHabituallyResident = data => {
@@ -38,19 +38,19 @@ const isHabituallyResidentForSixMonths = data => {
 };
 
 const areBothDomiciled = data => {
-  return isDomiciled('your', data) && isDomiciled('partners', data);
+  return isDomiciled('your', data) && isDomiciled('applicant2', data);
 };
 
 const isOnlyApplicant1Domiciled = data => {
-  return isDomiciled('your', data) && !isDomiciled('partners', data);
+  return isDomiciled('your', data) && !isDomiciled('applicant2', data);
 };
 
 const isOnlyApplicant2Domiciled = data => {
-  return !isDomiciled('your', data) && isDomiciled('partners', data);
+  return !isDomiciled('your', data) && isDomiciled('applicant2', data);
 };
 
 const onlyApplicant1Domiciled = data => {
-  return isDomiciled('your', data) && !isDomiciled('partners', data);
+  return isDomiciled('your', data) && !isDomiciled('applicant2', data);
 };
 
 export const allowedToAnswerResidualJurisdiction = (data: Partial<CaseWithId>): boolean => {

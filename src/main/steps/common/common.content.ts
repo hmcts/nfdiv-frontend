@@ -37,7 +37,7 @@ const en = {
   endingCivilPartnership: 'ending a civil partnership',
   husband: 'husband',
   wife: 'wife',
-  partner: 'partner',
+  applicant2: 'applicant 2',
   civilPartner: 'civil partner',
   withHim: 'with him',
   withHer: 'with her',
@@ -110,7 +110,7 @@ const cy: typeof en = {
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
-  partner: 'partner',
+  applicant2: 'applicant 2',
   civilPartner: 'partner sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
@@ -164,21 +164,21 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
-  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
-  const partnerEmailProvided = formState?.doNotKnowApplicant2EmailAddress !== Checkbox.Checked;
+  const applicant2 = getApplicant2Content(commonTranslations, selectedGender, isDivorce);
+  const applicant2EmailProvided = formState?.doNotKnowApplicant2EmailAddress !== Checkbox.Checked;
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     selectedGender,
-    partner,
+    applicant2,
     language,
     isDivorce,
     formState,
     userEmail,
     contactEmail,
-    partnerEmailProvided,
+    applicant2EmailProvided,
   };
 
   if (pageContent) {
@@ -193,7 +193,7 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
   return capitalize(serviceName);
 };
 
-const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
+const getApplicant2Content = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
   if (!isDivorce) {
     return translations.civilPartner;
   }
@@ -203,7 +203,7 @@ const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDi
   if (selectedGender === Gender.FEMALE) {
     return translations.wife;
   }
-  return translations.partner;
+  return translations.applicant2;
 };
 
 export type CommonContent = typeof en & {
@@ -212,11 +212,11 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   isDivorce: boolean;
   formState?: Partial<Case>;
-  partner: string;
+  applicant2: string;
   userEmail?: string;
   contactEmail?: string;
   selectedGender: Gender;
-  partnerEmailProvided: boolean;
+  applicant2EmailProvided: boolean;
 };
 
 export type Language = 'en' | 'cy';

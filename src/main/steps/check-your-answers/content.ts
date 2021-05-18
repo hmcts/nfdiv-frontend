@@ -9,16 +9,16 @@ import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => ({
+const en = ({ isDivorce, applicant2, formState }: CommonContent) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     [Sections.HelpWithFees]: 'Help with fees',
     [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
-    [Sections.AboutPartners]: `About you and your ${isDivorce ? partner : 'civil partner'}`,
+    [Sections.AboutPartners]: `About you and your ${isDivorce ? applicant2 : 'civil partner'}`,
     [Sections.ContactYou]: 'How the court will contact you',
-    [Sections.ContactThem]: `How the court will contact your ${isDivorce ? partner : 'civil partner'}`,
+    [Sections.ContactThem]: `How the court will contact your ${isDivorce ? applicant2 : 'civil partner'}`,
     [Sections.OtherCourtCases]: 'Other court cases',
     [Sections.DividingAssets]: 'Dividing your money and property',
     [Sections.Documents]: 'Your documents',
@@ -29,7 +29,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       yourAddressCountry: 'Your postal address',
     },
     [urls.ENTER_THEIR_ADDRESS]: {
-      theirAddressCountry: `Your ${partner}’s postal address`,
+      theirAddressCountry: `Your ${applicant2}’s postal address`,
     },
   },
   stepAnswers: {

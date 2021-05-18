@@ -3,7 +3,7 @@ Feature: Living in England or Wales for the last 6 months
   Background:
     Given I login
     And I've completed all questions correctly to get to the jurisdiction section
-    And I click "Continue"
+    And I go to '/where-your-lives-are-based'
     And I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"

@@ -157,7 +157,7 @@ describe('GetController', () => {
         language: 'en',
         isDivorce: true,
         formState: req.session.userCase,
-        partner: 'partner',
+        applicant2: 'applicant 2',
         userEmail,
       });
       expect(res.render).toBeCalledWith('page', {

@@ -13,7 +13,7 @@ describe('to-api-format', () => {
     agreeToReceiveEmails: Checkbox.Checked,
     doNotKnowApplicant2EmailAddress: Checkbox.Checked,
     addressPrivate: YesOrNo.YES,
-    knowPartnersAddress: YesOrNo.NO,
+    knowApplicant2Address: YesOrNo.NO,
     iWantToHavePapersServedAnotherWay: null,
   };
 

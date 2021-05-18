@@ -7,7 +7,7 @@ describe('connections', () => {
   test(
     'Given both applicant 1 and applicant 2 are both habitually resident, ' + 'should find connection A',
     async () => {
-      const body = { yourLifeBasedInEnglandAndWales: YesOrNo.YES, partnersLifeBasedInEnglandAndWales: YesOrNo.YES };
+      const body = { yourLifeBasedInEnglandAndWales: YesOrNo.YES, applicant2LifeBasedInEnglandAndWales: YesOrNo.YES };
 
       const connectionAdded = addConnection(body);
       expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
@@ -25,7 +25,7 @@ describe('connections', () => {
   );
 
   test('Given only applicant 2 is habitually resident, should find connection C', async () => {
-    const body = { yourLifeBasedInEnglandAndWales: YesOrNo.NO, partnersLifeBasedInEnglandAndWales: YesOrNo.YES };
+    const body = { yourLifeBasedInEnglandAndWales: YesOrNo.NO, applicant2LifeBasedInEnglandAndWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_2_RESIDENT]);
@@ -36,7 +36,7 @@ describe('connections', () => {
     async () => {
       const body = {
         yourLifeBasedInEnglandAndWales: YesOrNo.YES,
-        partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+        applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
         livingInEnglandWalesTwelveMonths: YesOrNo.YES,
       };
 
@@ -51,10 +51,10 @@ describe('connections', () => {
     async () => {
       const body = {
         yourLifeBasedInEnglandAndWales: YesOrNo.YES,
-        partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+        applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
         livingInEnglandWalesSixMonths: YesOrNo.YES,
         yourDomicileInEnglandWales: YesOrNo.YES,
-        partnersDomicileInEnglandWales: YesOrNo.NO,
+        applicant2DomicileInEnglandWales: YesOrNo.NO,
       };
 
       const connectionAdded = addConnection(body);
@@ -66,7 +66,7 @@ describe('connections', () => {
   );
 
   test('Given both applicant 1 and applicant 2 are both domiciled, should find connection F', async () => {
-    const body = { yourDomicileInEnglandWales: YesOrNo.YES, partnersDomicileInEnglandWales: YesOrNo.YES };
+    const body = { yourDomicileInEnglandWales: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_APP_2_DOMICILED]);
@@ -75,18 +75,18 @@ describe('connections', () => {
   test.each([
     {
       sameSex: Checkbox.Checked,
-      partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+      applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
       yourDomicileInEnglandWales: YesOrNo.NO,
-      partnersDomicileInEnglandWales: YesOrNo.NO,
+      applicant2DomicileInEnglandWales: YesOrNo.NO,
       jurisdictionResidualEligible: YesOrNo.YES,
       lastHabituallyResident: YesOrNo.NO,
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       yourLifeBasedInEnglandAndWales: YesOrNo.YES,
-      partnersLifeBasedInEnglandAndWales: YesOrNo.NO,
+      applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
       yourDomicileInEnglandWales: YesOrNo.NO,
-      partnersDomicileInEnglandWales: YesOrNo.NO,
+      applicant2DomicileInEnglandWales: YesOrNo.NO,
       jurisdictionResidualEligible: YesOrNo.YES,
       lastHabituallyResident: YesOrNo.NO,
     },
@@ -103,14 +103,14 @@ describe('connections', () => {
   });
 
   test('Given applicant 2 is domiciled, should find connection I', async () => {
-    const body = { partnersDomicileInEnglandWales: YesOrNo.YES };
+    const body = { applicant2DomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_2_DOMICILED]);
   });
 
   test('Given both were last habitually resident in England or Wales and applicant 2 is domiciled, should find connection B and I', async () => {
-    const body = { lastHabituallyResident: YesOrNo.YES, partnersDomicileInEnglandWales: YesOrNo.YES };
+    const body = { lastHabituallyResident: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([

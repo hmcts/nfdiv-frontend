@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ applicant2, required }: CommonContent) => ({
   title: 'Your domicile',
   line1:
     'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
@@ -19,14 +19,14 @@ const en = ({ partner, required }: CommonContent) => ({
     'If you leave your domicile of origin and settle in another country as an adult, the new country may become your <strong>domicile of choice</strong>.',
   more4: 'If you’re not sure about your domicile you should get legal advice.',
   yourDomicileInEnglandWales: 'Is your domicile in England or Wales?',
-  partnersDomicileInEnglandWales: `Is your ${partner}’s domicile in England or Wales?`,
+  applicant2DomicileInEnglandWales: `Is your ${applicant2}’s domicile in England or Wales?`,
   errors: {
     yourDomicileInEnglandWales: { required },
-    partnersDomicileInEnglandWales: { required },
+    applicant2DomicileInEnglandWales: { required },
   },
 });
 
-const cy = ({ partner }: CommonContent) => ({
+const cy = ({ applicant2 }: CommonContent) => ({
   title: 'Eich domisil',
   line1:
     'Gan amlaf, eich domisil yw lle y cawsoch eich geni, y lle yr ydych yn meddwl amdano fel eich cartref parhaol a’r lle y mae eich teulu a’ch ffrindiau agosaf yn byw.',
@@ -44,10 +44,10 @@ const cy = ({ partner }: CommonContent) => ({
   yourDomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
   yes: 'Ydy',
   no: 'Nac ydy',
-  partnersDomicileInEnglandWales: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
+  applicant2DomicileInEnglandWales: `A yw domisil eich ${applicant2} yng Nghymru neu Loegr?`,
   errors: {
     yourDomicileInEnglandWales: { required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.' },
-    partnersDomicileInEnglandWales: {
+    applicant2DomicileInEnglandWales: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
     },
   },
@@ -65,10 +65,10 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-    partnersDomicileInEnglandWales: {
+    applicant2DomicileInEnglandWales: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.partnersDomicileInEnglandWales,
+      label: l => l.applicant2DomicileInEnglandWales,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
