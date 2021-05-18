@@ -107,7 +107,7 @@ describe('connections', () => {
   });
 
   test('Given both were last habitually resident in England or Wales and applicant 2 is domiciled, should find connection B and I', async () => {
-    const body = { bothbothLastHabituallyResident: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
+    const body = { bothLastHabituallyResident: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
 
     const connectionAdded = addConnection(body);
     expect(connectionAdded).toEqual([
