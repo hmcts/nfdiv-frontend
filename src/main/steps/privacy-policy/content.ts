@@ -90,7 +90,7 @@ const en = ({ isDivorce }) => ({
     'While processing your claim or application, another government department, agency or organisation might be involved and we may share your data with them.',
   dataSharedWithPrintingServiceProvider: `Any data you provide which needs to be printed will be shared with Xerox (UK) Ltd. For example, the ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
-  } application will be printed so that it can be sent to applicant 2 by post.`,
+  } application will be printed so that it can be sent to the respondent by post.`,
   ifYouContactUs:
     'If you contact us and ask for help with the service you’re using, your personal data may be shared with the Good Things Foundation. This is a company who we have partnered with to offer face to face support.',
   crime:

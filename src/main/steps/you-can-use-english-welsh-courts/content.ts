@@ -7,7 +7,7 @@ import type { CommonContent } from '../common/common.content';
 const en = (
   {
     isDivorce,
-    applicant2,
+    partner,
     applyForDivorce,
     applyForDissolution,
     habitualResidentHelpText1,
@@ -33,7 +33,7 @@ const en = (
     ...enHabitualResident,
   };
   const enApp2Resident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${applicant2} is 'habitually resident'.`,
+    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${partner} is 'habitually resident'.`,
     readMore: 'Read more about habitual residence',
     ...enHabitualResident,
   };
@@ -66,7 +66,7 @@ const en = (
   };
 };
 
-const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionConnections[]) => {
+const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConnections[]) => {
   const apply = isDivorce ? 'cais am ysgariad' : 'cais';
   const cyApp1App2Resident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol.`,
@@ -89,7 +89,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
   };
   const cyApp2Resident = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${applicant2} yn preswylio’n arferol yno.`,
+    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${partner} yn preswylio’n arferol yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
       'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn preswylio’n arferol yno yn ôl y gyfraith.',

@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash';
 
-import { Case, Checkbox } from '../../app/case/case';
+import { Case } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -21,8 +21,6 @@ const en = {
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  cookieText:
-    'GOV.UK uses cookies to make the site simpler. <a class="govuk-link" href="#" title="Find out more about cookies">Find out more about cookies</a>',
   errorSummaryHeading: 'There was a problem',
   saveAndSignOut: 'Save and sign out',
   signOut: 'Sign out',
@@ -37,7 +35,7 @@ const en = {
   endingCivilPartnership: 'ending a civil partnership',
   husband: 'husband',
   wife: 'wife',
-  applicant2: 'applicant 2',
+  partner: 'partner',
   civilPartner: 'civil partner',
   withHim: 'with him',
   withHer: 'with her',
@@ -94,8 +92,6 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  cookieText:
-    'Mae GOV.UK yn defnyddio cwcis i wneud y safle’n symlach. <a class="govuk-link" href="#" title="Find out more about cookies" >Rhagor o wybodaeth am gwcis</a>',
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   signOut: 'Allgofnodi',
@@ -110,7 +106,7 @@ const cy: typeof en = {
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
-  applicant2: 'applicant 2',
+  partner: 'partner',
   civilPartner: 'partner sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
@@ -164,21 +160,19 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
-  const applicant2 = getApplicant2Content(commonTranslations, selectedGender, isDivorce);
-  const applicant2EmailProvided = formState?.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked;
+  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     selectedGender,
-    applicant2,
+    partner,
     language,
     isDivorce,
     formState,
     userEmail,
     contactEmail,
-    applicant2EmailProvided,
   };
 
   if (pageContent) {
@@ -193,7 +187,7 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
   return capitalize(serviceName);
 };
 
-const getApplicant2Content = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
+const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
   if (!isDivorce) {
     return translations.civilPartner;
   }
@@ -203,7 +197,7 @@ const getApplicant2Content = (translations: typeof en, selectedGender: Gender, i
   if (selectedGender === Gender.FEMALE) {
     return translations.wife;
   }
-  return translations.applicant2;
+  return translations.partner;
 };
 
 export type CommonContent = typeof en & {
@@ -212,11 +206,10 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   isDivorce: boolean;
   formState?: Partial<Case>;
-  applicant2: string;
+  partner: string;
   userEmail?: string;
   contactEmail?: string;
   selectedGender: Gender;
-  applicant2EmailProvided: boolean;
 };
 
 export type Language = 'en' | 'cy';

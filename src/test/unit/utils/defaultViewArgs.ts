@@ -6,7 +6,7 @@ export const defaultViewArgs = {
   sessionErrors: expect.any(Array),
   getNextIncompleteStepUrl: expect.any(Function),
   isDivorce: expect.any(Boolean),
-  applicant2: expect.any(String),
+  partner: expect.any(String),
   formState: expect.any(Object),
   language: expect.any(String),
   htmlLang: expect.any(String),
