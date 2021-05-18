@@ -18,10 +18,10 @@ const en = ({ applicant2, required }: CommonContent) => ({
   more3:
     'If you leave your domicile of origin and settle in another country as an adult, the new country may become your <strong>domicile of choice</strong>.',
   more4: 'If you’re not sure about your domicile you should get legal advice.',
-  yourDomicileInEnglandWales: 'Is your domicile in England or Wales?',
+  applicant1DomicileInEnglandWales: 'Is your domicile in England or Wales?',
   applicant2DomicileInEnglandWales: `Is your ${applicant2}’s domicile in England or Wales?`,
   errors: {
-    yourDomicileInEnglandWales: { required },
+    applicant1DomicileInEnglandWales: { required },
     applicant2DomicileInEnglandWales: { required },
   },
 });
@@ -41,12 +41,14 @@ const cy = ({ applicant2 }: CommonContent) => ({
   more3:
     'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymgartrefu mewn gwlad arall fel oedolyn, yna gallai’r wlad newydd ddod yn <strong>‘ddomisil dewisol’</strong> ichi.',
   more4: 'Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.',
-  yourDomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
+  applicant1DomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
   yes: 'Ydy',
   no: 'Nac ydy',
   applicant2DomicileInEnglandWales: `A yw domisil eich ${applicant2} yng Nghymru neu Loegr?`,
   errors: {
-    yourDomicileInEnglandWales: { required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.' },
+    applicant1DomicileInEnglandWales: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
+    },
     applicant2DomicileInEnglandWales: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
     },
@@ -55,10 +57,10 @@ const cy = ({ applicant2 }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    yourDomicileInEnglandWales: {
+    applicant1DomicileInEnglandWales: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.yourDomicileInEnglandWales,
+      label: l => l.applicant1DomicileInEnglandWales,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },

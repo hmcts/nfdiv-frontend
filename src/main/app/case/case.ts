@@ -21,38 +21,38 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   gender: 'inferredApplicant2Gender',
   screenHasUnionBroken: 'screenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
-  helpPayingNeeded: 'helpWithFeesNeedHelp',
-  alreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
-  helpWithFeesRefNo: 'helpWithFeesReferenceNumber',
+  applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
+  applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
+  applicant1HelpWithFeesRefNo: 'helpWithFeesReferenceNumber',
   inTheUk: 'marriedInUk',
   certificateInEnglish: 'certificateInEnglish',
   certifiedTranslation: 'certifiedTranslation',
   ceremonyCountry: 'countryName',
   ceremonyPlace: 'marriagePlaceOfMarriage',
-  yourLifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
+  applicant1LifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
   applicant2LifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
-  yourDomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
+  applicant1DomicileInEnglandWales: 'jurisdictionApplicant1Domicile',
   applicant2DomicileInEnglandWales: 'jurisdictionApplicant2Domicile',
-  lastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
-  livingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
-  livingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
-  phoneNumber: 'applicant1PhoneNumber',
+  bothLastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
+  applicant1LivingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
+  applicant1LivingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
-  yourFirstNames: 'applicant1FirstName',
-  yourMiddleNames: 'applicant1MiddleName',
-  yourLastNames: 'applicant1LastName',
-  theirFirstNames: 'applicant2FirstName',
-  theirMiddleNames: 'applicant2MiddleName',
-  theirLastNames: 'applicant2LastName',
-  fullNameOnCertificate: 'marriageApplicant1Name',
+  applicant1FirstNames: 'applicant1FirstName',
+  applicant1MiddleNames: 'applicant1MiddleName',
+  applicant1LastNames: 'applicant1LastName',
+  applicant2FirstNames: 'applicant2FirstName',
+  applicant2MiddleNames: 'applicant2MiddleName',
+  applicant2LastNames: 'applicant2LastName',
+  applicant1FullNameOnCertificate: 'marriageApplicant1Name',
   applicant2FullNameOnCertificate: 'marriageApplicant2Name',
-  lastNameChangeWhenRelationshipFormed: 'lastNameChangedWhenMarried',
-  anyNameChangeSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
-  changedNameHow: 'applicant1NameChangedHow',
-  changedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
+  applicant1LastNameChangedWhenRelationshipFormed: 'lastNameChangedWhenMarried',
+  applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
+  applicant1ChangedNameHow: 'applicant1NameChangedHow',
+  applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2EmailAddress: 'applicant2EmailAddress',
-  knowApplicant2Address: 'applicant1KnowsApplicant2Address',
+  applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
@@ -87,56 +87,56 @@ export interface Case {
   screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
-  helpPayingNeeded?: YesOrNo;
-  alreadyAppliedForHelpPaying?: YesOrNo;
-  helpWithFeesRefNo?: string;
+  applicant1HelpPayingNeeded?: YesOrNo;
+  applicant1AlreadyAppliedForHelpPaying?: YesOrNo;
+  applicant1HelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
   ceremonyCountry?: string;
   ceremonyPlace?: string;
-  yourLifeBasedInEnglandAndWales?: YesOrNo;
+  applicant1LifeBasedInEnglandAndWales?: YesOrNo;
   applicant2LifeBasedInEnglandAndWales?: YesOrNo;
-  yourDomicileInEnglandWales?: YesOrNo;
+  applicant1DomicileInEnglandWales?: YesOrNo;
   applicant2DomicileInEnglandWales?: YesOrNo;
-  lastHabituallyResident?: YesOrNo;
-  livingInEnglandWalesTwelveMonths?: YesOrNo;
-  livingInEnglandWalesSixMonths?: YesOrNo;
+  bothLastHabituallyResident?: YesOrNo;
+  applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
+  applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
-  yourFirstNames?: string;
-  yourMiddleNames?: string;
-  yourLastNames?: string;
-  yourAddress1?: string;
-  yourAddress2?: string;
-  yourAddress3?: string;
-  yourAddressTown?: string;
-  yourAddressCounty?: string;
-  yourAddressPostcode?: string;
-  yourAddressCountry?: string;
-  phoneNumber?: string;
-  agreeToReceiveEmails?: Checkbox;
+  applicant1FirstNames?: string;
+  applicant1MiddleNames?: string;
+  applicant1LastNames?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1Address3?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1AddressCountry?: string;
+  applicant1PhoneNumber?: string;
+  applicant1AgreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
-  fullNameOnCertificate?: string;
+  applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
-  addressPrivate: YesOrNo;
-  theirFirstNames?: string;
-  theirMiddleNames?: string;
-  theirLastNames?: string;
-  theirAddress1?: string;
-  theirAddress2?: string;
-  theirAddress3?: string;
-  theirAddressTown?: string;
-  theirAddressCounty?: string;
-  theirAddressPostcode?: string;
-  theirAddressCountry?: string;
-  lastNameChangeWhenRelationshipFormed?: YesOrNo;
-  anyNameChangeSinceRelationshipFormed?: YesOrNo;
-  changedNameHow?: ChangedNameHow;
-  changedNameHowAnotherWay?: string;
+  applicant1AddressPrivate: YesOrNo;
+  applicant2FirstNames?: string;
+  applicant2MiddleNames?: string;
+  applicant2LastNames?: string;
+  applicant2Address1?: string;
+  applicant2Address2?: string;
+  applicant2Address3?: string;
+  applicant2AddressTown?: string;
+  applicant2AddressCounty?: string;
+  applicant2AddressPostcode?: string;
+  applicant2AddressCountry?: string;
+  applicant1LastNameChangedWhenRelationshipFormed?: YesOrNo;
+  applicant1NameChangedSinceRelationshipFormed?: YesOrNo;
+  applicant1ChangedNameHow?: ChangedNameHow;
+  applicant1ChangedNameHowAnotherWay?: string;
   applicant2EmailAddress?: string;
-  doNotKnowApplicant2EmailAddress?: Checkbox;
-  knowApplicant2Address?: YesOrNo;
+  applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
+  applicant1KnowsApplicant2Address?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
   legalProceedingsDetails?: string;

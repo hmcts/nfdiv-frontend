@@ -24,10 +24,10 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       gender: Gender.MALE,
       screenHasUnionBroken: YesOrNo.YES,
-      helpWithFeesRefNo: 'HWF-ABC-123',
-      agreeToReceiveEmails: Checkbox.Checked,
-      addressPrivate: YesOrNo.YES,
-      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
@@ -45,10 +45,10 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      helpWithFeesRefNo: 'HWF-ABC-123',
-      agreeToReceiveEmails: Checkbox.Checked,
-      addressPrivate: YesOrNo.YES,
-      doNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
     });
   });
@@ -67,11 +67,11 @@ describe('from-api-format', () => {
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        yourAddress1: 'Line 1',
-        yourAddress2: 'Line 2',
-        yourAddressTown: 'Town',
-        yourAddressCounty: 'County',
-        yourAddressPostcode: 'Postcode',
+        applicant1Address1: 'Line 1',
+        applicant1Address2: 'Line 2',
+        applicant1AddressTown: 'Town',
+        applicant1AddressCounty: 'County',
+        applicant1AddressPostcode: 'Postcode',
       });
     });
 

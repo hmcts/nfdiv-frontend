@@ -14,17 +14,17 @@ const en = ({ isDivorce, applicant2 }: CommonContent) => ({
     isDivorce ? 'divorce service' : 'service to end your civil partnership'
   }. Your email address will not be shared with your ${applicant2}.`,
   byEmailLine2: 'Emails will be sent to:',
-  agreeToReceiveEmails: `I agree that the ${
+  applicant1AgreeToReceiveEmails: `I agree that the ${
     isDivorce ? 'divorce service' : 'ending a civil partnership service'
   } can send me notifications and serve (deliver) court documents to me by email.`,
   byPhone: 'By phone',
   byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. Your phone number will not be shared with your ${applicant2}.`,
-  phoneNumber: 'Enter your phone number (optional)',
+  applicant1PhoneNumber: 'Enter your phone number (optional)',
   errors: {
-    agreeToReceiveEmails: {
+    applicant1AgreeToReceiveEmails: {
       required: 'You have to agree to receive email notifications in order to use this online service.',
     },
-    phoneNumber: {
+    applicant1PhoneNumber: {
       invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
     },
   },
@@ -35,7 +35,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    agreeToReceiveEmails: {
+    applicant1AgreeToReceiveEmails: {
       type: 'checkboxes',
       label: l => l.byEmail,
       labelSize: 'm',
@@ -45,18 +45,18 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
       values: [
         {
-          name: 'agreeToReceiveEmails',
-          label: l => l.agreeToReceiveEmails,
+          name: 'applicant1AgreeToReceiveEmails',
+          label: l => l.applicant1AgreeToReceiveEmails,
           value: Checkbox.Checked,
         },
       ],
     },
-    phoneNumber: {
+    applicant1PhoneNumber: {
       type: 'tel',
       label: l => l.byPhone,
       hint: l =>
         `<p class="govuk-body">${l.byPhoneLine1}</p>
-        <label class="govuk-label govuk-!-font-weight-bold" for="phoneNumber">${l.phoneNumber}</label>`,
+        <label class="govuk-label govuk-!-font-weight-bold" for="applicant1PhoneNumber">${l.applicant1PhoneNumber}</label>`,
       classes: 'govuk-input govuk-input--width-20',
       validator: isPhoneNoValid,
     },

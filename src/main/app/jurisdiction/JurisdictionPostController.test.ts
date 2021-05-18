@@ -15,12 +15,15 @@ describe('JurisdictionPostController', () => {
     addConnectionMock.mockReturnValue([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
 
     const errors = [] as never[];
-    const body = { applicant2LifeBasedInEnglandAndWales: YesOrNo.YES, yourLifeBasedInEnglandAndWales: YesOrNo.YES };
+    const body = {
+      applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
+    };
     const bodyWithConnection = {
       iConfirmPrayer: Checkbox.Unchecked,
       iBelieveApplicationIsTrue: Checkbox.Unchecked,
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
-      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
     const mockForm = {
@@ -33,7 +36,7 @@ describe('JurisdictionPostController', () => {
     const expectedUserCase = {
       id: '1234',
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
-      yourLifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
 

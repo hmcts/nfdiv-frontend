@@ -14,10 +14,10 @@ const en = ({ isDivorce, required }) => ({
   anotherWayMoreDetails:
     'Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here.',
   errors: {
-    changedNameHow: {
+    applicant1ChangedNameHow: {
       required,
     },
-    changedNameHowAnotherWay: {
+    applicant1ChangedNameHowAnotherWay: {
       required:
         'You have said you changed your name another way but not provided details. Provide details of how you changed your name.',
     },
@@ -35,10 +35,10 @@ const cy: typeof en = ({ isDivorce }) => ({
   anotherWayMoreDetails:
     "Rhowch fanylion pryd a sut y gwnaethoch newid eich enw. Gofynnir i chi uwchlwytho llun neu sgan o'r dogfennau sy'n profi eich bod wedi newid eich enw yn ddiweddarach yn y cais hwn, neu gallwch eu hanfon drwy'r post. Os nad oes gennych unrhyw ddogfennau, eglurwch pam yma.",
   errors: {
-    changedNameHow: {
+    applicant1ChangedNameHow: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
     },
-    changedNameHowAnotherWay: {
+    applicant1ChangedNameHowAnotherWay: {
       required:
         'Rydych wedi dweud eich bod wedi newid eich enw mewn ffordd arall ond heb ddarparu manylion. Rhowch fanylion am sut y gwnaethoch newid eich enw.',
     },
@@ -47,7 +47,7 @@ const cy: typeof en = ({ isDivorce }) => ({
 
 export const form: FormContent = {
   fields: {
-    changedNameHow: {
+    applicant1ChangedNameHow: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
@@ -63,7 +63,7 @@ export const form: FormContent = {
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
-            changedNameHowAnotherWay: {
+            applicant1ChangedNameHowAnotherWay: {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
               labelSize: null,

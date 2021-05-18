@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../app/form/validation';
 const en = ({ required }) => ({
   title: 'Have you been living in England or Wales for the last 6 months?',
   errors: {
-    livingInEnglandWalesSixMonths: {
+    applicant1LivingInEnglandWalesSixMonths: {
       required,
     },
   },
@@ -15,7 +15,7 @@ const en = ({ required }) => ({
 const cy: typeof en = ({ required }) => ({
   title: 'A ydych wedi bod yn byw yng Nghymru neu Loegr am y 6 mis diwethaf?',
   errors: {
-    livingInEnglandWalesSixMonths: {
+    applicant1LivingInEnglandWalesSixMonths: {
       required,
     },
   },
@@ -23,7 +23,7 @@ const cy: typeof en = ({ required }) => ({
 
 export const form: FormContent = {
   fields: {
-    livingInEnglandWalesSixMonths: {
+    applicant1LivingInEnglandWalesSixMonths: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.title,

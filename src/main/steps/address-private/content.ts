@@ -12,7 +12,7 @@ const en = ({ applicant2, required }: CommonContent) => ({
   supportAvailable: 'support is available',
   detailsNotPrivate: 'I do not need my contact details kept private',
   errors: {
-    addressPrivate: { required },
+    applicant1AddressPrivate: { required },
   },
 });
 
@@ -21,7 +21,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    addressPrivate: {
+    applicant1AddressPrivate: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,

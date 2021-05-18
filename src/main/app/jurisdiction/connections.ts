@@ -1,63 +1,65 @@
 import { CaseWithId, Checkbox } from '../case/case';
 import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
-const isHabituallyResident = (who, data) => {
+type Who = 'applicant1' | 'applicant2';
+
+const isHabituallyResident = (who: Who, data) => {
   return data[`${who}LifeBasedInEnglandAndWales`] === YesOrNo.YES;
 };
 
-const isDomiciled = (who, data) => {
+const isDomiciled = (who: Who, data) => {
   return data[`${who}DomicileInEnglandWales`] === YesOrNo.YES;
 };
 
-const isHabituallyResidentForGivenTime = (data, months) => {
-  return data[`livingInEnglandWales${months}Months`] === YesOrNo.YES;
+const isHabituallyResidentForGivenTime = (who: Who, months, data) => {
+  return data[`${who}LivingInEnglandWales${months}Months`] === YesOrNo.YES;
 };
 
 const areBothHabituallyResident = data => {
-  return isHabituallyResident('your', data) && isHabituallyResident('applicant2', data);
+  return isHabituallyResident('applicant1', data) && isHabituallyResident('applicant2', data);
 };
 
 const onlyApplicant1HabituallyResident = data => {
-  return isHabituallyResident('your', data) && !isHabituallyResident('applicant2', data);
+  return isHabituallyResident('applicant1', data) && !isHabituallyResident('applicant2', data);
 };
 
 const onlyApplicant2HabituallyResident = data => {
-  return !isHabituallyResident('your', data) && isHabituallyResident('applicant2', data);
+  return !isHabituallyResident('applicant1', data) && isHabituallyResident('applicant2', data);
 };
 
 const areBothLastHabituallyResident = data => {
-  return data.lastHabituallyResident === YesOrNo.YES;
+  return data.bothLastHabituallyResident === YesOrNo.YES;
 };
 
 const isHabituallyResidentForTwelveMonths = data => {
-  return isHabituallyResidentForGivenTime(data, 'Twelve');
+  return isHabituallyResidentForGivenTime('applicant1', 'Twelve', data);
 };
 
 const isHabituallyResidentForSixMonths = data => {
-  return isHabituallyResidentForGivenTime(data, 'Six');
+  return isHabituallyResidentForGivenTime('applicant1', 'Six', data);
 };
 
 const areBothDomiciled = data => {
-  return isDomiciled('your', data) && isDomiciled('applicant2', data);
+  return isDomiciled('applicant1', data) && isDomiciled('applicant2', data);
 };
 
 const isOnlyApplicant1Domiciled = data => {
-  return isDomiciled('your', data) && !isDomiciled('applicant2', data);
+  return isDomiciled('applicant1', data) && !isDomiciled('applicant2', data);
 };
 
 const isOnlyApplicant2Domiciled = data => {
-  return !isDomiciled('your', data) && isDomiciled('applicant2', data);
+  return !isDomiciled('applicant1', data) && isDomiciled('applicant2', data);
 };
 
 const onlyApplicant1Domiciled = data => {
-  return isDomiciled('your', data) && !isDomiciled('applicant2', data);
+  return isDomiciled('applicant1', data) && !isDomiciled('applicant2', data);
 };
 
 export const allowedToAnswerResidualJurisdiction = (data: Partial<CaseWithId>): boolean => {
   return (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.applicant2LifeBasedInEnglandAndWales === YesOrNo.NO &&
-    !isDomiciled('your', data) &&
+    !isDomiciled('applicant1', data) &&
     !isDomiciled('applicant2', data)
   );
 };
