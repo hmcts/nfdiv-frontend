@@ -26,10 +26,10 @@ const en = ({ isDivorce, applicant2, formState }: CommonContent) => ({
   stepQuestions: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
     [urls.ENTER_YOUR_ADDRESS]: {
-      yourAddressCountry: 'Your postal address',
+      applicant1AddressCountry: 'Your postal address',
     },
     [urls.ENTER_THEIR_ADDRESS]: {
-      theirAddressCountry: `Your ${applicant2}’s postal address`,
+      applicant2AddressCountry: `Your ${applicant2}’s postal address`,
     },
   },
   stepAnswers: {
@@ -37,47 +37,48 @@ const en = ({ isDivorce, applicant2, formState }: CommonContent) => ({
       relationshipDate: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
     },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
-      alreadyAppliedForHelpPaying:
-        formState?.helpPayingNeeded === YesOrNo.YES && formState?.alreadyAppliedForHelpPaying === YesOrNo.YES
+      applicant1AlreadyAppliedForHelpPaying:
+        formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
+        formState?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
           ? `Yes
-          ${formState?.helpWithFeesRefNo}`
+          ${formState?.applicant1HelpWithFeesRefNo}`
           : false,
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
     [urls.ENTER_YOUR_ADDRESS]: {
-      yourAddress1: false,
-      yourAddress2: false,
-      yourAddress3: false,
-      yourAddressTown: false,
-      yourAddressCounty: false,
-      yourAddressPostcode: false,
-      yourAddressCountry: [
-        formState?.yourAddress1,
-        formState?.yourAddress2,
-        formState?.yourAddress3,
-        formState?.yourAddressTown,
-        formState?.yourAddressCounty,
-        formState?.yourAddressPostcode,
-        formState?.yourAddressCountry,
+      applicant1Address1: false,
+      applicant1Address2: false,
+      applicant1Address3: false,
+      applicant1AddressTown: false,
+      applicant1AddressCounty: false,
+      applicant1AddressPostcode: false,
+      applicant1AddressCountry: [
+        formState?.applicant1Address1,
+        formState?.applicant1Address2,
+        formState?.applicant1Address3,
+        formState?.applicant1AddressTown,
+        formState?.applicant1AddressCounty,
+        formState?.applicant1AddressPostcode,
+        formState?.applicant1AddressCountry,
       ]
         .filter(Boolean)
         .join('\n'),
     },
     [urls.ENTER_THEIR_ADDRESS]: {
-      theirAddress1: false,
-      theirAddress2: false,
-      theirAddress3: false,
-      theirAddressTown: false,
-      theirAddressCounty: false,
-      theirAddressPostcode: false,
-      theirAddressCountry: [
-        formState?.theirAddress1,
-        formState?.theirAddress2,
-        formState?.theirAddress3,
-        formState?.theirAddressTown,
-        formState?.theirAddressCounty,
-        formState?.theirAddressPostcode,
-        formState?.theirAddressCountry,
+      applicant2Address1: false,
+      applicant2Address2: false,
+      applicant2Address3: false,
+      applicant2AddressTown: false,
+      applicant2AddressCounty: false,
+      applicant2AddressPostcode: false,
+      applicant2AddressCountry: [
+        formState?.applicant2Address1,
+        formState?.applicant2Address2,
+        formState?.applicant2Address3,
+        formState?.applicant2AddressTown,
+        formState?.applicant2AddressCounty,
+        formState?.applicant2AddressPostcode,
+        formState?.applicant2AddressCountry,
       ]
         .filter(Boolean)
         .join('\n'),
@@ -93,7 +94,7 @@ const en = ({ isDivorce, applicant2, formState }: CommonContent) => ({
     [urls.APPLY_FINANCIAL_ORDER]: urls.MONEY_PROPERTY,
   },
   continueApplication: 'Continue application',
-  confirm: `Confirm before ${formState?.helpWithFeesRefNo ? 'submitting' : 'continuing'}`,
+  confirm: `Confirm before ${formState?.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
@@ -108,7 +109,7 @@ const en = ({ isDivorce, applicant2, formState }: CommonContent) => ({
   confirmApplicationIsTrueHint:
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   youCouldBeFined: 'You could be fined or imprisoned if you deliberately submit false information.',
-  continue: formState?.helpWithFeesRefNo ? 'Submit application' : 'Continue to payment',
+  continue: formState?.applicant1HelpWithFeesRefNo ? 'Submit application' : 'Continue to payment',
   errors: {
     iConfirmPrayer: {
       required:

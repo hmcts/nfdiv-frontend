@@ -7,10 +7,10 @@ import { CommonContent } from '../../steps/common/common.content';
 const en = ({ applicant2, required }: CommonContent) => ({
   title: 'Where your lives are based',
   line1: `The court needs to know whether you and your ${applicant2}’s lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
-  yourLifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
+  applicant1LifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
   applicant2LifeBasedInEnglandAndWales: `Is your ${applicant2}’s life mainly based in England or Wales?`,
   errors: {
-    yourLifeBasedInEnglandAndWales: { required },
+    applicant1LifeBasedInEnglandAndWales: { required },
     applicant2LifeBasedInEnglandAndWales: { required },
   },
 });
@@ -18,20 +18,20 @@ const en = ({ applicant2, required }: CommonContent) => ({
 const cy: typeof en = ({ applicant2, required }) => ({
   title: 'Lle mae eich bywydau wedi`u lleoli',
   line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${applicant2} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
-  yourLifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
+  applicant1LifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
   applicant2LifeBasedInEnglandAndWales: `A yw bywyd eich ${applicant2} gan amlaf yng Nghymru neu Loegr?`,
   errors: {
-    yourLifeBasedInEnglandAndWales: { required },
+    applicant1LifeBasedInEnglandAndWales: { required },
     applicant2LifeBasedInEnglandAndWales: { required },
   },
 });
 
 export const form: FormContent = {
   fields: {
-    yourLifeBasedInEnglandAndWales: {
+    applicant1LifeBasedInEnglandAndWales: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.yourLifeBasedInEnglandAndWales,
+      label: l => l.applicant1LifeBasedInEnglandAndWales,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },

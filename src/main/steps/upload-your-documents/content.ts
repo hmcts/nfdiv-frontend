@@ -91,8 +91,8 @@ export const form: FormContent = {
     }
 
     if (
-      formState?.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
-      formState?.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+      formState?.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      formState?.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',

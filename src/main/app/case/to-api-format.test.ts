@@ -7,13 +7,13 @@ describe('to-api-format', () => {
     gender: Gender.MALE,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
-    helpPayingNeeded: YesOrNo.YES,
-    alreadyAppliedForHelpPaying: YesOrNo.YES,
-    helpWithFeesRefNo: 'HWF-123-ABC',
-    agreeToReceiveEmails: Checkbox.Checked,
-    doNotKnowApplicant2EmailAddress: Checkbox.Checked,
-    addressPrivate: YesOrNo.YES,
-    knowApplicant2Address: YesOrNo.NO,
+    applicant1HelpPayingNeeded: YesOrNo.YES,
+    applicant1AlreadyAppliedForHelpPaying: YesOrNo.YES,
+    applicant1HelpWithFeesRefNo: 'HWF-123-ABC',
+    applicant1AgreeToReceiveEmails: Checkbox.Checked,
+    applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+    applicant1AddressPrivate: YesOrNo.YES,
+    applicant1KnowsApplicant2Address: YesOrNo.NO,
     iWantToHavePapersServedAnotherWay: null,
   };
 
@@ -38,7 +38,7 @@ describe('to-api-format', () => {
 
   test('handles invalid data correctly', async () => {
     const apiFormat = toApiFormat({
-      helpWithFeesRefNo: '123-ABC',
+      applicant1HelpWithFeesRefNo: '123-ABC',
       relationshipDate: { year: '123' },
     } as Partial<Case>);
 
@@ -95,13 +95,13 @@ describe('to-api-format', () => {
   test('converts your address to match API format', () => {
     const apiFormat = toApiFormat({
       ...results,
-      yourAddress1: 'Line 1',
-      yourAddress2: 'Line 2',
-      yourAddress3: '',
-      yourAddressTown: 'Town',
-      yourAddressCounty: 'County',
-      yourAddressPostcode: 'Postcode',
-      yourAddressCountry: 'UK',
+      applicant1Address1: 'Line 1',
+      applicant1Address2: 'Line 2',
+      applicant1Address3: '',
+      applicant1AddressTown: 'Town',
+      applicant1AddressCounty: 'County',
+      applicant1AddressPostcode: 'Postcode',
+      applicant1AddressCountry: 'UK',
     } as unknown as Partial<Case>);
 
     expect(apiFormat).toMatchObject({

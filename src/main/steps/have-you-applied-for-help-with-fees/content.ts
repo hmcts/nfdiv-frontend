@@ -9,10 +9,10 @@ const en = ({ isDivorce, required }) => ({
   refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
-    alreadyAppliedForHelpPaying: {
+    applicant1AlreadyAppliedForHelpPaying: {
       required,
     },
-    helpWithFeesRefNo: {
+    applicant1HelpWithFeesRefNo: {
       required:
         'You need to enter your Help With Fees reference number before continuing. You received this when you applied.',
       invalid: 'You have entered an invalid Help With Fees reference number. Check the number and enter it again.',
@@ -28,8 +28,8 @@ const cy: typeof en = ({ isDivorce, required }) => ({
   refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
   refExample: 'Er enghraifft, HWF-A1B-23C',
   errors: {
-    alreadyAppliedForHelpPaying: { required },
-    helpWithFeesRefNo: {
+    applicant1AlreadyAppliedForHelpPaying: { required },
+    applicant1HelpWithFeesRefNo: {
       required:
         'Mae angen i chi nodi eich cyfeirnod Help i Dalu Ffioedd cyn parhau. Fe gawsoch hwn pan wnaethoch y cais.',
       invalid: 'Rydych wedi nodi cyfeirnod Help i Dalu Ffioedd annilys. Gwiriwch y rhif a nodwch ef eto.',
@@ -42,7 +42,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
 
 export const form: FormContent = {
   fields: {
-    alreadyAppliedForHelpPaying: {
+    applicant1AlreadyAppliedForHelpPaying: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
@@ -52,7 +52,7 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
-            helpWithFeesRefNo: {
+            applicant1HelpWithFeesRefNo: {
               type: 'text',
               attributes: {
                 maxLength: 11,

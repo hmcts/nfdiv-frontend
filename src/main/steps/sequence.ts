@@ -120,12 +120,13 @@ export const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
-    getNextStep: data => (data.helpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
+    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     showInSection: Sections.HelpWithFees,
-    getNextStep: data => (data.alreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK),
+    getNextStep: data =>
+      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
@@ -165,7 +166,7 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
-      switch (`${data.yourLifeBasedInEnglandAndWales}${data.applicant2LifeBasedInEnglandAndWales}`) {
+      switch (`${data.applicant1LifeBasedInEnglandAndWales}${data.applicant2LifeBasedInEnglandAndWales}`) {
         case `${YES}${YES}`:
         case `${NO}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
@@ -183,12 +184,12 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
-      switch (`${data.yourDomicileInEnglandWales}${data.applicant2DomicileInEnglandWales}`) {
+      switch (`${data.applicant1DomicileInEnglandWales}${data.applicant2DomicileInEnglandWales}`) {
         case `${YES}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
 
         case `${YES}${NO}`:
-          return data.yourLifeBasedInEnglandAndWales === YES
+          return data.applicant1LifeBasedInEnglandAndWales === YES
             ? LIVING_ENGLAND_WALES_SIX_MONTHS
             : HABITUALLY_RESIDENT_ENGLAND_WALES;
 
@@ -202,7 +203,7 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
-      } else if (data.lastHabituallyResident === YesOrNo.NO) {
+      } else if (data.bothLastHabituallyResident === YesOrNo.NO) {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       } else {
         return JURISDICTION_INTERSTITIAL_URL;
@@ -212,12 +213,14 @@ export const sequence: Step[] = [
   {
     url: JURISDICTION_LAST_TWELVE_MONTHS,
     getNextStep: data =>
-      data.livingInEnglandWalesTwelveMonths === YesOrNo.NO ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL,
+      data.applicant1LivingInEnglandWalesTwelveMonths === YesOrNo.NO
+        ? JURISDICTION_DOMICILE
+        : JURISDICTION_INTERSTITIAL_URL,
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
     getNextStep: data =>
-      data.livingInEnglandWalesSixMonths === YesOrNo.NO
+      data.applicant1LivingInEnglandWalesSixMonths === YesOrNo.NO
         ? HABITUALLY_RESIDENT_ENGLAND_WALES
         : JURISDICTION_INTERSTITIAL_URL,
   },
@@ -256,8 +259,8 @@ export const sequence: Step[] = [
     url: CHANGES_TO_YOUR_NAME_URL,
     showInSection: Sections.AboutPartners,
     getNextStep: data =>
-      data.lastNameChangeWhenRelationshipFormed === YesOrNo.YES ||
-      data.anyNameChangeSinceRelationshipFormed === YesOrNo.YES
+      data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
@@ -298,7 +301,8 @@ export const sequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     showInSection: Sections.ContactThem,
-    getNextStep: data => (data.knowApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS),
+    getNextStep: data =>
+      data.applicant1KnowsApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS,
   },
   {
     url: NEED_TO_GET_ADDRESS,
@@ -347,7 +351,7 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: data => (data.helpWithFeesRefNo ? APPLICATION_SUBMITTED : PAY_YOUR_FEE),
+    getNextStep: data => (data.applicant1HelpWithFeesRefNo ? APPLICATION_SUBMITTED : PAY_YOUR_FEE),
   },
   {
     url: PAY_YOUR_FEE,

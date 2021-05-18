@@ -11,14 +11,14 @@ const en = () => {
     middleNames: 'Your middle name(s)',
     lastNames: 'Your last name(s)',
     errors: {
-      yourFirstNames: {
+      applicant1FirstNames: {
         required: 'You have not entered your first name. Enter it before continuing.',
         invalid,
       },
-      yourMiddleNames: {
+      applicant1MiddleNames: {
         invalid,
       },
-      yourLastNames: {
+      applicant1LastNames: {
         required: 'You have not entered your last name. Enter it before continuing.',
         invalid,
       },
@@ -31,21 +31,21 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    yourFirstNames: {
+    applicant1FirstNames: {
       type: 'text',
       label: l => l.firstNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
-    yourMiddleNames: {
+    applicant1MiddleNames: {
       type: 'text',
       label: l => l.middleNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
       validator: isFieldLetters,
     },
-    yourLastNames: {
+    applicant1LastNames: {
       type: 'text',
       label: l => l.lastNames,
       labelSize: 'normal',

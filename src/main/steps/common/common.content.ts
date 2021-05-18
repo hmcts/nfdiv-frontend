@@ -161,7 +161,7 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
   const applicant2 = getApplicant2Content(commonTranslations, selectedGender, isDivorce);
-  const applicant2EmailProvided = formState?.doNotKnowApplicant2EmailAddress !== Checkbox.Checked;
+  const applicant2EmailProvided = formState?.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked;
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
 
   const content: CommonContent = {

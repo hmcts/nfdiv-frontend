@@ -2,7 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
-import { theirAddressToApi, yourAddressToApi } from './formatter/address';
+import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -43,24 +43,26 @@ const fields: ToApiConverters = {
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
   }),
-  helpWithFeesRefNo: data => ({
-    helpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.helpWithFeesRefNo) ? data.helpWithFeesRefNo : '',
+  applicant1HelpWithFeesRefNo: data => ({
+    helpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
+      ? data.applicant1HelpWithFeesRefNo
+      : '',
   }),
   englishOrWelsh: data => ({
     languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
-  yourAddressPostcode: yourAddressToApi,
-  agreeToReceiveEmails: data => ({
-    applicant1AgreedToReceiveEmails: checkboxConverter(data.agreeToReceiveEmails),
+  applicant1AddressPostcode: applicant1AddressToApi,
+  applicant1AgreeToReceiveEmails: data => ({
+    applicant1AgreedToReceiveEmails: checkboxConverter(data.applicant1AgreeToReceiveEmails),
   }),
-  addressPrivate: data => ({
+  applicant1AddressPrivate: data => ({
     applicant1ContactDetailsConfidential:
-      data.addressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
+      data.applicant1AddressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
   }),
-  theirAddressPostcode: theirAddressToApi,
-  doNotKnowApplicant2EmailAddress: data => ({
+  applicant2AddressPostcode: applicant2AddressToApi,
+  applicant1DoesNotKnowApplicant2EmailAddress: data => ({
     applicant1KnowsApplicant2EmailAddress:
-      data.doNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+      data.applicant1DoesNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),

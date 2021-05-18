@@ -44,8 +44,8 @@
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ certificate if formState.inTheUk === 'YES' else certificateForeign }}</li>
     {% if formState.certifiedTranslation === 'YES' %}<li>{{ certificateForeignTranslation }}</li>{% endif %}
-    {% if formState.lastNameChangeWhenRelationshipFormed === 'YES' or
-          formState.anyNameChangeSinceRelationshipFormed === 'YES'%}
+    {% if formState.applicant1LastNameChangedWhenRelationshipFormed === 'YES' or
+          formState.applicant1NameChangedSinceRelationshipFormed === 'YES'%}
       <li>{{ proofOfNameChange }}</li>
     {% endif %}
   </ul>

@@ -30,16 +30,16 @@ const en = () => {
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
-      yourAddress1: {
+      applicant1Address1: {
         required:
           'You have not entered your building and street address. Enter your building and street address before continuing.',
       },
-      yourAddressTown: {
+      applicant1AddressTown: {
         required: 'You have not entered your town or city. Enter your town or city before continuing.',
       },
       addressPostcode,
-      yourAddressPostcode: addressPostcode,
-      yourAddressCountry: {
+      applicant1AddressPostcode: addressPostcode,
+      applicant1AddressCountry: {
         required: 'You have not entered your country. Enter your country before continuing.',
       },
     },
@@ -70,14 +70,14 @@ const cy = () => {
       `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
     errors: {
-      yourAddress1: {
+      applicant1Address1: {
         required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
       },
-      yourAddressTown: {
+      applicant1AddressTown: {
         required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
       },
       addressPostcode,
-      yourAddressPostcode: addressPostcode,
+      applicant1AddressPostcode: addressPostcode,
     },
   };
 };
@@ -85,7 +85,7 @@ const cy = () => {
 const uk = 'UK';
 export const form: FormContent = {
   fields: {
-    yourAddress1: {
+    applicant1Address1: {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
@@ -94,7 +94,7 @@ export const form: FormContent = {
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    yourAddress2: {
+    applicant1Address2: {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
@@ -102,7 +102,7 @@ export const form: FormContent = {
       label: l => l.line2Optional,
       labelSize: null,
     },
-    yourAddress3: {
+    applicant1Address3: {
       id: 'address3',
       type: 'text',
       classes: 'govuk-label',
@@ -110,7 +110,7 @@ export const form: FormContent = {
       label: l => l.line3Optional,
       labelSize: null,
     },
-    yourAddressTown: {
+    applicant1AddressTown: {
       id: 'addressTown',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
@@ -118,13 +118,13 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.yourAddressCountry !== uk) {
+        if (formData.applicant1AddressCountry !== uk) {
           return;
         }
         return isFieldFilledIn(value);
       },
     },
-    yourAddressCounty: {
+    applicant1AddressCounty: {
       id: 'addressCounty',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
@@ -132,7 +132,7 @@ export const form: FormContent = {
       label: l => l.county,
       labelSize: null,
     },
-    yourAddressPostcode: {
+    applicant1AddressPostcode: {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
@@ -143,13 +143,13 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        if (formData.yourAddressCountry !== uk) {
+        if (formData.applicant1AddressCountry !== uk) {
           return;
         }
         return isInvalidPostcode(value);
       },
     },
-    yourAddressCountry: {
+    applicant1AddressCountry: {
       id: 'addressCountry',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',

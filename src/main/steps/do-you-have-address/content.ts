@@ -24,7 +24,7 @@ const en = ({ applicant2, isDivorce, applicant2EmailProvided, required }) => ({
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
-    knowApplicant2Address: {
+    applicant1KnowsApplicant2Address: {
       required,
     },
   },
@@ -51,7 +51,7 @@ const cy: typeof en = ({ applicant2, isDivorce, applicant2EmailProvided, require
   haveTheirAddress: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
   doNotHaveTheirAddress: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
   errors: {
-    knowApplicant2Address: {
+    applicant1KnowsApplicant2Address: {
       required,
     },
   },
@@ -59,7 +59,7 @@ const cy: typeof en = ({ applicant2, isDivorce, applicant2EmailProvided, require
 
 export const form: FormContent = {
   fields: {
-    knowApplicant2Address: {
+    applicant1KnowsApplicant2Address: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
