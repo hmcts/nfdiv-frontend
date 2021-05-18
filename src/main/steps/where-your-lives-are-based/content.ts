@@ -2,24 +2,25 @@ import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ applicant2, required }: CommonContent) => ({
+import type { CommonContent } from '../../steps/common/common.content';
+
+const en = ({ partner, required }: CommonContent) => ({
   title: 'Where your lives are based',
-  line1: `The court needs to know whether you and your ${applicant2}’s lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
+  line1: `The court needs to know whether you and your ${partner}’s lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
   applicant1LifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
-  applicant2LifeBasedInEnglandAndWales: `Is your ${applicant2}’s life mainly based in England or Wales?`,
+  applicant2LifeBasedInEnglandAndWales: `Is your ${partner}’s life mainly based in England or Wales?`,
   errors: {
     applicant1LifeBasedInEnglandAndWales: { required },
     applicant2LifeBasedInEnglandAndWales: { required },
   },
 });
 
-const cy: typeof en = ({ applicant2, required }) => ({
+const cy: typeof en = ({ partner, required }: CommonContent) => ({
   title: 'Lle mae eich bywydau wedi`u lleoli',
-  line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${applicant2} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
+  line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${partner} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
   applicant1LifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
-  applicant2LifeBasedInEnglandAndWales: `A yw bywyd eich ${applicant2} gan amlaf yng Nghymru neu Loegr?`,
+  applicant2LifeBasedInEnglandAndWales: `A yw bywyd eich ${partner} gan amlaf yng Nghymru neu Loegr?`,
   errors: {
     applicant1LifeBasedInEnglandAndWales: { required },
     applicant2LifeBasedInEnglandAndWales: { required },

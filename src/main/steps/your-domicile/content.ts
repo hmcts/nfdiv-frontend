@@ -4,7 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ applicant2, required }: CommonContent) => ({
+const en = ({ partner, required }: CommonContent) => ({
   title: 'Your domicile',
   line1:
     'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
@@ -19,14 +19,14 @@ const en = ({ applicant2, required }: CommonContent) => ({
     'If you leave your domicile of origin and settle in another country as an adult, the new country may become your <strong>domicile of choice</strong>.',
   more4: 'If you’re not sure about your domicile you should get legal advice.',
   applicant1DomicileInEnglandWales: 'Is your domicile in England or Wales?',
-  applicant2DomicileInEnglandWales: `Is your ${applicant2}’s domicile in England or Wales?`,
+  applicant2DomicileInEnglandWales: `Is your ${partner}’s domicile in England or Wales?`,
   errors: {
     applicant1DomicileInEnglandWales: { required },
     applicant2DomicileInEnglandWales: { required },
   },
 });
 
-const cy = ({ applicant2 }: CommonContent) => ({
+const cy = ({ partner }: CommonContent) => ({
   title: 'Eich domisil',
   line1:
     'Gan amlaf, eich domisil yw lle y cawsoch eich geni, y lle yr ydych yn meddwl amdano fel eich cartref parhaol a’r lle y mae eich teulu a’ch ffrindiau agosaf yn byw.',
@@ -44,7 +44,7 @@ const cy = ({ applicant2 }: CommonContent) => ({
   applicant1DomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
   yes: 'Ydy',
   no: 'Nac ydy',
-  applicant2DomicileInEnglandWales: `A yw domisil eich ${applicant2} yng Nghymru neu Loegr?`,
+  applicant2DomicileInEnglandWales: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
   errors: {
     applicant1DomicileInEnglandWales: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
