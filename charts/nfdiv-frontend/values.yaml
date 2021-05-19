@@ -7,6 +7,12 @@ nodejs:
     prefix: nfdiv
     primaryIngressHost: end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/nfdiv/frontend:latest'
+  readinessDelay: 45
+  readinessTimeout: 5
+  readinessPeriod: 15
+  livenessDelay: 45
+  livenessTimeout: 5
+  livenessPeriod: 15
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
