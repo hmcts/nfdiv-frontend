@@ -4,9 +4,9 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 
-const en = ({ applicant2, required }: CommonContent) => ({
-  title: `Do you need your contact details kept private from your ${applicant2}?`,
-  line1: `The court can keep your address, email address and phone number private from your ${applicant2}.`,
+const en = ({ partner, required }: CommonContent) => ({
+  title: `Do you need your contact details kept private from your ${partner}?`,
+  line1: `The court can keep your address, email address and phone number private from your ${partner}.`,
   detailsPrivate: 'Keep my contact details private',
   detailsPrivateMoreDetails: 'If you think you might be experiencing domestic abuse or you feel unsafe, then',
   supportAvailable: 'support is available',
