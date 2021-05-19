@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { Case, Checkbox } from '../../app/case/case';
-import { Gender } from '../../app/case/definition';
+import { ApplicationType, Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
@@ -163,6 +163,7 @@ export const generatePageContent = ({
   const applicant2 = getApplicant2Content(commonTranslations, selectedGender, isDivorce);
   const applicant2EmailProvided = formState?.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked;
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
+  const isJointApplication = formState?.applicationType === ApplicationType.JOINT_APPLICATION;
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -175,6 +176,7 @@ export const generatePageContent = ({
     userEmail,
     contactEmail,
     applicant2EmailProvided,
+    isJointApplication,
   };
 
   if (pageContent) {
@@ -213,6 +215,7 @@ export type CommonContent = typeof en & {
   contactEmail?: string;
   selectedGender: Gender;
   applicant2EmailProvided: boolean;
+  isJointApplication: boolean;
 };
 
 export type Language = 'en' | 'cy';

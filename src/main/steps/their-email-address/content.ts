@@ -3,23 +3,32 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ applicant2, isDivorce }) => ({
+const en = ({ applicant2, isDivorce, isJointApplication }) => ({
   title: `Enter your ${applicant2}'s email address`,
-  line1: `It’s important you provide their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
-    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
-  } will be served (delivered) by post. The emails will also contain information and updates relating to ${
-    isDivorce ? 'the divorce' : 'ending your civil partnership'
-  }.`,
+  line1: isJointApplication
+    ? `It’s important you provide your ${applicant2}'s email address so they can join and review your joint application before it’s submitted to the court.`
+    : `It’s important you provide their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
+        isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+      } will be served (delivered) by post. The emails will also contain information and updates relating to ${
+        isDivorce ? 'the divorce' : 'ending your civil partnership'
+      }.`,
   line2: 'If you use their work email address, you should ask their permission first.',
   applicant2EmailAddress: `Your ${applicant2}'s email address`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
     applicant2EmailAddress: {
-      required:
-        'You have not entered their email address or said you do not know it. You have to do one or the other before continuing.',
+      required: `You have not entered their email address${
+        isJointApplication
+          ? '. You have to enter their email address to do a joint application.'
+          : ' or said you do not know it. You have to do one or the other before continuing.'
+      } `,
       incorrect:
         'You have entered an email address and indicated that you do not know their email address. You can only do one before continuing.',
-      invalid: 'You have entered an invalid email address. Check it and enter it again before continuing.',
+      invalid: `You have ${
+        isJointApplication
+          ? 'not entered a valid email address. Check their email address and enter it again. '
+          : 'entered an invalid email address. Check it and enter it again before continuing.'
+      }`,
     },
   },
 });
