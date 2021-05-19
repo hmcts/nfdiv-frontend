@@ -3,11 +3,11 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ applicant2, isDivorce, isJointApplication }) => ({
-  title: `Enter your ${applicant2}'s email address`,
+const en = ({ partner, isDivorce, isJointApplication }) => ({
+  title: `Enter your ${partner}'s email address`,
   line1: `It’s important you provide ${
     isJointApplication
-      ? `your ${applicant2}'s email address so they can join and review your joint application before it’s submitted to the court.`
+      ? `your ${partner}'s email address so they can join and review your joint application before it’s submitted to the court.`
       : `their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
           isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
         } will be served (delivered) by post. The emails will also contain information and updates relating to ${
@@ -15,7 +15,7 @@ const en = ({ applicant2, isDivorce, isJointApplication }) => ({
         }.`
   }`,
   line2: 'If you use their work email address, you should ask their permission first.',
-  applicant2EmailAddress: `Your ${applicant2}'s email address`,
+  applicant2EmailAddress: `Your ${partner}'s email address`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
     applicant2EmailAddress: {
@@ -35,12 +35,12 @@ const en = ({ applicant2, isDivorce, isJointApplication }) => ({
   },
 });
 
-const cy = ({ applicant2 }) => ({
-  title: `Nodwch gyfeiriad e-bost eich ${applicant2}`,
+const cy = ({ partner }) => ({
+  title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
   line2: 'Os ydych yn defnyddio ei gyfeiriad/chyfeiriad e-bost gwaith, dylech ofyn am ganiatâd yn gyntaf.',
-  respondentEmailAddress: `Cyfeiriad e-bost eich ${applicant2}`,
+  respondentEmailAddress: `Cyfeiriad e-bost eich ${partner}`,
   doNotKnowRespondentEmailAddress: 'Nid wyf yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost',
   errors: {
     respondentEmailAddress: {
