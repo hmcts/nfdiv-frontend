@@ -5,13 +5,15 @@ import { isEmailValid, isFieldFilledIn } from '../../app/form/validation';
 
 const en = ({ applicant2, isDivorce, isJointApplication }) => ({
   title: `Enter your ${applicant2}'s email address`,
-  line1: isJointApplication
-    ? `It’s important you provide your ${applicant2}'s email address so they can join and review your joint application before it’s submitted to the court.`
-    : `It’s important you provide their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
-        isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
-      } will be served (delivered) by post. The emails will also contain information and updates relating to ${
-        isDivorce ? 'the divorce' : 'ending your civil partnership'
-      }.`,
+  line1: `It’s important you provide ${
+    isJointApplication
+      ? `your ${applicant2}'s email address so they can join and review your joint application before it’s submitted to the court.`
+      : `their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
+          isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+        } will be served (delivered) by post. The emails will also contain information and updates relating to ${
+          isDivorce ? 'the divorce' : 'ending your civil partnership'
+        }.`
+  }`,
   line2: 'If you use their work email address, you should ask their permission first.',
   applicant2EmailAddress: `Your ${applicant2}'s email address`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
