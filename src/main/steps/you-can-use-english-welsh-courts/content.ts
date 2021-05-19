@@ -5,7 +5,7 @@ import { FormContent } from '../../app/form/Form';
 import type { CommonContent } from '../common/common.content';
 
 const en = (
-  { isDivorce, applicant2, applyForDivorce, applyForDissolution }: CommonContent,
+  { isDivorce, partner, applyForDivorce, applyForDissolution }: CommonContent,
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
@@ -18,7 +18,7 @@ const en = (
       'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
     helpText3:
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
-    clarification: `You only need to do this if your ${applicant2} may disagree that both of you are habitually resident.`,
+    clarification: `You only need to do this if your ${partner} may disagree that both of you are habitually resident.`,
   };
   const enApp1App2LastResident = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you were last 'habitually resident' and one of you still lives here.`,
@@ -29,10 +29,10 @@ const en = (
       'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
     helpText3:
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
-    clarification: `You only need to do this if your ${applicant2} may disagree that both of you were last habitually resident and one of you still lives here.`,
+    clarification: `You only need to do this if your ${partner} may disagree that both of you were last habitually resident and one of you still lives here.`,
   };
   const enApp2Resident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${applicant2} is 'habitually resident'.`,
+    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${partner} is 'habitually resident'.`,
     readMore: 'Read more about habitual residence',
     helpText1:
       "If your life is mainly based in England or Wales then you’re what is legally known as 'habitually resident'.",
@@ -40,7 +40,7 @@ const en = (
       'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
     helpText3:
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
-    clarification: `You only need to do this if your ${applicant2} may disagree that they is habitually resident.`,
+    clarification: `You only need to do this if your ${partner} may disagree that they is habitually resident.`,
   };
   const enApp1ResidentTwelveMonths = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'habitually resident' and have lived here for at least 12 months.`,
@@ -51,7 +51,7 @@ const en = (
       'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
     helpText3:
       'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
-    clarification: `You only need to do this if your ${applicant2} may disagree that you are habitually resident and have lived here for at least 12 months.`,
+    clarification: `You only need to do this if your ${partner} may disagree that you are habitually resident and have lived here for at least 12 months.`,
   };
   const enHabitualAndDomicileHelp = {
     readMore: 'Read more about your connections',
@@ -74,7 +74,7 @@ const en = (
     line1:
       'Your answers indicate that you’re domiciled and habitually resident and have lived here for at least 6 months.',
     ...enHabitualAndDomicileHelp,
-    clarification: `You only need to do this if your ${applicant2} may disagree that you’re domiciled and habitually resident and have lived here for at least 6 months.`,
+    clarification: `You only need to do this if your ${partner} may disagree that you’re domiciled and habitually resident and have lived here for at least 6 months.`,
   };
   const enApp1App2Domiciled = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,
@@ -85,7 +85,7 @@ const en = (
       'If you leave your domicile of origin and settle in another country as an adult, the new country may become your <strong>domicile of choice</strong>.',
     helpText3: 'You should select Yes if you have either type of domicile in England or Wales.',
     helpText4: 'If you’re not sure about your domicile you should get legal advice.',
-    clarification: `You only need to do this if your ${applicant2} may disagree that both of you are domiciled in England or Wales.`,
+    clarification: `You only need to do this if your ${partner} may disagree that both of you are domiciled in England or Wales.`,
   };
   const enResidualJurisdiction = {
     line1: `Your answers indicate that you can ${apply} in England and Wales because the courts of England and Wales have jurisdiction on a residual basis.`,
@@ -109,7 +109,7 @@ const en = (
   };
 };
 
-const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionConnections[]) => {
+const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConnections[]) => {
   const apply = isDivorce ? 'cais am ysgariad' : 'cais';
   const cyApp1App2Resident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol.`,
@@ -120,7 +120,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
     helpText3:
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno eich bod chi eich dau yn preswylio’n arferol yng Nghymru neu Loegr.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yng Nghymru neu Loegr.`,
   };
   const cyApp1App2LastResident = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol a bod un ohonoch yn dal i fyw yno.`,
@@ -131,10 +131,10 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
     helpText3:
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno eich bod chi eich dau yn preswylio’n arferol yma’n fwyaf diweddar a bod un ohonoch yn dal i fyw yma.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau yn preswylio’n arferol yma’n fwyaf diweddar a bod un ohonoch yn dal i fyw yma.`,
   };
   const cyApp2Resident = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${applicant2} yn preswylio’n arferol yno.`,
+    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${partner} yn preswylio’n arferol yno.`,
     readMore: 'Darllenwch fwy am breswylio’n arferol',
     helpText1:
       'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn preswylio’n arferol yno yn ôl y gyfraith.',
@@ -142,7 +142,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
     helpText3:
       'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno ei fod/bod yn preswylio’n arferol.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno ei fod/bod yn preswylio’n arferol.`,
   };
   const cyApp1ResidentTwelveMonths = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod yn preswylio yno’n arferol a’ch bod wedi byw yma am o leiaf 12 mis.`,
@@ -153,7 +153,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Mae’n bosib i hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Lloegr.',
     helpText3:
       'Nid yw’r enghreifftiau uchod yn rhestr ddihysbydd o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf blwyddyn.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf blwyddyn.`,
   };
   const cyHabitualAndDomicileHelp = {
     readMore: 'Darllen mwy am eich cysylltiadau',
@@ -177,7 +177,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
     line1:
       'Dengys eich atebion fod eich domisil yng Nghymru neu Loegr, a’ch bod yn preswylio yno’n arferol ac wedi byw yno am o leiaf chwe mis.',
     ...cyHabitualAndDomicileHelp,
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno bod eich domisil yma, eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf 6 mis.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno bod eich domisil yma, eich bod yn preswylio yma’n arferol a’ch bod wedi byw yma am o leiaf 6 mis.`,
   };
   const cyApp1App2Domiciled = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am mai yng Nghymru a Lloegr y mae domisil y ddau ohonoch.`,
@@ -188,7 +188,7 @@ const cy = ({ isDivorce, applicant2 }: CommonContent, connections: JurisdictionC
       'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymsefydlu mewn gwlad arall fel oedolyn, efallai y daw’r wlad honno yn <strong>ddomisil drwy ddewis</strong> ichi.',
     helpText3: 'Dylech ddewis Ydy os oes gennych un o’r ddau fath o ddomisil yng Nghymru neu Loegr.',
     helpText4: 'Os nad ydych chi’n siwr am eich domisil, dylech ofyn am gyngor cyfreithiol.',
-    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${applicant2} anghytuno eich bod chi eich dau â’ch domisil yng Nghymru neu Loegr.`,
+    clarification: `Nid oes angen ichi wneud hyn ond os y gallai eich ${partner} anghytuno eich bod chi eich dau â’ch domisil yng Nghymru neu Loegr.`,
   };
   const cyResidualJurisdiction = {
     line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am bod gan lysoedd Cymru a Lloegr awdurdodaeth ar sail weddillol.`,
