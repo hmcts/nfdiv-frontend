@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-11 11:05:57.
+// Generated using typescript-generator version 2.31.861 on 2021-05-19 08:52:32.
 
 export interface Address {
   AddressLine1: string;
@@ -32,8 +32,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
   list_items: DynamicListElement[];
 }
 
@@ -52,10 +52,6 @@ export interface Fee {
 export interface ListValue<T> {
   id: string;
   value: T;
-}
-
-export interface MoneyGBP {
-  amount: string;
 }
 
 export interface OrderSummary {
@@ -88,19 +84,19 @@ export interface CaseData {
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
-  marriageIsSameSexCouple: YesOrNo;
   inferredApplicant1Gender: Gender;
   inferredApplicant2Gender: Gender;
-  marriageDate: DateAsString;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
   helpWithFeesAppliedForFees: YesOrNo;
-  marriedInUk: YesOrNo;
-  certificateInEnglish: YesOrNo;
-  certifiedTranslation: YesOrNo;
-  countryName: string;
+  marriageMarriedInUk: YesOrNo;
+  marriageCertificateInEnglish: YesOrNo;
+  marriageCertifiedTranslation: YesOrNo;
+  marriageCountryOfMarriage: string;
   marriagePlaceOfMarriage: string;
+  marriageDate: DateAsString;
+  marriageIsSameSexCouple: YesOrNo;
   applicant1FirstName: string;
   applicant1MiddleName: string;
   applicant1LastName: string;
@@ -114,6 +110,7 @@ export interface CaseData {
   jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
+  jurisdictionConnections: JurisdictionConnections[];
   languagePreferenceWelsh: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameChangedHow: ChangedNameHow;
@@ -132,7 +129,6 @@ export interface CaseData {
   applicant1SolicitorPhone: string;
   applicant1SolicitorEmail: string;
   solicitorAgreeToReceiveEmails: YesOrNo;
-  derivedApplicant1SolicitorAddress: string;
   applicant1OrganisationPolicy: OrganisationPolicy<UserRole>;
   marriageApplicant1Name: string;
   marriageApplicant2Name: string;
@@ -156,7 +152,6 @@ export interface CaseData {
   feeAccountReference: string;
   solApplicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
-  jurisdictionConnections: JurisdictionConnections[];
   legalConnections: LegalConnections[];
   applicant2EmailAddress: string;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
@@ -185,6 +180,28 @@ export interface CaseData {
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
+}
+
+export interface Jurisdiction {
+  Applicant1Residence: YesOrNo;
+  Applicant2Residence: YesOrNo;
+  Applicant1Domicile: YesOrNo;
+  Applicant2Domicile: YesOrNo;
+  App1HabituallyResLastTwelveMonths: YesOrNo;
+  App1HabituallyResLastSixMonths: YesOrNo;
+  ResidualEligible: YesOrNo;
+  BothLastHabituallyResident: YesOrNo;
+  Connections: JurisdictionConnections[];
+}
+
+export interface MarriageDetails {
+  MarriedInUk: YesOrNo;
+  CertificateInEnglish: YesOrNo;
+  CertifiedTranslation: YesOrNo;
+  CountryOfMarriage: string;
+  PlaceOfMarriage: string;
+  Date: DateAsString;
+  IsSameSexCouple: YesOrNo;
 }
 
 export interface DivorceDocument {
@@ -253,7 +270,6 @@ export const enum FieldType {
   OrderSummary = 'OrderSummary',
   MultiSelectList = 'MultiSelectList',
   Collection = 'Collection',
-  MoneyGBP = 'MoneyGBP',
 }
 
 export const enum YesOrNo {
@@ -394,6 +410,7 @@ export const enum State {
   SOTAgreementPayAndSubmitRequired = 'SOTAgreementPayAndSubmitRequired',
   Submitted = 'Submitted',
   SolicitorAwaitingPaymentConfirmation = 'SolicitorAwaitingPaymentConfirmation',
+  AwaitingDocuments = 'AwaitingDocuments',
 }
 
 export const enum UserRole {
@@ -451,6 +468,8 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
+export const YES = 'yes';
+export const NO = 'no';
 export const PATCH_CASE = 'patch-case';
 export const PAYMENT_MADE = 'payment-made';
 export const APPLICANT_1_STATEMENT_OF_TRUTH = 'applicant-1-statement-of-truth';
@@ -458,9 +477,10 @@ export const CREATE_DRAFT = 'create-draft';
 export const SAVE_AND_CLOSE = 'save-and-close';
 export const FIRST_NAME = 'first name';
 export const LAST_NAME = 'last name';
+export const RELATIONSHIP = 'relationship';
+export const PARTNER = 'partner';
 export const DIVORCE_APPLICATION = 'divorce application';
 export const APPLICATION_TO_END_CIVIL_PARTNERSHIP = 'application to end your civil partnership';
-export const APPLICATION_TYPE = 'applicationType';
 export const SIGN_IN_URL_NOTIFY_KEY = 'signin url';
 export const RELATIONSHIP_COURT_HEADER = 'relationship court header';
 export const SIGN_IN_DIVORCE_URL = 'signInDivorceUrl';
@@ -468,6 +488,13 @@ export const SIGN_IN_DISSOLUTION_URL = 'signInDissolutionUrl';
 export const DIVORCE_COURT_EMAIL = 'divorceCourtEmail';
 export const DISSOLUTION_COURT_EMAIL = 'dissolutionCourtEmail';
 export const COURT_EMAIL = 'court email';
+export const PAPERS_SERVED_ANOTHER_WAY_APPLY = 'papersServedAnotherWayApply';
+export const PAPERS_SERVED_ANOTHER_WAY_PARAGRAPH = 'papersServedAnotherWayParagraph';
+export const PAPERS_SERVED_ANOTHER_WAY_TITLE = 'papersServedAnotherWayTitle';
+export const CERTIFICATE = 'certificate';
+export const FOREIGN_CERTIFICATE = 'foreignCertificate';
+export const FOREIGN_CERTIFICATE_TRANSLATION = 'foreignCertificateTranslation';
+export const NAME_CHANGE_PROOF = 'nameChangeProof';
 export const SUBMISSION_RESPONSE_DATE = 'date of response';
 export const APPLICATION_REFERENCE = 'reference number';
 export const DIVORCE_OR_DISSOLUTION = 'divorceOrDissolution';
@@ -499,7 +526,6 @@ export const OF_THE_DIVORCE = 'of the divorce';
 export const CONDITIONAL_ORDER_OF_DIVORCE_FROM = 'for a final conditional order of divorce from';
 export const DIVORCE_COSTS = 'divorce costs';
 export const TO_END_A_CIVIL_PARTNERSHIP = 'to end a civil partnership';
-export const RELATIONSHIP = 'relationship';
 export const CIVIL_PARTNERSHIP = 'civil partnership';
 export const TO_END_THE_CIVIL_PARTNERSHIP = 'to end the civil partnership';
 export const DISSOLUTION_OF_THE_CIVIL_PARTNERSHIP_WITH = 'for the dissolution of the civil partnership with';
@@ -517,7 +543,7 @@ export const SOLICITOR_CREATE = 'solicitor-create';
 export const SOLICITOR_UPDATE = 'solicitor-update';
 export const SOLICITOR_UPDATE_LANGUAGE = 'solicitor-update-language';
 export const SOLICITOR_STATEMENT_OF_TRUTH_PAY_SUBMIT = 'solicitor-statement-of-truth-pay-submit';
-export const CASE_TYPE = 'NO_FAULT_DIVORCE9';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE10';
 export const JURISDICTION = 'DIVORCE';
 export const APPLICANT_1_EMAIL = 'applicant1Email';
 export const FIRSTNAME = 'FirstName';
@@ -525,6 +551,7 @@ export const LASTNAME = 'LastName';
 export const EMAIL = 'Email';
 export const DIVORCE_COSTS_CLAIM = 'divorceCostsClaim';
 export const FINANCIAL_ORDER = 'financialOrder';
+export const APPLICANT_1_ORGANISATION_POLICY = 'applicant1OrganisationPolicy';
 export const LESS_THAN_ONE_YEAR_AGO = ' can not be less than one year ago.';
 export const MORE_THAN_ONE_HUNDRED_YEARS_AGO = ' can not be more than 100 years ago.';
 export const IN_THE_FUTURE = ' can not be in the future.';
