@@ -108,7 +108,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
-  youCouldBeFined: 'You could be fined or imprisoned if you deliberately submit false information.',
+  confirmApplicationIsTrueWarning:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: formState?.applicant1HelpWithFeesRefNo ? 'Submit application' : 'Continue to payment',
   errors: {
     iConfirmPrayer: {
