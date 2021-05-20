@@ -73,11 +73,7 @@ export class DocumentManagerController {
       res.json({ deletedId: null });
       return;
     }
-
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    await documentManagementClient.delete({
-      url: documentToDelete.value.documentLink.document_url,
-    });
+    const documentUrlToDelete = documentToDelete.value.documentLink.document_url;
 
     documentsUploaded[documentIndexToDelete].value = null;
 
@@ -86,6 +82,11 @@ export class DocumentManagerController {
       { documentsUploaded },
       PATCH_CASE
     );
+
+    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+    await documentManagementClient.delete({
+      url: documentUrlToDelete,
+    });
 
     req.session.save(err => {
       if (err) {

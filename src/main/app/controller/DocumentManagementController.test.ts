@@ -102,16 +102,19 @@ describe('DocumentManagerController', () => {
           { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
         ],
       },
+      appLocals: {
+        api: { triggerEvent: jest.fn() },
+      },
     });
     req.params = { id: '2' };
     const res = mockResponse();
 
-    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({ uploadedFiles: ['an-existing-doc'] });
+    const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+    mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
 
     await documentManagerController.delete(req, res);
 
-    expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(mockApiTriggerEvent).toHaveBeenCalledWith(
       '1234',
       {
         documentsUploaded: [
@@ -131,6 +134,9 @@ describe('DocumentManagerController', () => {
       },
       'patch-case'
     );
+
+    expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
+    expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
   });
