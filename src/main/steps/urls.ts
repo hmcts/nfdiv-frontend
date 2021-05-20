@@ -66,6 +66,8 @@ export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
+
+export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-review';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
