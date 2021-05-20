@@ -55,6 +55,7 @@ import {
   YOUR_DETAILS_URL,
   YOUR_NAME,
   YOU_CANNOT_APPLY,
+  YOU_NEED_THEIR_EMAIL_ADDRESS,
 } from './urls';
 
 export enum Sections {
@@ -296,7 +297,14 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.ContactThem,
-    getNextStep: () => DO_YOU_HAVE_ADDRESS,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION && data.applicant1DoesNotKnowApplicant2EmailAddress
+        ? YOU_NEED_THEIR_EMAIL_ADDRESS
+        : DO_YOU_HAVE_ADDRESS,
+  },
+  {
+    url: YOU_NEED_THEIR_EMAIL_ADDRESS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: DO_YOU_HAVE_ADDRESS,
