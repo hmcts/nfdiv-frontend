@@ -121,7 +121,13 @@ export const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
-    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return CHECK_ANSWERS_URL;
+      } else {
+        return data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK;
+      }
+    },
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
