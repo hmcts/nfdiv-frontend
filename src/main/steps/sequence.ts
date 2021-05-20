@@ -299,9 +299,9 @@ export const sequence: Step[] = [
     showInSection: Sections.ContactThem,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : DO_YOU_HAVE_ADDRESS;
+        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
       } else {
-        return HELP_WITH_YOUR_FEE_URL;
+        return DO_YOU_HAVE_ADDRESS;
       }
     },
   },
