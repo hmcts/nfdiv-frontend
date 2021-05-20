@@ -75,7 +75,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-nunjucks": "^2.2.5",
-    "express-session": "^1.17.1",
+    "express-session": "^1.17.2",
     "form-data": "^4.0.0",
     "glob": "^7.1.7",
     "govuk-frontend": "^3.12.0",
