@@ -19,7 +19,7 @@ Feature: Union broken down
 
   Scenario: Civil partnership has not broken down
     Given I go to '/irretrievable-breakdown?forceCivilMode'
-    When I select "No, my relationship has not irretrievably broken down"
+    When I select "No, my civil partnership has not irretrievably broken down"
     Then the page should include "This is the law in England and Wales."
     When I click "Continue"
     Then the page should include "You cannot apply to end your civil partnership"
