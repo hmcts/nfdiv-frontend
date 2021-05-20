@@ -33,11 +33,15 @@ const setSaveTimeout = () => {
   }, sessionTimeoutInterval);
 };
 
-const pingUserActive = throttle(() => {
-  fetch('/active').then(() => {
-    setSaveTimeout();
-  });
-}, eventThrottleTimer);
+const pingUserActive = throttle(
+  () => {
+    fetch('/active').then(() => {
+      setSaveTimeout();
+    });
+  },
+  eventThrottleTimer,
+  { trailing: false }
+);
 
 setTimeout(() => {
   ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
