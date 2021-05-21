@@ -126,7 +126,13 @@ export const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
-    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return CHECK_ANSWERS_URL;
+      } else {
+        return data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK;
+      }
+    },
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
@@ -298,10 +304,13 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.ContactThem,
-    getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION && data.applicant1DoesNotKnowApplicant2EmailAddress
-        ? YOU_NEED_THEIR_EMAIL_ADDRESS
-        : DO_YOU_HAVE_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
+      } else {
+        return DO_YOU_HAVE_ADDRESS;
+      }
+    },
   },
   {
     url: YOU_NEED_THEIR_EMAIL_ADDRESS,
