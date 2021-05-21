@@ -7,6 +7,7 @@ import type { UploadedFiles } from './UploadedFiles';
 
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
+const content = JSON.parse(getById('uploadContent')?.textContent || '{}');
 
 export const updateFileList = (uploadedFiles: UploadedFiles, events: FileUploadEvents): void => {
   if (noFilesUploadedEl) {
@@ -30,13 +31,15 @@ export const updateFileList = (uploadedFiles: UploadedFiles, events: FileUploadE
       );
       filenameEl.textContent = file.name;
 
-      const deleteEl = document.createElement('a');
-      deleteEl.classList.add('govuk-link--no-visited-state');
-      deleteEl.href = `${DOCUMENT_MANAGER}/delete/${file.id}`;
-      deleteEl.textContent = 'Delete';
-      deleteEl.onclick = events.onDeleteFile(file);
+      if (content.isDraft) {
+        const deleteEl = document.createElement('a');
+        deleteEl.classList.add('govuk-link--no-visited-state');
+        deleteEl.href = `${DOCUMENT_MANAGER}/delete/${file.id}`;
+        deleteEl.textContent = content.delete;
+        deleteEl.onclick = events.onDeleteFile(file);
+        filenameEl.appendChild(deleteEl);
+      }
 
-      filenameEl.appendChild(deleteEl);
       filesUploadedEl.appendChild(filenameEl);
     }
   }

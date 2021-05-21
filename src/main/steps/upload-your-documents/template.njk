@@ -68,6 +68,13 @@
   }) }}
   <p class="govuk-body">{{ minRequirements }}</p>
 
+  <script id="uploadContent" type="application/json">
+  {
+    "isDraft": {{ isDraft }},
+    "delete": "{{ delete }}"
+  }
+  </script>
+
   <div id="uploadGroup" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
     <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3" id="noFilesUploaded">{{ noFilesUploaded }}</p>
@@ -79,7 +86,7 @@
     <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
   </p>
 
-  <div class="govuk-form-group">
+  <div class="govuk-form-group {{ 'govuk-visually-hidden' if not isDraft }}">
     <div class="govuk-panel upload">
       <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
 

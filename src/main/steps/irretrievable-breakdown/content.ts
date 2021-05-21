@@ -4,8 +4,8 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
 const en = ({ isDivorce, required }) => {
-  const relationship = isDivorce ? 'marriage' : 'relationship';
-  const endRelationship = isDivorce ? 'get a divorce' : 'end your civil partnership';
+  const relationship = isDivorce ? 'marriage' : 'civil partnership';
+  const endRelationship = isDivorce ? 'get a divorce' : 'end it';
   return {
     title: `Has your ${relationship} irretrievably broken down (it cannot be saved)?`,
     line1: `Your ${relationship} must have irretrievably broken down for you to

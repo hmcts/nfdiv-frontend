@@ -12,6 +12,7 @@ import {
   JurisdictionConnections,
   LegalProceedingsRelated,
   ListValue,
+  State,
   YesOrNo,
 } from './definition';
 
@@ -153,6 +154,7 @@ export interface Case {
 
 export interface CaseWithId extends Case {
   id: string;
+  state: State;
 }
 
 export enum Checkbox {

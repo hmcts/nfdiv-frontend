@@ -39,6 +39,7 @@ export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
 export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-jurisdiction';
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
+export const JURISDICTION_CONNECTION_SUMMARY: PageLink = '/connection-summary';
 
 export const YOUR_NAME: PageLink = '/enter-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
@@ -67,6 +68,8 @@ export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
+
+export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-review';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';

@@ -6,6 +6,7 @@ Feature: How do you want to apply
     When I go to "/how-do-you-want-to-apply"
     Then the page should include "How do you want to apply for the divorce?"
 
+  @nightly
   Scenario: They have not indicated how they want to apply
     Given I clear the form
     When I click "Continue"
@@ -21,4 +22,3 @@ Feature: How do you want to apply
     When I select "I want to apply jointly, with my husband"
     When I click "Continue"
     Then the page should include "Enter your husband's email address"
-       

@@ -4,7 +4,7 @@ import { LoggerInstance } from 'winston';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { DivorceOrDissolution, PATCH_CASE } from './definition';
+import { DivorceOrDissolution, PATCH_CASE, State } from './definition';
 
 jest.mock('axios');
 
@@ -43,12 +43,14 @@ describe('CaseApi', () => {
         data: [
           {
             id: '1234',
+            state: State.Draft,
             case_data: {
               divorceOrDissolution: 'divorce',
             },
           },
           {
             id: '1234',
+            state: State.Draft,
             case_data: {
               divorceOrDissolution: 'dissolution',
             },
@@ -58,7 +60,7 @@ describe('CaseApi', () => {
 
       const userCase = await api.getOrCreateCase(caseType, userDetails);
 
-      expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: caseType });
+      expect(userCase).toStrictEqual({ id: '1234', state: State.Draft, divorceOrDissolution: caseType });
     }
   );
 
@@ -82,6 +84,7 @@ describe('CaseApi', () => {
     const results = {
       data: {
         id: '1234',
+        state: State.Draft,
         data: {
           divorceOrDissolution: 'divorce',
         },
@@ -92,7 +95,11 @@ describe('CaseApi', () => {
 
     const userCase = await api.getOrCreateCase(serviceType, userDetails);
 
-    expect(userCase).toStrictEqual({ id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE });
+    expect(userCase).toStrictEqual({
+      id: '1234',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
   });
 
   test('Should throw error when case could not be created', async () => {
