@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-19 09:09:08.
+// Generated using typescript-generator version 2.31.861 on 2021-05-20 17:08:12.
 
 export interface Address {
   AddressLine1: string;
@@ -32,8 +32,8 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
   list_items: DynamicListElement[];
 }
 
@@ -122,8 +122,10 @@ export interface CaseData {
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
-  applicant2NameAsOnMarriageCertificate: YesOrNo;
-  app2NameDifferentToMarriageCertExplain: string;
+  applicant2NameDifferentToMarriageCertificate: YesOrNo;
+  applicant2NameChangedHow: ChangedNameHow;
+  applicant2NameChangedHowOtherDetails: string;
+  applicant2WelshLanguagePreference: YesOrNo;
   applicant1SolicitorName: string;
   solicitorReference: string;
   applicant1SolicitorPhone: string;
@@ -468,10 +470,10 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE10';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE11';
 export const JURISDICTION = 'DIVORCE';
-export const PATCH_CASE = 'patch-case';
-export const PAYMENT_MADE = 'payment-made';
 export const APPLICANT_1_STATEMENT_OF_TRUTH = 'applicant-1-statement-of-truth';
-export const CREATE_DRAFT = 'create-draft';
 export const SAVE_AND_CLOSE = 'save-and-close';
+export const PAYMENT_MADE = 'payment-made';
+export const CREATE_DRAFT = 'create-draft';
+export const PATCH_CASE = 'patch-case';
