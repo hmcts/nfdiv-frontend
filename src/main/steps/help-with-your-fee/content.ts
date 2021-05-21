@@ -36,7 +36,6 @@ const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => 
   line1: `Mae'r ${
     isDivorce ? 'cais am ysgariad' : 'cais'
   } hwn yn costio £550. Efallai y byddwch yn gallu cael help i dalu'r ffi:`,
-  line2: '',
   helpPayingWhen: [
     'os ydych yn cael budd-daliadau penodol, <em>neu</em>',
     'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl, <em>neu</em>',
@@ -44,9 +43,6 @@ const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => 
   ],
   yes: "Mae angen help arnaf i dalu'r ffi",
   no: "Nid oes angen help arnaf i dalu'r ffi",
-  line3: '',
-  subHeading1: '',
-  line4: '',
   errors: {
     applicant1HelpPayingNeeded: {
       required,
