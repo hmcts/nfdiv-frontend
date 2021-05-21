@@ -39,6 +39,7 @@ export const LIVING_ENGLAND_WALES_SIX_MONTHS: PageLink = '/living-england-wales-
 export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident-england-wales';
 export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-jurisdiction';
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
+export const JURISDICTION_CONNECTION_SUMMARY: PageLink = '/connection-summary';
 
 export const YOUR_NAME: PageLink = '/enter-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';

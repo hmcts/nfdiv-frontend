@@ -72,6 +72,10 @@ const en = {
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  habitualResidentHelpText1:
+    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
+  habitualResidentHelpText2:
+    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
 };
 
 const cy: typeof en = {

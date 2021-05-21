@@ -12,11 +12,6 @@ Feature: Habitually Resident
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Was last habitually resident in England or Wales and does one of you still live here?
-    And I select "Yes"
-    When I click "Continue"
-    Then the page should include "You can use English or Welsh courts"
-
   # Scenario: Was not last habitually resident in England or Wales and is same sex
   # Tested in can-use-english-or-welsh-courts.feature: G Eligible for Residual Jurisdiction
 
@@ -26,7 +21,18 @@ Feature: Habitually Resident
     Given I clear the form
     Given I select "My husband"
     And I click "Continue"
-    When I go to '/habitually-resident-england-wales'
+    When I go to '/where-your-lives-are-based'
+    Given I select "No" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
+    And I click "Continue"
+    And I select "No" for "Is your domicile in England or Wales?"
+    And I select "No" for "Is your husband’s domicile in England or Wales?"
+    And I click "Continue"
     And I select "No"
     When I click "Continue"
-    Then the page URL should be "/you-may-not-be-able-to-england-and-wales"
+    Then the page should include "You may not be able to get a divorce in England and Wales"
+
+  Scenario: Was last habitually resident in England or Wales and does one of you still live here?
+    And I select "Yes"
+    When I click "Continue"
+    Then the page should include "You can use English or Welsh courts"

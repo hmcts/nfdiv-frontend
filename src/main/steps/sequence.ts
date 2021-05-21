@@ -1,7 +1,10 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
-import { allowedToAnswerResidualJurisdiction } from '../app/jurisdiction/connections';
+import {
+  allowedToAnswerResidualJurisdiction,
+  previousConnectionMadeUptoLastHabituallyResident,
+} from '../app/jurisdiction/connections';
 
 import {
   ADDRESS_PRIVATE,
@@ -33,6 +36,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   IN_THE_UK,
+  JURISDICTION_CONNECTION_SUMMARY,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -169,12 +173,11 @@ export const sequence: Step[] = [
       const NO = YesOrNo.NO;
       switch (`${data.applicant1LifeBasedInEnglandAndWales}${data.applicant2LifeBasedInEnglandAndWales}`) {
         case `${YES}${YES}`:
-        case `${NO}${YES}`:
           return JURISDICTION_INTERSTITIAL_URL;
-
+        case `${NO}${YES}`:
+          return data.sameSex === Checkbox.Checked ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL;
         case `${YES}${NO}`:
           return JURISDICTION_LAST_TWELVE_MONTHS;
-
         default:
           return JURISDICTION_DOMICILE;
       }
@@ -187,13 +190,11 @@ export const sequence: Step[] = [
       const NO = YesOrNo.NO;
       switch (`${data.applicant1DomicileInEnglandWales}${data.applicant2DomicileInEnglandWales}`) {
         case `${YES}${YES}`:
-          return JURISDICTION_INTERSTITIAL_URL;
-
+          return data.sameSex === Checkbox.Checked ? HABITUALLY_RESIDENT_ENGLAND_WALES : JURISDICTION_INTERSTITIAL_URL;
         case `${YES}${NO}`:
           return data.applicant1LifeBasedInEnglandAndWales === YES
             ? LIVING_ENGLAND_WALES_SIX_MONTHS
             : HABITUALLY_RESIDENT_ENGLAND_WALES;
-
         default:
           return HABITUALLY_RESIDENT_ENGLAND_WALES;
       }
@@ -204,10 +205,12 @@ export const sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
-      } else if (data.bothLastHabituallyResident === YesOrNo.NO) {
-        return JURISDICTION_MAY_NOT_BE_ABLE_TO;
-      } else {
+      } else if (previousConnectionMadeUptoLastHabituallyResident(data)) {
+        return JURISDICTION_CONNECTION_SUMMARY;
+      } else if (data.bothLastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;
+      } else {
+        return JURISDICTION_MAY_NOT_BE_ABLE_TO;
       }
     },
   },
@@ -220,16 +223,13 @@ export const sequence: Step[] = [
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
-    getNextStep: data =>
-      data.applicant1LivingInEnglandWalesSixMonths === YesOrNo.NO
-        ? HABITUALLY_RESIDENT_ENGLAND_WALES
-        : JURISDICTION_INTERSTITIAL_URL,
+    getNextStep: () => HABITUALLY_RESIDENT_ENGLAND_WALES,
   },
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
       data.jurisdictionResidualEligible === YesOrNo.YES
-        ? JURISDICTION_INTERSTITIAL_URL
+        ? JURISDICTION_CONNECTION_SUMMARY
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
   {
@@ -364,5 +364,9 @@ export const sequence: Step[] = [
   {
     url: PAY_YOUR_FEE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: JURISDICTION_CONNECTION_SUMMARY,
+    getNextStep: () => YOUR_NAME,
   },
 ];
