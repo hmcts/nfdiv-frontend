@@ -300,12 +300,10 @@ export const sequence: Step[] = [
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.ContactThem,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicant1DoesNotKnowApplicant2EmailAddress) {
-        return YOU_NEED_THEIR_EMAIL_ADDRESS;
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
       } else {
-        return data.applicationType === ApplicationType.JOINT_APPLICATION
-          ? HELP_WITH_YOUR_FEE_URL
-          : DO_YOU_HAVE_ADDRESS;
+        return DO_YOU_HAVE_ADDRESS;
       }
     },
   },
