@@ -121,18 +121,12 @@ export const sequence: Step[] = [
     url: HOW_DO_YOU_WANT_TO_APPLY,
     showInSection: Sections.AboutPartnership,
     getNextStep: data =>
-      data.applicationType === ApplicationType.SOLE_APPLICATION ? HELP_WITH_YOUR_FEE_URL : THEIR_EMAIL_ADDRESS,
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL,
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return CHECK_ANSWERS_URL;
-      } else {
-        return data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK;
-      }
-    },
+    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
@@ -299,16 +293,19 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.ContactThem,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
+      if (data.applicant1DoesNotKnowApplicant2EmailAddress) {
+        return YOU_NEED_THEIR_EMAIL_ADDRESS;
       } else {
-        return DO_YOU_HAVE_ADDRESS;
+        return data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? HELP_WITH_YOUR_FEE_URL
+          : DO_YOU_HAVE_ADDRESS;
       }
     },
   },

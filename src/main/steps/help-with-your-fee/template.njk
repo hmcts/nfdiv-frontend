@@ -3,9 +3,15 @@
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for item in helpPayingWhen %}
       <li>{{ item | safe }}</li>
-    {% endfor %}
+    {% endfor %} 
   </ul>
+  {% if isJointApplication %}  
+    <p class="govuk-body">{{ line3 }}</p> 
+    <p class="govuk-heading-s">{{ subHeading1 }}</p>
+    <p class="govuk-body">{{ line4 }}</p>
+  {% endif %}  
 {% endblock %}
