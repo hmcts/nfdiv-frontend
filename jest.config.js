@@ -6,4 +6,5 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
+  setupFilesAfterEnv: ['jest-extended'],
 };

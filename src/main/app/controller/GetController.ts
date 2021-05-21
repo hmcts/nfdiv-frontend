@@ -5,7 +5,7 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
-import { DivorceOrDissolution } from '../case/definition';
+import { DivorceOrDissolution, State } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
 
@@ -44,6 +44,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
+      isDraft: req.session.userCase.state === State.Draft,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }

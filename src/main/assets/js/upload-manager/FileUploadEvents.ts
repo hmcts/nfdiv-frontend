@@ -77,7 +77,7 @@ export class FileUploadEvents {
         this.uploadedFiles.remove(res.deletedId);
         updateFileList(this.uploadedFiles, this);
       } finally {
-        (e.target as HTMLAnchorElement).style.cursor = 'default';
+        (e.target as HTMLAnchorElement).style.cursor = 'pointer';
         document.body.style.cursor = 'default';
       }
     };

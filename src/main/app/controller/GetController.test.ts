@@ -2,7 +2,7 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Language, generatePageContent } from '../../steps/common/common.content';
-import { DivorceOrDissolution, Gender } from '../case/definition';
+import { DivorceOrDissolution, Gender, State } from '../case/definition';
 
 import { GetController } from './GetController';
 
@@ -28,6 +28,7 @@ describe('GetController', () => {
       ...defaultViewArgs,
       language: 'en',
       serviceName: 'Apply for a divorce',
+      isDraft: false,
       isDivorce: true,
       text: 'english',
       formState: req.session.userCase,
@@ -145,7 +146,7 @@ describe('GetController', () => {
       const getContentMock = jest.fn().mockReturnValue({});
       const controller = new GetController('page', getContentMock);
 
-      const req = mockRequest();
+      const req = mockRequest({ userCase: { state: State.Draft } });
       const res = mockResponse();
       await controller.get(req, res);
 
@@ -162,6 +163,7 @@ describe('GetController', () => {
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
+        isDraft: true,
         formState: req.session.userCase,
       });
     });

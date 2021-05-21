@@ -16,6 +16,7 @@ const en = {
   continue: 'Continue',
   change: 'Change',
   download: 'Download',
+  delete: 'Delete',
   warning: 'Warning',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
