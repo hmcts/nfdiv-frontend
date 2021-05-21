@@ -2,6 +2,7 @@ Feature: Your address
 
   Background:
     Given I login
+    And I've said I'm appling as a sole application
     When I go to "/enter-your-address"
     Then the page should include "Enter your postal address"
 
