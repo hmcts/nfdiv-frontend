@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../app/form/validation';
 const en = ({ isDivorce, required, isJointApplication, partner }) => ({
   title: isJointApplication
     ? `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`
-    : `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
+    : `Do you need help paying the fee for ${isDivorce ? 'your divorce?' : 'ending your civil partnership?'}`,
   line1: `This ${isDivorce ? 'divorce application' : 'application'} costs £550. ${
     isJointApplication
       ? `Either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`
