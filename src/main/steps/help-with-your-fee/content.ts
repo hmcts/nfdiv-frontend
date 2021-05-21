@@ -28,7 +28,8 @@ const en = ({ isDivorce, required, isJointApplication, partner }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, required }) => ({
+const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => ({
+  ...en({ isDivorce, required, isJointApplication, partner }),
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,
