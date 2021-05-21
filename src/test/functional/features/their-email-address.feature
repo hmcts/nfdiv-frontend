@@ -8,28 +8,38 @@ Feature: Their email address
 
   Scenario: Successfully enter their email address
     Given I clear the form
-    Given I select "Your husband's email address"
+    And I select "Your husband's email address"
     And I type "test@test.com"
     When I click "Continue"
     Then the page URL should be "/do-you-have-address"
 
-  Scenario: Successfully enter do not know their email
+  Scenario: They do not know their partners email (sole application)
     Given I clear the form
-    Given I select "I do not know their email address"
+    And I select "I do not know their email address"
     When I click "Continue"
     Then the page URL should be "/do-you-have-address"
+
+  Scenario: They do not know their partners email (joint application)
+    Given I go to "/how-do-you-want-to-apply"
+    And I select "I want to apply jointly, with my husband"
+    And I click "Continue"
+    And I clear the form
+    And I select "I do not know their email address"
+    When I click "Continue"
+    Then the page URL should be "/you-need-their-email-address"
+    And the page should include "You need to get their email address"
 
   Scenario: Error when entering both their email and selecting I do not know their email
     Given I clear the form
-    Given I select "Your husband's email address"
+    And I select "Your husband's email address"
     And I type "test@test.com"
-    Given I select "I do not know their email address"
+    And I select "I do not know their email address"
     When I click "Continue"
     Then the page should include "There was a problem"
 
   Scenario: Error when entering invalid email
     Given I clear the form
-    Given I select "Your husband's email address"
+    And I select "Your husband's email address"
     And I type "test.com"
     When I click "Continue"
     Then the page should include "There was a problem"
@@ -37,5 +47,5 @@ Feature: Their email address
   @nightly
   Scenario: They have not indicated their partners email address or chosen that that don't know it
     Given I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
