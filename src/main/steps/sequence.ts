@@ -52,6 +52,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
@@ -360,6 +361,10 @@ export const sequence: Step[] = [
   {
     url: CHECK_ANSWERS_URL,
     getNextStep: data => (data.applicant1HelpWithFeesRefNo ? APPLICATION_SUBMITTED : PAY_YOUR_FEE),
+  },
+  {
+    url: SENT_TO_APPLICANT2_FOR_REVIEW,
+    getNextStep: () => HOME_URL,
   },
   {
     url: PAY_YOUR_FEE,
