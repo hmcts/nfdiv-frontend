@@ -11,9 +11,9 @@ const en = ({ isDivorce, required, isJointApplication, partner }) => ({
     }.`,
   }),
   enterRefNo: 'Enter your Help With Fees reference number:',
-  refReceivedWhenApplied: isJointApplication
-    ? `You received this when you applied for help with your fees. Enter your number, not one provided to your ${partner}.`
-    : 'You received this when you applied for help with your fees.',
+  refReceivedWhenApplied: `You received this when you applied for help with your fees.${
+    isJointApplication ? ` Enter your number, not one provided to your ${partner}.` : ''
+  }`,
   refExample: 'For example, HWF-A1B-23C',
   errors: {
     applicant1AlreadyAppliedForHelpPaying: {
