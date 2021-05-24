@@ -1,5 +1,4 @@
 import { TranslationFn } from '../../app/controller/GetController';
-
 import type { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ isDivorce, partner, civilPartner }: CommonContent, relationship: string) => ({

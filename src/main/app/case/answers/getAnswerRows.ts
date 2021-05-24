@@ -2,12 +2,11 @@ import { stepsWithContent } from '../../../steps';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { Sections } from '../../../steps/sequence';
 import { PageLink } from '../../../steps/urls';
+import type { FormOptions } from '../../form/Form';
 import { Case } from '../case';
 
-import { omitUnreachableAnswers } from './possibleAnswers';
-
-import type { FormOptions } from '../../form/Form';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
+import { omitUnreachableAnswers } from './possibleAnswers';
 
 export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {

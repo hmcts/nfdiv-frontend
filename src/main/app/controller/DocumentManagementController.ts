@@ -1,4 +1,5 @@
 import config from 'config';
+import type { Response } from 'express';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
@@ -6,7 +7,6 @@ import { PATCH_CASE, State } from '../case/definition';
 import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
-import type { Response } from 'express';
 
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {

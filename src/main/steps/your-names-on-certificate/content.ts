@@ -2,7 +2,6 @@ import { Gender } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../app/form/validation';
-
 import type { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ isDivorce, partner, selectedGender }: CommonContent, relationship: string) => {

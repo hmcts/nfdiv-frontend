@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import config from 'config';
 import express from 'express';
 import favicon from 'serve-favicon';
+import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
@@ -20,8 +21,6 @@ import { SessionStorage } from './modules/session';
 import { LoadTimeouts } from './modules/timeouts';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-
-import type { LoggerInstance } from 'winston';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
