@@ -28,11 +28,24 @@ describe('GetController', () => {
       ...defaultViewArgs,
       language: 'en',
       serviceName: 'Apply for a divorce',
-      isDraft: false,
+      isDraft: true,
       isDivorce: true,
       text: 'english',
       formState: req.session.userCase,
       userEmail,
+    });
+  });
+
+  test('Detects when application is not in a draft state', async () => {
+    const controller = new GetController('page', () => ({}));
+
+    const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
+    const res = mockResponse();
+    await controller.get(req, res);
+
+    expect(res.render).toBeCalledWith('page', {
+      ...defaultViewArgs,
+      isDraft: false,
     });
   });
 

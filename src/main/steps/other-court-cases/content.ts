@@ -2,7 +2,6 @@ import { LegalProceedingsRelated, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../app/form/validation';
-
 import type { CommonContent } from '../common/common.content';
 
 const en = ({ isDivorce, partner, required, marriage, civilPartnership }: CommonContent) => {

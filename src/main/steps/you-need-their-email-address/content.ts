@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
-import { HOW_DO_YOU_WANT_TO_APPLY, SAVE_AND_SIGN_OUT } from '../urls';
-
 import type { CommonContent } from '../common/common.content';
+import { HOW_DO_YOU_WANT_TO_APPLY, SAVE_AND_SIGN_OUT } from '../urls';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'You need to get their email address',

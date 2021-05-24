@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { TranslationFn } from '../../app/controller/GetController';
-
 import type { CommonContent } from '../../steps/common/common.content';
 
 dayjs.extend(advancedFormat);

@@ -2,7 +2,6 @@ import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-
 import type { CommonContent } from '../../steps/common/common.content';
 
 const en = ({ partner, required }: CommonContent) => ({
