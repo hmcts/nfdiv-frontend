@@ -1792,10 +1792,10 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
   integrity sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
 
-"@types/webpack-dev-middleware@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-4.2.0.tgz#1dd330c2fca51cd0567b599b2249df5bef4eef04"
-  integrity sha512-UJQXfgiuiKhDoWq1biSuctvGK1gDZVVY0UJDA+f9S8GGxPykMNFGHAw95YkAWEl8U0CcjzJnjN2vD9FCmBafhg==
+"@types/webpack-dev-middleware@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-4.3.0.tgz#45798564defdf4573cfe0458d1ab0fe4e9421115"
+  integrity sha512-J/dgC7QCZOMHINFFtz7aOJSFmiwHQujTHMtQFRMCobG9dfsLMfN9p5Vb8QPzjLZVY1q2+W5vHWpF5AoQnW2oRg==
   dependencies:
     "@types/connect" "*"
     tapable "^2.2.0"
