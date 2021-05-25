@@ -20,6 +20,9 @@ services:
     token: 'NEED TO INSERT SECRET'
   documentManagement:
     url: http://dm-store-aat.service.core-compute-aat.internal
+  govPay:
+    url: https://publicapi.payments.service.gov.uk
+    apiKey: 'NEED TO INSERT SECRET'
 health:
   timeout: 5000
   deadline: 15000

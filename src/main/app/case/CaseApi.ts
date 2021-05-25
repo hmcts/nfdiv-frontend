@@ -6,7 +6,15 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { CASE_TYPE, CITIZEN_CREATE, CaseData, DivorceOrDissolution, JURISDICTION, State } from './definition';
+import {
+  CASE_TYPE,
+  CITIZEN_CREATE,
+  CITIZEN_UPDATE,
+  CaseData,
+  DivorceOrDissolution,
+  JURISDICTION,
+  State,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -17,7 +25,7 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public static SPECIAL_FIELDS = ['id', 'state', 'divorceOrDissolution', 'documentsUploaded'];
+  public static SPECIAL_FIELDS = ['id', 'state', 'divorceOrDissolution', 'documentsUploaded', 'payments'];
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
@@ -30,12 +38,16 @@ export class CaseApi {
 
     const serviceCases = cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
     switch (serviceCases.length) {
-      case 0:
+      case 0: {
         return false;
-      case 1:
-        return { id: serviceCases[0].id, state: serviceCases[0].state, ...fromApiFormat(serviceCases[0].case_data) };
-      default:
+      }
+      case 1: {
+        const { id, state, case_data } = serviceCases[0];
+        return { ...fromApiFormat(case_data), id, state, payments: case_data.payments };
+      }
+      default: {
         throw new Error('Too many cases assigned to user.');
+      }
     }
   }
 
@@ -73,16 +85,23 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  public async saveUserData(caseId: string, userData: Partial<Case>, eventName = CITIZEN_UPDATE): Promise<CaseWithId> {
+    return this.triggerEvent(caseId, toApiFormat(userData), eventName);
+  }
+
+  public async triggerEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
     const event = { id: eventName };
-    const data = toApiFormat(userData);
 
     try {
-      const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
+      const { data: { id, state, data: caseData } = {} } = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: token,
+      });
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return { ...fromApiFormat(caseData), id, state, payments: caseData.payments };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

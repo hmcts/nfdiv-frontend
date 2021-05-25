@@ -16,6 +16,7 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
+import { PaymentMiddleware } from './modules/payment';
 import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { LoadTimeouts } from './modules/timeouts';
@@ -50,6 +51,7 @@ new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
+new PaymentMiddleware().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 

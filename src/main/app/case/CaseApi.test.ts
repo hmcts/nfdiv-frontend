@@ -5,8 +5,12 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
 import { CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
+import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
+jest.mock('./to-api-format');
+
+const mockToApiFormat = toApiFormat as jest.Mocked<jest.Mock>;
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -46,6 +50,7 @@ describe('CaseApi', () => {
             state: State.Draft,
             case_data: {
               divorceOrDissolution: 'divorce',
+              payments: [{ test: 'payment' }],
             },
           },
           {
@@ -53,6 +58,7 @@ describe('CaseApi', () => {
             state: State.Draft,
             case_data: {
               divorceOrDissolution: 'dissolution',
+              payments: [{ test: 'payment' }],
             },
           },
         ],
@@ -60,7 +66,12 @@ describe('CaseApi', () => {
 
       const userCase = await api.getOrCreateCase(caseType, userDetails);
 
-      expect(userCase).toStrictEqual({ id: '1234', state: State.Draft, divorceOrDissolution: caseType });
+      expect(userCase).toStrictEqual({
+        id: '1234',
+        state: State.Draft,
+        divorceOrDissolution: caseType,
+        payments: [{ test: 'payment' }],
+      });
     }
   );
 
@@ -141,7 +152,27 @@ describe('CaseApi', () => {
       event_token: '123',
     };
 
+    expect(mockToApiFormat).not.toHaveBeenCalled();
     expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+  });
+
+  test('Should update case with API formatted data', async () => {
+    mockToApiFormat.mockReturnValue({ formatted: 'data' });
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      },
+    });
+    const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
+    await api.saveUserData('1234', caseData, CITIZEN_UPDATE);
+
+    expect(mockToApiFormat).toBeCalledWith({ divorceOrDissolution: 'divorce' });
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', {
+      data: { formatted: 'data' },
+      event: { id: CITIZEN_UPDATE },
+      event_token: '123',
+    });
   });
 
   test('Should throw error when case could not be updated', async () => {

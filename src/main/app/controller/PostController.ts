@@ -2,10 +2,10 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PAY_YOUR_FEE, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -22,8 +22,9 @@ export class PostController<T extends AnyObject> {
 
     // Reset users pray/application truth when changing other questions
     const stepData = {
-      iConfirmPrayer: Checkbox.Unchecked,
-      iBelieveApplicationIsTrue: Checkbox.Unchecked,
+      ...(req.path !== PAY_YOUR_FEE
+        ? { iConfirmPrayer: Checkbox.Unchecked, iBelieveApplicationIsTrue: Checkbox.Unchecked }
+        : {}),
       ...formData,
     };
 
@@ -47,7 +48,7 @@ export class PostController<T extends AnyObject> {
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
-      await this.save(req, formData, CITIZEN_UPDATE);
+      await this.save(req, formData);
     } catch {
       // ignore
     }
@@ -61,7 +62,7 @@ export class PostController<T extends AnyObject> {
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, CITIZEN_UPDATE);
+        req.session.userCase = await this.save(req, formData);
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -78,11 +79,11 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName?: string): Promise<CaseWithId> {
     const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
     const dataToSave = { ...unreachableAnswersAsNull, ...formData };
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
+    return req.locals.api.saveUserData(req.session.userCase.id, dataToSave, eventName);
   }
 }
 

@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../case/case';
-import { CITIZEN_UPDATE, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { JurisdictionConnections, YesOrNo } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
@@ -41,13 +41,13 @@ describe('JurisdictionPostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
     expect(addConnectionMock).toBeCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', bodyWithConnection, CITIZEN_UPDATE);
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith('1234', bodyWithConnection, undefined);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.userCase).toEqual(expectedUserCase);
   });

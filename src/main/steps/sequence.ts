@@ -5,6 +5,7 @@ import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
+import { PAYMENT_URL } from '../modules/payment';
 
 import {
   ADDRESS_PRIVATE,
@@ -372,10 +373,14 @@ export const sequence: Step[] = [
   },
   {
     url: PAY_YOUR_FEE,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => PAYMENT_URL,
   },
   {
     url: JURISDICTION_CONNECTION_SUMMARY,
     getNextStep: () => YOUR_NAME,
+  },
+  {
+    url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
   },
 ];

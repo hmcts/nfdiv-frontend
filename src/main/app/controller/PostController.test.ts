@@ -2,10 +2,10 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PAY_YOUR_FEE, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import * as possibleAnswers from '../case/answers/possibleAnswers';
 import { Case, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender, YesOrNo } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, Gender, YesOrNo } from '../case/definition';
 
 import { PostController } from './PostController';
 
@@ -45,7 +45,7 @@ describe('PostController', () => {
       ...defaultCaseProps,
       gender: 'female',
     });
-    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(req.locals.api.saveUserData).not.toHaveBeenCalled();
 
     expect(setFormStateMock).toBeCalledWith(req.session.userCase);
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
@@ -73,12 +73,12 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...defaultCaseProps, ...body }, CITIZEN_UPDATE);
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith('1234', { ...defaultCaseProps, ...body }, undefined);
 
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -100,7 +100,25 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE);
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith('1234', body, undefined);
+  });
+
+  test("Doesn't change the users prayer and statement of truth when on the pay page", async () => {
+    const errors = [] as never[];
+    const body = {};
+    const mockForm = {
+      setFormState: jest.fn(),
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    req.path = PAY_YOUR_FEE;
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith('1234', body, undefined);
   });
 
   it('redirects back to the current page with a session error if there was an problem saving data', async () => {
@@ -114,7 +132,7 @@ describe('PostController', () => {
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
+    (req.locals.api.saveUserData as jest.Mock).mockRejectedValueOnce('Error saving');
     const logger = req.locals.logger as unknown as MockedLogger;
     const res = mockResponse();
     await controller.post(req, res);
@@ -125,10 +143,10 @@ describe('PostController', () => {
       divorceOrDissolution: 'divorce',
       gender: 'female',
     });
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_UPDATE
+      undefined
     );
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
@@ -164,14 +182,14 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       {
         ...defaultCaseProps,
         inTheUk: YesOrNo.YES,
         exampleExistingField: null,
       },
-      CITIZEN_UPDATE
+      undefined
     );
   });
 
@@ -188,7 +206,7 @@ describe('PostController', () => {
 
     const mockSave = jest.fn(done => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
+    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
@@ -217,7 +235,7 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ sameSex: Checkbox.Checked });
+    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce({ sameSex: Checkbox.Checked });
 
     await controller.post(req, res);
 
@@ -246,15 +264,15 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       { ...defaultCaseProps, date: { day: '1', month: '1', year: '2000' } },
-      CITIZEN_UPDATE
+      undefined
     );
 
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
@@ -275,10 +293,10 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_UPDATE
+      undefined
     );
 
     expect(res.end).toBeCalled();
@@ -298,7 +316,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       { ...defaultCaseProps, gender: 'female' },
       CITIZEN_SAVE_AND_CLOSE
@@ -318,11 +336,11 @@ describe('PostController', () => {
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
+    (req.locals.api.saveUserData as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       { ...defaultCaseProps, gender: 'female' },
       CITIZEN_SAVE_AND_CLOSE

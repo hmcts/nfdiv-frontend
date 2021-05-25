@@ -12,6 +12,7 @@ import {
   JurisdictionConnections,
   LegalProceedingsRelated,
   ListValue,
+  Payment,
   State,
   YesOrNo,
 } from './definition';
@@ -150,6 +151,7 @@ export interface Case {
   cannotUploadDocuments?: DocumentType | DocumentType[];
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
+  payments: ListValue<Payment>[];
 }
 
 export interface CaseWithId extends Case {

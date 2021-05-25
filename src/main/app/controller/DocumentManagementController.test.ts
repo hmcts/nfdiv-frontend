@@ -38,7 +38,7 @@ describe('DocumentManagerController', () => {
       },
     ]);
 
-    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+    (req.locals.api.saveUserData as jest.Mock).mockReturnValue({
       uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
     });
 
@@ -49,7 +49,7 @@ describe('DocumentManagerController', () => {
       files: [{ originalname: 'uploaded-file.jpg' }],
     });
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
       '1234',
       {
         documentsUploaded: [
@@ -105,18 +105,18 @@ describe('DocumentManagerController', () => {
         ],
       },
       appLocals: {
-        api: { triggerEvent: jest.fn() },
+        api: { saveUserData: jest.fn() },
       },
     });
     req.params = { id: '2' };
     const res = mockResponse();
 
-    const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-    mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
+    const mockApiSaveUserData = req.locals.api.saveUserData as jest.Mock;
+    mockApiSaveUserData.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
 
     await documentManagerController.delete(req, res);
 
-    expect(mockApiTriggerEvent).toHaveBeenCalledWith(
+    expect(mockApiSaveUserData).toHaveBeenCalledWith(
       '1234',
       {
         documentsUploaded: [
@@ -138,7 +138,7 @@ describe('DocumentManagerController', () => {
     );
 
     expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
-    expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
+    expect(mockDelete).toHaveBeenCalledAfter(mockApiSaveUserData);
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
   });
@@ -159,7 +159,7 @@ describe('DocumentManagerController', () => {
     await documentManagerController.delete(req, res);
 
     expect(mockDelete).not.toHaveBeenCalled();
-    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(req.locals.api.saveUserData).not.toHaveBeenCalled();
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: null });
   });

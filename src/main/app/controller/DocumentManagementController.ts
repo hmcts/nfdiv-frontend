@@ -47,7 +47,7 @@ export class DocumentManagerController {
 
     const updatedDocumentsUploaded = [...(req.session.userCase.documentsUploaded || []), ...newUploads];
 
-    req.session.userCase = await req.locals.api.triggerEvent(
+    req.session.userCase = await req.locals.api.saveUserData(
       req.session.userCase.id,
       { documentsUploaded: updatedDocumentsUploaded },
       CITIZEN_UPDATE
@@ -77,7 +77,7 @@ export class DocumentManagerController {
 
     documentsUploaded[documentIndexToDelete].value = null;
 
-    req.session.userCase = await req.locals.api.triggerEvent(
+    req.session.userCase = await req.locals.api.saveUserData(
       req.session.userCase.id,
       { documentsUploaded },
       CITIZEN_UPDATE
