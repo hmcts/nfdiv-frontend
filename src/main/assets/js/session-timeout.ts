@@ -2,8 +2,9 @@ import { throttle } from 'lodash';
 
 import { SIGN_OUT_URL, TIMED_OUT_URL } from '../../steps/urls';
 
-const eventThrottleTimer = 10 * 1000; // 5 minutes
-const sessionTimeoutInterval = 30 * 1000; // 20 minutes
+const activeStart = 10 * 1000; // 2 minutes
+const eventThrottleTimer = 15 * 1000; // 5 minutes
+const sessionTimeoutInterval = 60 * 1000; // 20 minutes
 let timeout;
 
 const saveBeforeSessionTimeout = async () => {
@@ -46,5 +47,7 @@ const pingUserActive = throttle(
   { trailing: false }
 );
 
-['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
+setTimeout(() => {
+  ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
+}, activeStart);
 setSaveTimeout();
