@@ -5,7 +5,7 @@ import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId, Checkbox } from '../case/case';
-import { PATCH_CASE, SAVE_AND_CLOSE } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -38,7 +38,7 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
-      await this.save(req, formData, SAVE_AND_CLOSE);
+      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
     } catch {
       // ignore
     }
@@ -47,7 +47,7 @@ export class PostController<T extends AnyObject> {
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
-      await this.save(req, formData, PATCH_CASE);
+      await this.save(req, formData, CITIZEN_UPDATE);
     } catch {
       // ignore
     }
@@ -61,7 +61,7 @@ export class PostController<T extends AnyObject> {
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, PATCH_CASE);
+        req.session.userCase = await this.save(req, formData, CITIZEN_UPDATE);
       } catch (err) {
         req.locals.logger.error('Error when saving');
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });

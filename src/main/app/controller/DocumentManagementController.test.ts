@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { State } from '../case/definition';
+import { CITIZEN_UPDATE, State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -68,7 +68,7 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-      'patch-case'
+      CITIZEN_UPDATE
     );
 
     expect(res.json).toHaveBeenCalledWith([
@@ -134,7 +134,7 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-      'patch-case'
+      CITIZEN_UPDATE
     );
 
     expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });

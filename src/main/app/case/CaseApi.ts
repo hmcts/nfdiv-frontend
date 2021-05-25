@@ -6,7 +6,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { CASE_TYPE, CREATE_DRAFT, CaseData, DivorceOrDissolution, JURISDICTION, State } from './definition';
+import { CASE_TYPE, CITIZEN_CREATE, CaseData, DivorceOrDissolution, JURISDICTION, State } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -53,9 +53,9 @@ export class CaseApi {
   }
 
   private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CREATE_DRAFT}`);
+    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`);
     const token = tokenResponse.data.token;
-    const event = { id: CREATE_DRAFT };
+    const event = { id: CITIZEN_CREATE };
     const data = {
       divorceOrDissolution: serviceType,
       applicant1FirstName: userDetails.givenName,

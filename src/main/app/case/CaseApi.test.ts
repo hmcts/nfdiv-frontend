@@ -4,7 +4,7 @@ import { LoggerInstance } from 'winston';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { DivorceOrDissolution, PATCH_CASE, State } from './definition';
+import { CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
 
 jest.mock('axios');
 
@@ -133,11 +133,11 @@ describe('CaseApi', () => {
       data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
     });
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
-    await api.triggerEvent('1234', caseData, PATCH_CASE);
+    await api.triggerEvent('1234', caseData, CITIZEN_UPDATE);
 
     const expectedRequest = {
       data: caseData,
-      event: { id: PATCH_CASE },
+      event: { id: CITIZEN_UPDATE },
       event_token: '123',
     };
 
@@ -151,7 +151,7 @@ describe('CaseApi', () => {
     });
 
     await expect(
-      api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, PATCH_CASE)
+      api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, CITIZEN_UPDATE)
     ).rejects.toThrow('Case could not be updated.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
