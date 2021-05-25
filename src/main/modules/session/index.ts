@@ -17,7 +17,7 @@ export class SessionStorage {
       session({
         name: 'nfdiv-session',
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
