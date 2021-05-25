@@ -293,7 +293,8 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
