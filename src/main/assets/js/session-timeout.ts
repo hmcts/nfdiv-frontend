@@ -34,19 +34,24 @@ const setSaveTimeout = () => {
 };
 
 const pingUserActive = throttle(
-  async () => {
-    const response = await fetch('/active');
-    if (response.redirected) {
-      window.location.href = `${SIGN_OUT_URL}`;
-    } else {
-      setSaveTimeout();
-    }
+  () => {
+    fetch('/active').then(response => {
+      if (response.redirected) {
+        window.location.href = `${SIGN_OUT_URL}`;
+      } else {
+        setSaveTimeout();
+      }
+    });
   },
   eventThrottleTimer,
   { trailing: false }
 );
 
-setTimeout(() => {
-  ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
-}, activeStart);
+['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt =>
+  document.addEventListener(evt, () => {
+    setTimeout(() => {
+      pingUserActive();
+    }, activeStart);
+  })
+);
 setSaveTimeout();
