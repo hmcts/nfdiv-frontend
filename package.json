@@ -111,7 +111,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "codeceptjs": "^3.0.7",
-    "concurrently": "^6.1.0",
+    "concurrently": "^6.2.0",
     "copy-webpack-plugin": "^9.0.0",
     "css-loader": "^5.2.6",
     "debug": "^4.3.1",
