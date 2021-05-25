@@ -3,7 +3,7 @@ import type { Response } from 'express';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
-import { PATCH_CASE, State } from '../case/definition';
+import { CITIZEN_UPDATE, State } from '../case/definition';
 import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
@@ -50,7 +50,7 @@ export class DocumentManagerController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { documentsUploaded: updatedDocumentsUploaded },
-      PATCH_CASE
+      CITIZEN_UPDATE
     );
 
     req.session.save(err => {
@@ -80,7 +80,7 @@ export class DocumentManagerController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { documentsUploaded },
-      PATCH_CASE
+      CITIZEN_UPDATE
     );
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
