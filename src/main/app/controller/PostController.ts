@@ -63,7 +63,7 @@ export class PostController<T extends AnyObject> {
       try {
         req.session.userCase = await this.save(req, formData, CITIZEN_UPDATE);
       } catch (err) {
-        req.locals.logger.error('Error when saving');
+        req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
     }

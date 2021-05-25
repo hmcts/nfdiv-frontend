@@ -133,7 +133,7 @@ describe('PostController', () => {
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith('/request');
-    expect(logger.error).toBeCalled();
+    expect(logger.error).toBeCalledWith('Error saving', 'Error saving');
     expect(req.session.errors).toEqual([
       {
         errorType: 'errorSaving',
