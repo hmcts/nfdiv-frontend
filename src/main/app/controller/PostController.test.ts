@@ -9,6 +9,8 @@ import { Gender, PATCH_CASE, SAVE_AND_CLOSE, YesOrNo } from '../case/definition'
 
 import { PostController } from './PostController';
 
+import Mock = jest.Mock;
+
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 
@@ -113,6 +115,7 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
+    const logger = req.locals.logger as unknown as MockedLogger;
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -130,6 +133,7 @@ describe('PostController', () => {
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith('/request');
+    expect(logger.error).toBeCalled();
     expect(req.session.errors).toEqual([
       {
         errorType: 'errorSaving',
@@ -327,3 +331,8 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 });
+
+interface MockedLogger {
+  info: Mock;
+  error: Mock;
+}
