@@ -17,11 +17,11 @@ export class SessionStorage {
       session({
         name: 'nfdiv-session',
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
-          maxAge: 21 * (60 * 1000), // 21 minutes
+          maxAge: 1.5 * (60 * 1000), // 21 minutes
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
