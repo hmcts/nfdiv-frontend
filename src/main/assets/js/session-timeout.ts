@@ -34,14 +34,13 @@ const setSaveTimeout = () => {
 };
 
 const pingUserActive = throttle(
-  () => {
-    fetch('/active').then(res => {
-      if (res.redirected) {
-        window.location.href = `${SIGN_OUT_URL}`;
-      } else {
-        setSaveTimeout();
-      }
-    });
+  async () => {
+    const response = await fetch('/active');
+    if (response.redirected) {
+      window.location.href = `${SIGN_OUT_URL}`;
+    } else {
+      setSaveTimeout();
+    }
   },
   eventThrottleTimer,
   { trailing: false }
