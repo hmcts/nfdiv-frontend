@@ -33,6 +33,7 @@ import {
 } from './steps/urls';
 
 const handleUploads = multer();
+const maxAge = 1.5 * (60 * 1000); // 21 minutes
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -78,9 +79,11 @@ export class Routes {
       '/active',
       errorHandler((req: AppRequest, res: Response) => {
         if (!req.session.user) {
-          return res.redirect(SIGN_OUT_URL);
+          res.redirect(SIGN_OUT_URL);
+        } else {
+          req.session.cookie.expires = new Date(Date.now() + maxAge);
+          res.end();
         }
-        return res.end();
       })
     );
 
