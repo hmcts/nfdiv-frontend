@@ -243,6 +243,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    const date = new Date();
+
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -256,6 +258,7 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toStrictEqual([]);
+    expect((req.session.cookie.expires as Date) > date).toBeTruthy();
   });
 
   test('Should save the users data and end response for session timeout', async () => {
