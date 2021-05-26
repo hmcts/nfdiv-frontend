@@ -5,6 +5,7 @@ import {
   iAmOnPage,
   iClearTheForm,
   iClick,
+  iDeleteAnyPreviouslyUploadedFiles,
   iResetThePostCodeLookUpForm,
   iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
@@ -14,7 +15,7 @@ const { I } = inject();
 
 Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
 
-Given("I've completed all happy path questions correctly to get to check your answers page", () => {
+Given("I've completed all happy path questions correctly and paid", () => {
   iAmOnPage('/your-details');
   iClearTheForm();
   iClick('My husband');
@@ -143,9 +144,31 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/upload-your-documents');
-  iClearTheForm();
-  iClick('I cannot upload my original marriage certificate');
+  iDeleteAnyPreviouslyUploadedFiles();
+  I.attachFile('input[type="file"]', 'fixtures/larry-the-cat.jpg');
+  I.waitForText('larry-the-cat.jpg');
   iClick('Continue');
 
   I.waitInUrl('/check-your-answers');
+  iClearTheForm();
+  iClick('I confirm');
+  iClick('I believe that the facts stated in this application are true');
+  iClick('Continue to payment');
+
+  I.waitInUrl('/pay-your-fee');
+  iClick('Pay and submit application');
+
+  I.waitInUrl('/card_details');
+  iClick('Card number');
+  I.type('4444333322221111');
+  iClick('Month');
+  I.type('12');
+  iClick('Year');
+  I.type('30');
+  iClick('Card security code');
+  I.type('123');
+  iClick('Continue');
+
+  I.waitInUrl('/card_details');
+  I.click('Confirm payment');
 });
