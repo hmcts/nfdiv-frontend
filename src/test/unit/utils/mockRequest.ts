@@ -32,9 +32,6 @@ export const mockRequest = ({
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         ...userCase,
       },
-      cookie: {
-        expires: new Date(),
-      },
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
       ...session,
