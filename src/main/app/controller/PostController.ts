@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { cookieMaxAge } from '../../modules/session';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
@@ -69,6 +70,7 @@ export class PostController<T extends AnyObject> {
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
 
+    req.session.cookie.expires = new Date(Date.now() + cookieMaxAge);
     req.session.save(err => {
       if (err) {
         throw err;

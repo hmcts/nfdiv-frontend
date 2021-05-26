@@ -9,6 +9,8 @@ import FileStoreFactory from 'session-file-store';
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
+export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
+
 export class SessionStorage {
   public enableFor(app: Application): void {
     app.use(cookieParser());
@@ -21,7 +23,7 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
-          maxAge: 21 * (60 * 1000), // 21 minutes
+          maxAge: cookieMaxAge,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
