@@ -1,4 +1,4 @@
-import { LegalProceedingsRelated, YesOrNo } from '../../app/case/definition';
+import { LegalProceedingsByCase, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../app/form/validation';
@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
       legalProceedings: {
         required,
       },
-      legalProceedingsRelated: {
+      legalProceedingsOther: {
         required: 'You need to select what the proceedings relate to.',
       },
     },
@@ -49,7 +49,7 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
       legalProceedings: {
         required,
       },
-      legalProceedingsRelated: {
+      legalProceedingsOther: {
         required: "Mae angen i chi ddewis ynghylch beth y mae'r achos.",
       },
     },
@@ -68,26 +68,26 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
-            legalProceedingsRelated: {
+            legalProceedingsOther: {
               type: 'checkboxes',
               label: l => l.subField,
               hint: l => l.subFieldHint,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'legalProceedingsOther',
                   label: l => l.partnership,
-                  value: LegalProceedingsRelated.MARRIAGE,
+                  value: 'other',
                 },
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'legalProceedingsOther',
                   label: l => l.property,
-                  value: LegalProceedingsRelated.PROPERTY,
+                  value: LegalProceedingsByCase.PROPERTY,
                 },
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'legalProceedingsOther',
                   label: l => l.children,
-                  value: LegalProceedingsRelated.CHILDREN,
+                  value: LegalProceedingsByCase.CHILDREN,
                 },
               ],
             },

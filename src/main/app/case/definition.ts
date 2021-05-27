@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-25 14:03:46.
+// Generated using typescript-generator version 2.31.861 on 2021-05-27 14:00:18.
 
 export interface Address {
   AddressLine1: string;
@@ -161,8 +161,8 @@ export interface CaseData {
   applicant1KnowsApplicant2Address: YesOrNo;
   applicant2HomeAddress: AddressGlobalUK;
   legalProceedings: YesOrNo;
-  legalProceedingsDetails: string;
-  legalProceedingsRelated: LegalProceedingsRelated[];
+  legalProceedingsByCase: ListValue<LegalProceeding>[];
+  legalProceedingsOther: string;
   divorceClaimFrom: ClaimsCostFrom[];
   documentsUploaded: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: DocumentType[];
@@ -183,6 +183,7 @@ export interface CaseData {
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
+  dueDate: DateAsString;
 }
 
 export interface Jurisdiction {
@@ -195,6 +196,12 @@ export interface Jurisdiction {
   ResidualEligible: YesOrNo;
   BothLastHabituallyResident: YesOrNo;
   Connections: JurisdictionConnections[];
+}
+
+export interface LegalProceeding {
+  caseNumber: string;
+  caseRelatesTo: LegalProceedingsByCase;
+  caseDetail: string;
 }
 
 export interface MarriageDetails {
@@ -336,6 +343,7 @@ export const enum Gender {
  * - `G` - Eligible for Residual Jurisdiction
  * - `H` - Applicant 1 is domiciled in England and Wales
  * - `I` - Applicant 2 is domiciled in England and Wales
+ * - `J` - Applicant 1 habitually resides in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
@@ -374,6 +382,10 @@ export const enum JurisdictionConnections {
    * Applicant 2 is domiciled in England and Wales
    */
   APP_2_DOMICILED = 'I',
+  /**
+   * Applicant 1 habitually resides in England and Wales
+   */
+  APP_1_RESIDENT = 'J',
 }
 
 export const enum LanguagePreference {
@@ -391,7 +403,7 @@ export const enum LegalConnections {
   APP_1_APP_2_RESIDENT = 'G',
 }
 
-export const enum LegalProceedingsRelated {
+export const enum LegalProceedingsByCase {
   MARRIAGE = 'marriage',
   PROPERTY = 'property',
   CHILDREN = 'children',
@@ -469,10 +481,10 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE12';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE14';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';

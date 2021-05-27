@@ -51,6 +51,7 @@ Feature: Check Your Answers
     Given I go to '/check-your-answers?lng=cy'
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
 
+  @flaky
   Scenario: Completed all required questions and confirming
     Given I've already completed all questions correctly
     And I go to '/check-your-answers'
