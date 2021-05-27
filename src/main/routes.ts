@@ -8,6 +8,7 @@ import { DocumentManagerController } from './app/controller/DocumentManagementCo
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { Form } from './app/form/Form';
+import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { CookiesGetController } from './steps/cookies/get';
@@ -80,7 +81,14 @@ export class Routes {
         if (!req.session.user) {
           return res.redirect(SIGN_OUT_URL);
         }
-        return res.end();
+        req.session.cookie.expires = new Date(Date.now() + cookieMaxAge);
+        req.session.cookie.maxAge = cookieMaxAge;
+        req.session.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.end();
+        });
       })
     );
 
