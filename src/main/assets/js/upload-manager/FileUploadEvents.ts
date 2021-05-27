@@ -1,10 +1,10 @@
+import type { State, Uppy } from '@uppy/core';
+
 import { UploadedFile } from '../../../app/case/case';
 import { getById } from '../selectors';
 
 import { UploadedFiles } from './UploadedFiles';
 import { updateFileList } from './updateFileList';
-
-import type { State, Uppy } from '@uppy/core';
 
 const uploadProcessEl = getById('uploadProgressBar');
 const uploadGroupEl = getById('uploadGroup');

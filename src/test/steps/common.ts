@@ -108,6 +108,13 @@ Given("I've said I'm applying as a sole application", () => {
   I.checkOption('I want to apply on my own, as a sole applicant');
   I.click('Continue');
 });
+  
+Given("I've said I'm applying as a joint application", () => {
+  I.amOnPage('/how-do-you-want-to-apply');
+  iClearTheForm();
+  I.checkOption('I want to apply jointly');
+  I.click('Continue');
+});
 
 Given("I've said I'm divorcing my husband", () => {
   I.amOnPage('/your-details');

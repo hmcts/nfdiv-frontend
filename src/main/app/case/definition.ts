@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-20 17:08:12.
+// Generated using typescript-generator version 2.31.861 on 2021-05-25 14:03:46.
 
 export interface Address {
   AddressLine1: string;
@@ -130,6 +130,7 @@ export interface CaseData {
   solicitorReference: string;
   applicant1SolicitorPhone: string;
   applicant1SolicitorEmail: string;
+  applicant1SolicitorRepresented: YesOrNo;
   solicitorAgreeToReceiveEmails: YesOrNo;
   applicant1OrganisationPolicy: OrganisationPolicy<UserRole>;
   marriageApplicant1Name: string;
@@ -409,10 +410,8 @@ export const enum SolToPay {
 export const enum State {
   Draft = 'Draft',
   AwaitingPayment = 'AwaitingPayment',
-  SOTAgreementPayAndSubmitRequired = 'SOTAgreementPayAndSubmitRequired',
-  Submitted = 'Submitted',
-  SolicitorAwaitingPaymentConfirmation = 'SolicitorAwaitingPaymentConfirmation',
   AwaitingDocuments = 'AwaitingDocuments',
+  Submitted = 'Submitted',
 }
 
 export const enum UserRole {
@@ -470,10 +469,10 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE11';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE12';
 export const JURISDICTION = 'DIVORCE';
-export const APPLICANT_1_STATEMENT_OF_TRUTH = 'applicant-1-statement-of-truth';
-export const SAVE_AND_CLOSE = 'save-and-close';
-export const PAYMENT_MADE = 'payment-made';
-export const CREATE_DRAFT = 'create-draft';
-export const PATCH_CASE = 'patch-case';
+export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';

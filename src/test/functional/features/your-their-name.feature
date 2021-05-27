@@ -24,6 +24,18 @@ Feature: Your and their names
     And I click "Continue"
     Then the page should include "Your names on your marriage certificate"
 
+  Scenario: Entering your name for a joint application
+    Given I've said I'm applying as a joint application
+    And I go to "/enter-your-name"
+    And the page should include "Enter your name"
+    And I clear the form
+    When I select "Your first name"
+    And I type "My first name"
+    And I select "Your last name"
+    And I type "My last-name"
+    And I click "Continue"
+    Then the page should include "Your names on your marriage certificate"
+
   @nightly
   Scenario: Error when entering a number in the your name field
     Given I go to "/enter-your-name"
