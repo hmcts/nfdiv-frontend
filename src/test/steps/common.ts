@@ -102,7 +102,7 @@ export const iResetThePostCodeLookUpForm = (): void => {
 };
 Given('I reset the postcode lookup form', iResetThePostCodeLookUpForm);
 
-Given("I've said I'm appling as a joint application", () => {
+Given("I've said I'm applying as a joint application", () => {
   I.amOnPage('/how-do-you-want-to-apply');
   iClearTheForm();
   I.checkOption('I want to apply jointly');
