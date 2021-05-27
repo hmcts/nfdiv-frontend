@@ -561,6 +561,15 @@ Feature: Can use English or Welsh courts
     And the page should include "your husband is habitually resident"
     And the page should include "Read more about your connections"
 
+  Scenario: J Applicant1 habitually resides in England and Wales (joint application)
+    Given I've said I'm applying as a joint application
+    Given I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "No" for "Is your husband’s life mainly based in England or Wales?" 
+    When I click "Continue"
+    Then the page should include "You can use English or Welsh courts to get a divorce"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are 'habitually resident'"
+    And the page should include "Read more about habitual residence"
+
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"

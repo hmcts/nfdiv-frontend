@@ -1,6 +1,7 @@
 import { JurisdictionConnections } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
+
 import type { CommonContent } from '../common/common.content';
 
 const en = (
@@ -51,12 +52,18 @@ const en = (
     helpText3: 'You should select Yes if you have either type of domicile in England or Wales.',
     helpText4: 'If you’re not sure about your domicile you should get legal advice.',
   };
+  const enApp1Resident = {
+    line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'habitually resident'.`,
+    readMore: 'Read more about habitual residence',
+    ...enHabitualResident,
+  };
   const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident | undefined>> = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident,
     [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths,
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled,
+    [JurisdictionConnections.APP_1_RESIDENT]: enApp1Resident,
   };
 
   return {

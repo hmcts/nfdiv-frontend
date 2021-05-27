@@ -1,5 +1,5 @@
 import { Checkbox } from '../case/case';
-import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 import { addConnection, previousConnectionMadeUptoLastHabituallyResident } from './connections';
 
@@ -114,6 +114,17 @@ describe('connections', () => {
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
       JurisdictionConnections.APP_2_DOMICILED,
     ]);
+  });
+
+  test('Given only applicant 1 is habitually resident in a joint application, should find connection J', async () => {
+    const body = {
+      applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
+      applicationType: ApplicationType.JOINT_APPLICATION,
+    };
+
+    const connectionAdded = addConnection(body);
+    expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_RESIDENT]);
   });
 
   test('Given previous connection made up to last habitually resident and connection B made, should return true', async () => {
