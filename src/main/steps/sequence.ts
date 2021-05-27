@@ -251,7 +251,7 @@ export const sequence: Step[] = [
   {
     url: YOUR_NAME,
     showInSection: Sections.ContactYou,
-    getNextStep: () => THEIR_NAME,
+    getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
   },
   {
     url: THEIR_NAME,
