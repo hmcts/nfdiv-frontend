@@ -71,7 +71,7 @@
     "connect-redis": "^5.2.0",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
-    "dayjs": "^1.10.4",
+    "dayjs": "^1.10.5",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-nunjucks": "^2.2.5",
