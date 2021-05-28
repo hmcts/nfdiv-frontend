@@ -126,13 +126,7 @@ export const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return CHECK_ANSWERS_URL;
-      } else {
-        return data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK;
-      }
-    },
+    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
@@ -299,7 +293,8 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,

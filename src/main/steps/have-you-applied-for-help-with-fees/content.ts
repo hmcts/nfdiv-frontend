@@ -3,10 +3,17 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../app/form/validation';
 
-const en = ({ isDivorce, required }) => ({
+const en = ({ isDivorce, required, isJointApplication, partner }) => ({
   title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
+  ...(isJointApplication && {
+    line1: `Do not answer on behalf of your ${partner}. You both need to apply for help with fees separately because you are doing a joint application ${
+      isDivorce ? 'for your divorce' : 'to end your civil partnership'
+    }.`,
+  }),
   enterRefNo: 'Enter your Help With Fees reference number:',
-  refReceivedWhenApplied: 'You received this when you applied for help with your fees.',
+  refReceivedWhenApplied: `You received this when you applied for help with your fees.${
+    isJointApplication ? ` Enter your number, not one provided to your ${partner}.` : ''
+  }`,
   refExample: 'For example, HWF-A1B-23C',
   errors: {
     applicant1AlreadyAppliedForHelpPaying: {
