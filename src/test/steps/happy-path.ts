@@ -5,7 +5,6 @@ import {
   iAmOnPage,
   iClearTheForm,
   iClick,
-  iDeleteAnyPreviouslyUploadedFiles,
   iResetThePostCodeLookUpForm,
   iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
@@ -144,9 +143,8 @@ Given("I've completed all happy path questions correctly and paid", () => {
   iClick('Continue');
 
   I.waitInUrl('/upload-your-documents');
-  iDeleteAnyPreviouslyUploadedFiles();
-  I.attachFile('input[type="file"]', 'fixtures/larry-the-cat.jpg');
-  I.waitForText('larry-the-cat.jpg');
+  iClearTheForm();
+  iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
 
   I.waitInUrl('/check-your-answers');

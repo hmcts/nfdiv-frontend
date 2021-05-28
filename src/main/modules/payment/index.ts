@@ -2,10 +2,17 @@ import config from 'config';
 import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, OrderSummary, PaymentStatus, State } from '../../app/case/definition';
+import {
+  CITIZEN_ADD_PAYMENT,
+  CITIZEN_SUBMIT,
+  CITIZEN_UPDATE,
+  OrderSummary,
+  PaymentStatus,
+  State,
+} from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { PaymentClient, PaymentStatusCode } from '../../app/payment/PaymentClient';
-import { PaymentModel } from '../../app/payment/PaymentModel';
+import { PaymentClient } from '../../app/payment/PaymentClient';
+import { PaymentModel, PaymentState } from '../../app/payment/PaymentModel';
 import { APPLICATION_SUBMITTED, HOME_URL, PageLink } from '../../steps/urls';
 
 export const PAYMENT_URL: PageLink = '/payment';
@@ -57,37 +64,11 @@ export class PaymentMiddleware {
             return res.redirect(govPayment._links.next_url.href);
           }
 
+          payments.setStatus(govPayment.payment_id, govPayment.state as PaymentState);
+
           let event = CITIZEN_UPDATE;
           let redirectUrl = HOME_URL;
-          if (govPayment.state.status === 'failed') {
-            let paymentStatus: PaymentStatus;
-            switch (govPayment.state.code) {
-              case PaymentStatusCode.PAYMENT_METHOD_REJECTED:
-                paymentStatus = PaymentStatus.DECLINED;
-                break;
-
-              case PaymentStatusCode.PAYMENT_CANCELLED_BY_USER:
-              case PaymentStatusCode.PAYMENT_CANCELLED_BY_APP:
-                paymentStatus = PaymentStatus.CANCELLED;
-                break;
-
-              case PaymentStatusCode.PAYMENT_EXPIRED:
-                paymentStatus = PaymentStatus.TIMED_OUT;
-                break;
-
-              default:
-                paymentStatus = PaymentStatus.ERROR;
-                break;
-            }
-            payments.update(govPayment.payment_id, {
-              paymentStatus,
-            });
-          }
-
           if (govPayment.state.status === 'success') {
-            payments.update(govPayment.payment_id, {
-              paymentStatus: PaymentStatus.SUCCESS,
-            });
             event = CITIZEN_ADD_PAYMENT;
             redirectUrl = APPLICATION_SUBMITTED;
           }
@@ -121,7 +102,7 @@ export class PaymentMiddleware {
             solApplicationFeeOrderSummary, // @TODO this should be already set by the case API
             payments: payments.list,
           },
-          CITIZEN_UPDATE
+          CITIZEN_SUBMIT
         );
 
         req.session.save(err => {
@@ -140,7 +121,10 @@ export class PaymentMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.session.userCase.state === State.Submitted && req.path !== APPLICATION_SUBMITTED) {
+        if (
+          [State.Submitted, State.AwaitingDocuments].includes(req.session.userCase.state) &&
+          req.path !== APPLICATION_SUBMITTED
+        ) {
           return res.redirect(APPLICATION_SUBMITTED);
         }
 

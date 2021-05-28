@@ -1,4 +1,6 @@
-import { ListValue, Payment } from '../../app/case/definition';
+import { ListValue, Payment, PaymentStatus } from '../../app/case/definition';
+
+import { PaymentStatusCode } from './PaymentClient';
 
 export class PaymentModel {
   public constructor(private payments: ListValue<Payment>[] = []) {}
@@ -26,4 +28,39 @@ export class PaymentModel {
     }
     this.payments[paymentIdx].value = { ...this.payments[paymentIdx].value, ...details };
   }
+
+  public setStatus(transactionId: string, state: PaymentState): void {
+    let paymentStatus: PaymentStatus = PaymentStatus.IN_PROGRESS;
+    if (state.status === 'failed') {
+      switch (state.code) {
+        case PaymentStatusCode.PAYMENT_METHOD_REJECTED:
+          paymentStatus = PaymentStatus.DECLINED;
+          break;
+
+        case PaymentStatusCode.PAYMENT_CANCELLED_BY_USER:
+        case PaymentStatusCode.PAYMENT_CANCELLED_BY_APP:
+          paymentStatus = PaymentStatus.CANCELLED;
+          break;
+
+        case PaymentStatusCode.PAYMENT_EXPIRED:
+          paymentStatus = PaymentStatus.TIMED_OUT;
+          break;
+
+        default:
+          paymentStatus = PaymentStatus.ERROR;
+          break;
+      }
+    }
+
+    if (state.status === 'success') {
+      paymentStatus = PaymentStatus.SUCCESS;
+    }
+
+    this.update(transactionId, { paymentStatus });
+  }
+}
+
+export interface PaymentState {
+  status: 'failed' | 'success';
+  code: PaymentStatusCode;
 }

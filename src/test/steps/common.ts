@@ -130,7 +130,7 @@ Given("I've said I do not have my husband's email address", () => {
   I.click('Continue');
 });
 
-export const iDeleteAnyPreviouslyUploadedFiles = async (): Promise<void> => {
+Given('I delete any previously uploaded files', async (): Promise<void> => {
   const locator = '//a[text()="Delete"]';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
 
@@ -138,8 +138,7 @@ export const iDeleteAnyPreviouslyUploadedFiles = async (): Promise<void> => {
     I.click('Delete');
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
   }
-};
-Given('I delete any previously uploaded files', iDeleteAnyPreviouslyUploadedFiles);
+});
 
 When('I upload the file {string}', (pathToFile: string) => {
   I.attachFile('input[type="file"]', pathToFile);
