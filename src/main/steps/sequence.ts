@@ -121,7 +121,7 @@ export const sequence: Step[] = [
     url: HOW_DO_YOU_WANT_TO_APPLY,
     showInSection: Sections.AboutPartnership,
     getNextStep: data =>
-      data.applicationType === ApplicationType.SOLE_APPLICATION ? HELP_WITH_YOUR_FEE_URL : THEIR_EMAIL_ADDRESS,
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL,
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,

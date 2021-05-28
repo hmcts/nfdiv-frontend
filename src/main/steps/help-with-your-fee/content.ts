@@ -3,14 +3,24 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 
-const en = ({ isDivorce, required }) => ({
-  title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
-  line1: `This ${
-    isDivorce ? 'divorce application' : 'application'
-  } costs £550. You may be able to get help paying the fee if you:`,
+const en = ({ isDivorce, required, isJointApplication, partner }) => ({
+  title: isJointApplication
+    ? `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`
+    : `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
+  line1: `This ${isDivorce ? 'divorce application' : 'application'} costs £550. ${
+    isJointApplication
+      ? `Either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`
+      : 'You may be able to get help paying the fee if you:'
+  }`,
+  line2: isJointApplication && 'Help can be claimed to pay the fee, if both of you:',
   helpPayingWhen: ['are on certain benefits <em>or</em>', 'have a little or no savings <em>or</em>', 'have low income'],
   yes: 'I need help paying the fee',
   no: 'I do not need help paying the fee',
+  line3:
+    'Both of you have to be eligible and apply for help with fees separately, because this is a joint application.',
+  subHeading1: 'Do you need help paying the fee?',
+  line4: `Do not answer this question on behalf of your ${partner}. If you select that you need help paying the fee then they will be asked.`,
+
   errors: {
     applicant1HelpPayingNeeded: {
       required,
@@ -18,7 +28,8 @@ const en = ({ isDivorce, required }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, required }) => ({
+const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => ({
+  ...en({ isDivorce, required, isJointApplication, partner }),
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,
