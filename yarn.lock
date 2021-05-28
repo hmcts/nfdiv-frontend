@@ -2088,12 +2088,12 @@
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/drop-target@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.1.tgz#5d837c3020e66457c43c34630defe8b33a82ad72"
-  integrity sha512-ooTFoIoacCYIKRpXeiFge7/23EWiwhfCJBRFGhMcB5JbLfJwdMC6aeUtVm6VhmYjBPyv7hR6d81uurqH14shEQ==
+"@uppy/drop-target@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.2.tgz#af1cb2616f984f5b9941224bffc632a96ff69766"
+  integrity sha512-6ewHfXJET0Td7IQWZFR+ouofjhYthEfEcn9lVylzOlu98buAf/pfo5u+S/4DXdl+p9AaPi6yFHLMRKiRWGG4fQ==
   dependencies:
-    "@uppy/utils" "^3.5.0"
+    "@uppy/utils" "^3.6.0"
 
 "@uppy/file-input@^1.5.0":
   version "1.5.0"
