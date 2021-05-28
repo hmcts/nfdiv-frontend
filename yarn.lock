@@ -2064,36 +2064,36 @@
     "@typescript-eslint/types" "4.25.0"
     eslint-visitor-keys "^2.0.0"
 
-"@uppy/companion-client@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.9.0.tgz#948590fdffb58d964eaf18e84993c0f1cb251d85"
-  integrity sha512-Z4/ihhDC72CN6QWJI2rrEQlYV2y5Aluk1hZoMiqvgs7++di5XrSIPA+JNFg+3btVhY9irQRYs7eJc8MpEvdfdA==
+"@uppy/companion-client@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.10.0.tgz#79ef7e99c7612ee128ca34197823297882e16555"
+  integrity sha512-G3HGzesajJ3Y0Ien5NA77QFiHfmBGqNOYaa7XpfF0TW+ZFmDRiKbC0bK1qJyY9K8R/4kvsPYZL2um4gi2NDkxA==
   dependencies:
-    "@uppy/utils" "^3.5.0"
+    "@uppy/utils" "^3.6.0"
     namespace-emitter "^2.0.1"
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
 
-"@uppy/core@^1.18.1":
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.18.1.tgz#efae33c85c786093b0c012bcf271fe6d7edd6a18"
-  integrity sha512-VK+BwjeW7++/+4qvvHsmdTrd4y37MdUHFJveMZZisMk+nyy1L8Y65qS9PV+FxChwhTg7xEJdwmqtIjDTYRZNMA==
+"@uppy/core@^1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.19.0.tgz#7258bc307509f9c730f757134ce29d493bfbe910"
+  integrity sha512-LKDMGUG9/dzKR7liXdnzh4yt4C24/M8elcINFFE6MYseCSQJ0I4Rx1n9d6snD/S9xdbuQD2QVJlFmuckBdAwJA==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^1.2.6"
-    "@uppy/utils" "^3.5.0"
+    "@uppy/utils" "^3.6.0"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/drop-target@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.1.tgz#5d837c3020e66457c43c34630defe8b33a82ad72"
-  integrity sha512-ooTFoIoacCYIKRpXeiFge7/23EWiwhfCJBRFGhMcB5JbLfJwdMC6aeUtVm6VhmYjBPyv7hR6d81uurqH14shEQ==
+"@uppy/drop-target@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.2.tgz#af1cb2616f984f5b9941224bffc632a96ff69766"
+  integrity sha512-6ewHfXJET0Td7IQWZFR+ouofjhYthEfEcn9lVylzOlu98buAf/pfo5u+S/4DXdl+p9AaPi6yFHLMRKiRWGG4fQ==
   dependencies:
-    "@uppy/utils" "^3.5.0"
+    "@uppy/utils" "^3.6.0"
 
 "@uppy/file-input@^1.5.0":
   version "1.5.0"
@@ -2116,7 +2116,7 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.6.tgz#97b85d16b1ade12070459cab8532ec22352b2023"
   integrity sha512-YnWSq06iPli5LMkmC1XgNiYvaefPKiBQPD4sQ+SxR95DLymBBv5Q5cFhtxywnfB9Fs8YlVcFg/mJ4OzBbXd6nA==
 
-"@uppy/utils@^3.5.0", "@uppy/utils@^3.6.0":
+"@uppy/utils@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.6.0.tgz#a09b5046d759679656638b6c70fac843fbedd430"
   integrity sha512-qC/RsyLrA9+zaVKXVxSup8j/lpMt6Rx9HLSdJBhsODn2mqFJHkgAh3qDnwZ9dN+92TkZsbDQY/AIBC9z6z3kqA==
@@ -2124,13 +2124,13 @@
     abortcontroller-polyfill "^1.4.0"
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.7.2.tgz#a6b00aff6d97a0afd7ee64c8c8ffbec6a9f32c55"
-  integrity sha512-8gaLDd+GBgJEQ9MTk+exGHHtxNCmSjazrt6+svWEFLC+ZHHH73e18i/Jw1hLR7cYKVYkb3LV78k8o5sc7Tpc0w==
+"@uppy/xhr-upload@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.7.3.tgz#3978621a818da3deb7a6c81d449d8aec245cbd65"
+  integrity sha512-x5heuFZxi3+9V0hgnoz3EcT2AbEzINVMzUDIUqC39ocmqkZzQ65x8zlTQSP2/ZlkN4LrdvLN6qFXEsGLFKFpfQ==
   dependencies:
-    "@uppy/companion-client" "^1.9.0"
-    "@uppy/utils" "^3.5.0"
+    "@uppy/companion-client" "^1.10.0"
+    "@uppy/utils" "^3.6.0"
     cuid "^2.1.1"
 
 "@wdio/config@7.6.0":
