@@ -1,6 +1,7 @@
 import { JurisdictionConnections } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
+
 import type { CommonContent } from '../common/common.content';
 
 const en = (
@@ -62,7 +63,7 @@ const en = (
     [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths,
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled,
-    [JurisdictionConnections.APP_1_RESIDENT]: enApp1Resident,
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: enApp1Resident,
   };
 
   return {

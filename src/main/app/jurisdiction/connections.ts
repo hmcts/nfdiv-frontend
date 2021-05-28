@@ -97,7 +97,7 @@ export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnection
     connections.push(JurisdictionConnections.APP_2_RESIDENT);
   }
   if (onlyApplicant1HabituallyResidentInJointApplication(data)) {
-    connections.push(JurisdictionConnections.APP_1_RESIDENT);
+    connections.push(JurisdictionConnections.APP_1_RESIDENT_JOINT);
   }
   if (isHabituallyResidentForTwelveMonths(data) && onlyApplicant1HabituallyResident(data)) {
     connections.push(JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS);

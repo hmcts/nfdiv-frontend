@@ -378,7 +378,7 @@ export const enum JurisdictionConnections {
   /**
    * Applicant 1 habitually resides in England and Wales and joint application
    */
-  APP_1_RESIDENT = 'J',
+  APP_1_RESIDENT_JOINT = 'J',
 }
 
 export const enum LanguagePreference {

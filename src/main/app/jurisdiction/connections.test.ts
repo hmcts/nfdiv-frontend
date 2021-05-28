@@ -124,7 +124,7 @@ describe('connections', () => {
     };
 
     const connectionAdded = addConnection(body);
-    expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_RESIDENT]);
+    expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_RESIDENT_JOINT]);
   });
 
   test('Given previous connection made up to last habitually resident and connection B made, should return true', async () => {
