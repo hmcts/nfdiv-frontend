@@ -2074,14 +2074,14 @@
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
 
-"@uppy/core@^1.18.1":
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.18.1.tgz#efae33c85c786093b0c012bcf271fe6d7edd6a18"
-  integrity sha512-VK+BwjeW7++/+4qvvHsmdTrd4y37MdUHFJveMZZisMk+nyy1L8Y65qS9PV+FxChwhTg7xEJdwmqtIjDTYRZNMA==
+"@uppy/core@^1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.19.0.tgz#7258bc307509f9c730f757134ce29d493bfbe910"
+  integrity sha512-LKDMGUG9/dzKR7liXdnzh4yt4C24/M8elcINFFE6MYseCSQJ0I4Rx1n9d6snD/S9xdbuQD2QVJlFmuckBdAwJA==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^1.2.6"
-    "@uppy/utils" "^3.5.0"
+    "@uppy/utils" "^3.6.0"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
