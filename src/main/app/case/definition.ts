@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-27 14:00:18.
+// Generated using typescript-generator version 2.31.861 on 2021-05-29 16:47:15.
 
 export interface Address {
   AddressLine1: string;
@@ -153,7 +153,7 @@ export interface CaseData {
   solPaymentHowToPay: SolToPay;
   pbaNumbers: DynamicList;
   feeAccountReference: string;
-  solApplicationFeeOrderSummary: OrderSummary;
+  applicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   legalConnections: LegalConnections[];
   applicant2EmailAddress: string;
@@ -184,6 +184,9 @@ export interface CaseData {
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
   dueDate: DateAsString;
+  hwfCodeValidForFullAmount: YesOrNo;
+  hwfAmountOutstanding: YesOrNo;
+  documentUploadComplete: YesOrNo;
 }
 
 export interface Jurisdiction {
@@ -200,7 +203,7 @@ export interface Jurisdiction {
 
 export interface LegalProceeding {
   caseNumber: string;
-  caseRelatesTo: LegalProceedingsByCase;
+  caseRelatesTo: LegalProceedingsRelated;
   caseDetail: string;
 }
 
@@ -385,7 +388,7 @@ export const enum JurisdictionConnections {
   /**
    * Applicant 1 habitually resides in England and Wales
    */
-  APP_1_RESIDENT = 'J',
+  APP_1_RESIDENT_JOINT = 'J',
 }
 
 export const enum LanguagePreference {
@@ -403,7 +406,7 @@ export const enum LegalConnections {
   APP_1_APP_2_RESIDENT = 'G',
 }
 
-export const enum LegalProceedingsByCase {
+export const enum LegalProceedingsRelated {
   MARRIAGE = 'marriage',
   PROPERTY = 'property',
   CHILDREN = 'children',
@@ -423,6 +426,7 @@ export const enum State {
   Draft = 'Draft',
   AwaitingPayment = 'AwaitingPayment',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
 }
 

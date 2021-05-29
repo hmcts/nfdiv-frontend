@@ -19,7 +19,7 @@ export const PAYMENT_URL: PageLink = '/payment';
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment/callback';
 
 // @TODO this should be already set by the case API
-const solApplicationFeeOrderSummary: OrderSummary = {
+const applicationFeeOrderSummary: OrderSummary = {
   PaymentTotal: '55000',
   PaymentReference: '',
   Fees: [
@@ -87,7 +87,7 @@ export class PaymentMiddleware {
         const govPayment = await paymentClient.create();
         payments.add({
           paymentDate: dayjs(govPayment.created_date).format('YYYY-MM-DD'), // @TODO this seems to only accept a date without time
-          paymentFeeId: solApplicationFeeOrderSummary.Fees[0].id, // @TODO we should get this from the case API (when it returns one)
+          paymentFeeId: applicationFeeOrderSummary.Fees[0].id, // @TODO we should get this from the case API (when it returns one)
           paymentAmount: 55000,
           paymentSiteId: 'GOV Pay',
           paymentStatus: PaymentStatus.IN_PROGRESS,
@@ -99,7 +99,7 @@ export class PaymentMiddleware {
         req.session.userCase = await req.locals.api.triggerEvent(
           req.session.userCase.id,
           {
-            solApplicationFeeOrderSummary, // @TODO this should be already set by the case API
+            applicationFeeOrderSummary, // @TODO this should be already set by the case API
             payments: payments.list,
           },
           CITIZEN_SUBMIT

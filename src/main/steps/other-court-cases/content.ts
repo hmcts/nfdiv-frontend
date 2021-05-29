@@ -1,4 +1,4 @@
-import { LegalProceedingsByCase, YesOrNo } from '../../app/case/definition';
+import { LegalProceedingsRelated, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../app/form/validation';
@@ -77,17 +77,17 @@ export const form: FormContent = {
                 {
                   name: 'legalProceedingsOther',
                   label: l => l.partnership,
-                  value: 'other',
+                  value: LegalProceedingsRelated.MARRIAGE,
                 },
                 {
                   name: 'legalProceedingsOther',
                   label: l => l.property,
-                  value: LegalProceedingsByCase.PROPERTY,
+                  value: LegalProceedingsRelated.PROPERTY,
                 },
                 {
                   name: 'legalProceedingsOther',
                   label: l => l.children,
-                  value: LegalProceedingsByCase.CHILDREN,
+                  value: LegalProceedingsRelated.CHILDREN,
                 },
               ],
             },
