@@ -98,7 +98,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
     "@types/copy-webpack-plugin": "^8.0.0",
     "@types/jest": "^26.0.23",
     "@types/mini-css-extract-plugin": "^1.4.3",
