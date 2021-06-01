@@ -5,7 +5,6 @@ import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
-import { PAYMENT_URL } from '../modules/payment';
 
 import {
   ADDRESS_PRIVATE,
@@ -47,6 +46,7 @@ import {
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
+  PAYMENT_URL,
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
