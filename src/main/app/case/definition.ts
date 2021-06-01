@@ -474,7 +474,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE14';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE15';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
