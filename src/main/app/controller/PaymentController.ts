@@ -56,8 +56,7 @@ export class PaymentController {
     const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
 
     if (!payments.hasPayment) {
-      res.redirect(HOME_URL);
-      return;
+      return res.redirect(HOME_URL);
     }
 
     const lastPaymentAttempt = payments.lastPayment;
