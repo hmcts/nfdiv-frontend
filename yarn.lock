@@ -2097,14 +2097,14 @@
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
 
-"@uppy/core@^1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.19.0.tgz#7258bc307509f9c730f757134ce29d493bfbe910"
-  integrity sha512-LKDMGUG9/dzKR7liXdnzh4yt4C24/M8elcINFFE6MYseCSQJ0I4Rx1n9d6snD/S9xdbuQD2QVJlFmuckBdAwJA==
+"@uppy/core@^1.19.1":
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.19.1.tgz#30b23cfb0fd85f96b5fbbb97300e7c25fd0d59f0"
+  integrity sha512-mAOXZjpwChD15+74f6M2FrkrYf+w35y/02o6P9ojZpj7NNkNIcqNAj05ksnuY5O+34BwUUOz7XvKthQr0fnHTw==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
-    "@uppy/store-default" "^1.2.6"
-    "@uppy/utils" "^3.6.0"
+    "@uppy/store-default" "^1.2.7"
+    "@uppy/utils" "^3.6.1"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
@@ -2134,10 +2134,10 @@
     "@uppy/utils" "^3.6.0"
     preact "8.2.9"
 
-"@uppy/store-default@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.6.tgz#97b85d16b1ade12070459cab8532ec22352b2023"
-  integrity sha512-YnWSq06iPli5LMkmC1XgNiYvaefPKiBQPD4sQ+SxR95DLymBBv5Q5cFhtxywnfB9Fs8YlVcFg/mJ4OzBbXd6nA==
+"@uppy/store-default@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.7.tgz#41a0b1579f4d5b86c236e7f5e52fdc01960bb011"
+  integrity sha512-58IG9yk/i/kYQ9uEwAwMFl1H2V3syOoODrYoFfVHlxaqv+9MkXBg2tHE2gk40iaAIxcCErcPxZkBOvkqzO1SQA==
 
 "@uppy/utils@^3.6.0", "@uppy/utils@^3.6.1":
   version "3.6.1"
