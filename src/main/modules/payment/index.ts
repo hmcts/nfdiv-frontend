@@ -2,14 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
-import {
-  CITIZEN_ADD_PAYMENT,
-  CITIZEN_SUBMIT,
-  CITIZEN_UPDATE,
-  OrderSummary,
-  PaymentStatus,
-  State,
-} from '../../app/case/definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentClient } from '../../app/payment/PaymentClient';
 import { PaymentModel, PaymentState } from '../../app/payment/PaymentModel';
@@ -17,23 +10,6 @@ import { APPLICATION_SUBMITTED, HOME_URL, PageLink } from '../../steps/urls';
 
 export const PAYMENT_URL: PageLink = '/payment';
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment/callback';
-
-// @TODO this should be already set by the case API
-const applicationFeeOrderSummary: OrderSummary = {
-  PaymentTotal: '55000',
-  PaymentReference: '',
-  Fees: [
-    {
-      id: 'FEE0002',
-      value: {
-        FeeDescription: 'Filing an application for a divorce, nullity or civil partnership dissolution',
-        FeeVersion: '5',
-        FeeCode: 'FEE0002',
-        FeeAmount: '55000',
-      },
-    },
-  ],
-};
 
 /**
  * Adds payment middleware to add payment callbacks
@@ -55,8 +31,9 @@ export class PaymentMiddleware {
 
         const paymentClient = new PaymentClient(req.session, returnUrl);
         const payments = new PaymentModel(req.session.userCase.payments);
+        const event = req.session.userCase.state === State.Draft ? CITIZEN_SUBMIT : CITIZEN_ADD_PAYMENT;
 
-        if (payments.hasPayment) {
+        if (req.query.callback && payments.hasPayment) {
           const lastPaymentAttempt = payments.lastPayment;
           const govPayment = await paymentClient.get(lastPaymentAttempt.paymentTransactionId);
 
@@ -66,28 +43,21 @@ export class PaymentMiddleware {
 
           payments.setStatus(govPayment.payment_id, govPayment.state as PaymentState);
 
-          let event = CITIZEN_UPDATE;
-          let redirectUrl = HOME_URL;
-          if (govPayment.state.status === 'success') {
-            event = CITIZEN_ADD_PAYMENT;
-            redirectUrl = APPLICATION_SUBMITTED;
-          }
-
           req.session.userCase = await req.locals.api.triggerEvent(
             req.session.userCase.id,
             { payments: payments.list },
             event
           );
 
-          if (req.query.callback || govPayment.state.status === 'success') {
-            return req.session.save(() => res.redirect(redirectUrl));
-          }
+          return req.session.save(() =>
+            res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : HOME_URL)
+          );
         }
 
         const govPayment = await paymentClient.create();
         payments.add({
           paymentDate: dayjs(govPayment.created_date).format('YYYY-MM-DD'), // @TODO this seems to only accept a date without time
-          paymentFeeId: applicationFeeOrderSummary.Fees[0].id, // @TODO we should get this from the case API (when it returns one)
+          paymentFeeId: 'FEE0002', // @TODO we should get this from the case API (when it returns one)
           paymentAmount: 55000,
           paymentSiteId: 'GOV Pay',
           paymentStatus: PaymentStatus.IN_PROGRESS,
@@ -98,11 +68,8 @@ export class PaymentMiddleware {
 
         req.session.userCase = await req.locals.api.triggerEvent(
           req.session.userCase.id,
-          {
-            applicationFeeOrderSummary, // @TODO this should be already set by the case API
-            payments: payments.list,
-          },
-          CITIZEN_SUBMIT
+          { payments: payments.list },
+          event
         );
 
         req.session.save(err => {
@@ -132,7 +99,7 @@ export class PaymentMiddleware {
         if (payments.hasPayment) {
           const lastPaymentAttempt = payments.lastPayment;
           if (lastPaymentAttempt.paymentStatus === PaymentStatus.IN_PROGRESS) {
-            return res.redirect(PAYMENT_URL);
+            return res.redirect(`${PAYMENT_URL}?callback=true`);
           }
 
           if (lastPaymentAttempt.paymentStatus === PaymentStatus.SUCCESS && req.path !== APPLICATION_SUBMITTED) {

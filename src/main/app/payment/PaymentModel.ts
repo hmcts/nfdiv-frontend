@@ -5,6 +5,10 @@ import { PaymentStatusCode } from './PaymentClient';
 export class PaymentModel {
   public constructor(private payments: ListValue<Payment>[] = []) {}
 
+  public get list(): ListValue<Payment>[] {
+    return this.payments;
+  }
+
   public get hasPayment(): boolean {
     return this.payments.length > 0;
   }
@@ -13,8 +17,8 @@ export class PaymentModel {
     return this.payments[this.payments.length - 1].value;
   }
 
-  public get list(): ListValue<Payment>[] {
-    return this.payments;
+  public get wasLastPaymentSuccessful(): boolean {
+    return this.lastPayment?.paymentStatus === PaymentStatus.SUCCESS;
   }
 
   public add(payment: Payment): void {
