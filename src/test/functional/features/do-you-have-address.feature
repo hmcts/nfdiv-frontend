@@ -3,6 +3,7 @@ Feature: Do you have address
   Background:
     Given I login
     And I've said I'm divorcing my husband
+    And I've said I'm applying as a sole application
     And I've said I do not have my husband's email address
     Then the page should include "Do you have your husband's postal address?"
 
