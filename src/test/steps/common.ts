@@ -130,7 +130,7 @@ Given("I've said I do not have my husband's email address", () => {
   I.click('Continue');
 });
 
-Given('I delete any previously uploaded files', async (): Promise<void> => {
+Given('I delete any previously uploaded files', async () => {
   const locator = '//a[text()="Delete"]';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
 

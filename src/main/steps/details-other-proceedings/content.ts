@@ -4,7 +4,7 @@ import { isFieldFilledIn } from '../../app/form/validation';
 
 const en = {
   title: 'Details of the other legal proceedings',
-  line1: `The court needs to know the details of the other legal proceedings. Provide
+  line1: `The court needs to know the details of the other legal proceedings. Provide 
   as much information as possible, such as:`,
   point1: 'the names of the people involved',
   point2: 'the case number(s)',
@@ -14,9 +14,9 @@ const en = {
   point6: 'the date the proceedings began',
   point7: 'the dates of any hearings that have been scheduled',
   point8: 'the details of any orders that have been made',
-  legalProceedingsByCase: 'Provide details about the other legal proceedings.',
+  legalProceedingsDetails: 'Provide details about the other legal proceedings.',
   errors: {
-    LegalProceedingsByCase: {
+    LegalProceedingsDetails: {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
     },
   },
@@ -27,10 +27,10 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    LegalProceedingsByCase: {
+    LegalProceedingsDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.legalProceedingsByCase,
+      label: l => l.legalProceedingsDetails,
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },

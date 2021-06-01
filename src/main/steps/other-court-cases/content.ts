@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
       legalProceedings: {
         required,
       },
-      legalProceedingsOther: {
+      legalProceedingsRelated: {
         required: 'You need to select what the proceedings relate to.',
       },
     },
@@ -49,7 +49,7 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
       legalProceedings: {
         required,
       },
-      legalProceedingsOther: {
+      legalProceedingsRelated: {
         required: "Mae angen i chi ddewis ynghylch beth y mae'r achos.",
       },
     },
@@ -68,24 +68,24 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
-            legalProceedingsOther: {
+            legalProceedingsRelated: {
               type: 'checkboxes',
               label: l => l.subField,
               hint: l => l.subFieldHint,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'legalProceedingsOther',
+                  name: 'legalProceedingsRelated',
                   label: l => l.partnership,
                   value: LegalProceedingsRelated.MARRIAGE,
                 },
                 {
-                  name: 'legalProceedingsOther',
+                  name: 'legalProceedingsRelated',
                   label: l => l.property,
                   value: LegalProceedingsRelated.PROPERTY,
                 },
                 {
-                  name: 'legalProceedingsOther',
+                  name: 'legalProceedingsRelated',
                   label: l => l.children,
                   value: LegalProceedingsRelated.CHILDREN,
                 },

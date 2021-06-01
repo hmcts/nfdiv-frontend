@@ -67,8 +67,8 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
-  legalProceedingsOther: data => ({
-    legalProceedingsOther: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsOther : '',
+  legalProceedingsRelated: data => ({
+    legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
   }),
   cannotUploadDocuments: data => ({
     cannotUploadSupportingDocument: data.cannotUploadDocuments

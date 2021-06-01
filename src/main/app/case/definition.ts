@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-29 16:47:15.
+// Generated using typescript-generator version 2.31.861 on 2021-06-01 17:30:15.
 
 export interface Address {
   AddressLine1: string;
@@ -161,8 +161,8 @@ export interface CaseData {
   applicant1KnowsApplicant2Address: YesOrNo;
   applicant2HomeAddress: AddressGlobalUK;
   legalProceedings: YesOrNo;
-  legalProceedingsByCase: ListValue<LegalProceeding>[];
-  legalProceedingsOther: string;
+  legalProceedingsRelated: LegalProceedingsRelated[];
+  legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   documentsUploaded: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: DocumentType[];
@@ -199,12 +199,6 @@ export interface Jurisdiction {
   ResidualEligible: YesOrNo;
   BothLastHabituallyResident: YesOrNo;
   Connections: JurisdictionConnections[];
-}
-
-export interface LegalProceeding {
-  caseNumber: string;
-  caseRelatesTo: LegalProceedingsRelated;
-  caseDetail: string;
 }
 
 export interface MarriageDetails {
@@ -485,7 +479,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE14';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE15';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_CREATE = 'citizen-create-application';

@@ -16,7 +16,6 @@ Feature: Other court cases
     When I click "Continue"
     Then the page URL should be "/dividing-money-property"
 
-  @flaky
   Scenario: They do have other court cases
     Given I select "Yes"
     Given I select "Our marriage"
