@@ -3,10 +3,19 @@ import { pick } from 'lodash';
 import { stepsWithContent } from '../../../steps';
 import { Step } from '../../../steps/sequence';
 import { Form, FormContent } from '../../form/Form';
-import { CaseApi } from '../CaseApi';
 import { Case } from '../case';
 
 type StepWithForm = { form?: FormContent } & Step;
+
+const IGNORE_UNREACHABLE_FIELDS = [
+  'id',
+  'state',
+  'divorceOrDissolution',
+  'documentsUploaded',
+  'applicant1FirstNames',
+  'applicant1LastNames',
+  'payments',
+];
 
 export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {
   const sequenceWithForms = (steps as StepWithForm[]).filter(step => step.form);
@@ -36,7 +45,9 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
   const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
   return Object.fromEntries(
     Object.keys(userCase)
-      .filter(key => !CaseApi.SPECIAL_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null)
+      .filter(
+        key => !IGNORE_UNREACHABLE_FIELDS.includes(key) && !possibleAnswers.includes(key) && userCase[key] !== null
+      )
       .map(key => [key, null])
   );
 };

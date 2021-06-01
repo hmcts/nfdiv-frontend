@@ -25,8 +25,6 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public static SPECIAL_FIELDS = ['id', 'state', 'divorceOrDissolution', 'documentsUploaded', 'payments'];
-
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
 
