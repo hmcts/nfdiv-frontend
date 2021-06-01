@@ -10,7 +10,7 @@ import {
   FinancialOrderFor,
   Gender,
   JurisdictionConnections,
-  LegalProceedingsRelated,
+  LegalProceeding,
   ListValue,
   State,
   YesOrNo,
@@ -55,8 +55,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2EmailAddress: 'applicant2EmailAddress',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
-  legalProceedingsDetails: 'legalProceedingsDetails',
-  legalProceedingsRelated: 'legalProceedingsRelated',
+  legalProceedingsByCase: 'legalProceedingsByCase',
+  legalProceedingsOther: 'legalProceedingsOther',
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
   documentsUploaded: 'documentsUploaded',
@@ -140,8 +140,8 @@ export interface Case {
   applicant1KnowsApplicant2Address?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
   legalProceedings?: YesOrNo;
-  legalProceedingsDetails?: string;
-  legalProceedingsRelated?: LegalProceedingsRelated[];
+  legalProceedingsByCase?: ListValue<LegalProceeding>[];
+  legalProceedingsOther?: string;
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   uploadedFiles?: UploadedFile[];

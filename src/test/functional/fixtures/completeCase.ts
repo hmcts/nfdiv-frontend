@@ -20,7 +20,7 @@ export const completeCase = {
   applicant1KnowsApplicant2Address: YesOrNo.YES,
   applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
   legalProceedings: YesOrNo.NO,
-  legalProceedingsRelated: [],
+  legalProceedingsByCase: [],
   applicant2FullNameOnCertificate: 'Husbands name',
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   applicant1PhoneNumber: '',
