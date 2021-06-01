@@ -21,7 +21,7 @@ export class PaymentMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (
-          [State.Submitted, State.AwaitingDocuments].includes(req.session.userCase.state) &&
+          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase.state) &&
           req.path !== APPLICATION_SUBMITTED
         ) {
           return res.redirect(APPLICATION_SUBMITTED);
@@ -30,7 +30,10 @@ export class PaymentMiddleware {
         const payments = new PaymentModel(req.session.userCase.payments);
         if (payments.hasPayment) {
           const lastPaymentAttempt = payments.lastPayment;
-          if (lastPaymentAttempt.paymentStatus === PaymentStatus.IN_PROGRESS) {
+          if (
+            req.session.userCase.state === State.AwaitingPayment &&
+            lastPaymentAttempt.paymentStatus === PaymentStatus.IN_PROGRESS
+          ) {
             return res.redirect(PAYMENT_CALLBACK_URL);
           }
 

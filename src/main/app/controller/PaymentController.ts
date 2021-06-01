@@ -11,11 +11,11 @@ import { AppRequest } from './AppRequest';
 
 export class PaymentController {
   public async payment(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.userCase.state === State.Submitted) {
-      return res.redirect(APPLICATION_SUBMITTED);
+    if (req.session.userCase.state !== State.Draft) {
+      return res.redirect(HOME_URL);
     }
 
-    const { paymentClient, payments, event } = this.setup(req, res);
+    const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
 
     const govPayment = await paymentClient.create();
     payments.add({
@@ -32,7 +32,7 @@ export class PaymentController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { payments: payments.list },
-      event
+      CITIZEN_SUBMIT
     );
 
     req.session.save(err => {
@@ -49,11 +49,11 @@ export class PaymentController {
   }
 
   public async callback(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.userCase.state === State.Submitted) {
-      return res.redirect(APPLICATION_SUBMITTED);
+    if (req.session.userCase.state !== State.AwaitingPayment) {
+      return res.redirect(HOME_URL);
     }
 
-    const { paymentClient, payments, event } = this.setup(req, res);
+    const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
 
     if (!payments.hasPayment) {
       res.redirect(HOME_URL);
@@ -72,21 +72,20 @@ export class PaymentController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { payments: payments.list },
-      event
+      CITIZEN_ADD_PAYMENT
     );
 
     req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : HOME_URL));
   }
 
-  private setup(req: AppRequest, res: Response) {
+  private setupPaymentClientModel(req: AppRequest, res: Response) {
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
     const payments = new PaymentModel(req.session.userCase.payments);
-    const event = req.session.userCase.state === State.Draft ? CITIZEN_SUBMIT : CITIZEN_ADD_PAYMENT;
 
-    return { paymentClient, payments, event };
+    return { paymentClient, payments };
   }
 }
