@@ -563,7 +563,8 @@ Feature: Can use English or Welsh courts
 
   Scenario: J Applicant1 habitually resides in England and Wales (joint application)
     Given I've said I'm applying as a joint application
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I go to '/where-your-lives-are-based'
+    And I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?" 
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
