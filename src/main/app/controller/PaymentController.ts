@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import { Response } from 'express';
 
 import { APPLICATION_SUBMITTED, HOME_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../case/definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, State } from '../case/definition';
 import { PaymentClient } from '../payment/PaymentClient';
-import { PaymentModel, PaymentState } from '../payment/PaymentModel';
+import { PaymentModel } from '../payment/PaymentModel';
 
 import { AppRequest } from './AppRequest';
 
@@ -17,34 +17,34 @@ export class PaymentController {
 
     const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
 
-    const govPayment = await paymentClient.create();
-    payments.add({
-      paymentDate: dayjs(govPayment.created_date).format('YYYY-MM-DD'), // @TODO this seems to only accept a date without time
-      paymentFeeId: 'FEE0002', // @TODO we should get this from the case API (when it returns one)
-      paymentAmount: 55000,
-      paymentSiteId: 'GOV Pay',
-      paymentStatus: PaymentStatus.IN_PROGRESS,
-      paymentChannel: govPayment.payment_provider,
-      paymentReference: govPayment.reference,
-      paymentTransactionId: govPayment.payment_id,
-    });
-
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { payments: payments.list },
       CITIZEN_SUBMIT
     );
 
+    const payment = await paymentClient.create();
+    payments.add({
+      paymentDate: dayjs(payment.dateCreated).format('YYYY-MM-DD'), // @TODO this seems to only accept a date without time
+      paymentFeeId: payment.fees[0].code,
+      paymentAmount: payment.fees[0].calculatedAmount,
+      paymentSiteId: payment.siteId,
+      paymentStatus: payment.status,
+      paymentChannel: payment.channel,
+      paymentReference: payment.reference,
+      paymentTransactionId: payment.customerReference,
+    });
+
     req.session.save(err => {
       if (err) {
         throw err;
       }
 
-      if (!govPayment._links?.next_url.href) {
+      if (!payment._links?.nextUrl.href) {
         throw new Error('Failed to create new payment');
       }
 
-      res.redirect(govPayment._links.next_url.href);
+      res.redirect(payment._links.nextUrl.href);
     });
   }
 
@@ -60,13 +60,14 @@ export class PaymentController {
     }
 
     const lastPaymentAttempt = payments.lastPayment;
-    const govPayment = await paymentClient.get(lastPaymentAttempt.paymentTransactionId);
+    const payment = await paymentClient.get(lastPaymentAttempt.paymentTransactionId);
 
-    if (['created', 'started'].includes(govPayment.state.status) && govPayment._links?.next_url.href) {
-      return res.redirect(govPayment._links.next_url.href);
+    // @TODO check these statuses actually exist
+    if (['created', 'started'].includes(payment.status) && payment._links?.nextUrl.href) {
+      return res.redirect(payment._links.nextUrl.href);
     }
 
-    payments.setStatus(govPayment.payment_id, govPayment.state as PaymentState);
+    payments.setStatus(payment.customerReference, payment.statusHistories[payment.statusHistories.length - 1]);
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,

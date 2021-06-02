@@ -25,11 +25,11 @@ nodejs:
         - redis-access-key
         - frontend-secret
         - os-places-token
-        - gov-pay-api-key
   environment:
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
+    PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
 
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
