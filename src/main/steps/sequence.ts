@@ -178,7 +178,9 @@ export const sequence: Step[] = [
         case `${NO}${YES}`:
           return data.sameSex === Checkbox.Checked ? JURISDICTION_DOMICILE : JURISDICTION_INTERSTITIAL_URL;
         case `${YES}${NO}`:
-          return JURISDICTION_LAST_TWELVE_MONTHS;
+          return data.applicationType === ApplicationType.JOINT_APPLICATION
+            ? JURISDICTION_INTERSTITIAL_URL
+            : JURISDICTION_LAST_TWELVE_MONTHS;
         default:
           return JURISDICTION_DOMICILE;
       }

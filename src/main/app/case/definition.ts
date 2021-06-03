@@ -366,7 +366,11 @@ export const enum Gender {
  * - `G` - Eligible for Residual Jurisdiction
  * - `H` - Applicant 1 is domiciled in England and Wales
  * - `I` - Applicant 2 is domiciled in England and Wales
+<<<<<<< HEAD
  * - `J` - Applicant 1 habitually resides in England and Wales
+=======
+ * - `J` - Applicant 1 habitually resides in England and Wales and joint application
+>>>>>>> master
  */
 export const enum JurisdictionConnections {
   /**
@@ -406,7 +410,11 @@ export const enum JurisdictionConnections {
    */
   APP_2_DOMICILED = 'I',
   /**
+<<<<<<< HEAD
    * Applicant 1 habitually resides in England and Wales
+=======
+   * Applicant 1 habitually resides in England and Wales and joint application
+>>>>>>> master
    */
   APP_1_RESIDENT_JOINT = 'J',
 }
