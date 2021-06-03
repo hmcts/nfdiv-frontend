@@ -336,6 +336,7 @@ export const enum Gender {
  * - `G` - Eligible for Residual Jurisdiction
  * - `H` - Applicant 1 is domiciled in England and Wales
  * - `I` - Applicant 2 is domiciled in England and Wales
+ * - `J` - Applicant 1 habitually resides in England and Wales and joint application
  */
 export const enum JurisdictionConnections {
   /**
@@ -374,6 +375,10 @@ export const enum JurisdictionConnections {
    * Applicant 2 is domiciled in England and Wales
    */
   APP_2_DOMICILED = 'I',
+  /**
+   * Applicant 1 habitually resides in England and Wales and joint application
+   */
+  APP_1_RESIDENT_JOINT = 'J',
 }
 
 export const enum LanguagePreference {
@@ -469,7 +474,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE12';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE15';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
