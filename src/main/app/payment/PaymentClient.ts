@@ -53,8 +53,9 @@ export class PaymentClient {
 
       return response.data;
     } catch (e) {
-      logger.error('Error creating payment', e.response.data);
-      throw e.response.data;
+      const errMsg = 'Error creating payment';
+      logger.error(errMsg, e.data);
+      throw new Error(errMsg);
     }
   }
 
@@ -63,8 +64,9 @@ export class PaymentClient {
       const response = await this.client.get(`/card-payments/${paymentReference}`);
       return response.data;
     } catch (e) {
-      logger.error('Error fetching payment', e.response.data);
-      throw e.response.data;
+      const errMsg = 'Error fetching payment';
+      logger.error(errMsg, e.data);
+      throw new Error(errMsg);
     }
   }
 }
