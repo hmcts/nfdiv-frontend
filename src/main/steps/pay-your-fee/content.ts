@@ -12,7 +12,15 @@ const en = ({ isDivorce }: CommonContent) => ({
   continue: 'Pay and submit application',
 });
 
-const cy = en;
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
+  title: `Talu eich ffi ${isDivorce ? 'am ysgariad' : 'i ddiweddu eich partneriaeth sifil'}`,
+  line1: `Y ffi ar gyfer cais ${
+    isDivorce ? 'am ysgariad' : 'i ddiweddu eich partneriaeth sifil'
+  } yw £550. Ni fydd eich cais yn cael ei gyflwyno i'r llys nes eich bod wedi talu'r ffi.`,
+  line2:
+    'Mae arnoch angen cerdyn debyd neu gerdyn credyd dilys. Os na allwch dalu nawr, cadwch eich cais a dychwelyd iddo pan fyddwch yn barod i dalu.',
+  continue: "Talu a chyflwyno'r cais",
+});
 
 export const form: FormContent = {
   fields: {},
