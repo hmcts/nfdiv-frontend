@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-03 07:04:26.
+// Generated using typescript-generator version 2.32.889 on 2021-06-03 15:22:01.
 
 export interface Address {
   AddressLine1: string;
@@ -136,6 +136,9 @@ export interface CaseData {
   marriagePlaceOfMarriage: string;
   marriageDate: DateAsString;
   marriageIsSameSexCouple: YesOrNo;
+  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
+  marriageMarriageCertificateIsIncorrectDetails: string;
+  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
   jurisdictionApplicant1Residence: YesOrNo;
   jurisdictionApplicant2Residence: YesOrNo;
   jurisdictionApplicant1Domicile: YesOrNo;
@@ -206,6 +209,7 @@ export interface CaseData {
   hwfCodeValidForFullAmount: YesOrNo;
   hwfAmountOutstanding: YesOrNo;
   documentUploadComplete: YesOrNo;
+  invitePin: string;
 }
 
 export interface Jurisdiction {
@@ -228,6 +232,9 @@ export interface MarriageDetails {
   PlaceOfMarriage: string;
   Date: DateAsString;
   IsSameSexCouple: YesOrNo;
+  CertifyMarriageCertificateIsCorrect: YesOrNo;
+  MarriageCertificateIsIncorrectDetails: string;
+  IssueApplicationWithoutMarriageCertificate: YesOrNo;
 }
 
 export interface DivorceDocument {
@@ -437,6 +444,7 @@ export const enum SolToPay {
 
 export const enum State {
   Draft = 'Draft',
+  AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingPayment = 'AwaitingPayment',
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
@@ -501,6 +509,7 @@ export const enum PaymentStatus {
 export const CASE_TYPE = 'NO_FAULT_DIVORCE16';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
