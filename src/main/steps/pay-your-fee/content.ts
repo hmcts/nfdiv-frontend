@@ -12,7 +12,7 @@ const en = ({ isDivorce }: CommonContent) => ({
   continue: 'Pay and submit application',
 });
 
-const cy = ({ isDivorce }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   title: `Talu eich ffi ${isDivorce ? 'am ysgariad' : 'i ddiweddu eich partneriaeth sifil'}`,
   line1: `Y ffi ar gyfer cais ${
     isDivorce ? 'am ysgariad' : 'i ddiweddu eich partneriaeth sifil'
