@@ -13,7 +13,7 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonCon
   line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
 
-const cy = ({ isDivorce, formState }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, formState }: CommonContent) => ({
   title: 'Sut i wneud cais i gyflwyno (danfon) y papurau drwy ddull arall',
   line1: `Rydych wedi gwneud cais ar wahân i gyflwyno'r ${
     isDivorce ? 'papurau ysgaru' : 'papurau diweddu eich partneriaeth sifil'
