@@ -1,6 +1,6 @@
 import { ListValue, Payment, PaymentStatus } from '../../app/case/definition';
 
-import { PaymentStatusCode } from './PaymentClient';
+import { HmctsPayStatus } from './PaymentClient';
 
 export class PaymentModel {
   public constructor(private payments: ListValue<Payment>[] = []) {}
@@ -28,43 +28,14 @@ export class PaymentModel {
   public update(transactionId: string, details: Partial<Payment>): void {
     const paymentIdx = this.payments.findIndex(p => p.id === transactionId);
     if (paymentIdx === -1) {
-      throw new Error('Unable to find transaction');
+      throw new Error(`Unable to find transaction ${transactionId}`);
     }
     this.payments[paymentIdx].value = { ...this.payments[paymentIdx].value, ...details };
   }
 
-  public setStatus(transactionId: string, state: PaymentState): void {
-    let paymentStatus: PaymentStatus = PaymentStatus.IN_PROGRESS;
-    if (state.status === 'failed') {
-      switch (state.code) {
-        case PaymentStatusCode.PAYMENT_METHOD_REJECTED:
-          paymentStatus = PaymentStatus.DECLINED;
-          break;
-
-        case PaymentStatusCode.PAYMENT_CANCELLED_BY_USER:
-        case PaymentStatusCode.PAYMENT_CANCELLED_BY_APP:
-          paymentStatus = PaymentStatus.CANCELLED;
-          break;
-
-        case PaymentStatusCode.PAYMENT_EXPIRED:
-          paymentStatus = PaymentStatus.TIMED_OUT;
-          break;
-
-        default:
-          paymentStatus = PaymentStatus.ERROR;
-          break;
-      }
-    }
-
-    if (state.status === 'success') {
-      paymentStatus = PaymentStatus.SUCCESS;
-    }
-
-    this.update(transactionId, { paymentStatus });
+  public setStatus(transactionId: string, status: HmctsPayStatus | undefined): void {
+    this.update(transactionId, {
+      paymentStatus: status === 'Success' ? PaymentStatus.SUCCESS : PaymentStatus.ERROR,
+    });
   }
-}
-
-export interface PaymentState {
-  status: 'failed' | 'success';
-  code: PaymentStatusCode;
 }

@@ -1,29 +1,37 @@
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
+import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { DivorceOrDissolution } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
 
 jest.mock('axios');
 jest.mock('config');
+jest.mock('../auth/service/get-service-auth-token');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
+const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock>;
 
 describe('PaymentClient', () => {
   it('creates payments', async () => {
     mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
-    const mockPost = jest.fn().mockResolvedValue({ data: { mockPayment: 'data' } });
+    mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
+    const mockPost = jest.fn().mockResolvedValueOnce({
+      data: { mockPayment: 'data', _links: { next_url: { href: 'http://example.com/pay' } } },
+    });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
     const req = mockRequest({
       userCase: {
-        applicant1Address1: 'address1',
-        applicant1Address2: 'address2',
-        applicant1AddressTown: 'town',
-        applicant1AddressPostcode: 'postcode',
-        applicant1AddressCountry: 'country',
+        id: '1234',
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: {
+          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+        },
       },
     });
 
@@ -33,37 +41,67 @@ describe('PaymentClient', () => {
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'http://mock-service-url',
-      headers: { authorization: 'Bearer mock-api-key' },
+      headers: {
+        Authorization: 'Bearer mock-user-access-token',
+        ServiceAuthorization: 'mock-server-auth-token',
+        'return-url': 'http://return-url',
+        'service-callback-url': '',
+      },
     });
 
-    expect(mockPost).toHaveBeenCalledWith('/v1/payments', {
-      amount: 55000,
-      delayed_capture: false,
+    expect(mockPost).toHaveBeenCalledWith('/card-payments', {
+      amount: 123.45,
+      case_type: 'NO_FAULT_DIVORCE15',
+      ccd_case_number: '1234',
+      currency: 'GBP',
       description: 'Divorce application fee',
-      email: 'test@example.com',
-      language: 'en',
-      metadata: {
-        caseId: '1234',
-      },
-      prefilled_cardholder_details: {
-        billing_address: {
-          line1: 'address1',
-          line2: 'address2',
-          city: 'town',
-          postcode: 'postcode',
-          country: 'country',
+      fees: [
+        {
+          calculated_amount: '123.45',
+          code: 'mock fee code',
+          version: 'mock fee version',
         },
-        cardholder_name: 'First name Last name',
-      },
-      reference: '1234',
-      return_url: 'http://return-url',
+      ],
+      language: undefined,
+      service: 'DIVORCE',
+      site_id: 'mock-api-key',
     });
 
-    expect(actual).toEqual({ mockPayment: 'data' });
+    expect(actual).toEqual({
+      mockPayment: 'data',
+      _links: {
+        next_url: {
+          href: 'http://example.com/pay',
+        },
+      },
+    });
+  });
+
+  it('throws an error and logs if the response does not contain a redirect URL', async () => {
+    mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
+    mockedConfig.get.mockReturnValueOnce('mock-api-key');
+    mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
+    const mockPost = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
+    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const req = mockRequest({
+      userCase: {
+        id: '1234',
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: {
+          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+        },
+      },
+    });
+
+    const client = new PaymentClient(req.session, 'http://return-url');
+
+    await expect(() => client.create()).rejects.toThrow('Error creating payment');
+
+    expect(mockLogger.error).toBeCalledWith('Error creating payment', { mockPayment: 'data, but missing _links' });
   });
 
   it('gets payment data', async () => {
-    const mockGet = jest.fn().mockResolvedValue({ data: { mockPayment: 'data' } });
+    const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
     const req = mockRequest();
 
@@ -71,8 +109,20 @@ describe('PaymentClient', () => {
 
     const actual = await client.get('1234');
 
-    expect(mockGet).toHaveBeenCalledWith('/v1/payments/1234');
+    expect(mockGet).toHaveBeenCalledWith('/card-payments/1234');
 
     expect(actual).toEqual({ mockPayment: 'data' });
+  });
+
+  it('throws an error and logs if fails to fetch data', async () => {
+    const mockGet = jest.fn().mockRejectedValueOnce({ data: { some: 'error' } });
+    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
+    const req = mockRequest();
+
+    const client = new PaymentClient(req.session, 'http://return-url');
+
+    await expect(() => client.get('1234')).rejects.toThrow('Error fetching payment');
+
+    expect(mockLogger.error).toBeCalledWith('Error fetching payment', { some: 'error' });
   });
 });

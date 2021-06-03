@@ -25,6 +25,7 @@ export const mockRequest = ({
     query: {},
     session: {
       user: {
+        accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',
         familyName: 'Last name',

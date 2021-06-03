@@ -28,11 +28,17 @@ describe('PaymentController', () => {
       });
       const res = mockResponse();
 
+      (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
+        payments: [{ existing: 'payment' }],
+        applicationFeeOrderSummary: {
+          Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
+        },
+      });
+
       (mockCreate as jest.Mock).mockReturnValueOnce({
         created_date: '1999-12-31T23:59:59.999Z',
-        payment_provider: 'mock payment provider',
         reference: 'mock ref',
-        payment_id: 'mock payment id',
+        external_reference: 'mock external reference payment id',
         _links: { next_url: { href: 'http://example.com/pay' } },
       });
 
@@ -40,28 +46,26 @@ describe('PaymentController', () => {
 
       expect(mockCreate).toHaveBeenCalled();
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-        '1234',
-        {
-          payments: [
-            {
-              id: 'mock payment id',
-              value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.IN_PROGRESS,
-                paymentTransactionId: 'mock payment id',
-              },
-            },
-          ],
-        },
-        CITIZEN_SUBMIT
-      );
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
 
+      expect(req.session.userCase.payments).toEqual([
+        { existing: 'payment' },
+        {
+          id: 'mock external reference payment id',
+          value: {
+            paymentAmount: 123,
+            paymentChannel: 'HMCTS Pay',
+            paymentDate: '2021-06-03',
+            paymentFeeId: 'mock fee code',
+            paymentReference: 'mock ref',
+            paymentSiteId: 'AA00',
+            paymentStatus: 'inProgress',
+            paymentTransactionId: 'mock external reference payment id',
+          },
+        },
+      ]);
+
+      expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('http://example.com/pay');
     });
 
@@ -78,19 +82,6 @@ describe('PaymentController', () => {
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
-    });
-
-    it("throws an error if we don't get a payment redirect URL", async () => {
-      const req = mockRequest({
-        userCase: {
-          state: State.Draft,
-        },
-      });
-      const res = mockResponse();
-
-      (mockCreate as jest.Mock).mockReturnValueOnce({});
-
-      await expect(paymentController.payment(req, res)).rejects.toThrow('Failed to create new payment');
     });
   });
 
@@ -120,12 +111,12 @@ describe('PaymentController', () => {
 
       (mockGet as jest.Mock).mockReturnValueOnce({
         payment_id: 'mock payment id',
-        state: { status: 'success' },
+        status: 'Success',
       });
 
       await paymentController.callback(req, res);
 
-      expect(mockGet).toHaveBeenCalledWith('mock payment id');
+      expect(mockGet).toHaveBeenCalledWith('mock ref');
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
         '1234',
@@ -182,41 +173,6 @@ describe('PaymentController', () => {
       expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
     });
 
-    it("redirects to payment URL if there's a payment in progress", async () => {
-      const req = mockRequest({
-        userCase: {
-          state: State.AwaitingPayment,
-          payments: [
-            {
-              id: 'mock payment id',
-              value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.IN_PROGRESS,
-                paymentTransactionId: 'mock payment id',
-              },
-            },
-          ],
-        },
-      });
-      const res = mockResponse();
-
-      (mockGet as jest.Mock).mockReturnValueOnce({
-        state: { status: 'started' },
-        _links: { next_url: { href: 'http://example.com/pay' } },
-      });
-
-      await paymentController.callback(req, res);
-
-      expect(mockGet).toHaveBeenCalledWith('mock payment id');
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('http://example.com/pay');
-    });
-
     it('saves and redirects to the home page if last payment was unsuccessful', async () => {
       const req = mockRequest({
         userCase: {
@@ -242,12 +198,12 @@ describe('PaymentController', () => {
 
       (mockGet as jest.Mock).mockReturnValueOnce({
         payment_id: 'mock payment id',
-        state: { status: 'failed', code: 'P0030' },
+        status: 'Failed',
       });
 
       await paymentController.callback(req, res);
 
-      expect(mockGet).toHaveBeenCalledWith('mock payment id');
+      expect(mockGet).toHaveBeenCalledWith('mock ref');
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
         '1234',
@@ -262,7 +218,7 @@ describe('PaymentController', () => {
                 paymentFeeId: 'FEE0002',
                 paymentReference: 'mock ref',
                 paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.CANCELLED,
+                paymentStatus: PaymentStatus.ERROR,
                 paymentTransactionId: 'mock payment id',
               },
             },

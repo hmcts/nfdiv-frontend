@@ -12,6 +12,7 @@ import {
   JurisdictionConnections,
   LegalProceedingsRelated,
   ListValue,
+  OrderSummary,
   Payment,
   State,
   YesOrNo,
@@ -152,6 +153,7 @@ export interface Case {
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
   payments: ListValue<Payment>[];
+  applicationFeeOrderSummary: OrderSummary;
 }
 
 export interface CaseWithId extends Case {

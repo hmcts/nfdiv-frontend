@@ -50,6 +50,7 @@ describe('CaseApi', () => {
             state: State.Draft,
             case_data: {
               divorceOrDissolution: 'divorce',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
               payments: [{ test: 'payment' }],
             },
           },
@@ -58,6 +59,7 @@ describe('CaseApi', () => {
             state: State.Draft,
             case_data: {
               divorceOrDissolution: 'dissolution',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
               payments: [{ test: 'payment' }],
             },
           },
@@ -70,6 +72,7 @@ describe('CaseApi', () => {
         id: '1234',
         state: State.Draft,
         divorceOrDissolution: caseType,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
         payments: [{ test: 'payment' }],
       });
     }
