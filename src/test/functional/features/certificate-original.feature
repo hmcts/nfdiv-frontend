@@ -31,7 +31,7 @@ Feature: Certificate Original
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
     And I select "No, I do not have a certified translation"
     When I click "Continue"
-    Then the page should include "You need to get a ‘certified translation’ of your marriage certificate?"
+    Then the page should include "You need to get a ‘certified translation’ of your marriage certificate"
 
   Scenario: The original certificate is in English
     And I select "Yes"
