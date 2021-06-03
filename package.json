@@ -68,7 +68,7 @@
     "autobind-decorator": "^2.4.0",
     "axios": "^0.21.1",
     "config": "^3.3.6",
-    "connect-redis": "^5.2.0",
+    "connect-redis": "^6.0.0",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
     "dayjs": "^1.10.5",
