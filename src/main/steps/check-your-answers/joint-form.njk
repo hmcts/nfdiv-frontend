@@ -1,5 +1,6 @@
 <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
   <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+  <input type="hidden" name="applicationType" id="applicationType" value="jointApplication">
 
   {% block form_content %}{% endblock %}
 
@@ -14,8 +15,7 @@
       type: "submit",
       preventDoubleClick: true,
       attributes: {
-        id: 'main-form-submit',
-        name: 'sendToApplicant2ForReview'
+        id: 'main-form-submit'
       }
     }) }}
 

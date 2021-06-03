@@ -117,7 +117,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
     ? 'Submit application'
     : 'Continue to payment',
   errors: isJointApplication
-    ? {}
+    ? undefined
     : {
         iConfirmPrayer: {
           required:
@@ -175,11 +175,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const formContent = content.isJointApplication ? { submit: { text: l => l.continue } } : form;
+  if (content.isJointApplication) {
+    form.fields = {};
+  }
   return {
     ...translations,
     sections: Sections,
     getAnswerRows,
-    formContent,
+    form,
   };
 };
