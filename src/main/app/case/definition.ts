@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.31.861 on 2021-05-25 14:03:46.
+// Generated using typescript-generator version 2.32.889 on 2021-06-03 07:04:26.
 
 export interface Address {
   AddressLine1: string;
@@ -80,10 +80,49 @@ export interface PreviousOrganisation {
   OrganisationAddress: string;
 }
 
+export interface Applicant {
+  FirstName: string;
+  MiddleName: string;
+  LastName: string;
+  Email: string;
+  AgreedToReceiveEmails: YesOrNo;
+  LanguagePreferenceWelsh: YesOrNo;
+  NameDifferentToMarriageCertificate: YesOrNo;
+  NameChangedHow: ChangedNameHow;
+  NameChangedHowOtherDetails: string;
+  HomeAddress: AddressGlobalUK;
+  PhoneNumber: string;
+  ContactDetailsConfidential: ConfidentialAddress;
+}
+
 export interface CaseData {
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   screenHasMarriageBroken: YesOrNo;
+  applicant1FirstName: string;
+  applicant1MiddleName: string;
+  applicant1LastName: string;
+  applicant1Email: string;
+  applicant1AgreedToReceiveEmails: YesOrNo;
+  applicant1LanguagePreferenceWelsh: YesOrNo;
+  applicant1NameDifferentToMarriageCertificate: YesOrNo;
+  applicant1NameChangedHow: ChangedNameHow;
+  applicant1NameChangedHowOtherDetails: string;
+  applicant1HomeAddress: AddressGlobalUK;
+  applicant1PhoneNumber: string;
+  applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant2FirstName: string;
+  applicant2MiddleName: string;
+  applicant2LastName: string;
+  applicant2Email: string;
+  applicant2AgreedToReceiveEmails: YesOrNo;
+  applicant2LanguagePreferenceWelsh: YesOrNo;
+  applicant2NameDifferentToMarriageCertificate: YesOrNo;
+  applicant2NameChangedHow: ChangedNameHow;
+  applicant2NameChangedHowOtherDetails: string;
+  applicant2HomeAddress: AddressGlobalUK;
+  applicant2PhoneNumber: string;
+  applicant2ContactDetailsConfidential: ConfidentialAddress;
   inferredApplicant1Gender: Gender;
   inferredApplicant2Gender: Gender;
   helpWithFeesReferenceNumber: string;
@@ -97,11 +136,6 @@ export interface CaseData {
   marriagePlaceOfMarriage: string;
   marriageDate: DateAsString;
   marriageIsSameSexCouple: YesOrNo;
-  applicant1FirstName: string;
-  applicant1MiddleName: string;
-  applicant1LastName: string;
-  applicant1Email: string;
-  applicant1AgreedToReceiveEmails: YesOrNo;
   jurisdictionApplicant1Residence: YesOrNo;
   jurisdictionApplicant2Residence: YesOrNo;
   jurisdictionApplicant1Domicile: YesOrNo;
@@ -111,21 +145,7 @@ export interface CaseData {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
-  languagePreferenceWelsh: YesOrNo;
-  applicant1NameDifferentToMarriageCertificate: YesOrNo;
-  applicant1NameChangedHow: ChangedNameHow;
-  applicant1NameChangedHowOtherDetails: string;
   divorceWho: WhoDivorcing;
-  applicant1HomeAddress: AddressGlobalUK;
-  applicant1PhoneNumber: string;
-  applicant1ContactDetailsConfidential: ConfidentialAddress;
-  applicant2FirstName: string;
-  applicant2MiddleName: string;
-  applicant2LastName: string;
-  applicant2NameDifferentToMarriageCertificate: YesOrNo;
-  applicant2NameChangedHow: ChangedNameHow;
-  applicant2NameChangedHowOtherDetails: string;
-  applicant2WelshLanguagePreference: YesOrNo;
   applicant1SolicitorName: string;
   solicitorReference: string;
   applicant1SolicitorPhone: string;
@@ -153,16 +173,15 @@ export interface CaseData {
   solPaymentHowToPay: SolToPay;
   pbaNumbers: DynamicList;
   feeAccountReference: string;
-  solApplicationFeeOrderSummary: OrderSummary;
+  applicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   legalConnections: LegalConnections[];
   applicant2EmailAddress: string;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
-  applicant2HomeAddress: AddressGlobalUK;
   legalProceedings: YesOrNo;
-  legalProceedingsDetails: string;
   legalProceedingsRelated: LegalProceedingsRelated[];
+  legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   documentsUploaded: ListValue<DivorceDocument>[];
   cannotUploadSupportingDocument: DocumentType[];
@@ -183,6 +202,10 @@ export interface CaseData {
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
+  dueDate: DateAsString;
+  hwfCodeValidForFullAmount: YesOrNo;
+  hwfAmountOutstanding: YesOrNo;
+  documentUploadComplete: YesOrNo;
 }
 
 export interface Jurisdiction {
@@ -336,6 +359,7 @@ export const enum Gender {
  * - `G` - Eligible for Residual Jurisdiction
  * - `H` - Applicant 1 is domiciled in England and Wales
  * - `I` - Applicant 2 is domiciled in England and Wales
+ * - `J` - Applicant 1 habitually resides in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
@@ -374,6 +398,10 @@ export const enum JurisdictionConnections {
    * Applicant 2 is domiciled in England and Wales
    */
   APP_2_DOMICILED = 'I',
+  /**
+   * Applicant 1 habitually resides in England and Wales
+   */
+  APP_1_RESIDENT_JOINT = 'J',
 }
 
 export const enum LanguagePreference {
@@ -411,6 +439,7 @@ export const enum State {
   Draft = 'Draft',
   AwaitingPayment = 'AwaitingPayment',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
 }
 
@@ -469,7 +498,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE12';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE16';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';

@@ -31,8 +31,8 @@ nodejs:
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     REDIS_HOST: 'nfdiv-frontend-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
 
-    # CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-279.service.core-compute-preview.internal'
-    CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-316.service.core-compute-preview.internal'
+    # CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
 #disable autoscaling because it doesnt deploy AAT
 autoscaling:
