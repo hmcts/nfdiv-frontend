@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../case/case';
-import { DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 type Who = 'applicant1' | 'applicant2';
 
@@ -21,6 +21,14 @@ const areBothHabituallyResident = data => {
 
 const onlyApplicant1HabituallyResident = data => {
   return isHabituallyResident('applicant1', data) && !isHabituallyResident('applicant2', data);
+};
+
+const onlyApplicant1HabituallyResidentInJointApplication = data => {
+  return (
+    isHabituallyResident('applicant1', data) &&
+    !isHabituallyResident('applicant2', data) &&
+    data['applicationType'] === ApplicationType.JOINT_APPLICATION
+  );
 };
 
 const onlyApplicant2HabituallyResident = data => {
@@ -87,6 +95,9 @@ export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnection
   }
   if (onlyApplicant2HabituallyResident(data)) {
     connections.push(JurisdictionConnections.APP_2_RESIDENT);
+  }
+  if (onlyApplicant1HabituallyResidentInJointApplication(data)) {
+    connections.push(JurisdictionConnections.APP_1_RESIDENT_JOINT);
   }
   if (isHabituallyResidentForTwelveMonths(data) && onlyApplicant1HabituallyResident(data)) {
     connections.push(JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS);
