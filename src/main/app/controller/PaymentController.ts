@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { Response } from 'express';
 
 import { APPLICATION_SUBMITTED, HOME_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, State } from '../case/definition';
-import { PaymentClient } from '../payment/PaymentClient';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../case/definition';
+import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { AppRequest } from './AppRequest';
@@ -15,36 +15,31 @@ export class PaymentController {
       return res.redirect(HOME_URL);
     }
 
-    const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
+    const paymentClient = this.getPaymentClient(req, res);
 
-    req.session.userCase = await req.locals.api.triggerEvent(
-      req.session.userCase.id,
-      { payments: payments.list },
-      CITIZEN_SUBMIT
-    );
+    req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, CITIZEN_SUBMIT);
+    const payments = new PaymentModel(req.session.userCase.payments);
 
+    const { applicationFeeOrderSummary } = req.session.userCase;
     const payment = await paymentClient.create();
     payments.add({
-      paymentDate: dayjs(payment.dateCreated).format('YYYY-MM-DD'), // @TODO this seems to only accept a date without time
-      paymentFeeId: payment.fees[0].code,
-      paymentAmount: payment.fees[0].calculatedAmount,
-      paymentSiteId: payment.siteId,
-      paymentStatus: payment.status,
-      paymentChannel: payment.channel,
+      paymentDate: dayjs(payment?.date_created).format('YYYY-MM-DD'),
+      paymentFeeId: applicationFeeOrderSummary.Fees[0].value.FeeCode,
+      paymentAmount: parseInt(applicationFeeOrderSummary.Fees[0].value.FeeAmount, 10),
+      paymentSiteId: config.get('services.payments.siteId'),
+      paymentStatus: PaymentStatus.IN_PROGRESS,
+      paymentChannel: 'HMCTS Pay',
       paymentReference: payment.reference,
-      paymentTransactionId: payment.customerReference,
+      paymentTransactionId: payment.external_reference,
     });
+    req.session.userCase.payments = payments.list;
 
     req.session.save(err => {
       if (err) {
         throw err;
       }
 
-      if (!payment._links?.nextUrl.href) {
-        throw new Error('Failed to create new payment');
-      }
-
-      res.redirect(payment._links.nextUrl.href);
+      res.redirect(payment._links.next_url.href);
     });
   }
 
@@ -53,21 +48,22 @@ export class PaymentController {
       return res.redirect(HOME_URL);
     }
 
-    const { paymentClient, payments } = this.setupPaymentClientModel(req, res);
+    const paymentClient = this.getPaymentClient(req, res);
+    const payments = new PaymentModel(req.session.userCase.payments);
 
     if (!payments.hasPayment) {
       return res.redirect(HOME_URL);
     }
 
     const lastPaymentAttempt = payments.lastPayment;
-    const payment = await paymentClient.get(lastPaymentAttempt.paymentTransactionId);
-
-    // @TODO check these statuses actually exist
-    if (['created', 'started'].includes(payment.status) && payment._links?.nextUrl.href) {
-      return res.redirect(payment._links.nextUrl.href);
+    let payment: Payment | undefined;
+    try {
+      payment = await paymentClient.get(lastPaymentAttempt.paymentReference);
+    } catch {
+      // ignore
     }
 
-    payments.setStatus(payment.customerReference, payment.statusHistories[payment.statusHistories.length - 1]);
+    payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
@@ -78,14 +74,11 @@ export class PaymentController {
     req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : HOME_URL));
   }
 
-  private setupPaymentClientModel(req: AppRequest, res: Response) {
+  private getPaymentClient(req: AppRequest, res: Response) {
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
 
-    const paymentClient = new PaymentClient(req.session, returnUrl);
-    const payments = new PaymentModel(req.session.userCase.payments);
-
-    return { paymentClient, payments };
+    return new PaymentClient(req.session, returnUrl);
   }
 }

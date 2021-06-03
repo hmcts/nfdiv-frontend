@@ -1,9 +1,12 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE, DivorceOrDissolution, JURISDICTION, PaymentStatus } from '../case/definition';
+import { CASE_TYPE, DivorceOrDissolution, JURISDICTION } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
+
+const logger = Logger.getLogger('payment');
 
 export class PaymentClient {
   client: AxiosInstance;
@@ -24,8 +27,9 @@ export class PaymentClient {
     const userCase = this.session.userCase;
     const isDivorce = userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE;
     const caseId = userCase.id.toString();
-    const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0);
+    const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
     const body = {
+      site_id: config.get('services.payments.siteId'),
       amount: total,
       ccd_case_number: caseId,
       description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
@@ -33,64 +37,69 @@ export class PaymentClient {
       currency: 'GBP',
       case_type: CASE_TYPE,
       fees: userCase.applicationFeeOrderSummary.Fees.map(fee => ({
-        calculated_amount: fee.value.FeeAmount,
+        calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
         code: fee.value.FeeCode,
         version: fee.value.FeeVersion,
       })),
       language: this.session.lang === 'en' ? '' : this.session.lang?.toUpperCase(),
     };
 
-    const response = await this.client.post('/card-payments', body);
+    try {
+      const response = await this.client.post('/card-payments', body);
 
-    return response.data;
+      if (!response.data || !response.data._links?.next_url.href) {
+        throw response;
+      }
+
+      return response.data;
+    } catch (e) {
+      logger.error('Error creating payment', e.response.data);
+      throw e.response.data;
+    }
   }
 
-  public async get(paymentId: string): Promise<Payment> {
-    const response = await this.client.get(`/v1/payments/${paymentId}`);
-    return response.data;
+  public async get(paymentReference: string): Promise<Payment> {
+    try {
+      const response = await this.client.get(`/card-payments/${paymentReference}`);
+      return response.data;
+    } catch (e) {
+      logger.error('Error fetching payment', e.response.data);
+      throw e.response.data;
+    }
   }
-}
-
-// @see https://docs.payments.service.gov.uk/api_reference/#errors-caused-by-payment-statuses
-export enum PaymentStatusCode {
-  PAYMENT_METHOD_REJECTED = 'P0010',
-  PAYMENT_EXPIRED = 'P0020',
-  PAYMENT_CANCELLED_BY_USER = 'P0030',
-  PAYMENT_CANCELLED_BY_APP = 'P0040',
-  PAYMENT_PROVIDER_ERROR = 'P0050',
 }
 
 export interface Payment {
   _links: LinksDto;
-  accountNumber: string;
+  account_number: string;
   amount: number;
-  caseReference: string;
-  ccdCaseNumber: string;
+  case_reference: string;
+  ccd_case_number: string;
   channel: string;
   currency: string;
-  customerReference: string;
-  dateCreated: string;
-  dateUpdated: string;
+  customer_reference: string;
+  date_created: string;
+  date_updated: string;
   description: string;
-  externalProvider: string;
-  externalReference: string;
+  external_provider: string;
+  external_reference: string;
   fees: FeeDto[];
-  giroSlipNo: string;
+  giro_slip_no: string;
   id: string;
   method: string;
-  organisationName: string;
-  paymentGroupReference: string;
-  paymentReference: string;
+  organisation_name: string;
+  payment_group_reference: string;
+  payment_reference: string;
   reference: string;
-  reportedDateOffline: string;
-  serviceName: string;
-  siteId: string;
-  status: PaymentStatus;
-  statusHistories: StatusHistoryDto[];
+  reported_date_offline: string;
+  service_name: string;
+  site_id: string;
+  status: HmctsPayStatus;
+  status_histories: StatusHistoryDto[];
 }
 
 interface LinksDto {
-  nextUrl: LinkDto;
+  next_url: LinkDto;
   self: LinkDto;
   cancel: LinkDto;
 }
@@ -112,26 +121,39 @@ enum RequestMethod {
 }
 
 export interface FeeDto {
-  calculatedAmount: number;
-  ccdCaseNumber: string;
+  calculated_amount: number;
+  ccd_case_number: string;
   code: string;
   description: string;
   id: number;
   jurisdiction1: string;
   jurisdiction2: string;
-  memoLine: string;
-  naturalAccountCode: string;
-  netAmount: number;
+  memo_line: string;
+  natural_account_code: string;
+  net_amount: number;
   reference: string;
   version: string;
   volume: number;
 }
 
 export interface StatusHistoryDto {
-  dateCreated: string;
-  dateUpdated: string;
-  errorCode: PaymentStatusCode; // @TODO I hope that's right
-  errorMessage: string;
-  externalStatus: string;
-  status: PaymentStatus;
+  amount: number;
+  description: string;
+  reference: string;
+  currency: string;
+  ccd_case_number: string;
+  channel: string;
+  method: string;
+  external_provider: string;
+  status: HmctsPayStatus;
+  external_reference: string;
+  site_id: string;
+  service_name: string;
+  payment_group_reference: string;
+  fees: FeeDto[];
+  _links: {
+    self: LinkDto;
+  };
 }
+
+export type HmctsPayStatus = 'Initiated' | 'Success' | 'Failed';

@@ -40,8 +40,14 @@ export class CaseApi {
         return false;
       }
       case 1: {
-        const { id, state, case_data } = serviceCases[0];
-        return { ...fromApiFormat(case_data), id, state, payments: case_data.payments };
+        const { id, state, case_data: caseData } = serviceCases[0];
+        return {
+          ...fromApiFormat(caseData),
+          id,
+          state,
+          applicationFeeOrderSummary: caseData.applicationFeeOrderSummary,
+          payments: caseData.payments,
+        };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -99,7 +105,13 @@ export class CaseApi {
         event_token: token,
       });
 
-      return { ...fromApiFormat(caseData), id, state, payments: caseData.payments };
+      return {
+        ...fromApiFormat(caseData),
+        id,
+        state,
+        applicationFeeOrderSummary: caseData.applicationFeeOrderSummary,
+        payments: caseData.payments,
+      };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

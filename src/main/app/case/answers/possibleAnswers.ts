@@ -14,6 +14,7 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'documentsUploaded',
   'applicant1FirstNames',
   'applicant1LastNames',
+  'applicationFeeOrderSummary',
   'payments',
 ];
 
