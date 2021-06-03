@@ -31,8 +31,6 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
-    } else if (req.body.sendToApplicant2ForReview) {
-      await this.sendToApplicant2ForReview(req, res, stepData);
     } else {
       await this.saveAndContinue(req, res, stepData);
     }
@@ -80,7 +78,7 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private async sendToApplicant2ForReview(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+  public async sendToApplicant2ForReview(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
     this.form.setFormState(req.session.userCase);
     req.session.errors = this.form.getErrors(formData);
@@ -91,8 +89,6 @@ export class PostController<T extends AnyObject> {
       req.session.userCase = await this.save(req, formData, CITIZEN_INVITE_APPLICANT_2);
     } catch (err) {
       delete formData.dueDate;
-      req.locals.logger.error('Error sending application to Applicant 2 for review', err);
-      req.session.errors.push({ errorType: 'errorSendingInvite', propertyName: '*' });
     }
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);

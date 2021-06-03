@@ -1,7 +1,7 @@
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../app/case/case';
-import { ApplicationType, YesOrNo } from '../../app/case/definition';
+import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -9,7 +9,7 @@ import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => ({
+const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -111,22 +111,23 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-  continue:
-    formState?.applicationType === ApplicationType.JOINT_APPLICATION
-      ? 'Send for Review'
-      : formState?.applicant1HelpWithFeesRefNo
-      ? 'Submit application'
-      : 'Continue to payment',
-  errors: {
-    iConfirmPrayer: {
-      required:
-        'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
-    },
-    iBelieveApplicationIsTrue: {
-      required:
-        'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
-    },
-  },
+  continue: isJointApplication
+    ? 'Send for Review'
+    : formState?.applicant1HelpWithFeesRefNo
+    ? 'Submit application'
+    : 'Continue to payment',
+  errors: isJointApplication
+    ? {}
+    : {
+        iConfirmPrayer: {
+          required:
+            'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
+        },
+        iBelieveApplicationIsTrue: {
+          required:
+            'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
+        },
+      },
 });
 
 // @TODO translations
@@ -174,10 +175,11 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const formContent = content.isJointApplication ? { submit: { text: l => l.continue } } : form;
   return {
     ...translations,
     sections: Sections,
     getAnswerRows,
-    form,
+    formContent,
   };
 };

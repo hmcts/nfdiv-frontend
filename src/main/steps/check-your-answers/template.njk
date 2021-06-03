@@ -33,36 +33,22 @@
     {% endif %}
   {% endfor %}
 
-  {% if isJointApplication %}
-    {% block after_fields %}
-      {{ jointApplicantReview }}
-    {% endblock %}
-
-    {{ govukButton({
-      text: getContent(form.submit.text),
-      name: sendToApplicant2ForReview,
-      classes: form.submit.classes,
-      type: "submit",
-      preventDoubleClick: true,
-      attributes: {
-        id: 'main-form-submit'
-      }
-    }) }}
-  {% else %}
-    {% if isApplicationReadyToSubmit %}
-      {% block form %}
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-            {% include "./form.njk" %}
-          </div>
+  {% if isApplicationReadyToSubmit %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "./form.njk" %}
         </div>
-    {% else %}
-      {{ govukButton({
-        text: continueApplication,
-        href: nextIncompleteStep,
-        preventDoubleClick: true
-      }) }}
-    {% endif %}
+      </div>
+    {% endblock %}
+  {% elif isJointApplication %}
+    {% include "./joint-form.njk" %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
   {% endif %}
 
   {% include "common/contact-us.njk" %}
