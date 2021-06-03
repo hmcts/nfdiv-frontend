@@ -13,8 +13,18 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonCon
   line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, formState }: CommonContent) => ({
+  title: 'Sut i wneud cais i gyflwyno (danfon) y papurau drwy ddull arall',
+  line1: `Rydych wedi gwneud cais ar wahân i gyflwyno'r ${
+    isDivorce ? 'papurau ysgaru' : 'papurau diweddu eich partneriaeth sifil'
+  } drwy ddull arall. Fe gewch ddolen i'r ffurfen ar ôl ichi gyflwyno'r cais hwn. Bydd yn cael ei adolygu gan farnwr ac mae cost ychwanegol o £50.`,
+  line3: `Er enghraifft, gallwch wneud cais i'r papurau gael eu cyflwyno (danfon) ${
+    formState?.applicant2EmailAddress
+      ? "i'r cyfeiriad e-bost wnaethoch chi ei nodi yn gynharach"
+      : 'trwy neges e-bost, neges destun, neu drwy gyfrwng cymdeithasol'
+  }.`,
+  line4: `Parhau gyda'ch ${isDivorce ? 'cais am ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'}.`,
+});
 
 export const form: FormContent = {
   fields: {},
