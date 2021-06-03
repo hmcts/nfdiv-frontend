@@ -22,9 +22,9 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
-  languagePreferenceWelsh: data => ({
+  applicant1LanguagePreferenceWelsh: data => ({
     englishOrWelsh:
-      data.languagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
+      data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
   applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
