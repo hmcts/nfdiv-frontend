@@ -5,7 +5,7 @@ import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_INVITE_APPLICANT_2, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -31,6 +31,8 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
+    } else if (req.body.sendToApplicant2ForReview) {
+      await this.sendToApplicant2ForReview(req, res, stepData);
     } else {
       await this.saveAndContinue(req, res, stepData);
     }
@@ -66,6 +68,31 @@ export class PostController<T extends AnyObject> {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
+    }
+
+    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
+  }
+
+  private async sendToApplicant2ForReview(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    this.form.setFormState(req.session.userCase);
+    req.session.errors = this.form.getErrors(formData);
+
+    try {
+      const twoWeeks = 1000 * 60 * 60 * 24 * 14;
+      formData.dueDate = new Date(Date.now() + twoWeeks);
+      req.session.userCase = await this.save(req, formData, CITIZEN_INVITE_APPLICANT_2);
+    } catch (err) {
+      delete formData.dueDate;
+      req.locals.logger.error('Error sending application to Applicant 2 for review', err);
+      req.session.errors.push({ errorType: 'errorSendingInvite', propertyName: '*' });
     }
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);

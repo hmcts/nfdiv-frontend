@@ -190,4 +190,5 @@ interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
   saveBeforeSessionTimeout?: string;
+  sendToApplicant2ForReview?: string;
 }

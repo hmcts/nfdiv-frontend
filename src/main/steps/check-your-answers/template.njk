@@ -4,10 +4,12 @@
 {% extends "common/page.njk" %}
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+{% set isJointApplication = getJointApplication() %}
 {% set isApplicationReadyToSubmit =
         nextIncompleteStep.startsWith('/check-your-answers') or
         nextIncompleteStep.startsWith('/pay-your-fee') or
-        nextIncompleteStep.startsWith('/application-submitted')
+        nextIncompleteStep.startsWith('/application-submitted') or
+        not isJointApplication
 %}
 {% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
 
@@ -39,6 +41,24 @@
           {% include "./form.njk" %}
         </div>
       </div>
+    {% endblock %}
+  {% elif isJointApplication %}
+    {% block form %}
+      {% block after_fields %}
+        {{ jointApplicantReview }}
+      {% endblock %}
+
+      {{ govukButton({
+        text: getContent(form.submit.text),
+        name: sendToApplicant2ForReview,
+        classes: form.submit.classes,
+        type: "submit",
+        preventDoubleClick: true,
+        attributes: {
+          id: 'main-form-submit'
+        }
+      }) }}
+
     {% endblock %}
   {% else %}
     {{ govukButton({

@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 
 import { Case, CaseWithId } from '../app/case/case';
+import { ApplicationType } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
@@ -70,6 +71,10 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
+};
+
+export const isJointApplication = (req: AppRequest, data: Partial<Case>): boolean => {
+  return data?.applicationType === ApplicationType.JOINT_APPLICATION;
 };
 
 export type StepWithContent = ({ generateContent: TranslationFn; form: FormContent } & Step)[];

@@ -1,12 +1,12 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { Checkbox } from '../app/case/case';
-import { Gender, YesOrNo } from '../app/case/definition';
+import { ApplicationType, Gender, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { sequence } from './sequence';
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
-import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
+import { getNextIncompleteStepUrl, getNextStepUrl, isJointApplication } from './index';
 
 describe('Steps', () => {
   describe('getNextStep()', () => {
@@ -74,6 +74,27 @@ describe('Steps', () => {
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(YOUR_DETAILS_URL);
+    });
+  });
+
+  describe('isJointApplication()', () => {
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
+    });
+
+    it('returns true when ApplicationType is jointApplication', () => {
+      const data = { applicationType: ApplicationType.JOINT_APPLICATION };
+      expect(isJointApplication(mockReq, data)).toBe(true);
+    });
+
+    it('returns false when ApplicationType is soleApplication', () => {
+      const data = { applicationType: ApplicationType.SOLE_APPLICATION };
+      expect(isJointApplication(mockReq, data)).toBe(false);
+    });
+
+    it('returns false when ApplicationType is not set', () => {
+      expect(isJointApplication(mockReq, {})).toBe(false);
     });
   });
 });
