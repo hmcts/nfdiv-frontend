@@ -7,25 +7,13 @@ import { Form } from '../form/Form';
 import { InviteApplicant2PostController } from './InviteApplicant2PostController';
 
 describe('InviteApplicant2PostController', () => {
-  const realDateNow = Date.now.bind(global.Date);
-
-  beforeEach(() => {
-    global.Date.now = jest.fn(() => new Date().getTime() / 1000);
-  });
-
-  afterEach(() => {
-    global.Date.now = realDateNow;
-  });
-
   test('Should add dueDate field and call trigger CITIZEN_INVITE_APPLICANT_2 if a joint application type', async () => {
-    const dueDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14);
     const errors = [] as never[];
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
     };
     const bodyWithConnection = {
       applicationType: ApplicationType.JOINT_APPLICATION,
-      dueDate,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -70,7 +58,7 @@ describe('InviteApplicant2PostController', () => {
 
     const expectedUserCase = {
       id: '1234',
-      applicationType: ApplicationType.JOINT_APPLICATION,
+      applicationType: ApplicationType.SOLE_APPLICATION,
     };
 
     const req = mockRequest({ body });
