@@ -21,7 +21,7 @@ import {
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
-  gender: 'inferredApplicant2Gender',
+  gender: 'applicant2Gender',
   screenHasUnionBroken: 'screenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',

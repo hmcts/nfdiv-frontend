@@ -30,8 +30,31 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+  title: 'Sut bydd y llys yn cysylltu â chi',
+  line1: `Mae'r llys angen anfon gwybodaeth, diweddariadau a dogfennau atoch yng nghyswllt ${
+    isDivorce ? 'eich ysgariad' : 'diweddu eich partneriaeth sifil'
+  }.`,
+  byEmail: 'Trwy e-bost',
+  byEmailLine1: `Rydych wedi cytuno i dderbyn negeseuon e-bost i ddefnyddio'r ${
+    isDivorce ? 'gwasanaeth ysgaru ar-lein' : 'gwasanaeth ar-lein i ddiweddu eich partneriaeth sifil'
+  }. Ni fydd eich cyfeiriad e-bost yn cael ei rannu gyda'ch ${partner}.`,
+  byEmailLine2: 'Anfonir negeseuon e-bost i:',
+  applicant1AgreeToReceiveEmails: `Rwy'n cytuno y gall y ${
+    isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
+  } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`,
+  byPhone: 'Dros y ffôn',
+  byPhoneLine1: `Nodwch eich rhif ffôn fel y gall staff y llys gysylltu â chi yn gyflym, os oes angen. Ni fydd eich rhif ffôn yn cael ei rannu gyda'ch ${partner}.`,
+  applicant1PhoneNumber: 'Nodwch eich rhif ffôn (dewisol)',
+  errors: {
+    applicant1AgreeToReceiveEmails: {
+      required: "Rhaid ichi gytuno i dderbyn hysbysiadau trwy e-bost i ddefnyddio'r gwasanaeth ar-lein hwn.",
+    },
+    applicant1PhoneNumber: {
+      invalid: "Mae'r rhif ffôn rydych wedi'i nodi yn annilys. Nodwch rif ffôn dilys i symud ymlaen.",
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
