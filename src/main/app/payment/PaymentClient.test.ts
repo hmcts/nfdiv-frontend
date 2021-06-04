@@ -114,14 +114,14 @@ describe('PaymentClient', () => {
     expect(actual).toEqual({ mockPayment: 'data' });
   });
 
-  it('throws an error and logs if fails to fetch data', async () => {
+  it('logs errors if it fails to fetch data', async () => {
     const mockGet = jest.fn().mockRejectedValueOnce({ data: { some: 'error' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
     const req = mockRequest();
 
     const client = new PaymentClient(req.session, 'http://return-url');
 
-    await expect(() => client.get('1234')).rejects.toThrow('Error fetching payment');
+    await client.get('1234');
 
     expect(mockLogger.error).toBeCalledWith('Error fetching payment', { some: 'error' });
   });

@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { APPLICATION_SUBMITTED, HOME_URL } from '../../steps/urls';
+import { APPLICATION_SUBMITTED, HOME_URL, PAY_YOUR_FEE } from '../../steps/urls';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../case/definition';
 
 import { PaymentController } from './PaymentController';
@@ -36,7 +36,7 @@ describe('PaymentController', () => {
       });
 
       (mockCreate as jest.Mock).mockReturnValueOnce({
-        created_date: '1999-12-31T23:59:59.999Z',
+        date_created: '1999-12-31T23:59:59.999Z',
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
         _links: { next_url: { href: 'http://example.com/pay' } },
@@ -55,7 +55,7 @@ describe('PaymentController', () => {
           value: {
             paymentAmount: 123,
             paymentChannel: 'HMCTS Pay',
-            paymentDate: '2021-06-03',
+            paymentDate: '1999-12-31',
             paymentFeeId: 'mock fee code',
             paymentReference: 'mock ref',
             paymentSiteId: 'AA00',
@@ -173,7 +173,7 @@ describe('PaymentController', () => {
       expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
     });
 
-    it('saves and redirects to the home page if last payment was unsuccessful', async () => {
+    it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
@@ -227,7 +227,7 @@ describe('PaymentController', () => {
         CITIZEN_ADD_PAYMENT
       );
 
-      expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
+      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });
   });
 });

@@ -2,9 +2,9 @@ import config from 'config';
 import dayjs from 'dayjs';
 import { Response } from 'express';
 
-import { APPLICATION_SUBMITTED, HOME_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
+import { APPLICATION_SUBMITTED, HOME_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../steps/urls';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../case/definition';
-import { Payment, PaymentClient } from '../payment/PaymentClient';
+import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { AppRequest } from './AppRequest';
@@ -56,12 +56,7 @@ export class PaymentController {
     }
 
     const lastPaymentAttempt = payments.lastPayment;
-    let payment: Payment | undefined;
-    try {
-      payment = await paymentClient.get(lastPaymentAttempt.paymentReference);
-    } catch {
-      // ignore
-    }
+    const payment = await paymentClient.get(lastPaymentAttempt.paymentReference);
 
     payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
 
@@ -71,7 +66,7 @@ export class PaymentController {
       CITIZEN_ADD_PAYMENT
     );
 
-    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : HOME_URL));
+    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : PAY_YOUR_FEE));
   }
 
   private getPaymentClient(req: AppRequest, res: Response) {

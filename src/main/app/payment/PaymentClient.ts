@@ -59,14 +59,13 @@ export class PaymentClient {
     }
   }
 
-  public async get(paymentReference: string): Promise<Payment> {
+  public async get(paymentReference: string): Promise<Payment | undefined> {
     try {
       const response = await this.client.get(`/card-payments/${paymentReference}`);
       return response.data;
     } catch (e) {
       const errMsg = 'Error fetching payment';
       logger.error(errMsg, e.data);
-      throw new Error(errMsg);
     }
   }
 }
