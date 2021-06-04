@@ -23,22 +23,22 @@ const fields: ToApiConverters = {
   }),
   gender: data => {
     // Applicant 1 makes the request
-    let inferredApplicant1Gender = data.gender;
+    let applicant1Gender = data.gender;
 
     // Applicant 2 receives the request
-    let inferredApplicant2Gender = data.gender;
+    let applicant2Gender = data.gender;
 
     if (data.sameSex !== Checkbox.Checked) {
       if (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) {
-        inferredApplicant1Gender = data.gender;
-        inferredApplicant2Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+        applicant1Gender = data.gender;
+        applicant2Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
       } else {
-        inferredApplicant1Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
-        inferredApplicant2Gender = data.gender;
+        applicant1Gender = data.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+        applicant2Gender = data.gender;
       }
     }
 
-    return { inferredApplicant1Gender, inferredApplicant2Gender };
+    return { applicant1Gender, applicant2Gender };
   },
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
@@ -49,7 +49,7 @@ const fields: ToApiConverters = {
       : '',
   }),
   englishOrWelsh: data => ({
-    languagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
+    applicant1LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant1AddressPostcode: applicant1AddressToApi,
   applicant1AgreeToReceiveEmails: data => ({

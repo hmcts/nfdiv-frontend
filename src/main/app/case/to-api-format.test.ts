@@ -22,8 +22,8 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       marriageIsSameSexCouple: YesOrNo.YES,
-      inferredApplicant2Gender: Gender.MALE,
-      inferredApplicant1Gender: Gender.MALE,
+      applicant2Gender: Gender.MALE,
+      applicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
       helpWithFeesNeedHelp: YesOrNo.YES,
       helpWithFeesAppliedForFees: YesOrNo.YES,
@@ -86,8 +86,8 @@ describe('to-api-format', () => {
     'gets the correct inferred gender of applicant 1 and applicant 2: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
       expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
-        inferredApplicant1Gender: expected.applicant1,
-        inferredApplicant2Gender: expected.applicant2,
+        applicant1Gender: expected.applicant1,
+        applicant2Gender: expected.applicant2,
       });
     }
   );
