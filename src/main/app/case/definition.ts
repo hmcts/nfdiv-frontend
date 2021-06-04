@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-03 15:22:01.
+// Generated using typescript-generator version 2.32.889 on 2021-06-04 08:49:52.
 
 export interface Address {
   AddressLine1: string;
@@ -93,6 +93,7 @@ export interface Applicant {
   HomeAddress: AddressGlobalUK;
   PhoneNumber: string;
   ContactDetailsConfidential: ConfidentialAddress;
+  Gender: Gender;
 }
 
 export interface CaseData {
@@ -111,6 +112,7 @@ export interface CaseData {
   applicant1HomeAddress: AddressGlobalUK;
   applicant1PhoneNumber: string;
   applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant1Gender: Gender;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -123,8 +125,7 @@ export interface CaseData {
   applicant2HomeAddress: AddressGlobalUK;
   applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
-  inferredApplicant1Gender: Gender;
-  inferredApplicant2Gender: Gender;
+  applicant2Gender: Gender;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -366,7 +367,7 @@ export const enum Gender {
  * - `G` - Eligible for Residual Jurisdiction
  * - `H` - Applicant 1 is domiciled in England and Wales
  * - `I` - Applicant 2 is domiciled in England and Wales
- * - `J` - Applicant 1 habitually resides in England and Wales and joint application
+ * - `J` - Applicant 1 habitually resides in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
@@ -406,7 +407,7 @@ export const enum JurisdictionConnections {
    */
   APP_2_DOMICILED = 'I',
   /**
-   * Applicant 1 habitually resides in England and Wales and joint application
+   * Applicant 1 habitually resides in England and Wales
    */
   APP_1_RESIDENT_JOINT = 'J',
 }

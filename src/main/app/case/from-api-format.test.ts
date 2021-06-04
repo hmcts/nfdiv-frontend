@@ -6,8 +6,8 @@ describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: 'divorce',
     marriageIsSameSexCouple: 'YES',
-    inferredApplicant2Gender: 'male',
-    inferredApplicant1Gender: 'male',
+    applicant2Gender: 'male',
+    applicant1Gender: 'male',
     screenHasMarriageBroken: 'YES',
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: 'YES',
