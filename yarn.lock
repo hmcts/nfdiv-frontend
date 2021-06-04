@@ -2025,14 +2025,14 @@
   dependencies:
     "@types/node" "*"
 
-"@types/webpack-dev-middleware@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-4.3.0.tgz#45798564defdf4573cfe0458d1ab0fe4e9421115"
-  integrity sha512-J/dgC7QCZOMHINFFtz7aOJSFmiwHQujTHMtQFRMCobG9dfsLMfN9p5Vb8QPzjLZVY1q2+W5vHWpF5AoQnW2oRg==
+"@types/webpack-dev-middleware@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-5.0.0.tgz#b49502ba17919e08c41fb1fedd2591c515cbbba3"
+  integrity sha512-7fUhtC/5KwaR7CjEiYyp9jbeB1KFfH+3Ok7N1Uyuu5fLTBNrVTMwduKyiIsLY526f7KMLgsauqy6oeQaBzzHPA==
   dependencies:
     "@types/connect" "*"
-    tapable "^2.2.0"
-    webpack "^5"
+    tapable "^2.1.1"
+    webpack "^5.38.1"
 
 "@types/which@^1.3.2":
   version "1.3.2"
