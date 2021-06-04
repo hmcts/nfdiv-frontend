@@ -14,7 +14,6 @@ export const mockRequest = ({
     body,
     locals: {
       api: {
-        saveUserData: jest.fn(),
         triggerEvent: jest.fn(),
       },
       logger: {

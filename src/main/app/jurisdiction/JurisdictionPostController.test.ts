@@ -41,13 +41,13 @@ describe('JurisdictionPostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.saveUserData as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
     expect(addConnectionMock).toBeCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
-    expect(req.locals.api.saveUserData).toHaveBeenCalledWith('1234', bodyWithConnection, undefined);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({ caseId: '1234', data: bodyWithConnection });
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.userCase).toEqual(expectedUserCase);
   });

@@ -5,12 +5,8 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, getCaseApi } from './CaseApi';
 import { CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
-import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
-jest.mock('./to-api-format');
-
-const mockToApiFormat = toApiFormat as jest.Mocked<jest.Mock>;
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -147,7 +143,7 @@ describe('CaseApi', () => {
       data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
     });
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
-    await api.triggerEvent('1234', caseData, CITIZEN_UPDATE);
+    await api.triggerEvent({ caseId: '1234', data: caseData });
 
     const expectedRequest = {
       data: caseData,
@@ -155,27 +151,21 @@ describe('CaseApi', () => {
       event_token: '123',
     };
 
-    expect(mockToApiFormat).not.toHaveBeenCalled();
     expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
   });
 
-  test('Should update case with API formatted data', async () => {
-    mockToApiFormat.mockReturnValue({ formatted: 'data' });
+  test('Should update the case with raw data', async () => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
-    mockedAxios.post.mockResolvedValue({
-      data: {
-        data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE },
-      },
-    });
-    const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
-    await api.saveUserData('1234', caseData, CITIZEN_UPDATE);
+    const raw = { payments: [] };
+    await api.triggerEvent({ caseId: '1234', raw });
 
-    expect(mockToApiFormat).toBeCalledWith({ divorceOrDissolution: 'divorce' });
-    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', {
-      data: { formatted: 'data' },
+    const expectedRequest = {
+      data: raw,
       event: { id: CITIZEN_UPDATE },
       event_token: '123',
-    });
+    };
+
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
   });
 
   test('Should throw error when case could not be updated', async () => {
@@ -185,7 +175,7 @@ describe('CaseApi', () => {
     });
 
     await expect(
-      api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, CITIZEN_UPDATE)
+      api.triggerEvent({ caseId: 'not found', data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE } })
     ).rejects.toThrow('Case could not be updated.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');

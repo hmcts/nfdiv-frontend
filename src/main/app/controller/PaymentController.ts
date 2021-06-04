@@ -17,7 +17,10 @@ export class PaymentController {
 
     const paymentClient = this.getPaymentClient(req, res);
 
-    req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, CITIZEN_SUBMIT);
+    req.session.userCase = await req.locals.api.triggerEvent({
+      caseId: req.session.userCase.id,
+      eventName: CITIZEN_SUBMIT,
+    });
     const payments = new PaymentModel(req.session.userCase.payments);
 
     const { applicationFeeOrderSummary } = req.session.userCase;
@@ -60,11 +63,11 @@ export class PaymentController {
 
     payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
 
-    req.session.userCase = await req.locals.api.triggerEvent(
-      req.session.userCase.id,
-      { payments: payments.list },
-      CITIZEN_ADD_PAYMENT
-    );
+    req.session.userCase = await req.locals.api.triggerEvent({
+      caseId: req.session.userCase.id,
+      raw: { payments: payments.list },
+      eventName: CITIZEN_ADD_PAYMENT,
+    });
 
     req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : PAY_YOUR_FEE));
   }

@@ -41,13 +41,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = serviceCases[0];
-        return {
-          ...fromApiFormat(caseData),
-          id,
-          state,
-          applicationFeeOrderSummary: caseData.applicationFeeOrderSummary,
-          payments: caseData.payments,
-        };
+        return { ...fromApiFormat(caseData), id, state };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -89,11 +83,17 @@ export class CaseApi {
     }
   }
 
-  public async saveUserData(caseId: string, userData: Partial<Case>, eventName = CITIZEN_UPDATE): Promise<CaseWithId> {
-    return this.triggerEvent(caseId, toApiFormat(userData), eventName);
-  }
-
-  public async triggerEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
+  public async triggerEvent({
+    caseId,
+    data = {},
+    eventName = CITIZEN_UPDATE,
+    raw,
+  }: {
+    caseId: string;
+    data?: Partial<Case>;
+    eventName?: string;
+    raw?: Partial<CaseData>;
+  }): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
     const event = { id: eventName };
@@ -101,17 +101,11 @@ export class CaseApi {
     try {
       const { data: { id, state, data: caseData } = {} } = await this.axios.post(`/cases/${caseId}/events`, {
         event,
-        data,
+        data: raw || toApiFormat(data),
         event_token: token,
       });
 
-      return {
-        ...fromApiFormat(caseData),
-        id,
-        state,
-        applicationFeeOrderSummary: caseData.applicationFeeOrderSummary,
-        payments: caseData.payments,
-      };
+      return { ...fromApiFormat(caseData), id, state };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

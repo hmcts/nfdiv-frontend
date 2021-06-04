@@ -46,7 +46,7 @@ describe('PaymentController', () => {
 
       expect(mockCreate).toHaveBeenCalled();
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({ caseId: '1234', eventName: CITIZEN_SUBMIT });
 
       expect(req.session.userCase.payments).toEqual([
         { existing: 'payment' },
@@ -118,9 +118,9 @@ describe('PaymentController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-        '1234',
-        {
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
+        caseId: '1234',
+        raw: {
           payments: [
             {
               id: 'mock payment id',
@@ -137,8 +137,8 @@ describe('PaymentController', () => {
             },
           ],
         },
-        CITIZEN_ADD_PAYMENT
-      );
+        eventName: CITIZEN_ADD_PAYMENT,
+      });
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -205,9 +205,9 @@ describe('PaymentController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-        '1234',
-        {
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
+        caseId: '1234',
+        raw: {
           payments: [
             {
               id: 'mock payment id',
@@ -224,8 +224,8 @@ describe('PaymentController', () => {
             },
           ],
         },
-        CITIZEN_ADD_PAYMENT
-      );
+        eventName: CITIZEN_ADD_PAYMENT,
+      });
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });

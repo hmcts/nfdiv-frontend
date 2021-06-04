@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CITIZEN_UPDATE, State } from '../case/definition';
+import { State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -38,7 +38,7 @@ describe('DocumentManagerController', () => {
       },
     ]);
 
-    (req.locals.api.saveUserData as jest.Mock).mockReturnValue({
+    (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
       uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
     });
 
@@ -49,9 +49,9 @@ describe('DocumentManagerController', () => {
       files: [{ originalname: 'uploaded-file.jpg' }],
     });
 
-    expect(req.locals.api.saveUserData).toHaveBeenCalledWith(
-      '1234',
-      {
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
+      caseId: '1234',
+      data: {
         documentsUploaded: [
           'an-existing-doc',
           {
@@ -68,8 +68,7 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-      CITIZEN_UPDATE
-    );
+    });
 
     expect(res.json).toHaveBeenCalledWith([
       {
@@ -105,20 +104,20 @@ describe('DocumentManagerController', () => {
         ],
       },
       appLocals: {
-        api: { saveUserData: jest.fn() },
+        api: { triggerEvent: jest.fn() },
       },
     });
     req.params = { id: '2' };
     const res = mockResponse();
 
-    const mockApiSaveUserData = req.locals.api.saveUserData as jest.Mock;
-    mockApiSaveUserData.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
+    const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+    mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
 
     await documentManagerController.delete(req, res);
 
-    expect(mockApiSaveUserData).toHaveBeenCalledWith(
-      '1234',
-      {
+    expect(mockApiTriggerEvent).toHaveBeenCalledWith({
+      caseId: '1234',
+      data: {
         documentsUploaded: [
           {
             id: '1',
@@ -134,11 +133,10 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-      CITIZEN_UPDATE
-    );
+    });
 
     expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
-    expect(mockDelete).toHaveBeenCalledAfter(mockApiSaveUserData);
+    expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
   });
@@ -159,7 +157,7 @@ describe('DocumentManagerController', () => {
     await documentManagerController.delete(req, res);
 
     expect(mockDelete).not.toHaveBeenCalled();
-    expect(req.locals.api.saveUserData).not.toHaveBeenCalled();
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
     expect(res.json).toHaveBeenCalledWith({ deletedId: null });
   });
