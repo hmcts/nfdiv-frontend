@@ -5,7 +5,14 @@ import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import * as possibleAnswers from '../case/answers/possibleAnswers';
 import { Case, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender, YesOrNo } from '../case/definition';
+import {
+  ApplicationType,
+  CITIZEN_INVITE_APPLICANT_2,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_UPDATE,
+  Gender,
+  YesOrNo,
+} from '../case/definition';
 
 import { PostController } from './PostController';
 
@@ -329,6 +336,47 @@ describe('PostController', () => {
     );
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+  });
+
+  it('Should save the dueDate to the users data, update case and redirect to the sent for review page', async () => {
+    const realDateNow = Date.now.bind(global.Date);
+    global.Date.now = jest.fn(() => new Date().getTime() / 1000);
+    const dueDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14);
+
+    const errors = [] as never[];
+    const body = { applicationType: ApplicationType.JOINT_APPLICATION };
+    getNextStepUrlMock.mockReturnValue('/application-sent-for-review');
+
+    const mockForm = {
+      setFormState: jest.fn(),
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown as Form;
+    const expectedUserCase = {
+      id: '1234',
+      dueDate,
+      applicationType: ApplicationType.JOINT_APPLICATION,
+    };
+
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    const res = mockResponse();
+
+    await controller.sendToApplicant2ForReview(req, res, body);
+
+    expect(req.session.userCase).toEqual(expectedUserCase);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { dueDate, applicationType: ApplicationType.JOINT_APPLICATION },
+      CITIZEN_INVITE_APPLICANT_2
+    );
+    expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
+    expect(res.redirect).toBeCalledWith('/application-sent-for-review');
+    expect(req.session.errors).toStrictEqual([]);
+
+    global.Date.now = realDateNow;
   });
 });
 
