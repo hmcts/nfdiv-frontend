@@ -175,13 +175,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  if (content.isJointApplication) {
-    form.fields = {};
-  }
   return {
     ...translations,
     sections: Sections,
     getAnswerRows,
-    form,
+    form: {
+      ...form,
+      fields: content.isJointApplication ? {} : form.fields,
+    },
   };
 };
