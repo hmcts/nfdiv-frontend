@@ -1,9 +1,9 @@
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { ApplicationType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
@@ -134,35 +134,38 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
 const cy: typeof en = en;
 
 export const form: FormContent = {
-  fields: {
-    iConfirmPrayer: {
-      type: 'checkboxes',
-      label: l => l.confirm,
-      labelSize: 'm',
-      values: [
-        {
-          name: 'iConfirmPrayer',
-          label: l => l.confirmPrayer,
-          hint: l => l.confirmPrayerHint,
-          value: Checkbox.Checked,
-          validator: isFieldFilledIn,
+  fields: formState =>
+    formState.applicationType === ApplicationType.JOINT_APPLICATION
+      ? {}
+      : {
+          iConfirmPrayer: {
+            type: 'checkboxes',
+            label: l => l.confirm,
+            labelSize: 'm',
+            values: [
+              {
+                name: 'iConfirmPrayer',
+                label: l => l.confirmPrayer,
+                hint: l => l.confirmPrayerHint,
+                value: Checkbox.Checked,
+                validator: isFieldFilledIn,
+              },
+            ],
+          },
+          iBelieveApplicationIsTrue: {
+            type: 'checkboxes',
+            labelHidden: true,
+            values: [
+              {
+                name: 'iBelieveApplicationIsTrue',
+                label: l => l.confirmApplicationIsTrue,
+                hint: l => l.confirmApplicationIsTrueHint,
+                value: Checkbox.Checked,
+                validator: isFieldFilledIn,
+              },
+            ],
+          },
         },
-      ],
-    },
-    iBelieveApplicationIsTrue: {
-      type: 'checkboxes',
-      labelHidden: true,
-      values: [
-        {
-          name: 'iBelieveApplicationIsTrue',
-          label: l => l.confirmApplicationIsTrue,
-          hint: l => l.confirmApplicationIsTrueHint,
-          value: Checkbox.Checked,
-          validator: isFieldFilledIn,
-        },
-      ],
-    },
-  },
   submit: {
     text: l => l.continue,
   },
@@ -179,9 +182,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     sections: Sections,
     getAnswerRows,
-    form: {
-      ...form,
-      fields: content.isJointApplication ? {} : form.fields,
-    },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.formState || {}) },
   };
 };
