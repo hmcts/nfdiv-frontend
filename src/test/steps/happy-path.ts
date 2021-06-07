@@ -12,7 +12,7 @@ import {
 
 const { I } = inject();
 
-Given("I've already completed all questions correctly", () => iSetTheUsersCaseTo(completeCase));
+Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
 
 Given("I've completed all happy path questions correctly to get to check your answers page", () => {
   iAmOnPage('/your-details');

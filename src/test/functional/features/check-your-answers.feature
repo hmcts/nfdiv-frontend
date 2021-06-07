@@ -52,7 +52,7 @@ Feature: Check Your Answers
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
 
   Scenario: Completed all required questions and confirming
-    Given I've already completed all questions correctly
+    Given I've completed all happy path questions correctly to get to check your answers page
     And I go to '/check-your-answers'
     And I clear the form
     And I click "Continue to payment"
