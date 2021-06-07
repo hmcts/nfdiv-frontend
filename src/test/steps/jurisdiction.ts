@@ -3,7 +3,7 @@ import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../ma
 
 import { iSetTheUsersCaseTo } from './common';
 
-Given("I've completed all questions correctly to get to the jurisdiction section", () => {
+Given("I've completed all questions correctly to get to the jurisdiction section", async () => {
   iSetTheUsersCaseTo({
     applicationType: ApplicationType.SOLE_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,

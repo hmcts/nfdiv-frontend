@@ -367,7 +367,12 @@ export const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: data => (data.applicant1HelpWithFeesRefNo ? APPLICATION_SUBMITTED : PAY_YOUR_FEE),
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? SENT_TO_APPLICANT2_FOR_REVIEW
+        : data.applicant1HelpWithFeesRefNo
+        ? APPLICATION_SUBMITTED
+        : PAY_YOUR_FEE,
   },
   {
     url: SENT_TO_APPLICANT2_FOR_REVIEW,

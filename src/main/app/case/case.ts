@@ -155,6 +155,8 @@ export interface Case {
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: DocumentType | DocumentType[];
+  invitePin?: string;
+  dueDate?: Date;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
   payments: ListValue<Payment>[];
