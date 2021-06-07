@@ -33,7 +33,11 @@ describe('from-api-format', () => {
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat({ ...results, marriageDate: '2000-09-02' } as unknown as CaseData);
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      marriageDate: '2000-09-02',
+      dateSubmitted: '2021-01-01',
+    } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -50,6 +54,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
+      dateSubmitted: new Date('2021-01-01'),
     });
   });
 

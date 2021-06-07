@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { DocumentType, YesOrNo } from '../../app/case/definition';
+import { DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import type { CommonContent } from '../common/common.content';
 
@@ -111,6 +111,12 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const progressionIndex = [State.Submitted, State.AwaitingApplicant2Response].indexOf(
+    content.formState?.state as State
+  );
   const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
-  return languages[content.language]({ ...content, referenceNumber });
+  return {
+    ...languages[content.language]({ ...content, referenceNumber }),
+    progressionIndex,
+  };
 };

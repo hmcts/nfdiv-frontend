@@ -23,15 +23,20 @@
       label: {
         text: partnerResponse
       },
-      active: true
+      complete: progressionIndex > 1,
+      active: progressionIndex == 1
     }, {
       label: {
         text: conditionalOrderGranted
-      }
+      },
+      complete: progressionIndex > 2,
+      active: progressionIndex == 2
     }, {
       label: {
         text: applicationEnded
-      }
+      },
+      complete: progressionIndex >= 3,
+      active: progressionIndex == 3
     }]
   }) }}
   {% if formState.cannotUpload or formState.iWantToHavePapersServedAnotherWay %}
