@@ -14,7 +14,8 @@ export class PaymentModel {
   }
 
   public get lastPayment(): Payment {
-    return this.payments[this.payments.length - 1].value;
+    const idx = this.payments.length - 1;
+    return { ...this.payments[idx].value, paymentTransactionId: this.payments[idx].id };
   }
 
   public get wasLastPaymentSuccessful(): boolean {

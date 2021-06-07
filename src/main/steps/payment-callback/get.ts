@@ -5,12 +5,12 @@ import { CITIZEN_ADD_PAYMENT, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentClient } from '../../app/payment/PaymentClient';
 import { PaymentModel } from '../../app/payment/PaymentModel';
-import { APPLICATION_SUBMITTED, HOME_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../steps/urls';
+import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
 
-export class PaymentCallbackGetController {
+export default class PaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (req.session.userCase.state !== State.AwaitingPayment) {
-      return res.redirect(HOME_URL);
+      return res.redirect(CHECK_ANSWERS_URL);
     }
 
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
@@ -21,11 +21,15 @@ export class PaymentCallbackGetController {
     const payments = new PaymentModel(req.session.userCase.payments);
 
     if (!payments.hasPayment) {
-      return res.redirect(HOME_URL);
+      return res.redirect(CHECK_ANSWERS_URL);
     }
 
     const lastPaymentAttempt = payments.lastPayment;
     const payment = await paymentClient.get(lastPaymentAttempt.paymentReference);
+
+    if (payment?.status === 'Initiated') {
+      return res.redirect(lastPaymentAttempt.paymentChannel);
+    }
 
     payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
 
@@ -35,6 +39,6 @@ export class PaymentCallbackGetController {
       eventName: CITIZEN_ADD_PAYMENT,
     });
 
-    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : PAY_YOUR_FEE));
+    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : CHECK_ANSWERS_URL));
   }
 }

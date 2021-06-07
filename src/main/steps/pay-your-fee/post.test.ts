@@ -3,16 +3,16 @@ import 'jest-extended';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CITIZEN_SUBMIT, State } from '../../app/case/definition';
-import { HOME_URL } from '../../steps/urls';
+import { HOME_URL } from '../urls';
 
-import { PaymentGetController } from './get';
+import PaymentPostController from './post';
 
 jest.mock('../../app/payment/PaymentClient');
 
 const { mockCreate, mockGet } = require('../../app/payment/PaymentClient');
 
-describe('PaymentGetController', () => {
-  const paymentController = new PaymentGetController();
+describe('PaymentPostController', () => {
+  const paymentController = new PaymentPostController();
 
   beforeEach(() => {
     mockCreate.mockClear();
@@ -42,7 +42,7 @@ describe('PaymentGetController', () => {
         _links: { next_url: { href: 'http://example.com/pay' } },
       });
 
-      await paymentController.get(req, res);
+      await paymentController.post(req, res);
 
       expect(mockCreate).toHaveBeenCalled();
 
@@ -77,7 +77,7 @@ describe('PaymentGetController', () => {
       });
       const res = mockResponse();
 
-      await paymentController.get(req, res);
+      await paymentController.post(req, res);
 
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();

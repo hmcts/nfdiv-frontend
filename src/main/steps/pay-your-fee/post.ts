@@ -2,16 +2,21 @@ import config from 'config';
 import dayjs from 'dayjs';
 import { Response } from 'express';
 
-import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../app/case/definition';
+import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentClient } from '../../app/payment/PaymentClient';
 import { PaymentModel } from '../../app/payment/PaymentModel';
-import { HOME_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
+import { CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL } from '../urls';
 
-export class PaymentGetController {
-  public async get(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.userCase.state !== State.Draft) {
-      return res.redirect(HOME_URL);
+export default class PaymentPostController {
+  public async post(req: AppRequest, res: Response): Promise<void> {
+    if (req.session.userCase.state !== State.AwaitingPayment) {
+      return res.redirect(CHECK_ANSWERS_URL);
+    }
+
+    const payments = new PaymentModel(req.session.userCase.payments);
+    if (payments.hasPayment && payments.lastPayment.paymentStatus === PaymentStatus.IN_PROGRESS) {
+      return res.redirect(PAYMENT_CALLBACK_URL);
     }
 
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
@@ -19,12 +24,6 @@ export class PaymentGetController {
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
-
-    req.session.userCase = await req.locals.api.triggerEvent({
-      caseId: req.session.userCase.id,
-      eventName: CITIZEN_SUBMIT,
-    });
-    const payments = new PaymentModel(req.session.userCase.payments);
 
     const { applicationFeeOrderSummary } = req.session.userCase;
     const payment = await paymentClient.create();
@@ -34,11 +33,16 @@ export class PaymentGetController {
       paymentAmount: parseInt(applicationFeeOrderSummary.Fees[0].value.FeeAmount, 10),
       paymentSiteId: config.get('services.payments.siteId'),
       paymentStatus: PaymentStatus.IN_PROGRESS,
-      paymentChannel: 'HMCTS Pay',
+      paymentChannel: payment._links.next_url.href,
       paymentReference: payment.reference,
       paymentTransactionId: payment.external_reference,
     });
-    req.session.userCase.payments = payments.list;
+
+    req.session.userCase = await req.locals.api.triggerEvent({
+      caseId: req.session.userCase.id,
+      raw: { payments: payments.list },
+      eventName: CITIZEN_ADD_PAYMENT,
+    });
 
     req.session.save(err => {
       if (err) {

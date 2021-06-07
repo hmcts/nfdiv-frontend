@@ -5,7 +5,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../../app/case/definition';
 import { APPLICATION_SUBMITTED, HOME_URL, PAY_YOUR_FEE } from '../../steps/urls';
 
-import { PaymentCallbackGetController } from './get';
+import PaymentCallbackGetController from './get';
 
 jest.mock('../../app/payment/PaymentClient');
 

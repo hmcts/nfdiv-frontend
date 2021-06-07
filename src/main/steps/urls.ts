@@ -76,5 +76,4 @@ export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 
-export const PAYMENT_URL: PageLink = '/payment';
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';

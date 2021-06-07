@@ -14,8 +14,6 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
-import { PaymentCallbackGetController } from './steps/payment-callback/get';
-import { PaymentGetController } from './steps/payment/get';
 import { PostcodeLookupPostController } from './steps/postcode-lookup/post';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
@@ -27,8 +25,6 @@ import {
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
-  PAYMENT_CALLBACK_URL,
-  PAYMENT_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   SAVE_AND_SIGN_OUT,
@@ -53,8 +49,6 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
-    app.get(PAYMENT_URL, errorHandler(new PaymentGetController().get));
-    app.get(PAYMENT_CALLBACK_URL, errorHandler(new PaymentCallbackGetController().get));
 
     const documentManagerController = new DocumentManagerController();
     app.post(

@@ -3,13 +3,13 @@ import { Application, NextFunction, Response } from 'express';
 
 import { CALLBACK_URL, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
-import { PaymentStatus, State } from '../../app/case/definition';
+import { State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import {
   APPLICATION_SUBMITTED,
   PAYMENT_CALLBACK_URL,
-  PAYMENT_URL,
+  PAY_YOUR_FEE,
   PageLink,
   SIGN_IN_URL,
   SIGN_OUT_URL,
@@ -55,10 +55,6 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if ([PAYMENT_URL, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)) {
-          return next();
-        }
-
         if (
           [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase.state) &&
           req.path !== APPLICATION_SUBMITTED
@@ -66,19 +62,16 @@ export class OidcMiddleware {
           return res.redirect(APPLICATION_SUBMITTED);
         }
 
+        if (
+          req.session.userCase.state !== State.AwaitingPayment ||
+          [PAY_YOUR_FEE, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
+        ) {
+          return next();
+        }
+
         const payments = new PaymentModel(req.session.userCase.payments);
         if (payments.hasPayment) {
-          const lastPaymentAttempt = payments.lastPayment;
-          if (
-            req.session.userCase.state === State.AwaitingPayment &&
-            lastPaymentAttempt.paymentStatus === PaymentStatus.IN_PROGRESS
-          ) {
-            return res.redirect(PAYMENT_CALLBACK_URL);
-          }
-
-          if (lastPaymentAttempt.paymentStatus === PaymentStatus.SUCCESS && req.path !== APPLICATION_SUBMITTED) {
-            return res.redirect(APPLICATION_SUBMITTED);
-          }
+          return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
         return next();
