@@ -52,7 +52,7 @@ Feature: Check Your Answers
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
 
   Scenario: Completed all required questions and confirming
-    Given I've completed all happy path questions correctly to get to check your answers page
+    Given I've already completed all questions correctly
     And I go to '/check-your-answers'
     And I clear the form
     And I click "Continue to payment"
@@ -61,14 +61,3 @@ Feature: Check Your Answers
     And I click "I believe that the facts stated in this application are true"
     And I click "Continue to payment"
     Then the page URL should be "/pay-your-fee"
-
-  Scenario: Checking answers as a joint applicant
-    Given I've completed enough questions correctly to get to the check your answers page as a joint applicant
-    When I go to '/check-your-answers'
-    Then the page should include "Your answers will be sent to your husband to review. Once they have reviewed and provided some of their own information then the application will be ready to submit."
-
-  Scenario: Sending application to applicant 2 to confirm
-    Given I've completed enough questions correctly to get to the check your answers page as a joint applicant
-    And I go to '/check-your-answers'
-    And I click "Send for Review"
-    Then the page URL should be "/application-sent-for-review"
