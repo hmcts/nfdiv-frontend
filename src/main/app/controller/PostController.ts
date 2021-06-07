@@ -78,7 +78,7 @@ export class PostController<T extends AnyObject> {
     });
   }
 
-  private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
     const dataToSave = { ...unreachableAnswersAsNull, ...formData };
 

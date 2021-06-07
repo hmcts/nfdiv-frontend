@@ -7,7 +7,8 @@
 {% set isApplicationReadyToSubmit =
         nextIncompleteStep.startsWith('/check-your-answers') or
         nextIncompleteStep.startsWith('/pay-your-fee') or
-        nextIncompleteStep.startsWith('/application-submitted')
+        nextIncompleteStep.startsWith('/application-submitted') or
+        not isJointApplication
 %}
 {% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
 
@@ -40,6 +41,8 @@
         </div>
       </div>
     {% endblock %}
+  {% elif isJointApplication %}
+    {% include "./joint-form.njk" %}
   {% else %}
     {{ govukButton({
       text: continueApplication,

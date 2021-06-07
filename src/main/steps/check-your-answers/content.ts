@@ -9,7 +9,7 @@ import { CommonContent } from '../../steps/common/common.content';
 import { Sections } from '../sequence';
 import * as urls from '../urls';
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => ({
+const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -95,6 +95,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   },
   continueApplication: 'Continue application',
   confirm: `Confirm before ${formState?.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
+  jointApplicantReview: `Your answers will be sent to your ${partner} to review. Once they have reviewed and provided some of their own information then the application will be ready to submit.`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
@@ -110,17 +111,23 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-  continue: formState?.applicant1HelpWithFeesRefNo ? 'Submit application' : 'Continue to payment',
-  errors: {
-    iConfirmPrayer: {
-      required:
-        'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
-    },
-    iBelieveApplicationIsTrue: {
-      required:
-        'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
-    },
-  },
+  continue: isJointApplication
+    ? 'Send for Review'
+    : formState?.applicant1HelpWithFeesRefNo
+    ? 'Submit application'
+    : 'Continue to payment',
+  errors: isJointApplication
+    ? undefined
+    : {
+        iConfirmPrayer: {
+          required:
+            'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
+        },
+        iBelieveApplicationIsTrue: {
+          required:
+            'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
+        },
+      },
 });
 
 // @TODO translations
@@ -168,6 +175,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  if (content.isJointApplication) {
+    form.fields = {};
+  }
   return {
     ...translations,
     sections: Sections,
