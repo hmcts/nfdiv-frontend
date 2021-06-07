@@ -1,9 +1,11 @@
 @import '~govuk-frontend';
+@import '~@hmcts/frontend/all';
 
 @import './banner';
 @import './header';
 @import './contact-us';
 @import './upload-documents';
+@import './application-submitted';
 
 .hmcts-button-link,
 .uppy-FileInput-btn {

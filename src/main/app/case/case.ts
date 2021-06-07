@@ -150,6 +150,7 @@ export interface Case {
   cannotUploadDocuments?: DocumentType | DocumentType[];
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
+  dateSubmitted?: Date;
 }
 
 export interface CaseWithId extends Case {

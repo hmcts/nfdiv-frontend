@@ -380,4 +380,8 @@ export const sequence: Step[] = [
     url: JURISDICTION_CONNECTION_SUMMARY,
     getNextStep: () => YOUR_NAME,
   },
+  {
+    url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
 ];
