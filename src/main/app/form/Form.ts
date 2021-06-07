@@ -133,7 +133,7 @@ type Label = string | LanguageLookup;
 
 type Warning = Label;
 
-export type FormFields = Record<string, FormField>;
+export type FormFields = Partial<Record<string, FormField>>;
 export type FormFieldsFn = (formState: Partial<Case>) => FormFields;
 
 export interface FormContent {
