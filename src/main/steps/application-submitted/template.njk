@@ -43,11 +43,11 @@
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
     {% if formState.cannotUpload %}
-      <h3 class="govuk-heading-m">{{ subHeadixng2 }}</h3>
+      <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
-        {% for property, document in documents %}
-          <li>{{ document }}</li>
+        {% for document in formState.cannotUploadDocuments %}
+          <li>{{ documents[document] }}</li>
         {% endfor %}
       </ul>
 
