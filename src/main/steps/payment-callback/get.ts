@@ -1,11 +1,11 @@
 import config from 'config';
 import { Response } from 'express';
 
-import { CITIZEN_ADD_PAYMENT, State } from '../../app/case/definition';
+import { State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentClient } from '../../app/payment/PaymentClient';
 import { PaymentModel } from '../../app/payment/PaymentModel';
-import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL } from '../../steps/urls';
+import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../steps/urls';
 
 export default class PaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -33,12 +33,8 @@ export default class PaymentCallbackGetController {
 
     payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
 
-    req.session.userCase = await req.locals.api.triggerEvent({
-      caseId: req.session.userCase.id,
-      raw: { payments: payments.list },
-      eventName: CITIZEN_ADD_PAYMENT,
-    });
+    req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
 
-    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : CHECK_ANSWERS_URL));
+    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : PAY_YOUR_FEE));
   }
 }

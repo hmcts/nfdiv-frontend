@@ -3,7 +3,7 @@ import type { Response } from 'express';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
-import { State } from '../case/definition';
+import { CITIZEN_UPDATE, State } from '../case/definition';
 import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
@@ -47,10 +47,11 @@ export class DocumentManagerController {
 
     const updatedDocumentsUploaded = [...(req.session.userCase.documentsUploaded || []), ...newUploads];
 
-    req.session.userCase = await req.locals.api.triggerEvent({
-      caseId: req.session.userCase.id,
-      data: { documentsUploaded: updatedDocumentsUploaded },
-    });
+    req.session.userCase = await req.locals.api.triggerEvent(
+      req.session.userCase.id,
+      { documentsUploaded: updatedDocumentsUploaded },
+      CITIZEN_UPDATE
+    );
 
     req.session.save(err => {
       if (err) {
@@ -76,10 +77,11 @@ export class DocumentManagerController {
 
     documentsUploaded[documentIndexToDelete].value = null;
 
-    req.session.userCase = await req.locals.api.triggerEvent({
-      caseId: req.session.userCase.id,
-      data: { documentsUploaded },
-    });
+    req.session.userCase = await req.locals.api.triggerEvent(
+      req.session.userCase.id,
+      { documentsUploaded },
+      CITIZEN_UPDATE
+    );
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     await documentManagementClient.delete({

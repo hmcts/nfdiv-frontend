@@ -2,8 +2,8 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CITIZEN_SUBMIT, State } from '../../app/case/definition';
-import { HOME_URL } from '../urls';
+import { State } from '../../app/case/definition';
+import { CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL } from '../urls';
 
 import PaymentPostController from './post';
 
@@ -23,13 +23,16 @@ describe('PaymentPostController', () => {
     it('creates a new payment and redirects to payment URL', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.Draft,
+          state: State.AwaitingPayment,
+          applicationFeeOrderSummary: {
+            Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
+          },
         },
       });
       const res = mockResponse();
 
-      (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
-        payments: [{ existing: 'payment' }],
+      (req.locals.api.addPayment as jest.Mock).mockReturnValueOnce({
+        payments: [{ new: 'payment' }],
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -46,15 +49,12 @@ describe('PaymentPostController', () => {
 
       expect(mockCreate).toHaveBeenCalled();
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({ caseId: '1234', eventName: CITIZEN_SUBMIT });
-
-      expect(req.session.userCase.payments).toEqual([
-        { existing: 'payment' },
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
         {
           id: 'mock external reference payment id',
           value: {
             paymentAmount: 123,
-            paymentChannel: 'HMCTS Pay',
+            paymentChannel: 'http://example.com/pay',
             paymentDate: '1999-12-31',
             paymentFeeId: 'mock fee code',
             paymentReference: 'mock ref',
@@ -65,11 +65,13 @@ describe('PaymentPostController', () => {
         },
       ]);
 
+      expect(req.session.userCase.payments).toEqual([{ new: 'payment' }]);
+
       expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('http://example.com/pay');
     });
 
-    it('redirects to the home page if the state is not draft', async () => {
+    it('redirects to the check your answers page if the state is not draft', async () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingDocuments,
@@ -81,7 +83,37 @@ describe('PaymentPostController', () => {
 
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
+      expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
+    });
+
+    it('redirects to the check your answers page if last payment is in progress', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.AwaitingPayment,
+          payments: [
+            {
+              id: 'mock external reference payment id',
+              value: {
+                paymentAmount: 123,
+                paymentChannel: 'HMCTS Pay',
+                paymentDate: '1999-12-31',
+                paymentFeeId: 'mock fee code',
+                paymentReference: 'mock ref',
+                paymentSiteId: 'AA00',
+                paymentStatus: 'inProgress',
+                paymentTransactionId: 'mock external reference payment id',
+              },
+            },
+          ],
+        },
+      });
+      const res = mockResponse();
+
+      await paymentController.post(req, res);
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
     });
   });
 });

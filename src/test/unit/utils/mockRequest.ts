@@ -15,6 +15,7 @@ export const mockRequest = ({
     locals: {
       api: {
         triggerEvent: jest.fn(),
+        addPayment: jest.fn(),
       },
       logger: {
         info: jest.fn(),

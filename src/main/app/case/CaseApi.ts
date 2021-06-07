@@ -8,11 +8,13 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import {
   CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
-  CITIZEN_UPDATE,
   CaseData,
   DivorceOrDissolution,
   JURISDICTION,
+  ListValue,
+  Payment,
   State,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
@@ -83,33 +85,27 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent({
-    caseId,
-    data = {},
-    eventName = CITIZEN_UPDATE,
-    raw,
-  }: {
-    caseId: string;
-    data?: Partial<Case>;
-    eventName?: string;
-    raw?: Partial<CaseData>;
-  }): Promise<CaseWithId> {
+  private async _triggerEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
     const event = { id: eventName };
 
     try {
-      const { data: { id, state, data: caseData } = {} } = await this.axios.post(`/cases/${caseId}/events`, {
-        event,
-        data: raw || toApiFormat(data),
-        event_token: token,
-      });
+      const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
 
-      return { ...fromApiFormat(caseData), id, state };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
     }
+  }
+
+  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    return this._triggerEvent(caseId, toApiFormat(userData), eventName);
+  }
+
+  public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
+    return this._triggerEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
   }
 
   private logError(error: AxiosError) {

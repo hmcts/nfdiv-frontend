@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 import { Response } from 'express';
 
-import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../../app/case/definition';
+import { PaymentStatus, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentClient } from '../../app/payment/PaymentClient';
 import { PaymentModel } from '../../app/payment/PaymentModel';
@@ -38,11 +38,7 @@ export default class PaymentPostController {
       paymentTransactionId: payment.external_reference,
     });
 
-    req.session.userCase = await req.locals.api.triggerEvent({
-      caseId: req.session.userCase.id,
-      raw: { payments: payments.list },
-      eventName: CITIZEN_ADD_PAYMENT,
-    });
+    req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
 
     req.session.save(err => {
       if (err) {

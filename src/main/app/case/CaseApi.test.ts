@@ -2,9 +2,10 @@ import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest';
+import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
 
 jest.mock('axios');
 
@@ -143,7 +144,7 @@ describe('CaseApi', () => {
       data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
     });
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
-    await api.triggerEvent({ caseId: '1234', data: caseData });
+    await api.triggerEvent('1234', caseData, CITIZEN_UPDATE);
 
     const expectedRequest = {
       data: caseData,
@@ -154,14 +155,17 @@ describe('CaseApi', () => {
     expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
   });
 
-  test('Should update the case with raw data', async () => {
+  test('Should update the case with a new payment', async () => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
-    const raw = { payments: [] };
-    await api.triggerEvent({ caseId: '1234', raw });
+    mockedAxios.post.mockResolvedValue({
+      data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
+    });
+    const payments = new PaymentModel([]);
+    await api.addPayment('1234', payments.list);
 
     const expectedRequest = {
-      data: raw,
-      event: { id: CITIZEN_UPDATE },
+      data: { payments: payments.list },
+      event: { id: CITIZEN_ADD_PAYMENT },
       event_token: '123',
     };
 
@@ -175,7 +179,7 @@ describe('CaseApi', () => {
     });
 
     await expect(
-      api.triggerEvent({ caseId: 'not found', data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE } })
+      api.triggerEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, CITIZEN_UPDATE)
     ).rejects.toThrow('Case could not be updated.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');

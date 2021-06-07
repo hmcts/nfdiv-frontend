@@ -2,8 +2,8 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../../app/case/definition';
-import { APPLICATION_SUBMITTED, HOME_URL, PAY_YOUR_FEE } from '../../steps/urls';
+import { PaymentStatus, State } from '../../app/case/definition';
+import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAY_YOUR_FEE } from '../../steps/urls';
 
 import PaymentCallbackGetController from './get';
 
@@ -52,27 +52,21 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
-        caseId: '1234',
-        raw: {
-          payments: [
-            {
-              id: 'mock payment id',
-              value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.SUCCESS,
-                paymentTransactionId: 'mock payment id',
-              },
-            },
-          ],
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
+        {
+          id: 'mock payment id',
+          value: {
+            paymentAmount: 55000,
+            paymentChannel: 'mock payment provider',
+            paymentDate: '1999-12-31',
+            paymentFeeId: 'FEE0002',
+            paymentReference: 'mock ref',
+            paymentSiteId: 'GOV Pay',
+            paymentStatus: PaymentStatus.SUCCESS,
+            paymentTransactionId: 'mock payment id',
+          },
         },
-        eventName: CITIZEN_ADD_PAYMENT,
-      });
+      ]);
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -88,8 +82,8 @@ describe('PaymentCallbackGetController', () => {
       await paymentController.get(req, res);
 
       expect(mockGet).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
+      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
     });
 
     it('redirects to the home page if there is no last payment', async () => {
@@ -103,8 +97,8 @@ describe('PaymentCallbackGetController', () => {
       await paymentController.get(req, res);
 
       expect(mockGet).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
+      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
     });
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
@@ -139,27 +133,21 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
-        caseId: '1234',
-        raw: {
-          payments: [
-            {
-              id: 'mock payment id',
-              value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.ERROR,
-                paymentTransactionId: 'mock payment id',
-              },
-            },
-          ],
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
+        {
+          id: 'mock payment id',
+          value: {
+            paymentAmount: 55000,
+            paymentChannel: 'mock payment provider',
+            paymentDate: '1999-12-31',
+            paymentFeeId: 'FEE0002',
+            paymentReference: 'mock ref',
+            paymentSiteId: 'GOV Pay',
+            paymentStatus: PaymentStatus.ERROR,
+            paymentTransactionId: 'mock payment id',
+          },
         },
-        eventName: CITIZEN_ADD_PAYMENT,
-      });
+      ]);
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });

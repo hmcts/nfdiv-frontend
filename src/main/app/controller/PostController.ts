@@ -27,7 +27,8 @@ export class PostController<T extends AnyObject> {
 
     // Reset users pray/application truth when changing other questions
     const stepData = {
-      ...{ iConfirmPrayer: Checkbox.Unchecked, iBelieveApplicationIsTrue: Checkbox.Unchecked },
+      iConfirmPrayer: Checkbox.Unchecked,
+      iBelieveApplicationIsTrue: Checkbox.Unchecked,
       ...formData,
     };
 
@@ -89,9 +90,9 @@ export class PostController<T extends AnyObject> {
 
   private async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
-    const data = { ...unreachableAnswersAsNull, ...formData };
+    const dataToSave = { ...unreachableAnswersAsNull, ...formData };
 
-    return req.locals.api.triggerEvent({ caseId: req.session.userCase.id, data, eventName });
+    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
   }
 }
 

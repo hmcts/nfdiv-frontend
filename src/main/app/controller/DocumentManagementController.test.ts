@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { State } from '../case/definition';
+import { CITIZEN_UPDATE, State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -49,9 +49,9 @@ describe('DocumentManagerController', () => {
       files: [{ originalname: 'uploaded-file.jpg' }],
     });
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith({
-      caseId: '1234',
-      data: {
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
         documentsUploaded: [
           'an-existing-doc',
           {
@@ -68,7 +68,8 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-    });
+      CITIZEN_UPDATE
+    );
 
     expect(res.json).toHaveBeenCalledWith([
       {
@@ -115,9 +116,9 @@ describe('DocumentManagerController', () => {
 
     await documentManagerController.delete(req, res);
 
-    expect(mockApiTriggerEvent).toHaveBeenCalledWith({
-      caseId: '1234',
-      data: {
+    expect(mockApiTriggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
         documentsUploaded: [
           {
             id: '1',
@@ -133,7 +134,8 @@ describe('DocumentManagerController', () => {
           },
         ],
       },
-    });
+      CITIZEN_UPDATE
+    );
 
     expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
     expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
