@@ -176,7 +176,6 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   if (content.isJointApplication) {
-    // delete languages[content.language](content).errors;
     form.fields = {};
   }
   return {
