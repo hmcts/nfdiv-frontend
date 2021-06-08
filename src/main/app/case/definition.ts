@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-04 08:49:52.
+// Generated using typescript-generator version 2.32.889 on 2021-06-08 09:36:14.
 
 export interface Address {
   AddressLine1: string;
@@ -130,6 +130,8 @@ export interface CaseData {
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
   helpWithFeesAppliedForFees: YesOrNo;
+  marriageApplicant1Name: string;
+  marriageApplicant2Name: string;
   marriageMarriedInUk: YesOrNo;
   marriageCertificateInEnglish: YesOrNo;
   marriageCertifiedTranslation: YesOrNo;
@@ -157,8 +159,6 @@ export interface CaseData {
   applicant1SolicitorRepresented: YesOrNo;
   solicitorAgreeToReceiveEmails: YesOrNo;
   applicant1OrganisationPolicy: OrganisationPolicy<UserRole>;
-  marriageApplicant1Name: string;
-  marriageApplicant2Name: string;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
@@ -226,6 +226,8 @@ export interface Jurisdiction {
 }
 
 export interface MarriageDetails {
+  Applicant1Name: string;
+  Applicant2Name: string;
   MarriedInUk: YesOrNo;
   CertificateInEnglish: YesOrNo;
   CertifiedTranslation: YesOrNo;
@@ -450,6 +452,9 @@ export const enum State {
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
+  Issued = 'Issued',
+  ConditionalOrderComplete = 'ConditionalOrderComplete',
+  FinalOrderComplete = 'FinalOrderComplete',
 }
 
 export const enum UserRole {
@@ -507,12 +512,11 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-
 export const CASE_TYPE = 'NO_FAULT_DIVORCE16';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
