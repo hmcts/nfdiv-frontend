@@ -5,12 +5,12 @@ import { fromApiFormat } from './from-api-format';
 describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: 'divorce',
-    marriageIsSameSexCouple: 'YES',
+    marriageIsSameSexCouple: 'Yes',
     applicant2Gender: 'male',
     applicant1Gender: 'male',
-    screenHasMarriageBroken: 'YES',
+    screenHasMarriageBroken: 'Yes',
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
-    applicant1AgreedToReceiveEmails: 'YES',
+    applicant1AgreedToReceiveEmails: 'Yes',
     applicant1ContactDetailsConfidential: 'keep',
     applicant1KnowsApplicant2EmailAddress: 'NO',
     applicant1WantsToHavePapersServedAnotherWay: null,
