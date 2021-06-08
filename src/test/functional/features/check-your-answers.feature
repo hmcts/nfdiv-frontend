@@ -51,17 +51,10 @@ Feature: Check Your Answers
     Given I go to '/check-your-answers?lng=cy'
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
 
-  Scenario: Completed all required questions and confirming
+  @nightly
+  Scenario: Completed all required questions and not confirming
     Given I've already completed all questions correctly
     And I go to '/check-your-answers'
     And I clear the form
     And I click "Continue to payment"
     And the page should include "You have not confirmed"
-    When I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    And I click "Continue to payment"
-    Then the page URL should be "/pay-your-fee"
-    And I go to "/"
-    And the page URL should be "/pay-your-fee"
-    And I click "Back"
-    Then the page URL should be "/check-your-answers"

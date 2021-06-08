@@ -16,7 +16,10 @@ export default class PaymentPostController {
 
     const payments = new PaymentModel(req.session.userCase.payments);
     if (payments.hasPayment && payments.lastPayment.paymentStatus === PaymentStatus.IN_PROGRESS) {
-      return res.redirect(PAYMENT_CALLBACK_URL);
+      if (payments.lastPayment.paymentReference) {
+        return res.redirect(PAYMENT_CALLBACK_URL);
+      }
+      payments.update(payments.lastPayment.paymentTransactionId, { paymentStatus: PaymentStatus.TIMED_OUT });
     }
 
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';

@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { State } from '../../app/case/definition';
+import { PaymentStatus, State } from '../../app/case/definition';
 import { CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL } from '../urls';
 
 import PaymentPostController from './post';
@@ -27,6 +27,14 @@ describe('PaymentPostController', () => {
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
+          payments: [
+            {
+              id: 'timed out payment',
+              value: {
+                paymentStatus: PaymentStatus.IN_PROGRESS,
+              },
+            },
+          ],
         },
       });
       const res = mockResponse();
@@ -51,6 +59,12 @@ describe('PaymentPostController', () => {
 
       expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
         {
+          id: 'timed out payment',
+          value: {
+            paymentStatus: PaymentStatus.TIMED_OUT,
+          },
+        },
+        {
           id: 'mock external reference payment id',
           value: {
             paymentAmount: 123,
@@ -59,7 +73,7 @@ describe('PaymentPostController', () => {
             paymentFeeId: 'mock fee code',
             paymentReference: 'mock ref',
             paymentSiteId: 'AA00',
-            paymentStatus: 'inProgress',
+            paymentStatus: PaymentStatus.IN_PROGRESS,
             paymentTransactionId: 'mock external reference payment id',
           },
         },

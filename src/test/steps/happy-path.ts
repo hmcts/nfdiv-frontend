@@ -163,10 +163,22 @@ Given("I've completed all happy path questions correctly and paid", () => {
   I.type('12');
   iClick('Year');
   I.type('30');
+  iClick('Name on card');
+  I.type('Nightly test');
+  iClick('Building number or name');
+  I.type('BUCKINGHAM PALACE');
+  iClick('Town');
+  I.type('LONDON');
+  iClick('Postcode');
+  I.type('SW1A 1AA');
+  iClick('Email');
+  I.type('nightly-functional-test@example.com');
   iClick('Card security code');
   I.type('123');
   iClick('Continue');
 
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
+
+  I.waitInUrl('/application-submitted');
 });
