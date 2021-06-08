@@ -45,6 +45,8 @@ describe('CheckYourAnswersPostController', () => {
     };
     const bodyWithConnection = {
       applicationType: ApplicationType.JOINT_APPLICATION,
+      iBelieveApplicationIsTrue: '',
+      iConfirmPrayer: '',
     };
     const mockForm = {
       setFormState: jest.fn(),

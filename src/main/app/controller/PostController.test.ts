@@ -37,7 +37,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.session.userCase).toEqual({
       id: '1234',
@@ -75,7 +76,8 @@ describe('PostController', () => {
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...defaultCaseProps, ...body }, CITIZEN_UPDATE);
@@ -98,7 +100,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE);
   });
@@ -117,7 +120,8 @@ describe('PostController', () => {
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
     const logger = req.locals.logger as unknown as MockedLogger;
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.session.userCase).toEqual({
       id: '1234',
@@ -162,7 +166,8 @@ describe('PostController', () => {
       userCase: { exampleExistingField: 'you need to null me' },
     });
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
@@ -190,7 +195,8 @@ describe('PostController', () => {
     const req = mockRequest({ body, session: { save: mockSave } });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
     const res = mockResponse();
-    await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
+    const next = jest.fn();
+    await expect(controller.post(req, res, next)).rejects.toEqual('An error while saving session');
 
     const userCase = {
       ...req.session.userCase,
@@ -218,8 +224,8 @@ describe('PostController', () => {
     const req = mockRequest({ body });
     const res = mockResponse();
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ sameSex: Checkbox.Checked });
-
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.session.userCase.sameSex).toEqual(Checkbox.Checked);
   });
@@ -248,7 +254,8 @@ describe('PostController', () => {
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
@@ -273,7 +280,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
@@ -296,7 +304,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
@@ -320,7 +329,8 @@ describe('PostController', () => {
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
-    await controller.post(req, res);
+    const next = jest.fn();
+    await controller.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',

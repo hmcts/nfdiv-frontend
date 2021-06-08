@@ -43,7 +43,8 @@ describe('JurisdictionPostController', () => {
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
-    await jurisdictionController.post(req, res);
+    const next = jest.fn();
+    await jurisdictionController.post(req, res, next);
 
     expect(addConnectionMock).toBeCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
