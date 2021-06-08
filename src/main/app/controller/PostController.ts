@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
@@ -17,7 +17,12 @@ export class PostController<T extends AnyObject> {
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
-  public async post(req: AppRequest<T>, res: Response, eventName: string = CITIZEN_UPDATE): Promise<void> {
+  public async post(
+    req: AppRequest<T>,
+    res: Response,
+    next: NextFunction,
+    eventName: string = CITIZEN_UPDATE
+  ): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     // Reset users pray/application truth when changing other questions

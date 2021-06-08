@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -13,9 +13,9 @@ export class JurisdictionPostController extends PostController<AnyObject> {
     super(form);
   }
 
-  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+  public async post(req: AppRequest<AnyObject>, res: Response, next: NextFunction): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
     req.body.connections = addConnection({ ...req.session.userCase, ...formData });
-    await super.post(req, res);
+    await super.post(req, res, next);
   }
 }

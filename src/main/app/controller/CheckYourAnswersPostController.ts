@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import { CITIZEN_SUBMIT } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -12,7 +12,7 @@ export class CheckYourAnswersPostController extends PostController<AnyObject> {
     super(form);
   }
 
-  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    await super.post(req, res, CITIZEN_SUBMIT);
+  public async post(req: AppRequest<AnyObject>, res: Response, next: NextFunction): Promise<void> {
+    await super.post(req, res, next, CITIZEN_SUBMIT);
   }
 }

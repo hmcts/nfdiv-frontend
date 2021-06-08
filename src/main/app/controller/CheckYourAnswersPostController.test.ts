@@ -30,7 +30,8 @@ describe('CheckYourAnswersPostController', () => {
     const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
-    await checkYourAnswersPostController.post(req, res);
+    const next = jest.fn();
+    await checkYourAnswersPostController.post(req, res, next);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_SUBMIT);
     expect(req.session.errors).toStrictEqual([]);

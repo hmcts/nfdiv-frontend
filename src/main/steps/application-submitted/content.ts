@@ -27,8 +27,8 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
   documents: {
     [DocumentType.MARRIAGE_CERTIFICATE]:
       formState?.inTheUk === YesOrNo.YES
-        ? `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate or a certified copy`
-        : `Your original foreign ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+        ? `Your original foreign ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+        : `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate or a certified copy`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
