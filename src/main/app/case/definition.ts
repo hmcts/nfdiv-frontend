@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-08 09:36:14.
+// Generated using typescript-generator version 2.32.889 on 2021-06-08 12:48:53.
 
 export interface Address {
   AddressLine1: string;
@@ -32,9 +32,9 @@ export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
-  valueLabel: string;
-  valueCode: string;
   list_items: DynamicListElement[];
+  valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -61,8 +61,8 @@ export interface OrderSummary {
 }
 
 export interface Organisation {
-  OrganisationID: string;
   OrganisationName: string;
+  OrganisationId: string;
 }
 
 export interface OrganisationPolicy<R> {
@@ -241,12 +241,12 @@ export interface MarriageDetails {
 }
 
 export interface DivorceDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
   documentType: DocumentType;
   documentEmailContent: string;
   documentLink: Document;
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
 }
 
 export interface DocAssemblyRequest {
@@ -306,11 +306,12 @@ export const enum FieldType {
   OrderSummary = 'OrderSummary',
   MultiSelectList = 'MultiSelectList',
   Collection = 'Collection',
+  Label = 'Label',
 }
 
 export const enum YesOrNo {
-  YES = 'YES',
-  NO = 'NO',
+  YES = 'Yes',
+  NO = 'No',
 }
 
 export const enum ApplicationType {

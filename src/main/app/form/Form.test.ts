@@ -155,7 +155,7 @@ describe('Form', () => {
       const body = { field: YesOrNo.YES, testSubField: 'test', checkboxes: ['', '', 'checkbox1', 'checkbox2'] };
 
       expect(subFieldForm.getParsedBody(body)).toStrictEqual({
-        field: 'YES',
+        field: 'Yes',
         testSubField: 'test',
         checkboxes: ['checkbox1', 'checkbox2'],
       });
@@ -172,7 +172,7 @@ describe('Form', () => {
     };
 
     expect(form.getParsedBody(body)).toStrictEqual({
-      field: 'YES',
+      field: 'Yes',
       dateField: {
         day: '1',
         month: '1',
@@ -187,7 +187,7 @@ describe('Form', () => {
       { body: {}, expected: false },
       {
         body: {
-          field: 'YES',
+          field: 'Yes',
           dateField: {
             day: '1',
             month: '1',
