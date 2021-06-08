@@ -76,9 +76,5 @@ Feature: Check Your Answers
     When I click "Continue"
     And I go to '/check-your-answers'
     And I clear the form
-    And I click "Continue to payment"
-    And the page should include "You have not confirmed"
-    When I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    And I click "Continue to payment"
-    Then the page URL should be "/pay-your-fee"
+    And I click "Submit application"
+    And the page should include "Application submitted"
