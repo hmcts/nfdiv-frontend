@@ -144,8 +144,8 @@ When('I upload the file {string}', (pathToFile: string) => {
   I.attachFile('input[type="file"]', pathToFile);
 });
 
-export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  I.executeScript(
+export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> => {
+  await I.executeScript(
     async ([userCase, livesBasedUrl, relationshipDateUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
       const formData = new FormData(mainForm);
@@ -163,6 +163,10 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
     },
     [userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL, RELATIONSHIP_DATE_URL]
   );
+
+  iAmOnPage('/do-you-want-to-apply-financial-order');
+  iClick('Continue');
+};
 
 interface BrowserCase extends Case {
   'relationshipDate-day': number;
