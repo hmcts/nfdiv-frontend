@@ -13,10 +13,10 @@ export class CheckYourAnswersPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response, next: NextFunction): Promise<void> {
-    const { ...formData } = this.form.getParsedBody(req.body);
-
     const event =
-      formData.applicationType === ApplicationType.JOINT_APPLICATION ? CITIZEN_INVITE_APPLICANT_2 : CITIZEN_SUBMIT;
+      req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+        ? CITIZEN_INVITE_APPLICANT_2
+        : CITIZEN_SUBMIT;
     await super.post(req, res, next, event);
   }
 }
