@@ -35,6 +35,12 @@ export default class PaymentCallbackGetController {
 
     req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
 
-    req.session.save(() => res.redirect(payments.wasLastPaymentSuccessful ? APPLICATION_SUBMITTED : PAY_YOUR_FEE));
+    req.session.save(() => {
+      if (payments.wasLastPaymentSuccessful) {
+        return res.redirect(APPLICATION_SUBMITTED);
+      }
+
+      res.redirect(req.query.back ? CHECK_ANSWERS_URL : PAY_YOUR_FEE);
+    });
   }
 }

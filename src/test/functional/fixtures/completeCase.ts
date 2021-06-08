@@ -39,7 +39,6 @@ export const completeCase = {
   applicant2FirstNames: 'Test their name',
   applicant2LastNames: 'Test their last name',
   applicant2MiddleNames: '',
-  whoIsFinancialOrderFor: [],
   applicant1Address1: 'BUCKINGHAM PALACE',
   applicant1Address2: '',
   applicant1Address3: '',

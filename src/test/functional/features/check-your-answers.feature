@@ -61,3 +61,7 @@ Feature: Check Your Answers
     And I click "I believe that the facts stated in this application are true"
     And I click "Continue to payment"
     Then the page URL should be "/pay-your-fee"
+    And I go to "/"
+    And the page URL should be "/pay-your-fee"
+    And I click "Back"
+    Then the page URL should be "/check-your-answers"
