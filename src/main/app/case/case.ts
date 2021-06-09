@@ -4,6 +4,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  DateAsString,
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
@@ -149,7 +150,7 @@ export interface Case {
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: DocumentType | DocumentType[];
   invitePin?: string;
-  dueDate?: Date;
+  dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
 }

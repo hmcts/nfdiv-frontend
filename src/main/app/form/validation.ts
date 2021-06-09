@@ -125,3 +125,15 @@ export const isFieldLetters: Validator = value => {
     return 'invalid';
   }
 };
+
+export const isValidReferenceNumber: Validator = value => {
+  if ((value as string).trim().length !== 16 && !(value as string).match(/^\d+$/)) {
+    return 'invalid';
+  }
+};
+
+export const isValidAccessCode: Validator = value => {
+  if ((value as string).trim().length !== 8) {
+    return 'invalid';
+  }
+};

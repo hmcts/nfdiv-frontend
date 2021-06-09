@@ -50,6 +50,16 @@ export class CaseApi {
     }
   }
 
+  public async getCaseById(caseId: string): Promise<CaseWithId> {
+    try {
+      const response = await this.axios.get(`/cases/${caseId}`);
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be retrieved.');
+    }
+  }
+
   private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`);
     const token = tokenResponse.data.token;
