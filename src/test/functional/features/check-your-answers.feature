@@ -63,7 +63,7 @@ Feature: Check Your Answers
     Then the page URL should be "/pay-your-fee"
 
   Scenario: Completed all required questions and confirming with HWF
-    Given I've already completed all questions correctly
+    Given I've completed enough questions correctly to get to the check your answers page
     When I go to '/help-with-your-fee'
     Then the page should include "Do you need help paying the fee for your divorce?"
     And I clear the form
