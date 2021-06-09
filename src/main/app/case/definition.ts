@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-08 12:48:53.
+// Generated using typescript-generator version 2.32.889 on 2021-06-09 11:33:30.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -62,6 +62,7 @@ export interface OrderSummary {
 
 export interface Organisation {
   OrganisationName: string;
+  OrganisationID: string;
   OrganisationId: string;
 }
 
@@ -241,12 +242,12 @@ export interface MarriageDetails {
 }
 
 export interface DivorceDocument {
-  documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
   documentDateAdded: DateAsString;
   documentComment: string;
   documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export interface DocAssemblyRequest {
@@ -286,6 +287,19 @@ export interface Payment {
   paymentChannel: string;
   paymentReference: string;
   paymentTransactionId: string;
+}
+
+export interface Letter {
+  name: string;
+  data: any;
+  count: number;
+}
+
+export interface Print {
+  letters: Letter[];
+  caseId: string;
+  caseRef: string;
+  letterType: string;
 }
 
 export type DateAsString = string;
@@ -513,7 +527,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE16';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE17';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
