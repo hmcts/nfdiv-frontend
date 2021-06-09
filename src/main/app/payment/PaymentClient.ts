@@ -18,7 +18,6 @@ export class PaymentClient {
         Authorization: 'Bearer ' + session.user.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
         'return-url': returnUrl,
-        'service-callback-url': '',
       },
     });
   }

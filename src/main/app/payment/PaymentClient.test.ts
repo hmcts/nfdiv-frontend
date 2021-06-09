@@ -45,7 +45,6 @@ describe('PaymentClient', () => {
         Authorization: 'Bearer mock-user-access-token',
         ServiceAuthorization: 'mock-server-auth-token',
         'return-url': 'http://return-url',
-        'service-callback-url': '',
       },
     });
 

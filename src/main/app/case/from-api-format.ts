@@ -76,7 +76,5 @@ const fromApiDate = date => {
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
-export const fromApiFormat = (data: CaseData): Case => ({
-  ...formatCase(fields, data),
-  ...formatCase(invert(readOnlyFormFieldsToCaseMapping), data),
-});
+export const fromApiFormat = (data: CaseData): Case =>
+  formatCase({ ...fields, ...readOnlyFormFieldsToCaseMapping }, data);

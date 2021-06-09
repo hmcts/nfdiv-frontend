@@ -92,4 +92,22 @@ describe('from-api-format', () => {
       expect(nfdivFormat).toMatchObject({});
     });
   });
+
+  test('adds read only fields', () => {
+    expect(
+      fromApiFormat({
+        payments: [
+          {
+            id: 'mock-payment',
+          },
+        ],
+      } as unknown as CaseData)
+    ).toStrictEqual({
+      payments: [
+        {
+          id: 'mock-payment',
+        },
+      ],
+    });
+  });
 });
