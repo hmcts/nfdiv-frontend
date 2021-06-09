@@ -72,7 +72,7 @@ describe('PaymentPostController', () => {
             paymentDate: '1999-12-31',
             paymentFeeId: 'mock fee code',
             paymentReference: 'mock ref',
-            paymentSiteId: 'AA00',
+            paymentSiteId: expect.any(String),
             paymentStatus: PaymentStatus.IN_PROGRESS,
             paymentTransactionId: 'mock external reference payment id',
           },
