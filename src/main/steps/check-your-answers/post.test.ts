@@ -1,10 +1,10 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../case/case';
-import { ApplicationType, CITIZEN_INVITE_APPLICANT_2, CITIZEN_SUBMIT } from '../case/definition';
-import { Form } from '../form/Form';
+import { Checkbox } from '../../app/case/case';
+import { ApplicationType, CITIZEN_INVITE_APPLICANT_2, CITIZEN_SUBMIT } from '../../app/case/definition';
+import { Form } from '../../app/form/Form';
 
-import { CheckYourAnswersPostController } from './CheckYourAnswersPostController';
+import CheckYourAnswersPostController from './post';
 
 describe('CheckYourAnswersPostController', () => {
   test('Should add dueDate field and call trigger CITIZEN_INVITE_APPLICANT_2 if a joint application type', async () => {

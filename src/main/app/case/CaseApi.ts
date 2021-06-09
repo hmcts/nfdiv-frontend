@@ -85,7 +85,7 @@ export class CaseApi {
     }
   }
 
-  private async _triggerEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
+  private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
     const event = { id: eventName };
@@ -101,11 +101,11 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return this._triggerEvent(caseId, toApiFormat(userData), eventName);
+    return this.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 
   public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
-    return this._triggerEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
+    return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
   }
 
   private logError(error: AxiosError) {
