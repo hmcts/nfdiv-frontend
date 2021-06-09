@@ -1,5 +1,11 @@
 import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
-import { ApplicationType, DocumentType, Gender, YesOrNo } from '../../../main/app/case/definition';
+import {
+  ApplicationType,
+  DocumentType,
+  Gender,
+  JurisdictionConnections,
+  YesOrNo,
+} from '../../../main/app/case/definition';
 
 export const completeCase = {
   applicant1AddressPrivate: YesOrNo.NO,
@@ -8,6 +14,7 @@ export const completeCase = {
   applicant2EmailAddress: 'husband@example.com',
   applicationType: ApplicationType.SOLE_APPLICATION,
   applyForFinancialOrder: YesOrNo.NO,
+  connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
   cannotUpload: Checkbox.Checked,
   cannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
@@ -29,6 +36,8 @@ export const completeCase = {
   'relationshipDate-year': 1999,
   sameSex: Checkbox.Unchecked,
   screenHasUnionBroken: YesOrNo.YES,
+  uploadedFiles: [],
+  whoIsFinancialOrderFor: [],
   applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
   applicant2Address2: '',
   applicant2Address3: '',

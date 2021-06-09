@@ -14,7 +14,7 @@ const { I } = inject();
 
 Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
 
-Given("I've completed all happy path questions correctly and paid", () => {
+Given("I've completed all happy path questions correctly", () => {
   iAmOnPage('/your-details');
   iClearTheForm();
   iClick('My husband');
@@ -153,6 +153,10 @@ Given("I've completed all happy path questions correctly and paid", () => {
   iClick('I believe that the facts stated in this application are true');
   iClick('Continue to payment');
 
+  I.waitInUrl('/pay-your-fee');
+});
+
+Given('I pay and submit the application', () => {
   I.waitInUrl('/pay-your-fee');
   iClick('Pay and submit application');
 
