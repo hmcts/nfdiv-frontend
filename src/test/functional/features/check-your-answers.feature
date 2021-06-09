@@ -62,6 +62,7 @@ Feature: Check Your Answers
     And I click "Continue to payment"
     Then the page URL should be "/pay-your-fee"
 
+  @last
   Scenario: Completed all required questions and confirming with HWF
     Given I've completed all happy path questions correctly to get to check your answers page
     When I go to '/help-with-your-fee'
