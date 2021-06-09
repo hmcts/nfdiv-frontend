@@ -66,6 +66,7 @@ Feature: Check Your Answers
     Given I've already completed all questions correctly
     When I go to '/help-with-your-fee'
     Then the page should include "Do you need help paying the fee for your divorce?"
+    And I clear the form
     Given I select "I need help paying the fee"
     And I click "Continue"
     Then the page should include "Have you already applied for help with your divorce fee?"
