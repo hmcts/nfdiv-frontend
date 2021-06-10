@@ -23,7 +23,11 @@ Then('the page URL should be {string}', (url: string) => {
 });
 
 Given('I login', () => {
-  login('user');
+  login('citizen');
+});
+
+Given('I create a new user and login', () => {
+  login('citizenSingleton');
 });
 
 export const iClick = (text: string): void => {
