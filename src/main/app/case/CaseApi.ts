@@ -121,7 +121,7 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
 };
 
 interface GetCaseResponse {
-  id: string;
+  id: string | number;
   state: State;
   case_data: CaseData;
 }
