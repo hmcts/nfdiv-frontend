@@ -81,7 +81,7 @@
         html: sendingDocumentsByPost
       }) }}
     {% endif %}
-    {% if formState.iWantToHavePapersServedAnotherWay === 'checked' %}
+    {% if formState.iWantToHavePapersServedAnotherWay %}
       <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
       <p class="govuk-body">{{ line3 }}</p>
       <p class="govuk-body">{{ line4 | safe }}</p>

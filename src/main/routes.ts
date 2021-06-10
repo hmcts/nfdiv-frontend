@@ -1,9 +1,8 @@
 import fs from 'fs';
 
-import { Application, NextFunction, RequestHandler, Response } from 'express';
+import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
-import { State } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { DocumentManagerController } from './app/controller/DocumentManagementController';
 import { GetController } from './app/controller/GetController';
@@ -22,7 +21,6 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
-  APPLICATION_SUBMITTED,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
@@ -41,17 +39,6 @@ export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
-    app.use(
-      errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (
-          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase.state) &&
-          req.path !== APPLICATION_SUBMITTED
-        ) {
-          return res.redirect(APPLICATION_SUBMITTED);
-        }
-        return next();
-      })
-    );
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
