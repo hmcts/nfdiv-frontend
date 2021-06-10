@@ -4,45 +4,49 @@ import axios, { AxiosInstance } from 'axios';
 
 export class IdamUserManager {
   client: AxiosInstance;
+  users: Set<string> = new Set();
 
-  constructor(
-    idamUrl: string,
-    private readonly email: string,
-    private readonly password: string,
-    private readonly role = 'citizen'
-  ) {
+  constructor(idamUrl: string) {
     this.client = axios.create({
       baseURL: new URL('/', idamUrl).toString(),
     });
   }
 
-  async create(): Promise<void> {
+  async create(email: string, password: string, role = 'citizen'): Promise<void> {
     try {
       await this.client.post('/testing-support/accounts', {
-        email: this.email,
-        forename: 'FunctionalTest',
         id: 'No Fault Divorce Citizen 12345',
-        password: this.password,
+        email,
+        password,
         roles: [
           {
-            code: this.role,
+            code: role,
           },
         ],
-        surname: 'Citizen',
+        forename: 'FunctionalTest',
+        surname: role,
       });
-      console.info('Created user', this.email);
+      this.users.add(email);
+      console.info('Created user', email);
     } catch (e) {
-      console.info('Error creating user', this.email, e);
+      console.info('Error creating user', email, e);
       throw e;
     }
   }
 
-  async delete(): Promise<void> {
+  async delete(email: string): Promise<void> {
     try {
-      await this.client.delete(`/testing-support/accounts/${this.email}`);
-      console.info('Deleted user', this.email);
+      await this.client.delete(`/testing-support/accounts/${email}`);
+      this.users.delete(email);
+      console.info('Deleted user', email);
     } catch (e) {
-      console.info('Error deleting user', this.email, e);
+      console.info('Error deleting user', email, e);
+    }
+  }
+
+  async deleteAll(): Promise<void> {
+    for (const user of this.users) {
+      await this.delete(user);
     }
   }
 }

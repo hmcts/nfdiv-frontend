@@ -18,14 +18,34 @@ if (!fileExistsSync(filename)) {
 }
 
 const content = readFileSync(filename).toString();
-const updatedContent = (content === '' || +content >= 8 ? 0 : +content) + 1;
+const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
 
-writeFileSync(filename, updatedContent + '');
+writeFileSync(filename, instanceNo + '');
 lockFile.unlockSync(lock);
 
-const TestUser = `nfdiv.frontend.test${updatedContent}.${dayjs().format('YYYYMMDD-HHmmss')}@hmcts.net`;
+const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
+const TestUser = generateTestUsername();
 const TestPass = 'Pa55word11';
-const testUser = new IdamUserManager(sysConfig.get('services.idam.tokenURL'), TestUser, TestPass);
+const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
+
+const autoLogin = {
+  login: (I: CodeceptJS.I, username = TestUser, password = TestPass): void => {
+    I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
+    I.waitForText('Sign in or create an account');
+    I.fillField('username', username);
+    I.fillField('password', password);
+    I.click('Sign in');
+    I.waitForText('Apply for a divorce');
+  },
+  check: (I: CodeceptJS.I): void => {
+    I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
+    I.waitForText('Apply for a divorce');
+  },
+  restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
+    I.amOnPage('/info');
+    I.setCookie(cookies);
+  },
+};
 
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
@@ -44,28 +64,25 @@ export const config = {
       '../steps/happy-path.ts',
     ],
   },
-  bootstrap: async (): Promise<void> => testUser.create(),
-  teardown: async (): Promise<void> => testUser.delete(),
+  bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
+  teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   AutoLogin: {
     enabled: true,
     saveToFile: false,
     users: {
-      user: {
+      citizen: autoLogin,
+      citizenSingleton: {
         login: (I: CodeceptJS.I): void => {
-          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
-          I.waitForText('Sign in or create an account');
-          I.fillField('username', TestUser);
-          I.fillField('password', TestPass);
-          I.click('Sign in');
-          I.waitForText('Apply for a divorce');
+          const username = generateTestUsername();
+          idamUserManager.create(username, TestPass);
+          autoLogin.login(I, username, TestPass);
         },
-        check: (I: CodeceptJS.I): void => {
-          I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
-          I.waitForText('Apply for a divorce');
+        check: autoLogin.check,
+        fetch: (): void => {
+          // don't fetch existing login
         },
-        restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
-          I.amOnPage('/info');
-          I.setCookie(cookies);
+        restore: (): void => {
+          // don't restore existing login
         },
       },
     },
