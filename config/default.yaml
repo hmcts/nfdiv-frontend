@@ -14,12 +14,15 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-258.service.core-compute-preview.internal'
+    # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-329.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.ordnancesurvey.co.uk/places/v1'
     token: 'NEED TO INSERT SECRET'
   documentManagement:
     url: http://dm-store-aat.service.core-compute-aat.internal
+  payments:
+    url: http://payment-api-aat.service.core-compute-aat.internal
+    siteId: 'AA07'
 health:
   timeout: 5000
   deadline: 15000

@@ -6,7 +6,17 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { CASE_TYPE, CITIZEN_CREATE, CaseData, DivorceOrDissolution, JURISDICTION, State } from './definition';
+import {
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  CITIZEN_CREATE,
+  CaseData,
+  DivorceOrDissolution,
+  JURISDICTION,
+  ListValue,
+  Payment,
+  State,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -28,12 +38,16 @@ export class CaseApi {
 
     const serviceCases = cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
     switch (serviceCases.length) {
-      case 0:
+      case 0: {
         return false;
-      case 1:
-        return { id: serviceCases[0].id, state: serviceCases[0].state, ...fromApiFormat(serviceCases[0].case_data) };
-      default:
+      }
+      case 1: {
+        const { id, state, case_data: caseData } = serviceCases[0];
+        return { ...fromApiFormat(caseData), id, state };
+      }
+      default: {
         throw new Error('Too many cases assigned to user.');
+      }
     }
   }
 
@@ -71,11 +85,10 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
     const event = { id: eventName };
-    const data = toApiFormat(userData);
 
     try {
       const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
@@ -85,6 +98,14 @@ export class CaseApi {
       this.logError(err);
       throw new Error('Case could not be updated.');
     }
+  }
+
+  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    return this.sendEvent(caseId, toApiFormat(userData), eventName);
+  }
+
+  public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
+    return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
   }
 
   private logError(error: AxiosError) {

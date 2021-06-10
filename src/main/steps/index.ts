@@ -76,7 +76,8 @@ export type StepWithContent = ({ generateContent: TranslationFn; form: FormConte
 export const stepsWithContent = ((): StepWithContent => {
   const results: StepWithContent = [];
   for (const step of sequence) {
-    const content = require(`${__dirname}${step.url}/content.ts`);
+    const stepContentFile = `${__dirname}${step.url}/content.ts`;
+    const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
     results.push({ ...step, ...content });
   }
   return results;

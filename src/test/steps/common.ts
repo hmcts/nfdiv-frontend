@@ -150,7 +150,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   I.executeScript(
-    async ([userCase, livesBasedUrl, relationshipDateUrl]) => {
+    async ([userCase, relationshipDateUrl, livesBasedUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
       const formData = new FormData(mainForm);
       for (const [key, value] of Object.entries(userCase)) {
@@ -161,14 +161,15 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
         method: 'POST',
         body: new URLSearchParams(formData as unknown as Record<string, string>),
       };
-      await fetch(livesBasedUrl, request);
-      await new Promise(resolve => setTimeout(resolve, 500));
+
       await fetch(relationshipDateUrl, request);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await fetch(livesBasedUrl, request);
     },
-    [userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL, RELATIONSHIP_DATE_URL]
+    [userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL]
   );
 
-interface BrowserCase extends Case {
+export interface BrowserCase extends Case {
   'relationshipDate-day': number;
   'relationshipDate-month': number;
   'relationshipDate-year': number;
