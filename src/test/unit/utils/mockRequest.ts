@@ -15,6 +15,7 @@ export const mockRequest = ({
     locals: {
       api: {
         triggerEvent: jest.fn(),
+        addPayment: jest.fn(),
       },
       logger: {
         info: jest.fn(),
@@ -24,7 +25,10 @@ export const mockRequest = ({
     query: {},
     session: {
       user: {
+        accessToken: 'mock-user-access-token',
         name: 'test',
+        givenName: 'First name',
+        familyName: 'Last name',
         email: 'test@example.com',
       },
       userCase: {

@@ -20,7 +20,7 @@ export class PostController<T extends AnyObject> {
   public async post(
     req: AppRequest<T>,
     res: Response,
-    next: NextFunction,
+    next?: NextFunction,
     eventName: string = CITIZEN_UPDATE
   ): Promise<void> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
@@ -37,7 +37,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
     } else {
-      await this.saveAndContinue(req, res, eventName, stepData);
+      await this.saveAndContinue(req, res, stepData, eventName);
     }
   }
 
@@ -62,8 +62,8 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(
     req: AppRequest<T>,
     res: Response,
-    eventName: string,
-    formData: Partial<Case>
+    formData: Partial<Case>,
+    eventName: string
   ): Promise<void> {
     Object.assign(req.session.userCase, formData);
     this.form.setFormState(req.session.userCase);

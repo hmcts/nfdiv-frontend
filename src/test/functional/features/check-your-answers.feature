@@ -58,4 +58,3 @@ Feature: Check Your Answers
     And I clear the form
     And I click "Continue to payment"
     And the page should include "You have not confirmed"
-

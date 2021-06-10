@@ -14,6 +14,8 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'documentsUploaded',
   'applicant1FirstNames',
   'applicant1LastNames',
+  'applicationFeeOrderSummary',
+  'payments',
 ];
 
 export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {

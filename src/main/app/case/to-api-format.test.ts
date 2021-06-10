@@ -116,4 +116,16 @@ describe('to-api-format', () => {
       },
     });
   });
+
+  test("doesn't keep read only fields", () => {
+    expect(
+      toApiFormat({
+        payments: [
+          {
+            id: 'mock-bad-payment',
+          },
+        ],
+      } as unknown as Partial<Case>)
+    ).toStrictEqual({});
+  });
 });
