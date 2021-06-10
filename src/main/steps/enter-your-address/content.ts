@@ -48,36 +48,45 @@ const en = () => {
 
 const cy = () => {
   const addressPostcode = {
-    required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
-    invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
-    notSelected: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+    required: 'Nid ydych wedi nodi eich cod post. Nodwch eich cod post cyn parhau.',
+    invalid: 'Nid ydych wedi nodi cod post DU dilys. Nodwch god post DU dilys cyn parhau.',
+    notSelected: "Nid ydych wedi dewis eich cyfeiriad. Dewiswch eich cyfeiriad o'r rhestr cyn parhau.",
   };
 
   return {
-    // @TODO translations for optional internation fields
-    ...en(),
     title: 'Nodwch eich cyfeiriad post',
     enterPostcode: 'Nodwch god post yn y DU',
-    buildingStreet: "Rhif neu enw'r adeilad, Stryd",
+    buildingStreet: 'Adeilad a stryd',
+    line1: 'Llinell 1 y cyfeiriad',
+    line2Optional: 'Llinell 2 y cyfeiriad (dewisol)',
+    line3Optional: 'Llinell 3 y cyfeiriad (dewisol)',
     town: 'Tref neu ddinas',
+    townOptional: 'Tref neu ddinas (dewisol)',
     county: 'Sir',
+    countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
     postcode: 'Cod post',
+    postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
+    country: 'Gwlad',
     findAddress: 'Dod o hyd i gyfeiriad',
     notUK: 'Ni allaf nodi cod post yn y DU',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
     addressesFound: (addressesFound: number) =>
-      `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+      `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
     errors: {
       applicant1Address1: {
-        required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
+        required:
+          "Nid ydych wedi nodi eich adeilad a'ch cyfeiriad stryd. Nodwch eich adeilad a'ch cyfeiriad stryd cyn parhau.",
       },
       applicant1AddressTown: {
-        required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+        required: 'Nid ydych wedi nodi eich tref neu ddinas. Nodwch eich tref neu ddinas cyn parhau.',
       },
       addressPostcode,
       applicant1AddressPostcode: addressPostcode,
+      applicant1AddressCountry: {
+        required: 'Nid ydych wedi nodi eich gwlad. Nodwch eich gwlad cyn parhau.',
+      },
     },
   };
 };
