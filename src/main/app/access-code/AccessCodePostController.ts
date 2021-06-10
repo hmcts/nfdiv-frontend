@@ -33,12 +33,10 @@ export class AccessCodePostController extends PostController<AnyObject> {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
-    if (req.session.errors.length > 0) {
-      res.redirect(req.url);
-    }
-
     try {
-      req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
+      if (req.session.errors.length === 0) {
+        req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
+      }
     } catch (err) {
       req.session.errors.push({ errorType: 'linkError', propertyName: 'caseReference' });
     }
