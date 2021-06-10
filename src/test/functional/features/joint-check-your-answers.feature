@@ -1,8 +1,7 @@
-@flaky
 Feature: Check Your Answers (Joint Application)
 
   Background:
-    Given I login
+    Given I create a new user and login
 
   Scenario: Checking answers as a joint applicant
     Given I've completed enough questions correctly to get to the check your answers page as a joint applicant
