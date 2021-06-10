@@ -31,7 +31,11 @@ export class CaseApi {
       case 0:
         return false;
       case 1:
-        return { id: serviceCases[0].id, state: serviceCases[0].state, ...fromApiFormat(serviceCases[0].case_data) };
+        return {
+          id: serviceCases[0].id.toString(),
+          state: serviceCases[0].state,
+          ...fromApiFormat(serviceCases[0].case_data),
+        };
       default:
         throw new Error('Too many cases assigned to user.');
     }
