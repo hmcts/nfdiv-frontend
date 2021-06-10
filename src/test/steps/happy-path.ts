@@ -1,3 +1,4 @@
+import { APPLY_FINANCIAL_ORDER } from '../../main/steps/urls';
 import { completeCase } from '../functional/fixtures/completeCase';
 
 import {
@@ -12,7 +13,14 @@ import {
 
 const { I } = inject();
 
-Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
+Given("I've already completed all questions correctly", async () => {
+  await iSetTheUsersCaseTo(completeCase);
+
+  const url = await I.grabCurrentUrl();
+  I.amOnPage(APPLY_FINANCIAL_ORDER);
+  iClick('Continue');
+  I.amOnPage(url);
+});
 
 Given("I've completed all happy path questions correctly", () => {
   iAmOnPage('/your-details');

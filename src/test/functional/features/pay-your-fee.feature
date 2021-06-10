@@ -4,7 +4,12 @@ Feature: Pay your fee
     Given I login
 
   Scenario: Continuing to payment
-    Given I've completed all happy path questions correctly
+    Given I've already completed all questions correctly
+    When I go to '/check-your-answers'
+    And I clear the form
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    And I click "Continue to payment"
     Then the page URL should be "/pay-your-fee"
     And the page should include "Pay your divorce fee"
     And I go to "/"
