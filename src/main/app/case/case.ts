@@ -153,6 +153,8 @@ export interface Case {
   dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
+  accessCode?: string;
+  caseReference?: string;
 }
 
 export interface CaseWithId extends Case {

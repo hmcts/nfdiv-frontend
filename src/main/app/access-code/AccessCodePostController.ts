@@ -24,13 +24,13 @@ export class AccessCodePostController extends PostController<AnyObject> {
     req.session.errors = this.form.getErrors(formData);
 
     try {
-      const caseData = await req.locals.api.getCaseById(formData.applicant2ReferenceNumber);
+      const caseData = await req.locals.api.getCaseById(formData.caseReference as string);
 
-      if (caseData.invitePin !== formData.applicant2AccessCode) {
-        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'applicant2AccessCode' });
+      if (caseData.invitePin !== formData.accessCode) {
+        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
     } catch (err) {
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'applicant2ReferenceNumber' });
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
     if (req.session.errors.length > 0) {
@@ -40,7 +40,7 @@ export class AccessCodePostController extends PostController<AnyObject> {
     try {
       req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
     } catch (err) {
-      // do nothing
+      req.session.errors.push({ errorType: 'linkError', propertyName: 'caseReference' });
     }
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);

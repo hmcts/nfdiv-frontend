@@ -126,7 +126,7 @@ export const isFieldLetters: Validator = value => {
   }
 };
 
-export const isValidReferenceNumber: Validator = value => {
+export const isValidCaseReference: Validator = value => {
   if ((value as string).trim().length !== 16 && !(value as string).match(/^\d+$/)) {
     return 'invalid';
   }

@@ -1,22 +1,22 @@
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn, isValidAccessCode, isValidReferenceNumber } from '../../app/form/validation';
+import { isFieldFilledIn, isValidAccessCode, isValidCaseReference } from '../../app/form/validation';
 
 const en = () => ({
   title: 'Enter your access details',
   line1: 'Your reference number and access code are in the email you received which invited you to this application.',
-  referenceNumber: 'Your reference number',
-  referenceNumberHint: 'This is a 16-digit number',
+  caseReference: 'Your reference number',
+  caseReferenceHint: 'This is a 16-digit number',
   accessCode: 'Your access code',
   accessCodeHint: 'This is 8 characters',
-  noAccessCode: 'I do not know my access details',
   errors: {
-    referenceNumber: {
+    caseReference: {
       required:
         'You have not entered a reference number. Enter the reference number from the email you received before continuing.',
       invalid: 'You have entered an invalid reference number. Check your email and enter it again before continuing.',
       invalidReference:
         'You have entered the wrong reference number. Check your email and enter it again before continuing.',
+      linkError: 'Could not carry out action at this time.',
     },
     accessCode: {
       required:
@@ -33,15 +33,15 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    applicant2ReferenceNumber: {
+    caseReference: {
       type: 'text',
-      label: l => l.referenceNumber,
-      hint: l => l.referenceNumberHint,
+      label: l => l.caseReference,
+      hint: l => l.caseReferenceHint,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
-      validator: input => isFieldFilledIn(input) || isValidReferenceNumber(input),
+      validator: input => isFieldFilledIn(input) || isValidCaseReference(input),
     },
-    applicant2AccessCode: {
+    accessCode: {
       type: 'text',
       label: l => l.accessCode,
       hint: l => l.accessCodeHint,
