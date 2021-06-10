@@ -26,7 +26,7 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
   line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
     [DocumentType.MARRIAGE_CERTIFICATE]:
-      formState?.inTheUk === YesOrNo.YES
+      formState?.inTheUk === YesOrNo.NO
         ? `Your original foreign ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
         : `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate or a certified copy`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
