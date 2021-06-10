@@ -42,8 +42,8 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
     step3: 'Attach it to an email',
     step4: `Include your reference number in the subject line: ${referenceNumber}`,
     step5: `Email the documents to: <a class="govuk-link" href="mailto:${
-      isDivorce ? 'divorcecase@justice.gov.uk' : ''
-    }">${isDivorce ? 'divorcecase@justice.gov.uk' : ''}</a>`,
+      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
+    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -63,7 +63,7 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
   line3: `You need to apply to serve the ${
     isDivorce ? 'divorce' : 'ending your civil partnership'
   } papers to your ${partner} another way. For example, by email, text message or social media. This is because you did not provide their address in the application.`,
-  line4: `<a class="govuk-link" href="">Apply to serve the ${
+  line4: `<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d11-application-notice">Apply to serve the ${
     isDivorce ? 'divorce' : 'civil partnership'
   } papers another way</a>`,
   subHeading4: 'What happens next',
