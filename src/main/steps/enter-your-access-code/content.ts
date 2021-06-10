@@ -9,6 +9,7 @@ const en = () => ({
   caseReferenceHint: 'This is a 16-digit number',
   accessCode: 'Your access code',
   accessCodeHint: 'This is 8 characters',
+  errorSaving: 'Sorry, we’re having technical problems accessing your application. Please try again in a few minutes.',
   errors: {
     caseReference: {
       required:
@@ -16,7 +17,6 @@ const en = () => ({
       invalid: 'You have entered an invalid reference number. Check your email and enter it again before continuing.',
       invalidReference:
         'You have entered the wrong reference number. Check your email and enter it again before continuing.',
-      linkError: 'Could not carry out action at this time.',
     },
     accessCode: {
       required:
