@@ -8,17 +8,7 @@ export const config: CodeceptJS.Config = {
   name: 'nfdiv-frontend-functional',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/functional/reports',
-  helpers: {
-    Playwright: {
-      url: testConfig.TEST_URL || 'http://localhost:3001',
-      show: !testConfig.TestHeadlessBrowser,
-      browser: 'chromium',
-      waitForTimeout: testConfig.WaitForTimeout,
-      waitForAction: 500,
-      waitForNavigation: 'networkidle0',
-      ignoreHTTPSErrors: true,
-    },
-  },
+  helpers: testConfig.helpers,
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   plugins: {

@@ -6,7 +6,6 @@ import {
   iAmOnPage,
   iClearTheForm,
   iClick,
-  iResetThePostCodeLookUpForm,
   iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
 } from './common';
@@ -112,8 +111,7 @@ Given("I've completed all happy path questions correctly", () => {
   iClick('Continue');
 
   I.waitInUrl('/enter-your-address');
-  iResetThePostCodeLookUpForm();
-  iClick('Enter a UK postcode');
+  iClick('Enter a UK postcode', '#postcode', 10);
   I.type('SW1A 1AA');
   iClick('Find address');
   iWaitForPostcodeLookUpResults();
@@ -131,8 +129,7 @@ Given("I've completed all happy path questions correctly", () => {
   iClick('Continue');
 
   I.waitInUrl('/enter-their-address');
-  iResetThePostCodeLookUpForm();
-  iClick('Enter a UK postcode');
+  iClick('Enter a UK postcode', '#postcode', 10);
   I.type('SW1H 9AJ');
   iClick('Find address');
   iWaitForPostcodeLookUpResults();
@@ -168,8 +165,8 @@ Given('I pay and submit the application', () => {
   I.waitInUrl('/pay-your-fee');
   iClick('Pay and submit application');
 
-  I.waitInUrl('/card_details');
-  iClick('Card number');
+  I.waitInUrl('/card_details', 15);
+  iClick('Card number', '#card-no', 15);
   I.type('4444333322221111');
   iClick('Month');
   I.type('12');
@@ -192,5 +189,5 @@ Given('I pay and submit the application', () => {
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
 
-  I.waitInUrl('/application-submitted');
+  I.waitInUrl('/application-submitted', 15);
 });
