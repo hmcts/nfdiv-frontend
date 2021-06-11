@@ -66,6 +66,7 @@ export const config = {
   },
   bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
+  helpers: {},
   AutoLogin: {
     enabled: true,
     saveToFile: false,
@@ -86,5 +87,17 @@ export const config = {
         },
       },
     },
+  },
+};
+
+config.helpers = {
+  Playwright: {
+    url: config.TEST_URL,
+    show: !config.TestHeadlessBrowser,
+    browser: 'chromium',
+    waitForTimeout: config.WaitForTimeout,
+    waitForAction: 500,
+    waitForNavigation: 'networkidle0',
+    ignoreHTTPSErrors: true,
   },
 };
