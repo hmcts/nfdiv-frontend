@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
+import { getCaseWorkerUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
@@ -15,7 +16,8 @@ export class AccessCodePostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+    const caseworkerUser = await getCaseWorkerUser();
+    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
@@ -24,17 +26,14 @@ export class AccessCodePostController extends PostController<AnyObject> {
     req.session.errors = this.form.getErrors(formData);
 
     try {
-      const caseData = await req.locals.api.getCaseById(formData.caseReference as string);
-
-      if (caseData.invitePin !== formData.accessCode) {
-        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-      }
+      await req.locals.api.getCaseById(formData.caseReference as string);
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
     if (req.session.errors.length === 0) {
       try {
+        formData.respondentUserId = req.session.user.id;
         req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);

@@ -22,8 +22,6 @@ const en = () => ({
       required:
         'You have not entered an access code. Enter the access code from the email you received before continuing.',
       invalid: 'You have entered an invalid access code. Check your email and enter it again before continuing.',
-      invalidAccessCode:
-        'You have entered the wrong access code. Check your email and enter it again before continuing.',
     },
   },
 });

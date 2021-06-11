@@ -149,12 +149,12 @@ export interface Case {
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: DocumentType | DocumentType[];
-  invitePin?: string;
+  accessCode?: string;
   dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
-  accessCode?: string;
   caseReference?: string;
+  respondentUserId?: string;
 }
 
 export interface CaseWithId extends Case {
