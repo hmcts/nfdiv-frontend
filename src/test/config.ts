@@ -35,7 +35,7 @@ const autoLogin = {
     I.fillField('username', username);
     I.fillField('password', password);
     I.click('Sign in');
-    I.waitForText('Apply for a divorce');
+    I.waitForText('Apply for a divorce', 15);
   },
   check: (I: CodeceptJS.I): void => {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
