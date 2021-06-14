@@ -77,8 +77,14 @@
 
   <div id="uploadGroup" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-    <ul id="filesUploaded" class="govuk-list"></ul>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.documentsUploaded|length %} govuk-visually-hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+      {% for file in formState.documentsUploaded %}
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+          {{ file.value.documentFileName }} <a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ delete }}</a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 
   <p class="govuk-body">
@@ -96,6 +102,12 @@
           <strong>{{ orStr }}</strong><br>
           {{ dragDropHere }}
         </p>
+        <noscript>
+          <form action="/document-manager?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="files[]" multiple="" accept="image/jpeg,image/tiff,image/png,application/pdf">
+            <input type="submit" value="{{ upload }}">
+          </form>
+        </noscript>
         <div id="uploadProgressBar"></div>
       </div>
     </div>

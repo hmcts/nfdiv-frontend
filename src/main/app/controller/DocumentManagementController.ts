@@ -1,6 +1,9 @@
+import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
+import { v4 as generateUuid } from 'uuid';
 
+import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_UPDATE, State } from '../case/definition';
@@ -8,6 +11,7 @@ import { Classification, DocumentManagementClient } from '../document/DocumentMa
 
 import type { AppRequest, UserDetails } from './AppRequest';
 
+@autobind
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
@@ -18,6 +22,10 @@ export class DocumentManagerController {
       throw new Error('Cannot upload new documents as case is not in draft state');
     }
 
+    if (!req.files) {
+      throw new Error('No files were uploaded');
+    }
+
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
 
     const filesCreated = await documentManagementClient.create({
@@ -25,25 +33,22 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    let newUploads: Case['documentsUploaded'] = [];
-    if (Array.isArray(filesCreated)) {
-      newUploads = filesCreated.map(file => {
-        const docUrlParts = file._links.self.href.split('/');
-        const id = docUrlParts[docUrlParts.length - 1];
-        return {
-          id,
-          value: {
-            documentComment: 'Uploaded by applicant',
-            documentFileName: file.originalDocumentName,
-            documentLink: {
-              document_url: file._links.self.href,
-              document_filename: file.originalDocumentName,
-              document_binary_url: file._links.binary.href,
-            },
-          },
-        };
-      });
+    if (!Array.isArray(filesCreated)) {
+      throw new Error('Unable to save uploaded files');
     }
+
+    const newUploads: Case['documentsUploaded'] = filesCreated.map(file => ({
+      id: generateUuid(),
+      value: {
+        documentComment: 'Uploaded by applicant',
+        documentFileName: file.originalDocumentName,
+        documentLink: {
+          document_url: file._links.self.href,
+          document_filename: file.originalDocumentName,
+          document_binary_url: file._links.binary.href,
+        },
+      },
+    }));
 
     const updatedDocumentsUploaded = [...(req.session.userCase.documentsUploaded || []), ...newUploads];
 
@@ -57,7 +62,12 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.json(newUploads?.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+
+      if (req.headers.accept?.includes('application/json')) {
+        res.json(newUploads?.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+      } else {
+        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+      }
     });
   }
 
@@ -70,7 +80,11 @@ export class DocumentManagerController {
     const documentIndexToDelete = documentsUploaded?.findIndex(i => i.id === req.params.id) ?? -1;
     const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
-      res.json({ deletedId: null });
+      if (req.headers.accept?.includes('application/json')) {
+        res.json({ deletedId: null });
+      } else {
+        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+      }
       return;
     }
     const documentUrlToDelete = documentToDelete.value.documentLink.document_url;
@@ -92,7 +106,12 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      res.json({ deletedId: req.params.id });
+
+      if (req.headers.accept?.includes('application/json')) {
+        res.json({ deletedId: req.params.id });
+      } else {
+        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+      }
     });
   }
 }

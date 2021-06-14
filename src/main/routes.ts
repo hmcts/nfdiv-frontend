@@ -51,15 +51,8 @@ export class Routes {
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
-    app.post(
-      DOCUMENT_MANAGER,
-      handleUploads.array('files[]', 5),
-      errorHandler(documentManagerController.post.bind(documentManagerController))
-    );
-    app.delete(
-      `${DOCUMENT_MANAGER}/:id`,
-      errorHandler(documentManagerController.delete.bind(documentManagerController))
-    );
+    app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+    app.get(`${DOCUMENT_MANAGER}/delete/:id`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
       const dir = `${__dirname}/steps${step.url}`;

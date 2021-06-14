@@ -48,7 +48,7 @@ const initUploadManager = (): void => {
       target: '#uploadProgressBar',
       hideAfterFinish: true,
     })
-    .use(XHRUpload, { endpoint: `${url}${csrfQuery}`, bundle: true })
+    .use(XHRUpload, { endpoint: `${url}${csrfQuery}`, bundle: true, headers: { accept: 'application/json' } })
     .on('files-added', async () => {
       document.body.style.cursor = 'wait';
       try {
