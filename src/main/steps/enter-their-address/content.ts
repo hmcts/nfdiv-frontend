@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../app/form/Form';
+import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../app/form/validation';
 import type { CommonContent } from '../common/common.content';
 
@@ -84,83 +84,73 @@ const cy = ({ partner }: CommonContent) => {
 
 const uk = 'UK';
 export const form: FormContent = {
-  fields: formState => {
-    const isPostcodeSet = Object.keys(formState).includes('applicant2AddressPostcode');
-    return {
-      applicant2Address1: {
-        id: 'address1',
-        type: 'text',
-        classes: 'govuk-label',
-        hidden: !isPostcodeSet,
-        label: l => l.buildingStreet,
-        labelSize: null,
-        validator: isFieldFilledIn,
+  fields: {
+    applicant2Address1: {
+      id: 'address1',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.buildingStreet,
+      labelSize: null,
+      validator: isFieldFilledIn,
+    },
+    applicant2Address2: {
+      id: 'address2',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.line2Optional,
+      labelSize: null,
+    },
+    applicant2Address3: {
+      id: 'address3',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.line3Optional,
+      labelSize: null,
+    },
+    applicant2AddressTown: {
+      id: 'addressTown',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.town,
+      labelSize: null,
+      validator: (value, formData) => {
+        if (formData.applicant2AddressCountry !== uk) {
+          return;
+        }
+        return isFieldFilledIn(value);
       },
-      applicant2Address2: {
-        id: 'address2',
-        type: 'text',
-        classes: 'govuk-label',
-        hidden: !isPostcodeSet,
-        label: l => l.line2Optional,
-        labelSize: null,
+    },
+    applicant2AddressCounty: {
+      id: 'addressCounty',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.county,
+      labelSize: null,
+    },
+    applicant2AddressPostcode: {
+      id: 'addressPostcode',
+      type: 'text',
+      classes: 'govuk-label govuk-input--width-10',
+      label: l => l.postcode,
+      labelSize: null,
+      attributes: {
+        maxLength: 14,
       },
-      applicant2Address3: {
-        id: 'address3',
-        type: 'text',
-        classes: 'govuk-label',
-        hidden: !isPostcodeSet,
-        label: l => l.line3Optional,
-        labelSize: null,
+      validator: (value, formData) => {
+        if (formData.applicant2AddressCountry !== uk) {
+          return;
+        }
+        return isInvalidPostcode(value);
       },
-      applicant2AddressTown: {
-        id: 'addressTown',
-        type: 'text',
-        classes: 'govuk-label govuk-!-width-two-thirds',
-        hidden: !isPostcodeSet,
-        label: l => l.town,
-        labelSize: null,
-        validator: (value, formData) => {
-          if (formData.applicant2AddressCountry !== uk) {
-            return;
-          }
-          return isFieldFilledIn(value);
-        },
-      },
-      applicant2AddressCounty: {
-        id: 'addressCounty',
-        type: 'text',
-        classes: 'govuk-label govuk-!-width-two-thirds',
-        hidden: !isPostcodeSet,
-        label: l => l.county,
-        labelSize: null,
-      },
-      applicant2AddressPostcode: {
-        id: 'addressPostcode',
-        type: 'text',
-        classes: 'govuk-label govuk-input--width-10',
-        hidden: !isPostcodeSet,
-        label: l => l.postcode,
-        labelSize: null,
-        attributes: {
-          maxLength: 14,
-        },
-        validator: (value, formData) => {
-          if (formData.applicant2AddressCountry !== uk) {
-            return;
-          }
-          return isInvalidPostcode(value);
-        },
-      },
-      applicant2AddressCountry: {
-        id: 'addressCountry',
-        type: 'text',
-        classes: 'govuk-label govuk-!-width-two-thirds',
-        hidden: !isPostcodeSet,
-        label: l => l.country,
-        labelSize: null,
-        validator: isFieldFilledIn,
-      },
-    };
+    },
+    applicant2AddressCountry: {
+      id: 'addressCountry',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.country,
+      labelSize: null,
+      validator: isFieldFilledIn,
+    },
   },
   submit: {
     text: l => l.continue,
@@ -176,6 +166,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.formState || {}) },
+    form,
   };
 };

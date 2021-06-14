@@ -2,6 +2,7 @@ import {
   hideEnterPostcode,
   hideInternationalAddressFields,
   hideUkAddressFields,
+  showEnterPostcode,
   showInternationalAddressFields,
   showUkAddressFields,
 } from './address/links';
@@ -29,5 +30,6 @@ if (form) {
   } else if (getById('enterPostcode')) {
     hideUkAddressFields();
     hideInternationalAddressFields();
+    showEnterPostcode();
   }
 }
