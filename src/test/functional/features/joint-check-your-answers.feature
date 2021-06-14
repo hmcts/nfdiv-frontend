@@ -11,5 +11,5 @@ Feature: Check Your Answers (Joint Application)
   Scenario: Sending application to applicant 2 to confirm
     Given I've completed enough questions correctly to get to the check your answers page as a joint applicant
     And I go to '/check-your-answers'
-    And I click "Send for Review"
+    And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
