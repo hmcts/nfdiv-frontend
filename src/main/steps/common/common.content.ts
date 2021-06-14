@@ -93,6 +93,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   change: 'Newid',
   download: 'Llwytho i lawr',
+  delete: 'Dileu',
   warning: 'Rhybudd',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
