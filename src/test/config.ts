@@ -50,7 +50,7 @@ const autoLogin = {
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
-  TestSlowMo: 1000,
+  TestSlowMo: 1250,
   WaitForTimeout: 5000,
   TestUser,
   TestPass,
