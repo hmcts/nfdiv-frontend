@@ -10,10 +10,10 @@ export class Form {
     this.formState = formState;
   }
 
-  public getFields(checkFields?: FormContent['fields']): FormContent['fields'] {
+  public getFields(checkFields?: FormContent['fields'], userCase?: Partial<Case>): FormContent['fields'] {
     const fields = checkFields || this.form?.fields;
     if (typeof fields === 'function') {
-      return fields(this.formState);
+      return fields(userCase || this.formState);
     }
 
     return fields;
@@ -22,8 +22,12 @@ export class Form {
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
-  public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
-    const fields = this.getFields(checkFields);
+  public getParsedBody(
+    body: AnyObject,
+    userCase?: Partial<Case>,
+    checkFields?: FormContent['fields']
+  ): Partial<CaseWithFormData> {
+    const fields = this.getFields(checkFields, userCase);
 
     const parsedBody = Object.entries(fields)
       .map(setupCheckboxParser(!!body.saveAndSignOut))
@@ -38,7 +42,7 @@ export class Form {
       (value as FormOptions)?.values
         ?.filter(option => option.subFields !== undefined)
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
-        .map(subField => this.getParsedBody(body, subField))
+        .map(subField => this.getParsedBody(body, userCase, subField))
         .forEach(parsedSubField => {
           subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
         });
@@ -96,12 +100,13 @@ export class Form {
         for (const [, value] of Object.entries(stepField.values)) {
           if (value.name) {
             fieldNames.add(value.name);
-          } else if (value.subFields) {
+          } else {
+            fieldNames.add(fieldKey);
+          }
+          if (value.subFields) {
             for (const field of Object.keys(value.subFields)) {
               fieldNames.add(field);
             }
-          } else {
-            fieldNames.add(fieldKey);
           }
         }
       } else {
