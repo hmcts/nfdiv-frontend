@@ -394,4 +394,8 @@ export const sequence: Step[] = [
     url: APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
   },
+  {
+    url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
 ];
