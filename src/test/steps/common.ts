@@ -30,9 +30,9 @@ Given('I create a new user and login', () => {
   login('citizenSingleton');
 });
 
-export const iClick = (text: string): void => {
-  I.waitForText(text);
-  I.click(text);
+export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
+  I.waitForText(text, wait);
+  I.click(locator || text);
 };
 
 When('I click {string}', iClick);
@@ -93,7 +93,7 @@ Given('I clear the form', iClearTheForm);
 
 export const iWaitForPostcodeLookUpResults = (): void => {
   I.waitForText('Select an address');
-  I.waitForElement('option[value^="{\\"fullAddress"]');
+  I.waitForElement('option[value^="{\\"fullAddress"]', 10);
 };
 Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpResults);
 

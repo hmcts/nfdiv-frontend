@@ -48,36 +48,44 @@ const en = ({ partner }: Partial<CommonContent>) => {
 
 const cy = ({ partner }: CommonContent) => {
   const addressPostcode = {
-    required: 'Nid ydych wedi rhoi cod post. Rhowch god post cyn parhau.',
-    invalid: 'Nid ydych wedi rhoi cod post yn y DU dilys. Rhowch god post yn y DU dilys cyn parhau.',
-    notSelected: `Nid ydych wedi rhoi cyfeiriad eich ${partner}. Rhowch cyfeiriad cyn parhau.`,
+    required: `Nid ydych wedi nodi cod post eich ${partner}. Nodwch ei god post cyn parhau.`,
+    invalid: 'Nid ydych wedi nodi cod post DU dilys. Nodwch god post DU dilys cyn parhau.',
+    notSelected: `Nid ydych wedi dewis cyfeiriad eich ${partner}. Dewiswch eu cyfeiriad o'r rhestr cyn parhau.`,
   };
 
   return {
-    // @TODO translations for optional internation fields
-    ...en({ partner }),
-    title: `Rhowch gyfeiriad post eich ${partner}`,
+    title: `Nodwch gyfeiriad post eich ${partner}`,
     enterPostcode: 'Nodwch god post yn y DU',
-    buildingStreet: "Rhif neu enw'r adeilad, Stryd",
+    buildingStreet: 'Adeilad a stryd',
+    line1: 'Llinell 1 y cyfeiriad',
+    line2Optional: 'Llinell 2 y cyfeiriad (dewisol)',
+    line3Optional: 'Llinell 3 y cyfeiriad (dewisol)',
     town: 'Tref neu ddinas',
+    townOptional: 'Tref neu ddinas (dewisol)',
     county: 'Sir',
+    countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
     postcode: 'Cod post',
+    postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
+    country: 'Gwlad',
     findAddress: 'Dod o hyd i gyfeiriad',
     notUK: 'Ni allaf nodi cod post yn y DU',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
     addressesFound: (addressesFound: number) =>
-      `Daethpwyd o hyd i ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+      `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
     errors: {
       applicant2Address1: {
-        required: "Nid ydych wedi rhoi rhif neu enw'r adeilad",
+        required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
       },
       applicant2AddressTown: {
-        required: 'Nid ydych wedi rhoi eich cyfeiriad. Rhowch eich cyfeiriad cyn parhau.',
+        required: `Nid ydych wedi nodi tref neu ddinas eich ${partner}. Nodwch ei dref neu ddinas cyn parhau.`,
       },
       addressPostcode,
       applicant2AddressPostcode: addressPostcode,
+      applicant2AddressCountry: {
+        required: `Nid ydych wedi nodi gwlad eich ${partner}. Nodwch ei wlad cyn parhau.`,
+      },
     },
   };
 };
