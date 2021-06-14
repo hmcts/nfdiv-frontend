@@ -44,13 +44,8 @@ export const getCaseWorkerUser = async (): Promise<UserDetails> => {
   const caseWorkerPassword: string = config.get('services.idam.caseworkerPassword');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = {
-    client_id: id,
-    client_secret: secret,
-    grant_type: 'password',
-    username: caseWorkerUsername,
-    password: caseWorkerPassword,
-  };
+  const data = `grant_type=password&username=${caseWorkerUsername}&password=${caseWorkerPassword}&client_id=${id}
+                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;

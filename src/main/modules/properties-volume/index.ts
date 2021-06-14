@@ -22,6 +22,8 @@ export class PropertiesVolume {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
       this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('idam-caseworker-username', 'services.idam.caseworkerUsername');
+      this.setLocalSecret('idam-caseworker-password', 'services.idam.caseworkerPassword');
     }
   }
 
