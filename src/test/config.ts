@@ -50,7 +50,7 @@ const autoLogin = {
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
-  TestSlowMo: 250,
+  TestSlowMo: 1000,
   WaitForTimeout: 5000,
   TestUser,
   TestPass,
@@ -96,7 +96,7 @@ config.helpers = {
     show: !config.TestHeadlessBrowser,
     browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
-    waitForAction: 500,
+    waitForAction: config.TestSlowMo,
     waitForNavigation: 'networkidle0',
     ignoreHTTPSErrors: true,
   },
