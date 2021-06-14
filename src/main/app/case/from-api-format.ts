@@ -65,6 +65,9 @@ const fields: FromApiConverters = {
   statementOfTruth: data => ({
     iBelieveApplicationIsTrue: checkboxConverter(data.statementOfTruth),
   }),
+  dateSubmitted: data => ({
+    dateSubmitted: new Date(data.dateSubmitted as string),
+  }),
 };
 
 const fromApiDate = date => {

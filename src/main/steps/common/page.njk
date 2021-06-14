@@ -57,7 +57,9 @@
         {% endblock %}
       {% endif %}
 
-      {% include "./contact-us.njk" %}
+      {% block contact_us %}
+        {% include "./contact-us.njk" %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}

@@ -159,6 +159,7 @@ export interface Case {
   dueDate?: Date;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
+  dateSubmitted?: Date;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
 }
