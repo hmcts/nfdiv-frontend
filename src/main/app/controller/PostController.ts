@@ -23,6 +23,7 @@ export class PostController<T extends AnyObject> {
     next?: NextFunction,
     eventName: string = CITIZEN_UPDATE
   ): Promise<void> {
+    this.form.setFormState(req.session.userCase);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     // Reset users pray/application truth when changing other questions

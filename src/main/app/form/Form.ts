@@ -96,12 +96,13 @@ export class Form {
         for (const [, value] of Object.entries(stepField.values)) {
           if (value.name) {
             fieldNames.add(value.name);
-          } else if (value.subFields) {
+          } else {
+            fieldNames.add(fieldKey);
+          }
+          if (value.subFields) {
             for (const field of Object.keys(value.subFields)) {
               fieldNames.add(field);
             }
-          } else {
-            fieldNames.add(fieldKey);
           }
         }
       } else {
