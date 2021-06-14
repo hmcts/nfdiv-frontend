@@ -1,6 +1,6 @@
 import { Step } from '../../../steps/sequence';
-import { Case } from '../case';
-import { YesOrNo } from '../definition';
+import { Case, Checkbox, LanguagePreference } from '../case';
+import { ApplicationType, ChangedNameHow, DocumentType, Gender, JurisdictionConnections, YesOrNo } from '../definition';
 
 import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
 
@@ -111,6 +111,64 @@ describe('omitUnreachableAnswers()', () => {
       certifiedTranslation: null,
       ceremonyCountry: null,
       ceremonyPlace: null,
+    });
+  });
+
+  test('returns document upload answers as null due to change in user case', async () => {
+    const userCase: Partial<Case> = {
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.NO,
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1FullNameOnCertificate: 'test1',
+      applicant2FullNameOnCertificate: 'test2',
+      applicant1AlreadyAppliedForHelpPaying: YesOrNo.YES,
+      applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant1KnowsApplicant2Address: YesOrNo.YES,
+      inTheUk: YesOrNo.YES,
+      applyForFinancialOrder: YesOrNo.NO,
+      gender: Gender.MALE,
+      applicant1Address1: '1ST STREET',
+      applicant1AddressTown: 'LONDON',
+      applicant1AddressPostcode: 'E1 1AB',
+      applicant1AddressCountry: 'UK',
+      applicant1HelpPayingNeeded: YesOrNo.YES,
+      legalProceedingsRelated: [],
+      relationshipDate: {
+        year: '2020',
+        month: '1',
+        day: '1',
+      },
+      applicant2FirstNames: 'test2',
+      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant2LastNames: 'test22',
+      applicant2Address1: '2 STREET',
+      applicant2AddressTown: 'LONDON',
+      applicant2AddressPostcode: 'A1 1AA',
+      applicant2AddressCountry: 'UK',
+      applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
+      applicant1ChangedNameHow: ChangedNameHow.MARRIAGE_CERTIFICATE,
+      hasCertificate: YesOrNo.YES,
+      connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
+      applicant1FirstNames: 'test1',
+      applicant2EmailAddress: 'test@test.com',
+      screenHasUnionBroken: YesOrNo.YES,
+      uploadedFiles: [],
+      cannotUpload: Checkbox.Checked,
+      cannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
+      legalProceedings: YesOrNo.NO,
+      sameSex: Checkbox.Unchecked,
+      applicant1LastNames: 'test',
+      englishOrWelsh: LanguagePreference.English,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      cannotUpload: null,
+      cannotUploadDocuments: null,
     });
   });
 });
