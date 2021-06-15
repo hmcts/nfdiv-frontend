@@ -21,19 +21,23 @@ export class AccessCodePostController extends PostController<AnyObject> {
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
+    formData.respondentUserId = req.session.user.id;
     Object.assign(req.session.userCase, formData);
     this.form.setFormState(req.session.userCase);
     req.session.errors = this.form.getErrors(formData);
 
     try {
-      await req.locals.api.getCaseById(formData.caseReference as string);
+      const caseData = await req.locals.api.getCaseById(formData.caseReference as string);
+
+      if (caseData.accessCode !== formData.accessCode) {
+        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+      }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
     if (req.session.errors.length === 0) {
       try {
-        formData.respondentUserId = req.session.user.id;
         req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);
