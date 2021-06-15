@@ -53,7 +53,7 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get(`/cases/${caseId}`);
-      return response.data;
+      return response.data.data;
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');

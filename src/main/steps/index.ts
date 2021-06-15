@@ -5,23 +5,12 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
-import { Step, jointApplicantSequence, sequence } from './sequence';
+import { Step, sequence } from './sequence';
 import { APPLICATION_SUBMITTED } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
 for (const step of sequence) {
-  const stepContentFile = `${__dirname}${step.url}/content.ts`;
-  if (fs.existsSync(stepContentFile)) {
-    const content = require(stepContentFile);
-
-    if (content.form) {
-      stepForms[step.url] = new Form(content.form);
-    }
-  }
-}
-
-for (const step of jointApplicantSequence) {
   const stepContentFile = `${__dirname}${step.url}/content.ts`;
   if (fs.existsSync(stepContentFile)) {
     const content = require(stepContentFile);

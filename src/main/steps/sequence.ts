@@ -387,15 +387,12 @@ export const sequence: Step[] = [
     url: JURISDICTION_CONNECTION_SUMMARY,
     getNextStep: () => YOUR_NAME,
   },
-];
-
-export const jointApplicantSequence: Step[] = [
   {
     url: ENTER_YOUR_ACCESS_CODE,
     getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
   },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-    getNextStep: () => HOME_URL, // to be replaced with Has your marriage irretrievably broken down page
+    getNextStep: () => HOME_URL, // TODO - to be replaced with Has your marriage irretrievably broken down page
   },
 ];
