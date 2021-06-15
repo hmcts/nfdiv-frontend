@@ -1,3 +1,4 @@
+import { APPLY_FINANCIAL_ORDER } from '../../main/steps/urls';
 import { completeCase } from '../functional/fixtures/completeCase';
 
 import {
@@ -5,16 +6,22 @@ import {
   iAmOnPage,
   iClearTheForm,
   iClick,
-  iResetThePostCodeLookUpForm,
   iSetTheUsersCaseTo,
   iWaitForPostcodeLookUpResults,
 } from './common';
 
 const { I } = inject();
 
-Given("I've already completed all questions correctly", async () => iSetTheUsersCaseTo(completeCase));
+Given("I've already completed all questions correctly", async () => {
+  await iSetTheUsersCaseTo(completeCase);
 
-Given("I've completed all happy path questions correctly to get to check your answers page", () => {
+  const url = await I.grabCurrentUrl();
+  I.amOnPage(APPLY_FINANCIAL_ORDER);
+  iClick('Continue');
+  I.amOnPage(url);
+});
+
+Given("I've completed all happy path questions correctly", () => {
   iAmOnPage('/your-details');
   iClearTheForm();
   iClick('My husband');
@@ -104,8 +111,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/enter-your-address');
-  iResetThePostCodeLookUpForm();
-  iClick('Enter a UK postcode');
+  iClick('Enter a UK postcode', '#postcode', 10);
   I.type('SW1A 1AA');
   iClick('Find address');
   iWaitForPostcodeLookUpResults();
@@ -123,8 +129,7 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/enter-their-address');
-  iResetThePostCodeLookUpForm();
-  iClick('Enter a UK postcode');
+  iClick('Enter a UK postcode', '#postcode', 10);
   I.type('SW1H 9AJ');
   iClick('Find address');
   iWaitForPostcodeLookUpResults();
@@ -148,4 +153,41 @@ Given("I've completed all happy path questions correctly to get to check your an
   iClick('Continue');
 
   I.waitInUrl('/check-your-answers');
+  iClearTheForm();
+  iClick('I confirm');
+  iClick('I believe that the facts stated in this application are true');
+  iClick('Continue to payment');
+
+  I.waitInUrl('/pay-your-fee');
+});
+
+Given('I pay and submit the application', () => {
+  I.waitInUrl('/pay-your-fee');
+  iClick('Pay and submit application');
+
+  I.waitInUrl('/card_details', 15);
+  iClick('Card number', '#card-no', 15);
+  I.type('4444333322221111');
+  iClick('Month');
+  I.type('12');
+  iClick('Year');
+  I.type('30');
+  iClick('Name on card');
+  I.type('Nightly test');
+  iClick('Building number or name');
+  I.type('BUCKINGHAM PALACE');
+  iClick('Town');
+  I.type('LONDON');
+  iClick('Postcode');
+  I.type('SW1A 1AA');
+  iClick('Email');
+  I.type('nightly-functional-test@example.com');
+  iClick('Card security code');
+  I.type('123');
+  iClick('Continue');
+
+  I.waitInUrl('/card_details');
+  I.click('Confirm payment');
+
+  I.waitInUrl('/application-submitted', 15);
 });

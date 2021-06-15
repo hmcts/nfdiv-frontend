@@ -4,13 +4,12 @@ import { config as testConfig } from '../config';
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
-const url = testConfig.TEST_URL || 'http://localhost:3001';
 let helpers = {};
 let plugins = {};
 if (process.env.SAUCE === 'true') {
   helpers = {
     WebDriver: {
-      url,
+      url: testConfig.TEST_URL,
       browser: 'MicrosoftEdge',
       waitForTimeout: testConfig.WaitForTimeout,
       keepCookies: true,
@@ -37,14 +36,7 @@ if (process.env.SAUCE === 'true') {
     },
   };
 } else {
-  helpers = {
-    Playwright: {
-      url,
-      show: !testConfig.TestHeadlessBrowser,
-      browser: 'chromium',
-      waitForTimeout: testConfig.WaitForTimeout,
-    },
-  };
+  helpers = testConfig.helpers;
 }
 
 export const config: CodeceptJS.Config = {

@@ -20,8 +20,18 @@ const en = ({ isDivorce, required }) => ({
   },
 });
 
-//TODO translation
-const cy = en;
+const cy = ({ required }) => ({
+  title: "Newidiadau i'ch enw",
+  line1: "Mae angen ichi roi gwybod i'r llys os ydych wedi newid eich enw",
+  applicant1LastNameChangedWhenRelationshipFormed: 'A wnaethoch chi newid eich cyfenw pan wnaethoch chi briodi?',
+  applicant1LastNameChangedWhenRelationshipFormedHint: "Er enghraifft, o'ch enw morwynaidd",
+  applicant1NameChangedSinceRelationshipFormed: "A ydych wedi newid unrhyw ran o'ch enw ers priodi?",
+  applicant1NameChangedSinceRelationshipFormedHint: 'Er enghraifft, trwy weithred newid enw',
+  errors: {
+    applicant1LastNameChangedWhenRelationshipFormed: { required },
+    applicant1NameChangedSinceRelationshipFormed: { required },
+  },
+});
 
 export const form: FormContent = {
   fields: {

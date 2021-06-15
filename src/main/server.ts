@@ -18,6 +18,7 @@ import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
+import { StateRedirectMiddleware } from './modules/state-redirect';
 import { LoadTimeouts } from './modules/timeouts';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
@@ -50,6 +51,7 @@ new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
+new StateRedirectMiddleware().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 

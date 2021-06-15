@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-11 15:48:29.
+// Generated using typescript-generator version 2.32.889 on 2021-06-09 10:50:15.
 
 export interface Address {
   AddressLine1: string;
@@ -316,7 +316,8 @@ export interface Payment {
 }
 
 export interface Letter {
-  divorceDocument: DivorceDocument;
+  name: string;
+  data: any;
   count: number;
 }
 
@@ -557,9 +558,9 @@ export const enum PaymentStatus {
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE17';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';

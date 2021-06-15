@@ -112,7 +112,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: isJointApplication
-    ? 'Send for Review'
+    ? 'Send for review'
     : formState?.applicant1HelpWithFeesRefNo
     ? 'Submit application'
     : 'Continue to payment',

@@ -47,6 +47,7 @@ import {
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
+  PAYMENT_CALLBACK_URL,
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -381,7 +382,7 @@ export const sequence: Step[] = [
   },
   {
     url: PAY_YOUR_FEE,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
   },
   {
     url: JURISDICTION_CONNECTION_SUMMARY,
@@ -394,5 +395,13 @@ export const sequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HOME_URL, // TODO - to be replaced with Has your marriage irretrievably broken down page
+  },
+  {
+    url: PAYMENT_CALLBACK_URL,
+    getNextStep: () => APPLICATION_SUBMITTED,
+  },
+  {
+    url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
   },
 ];

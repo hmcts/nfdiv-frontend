@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash';
 
-import { Case } from '../../app/case/case';
+import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -93,7 +93,12 @@ const cy: typeof en = {
   continue: 'Parhau',
   change: 'Newid',
   download: 'Llwytho i lawr',
+  delete: 'Dileu',
+  warning: 'Rhybudd',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
+  notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
+  errorSaving:
+    "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
@@ -157,7 +162,7 @@ export const generatePageContent = ({
   language: Language;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
-  formState?: Partial<Case>;
+  formState?: Partial<CaseWithId>;
   userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
@@ -210,12 +215,13 @@ export type CommonContent = typeof en & {
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
-  formState?: Partial<Case>;
+  formState?: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
   contactEmail?: string;
   selectedGender: Gender;
   isJointApplication: boolean;
+  referenceNumber?: string;
 };
 
 export type Language = 'en' | 'cy';

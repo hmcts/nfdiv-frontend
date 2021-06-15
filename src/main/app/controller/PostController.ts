@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
@@ -17,7 +17,13 @@ export class PostController<T extends AnyObject> {
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
-  public async post(req: AppRequest<T>, res: Response): Promise<void> {
+  public async post(
+    req: AppRequest<T>,
+    res: Response,
+    next?: NextFunction,
+    eventName: string = CITIZEN_UPDATE
+  ): Promise<void> {
+    this.form.setFormState(req.session.userCase);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     // Reset users pray/application truth when changing other questions
@@ -32,7 +38,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
     } else {
-      await this.saveAndContinue(req, res, stepData);
+      await this.saveAndContinue(req, res, stepData, eventName);
     }
   }
 
@@ -54,14 +60,19 @@ export class PostController<T extends AnyObject> {
     res.end();
   }
 
-  private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+  private async saveAndContinue(
+    req: AppRequest<T>,
+    res: Response,
+    formData: Partial<Case>,
+    eventName: string
+  ): Promise<void> {
     Object.assign(req.session.userCase, formData);
     this.form.setFormState(req.session.userCase);
     req.session.errors = this.form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, CITIZEN_UPDATE);
+        req.session.userCase = await this.save(req, formData, eventName);
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });

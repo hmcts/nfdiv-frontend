@@ -13,6 +13,8 @@ import {
   JurisdictionConnections,
   LegalProceedingsRelated,
   ListValue,
+  OrderSummary,
+  Payment,
   State,
   YesOrNo,
 } from './definition';
@@ -62,6 +64,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   whoIsFinancialOrderFor: 'financialOrderFor',
   documentsUploaded: 'documentsUploaded',
   respondentUserId: 'respondentUserId',
+};
+
+export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  applicationFeeOrderSummary: 'applicationFeeOrderSummary',
+  payments: 'payments',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -156,6 +163,9 @@ export interface Case {
   iBelieveApplicationIsTrue?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
+  dateSubmitted?: Date;
+  payments: ListValue<Payment>[];
+  applicationFeeOrderSummary: OrderSummary;
 }
 
 export interface CaseWithId extends Case {

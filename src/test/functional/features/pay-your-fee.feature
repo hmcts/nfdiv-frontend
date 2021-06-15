@@ -2,9 +2,17 @@ Feature: Pay your fee
 
   Background:
     Given I login
-    When I go to "/pay-your-fee"
-    Then the page should include "Pay your divorce fee"
 
   Scenario: Continuing to payment
-    When I click "Pay and submit application"
+    Given I've already completed all questions correctly
+    When I go to '/check-your-answers'
+    And I clear the form
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    And I click "Continue to payment"
+    Then the page URL should be "/pay-your-fee"
+    And the page should include "Pay your divorce fee"
+    And I go to "/"
+    And the page URL should be "/pay-your-fee"
+    And I click "Back"
     Then the page URL should be "/check-your-answers"

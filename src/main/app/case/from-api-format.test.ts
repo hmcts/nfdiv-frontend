@@ -4,15 +4,15 @@ import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | null>> = {
-    divorceOrDissolution: 'divorce',
-    marriageIsSameSexCouple: 'Yes',
-    applicant2Gender: 'male',
-    applicant1Gender: 'male',
-    screenHasMarriageBroken: 'Yes',
+    divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    marriageIsSameSexCouple: YesOrNo.YES,
+    applicant2Gender: Gender.MALE,
+    applicant1Gender: Gender.MALE,
+    screenHasMarriageBroken: YesOrNo.YES,
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
-    applicant1AgreedToReceiveEmails: 'Yes',
+    applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsConfidential: 'keep',
-    applicant1KnowsApplicant2EmailAddress: 'NO',
+    applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: null,
   };
 
@@ -33,7 +33,11 @@ describe('from-api-format', () => {
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat({ ...results, marriageDate: '2000-09-02' } as unknown as CaseData);
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      marriageDate: '2000-09-02',
+      dateSubmitted: '2021-01-01',
+    } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -50,6 +54,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       iWantToHavePapersServedAnotherWay: undefined,
+      dateSubmitted: new Date('2021-01-01'),
     });
   });
 
@@ -90,6 +95,24 @@ describe('from-api-format', () => {
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
+    });
+  });
+
+  test('adds read only fields', () => {
+    expect(
+      fromApiFormat({
+        payments: [
+          {
+            id: 'mock-payment',
+          },
+        ],
+      } as unknown as CaseData)
+    ).toStrictEqual({
+      payments: [
+        {
+          id: 'mock-payment',
+        },
+      ],
     });
   });
 });

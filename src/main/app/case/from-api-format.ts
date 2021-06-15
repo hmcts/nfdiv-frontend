@@ -1,6 +1,13 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import {
+  Case,
+  Checkbox,
+  LanguagePreference,
+  formFieldsToCaseMapping,
+  formatCase,
+  readOnlyFormFieldsToCaseMapping,
+} from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 
@@ -58,6 +65,9 @@ const fields: FromApiConverters = {
   statementOfTruth: data => ({
     iBelieveApplicationIsTrue: checkboxConverter(data.statementOfTruth),
   }),
+  dateSubmitted: data => ({
+    dateSubmitted: new Date(data.dateSubmitted as string),
+  }),
 };
 
 const fromApiDate = date => {
@@ -69,4 +79,5 @@ const fromApiDate = date => {
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
-export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData): Case =>
+  formatCase({ ...fields, ...readOnlyFormFieldsToCaseMapping }, data);

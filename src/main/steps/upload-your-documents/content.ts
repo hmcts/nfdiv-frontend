@@ -7,8 +7,8 @@ import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce }: CommonContent) => {
-  const union = isDivorce ? 'marriage' : 'civil partnership';
+const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
+  const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
     youNeed: 'You need to upload a digital photo or scan of the following documents:',
@@ -64,8 +64,64 @@ const en = ({ isDivorce }: CommonContent) => {
   };
 };
 
-// @TODO translations
-const cy = en;
+const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
+  const union = isDivorce ? marriage : civilPartnership;
+  return {
+    title: 'Uwchlwytho eich dogfennau',
+    youNeed: "Mae arnoch angen uwchlwytho llun digidol neu sgan o'r dogfennau canlynol:",
+    certificate: `eich tystysgrif ${union} wreiddiol`,
+    certificateForeign: `eich tystysgrif ${union} dramor wreiddiol`,
+    certificateForeignTranslation: `cyfieithiad wedi'i ardystio o'ch tystysgrif ${union} dramor`,
+    proofOfNameChange: "prawf eich bod wedi newid eich enw, er enghraifft gweithred newid enw neu 'datganiad statudol'",
+    warningPhoto:
+      "Gwnewch yn siŵr bod y llun neu'r sgan yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn ei uwchlwytho. Os na all staff y llys ddarllen y manylion, efallai bydd yn cael ei wrthod.",
+    infoTakePhoto: "Gallwch dynnu llun gyda'ch ffôn a'i uwchlwytho",
+    infoBullet1:
+      'Rhowch eich dogfen ar arwyneb fflat mewn ystafell gyda digon o olau. Defnyddiwch y fflach os oes angen.',
+    infoBullet2: "Tynnwch lun o'r ddogfen gyfan. Dylech fod yn gallu gweld ymylon y ddogfen.",
+    infoBullet3:
+      'Gwiriwch eich bod yn gallu darllen yr holl ysgrifen, yn cynnwys y llawysgrifen. Bydd delweddau aneglur neu annarllenadwy yn cael eu gwrthod.',
+    infoBullet4: "E-bostiwch neu anfonwch y llun neu'r sgan i'r ddyfais rydych yn ei defnyddio nawr.",
+    infoBullet5: "Uwchlwythwch y llun/sgan trwy ddefnyddio'r ddolen isod.",
+    minRequirements:
+      "Dylech uwchlwytho o leiaf un ddelwedd glir sy'n dangos y ddogfen gyfan. Os ydych yn meddwl y bydd yn helpu staff y llys i ddarllen y manylion, gallwch anfon ragor o ddelweddau. Os yw eich dogfen yn cynnwys mwy nag un tudalen, yna dylech uwchlwytho o leiaf un ddelwedd o bob tudalen.",
+    uploadFiles: "Ffeiliau wedi'u huwchlwytho",
+    noFilesUploaded: "Dim ffeiliau wedi'u huwchlwytho",
+    chooseFilePhoto: 'Dewiswch ffeil neu tynnwch lun',
+    orStr: 'neu',
+    dragDropHere: 'Llusgwch a gollyngwch ffeiliau yma',
+    acceptedFileFormats: 'Fformatau ffeil a dderbynnir:',
+    fileFormats: 'JPEG, TIFF, PNG, PDF',
+    maximumFileSize: 'Uchafswm maint ffeil:',
+    fileSize: '10 MB',
+    cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
+    cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
+    checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
+    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">Gallwch bostio neu e-bostio eich dogfennau i'r llys. Os byddwch yn eu postio, rhaid ichi anfon y dogfennau gwreiddiol neu gopïau wedi'u hardystio. Byddwch yn cael manylion am sut i'w hanfon ar ôl ichi gyflwyno'r cais hwn.</p>
+      <p class="govuk-body">Ewch ymlaen gyda'ch cais.</p>`,
+    cannotUploadCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} wreiddiol`,
+    cannotUploadForeignCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} dramor wreiddiol`,
+    cannotUploadCertificate: `Fy nhystysgrif ${union} wreiddiol`,
+    cannotUploadForeignCertificate: `Fy nhystysgrif ${union} dramor wreiddiol`,
+    cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
+    cannotUploadNameChangeProof: 'Prawf fy mod i wedi newid fy enw',
+    errors: {
+      uploadedFiles: {
+        notUploaded:
+          'Nid ydych wedi uwchlwytho unrhyw beth. Uwchlwythwch eich dogfen neu nodwch na allwch uwchlwytho eich dogfennau.',
+        errorUploading:
+          'Ni chafodd eich ffeil ei huwchlwytho oherwydd bod y gwasanaeth yn profi problemau technegol. Ceisiwch uwchlwytho eich ffeil eto.',
+        fileSizeTooBig:
+          "Mae'r ffeil rydych wedi'i huwchlwytho yn rhy fawr. Gwnewch y ffeil yn llai na 10MB a cheisiwch ei huwchlwytho eto.",
+        fileWrongFormat:
+          "Ni allwch uwchlwytho ffeil yn y fformat hwnnw. Cadwch y ffeil gan ddefnyddio un o'r fformatau a dderbynnir a cheisiwch ei huwchlwytho eto.",
+      },
+      cannotUpload: {
+        required: 'Dewiswch pa ffeil nad oeddech yn gallu ei huwchlwytho cyn parhau.',
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: formState => {
