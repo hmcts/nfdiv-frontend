@@ -44,6 +44,7 @@ import {
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
+  NOT_CONFIRMED_JOINT_APPLICATION,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -97,7 +98,14 @@ export const sequence: Step[] = [
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
-    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? NOT_CONFIRMED_JOINT_APPLICATION
+        : HAS_RELATIONSHIP_BROKEN_URL,
+  },
+  {
+    url: NOT_CONFIRMED_JOINT_APPLICATION,
+    getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
   },
   {
     url: RELATIONSHIP_DATE_URL,
@@ -389,10 +397,6 @@ export const sequence: Step[] = [
   {
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
-  },
-  {
-    url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
   },
   {
     url: APPLICATION_SUBMITTED,

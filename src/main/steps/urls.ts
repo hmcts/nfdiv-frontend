@@ -15,6 +15,7 @@ export const CHECK_ANSWERS_URL: PageLink = '/check-your-answers';
 export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/relationship-not-broken';
+export const NOT_CONFIRMED_JOINT_APPLICATION: PageLink = '/not-confirmed-your-joint-application';
 export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
 export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
 export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
