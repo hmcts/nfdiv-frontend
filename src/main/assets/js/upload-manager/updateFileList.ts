@@ -1,5 +1,5 @@
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
-import { getById } from '../selectors';
+import { getById, hidden } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
 import type { UploadedFiles } from './UploadedFiles';
@@ -11,9 +11,9 @@ const content = JSON.parse(getById('uploadContent')?.textContent || '{}');
 export const updateFileList = (uploadedFiles: UploadedFiles, events: FileUploadEvents): void => {
   if (noFilesUploadedEl) {
     if (uploadedFiles.length) {
-      noFilesUploadedEl.classList.add('govuk-visually-hidden');
+      noFilesUploadedEl.classList.add(hidden);
     } else {
-      noFilesUploadedEl.classList.remove('govuk-visually-hidden');
+      noFilesUploadedEl.classList.remove(hidden);
     }
   }
 

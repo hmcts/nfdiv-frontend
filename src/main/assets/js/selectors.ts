@@ -1,4 +1,4 @@
-export const hidden = 'govuk-visually-hidden';
+export const hidden = 'hidden';
 
 export const getById = (id: string): HTMLElement | null => document.getElementById(id);
 

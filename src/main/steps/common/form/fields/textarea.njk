@@ -5,7 +5,7 @@
   name: fieldName,
   label: {
     text: getContent(field.label),
-    classes: "govuk-visually-hidden" if field.labelHidden else labelClasses
+    classes: "hidden" if field.labelHidden else labelClasses
   },
   hint: {
     html: getContent(field.hint)
@@ -15,6 +15,6 @@
   attributes: field.attributes,
   errorMessage: null if field.hideError else getError(fieldName),
   formGroup: {
-    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+    classes: "hidden " + field.id if field.hidden else field.id
   }
 }) }}
