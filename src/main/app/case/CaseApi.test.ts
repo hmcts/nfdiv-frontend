@@ -185,6 +185,32 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
+
+  test('Should return case for caseId passed', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: {
+        id: '1234',
+        state: State.Draft,
+        data: {
+          accessCode: 'NFSDCLV3',
+        },
+      },
+    });
+
+    const userCase = await api.getCaseById('1234');
+    expect(userCase).toStrictEqual({ accessCode: 'NFSDCLV3' });
+  });
+
+  test('Should throw error when case could not be fetched', async () => {
+    mockedAxios.get.mockRejectedValue({
+      config: { method: 'GET', url: 'https://example.com' },
+      request: 'mock request',
+    });
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
+  });
 });
 
 describe('getCaseApi', () => {

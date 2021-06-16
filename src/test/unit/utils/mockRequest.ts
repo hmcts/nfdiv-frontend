@@ -16,6 +16,7 @@ export const mockRequest = ({
       api: {
         triggerEvent: jest.fn(),
         addPayment: jest.fn(),
+        getCaseById: jest.fn(),
       },
       logger: {
         info: jest.fn(),
@@ -25,6 +26,7 @@ export const mockRequest = ({
     query: {},
     session: {
       user: {
+        id: '123456',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',

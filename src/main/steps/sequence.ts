@@ -389,19 +389,20 @@ export const sequence: Step[] = [
     getNextStep: () => YOUR_NAME,
   },
   {
-    url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
-  {
-    url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-    getNextStep: () => HOME_URL, // TODO - to be replaced with Has your marriage irretrievably broken down page
-  },
-  {
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
   },
   {
     url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: ENTER_YOUR_ACCESS_CODE,
+    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+  },
+  {
+    url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+    // TODO - to be replaced with Has your marriage irretrievably broken down page once developed
     getNextStep: () => HOME_URL,
   },
 ];

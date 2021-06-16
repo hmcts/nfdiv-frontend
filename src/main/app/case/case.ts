@@ -23,7 +23,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
-  screenHasUnionBroken: 'screenHasMarriageBroken',
+  screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
