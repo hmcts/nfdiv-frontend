@@ -10,6 +10,7 @@ import {
 } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
+import { fromApi as uploadedFilesFromApi } from './formatter/uploadedFiles';
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
@@ -49,18 +50,8 @@ const fields: FromApiConverters = {
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
-  documentsUploaded: data => ({
-    uploadedFiles:
-      data.documentsUploaded?.map(file => ({
-        id: `${file.id}`,
-        name: `${file.value?.documentFileName}`,
-      })) || [],
-    documentsUploaded: data.documentsUploaded,
-  }),
-  cannotUploadSupportingDocument: data => ({
-    cannotUpload: data.cannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
-    cannotUploadDocuments: data.cannotUploadSupportingDocument,
-  }),
+  documentsUploaded: uploadedFilesFromApi,
+  cannotUploadSupportingDocument: uploadedFilesFromApi,
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),
