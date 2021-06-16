@@ -22,8 +22,12 @@ export class DocumentManagerController {
       throw new Error('Cannot upload new documents as case is not in draft state');
     }
 
-    if (!req.files) {
-      throw new Error('No files were uploaded');
+    if (!req.files.length) {
+      if (req.headers.accept?.includes('application/json')) {
+        throw new Error('No files were uploaded');
+      } else {
+        return res.redirect(UPLOAD_YOUR_DOCUMENTS);
+      }
     }
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);

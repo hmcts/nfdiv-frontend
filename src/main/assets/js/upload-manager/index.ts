@@ -5,7 +5,7 @@ import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
-import { getById } from '../selectors';
+import { getById, hidden, qs } from '../selectors';
 
 import { FileUploadEvents } from './FileUploadEvents';
 import { UploadedFiles } from './UploadedFiles';
@@ -62,6 +62,8 @@ const initUploadManager = (): void => {
     .on('error', fileUploadEvents.onError);
 };
 
-if (getById('upload')) {
+const upload = qs('.upload');
+if (upload) {
+  upload.classList.remove(hidden);
   initUploadManager();
 }
