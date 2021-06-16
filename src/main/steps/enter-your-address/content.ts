@@ -98,7 +98,6 @@ export const form: FormContent = {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
-      hidden: true,
       label: l => l.buildingStreet,
       labelSize: null,
       validator: isFieldFilledIn,
@@ -107,7 +106,6 @@ export const form: FormContent = {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
-      hidden: true,
       label: l => l.line2Optional,
       labelSize: null,
     },
@@ -115,7 +113,6 @@ export const form: FormContent = {
       id: 'address3',
       type: 'text',
       classes: 'govuk-label',
-      hidden: true,
       label: l => l.line3Optional,
       labelSize: null,
     },
@@ -123,7 +120,6 @@ export const form: FormContent = {
       id: 'addressTown',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      hidden: true,
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
@@ -137,7 +133,6 @@ export const form: FormContent = {
       id: 'addressCounty',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      hidden: true,
       label: l => l.county,
       labelSize: null,
     },
@@ -145,7 +140,6 @@ export const form: FormContent = {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
-      hidden: true,
       label: l => l.postcode,
       labelSize: null,
       attributes: {
@@ -162,7 +156,6 @@ export const form: FormContent = {
       id: 'addressCountry',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      hidden: true,
       label: l => l.country,
       labelSize: null,
       validator: isFieldFilledIn,
@@ -170,7 +163,6 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
-    classes: 'govuk-visually-hidden',
   },
 };
 
