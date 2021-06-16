@@ -60,6 +60,7 @@
     "@types/require-directory": "^2.1.1",
     "@types/serve-favicon": "^2.5.2",
     "@types/session-file-store": "^1.2.1",
+    "@types/uuid": "^8.3.0",
     "@uppy/core": "^1.19.1",
     "@uppy/drop-target": "^0.2.3",
     "@uppy/file-input": "^1.5.1",
@@ -95,7 +96,8 @@
     "session-file-store": "^1.5.0",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
