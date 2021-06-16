@@ -18,8 +18,8 @@ Feature: Other court cases
 
   Scenario: They do have other court cases
     Given I select "Yes"
-    Given I select "Our marriage"
-    Given I select "Our property"
+    Given I select "Marriage"
+    Given I select "Property"
     When I click "Continue"
     Then the page URL should be "/details-other-proceedings"
 
