@@ -3,6 +3,7 @@ import config from 'config';
 import jwt_decode from 'jwt-decode';
 
 import { PageLink } from '../../../steps/urls';
+import { UserRole } from '../../case/definition';
 import { UserDetails } from '../../controller/AppRequest';
 
 export const CALLBACK_URL: PageLink = '/oauth2/callback';
@@ -32,6 +33,7 @@ export const getUserDetails = async (serviceUrl: string, rawCode: string): Promi
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: [UserRole.APPLICANT_2_SOLICITOR],
   };
 };
 

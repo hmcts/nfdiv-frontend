@@ -3,6 +3,7 @@ import fs from 'fs';
 import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
+import { UserRole } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { DocumentManagerController } from './app/controller/DocumentManagementController';
 import { GetController } from './app/controller/GetController';
@@ -56,15 +57,18 @@ export class Routes {
 
     for (const step of stepsWithContent) {
       const dir = `${__dirname}/steps${step.url}`;
-      const customView = `${dir}/template.njk`;
-      const view = fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
-      const getController = fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
+      if (!fs.existsSync(dir)) {
+        setUpCustomApplicantControllers(app, step);
+      } else {
+        const view = getStepView(dir);
+        const getController = getGetController(dir);
 
-      app.get(step.url, errorHandler(new getController(view, step.generateContent).get));
+        app.get(step.url, errorHandler(new getController(view, step.generateContent).get));
 
-      if (step.form) {
-        const postController = fs.existsSync(`${dir}/post.ts`) ? require(`${dir}/post.ts`).default : PostController;
-        app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
+        if (step.form) {
+          const postController = getPostController(dir);
+          app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
+        }
       }
     }
 
@@ -88,3 +92,53 @@ export class Routes {
     app.use(errorController.notFound as unknown as RequestHandler);
   }
 }
+
+const getDir = (userRoles: string[]) => {
+  return userRoles.includes(UserRole.APPLICANT_2_SOLICITOR)
+    ? `${__dirname}/steps/applicant2`
+    : `${__dirname}/steps/applicant1`;
+};
+
+const getStepView = (dir: string) => {
+  const customView = `${dir}/template.njk`;
+  return fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
+};
+
+const getStepContent = (dir: string) => {
+  const customContent = `${dir}/content.ts`;
+  return fs.existsSync(customContent) ? require(customContent) : {};
+};
+
+const getGetController = (dir: string) => {
+  return fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
+};
+
+const getPostController = (dir: string) => {
+  return fs.existsSync(`${dir}/post.ts`) ? require(`${dir}/post.ts`).default : PostController;
+};
+
+const setUpCustomApplicantControllers = (app: Application, step) => {
+  const { errorHandler } = app.locals;
+  app.get(
+    step.url,
+    errorHandler((req, res) => {
+      const dir = getDir(req.session.user.roles) + step.url;
+
+      const view = getStepView(dir);
+      const getController = getGetController(dir);
+
+      new getController(view, getStepContent(dir).generateContent).get(req, res);
+    })
+  );
+  if (step.form) {
+    app.post(
+      step.url,
+      errorHandler((req, res) => {
+        const dir = getDir(req.session.user.roles) + step.url;
+
+        const postController = getPostController(dir);
+        new postController(new Form(step.form)).post(req, res);
+      })
+    );
+  }
+};
