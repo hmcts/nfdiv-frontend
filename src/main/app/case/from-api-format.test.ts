@@ -8,7 +8,7 @@ describe('from-api-format', () => {
     marriageIsSameSexCouple: YesOrNo.YES,
     applicant2Gender: Gender.MALE,
     applicant1Gender: Gender.MALE,
-    screenHasMarriageBroken: YesOrNo.YES,
+    applicant1ScreenHasMarriageBroken: YesOrNo.YES,
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsConfidential: 'keep',
