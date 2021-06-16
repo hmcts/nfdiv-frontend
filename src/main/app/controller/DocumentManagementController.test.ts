@@ -132,9 +132,32 @@ describe('DocumentManagerController', () => {
           state: State.Draft,
         },
       });
+      req.headers.accept = 'application/json';
+      req.files = [] as unknown as Express.Multer.File[];
       const res = mockResponse();
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow('No files were uploaded');
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
+    });
+
+    it('redirects if no files were uploaded & JavaScript is disabled', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.Draft,
+        },
+      });
+      const res = mockResponse();
+
+      await documentManagerController.post(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(UPLOAD_YOUR_DOCUMENTS);
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
     });
   });
 
