@@ -69,9 +69,8 @@ export class FileUploadEvents {
       document.body.style.cursor = 'wait';
 
       try {
-        const request = await fetch(`${this.endpoint.url}/${file.id}${this.endpoint.csrfQuery}`, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
+        const request = await fetch(`${this.endpoint.url}/delete/${file.id}${this.endpoint.csrfQuery}`, {
+          headers: { accept: 'application/json' },
         });
         const res = await request.json();
         this.uploadedFiles.remove(res.deletedId);

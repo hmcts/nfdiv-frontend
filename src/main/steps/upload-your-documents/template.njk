@@ -1,6 +1,8 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "common/page.njk" %}
 
@@ -77,8 +79,14 @@
 
   <div id="uploadGroup" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-    <ul id="filesUploaded" class="govuk-list"></ul>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.documentsUploaded|length %} govuk-visually-hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+      {% for file in formState.documentsUploaded %}
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+          {{ file.value.documentFileName }} <a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ delete }}</a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 
   <p class="govuk-body">
@@ -87,9 +95,8 @@
   </p>
 
   <div class="govuk-form-group {{ 'govuk-visually-hidden' if not isDraft }}">
-    <div class="govuk-panel upload">
+    <div class="govuk-panel upload govuk-visually-hidden">
       <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
-
       <div class="govuk-form-group">
         <p class="govuk-body govuk-!-margin-bottom-0">
           <span id="upload">{{ chooseFilePhoto }}</span>
@@ -99,5 +106,26 @@
         <div id="uploadProgressBar"></div>
       </div>
     </div>
+
+    <noscript>
+      <form action="/document-manager?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+        {{ govukFileUpload({
+          name: "files[]",
+          attributes: {
+            multiple: true,
+            accept: "image/jpeg,image/tiff,image/png,application/pdf"
+          },
+          label: {
+            text: chooseFilePhoto
+          },
+          classes: "govuk-!-margin-bottom-4"
+        }) }}
+        {{ govukButton({
+          text: upload,
+          type: "submit",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+        }) }}
+      </form>
+    </noscript>
   </div>
 {% endblock %}

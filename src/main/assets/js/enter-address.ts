@@ -1,4 +1,11 @@
-import { hideEnterPostcode, showInternationalAddressFields, showUkAddressFields } from './address/links';
+import {
+  hideEnterPostcode,
+  hideInternationalAddressFields,
+  hideUkAddressFields,
+  showEnterPostcode,
+  showInternationalAddressFields,
+  showUkAddressFields,
+} from './address/links';
 import { getById, qsa } from './selectors';
 
 import './address/select';
@@ -20,5 +27,9 @@ if (form) {
     if ((addressCountry && addressCountry !== uk) || (!addressCountry && hasBackendError)) {
       showInternationalAddressFields();
     }
+  } else if (getById('enterPostcode')) {
+    hideUkAddressFields();
+    hideInternationalAddressFields();
+    showEnterPostcode();
   }
 }
