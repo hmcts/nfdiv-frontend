@@ -15,8 +15,8 @@ services:
     caseworkerUsername: 'DivCaseWorkerUser@AAT.com'
     caseworkerPassword: 'DivPassword1234'
   case:
-    # url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    url: 'http://ccd-data-store-api-nfdiv-case-api-pr-337.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-337.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.ordnancesurvey.co.uk/places/v1'
     token: 'NEED TO INSERT SECRET'
