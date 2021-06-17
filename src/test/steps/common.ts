@@ -3,12 +3,12 @@ import sysConfig from 'config';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
-import { getCaseApi } from '../../main/app/case/CaseApi';
-import { Case, CaseWithId } from '../../main/app/case/case';
+import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
+import { Case } from '../../main/app/case/case';
 import { DivorceOrDissolution } from '../../main/app/case/definition';
+import { UserDetails } from '../../main/app/controller/AppRequest';
 import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
 import { config as testConfig } from '../config';
-import { completeCase } from '../functional/fixtures/completeCase';
 
 const { I, login } = inject();
 
@@ -156,17 +156,18 @@ When('I upload the file {string}', (pathToFile: string) => {
   I.attachFile('input[type="file"]', pathToFile);
 });
 
-Given('I have a pre-populated case', async () => {
-  await iSetTheUsersCaseTo(completeCase);
-});
-
 When('I enter my valid case reference and valid access code', async () => {
-  const userCase = await iGetTheUsersCase();
-  const caseReference = userCase.id;
-  const accessCode = userCase.accessCode;
-
-  I.amOnPage('/enter-your-access-code');
+  await I.amOnPage('/enter-your-access-code');
   iClearTheForm();
+
+  const testUser = await iGetTheTestUser();
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const fetchedCase = await caseApi.getCaseById(userCase.id);
+
+  const caseReference = userCase.id;
+  const accessCode = fetchedCase.accessCode;
+
   iClick('Your reference number');
   I.type(caseReference);
   iClick('Your access code');
@@ -174,21 +175,16 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Continue');
 });
 
-export const iGetTheUsersCase = async (): Promise<CaseWithId> => {
+export const iGetTheTestUser = async (): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');
-  const secret: string = sysConfig.get('services.idam.clientSecret');
+  const secret = 'thUphEveC2Ekuqedaneh4jEcRuba4t2t';
   const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${testConfig.TestUser}&password=${testConfig.TestPass}&client_id=${id}
                 &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
-  let response;
-  try {
-    response = await Axios.post(tokenUrl, data, { headers });
-  } catch (e) {
-    throw Error(e);
-  }
+  const response = await Axios.post(tokenUrl, data, { headers });
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;
@@ -198,19 +194,21 @@ export const iGetTheUsersCase = async (): Promise<CaseWithId> => {
     roles: string[];
   };
 
-  const testUser = {
+  return {
     accessToken: response.data.access_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
+};
+
+export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   const logger = new Logger({
     transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
   });
 
-  const caseApi = getCaseApi(testUser, logger);
-  return caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  return getCaseApi(testUser, logger);
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>

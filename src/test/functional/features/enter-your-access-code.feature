@@ -4,7 +4,10 @@ Feature: Enter your access code
     Given I login
 
   Scenario: They have entered the correct case reference
-    Given I have a pre-populated case
+    Given I've completed enough questions correctly to get to the check your answers page as a joint applicant
+    And I go to '/check-your-answers'
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
     And I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
 
