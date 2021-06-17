@@ -1,6 +1,14 @@
-import { Case } from '../../main/app/case/case';
+import Axios from 'axios';
+import config from 'config';
+import jwt_decode from 'jwt-decode';
+import { Logger, transports } from 'winston';
+
+import { getCaseApi } from '../../main/app/case/CaseApi';
+import { Case, CaseWithId } from '../../main/app/case/case';
+import { DivorceOrDissolution } from '../../main/app/case/definition';
 import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
 import { config as testConfig } from '../config';
+import { completeCase } from '../functional/fixtures/completeCase';
 
 const { I, login } = inject();
 
@@ -147,6 +155,55 @@ Given('I delete any previously uploaded files', async () => {
 When('I upload the file {string}', (pathToFile: string) => {
   I.attachFile('input[type="file"]', pathToFile);
 });
+
+When('I enter my valid case reference and valid access code', async () => {
+  await iSetTheUsersCaseTo(completeCase);
+
+  const userCase = await iGetTheUsersCase();
+  const caseReference = userCase.id;
+  const accessCode = userCase.accessCode;
+
+  I.amOnPage('/enter-your-access-code');
+  iClearTheForm();
+  iClick('Your reference number');
+  I.type(caseReference);
+  iClick('Your access code');
+  I.type(accessCode as string);
+  iClick('Continue');
+});
+
+export const iGetTheUsersCase = async (): Promise<CaseWithId> => {
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.clientSecret');
+  const tokenUrl: string = config.get('services.idam.tokenURL');
+
+  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
+  const data = `grant_type=password&username=${testConfig.TestUser}&password=${testConfig.TestPass}&client_id=${id}
+                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+
+  const response = await Axios.post(tokenUrl, data, { headers });
+  const jwt = jwt_decode(response.data.id_token) as {
+    uid: string;
+    sub: string;
+    given_name: string;
+    family_name: string;
+    roles: string[];
+  };
+
+  const testUser = {
+    accessToken: response.data.access_token,
+    id: jwt.uid,
+    email: jwt.sub,
+    givenName: jwt.given_name,
+    familyName: jwt.family_name,
+  };
+  const logger = new Logger({
+    transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
+  });
+
+  const caseApi = getCaseApi(testUser, logger);
+  return caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+};
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   I.executeScript(

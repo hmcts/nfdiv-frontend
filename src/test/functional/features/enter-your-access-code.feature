@@ -3,7 +3,11 @@ Feature: Enter your access code
   Background:
     Given I login
 
-  Scenario: They have not entered the correct case reference
+  Scenario: They have entered the correct case reference
+    Given I enter my valid case reference and valid access code
+    Then the page should include ""
+
+  Scenario: They have entered an incorrect case reference
     Given I go to '/enter-your-access-code'
     And I clear the form
     And I select "Your reference number"
