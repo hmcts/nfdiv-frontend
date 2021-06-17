@@ -8,7 +8,6 @@ import { Case, CaseWithId } from '../../main/app/case/case';
 import { DivorceOrDissolution } from '../../main/app/case/definition';
 import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
 import { config as testConfig } from '../config';
-import { completeCase } from '../functional/fixtures/completeCase';
 
 const { I, login } = inject();
 
@@ -157,8 +156,6 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  await iSetTheUsersCaseTo(completeCase);
-
   const userCase = await iGetTheUsersCase();
   const caseReference = userCase.id;
   const accessCode = userCase.accessCode;

@@ -4,8 +4,9 @@ Feature: Enter your access code
     Given I login
 
   Scenario: They have entered the correct case reference
-    Given I enter my valid case reference and valid access code
-    Then the page should include ""
+    Given I've already completed all questions correctly
+    And I enter my valid case reference and valid access code
+    Then the page should include "You need to review your joint application"
 
   Scenario: They have entered an incorrect case reference
     Given I go to '/enter-your-access-code'
