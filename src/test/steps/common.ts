@@ -8,6 +8,7 @@ import { Case, CaseWithId } from '../../main/app/case/case';
 import { DivorceOrDissolution } from '../../main/app/case/definition';
 import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
 import { config as testConfig } from '../config';
+import { completeCase } from '../functional/fixtures/completeCase';
 
 const { I, login } = inject();
 
@@ -155,10 +156,25 @@ When('I upload the file {string}', (pathToFile: string) => {
   I.attachFile('input[type="file"]', pathToFile);
 });
 
+Given('I have a pre-populated case', async () => {
+  await iSetTheUsersCaseTo(completeCase);
+});
+
 When('I enter my valid case reference and valid access code', async () => {
-  const userCase = await iGetTheUsersCase();
+  let userCase;
+  try {
+    userCase = await iGetTheUsersCase();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+  }
+
   const caseReference = userCase.id;
+  // eslint-disable-next-line no-console
+  console.log(caseReference);
   const accessCode = userCase.accessCode;
+  // eslint-disable-next-line no-console
+  console.log(accessCode);
 
   I.amOnPage('/enter-your-access-code');
   iClearTheForm();

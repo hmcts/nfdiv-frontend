@@ -4,7 +4,7 @@ Feature: Enter your access code
     Given I login
 
   Scenario: They have entered the correct case reference
-    Given I've already completed all questions correctly
+    Given I have a pre-populated case
     And I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
 
