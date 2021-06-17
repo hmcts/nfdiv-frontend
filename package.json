@@ -28,7 +28,7 @@
     "test:fullfunctional": "yarn test:cucumber && yarn test:pa11y",
     "test:crossbrowser": "concurrently \"yarn test:crossbrowser:playwright:docker\" \"yarn test:crossbrowser:sauce\" --names playwright,sauce",
     "test:crossbrowser:playwright": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --grep '^(?!.*@flaky)'",
-    "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:bionic && docker run --rm --volume $PWD:/home/app --workdir=\"/home/app\" --env TEST_URL mcr.microsoft.com/playwright:bionic bash -c \"yarn test:crossbrowser:playwright; chown -R $UID:$UID functional-output\"",
+    "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:bionic && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_URL mcr.microsoft.com/playwright:bionic bash -x src/test/docker-yarn.sh test:crossbrowser:playwright $UID",
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs --config ./src/test/cross-browser/codecept.conf.js",
     "cichecks": "yarn && yarn build && yarn lint && yarn test"
