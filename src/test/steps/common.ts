@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import config from 'config';
+import sysConfig from 'config';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
@@ -161,20 +161,9 @@ Given('I have a pre-populated case', async () => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  let userCase;
-  try {
-    userCase = await iGetTheUsersCase();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-
+  const userCase = await iGetTheUsersCase();
   const caseReference = userCase.id;
-  // eslint-disable-next-line no-console
-  console.log(caseReference);
   const accessCode = userCase.accessCode;
-  // eslint-disable-next-line no-console
-  console.log(accessCode);
 
   I.amOnPage('/enter-your-access-code');
   iClearTheForm();
@@ -186,15 +175,21 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 export const iGetTheUsersCase = async (): Promise<CaseWithId> => {
-  const id: string = config.get('services.idam.clientID');
-  const secret: string = config.get('services.idam.clientSecret');
-  const tokenUrl: string = config.get('services.idam.tokenURL');
+  const id: string = sysConfig.get('services.idam.clientID');
+  const secret: string = sysConfig.get('services.idam.clientSecret');
+  const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${testConfig.TestUser}&password=${testConfig.TestPass}&client_id=${id}
                 &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
-  const response = await Axios.post(tokenUrl, data, { headers });
+  let response;
+  try {
+    response = await Axios.post(tokenUrl, data, { headers });
+  } catch (e) {
+    throw Error(e);
+  }
+
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;
     sub: string;
