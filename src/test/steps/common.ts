@@ -57,7 +57,7 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 20);
+  I.waitForText(text, 25);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -131,10 +131,13 @@ Given('I delete any previously uploaded files', async () => {
   const locator = '//a[text()="Delete"]';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
 
-  while (numberOfElements >= 1) {
+  const maxRetries = 10;
+  let i = 0;
+  while (numberOfElements >= 1 && i < maxRetries) {
     I.click('Delete');
     I.wait(3);
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
+    i++;
   }
 });
 
