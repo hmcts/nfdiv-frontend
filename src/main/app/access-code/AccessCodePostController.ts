@@ -6,14 +6,12 @@ import { getCaseWorkerUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
-import { AnyObject, PostController } from '../controller/PostController';
+import { AnyObject } from '../controller/PostController';
 import { Form } from '../form/Form';
 
 @autobind
-export class AccessCodePostController extends PostController<AnyObject> {
-  constructor(protected readonly form: Form) {
-    super(form);
-  }
+export class AccessCodePostController {
+  constructor(protected readonly form: Form) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const caseworkerUser = await getCaseWorkerUser();
@@ -38,7 +36,11 @@ export class AccessCodePostController extends PostController<AnyObject> {
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, CITIZEN_LINK_APPLICANT_2);
+        req.session.userCase = await req.locals.api.triggerEvent(
+          req.session.userCase.id,
+          formData,
+          CITIZEN_LINK_APPLICANT_2
+        );
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
