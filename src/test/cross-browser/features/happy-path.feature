@@ -1,7 +1,7 @@
 Feature: No fault union dissolution application submission
 
   Background:
-    Given I login
+    Given I create a new user and login
     When I go to '/your-details'
     Then the page should include "Apply for a divorce"
     And I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
