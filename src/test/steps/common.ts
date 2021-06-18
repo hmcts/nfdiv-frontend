@@ -133,11 +133,15 @@ Given('I delete any previously uploaded files', async () => {
 
   const maxRetries = 10;
   let i = 0;
-  while (numberOfElements >= 1 && i < maxRetries) {
+  while (numberOfElements > 0 && i < maxRetries) {
     I.click('Delete');
     I.wait(3);
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
     i++;
+  }
+
+  if (numberOfElements > 0) {
+    throw new Error('Unable to delete previously uploaded files');
   }
 });
 

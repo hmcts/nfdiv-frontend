@@ -12,7 +12,7 @@ import './address/select';
 import './address/submit';
 
 const form = getById('main-form') as HTMLFormElement | null;
-if (form) {
+if (form && getById('enterPostcode')) {
   const formData = new FormData(form);
   const uk = 'UK';
   const applicant1AddressCountry = formData.get('applicant1AddressCountry');
@@ -27,7 +27,7 @@ if (form) {
     if ((addressCountry && addressCountry !== uk) || (!addressCountry && hasBackendError)) {
       showInternationalAddressFields();
     }
-  } else if (getById('enterPostcode')) {
+  } else {
     hideUkAddressFields();
     hideInternationalAddressFields();
     showEnterPostcode();
