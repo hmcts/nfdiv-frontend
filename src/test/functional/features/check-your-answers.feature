@@ -53,7 +53,7 @@ Feature: Check Your Answers
 
   @nightly
   Scenario: Completed all required questions and not confirming
-    Given I've already completed all questions correctly
+    Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
     And I clear the form
     And I click "Continue to payment"
