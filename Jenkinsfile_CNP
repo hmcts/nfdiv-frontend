@@ -18,8 +18,6 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 
 def secrets = [
         'nfdiv-${env}'    :[
-                secret('frontend-secret', 'services.authProvider.secret'),
-                secret('idam-secret', 'services.idam.clientSecret'),
                 secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
                 secret('idam-secret', 'IDAM_SECRET')
         ]
