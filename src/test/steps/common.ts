@@ -65,7 +65,7 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 20);
+  I.waitForText(text, 25);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -139,10 +139,17 @@ Given('I delete any previously uploaded files', async () => {
   const locator = '//a[text()="Delete"]';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
 
-  while (numberOfElements >= 1) {
+  const maxRetries = 10;
+  let i = 0;
+  while (numberOfElements > 0 && i < maxRetries) {
     I.click('Delete');
     I.wait(3);
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
+    i++;
+  }
+
+  if (numberOfElements > 0) {
+    throw new Error('Unable to delete previously uploaded files');
   }
 });
 
@@ -171,7 +178,7 @@ When('I enter my valid case reference and valid access code', async () => {
 
 export const iGetTheTestUser = async (): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');
-  const secret = 'thUphEveC2Ekuqedaneh4jEcRuba4t2t';
+  const secret = sysConfig.get('services.idam.clientSecret');
   const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };

@@ -4,7 +4,7 @@ Feature: Pay your fee
     Given I login
 
   Scenario: Continuing to payment
-    Given I've already completed all questions correctly
+    Given I've already completed the form using the fixture "completeCase"
     When I go to '/check-your-answers'
     And I clear the form
     And I click "I confirm"

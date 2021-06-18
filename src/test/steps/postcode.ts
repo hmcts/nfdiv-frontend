@@ -5,13 +5,14 @@ const { I } = inject();
 export const iWaitForPostcodeLookUpResults = async (): Promise<void> => {
   I.waitForText('Select an address');
 
-  const timeout = 10;
   const locator = 'option[value^="{\\"fullAddress"]';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
+
+  const maxRetries = 10;
   let i = 0;
-  while (numberOfElements === 0 && i < timeout) {
-    numberOfElements = await I.grabNumberOfVisibleElements(locator);
+  while (numberOfElements === 0 && i < maxRetries) {
     I.wait(1);
+    numberOfElements = await I.grabNumberOfVisibleElements(locator);
     i++;
   }
 
