@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import * as lockFile from 'lockfile';
 import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
 
-import { initAuthToken } from '../main/app/auth/service/get-service-auth-token';
+import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
@@ -18,7 +18,7 @@ if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
 
-initAuthToken();
+getTokenFromApi();
 
 const content = readFileSync(filename).toString();
 const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
