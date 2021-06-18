@@ -119,6 +119,14 @@ TEST_HEADLESS=false yarn test:cucumber
 
 Note: By default tests are run heedlessly (i.e. without displaying the browser) setting the `TEST_HEADLESS` flag to `false` will open the test browser window allowing you to see whats happening in realtime.
 
+Running the functional tests against local Docker:
+
+```bash
+NODE_ENV=docker yarn test:cucumber
+```
+
+Note: Other options can still be used with the above command
+
 Running a single test:
 
 ```bash

@@ -4,6 +4,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  DateAsString,
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
@@ -22,7 +23,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
-  screenHasUnionBroken: 'screenHasMarriageBroken',
+  screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
@@ -62,6 +63,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applyForFinancialOrder: 'financialOrder',
   whoIsFinancialOrderFor: 'financialOrderFor',
   documentsUploaded: 'documentsUploaded',
+  respondentUserId: 'respondentUserId',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -155,10 +157,12 @@ export interface Case {
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
   cannotUploadDocuments?: DocumentType | DocumentType[];
-  invitePin?: string;
-  dueDate?: Date;
+  accessCode?: string;
+  dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
   iBelieveApplicationIsTrue?: Checkbox;
+  caseReference?: string;
+  respondentUserId?: string;
   dateSubmitted?: Date;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
