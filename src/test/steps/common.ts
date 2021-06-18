@@ -107,21 +107,6 @@ export const iClearTheForm = (): void => {
 };
 Given('I clear the form', iClearTheForm);
 
-export const iWaitForPostcodeLookUpResults = (): void => {
-  I.waitForText('Select an address');
-  I.waitForElement('option[value^="{\\"fullAddress"]', 10);
-};
-Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpResults);
-
-export const iResetThePostCodeLookUpForm = (): void => {
-  iClearTheForm();
-
-  I.executeScript(() => {
-    (document.querySelector('[data-link="resetPostcodeLookup"]') as HTMLAnchorElement).click();
-  });
-};
-Given('I reset the postcode lookup form', iResetThePostCodeLookUpForm);
-
 Given("I've said I'm applying as a sole application", () => {
   I.amOnPage('/how-do-you-want-to-apply');
   iClearTheForm();

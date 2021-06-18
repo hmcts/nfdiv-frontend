@@ -65,6 +65,7 @@ export const config = {
       '../steps/check-your-answers.ts',
       '../steps/jurisdiction.ts',
       '../steps/happy-path.ts',
+      '../steps/postcode.ts',
     ],
   },
   bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
