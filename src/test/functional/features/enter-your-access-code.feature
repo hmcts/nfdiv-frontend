@@ -1,5 +1,6 @@
 Feature: Enter your access code
 
+  @flaky
   Scenario: They have entered the correct case reference
     Given I create a new user and login
     And I've completed enough questions correctly to get to the check your answers page as a joint applicant
