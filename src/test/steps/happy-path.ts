@@ -1,13 +1,14 @@
 import { APPLY_FINANCIAL_ORDER } from '../../main/steps/urls';
-import { completeCase } from '../functional/fixtures/completeCase';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo } from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
 
-Given("I've already completed all questions correctly", async () => {
-  await iSetTheUsersCaseTo(completeCase);
+Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
+  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+  await iSetTheUsersCaseTo(fixtureJson);
 
   const url = await I.grabCurrentUrl();
   I.amOnPage(APPLY_FINANCIAL_ORDER);
