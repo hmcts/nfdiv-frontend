@@ -62,5 +62,4 @@ export const completeCase: Partial<BrowserCase> = {
   screenHasUnionBroken: YesOrNo.YES,
   uploadedFiles: [],
   whoIsFinancialOrderFor: [],
-  accessCode: 'QWERTY45',
 };
