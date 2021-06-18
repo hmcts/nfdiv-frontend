@@ -12,8 +12,6 @@ services:
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
-    caseworkerUsername: 'DivCaseWorkerUser@AAT.com'
-    caseworkerPassword: 'DivPassword1234'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-329.service.core-compute-preview.internal'
