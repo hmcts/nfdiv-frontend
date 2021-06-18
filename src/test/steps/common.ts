@@ -61,11 +61,19 @@ Then('I expect the page title to be {string}', (title: string) => {
 });
 
 Then('the page should include {string}', (text: string) => {
-  I.see(text);
+  I.waitForText(text);
+});
+
+Then('I wait until the page contains {string}', (text: string) => {
+  I.waitForText(text, 20);
 });
 
 Then('the page should not include {string}', (text: string) => {
   I.dontSee(text);
+});
+
+Then("I wait until the page doesn't contain {string}", (text: string) => {
+  I.waitForFunction(content => document.body.textContent?.search(content) === -1, [text], 20);
 });
 
 Then('the form input {string} should be {string}', (formInput: string, value: string) => {
@@ -148,6 +156,7 @@ Given('I delete any previously uploaded files', async () => {
 
   while (numberOfElements >= 1) {
     I.click('Delete');
+    I.wait(3);
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
   }
 });
