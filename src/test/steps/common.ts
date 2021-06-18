@@ -178,7 +178,7 @@ When('I enter my valid case reference and valid access code', async () => {
 
 export const iGetTheTestUser = async (): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');
-  const secret = '***REMOVED***';
+  const secret = sysConfig.get('services.idam.clientSecret');
   const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
