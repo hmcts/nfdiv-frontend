@@ -43,9 +43,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PhoneNumber: 'applicant1PhoneNumber',
   jurisdictionResidualEligible: 'jurisdictionResidualEligible',
   connections: 'jurisdictionConnections',
-  applicant1FirstNames: 'applicant1FirstName',
-  applicant1MiddleNames: 'applicant1MiddleName',
-  applicant1LastNames: 'applicant1LastName',
+  firstNames: 'applicant1FirstName',
+  middleNames: 'applicant1MiddleName',
+  lastNames: 'applicant1LastName',
   applicant2FirstNames: 'applicant2FirstName',
   applicant2MiddleNames: 'applicant2MiddleName',
   applicant2LastNames: 'applicant2LastName',
@@ -64,6 +64,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   whoIsFinancialOrderFor: 'financialOrderFor',
   documentsUploaded: 'documentsUploaded',
   respondentUserId: 'respondentUserId',
+};
+
+export const applicant2FormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  firstNames: 'applicant2FirstName',
+  middleNames: 'applicant2MiddleName',
+  lastNames: 'applicant2LastName',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -114,9 +120,9 @@ export interface Case {
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
   englishOrWelsh?: LanguagePreference;
-  applicant1FirstNames?: string;
-  applicant1MiddleNames?: string;
-  applicant1LastNames?: string;
+  firstNames?: string;
+  middleNames?: string;
+  lastNames?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1Address3?: string;

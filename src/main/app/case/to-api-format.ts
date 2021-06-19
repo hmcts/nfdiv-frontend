@@ -1,6 +1,14 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import {
+  Case,
+  CaseDate,
+  Checkbox,
+  LanguagePreference,
+  applicant2FormFieldsToCaseMapping,
+  formFieldsToCaseMapping,
+  formatCase,
+} from './case';
 import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
@@ -92,4 +100,5 @@ const toApiDate = (date: CaseDate | undefined) => {
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 
-export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
+export const toApiFormat = (data: Partial<Case>, isApplicant2: boolean): CaseData =>
+  formatCase({ ...fields, ...(isApplicant2 ? applicant2FormFieldsToCaseMapping : {}) }, data);

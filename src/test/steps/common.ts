@@ -5,7 +5,7 @@ import { Logger, transports } from 'winston';
 
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution } from '../../main/app/case/definition';
+import { DivorceOrDissolution, UserRole } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
 import { config as testConfig } from '../config';
@@ -192,13 +192,14 @@ export const iGetTheTestUser = async (): Promise<UserDetails> => {
     sub: string;
     given_name: string;
     family_name: string;
-    roles: string[];
+    roles: UserRole[];
   };
 
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
     email: jwt.sub,
+    roles: jwt.roles,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
