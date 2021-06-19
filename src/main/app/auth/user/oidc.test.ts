@@ -1,6 +1,7 @@
 import Axios, { AxiosStatic } from 'axios';
 
 import { CALLBACK_URL } from '../../../steps/urls';
+import { UserRole } from '../../case/definition';
 
 import { getCaseWorkerUser, getRedirectUrl, getUserDetails } from './oidc';
 
@@ -9,7 +10,7 @@ jest.mock('axios');
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyJ9.KaDIFSDdD3ZIYCl_qavvYbQ3a4abk47iBOZhB1-9mUQ';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjMiLCJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwicm9sZXMiOlsiY2l0aXplbiJdLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9yaWFuIn0.PnrLdEsVEKBqoZvy65agBtoT3Gp-mqoYzczI27tpOO0';
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
@@ -32,6 +33,7 @@ describe('getUserDetails', () => {
     expect(result).toStrictEqual({
       accessToken: token,
       email: 'test@test.com',
+      roles: [UserRole.CITIZEN],
       givenName: 'John',
       familyName: 'Dorian',
       id: '123',
@@ -52,6 +54,7 @@ describe('getCaseWorkerUser', () => {
     expect(result).toStrictEqual({
       accessToken: token,
       email: 'test@test.com',
+      roles: [UserRole.CITIZEN],
       givenName: 'John',
       familyName: 'Dorian',
       id: '123',

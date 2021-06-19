@@ -23,8 +23,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
-  applicant1ScreenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
-  applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
+  screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
@@ -67,6 +66,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentUserId: 'respondentUserId',
 };
 
+export const applicant2FormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  screenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
+};
+
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'payments',
@@ -95,8 +98,7 @@ export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
   gender?: Gender;
   sameSex?: Checkbox;
-  applicant1ScreenHasUnionBroken?: YesOrNo;
-  applicant2ScreenHasUnionBroken?: YesOrNo;
+  screenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
   applicant1HelpPayingNeeded?: YesOrNo;

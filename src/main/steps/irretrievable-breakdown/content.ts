@@ -16,7 +16,7 @@ const en = ({ isDivorce, required }) => {
       must have irretrievably broken down for you to ${endRelationship}.
       This is the law in England and Wales.`,
     errors: {
-      applicant1ScreenHasUnionBroken: {
+      screenHasUnionBroken: {
         required,
       },
     },
@@ -34,7 +34,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
     isDivorce ? 'cael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
   }. Dyma yw’r gyfraith yng Nghymru a Lloegr.`,
   errors: {
-    applicant1ScreenHasUnionBroken: {
+    screenHasUnionBroken: {
       required,
     },
   },
@@ -42,7 +42,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1ScreenHasUnionBroken: {
+    screenHasUnionBroken: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,

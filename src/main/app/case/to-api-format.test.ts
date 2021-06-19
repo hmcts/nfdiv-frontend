@@ -23,7 +23,7 @@ describe('to-api-format', () => {
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
-    const apiFormat = toApiFormat(results as Partial<Case>);
+    const apiFormat = toApiFormat(results as Partial<Case>, false);
 
     expect(apiFormat).toStrictEqual({
       marriageIsSameSexCouple: YesOrNo.YES,
@@ -47,10 +47,13 @@ describe('to-api-format', () => {
   });
 
   test('handles invalid data correctly', async () => {
-    const apiFormat = toApiFormat({
-      applicant1HelpWithFeesRefNo: '123-ABC',
-      relationshipDate: { year: '123' },
-    } as Partial<Case>);
+    const apiFormat = toApiFormat(
+      {
+        applicant1HelpWithFeesRefNo: '123-ABC',
+        relationshipDate: { year: '123' },
+      } as Partial<Case>,
+      false
+    );
 
     expect(apiFormat).toMatchObject({
       helpWithFeesReferenceNumber: '',
@@ -95,7 +98,7 @@ describe('to-api-format', () => {
   ])(
     'gets the correct inferred gender of applicant 1 and applicant 2: %o',
     ({ divorceOrDissolution = DivorceOrDissolution.DIVORCE, gender, sameSex, expected }) => {
-      expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>)).toMatchObject({
+      expect(toApiFormat({ divorceOrDissolution, gender, sameSex } as Partial<Case>, false)).toMatchObject({
         applicant1Gender: expected.applicant1,
         applicant2Gender: expected.applicant2,
       });
@@ -103,16 +106,19 @@ describe('to-api-format', () => {
   );
 
   test('converts your address to match API format', () => {
-    const apiFormat = toApiFormat({
-      ...results,
-      applicant1Address1: 'Line 1',
-      applicant1Address2: 'Line 2',
-      applicant1Address3: '',
-      applicant1AddressTown: 'Town',
-      applicant1AddressCounty: 'County',
-      applicant1AddressPostcode: 'Postcode',
-      applicant1AddressCountry: 'UK',
-    } as unknown as Partial<Case>);
+    const apiFormat = toApiFormat(
+      {
+        ...results,
+        applicant1Address1: 'Line 1',
+        applicant1Address2: 'Line 2',
+        applicant1Address3: '',
+        applicant1AddressTown: 'Town',
+        applicant1AddressCounty: 'County',
+        applicant1AddressPostcode: 'Postcode',
+        applicant1AddressCountry: 'UK',
+      } as unknown as Partial<Case>,
+      false
+    );
 
     expect(apiFormat).toMatchObject({
       applicant1HomeAddress: {
@@ -129,13 +135,27 @@ describe('to-api-format', () => {
 
   test("doesn't keep read only fields", () => {
     expect(
-      toApiFormat({
-        payments: [
-          {
-            id: 'mock-bad-payment',
-          },
-        ],
-      } as unknown as Partial<Case>)
+      toApiFormat(
+        {
+          payments: [
+            {
+              id: 'mock-bad-payment',
+            },
+          ],
+        } as unknown as Partial<Case>,
+        false
+      )
     ).toStrictEqual({});
+  });
+
+  test("converts applicant 2's form data to API field", () => {
+    expect(
+      toApiFormat(
+        {
+          screenHasUnionBroken: YesOrNo.YES,
+        } as unknown as Partial<Case>,
+        true
+      )
+    ).toStrictEqual({ applicant2ScreenHasMarriageBroken: YesOrNo.YES });
   });
 });

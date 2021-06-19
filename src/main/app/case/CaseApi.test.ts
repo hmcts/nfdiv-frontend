@@ -5,13 +5,14 @@ import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
 
 const userDetails: UserDetails = {
   accessToken: '123',
   email: 'billy@bob.com',
+  roles: [UserRole.CITIZEN],
   givenName: 'billy',
   familyName: 'bob',
   id: 'something',

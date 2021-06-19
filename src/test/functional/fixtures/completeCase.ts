@@ -59,7 +59,7 @@ export const completeCase: Partial<BrowserCase> = {
   'relationshipDate-month': 12,
   'relationshipDate-year': 1999,
   sameSex: Checkbox.Unchecked,
-  applicant1ScreenHasUnionBroken: YesOrNo.YES,
+  screenHasUnionBroken: YesOrNo.YES,
   uploadedFiles: [],
   whoIsFinancialOrderFor: [],
 };
