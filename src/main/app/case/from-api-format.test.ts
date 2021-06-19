@@ -1,5 +1,5 @@
 import { Checkbox } from './case';
-import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -11,7 +11,7 @@ describe('from-api-format', () => {
     applicant1ScreenHasMarriageBroken: YesOrNo.YES,
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
-    applicant1ContactDetailsConfidential: 'keep',
+    applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: null,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
@@ -26,7 +26,7 @@ describe('from-api-format', () => {
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       sameSex: Checkbox.Checked,
       gender: Gender.MALE,
-      screenHasUnionBroken: YesOrNo.YES,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
@@ -49,7 +49,7 @@ describe('from-api-format', () => {
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
-      screenHasUnionBroken: YesOrNo.YES,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
       relationshipDate: {
         day: '2',
         month: '9',
