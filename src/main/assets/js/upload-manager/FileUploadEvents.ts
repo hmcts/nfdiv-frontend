@@ -1,10 +1,8 @@
 import type { State, Uppy } from '@uppy/core';
 
-import { UploadedFile } from '../../../app/case/case';
 import { getById, hidden } from '../selectors';
 
 import { UploadedFiles } from './UploadedFiles';
-import { updateFileList } from './updateFileList';
 
 const uploadProcessEl = getById('uploadProgressBar');
 const uploadGroupEl = getById('uploadGroup');
@@ -15,11 +13,7 @@ const errorUploadingTooBigEl = getById('errorFileSizeTooBig');
 const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
 
 export class FileUploadEvents {
-  constructor(
-    private readonly uppy: Uppy<'strict'>,
-    private readonly endpoint: { url: string; csrfQuery: string },
-    private readonly uploadedFiles: UploadedFiles
-  ) {}
+  constructor(private readonly uppy: Uppy<'strict'>) {}
 
   public onError = (state: State): void => {
     if (state.info?.message.includes('exceeds maximum allowed size')) {
@@ -57,27 +51,6 @@ export class FileUploadEvents {
     uploadGroupEl?.classList.add('uploaded');
     uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
   };
-
-  public onDeleteFile =
-    (file: UploadedFile) =>
-    async (e: Event): Promise<void> => {
-      e.preventDefault();
-      this.resetErrorMessages();
-      (e.target as HTMLAnchorElement).style.cursor = 'wait';
-      document.body.style.cursor = 'wait';
-
-      try {
-        const request = await fetch(`${this.endpoint.url}/delete/${file.id}${this.endpoint.csrfQuery}`, {
-          headers: { accept: 'application/json' },
-        });
-        const res = await request.json();
-        this.uploadedFiles.remove(res.deletedId);
-        updateFileList(this.uploadedFiles, this);
-      } finally {
-        (e.target as HTMLAnchorElement).style.cursor = 'pointer';
-        document.body.style.cursor = 'default';
-      }
-    };
 
   private resetErrorMessages = () => {
     errorUploadingEl?.classList.add(hidden);

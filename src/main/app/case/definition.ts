@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-09 10:50:15.
+// Generated using typescript-generator version 2.32.889 on 2021-06-15 15:33:38.
 
 export interface Address {
   AddressLine1: string;
@@ -95,12 +95,23 @@ export interface Applicant {
   PhoneNumber: string;
   ContactDetailsConfidential: ConfidentialAddress;
   Gender: Gender;
+  CorrespondenceAddress: AddressGlobalUK;
+  SolicitorRepresented: YesOrNo;
+  SolicitorName: string;
+  SolicitorReference: string;
+  SolicitorPhone: string;
+  SolicitorEmail: string;
+  SolicitorAddress: string;
+  SolicitorAgreeToReceiveEmails: YesOrNo;
+  SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
+  SolicitorIsDigital: YesOrNo;
 }
 
 export interface CaseData {
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
-  screenHasMarriageBroken: YesOrNo;
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
   applicant1FirstName: string;
   applicant1MiddleName: string;
   applicant1LastName: string;
@@ -114,6 +125,16 @@ export interface CaseData {
   applicant1PhoneNumber: string;
   applicant1ContactDetailsConfidential: ConfidentialAddress;
   applicant1Gender: Gender;
+  applicant1CorrespondenceAddress: AddressGlobalUK;
+  applicant1SolicitorRepresented: YesOrNo;
+  applicant1SolicitorName: string;
+  applicant1SolicitorReference: string;
+  applicant1SolicitorPhone: string;
+  applicant1SolicitorEmail: string;
+  applicant1SolicitorAddress: string;
+  applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
+  applicant1SolicitorIsDigital: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -127,6 +148,16 @@ export interface CaseData {
   applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant2Gender: Gender;
+  applicant2CorrespondenceAddress: AddressGlobalUK;
+  applicant2SolicitorRepresented: YesOrNo;
+  applicant2SolicitorName: string;
+  applicant2SolicitorReference: string;
+  applicant2SolicitorPhone: string;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorAddress: string;
+  applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
+  applicant2SolicitorIsDigital: YesOrNo;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -153,13 +184,6 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   divorceWho: WhoDivorcing;
-  applicant1SolicitorName: string;
-  solicitorReference: string;
-  applicant1SolicitorPhone: string;
-  applicant1SolicitorEmail: string;
-  applicant1SolicitorRepresented: YesOrNo;
-  solicitorAgreeToReceiveEmails: YesOrNo;
-  applicant1OrganisationPolicy: OrganisationPolicy<UserRole>;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
@@ -192,17 +216,8 @@ export interface CaseData {
   cannotUploadSupportingDocument: DocumentType[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
-  applicant2SolicitorReference: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  applicant2SolicitorRepresented: YesOrNo;
-  applicant2SolicitorName: string;
-  applicant2SolicitorPhone: string;
-  applicant2SolicitorEmail: string;
-  derivedApplicant2SolicitorAddr: string;
-  app2SolDigital: YesOrNo;
   app2ContactMethodIsDigital: YesOrNo;
-  applicant2OrganisationPolicy: OrganisationPolicy<UserRole>;
-  applicant2CorrespondenceAddress: AddressGlobalUK;
   financialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
@@ -211,7 +226,8 @@ export interface CaseData {
   hwfCodeValidForFullAmount: YesOrNo;
   hwfAmountOutstanding: YesOrNo;
   documentUploadComplete: YesOrNo;
-  invitePin: string;
+  accessCode: string;
+  respondentUserId: string;
 }
 
 export interface Jurisdiction {
@@ -239,6 +255,17 @@ export interface MarriageDetails {
   CertifyMarriageCertificateIsCorrect: YesOrNo;
   MarriageCertificateIsIncorrectDetails: string;
   IssueApplicationWithoutMarriageCertificate: YesOrNo;
+}
+
+export interface Solicitor {
+  Name: string;
+  Reference: string;
+  Phone: string;
+  Email: string;
+  Address: string;
+  AgreeToReceiveEmails: YesOrNo;
+  OrganisationPolicy: OrganisationPolicy<UserRole>;
+  IsDigital: YesOrNo;
 }
 
 export interface DivorceDocument {
@@ -290,8 +317,7 @@ export interface Payment {
 }
 
 export interface Letter {
-  name: string;
-  data: any;
+  divorceDocument: DivorceDocument;
   count: number;
 }
 
@@ -375,40 +401,40 @@ export const enum Gender {
 
 /**
  * Values:
- * - `A` - Applicant 1 and Applicant 2 are habitually resident
- * - `B` - Applicant 1 and Applicant 2 were last habitually resident in England and Wales
- * - `C` - Applicant 2 habitually resides in England and Wales
- * - `D` - Applicant 1 is habitually resident in England and Wales and has been for 12 months
- * - `E` - Applicant 1 is habitually resident in England and Wales and has been for 6 months
- * - `F` - Applicant 1 and Applicant 2 are both domiciled in England and Wales
+ * - `A` - The applicant and the respondent are habitually resident
+ * - `B` - The applicant and the respondent were last habitually resident in England and Wales
+ * - `C` - The respondent habitually resides in England and Wales
+ * - `D` - The applicant is habitually resident in England and Wales and has been for 12 months
+ * - `E` - The applicant is habitually resident in England and Wales and has been for 6 months
+ * - `F` - The applicant and the respondent are both domiciled in England and Wales
  * - `G` - Eligible for Residual Jurisdiction
- * - `H` - Applicant 1 is domiciled in England and Wales
- * - `I` - Applicant 2 is domiciled in England and Wales
- * - `J` - Applicant 1 habitually resides in England and Wales
+ * - `H` - The applicant is domiciled in England and Wales
+ * - `I` - The respondent is domiciled in England and Wales
+ * - `J` - The applicant habitually resides in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
-   * Applicant 1 and Applicant 2 are habitually resident
+   * The applicant and the respondent are habitually resident
    */
   APP_1_APP_2_RESIDENT = 'A',
   /**
-   * Applicant 1 and Applicant 2 were last habitually resident in England and Wales
+   * The applicant and the respondent were last habitually resident in England and Wales
    */
   APP_1_APP_2_LAST_RESIDENT = 'B',
   /**
-   * Applicant 2 habitually resides in England and Wales
+   * The respondent habitually resides in England and Wales
    */
   APP_2_RESIDENT = 'C',
   /**
-   * Applicant 1 is habitually resident in England and Wales and has been for 12 months
+   * The applicant is habitually resident in England and Wales and has been for 12 months
    */
   APP_1_RESIDENT_TWELVE_MONTHS = 'D',
   /**
-   * Applicant 1 is habitually resident in England and Wales and has been for 6 months
+   * The applicant is habitually resident in England and Wales and has been for 6 months
    */
   APP_1_RESIDENT_SIX_MONTHS = 'E',
   /**
-   * Applicant 1 and Applicant 2 are both domiciled in England and Wales
+   * The applicant and the respondent are both domiciled in England and Wales
    */
   APP_1_APP_2_DOMICILED = 'F',
   /**
@@ -416,15 +442,15 @@ export const enum JurisdictionConnections {
    */
   RESIDUAL_JURISDICTION = 'G',
   /**
-   * Applicant 1 is domiciled in England and Wales
+   * The applicant is domiciled in England and Wales
    */
   APP_1_DOMICILED = 'H',
   /**
-   * Applicant 2 is domiciled in England and Wales
+   * The respondent is domiciled in England and Wales
    */
   APP_2_DOMICILED = 'I',
   /**
-   * Applicant 1 habitually resides in England and Wales
+   * The applicant habitually resides in England and Wales
    */
   APP_1_RESIDENT_JOINT = 'J',
 }
@@ -435,13 +461,15 @@ export const enum LanguagePreference {
 }
 
 export const enum LegalConnections {
-  COURTS_RESIDUAL_JURISDICTION = 'A',
-  APP_1_APP_2_DOMICILED = 'B',
-  APP_1_DOMICILED_RESIDENT = 'C',
-  APP_1_RESIDENT = 'D',
-  APP_2_RESIDENT = 'E',
-  APP_1_APP_2_ONE_RESIDENT = 'F',
-  APP_1_APP_2_RESIDENT = 'G',
+  RESPONDENT_DOMICILED = 'I',
+  APPLICANT_DOMICILED = 'H',
+  COURTS_RESIDUAL_JURISDICTION = 'G',
+  APPLICANT_RESPONDENT_DOMICILED = 'F',
+  APPLICANT_DOMICILED_RESIDENT = 'E',
+  APPLICANT_RESIDENT = 'D',
+  RESPONDENT_RESIDENT = 'C',
+  APPLICANT_RESPONDENT_ONE_RESIDENT = 'B',
+  APPLICANT_RESPONDENT_RESIDENT = 'A',
 }
 
 export const enum LegalProceedingsRelated {
@@ -483,6 +511,7 @@ export const enum UserRole {
   APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
   APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
   CREATOR = '[CREATOR]',
+  APPLICANT_2 = '[APPLICANTTWO]',
 }
 
 export const enum WhoDivorcing {
@@ -527,10 +556,11 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE17';
+export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
