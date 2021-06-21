@@ -49,11 +49,6 @@ export class AccessCodePostController {
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
 
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(nextUrl);
-    });
+    req.session.save(() => res.redirect(nextUrl));
   }
 }

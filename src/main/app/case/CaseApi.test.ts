@@ -211,6 +211,16 @@ describe('CaseApi', () => {
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
   });
+
+  test('Should catch all errors', async () => {
+    mockedAxios.get.mockRejectedValue({
+      message: 'Error',
+    });
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'Error');
+  });
 });
 
 describe('getCaseApi', () => {
