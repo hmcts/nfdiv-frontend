@@ -130,7 +130,7 @@ export class CaseApi {
   }
 
   private isApplicant2(): boolean {
-    return this.userDetails.roles.includes(UserRole.APPLICANT_2_SOLICITOR);
+    return this.userDetails.roles.includes(UserRole.APPLICANT_2);
   }
 
   private logError(error: AxiosError) {

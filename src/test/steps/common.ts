@@ -201,6 +201,7 @@ export const iGetTheTestUser = async (): Promise<UserDetails> => {
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: jwt.roles,
   };
 };
 

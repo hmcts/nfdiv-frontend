@@ -52,6 +52,7 @@ import {
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
+  RELATIONSHIP_NOT_BROKEN_2_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
@@ -95,12 +96,24 @@ export const sequence: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data =>
-      data.screenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.screenHasUnionBroken === YesOrNo.NO) {
+        if (data.isApplicant2) {
+          return RELATIONSHIP_NOT_BROKEN_2_URL;
+        } else {
+          return RELATIONSHIP_NOT_BROKEN_URL;
+        }
+      }
+      return RELATIONSHIP_DATE_URL;
+    },
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
-    getNextStep: data => (data.isApplicant2 ? NOT_CONFIRMED_JOINT_APPLICATION : HAS_RELATIONSHIP_BROKEN_URL),
+    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
+  },
+  {
+    url: RELATIONSHIP_NOT_BROKEN_2_URL,
+    getNextStep: () => NOT_CONFIRMED_JOINT_APPLICATION,
   },
   {
     url: NOT_CONFIRMED_JOINT_APPLICATION,
