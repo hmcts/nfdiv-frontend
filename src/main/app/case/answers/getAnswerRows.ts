@@ -115,10 +115,7 @@ const getCheckedLabels = (answer, field, stepContent) =>
     .filter(([, value]) => value?.length)
     .map(([key]) => {
       const checkbox = field.values.find(checkboxField => checkboxField.name === key);
-      if (typeof checkbox?.label === 'function') {
-        return checkbox.label(stepContent);
-      }
-      return checkbox?.label;
+      return typeof checkbox?.label === 'function' ? checkbox.label(stepContent) : checkbox?.label;
     });
 
 const getSelectedRadioLabel = (answer, field, stepContent) => {
