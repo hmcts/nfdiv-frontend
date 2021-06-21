@@ -9,7 +9,7 @@
 {% block page_content %}
   {{ govukErrorSummary({
     titleText: errorSummaryHeading,
-    classes: "govuk-visually-hidden",
+    classes: "hidden",
     attributes: {
       id: "uploadErrorSummary"
     },
@@ -19,7 +19,7 @@
         href: "#upload",
         attributes: {
           id: "errorGeneric",
-          class: "govuk-visually-hidden"
+          class: "hidden"
         }
       },
       {
@@ -27,7 +27,7 @@
         href: "#upload",
         attributes: {
           id: "errorFileSizeTooBig",
-          class: "govuk-visually-hidden"
+          class: "hidden"
         }
       },
       {
@@ -35,7 +35,7 @@
         href: "#upload",
         attributes: {
           id: "errorFileWrongFormat",
-          class: "govuk-visually-hidden"
+          class: "hidden"
         }
       }
     ]
@@ -77,9 +77,9 @@
   }
   </script>
 
-  <div id="uploadGroup" class="uploadGroup">
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.documentsUploaded|length %} govuk-visually-hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.documentsUploaded|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
     <ul id="filesUploaded" class="govuk-list">
       {% for file in formState.documentsUploaded %}
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
@@ -94,8 +94,8 @@
     <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
   </p>
 
-  <div class="govuk-form-group {{ 'govuk-visually-hidden' if not isDraft }}">
-    <div class="govuk-panel upload govuk-visually-hidden">
+  <div class="govuk-form-group {{ 'hidden' if not isDraft }}">
+    <div class="govuk-panel upload hidden">
       <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
       <div class="govuk-form-group">
         <p class="govuk-body govuk-!-margin-bottom-0">
