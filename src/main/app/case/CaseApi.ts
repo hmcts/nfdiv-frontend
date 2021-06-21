@@ -16,7 +16,6 @@ import {
   ListValue,
   Payment,
   State,
-  UserRole,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -44,7 +43,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = serviceCases[0];
-        return { ...fromApiFormat(caseData, this.isApplicant2()), id: id.toString(), state };
+        return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -89,11 +88,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
 
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data, this.isApplicant2()),
-      };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -108,11 +103,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
 
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data, this.isApplicant2()),
-      };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
@@ -120,15 +111,11 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return this.sendEvent(caseId, toApiFormat(userData, this.isApplicant2()), eventName);
+    return this.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 
   public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
     return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
-  }
-
-  private isApplicant2(): boolean {
-    return this.userDetails.roles.includes(UserRole.APPLICANT_2);
   }
 
   private logError(error: AxiosError) {

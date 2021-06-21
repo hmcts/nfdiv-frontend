@@ -16,8 +16,8 @@ Given("I've completed all questions correctly to get to the jurisdiction section
     'relationshipDate-year': 1999,
     sameSex: Checkbox.Unchecked,
     screenHasUnionBroken: YesOrNo.YES,
-    firstNames: 'Functional',
-    lastNames: 'Tests',
+    applicant1FirstNames: 'Functional',
+    applicant1LastNames: 'Tests',
     applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
     applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   });
