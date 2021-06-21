@@ -4,9 +4,9 @@ import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AppRequest } from './app/controller/AppRequest';
-import { DocumentManagerController } from './app/controller/DocumentManagementController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { Form } from './app/form/Form';
 import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
