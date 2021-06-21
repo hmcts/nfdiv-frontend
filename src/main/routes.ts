@@ -127,7 +127,7 @@ const setUpCustomApplicantControllers = (app: Application, step) => {
       const view = getStepView(dir);
       const getController = getGetController(dir);
 
-      new getController(view, getStepContent(dir).generateContent).get(req, res);
+      return new getController(view, getStepContent(dir).generateContent).get(req, res);
     })
   );
   if (step.form) {
@@ -137,7 +137,7 @@ const setUpCustomApplicantControllers = (app: Application, step) => {
         const dir = getDir(req.session.user.roles) + step.url;
 
         const postController = getPostController(dir);
-        new postController(new Form(step.form)).post(req, res);
+        return new postController(new Form(step.form)).post(req, res);
       })
     );
   }

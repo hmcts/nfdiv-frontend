@@ -5,7 +5,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { Case, CaseWithId } from './case';
+import { Case, CaseWithApplicantType, CaseWithId } from './case';
 import {
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
@@ -16,6 +16,7 @@ import {
   ListValue,
   Payment,
   State,
+  UserRole,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -27,10 +28,13 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+  public async getOrCreateCase(
+    serviceType: DivorceOrDissolution,
+    userDetails: UserDetails
+  ): Promise<CaseWithApplicantType> {
     const userCase = await this.getCase(serviceType);
 
-    return userCase || this.createCase(serviceType, userDetails);
+    return { ...(userCase || (await this.createCase(serviceType, userDetails))), isApplicant2: this.isApplicant2() };
   }
 
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
@@ -106,6 +110,10 @@ export class CaseApi {
 
   public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
     return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
+  }
+
+  private isApplicant2(): boolean {
+    return this.userDetails.roles.includes(UserRole.APPLICANT_2_SOLICITOR);
   }
 
   private logError(error: AxiosError) {

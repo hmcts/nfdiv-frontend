@@ -169,6 +169,10 @@ export interface CaseWithId extends Case {
   state: State;
 }
 
+export interface CaseWithApplicantType extends CaseWithId {
+  isApplicant2: boolean;
+}
+
 export enum Checkbox {
   Checked = 'checked',
   Unchecked = '',
