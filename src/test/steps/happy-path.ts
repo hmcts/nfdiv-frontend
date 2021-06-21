@@ -1,19 +1,14 @@
 import { APPLY_FINANCIAL_ORDER } from '../../main/steps/urls';
-import { completeCase } from '../functional/fixtures/completeCase';
 
-import {
-  checkOptionFor,
-  iAmOnPage,
-  iClearTheForm,
-  iClick,
-  iSetTheUsersCaseTo,
-  iWaitForPostcodeLookUpResults,
-} from './common';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo } from './common';
+import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
 
-Given("I've already completed all questions correctly", async () => {
-  await iSetTheUsersCaseTo(completeCase);
+Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
+  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+  await iSetTheUsersCaseTo(fixtureJson);
 
   const url = await I.grabCurrentUrl();
   I.amOnPage(APPLY_FINANCIAL_ORDER);
@@ -21,7 +16,7 @@ Given("I've already completed all questions correctly", async () => {
   I.amOnPage(url);
 });
 
-Given("I've completed all happy path questions correctly", () => {
+Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage('/your-details');
   iClearTheForm();
   iClick('My husband');
@@ -110,12 +105,8 @@ Given("I've completed all happy path questions correctly", () => {
   iClick('I do not need my contact details kept private');
   iClick('Continue');
 
-  I.waitInUrl('/enter-your-address');
-  iClick('Enter a UK postcode', '#postcode', 10);
-  I.type('SW1A 1AA');
-  iClick('Find address');
-  iWaitForPostcodeLookUpResults();
-  I.selectOption('Select an address', 'BUCKINGHAM PALACE, LONDON, SW1A 1AA');
+  iAmOnPage('/enter-your-address');
+  await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
   iClick('Continue');
 
   I.waitInUrl('/their-email-address');
@@ -129,11 +120,7 @@ Given("I've completed all happy path questions correctly", () => {
   iClick('Continue');
 
   I.waitInUrl('/enter-their-address');
-  iClick('Enter a UK postcode', '#postcode', 10);
-  I.type('SW1H 9AJ');
-  iClick('Find address');
-  iWaitForPostcodeLookUpResults();
-  I.selectOption('Select an address', 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
+  await iEnterTheUkAddress('MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
   iClick('Continue');
 
   I.waitInUrl('/other-court-cases');

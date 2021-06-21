@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import * as lockFile from 'lockfile';
 import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
 
+import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
@@ -16,6 +17,8 @@ const filename = '/tmp/concepts.worker.id';
 if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
+
+getTokenFromApi();
 
 const content = readFileSync(filename).toString();
 const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
@@ -62,6 +65,7 @@ export const config = {
       '../steps/check-your-answers.ts',
       '../steps/jurisdiction.ts',
       '../steps/happy-path.ts',
+      '../steps/postcode.ts',
     ],
   },
   bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),

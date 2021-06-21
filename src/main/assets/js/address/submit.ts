@@ -68,6 +68,7 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
       (getById('enterPostcode') as HTMLElement).classList.add(hidden);
       (getById('selectAddress') as HTMLElement).classList.remove(hidden);
       (getById('main-form-submit') as HTMLElement).classList.remove(hidden);
+      selectAddress.focus();
     }
   };
 }

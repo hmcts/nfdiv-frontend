@@ -6,7 +6,7 @@
   fieldset: {
     legend: {
       text: getContent(field.label),
-      classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
+      classes: "hidden" if field.labelHidden else "govuk-fieldset__legend--m"
     }
   },
   hint: {
@@ -15,6 +15,6 @@
   items: formItems(field.values, formState[fieldName]),
   errorMessage: getError(fieldName),
   formGroup: {
-    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+    classes: "hidden " + field.id if field.hidden else field.id
   }
 }) }}
