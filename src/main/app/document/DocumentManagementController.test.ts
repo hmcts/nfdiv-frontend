@@ -159,6 +159,23 @@ describe('DocumentManagerController', () => {
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(res.json).not.toHaveBeenCalled();
     });
+
+    it('redirects if deleting & JavaScript is disabled', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.Draft,
+        },
+      });
+      const res = mockResponse();
+
+      await documentManagerController.delete(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(UPLOAD_YOUR_DOCUMENTS);
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
+    });
   });
 
   describe('Deleting files', () => {

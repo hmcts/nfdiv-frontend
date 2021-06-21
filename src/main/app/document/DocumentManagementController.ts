@@ -73,7 +73,7 @@ export class DocumentManagerController {
       throw new Error('Cannot delete uploaded documents as case is not in draft state');
     }
 
-    const documentIndexToDelete = documentsUploaded?.findIndex(i => i.id === req.params.id) ?? -1;
+    const documentIndexToDelete = documentsUploaded.findIndex(i => i.id === req.params.id) ?? -1;
     const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
       if (req.headers.accept?.includes('application/json')) {
