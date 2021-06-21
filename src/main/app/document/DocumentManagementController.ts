@@ -7,9 +7,9 @@ import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_UPDATE, State } from '../case/definition';
-import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
-import type { AppRequest, UserDetails } from './AppRequest';
+import { Classification, DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
