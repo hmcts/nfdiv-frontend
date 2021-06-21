@@ -15,3 +15,5 @@ idam-pr:
     divorce:
       - https://${SERVICE_FQDN}/oauth2/callback
       - https://civil-${SERVICE_FQDN}/oauth2/callback
+      - https://${SERVICE_FQDN}/oauth2/callback-applicant2
+      - https://civil-${SERVICE_FQDN}/oauth2/callback-applicant2
