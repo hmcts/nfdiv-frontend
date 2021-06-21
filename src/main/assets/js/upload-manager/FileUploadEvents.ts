@@ -1,6 +1,6 @@
 import type { State, Uppy } from '@uppy/core';
 
-import { getById } from '../selectors';
+import { getById, hidden } from '../selectors';
 
 import { UploadedFiles } from './UploadedFiles';
 
@@ -12,21 +12,19 @@ const errorUploadingGenericEl = getById('errorGeneric');
 const errorUploadingTooBigEl = getById('errorFileSizeTooBig');
 const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
 
-const HIDDEN = 'govuk-visually-hidden';
-
 export class FileUploadEvents {
   constructor(private readonly uppy: Uppy<'strict'>) {}
 
   public onError = (state: State): void => {
     if (state.info?.message.includes('exceeds maximum allowed size')) {
-      errorUploadingTooBigEl?.classList.remove(HIDDEN);
+      errorUploadingTooBigEl?.classList.remove(hidden);
     } else if (state.info?.message.includes('You can only upload: image/jpeg')) {
-      errorUploadingWrongFormatEl?.classList.remove(HIDDEN);
+      errorUploadingWrongFormatEl?.classList.remove(hidden);
     } else {
-      errorUploadingGenericEl?.classList.remove(HIDDEN);
+      errorUploadingGenericEl?.classList.remove(hidden);
     }
 
-    errorUploadingEl?.classList.remove(HIDDEN);
+    errorUploadingEl?.classList.remove(hidden);
     location.hash = '#uploadErrorSummary';
     errorUploadingEl?.focus();
     this.uppy.info('');
@@ -55,9 +53,9 @@ export class FileUploadEvents {
   };
 
   private resetErrorMessages = () => {
-    errorUploadingEl?.classList.add(HIDDEN);
-    errorUploadingGenericEl?.classList.add(HIDDEN);
-    errorUploadingTooBigEl?.classList.add(HIDDEN);
-    errorUploadingWrongFormatEl?.classList.add(HIDDEN);
+    errorUploadingEl?.classList.add(hidden);
+    errorUploadingGenericEl?.classList.add(hidden);
+    errorUploadingTooBigEl?.classList.add(hidden);
+    errorUploadingWrongFormatEl?.classList.add(hidden);
   };
 }

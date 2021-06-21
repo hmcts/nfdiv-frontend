@@ -1,7 +1,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<div id="enterPostcode" class="govuk-visually-hidden">
+<div id="enterPostcode" class="hidden">
   <form id="postcodeLookup">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
