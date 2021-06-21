@@ -31,7 +31,7 @@ export class CaseApi {
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
 
-    return { ...(userCase || (await this.createCase(serviceType, userDetails))) };
+    return userCase || this.createCase(serviceType, userDetails);
   }
 
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
