@@ -98,7 +98,10 @@ export class DocumentManagerController {
       url: documentUrlToDelete,
     });
 
-    req.session.save(() => {
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: req.params.id });
       } else {
