@@ -9,6 +9,6 @@
   items: formItems(field.values, formState[fieldName]),
   errorMessage: getError(fieldName),
   formGroup: {
-    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
+    classes: "hidden " + field.id if field.hidden else field.id
   }
 }) }}

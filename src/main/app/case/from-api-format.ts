@@ -10,7 +10,7 @@ import {
 } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
-import { fromApi as uploadedFilesFromApi } from './formatter/uploadedFiles';
+import { fromApi as uploadedFilesFromApi } from './formatter/uploaded-files';
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 

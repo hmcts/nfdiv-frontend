@@ -7,9 +7,9 @@ import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_UPDATE, State } from '../case/definition';
-import { Classification, DocumentManagementClient } from '../document/DocumentManagementClient';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
-import type { AppRequest, UserDetails } from './AppRequest';
+import { Classification, DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
@@ -37,10 +37,6 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    if (!Array.isArray(filesCreated)) {
-      throw new Error('Unable to save uploaded files');
-    }
-
     const newUploads: Case['documentsUploaded'] = filesCreated.map(file => ({
       id: generateUuid(),
       value: {
@@ -62,13 +58,9 @@ export class DocumentManagerController {
       CITIZEN_UPDATE
     );
 
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-
+    req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads?.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+        res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
       } else {
         res.redirect(UPLOAD_YOUR_DOCUMENTS);
       }
@@ -81,7 +73,7 @@ export class DocumentManagerController {
       throw new Error('Cannot delete uploaded documents as case is not in draft state');
     }
 
-    const documentIndexToDelete = documentsUploaded?.findIndex(i => i.id === req.params.id) ?? -1;
+    const documentIndexToDelete = documentsUploaded.findIndex(i => i.id === req.params.id) ?? -1;
     const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
       if (req.headers.accept?.includes('application/json')) {
@@ -110,7 +102,6 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: req.params.id });
       } else {

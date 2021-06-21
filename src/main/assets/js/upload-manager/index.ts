@@ -18,7 +18,6 @@ const initUploadManager = (): void => {
   const url = DOCUMENT_MANAGER;
   const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value;
   const csrfQuery = `?_csrf=${csrfToken}`;
-  const endpoint = { url, csrfQuery };
   location.hash = '';
 
   const uppy = Uppy<Uppy.StrictTypes>({
@@ -30,8 +29,8 @@ const initUploadManager = (): void => {
   });
 
   const uploadedFiles = new UploadedFiles();
-  const fileUploadEvents = new FileUploadEvents(uppy, endpoint, uploadedFiles);
-  updateFileList(uploadedFiles, fileUploadEvents);
+  const fileUploadEvents = new FileUploadEvents(uppy);
+  updateFileList(uploadedFiles);
 
   uppy
     .use(FileInput, {
@@ -53,10 +52,11 @@ const initUploadManager = (): void => {
       document.body.style.cursor = 'wait';
       try {
         await fileUploadEvents.onFilesSelected(uppy, uploadedFiles);
-        updateFileList(uploadedFiles, fileUploadEvents);
+        updateFileList(uploadedFiles);
       } finally {
         uppy.reset();
         document.body.style.cursor = 'default';
+        getById('uploadGroup')?.focus();
       }
     })
     .on('error', fileUploadEvents.onError);

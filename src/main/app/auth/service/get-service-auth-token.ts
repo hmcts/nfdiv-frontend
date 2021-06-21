@@ -6,7 +6,7 @@ import { authenticator } from 'otplib';
 const logger = Logger.getLogger('service-auth-token');
 let token;
 
-const getTokenFromApi = () => {
+export const getTokenFromApi = (): void => {
   logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';

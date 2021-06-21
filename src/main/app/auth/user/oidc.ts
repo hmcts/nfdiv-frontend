@@ -37,6 +37,30 @@ export const getUserDetails = async (serviceUrl: string, rawCode: string): Promi
   };
 };
 
+export const getCaseWorkerUser = async (): Promise<UserDetails> => {
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.clientSecret');
+  const tokenUrl: string = config.get('services.idam.tokenURL');
+
+  const caseWorkerUsername: string = config.get('services.idam.caseworkerUsername');
+  const caseWorkerPassword: string = config.get('services.idam.caseworkerPassword');
+
+  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
+  const data = `grant_type=password&username=${caseWorkerUsername}&password=${caseWorkerPassword}&client_id=${id}
+                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+
+  const response = await Axios.post(tokenUrl, data, { headers });
+  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+
+  return {
+    accessToken: response.data.access_token,
+    id: jwt.uid,
+    email: jwt.sub,
+    givenName: jwt.given_name,
+    familyName: jwt.family_name,
+  };
+};
+
 interface IdTokenJwtPayload {
   uid: string;
   sub: string;

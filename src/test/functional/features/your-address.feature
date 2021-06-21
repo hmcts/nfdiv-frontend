@@ -6,7 +6,8 @@ Feature: Your address
     When I go to "/enter-your-address"
     Then the page should include "Enter your postal address"
 
-  Scenario: Successfully entering a UK postcode
+  @nightly
+  Scenario: Successfully searching for a UK postcode
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
     And I type "SW1A 1AA"
@@ -21,6 +22,23 @@ Feature: Your address
     And the form input "Town or city" should be "LONDON"
     And the form input "County" should be "CITY OF WESTMINSTER"
     And the form input "Postcode" should be "SW1A 1AA"
+
+  Scenario: Successfully manually entering a UK address
+    Given I reset the postcode lookup form
+    And I select "Enter a UK postcode"
+    And I type "ZZ00 0ZZ"
+    And I click "Find address"
+    And the page should include "ZZ00 0ZZ"
+    And the page should include "0 addresses found"
+    When I click "I cannot find the address in the list"
+    And I select "Building and street"
+    And I type "Buckingham Palace"
+    And I select "Town or city"
+    And I type "London"
+    And I select "Postcode"
+    And I type "SW1A 1AA"
+    And I click "Continue"
+    Then the page URL should be "/their-email-address"
 
   Scenario: Successfully entering an international address
     Given I reset the postcode lookup form

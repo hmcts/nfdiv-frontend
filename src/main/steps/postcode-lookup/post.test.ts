@@ -1,10 +1,10 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { getAddressesFromPostcode } from '../../app/services/postcodeLookup';
+import { getAddressesFromPostcode } from '../../app/postcode/postcode-lookup';
 
 import { PostcodeLookupPostController } from './post';
 
-jest.mock('../../app/services/postcodeLookup');
+jest.mock('../../app/postcode/postcode-lookup');
 
 const mockGetAddressesFromPostcode = getAddressesFromPostcode as jest.Mocked<jest.Mock>;
 
