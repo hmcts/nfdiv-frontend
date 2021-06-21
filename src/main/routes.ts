@@ -3,7 +3,6 @@ import fs from 'fs';
 import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
-import { UserRole } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -35,6 +34,9 @@ import {
 } from './steps/urls';
 
 const handleUploads = multer();
+
+const applicant1Dir = `${__dirname}/steps/applicant1`;
+const applicant2Dir = `${__dirname}/steps/applicant2`;
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -93,10 +95,8 @@ export class Routes {
   }
 }
 
-const getDir = (userRoles: string[]) => {
-  return userRoles.includes(UserRole.APPLICANT_2_SOLICITOR)
-    ? `${__dirname}/steps/applicant2`
-    : `${__dirname}/steps/applicant1`;
+const getDir = (isApplicant2: boolean) => {
+  return isApplicant2 ? applicant2Dir : applicant1Dir;
 };
 
 const getStepView = (dir: string) => {
@@ -122,7 +122,7 @@ const setUpCustomApplicantControllers = (app: Application, step) => {
   app.get(
     step.url,
     errorHandler((req, res) => {
-      const dir = getDir(req.session.user.roles) + step.url;
+      const dir = getDir(req.session.userCase.isApplicant2) + step.url;
 
       const view = getStepView(dir);
       const getController = getGetController(dir);
@@ -130,14 +130,14 @@ const setUpCustomApplicantControllers = (app: Application, step) => {
       return new getController(view, getStepContent(dir).generateContent).get(req, res);
     })
   );
-  if (step.form) {
+  if (getStepContent(applicant1Dir + step.url).form || getStepContent(applicant2Dir + step.url).form) {
     app.post(
       step.url,
       errorHandler((req, res) => {
-        const dir = getDir(req.session.user.roles) + step.url;
+        const dir = getDir(req.session.userCase.isApplicant2) + step.url;
 
         const postController = getPostController(dir);
-        return new postController(new Form(step.form)).post(req, res);
+        return new postController(new Form(getStepContent(dir).form)).post(req, res);
       })
     );
   }

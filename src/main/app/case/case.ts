@@ -171,9 +171,6 @@ export interface Case {
 export interface CaseWithId extends Case {
   id: string;
   state: State;
-}
-
-export interface CaseWithApplicantType extends CaseWithId {
   isApplicant2: boolean;
 }
 

@@ -5,7 +5,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { Case, CaseWithApplicantType, CaseWithId } from './case';
+import { Case, CaseWithId } from './case';
 import {
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
@@ -28,13 +28,10 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public async getOrCreateCase(
-    serviceType: DivorceOrDissolution,
-    userDetails: UserDetails
-  ): Promise<CaseWithApplicantType> {
+  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
 
-    return { ...(userCase || (await this.createCase(serviceType, userDetails))), isApplicant2: this.isApplicant2() };
+    return { ...(userCase || (await this.createCase(serviceType, userDetails))) };
   }
 
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
@@ -47,7 +44,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = serviceCases[0];
-        return { ...fromApiFormat(caseData), id: id.toString(), state };
+        return { ...fromApiFormat(caseData), id: id.toString(), state, isApplicant2: this.isApplicant2() };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -92,7 +89,12 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return {
+        id: response.data.id,
+        state: response.data.state,
+        ...fromApiFormat(response.data.data),
+        isApplicant2: this.isApplicant2(),
+      };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -107,7 +109,12 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return {
+        id: response.data.id,
+        state: response.data.state,
+        ...fromApiFormat(response.data.data),
+        isApplicant2: this.isApplicant2(),
+      };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
@@ -123,7 +130,7 @@ export class CaseApi {
   }
 
   private isApplicant2(): boolean {
-    return this.userDetails.roles.includes(UserRole.APPLICANT_2_SOLICITOR);
+    return this.userDetails.roles.includes(UserRole.APPLICANT_2);
   }
 
   private logError(error: AxiosError) {

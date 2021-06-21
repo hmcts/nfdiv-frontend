@@ -1,4 +1,4 @@
-import { CaseWithApplicantType, Checkbox } from '../app/case/case';
+import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
@@ -83,7 +83,7 @@ export interface Step {
   url: string;
   showInSection?: Sections;
   excludeFromContinueApplication?: boolean;
-  getNextStep: (data: Partial<CaseWithApplicantType>) => PageLink;
+  getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
 export const sequence: Step[] = [
@@ -177,7 +177,7 @@ export const sequence: Step[] = [
   {
     url: WHERE_YOUR_LIVES_ARE_BASED_URL,
     showInSection: Sections.ConnectionsToEnglandWales,
-    getNextStep: (data: Partial<CaseWithApplicantType>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
       switch (`${data.applicant1LifeBasedInEnglandAndWales}${data.applicant2LifeBasedInEnglandAndWales}`) {
@@ -196,7 +196,7 @@ export const sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
-    getNextStep: (data: Partial<CaseWithApplicantType>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
       switch (`${data.applicant1DomicileInEnglandWales}${data.applicant2DomicileInEnglandWales}`) {
@@ -213,7 +213,7 @@ export const sequence: Step[] = [
   },
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
-    getNextStep: (data: Partial<CaseWithApplicantType>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data)) {
         return RESIDUAL_JURISDICTION;
       } else if (previousConnectionMadeUptoLastHabituallyResident(data)) {
@@ -309,7 +309,7 @@ export const sequence: Step[] = [
   {
     url: THEIR_EMAIL_ADDRESS,
     showInSection: Sections.ContactThem,
-    getNextStep: (data: Partial<CaseWithApplicantType>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
         return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
       } else {

@@ -11,7 +11,7 @@ const en = ({ isDivorce, partner }) => ({
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. You can also launch a sole application, if you want.`,
   line3: 'If you are not sure what to do then you can save and sign out and get legal advice.',
-  endJointApplication: 'End joint application',
+  continue: 'End joint application',
 });
 
 const cy: typeof en = ({ isDivorce, partner }) => ({
@@ -28,7 +28,7 @@ const cy: typeof en = ({ isDivorce, partner }) => ({
 export const form: FormContent = {
   fields: {},
   submit: {
-    text: l => l.endJointApplication,
+    text: l => l.continue,
   },
 };
 
