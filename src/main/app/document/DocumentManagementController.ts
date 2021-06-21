@@ -37,10 +37,6 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    if (!Array.isArray(filesCreated)) {
-      throw new Error('Unable to save uploaded files');
-    }
-
     const newUploads: Case['documentsUploaded'] = filesCreated.map(file => ({
       id: generateUuid(),
       value: {
@@ -62,13 +58,9 @@ export class DocumentManagerController {
       CITIZEN_UPDATE
     );
 
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-
+    req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads?.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+        res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
       } else {
         res.redirect(UPLOAD_YOUR_DOCUMENTS);
       }
@@ -106,11 +98,7 @@ export class DocumentManagerController {
       url: documentUrlToDelete,
     });
 
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-
+    req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: req.params.id });
       } else {
