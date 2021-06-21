@@ -3,7 +3,7 @@
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-  {% if isJointApplication %}
+  {% if formState.isApplicant2 %}
     <p class="govuk-body">{{ line3 }}</p>
     <p class="govuk-body">{{ line4 }}</p>
   {% else %}

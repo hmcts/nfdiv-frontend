@@ -32,6 +32,7 @@ export const getUserDetails = async (serviceUrl: string, rawCode: string): Promi
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: jwt.roles,
   };
 };
 

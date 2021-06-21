@@ -98,10 +98,7 @@ export const sequence: Step[] = [
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
-    getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION
-        ? NOT_CONFIRMED_JOINT_APPLICATION
-        : HAS_RELATIONSHIP_BROKEN_URL,
+    getNextStep: data => (data.isApplicant2 ? NOT_CONFIRMED_JOINT_APPLICATION : HAS_RELATIONSHIP_BROKEN_URL),
   },
   {
     url: NOT_CONFIRMED_JOINT_APPLICATION,
