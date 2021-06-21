@@ -4,7 +4,6 @@ import {
   Case,
   Checkbox,
   LanguagePreference,
-  applicant2FormFieldsToCaseMapping,
   formFieldsToCaseMapping,
   formatCase,
   readOnlyFormFieldsToCaseMapping,
@@ -73,12 +72,5 @@ const fromApiDate = date => {
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
-export const fromApiFormat = (data: CaseData, isApplicant2: boolean): Case =>
-  formatCase(
-    {
-      ...fields,
-      ...(isApplicant2 ? invert(applicant2FormFieldsToCaseMapping) : {}),
-      ...readOnlyFormFieldsToCaseMapping,
-    },
-    data
-  );
+export const fromApiFormat = (data: CaseData): Case =>
+  formatCase({ ...fields, ...readOnlyFormFieldsToCaseMapping }, data);

@@ -1,5 +1,5 @@
 import { Checkbox } from './case';
-import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -11,7 +11,7 @@ describe('from-api-format', () => {
     applicant1ScreenHasMarriageBroken: YesOrNo.YES,
     helpWithFeesReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
-    applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
+    applicant1ContactDetailsConfidential: 'keep',
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: null,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
@@ -20,7 +20,7 @@ describe('from-api-format', () => {
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(results as unknown as CaseData, false);
+    const nfdivFormat = fromApiFormat(results as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -39,14 +39,11 @@ describe('from-api-format', () => {
   });
 
   test('convert results including the union date from api to nfdiv fe format', async () => {
-    const nfdivFormat = fromApiFormat(
-      {
-        ...results,
-        marriageDate: '2000-09-02',
-        dateSubmitted: '2021-01-01',
-      } as unknown as CaseData,
-      false
-    );
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      marriageDate: '2000-09-02',
+      dateSubmitted: '2021-01-01',
+    } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -84,19 +81,16 @@ describe('from-api-format', () => {
 
   describe('converting your address between UK and international', () => {
     test('converts to UK format', () => {
-      const nfdivFormat = fromApiFormat(
-        {
-          ...results,
-          applicant1HomeAddress: {
-            AddressLine1: 'Line 1',
-            AddressLine2: 'Line 2',
-            PostTown: 'Town',
-            County: 'County',
-            PostCode: 'Postcode',
-          },
-        } as unknown as CaseData,
-        false
-      );
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1HomeAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+      } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
         applicant1Address1: 'Line 1',
@@ -129,21 +123,18 @@ describe('from-api-format', () => {
     });
 
     test('converts to an international format', () => {
-      const nfdivFormat = fromApiFormat(
-        {
-          ...results,
-          applicant1HomeAddress: {
-            AddressLine1: 'Line 1',
-            AddressLine2: 'Line 2',
-            AddressLine3: 'Line 3',
-            PostTown: 'Town',
-            County: 'State',
-            PostCode: 'Zip code',
-            Country: 'Country',
-          },
-        } as unknown as CaseData,
-        false
-      );
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1HomeAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          AddressLine3: 'Line 3',
+          PostTown: 'Town',
+          County: 'State',
+          PostCode: 'Zip code',
+          Country: 'Country',
+        },
+      } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
     });
@@ -151,16 +142,13 @@ describe('from-api-format', () => {
 
   test('adds read only fields', () => {
     expect(
-      fromApiFormat(
-        {
-          payments: [
-            {
-              id: 'mock-payment',
-            },
-          ],
-        } as unknown as CaseData,
-        false
-      )
+      fromApiFormat({
+        payments: [
+          {
+            id: 'mock-payment',
+          },
+        ],
+      } as unknown as CaseData)
     ).toStrictEqual({
       payments: [
         {
@@ -168,11 +156,5 @@ describe('from-api-format', () => {
         },
       ],
     });
-  });
-
-  test("converts API field to applicant 2's form data", () => {
-    expect(
-      fromApiFormat({ applicant2ScreenHasMarriageBroken: YesOrNo.YES } as unknown as CaseData, true)
-    ).toStrictEqual({ screenHasUnionBroken: YesOrNo.YES });
   });
 });

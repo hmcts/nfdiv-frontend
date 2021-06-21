@@ -66,10 +66,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentUserId: 'respondentUserId',
 };
 
-export const applicant2FormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
-  screenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
-};
-
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'payments',
