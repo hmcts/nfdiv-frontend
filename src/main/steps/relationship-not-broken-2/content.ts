@@ -38,6 +38,6 @@ export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
   return {
     ...translation,
-    form: content.formState?.isApplicant2 && form,
+    form,
   };
 };
