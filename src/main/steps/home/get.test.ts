@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../app/case/definition';
-import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL } from '../urls';
+import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../urls';
 
 import { HomeGetController } from './get';
 
@@ -47,5 +47,22 @@ describe('HomeGetController', () => {
     });
 
     expect(() => controller.get(req, res)).toThrowError(new Error('Invalid case type'));
+  });
+
+  test("redirects to applicant 2's first question for new applicant 2 users", () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          mockQuestion: 'mockExistingAnswer',
+        },
+      },
+    });
+    (req.locals.api.isApplicant2 as jest.Mock).mockReturnValue(true);
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
   });
 });
