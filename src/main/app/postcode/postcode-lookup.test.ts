@@ -29,9 +29,9 @@ describe('Postcode Lookup', () => {
     const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
 
     expect(mockedAxios.get).toHaveBeenCalledWith('postcode', {
-      baseURL: 'https://api.ordnancesurvey.co.uk/places/v1/addresses',
+      baseURL: 'https://api.os.uk/search/places/v1/postcode',
       headers: { accept: 'application/json' },
-      params: { key: 'NEED TO INSERT SECRET', postcode: 'AB1 2CD' },
+      params: { key: 'NEED TO INSERT SECRET', lr: 'EN', postcode: 'AB1 2CD' },
     });
 
     expect(actual).toEqual([

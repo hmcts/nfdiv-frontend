@@ -15,12 +15,13 @@ export type Address = {
 export const getAddressesFromPostcode = async (postcode: string, logger: LoggerInstance): Promise<Address[]> => {
   try {
     const response = await axios.get('postcode', {
-      baseURL: `${config.get('services.postcodeLookup.url')}/addresses`,
+      baseURL: config.get('services.postcodeLookup.url'),
       headers: {
         accept: 'application/json',
       },
       params: {
         key: config.get('services.postcodeLookup.token'),
+        lr: 'EN',
         postcode,
       },
     });
