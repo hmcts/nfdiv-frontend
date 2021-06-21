@@ -56,6 +56,7 @@ const initUploadManager = (): void => {
       } finally {
         uppy.reset();
         document.body.style.cursor = 'default';
+        getById('uploadGroup')?.focus();
       }
     })
     .on('error', fileUploadEvents.onError);
