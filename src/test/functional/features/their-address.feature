@@ -6,7 +6,6 @@ Feature: Their address
     When I go to "/enter-their-address"
     Then the page should include "Enter your husband’s postal address"
 
-  @nightly
   Scenario: Successfully searching for their partners UK postcode
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"

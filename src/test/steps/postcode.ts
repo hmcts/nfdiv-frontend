@@ -4,21 +4,7 @@ const { I } = inject();
 
 export const iWaitForPostcodeLookUpResults = async (): Promise<void> => {
   I.waitForText('Select an address');
-
-  const locator = 'option[value^="{\\"fullAddress"]';
-  let numberOfElements = await I.grabNumberOfVisibleElements(locator);
-
-  const maxRetries = 10;
-  let i = 0;
-  while (numberOfElements === 0 && i < maxRetries) {
-    I.wait(1);
-    numberOfElements = await I.grabNumberOfVisibleElements(locator);
-    i++;
-  }
-
-  if (!numberOfElements) {
-    throw new Error('No postcode search results were returned');
-  }
+  I.waitForElement('option[value^="{\\"fullAddress"]', 10);
 };
 Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpResults);
 

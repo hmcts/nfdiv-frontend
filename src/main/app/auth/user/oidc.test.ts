@@ -1,5 +1,7 @@
 import Axios, { AxiosStatic } from 'axios';
 
+import { CALLBACK_URL } from '../../../steps/urls';
+
 import { getCaseWorkerUser, getRedirectUrl, getUserDetails } from './oidc';
 
 jest.mock('axios');
@@ -11,7 +13,7 @@ const token =
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
-    expect(getRedirectUrl('http://localhost')).toBe(
+    expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
       'https://idam-web-public.aat.platform.hmcts.net/login?client_id=divorce&response_type=code&redirect_uri=http://localhost/oauth2/callback'
     );
   });
@@ -26,7 +28,7 @@ describe('getUserDetails', () => {
       },
     });
 
-    const result = await getUserDetails('http://localhost', '123');
+    const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
       accessToken: token,
       email: 'test@test.com',

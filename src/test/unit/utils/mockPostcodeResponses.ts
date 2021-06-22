@@ -1,6 +1,6 @@
 export const validPostcode200Response = {
   header: {
-    uri: 'https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?postcode=AB1%202CD',
+    uri: 'https://api.os.uk/search/places/v1/postcode?postcode=AB1%202CD',
     query: 'postcode=AB1 2CD',
     offset: 0,
     totalresults: 5,
@@ -210,7 +210,7 @@ export const validPostcode200Response = {
 
 export const emptyPostcode200Response = {
   header: {
-    uri: 'https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?postcode=S12AA',
+    uri: 'https://api.os.uk/search/places/v1/postcode?postcode=S12AA',
     query: 'postcode=S12AA',
     offset: 0,
     totalresults: 0,
