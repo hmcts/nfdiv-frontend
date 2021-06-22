@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-15 15:33:38.
+// Generated using typescript-generator version 2.32.889 on 2021-06-22 17:12:38.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -183,6 +183,7 @@ export interface CaseData {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  jurisdictionLegalConnections: LegalConnections[];
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -204,7 +205,6 @@ export interface CaseData {
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
-  legalConnections: LegalConnections[];
   applicant2EmailAddress: string;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -223,11 +223,10 @@ export interface CaseData {
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
   dueDate: DateAsString;
-  hwfCodeValidForFullAmount: YesOrNo;
-  hwfAmountOutstanding: YesOrNo;
   documentUploadComplete: YesOrNo;
   accessCode: string;
   respondentUserId: string;
+  issueDate: DateAsString;
 }
 
 export interface Jurisdiction {
@@ -240,6 +239,7 @@ export interface Jurisdiction {
   ResidualEligible: YesOrNo;
   BothLastHabituallyResident: YesOrNo;
   Connections: JurisdictionConnections[];
+  LegalConnections: LegalConnections[];
 }
 
 export interface MarriageDetails {
@@ -496,20 +496,25 @@ export const enum State {
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
   Issued = 'Issued',
+  Rejected = 'Rejected',
+  Withdrawn = 'Withdrawn',
+  PendingRejection = 'PendingRejection',
+  AwaitingReissue = 'AwaitingReissue',
   ConditionalOrderComplete = 'ConditionalOrderComplete',
   FinalOrderComplete = 'FinalOrderComplete',
 }
 
 export const enum UserRole {
-  CASEWORKER_DIVORCE_COURTADMIN_BETA = 'caseworker-divorce-courtadmin_beta',
-  CASEWORKER_DIVORCE_COURTADMIN = 'caseworker-divorce-courtadmin',
-  CITIZEN = 'citizen',
-  CASEWORKER_DIVORCE_SOLICITOR = 'caseworker-divorce-solicitor',
-  CASEWORKER_DIVORCE_SUPERUSER = 'caseworker-divorce-superuser',
-  CASEWORKER_DIVORCE_COURTADMIN_LA = 'caseworker-divorce-courtadmin-la',
-  CASEWORKER_DIVORCE_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
-  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
+  CASEWORKER_COURTADMIN_CTSC = 'caseworker-divorce-courtadmin_beta',
+  CASEWORKER_COURTADMIN_RDU = 'caseworker-divorce-courtadmin',
+  CASEWORKER_LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
+  CASEWORKER_SUPERUSER = 'caseworker-divorce-superuser',
+  CASEWORKER_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  SOLICITOR = 'caseworker-divorce-solicitor',
   APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
+  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
+  ORGANISATION_CASE_ACCESS_ADMINISTRATOR = 'caseworker-caa',
+  CITIZEN = 'citizen',
   CREATOR = '[CREATOR]',
   APPLICANT_2 = '[APPLICANTTWO]',
 }
@@ -560,8 +565,8 @@ export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
-export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';

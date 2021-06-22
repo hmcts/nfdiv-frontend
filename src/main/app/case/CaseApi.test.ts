@@ -5,7 +5,7 @@ import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
 
@@ -210,6 +210,51 @@ describe('CaseApi', () => {
     await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
+  });
+
+  test('Should return case roles for userId and caseId passed', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: {
+        case_users: [
+          {
+            case_id: '1624351572550045',
+            user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
+            case_role: '[APPLICANTTWO]',
+          },
+        ],
+      },
+    });
+
+    const userCase = await api.getCaseUserRoles('1234123412341234', userDetails.id);
+    expect(userCase).toStrictEqual({
+      case_users: [
+        {
+          case_id: '1624351572550045',
+          user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
+          case_role: '[APPLICANTTWO]',
+        },
+      ],
+    });
+  });
+
+  test('Should throw error when case roles could not be fetched', async () => {
+    mockedAxios.get.mockRejectedValue({
+      config: { method: 'GET', url: 'https://example.com/case-users' },
+      request: 'mock request',
+    });
+
+    await expect(api.getCaseUserRoles('1234123412341234', userDetails.id)).rejects.toThrow(
+      'Case roles could not be fetched.'
+    );
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com/case-users');
+  });
+
+  test('isApplicant2() returns true if the case role contains applicant 2', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.APPLICANT_2 }] } });
+
+    const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
+    expect(isApplicant2).toBe(true);
   });
 
   test('Should catch all errors', async () => {

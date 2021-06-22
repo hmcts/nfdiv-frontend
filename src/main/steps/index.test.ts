@@ -83,7 +83,7 @@ describe('Steps', () => {
 
     it("uses applicant 2's sequence if they are logged in as applicant 2", () => {
       mockReq.originalUrl = YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
-      (mockReq.locals.api.isApplicant2 as jest.Mock).mockReturnValue(true);
+      mockReq.session.isApplicant2 = true;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}2`);
     });

@@ -107,6 +107,10 @@ export class CaseApi {
     }
   }
 
+  public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
+    return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
+  }
+
   private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
     const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
     const token = tokenResponse.data.token;
@@ -128,10 +132,6 @@ export class CaseApi {
 
   public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
     return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
-  }
-
-  public isApplicant2(): boolean {
-    return this.userDetails.roles.includes(UserRole.APPLICANT_2);
   }
 
   private logError(error: AxiosError) {

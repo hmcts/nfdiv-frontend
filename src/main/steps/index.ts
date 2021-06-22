@@ -69,7 +69,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => (req.locals.api.isApplicant2() ? applicant2Sequence : applicant1Sequence);
+const getUserSequence = (req: AppRequest) => (req.session.isApplicant2 ? applicant2Sequence : applicant1Sequence);
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');

@@ -11,7 +11,7 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    if (req.locals.api.isApplicant2()) {
+    if (req.session.isApplicant2) {
       return res.redirect(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
     }
 

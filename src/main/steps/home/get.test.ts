@@ -57,9 +57,9 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           mockQuestion: 'mockExistingAnswer',
         },
+        isApplicant2: true,
       },
     });
-    (req.locals.api.isApplicant2 as jest.Mock).mockReturnValue(true);
     const res = mockResponse();
     controller.get(req, res);
 
