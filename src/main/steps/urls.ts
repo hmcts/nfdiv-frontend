@@ -9,6 +9,10 @@ export const SIGN_OUT_URL: PageLink = '/logout';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
+
+export const APPLICANT_1: PageLink = '/applicant1';
+export const APPLICANT_2: PageLink = '/applicant2';
+
 export const PRIVACY_POLICY_URL: PageLink = '/privacy-policy';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
 export const COOKIES_URL: PageLink = '/cookies';
@@ -76,7 +80,8 @@ export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-re
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
-export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = '/you-need-to-review-your-application';
+export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = `${APPLICANT_2}/you-need-to-review-your-application`;
+export const HAS_RELATIONSHIP_BROKEN_APPLICANT2: PageLink = `${APPLICANT_2}${HAS_RELATIONSHIP_BROKEN_URL}`;
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
