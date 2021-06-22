@@ -1,6 +1,6 @@
 import { StepWithContent } from '../../../steps';
+import { Sections } from '../../../steps/applicant1/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
-import { Sections } from '../../../steps/sequence';
 import { Checkbox } from '../case';
 
 import { getAnswerRows } from './getAnswerRows';

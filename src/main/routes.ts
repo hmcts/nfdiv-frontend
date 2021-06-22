@@ -11,10 +11,10 @@ import { Form } from './app/form/Form';
 import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { HomeGetController } from './steps/applicant1/home/get';
+import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
-import { HomeGetController } from './steps/home/get';
-import { PostcodeLookupPostController } from './steps/postcode-lookup/post';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -55,15 +55,16 @@ export class Routes {
     app.get(`${DOCUMENT_MANAGER}/delete/:id`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
-      const dir = `${__dirname}/steps${step.url}`;
-      const customView = `${dir}/template.njk`;
-      const view = fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
-      const getController = fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
+      const getController = fs.existsSync(`${step.stepDir}/get.ts`)
+        ? require(`${step.stepDir}/get.ts`).default
+        : GetController;
 
-      app.get(step.url, errorHandler(new getController(view, step.generateContent).get));
+      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
 
       if (step.form) {
-        const postController = fs.existsSync(`${dir}/post.ts`) ? require(`${dir}/post.ts`).default : PostController;
+        const postController = fs.existsSync(`${step.stepDir}/post.ts`)
+          ? require(`${step.stepDir}/post.ts`).default
+          : PostController;
         app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
       }
     }

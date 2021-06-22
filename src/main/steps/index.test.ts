@@ -3,7 +3,7 @@ import { Checkbox } from '../app/case/case';
 import { Gender, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { sequence } from './sequence';
+import { applicant1Sequence } from './applicant1/applicant1Sequence';
 import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
 import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
@@ -67,7 +67,7 @@ describe('Steps', () => {
     });
 
     it('goes back one page if the step is incomplete & excluded from continue application', () => {
-      sequence[1].excludeFromContinueApplication = true;
+      applicant1Sequence[1].excludeFromContinueApplication = true;
 
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.session.userCase.gender = Gender.MALE;

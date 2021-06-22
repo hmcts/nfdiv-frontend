@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
 
 import { stepsWithContent } from '../../../steps';
-import { Step } from '../../../steps/sequence';
+import { Step } from '../../../steps/applicant1/applicant1Sequence';
 import { Form, FormContent } from '../../form/Form';
 import { Case } from '../case';
 import { YesOrNo } from '../definition';
