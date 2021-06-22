@@ -29,7 +29,7 @@ describe('Postcode Lookup', () => {
     const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
 
     expect(mockedAxios.get).toHaveBeenCalledWith('postcode', {
-      baseURL: 'https://api.os.uk/search/places/v1/postcode',
+      baseURL: 'https://api.os.uk/search/places/v1',
       headers: { accept: 'application/json' },
       params: { key: 'NEED TO INSERT SECRET', lr: 'EN', postcode: 'AB1 2CD' },
     });
@@ -114,11 +114,12 @@ describe('Postcode Lookup', () => {
   });
 
   it('returns an empty array when the token is incorrect and logs the error', async () => {
-    mockedAxios.get.mockRejectedValueOnce({ response: { status: 401, data: invalidPostcodeKey401Response } });
+    const mockResponse = { response: { status: 401, data: invalidPostcodeKey401Response } };
+    mockedAxios.get.mockRejectedValueOnce(mockResponse);
 
     const actual = await getAddressesFromPostcode('AB1 2CD', mockLogger);
 
-    expect(mockLogger.error).toHaveBeenCalledWith('Postcode lookup key is invalid');
+    expect(mockLogger.error).toHaveBeenCalledWith('Postcode lookup key is invalid', mockResponse);
     expect(actual).toEqual([]);
   });
 
