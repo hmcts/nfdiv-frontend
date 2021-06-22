@@ -3,14 +3,8 @@ import { Checkbox } from '../app/case/case';
 import { Gender, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { applicant1Sequence } from './applicant1Sequence';
-import {
-  HAS_RELATIONSHIP_BROKEN_URL,
-  RELATIONSHIP_NOT_BROKEN_URL,
-  YOUR_DETAILS_URL,
-  YOUR_NAME,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from './urls';
+import { sequence } from './sequence';
+import { HAS_RELATIONSHIP_BROKEN_URL, RELATIONSHIP_NOT_BROKEN_URL, YOUR_DETAILS_URL } from './urls';
 
 import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
 
@@ -73,20 +67,13 @@ describe('Steps', () => {
     });
 
     it('goes back one page if the step is incomplete & excluded from continue application', () => {
-      applicant1Sequence[1].excludeFromContinueApplication = true;
+      sequence[1].excludeFromContinueApplication = true;
 
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.session.userCase.gender = Gender.MALE;
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(YOUR_DETAILS_URL);
-    });
-
-    it("uses applicant 2's sequence if they are logged in as applicant 2", () => {
-      mockReq.originalUrl = YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
-      (mockReq.locals.api.isApplicant2 as jest.Mock).mockReturnValue(true);
-      const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(`${YOUR_NAME}2`);
     });
   });
 });

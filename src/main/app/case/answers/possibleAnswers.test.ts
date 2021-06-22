@@ -1,4 +1,4 @@
-import { Step } from '../../../steps/applicant1Sequence';
+import { Step } from '../../../steps/sequence';
 import { Case, Checkbox, LanguagePreference } from '../case';
 import { ApplicationType, ChangedNameHow, DocumentType, Gender, JurisdictionConnections, YesOrNo } from '../definition';
 

@@ -16,7 +16,6 @@ import {
   ListValue,
   Payment,
   State,
-  UserRole,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -117,10 +116,6 @@ export class CaseApi {
 
   public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
     return this.sendEvent(caseId, { payments }, CITIZEN_ADD_PAYMENT);
-  }
-
-  public isApplicant2(): boolean {
-    return this.userDetails.roles.includes(UserRole.APPLICANT_2);
   }
 
   private logError(error: AxiosError) {

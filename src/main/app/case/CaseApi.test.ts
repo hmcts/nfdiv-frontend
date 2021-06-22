@@ -5,14 +5,13 @@ import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, getCaseApi } from './CaseApi';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
 
 jest.mock('axios');
 
 const userDetails: UserDetails = {
   accessToken: '123',
   email: 'billy@bob.com',
-  roles: [UserRole.CITIZEN],
   givenName: 'billy',
   familyName: 'bob',
   id: 'something',
@@ -221,12 +220,6 @@ describe('CaseApi', () => {
     await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'Error');
-  });
-
-  test('isApplicant2() returns true if they are logged in as applicant 2', () => {
-    api = new CaseApi(mockedAxios, { ...userDetails, roles: [UserRole.CITIZEN, UserRole.APPLICANT_2] }, mockLogger);
-
-    expect(api.isApplicant2()).toBe(true);
   });
 });
 

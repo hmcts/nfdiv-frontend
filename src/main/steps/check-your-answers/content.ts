@@ -6,7 +6,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../../steps/common/common.content';
-import { Sections } from '../applicant1Sequence';
+import { Sections } from '../sequence';
 import * as urls from '../urls';
 
 const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent) => ({
