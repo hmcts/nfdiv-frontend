@@ -106,7 +106,7 @@
     "@types/jest": "^26.0.23",
     "@types/mini-css-extract-plugin": "^1.4.3",
     "@types/webpack-dev-middleware": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.27.0",
     "@wdio/sauce-service": "^7.7.4",
     "allure-commandline": "^2.13.8",
