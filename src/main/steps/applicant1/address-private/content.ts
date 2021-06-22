@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../app/case/definition';
-import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn } from '../../app/form/validation';
-import { CommonContent } from '../common/common.content';
+import { YesOrNo } from '../../../app/case/definition';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
+import { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, required }: CommonContent) => ({
   title: `Do you need your contact details kept private from your ${partner}?`,

@@ -33,18 +33,22 @@ describe('getAnswerRows()', () => {
   it('converts steps into the correct check answers rows when there no answers', () => {
     mockStepsWithContent.mockReturnValue([
       {
+        stepDir: '/',
         url: 'dont-pickThisOne',
         showInSection: Sections.AboutPartners,
         getNextStep: () => '/pickThisOne',
         form: { fields: {}, submit: { text: '' } },
         generateContent: () => ({}),
+        view: '/template',
       },
       {
+        stepDir: '/',
         url: 'pickThisOne',
         showInSection: Sections.AboutPartnership,
         getNextStep: () => '/',
         generateContent: mockGenerateContent,
         form: { fields: {}, submit: { text: '' } },
+        view: '/template',
       },
     ]);
 
@@ -75,18 +79,22 @@ describe('getAnswerRows()', () => {
     beforeEach(() => {
       mockStepsWithContent.mockReturnValue([
         {
+          stepDir: '/',
           url: 'dont-pickThisOne',
           showInSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
         },
         {
+          stepDir: '/',
           url: 'pickThisOne',
           showInSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
         },
       ]);
 
@@ -136,6 +144,7 @@ describe('getAnswerRows()', () => {
     it('ignores steps that throw exception', () => {
       mockStepsWithContent.mockReturnValue([
         {
+          stepDir: '/',
           url: 'dont-pickThisOne',
           showInSection: Sections.AboutPartnership,
           getNextStep: () => '/pickThisOne',
@@ -143,13 +152,16 @@ describe('getAnswerRows()', () => {
             throw new Error('You cannot see this page');
           },
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
         },
         {
+          stepDir: '/',
           url: 'pickThisOne',
           showInSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
         },
       ]);
 
@@ -246,6 +258,7 @@ describe('getAnswerRows()', () => {
     it('converts steps into the correct check answers rows with checkboxes', () => {
       mockStepsWithContent.mockReturnValue([
         {
+          stepDir: '/',
           url: 'pickThisOne',
           showInSection: Sections.AboutPartnership,
           getNextStep: () => '/',
@@ -263,6 +276,7 @@ describe('getAnswerRows()', () => {
             },
             submit: { text: '' },
           },
+          view: '/template',
         },
       ]);
 
