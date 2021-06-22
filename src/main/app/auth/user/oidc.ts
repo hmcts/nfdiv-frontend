@@ -5,21 +5,23 @@ import jwt_decode from 'jwt-decode';
 import { PageLink } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
 
-export const CALLBACK_URL: PageLink = '/oauth2/callback';
-
-export const getRedirectUrl = (serviceUrl: string): string => {
+export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');
-  const callbackUrl = encodeURI(serviceUrl + CALLBACK_URL);
+  const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
 
   return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
 };
 
-export const getUserDetails = async (serviceUrl: string, rawCode: string): Promise<UserDetails> => {
+export const getUserDetails = async (
+  serviceUrl: string,
+  rawCode: string,
+  callbackUrlPageLink: PageLink
+): Promise<UserDetails> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
-  const callbackUrl = encodeURI(serviceUrl + CALLBACK_URL);
+  const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
