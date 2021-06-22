@@ -15,12 +15,13 @@ export type Address = {
 export const getAddressesFromPostcode = async (postcode: string, logger: LoggerInstance): Promise<Address[]> => {
   try {
     const response = await axios.get('postcode', {
-      baseURL: `${config.get('services.postcodeLookup.url')}/addresses`,
+      baseURL: config.get('services.postcodeLookup.url'),
       headers: {
         accept: 'application/json',
       },
       params: {
         key: config.get('services.postcodeLookup.token'),
+        lr: 'EN',
         postcode,
       },
     });
@@ -63,7 +64,7 @@ export const getAddressesFromPostcode = async (postcode: string, logger: LoggerI
     );
   } catch (err) {
     if (err.response?.status === StatusCodes.UNAUTHORIZED) {
-      logger.error('Postcode lookup key is invalid');
+      logger.error('Postcode lookup key is invalid', err);
     } else if (!err.response?.data?.error?.message.includes('postcode must contain a minimum')) {
       logger.error('Postcode lookup service error', err);
     }

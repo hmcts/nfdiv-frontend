@@ -16,9 +16,9 @@ const en = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
     hint: 'Not including legal proceedings that may happen in the future.',
     subField: 'What do the legal proceedings relate to?',
     subFieldHint: 'Select all that apply',
-    partnership: `Our ${partnership}`,
-    property: 'Our property',
-    children: 'Our children',
+    partnership: `${isDivorce ? 'Marriage' : 'Civil partnership'}`,
+    property: 'Property',
+    children: 'Children',
     errors: {
       legalProceedings: {
         required,
