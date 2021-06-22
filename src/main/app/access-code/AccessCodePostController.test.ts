@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as steps from '../../steps';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
-import { ApplicationType, CITIZEN_LINK_APPLICANT_2, UserRole } from '../case/definition';
+import { ApplicationType, CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
@@ -18,7 +18,6 @@ describe('AccessCodePostController', () => {
       accessToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
-      roles: [UserRole.CITIZEN],
       givenName: 'case',
       familyName: 'worker',
     });
