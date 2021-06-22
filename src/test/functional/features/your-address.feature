@@ -6,7 +6,6 @@ Feature: Your address
     When I go to "/enter-your-address"
     Then the page should include "Enter your postal address"
 
-  @nightly
   Scenario: Successfully searching for a UK postcode
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
