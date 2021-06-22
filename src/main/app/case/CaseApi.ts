@@ -97,7 +97,7 @@ export class CaseApi {
   }
 
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
-    const response = await this.axios.get(`case-users?case_ids=${caseId}?user_ids=${userId}`);
+    const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
     return response.data;
   }
 
