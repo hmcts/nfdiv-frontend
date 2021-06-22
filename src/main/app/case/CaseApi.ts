@@ -97,8 +97,13 @@ export class CaseApi {
   }
 
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
-    const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
-    return response.data;
+    try {
+      const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case roles could not be fetched.');
+    }
   }
 
   private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
