@@ -6,6 +6,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
+import { CaseAssignedUserRoles } from './case-roles';
 import {
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
@@ -92,6 +93,16 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
+    }
+  }
+
+  public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
+    try {
+      const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case roles could not be fetched.');
     }
   }
 
