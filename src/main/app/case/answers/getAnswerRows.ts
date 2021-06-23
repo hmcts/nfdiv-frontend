@@ -1,6 +1,6 @@
 import { stepsWithContent } from '../../../steps';
+import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
-import { Sections } from '../../../steps/sequence';
 import { PageLink } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case } from '../case';
@@ -115,10 +115,7 @@ const getCheckedLabels = (answer, field, stepContent) =>
     .filter(([, value]) => value?.length)
     .map(([key]) => {
       const checkbox = field.values.find(checkboxField => checkboxField.name === key);
-      if (typeof checkbox?.label === 'function') {
-        return checkbox.label(stepContent);
-      }
-      return checkbox?.label;
+      return typeof checkbox?.label === 'function' ? checkbox.label(stepContent) : checkbox?.label;
     });
 
 const getSelectedRadioLabel = (answer, field, stepContent) => {

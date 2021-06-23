@@ -6,6 +6,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
+import { CaseAssignedUserRoles } from './case-roles';
 import {
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
@@ -16,6 +17,7 @@ import {
   ListValue,
   Payment,
   State,
+  UserRole,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -93,6 +95,20 @@ export class CaseApi {
       this.logError(err);
       throw new Error('Case could not be created.');
     }
+  }
+
+  public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
+    try {
+      const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case roles could not be fetched.');
+    }
+  }
+
+  public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
+    return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
   }
 
   private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {

@@ -85,7 +85,7 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
-export const sequence: Step[] = [
+export const applicant1Sequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
     showInSection: Sections.AboutPartnership,
@@ -399,10 +399,5 @@ export const sequence: Step[] = [
   {
     url: ENTER_YOUR_ACCESS_CODE,
     getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
-  {
-    url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-    // TODO - to be replaced with Has your marriage irretrievably broken down page once developed
-    getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
 ];

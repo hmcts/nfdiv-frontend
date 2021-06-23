@@ -1,4 +1,4 @@
-import { Case, Checkbox } from './case';
+import { Case, Checkbox, LanguagePreference } from './case';
 import { ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
@@ -15,6 +15,11 @@ describe('to-api-format', () => {
     applicant1AddressPrivate: YesOrNo.YES,
     applicant1KnowsApplicant2Address: YesOrNo.NO,
     iWantToHavePapersServedAnotherWay: null,
+    englishOrWelsh: LanguagePreference.English,
+    legalProceedingsRelated: [],
+    cannotUploadDocuments: [],
+    iConfirmPrayer: Checkbox.Checked,
+    iBelieveApplicationIsTrue: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -33,6 +38,11 @@ describe('to-api-format', () => {
       applicant1KnowsApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
+      applicant1LanguagePreferenceWelsh: 'No',
+      cannotUploadSupportingDocument: [],
+      legalProceedingsRelated: [],
+      prayerHasBeenGiven: 'Yes',
+      statementOfTruth: 'Yes',
     });
   });
 
