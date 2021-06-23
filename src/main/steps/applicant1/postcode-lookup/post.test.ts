@@ -4,7 +4,7 @@ import { getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup'
 
 import { PostcodeLookupPostController } from './post';
 
-jest.mock('../../app/postcode/postcode-lookup');
+jest.mock('../../../app/postcode/postcode-lookup');
 
 const mockGetAddressesFromPostcode = getAddressesFromPostcode as jest.Mocked<jest.Mock>;
 

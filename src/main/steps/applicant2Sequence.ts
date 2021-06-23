@@ -3,7 +3,6 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   APPLICANT_2,
-  ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
   NOT_CONFIRMED_JOINT_APPLICATION,
@@ -12,10 +11,6 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
-  {
-    url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,

@@ -23,6 +23,7 @@ import {
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
+  ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
@@ -62,6 +63,7 @@ import {
   YOUR_NAME,
   YOU_CANNOT_APPLY,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
 export enum Sections {
@@ -393,5 +395,9 @@ export const applicant1Sequence: Step[] = [
   {
     url: APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: ENTER_YOUR_ACCESS_CODE,
+    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
   },
 ];

@@ -7,7 +7,7 @@ import { PAYMENT_CALLBACK_URL } from '../../urls';
 
 import PaymentPostController from './post';
 
-jest.mock('../../app/payment/PaymentClient');
+jest.mock('../../../app/payment/PaymentClient');
 
 const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 

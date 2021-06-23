@@ -7,7 +7,7 @@ import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAY_YOUR_FEE } from '../../ur
 
 import PaymentCallbackGetController from './get';
 
-jest.mock('../../app/payment/PaymentClient');
+jest.mock('../../../app/payment/PaymentClient');
 
 const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
