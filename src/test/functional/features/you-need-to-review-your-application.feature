@@ -23,7 +23,6 @@ Feature: You need to review your application
     And the page should include "a divorce application"
     And the page should include "for divorce"
 
-
   Scenario: The page should render wife and divorce content
     Given I am reviewing an application for divorce created by my wife
     When I go to '/applicant2/you-need-to-review-your-application'
