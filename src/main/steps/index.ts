@@ -11,17 +11,19 @@ import { CHECK_ANSWERS_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
-const sequences = [...applicant1Sequence, ...applicant2Sequence];
-for (const step of sequences) {
-  const stepContentFile = `${__dirname}${step.url}/content.ts`;
-  if (fs.existsSync(stepContentFile)) {
-    const content = require(stepContentFile);
+[applicant1Sequence, applicant2Sequence].forEach((sequence: Step[], i: number) => {
+  const dir = __dirname + (i === 0 ? '/applicant1' : '');
+  for (const step of sequence) {
+    const stepContentFile = `${dir}${step.url}/content.ts`;
+    if (fs.existsSync(stepContentFile)) {
+      const content = require(stepContentFile);
 
-    if (content.form) {
-      stepForms[step.url] = new Form(content.form);
+      if (content.form) {
+        stepForms[step.url] = new Form(content.form);
+      }
     }
   }
-}
+});
 
 const getNextIncompleteStep = (
   data: CaseWithId,
@@ -64,7 +66,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = sequences.find(s => s.url === path);
+  const nextStep = [...applicant1Sequence, ...applicant2Sequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
@@ -95,15 +97,13 @@ export type StepWithContent = ({
 } & Step)[];
 export const stepsWithContent = ((): StepWithContent => {
   const results: StepWithContent = [];
-  for (const step of applicant1Sequence) {
-    const stepDir = `${__dirname}/applicant1${step.url}`;
-    const { content, view } = getStepFiles(stepDir);
-    results.push({ stepDir, ...step, ...content, view });
-  }
-  for (const step of applicant2Sequence) {
-    const stepDir = `${__dirname}${step.url}`;
-    const { content, view } = getStepFiles(stepDir);
-    results.push({ stepDir, ...step, ...content, view });
-  }
+  [applicant1Sequence, applicant2Sequence].forEach((sequence: Step[], i: number) => {
+    const dir = __dirname + (i === 0 ? '/applicant1' : '');
+    for (const step of sequence) {
+      const stepDir = `${dir}${step.url}`;
+      const { content, view } = getStepFiles(stepDir);
+      results.push({ stepDir, ...step, ...content, view });
+    }
+  });
   return results;
 })();
