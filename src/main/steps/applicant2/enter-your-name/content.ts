@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent, FormFields } from '../../app/form/Form';
-import { form as applicant1Form, generateContent as applicant1GenerateContent } from '../enter-your-name/content';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent, FormFields } from '../../../app/form/Form';
+import { form as applicant1Form, generateContent as applicant1GenerateContent } from '../../enter-your-name/content';
 
 const labels = content => ({
   errors: {
