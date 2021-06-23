@@ -90,11 +90,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
 
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data),
-      };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -123,11 +119,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
 
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data),
-      };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

@@ -55,16 +55,15 @@ export class Routes {
     app.get(`${DOCUMENT_MANAGER}/delete/:id`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
-      const getController = fs.existsSync(`${step.stepDir}/get.ts`)
-        ? require(`${step.stepDir}/get.ts`).default
-        : GetController;
+      const dir = `${__dirname}/steps${step.url}`;
+      const customView = `${dir}/template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
+      const getController = fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
 
-      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      app.get(step.url, errorHandler(new getController(view, step.generateContent).get));
 
       if (step.form) {
-        const postController = fs.existsSync(`${step.stepDir}/post.ts`)
-          ? require(`${step.stepDir}/post.ts`).default
-          : PostController;
+        const postController = fs.existsSync(`${dir}/post.ts`) ? require(`${dir}/post.ts`).default : PostController;
         app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
       }
     }
