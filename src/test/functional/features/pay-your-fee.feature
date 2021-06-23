@@ -3,6 +3,7 @@ Feature: Pay your fee
   Background:
     Given I login
 
+  @nightly
   Scenario: Continuing to payment
     Given I've already completed the form using the fixture "completeCase"
     When I go to '/check-your-answers'
