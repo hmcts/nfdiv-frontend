@@ -7,7 +7,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { Step, applicant1Sequence } from './applicant1/applicant1Sequence';
 import { applicant2Sequence } from './applicant2/applicant2Sequence';
-import { APPLICATION_SUBMITTED } from './urls';
+import { CHECK_ANSWERS_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -26,6 +26,7 @@ for (const step of sequences) {
 const getNextIncompleteStep = (
   data: CaseWithId,
   step: Step,
+  sequence: Step[],
   removeExcluded = false,
   checkedSteps: Step[] = []
 ): string => {
@@ -41,11 +42,11 @@ const getNextIncompleteStep = (
     } else {
       // if there are no errors go to the next page and work out what to do
       const nextStepUrl = step.getNextStep(data);
-      const nextStep = sequences.find(s => s.url === nextStepUrl);
+      const nextStep = sequence.find(s => s.url === nextStepUrl);
 
       return nextStep
-        ? getNextIncompleteStep(data, nextStep, removeExcluded, checkedSteps.concat(step))
-        : APPLICATION_SUBMITTED;
+        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
+        : CHECK_ANSWERS_URL;
     }
   }
 
@@ -55,7 +56,8 @@ const getNextIncompleteStep = (
 
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
-  const url = getNextIncompleteStep(req.session.userCase, sequences[0], true);
+  const sequence = getUserSequence(req);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
 
   return `${url}${queryString}`;
 };
@@ -63,10 +65,12 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequences.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(data) : APPLICATION_SUBMITTED;
+  const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };
+
+const getUserSequence = (req: AppRequest) => (req.session.isApplicant2 ? applicant2Sequence : applicant1Sequence);
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');
