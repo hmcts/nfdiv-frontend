@@ -14,15 +14,13 @@ const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('AccessCodePostController', () => {
   beforeEach(() => {
-    getCaseWorkerUserMock.mockReturnValue(
-      Promise.resolve({
-        accessToken: 'token',
-        id: '1234',
-        email: 'user@caseworker.com',
-        givenName: 'case',
-        familyName: 'worker',
-      })
-    );
+    getCaseWorkerUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+    });
     getNextStepUrlMock.mockReturnValue('/next-step-url');
   });
 

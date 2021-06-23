@@ -17,6 +17,7 @@ import {
   ListValue,
   Payment,
   State,
+  UserRole,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -104,6 +105,10 @@ export class CaseApi {
       this.logError(err);
       throw new Error('Case roles could not be fetched.');
     }
+  }
+
+  public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
+    return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
   }
 
   private async sendEvent(caseId: string, data: Partial<Case | CaseData>, eventName: string): Promise<CaseWithId> {
