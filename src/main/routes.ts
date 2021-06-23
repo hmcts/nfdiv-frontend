@@ -57,7 +57,7 @@ export class Routes {
     for (const step of stepsWithContent) {
       const dir = `${__dirname}/steps${step.url}`;
       const customView = `${dir}/template.njk`;
-      const view = fs.existsSync(customView) ? customView : `${dir}/../common/template.njk`;
+      const view = fs.existsSync(customView) ? customView : `${__dirname}/steps/common/template.njk`;
       const getController = fs.existsSync(`${dir}/get.ts`) ? require(`${dir}/get.ts`).default : GetController;
 
       app.get(step.url, errorHandler(new getController(view, step.generateContent).get));

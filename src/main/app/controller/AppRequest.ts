@@ -4,7 +4,6 @@ import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { UserRole } from '../case/definition';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -32,5 +31,4 @@ export interface UserDetails {
   email: string;
   givenName: string;
   familyName: string;
-  roles: UserRole[];
 }

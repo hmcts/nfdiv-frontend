@@ -7,6 +7,7 @@ import {
 } from '../../app/jurisdiction/connections';
 import {
   ADDRESS_PRIVATE,
+  APPLICANT_1,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
@@ -43,7 +44,6 @@ import {
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
-  NOT_CONFIRMED_JOINT_APPLICATION,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -83,7 +83,7 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
-export const applicant1Sequence: Step[] = [
+const sequences: Step[] = [
   {
     url: YOUR_DETAILS_URL,
     showInSection: Sections.AboutPartnership,
@@ -92,24 +92,12 @@ export const applicant1Sequence: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.screenHasUnionBroken === YesOrNo.NO) {
-        if (data.isApplicant2) {
-          return `${RELATIONSHIP_NOT_BROKEN_URL}2`;
-        } else {
-          return RELATIONSHIP_NOT_BROKEN_URL;
-        }
-      }
-      return RELATIONSHIP_DATE_URL;
-    },
+    getNextStep: data =>
+      data.screenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
-  },
-  {
-    url: NOT_CONFIRMED_JOINT_APPLICATION,
-    getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
   },
   {
     url: RELATIONSHIP_DATE_URL,
@@ -407,3 +395,7 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
 ];
+
+export const applicant1Sequence = (): Step[] => {
+  return sequences.map(sequence => ({ url: APPLICANT_1 + sequence.url, getNextStep: sequence.getNextStep }));
+};
