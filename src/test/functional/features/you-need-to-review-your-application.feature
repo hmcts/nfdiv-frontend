@@ -7,7 +7,7 @@ Feature: You need to review your application
     Given I am reviewing an application for divorce created by my husband
     When I go to '/you-need-to-review-your-application'
     And I click "Continue"
-    Then the page URL should be "/irretrievable-breakdown"
+    Then the page URL should be "/applicant2/irretrievable-breakdown"
 
   Scenario: The page should render civil partner and civil partnership content
     Given I am reviewing an application for dissolution of my civil partnership
