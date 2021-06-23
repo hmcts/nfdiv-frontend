@@ -1,4 +1,4 @@
-import { Step } from './sequence';
+import { Step } from './applicant1Sequence';
 import {
   HAS_RELATIONSHIP_BROKEN_APPLICANT2,
   HOME_URL,

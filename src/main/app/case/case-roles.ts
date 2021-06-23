@@ -1,9 +1,11 @@
+import { UserRole } from './definition';
+
 export interface CaseAssignedUserRoles {
-  roles: CaseAssignedUserRole[];
+  case_users: CaseAssignedUserRole[];
 }
 
 export interface CaseAssignedUserRole {
-  caseDataId: string;
-  userId: string;
-  caseRole: string;
+  case_id: string;
+  user_id: string;
+  case_role: UserRole;
 }

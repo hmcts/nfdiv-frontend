@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
 
 const en = ({ isDivorce, partner, civilPartner }) => ({
   title: 'You need to review your joint application',
