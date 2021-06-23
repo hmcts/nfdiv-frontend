@@ -40,7 +40,7 @@
         </div>
       </div>
     {% endblock %}
-  {% elif isJointApplication %}
+  {% elif isApplicationReadyToSubmit and isJointApplication %}
     {% include "./joint-form.njk" %}
   {% else %}
     {{ govukButton({
