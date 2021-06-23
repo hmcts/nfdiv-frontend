@@ -80,8 +80,8 @@ export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-re
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 
 export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
-export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = `${APPLICANT_2}/you-need-to-review-your-application`;
-export const HAS_RELATIONSHIP_BROKEN_APPLICANT2: PageLink = `${APPLICANT_2}${HAS_RELATIONSHIP_BROKEN_URL}`;
+export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = '/you-need-to-review-your-application';
+export const NOT_CONFIRMED_JOINT_APPLICATION: PageLink = '/not-confirmed-your-joint-application';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
