@@ -2,7 +2,13 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { Form } from '../../../app/form/Form';
-import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_ANSWERS_URL,
+  YOUR_DETAILS_URL,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+} from '../../urls';
 import { form as firstQuestionFormContent } from '../your-details/content';
 
 export class HomeGetController {
@@ -12,12 +18,12 @@ export class HomeGetController {
     }
 
     if (req.session.isApplicant2) {
-      return res.redirect(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
+      return res.redirect(APPLICANT_2 + YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
     }
 
     const firstQuestionForm = new Form(firstQuestionFormContent);
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
-    res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+    res.redirect(APPLICANT_1 + (isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL));
   }
 }

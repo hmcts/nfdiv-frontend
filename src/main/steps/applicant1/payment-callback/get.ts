@@ -5,12 +5,12 @@ import { State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
-import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../urls';
+import { APPLICANT_1, APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../urls';
 
 export default class PaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (req.session.userCase.state !== State.AwaitingPayment) {
-      return res.redirect(CHECK_ANSWERS_URL);
+      return res.redirect(APPLICANT_1 + CHECK_ANSWERS_URL);
     }
 
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
@@ -21,7 +21,7 @@ export default class PaymentCallbackGetController {
     const payments = new PaymentModel(req.session.userCase.payments);
 
     if (!payments.hasPayment) {
-      return res.redirect(CHECK_ANSWERS_URL);
+      return res.redirect(APPLICANT_1 + CHECK_ANSWERS_URL);
     }
 
     const lastPaymentAttempt = payments.lastPayment;
@@ -40,7 +40,7 @@ export default class PaymentCallbackGetController {
         return res.redirect(APPLICATION_SUBMITTED);
       }
 
-      res.redirect(req.query.back ? CHECK_ANSWERS_URL : PAY_YOUR_FEE);
+      res.redirect(req.query.back ? APPLICANT_1 + CHECK_ANSWERS_URL : PAY_YOUR_FEE);
     });
   }
 }

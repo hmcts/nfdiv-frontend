@@ -36,12 +36,12 @@
     {% block form %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          {% include "form.njk" %}
+          {% include "./form.njk" %}
         </div>
       </div>
     {% endblock %}
   {% elif isJointApplication %}
-    {% include "joint-form.njk" %}
+    {% include "./joint-form.njk" %}
   {% else %}
     {{ govukButton({
       text: continueApplication,

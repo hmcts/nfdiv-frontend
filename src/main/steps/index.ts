@@ -7,11 +7,11 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { Step, applicant1Sequence } from './applicant1/applicant1Sequence';
 import { applicant2Sequence } from './applicant2/applicant2Sequence';
-import { CHECK_ANSWERS_URL } from './urls';
+import { APPLICANT_1, CHECK_ANSWERS_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
-const sequences = [...applicant1Sequence, ...applicant2Sequence];
+const sequences = [...applicant1Sequence(), ...applicant2Sequence()];
 for (const step of sequences) {
   const stepContentFile = `${__dirname}${step.url}/content.ts`;
   if (fs.existsSync(stepContentFile)) {
@@ -56,7 +56,7 @@ const getNextIncompleteStep = (
 
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
-  const sequence = getUserSequence(req);
+  const sequence = getUserSequence(req.session.isApplicant2);
   const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
 
   return `${url}${queryString}`;
@@ -65,12 +65,12 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = sequences.find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
+  const url = nextStep ? nextStep.getNextStep(data) : APPLICANT_1 + CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => (req.session.isApplicant2 ? applicant2Sequence : applicant1Sequence);
+const getUserSequence = (isApplicant2: boolean) => (isApplicant2 ? applicant2Sequence() : applicant1Sequence());
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');
@@ -78,32 +78,13 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   return { path, queryString };
 };
 
-const getStepFiles = (stepDir: string) => {
-  const stepContentFile = `${stepDir}/content.ts`;
-  const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
-  const stepViewFile = `${stepDir}/template.njk`;
-  const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepDir}/../../common/template.njk`;
-
-  return { content, view };
-};
-
-export type StepWithContent = ({
-  stepDir: string;
-  generateContent: TranslationFn;
-  form: FormContent;
-  view: string;
-} & Step)[];
+export type StepWithContent = ({ generateContent: TranslationFn; form: FormContent } & Step)[];
 export const stepsWithContent = ((): StepWithContent => {
   const results: StepWithContent = [];
-  for (const step of applicant1Sequence) {
-    const stepDir = `${__dirname}/applicant1${step.url}`;
-    const { content, view } = getStepFiles(stepDir);
-    results.push({ stepDir, ...step, ...content, view });
-  }
-  for (const step of applicant2Sequence) {
-    const stepDir = `${__dirname}/applicant2${step.url}`;
-    const { content, view } = getStepFiles(stepDir);
-    results.push({ stepDir, ...step, ...content, view });
+  for (const step of sequences) {
+    const stepContentFile = `${__dirname}${step.url}/content.ts`;
+    const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
+    results.push({ ...step, ...content });
   }
   return results;
 })();

@@ -397,5 +397,9 @@ const sequences: Step[] = [
 ];
 
 export const applicant1Sequence = (): Step[] => {
-  return sequences.map(sequence => ({ url: APPLICANT_1 + sequence.url, getNextStep: sequence.getNextStep }));
+  return sequences.map(sequence => ({
+    ...sequence,
+    url: `${APPLICANT_1}${sequence.url}`,
+    getNextStep: data => `${APPLICANT_1}${sequence.getNextStep(data)}`,
+  }));
 };
