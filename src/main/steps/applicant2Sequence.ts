@@ -17,7 +17,6 @@ const sequences: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    // TODO - to be replaced with Has your marriage irretrievably broken down page once developed
     getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : HOME_URL),
   },
   {
