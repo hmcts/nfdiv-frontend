@@ -2,22 +2,22 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/how-the-court-will-contact-you/content';
+import {
+  form as applicant1Form,
+  generateContent as applicant1GenerateContent,
+} from '../../applicant1/how-the-court-will-contact-you/content';
 
-const labels = () => {
+const labels = content => {
   return {
     errors: {
-      applicant2AgreeToReceiveEmails: {
-        required: 'You have to agree to receive email notifications in order to use this online service.',
-      },
-      applicant2PhoneNumber: {
-        invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
-      },
+      applicant2AgreeToReceiveEmails: content.errors.applicant1AgreeToReceiveEmails,
+      applicant2PhoneNumber: content.errors.applicant1PhoneNumber,
     },
   };
 };
 
 export const form: FormContent = {
+  ...applicant1Form,
   fields: {
     applicant2AgreeToReceiveEmails: {
       type: 'checkboxes',
@@ -45,16 +45,13 @@ export const form: FormContent = {
       validator: isPhoneNoValid,
     },
   },
-  submit: {
-    text: l => l.continue,
-  },
 };
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
   return {
     ...applicant1Content,
-    ...labels(),
+    ...labels(applicant1Content),
     form,
   };
 };
