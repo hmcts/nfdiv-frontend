@@ -25,7 +25,8 @@ export class AccessCodePostController {
     req.session.errors = this.form.getErrors(formData);
 
     try {
-      const caseData = await req.locals.api.getCaseById(formData.caseReference as string);
+      const caseReference = formData.caseReference?.replace(/-/g, '');
+      const caseData = await req.locals.api.getCaseById(caseReference as string);
 
       if (caseData.accessCode !== formData.accessCode) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
