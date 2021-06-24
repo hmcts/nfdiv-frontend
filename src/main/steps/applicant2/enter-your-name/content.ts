@@ -10,12 +10,13 @@ const labels = content => ({
   },
 });
 
+const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    applicant2FirstNames: (applicant1Form.fields as FormFields).applicant1FirstNames,
-    applicant2MiddleNames: (applicant1Form.fields as FormFields).applicant1MiddleNames,
-    applicant2LastNames: (applicant1Form.fields as FormFields).applicant1LastNames,
+    applicant2FirstNames: applicant1FormFields.applicant1FirstNames,
+    applicant2MiddleNames: applicant1FormFields.applicant1MiddleNames,
+    applicant2LastNames: applicant1FormFields.applicant1LastNames,
   },
 };
 

@@ -13,7 +13,7 @@ Feature: Applicant 2 Your names
     And I select "Your last name"
     And I type "My last-name"
     And I click "Continue"
-    And the page should include "Check your answers"
+    Then the page URL should be "/applicant2/changes-to-your-name"
 
   @nightly
   Scenario: Error when entering a number in the your name field
