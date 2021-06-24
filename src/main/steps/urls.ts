@@ -82,7 +82,9 @@ export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
 export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = `${APPLICANT_2}/you-need-to-review-your-application`;
 export const HAS_RELATIONSHIP_BROKEN_APPLICANT2: PageLink = `${APPLICANT_2}${HAS_RELATIONSHIP_BROKEN_URL}`;
-
+export const HOW_DID_YOU_CHANGE_YOUR_NAME2: PageLink = `${APPLICANT_2}${HOW_DID_YOU_CHANGE_YOUR_NAME}`;
+export const CHANGES_TO_YOUR_NAME_URL2: PageLink = `${APPLICANT_2}${CHANGES_TO_YOUR_NAME_URL}`;
+2;
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
