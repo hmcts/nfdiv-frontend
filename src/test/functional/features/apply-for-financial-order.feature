@@ -9,7 +9,7 @@ Feature: Apply for a financial order
     And I click "Continue"
     And I clear the form
     When I select "Yes"
-    And I select "Our children"
+    And I select "The children"
     And I click "Continue"
     Then the page URL should be "/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
