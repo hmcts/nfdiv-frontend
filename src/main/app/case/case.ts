@@ -52,10 +52,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2LastNames: 'applicant2LastName',
   applicant1FullNameOnCertificate: 'marriageApplicant1Name',
   applicant2FullNameOnCertificate: 'marriageApplicant2Name',
-  applicant1LastNameChangedWhenRelationshipFormed: 'lastNameChangedWhenMarried',
+  applicant1LastNameChangedWhenRelationshipFormed: 'applicant1LastNameChangedWhenMarried',
+  applicant2LastNameChangedWhenRelationshipFormed: 'applicant2LastNameChangedWhenMarried',
   applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
+  applicant2NameChangedSinceRelationshipFormed: 'applicant2NameDifferentToMarriageCertificate',
   applicant1ChangedNameHow: 'applicant1NameChangedHow',
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
+  applicant2ChangedNameHow: 'applicant2NameChangedHow',
+  applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
   applicant2EmailAddress: 'applicant2EmailAddress',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
@@ -143,9 +147,13 @@ export interface Case {
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
   applicant1LastNameChangedWhenRelationshipFormed?: YesOrNo;
+  applicant2LastNameChangedWhenRelationshipFormed?: YesOrNo;
   applicant1NameChangedSinceRelationshipFormed?: YesOrNo;
+  applicant2NameChangedSinceRelationshipFormed?: YesOrNo;
   applicant1ChangedNameHow?: ChangedNameHow;
+  applicant2ChangedNameHow?: ChangedNameHow;
   applicant1ChangedNameHowAnotherWay?: string;
+  applicant2ChangedNameHowAnotherWay?: string;
   applicant2EmailAddress?: string;
   applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
   applicant1KnowsApplicant2Address?: YesOrNo;
