@@ -1,16 +1,16 @@
-import { Checkbox } from '../../app/case/case';
-import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn, isPhoneNoValid } from '../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../how-the-court-will-contact-you/content';
+import { Checkbox } from '../../../app/case/case';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
+import { generateContent as applicant1GenerateContent } from '../../how-the-court-will-contact-you/content';
 
 const labels = () => {
   return {
     errors: {
-      applicant1AgreeToReceiveEmails: {
+      applicant2AgreeToReceiveEmails: {
         required: 'You have to agree to receive email notifications in order to use this online service.',
       },
-      applicant1PhoneNumber: {
+      applicant2PhoneNumber: {
         invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
       },
     },

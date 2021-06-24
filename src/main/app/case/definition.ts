@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-22 17:12:38.
+// Generated using typescript-generator version 2.32.889 on 2021-06-24 09:15:39.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -145,7 +145,6 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow;
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
-  applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant2Gender: Gender;
   applicant2CorrespondenceAddress: AddressGlobalUK;
@@ -206,6 +205,8 @@ export interface CaseData {
   applicationFeeOrderSummary: OrderSummary;
   lastNameChangedWhenMarried: YesOrNo;
   applicant2EmailAddress: string;
+  applicant2PhoneNumber: string;
+  applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
   legalProceedings: YesOrNo;
@@ -496,6 +497,7 @@ export const enum State {
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
   Issued = 'Issued',
+  AwaitingAos = 'AwaitingAos',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   PendingRejection = 'PendingRejection',
@@ -538,6 +540,7 @@ export const enum DocumentType {
   SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
   SERVICE_BALIFF = 'serviceBaliff',
   AOS_OFFLINE_INVITATION_LETTER_TO_APPLICANT_2 = 'aosOfflineInvitationLetterToApplicant2',
+  DOCUMENT_TYPE_RESPONDENT_INVITATION = 'aos',
   APPLICANT_2_ANSWERS = 'applicant2Answers',
   CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
   CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
