@@ -7,7 +7,7 @@ import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form } from '../../app/form/Form';
 
 @autobind
-export default class CheckYourAnswersPostController extends PostController<AnyObject> {
+export default class HowDoYouWantToApplyPostController extends PostController<AnyObject> {
   constructor(protected readonly form: Form) {
     super(form);
   }
