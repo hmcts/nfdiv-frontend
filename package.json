@@ -54,7 +54,7 @@
     "@types/lodash": "^4.14.170",
     "@types/multer": "^1.4.6",
     "@types/negotiator": "^0.6.1",
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.12.4",
     "@types/nunjucks": "^3.1.4",
     "@types/redis": "^2.8.30",
     "@types/require-directory": "^2.1.1",
