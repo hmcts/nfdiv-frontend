@@ -5,7 +5,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { applicant1Sequence } from './applicant1Sequence';
 import {
-  HAS_RELATIONSHIP_BROKEN_APPLICANT2,
+  APPLICANT_2,
   HAS_RELATIONSHIP_BROKEN_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_DETAILS_URL,
@@ -86,7 +86,7 @@ describe('Steps', () => {
       mockReq.originalUrl = YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
       mockReq.session.isApplicant2 = true;
       const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(HAS_RELATIONSHIP_BROKEN_APPLICANT2);
+      expect(actual).toBe(APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL);
     });
   });
 });

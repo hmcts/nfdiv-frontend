@@ -2,7 +2,7 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../how-the-court-will-contact-you/content';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/how-the-court-will-contact-you/content';
 
 const labels = () => {
   return {

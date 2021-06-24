@@ -1,6 +1,6 @@
 import { isInvalidPostcode as checkIfPostcodeInvalid } from '../../../app/form/validation';
+import { generateContent } from '../../../steps/applicant1/enter-your-address/content';
 import type { CommonContent } from '../../../steps/common/common.content';
-import { generateContent } from '../../../steps/enter-your-address/content';
 import { POSTCODE_LOOKUP } from '../../../steps/urls';
 import { getById, hidden } from '../selectors';
 

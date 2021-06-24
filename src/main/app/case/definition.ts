@@ -88,6 +88,7 @@ export interface Applicant {
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
+  LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
   NameChangedHow: ChangedNameHow;
   NameChangedHowOtherDetails: string;
@@ -118,6 +119,7 @@ export interface CaseData {
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
+  applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameChangedHow: ChangedNameHow;
   applicant1NameChangedHowOtherDetails: string;
@@ -141,6 +143,7 @@ export interface CaseData {
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
+  applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
   applicant2NameChangedHow: ChangedNameHow;
   applicant2NameChangedHowOtherDetails: string;
@@ -203,7 +206,6 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
-  lastNameChangedWhenMarried: YesOrNo;
   applicant2EmailAddress: string;
   applicant2PhoneNumber: string;
   applicant2AgreeToReceiveEmails: YesOrNo;

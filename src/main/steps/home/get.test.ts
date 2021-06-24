@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../app/case/definition';
-import { CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../urls';
+import { APPLICANT_2, CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../urls';
 
 import { HomeGetController } from './get';
 
@@ -63,6 +63,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
+    expect(res.redirect).toBeCalledWith(APPLICANT_2 + YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
   });
 });
