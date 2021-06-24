@@ -16,7 +16,7 @@ export const applicant2Sequence: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_APPLICANT2,
-    getNextStep: () => HOW_DID_YOU_CHANGE_YOUR_NAME2,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL2,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL2,
