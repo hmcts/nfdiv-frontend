@@ -137,6 +137,7 @@ export interface Case {
   applicant2FirstNames?: string;
   applicant2MiddleNames?: string;
   applicant2LastNames?: string;
+  applicant2AddressPrivate: YesOrNo;
   applicant2Address1?: string;
   applicant2Address2?: string;
   applicant2Address3?: string;

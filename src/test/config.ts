@@ -58,7 +58,7 @@ export const config = {
   TestUser,
   TestPass,
   Gherkin: {
-    features: './features/*.feature',
+    features: ['./features/*.feature', './features/**/*.feature'],
     steps: [
       '../steps/common.ts',
       '../steps/date.ts',

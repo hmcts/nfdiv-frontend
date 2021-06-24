@@ -1,5 +1,6 @@
 import { Step } from './applicant1Sequence';
 import {
+  ADDRESS_PRIVATE_APPLICANT2,
   HAS_RELATIONSHIP_BROKEN_APPLICANT2,
   HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU_APPLICANT2,
@@ -13,11 +14,15 @@ export const applicant2Sequence: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_APPLICANT2,
-    // TODO - replace next step with Keep details private as part of NFDIV-788
     getNextStep: () => HOME_URL,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU_APPLICANT2,
+    getNextStep: () => ADDRESS_PRIVATE_APPLICANT2,
+  },
+  {
+    url: ADDRESS_PRIVATE_APPLICANT2,
+    // TODO - to be replaced by Enter your postal address when developed as part of NFDIV-757
     getNextStep: () => HOME_URL,
   },
 ];

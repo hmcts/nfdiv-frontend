@@ -49,6 +49,10 @@ const fields: FromApiConverters = {
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
+  applicant2ContactDetailsConfidential: data => ({
+    applicant2AddressPrivate:
+      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+  }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
   documentsUploaded: uploadedFilesFromApi,
   cannotUploadSupportingDocument: uploadedFilesFromApi,
