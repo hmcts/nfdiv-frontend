@@ -2,7 +2,7 @@ Feature: Applicant 2 How the court will contact you
 
   Background:
     Given I login
-    And I've said I'm divorcing my husband
+    And I am reviewing an application for divorce created by my wife
     When I go to "/applicant2/how-the-court-will-contact-you"
     Then the page should include "How the court will contact you"
     And I expect the page title to be "Apply for a divorce - How the court will contact you - GOV.UK"
