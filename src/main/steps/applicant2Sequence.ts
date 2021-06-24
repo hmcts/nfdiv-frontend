@@ -22,7 +22,6 @@ export const applicant2Sequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE_APPLICANT2,
-    // TODO - to be replaced by Enter your postal address when developed as part of NFDIV-757
-    getNextStep: () => HOME_URL,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
 ];
