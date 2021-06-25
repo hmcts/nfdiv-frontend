@@ -3,7 +3,7 @@ import { FormContent, FormFields } from '../../../app/form/Form';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../changes-to-your-name/content';
+} from '../../applicant1/changes-to-your-name/content';
 import { CommonContent } from '../../common/common.content';
 
 const labels = ({ required }: CommonContent) => {
