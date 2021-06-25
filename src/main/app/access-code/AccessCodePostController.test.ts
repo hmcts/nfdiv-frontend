@@ -62,7 +62,7 @@ describe('AccessCodePostController', () => {
 
     expect(getNextStepUrlMock).toBeCalled();
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
+      '1234123412341234',
       {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
