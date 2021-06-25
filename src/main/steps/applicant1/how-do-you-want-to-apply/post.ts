@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 import { NextFunction, Response } from 'express';
 
-import { ApplicationType, YesOrNo } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../app/controller/PostController';
-import { Form } from '../../app/form/Form';
+import { ApplicationType, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { Form } from '../../../app/form/Form';
 
 @autobind
 export default class HowDoYouWantToApplyPostController extends PostController<AnyObject> {

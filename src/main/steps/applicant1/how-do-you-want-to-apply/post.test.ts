@@ -1,7 +1,7 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { ApplicationType, YesOrNo } from '../../app/case/definition';
-import { Form } from '../../app/form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { ApplicationType, YesOrNo } from '../../../app/case/definition';
+import { Form } from '../../../app/form/Form';
 
 import HowDoYouWantToApplyPostController from './post';
 
