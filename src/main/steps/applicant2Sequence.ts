@@ -3,12 +3,13 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   APPLICANT_2,
+  CHANGES_TO_YOUR_NAME_URL,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
-  HOME_URL,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
+  YOUR_NAME,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
@@ -19,7 +20,7 @@ const sequences: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : HOME_URL),
+    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : YOUR_NAME),
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
@@ -28,6 +29,10 @@ const sequences: Step[] = [
   {
     url: NOT_CONFIRMED_JOINT_APPLICATION,
     getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
+  },
+  {
+    url: YOUR_NAME,
+    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: ENTER_YOUR_ADDRESS,
