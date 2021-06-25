@@ -20,8 +20,6 @@ export class AccessCodePostController {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
-    Object.assign(req.session.userCase, formData);
-    this.form.setFormState(req.session.userCase);
     req.session.errors = this.form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
