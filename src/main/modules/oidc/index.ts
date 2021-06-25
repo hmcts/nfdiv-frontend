@@ -62,7 +62,9 @@ export class OidcMiddleware {
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           req.session.userCase =
             req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
-          req.session.isApplicant2 = await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id);
+          req.session.isApplicant2 =
+            req.session.isApplicant2 ||
+            (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
 
           return next();
         } else if (req.url === '/applicant2') {
