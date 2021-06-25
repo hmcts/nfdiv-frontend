@@ -15,6 +15,7 @@ describe('from-api-format', () => {
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: null,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
+    applicant2ContactDetailsConfidential: 'keep',
     prayerHasBeenGiven: YesOrNo.YES,
     statementOfTruth: YesOrNo.YES,
   };
@@ -31,6 +32,7 @@ describe('from-api-format', () => {
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       englishOrWelsh: 'welsh',
       iBelieveApplicationIsTrue: 'checked',
@@ -62,6 +64,7 @@ describe('from-api-format', () => {
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
     });

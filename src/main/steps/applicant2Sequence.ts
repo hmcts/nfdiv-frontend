@@ -2,9 +2,12 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  ADDRESS_PRIVATE,
   APPLICANT_2,
   CHANGES_TO_YOUR_NAME_URL,
+  ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
@@ -31,6 +34,14 @@ const sequences: Step[] = [
   {
     url: YOUR_NAME,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+  },
+  {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
 ];
 
