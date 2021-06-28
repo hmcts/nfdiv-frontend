@@ -4,7 +4,7 @@ Feature: Applicant 2 Contact details kept private
     Given I login
     And I am reviewing an application for divorce created by my wife
     And I go to '/applicant2/address-private'
-    Then the page should include "Do you need your contact details kept private from your husband"
+    Then the page should include "Do you need your contact details kept private from your wife"
 
   @nightly
   Scenario: Error when not answering Do you need your contact details kept private from your husband?
