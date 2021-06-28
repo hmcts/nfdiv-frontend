@@ -14,12 +14,12 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'divorce service' : 'service to end your civil partnership'
   }. Your email address will not be shared with your ${partner}.`,
   byEmailLine2: 'Emails will be sent to:',
-  applicant1AgreeToReceiveEmails: `I agree that the ${
+  applicantAgreeToReceiveEmails: `I agree that the ${
     isDivorce ? 'divorce service' : 'ending a civil partnership service'
   } can send me notifications and serve (deliver) court documents to me by email.`,
   byPhone: 'By phone',
   byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. Your phone number will not be shared with your ${partner}.`,
-  applicant1PhoneNumber: 'Enter your phone number (optional)',
+  applicantPhoneNumber: 'Enter your phone number (optional)',
   errors: {
     applicant1AgreeToReceiveEmails: {
       required: 'You have to agree to receive email notifications in order to use this online service.',
@@ -40,12 +40,12 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'gwasanaeth ysgaru ar-lein' : 'gwasanaeth ar-lein i ddiweddu eich partneriaeth sifil'
   }. Ni fydd eich cyfeiriad e-bost yn cael ei rannu gyda'ch ${partner}.`,
   byEmailLine2: 'Anfonir negeseuon e-bost i:',
-  applicant1AgreeToReceiveEmails: `Rwy'n cytuno y gall y ${
+  applicantAgreeToReceiveEmails: `Rwy'n cytuno y gall y ${
     isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
   } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`,
   byPhone: 'Dros y ffôn',
   byPhoneLine1: `Nodwch eich rhif ffôn fel y gall staff y llys gysylltu â chi yn gyflym, os oes angen. Ni fydd eich rhif ffôn yn cael ei rannu gyda'ch ${partner}.`,
-  applicant1PhoneNumber: 'Nodwch eich rhif ffôn (dewisol)',
+  applicantPhoneNumber: 'Nodwch eich rhif ffôn (dewisol)',
   errors: {
     applicant1AgreeToReceiveEmails: {
       required: "Rhaid ichi gytuno i dderbyn hysbysiadau trwy e-bost i ddefnyddio'r gwasanaeth ar-lein hwn.",
@@ -69,7 +69,7 @@ export const form: FormContent = {
       values: [
         {
           name: 'applicant1AgreeToReceiveEmails',
-          label: l => l.applicant1AgreeToReceiveEmails,
+          label: l => l.applicantAgreeToReceiveEmails,
           value: Checkbox.Checked,
         },
       ],
@@ -79,7 +79,7 @@ export const form: FormContent = {
       label: l => l.byPhone,
       hint: l =>
         `<p class="govuk-body">${l.byPhoneLine1}</p>
-        <label class="govuk-label govuk-!-font-weight-bold" for="applicant1PhoneNumber">${l.applicant1PhoneNumber}</label>`,
+        <label class="govuk-label govuk-!-font-weight-bold" for="applicant1PhoneNumber">${l.applicantPhoneNumber}</label>`,
       classes: 'govuk-input govuk-input--width-20',
       validator: isPhoneNoValid,
     },
