@@ -134,6 +134,8 @@ export interface Case {
   applicant1AddressCountry?: string;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
+  applicant2PhoneNumber?: string;
+  applicant2AgreeToReceiveEmails?: Checkbox;
   connections: JurisdictionConnections[];
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
@@ -141,6 +143,7 @@ export interface Case {
   applicant2FirstNames?: string;
   applicant2MiddleNames?: string;
   applicant2LastNames?: string;
+  applicant2AddressPrivate: YesOrNo;
   applicant2Address1?: string;
   applicant2Address2?: string;
   applicant2Address3?: string;

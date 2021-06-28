@@ -5,9 +5,11 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
+  APPLICANT_2,
   APPLICANT_2_CALLBACK_URL,
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
+  ENTER_YOUR_ACCESS_CODE,
   SIGN_IN_URL,
   SIGN_OUT_URL,
 } from '../../steps/urls';
@@ -48,7 +50,7 @@ export class OidcMiddleware {
             req.query.code,
             APPLICANT_2_CALLBACK_URL
           );
-          req.session.save(() => res.redirect('/enter-your-access-code'));
+          req.session.save(() => res.redirect(ENTER_YOUR_ACCESS_CODE));
         } else {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
         }
@@ -60,12 +62,17 @@ export class OidcMiddleware {
         if (req.session?.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-          req.session.userCase =
-            req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
-          req.session.isApplicant2 = await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id);
+
+          if (req.url !== ENTER_YOUR_ACCESS_CODE) {
+            req.session.userCase =
+              req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
+            req.session.isApplicant2 =
+              req.session.isApplicant2 ||
+              (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          }
 
           return next();
-        } else if (req.url === '/applicant2') {
+        } else if (req.url === APPLICANT_2) {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
         } else {
           res.redirect(SIGN_IN_URL);

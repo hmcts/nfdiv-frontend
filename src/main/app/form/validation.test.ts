@@ -12,6 +12,8 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isPhoneNoValid,
+  isValidAccessCode,
+  isValidCaseReference,
 } from './validation';
 
 describe('Validation', () => {
@@ -210,6 +212,45 @@ describe('Validation', () => {
       const isValid = atLeastOneFieldIsChecked([]);
 
       expect(isValid).toStrictEqual('required');
+    });
+  });
+
+  describe('isValidCaseReference()', () => {
+    test('Should check if case reference is valid with hyphens', async () => {
+      const isValid = isValidCaseReference('1234-1234-1234-1234');
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should check if case reference is valid without hyphens', async () => {
+      const isValid = isValidCaseReference('1234123412341234');
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should reject invalid case reference', async () => {
+      const isValid = isValidCaseReference('123412341234');
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should reject empty case reference', async () => {
+      const isValid = isValidCaseReference('');
+      expect(isValid).toStrictEqual('invalid');
+    });
+  });
+
+  describe('isValidAccessCode()', () => {
+    test('Should accept valid access code', async () => {
+      const isValid = isValidAccessCode('QWERTY45');
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should reject invalid access code', async () => {
+      const isValid = isValidAccessCode('QWERTY');
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should reject empty access code', async () => {
+      const isValid = isValidAccessCode('');
+      expect(isValid).toStrictEqual('invalid');
     });
   });
 });
