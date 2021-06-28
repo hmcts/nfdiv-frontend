@@ -4,7 +4,10 @@ import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
+  APPLY_FINANCIAL_ORDER,
+  APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
+  CHECK_ANSWERS_URL,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -47,6 +50,11 @@ const sequences: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER,
+    getNextStep: data =>
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
   },
 ];
 
