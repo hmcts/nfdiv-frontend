@@ -44,6 +44,7 @@ const sequences: Step[] = [
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     getNextStep: () => ADDRESS_PRIVATE,
   },
