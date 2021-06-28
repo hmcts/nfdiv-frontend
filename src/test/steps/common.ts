@@ -158,7 +158,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  await I.amOnPage('/enter-your-access-code');
+  await I.amOnPage('/applicant2/enter-your-access-code');
   iClearTheForm();
 
   const testUser = await iGetTheTestUser();

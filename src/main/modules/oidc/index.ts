@@ -50,7 +50,7 @@ export class OidcMiddleware {
             req.query.code,
             APPLICANT_2_CALLBACK_URL
           );
-          req.session.save(() => res.redirect(ENTER_YOUR_ACCESS_CODE));
+          req.session.save(() => res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`));
         } else {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
         }
@@ -63,7 +63,7 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (req.url !== ENTER_YOUR_ACCESS_CODE) {
+          if (!req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
             req.session.userCase =
               req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
             req.session.isApplicant2 =

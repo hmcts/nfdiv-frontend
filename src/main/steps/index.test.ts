@@ -6,10 +6,10 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { applicant1Sequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
+  ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_DETAILS_URL,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
 import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
@@ -83,10 +83,12 @@ describe('Steps', () => {
     });
 
     it("uses applicant 2's sequence if they are logged in as applicant 2", () => {
-      mockReq.originalUrl = YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
+      mockReq.originalUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
       mockReq.session.isApplicant2 = true;
+      mockReq.session.userCase.caseReference = '1234123412341234';
+      mockReq.session.userCase.accessCode = 'QWERTY78';
       const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL);
+      expect(actual).toBe(`${APPLICANT_2}${HAS_RELATIONSHIP_BROKEN_URL}`);
     });
   });
 });
