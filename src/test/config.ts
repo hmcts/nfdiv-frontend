@@ -86,9 +86,9 @@ export const config = {
     users: {
       citizen: autoLogin,
       citizenSingleton: {
-        login: (I: CodeceptJS.I): void => {
+        login: async (I: CodeceptJS.I): Promise<void> => {
           const username = generateTestUsername();
-          idamUserManager.create(username, TestPass);
+          await idamUserManager.create(username, TestPass);
           autoLogin.login(I, username, TestPass);
         },
         check: autoLogin.check,
