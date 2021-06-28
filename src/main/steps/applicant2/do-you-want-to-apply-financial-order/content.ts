@@ -11,10 +11,10 @@ const labels = applicant1Content => {
   return {
     errors: {
       applicant2ApplyForFinancialOrder: {
-        required: applicant1Content.errors.applyForFinancialOrder,
+        ...applicant1Content.errors.applyForFinancialOrder,
       },
       applicant2WhoIsFinancialOrderFor: {
-        required: applicant1Content.errors.whoIsFinancialOrderFor,
+        ...applicant1Content.errors.whoIsFinancialOrderFor,
       },
     },
   };
