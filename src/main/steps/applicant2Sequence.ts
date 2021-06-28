@@ -2,8 +2,10 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  ADDRESS_PRIVATE,
   APPLICANT_2,
   CHANGES_TO_YOUR_NAME_URL,
+  ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -41,6 +43,13 @@ const sequences: Step[] = [
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
 ];
 
