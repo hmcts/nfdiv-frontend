@@ -8,6 +8,7 @@ import {
 
 import {
   ADDRESS_PRIVATE,
+  APPLICANT_2,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
@@ -398,6 +399,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+    getNextStep: () => `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`,
   },
 ];

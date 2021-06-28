@@ -1,9 +1,8 @@
 Feature: Enter your access code
 
-  @flaky
   Scenario: They have entered the correct case reference
     Given I create a new user and login
-    And I've completed enough questions correctly to get to the check your answers page as a joint applicant
+    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I go to '/check-your-answers'
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"

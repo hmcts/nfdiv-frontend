@@ -169,6 +169,10 @@ When('I enter my valid case reference and valid access code', async () => {
   const caseReference = userCase.id;
   const accessCode = fetchedCase.accessCode;
 
+  if (!caseReference || !accessCode) {
+    throw new Error(`No case reference or access code was returned for ${testUser}`);
+  }
+
   iClick('Your reference number');
   I.type(caseReference);
   iClick('Your access code');
@@ -182,8 +186,8 @@ export const iGetTheTestUser = async (): Promise<UserDetails> => {
   const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${testConfig.TestUser}&password=${testConfig.TestPass}&client_id=${id}
-                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+  const user = testConfig.GetCurrentUser();
+  const data = `grant_type=password&username=${user.username}&password=${user.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response = await Axios.post(tokenUrl, data, { headers });
 
