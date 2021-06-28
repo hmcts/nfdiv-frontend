@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-22 17:12:38.
+// Generated using typescript-generator version 2.32.889 on 2021-06-25 15:42:17.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -81,6 +81,12 @@ export interface PreviousOrganisation {
   OrganisationAddress: string;
 }
 
+export interface CaseNote {
+  author: string;
+  date: DateAsString;
+  note: string;
+}
+
 export interface Applicant {
   FirstName: string;
   MiddleName: string;
@@ -106,6 +112,14 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   SolicitorIsDigital: YesOrNo;
+  ConfirmReadPetition: YesOrNo;
+  JurisdictionAgree: YesOrNo;
+  JurisdictionDisagreeReason: string;
+  LegalProceedingsExist: YesOrNo;
+  LegalProceedingsDescription: string;
+  AgreeToCosts: RespAgreeToCostsEnum;
+  CostsAmount: string;
+  CostsReason: string;
 }
 
 export interface CaseData {
@@ -137,6 +151,14 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1SolicitorIsDigital: YesOrNo;
+  applicant1ConfirmReadPetition: YesOrNo;
+  applicant1JurisdictionAgree: YesOrNo;
+  applicant1JurisdictionDisagreeReason: string;
+  applicant1LegalProceedingsExist: YesOrNo;
+  applicant1LegalProceedingsDescription: string;
+  applicant1AgreeToCosts: RespAgreeToCostsEnum;
+  applicant1CostsAmount: string;
+  applicant1CostsReason: string;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -148,7 +170,6 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow;
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
-  applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant2Gender: Gender;
   applicant2CorrespondenceAddress: AddressGlobalUK;
@@ -161,6 +182,14 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2SolicitorIsDigital: YesOrNo;
+  applicant2ConfirmReadPetition: YesOrNo;
+  applicant2JurisdictionAgree: YesOrNo;
+  applicant2JurisdictionDisagreeReason: string;
+  applicant2LegalProceedingsExist: YesOrNo;
+  applicant2LegalProceedingsDescription: string;
+  applicant2AgreeToCosts: RespAgreeToCostsEnum;
+  applicant2CostsAmount: string;
+  applicant2CostsReason: string;
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -191,7 +220,8 @@ export interface CaseData {
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
-  financialOrder: YesOrNo;
+  applicant1FinancialOrder: YesOrNo;
+  applicant2FinancialOrder: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
@@ -208,6 +238,8 @@ export interface CaseData {
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
   applicant2EmailAddress: string;
+  applicant2PhoneNumber: string;
+  applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
   legalProceedings: YesOrNo;
@@ -220,7 +252,8 @@ export interface CaseData {
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
   app2ContactMethodIsDigital: YesOrNo;
-  financialOrderFor: FinancialOrderFor[];
+  applicant1FinancialOrderFor: FinancialOrderFor[];
+  applicant2FinancialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
@@ -228,7 +261,10 @@ export interface CaseData {
   documentUploadComplete: YesOrNo;
   accessCode: string;
   respondentUserId: string;
+  miniApplicationLink: Document;
   issueDate: DateAsString;
+  notes: ListValue<CaseNote>[];
+  note: string;
 }
 
 export interface Jurisdiction {
@@ -480,6 +516,12 @@ export const enum LegalProceedingsRelated {
   CHILDREN = 'children',
 }
 
+export const enum RespAgreeToCostsEnum {
+  YES = 'Yes',
+  NO = 'No',
+  DIFFERENT_AMOUNT = 'DifferentAmount',
+}
+
 export const enum SolServiceMethod {
   PERSONAL_SERVICE = 'personalService',
   COURT_SERVICE = 'courtService',
@@ -492,17 +534,29 @@ export const enum SolToPay {
 
 export const enum State {
   Draft = 'Draft',
+  AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingPayment = 'AwaitingPayment',
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   Submitted = 'Submitted',
   Issued = 'Issued',
+  AwaitingAos = 'AwaitingAos',
+  AosOverdue = 'AosOverdue',
+  AosDrafted = 'AosDrafted',
+  DefendedDivorce = 'DefendedDivorce',
+  Holding = 'Holding',
+  AwaitingConditionalOrder = 'AwaitingConditionalOrder',
+  ConditionalOrderDrafted = 'ConditionalOrderDrafted',
+  AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
+  AwaitingClarification = 'AwaitingClarification',
+  ConditionalOrderRefused = 'ConditionalOrderRefused',
+  AwaitingPronouncement = 'AwaitingPronouncement',
+  ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   PendingRejection = 'PendingRejection',
   AwaitingReissue = 'AwaitingReissue',
-  ConditionalOrderComplete = 'ConditionalOrderComplete',
   FinalOrderComplete = 'FinalOrderComplete',
 }
 
@@ -540,6 +594,7 @@ export const enum DocumentType {
   SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
   SERVICE_BALIFF = 'serviceBaliff',
   AOS_OFFLINE_INVITATION_LETTER_TO_APPLICANT_2 = 'aosOfflineInvitationLetterToApplicant2',
+  DOCUMENT_TYPE_RESPONDENT_INVITATION = 'aos',
   APPLICANT_2_ANSWERS = 'applicant2Answers',
   CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
   CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',

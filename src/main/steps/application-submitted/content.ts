@@ -114,7 +114,7 @@ export const generateContent: TranslationFn = content => {
   const progressionIndex = [
     State.Submitted,
     State.AwaitingApplicant2Response,
-    State.ConditionalOrderComplete,
+    State.AwaitingLegalAdvisorReferral,
     State.FinalOrderComplete,
   ].indexOf(content.formState?.state as State);
   const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');

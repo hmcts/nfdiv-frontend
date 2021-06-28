@@ -1,5 +1,10 @@
 import { Step } from './applicant1Sequence';
-import { HAS_RELATIONSHIP_BROKEN_APPLICANT2, HOME_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from './urls';
+import {
+  APPLY_FINANCIAL_ORDER,
+  HAS_RELATIONSHIP_BROKEN_APPLICANT2,
+  HOME_URL,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+} from './urls';
 
 export const applicant2Sequence: Step[] = [
   {
@@ -8,6 +13,10 @@ export const applicant2Sequence: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_APPLICANT2,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER,
     getNextStep: () => HOME_URL,
   },
 ];
