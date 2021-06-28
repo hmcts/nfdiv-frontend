@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-25 15:42:17.
+// Generated using typescript-generator version 2.32.889 on 2021-06-28 10:28:25.
 
 export interface Address {
   AddressLine1: string;
@@ -429,6 +429,7 @@ export const enum DivorceOrDissolution {
 export const enum FinancialOrderFor {
   CHILDREN = 'children',
   APPLICANT_1 = 'applicant1',
+  APPLICANT_2 = 'applicant2',
 }
 
 export const enum Gender {

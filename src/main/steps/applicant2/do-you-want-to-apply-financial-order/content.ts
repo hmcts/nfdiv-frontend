@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/val
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../do-you-want-to-apply-financial-order/content';
+} from '../../applicant1/do-you-want-to-apply-financial-order/content';
 
 const labels = applicant1Content => {
   return {
@@ -42,7 +42,7 @@ export const form: FormContent = {
                 {
                   name: 'applicant2WhoIsFinancialOrderFor',
                   label: l => l.me,
-                  value: FinancialOrderFor.APPLICANT_1,
+                  value: FinancialOrderFor.APPLICANT_2,
                 },
                 {
                   name: 'applicant2WhoIsFinancialOrderFor',
