@@ -15,14 +15,14 @@ export class StateRedirectMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (
-          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase.state) &&
+          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state) &&
           req.path !== APPLICATION_SUBMITTED
         ) {
           return res.redirect(APPLICATION_SUBMITTED);
         }
 
         if (
-          req.session.userCase.state !== State.AwaitingPayment ||
+          req.session.userCase?.state !== State.AwaitingPayment ||
           [PAY_YOUR_FEE, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
         ) {
           return next();

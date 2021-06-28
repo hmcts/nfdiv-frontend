@@ -16,7 +16,6 @@ Feature: Apply for a financial order
     And I click "Continue"
     Then the page URL should be "/upload-your-documents"
 
-  @nightly
   Scenario: Error when not answering if they want to apply for a financial order
     Given I go to '/do-you-want-to-apply-financial-order'
     And I clear the form
