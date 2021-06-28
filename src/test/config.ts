@@ -22,8 +22,9 @@ if (!fileExistsSync(filename)) {
 
 const propertiesVolume = new PropertiesVolume();
 propertiesVolume.enableFor({
-  locals: { developmentMode: process.env.NODE_ENV !== 'ci' },
+  locals: { developmentMode: !process.env.JENKINS_HOME },
 } as unknown as Application);
+
 getTokenFromApi();
 
 const content = readFileSync(filename).toString();
