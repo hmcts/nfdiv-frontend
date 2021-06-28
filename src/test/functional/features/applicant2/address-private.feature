@@ -7,7 +7,7 @@ Feature: Applicant 2 Contact details kept private
     Then the page should include "Do you need your contact details kept private from your wife"
 
   @nightly
-  Scenario: Error when not answering Do you need your contact details kept private from your husband?
+  Scenario: Error when not answering Do you need your contact details kept private from your wife?
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
