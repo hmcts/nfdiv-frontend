@@ -65,8 +65,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
-  applyForFinancialOrder: 'financialOrder',
-  whoIsFinancialOrderFor: 'financialOrderFor',
+  applyForFinancialOrder: 'applicant1FinancialOrder',
+  whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
+  applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
+  applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   documentsUploaded: 'documentsUploaded',
   respondentUserId: 'respondentUserId',
 };
@@ -166,6 +168,8 @@ export interface Case {
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
+  applicant2ApplyForFinancialOrder?: YesOrNo;
+  applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   uploadedFiles?: UploadedFile[];
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
