@@ -5,11 +5,15 @@ import { Checkbox } from '../case';
 
 import { getAnswerRows } from './getAnswerRows';
 
-const mockStepsWithContent: jest.Mock<StepWithContent> = jest.fn();
+const mockStepsWithContentApplicant1: jest.Mock<StepWithContent> = jest.fn();
+const mockStepsWithContentApplicant2: jest.Mock<StepWithContent> = jest.fn();
 
 jest.mock('../../../steps', () => ({
-  get stepsWithContent() {
-    return mockStepsWithContent();
+  get stepsWithContentApplicant1() {
+    return mockStepsWithContentApplicant1();
+  },
+  get stepsWithContentApplicant2() {
+    return mockStepsWithContentApplicant2();
   },
 }));
 
@@ -31,7 +35,7 @@ describe('getAnswerRows()', () => {
   });
 
   it('converts steps into the correct check answers rows when there no answers', () => {
-    mockStepsWithContent.mockReturnValue([
+    mockStepsWithContentApplicant1.mockReturnValue([
       {
         stepDir: '/',
         url: 'dont-pickThisOne',
@@ -61,7 +65,7 @@ describe('getAnswerRows()', () => {
         formState: {},
         userEmail: 'test@example.com',
       },
-    })(Sections.AboutPartnership);
+    })(Sections.AboutPartnership, false);
 
     expect(generatePageContentSpy).toHaveBeenCalledWith({
       formState: {},
@@ -77,7 +81,7 @@ describe('getAnswerRows()', () => {
     let mockCtx;
     let mockFormState;
     beforeEach(() => {
-      mockStepsWithContent.mockReturnValue([
+      mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
           url: 'dont-pickThisOne',
@@ -90,6 +94,26 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: 'pickThisOne',
+          showInSection: Sections.AboutPartnership,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+      ]);
+      mockStepsWithContentApplicant2.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'dont-pickThisOne-applicant2',
+          showInSection: Sections.AboutPartners,
+          getNextStep: () => '/pickThisOne',
+          generateContent: () => ({}),
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+        {
+          stepDir: '/',
+          url: 'pickThisOne-applicant2',
           showInSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -117,7 +141,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([
         {
@@ -141,8 +165,36 @@ describe('getAnswerRows()', () => {
       ]);
     });
 
-    it('ignores steps that throw exception', () => {
-      mockStepsWithContent.mockReturnValue([
+    it('converts steps into the correct check answers rows for applicant 2', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: mockCtx,
+      })(Sections.AboutPartnership, true);
+
+      expect(actual).toEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: 'pickThisOne-applicant2',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
+              },
+            ],
+          },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('ignores steps that throw exceptions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
           url: 'dont-pickThisOne',
@@ -168,7 +220,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([
         {
@@ -201,7 +253,7 @@ describe('getAnswerRows()', () => {
           stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([
         {
@@ -232,7 +284,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           stepAnswers: { pickThisOne: { mockField: false } },
         },
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([]);
     });
@@ -244,7 +296,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           stepAnswers: { pickThisOne: { mockField: '' } },
         },
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([
         {
@@ -256,7 +308,7 @@ describe('getAnswerRows()', () => {
     });
 
     it('converts steps into the correct check answers rows with checkboxes', () => {
-      mockStepsWithContent.mockReturnValue([
+      mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
           url: 'pickThisOne',
@@ -287,7 +339,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           formState: mockFormState,
         },
-      })(Sections.AboutPartnership);
+      })(Sections.AboutPartnership, false);
 
       expect(actual).toEqual([
         {

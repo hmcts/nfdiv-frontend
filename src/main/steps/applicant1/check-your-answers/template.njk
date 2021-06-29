@@ -21,7 +21,7 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section) %}
+    {% set rows = getAnswerRows(section, isApplicant2) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
@@ -32,16 +32,18 @@
     {% endif %}
   {% endfor %}
 
-  {% if isApplicationReadyToSubmit and not isJointApplication %}
-    {% block form %}
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          {% include "./form.njk" %}
+  {% if not isApplicant2 %}
+    {% if isApplicationReadyToSubmit and not isJointApplication %}
+      {% block form %}
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            {% include "./form.njk" %}
+          </div>
         </div>
-      </div>
-    {% endblock %}
-  {% elif isApplicationReadyToSubmit and isJointApplication %}
-    {% include "./joint-form.njk" %}
+      {% endblock %}
+    {% elif isApplicationReadyToSubmit and isJointApplication %}
+      {% include "./joint-form.njk" %}
+    {% endif %}
   {% else %}
     {{ govukButton({
       text: continueApplication,

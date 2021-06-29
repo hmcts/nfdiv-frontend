@@ -1,4 +1,4 @@
-import { stepsWithContent } from '../../../steps';
+import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { PageLink } from '../../../steps/urls';
@@ -8,7 +8,7 @@ import { Case } from '../case';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
 
-export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
+export const getAnswerRows = function (section: Sections, isApplicant2: boolean): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
@@ -22,6 +22,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     formState: Partial<Case>;
   } = this.ctx;
 
+  const stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
   const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
   return stepsWithContent

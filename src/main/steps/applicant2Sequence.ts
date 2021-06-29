@@ -1,6 +1,6 @@
 import { YesOrNo } from '../app/case/definition';
 
-import { Step } from './applicant1Sequence';
+import { Sections, Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -11,6 +11,7 @@ import {
   ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -29,6 +30,7 @@ const sequences: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
+    showInSection: Sections.AboutPartnership,
     getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : YOUR_NAME),
   },
   {
@@ -41,20 +43,28 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_NAME,
+    showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: APPLY_FINANCIAL_ORDER,
+    showInSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
+  },
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => HOME_URL,
   },
 ];
 
