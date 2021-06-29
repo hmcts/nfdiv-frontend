@@ -15,6 +15,7 @@ import {
   NOT_CONFIRMED_JOINT_APPLICATION,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
+  YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
@@ -29,10 +30,10 @@ const sequences: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : YOUR_NAME),
+    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
   },
   {
-    url: RELATIONSHIP_NOT_BROKEN_URL,
+    url: YOU_CANNOT_APPLY,
     getNextStep: () => NOT_CONFIRMED_JOINT_APPLICATION,
   },
   {
