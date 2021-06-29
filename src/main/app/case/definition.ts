@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-28 10:28:25.
+// Generated using typescript-generator version 2.32.889 on 2021-06-29 10:48:55.
 
 export interface Address {
   AddressLine1: string;
@@ -120,6 +120,8 @@ export interface Applicant {
   AgreeToCosts: RespAgreeToCostsEnum;
   CostsAmount: string;
   CostsReason: string;
+  FinancialOrder: YesOrNo;
+  FinancialOrderFor: FinancialOrderFor[];
 }
 
 export interface CaseData {
@@ -159,6 +161,8 @@ export interface CaseData {
   applicant1AgreeToCosts: RespAgreeToCostsEnum;
   applicant1CostsAmount: string;
   applicant1CostsReason: string;
+  applicant1FinancialOrder: YesOrNo;
+  applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -170,6 +174,7 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow;
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
+  applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant2Gender: Gender;
   applicant2CorrespondenceAddress: AddressGlobalUK;
@@ -190,10 +195,12 @@ export interface CaseData {
   applicant2AgreeToCosts: RespAgreeToCostsEnum;
   applicant2CostsAmount: string;
   applicant2CostsReason: string;
+  applicant2FinancialOrder: YesOrNo;
+  applicant2FinancialOrderFor: FinancialOrderFor[];
   helpWithFeesReferenceNumber: string;
   helpWithFeesNeedHelp: YesOrNo;
-  screenHasMarriageCert: YesOrNo;
   helpWithFeesAppliedForFees: YesOrNo;
+  screenHasMarriageCert: YesOrNo;
   marriageApplicant1Name: string;
   marriageApplicant2Name: string;
   marriageMarriedInUk: YesOrNo;
@@ -220,8 +227,6 @@ export interface CaseData {
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
-  applicant1FinancialOrder: YesOrNo;
-  applicant2FinancialOrder: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: SolServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
@@ -237,8 +242,7 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
-  applicant2EmailAddress: string;
-  applicant2PhoneNumber: string;
+  applicant2InviteEmailAddress: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -252,19 +256,23 @@ export interface CaseData {
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
   app2ContactMethodIsDigital: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
-  applicant2FinancialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
   dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
   dueDate: DateAsString;
   documentUploadComplete: YesOrNo;
   accessCode: string;
-  respondentUserId: string;
+  applicant2UserId: string;
   miniApplicationLink: Document;
   issueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+}
+
+export interface HelpWithFees {
+  ReferenceNumber: string;
+  NeedHelp: YesOrNo;
+  AppliedForFees: YesOrNo;
 }
 
 export interface Jurisdiction {
