@@ -48,18 +48,23 @@ const cy: typeof en = ({ isDivorce }) => ({
 export const form: FormContent = {
   fields: {
     applicant1ChangedNameHow: {
-      type: 'radios',
-      classes: 'govuk-radios',
+      type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.sendingOffMarriageCertificate, value: ChangedNameHow.MARRIAGE_CERTIFICATE },
         {
+          name: 'applicant1ChangedNameHow',
+          label: l => l.sendingOffMarriageCertificate,
+          value: ChangedNameHow.MARRIAGE_CERTIFICATE,
+        },
+        {
+          name: 'applicant1ChangedNameHow',
           label: l => l.deedPoll,
           value: ChangedNameHow.DEED_POLL,
           conditionalText: l => `<p class="govuk-label">${l.deedPollMoreDetails}</p>`,
         },
         {
+          name: 'applicant1ChangedNameHow',
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
