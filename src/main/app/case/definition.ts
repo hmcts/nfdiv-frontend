@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-29 10:48:55.
+// Generated using typescript-generator version 2.32.889 on 2021-06-29 13:31:30.
 
 export interface Address {
   AddressLine1: string;
@@ -87,6 +87,10 @@ export interface CaseNote {
   note: string;
 }
 
+export interface AcknowledgementOfService {
+  dateAosSubmitted: DateAsString;
+}
+
 export interface Applicant {
   FirstName: string;
   MiddleName: string;
@@ -124,11 +128,71 @@ export interface Applicant {
   FinancialOrderFor: FinancialOrderFor[];
 }
 
+export interface Application {
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
+  screenHasMarriageCert: YesOrNo;
+  marriageApplicant1Name: string;
+  marriageApplicant2Name: string;
+  marriageMarriedInUk: YesOrNo;
+  marriageCertificateInEnglish: YesOrNo;
+  marriageCertifiedTranslation: YesOrNo;
+  marriageCountryOfMarriage: string;
+  marriagePlaceOfMarriage: string;
+  marriageDate: DateAsString;
+  marriageIsSameSexCouple: YesOrNo;
+  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
+  marriageMarriageCertificateIsIncorrectDetails: string;
+  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
+  jurisdictionApplicant1Residence: YesOrNo;
+  jurisdictionApplicant2Residence: YesOrNo;
+  jurisdictionApplicant1Domicile: YesOrNo;
+  jurisdictionApplicant2Domicile: YesOrNo;
+  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
+  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
+  jurisdictionResidualEligible: YesOrNo;
+  jurisdictionBothLastHabituallyResident: YesOrNo;
+  jurisdictionConnections: JurisdictionConnections[];
+  jurisdictionLegalConnections: LegalConnections[];
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
+  divorceWho: WhoDivorcing;
+  solUrgentCase: YesOrNo;
+  solUrgentCaseSupportingInformation: string;
+  divorceCostsClaim: YesOrNo;
+  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  solServiceMethod: SolServiceMethod;
+  solStatementOfReconciliationCertify: YesOrNo;
+  solStatementOfReconciliationDiscussed: YesOrNo;
+  prayerHasBeenGiven: YesOrNo;
+  statementOfTruth: YesOrNo;
+  solSignStatementOfTruth: YesOrNo;
+  solStatementOfReconciliationName: string;
+  solStatementOfReconciliationFirm: string;
+  statementOfReconciliationComments: string;
+  solApplicationFeeInPounds: string;
+  solPaymentHowToPay: SolToPay;
+  pbaNumbers: DynamicList;
+  feeAccountReference: string;
+  applicationFeeOrderSummary: OrderSummary;
+  applicant2AgreeToReceiveEmails: YesOrNo;
+  applicant1KnowsApplicant2EmailAddress: YesOrNo;
+  applicant1KnowsApplicant2Address: YesOrNo;
+  legalProceedings: YesOrNo;
+  legalProceedingsRelated: LegalProceedingsRelated[];
+  legalProceedingsDetails: string;
+  divorceClaimFrom: ClaimsCostFrom[];
+  app2ContactMethodIsDigital: YesOrNo;
+  cannotUploadSupportingDocument: DocumentType[];
+  documentUploadComplete: YesOrNo;
+  miniApplicationLink: Document;
+  dateSubmitted: DateAsString;
+}
+
 export interface CaseData {
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
-  applicant1ScreenHasMarriageBroken: YesOrNo;
-  applicant2ScreenHasMarriageBroken: YesOrNo;
   applicant1FirstName: string;
   applicant1MiddleName: string;
   applicant1LastName: string;
@@ -197,9 +261,8 @@ export interface CaseData {
   applicant2CostsReason: string;
   applicant2FinancialOrder: YesOrNo;
   applicant2FinancialOrderFor: FinancialOrderFor[];
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
   marriageApplicant1Name: string;
   marriageApplicant2Name: string;
@@ -223,6 +286,9 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -242,7 +308,6 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
-  applicant2InviteEmailAddress: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -250,23 +315,35 @@ export interface CaseData {
   legalProceedingsRelated: LegalProceedingsRelated[];
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
-  documentsUploaded: ListValue<DivorceDocument>[];
+  app2ContactMethodIsDigital: YesOrNo;
   cannotUploadSupportingDocument: DocumentType[];
+  documentUploadComplete: YesOrNo;
+  miniApplicationLink: Document;
+  dateSubmitted: DateAsString;
+  dateAosSubmitted: DateAsString;
+  dateConditionalOrderSubmitted: DateAsString;
+  dateFinalOrderSubmitted: DateAsString;
+  applicant2InviteEmailAddress: string;
+  documentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  app2ContactMethodIsDigital: YesOrNo;
   payments: ListValue<Payment>[];
-  dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
   dueDate: DateAsString;
-  documentUploadComplete: YesOrNo;
   accessCode: string;
   applicant2UserId: string;
-  miniApplicationLink: Document;
   issueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+}
+
+export interface ConditionalOrder {
+  dateConditionalOrderSubmitted: DateAsString;
+}
+
+export interface FinalOrder {
+  dateFinalOrderSubmitted: DateAsString;
 }
 
 export interface HelpWithFees {
