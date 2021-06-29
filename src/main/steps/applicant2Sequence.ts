@@ -4,7 +4,11 @@ import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
+  APPLY_FINANCIAL_ORDER,
+  APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
+  CHECK_ANSWERS_URL,
+  ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
@@ -16,6 +20,10 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
+  {
+    url: ENTER_YOUR_ACCESS_CODE,
+    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+  },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -51,6 +59,11 @@ const sequences: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER,
+    getNextStep: data =>
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
   },
 ];
 

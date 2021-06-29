@@ -1,7 +1,9 @@
-Feature: Apply for a financial order
+Feature: Applicant2 apply for a financial order
 
   Background:
     Given I login
+    When I am reviewing an application for divorce created by my wife
+    Then I go to '/applicant2/do-you-want-to-apply-financial-order'
 
   Scenario: They want to apply for a financial order
     Given I go to '/dividing-money-property'
@@ -12,10 +14,8 @@ Feature: Apply for a financial order
     And I select "The children"
     And I click "Continue"
     Then the page URL should be "/how-to-apply-financial-order"
-    And the page should include "How to apply for a financial order"
-    And I click "Continue"
-    Then the page URL should be "/upload-your-documents"
 
+  @nightly
   Scenario: Error when not answering if they want to apply for a financial order
     Given I go to '/do-you-want-to-apply-financial-order'
     And I clear the form

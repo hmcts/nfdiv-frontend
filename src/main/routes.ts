@@ -21,9 +21,11 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  APPLICANT_2,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
+  ENTER_YOUR_ACCESS_CODE,
   HOME_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
@@ -48,6 +50,7 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
+    app.get(ENTER_YOUR_ACCESS_CODE, (req, res) => res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();

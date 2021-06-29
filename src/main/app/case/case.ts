@@ -60,15 +60,17 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2ChangedNameHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
-  applicant2EmailAddress: 'applicant2EmailAddress',
+  applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
   legalProceedingsRelated: 'legalProceedingsRelated',
-  applyForFinancialOrder: 'financialOrder',
-  whoIsFinancialOrderFor: 'financialOrderFor',
+  applyForFinancialOrder: 'applicant1FinancialOrder',
+  whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
+  applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
+  applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   documentsUploaded: 'documentsUploaded',
-  respondentUserId: 'respondentUserId',
+  respondentUserId: 'applicant2UserId',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -166,6 +168,8 @@ export interface Case {
   legalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
+  applicant2ApplyForFinancialOrder?: YesOrNo;
+  applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   uploadedFiles?: UploadedFile[];
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;

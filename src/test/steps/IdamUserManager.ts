@@ -49,4 +49,8 @@ export class IdamUserManager {
       await this.delete(user);
     }
   }
+
+  getCurrentUsername(): string {
+    return Array.from(this.users).pop() as string;
+  }
 }

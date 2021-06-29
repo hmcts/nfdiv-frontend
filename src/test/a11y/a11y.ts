@@ -77,8 +77,8 @@ describe('Accessibility', () => {
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
     await page.goto(config.TEST_URL);
-    await page.type('#username', config.TestUser);
-    await page.type('#password', config.TestPass);
+    await page.type('#username', 'nfdiv.frontend.test@hmcts.net');
+    await page.type('#password', 'Pa55word11');
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
