@@ -60,7 +60,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2ChangedNameHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
-  applicant2EmailAddress: 'applicant2EmailAddress',
+  applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
@@ -70,7 +70,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   documentsUploaded: 'documentsUploaded',
-  respondentUserId: 'respondentUserId',
+  respondentUserId: 'applicant2UserId',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
