@@ -14,6 +14,7 @@ import {
   HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
+  OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
@@ -55,6 +56,11 @@ const sequences: Step[] = [
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: APPLY_FINANCIAL_ORDER,
