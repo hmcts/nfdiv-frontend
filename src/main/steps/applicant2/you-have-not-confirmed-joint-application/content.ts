@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-const en = ({ isDivorce, partner, civilPartner }) => ({
+const en = ({ isDivorce, partner }) => ({
   title: 'You have not confirmed your joint application',
   line1: `You have stated that your ${
     isDivorce ? 'marriage' : 'civil partnership'
