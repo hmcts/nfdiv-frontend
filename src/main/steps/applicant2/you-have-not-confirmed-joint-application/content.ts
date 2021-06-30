@@ -5,7 +5,7 @@ const en = ({ isDivorce, partner, civilPartner }) => ({
   line1: `You have stated that your ${
     isDivorce ? 'marriage' : 'civil partnership'
   } has not irretrievably broken down. Therefore you cannot make a joint application for divorce.`,
-  line2: `Your ${isDivorce ? partner : civilPartner} has been notified by email.`,
+  line2: `Your ${partner} has been notified by email.`,
 });
 
 const cy: typeof en = en;
