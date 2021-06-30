@@ -5,7 +5,7 @@ import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import * as possibleAnswers from '../case/answers/possibleAnswers';
 import { Case, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender, YesOrNo } from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender, YesOrNo } from '../case/definition';
 
 import { PostController } from './PostController';
 
@@ -329,6 +329,29 @@ describe('PostController', () => {
     );
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+  });
+
+  test('triggers citizen-applicant2-update-application event if user is applicant2', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const body = { gender: Gender.FEMALE, isApplicant2: true };
+    const mockForm = {
+      setFormState: jest.fn(),
+      getErrors: () => [],
+      getParsedBody: () => body,
+    } as unknown as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...defaultCaseProps, gender: 'female', isApplicant2: true },
+      CITIZEN_APPLICANT2_UPDATE
+    );
+
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
 });
 

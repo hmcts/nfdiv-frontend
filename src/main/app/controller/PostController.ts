@@ -5,7 +5,7 @@ import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId, Checkbox } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -37,6 +37,8 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
+    } else if (req.body.isApplicant2) {
+      await this.saveAndContinue(req, res, stepData, CITIZEN_APPLICANT2_UPDATE);
     } else {
       await this.saveAndContinue(req, res, stepData, eventName);
     }
