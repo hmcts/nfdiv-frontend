@@ -160,17 +160,19 @@ export const generatePageContent = ({
   isDivorce = true,
   formState,
   userEmail,
+  isApplicant2,
 }: {
   language: Language;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
   formState?: Partial<CaseWithId>;
   userEmail?: string;
+  isApplicant2?: boolean;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = formState?.gender as Gender;
-  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
+  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce, isApplicant2 as boolean);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
   const isJointApplication = formState?.applicationType === ApplicationType.JOINT_APPLICATION;
 
@@ -199,15 +201,20 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
   return capitalize(serviceName);
 };
 
-const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
+const getPartnerContent = (
+  translations: typeof en,
+  selectedGender: Gender,
+  isDivorce: boolean,
+  isApplicant2: boolean
+): string => {
   if (!isDivorce) {
     return translations.civilPartner;
   }
   if (selectedGender === Gender.MALE) {
-    return translations.husband;
+    return isApplicant2 ? translations.wife : translations.husband;
   }
   if (selectedGender === Gender.FEMALE) {
-    return translations.wife;
+    return isApplicant2 ? translations.husband : translations.wife;
   }
   return translations.partner;
 };
