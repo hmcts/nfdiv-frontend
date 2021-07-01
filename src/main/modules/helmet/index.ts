@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Express } from 'express';
+import { Express, RequestHandler } from 'express';
 import helmet = require('helmet');
 
 export interface HelmetConfig {
@@ -17,7 +17,7 @@ export class Helmet {
 
   public enableFor(app: Express): void {
     // include default helmet functions
-    app.use(helmet());
+    app.use(helmet() as RequestHandler);
 
     this.setContentSecurityPolicy(app);
     this.setReferrerPolicy(app, this.config.referrerPolicy);
@@ -41,7 +41,7 @@ export class Helmet {
           scriptSrc,
           styleSrc: [self],
         },
-      })
+      }) as RequestHandler
     );
   }
 
@@ -50,6 +50,6 @@ export class Helmet {
       throw new Error('Referrer policy configuration is required');
     }
 
-    app.use(helmet.referrerPolicy({ policy }));
+    app.use(helmet.referrerPolicy({ policy }) as RequestHandler);
   }
 }
