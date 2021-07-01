@@ -56,6 +56,10 @@ const sequences: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
   },
+  {
+    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
 ];
 
 export const applicant2Sequence = ((): Step[] => {
