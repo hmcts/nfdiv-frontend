@@ -83,6 +83,7 @@ export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
 
 export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = '/you-need-to-review-your-application';
 export const NOT_CONFIRMED_JOINT_APPLICATION: PageLink = '/not-confirmed-your-joint-application';
+export const CHECK_JOINT_APPLICATION: PageLink = '/check-your-joint-application';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 

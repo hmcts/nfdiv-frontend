@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-29 13:31:30.
+// Generated using typescript-generator version 2.32.889 on 2021-06-30 17:53:31.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -188,6 +188,8 @@ export interface Application {
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: YesOrNo;
 }
 
 export interface CaseData {
@@ -320,10 +322,14 @@ export interface CaseData {
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: YesOrNo;
+  applicant2InviteEmailAddress: string;
+  accessCode: string;
+  applicant2UserId: string;
   dateAosSubmitted: DateAsString;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
-  applicant2InviteEmailAddress: string;
   documentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
@@ -331,11 +337,15 @@ export interface CaseData {
   payments: ListValue<Payment>[];
   previousCaseId: CaseLink;
   dueDate: DateAsString;
-  accessCode: string;
-  applicant2UserId: string;
   issueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+}
+
+export interface CaseInvite {
+  applicant2InviteEmailAddress: string;
+  accessCode: string;
+  applicant2UserId: string;
 }
 
 export interface ConditionalOrder {
@@ -712,4 +722,5 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';

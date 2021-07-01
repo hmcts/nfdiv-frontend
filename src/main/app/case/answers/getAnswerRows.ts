@@ -14,11 +14,13 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     isDivorce,
     formState,
     userEmail,
+    isApplicant2,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     applicant2: string;
     userEmail: string;
+    isApplicant2: boolean;
     formState: Partial<Case>;
   } = this.ctx;
 
@@ -39,6 +41,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             isDivorce,
             formState: processedFormState,
             userEmail,
+            isApplicant2,
           }),
         };
       } catch {
@@ -47,24 +50,28 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       }
 
       const questionAnswers: GovUkNunjucksSummary[] = [];
-      const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
+      const addQuestionAnswer = (question: string, answer: string, moreDetails?: string, link?: PageLink) =>
         questionAnswers.push({
           key: {
             text: question,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            html: answer,
+            html: answer + (moreDetails || ''),
           },
-          actions: {
-            items: [
-              {
-                href: link || step.url,
-                text: this.ctx.change,
-                visuallyHiddenText: question,
-              },
-            ],
-          },
+          ...(isApplicant2
+            ? {}
+            : {
+                actions: {
+                  items: [
+                    {
+                      href: link || step.url,
+                      text: this.ctx.change,
+                      visuallyHiddenText: question,
+                    },
+                  ],
+                },
+              }),
         });
 
       for (const fieldKey of fieldKeys) {
@@ -93,10 +100,12 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
         if (customAnswer === false) {
           continue;
         }
+        const customAnswerMoreDetails = this.ctx.stepAnswersMoreDetails[step.url]?.[fieldKey];
 
         addQuestionAnswer(
           customQuestion || (question as string),
           this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
+          customAnswerMoreDetails,
           this.ctx.stepLinks[step.url]
         );
       }
