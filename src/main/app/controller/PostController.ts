@@ -37,7 +37,7 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
-    } else if (req.body.isApplicant2) {
+    } else if (req.session.isApplicant2) {
       await this.saveAndContinue(req, res, stepData, CITIZEN_APPLICANT2_UPDATE);
     } else {
       await this.saveAndContinue(req, res, stepData, eventName);

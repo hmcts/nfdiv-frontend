@@ -333,7 +333,7 @@ describe('PostController', () => {
 
   test('triggers citizen-applicant2-update-application event if user is applicant2', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { gender: Gender.FEMALE, isApplicant2: true };
+    const body = { gender: Gender.FEMALE };
     const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => [],
@@ -342,12 +342,13 @@ describe('PostController', () => {
     const controller = new PostController(mockForm);
 
     const req = mockRequest({ body });
+    req.session.isApplicant2 = true;
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...defaultCaseProps, gender: 'female', isApplicant2: true },
+      { ...defaultCaseProps, gender: 'female' },
       CITIZEN_APPLICANT2_UPDATE
     );
 
