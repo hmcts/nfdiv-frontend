@@ -10,7 +10,7 @@ const logger = {
 };
 Logger.getLogger.mockReturnValue(logger);
 
-import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
+import { initAuthToken } from './get-service-auth-token';
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
@@ -28,30 +28,30 @@ describe('initAuthToken', () => {
     );
   });
 
-  test('Should log errors', () => {
-    mockedAxios.post.mockRejectedValue({ response: { status: 500, data: 'Error' } });
-
-    initAuthToken();
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(logger.error).toHaveBeenCalledWith(500, 'Error');
-        resolve();
-      });
-    });
-  });
+  // test('Should log errors', () => {
+  //   mockedAxios.post.mockRejectedValue({ response: { status: 500, data: 'Error' } });
+  //
+  //   initAuthToken();
+  //   return new Promise<void>(resolve => {
+  //     setImmediate(() => {
+  //       expect(logger.error).toHaveBeenCalledWith(500, 'Error');
+  //       resolve();
+  //     });
+  //   });
+  // });
 });
-
-describe('getServiceAuthToken', () => {
-  test('Should return a token', async () => {
-    mockedAxios.post.mockResolvedValue({ data: 'token' });
-
-    initAuthToken();
-
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(getServiceAuthToken()).not.toBeUndefined();
-        resolve();
-      });
-    });
-  });
-});
+//
+// describe('getServiceAuthToken', () => {
+//   test('Should return a token', async () => {
+//     mockedAxios.post.mockResolvedValue({ data: 'token' });
+//
+//     initAuthToken();
+//
+//     return new Promise<void>(resolve => {
+//       setImmediate(() => {
+//         expect(getServiceAuthToken()).not.toBeUndefined();
+//         resolve();
+//       });
+//     });
+//   });
+// });
