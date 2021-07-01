@@ -12,13 +12,14 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
   const {
     language,
     isDivorce,
+    isApplicant2,
     formState,
     userEmail,
     isApplicant2,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
-    applicant2: string;
+    isApplicant2: boolean;
     userEmail: string;
     isApplicant2: boolean;
     formState: Partial<Case>;
@@ -39,6 +40,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             language,
             pageContent: step.generateContent,
             isDivorce,
+            isApplicant2,
             formState: processedFormState,
             userEmail,
             isApplicant2,

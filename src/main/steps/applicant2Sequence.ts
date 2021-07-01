@@ -12,8 +12,10 @@ import {
   ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
+  OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
@@ -45,12 +47,24 @@ const sequences: Step[] = [
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
+    url: CHANGES_TO_YOUR_NAME_URL,
+    getNextStep: data =>
+      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
     getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: APPLY_FINANCIAL_ORDER,

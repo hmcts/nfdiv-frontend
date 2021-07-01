@@ -35,7 +35,7 @@ lockFile.unlockSync(lock);
 
 const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
 const TestUser = generateTestUsername();
-const TestPass = 'Pa55word11';
+const TestPass = process.env.TEST_PASSWORD || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 
 const autoLogin = {
