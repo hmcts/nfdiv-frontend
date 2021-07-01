@@ -310,5 +310,32 @@ describe('getAnswerRows()', () => {
         },
       ]);
     });
+    it('converts steps into the correct check answers rows with overridden values for applicant2', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: {
+          ...mockCtx,
+          isApplicant2: true,
+          stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
+          stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
+          stepAnswersWithHTML: {
+            pickThisOne: { mockField: '<div>test</div>' },
+          },
+          stepLinks: { pickThisOne: '/custom-link' },
+        },
+      })(Sections.AboutPartnership);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Custom question text',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
+          },
+        },
+      ]);
+    });
   });
 });

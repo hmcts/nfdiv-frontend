@@ -41,7 +41,7 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
     detailsCorrect: `Is the information your ${partner} provided correct?`,
     detailsCorrectHint: 'If you select no then your husband will be notified and asked to change it.',
     explainWhyIncorrect: `Explain what is incorrect or needs changing. Your answer will be sent to your ${partner}.`,
-    stepAnswersMoreDetails: {
+    stepAnswersWithHTML: {
       [urls.HELP_WITH_YOUR_FEE_URL]: {
         applicant1HelpPayingNeeded: moreDetailsComponent(moreDetailsContent.helpWithFees, 'about help with fees'),
       },

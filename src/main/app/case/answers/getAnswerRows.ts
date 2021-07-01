@@ -99,7 +99,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
         if (customAnswer === false) {
           continue;
         }
-        const customAnswerMoreDetails = this.ctx.stepAnswersMoreDetails?.[step.url]?.[fieldKey];
+        const customAnswerMoreDetails = this.ctx.stepAnswersWithHTML?.[step.url]?.[fieldKey];
 
         addQuestionAnswer(
           customQuestion || (question as string),
