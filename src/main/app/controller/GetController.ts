@@ -34,7 +34,6 @@ export class GetController {
       isApplicant2,
       formState,
       userEmail: req.session?.user.email,
-      isApplicant2: req.session?.isApplicant2,
     });
 
     const sessionErrors = req.session?.errors || [];

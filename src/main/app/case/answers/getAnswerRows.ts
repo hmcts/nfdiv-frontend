@@ -15,13 +15,11 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     isApplicant2,
     formState,
     userEmail,
-    isApplicant2,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     isApplicant2: boolean;
     userEmail: string;
-    isApplicant2: boolean;
     formState: Partial<Case>;
   } = this.ctx;
 
@@ -43,7 +41,6 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             isApplicant2,
             formState: processedFormState,
             userEmail,
-            isApplicant2,
           }),
         };
       } catch {
