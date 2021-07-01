@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash';
 
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, Checkbox } from '../../app/case/case';
 import { ApplicationType, Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -158,18 +158,20 @@ export const generatePageContent = ({
   language,
   pageContent,
   isDivorce = true,
+  isApplicant2 = false,
   formState,
   userEmail,
 }: {
   language: Language;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
+  isApplicant2?: boolean;
   formState?: Partial<CaseWithId>;
   userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
-  const selectedGender = formState?.gender as Gender;
+  const selectedGender = getSelectedGender(formState as Partial<CaseWithId>, isApplicant2);
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
   const isJointApplication = formState?.applicationType === ApplicationType.JOINT_APPLICATION;
@@ -181,6 +183,7 @@ export const generatePageContent = ({
     partner,
     language,
     isDivorce,
+    isApplicant2,
     formState,
     userEmail,
     contactEmail,
@@ -197,6 +200,13 @@ export const generatePageContent = ({
 const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
   return capitalize(serviceName);
+};
+
+const getSelectedGender = (formState: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
+  if (isApplicant2 && formState.sameSex === Checkbox.Unchecked) {
+    return formState?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
+  }
+  return formState?.gender as Gender;
 };
 
 const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
@@ -217,6 +227,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
+  isApplicant2: boolean;
   formState?: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
