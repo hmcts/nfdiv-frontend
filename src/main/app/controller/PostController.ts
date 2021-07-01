@@ -21,7 +21,7 @@ export class PostController<T extends AnyObject> {
     req: AppRequest<T>,
     res: Response,
     next?: NextFunction,
-    eventName: string = CITIZEN_UPDATE
+    eventName: string = req.session.isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
   ): Promise<void> {
     this.form.setFormState(req.session.userCase);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
@@ -37,8 +37,6 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, stepData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, stepData);
-    } else if (req.session.isApplicant2) {
-      await this.saveAndContinue(req, res, stepData, CITIZEN_APPLICANT2_UPDATE);
     } else {
       await this.saveAndContinue(req, res, stepData, eventName);
     }
