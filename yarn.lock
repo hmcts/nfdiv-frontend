@@ -2106,12 +2106,12 @@
     "@typescript-eslint/types" "4.28.1"
     eslint-visitor-keys "^2.0.0"
 
-"@uppy/companion-client@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.10.1.tgz#b8604bdf0441717d76dc174382f4f34497c8494d"
-  integrity sha512-bJ6g3tP7nK+nBYR4oQwt51AyyhxhMaF2LpH7xCu4qzPvwn9xZyc8S+ZKQzgVvvoFGy0DqeZNyg8ePnazzn6V6g==
+"@uppy/companion-client@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.10.2.tgz#a640b3ef90b91751c49bf4b6a7a63c2ebac294f6"
+  integrity sha512-5RmsNF9UBvUqmqQz48SoiLvkpGmvQTgwNM4bJX8xwVozv/6goRpFrsMJGLwqFcHS/9xj6STKOqrM582g8exVwQ==
   dependencies:
-    "@uppy/utils" "^3.6.1"
+    "@uppy/utils" "^3.6.2"
     namespace-emitter "^2.0.1"
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
@@ -2166,13 +2166,13 @@
     abortcontroller-polyfill "^1.4.0"
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@^1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.7.4.tgz#6bfb546f256f4ed335334ae6dd002ae52c617d85"
-  integrity sha512-fDdhgnjNdoZZdKjs9nFJg5kqDnJ4xNYCl4CjAUbVb8T6rrEeqSyAOQXAN/lKWkEkMA3OT4OmoI4owwIns1tJIA==
+"@uppy/xhr-upload@^1.7.5":
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.7.5.tgz#990ba3e698503bd51534a59fd426096e37ef942b"
+  integrity sha512-Itnc9j9k/PemcmT5KrZ1BEw3pTc6WJg0yyyOcE+hLO8Hjv60Fm7c/I2ZknarOroIjT1WiTSyuxTBPp+9UGkxNA==
   dependencies:
-    "@uppy/companion-client" "^1.10.1"
-    "@uppy/utils" "^3.6.1"
+    "@uppy/companion-client" "^1.10.2"
+    "@uppy/utils" "^3.6.2"
     cuid "^2.1.1"
 
 "@wdio/config@7.7.3":
