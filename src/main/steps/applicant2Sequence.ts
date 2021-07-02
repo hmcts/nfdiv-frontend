@@ -17,6 +17,7 @@ import {
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_NAME,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
@@ -73,7 +74,8 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_JOINT_APPLICATION,
-    getNextStep: () => YOUR_NAME,
+    getNextStep: data =>
+      data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : SENT_TO_APPLICANT2_FOR_REVIEW,
   },
 ];
 
