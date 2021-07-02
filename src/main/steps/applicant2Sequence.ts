@@ -1,13 +1,13 @@
 import { YesOrNo } from '../app/case/definition';
 
-import { Step } from './applicant1Sequence';
+import { Sections, Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
-  CHECK_ANSWERS_URL,
+  CONFIRM_JOINT_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -44,10 +44,12 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: data =>
       data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
@@ -68,8 +70,13 @@ const sequences: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
+    showInCompleteSection: Sections.DividingAssets,
     getNextStep: data =>
-      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CONFIRM_JOINT_APPLICATION,
+  },
+  {
+    url: CONFIRM_JOINT_APPLICATION,
+    getNextStep: () => OTHER_COURT_CASES,
   },
 ];
 

@@ -95,15 +95,20 @@ export type StepWithContent = ({
   form: FormContent;
   view: string;
 } & Step)[];
-export const stepsWithContent = ((): StepWithContent => {
+
+const getStepsWithContent = (applicant: number): StepWithContent => {
+  const sequence = applicant === 1 ? applicant1Sequence : applicant2Sequence;
+  const dir = __dirname + (applicant === 1 ? '/applicant1' : '');
   const results: StepWithContent = [];
-  [applicant1Sequence, applicant2Sequence].forEach((sequence: Step[], i: number) => {
-    const dir = __dirname + (i === 0 ? '/applicant1' : '');
-    for (const step of sequence) {
-      const stepDir = `${dir}${step.url}`;
-      const { content, view } = getStepFiles(stepDir);
-      results.push({ stepDir, ...step, ...content, view });
-    }
-  });
+
+  for (const step of sequence) {
+    const stepDir = `${dir}${step.url}`;
+    const { content, view } = getStepFiles(stepDir);
+    results.push({ stepDir, ...step, ...content, view });
+  }
   return results;
-})();
+};
+
+export const stepsWithContentApplicant1 = getStepsWithContent(1);
+export const stepsWithContentApplicant2 = getStepsWithContent(2);
+export const stepsWithContent = [...stepsWithContentApplicant1, ...stepsWithContentApplicant2];
