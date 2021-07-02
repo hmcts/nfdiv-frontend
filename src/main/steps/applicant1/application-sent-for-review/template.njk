@@ -2,8 +2,7 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <p class="govuk-body">{{ sentTo }} <strong>{{ formState.applicant2EmailAddress }}</strong>.</p>
-  <p class="govuk-body">{{ theyNeedToReviewBy }} <strong>{{ reviewDate }}</strong>.</p>
+  <p class="govuk-body">{{ sentTo }} <strong>{{ reviewDate }}</strong>.</p>
   <p class="govuk-body">{{ line3 }}</p>
   <p class="govuk-body"><a href="/save-and-sign-out?lng={{language}}" class="govuk-link">{{ saveAndSignOut }}</a></p>
 {% endblock %}

@@ -21,7 +21,15 @@ Feature: Check Your Answers (Joint Application)
   Scenario: Checking completed answers as a joint applicant
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to '/check-your-answers'
-    Then the page should include "Your answers will be sent to your husband to review. Once they have reviewed and provided some of their own information then the application will be ready to submit."
+    Then the page should include "Your husband needs to confirm your joint application"
+    And the page should include "When they have confirmed and paid, then the application will be submitted."
+
+  Scenario: Checking completed answers as a joint applicant applying for Help With Fees
+    Given I've already completed the form using the fixture "completeCaseWithHWF"
+    When I go to '/check-your-answers'
+    Then the page should include "Your husband needs to confirm your joint application"
+    And the page should include "When they have confirmed, then the application will be submitted."
+
 
   @nightly
   Scenario: Sending application to applicant 2 to confirm

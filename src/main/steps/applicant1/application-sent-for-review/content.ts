@@ -6,13 +6,11 @@ import type { CommonContent } from '../../common/common.content';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ partner }: CommonContent) => ({
-  title: `Your answers have been sent to your ${partner} to review`,
-  sentTo: `Your answers have been sent to your ${partner} at the following email address:`,
-  theyNeedToReviewBy: 'They need to review them and provide some of their own information by',
+const en = ({ partner, hasAppliedForHWF }: CommonContent) => ({
+  title: `Your ${partner} needs to confirm your joint application`,
+  sentTo: `Your ${partner} needs to confirm your joint application. They have been sent an email inviting them to review your combined answers and confirm the application. They should do this by `,
   reviewDate: dayjs().add(2, 'weeks').format('MMMM Do YYYY'),
-  line3:
-    'You will receive a notification to confirm. If they do not review then you will be told what you can do to progress the application.',
+  line3: `When they have confirmed${hasAppliedForHWF ? '' : ' and paid'}, then the application will be submitted.`,
 });
 
 // @TODO translations
