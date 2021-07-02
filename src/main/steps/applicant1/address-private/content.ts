@@ -16,8 +16,18 @@ const en = ({ partner, required }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ partner, required }: CommonContent) => ({
+  title: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
+  line1: `Gall y llys gadw eich cyfeiriad, eich cyfeiriad e-bost a'ch rhif ffôn yn breifat oddi wrth eich ${partner}.`,
+  detailsPrivate: 'Cadwch fy manylion cyswllt yn breifat',
+  detailsPrivateMoreDetails:
+    "Os credwch eich bod efallai'n profi cam-drin domestig neu os nad ydych yn teimlo'n ddiogel, yna",
+  supportAvailable: 'mae cymorth ar gael',
+  detailsNotPrivate: 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat',
+  errors: {
+    applicant1AddressPrivate: { required },
+  },
+});
 
 export const form: FormContent = {
   fields: {

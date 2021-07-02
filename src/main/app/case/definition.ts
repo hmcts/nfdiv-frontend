@@ -712,4 +712,5 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';

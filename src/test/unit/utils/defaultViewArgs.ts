@@ -7,6 +7,7 @@ export const defaultViewArgs = {
   getNextIncompleteStepUrl: expect.any(Function),
   isDraft: expect.any(Boolean),
   isDivorce: expect.any(Boolean),
+  isApplicant2: expect.any(Boolean),
   partner: expect.any(String),
   formState: expect.any(Object),
   language: expect.any(String),
