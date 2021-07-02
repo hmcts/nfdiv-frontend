@@ -1,12 +1,12 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:12-alpine as base
 COPY --chown=hmcts:hmcts . .
-RUN yarn install --production \
+RUN HUSKY=0 yarn install --production --ignore-scripts \
   && yarn cache clean
 
 # ---- Build image ----
 FROM base as build
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install && yarn build:prod
+RUN HUSKY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --ignore-scripts && yarn build:prod
 
 # ---- Runtime image ----
 FROM base as runtime
