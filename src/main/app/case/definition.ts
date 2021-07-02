@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-30 17:53:31.
+// Generated using typescript-generator version 2.32.889 on 2021-07-02 15:37:05.
 
 export interface Address {
   AddressLine1: string;
@@ -88,8 +88,18 @@ export interface CaseNote {
 }
 
 export interface AcknowledgementOfService {
+  confirmReadPetition: YesOrNo;
+  jurisdictionAgree: YesOrNo;
+  jurisdictionDisagreeReason: string;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
+  agreeToCosts: RespAgreeToCostsEnum;
+  costsAmount: string;
+  costsReason: string;
   dateAosSubmitted: DateAsString;
 }
+
+export interface AosAccess extends HasAccessControl {}
 
 export interface Applicant {
   FirstName: string;
@@ -116,14 +126,6 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   SolicitorIsDigital: YesOrNo;
-  ConfirmReadPetition: YesOrNo;
-  JurisdictionAgree: YesOrNo;
-  JurisdictionDisagreeReason: string;
-  LegalProceedingsExist: YesOrNo;
-  LegalProceedingsDescription: string;
-  AgreeToCosts: RespAgreeToCostsEnum;
-  CostsAmount: string;
-  CostsReason: string;
   FinancialOrder: YesOrNo;
   FinancialOrderFor: FinancialOrderFor[];
 }
@@ -189,7 +191,7 @@ export interface Application {
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
   applicant2ConfirmApplicant1Information: YesOrNo;
-  applicant2ExplainsApplicant1IncorrectInformation: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
 }
 
 export interface CaseData {
@@ -219,14 +221,6 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1SolicitorIsDigital: YesOrNo;
-  applicant1ConfirmReadPetition: YesOrNo;
-  applicant1JurisdictionAgree: YesOrNo;
-  applicant1JurisdictionDisagreeReason: string;
-  applicant1LegalProceedingsExist: YesOrNo;
-  applicant1LegalProceedingsDescription: string;
-  applicant1AgreeToCosts: RespAgreeToCostsEnum;
-  applicant1CostsAmount: string;
-  applicant1CostsReason: string;
   applicant1FinancialOrder: YesOrNo;
   applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant2FirstName: string;
@@ -253,14 +247,6 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2SolicitorIsDigital: YesOrNo;
-  applicant2ConfirmReadPetition: YesOrNo;
-  applicant2JurisdictionAgree: YesOrNo;
-  applicant2JurisdictionDisagreeReason: string;
-  applicant2LegalProceedingsExist: YesOrNo;
-  applicant2LegalProceedingsDescription: string;
-  applicant2AgreeToCosts: RespAgreeToCostsEnum;
-  applicant2CostsAmount: string;
-  applicant2CostsReason: string;
   applicant2FinancialOrder: YesOrNo;
   applicant2FinancialOrderFor: FinancialOrderFor[];
   applicant1ScreenHasMarriageBroken: YesOrNo;
@@ -323,10 +309,18 @@ export interface CaseData {
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
   applicant2ConfirmApplicant1Information: YesOrNo;
-  applicant2ExplainsApplicant1IncorrectInformation: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
+  confirmReadPetition: YesOrNo;
+  jurisdictionAgree: YesOrNo;
+  jurisdictionDisagreeReason: string;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
+  agreeToCosts: RespAgreeToCostsEnum;
+  costsAmount: string;
+  costsReason: string;
   dateAosSubmitted: DateAsString;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
@@ -459,6 +453,21 @@ export interface Print {
   caseId: string;
   caseRef: string;
   letterType: string;
+}
+
+export interface SetMultimap<K, V> extends Multimap<K, V> {}
+
+export interface HasRole {
+  role: string;
+  caseTypePermissions: string;
+}
+
+export interface HasAccessControl {
+  grants: SetMultimap<HasRole, Permission>;
+}
+
+export interface Multimap<K, V> {
+  empty: boolean;
 }
 
 export type DateAsString = string;
@@ -713,6 +722,13 @@ export const enum PaymentStatus {
   TIMED_OUT = 'timedOut',
   CANCELLED = 'cancelled',
   ERROR = 'error',
+}
+
+export const enum Permission {
+  C = 'C',
+  R = 'R',
+  U = 'U',
+  D = 'D',
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';
