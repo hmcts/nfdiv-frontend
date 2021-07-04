@@ -3,11 +3,10 @@ Feature: Check Your Answers
   Background:
     Given I login
     And I am reviewing an application for divorce created by my wife
-    When I go to '/applicant2/check-your-joint-applicant'
+    When I go to '/applicant2/check-your-joint-application'
     Then the page should include "Check your wife's answers"
 
   Scenario: Checking answers
-    When I go to '/check-your-answers'
     Then the page should include "Yes, my marriage has irretrievably broken down"
     And the page should include "When did you get married?	31 December 1999"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
