@@ -2145,12 +2145,12 @@
     "@uppy/utils" "^3.6.2"
     preact "8.2.9"
 
-"@uppy/progress-bar@^1.3.29":
-  version "1.3.29"
-  resolved "https://registry.yarnpkg.com/@uppy/progress-bar/-/progress-bar-1.3.29.tgz#440d49cab7a4d6593ac9934f39c96525cc201a6a"
-  integrity sha512-Ku9j7ec8MFbXsj1aVz7ko4EkE6bVBzzrghtyaQvYjIMb0pytT2j8+uiHiPorvbA0sTUfeLdRCaRmBOrdDo2Quw==
+"@uppy/progress-bar@^1.3.30":
+  version "1.3.30"
+  resolved "https://registry.yarnpkg.com/@uppy/progress-bar/-/progress-bar-1.3.30.tgz#5bdbc8aab782df15def535c6be47d45ca07964da"
+  integrity sha512-MAn20wBMzKc1p9M/Mot4+bV/707EO/DVgoFcvoP8rmA5oZOGMINpvFGR+rUtWQoBFMvKtvs/Wkp8mcR22rCMrw==
   dependencies:
-    "@uppy/utils" "^3.6.1"
+    "@uppy/utils" "^3.6.2"
     preact "8.2.9"
 
 "@uppy/store-default@^1.2.7":
@@ -2158,7 +2158,7 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.7.tgz#41a0b1579f4d5b86c236e7f5e52fdc01960bb011"
   integrity sha512-58IG9yk/i/kYQ9uEwAwMFl1H2V3syOoODrYoFfVHlxaqv+9MkXBg2tHE2gk40iaAIxcCErcPxZkBOvkqzO1SQA==
 
-"@uppy/utils@^3.6.1", "@uppy/utils@^3.6.2":
+"@uppy/utils@^3.6.2":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.6.2.tgz#78b02455b9c469d927d22736be5b68cda2600826"
   integrity sha512-wGTZma7eywIojfuE1vXlT0fxPSpmCRMkfgFWYc+6TL2FfGqWInmePoB+yal6/M2AnjeKHz6XYMhIpZkjOxFvcw==
