@@ -11,7 +11,7 @@ Feature: Check Your Joint Application
     And the page should include "When did you get married?	31 December 1999"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
     And the page should include "Help with fees"
-    And the page should include "Do you need help paying the fee for your divorce?	I do not need help paying the fee "
+    And the page should include "Help paying the divorce fee	I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
 
   @nightly
