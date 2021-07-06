@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 
 const en = ({ isDivorce, partner, civilPartner }) => ({
   title: 'You need to review your joint application',
-  line1: `Your ${isDivorce ? partner : civilPartner} has created a ${
+  line1: `Your ${isDivorce ? partner : civilPartner} has created ${
     isDivorce ? 'a divorce application' : 'an application to end your civil partnership'
   }. They have indicated they want to submit the application jointly with you. A joint application is when you both review and submit the application together.`,
   line2: `You need to review the information they have provided. If you confirm it’s correct and confirm the application ${
