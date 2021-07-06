@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-02 15:37:05.
+// Generated using typescript-generator version 2.32.889 on 2021-07-06 15:02:15.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -458,8 +458,8 @@ export interface Print {
 export interface SetMultimap<K, V> extends Multimap<K, V> {}
 
 export interface HasRole {
-  role: string;
   caseTypePermissions: string;
+  role: string;
 }
 
 export interface HasAccessControl {
