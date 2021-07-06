@@ -49,14 +49,14 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       }
 
       const questionAnswers: GovUkNunjucksSummary[] = [];
-      const addQuestionAnswer = (question: string, answer: string, moreDetails?: string, link?: PageLink) =>
+      const addQuestionAnswer = (question: string, answer: string, link?: PageLink, html?: string) =>
         questionAnswers.push({
           key: {
             text: question,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            html: answer + (moreDetails || ''),
+            html: answer + (html || ''),
           },
           ...(isApplicant2
             ? {}
@@ -99,13 +99,13 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
         if (customAnswer === false) {
           continue;
         }
-        const customAnswerMoreDetails = this.ctx.stepAnswersWithHTML?.[step.url]?.[fieldKey];
+        const customAnswerWithHtml = this.ctx.stepAnswersWithHTML?.[step.url]?.[fieldKey];
 
         addQuestionAnswer(
           customQuestion || (question as string),
           this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
-          customAnswerMoreDetails,
-          this.ctx.stepLinks[step.url]
+          this.ctx.stepLinks[step.url],
+          customAnswerWithHtml
         );
       }
 
