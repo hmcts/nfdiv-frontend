@@ -18,6 +18,7 @@ import {
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
+  YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
@@ -77,6 +78,10 @@ const sequences: Step[] = [
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
+  },
+  {
+    url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => HOME_URL,
   },
   {
     url: CHECK_ANSWERS_URL,
