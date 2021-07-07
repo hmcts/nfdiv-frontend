@@ -21,7 +21,7 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, isApplicant2) %}
+    {% set rows = getAnswerRows(section) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 

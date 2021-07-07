@@ -64,12 +64,14 @@ describe('getAnswerRows()', () => {
         applicant2: 'husband',
         formState: {},
         userEmail: 'test@example.com',
+        isApplicant2: false,
       },
-    })(Sections.AboutPartnership, false);
+    })(Sections.AboutPartnership);
 
     expect(generatePageContentSpy).toHaveBeenCalledWith({
       formState: {},
       isDivorce: true,
+      isApplicant2: false,
       language: 'en',
       pageContent: mockGenerateContent,
       userEmail: 'test@example.com',
@@ -128,6 +130,7 @@ describe('getAnswerRows()', () => {
       mockCtx = {
         language: 'en',
         isDivorce: true,
+        isApplicant2: false,
         partner: 'husband',
         formState: mockFormState,
         change: 'Change',
@@ -141,7 +144,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
@@ -168,8 +171,8 @@ describe('getAnswerRows()', () => {
     it('converts steps into the correct check answers rows for applicant 2', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: mockCtx,
-      })(Sections.AboutPartnership, true);
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
@@ -220,7 +223,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
@@ -253,7 +256,7 @@ describe('getAnswerRows()', () => {
           stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
@@ -284,7 +287,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           stepAnswers: { pickThisOne: { mockField: false } },
         },
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([]);
     });
@@ -296,7 +299,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           stepAnswers: { pickThisOne: { mockField: '' } },
         },
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {
@@ -339,7 +342,7 @@ describe('getAnswerRows()', () => {
           ...mockCtx,
           formState: mockFormState,
         },
-      })(Sections.AboutPartnership, false);
+      })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
         {

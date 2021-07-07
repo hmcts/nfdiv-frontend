@@ -154,21 +154,6 @@ describe('GetController', () => {
     });
   });
 
-  test('sends isApplicant2 based on session state to the view', async () => {
-    const controller = new GetController('page', generateContent);
-
-    const req = mockRequest({ session: { isApplicant2: true } });
-    const res = mockResponse();
-    await controller.get(req, res);
-
-    expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      isApplicant2: true,
-      text: 'english',
-      userEmail,
-    });
-  });
-
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
       const getContentMock = jest.fn().mockReturnValue({});

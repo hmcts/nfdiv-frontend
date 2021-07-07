@@ -8,7 +8,7 @@ import { Case } from '../case';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
 
-export const getAnswerRows = function (section: Sections, isApplicant2: boolean): GovUkNunjucksSummary[] {
+export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
