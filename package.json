@@ -50,7 +50,7 @@
     "@types/express-session": "^1.17.4",
     "@types/glob": "^7.1.4",
     "@types/helmet": "^4.0.0",
-    "@types/lockfile": "^1.0.1",
+    "@types/lockfile": "^1.0.2",
     "@types/lodash": "^4.14.171",
     "@types/multer": "^1.4.6",
     "@types/negotiator": "^0.6.1",
