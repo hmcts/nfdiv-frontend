@@ -1651,10 +1651,10 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
-"@types/config@^0.0.38":
-  version "0.0.38"
-  resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.38.tgz#ca30679b21b5b297299467e3a3f1c8e2e64b9170"
-  integrity sha512-z2WizAfIFgSv8SQfQ8c0LlbDAcK47D/o93XW6bxZ9t3bs4fmmfAPjk1nhAIBTG84PBBCHfSPM+8g7vhLdbFokg==
+"@types/config@^0.0.39":
+  version "0.0.39"
+  resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.39.tgz#aad18ceb9439329adc3d4c6b91a908a72c715612"
+  integrity sha512-EBHj9lSIyw62vwqCwkeJXjiV6C2m2o+RJZlRWLkHduGYiNBoMXcY6AhSLqjQQ+uPdrPYrOMYvVa41zjo00LbFQ==
 
 "@types/connect-redis@^0.0.17":
   version "0.0.17"
@@ -1819,10 +1819,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.23":
-  version "26.0.23"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.23.tgz#a1b7eab3c503b80451d019efb588ec63522ee4e7"
-  integrity sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==
+"@types/jest@^26.0.24":
+  version "26.0.24"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
+  integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -1839,10 +1839,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lockfile@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/lockfile/-/lockfile-1.0.1.tgz#434a3455e89843312f01976e010c60f1bcbd56f7"
-  integrity sha512-65WZedEm4AnOsBDdsapJJG42MhROu3n4aSSiu87JXF/pSdlubxZxp3S1yz3kTfkJ2KBPud4CpjoHVAptOm9Zmw==
+"@types/lockfile@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/lockfile/-/lockfile-1.0.2.tgz#3f77e84171a2b7e3198bd5717c7547a54393baf8"
+  integrity sha512-jD5VbvhfMhaYN4M3qPJuhMVUg3Dfc4tvPvLEAXn6GXbs/ajDFtCQahX37GIE65ipTI3I+hEvNaXS3MYAn9Ce3Q==
 
 "@types/lodash@^4.14.171":
   version "4.14.171"
@@ -1873,10 +1873,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/multer@^1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@types/multer/-/multer-1.4.6.tgz#411950b7a99ba0de6ee8f6e3713f4628980cdc73"
-  integrity sha512-F4EZ+KRrzdiSm3jSFj1GVUlw3zWXus5nXYBbrQW/0MGIUv9YHw1dM0cJOxq++v2+Gl4IBdSDvQ3YCORLdyCU+Q==
+"@types/multer@^1.4.7":
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/@types/multer/-/multer-1.4.7.tgz#89cf03547c28c7bbcc726f029e2a76a7232cc79e"
+  integrity sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==
   dependencies:
     "@types/express" "*"
 
