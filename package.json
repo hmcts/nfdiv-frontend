@@ -44,7 +44,7 @@
     "@types/config": "^0.0.38",
     "@types/connect-redis": "^0.0.17",
     "@types/cookie-parser": "^1.4.2",
-    "@types/csurf": "^1.11.1",
+    "@types/csurf": "^1.11.2",
     "@types/es6-promisify": "^6.0.0",
     "@types/express": "^4.17.12",
     "@types/express-session": "^1.17.4",
