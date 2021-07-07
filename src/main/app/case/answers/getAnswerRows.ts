@@ -12,12 +12,13 @@ export const getAnswerRows = function (section: Sections, isApplicant2: boolean)
   const {
     language,
     isDivorce,
+    isApplicant2,
     formState,
     userEmail,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
-    applicant2: string;
+    isApplicant2: boolean;
     userEmail: string;
     formState: Partial<Case>;
   } = this.ctx;
@@ -38,6 +39,7 @@ export const getAnswerRows = function (section: Sections, isApplicant2: boolean)
             language,
             pageContent: step.generateContent,
             isDivorce,
+            isApplicant2,
             formState: processedFormState,
             userEmail,
           }),

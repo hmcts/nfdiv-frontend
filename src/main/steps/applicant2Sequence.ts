@@ -12,11 +12,13 @@ import {
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
+  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_NAME,
+  YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
@@ -32,10 +34,10 @@ const sequences: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : YOUR_NAME),
+    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
   },
   {
-    url: RELATIONSHIP_NOT_BROKEN_URL,
+    url: YOU_CANNOT_APPLY,
     getNextStep: () => NOT_CONFIRMED_JOINT_APPLICATION,
   },
   {
@@ -46,6 +48,14 @@ const sequences: Step[] = [
     url: YOUR_NAME,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+  },
+  {
+    url: CHANGES_TO_YOUR_NAME_URL,
+    getNextStep: data =>
+      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? HOW_DID_YOU_CHANGE_YOUR_NAME
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
