@@ -1940,10 +1940,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/require-directory@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@types/require-directory/-/require-directory-2.1.1.tgz#c5d7676694c61309cd7d72404276bb25c46be091"
-  integrity sha512-4TTBpntB/k5BzK43/FcfU1BoTUkbXyC2Xt3cujMf0vV28d9lLO8AlxamICfHQ7XtdHt5SWdnUotDzoXvn4tRBA==
+"@types/require-directory@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/require-directory/-/require-directory-2.1.2.tgz#c2b405cce36d81946ad1a24580c3821880973d15"
+  integrity sha512-FUG5PJ2rsV2TssSspVZefTR8+wH3Ahr6KdAB6WanLNroSDu0A5ew4WVUxnnGU/E1k6nzip9ZawGAAe/ZqzGn5g==
   dependencies:
     "@types/node" "*"
 
