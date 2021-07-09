@@ -58,7 +58,7 @@ const fields: FromApiConverters = {
       data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP
         ? YesOrNo.YES
         : data.applicant2ContactDetailsConfidential === null
-        ? undefined
+        ? data.applicant2ContactDetailsConfidential
         : YesOrNo.NO,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
