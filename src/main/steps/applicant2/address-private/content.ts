@@ -4,15 +4,12 @@ import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/address-private/content';
-import { CommonContent } from '../../common/common.content';
 
-const labels = ({ required }: CommonContent) => {
-  return {
-    errors: {
-      applicant2AddressPrivate: { required },
-    },
-  };
-};
+const labels = content => ({
+  errors: {
+    applicant2AddressPrivate: content.errors.applicant1AddressPrivate,
+  },
+});
 
 const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
@@ -26,7 +23,7 @@ export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
   return {
     ...applicant1Content,
-    ...labels(content),
+    ...labels(applicant1Content),
     form,
   };
 };
