@@ -28,10 +28,21 @@ function preferenceFormSaved() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-//TODO add the correct cookies when implemented
 function cookiePreferencesUpdated(cookieStatus) {
   const dataLayer = window.dataLayer || [];
+  const dtrum = window.dtrum;
+
   dataLayer.push({ event: 'Cookie Preferences', cookiePreferences: cookieStatus });
+
+  if (dtrum !== undefined) {
+    if (cookieStatus.apm === 'on') {
+      dtrum.enable();
+      dtrum.enableSessionReplay();
+    } else {
+      dtrum.disable();
+      dtrum.disableSessionReplay();
+    }
+  }
 }
 
 cookieManager.init({
@@ -47,7 +58,7 @@ cookieManager.init({
   'cookie-banner-saved-callback': cookieBannerSaved,
   'cookie-banner-auto-hide': false,
   'cookie-manifest': [
-    //TODO add the correct cookies when implemented
+    //TODO add additional GA cookies
     {
       'category-name': 'essential',
       optional: false,
@@ -58,11 +69,24 @@ cookieManager.init({
       optional: true,
       cookies: ['_ga', '_gid'],
     },
+    {
+      'category-name': 'apm',
+      optional: true,
+      cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'],
+    },
   ],
 });
 
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
+    dtrum: DtrumApi;
   }
+}
+
+interface DtrumApi {
+  enable(): void;
+  enableSessionReplay(): void;
+  disable(): void;
+  disableSessionReplay(): void;
 }

@@ -89,6 +89,7 @@ const en = {
   hideMessage: 'Hide this message',
   cookiesConfirmationMessage:
     '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
   doNotUseAnalyticsCookies: 'Do not use cookies that measure my website use',
@@ -97,6 +98,9 @@ const en = {
   additionalCookies:
     'Government services may set additional cookies and, if so, will have their own cookie policy and banner.',
   goToHomepage: 'Go to homepage',
+  apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
+  useApmCookies: 'Use cookies that measure website application performance monitoring',
+  doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
 };
 
 const cy: typeof en = {
