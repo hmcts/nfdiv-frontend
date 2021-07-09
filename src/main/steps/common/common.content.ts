@@ -79,6 +79,24 @@ const en = {
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidentHelpText2:
     'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  cookiesHeading: 'Cookies on',
+  cookiesLine1: 'We use some essential cookies to make this service work.',
+  cookiesLine2:
+    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+  acceptAnalyticsCookies: 'Accept analytics cookies',
+  rejectAnalyticsCookies: 'Reject analytics cookies',
+  viewCookies: 'View cookies',
+  hideMessage: 'Hide this message',
+  cookiesConfirmationMessage:
+    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  allowAnalyticsCookies: 'Allow cookies that measure website use?',
+  useAnalyticsCookies: 'Use cookies that measure my website use',
+  doNotUseAnalyticsCookies: 'Do not use cookies that measure my website use',
+  save: 'Save',
+  cookiesSaved: 'Your cookie settings were saved',
+  additionalCookies:
+    'Government services may set additional cookies and, if so, will have their own cookie policy and banner.',
+  goToHomepage: 'Go to homepage',
 };
 
 const cy: typeof en = {

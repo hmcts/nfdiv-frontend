@@ -1028,6 +1028,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@hmcts/cookie-manager@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/cookie-manager/-/cookie-manager-0.0.4.tgz#dc7381fffd03616863d0549ae1c0169d7b0348fd"
+  integrity sha512-OScl6xMFmKyCR8b0ZJyJxYOp7pV8G492LencoTkLrw60Cd0uyKYbkR0ugffx0LyO28Tqo7yRM3aHUV9DjsErug==
+
 "@hmcts/frontend@^0.0.50-alpha":
   version "0.0.50-alpha"
   resolved "https://registry.yarnpkg.com/@hmcts/frontend/-/frontend-0.0.50-alpha.tgz#4c1f1bc87312a2929ac60e54cdd3fc28782b98f9"
