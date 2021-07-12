@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-06 15:02:15.
+// Generated using typescript-generator version 2.32.889 on 2021-07-09 13:38:56.
 
 export interface Address {
   AddressLine1: string;
@@ -93,13 +93,14 @@ export interface AcknowledgementOfService {
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
-  agreeToCosts: RespAgreeToCostsEnum;
+  agreeToCosts: RespondentAgreeToCosts;
   costsAmount: string;
   costsReason: string;
   dateAosSubmitted: DateAsString;
+  digitalNoticeOfProceedings: YesOrNo;
+  noticeOfProceedingsEmail: string;
+  noticeOfProceedingsSolicitorFirm: string;
 }
-
-export interface AosAccess extends HasAccessControl {}
 
 export interface Applicant {
   FirstName: string;
@@ -164,7 +165,7 @@ export interface Application {
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
-  solServiceMethod: SolServiceMethod;
+  solServiceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
@@ -174,7 +175,7 @@ export interface Application {
   solStatementOfReconciliationFirm: string;
   statementOfReconciliationComments: string;
   solApplicationFeeInPounds: string;
-  solPaymentHowToPay: SolToPay;
+  solPaymentHowToPay: SolicitorPaymentMethod;
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
@@ -282,7 +283,7 @@ export interface CaseData {
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
-  solServiceMethod: SolServiceMethod;
+  solServiceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
@@ -292,7 +293,7 @@ export interface CaseData {
   solStatementOfReconciliationFirm: string;
   statementOfReconciliationComments: string;
   solApplicationFeeInPounds: string;
-  solPaymentHowToPay: SolToPay;
+  solPaymentHowToPay: SolicitorPaymentMethod;
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
@@ -318,10 +319,13 @@ export interface CaseData {
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
-  agreeToCosts: RespAgreeToCostsEnum;
+  agreeToCosts: RespondentAgreeToCosts;
   costsAmount: string;
   costsReason: string;
   dateAosSubmitted: DateAsString;
+  digitalNoticeOfProceedings: YesOrNo;
+  noticeOfProceedingsEmail: string;
+  noticeOfProceedingsSolicitorFirm: string;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -422,6 +426,18 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
+export interface Letter {
+  divorceDocument: DivorceDocument;
+  count: number;
+}
+
+export interface Print {
+  letters: Letter[];
+  caseId: string;
+  caseRef: string;
+  letterType: string;
+}
+
 /**
  * The response from retrieving a fee from fees and payments service
  */
@@ -441,33 +457,6 @@ export interface Payment {
   paymentChannel: string;
   paymentReference: string;
   paymentTransactionId: string;
-}
-
-export interface Letter {
-  divorceDocument: DivorceDocument;
-  count: number;
-}
-
-export interface Print {
-  letters: Letter[];
-  caseId: string;
-  caseRef: string;
-  letterType: string;
-}
-
-export interface SetMultimap<K, V> extends Multimap<K, V> {}
-
-export interface HasRole {
-  caseTypePermissions: string;
-  role: string;
-}
-
-export interface HasAccessControl {
-  grants: SetMultimap<HasRole, Permission>;
-}
-
-export interface Multimap<K, V> {
-  empty: boolean;
 }
 
 export type DateAsString = string;
@@ -621,18 +610,18 @@ export const enum LegalProceedingsRelated {
   CHILDREN = 'children',
 }
 
-export const enum RespAgreeToCostsEnum {
+export const enum RespondentAgreeToCosts {
   YES = 'Yes',
   NO = 'No',
   DIFFERENT_AMOUNT = 'DifferentAmount',
 }
 
-export const enum SolServiceMethod {
+export const enum ServiceMethod {
   PERSONAL_SERVICE = 'personalService',
   COURT_SERVICE = 'courtService',
 }
 
-export const enum SolToPay {
+export const enum SolicitorPaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEES_HELP_WITH = 'feesHelpWith',
 }
@@ -724,14 +713,6 @@ export const enum PaymentStatus {
   ERROR = 'error',
 }
 
-export const enum Permission {
-  C = 'C',
-  R = 'R',
-  U = 'U',
-  D = 'D',
-}
-export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
-export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
@@ -740,3 +721,6 @@ export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
+
+export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
+export const JURISDICTION = 'DIVORCE';
