@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
 import {
@@ -11,6 +13,8 @@ import {
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import { fromApi as uploadedFilesFromApi } from './formatter/uploaded-files';
+
+dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
@@ -51,7 +55,11 @@ const fields: FromApiConverters = {
   }),
   applicant2ContactDetailsConfidential: data => ({
     applicant2AddressPrivate:
-      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP
+        ? YesOrNo.YES
+        : data.applicant2ContactDetailsConfidential === null
+        ? data.applicant2ContactDetailsConfidential
+        : YesOrNo.NO,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
   documentsUploaded: uploadedFilesFromApi,
@@ -64,6 +72,9 @@ const fields: FromApiConverters = {
   }),
   dateSubmitted: data => ({
     dateSubmitted: new Date(data.dateSubmitted as string),
+  }),
+  dueDate: data => ({
+    dueDate: dayjs(data.dueDate).format('MMMM Do YYYY'),
   }),
 };
 
