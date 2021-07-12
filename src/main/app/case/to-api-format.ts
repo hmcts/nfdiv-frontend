@@ -61,7 +61,11 @@ const fields: ToApiConverters = {
   }),
   applicant2AddressPrivate: data => ({
     applicant2ContactDetailsConfidential:
-      data.applicant2AddressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
+      data.applicant2AddressPrivate === YesOrNo.YES
+        ? ConfidentialAddress.KEEP
+        : data.applicant2AddressPrivate === null
+        ? null
+        : ConfidentialAddress.SHARE,
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
