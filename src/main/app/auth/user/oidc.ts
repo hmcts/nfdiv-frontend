@@ -37,16 +37,16 @@ export const getUserDetails = async (
   };
 };
 
-export const getCaseWorkerUser = async (): Promise<UserDetails> => {
+export const getSystemUser = async (): Promise<UserDetails> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
 
-  const caseWorkerUsername: string = config.get('services.idam.caseworkerUsername');
-  const caseWorkerPassword: string = config.get('services.idam.caseworkerPassword');
+  const systemUsername: string = config.get('services.idam.systemUsername');
+  const systemPassword: string = config.get('services.idam.systemPassword');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${caseWorkerUsername}&password=${caseWorkerPassword}&client_id=${id}
+  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}
                 &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response = await Axios.post(tokenUrl, data, { headers });

@@ -8,13 +8,13 @@ import { Form } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
 
-const getCaseWorkerUserMock = jest.spyOn(oidc, 'getCaseWorkerUser');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('AccessCodePostController', () => {
   beforeEach(() => {
-    getCaseWorkerUserMock.mockResolvedValue({
+    getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
@@ -25,7 +25,7 @@ describe('AccessCodePostController', () => {
   });
 
   afterEach(() => {
-    getCaseWorkerUserMock.mockClear();
+    getSystemUserMock.mockClear();
     getNextStepUrlMock.mockClear();
   });
 
