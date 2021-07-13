@@ -20,6 +20,7 @@ if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
 
+console.log('developmentMode=', !process.env.JENKINS_HOME);
 const setUp = async () => {
   const propertiesVolume = new PropertiesVolume();
   propertiesVolume.enableFor({
