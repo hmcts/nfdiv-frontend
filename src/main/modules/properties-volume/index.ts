@@ -24,6 +24,7 @@ export class PropertiesVolume {
       this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
       this.setLocalSecret('idam-caseworker-username', 'services.idam.caseworkerUsername');
       this.setLocalSecret('idam-caseworker-password', 'services.idam.caseworkerPassword');
+      this.setLocalSecret('e2e-test-user-password', 'e2e.testPassword');
     }
   }
 
