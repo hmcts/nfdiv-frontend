@@ -33,4 +33,4 @@ Feature: Check Your Joint Application
     When I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
     And I type "date of marriage is incorrect."
     When I click "Continue"
-    Then the page URL should be "/applicant2/application-sent-for-review"
+    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
