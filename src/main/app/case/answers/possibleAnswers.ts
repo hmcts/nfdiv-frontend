@@ -4,7 +4,7 @@ import { stepsWithContent } from '../../../steps';
 import { Step } from '../../../steps/applicant1Sequence';
 import { Form, FormContent } from '../../form/Form';
 import { Case } from '../case';
-import { YesOrNo } from '../definition';
+import { ApplicationType, YesOrNo } from '../definition';
 
 type StepWithForm = { form?: FormContent } & Step;
 
@@ -18,6 +18,8 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'applicationFeeOrderSummary',
   'payments',
 ];
+
+const applicant2SequenceStart = '/applicant2/you-need-to-review-your-application';
 
 export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {
   const sequenceWithForms = (steps as StepWithForm[]).filter(step => step.form);
@@ -37,7 +39,14 @@ export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): 
     return fields;
   };
 
-  return getPossibleFields(sequenceWithForms[0]);
+  const applicant1Fields = getPossibleFields(sequenceWithForms[0]);
+  const firstApplicant2Step = sequenceWithForms.find(step => step.url === applicant2SequenceStart);
+  const applicant2Fields =
+    firstApplicant2Step && caseState.applicationType === ApplicationType.JOINT_APPLICATION
+      ? getPossibleFields(firstApplicant2Step)
+      : [];
+
+  return [...applicant1Fields, ...applicant2Fields];
 };
 
 export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]): Partial<Case> =>
