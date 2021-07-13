@@ -65,9 +65,9 @@ import {
 } from './urls';
 
 export enum Sections {
-  AboutPartnership = 'aboutPartnership',
   AboutApplicant1 = 'aboutApplicant1',
   AboutApplicant2 = 'aboutApplicant2',
+  AboutPartnership = 'aboutPartnership',
   HelpWithFees = 'helpWithFees',
   ConnectionsToEnglandWales = 'connectionsToEnglandWales',
   AboutPartners = 'aboutPartners',
@@ -271,7 +271,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: CERTIFICATE_NAME,
     showInSection: Sections.AboutPartners,
-    showInCompleteSection: Sections.AboutApplicant1,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {

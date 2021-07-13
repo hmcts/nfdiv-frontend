@@ -92,6 +92,20 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
           this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer))
         );
       }
+
+      if (section === 'aboutApplicant1' && step.url === '/enter-your-name') {
+        addQuestionAnswer(
+          'Full name on the marriage certificate',
+          processedFormState.applicant1FullNameOnCertificate as string
+        );
+      }
+
+      if (section === 'aboutApplicant2' && step.url === '/applicant2/enter-your-name') {
+        addQuestionAnswer(
+          'Full name on the marriage certificate',
+          processedFormState.applicant2FullNameOnCertificate as string
+        );
+      }
       return questionAnswers;
     });
 };

@@ -27,7 +27,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    LegalProceedingsDetails: {
+    legalProceedingsDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.legalProceedingsDetails,

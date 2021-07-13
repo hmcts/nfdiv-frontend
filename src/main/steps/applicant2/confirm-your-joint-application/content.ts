@@ -27,10 +27,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       applicant1MiddleNames: 'Middle name',
       applicant1LastNames: 'Last name',
     },
-    [urls.CERTIFICATE_NAME]: {
-      applicant1FullNameOnCertificate: 'Full name from marriage certificate',
-      applicant2FullNameOnCertificate: 'Full name from marriage certificate',
-    },
     ['/applicant2' + urls.YOUR_NAME]: {
       applicant2FirstNames: 'First name',
       applicant2MiddleNames: 'Middle name',
@@ -51,6 +47,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
       relationshipDate: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
+    },
+    [urls.HOW_DO_YOU_WANT_TO_APPLY]: {
+      applicationType: 'We want to apply jointly',
     },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
