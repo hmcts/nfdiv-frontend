@@ -1,7 +1,20 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% extends "common/page.njk" %}
 
-
 {% block page_content %}
+  <div class="cookie-preference-success">
+    <div class="success-message" aria-labelledby="success-title" role="alert" tabindex="-1">
+      <h2 class="govuk-heading-m">
+        {{ cookiesSaved }}
+      </h2>
+      <div>
+        <p class="govuk-body-m">{{ additionalCookies }}</p>
+      </div>
+      <a class="govuk-link" href="/">{{ goToHomepage }}</a>
+    </div>
+  </div>
   <section>
     <h1 class="govuk-heading-l">{{ title }}</h1>
     <p class="govuk-body">{{ paragraph1 | safe }}</p>
@@ -120,5 +133,57 @@
         </tr>
       </table>
     </section>
+  </section>
+  <section>
+    <h2 class="govuk-heading-m">{{ changeCookiesHeading }}</h2>
+    <form id="cm-preference-form" class="js-show">
+      {{ govukRadios({
+        classes: 'govuk-radios',
+        idPrefix: 'analytics',
+        name: 'analytics',
+        fieldset: {
+          legend: {
+            text: allowAnalyticsCookies,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: 'on',
+            text: useAnalyticsCookies
+          },
+          {
+            value: 'off',
+            text: doNotUseAnalyticsCookies,
+            checked: true
+          }
+        ]
+      }) }}
+      {{ govukRadios({
+        classes: 'govuk-radios',
+        idPrefix: 'apm',
+        name: 'apm',
+        fieldset: {
+          legend: {
+            text: apmCookiesHeadings,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: 'on',
+            text: useApmCookies
+          },
+          {
+            value: 'off',
+            text: doNotUseApmCookies,
+            checked: true
+          }
+        ]
+      }) }}
+      {{ govukButton({
+        text: save
+      }) }}
+    </form>
   </section>
 {% endblock %}

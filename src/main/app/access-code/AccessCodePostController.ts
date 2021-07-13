@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { getCaseWorkerUser } from '../auth/user/oidc';
+import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
@@ -14,7 +14,7 @@ export class AccessCodePostController {
   constructor(protected readonly form: Form) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const caseworkerUser = await getCaseWorkerUser();
+    const caseworkerUser = await getSystemUser();
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
