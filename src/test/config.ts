@@ -20,12 +20,14 @@ if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
 
-const propertiesVolume = new PropertiesVolume();
-propertiesVolume.enableFor({
-  locals: { developmentMode: !process.env.JENKINS_HOME },
-} as unknown as Application);
+const setUp = async () => {
+  const propertiesVolume = new PropertiesVolume();
+  propertiesVolume.enableFor({
+    locals: { developmentMode: !process.env.JENKINS_HOME },
+  } as unknown as Application);
 
-getTokenFromApi();
+  getTokenFromApi();
+};
 
 const content = readFileSync(filename).toString();
 const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
@@ -35,7 +37,7 @@ lockFile.unlockSync(lock);
 
 const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
 const TestUser = generateTestUsername();
-const TestPass = (sysConfig.get('e2e.testPassword') as string) || '';
+const TestPass = () => process.env.TEST_PASSWORD || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 
 const autoLogin = {
@@ -43,7 +45,7 @@ const autoLogin = {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
     I.waitForText('Sign in or create an account');
     I.fillField('username', username);
-    I.fillField('password', password);
+    I.fillField('password', password());
     I.click('Sign in');
     I.waitForText('Apply for a divorce', 15);
   },
@@ -64,7 +66,7 @@ export const config = {
   WaitForTimeout: 5000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
-    password: TestPass,
+    password: TestPass(),
   }),
   Gherkin: {
     features: './features/**/*.feature',
@@ -78,7 +80,10 @@ export const config = {
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
-  bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
+  bootstrap: async (): Promise<void> => {
+    await setUp();
+    await idamUserManager.create(TestUser, TestPass());
+  },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
   AutoLogin: {
@@ -89,7 +94,7 @@ export const config = {
       citizenSingleton: {
         login: (I: CodeceptJS.I): void => {
           const username = generateTestUsername();
-          idamUserManager.create(username, TestPass);
+          idamUserManager.create(username, TestPass());
           autoLogin.login(I, username, TestPass);
         },
         check: autoLogin.check,

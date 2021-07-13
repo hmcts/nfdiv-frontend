@@ -33,7 +33,5 @@ session:
   redis:
     host:
     key:
-e2e:
-  testPassword: ''
 appInsights:
   instrumentationKey:

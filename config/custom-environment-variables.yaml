@@ -17,7 +17,5 @@ port: PORT
 session:
   redis:
     host: REDIS_HOST
-e2e:
-  testPassword: TEST_PASSWORD
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY

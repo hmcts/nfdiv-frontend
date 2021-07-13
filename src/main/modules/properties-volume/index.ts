@@ -24,7 +24,7 @@ export class PropertiesVolume {
       this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
       this.setLocalSecret('idam-caseworker-username', 'services.idam.caseworkerUsername');
       this.setLocalSecret('idam-caseworker-password', 'services.idam.caseworkerPassword');
-      this.setLocalSecret('e2e-test-user-password', 'e2e.testPassword');
+      process.env.TEST_PASSWORD = this.getSecret('e2e-test-user-password');
     }
   }
 
@@ -37,9 +37,16 @@ export class PropertiesVolume {
   /**
    * Load a secret from the AAT vault using azure cli
    */
-  private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync('az keyvault secret show --vault-name nfdiv-aat -o tsv --query value --name ' + secret);
+  private getSecret(secret: string): string {
+    return execSync('az keyvault secret show --vault-name nfdiv-aat -o tsv --query value --name ' + secret)
+      .toString()
+      .replace('\n', '');
+  }
 
-    set(config, toPath, result.toString().replace('\n', ''));
+  /**
+   * set a secret
+   */
+  private setLocalSecret(secret: string, toPath: string): void {
+    set(config, toPath, this.getSecret(secret));
   }
 }
