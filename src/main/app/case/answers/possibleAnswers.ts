@@ -1,8 +1,7 @@
 import { pick } from 'lodash';
 
-import { stepsWithContent } from '../../../steps';
+import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Step } from '../../../steps/applicant1Sequence';
-import { APPLICANT_2 } from '../../../steps/urls';
 import { Form, FormContent } from '../../form/Form';
 import { Case } from '../case';
 import { ApplicationType, YesOrNo } from '../definition';
@@ -46,15 +45,9 @@ export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]):
 
 export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
   const possibleAnswers = [
-    ...getAllPossibleAnswers(userCase, stepsWithContent),
+    ...getAllPossibleAnswers(userCase, stepsWithContentApplicant1),
     ...(userCase.applicationType === ApplicationType.JOINT_APPLICATION
-      ? getAllPossibleAnswers(
-          userCase,
-          stepsWithContent.slice(
-            stepsWithContent.find(step => step.url.startsWith(APPLICANT_2)) as number,
-            stepsWithContent.length
-          )
-        )
+      ? getAllPossibleAnswers(userCase, stepsWithContentApplicant2)
       : []),
   ];
 
