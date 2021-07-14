@@ -74,6 +74,10 @@ const sequences: Step[] = [
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
   },
   {
+    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
   },
