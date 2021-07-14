@@ -8,7 +8,11 @@ import { Case } from '../case';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
 
-export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
+export const getAnswerRows = function (
+  section: Sections,
+  showActions = true,
+  overrideStepsContent?: number
+): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
@@ -23,7 +27,12 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     formState: Partial<Case>;
   } = this.ctx;
 
-  const stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
+  let stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
+  if (overrideStepsContent === 1) {
+    stepsWithContent = stepsWithContentApplicant1;
+  } else if (overrideStepsContent === 2) {
+    stepsWithContent = stepsWithContentApplicant2;
+  }
   const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
   return stepsWithContent
@@ -59,7 +68,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           value: {
             html: answer + (html || ''),
           },
-          ...(isApplicant2
+          ...(!showActions
             ? {}
             : {
                 actions: {

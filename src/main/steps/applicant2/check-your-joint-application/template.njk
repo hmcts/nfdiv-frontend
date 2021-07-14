@@ -8,6 +8,8 @@
   nextIncompleteStep.startsWith('/check-your-joint-applicant') or
   nextIncompleteStep.startsWith('/application-submitted')
 %}
+{% set overrideStepsContent = 1 %}
+{% set showActions = false %}
 
 {% block backLink %}{% endblock %}
 
@@ -20,7 +22,7 @@
   <p class="govuk-body">{{ line1 }}</p>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section) %}
+    {% set rows = getAnswerRows(section, showActions, overrideStepsContent) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
