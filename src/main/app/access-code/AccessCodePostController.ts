@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
-import { CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
+import { SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form } from '../form/Form';
@@ -38,7 +38,7 @@ export class AccessCodePostController {
         req.session.userCase = await req.locals.api.triggerEvent(
           caseReference as string,
           formData,
-          CITIZEN_LINK_APPLICANT_2
+          SYSTEM_LINK_APPLICANT_2
         );
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);
