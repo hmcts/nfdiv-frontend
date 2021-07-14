@@ -13,7 +13,7 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryRequests: '256Mi'
+  memoryRequests: '512Mi'
   cpuRequests: '50m'
   devmemoryRequests: '128Mi'
   keyVaults:
