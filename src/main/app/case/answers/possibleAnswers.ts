@@ -2,6 +2,7 @@ import { pick } from 'lodash';
 
 import { stepsWithContent } from '../../../steps';
 import { Step } from '../../../steps/applicant1Sequence';
+import { APPLICANT_2 } from '../../../steps/urls';
 import { Form, FormContent } from '../../form/Form';
 import { Case } from '../case';
 import { ApplicationType, YesOrNo } from '../definition';
@@ -18,8 +19,6 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'applicationFeeOrderSummary',
   'payments',
 ];
-
-const applicant2SequenceStart = '/applicant2/you-need-to-review-your-application';
 
 export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {
   const sequenceWithForms = (steps as StepWithForm[]).filter(step => step.form);
@@ -39,21 +38,26 @@ export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): 
     return fields;
   };
 
-  const applicant1Fields = getPossibleFields(sequenceWithForms[0]);
-  const firstApplicant2Step = sequenceWithForms.find(step => step.url === applicant2SequenceStart);
-  const applicant2Fields =
-    firstApplicant2Step && caseState.applicationType === ApplicationType.JOINT_APPLICATION
-      ? getPossibleFields(firstApplicant2Step)
-      : [];
-
-  return [...applicant1Fields, ...applicant2Fields];
+  return getPossibleFields(sequenceWithForms[0]);
 };
 
 export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]): Partial<Case> =>
   pick(caseState, getAllPossibleAnswers(caseState, steps));
 
 export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
-  const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
+  const possibleAnswers = [
+    ...getAllPossibleAnswers(userCase, stepsWithContent),
+    ...(userCase.applicationType === ApplicationType.JOINT_APPLICATION
+      ? getAllPossibleAnswers(
+          userCase,
+          stepsWithContent.slice(
+            stepsWithContent.find(step => step.url.startsWith(APPLICANT_2)) as number,
+            stepsWithContent.length
+          )
+        )
+      : []),
+  ];
+
   const answers = Object.fromEntries(
     Object.keys(userCase)
       .filter(
