@@ -20,6 +20,12 @@ if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
 
+const content = readFileSync(filename).toString();
+const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
+
+writeFileSync(filename, instanceNo + '');
+lockFile.unlockSync(lock);
+
 const propertiesVolume = new PropertiesVolume();
 propertiesVolume.enableFor({
   locals: { developmentMode: !process.env.JENKINS_HOME },
@@ -27,15 +33,9 @@ propertiesVolume.enableFor({
 
 getTokenFromApi();
 
-const content = readFileSync(filename).toString();
-const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
-
-writeFileSync(filename, instanceNo + '');
-lockFile.unlockSync(lock);
-
 const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
 const TestUser = generateTestUsername();
-const TestPass = process.env.TEST_PASSWORD || '';
+const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 
 const autoLogin = {
