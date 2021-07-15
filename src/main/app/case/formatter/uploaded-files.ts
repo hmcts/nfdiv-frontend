@@ -1,15 +1,15 @@
 import { Case, Checkbox } from '../case';
 import { CaseData } from '../definition';
 
-export const fromApi = (data: Partial<CaseData>): Partial<Case> => ({
-  uploadedFiles:
-    data.documentsUploaded?.map(file => ({
+export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
+  applicant1UploadedFiles:
+    data.applicant1DocumentsUploaded?.map(file => ({
       id: `${file.id}`,
       name: `${file.value.documentFileName}`,
     })) || [],
-  documentsUploaded: data.documentsUploaded,
-  cannotUpload: data.cannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
-  cannotUploadDocuments: data.cannotUploadSupportingDocument,
+  applicant1DocumentsUploaded: data.applicant1DocumentsUploaded,
+  applicant1CannotUpload: data.applicant1CannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
+  applicant1CannotUploadDocuments: data.applicant1CannotUploadSupportingDocument,
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({

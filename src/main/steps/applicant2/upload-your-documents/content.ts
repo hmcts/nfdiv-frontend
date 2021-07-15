@@ -13,13 +13,13 @@ import {
 const labels = applicant1Content => ({
   errors: {
     applicant2UploadedFiles: {
-      notUploaded: applicant1Content.errors.uploadedFiles.notUploaded,
-      errorUploading: applicant1Content.errors.uploadedFiles.errorUploading,
-      fileSizeTooBig: applicant1Content.errors.uploadedFiles.fileSizeTooBig,
-      fileWrongFormat: applicant1Content.errors.uploadedFiles.fileWrongFormat,
+      notUploaded: applicant1Content.errors.applicant1UploadedFiles.notUploaded,
+      errorUploading: applicant1Content.errors.applicant1UploadedFiles.errorUploading,
+      fileSizeTooBig: applicant1Content.errors.applicant1UploadedFiles.fileSizeTooBig,
+      fileWrongFormat: applicant1Content.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     cannotUpload: {
-      required: applicant1Content.errors.cannotUpload.required,
+      required: applicant1Content.errors.applicant1CannotUpload.required,
     },
   },
 });
@@ -70,7 +70,7 @@ export const form: FormContent = {
         parser: data => JSON.parse((data as Record<string, string>).applicant2UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          const selectedCannotUploadDocuments = !!formData.cannotUploadDocuments?.length;
+          const selectedCannotUploadDocuments = !!formData.applicant2CannotUploadDocuments?.length;
           if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
             return 'notUploaded';
           }

@@ -69,7 +69,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
-  documentsUploaded: 'documentsUploaded',
+  applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   respondentUserId: 'applicant2UserId',
 };
 
@@ -170,13 +170,13 @@ export interface Case {
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
   applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
-  uploadedFiles?: UploadedFile[];
+  applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
-  documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
-  cannotUpload?: Checkbox;
+  applicant1CannotUpload?: Checkbox;
   applicant2CannotUpload?: Checkbox;
-  cannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant1CannotUploadDocuments?: DocumentType | DocumentType[];
   applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
   dueDate?: DateAsString;

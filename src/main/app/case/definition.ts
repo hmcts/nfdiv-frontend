@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-15 11:55:39.
+// Generated using typescript-generator version 2.32.889 on 2021-07-15 15:05:42.
 
 export interface Address {
   AddressLine1: string;
@@ -187,7 +187,7 @@ export interface Application {
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
-  cannotUploadSupportingDocument: DocumentType[];
+  applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
@@ -306,7 +306,7 @@ export interface CaseData {
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
-  cannotUploadSupportingDocument: DocumentType[];
+  applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
@@ -330,7 +330,7 @@ export interface CaseData {
   noticeOfProceedingsSolicitorFirm: string;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
-  documentsUploaded: ListValue<DivorceDocument>[];
+  applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
@@ -715,6 +715,9 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
+export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
+export const JURISDICTION = 'DIVORCE';
+
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
@@ -722,7 +725,5 @@ export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
-
-export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
-export const JURISDICTION = 'DIVORCE';
+export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
