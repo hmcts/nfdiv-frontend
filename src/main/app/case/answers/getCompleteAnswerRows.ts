@@ -52,7 +52,7 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
       const addQuestionAnswer = (question: string, answer: string) =>
         questionAnswers.push({
           key: {
-            text: question,
+            html: question,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
@@ -106,6 +106,33 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
           processedFormState.applicant2FullNameOnCertificate as string
         );
       }
+
+      if (section === 'otherCourtCases' && step.url === '/other-court-cases') {
+        addQuestionAnswer(
+          'What do the legal proceedings relate to?',
+          processedFormState.legalProceedingsRelated
+            ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' / ') as string
+        );
+      }
+
+      if (section === 'dividingAssets' && step.url === '/do-you-want-to-apply-financial-order') {
+        addQuestionAnswer(
+          'Who is the financial order for? 	',
+          processedFormState.whoIsFinancialOrderFor
+            ?.join(' / ')
+            .replace('applicant1', 'Me')
+            .replace('children', 'the children') as string
+        );
+      }
+
+      // if (section === 'dividingAssets' && step.url === '/applicant2/do-you-want-to-apply-financial-order' && !processedFormState.applicant2ApplyForFinancialOrder) {
+      //   addQuestionAnswer(
+      //     'Who is the financial order for? 	',
+      //     processedFormState.applicant2WhoIsFinancialOrderFor?.join(' / ').replace('applicant2', 'Me').replace('children', 'the children') as string
+      //   );
+      // }
+
       return questionAnswers;
     });
 };

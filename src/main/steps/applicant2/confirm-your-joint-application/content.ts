@@ -38,6 +38,12 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded: 'Is help with fees being claimed on this application?',
     },
+    [urls.APPLY_FINANCIAL_ORDER]: {
+      applyForFinancialOrder: 'Applicant 1<br><br> Do you want to apply for a financial order?',
+    },
+    ['/applicant2' + urls.APPLY_FINANCIAL_ORDER]: {
+      applyForFinancialOrder: 'Applicant 2<br><br> Do you want to apply for a financial order?',
+    },
     [urls.WHERE_YOUR_LIVES_ARE_BASED_URL]: {
       applicant1LifeBasedInEnglandAndWales: "Is applicant 1's life mainly based in England or Wales?",
       applicant2LifeBasedInEnglandAndWales: "Is applicant 2's life mainly based in England or Wales?",
@@ -50,6 +56,19 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     },
     [urls.HOW_DO_YOU_WANT_TO_APPLY]: {
       applicationType: 'We want to apply jointly',
+    },
+    [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
+      screenHasUnionBroken: 'Yes, the marriage has irretrievably broken down ',
+    },
+    [urls.CERTIFIED_TRANSLATION]: {
+      certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
+    },
+    [urls.APPLY_FINANCIAL_ORDER]: {
+      applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
+    },
+    ['/applicant2' + urls.APPLY_FINANCIAL_ORDER]: {
+      applicant2ApplyForFinancialOrder:
+        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
@@ -68,10 +87,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
           : false,
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
-  },
-  stepLinks: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
-    [urls.APPLY_FINANCIAL_ORDER]: urls.MONEY_PROPERTY,
   },
   confirm: 'Confirm before continuing',
   confirmPrayer: `I confirm that I’m applying to the court to the court with my ${partner} to:`,

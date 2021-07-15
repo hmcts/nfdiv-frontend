@@ -722,5 +722,7 @@ export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
 
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
+
 export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';

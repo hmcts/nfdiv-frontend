@@ -52,7 +52,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
         questionAnswers.push({
           key: {
-            text: question,
+            html: question,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
