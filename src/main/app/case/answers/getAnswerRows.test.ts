@@ -428,5 +428,33 @@ describe('getAnswerRows()', () => {
         },
       ]);
     });
+
+    it('converts steps into the correct check answers rows with overridden values to show applicant 2', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: mockCtx,
+      })(Sections.AboutPartnership, true, 2);
+
+      expect(actual).toEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: 'pickThisOne-applicant2',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
+              },
+            ],
+          },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
   });
 });
