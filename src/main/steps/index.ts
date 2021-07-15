@@ -95,12 +95,11 @@ export type StepWithContent = ({
   form: FormContent;
   view: string;
 } & Step)[];
-
 const getStepsWithContent = (applicant: number): StepWithContent => {
   const sequence = applicant === 1 ? applicant1Sequence : applicant2Sequence;
   const dir = __dirname + (applicant === 1 ? '/applicant1' : '');
-  const results: StepWithContent = [];
 
+  const results: StepWithContent = [];
   for (const step of sequence) {
     const stepDir = `${dir}${step.url}`;
     const { content, view } = getStepFiles(stepDir);

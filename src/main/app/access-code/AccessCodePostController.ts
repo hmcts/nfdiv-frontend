@@ -2,9 +2,9 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { getCaseWorkerUser } from '../auth/user/oidc';
+import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
-import { CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
+import { SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form } from '../form/Form';
@@ -14,7 +14,7 @@ export class AccessCodePostController {
   constructor(protected readonly form: Form) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const caseworkerUser = await getCaseWorkerUser();
+    const caseworkerUser = await getSystemUser();
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
@@ -38,7 +38,7 @@ export class AccessCodePostController {
         req.session.userCase = await req.locals.api.triggerEvent(
           caseReference as string,
           formData,
-          CITIZEN_LINK_APPLICANT_2
+          SYSTEM_LINK_APPLICANT_2
         );
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);

@@ -3,18 +3,18 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as steps from '../../steps';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
-import { ApplicationType, CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
 
-const getCaseWorkerUserMock = jest.spyOn(oidc, 'getCaseWorkerUser');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('AccessCodePostController', () => {
   beforeEach(() => {
-    getCaseWorkerUserMock.mockResolvedValue({
+    getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
@@ -25,7 +25,7 @@ describe('AccessCodePostController', () => {
   });
 
   afterEach(() => {
-    getCaseWorkerUserMock.mockClear();
+    getSystemUserMock.mockClear();
     getNextStepUrlMock.mockClear();
   });
 
@@ -68,7 +68,7 @@ describe('AccessCodePostController', () => {
         caseReference: '1234123412341234',
         respondentUserId: '123456',
       },
-      CITIZEN_LINK_APPLICANT_2
+      SYSTEM_LINK_APPLICANT_2
     );
     expect(res.redirect).toBeCalledWith('/next-step-url');
     expect(req.session.errors).toStrictEqual([]);
