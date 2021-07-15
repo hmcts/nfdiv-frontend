@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-09 13:38:56.
+// Generated using typescript-generator version 2.32.889 on 2021-07-15 11:55:39.
 
 export interface Address {
   AddressLine1: string;
@@ -188,6 +188,7 @@ export interface Application {
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   cannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
@@ -306,6 +307,7 @@ export interface CaseData {
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   cannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
@@ -329,6 +331,7 @@ export interface CaseData {
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
   documentsUploaded: ListValue<DivorceDocument>[];
+  applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
@@ -712,7 +715,6 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
@@ -721,6 +723,3 @@ export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
-
-export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
-export const JURISDICTION = 'DIVORCE';

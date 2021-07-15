@@ -171,9 +171,13 @@ export interface Case {
   applicant2ApplyForFinancialOrder?: YesOrNo;
   applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   uploadedFiles?: UploadedFile[];
+  applicant2UploadedFiles?: UploadedFile[];
   documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   cannotUpload?: Checkbox;
+  applicant2CannotUpload?: Checkbox;
   cannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
   dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
