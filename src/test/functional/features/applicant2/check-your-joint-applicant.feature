@@ -23,11 +23,6 @@ Feature: Check Your Joint Application
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Confirming answers is correct
-    And I select "Yes"
-    When I click "Continue"
-    Then the page URL should be "/applicant2/check-your-answers"
-
   Scenario: Confirming answers is incorrect
     And I select "No"
     When I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
