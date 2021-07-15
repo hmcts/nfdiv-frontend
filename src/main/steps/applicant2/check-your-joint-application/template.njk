@@ -3,11 +3,6 @@
 
 {% extends "common/page.njk" %}
 
-{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-{% set isApplicationReadyToSubmit =
-  nextIncompleteStep.startsWith('/check-your-joint-applicant') or
-  nextIncompleteStep.startsWith('/application-submitted')
-%}
 {% set overrideStepsContent = 1 %}
 {% set showActions = false %}
 
