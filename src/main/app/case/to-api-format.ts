@@ -55,6 +55,9 @@ const fields: ToApiConverters = {
   applicant1AgreeToReceiveEmails: data => ({
     applicant1AgreedToReceiveEmails: checkboxConverter(data.applicant1AgreeToReceiveEmails),
   }),
+  applicant2AgreeToReceiveEmails: data => ({
+    applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
+  }),
   applicant1AddressPrivate: data => ({
     applicant1ContactDetailsConfidential:
       data.applicant1AddressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,

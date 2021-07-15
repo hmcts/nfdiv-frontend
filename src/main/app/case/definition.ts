@@ -717,13 +717,12 @@ export const enum PaymentStatus {
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';
-
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
-export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
-export const CITIZEN_UPDATE = 'citizen-update-application';
-export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
