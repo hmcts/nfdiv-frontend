@@ -13,7 +13,7 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryRequests: '256Mi'
+  memoryRequests: '512Mi'
   cpuRequests: '50m'
   devmemoryRequests: '128Mi'
   keyVaults:
@@ -34,7 +34,7 @@ nodejs:
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    # CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-329.service.core-compute-preview.internal'
+    # CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-462.service.core-compute-preview.internal'
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
 #disable autoscaling because it doesnt deploy AAT
 autoscaling:
