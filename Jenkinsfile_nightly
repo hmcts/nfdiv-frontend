@@ -39,6 +39,7 @@ def secrets = [
         ]
 ]
 
+def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
