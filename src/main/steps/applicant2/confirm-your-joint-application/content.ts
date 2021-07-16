@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       applyForFinancialOrder: 'Applicant 1<br><br> Do you want to apply for a financial order?',
     },
     ['/applicant2' + urls.APPLY_FINANCIAL_ORDER]: {
-      applyForFinancialOrder: 'Applicant 2<br><br> Do you want to apply for a financial order?',
+      applicant2ApplyForFinancialOrder: 'Applicant 2<br><br> Do you want to apply for a financial order?',
     },
     [urls.WHERE_YOUR_LIVES_ARE_BASED_URL]: {
       applicant1LifeBasedInEnglandAndWales: "Is applicant 1's life mainly based in England or Wales?",
@@ -87,6 +87,19 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
           : false,
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
+    [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
+      applicant1ChangedNameHow:
+        formState?.applicant1ChangedNameHow === 'marriageCertificate'
+          ? 'Marriage Certificate'
+          : formState?.applicant1ChangedNameHow === 'deedPoll'
+          ? 'Deed poll'
+          : 'Another way',
+    },
+    // ['/applicant2' + urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
+    //   applicant1ChangedNameHow:
+    //   formState?.applicant1ChangedNameHow === 'marriageCertificate' ? 'Marriage Certificate'
+    //   : formState?.applicant1ChangedNameHow === 'deedPoll' ? 'Deed poll' : 'Another way',
+    // },
   },
   confirm: 'Confirm before continuing',
   confirmPrayer: `I confirm that I’m applying to the court to the court with my ${partner} to:`,

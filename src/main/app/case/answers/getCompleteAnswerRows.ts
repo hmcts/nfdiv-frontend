@@ -22,8 +22,14 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
     formState: Partial<Case>;
   } = this.ctx;
 
-  const stepsWithContent = [...stepsWithContentApplicant1, ...stepsWithContentApplicant2];
-  const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
+  const stepsWithContent = [...stepsWithContentApplicant2, ...stepsWithContentApplicant1];
+
+  const applicant2ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant2);
+  const applicant1ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
+
+  const processedFormState = { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState };
+
+  // just use applicant2ProcessedFormState?
 
   return stepsWithContent
     .filter(step => step.showInCompleteSection === section)
@@ -116,7 +122,11 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
         );
       }
 
-      if (section === 'dividingAssets' && step.url === '/do-you-want-to-apply-financial-order') {
+      if (
+        section === 'dividingAssets' &&
+        step.url === '/do-you-want-to-apply-financial-order' &&
+        processedFormState.whoIsFinancialOrderFor?.length
+      ) {
         addQuestionAnswer(
           'Who is the financial order for? 	',
           processedFormState.whoIsFinancialOrderFor
@@ -126,12 +136,19 @@ export const getCompleteAnswerRows = function (section: Sections): GovUkNunjucks
         );
       }
 
-      // if (section === 'dividingAssets' && step.url === '/applicant2/do-you-want-to-apply-financial-order' && !processedFormState.applicant2ApplyForFinancialOrder) {
-      //   addQuestionAnswer(
-      //     'Who is the financial order for? 	',
-      //     processedFormState.applicant2WhoIsFinancialOrderFor?.join(' / ').replace('applicant2', 'Me').replace('children', 'the children') as string
-      //   );
-      // }
+      if (
+        section === 'dividingAssets' &&
+        step.url === '/applicant2/do-you-want-to-apply-financial-order' &&
+        processedFormState.applicant2WhoIsFinancialOrderFor?.length
+      ) {
+        addQuestionAnswer(
+          'Who is the financial order for? 	',
+          processedFormState.applicant2WhoIsFinancialOrderFor
+            ?.join(' / ')
+            .replace('applicant2', 'Me')
+            .replace('children', 'the children') as string
+        );
+      }
 
       return questionAnswers;
     });
