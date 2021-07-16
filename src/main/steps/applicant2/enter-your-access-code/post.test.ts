@@ -1,12 +1,12 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as steps from '../../steps';
-import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/CaseApi';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
-import { Form } from '../form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import * as oidc from '../../../app/auth/user/oidc';
+import * as caseApi from '../../../app/case/CaseApi';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
+import { Form } from '../../../app/form/Form';
+import * as steps from '../../../steps';
 
-import { AccessCodePostController } from './AccessCodePostController';
+import { AccessCodePostController } from './post';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
