@@ -7,7 +7,7 @@ import { generatePageContent } from '../../common/common.content';
 import { generateContent } from './content';
 import { AccessCodeGetController } from './get';
 
-describe('PrivacyPolicyGetController', () => {
+describe('AccessCodeGetController', () => {
   const controller = new AccessCodeGetController();
   const language = 'en';
 
@@ -18,8 +18,8 @@ describe('PrivacyPolicyGetController', () => {
     const isDivorce = true;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       formState: req.session.userCase,
     });
   });
@@ -32,8 +32,8 @@ describe('PrivacyPolicyGetController', () => {
     const isDivorce = false;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
+      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       formState: req.session.userCase,
     });
   });
