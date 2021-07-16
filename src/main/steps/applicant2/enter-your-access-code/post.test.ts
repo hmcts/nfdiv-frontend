@@ -1,15 +1,14 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as steps from '../../steps';
-import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/CaseApi';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
-import { Form } from '../form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import * as oidc from '../../../app/auth/user/oidc';
+import * as caseApi from '../../../app/case/CaseApi';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
+import { Form } from '../../../app/form/Form';
+import { APPLICANT_2, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
-import { AccessCodePostController } from './AccessCodePostController';
+import { AccessCodePostController } from './post';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('AccessCodePostController', () => {
@@ -21,12 +20,10 @@ describe('AccessCodePostController', () => {
       givenName: 'case',
       familyName: 'worker',
     });
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
   });
 
   afterEach(() => {
     getSystemUserMock.mockClear();
-    getNextStepUrlMock.mockClear();
   });
 
   test('Should have no errors and redirect to the next page', async () => {
@@ -60,7 +57,6 @@ describe('AccessCodePostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(getNextStepUrlMock).toBeCalled();
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
@@ -70,7 +66,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith('/next-step-url');
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 
