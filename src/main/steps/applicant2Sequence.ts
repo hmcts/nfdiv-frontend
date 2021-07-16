@@ -26,6 +26,7 @@ import {
 const sequences: Step[] = [
   {
     url: ENTER_YOUR_ACCESS_CODE,
+    excludeFromContinueApplication: true,
     getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
   },
   {

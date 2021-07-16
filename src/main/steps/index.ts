@@ -30,25 +30,25 @@ const getNextIncompleteStep = (
   step: Step,
   sequence: Step[],
   removeExcluded = false,
+  isApplicant2: boolean,
   checkedSteps: Step[] = []
 ): string => {
   const stepForm = stepForms[step.url];
   // if this step has a form
   if (stepForm !== undefined) {
     // and that form has errors
-    if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
+    const stepExcluded = removeExcluded && step.excludeFromContinueApplication;
+    if (!stepExcluded && (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0)) {
       // go to that step
-      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-        ? checkedSteps[checkedSteps.length - 1].url
-        : step.url;
+      return stepExcluded && checkedSteps.length ? checkedSteps[checkedSteps.length - 1].url : step.url;
     } else {
       // if there are no errors go to the next page and work out what to do
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
       return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : CHECK_ANSWERS_URL;
+        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, isApplicant2, checkedSteps.concat(step))
+        : (isApplicant2 ? '/applicant2' : '') + CHECK_ANSWERS_URL;
     }
   }
 
@@ -59,7 +59,7 @@ const getNextIncompleteStep = (
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
   const sequence = getUserSequence(req);
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true, req.session.isApplicant2);
 
   return `${url}${queryString}`;
 };
