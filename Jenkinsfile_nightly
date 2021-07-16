@@ -47,6 +47,8 @@ withNightlyPipeline(type, product, component) {
   enableFullFunctionalTest()
   loadVaultSecrets(secrets)
 
+  env.JENKINS_HOME = "/dummy/path"
+
   before('crossBrowserTest') {
     yarnBuilder.smokeTest()
   }

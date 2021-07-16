@@ -28,7 +28,7 @@ lockFile.unlockSync(lock);
 
 const propertiesVolume = new PropertiesVolume();
 propertiesVolume.enableFor({
-  locals: { developmentMode: !process.env.CI },
+  locals: { developmentMode: !process.env.JENKINS_HOME },
 } as unknown as Application);
 
 getTokenFromApi();
