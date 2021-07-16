@@ -71,6 +71,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
+  applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   respondentUserId: 'applicant2UserId',
 };
 

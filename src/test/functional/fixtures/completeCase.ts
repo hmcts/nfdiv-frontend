@@ -44,8 +44,8 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2MiddleNames: '',
   applicationType: ApplicationType.SOLE_APPLICATION,
   applyForFinancialOrder: YesOrNo.NO,
-  cannotUpload: Checkbox.Checked,
-  cannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+  applicant1CannotUpload: Checkbox.Checked,
+  applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   englishOrWelsh: LanguagePreference.English,
   gender: Gender.MALE,
@@ -60,6 +60,6 @@ export const completeCase: Partial<BrowserCase> = {
   'relationshipDate-year': 1999,
   sameSex: Checkbox.Unchecked,
   screenHasUnionBroken: YesOrNo.YES,
-  uploadedFiles: [],
+  applicant1UploadedFiles: [],
   whoIsFinancialOrderFor: [],
 };

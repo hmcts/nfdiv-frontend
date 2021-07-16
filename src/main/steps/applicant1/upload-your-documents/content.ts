@@ -48,7 +48,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
     cannotUploadNameChangeProof: 'Proof that I changed my name',
     errors: {
-      uploadedFiles: {
+      applicant1UploadedFiles: {
         notUploaded:
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
@@ -57,7 +57,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },
-      cannotUpload: {
+      applicant1CannotUpload: {
         required: 'Select which file you could not upload before continuing.',
       },
     },
