@@ -73,6 +73,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   respondentUserId: 'applicant2UserId',
+  applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
+  applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -189,6 +191,8 @@ export interface Case {
   dateSubmitted?: Date;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
+  applicant2Confirmation: YesOrNo;
+  applicant2Explanation: string;
 }
 
 export interface CaseWithId extends Case {

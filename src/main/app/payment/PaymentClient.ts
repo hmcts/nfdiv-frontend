@@ -43,8 +43,12 @@ export class PaymentClient {
       language: this.session.lang === 'en' ? '' : this.session.lang?.toUpperCase(),
     };
 
+    logger.info(body);
+
     try {
       const response = await this.client.post('/card-payments', body);
+      logger.info('Payment response');
+      logger.info(response.data);
 
       if (!response.data || !response.data._links?.next_url.href) {
         throw response;

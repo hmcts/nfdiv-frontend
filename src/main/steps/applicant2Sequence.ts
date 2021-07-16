@@ -8,6 +8,7 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_JOINT_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -104,6 +105,13 @@ const sequences: Step[] = [
   {
     url: CHECK_ANSWERS_URL,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_JOINT_APPLICATION,
+    getNextStep: data =>
+      data.applicant2Confirmation === YesOrNo.YES
+        ? CHECK_ANSWERS_URL
+        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
 ];
 

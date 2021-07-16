@@ -365,5 +365,96 @@ describe('getAnswerRows()', () => {
         },
       ]);
     });
+    it('converts steps into the correct check answers rows with overridden values to show applicant 1', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: {
+          ...mockCtx,
+          isApplicant2: true,
+          stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
+          stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
+          stepAnswersWithHTML: {
+            pickThisOne: { mockField: '<div>test</div>' },
+          },
+          stepLinks: { pickThisOne: '/custom-link' },
+        },
+      })(Sections.AboutPartnership, true, 1);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Custom question text',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
+          },
+          actions: {
+            items: [
+              {
+                href: '/custom-link',
+                text: 'Change',
+                visuallyHiddenText: 'Custom question text',
+              },
+            ],
+          },
+        },
+      ]);
+    });
+    it('converts steps into the correct check answers rows with overridden values to show applicant 1 and do not show actions', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: {
+          ...mockCtx,
+          isApplicant2: true,
+          stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
+          stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
+          stepAnswersWithHTML: {
+            pickThisOne: { mockField: '<div>test</div>' },
+          },
+          stepLinks: { pickThisOne: '/custom-link' },
+        },
+      })(Sections.AboutPartnership, false, 1);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Custom question text',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows with overridden values to show applicant 2', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: mockCtx,
+      })(Sections.AboutPartnership, true, 2);
+
+      expect(actual).toEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: 'pickThisOne-applicant2',
+                text: 'Change',
+                visuallyHiddenText: 'Mock question title',
+              },
+            ],
+          },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            text: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
   });
 });
