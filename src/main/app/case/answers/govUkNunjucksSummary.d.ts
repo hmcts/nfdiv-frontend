@@ -6,7 +6,7 @@ export interface GovUkNunjucksSummary {
   value: {
     html: string;
   };
-  actions: {
+  actions?: {
     items: [
       {
         href: string;
