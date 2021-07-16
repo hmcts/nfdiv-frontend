@@ -15,7 +15,7 @@ nodejs:
   livenessPeriod: 15
   memoryRequests: '512Mi'
   cpuRequests: '50m'
-  devmemoryRequests: '128Mi'
+  devmemoryRequests: '512Mi'
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
