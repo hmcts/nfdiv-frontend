@@ -8,6 +8,7 @@ import {
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -72,14 +73,24 @@ describe('Steps', () => {
       expect(getNextIncompleteStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
     });
 
-    it('goes back one page if the step is incomplete & excluded from continue application', () => {
+    it('gets the step that is incomplete & not excluded from continue application', () => {
+      applicant1Sequence[1].excludeFromContinueApplication = false;
+
+      mockReq.originalUrl = RELATIONSHIP_DATE_URL;
+      mockReq.session.userCase.gender = Gender.MALE;
+      mockReq.session.userCase.sameSex = Checkbox.Unchecked;
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(HAS_RELATIONSHIP_BROKEN_URL);
+    });
+
+    it('gets the next step that is incomplete but is excluded from continue application', () => {
       applicant1Sequence[1].excludeFromContinueApplication = true;
 
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.session.userCase.gender = Gender.MALE;
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(YOUR_DETAILS_URL);
+      expect(actual).toBe(RELATIONSHIP_DATE_URL);
     });
 
     it("uses applicant 2's sequence if they are logged in as applicant 2", () => {
