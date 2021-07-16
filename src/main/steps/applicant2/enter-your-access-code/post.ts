@@ -7,7 +7,7 @@ import { SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
-import { getNextStepUrl } from '../../index';
+import { YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
 @autobind
 export class AccessCodePostController {
@@ -46,7 +46,7 @@ export class AccessCodePostController {
       }
     }
 
-    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
+    const nextUrl = req.session.errors.length > 0 ? req.url : YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
 
     req.session.save(err => {
       if (err) {
