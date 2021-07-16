@@ -4,7 +4,7 @@ import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
-import { YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
+import { APPLICANT_2, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
 import { AccessCodePostController } from './post';
 
@@ -66,7 +66,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 
