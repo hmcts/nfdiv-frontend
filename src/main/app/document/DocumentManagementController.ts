@@ -5,8 +5,8 @@ import { v4 as generateUuid } from 'uuid';
 
 import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_UPDATE, State } from '../case/definition';
+import { CaseWithId } from '../case/case';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { Classification, DocumentManagementClient } from './DocumentManagementClient';
@@ -18,8 +18,12 @@ export class DocumentManagerController {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.userCase.state !== State.Draft) {
+    const isApplicant2 = req.session.isApplicant2;
+    if (!isApplicant2 && req.session.userCase.state !== State.Draft) {
       throw new Error('Cannot upload new documents as case is not in draft state');
+    }
+    if (isApplicant2 && req.session.userCase.state !== State.AwaitingApplicant2Response) {
+      throw new Error('Cannot upload new documents as case is not in AwaitingApplicant2Response state');
     }
 
     if (!req.files?.length) {
@@ -37,7 +41,7 @@ export class DocumentManagerController {
       classification: Classification.Public,
     });
 
-    const newUploads: Case['documentsUploaded'] = filesCreated.map(file => ({
+    const newUploads: ListValue<Partial<DivorceDocument> | null>[] = filesCreated.map(file => ({
       id: generateUuid(),
       value: {
         documentComment: 'Uploaded by applicant',
@@ -50,12 +54,17 @@ export class DocumentManagerController {
       },
     }));
 
-    const updatedDocumentsUploaded = [...(req.session.userCase.documentsUploaded || []), ...newUploads];
+    const documentsUploaded = isApplicant2
+      ? req.session.userCase.applicant2DocumentsUploaded
+      : req.session.userCase.applicant1DocumentsUploaded;
+    const updatedDocumentsUploaded = [...(documentsUploaded || []), ...newUploads];
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { documentsUploaded: updatedDocumentsUploaded },
-      CITIZEN_UPDATE
+      isApplicant2
+        ? { applicant2DocumentsUploaded: updatedDocumentsUploaded }
+        : { applicant1DocumentsUploaded: updatedDocumentsUploaded },
+      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
     req.session.save(() => {
@@ -68,9 +77,16 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const { documentsUploaded = [], state } = req.session.userCase;
-    if (state !== State.Draft) {
+    const isApplicant2 = req.session.isApplicant2;
+    const documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
+    const documentsUploaded =
+      (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
+
+    if (!isApplicant2 && req.session.userCase.state !== State.Draft) {
       throw new Error('Cannot delete uploaded documents as case is not in draft state');
+    }
+    if (isApplicant2 && req.session.userCase.state !== State.AwaitingApplicant2Response) {
+      throw new Error('Cannot delete uploaded documents as case is not in AwaitingApplicant2Response state');
     }
 
     const documentIndexToDelete = documentsUploaded.findIndex(i => i.id === req.params.id) ?? -1;
@@ -89,8 +105,8 @@ export class DocumentManagerController {
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { documentsUploaded },
-      CITIZEN_UPDATE
+      { [documentsUploadedKey]: documentsUploaded },
+      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);

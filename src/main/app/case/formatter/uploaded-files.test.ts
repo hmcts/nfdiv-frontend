@@ -1,28 +1,52 @@
 import { Checkbox } from '../case';
 import { DivorceDocument, DocumentType } from '../definition';
 
-import { fromApi } from './uploaded-files';
+import { fromApiApplicant1, fromApiApplicant2 } from './uploaded-files';
 
-describe('uploadedFilesFromApi', () => {
+describe('uploadedFilesFromApiApplicant1', () => {
   it('converts documents', async () => {
-    const result = fromApi({
-      documentsUploaded: [
+    const result = fromApiApplicant1({
+      applicant1DocumentsUploaded: [
         { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
         { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
       ],
     });
 
-    expect(result.uploadedFiles?.length).toBe(2);
-    expect(result.uploadedFiles?.[0].id).toBe('1');
-    expect(result.uploadedFiles?.[1].id).toBe('2');
-    expect(result.cannotUpload).toBe(Checkbox.Unchecked);
+    expect(result.applicant1UploadedFiles?.length).toBe(2);
+    expect(result.applicant1UploadedFiles?.[0].id).toBe('1');
+    expect(result.applicant1UploadedFiles?.[1].id).toBe('2');
+    expect(result.applicant1CannotUpload).toBe(Checkbox.Unchecked);
   });
 
   it('sets cannot upload', async () => {
-    const result = fromApi({
-      cannotUploadSupportingDocument: [DocumentType.MARRIAGE_CERTIFICATE],
+    const result = fromApiApplicant1({
+      applicant1CannotUploadSupportingDocument: [DocumentType.MARRIAGE_CERTIFICATE],
     });
 
-    expect(result.cannotUpload).toBe(Checkbox.Checked);
+    expect(result.applicant1CannotUpload).toBe(Checkbox.Checked);
+  });
+});
+
+describe('uploadedFilesFromApiApplicant2', () => {
+  it('converts documents', async () => {
+    const result = fromApiApplicant2({
+      applicant2DocumentsUploaded: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.applicant2UploadedFiles?.length).toBe(2);
+    expect(result.applicant2UploadedFiles?.[0].id).toBe('1');
+    expect(result.applicant2UploadedFiles?.[1].id).toBe('2');
+    expect(result.applicant2CannotUpload).toBe(Checkbox.Unchecked);
+  });
+
+  it('sets cannot upload', async () => {
+    const result = fromApiApplicant2({
+      applicant2CannotUploadSupportingDocument: [DocumentType.MARRIAGE_CERTIFICATE],
+    });
+
+    expect(result.applicant2CannotUpload).toBe(Checkbox.Checked);
   });
 });

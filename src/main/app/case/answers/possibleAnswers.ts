@@ -79,9 +79,10 @@ const documentsRequiredChanged = (caseState: Partial<Case>): Record<string, unkn
   }
 
   if (
-    caseState.cannotUploadDocuments &&
-    caseState.uploadedFiles &&
-    caseState.cannotUploadDocuments.length + caseState.uploadedFiles.length !== amountOfDocumentsNeeded
+    caseState.applicant1CannotUploadDocuments &&
+    caseState.applicant1UploadedFiles &&
+    caseState.applicant1CannotUploadDocuments.length + caseState.applicant1UploadedFiles.length !==
+      amountOfDocumentsNeeded
   ) {
     return { cannotUpload: null, cannotUploadDocuments: null };
   }
