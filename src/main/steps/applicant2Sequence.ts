@@ -9,7 +9,6 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
-  ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
@@ -26,10 +25,6 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
-  {
-    url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
