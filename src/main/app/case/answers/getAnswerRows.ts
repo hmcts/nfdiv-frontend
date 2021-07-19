@@ -8,7 +8,7 @@ import { Case } from '../case';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
 
-export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
+export const getAnswerRows = function (section: Sections, isCompleteCase = false): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
@@ -23,11 +23,10 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
     formState: Partial<Case>;
   } = this.ctx;
 
-  const stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
-  const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
+  const { stepsWithContent, processedFormState } = setUpSteps(formState, isCompleteCase, isApplicant2);
 
   return stepsWithContent
-    .filter(step => step.showInSection === section)
+    .filter(step => (isCompleteCase ? step.showInCompleteSection === section : step.showInSection === section))
     .flatMap(step => {
       const fields = typeof step.form.fields === 'function' ? step.form.fields(processedFormState) : step.form.fields;
       const fieldKeys = Object.keys(fields);
@@ -50,7 +49,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       }
 
       const questionAnswers: GovUkNunjucksSummary[] = [];
-      const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
+      const addQuestionAnswer = (question: string, answer: string, link?: PageLink) => {
         questionAnswers.push({
           key: {
             html: question,
@@ -69,6 +68,19 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             ],
           },
         });
+      };
+
+      const addCompleteQuestionAnswer = (question: string, answer: string) => {
+        questionAnswers.push({
+          key: {
+            html: question,
+            classes: 'govuk-!-width-two-thirds',
+          },
+          value: {
+            html: answer,
+          },
+        });
+      };
 
       for (const fieldKey of fieldKeys) {
         const field = fields[fieldKey] as FormOptions;
@@ -97,11 +109,71 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
           continue;
         }
 
-        addQuestionAnswer(
-          customQuestion || (question as string),
-          this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
-          this.ctx.stepLinks[step.url]
-        );
+        if (isCompleteCase) {
+          addCompleteQuestionAnswer(
+            customQuestion || (question as string),
+            this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer))
+          );
+        } else {
+          addQuestionAnswer(
+            customQuestion || (question as string),
+            this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
+            this.ctx.stepLinks[step.url]
+          );
+        }
+      }
+
+      if (isCompleteCase) {
+        if (section === 'aboutApplicant1' && step.url === '/enter-your-name') {
+          addCompleteQuestionAnswer(
+            'Full name on the marriage certificate',
+            processedFormState.applicant1FullNameOnCertificate as string
+          );
+        }
+
+        if (section === 'aboutApplicant2' && step.url === '/applicant2/enter-your-name') {
+          addCompleteQuestionAnswer(
+            'Full name on the marriage certificate',
+            processedFormState.applicant2FullNameOnCertificate as string
+          );
+        }
+
+        if (section === 'otherCourtCases' && step.url === '/other-court-cases') {
+          addCompleteQuestionAnswer(
+            'What do the legal proceedings relate to?',
+            processedFormState.legalProceedingsRelated
+              ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' / ') as string
+          );
+        }
+
+        if (
+          section === 'dividingAssets' &&
+          step.url === '/do-you-want-to-apply-financial-order' &&
+          processedFormState.whoIsFinancialOrderFor?.length
+        ) {
+          addCompleteQuestionAnswer(
+            'Who is the financial order for? 	',
+            processedFormState.whoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace('applicant1', 'Me')
+              .replace('children', 'the children') as string
+          );
+        }
+
+        if (
+          section === 'dividingAssets' &&
+          step.url === '/applicant2/do-you-want-to-apply-financial-order' &&
+          processedFormState.applicant2WhoIsFinancialOrderFor?.length
+        ) {
+          addCompleteQuestionAnswer(
+            'Who is the financial order for? 	',
+            processedFormState.applicant2WhoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace('applicant2', 'Me')
+              .replace('children', 'the children') as string
+          );
+        }
       }
 
       return questionAnswers;
@@ -124,4 +196,21 @@ const getCheckedLabels = (answer, field, stepContent) =>
 const getSelectedRadioLabel = (answer, field, stepContent) => {
   const selectedRadio = field.values.find(radio => radio.value === answer);
   return typeof selectedRadio?.label === 'function' ? selectedRadio.label(stepContent) : selectedRadio?.label;
+};
+
+const setUpSteps = (formState, isCompleteCase, isApplicant2) => {
+  if (isCompleteCase) {
+    const stepsWithContent = [...stepsWithContentApplicant2, ...stepsWithContentApplicant1];
+
+    const applicant2ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant2);
+    const applicant1ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
+    const processedFormState = { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState };
+
+    return { stepsWithContent, processedFormState };
+  } else {
+    const stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
+    const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
+
+    return { stepsWithContent, processedFormState };
+  }
 };

@@ -1,5 +1,5 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { getCompleteAnswerRows } from '../../../app/case/answers/getCompleteAnswerRows';
+import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -35,6 +35,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
       applicant1ScreenHasUnionBroken: 'Has your marriage irretrievably broken down?',
     },
+    [urls.DETAILS_OTHER_PROCEEDINGS]: {
+      legalProceedingsDetails: 'Details of court cases',
+    },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded: 'Is help with fees being claimed on this application?',
     },
@@ -63,6 +66,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.CERTIFIED_TRANSLATION]: {
       certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
     },
+    // [urls.DETAILS_OTHER_PROCEEDINGS]: {
+    //   applicant1LegalProceedingsDetails: formState?.applicant1LegalProceedingsDetails + '\n' + formState?.applicant2LegalProceedingsDetails,
+    // },
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
@@ -70,6 +76,12 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       applicant2ApplyForFinancialOrder:
         formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
+    // [urls.HELP_WITH_YOUR_FEE_URL]: {
+    //   applicant1HelpPayingNeeded:
+    //   formState?.applicant1HelpPayingNeeded === YesOrNo.YES && formState.applicant2HelpPayingNeeded === YesOrNo.YES ? 'Yes'
+    //   : formState?.applicant1HelpPayingNeeded === YesOrNo.YES || formState?.applicant2HelpPayingNeeded === YesOrNo.YES ? 'No'
+    //   : `No, because both applicants	did not apply`,
+    // },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
         formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
@@ -174,7 +186,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     sections: Sections,
-    getCompleteAnswerRows,
+    getAnswerRows,
 
     form,
   };

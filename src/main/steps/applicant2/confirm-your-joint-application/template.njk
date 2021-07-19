@@ -14,7 +14,7 @@
   <h3 class="govuk-body-l">{{ subHeader }}</h3>
 
   {% for key, section in sections %}
-    {% set rows = getCompleteAnswerRows(section) %}
+    {% set rows = getAnswerRows(section, isCompleteCase = true) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
