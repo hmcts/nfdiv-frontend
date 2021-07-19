@@ -63,6 +63,10 @@ const sequences: Step[] = [
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -84,10 +88,6 @@ const sequences: Step[] = [
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: ENGLISH_OR_WELSH,
-    getNextStep: () => HOME_URL,
   },
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
