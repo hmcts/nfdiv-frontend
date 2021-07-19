@@ -12,6 +12,9 @@ import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
+import * as accessCodeContent from './steps/applicant2/enter-your-access-code/content';
+import { AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { AccessCodePostController } from './steps/applicant2/enter-your-access-code/post';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
@@ -71,6 +74,12 @@ export class Routes {
         app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
       }
     }
+
+    app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new AccessCodeGetController().get));
+    app.post(
+      `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
+      errorHandler(new AccessCodePostController(new Form(accessCodeContent.form)).post)
+    );
 
     app.get(
       '/active',
