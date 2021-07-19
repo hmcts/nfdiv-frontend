@@ -2,7 +2,8 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-  devmemoryRequests: '256Mi'
+  devmemoryRequests: '512Mi'
+  devcpuRequests: '500m'
   registerAdditionalDns:
     enabled: true
     prefix: civil
