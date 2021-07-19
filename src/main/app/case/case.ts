@@ -124,7 +124,8 @@ export interface Case {
   applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
-  englishOrWelsh?: LanguagePreference;
+  applicant1EnglishOrWelsh?: LanguagePreference;
+  applicant2EnglishOrWelsh?: LanguagePreference;
   applicant1FirstNames?: string;
   applicant1MiddleNames?: string;
   applicant1LastNames?: string;
