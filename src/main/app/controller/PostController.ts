@@ -28,8 +28,8 @@ export class PostController<T extends AnyObject> {
 
     // Reset users pray/application truth when changing other questions
     const stepData = {
-      iConfirmPrayer: Checkbox.Unchecked,
-      iBelieveApplicationIsTrue: Checkbox.Unchecked,
+      applicant1IConfirmPrayer: Checkbox.Unchecked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
       ...formData,
     };
 

@@ -140,10 +140,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
 // @TODO translations
 const cy: typeof en = en;
 
-// TODO - Create applicant2IConfirmPrayer and applicant2IBelieveApplicationIsTrue fields
 export const form: FormContent = {
   fields: {
-    iConfirmPrayer: {
+    applicant2IConfirmPrayer: {
       type: 'checkboxes',
       label: l => l.confirm,
       labelSize: 'm',
@@ -157,7 +156,7 @@ export const form: FormContent = {
         },
       ],
     },
-    iBelieveApplicationIsTrue: {
+    applicant2IBelieveApplicationIsTrue: {
       type: 'checkboxes',
       labelHidden: true,
       values: [

@@ -138,7 +138,7 @@ export const form: FormContent = {
     formState.applicationType === ApplicationType.JOINT_APPLICATION
       ? {}
       : {
-          iConfirmPrayer: {
+          applicant1IConfirmPrayer: {
             type: 'checkboxes',
             label: l => l.confirm,
             labelSize: 'm',
@@ -152,7 +152,7 @@ export const form: FormContent = {
               },
             ],
           },
-          iBelieveApplicationIsTrue: {
+          applicant1IBelieveApplicationIsTrue: {
             type: 'checkboxes',
             labelHidden: true,
             values: [

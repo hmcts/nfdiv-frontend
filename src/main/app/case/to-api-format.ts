@@ -93,24 +93,18 @@ const fields: ToApiConverters = {
         : data.cannotUploadDocuments
       : [],
   }),
-  iConfirmPrayer: data => ({
-    prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),
+  applicant1IConfirmPrayer: data => ({
+    applicant1PrayerHasBeenGiven: checkboxConverter(data.applicant1IConfirmPrayer),
   }),
-  iBelieveApplicationIsTrue: data => ({
-    statementOfTruth: checkboxConverter(data.iBelieveApplicationIsTrue),
+  applicant2IConfirmPrayer: data => ({
+    applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
   }),
-  // applicant1IConfirmPrayer: data => ({
-  //   applicant1PrayerHasBeenGiven: checkboxConverter(data.applicant1IConfirmPrayer),
-  // }),
-  // applicant1IBelieveApplicationIsTrue: data => ({
-  //   applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
-  // }),
-  // applicant2IConfirmPrayer: data => ({
-  //   applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
-  // }),
-  // applicant2IBelieveApplicationIsTrue: data => ({
-  //   applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
-  // }),
+  applicant1IBelieveApplicationIsTrue: data => ({
+    applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
+  }),
+  applicant2IBelieveApplicationIsTrue: data => ({
+    applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

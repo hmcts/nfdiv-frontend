@@ -200,34 +200,6 @@ describe('getAnswerRows()', () => {
       ]);
     });
 
-    it('converts steps into the correct check answers rows for confirm joint application page', () => {
-      const actual = getAnswerRows.bind({
-        ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.AboutPartnership, true);
-
-      expect(actual).toEqual([
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
-            html: 'Mock question title',
-          },
-          value: {
-            html: 'newlineToBr(escaped(example response))',
-          },
-        },
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
-            html: 'Mock question title',
-          },
-          value: {
-            html: 'newlineToBr(escaped(example response))',
-          },
-        },
-      ]);
-    });
-
     it('ignores steps that throw exceptions', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
@@ -478,6 +450,34 @@ describe('getAnswerRows()', () => {
               },
             ],
           },
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutPartnership, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+        {
           key: {
             classes: 'govuk-!-width-two-thirds',
             html: 'Mock question title',

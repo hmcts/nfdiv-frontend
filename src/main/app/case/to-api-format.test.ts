@@ -20,8 +20,8 @@ describe('to-api-format', () => {
     applicant2EnglishOrWelsh: LanguagePreference.English,
     legalProceedingsRelated: [],
     cannotUploadDocuments: [],
-    iConfirmPrayer: Checkbox.Checked,
-    iBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant1IConfirmPrayer: Checkbox.Checked,
+    applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -45,10 +45,8 @@ describe('to-api-format', () => {
       applicant2ContactDetailsConfidential: ConfidentialAddress.KEEP,
       cannotUploadSupportingDocument: [],
       legalProceedingsRelated: [],
-      prayerHasBeenGiven: 'Yes',
-      statementOfTruth: 'Yes',
-      // applicant1PrayerHasBeenGiven: 'Yes',
-      // applicant1StatementOfTruth: 'Yes'
+      applicant1PrayerHasBeenGiven: 'Yes',
+      applicant1StatementOfTruth: 'Yes',
     });
   });
 

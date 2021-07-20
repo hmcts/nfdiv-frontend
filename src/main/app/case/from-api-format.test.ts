@@ -17,10 +17,8 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsConfidential: 'keep',
-    prayerHasBeenGiven: YesOrNo.YES,
-    // applicant1PrayerHasBeenGiven: YesOrNo.YES,
-    statementOfTruth: YesOrNo.YES,
-    // applicant1StatementOfTruth: YesOrNo.YES,
+    applicant1PrayerHasBeenGiven: YesOrNo.YES,
+    applicant1StatementOfTruth: YesOrNo.YES,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -39,8 +37,8 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
     });
   });
 
@@ -61,8 +59,8 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
