@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/val
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/enter-your-name/content';
+} from '../../applicant1/other-court-cases/content';
 
 const labels = content => ({
   errors: {
