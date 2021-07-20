@@ -70,7 +70,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
-  documentsUploaded: 'documentsUploaded',
+  applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
+  applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   respondentUserId: 'applicant2UserId',
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
@@ -174,10 +175,14 @@ export interface Case {
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
   applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
-  uploadedFiles?: UploadedFile[];
-  documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
-  cannotUpload?: Checkbox;
-  cannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant1UploadedFiles?: UploadedFile[];
+  applicant2UploadedFiles?: UploadedFile[];
+  applicant1DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1CannotUpload?: Checkbox;
+  applicant2CannotUpload?: Checkbox;
+  applicant1CannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
   dueDate?: DateAsString;
   applicant1IConfirmPrayer?: Checkbox;

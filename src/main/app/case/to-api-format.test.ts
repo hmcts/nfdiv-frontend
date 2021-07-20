@@ -19,9 +19,10 @@ describe('to-api-format', () => {
     applicant1EnglishOrWelsh: LanguagePreference.English,
     applicant2EnglishOrWelsh: LanguagePreference.English,
     legalProceedingsRelated: [],
-    cannotUploadDocuments: [],
     applicant1IConfirmPrayer: Checkbox.Checked,
     applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant1CannotUploadDocuments: [],
+    applicant2CannotUploadDocuments: [],
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -43,7 +44,8 @@ describe('to-api-format', () => {
       applicant1LanguagePreferenceWelsh: 'No',
       applicant2LanguagePreferenceWelsh: 'No',
       applicant2ContactDetailsConfidential: ConfidentialAddress.KEEP,
-      cannotUploadSupportingDocument: [],
+      applicant1CannotUploadSupportingDocument: [],
+      applicant2CannotUploadSupportingDocument: [],
       legalProceedingsRelated: [],
       applicant1PrayerHasBeenGiven: 'Yes',
       applicant1StatementOfTruth: 'Yes',

@@ -6,6 +6,7 @@ export const defaultViewArgs = {
   sessionErrors: expect.any(Array),
   getNextIncompleteStepUrl: expect.any(Function),
   isDraft: expect.any(Boolean),
+  isAwaitingApplicant2Response: expect.any(Boolean),
   isDivorce: expect.any(Boolean),
   isApplicant2: expect.any(Boolean),
   partner: expect.any(String),

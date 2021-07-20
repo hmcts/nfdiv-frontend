@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-14 07:00:14.
+// Generated using typescript-generator version 2.32.889 on 2021-07-15 15:05:42.
 
 export interface Address {
   AddressLine1: string;
@@ -189,7 +189,8 @@ export interface Application {
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
-  cannotUploadSupportingDocument: DocumentType[];
+  applicant1CannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
@@ -309,7 +310,8 @@ export interface CaseData {
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
-  cannotUploadSupportingDocument: DocumentType[];
+  applicant1CannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
@@ -332,7 +334,8 @@ export interface CaseData {
   noticeOfProceedingsSolicitorFirm: string;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
-  documentsUploaded: ListValue<DivorceDocument>[];
+  applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
+  applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
