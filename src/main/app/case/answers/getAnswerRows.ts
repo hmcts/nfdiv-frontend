@@ -10,9 +10,9 @@ import { omitUnreachableAnswers } from './possibleAnswers';
 
 export const getAnswerRows = function (
   section: Sections,
+  isCompleteCase = false,
   showActions = true,
-  overrideStepsContent?: number,
-  isCompleteCase = false
+  overrideStepsContent?: number
 ): GovUkNunjucksSummary[] {
   const {
     language,
@@ -30,8 +30,8 @@ export const getAnswerRows = function (
 
   const { stepsWithContent, processedFormState } = setUpSteps(
     formState,
-    overrideStepsContent,
     isCompleteCase,
+    overrideStepsContent,
     isApplicant2
   );
 
@@ -213,7 +213,7 @@ const getSelectedRadioLabel = (answer, field, stepContent) => {
   return typeof selectedRadio?.label === 'function' ? selectedRadio.label(stepContent) : selectedRadio?.label;
 };
 
-const setUpSteps = (formState, overrideStepsContent, isCompleteCase, isApplicant2) => {
+const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant2) => {
   if (isCompleteCase) {
     const stepsWithContent = [...stepsWithContentApplicant2, ...stepsWithContentApplicant1];
 

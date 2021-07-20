@@ -5,6 +5,7 @@
 
 {% set overrideStepsContent = 1 %}
 {% set showActions = false %}
+{% set isCompleteCase = false %}
 
 {% block backLink %}{% endblock %}
 
@@ -17,7 +18,7 @@
   <p class="govuk-body">{{ line1 }}</p>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, showActions, overrideStepsContent) %}
+    {% set rows = getAnswerRows(section, isCompleteCase, showActions, overrideStepsContent) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 

@@ -410,13 +410,13 @@ describe('getAnswerRows()', () => {
           },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership, true, 1);
+      })(Sections.AboutPartnership, false, true, 1);
 
       expect(actual).toEqual([
         {
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
@@ -446,13 +446,13 @@ describe('getAnswerRows()', () => {
           },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership, false, 1);
+      })(Sections.AboutPartnership, false, false, 1);
 
       expect(actual).toEqual([
         {
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
@@ -465,7 +465,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership, true, 2);
+      })(Sections.AboutPartnership, false, true, 2);
 
       expect(actual).toEqual([
         {
@@ -480,7 +480,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
