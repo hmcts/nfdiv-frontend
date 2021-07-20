@@ -17,7 +17,9 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsConfidential: 'keep',
     prayerHasBeenGiven: YesOrNo.YES,
+    // applicant1PrayerHasBeenGiven: YesOrNo.YES,
     statementOfTruth: YesOrNo.YES,
+    // applicant1StatementOfTruth: YesOrNo.YES,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {

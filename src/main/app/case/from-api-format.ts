@@ -67,9 +67,21 @@ const fields: FromApiConverters = {
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),
+  // applicant1PrayerHasBeenGiven: data => ({
+  //   applicant1IConfirmPrayer: checkboxConverter(data.applicant1PrayerHasBeenGiven),
+  // }),
+  // applicant2PrayerHasBeenGiven: data => ({
+  //   applicant2IConfirmPrayer: checkboxConverter(data.applicant2PrayerHasBeenGiven),
+  // }),
   statementOfTruth: data => ({
     iBelieveApplicationIsTrue: checkboxConverter(data.statementOfTruth),
   }),
+  // applicant1StatementOfTruth: data => ({
+  //   applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
+  // }),
+  // applicant2StatementOfTruth: data => ({
+  //   applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
+  // }),
   dateSubmitted: data => ({
     dateSubmitted: new Date(data.dateSubmitted as string),
   }),

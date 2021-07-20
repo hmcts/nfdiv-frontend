@@ -170,6 +170,10 @@ export interface Application {
   solStatementOfReconciliationDiscussed: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
   statementOfTruth: YesOrNo;
+  // applicant1PrayerHasBeenGiven: YesOrNo;
+  // applicant1StatementOfTruth: YesOrNo;
+  // applicant1PrayerHasBeenGiven: YesOrNo;
+  // applicant1StatementOfTruth: YesOrNo;
   solSignStatementOfTruth: YesOrNo;
   solStatementOfReconciliationName: string;
   solStatementOfReconciliationFirm: string;
@@ -288,6 +292,10 @@ export interface CaseData {
   solStatementOfReconciliationDiscussed: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
   statementOfTruth: YesOrNo;
+  // applicant1PrayerHasBeenGiven: YesOrNo;
+  // applicant1StatementOfTruth: YesOrNo;
+  // applicant2PrayerHasBeenGiven: YesOrNo;
+  // applicant2StatementOfTruth: YesOrNo;
   solSignStatementOfTruth: YesOrNo;
   solStatementOfReconciliationName: string;
   solStatementOfReconciliationFirm: string;

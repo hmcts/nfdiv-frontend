@@ -88,6 +88,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'dont-pickThisOne',
           showInSection: Sections.AboutPartners,
+          showInCompleteSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -97,6 +98,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'pickThisOne',
           showInSection: Sections.AboutPartnership,
+          showInCompleteSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -108,6 +110,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'dont-pickThisOne-applicant2',
           showInSection: Sections.AboutPartners,
+          showInCompleteSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -117,6 +120,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'pickThisOne-applicant2',
           showInSection: Sections.AboutPartnership,
+          showInCompleteSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -159,7 +163,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -187,7 +191,35 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutPartnership, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -238,7 +270,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -271,7 +303,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))',
@@ -304,7 +336,7 @@ describe('getAnswerRows()', () => {
       expect(actual).toEqual([
         {
           actions: { items: [{ href: 'pickThisOne', text: 'Change', visuallyHiddenText: 'Mock question title' }] },
-          key: { classes: 'govuk-!-width-two-thirds', text: 'Mock question title' },
+          key: { classes: 'govuk-!-width-two-thirds', html: 'Mock question title' },
           value: { html: '' },
         },
       ]);
@@ -357,7 +389,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock Checkboxes',
+            html: 'Mock Checkboxes',
           },
           value: {
             html: 'newlineToBr(escaped(Mock checkbox title 1\nAnother checkbox title 2))',

@@ -45,6 +45,8 @@ describe('to-api-format', () => {
       legalProceedingsRelated: [],
       prayerHasBeenGiven: 'Yes',
       statementOfTruth: 'Yes',
+      // applicant1PrayerHasBeenGiven: 'Yes',
+      // applicant1StatementOfTruth: 'Yes'
     });
   });
 
