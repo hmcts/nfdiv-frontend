@@ -98,7 +98,7 @@ const fields: ToApiConverters = {
       ? !Array.isArray(data.applicant2CannotUploadDocuments)
         ? [data.applicant2CannotUploadDocuments]
         : data.applicant2CannotUploadDocuments
-      : [],
+      : null,
   }),
   iConfirmPrayer: data => ({
     prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),
