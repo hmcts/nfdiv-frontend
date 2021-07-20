@@ -2,12 +2,10 @@ import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
 
 import sysConfig from 'config';
 import dayjs from 'dayjs';
-import { Application } from 'express';
 import * as lockFile from 'lockfile';
 import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
 
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import { PropertiesVolume } from '../main/modules/properties-volume';
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
@@ -20,18 +18,13 @@ if (!fileExistsSync(filename)) {
   closeSync(openSync(filename, 'w'));
 }
 
+getTokenFromApi();
+
 const content = readFileSync(filename).toString();
 const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
 
 writeFileSync(filename, instanceNo + '');
 lockFile.unlockSync(lock);
-
-const propertiesVolume = new PropertiesVolume();
-propertiesVolume.enableFor({
-  locals: { developmentMode: !process.env.JENKINS_HOME },
-} as unknown as Application);
-
-getTokenFromApi();
 
 const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
 const TestUser = generateTestUsername();

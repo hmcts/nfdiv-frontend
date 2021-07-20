@@ -8,8 +8,9 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
-  ENTER_YOUR_ACCESS_CODE,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
@@ -25,10 +26,6 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
-  {
-    url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -64,6 +61,10 @@ const sequences: Step[] = [
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -98,6 +99,13 @@ const sequences: Step[] = [
   {
     url: CHECK_ANSWERS_URL,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_JOINT_APPLICATION,
+    getNextStep: data =>
+      data.applicant2Confirmation === YesOrNo.YES
+        ? CHECK_ANSWERS_URL
+        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
 ];
 

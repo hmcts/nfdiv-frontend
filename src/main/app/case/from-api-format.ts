@@ -35,12 +35,19 @@ const fields: FromApiConverters = {
     relationshipDate: fromApiDate(data.marriageDate),
   }),
   applicant1LanguagePreferenceWelsh: data => ({
-    englishOrWelsh:
+    applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
+  }),
+  applicant2LanguagePreferenceWelsh: data => ({
+    applicant2EnglishOrWelsh:
+      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
   applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
+  }),
+  applicant2AgreedToReceiveEmails: data => ({
+    applicant2AgreeToReceiveEmails: checkboxConverter(data.applicant2AgreedToReceiveEmails),
   }),
   applicant1KnowsApplicant2EmailAddress: data => ({
     applicant1DoesNotKnowApplicant2EmailAddress:

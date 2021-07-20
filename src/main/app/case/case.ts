@@ -61,6 +61,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ChangedNameHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
+  applicant2PhoneNumber: 'applicant2PhoneNumber',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
@@ -71,6 +72,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   documentsUploaded: 'documentsUploaded',
   respondentUserId: 'applicant2UserId',
+  applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
+  applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -121,7 +124,8 @@ export interface Case {
   applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
-  englishOrWelsh?: LanguagePreference;
+  applicant1EnglishOrWelsh?: LanguagePreference;
+  applicant2EnglishOrWelsh?: LanguagePreference;
   applicant1FirstNames?: string;
   applicant1MiddleNames?: string;
   applicant1LastNames?: string;
@@ -183,6 +187,8 @@ export interface Case {
   dateSubmitted?: Date;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
+  applicant2Confirmation: YesOrNo;
+  applicant2Explanation: string;
 }
 
 export interface CaseWithId extends Case {

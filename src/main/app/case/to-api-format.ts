@@ -48,12 +48,20 @@ const fields: ToApiConverters = {
       ? data.applicant1HelpWithFeesRefNo
       : '',
   }),
-  englishOrWelsh: data => ({
-    applicant1LanguagePreferenceWelsh: data.englishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
+  applicant1EnglishOrWelsh: data => ({
+    applicant1LanguagePreferenceWelsh:
+      data.applicant1EnglishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
+  }),
+  applicant2EnglishOrWelsh: data => ({
+    applicant2LanguagePreferenceWelsh:
+      data.applicant2EnglishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant1AddressPostcode: applicant1AddressToApi,
   applicant1AgreeToReceiveEmails: data => ({
     applicant1AgreedToReceiveEmails: checkboxConverter(data.applicant1AgreeToReceiveEmails),
+  }),
+  applicant2AgreeToReceiveEmails: data => ({
+    applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
   applicant1AddressPrivate: data => ({
     applicant1ContactDetailsConfidential:

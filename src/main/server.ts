@@ -1,3 +1,6 @@
+let used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Started. ${used} MB`);
+
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
@@ -5,6 +8,9 @@ import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import type { LoggerInstance } from 'winston';
+
+used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Express included. ${used} MB`);
 
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
@@ -17,11 +23,16 @@ import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
+used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Properties volume mounted. ${used} MB`);
 import { SessionStorage } from './modules/session';
 import { StateRedirectMiddleware } from './modules/state-redirect';
 import { LoadTimeouts } from './modules/timeouts';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+
+used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Routes added. ${used} MB`);
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
@@ -36,6 +47,9 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+
+used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Static routes added. ${used} MB`);
 
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
@@ -55,7 +69,13 @@ new StateRedirectMiddleware().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 
+used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`Middleware booted. ${used} MB`);
+
 const port = config.get('port');
 app.listen(port, () => {
+  used = process.memoryUsage().heapUsed / 1024 / 1024;
+  console.log(`App started. ${used} MB`);
+
   logger.info(`Application started: http://localhost:${port}`);
 });
