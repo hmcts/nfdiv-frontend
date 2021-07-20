@@ -12,7 +12,10 @@ import {
 } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
-import { fromApi as uploadedFilesFromApi } from './formatter/uploaded-files';
+import {
+  fromApiApplicant1 as uploadedFilesFromApiApplicant1,
+  fromApiApplicant2 as uploadedFilesFromApiApplicant2,
+} from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
 
@@ -69,8 +72,10 @@ const fields: FromApiConverters = {
         : YesOrNo.NO,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
-  documentsUploaded: uploadedFilesFromApi,
-  cannotUploadSupportingDocument: uploadedFilesFromApi,
+  applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
+  applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
+  applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
+  applicant2CannotUploadSupportingDocument: uploadedFilesFromApiApplicant2,
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),

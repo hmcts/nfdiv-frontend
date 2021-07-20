@@ -18,6 +18,7 @@ import {
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
+  UPLOAD_YOUR_DOCUMENTS,
   YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
@@ -78,10 +79,23 @@ const sequences: Step[] = [
     url: APPLY_FINANCIAL_ORDER,
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
-      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES
+        ? APPLY_FINANCIAL_ORDER_DETAILS
+        : data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+          data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? UPLOAD_YOUR_DOCUMENTS
+        : CHECK_ANSWERS_URL,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
+    getNextStep: data =>
+      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? UPLOAD_YOUR_DOCUMENTS
+        : CHECK_ANSWERS_URL,
+  },
+  {
+    url: UPLOAD_YOUR_DOCUMENTS,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
