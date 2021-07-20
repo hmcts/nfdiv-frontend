@@ -37,7 +37,7 @@ export const jointApplicant1CompleteCase: Partial<BrowserCase> = {
   applicant1CannotUpload: Checkbox.Checked,
   applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-  englishOrWelsh: LanguagePreference.English,
+  applicant1EnglishOrWelsh: LanguagePreference.English,
   gender: Gender.MALE,
   hasCertificate: YesOrNo.YES,
   inTheUk: YesOrNo.YES,

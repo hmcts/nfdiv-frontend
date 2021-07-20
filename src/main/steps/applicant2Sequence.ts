@@ -9,6 +9,7 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
@@ -58,6 +59,10 @@ const sequences: Step[] = [
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {

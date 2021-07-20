@@ -160,7 +160,7 @@ describe('omitUnreachableAnswers()', () => {
       legalProceedings: YesOrNo.NO,
       sameSex: Checkbox.Unchecked,
       applicant1LastNames: 'test',
-      englishOrWelsh: LanguagePreference.English,
+      applicant1EnglishOrWelsh: LanguagePreference.English,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
     };
 
@@ -217,7 +217,7 @@ describe('omitUnreachableAnswers()', () => {
       legalProceedings: YesOrNo.NO,
       sameSex: Checkbox.Unchecked,
       applicant1LastNames: 'test',
-      englishOrWelsh: LanguagePreference.English,
+      applicant1EnglishOrWelsh: LanguagePreference.English,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
     };
 
