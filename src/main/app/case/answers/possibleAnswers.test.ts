@@ -167,8 +167,8 @@ describe('omitUnreachableAnswers()', () => {
     const actual = getUnreachableAnswersAsNull(userCase);
 
     expect(actual).toEqual({
-      cannotUpload: null,
-      cannotUploadDocuments: null,
+      applicant1CannotUpload: null,
+      applicant1CannotUploadDocuments: null,
     });
   });
 
