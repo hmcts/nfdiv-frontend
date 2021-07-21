@@ -12,11 +12,11 @@ services:
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
-    caseworkerUsername: 'dummy_user'
-    caseworkerPassword: 'dummy_password'
+    systemUsername: 'dummy_user'
+    systemPassword: 'dummy_password'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-329.service.core-compute-preview.internal'
+    # url: 'http://ccd-data-store-api-nfdiv-case-api-pr-473.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
@@ -33,5 +33,7 @@ session:
   redis:
     host:
     key:
+e2e:
+  userTestPassword: ''
 appInsights:
   instrumentationKey:

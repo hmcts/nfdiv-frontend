@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { DivorceOrDissolution } from '../../app/case/definition';
+import { DivorceOrDissolution, YesOrNo } from '../../app/case/definition';
 import { APPLICANT_2, CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../urls';
 
 import { HomeGetController } from './get';
@@ -63,6 +63,23 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(APPLICANT_2 + YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
+  });
+
+  test("redirects to applicant 2's check your answers page if first question has been answered", () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicant2ScreenHasUnionBroken: YesOrNo.YES,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
   });
 });

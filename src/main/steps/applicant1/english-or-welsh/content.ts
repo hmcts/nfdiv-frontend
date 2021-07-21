@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 const en = ({ required }) => ({
   title: 'What language do you want to receive emails and documents in?',
   errors: {
-    englishOrWelsh: {
+    applicant1EnglishOrWelsh: {
       required,
     },
   },
@@ -15,7 +15,7 @@ const en = ({ required }) => ({
 const cy = () => ({
   title: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
   errors: {
-    englishOrWelsh: {
+    applicant1EnglishOrWelsh: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ddewis ateb cyn parhau.',
     },
   },
@@ -23,7 +23,7 @@ const cy = () => ({
 
 export const form: FormContent = {
   fields: {
-    englishOrWelsh: {
+    applicant1EnglishOrWelsh: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,

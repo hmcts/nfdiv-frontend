@@ -1,6 +1,6 @@
 import { YesOrNo } from '../app/case/definition';
 
-import { Step } from './applicant1Sequence';
+import { Sections, Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -8,32 +8,35 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
-  ENTER_YOUR_ACCESS_CODE,
+  CHECK_JOINT_APPLICATION,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   NOT_CONFIRMED_JOINT_APPLICATION,
+  OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
+  UPLOAD_YOUR_DOCUMENTS,
   YOUR_NAME,
+  YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+  YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
 const sequences: Step[] = [
-  {
-    url: ENTER_YOUR_ACCESS_CODE,
-    getNextStep: () => YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-  },
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : YOUR_NAME),
+    showInSection: Sections.AboutPartnership,
+    getNextStep: data => (data.applicant2ScreenHasUnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
   },
   {
-    url: RELATIONSHIP_NOT_BROKEN_URL,
+    url: YOU_CANNOT_APPLY,
     getNextStep: () => NOT_CONFIRMED_JOINT_APPLICATION,
   },
   {
@@ -42,6 +45,7 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_NAME,
+    showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
@@ -58,16 +62,60 @@ const sequences: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
+    url: ENTER_YOUR_ADDRESS,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
     url: APPLY_FINANCIAL_ORDER,
+    showInSection: Sections.DividingAssets,
     getNextStep: data =>
-      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : CHECK_ANSWERS_URL,
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES
+        ? APPLY_FINANCIAL_ORDER_DETAILS
+        : data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+          data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? UPLOAD_YOUR_DOCUMENTS
+        : CHECK_ANSWERS_URL,
+  },
+  {
+    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    getNextStep: data =>
+      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        ? UPLOAD_YOUR_DOCUMENTS
+        : CHECK_ANSWERS_URL,
+  },
+  {
+    url: UPLOAD_YOUR_DOCUMENTS,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_JOINT_APPLICATION,
+    getNextStep: data =>
+      data.applicant2Confirmation === YesOrNo.YES
+        ? CHECK_ANSWERS_URL
+        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
 ];
 

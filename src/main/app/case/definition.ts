@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-06-28 10:28:25.
+// Generated using typescript-generator version 2.32.889 on 2021-07-15 15:05:42.
 
 export interface Address {
   AddressLine1: string;
@@ -87,6 +87,21 @@ export interface CaseNote {
   note: string;
 }
 
+export interface AcknowledgementOfService {
+  confirmReadPetition: YesOrNo;
+  jurisdictionAgree: YesOrNo;
+  jurisdictionDisagreeReason: string;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
+  agreeToCosts: RespondentAgreeToCosts;
+  costsAmount: string;
+  costsReason: string;
+  dateAosSubmitted: DateAsString;
+  digitalNoticeOfProceedings: YesOrNo;
+  noticeOfProceedingsEmail: string;
+  noticeOfProceedingsSolicitorFirm: string;
+}
+
 export interface Applicant {
   FirstName: string;
   MiddleName: string;
@@ -112,21 +127,78 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   SolicitorIsDigital: YesOrNo;
-  ConfirmReadPetition: YesOrNo;
-  JurisdictionAgree: YesOrNo;
-  JurisdictionDisagreeReason: string;
-  LegalProceedingsExist: YesOrNo;
-  LegalProceedingsDescription: string;
-  AgreeToCosts: RespAgreeToCostsEnum;
-  CostsAmount: string;
-  CostsReason: string;
+  FinancialOrder: YesOrNo;
+  FinancialOrderFor: FinancialOrderFor[];
+}
+
+export interface Application {
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
+  screenHasMarriageCert: YesOrNo;
+  marriageApplicant1Name: string;
+  marriageApplicant2Name: string;
+  marriageMarriedInUk: YesOrNo;
+  marriageCertificateInEnglish: YesOrNo;
+  marriageCertifiedTranslation: YesOrNo;
+  marriageCountryOfMarriage: string;
+  marriagePlaceOfMarriage: string;
+  marriageDate: DateAsString;
+  marriageIsSameSexCouple: YesOrNo;
+  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
+  marriageMarriageCertificateIsIncorrectDetails: string;
+  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
+  jurisdictionApplicant1Residence: YesOrNo;
+  jurisdictionApplicant2Residence: YesOrNo;
+  jurisdictionApplicant1Domicile: YesOrNo;
+  jurisdictionApplicant2Domicile: YesOrNo;
+  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
+  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
+  jurisdictionResidualEligible: YesOrNo;
+  jurisdictionBothLastHabituallyResident: YesOrNo;
+  jurisdictionConnections: JurisdictionConnections[];
+  jurisdictionLegalConnections: LegalConnections[];
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
+  divorceWho: WhoDivorcing;
+  solUrgentCase: YesOrNo;
+  solUrgentCaseSupportingInformation: string;
+  divorceCostsClaim: YesOrNo;
+  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  solServiceMethod: ServiceMethod;
+  solStatementOfReconciliationCertify: YesOrNo;
+  solStatementOfReconciliationDiscussed: YesOrNo;
+  prayerHasBeenGiven: YesOrNo;
+  statementOfTruth: YesOrNo;
+  solSignStatementOfTruth: YesOrNo;
+  solStatementOfReconciliationName: string;
+  solStatementOfReconciliationFirm: string;
+  statementOfReconciliationComments: string;
+  solApplicationFeeInPounds: string;
+  solPaymentHowToPay: SolicitorPaymentMethod;
+  pbaNumbers: DynamicList;
+  feeAccountReference: string;
+  applicationFeeOrderSummary: OrderSummary;
+  applicant2AgreeToReceiveEmails: YesOrNo;
+  applicant1KnowsApplicant2EmailAddress: YesOrNo;
+  applicant1KnowsApplicant2Address: YesOrNo;
+  legalProceedings: YesOrNo;
+  legalProceedingsRelated: LegalProceedingsRelated[];
+  legalProceedingsDetails: string;
+  divorceClaimFrom: ClaimsCostFrom[];
+  app2ContactMethodIsDigital: YesOrNo;
+  applicant1CannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
+  documentUploadComplete: YesOrNo;
+  miniApplicationLink: Document;
+  dateSubmitted: DateAsString;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
 }
 
 export interface CaseData {
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
-  applicant1ScreenHasMarriageBroken: YesOrNo;
-  applicant2ScreenHasMarriageBroken: YesOrNo;
   applicant1FirstName: string;
   applicant1MiddleName: string;
   applicant1LastName: string;
@@ -151,14 +223,8 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1SolicitorIsDigital: YesOrNo;
-  applicant1ConfirmReadPetition: YesOrNo;
-  applicant1JurisdictionAgree: YesOrNo;
-  applicant1JurisdictionDisagreeReason: string;
-  applicant1LegalProceedingsExist: YesOrNo;
-  applicant1LegalProceedingsDescription: string;
-  applicant1AgreeToCosts: RespAgreeToCostsEnum;
-  applicant1CostsAmount: string;
-  applicant1CostsReason: string;
+  applicant1FinancialOrder: YesOrNo;
+  applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -170,6 +236,7 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
+  applicant2PhoneNumber: string;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant2Gender: Gender;
   applicant2CorrespondenceAddress: AddressGlobalUK;
@@ -182,18 +249,11 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2SolicitorIsDigital: YesOrNo;
-  applicant2ConfirmReadPetition: YesOrNo;
-  applicant2JurisdictionAgree: YesOrNo;
-  applicant2JurisdictionDisagreeReason: string;
-  applicant2LegalProceedingsExist: YesOrNo;
-  applicant2LegalProceedingsDescription: string;
-  applicant2AgreeToCosts: RespAgreeToCostsEnum;
-  applicant2CostsAmount: string;
-  applicant2CostsReason: string;
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
+  applicant2FinancialOrder: YesOrNo;
+  applicant2FinancialOrderFor: FinancialOrderFor[];
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
   marriageApplicant1Name: string;
   marriageApplicant2Name: string;
   marriageMarriedInUk: YesOrNo;
@@ -216,14 +276,15 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
   divorceCostsClaim: YesOrNo;
-  applicant1FinancialOrder: YesOrNo;
-  applicant2FinancialOrder: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
-  solServiceMethod: SolServiceMethod;
+  solServiceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
@@ -233,12 +294,10 @@ export interface CaseData {
   solStatementOfReconciliationFirm: string;
   statementOfReconciliationComments: string;
   solApplicationFeeInPounds: string;
-  solPaymentHowToPay: SolToPay;
+  solPaymentHowToPay: SolicitorPaymentMethod;
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
-  applicant2EmailAddress: string;
-  applicant2PhoneNumber: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -246,25 +305,62 @@ export interface CaseData {
   legalProceedingsRelated: LegalProceedingsRelated[];
   legalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
-  documentsUploaded: ListValue<DivorceDocument>[];
-  cannotUploadSupportingDocument: DocumentType[];
+  app2ContactMethodIsDigital: YesOrNo;
+  applicant1CannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
+  documentUploadComplete: YesOrNo;
+  miniApplicationLink: Document;
+  dateSubmitted: DateAsString;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
+  applicant2InviteEmailAddress: string;
+  accessCode: string;
+  applicant2UserId: string;
+  confirmReadPetition: YesOrNo;
+  jurisdictionAgree: YesOrNo;
+  jurisdictionDisagreeReason: string;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
+  agreeToCosts: RespondentAgreeToCosts;
+  costsAmount: string;
+  costsReason: string;
+  dateAosSubmitted: DateAsString;
+  digitalNoticeOfProceedings: YesOrNo;
+  noticeOfProceedingsEmail: string;
+  noticeOfProceedingsSolicitorFirm: string;
+  dateConditionalOrderSubmitted: DateAsString;
+  dateFinalOrderSubmitted: DateAsString;
+  applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
+  applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  app2ContactMethodIsDigital: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
-  applicant2FinancialOrderFor: FinancialOrderFor[];
   payments: ListValue<Payment>[];
-  dateSubmitted: DateAsString;
   previousCaseId: CaseLink;
   dueDate: DateAsString;
-  documentUploadComplete: YesOrNo;
-  accessCode: string;
-  respondentUserId: string;
-  miniApplicationLink: Document;
   issueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+}
+
+export interface CaseInvite {
+  applicant2InviteEmailAddress: string;
+  accessCode: string;
+  applicant2UserId: string;
+}
+
+export interface ConditionalOrder {
+  dateConditionalOrderSubmitted: DateAsString;
+}
+
+export interface FinalOrder {
+  dateFinalOrderSubmitted: DateAsString;
+}
+
+export interface HelpWithFees {
+  ReferenceNumber: string;
+  NeedHelp: YesOrNo;
+  AppliedForFees: YesOrNo;
 }
 
 export interface Jurisdiction {
@@ -333,6 +429,18 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
+export interface Letter {
+  divorceDocument: DivorceDocument;
+  count: number;
+}
+
+export interface Print {
+  letters: Letter[];
+  caseId: string;
+  caseRef: string;
+  letterType: string;
+}
+
 /**
  * The response from retrieving a fee from fees and payments service
  */
@@ -352,18 +460,6 @@ export interface Payment {
   paymentChannel: string;
   paymentReference: string;
   paymentTransactionId: string;
-}
-
-export interface Letter {
-  divorceDocument: DivorceDocument;
-  count: number;
-}
-
-export interface Print {
-  letters: Letter[];
-  caseId: string;
-  caseRef: string;
-  letterType: string;
 }
 
 export type DateAsString = string;
@@ -517,18 +613,18 @@ export const enum LegalProceedingsRelated {
   CHILDREN = 'children',
 }
 
-export const enum RespAgreeToCostsEnum {
+export const enum RespondentAgreeToCosts {
   YES = 'Yes',
   NO = 'No',
   DIFFERENT_AMOUNT = 'DifferentAmount',
 }
 
-export const enum SolServiceMethod {
+export const enum ServiceMethod {
   PERSONAL_SERVICE = 'personalService',
   COURT_SERVICE = 'courtService',
 }
 
-export const enum SolToPay {
+export const enum SolicitorPaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEES_HELP_WITH = 'feesHelpWith',
 }
@@ -621,10 +717,12 @@ export const enum PaymentStatus {
 }
 export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_LINK_APPLICANT_2 = 'citizen-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';

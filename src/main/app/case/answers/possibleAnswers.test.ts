@@ -153,22 +153,22 @@ describe('omitUnreachableAnswers()', () => {
       applicant1FirstNames: 'test1',
       applicant2EmailAddress: 'test@test.com',
       screenHasUnionBroken: YesOrNo.YES,
-      uploadedFiles: [],
-      cannotUpload: Checkbox.Checked,
-      cannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      applicant1UploadedFiles: [],
+      applicant1CannotUpload: Checkbox.Checked,
+      applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
       applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
       legalProceedings: YesOrNo.NO,
       sameSex: Checkbox.Unchecked,
       applicant1LastNames: 'test',
-      englishOrWelsh: LanguagePreference.English,
+      applicant1EnglishOrWelsh: LanguagePreference.English,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
     };
 
     const actual = getUnreachableAnswersAsNull(userCase);
 
     expect(actual).toEqual({
-      cannotUpload: null,
-      cannotUploadDocuments: null,
+      applicant1CannotUpload: null,
+      applicant1CannotUploadDocuments: null,
     });
   });
 
@@ -210,21 +210,21 @@ describe('omitUnreachableAnswers()', () => {
       applicant1FirstNames: 'test1',
       applicant2EmailAddress: 'test@test.com',
       screenHasUnionBroken: YesOrNo.YES,
-      uploadedFiles: [],
-      cannotUpload: Checkbox.Checked,
-      cannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      applicant1UploadedFiles: [],
+      applicant1CannotUpload: Checkbox.Checked,
+      applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
       applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
       legalProceedings: YesOrNo.NO,
       sameSex: Checkbox.Unchecked,
       applicant1LastNames: 'test',
-      englishOrWelsh: LanguagePreference.English,
+      applicant1EnglishOrWelsh: LanguagePreference.English,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
     };
 
     const actual = getUnreachableAnswersAsNull(userCase);
 
     expect(actual).toEqual({
-      cannotUpload: null,
+      applicant1CannotUpload: null,
     });
   });
 });

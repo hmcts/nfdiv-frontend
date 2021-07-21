@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
 import {
@@ -10,7 +12,12 @@ import {
 } from './case';
 import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
-import { fromApi as uploadedFilesFromApi } from './formatter/uploaded-files';
+import {
+  fromApiApplicant1 as uploadedFilesFromApiApplicant1,
+  fromApiApplicant2 as uploadedFilesFromApiApplicant2,
+} from './formatter/uploaded-files';
+
+dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
@@ -31,12 +38,19 @@ const fields: FromApiConverters = {
     relationshipDate: fromApiDate(data.marriageDate),
   }),
   applicant1LanguagePreferenceWelsh: data => ({
-    englishOrWelsh:
+    applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
+  }),
+  applicant2LanguagePreferenceWelsh: data => ({
+    applicant2EnglishOrWelsh:
+      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
   applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
+  }),
+  applicant2AgreedToReceiveEmails: data => ({
+    applicant2AgreeToReceiveEmails: checkboxConverter(data.applicant2AgreedToReceiveEmails),
   }),
   applicant1KnowsApplicant2EmailAddress: data => ({
     applicant1DoesNotKnowApplicant2EmailAddress:
@@ -51,11 +65,17 @@ const fields: FromApiConverters = {
   }),
   applicant2ContactDetailsConfidential: data => ({
     applicant2AddressPrivate:
-      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP
+        ? YesOrNo.YES
+        : data.applicant2ContactDetailsConfidential === null
+        ? data.applicant2ContactDetailsConfidential
+        : YesOrNo.NO,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
-  documentsUploaded: uploadedFilesFromApi,
-  cannotUploadSupportingDocument: uploadedFilesFromApi,
+  applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
+  applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
+  applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
+  applicant2CannotUploadSupportingDocument: uploadedFilesFromApiApplicant2,
   prayerHasBeenGiven: data => ({
     iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
   }),
@@ -64,6 +84,9 @@ const fields: FromApiConverters = {
   }),
   dateSubmitted: data => ({
     dateSubmitted: new Date(data.dateSubmitted as string),
+  }),
+  dueDate: data => ({
+    dueDate: dayjs(data.dueDate).format('MMMM Do YYYY'),
   }),
 };
 

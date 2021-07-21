@@ -25,11 +25,13 @@ export class GetController {
 
     const language = this.getPreferredLanguage(req) as Language;
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
+    const isApplicant2 = req.session?.isApplicant2;
     const formState = req.session?.userCase;
     const content = generatePageContent({
       language,
       pageContent: this.content,
       isDivorce,
+      isApplicant2,
       formState,
       userEmail: req.session?.user.email,
     });
@@ -44,7 +46,10 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
-      isDraft: req.session?.userCase.state ? req.session.userCase.state === State.Draft : true,
+      isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
+      isAwaitingApplicant2Response: req.session?.userCase?.state
+        ? req.session.userCase.state === State.AwaitingApplicant2Response
+        : false,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }

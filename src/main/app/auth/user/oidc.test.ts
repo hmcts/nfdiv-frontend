@@ -2,7 +2,7 @@ import Axios, { AxiosStatic } from 'axios';
 
 import { CALLBACK_URL } from '../../../steps/urls';
 
-import { getCaseWorkerUser, getRedirectUrl, getUserDetails } from './oidc';
+import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 
@@ -48,7 +48,7 @@ describe('getCaseWorkerUser', () => {
       },
     });
 
-    const result = await getCaseWorkerUser();
+    const result = await getSystemUser();
     expect(result).toStrictEqual({
       accessToken: token,
       email: 'test@test.com',

@@ -10,6 +10,8 @@ properties([
 
 @Library("Infrastructure")
 
+import uk.gov.hmcts.contino.AppPipelineConfig
+
 def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
@@ -21,9 +23,29 @@ env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVariable
+  ]
+}
+
+def secrets = [
+        'nfdiv-${env}'    :[
+                secret('e2e-test-user-password', 'TEST_PASSWORD'),
+                secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
+                secret('idam-secret', 'IDAM_SECRET')
+        ]
+]
+
+def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
+
 withNightlyPipeline(type, product, component) {
   enableCrossBrowserTest()
   enableFullFunctionalTest()
+  loadVaultSecrets(secrets)
 
   before('crossBrowserTest') {
     yarnBuilder.smokeTest()

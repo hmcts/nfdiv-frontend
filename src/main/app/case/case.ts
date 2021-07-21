@@ -24,7 +24,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
   screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
-  screenHasApplicant2UnionBroken: 'applicant2ScreenHasMarriageBroken',
+  applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
@@ -60,7 +60,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2ChangedNameHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
-  applicant2EmailAddress: 'applicant2EmailAddress',
+  applicant2EmailAddress: 'applicant2InviteEmailAddress',
+  applicant2PhoneNumber: 'applicant2PhoneNumber',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   legalProceedings: 'legalProceedings',
   legalProceedingsDetails: 'legalProceedingsDetails',
@@ -69,8 +70,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
-  documentsUploaded: 'documentsUploaded',
-  respondentUserId: 'respondentUserId',
+  applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
+  applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
+  respondentUserId: 'applicant2UserId',
+  applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
+  applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -102,7 +106,7 @@ export interface Case {
   gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
-  screenHasApplicant2UnionBroken?: YesOrNo;
+  applicant2ScreenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
   applicant1HelpPayingNeeded?: YesOrNo;
@@ -121,7 +125,8 @@ export interface Case {
   applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
   jurisdictionResidualEligible?: YesOrNo;
-  englishOrWelsh?: LanguagePreference;
+  applicant1EnglishOrWelsh?: LanguagePreference;
+  applicant2EnglishOrWelsh?: LanguagePreference;
   applicant1FirstNames?: string;
   applicant1MiddleNames?: string;
   applicant1LastNames?: string;
@@ -170,10 +175,14 @@ export interface Case {
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
   applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
-  uploadedFiles?: UploadedFile[];
-  documentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
-  cannotUpload?: Checkbox;
-  cannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant1UploadedFiles?: UploadedFile[];
+  applicant2UploadedFiles?: UploadedFile[];
+  applicant1DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1CannotUpload?: Checkbox;
+  applicant2CannotUpload?: Checkbox;
+  applicant1CannotUploadDocuments?: DocumentType | DocumentType[];
+  applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
   dueDate?: DateAsString;
   iConfirmPrayer?: Checkbox;
@@ -183,6 +192,8 @@ export interface Case {
   dateSubmitted?: Date;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
+  applicant2Confirmation: YesOrNo;
+  applicant2Explanation: string;
 }
 
 export interface CaseWithId extends Case {

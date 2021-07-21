@@ -48,7 +48,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
     cannotUploadNameChangeProof: 'Proof that I changed my name',
     errors: {
-      uploadedFiles: {
+      applicant1UploadedFiles: {
         notUploaded:
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
@@ -57,7 +57,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },
-      cannotUpload: {
+      applicant1CannotUpload: {
         required: 'Select which file you could not upload before continuing.',
       },
     },
@@ -106,7 +106,7 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
     cannotUploadNameChangeProof: 'Prawf fy mod i wedi newid fy enw',
     errors: {
-      uploadedFiles: {
+      applicant1UploadedFiles: {
         notUploaded:
           'Nid ydych wedi uwchlwytho unrhyw beth. Uwchlwythwch eich dogfen neu nodwch na allwch uwchlwytho eich dogfennau.',
         errorUploading:
@@ -116,7 +116,7 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
         fileWrongFormat:
           "Ni allwch uwchlwytho ffeil yn y fformat hwnnw. Cadwch y ffeil gan ddefnyddio un o'r fformatau a dderbynnir a cheisiwch ei huwchlwytho eto.",
       },
-      cannotUpload: {
+      applicant1CannotUpload: {
         required: 'Dewiswch pa ffeil nad oeddech yn gallu ei huwchlwytho cyn parhau.',
       },
     },
@@ -157,17 +157,18 @@ export const form: FormContent = {
     }
 
     return {
-      uploadedFiles: {
+      applicant1UploadedFiles: {
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
         value:
-          (isObject(formState.uploadedFiles) ? JSON.stringify(formState.uploadedFiles) : formState.uploadedFiles) ||
-          '[]',
+          (isObject(formState.applicant1UploadedFiles)
+            ? JSON.stringify(formState.applicant1UploadedFiles)
+            : formState.applicant1UploadedFiles) || '[]',
         parser: data => JSON.parse((data as Record<string, string>).uploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          const selectedCannotUploadDocuments = !!formData.cannotUploadDocuments?.length;
+          const selectedCannotUploadDocuments = !!formData.applicant1CannotUploadDocuments?.length;
           if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
             return 'notUploaded';
           }
@@ -175,28 +176,28 @@ export const form: FormContent = {
       },
       ...(checkboxes.length > 1
         ? {
-            cannotUpload: {
+            applicant1CannotUpload: {
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,
               validator: (value, formData) => {
                 if ((value as string[])?.includes(Checkbox.Checked)) {
-                  return atLeastOneFieldIsChecked(formData?.cannotUploadDocuments);
+                  return atLeastOneFieldIsChecked(formData?.applicant1CannotUploadDocuments);
                 }
               },
               values: [
                 {
-                  name: 'cannotUpload',
+                  name: 'applicant1CannotUpload',
                   label: l => l.cannotUploadDocuments,
                   value: Checkbox.Checked,
                   subFields: {
-                    cannotUploadDocuments: {
+                    applicant1CannotUploadDocuments: {
                       type: 'checkboxes',
                       label: l => l.cannotUploadWhich,
                       hint: l => l.checkAllThatApply,
                       subtext: l => l.cannotUploadYouCanPost,
                       values: checkboxes.map(checkbox => ({
-                        name: 'cannotUploadDocuments',
+                        name: 'applicant1CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
                       })),
@@ -209,13 +210,13 @@ export const form: FormContent = {
         : {}),
       ...(checkboxes.length === 1
         ? {
-            cannotUploadDocuments: {
+            applicant1CannotUploadDocuments: {
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,
               subtext: l => l.cannotUploadYouCanPost,
               values: checkboxes.map(checkbox => ({
-                name: 'cannotUploadDocuments',
+                name: 'applicant1CannotUploadDocuments',
                 label: l => l[`${checkbox.id}Singular`],
                 value: checkbox.value,
               })),

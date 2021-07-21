@@ -1,4 +1,4 @@
-Feature: Applicant2 apply for a financial order
+Feature: Applicant 2 apply for a financial order
 
   Background:
     Given I login

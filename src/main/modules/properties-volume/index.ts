@@ -16,14 +16,15 @@ export class PropertiesVolume {
       this.setSecret('secrets.nfdiv.idam-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.nfdiv.frontend-secret', 'services.authProvider.secret');
       this.setSecret('secrets.nfdiv.os-places-token', 'services.postcodeLookup.token');
-      this.setSecret('secrets.nfdiv.idam-caseworker-username', 'services.idam.caseworkerUsername');
-      this.setSecret('secrets.nfdiv.idam-caseworker-password', 'services.idam.caseworkerPassword');
+      this.setSecret('secrets.nfdiv.idam-systemupdate-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.nfdiv.idam-systemupdate-password', 'services.idam.systemPassword');
     } else {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
       this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
-      this.setLocalSecret('idam-caseworker-username', 'services.idam.caseworkerUsername');
-      this.setLocalSecret('idam-caseworker-password', 'services.idam.caseworkerPassword');
+      this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
+      this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
+      this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
     }
   }
 

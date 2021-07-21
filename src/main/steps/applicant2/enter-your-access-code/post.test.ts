@@ -1,32 +1,29 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as steps from '../../steps';
-import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/CaseApi';
-import { ApplicationType, CITIZEN_LINK_APPLICANT_2 } from '../case/definition';
-import { Form } from '../form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import * as oidc from '../../../app/auth/user/oidc';
+import * as caseApi from '../../../app/case/CaseApi';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
+import { Form } from '../../../app/form/Form';
+import { APPLICANT_2, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
-import { AccessCodePostController } from './AccessCodePostController';
+import { AccessCodePostController } from './post';
 
-const getCaseWorkerUserMock = jest.spyOn(oidc, 'getCaseWorkerUser');
-const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('AccessCodePostController', () => {
   beforeEach(() => {
-    getCaseWorkerUserMock.mockResolvedValue({
+    getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
       familyName: 'worker',
     });
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
   });
 
   afterEach(() => {
-    getCaseWorkerUserMock.mockClear();
-    getNextStepUrlMock.mockClear();
+    getSystemUserMock.mockClear();
   });
 
   test('Should have no errors and redirect to the next page', async () => {
@@ -60,7 +57,6 @@ describe('AccessCodePostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(getNextStepUrlMock).toBeCalled();
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
@@ -68,9 +64,9 @@ describe('AccessCodePostController', () => {
         caseReference: '1234123412341234',
         respondentUserId: '123456',
       },
-      CITIZEN_LINK_APPLICANT_2
+      SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith('/next-step-url');
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 

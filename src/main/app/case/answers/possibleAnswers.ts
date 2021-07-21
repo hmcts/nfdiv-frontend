@@ -1,10 +1,10 @@
 import { pick } from 'lodash';
 
-import { stepsWithContent } from '../../../steps';
+import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Step } from '../../../steps/applicant1Sequence';
 import { Form, FormContent } from '../../form/Form';
 import { Case } from '../case';
-import { YesOrNo } from '../definition';
+import { ApplicationType, YesOrNo } from '../definition';
 
 type StepWithForm = { form?: FormContent } & Step;
 
@@ -12,7 +12,8 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'id',
   'state',
   'divorceOrDissolution',
-  'documentsUploaded',
+  'applicant1DocumentsUploaded',
+  'applicant2DocumentsUploaded',
   'applicant1FirstNames',
   'applicant1LastNames',
   'applicationFeeOrderSummary',
@@ -44,7 +45,13 @@ export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: Step[]):
   pick(caseState, getAllPossibleAnswers(caseState, steps));
 
 export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
-  const possibleAnswers = getAllPossibleAnswers(userCase, stepsWithContent);
+  const possibleAnswers = [
+    ...getAllPossibleAnswers(userCase, stepsWithContentApplicant1),
+    ...(userCase.applicationType === ApplicationType.JOINT_APPLICATION
+      ? getAllPossibleAnswers(userCase, stepsWithContentApplicant2)
+      : []),
+  ];
+
   const answers = Object.fromEntries(
     Object.keys(userCase)
       .filter(
@@ -59,9 +66,9 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
 };
 
 const documentsRequiredChanged = (caseState: Partial<Case>): Record<string, unknown> | void => {
-  let amountOfDocumentsNeeded = 1;
+  let applicant1AmountOfDocumentsNeeded = 1;
   if (caseState.inTheUk === YesOrNo.NO && caseState.certifiedTranslation === YesOrNo.YES) {
-    amountOfDocumentsNeeded++;
+    applicant1AmountOfDocumentsNeeded++;
   }
   if (
     [
@@ -69,14 +76,15 @@ const documentsRequiredChanged = (caseState: Partial<Case>): Record<string, unkn
       caseState.applicant1NameChangedSinceRelationshipFormed,
     ].includes(YesOrNo.YES)
   ) {
-    amountOfDocumentsNeeded++;
+    applicant1AmountOfDocumentsNeeded++;
   }
 
   if (
-    caseState.cannotUploadDocuments &&
-    caseState.uploadedFiles &&
-    caseState.cannotUploadDocuments.length + caseState.uploadedFiles.length !== amountOfDocumentsNeeded
+    caseState.applicant1CannotUploadDocuments &&
+    caseState.applicant1UploadedFiles &&
+    caseState.applicant1CannotUploadDocuments.length + caseState.applicant1UploadedFiles.length !==
+      applicant1AmountOfDocumentsNeeded
   ) {
-    return { cannotUpload: null, cannotUploadDocuments: null };
+    return { applicant1CannotUpload: null, applicant1CannotUploadDocuments: null };
   }
 };

@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash';
 
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, Checkbox } from '../../app/case/case';
 import { ApplicationType, Gender } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -79,6 +79,28 @@ const en = {
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidentHelpText2:
     'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  cookiesHeading: 'Cookies on',
+  cookiesLine1: 'We use some essential cookies to make this service work.',
+  cookiesLine2:
+    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+  acceptAnalyticsCookies: 'Accept analytics cookies',
+  rejectAnalyticsCookies: 'Reject analytics cookies',
+  viewCookies: 'View cookies',
+  hideMessage: 'Hide this message',
+  cookiesConfirmationMessage:
+    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  changeCookiesHeading: 'Change your cookie settings',
+  allowAnalyticsCookies: 'Allow cookies that measure website use?',
+  useAnalyticsCookies: 'Use cookies that measure my website use',
+  doNotUseAnalyticsCookies: 'Do not use cookies that measure my website use',
+  save: 'Save',
+  cookiesSaved: 'Your cookie settings were saved',
+  additionalCookies:
+    'Government services may set additional cookies and, if so, will have their own cookie policy and banner.',
+  goToHomepage: 'Go to homepage',
+  apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
+  useApmCookies: 'Use cookies that measure website application performance monitoring',
+  doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
 };
 
 const cy: typeof en = {
@@ -158,18 +180,20 @@ export const generatePageContent = ({
   language,
   pageContent,
   isDivorce = true,
+  isApplicant2 = false,
   formState,
   userEmail,
 }: {
   language: Language;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
+  isApplicant2?: boolean;
   formState?: Partial<CaseWithId>;
   userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
-  const selectedGender = formState?.gender as Gender;
+  const selectedGender = getSelectedGender(formState as Partial<CaseWithId>, isApplicant2);
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
   const isJointApplication = formState?.applicationType === ApplicationType.JOINT_APPLICATION;
@@ -181,6 +205,7 @@ export const generatePageContent = ({
     partner,
     language,
     isDivorce,
+    isApplicant2,
     formState,
     userEmail,
     contactEmail,
@@ -197,6 +222,13 @@ export const generatePageContent = ({
 const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
   return capitalize(serviceName);
+};
+
+const getSelectedGender = (formState: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
+  if (isApplicant2 && formState.sameSex === Checkbox.Unchecked) {
+    return formState?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
+  }
+  return formState?.gender as Gender;
 };
 
 const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
@@ -217,6 +249,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
+  isApplicant2: boolean;
   formState?: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;

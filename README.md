@@ -17,6 +17,7 @@
       - [CSRF prevention](#csrf-prevention)
       - [Helmet](#helmet)
     - [Healthcheck](#healthcheck)
+  - [Migrating backend field changes](#migrating-backend-field-changes)
   - [License](#license)
 
 ## Getting Started
@@ -25,7 +26,7 @@
 
 Running the application requires the following tools to be installed in your environment:
 
-- [Node.js](https://nodejs.org/) v12.0.0 or later
+- [Node.js](https://nodejs.org/) v12.0.0 or later.
 - [yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com)
 
@@ -177,6 +178,8 @@ To run the cross browser tests using Sauce Labs, install the [Sauce Labs connect
 sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -x https://eu-central-1.saucelabs.com/rest/v1 -i $SAUCE_TUNNEL_IDENTIFIER -B all
 yarn test:crossbrowser:sauce
 ```
+
+See [`TESTING.md`](TESTING.md) for more information on testing processes.
 
 ### Security
 

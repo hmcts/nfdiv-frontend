@@ -1,4 +1,4 @@
-import { stepsWithContent } from '../../../steps';
+import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { PageLink } from '../../../steps/urls';
@@ -8,20 +8,31 @@ import { Case } from '../case';
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
 
-export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[] {
+export const getAnswerRows = function (
+  section: Sections,
+  showActions = true,
+  overrideStepsContent?: number
+): GovUkNunjucksSummary[] {
   const {
     language,
     isDivorce,
+    isApplicant2,
     formState,
     userEmail,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
-    applicant2: string;
+    isApplicant2: boolean;
     userEmail: string;
     formState: Partial<Case>;
   } = this.ctx;
 
+  let stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
+  if (overrideStepsContent === 1) {
+    stepsWithContent = stepsWithContentApplicant1;
+  } else if (overrideStepsContent === 2) {
+    stepsWithContent = stepsWithContentApplicant2;
+  }
   const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
   return stepsWithContent
@@ -37,6 +48,7 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
             language,
             pageContent: step.generateContent,
             isDivorce,
+            isApplicant2,
             formState: processedFormState,
             userEmail,
           }),
@@ -47,24 +59,28 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
       }
 
       const questionAnswers: GovUkNunjucksSummary[] = [];
-      const addQuestionAnswer = (question: string, answer: string, link?: PageLink) =>
+      const addQuestionAnswer = (question: string, answer: string, link?: PageLink, html?: string) =>
         questionAnswers.push({
           key: {
             text: question,
             classes: 'govuk-!-width-two-thirds',
           },
           value: {
-            html: answer,
+            html: answer + (html || ''),
           },
-          actions: {
-            items: [
-              {
-                href: link || step.url,
-                text: this.ctx.change,
-                visuallyHiddenText: question,
-              },
-            ],
-          },
+          ...(!showActions
+            ? {}
+            : {
+                actions: {
+                  items: [
+                    {
+                      href: link || step.url,
+                      text: this.ctx.change,
+                      visuallyHiddenText: question,
+                    },
+                  ],
+                },
+              }),
         });
 
       for (const fieldKey of fieldKeys) {
@@ -93,11 +109,13 @@ export const getAnswerRows = function (section: Sections): GovUkNunjucksSummary[
         if (customAnswer === false) {
           continue;
         }
+        const customAnswerWithHtml = this.ctx.stepAnswersWithHTML?.[step.url]?.[fieldKey];
 
         addQuestionAnswer(
           customQuestion || (question as string),
           this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
-          this.ctx.stepLinks[step.url]
+          this.ctx.stepLinks[step.url],
+          customAnswerWithHtml
         );
       }
 

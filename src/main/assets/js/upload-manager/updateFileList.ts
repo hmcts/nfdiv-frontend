@@ -29,7 +29,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       );
       filenameEl.textContent = file.name;
 
-      if (content.isDraft) {
+      if (content.isDraft || content.isAwaitingApplicant2Response) {
         const deleteEl = document.createElement('a');
         deleteEl.classList.add('govuk-link--no-visited-state');
         deleteEl.href = `${DOCUMENT_MANAGER}/delete/${file.id}`;
