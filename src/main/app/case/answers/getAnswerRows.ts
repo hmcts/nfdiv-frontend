@@ -172,7 +172,7 @@ export const getAnswerRows = function (
             processedFormState.whoIsFinancialOrderFor
               ?.join(' / ')
               .replace('applicant1', 'Me')
-              .replace('children', 'the children') as string
+              .replace('children', 'the children')
           );
         }
 
@@ -186,7 +186,7 @@ export const getAnswerRows = function (
             processedFormState.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace('applicant2', 'Me')
-              .replace('children', 'the children') as string
+              .replace('children', 'the children')
           );
         }
       }

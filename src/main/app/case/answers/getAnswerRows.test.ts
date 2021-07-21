@@ -132,11 +132,13 @@ describe('getAnswerRows()', () => {
 
       mockFormState = {
         mockField: 'example response',
-        whoIsFinancialOrderFor: 'applicant1',
-        applicant2WhoIsFinancialOrderFor: 'applicant2',
+        applyForFinancialOrder: 'YES',
+        whoIsFinancialOrderFor: ['applicant1', 'children'],
+        applicant2WhoIsFinancialOrderFor: ['applicant2', 'children'],
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
-        legalProceedingsRelated: 'Marriage',
+        legalProceedings: 'YES',
+        legalProceedingsRelated: ['marriage', 'property', 'children'],
       };
       mockCtx = {
         language: 'en',
@@ -500,12 +502,36 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: 'pickThisOne',
+          url: '/do-you-want-to-apply-financial-order',
           showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
-          form: { fields: { whoIsFinancialOrderFor: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          form: {
+            fields: {
+              applyForFinancialOrder: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      whoIsFinancialOrderFor: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'whoIsFinancialOrderFor', label: () => '1yhyhyhyh', value: 'applicant1' },
+                          { name: 'whoIsFinancialOrderFor', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
           view: '/template',
         },
       ]);
@@ -513,13 +539,34 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant2.mockReturnValue([
         {
           stepDir: '/',
-          url: 'pickThisOne',
+          url: '/applicant2/do-you-want-to-apply-financial-order',
           showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: {
-            fields: { applicant2WhoIsFinancialOrderFor: { type: 'text', label: l => l.title } },
+            fields: {
+              applyForFinancialOrder: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      applicant2WhoIsFinancialOrderFor: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'applicant2', value: 'applicant2' },
+                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
             submit: { text: '' },
           },
           view: '/template',
@@ -538,7 +585,16 @@ describe('getAnswerRows()', () => {
             html: 'Mock question title',
           },
           value: {
-            html: 'newlineToBr(escaped(applicant2))',
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Who is the financial order for? 	',
+          },
+          value: {
+            html: 'Me / the children',
           },
         },
         {
@@ -547,7 +603,16 @@ describe('getAnswerRows()', () => {
             html: 'Mock question title',
           },
           value: {
-            html: 'newlineToBr(escaped(applicant1))',
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Who is the financial order for? 	',
+          },
+          value: {
+            html: 'Me / the children',
           },
         },
       ]);
@@ -557,7 +622,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: 'pickThisOne',
+          url: '/enter-your-name',
           showInSection: Sections.AboutApplicant1,
           showInCompleteSection: Sections.AboutApplicant1,
           getNextStep: () => '/',
@@ -585,6 +650,15 @@ describe('getAnswerRows()', () => {
             html: 'newlineToBr(escaped(Sarah Smith))',
           },
         },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Full name on the marriage certificate',
+          },
+          value: {
+            html: 'Sarah Smith',
+          },
+        },
       ]);
     });
 
@@ -592,7 +666,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: 'pickThisOne',
+          url: '/applicant2/enter-your-name',
           showInSection: Sections.AboutApplicant2,
           showInCompleteSection: Sections.AboutApplicant2,
           getNextStep: () => '/',
@@ -620,6 +694,15 @@ describe('getAnswerRows()', () => {
             html: 'newlineToBr(escaped(Billy Bob))',
           },
         },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Full name on the marriage certificate',
+          },
+          value: {
+            html: 'Billy Bob',
+          },
+        },
       ]);
     });
 
@@ -627,12 +710,37 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: 'pickThisOne',
+          url: '/other-court-cases',
           showInSection: Sections.OtherCourtCases,
           showInCompleteSection: Sections.OtherCourtCases,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
-          form: { fields: { legalProceedingsRelated: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          form: {
+            fields: {
+              legalProceedings: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      legalProceedingsRelated: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'legalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
+                          { name: 'legalProceedingsRelated', label: () => 'property', value: 'property' },
+                          { name: 'legalProceedingsRelated', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
           view: '/template',
         },
       ]);
@@ -649,7 +757,16 @@ describe('getAnswerRows()', () => {
             html: 'Mock question title',
           },
           value: {
-            html: 'newlineToBr(escaped(Marriage))',
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'What do the legal proceedings relate to?',
+          },
+          value: {
+            html: 'Marriage / Property / Children',
           },
         },
       ]);

@@ -20,7 +20,9 @@ describe('to-api-format', () => {
     applicant2EnglishOrWelsh: LanguagePreference.English,
     legalProceedingsRelated: [],
     applicant1IConfirmPrayer: Checkbox.Checked,
+    applicant2IConfirmPrayer: Checkbox.Checked,
     applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
   };
@@ -48,7 +50,9 @@ describe('to-api-format', () => {
       applicant2CannotUploadSupportingDocument: [],
       legalProceedingsRelated: [],
       applicant1PrayerHasBeenGiven: 'Yes',
+      applicant2PrayerHasBeenGiven: 'Yes',
       applicant1StatementOfTruth: 'Yes',
+      applicant2StatementOfTruth: 'Yes',
     });
   });
 
