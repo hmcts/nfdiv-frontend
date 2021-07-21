@@ -135,7 +135,7 @@ export interface CaseData {
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
-  applicant1NameChangedHow: ChangedNameHow;
+  applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1HomeAddress: AddressGlobalUK;
   applicant1PhoneNumber: string;
@@ -167,7 +167,7 @@ export interface CaseData {
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
-  applicant2NameChangedHow: ChangedNameHow;
+  applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
