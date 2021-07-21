@@ -130,7 +130,14 @@ describe('getAnswerRows()', () => {
 
       mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
-      mockFormState = { mockField: 'example response' };
+      mockFormState = {
+        mockField: 'example response',
+        whoIsFinancialOrderFor: 'applicant1',
+        applicant2WhoIsFinancialOrderFor: 'applicant2',
+        applicant1FullNameOnCertificate: 'Sarah Smith',
+        applicant2FullNameOnCertificate: 'Billy Bob',
+        legalProceedingsRelated: 'Marriage',
+      };
       mockCtx = {
         language: 'en',
         isDivorce: true,
@@ -484,6 +491,165 @@ describe('getAnswerRows()', () => {
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional dividingAssets questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'pickThisOne',
+          showInSection: Sections.DividingAssets,
+          showInCompleteSection: Sections.DividingAssets,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { whoIsFinancialOrderFor: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+      ]);
+
+      mockStepsWithContentApplicant2.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'pickThisOne',
+          showInSection: Sections.DividingAssets,
+          showInCompleteSection: Sections.DividingAssets,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: { applicant2WhoIsFinancialOrderFor: { type: 'text', label: l => l.title } },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.DividingAssets, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(applicant2))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(applicant1))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional aboutApplicant1 questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'pickThisOne',
+          showInSection: Sections.AboutApplicant1,
+          showInCompleteSection: Sections.AboutApplicant1,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: { applicant1FullNameOnCertificate: { type: 'text', label: l => l.title } },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutApplicant1, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Sarah Smith))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional aboutApplicant2 questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'pickThisOne',
+          showInSection: Sections.AboutApplicant2,
+          showInCompleteSection: Sections.AboutApplicant2,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: { applicant2FullNameOnCertificate: { type: 'text', label: l => l.title } },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutApplicant2, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Billy Bob))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional otherCourtCases questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'pickThisOne',
+          showInSection: Sections.OtherCourtCases,
+          showInCompleteSection: Sections.OtherCourtCases,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { legalProceedingsRelated: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.OtherCourtCases, true);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Marriage))',
           },
         },
       ]);
