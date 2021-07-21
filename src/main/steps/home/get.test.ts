@@ -72,7 +72,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          screenHasApplicant2UnionBroken: YesOrNo.YES,
+          applicant2ScreenHasUnionBroken: YesOrNo.YES,
         },
         isApplicant2: true,
       },

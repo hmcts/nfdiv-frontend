@@ -9,7 +9,7 @@ import { CommonContent } from '../../common/common.content';
 const labels = ({ required }: CommonContent) => {
   return {
     errors: {
-      screenHasApplicant2UnionBroken: {
+      applicant2ScreenHasUnionBroken: {
         required,
       },
     },
@@ -19,7 +19,7 @@ const labels = ({ required }: CommonContent) => {
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    screenHasApplicant2UnionBroken: (applicant1Form.fields as FormFields).screenHasUnionBroken,
+    applicant2ScreenHasUnionBroken: (applicant1Form.fields as FormFields).screenHasUnionBroken,
   },
 };
 
