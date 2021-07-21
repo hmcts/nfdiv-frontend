@@ -12,7 +12,8 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'id',
   'state',
   'divorceOrDissolution',
-  'documentsUploaded',
+  'applicant1DocumentsUploaded',
+  'applicant2DocumentsUploaded',
   'applicant1FirstNames',
   'applicant1LastNames',
   'applicationFeeOrderSummary',
@@ -65,9 +66,9 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
 };
 
 const documentsRequiredChanged = (caseState: Partial<Case>): Record<string, unknown> | void => {
-  let amountOfDocumentsNeeded = 1;
+  let applicant1AmountOfDocumentsNeeded = 1;
   if (caseState.inTheUk === YesOrNo.NO && caseState.certifiedTranslation === YesOrNo.YES) {
-    amountOfDocumentsNeeded++;
+    applicant1AmountOfDocumentsNeeded++;
   }
   if (
     [
@@ -75,15 +76,15 @@ const documentsRequiredChanged = (caseState: Partial<Case>): Record<string, unkn
       caseState.applicant1NameChangedSinceRelationshipFormed,
     ].includes(YesOrNo.YES)
   ) {
-    amountOfDocumentsNeeded++;
+    applicant1AmountOfDocumentsNeeded++;
   }
 
   if (
     caseState.applicant1CannotUploadDocuments &&
     caseState.applicant1UploadedFiles &&
     caseState.applicant1CannotUploadDocuments.length + caseState.applicant1UploadedFiles.length !==
-      amountOfDocumentsNeeded
+      applicant1AmountOfDocumentsNeeded
   ) {
-    return { cannotUpload: null, cannotUploadDocuments: null };
+    return { applicant1CannotUpload: null, applicant1CannotUploadDocuments: null };
   }
 };
