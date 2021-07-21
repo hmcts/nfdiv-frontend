@@ -111,6 +111,10 @@ const sequences: Step[] = [
     getNextStep: () => CONFIRM_JOINT_APPLICATION,
   },
   {
+    url: CONFIRM_JOINT_APPLICATION,
+    getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
     url: CHECK_JOINT_APPLICATION,
     getNextStep: data =>
       data.applicant2Confirmation === YesOrNo.YES

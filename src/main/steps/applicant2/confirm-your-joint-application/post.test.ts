@@ -4,11 +4,13 @@ import { Checkbox } from '../../../app/case/case';
 import { APPLICANT_2_APPROVE, ApplicationType } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
 
-import ConfirmYourAnswersPostController from './post';
+import ConfirmYourJointApplicationPostController from './post';
 
 describe('ConfirmYourAnswersPostController', () => {
   it('triggers APPLICANT_2_APPROVED', async () => {
     const body = {
+      applicant1IConfirmPrayer: '',
+      applicant1IBelieveApplicationIsTrue: '',
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
@@ -18,9 +20,9 @@ describe('ConfirmYourAnswersPostController', () => {
       getErrors: () => [],
       getParsedBody: () => body,
     } as unknown as Form;
-    const confirmYourAnswerPostController = new ConfirmYourAnswersPostController(mockForm);
+    const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockForm);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, session: { isApplicant2: true } });
     const res = mockResponse();
     await confirmYourAnswerPostController.post(req, res);
 
