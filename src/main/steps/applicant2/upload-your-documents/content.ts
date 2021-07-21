@@ -18,7 +18,7 @@ const labels = applicant1Content => ({
       fileSizeTooBig: applicant1Content.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1Content.errors.applicant1UploadedFiles.fileWrongFormat,
     },
-    cannotUpload: {
+    applicant2CannotUpload: {
       required: applicant1Content.errors.applicant1CannotUpload.required,
     },
   },
