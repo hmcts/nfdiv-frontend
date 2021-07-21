@@ -521,7 +521,7 @@ describe('getAnswerRows()', () => {
                         type: 'checkboxes',
                         label: () => 'Mock Checkboxes',
                         values: [
-                          { name: 'whoIsFinancialOrderFor', label: () => '1yhyhyhyh', value: 'applicant1' },
+                          { name: 'whoIsFinancialOrderFor', label: () => 'applicant1', value: 'applicant1' },
                           { name: 'whoIsFinancialOrderFor', label: () => 'children', value: 'children' },
                         ],
                       },
