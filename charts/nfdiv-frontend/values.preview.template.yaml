@@ -8,6 +8,11 @@ nodejs:
     primaryIngressHost: ${SERVICE_FQDN}
   autoscaling:
     enabled: false
+  keyVaults:
+    nfdiv:
+      resourceGroup: nfdiv
+      secrets:
+        - AppInsightsInstrumentationKey-Preview
 
 idam-pr:
   enabled: true
