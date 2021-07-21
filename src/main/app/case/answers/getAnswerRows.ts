@@ -222,13 +222,13 @@ const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant
     const processedFormState = { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState };
 
     return { stepsWithContent, processedFormState };
-  } else if (overrideStepsContent) {
-    const stepsWithContent = overrideStepsContent === 1 ? stepsWithContentApplicant1 : stepsWithContentApplicant2;
+  } else if (overrideStepsContent === 1 || (!overrideStepsContent && !isApplicant2)) {
+    const stepsWithContent = stepsWithContentApplicant1;
     const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
     return { stepsWithContent, processedFormState };
   } else {
-    const stepsWithContent = isApplicant2 ? stepsWithContentApplicant2 : stepsWithContentApplicant1;
+    const stepsWithContent = stepsWithContentApplicant2;
     const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
 
     return { stepsWithContent, processedFormState };
