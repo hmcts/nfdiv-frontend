@@ -12,7 +12,13 @@ nodejs:
     nfdiv:
       resourceGroup: nfdiv
       secrets:
+        - idam-secret
         - AppInsightsInstrumentationKey-Preview
+        - redis-access-key
+        - frontend-secret
+        - os-places-token
+        - idam-systemupdate-username
+        - idam-systemupdate-password
 
 idam-pr:
   enabled: true
