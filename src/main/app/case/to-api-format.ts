@@ -49,16 +49,10 @@ const fields: ToApiConverters = {
       : '',
   }),
   applicant1EnglishOrWelsh: data => ({
-    applicant1LanguagePreferenceWelsh:
-      data.applicant1EnglishOrWelsh === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO,
+    applicant1LanguagePreferenceWelsh: languagePreferenceYesNoOrNull(data.applicant1EnglishOrWelsh),
   }),
   applicant2EnglishOrWelsh: data => ({
-    applicant2LanguagePreferenceWelsh:
-      data.applicant2EnglishOrWelsh === LanguagePreference.Welsh
-        ? YesOrNo.YES
-        : data.applicant2EnglishOrWelsh === null
-        ? null
-        : YesOrNo.NO,
+    applicant2LanguagePreferenceWelsh: languagePreferenceYesNoOrNull(data.applicant2EnglishOrWelsh),
   }),
   applicant1AddressPostcode: applicant1AddressToApi,
   applicant1AgreeToReceiveEmails: data => ({
@@ -68,16 +62,10 @@ const fields: ToApiConverters = {
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
   applicant1AddressPrivate: data => ({
-    applicant1ContactDetailsConfidential:
-      data.applicant1AddressPrivate === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE,
+    applicant1ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant1AddressPrivate),
   }),
   applicant2AddressPrivate: data => ({
-    applicant2ContactDetailsConfidential:
-      data.applicant2AddressPrivate === YesOrNo.YES
-        ? ConfidentialAddress.KEEP
-        : data.applicant2AddressPrivate === null
-        ? null
-        : ConfidentialAddress.SHARE,
+    applicant2ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant2AddressPrivate),
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
@@ -117,6 +105,20 @@ const toApiDate = (date: CaseDate | undefined) => {
     return '';
   }
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
+};
+
+const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) => {
+  if (!value) {
+    return null;
+  }
+  return value === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO;
+};
+
+const addressPrivateYesNoOrNull = (value: YesOrNo) => {
+  if (!value) {
+    return null;
+  }
+  return value === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE;
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
