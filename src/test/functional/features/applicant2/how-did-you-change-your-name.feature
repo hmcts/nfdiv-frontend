@@ -2,6 +2,7 @@ Feature: Applicant 2 how did you change your name
 
   Background:
     Given I login
+    And I am reviewing an application for divorce created by my wife
     When I go to '/applicant2/how-did-you-change-your-name'
     Then the page should include "How did you change your name?"
 
