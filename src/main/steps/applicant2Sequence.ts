@@ -19,6 +19,7 @@ import {
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   UPLOAD_YOUR_DOCUMENTS,
+  YOUR_COMMENTS_SENT,
   YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
@@ -104,14 +105,15 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
     url: CHECK_JOINT_APPLICATION,
-    getNextStep: data =>
-      data.applicant2Confirmation === YesOrNo.YES
-        ? CHECK_ANSWERS_URL
-        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: data => (data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : YOUR_COMMENTS_SENT),
+  },
+  {
+    url: YOUR_COMMENTS_SENT,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
 
