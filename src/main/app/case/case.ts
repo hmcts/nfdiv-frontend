@@ -24,7 +24,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
   screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
-  screenHasApplicant2UnionBroken: 'applicant2ScreenHasMarriageBroken',
+  applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
@@ -109,7 +109,7 @@ export interface Case {
   gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
-  screenHasApplicant2UnionBroken?: YesOrNo;
+  applicant2ScreenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
   applicant1HelpPayingNeeded?: YesOrNo;
