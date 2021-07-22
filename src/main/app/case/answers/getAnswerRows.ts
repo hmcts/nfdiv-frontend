@@ -214,7 +214,12 @@ const getSelectedRadioLabel = (answer, field, stepContent) => {
 };
 
 const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant2) => {
-  if (isCompleteCase || (isApplicant2 && overrideStepsContent !== 1)) {
+  if ((!isCompleteCase && !isApplicant2 && overrideStepsContent !== 2) || overrideStepsContent === 1) {
+    const stepsWithContent = stepsWithContentApplicant1;
+    const processedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
+
+    return { stepsWithContent, processedFormState };
+  } else {
     const stepsWithContent = isCompleteCase
       ? [...stepsWithContentApplicant2, ...stepsWithContentApplicant1]
       : stepsWithContentApplicant2;
@@ -224,11 +229,6 @@ const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant
     const processedFormState = isCompleteCase
       ? { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState }
       : applicant2ProcessedFormState;
-
-    return { stepsWithContent, processedFormState };
-  } else {
-    const stepsWithContent = stepsWithContentApplicant1;
-    const processedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
 
     return { stepsWithContent, processedFormState };
   }
