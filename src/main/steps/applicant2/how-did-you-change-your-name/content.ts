@@ -2,7 +2,10 @@ import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/how-did-you-change-your-name/content';
+import {
+  form as applicant1Form,
+  generateContent as applicant1GenerateContent,
+} from '../../applicant1/how-did-you-change-your-name/content';
 
 const labels = applicant1Content => {
   return {
@@ -18,6 +21,7 @@ const labels = applicant1Content => {
 };
 
 export const form: FormContent = {
+  ...applicant1Form,
   fields: {
     applicant2ChangedNameHow: {
       type: 'checkboxes',
@@ -51,9 +55,6 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-  },
-  submit: {
-    text: l => l.continue,
   },
 };
 
