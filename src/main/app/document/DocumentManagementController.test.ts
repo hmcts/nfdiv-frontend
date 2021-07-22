@@ -2,7 +2,7 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
+import { APPLICANT_2, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
@@ -174,6 +174,36 @@ describe('DocumentManagerController', () => {
       expect(res.redirect).toHaveBeenCalledWith(UPLOAD_YOUR_DOCUMENTS);
     });
 
+    it("redirects if browser doesn't accept JSON/has JavaScript disabled - Applicant 2", async () => {
+      const req = mockRequest({
+        isApplicant2: true,
+        userCase: {
+          state: State.AwaitingApplicant2Response,
+          applicant2DocumentsUploaded: ['an-existing-doc'],
+        },
+      });
+      const res = mockResponse();
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+
+      (mockCreate as jest.Mock).mockReturnValue([
+        {
+          originalDocumentName: 'uploaded-file.jpg',
+          _links: {
+            self: { href: 'https://link-self-processed-doc' },
+            binary: { href: 'https://link-binary-processed-doc' },
+          },
+        },
+      ]);
+
+      (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+        uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
+      });
+
+      await documentManagerController.post(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
+    });
+
     it("uploading throws an error if the case isn't in a draft state as applicant 1", async () => {
       const req = mockRequest({
         userCase: {
@@ -257,6 +287,24 @@ describe('DocumentManagerController', () => {
       expect(res.json).not.toHaveBeenCalled();
     });
 
+    it('redirects if no files were uploaded & JavaScript is disabled - Applicant 2', async () => {
+      const req = mockRequest({
+        isApplicant2: true,
+        userCase: {
+          state: State.AwaitingApplicant2Response,
+        },
+      });
+      const res = mockResponse();
+
+      await documentManagerController.post(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
+    });
+
     it('redirects if deleting & JavaScript is disabled', async () => {
       const req = mockRequest({
         userCase: {
@@ -273,6 +321,24 @@ describe('DocumentManagerController', () => {
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(res.json).not.toHaveBeenCalled();
     });
+  });
+
+  it('redirects if deleting & JavaScript is disabled - Applicant 2', async () => {
+    const req = mockRequest({
+      isApplicant2: true,
+      userCase: {
+        state: State.AwaitingApplicant2Response,
+      },
+    });
+    const res = mockResponse();
+
+    await documentManagerController.delete(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
+
+    expect(mockCreate).not.toHaveBeenCalled();
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(res.json).not.toHaveBeenCalled();
   });
 
   describe('Deleting files', () => {
@@ -400,6 +466,32 @@ describe('DocumentManagerController', () => {
       await documentManagerController.delete(req, res);
 
       expect(res.redirect).toHaveBeenCalledWith(UPLOAD_YOUR_DOCUMENTS);
+    });
+
+    it("redirects if browser doesn't accept JSON/has JavaScript disabled - Applicant 2", async () => {
+      const req = mockRequest({
+        isApplicant2: true,
+        userCase: {
+          state: State.AwaitingApplicant2Response,
+          applicant2DocumentsUploaded: [
+            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
+            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          ],
+        },
+        appLocals: {
+          api: { triggerEvent: jest.fn() },
+        },
+      });
+      req.params = { id: '2' };
+      const res = mockResponse();
+
+      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+      mockApiTriggerEvent.mockResolvedValue({ applicant1UploadedFiles: ['an-existing-doc'] });
+
+      await documentManagerController.delete(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
     });
 
     it("returns null if file to deletes doesn't exist", async () => {
