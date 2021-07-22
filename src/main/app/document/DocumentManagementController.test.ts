@@ -42,7 +42,7 @@ describe('DocumentManagerController', () => {
       ]);
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
-        uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
+        applicant1UploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
       });
 
       await documentManagerController.post(req, res);
@@ -105,7 +105,7 @@ describe('DocumentManagerController', () => {
       ]);
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
-        uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
+        applicant1UploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
       });
 
       await documentManagerController.post(req, res);
@@ -166,7 +166,7 @@ describe('DocumentManagerController', () => {
       ]);
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
-        uploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
+        applicant1UploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
       });
 
       await documentManagerController.post(req, res);
@@ -295,7 +295,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
+      mockApiTriggerEvent.mockResolvedValue({ applicant1UploadedFiles: ['an-existing-doc'] });
 
       await documentManagerController.delete(req, res);
 
@@ -346,7 +346,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
+      mockApiTriggerEvent.mockResolvedValue({ applicant1UploadedFiles: ['an-existing-doc'] });
 
       await documentManagerController.delete(req, res);
 
@@ -395,7 +395,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({ uploadedFiles: ['an-existing-doc'] });
+      mockApiTriggerEvent.mockResolvedValue({ applicant1UploadedFiles: ['an-existing-doc'] });
 
       await documentManagerController.delete(req, res);
 
