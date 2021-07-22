@@ -498,7 +498,7 @@ describe('DocumentManagerController', () => {
       const req = mockRequest({
         userCase: {
           state: State.Draft,
-          applicantDocumentsUploaded: [
+          applicant1DocumentsUploaded: [
             { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
           ],
