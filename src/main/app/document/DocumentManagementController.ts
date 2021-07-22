@@ -30,8 +30,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
       } else {
-        const redirectUrl = isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS;
-        return res.redirect(redirectUrl);
+        return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     }
 
@@ -72,8 +71,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
       } else {
-        const redirectUrl = isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS;
-        res.redirect(redirectUrl);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     });
   }
@@ -97,8 +95,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: null });
       } else {
-        const redirectUrl = isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS;
-        res.redirect(redirectUrl);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
       return;
     }
@@ -124,8 +121,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: req.params.id });
       } else {
-        const redirectUrl = isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS;
-        res.redirect(redirectUrl);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     });
   }
