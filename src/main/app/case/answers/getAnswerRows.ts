@@ -214,22 +214,21 @@ const getSelectedRadioLabel = (answer, field, stepContent) => {
 };
 
 const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant2) => {
-  if (isCompleteCase) {
-    const stepsWithContent = [...stepsWithContentApplicant2, ...stepsWithContentApplicant1];
+  if (isCompleteCase || (isApplicant2 && overrideStepsContent !== 1)) {
+    const stepsWithContent = isCompleteCase
+      ? [...stepsWithContentApplicant2, ...stepsWithContentApplicant1]
+      : stepsWithContentApplicant2;
 
     const applicant2ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant2);
     const applicant1ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
-    const processedFormState = { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState };
-
-    return { stepsWithContent, processedFormState };
-  } else if (overrideStepsContent === 1 || (!overrideStepsContent && !isApplicant2)) {
-    const stepsWithContent = stepsWithContentApplicant1;
-    const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
+    const processedFormState = isCompleteCase
+      ? { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState }
+      : applicant2ProcessedFormState;
 
     return { stepsWithContent, processedFormState };
   } else {
-    const stepsWithContent = stepsWithContentApplicant2;
-    const processedFormState = omitUnreachableAnswers(formState, stepsWithContent);
+    const stepsWithContent = stepsWithContentApplicant1;
+    const processedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
 
     return { stepsWithContent, processedFormState };
   }
