@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-20 15:57:37.
+// Generated using typescript-generator version 2.32.889 on 2021-07-23 12:18:10.
 
 export interface Address {
   AddressLine1: string;
@@ -129,6 +129,9 @@ export interface Applicant {
   SolicitorIsDigital: YesOrNo;
   FinancialOrder: YesOrNo;
   FinancialOrderFor: FinancialOrderFor[];
+  LegalProceedings: YesOrNo;
+  LegalProceedingsRelated: LegalProceedingsRelated[];
+  LegalProceedingsDetails: string;
 }
 
 export interface Application {
@@ -182,12 +185,6 @@ export interface Application {
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
-  applicant1LegalProceedings: YesOrNo;
-  applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
-  applicant1LegalProceedingsDetails: string;
-  applicant2LegalProceedings: YesOrNo;
-  applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
-  applicant2LegalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
@@ -229,6 +226,9 @@ export interface CaseData {
   applicant1SolicitorIsDigital: YesOrNo;
   applicant1FinancialOrder: YesOrNo;
   applicant1FinancialOrderFor: FinancialOrderFor[];
+  applicant1LegalProceedings: YesOrNo;
+  applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
+  applicant1LegalProceedingsDetails: string;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -255,6 +255,9 @@ export interface CaseData {
   applicant2SolicitorIsDigital: YesOrNo;
   applicant2FinancialOrder: YesOrNo;
   applicant2FinancialOrderFor: FinancialOrderFor[];
+  applicant2LegalProceedings: YesOrNo;
+  applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
+  applicant2LegalProceedingsDetails: string;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -305,12 +308,6 @@ export interface CaseData {
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
-  applicant1LegalProceedings: YesOrNo;
-  applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
-  applicant1LegalProceedingsDetails: string;
-  applicant2LegalProceedings: YesOrNo;
-  applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
-  applicant2LegalProceedingsDetails: string;
   divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
@@ -345,11 +342,24 @@ export interface CaseData {
   generalOrderJudgeName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
+  generalEmailParties: GeneralParties;
+  generalEmailOtherRecipientEmail: string;
+  generalEmailOtherRecipientName: string;
+  generalEmailDetails: string;
+  generalReferralReason: GeneralReferralReason;
+  generalApplicationFrom: GeneralParties;
+  generalApplicationReferralDate: DateAsString;
+  generalApplicationAddedDate: DateAsString;
+  generalReferralType: GeneralReferralType;
+  alternativeServiceMedium: AlternativeServiceType;
+  generalReferralDetails: string;
+  generalReferralFeeRequired: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
+  confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   generalOrders: ListValue<DivorceGeneralOrder>[];
   payments: ListValue<Payment>[];
   previousCaseId: CaseLink;
@@ -387,6 +397,13 @@ export interface FinalOrder {
   dateFinalOrderSubmitted: DateAsString;
 }
 
+export interface GeneralEmail {
+  generalEmailParties: GeneralParties;
+  generalEmailOtherRecipientEmail: string;
+  generalEmailOtherRecipientName: string;
+  generalEmailDetails: string;
+}
+
 export interface GeneralOrder {
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
@@ -395,6 +412,17 @@ export interface GeneralOrder {
   generalOrderJudgeName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
+}
+
+export interface GeneralReferral {
+  generalReferralReason: GeneralReferralReason;
+  generalApplicationFrom: GeneralParties;
+  generalApplicationReferralDate: DateAsString;
+  generalApplicationAddedDate: DateAsString;
+  generalReferralType: GeneralReferralType;
+  alternativeServiceMedium: AlternativeServiceType;
+  generalReferralDetails: string;
+  generalReferralFeeRequired: YesOrNo;
 }
 
 export interface HelpWithFees {
@@ -440,6 +468,15 @@ export interface Solicitor {
   AgreeToReceiveEmails: YesOrNo;
   OrganisationPolicy: OrganisationPolicy<UserRole>;
   IsDigital: YesOrNo;
+}
+
+export interface ConfidentialDivorceDocument {
+  confidentialDocumentsReceived: ConfidentialDocumentsReceived;
+  documentEmailContent: string;
+  documentLink: Document;
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
 }
 
 export interface DivorceDocument {
@@ -528,6 +565,13 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum AlternativeServiceType {
+  TEXT = 'text',
+  EMAIL = 'email',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
+}
+
 export const enum ApplicationType {
   SOLE_APPLICATION = 'soleApplication',
   JOINT_APPLICATION = 'jointApplication',
@@ -577,7 +621,6 @@ export const enum Gender {
 export const enum GeneralOrderDivorceParties {
   PETITIONER = 'petitioner',
   RESPONDENT = 'respondent',
-  CO_RESPONDENT = 'coRespondent',
 }
 
 export const enum GeneralOrderJudge {
@@ -586,6 +629,26 @@ export const enum GeneralOrderJudge {
   HIS_HONOUR_JUDGE = 'hisHonourJudge',
   HER_HONOUR_JUDGE = 'herHonourJudge',
   RECORDER = 'recorder',
+}
+
+export const enum GeneralParties {
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
+  OTHER = 'other',
+}
+
+export const enum GeneralReferralReason {
+  CASEWORKER_REFERRAL = 'caseworkerReferral',
+  GENERAL_APPLICATION_REFERRAL = 'generalApplicationReferral',
+}
+
+export const enum GeneralReferralType {
+  CASEWORKER_REFERRAL = 'alternativeServiceApplication',
+  ORDER_APPLICATION_WITHOUT_MC = 'orderApplicationWithoutMc',
+  ORDER_ON_FILLING_OF_ANSWERS = 'orderOnFilingOfAnswers',
+  PERMISSION_ON_DA_OOT = 'permissionOnDaOot',
+  DISCLOSURE_VIA_DWP = 'disclosureViaDwp',
+  OTHER = 'other',
 }
 
 /**
@@ -689,7 +752,6 @@ export const enum State {
   AosDrafted = 'AosDrafted',
   AosOverdue = 'AosOverdue',
   AwaitingPayment = 'AwaitingPayment',
-  Issued = 'Issued',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
@@ -697,6 +759,8 @@ export const enum State {
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingClarification = 'AwaitingClarification',
   AwaitingConditionalOrder = 'AwaitingConditionalOrder',
+  AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
+  AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingReissue = 'AwaitingReissue',
@@ -729,6 +793,39 @@ export const enum UserRole {
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
+}
+
+export const enum ConfidentialDocumentsReceived {
+  AOS = 'aos',
+  ANNEX_A = 'annexa',
+  AOS_INVITATION_LETTER_OFFLINE_RESP = 'aosInvitationLetterOfflineResp',
+  APPLICATION = 'application',
+  BAILIFF_SERVICE = 'baliffService',
+  COE = 'coe',
+  CO_ANSWERS = 'coAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CO_REFUSAL_CLARIFICATION_RESP = 'coRefusalClarificationResp',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  DEEMED_SERVICE = 'deemedService',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  D30 = 'd30',
+  D79 = 'd79',
+  D84A = 'd84a',
+  D9D = 'd9d',
+  D9H = 'd9h',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  MARRIAGE_CERT = 'marriageCert',
+  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
+  NAME_CHANGE = 'nameChange',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum DocumentType {
