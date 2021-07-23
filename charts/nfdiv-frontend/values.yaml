@@ -36,7 +36,7 @@ nodejs:
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
     # CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-486.service.core-compute-preview.internal'
+    CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-512.service.core-compute-preview.internal'
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
 #disable autoscaling because it doesnt deploy AAT
 autoscaling:
