@@ -154,8 +154,10 @@ export const getAnswerRows = function (
         }
 
         if (section === 'otherCourtCases' && step.url === '/other-court-cases') {
+          // const totalLegalProceedingsRelated = [...processedFormState.applicant1LegalProceedingsRelated, ...processedFormState.applicant2LegalProceedingsRelated]
           addCompleteQuestionAnswer(
             'What do the legal proceedings relate to?',
+            // totalLegalProceedingsRelated
             processedFormState.legalProceedingsRelated
               ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
               .join(' / ') as string

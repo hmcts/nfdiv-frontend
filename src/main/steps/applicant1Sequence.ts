@@ -18,6 +18,7 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
+  CONFIRM_JOINT_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
   DO_YOU_HAVE_ADDRESS,
@@ -395,6 +396,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: SENT_TO_APPLICANT2_FOR_REVIEW,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CONFIRM_JOINT_APPLICATION,
+    getNextStep: () => PAY_YOUR_FEE,
   },
   {
     url: PAY_YOUR_FEE,
