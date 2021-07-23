@@ -3,7 +3,7 @@ import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE, DivorceOrDissolution, JURISDICTION } from '../case/definition';
+import { DivorceOrDissolution, JURISDICTION } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -34,7 +34,6 @@ export class PaymentClient {
       description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
       service: JURISDICTION,
       currency: 'GBP',
-      case_type: CASE_TYPE,
       fees: userCase.applicationFeeOrderSummary.Fees.map(fee => ({
         calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
         code: fee.value.FeeCode,

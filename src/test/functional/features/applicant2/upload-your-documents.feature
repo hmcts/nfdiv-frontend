@@ -7,7 +7,7 @@ Feature: Applicant 2 Upload your documents
     And the page should include "Upload your documents"
 
   @nightly
-  Scenario: They upload documents
+  Scenario: Applicant 2 - They upload documents
     Given I delete any previously uploaded files
     And the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
@@ -15,14 +15,14 @@ Feature: Applicant 2 Upload your documents
     And I click "Delete"
     And I wait until the page doesn't contain "larry-the-cat.jpg"
 
-  Scenario: They cannot upload documents
+  Scenario: Applicant 2 - They cannot upload documents
     Given I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
     Then the page should include "Check your answers"
 
   @nightly
-  Scenario: They have not uploaded any documents and have not selected that they can't upload
+  Scenario: Applicant 2 - They have not uploaded any documents and have not selected that they can't upload
     Given I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"

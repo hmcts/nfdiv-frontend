@@ -3,7 +3,6 @@ Feature: Submitting an application
   Background:
     Given I create a new user and login
 
-  @nightly
   Scenario: Completed all required questions and confirming
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'

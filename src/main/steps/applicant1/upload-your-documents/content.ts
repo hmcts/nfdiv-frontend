@@ -165,7 +165,7 @@ export const form: FormContent = {
           (isObject(formState.applicant1UploadedFiles)
             ? JSON.stringify(formState.applicant1UploadedFiles)
             : formState.applicant1UploadedFiles) || '[]',
-        parser: data => JSON.parse((data as Record<string, string>).uploadedFiles || '[]'),
+        parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
           const selectedCannotUploadDocuments = !!formData.applicant1CannotUploadDocuments?.length;
