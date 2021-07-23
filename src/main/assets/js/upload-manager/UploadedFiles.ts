@@ -6,7 +6,9 @@ export class UploadedFiles {
   storeEl: HTMLInputElement;
 
   constructor() {
-    this.storeEl = getById('uploadedFiles') as HTMLInputElement;
+    this.storeEl =
+      (getById('applicant1UploadedFiles') as HTMLInputElement) ||
+      (getById('applicant2UploadedFiles') as HTMLInputElement);
     this.documents = JSON.parse(this.storeEl?.value || '[]');
   }
 
