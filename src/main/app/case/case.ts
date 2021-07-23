@@ -24,7 +24,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
   screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
-  screenHasApplicant2UnionBroken: 'applicant2ScreenHasMarriageBroken',
+  applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
@@ -63,9 +63,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant2PhoneNumber: 'applicant2PhoneNumber',
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
-  legalProceedings: 'legalProceedings',
-  legalProceedingsDetails: 'legalProceedingsDetails',
-  legalProceedingsRelated: 'legalProceedingsRelated',
+  applicant1LegalProceedings: 'applicant1LegalProceedings',
+  applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
+  applicant1LegalProceedingsRelated: 'applicant1LegalProceedingsRelated',
+  applicant2LegalProceedings: 'applicant2LegalProceedings',
+  applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
+  applicant2LegalProceedingsRelated: 'applicant2LegalProceedingsRelated',
   applyForFinancialOrder: 'applicant1FinancialOrder',
   whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
@@ -106,7 +109,7 @@ export interface Case {
   gender?: Gender;
   sameSex?: Checkbox;
   screenHasUnionBroken?: YesOrNo;
-  screenHasApplicant2UnionBroken?: YesOrNo;
+  applicant2ScreenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
   applicant1HelpPayingNeeded?: YesOrNo;
@@ -168,9 +171,12 @@ export interface Case {
   applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
   applicant1KnowsApplicant2Address?: YesOrNo;
   iWantToHavePapersServedAnotherWay?: Checkbox;
-  legalProceedings?: YesOrNo;
-  legalProceedingsDetails?: string;
-  legalProceedingsRelated?: LegalProceedingsRelated[];
+  applicant1LegalProceedings?: YesOrNo;
+  applicant1LegalProceedingsDetails?: string;
+  applicant1LegalProceedingsRelated?: LegalProceedingsRelated[];
+  applicant2LegalProceedings?: YesOrNo;
+  applicant2LegalProceedingsDetails?: string;
+  applicant2LegalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;

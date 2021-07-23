@@ -84,7 +84,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
         .join('\n'),
     },
     [urls.UPLOAD_YOUR_DOCUMENTS]: {
-      uploadedFiles: (formState?.applicant1DocumentsUploaded || []).length
+      applicant1UploadedFiles: (formState?.applicant1DocumentsUploaded || []).length
         ? `${formState?.applicant1DocumentsUploaded?.reduce(
             (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
             ''

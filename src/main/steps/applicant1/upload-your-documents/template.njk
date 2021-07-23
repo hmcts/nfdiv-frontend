@@ -15,7 +15,7 @@
     },
     errorList: [
       {
-        text: errors.uploadedFiles.errorUploading,
+        text: errors.applicant1UploadedFiles.errorUploading,
         href: "#upload",
         attributes: {
           id: "errorGeneric",
@@ -23,7 +23,7 @@
         }
       },
       {
-        text: errors.uploadedFiles.fileSizeTooBig,
+        text: errors.applicant1UploadedFiles.fileSizeTooBig,
         href: "#upload",
         attributes: {
           id: "errorFileSizeTooBig",
@@ -31,7 +31,7 @@
         }
       },
       {
-        text: errors.uploadedFiles.fileWrongFormat,
+        text: errors.applicant1UploadedFiles.fileWrongFormat,
         href: "#upload",
         attributes: {
           id: "errorFileWrongFormat",
@@ -79,9 +79,9 @@
 
   <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.documentsUploaded|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.applicant1DocumentsUploaded|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
     <ul id="filesUploaded" class="govuk-list">
-      {% for file in formState.documentsUploaded %}
+      {% for file in formState.applicant1DocumentsUploaded %}
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
           {{ file.value.documentFileName }} <a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ delete }}</a>
         </li>

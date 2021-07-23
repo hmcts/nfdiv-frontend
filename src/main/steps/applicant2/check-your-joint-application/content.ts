@@ -50,7 +50,10 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
         connections: moreDetailsComponent(moreDetailsContent.connectedToEnglandWales),
       },
       [urls.OTHER_COURT_CASES]: {
-        legalProceedings: moreDetailsComponent(moreDetailsContent.otherCourtCases, 'about other court proceedings'),
+        applicant1LegalProceedings: moreDetailsComponent(
+          moreDetailsContent.otherCourtCases,
+          'about other court proceedings'
+        ),
       },
     },
     errors: {

@@ -10,16 +10,19 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   UPLOAD_YOUR_DOCUMENTS,
+  YOUR_COMMENTS_SENT,
   YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
@@ -34,7 +37,7 @@ const sequences: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.screenHasApplicant2UnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
+    getNextStep: data => (data.applicant2ScreenHasUnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -79,6 +82,11 @@ const sequences: Step[] = [
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
+    url: OTHER_COURT_CASES,
+    showInSection: Sections.OtherCourtCases,
+    getNextStep: data => (data.applicant1LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
+  },
+  {
     url: APPLY_FINANCIAL_ORDER,
     showInCompleteSection: Sections.DividingAssets,
     showInSection: Sections.DividingAssets,
@@ -112,14 +120,15 @@ const sequences: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
     url: CHECK_JOINT_APPLICATION,
-    getNextStep: data =>
-      data.applicant2Confirmation === YesOrNo.YES
-        ? CHECK_ANSWERS_URL
-        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: data => (data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : YOUR_COMMENTS_SENT),
+  },
+  {
+    url: YOUR_COMMENTS_SENT,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
 
