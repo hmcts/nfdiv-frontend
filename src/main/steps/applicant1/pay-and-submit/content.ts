@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { SUBMIT_SOLE_APPLICATION } from '../../urls';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Pay and submit',
@@ -10,7 +11,7 @@ const en = ({ partner }: CommonContent) => ({
   line3: `The payment system will only allow you to pay, but you could talk to your ${partner} about whether they would be prepared to send you some money.`,
   line4:
     'Or you could submit a sole application. If you apply as a sole applicant, only you have to apply for Help With Fees. You will not have to re-enter the information you have already provided. You will need to provide some new information though.',
-  line5: 'You can submit a sole application here',
+  line5: `You can <a href="${SUBMIT_SOLE_APPLICATION}" class="govuk-link">submit a sole application here</a>`,
   line6: 'This joint application will not be submitted until you pay the fee.',
   continue: 'Pay and submit',
 });
