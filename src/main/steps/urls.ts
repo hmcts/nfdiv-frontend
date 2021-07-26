@@ -78,6 +78,7 @@ export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
 export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-review';
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
+export const PAY_AND_SUBMIT: PageLink = '/pay-and-submit';
 
 export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
 
