@@ -86,6 +86,20 @@ const fields: ToApiConverters = {
   legalProceedingsRelated: data => ({
     legalProceedingsRelated: data.legalProceedings === YesOrNo.YES ? data.legalProceedingsRelated : [],
   }),
+  applicant1NameChangedHow: data => ({
+    applicant1NameChangedHow:
+      data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES ||
+      data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES
+        ? data.applicant1NameChangedHow
+        : [],
+  }),
+  applicant2NameChangedHow: data => ({
+    applicant2NameChangedHow:
+      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES ||
+      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES
+        ? data.applicant2NameChangedHow
+        : [],
+  }),
   applicant1CannotUploadDocuments: data => ({
     applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
       ? !Array.isArray(data.applicant1CannotUploadDocuments)

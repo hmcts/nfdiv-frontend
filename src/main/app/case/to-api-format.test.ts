@@ -19,6 +19,8 @@ describe('to-api-format', () => {
     applicant1EnglishOrWelsh: LanguagePreference.English,
     applicant2EnglishOrWelsh: LanguagePreference.English,
     legalProceedingsRelated: [],
+    applicant1NameChangedHow: [],
+    applicant2NameChangedHow: [],
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
     iConfirmPrayer: Checkbox.Checked,
@@ -47,6 +49,8 @@ describe('to-api-format', () => {
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
       legalProceedingsRelated: [],
+      applicant1NameChangedHow: [],
+      applicant2NameChangedHow: [],
       prayerHasBeenGiven: 'Yes',
       statementOfTruth: 'Yes',
     });
