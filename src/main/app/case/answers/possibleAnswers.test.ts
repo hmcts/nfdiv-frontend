@@ -147,7 +147,7 @@ describe('omitUnreachableAnswers()', () => {
       applicant2AddressPostcode: 'A1 1AA',
       applicant2AddressCountry: 'UK',
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
-      applicant1ChangedNameHow: ChangedNameHow.MARRIAGE_CERTIFICATE,
+      applicant1NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
       hasCertificate: YesOrNo.YES,
       connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
       applicant1FirstNames: 'test1',

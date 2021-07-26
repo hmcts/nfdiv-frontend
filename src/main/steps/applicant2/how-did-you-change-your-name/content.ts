@@ -1,7 +1,7 @@
 import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -23,24 +23,24 @@ const labels = applicant1Content => {
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    applicant2ChangedNameHow: {
+    applicant2NameChangedHow: {
       type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
       values: [
         {
-          name: 'applicant2ChangedNameHow',
+          name: 'applicant2NameChangedHow',
           label: l => l.sendingOffMarriageCertificate,
           value: ChangedNameHow.MARRIAGE_CERTIFICATE,
         },
         {
-          name: 'applicant2ChangedNameHow',
+          name: 'applicant2NameChangedHow',
           label: l => l.deedPoll,
           value: ChangedNameHow.DEED_POLL,
           conditionalText: l => `<p class="govuk-label">${l.deedPollMoreDetails}</p>`,
         },
         {
-          name: 'applicant2ChangedNameHow',
+          name: 'applicant2NameChangedHow',
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
@@ -53,7 +53,7 @@ export const form: FormContent = {
           },
         },
       ],
-      validator: isFieldFilledIn,
+      validator: atLeastOneFieldIsChecked,
     },
   },
 };

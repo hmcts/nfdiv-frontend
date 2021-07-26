@@ -1,7 +1,7 @@
 import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ isDivorce, required }) => ({
   title: 'How did you change your name?',
@@ -14,7 +14,7 @@ const en = ({ isDivorce, required }) => ({
   anotherWayMoreDetails:
     'Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here.',
   errors: {
-    applicant1ChangedNameHow: {
+    applicant1NameChangedHow: {
       required,
     },
     applicant1ChangedNameHowAnotherWay: {
@@ -35,7 +35,7 @@ const cy: typeof en = ({ isDivorce }) => ({
   anotherWayMoreDetails:
     "Rhowch fanylion pryd a sut y gwnaethoch newid eich enw. Gofynnir i chi uwchlwytho llun neu sgan o'r dogfennau sy'n profi eich bod wedi newid eich enw yn ddiweddarach yn y cais hwn, neu gallwch eu hanfon drwy'r post. Os nad oes gennych unrhyw ddogfennau, eglurwch pam yma.",
   errors: {
-    applicant1ChangedNameHow: {
+    applicant1NameChangedHow: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
     },
     applicant1ChangedNameHowAnotherWay: {
@@ -47,24 +47,24 @@ const cy: typeof en = ({ isDivorce }) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1ChangedNameHow: {
+    applicant1NameChangedHow: {
       type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
       values: [
         {
-          name: 'applicant1ChangedNameHow',
+          name: 'applicant1NameChangedHow',
           label: l => l.sendingOffMarriageCertificate,
           value: ChangedNameHow.MARRIAGE_CERTIFICATE,
         },
         {
-          name: 'applicant1ChangedNameHow',
+          name: 'applicant1NameChangedHow',
           label: l => l.deedPoll,
           value: ChangedNameHow.DEED_POLL,
           conditionalText: l => `<p class="govuk-label">${l.deedPollMoreDetails}</p>`,
         },
         {
-          name: 'applicant1ChangedNameHow',
+          name: 'applicant1NameChangedHow',
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
@@ -77,7 +77,7 @@ export const form: FormContent = {
           },
         },
       ],
-      validator: isFieldFilledIn,
+      validator: atLeastOneFieldIsChecked,
     },
   },
   submit: {

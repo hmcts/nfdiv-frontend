@@ -111,7 +111,7 @@ export interface Applicant {
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
-  NameChangedHow: ChangedNameHow;
+  NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
   HomeAddress: AddressGlobalUK;
   PhoneNumber: string;
