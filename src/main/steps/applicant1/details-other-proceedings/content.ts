@@ -27,10 +27,10 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    legalProceedingsDetails: {
+    applicant1LegalProceedingsDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.legalProceedingsDetails,
+      label: l => l.applicant1LegalProceedingsDetails,
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },

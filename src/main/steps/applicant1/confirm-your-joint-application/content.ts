@@ -30,12 +30,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
       applicant1ScreenHasUnionBroken: 'Has your marriage irretrievably broken down?',
     },
-    // [urls.DETAILS_OTHER_PROCEEDINGS]: {
-    //   applicant1LegalProceedingsDetails:
-    //    formState?.applicant1LegalProceedingsDetails === YesOrNo.YES || formState?.applicant2LegalProceedingsDetails === YesOrNo.YES ? 'Yes': 'No'
-    // },
     [urls.DETAILS_OTHER_PROCEEDINGS]: {
-      legalProceedingsDetails: 'Details of court cases',
+      applicant1LegalProceedingsDetails: 'Details of court cases',
     },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded: 'Is help with fees being claimed on this application?',
@@ -70,9 +66,20 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.CERTIFIED_TRANSLATION]: {
       certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
     },
-    // [urls.DETAILS_OTHER_PROCEEDINGS]: {
-    // applicant1LegalProceedingsDetails: formState?.applicant1LegalProceedingsDetails + '\n\n' + formState?.applicant2LegalProceedingsDetails,
-    // },
+    [urls.OTHER_COURT_CASES]: {
+      applicant1LegalProceedings:
+        formState?.applicant1LegalProceedings === YesOrNo.YES || formState?.applicant2LegalProceedings === YesOrNo.YES
+          ? 'Yes'
+          : 'No',
+    },
+    [urls.DETAILS_OTHER_PROCEEDINGS]: {
+      applicant1LegalProceedingsDetails:
+        formState?.applicant1LegalProceedingsDetails && formState?.applicant2LegalProceedingsDetails
+          ? formState?.applicant1LegalProceedingsDetails + '\n\n' + formState?.applicant2LegalProceedingsDetails
+          : formState?.applicant1LegalProceedingsDetails
+          ? formState?.applicant1LegalProceedingsDetails
+          : formState?.applicant2LegalProceedingsDetails,
+    },
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },

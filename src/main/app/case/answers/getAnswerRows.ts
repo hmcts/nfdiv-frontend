@@ -1,7 +1,7 @@
 import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
-import { PageLink } from '../../../steps/urls';
+import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case } from '../case';
 
@@ -139,26 +139,27 @@ export const getAnswerRows = function (
       }
 
       if (isCompleteCase) {
-        if (section === 'aboutApplicant1' && step.url === '/enter-your-name') {
+        if (section === 'aboutApplicant1' && step.url === YOUR_NAME) {
           addCompleteQuestionAnswer(
             'Full name on the marriage certificate',
             processedFormState.applicant1FullNameOnCertificate as string
           );
         }
 
-        if (section === 'aboutApplicant2' && step.url === '/applicant2/enter-your-name') {
+        if (section === 'aboutApplicant2' && step.url === APPLICANT_2 + YOUR_NAME) {
           addCompleteQuestionAnswer(
             'Full name on the marriage certificate',
             processedFormState.applicant2FullNameOnCertificate as string
           );
         }
 
-        if (section === 'otherCourtCases' && step.url === '/other-court-cases') {
-          // const totalLegalProceedingsRelated = [...processedFormState.applicant1LegalProceedingsRelated, ...processedFormState.applicant2LegalProceedingsRelated]
+        if (section === 'otherCourtCases' && step.url === OTHER_COURT_CASES) {
+          const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
+            processedFormState.applicant2LegalProceedingsRelated || []
+          );
           addCompleteQuestionAnswer(
             'What do the legal proceedings relate to?',
-            // totalLegalProceedingsRelated
-            processedFormState.legalProceedingsRelated
+            Array.from(new Set(totalLegalProceedingsRelated))
               ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
               .join(' / ') as string
           );
@@ -166,7 +167,7 @@ export const getAnswerRows = function (
 
         if (
           section === 'dividingAssets' &&
-          step.url === '/do-you-want-to-apply-financial-order' &&
+          step.url === APPLY_FINANCIAL_ORDER &&
           processedFormState.whoIsFinancialOrderFor?.length
         ) {
           addCompleteQuestionAnswer(
@@ -180,7 +181,7 @@ export const getAnswerRows = function (
 
         if (
           section === 'dividingAssets' &&
-          step.url === '/applicant2/do-you-want-to-apply-financial-order' &&
+          step.url === APPLICANT_2 + APPLY_FINANCIAL_ORDER &&
           processedFormState.applicant2WhoIsFinancialOrderFor?.length
         ) {
           addCompleteQuestionAnswer(

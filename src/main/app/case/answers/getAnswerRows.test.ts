@@ -1,6 +1,7 @@
 import { StepWithContent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
+import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
 
 import { getAnswerRows } from './getAnswerRows';
@@ -137,8 +138,10 @@ describe('getAnswerRows()', () => {
         applicant2WhoIsFinancialOrderFor: ['applicant2', 'children'],
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
-        legalProceedings: 'YES',
-        legalProceedingsRelated: ['marriage', 'property', 'children'],
+        applicant1LegalProceedings: 'YES',
+        applicant1LegalProceedingsRelated: ['marriage', 'property'],
+        applicant2LegalProceedings: 'YES',
+        applicant2LegalProceedingsRelated: ['marriage', 'children'],
       };
       mockCtx = {
         language: 'en',
@@ -502,7 +505,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: '/do-you-want-to-apply-financial-order',
+          url: APPLY_FINANCIAL_ORDER,
           showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
@@ -539,7 +542,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant2.mockReturnValue([
         {
           stepDir: '/',
-          url: '/applicant2/do-you-want-to-apply-financial-order',
+          url: APPLICANT_2 + APPLY_FINANCIAL_ORDER,
           showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
@@ -666,7 +669,7 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: '/applicant2/enter-your-name',
+          url: APPLICANT_2 + YOUR_NAME,
           showInSection: Sections.AboutApplicant2,
           showInCompleteSection: Sections.AboutApplicant2,
           getNextStep: () => '/',
@@ -710,14 +713,14 @@ describe('getAnswerRows()', () => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
           stepDir: '/',
-          url: '/other-court-cases',
+          url: OTHER_COURT_CASES,
           showInSection: Sections.OtherCourtCases,
           showInCompleteSection: Sections.OtherCourtCases,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: {
             fields: {
-              legalProceedings: {
+              applicant1LegalProceedings: {
                 type: 'radios',
                 label: l => l.title,
                 values: [
@@ -725,13 +728,48 @@ describe('getAnswerRows()', () => {
                     label: l => l.yes,
                     value: 'YES',
                     subFields: {
-                      legalProceedingsRelated: {
+                      applicant1LegalProceedingsRelated: {
                         type: 'checkboxes',
                         label: () => 'Mock Checkboxes',
                         values: [
-                          { name: 'legalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
-                          { name: 'legalProceedingsRelated', label: () => 'property', value: 'property' },
-                          { name: 'legalProceedingsRelated', label: () => 'children', value: 'children' },
+                          { name: 'applicant1LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
+                          { name: 'applicant1LegalProceedingsRelated', label: () => 'property', value: 'property' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      mockStepsWithContentApplicant2.mockReturnValue([
+        {
+          stepDir: '/',
+          url: APPLICANT_2 + OTHER_COURT_CASES,
+          showInSection: Sections.OtherCourtCases,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              applicant2LegalProceedings: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      applicant2LegalProceedingsRelated: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'applicant2LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
+                          { name: 'applicant2LegalProceedingsRelated', label: () => 'children', value: 'children' },
                         ],
                       },
                     },
