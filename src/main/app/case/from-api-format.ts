@@ -42,6 +42,7 @@ const fields: FromApiConverters = {
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
   applicant2LanguagePreferenceWelsh: data => ({
+    // TODO - Handle null values
     applicant2EnglishOrWelsh:
       data.applicant2LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
