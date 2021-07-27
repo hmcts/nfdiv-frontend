@@ -1,6 +1,6 @@
 import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, ValidationCheck } from '../../../app/form/Form';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -11,7 +11,8 @@ const labels = applicant1Content => {
     errors: {
       applicant2NameChangedHow: {
         required: applicant1Content.errors.applicant1NameChangedHow.required,
-        applicant2ChangedNameHowAnotherWay: applicant1Content.errors.applicant1NameChangedHow.applicant1ChangedNameHowAnotherWay,
+        applicant2ChangedNameHowAnotherWay:
+          applicant1Content.errors.applicant1NameChangedHow.applicant1ChangedNameHowAnotherWay,
       },
     },
   };
@@ -24,8 +25,8 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
-      validator: (value, formData) => {
-        if (formData.applicant2NameChangedHow?.length === 3) {
+      validator: value => {
+        if ((value as string[])?.length === 3) {
           return 'required';
         }
       },
@@ -50,14 +51,17 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
               labelSize: null,
-            }
+            },
           },
-          validator: (value, formData) => {
-            if (formData.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER) && !formData.applicant2ChangedNameHowAnotherWay?.length) {
+          validator: ((value, formData) => {
+            if (
+              (value as string[])?.includes(ChangedNameHow.OTHER) &&
+              !formData.applicant2ChangedNameHowAnotherWay?.length
+            ) {
               return 'applicant2ChangedNameHowAnotherWay';
             }
-          },
-        }
+          }) as ValidationCheck,
+        },
       ],
     },
   },
