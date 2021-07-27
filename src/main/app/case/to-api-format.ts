@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -82,6 +82,16 @@ const fields: ToApiConverters = {
   applicant2LegalProceedingsRelated: data => ({
     applicant2LegalProceedingsRelated:
       data.applicant2LegalProceedings === YesOrNo.YES ? data.applicant2LegalProceedingsRelated : [],
+  }),
+  applicant1ChangedNameHowAnotherWay: data => ({
+    applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
+      ? data.applicant1ChangedNameHowAnotherWay
+      : '',
+  }),
+  applicant2ChangedNameHowAnotherWay: data => ({
+    applicant2NameChangedHowOtherDetails: data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
+      ? data.applicant2ChangedNameHowAnotherWay
+      : '',
   }),
   applicant1CannotUploadDocuments: data => ({
     applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments

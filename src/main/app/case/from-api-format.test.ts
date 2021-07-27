@@ -1,9 +1,9 @@
 import { Checkbox } from './case';
-import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<Record<keyof CaseData, string | null>> = {
+  const results: Partial<Record<keyof CaseData, string | string[] | null>> = {
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     marriageIsSameSexCouple: YesOrNo.YES,
     applicant2Gender: Gender.MALE,
@@ -17,6 +17,10 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsConfidential: 'keep',
+    applicant1NameChangedHow: [ChangedNameHow.OTHER],
+    applicant2NameChangedHow: [ChangedNameHow.OTHER],
+    applicant1NameChangedHowOtherDetails: 'Test string',
+    applicant2NameChangedHowOtherDetails: 'Test string',
     prayerHasBeenGiven: YesOrNo.YES,
     statementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
@@ -38,6 +42,10 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
+      applicant1NameChangedHow: [ChangedNameHow.OTHER],
+      applicant2NameChangedHow: [ChangedNameHow.OTHER],
+      applicant1ChangedNameHowAnotherWay: 'Test string',
+      applicant2ChangedNameHowAnotherWay: 'Test string',
       iBelieveApplicationIsTrue: 'checked',
       iConfirmPrayer: 'checked',
       dueDate: 'July 26th 2021',
@@ -63,6 +71,10 @@ describe('from-api-format', () => {
       },
       iBelieveApplicationIsTrue: 'checked',
       iConfirmPrayer: 'checked',
+      applicant1NameChangedHow: [ChangedNameHow.OTHER],
+      applicant2NameChangedHow: [ChangedNameHow.OTHER],
+      applicant1ChangedNameHowAnotherWay: 'Test string',
+      applicant2ChangedNameHowAnotherWay: 'Test string',
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
