@@ -1,7 +1,6 @@
 import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -11,10 +10,8 @@ const labels = applicant1Content => {
   return {
     errors: {
       applicant2NameChangedHow: {
-        ...applicant1Content.errors.applicant1NameChangedHow,
-      },
-      applicant2ChangedNameHowAnotherWay: {
-        ...applicant1Content.errors.applicant2ChangedNameHowAnotherWay,
+        required: applicant1Content.errors.applicant1NameChangedHow.required,
+        applicant2ChangedNameHowAnotherWay: applicant1Content.errors.applicant1NameChangedHow.applicant1ChangedNameHowAnotherWay,
       },
     },
   };
@@ -27,6 +24,11 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
+      validator: (value, formData) => {
+        if (formData.applicant2NameChangedHow?.length === 3) {
+          return 'required';
+        }
+      },
       values: [
         {
           name: 'applicant2NameChangedHow',
@@ -48,12 +50,15 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
               labelSize: null,
-              validator: isFieldFilledIn,
-            },
+            }
           },
-        },
+          validator: (value, formData) => {
+            if (formData.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER) && !formData.applicant2ChangedNameHowAnotherWay?.length) {
+              return 'applicant2ChangedNameHowAnotherWay';
+            }
+          },
+        }
       ],
-      validator: atLeastOneFieldIsChecked,
     },
   },
 };
