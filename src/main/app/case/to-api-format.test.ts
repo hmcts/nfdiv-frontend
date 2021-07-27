@@ -18,8 +18,6 @@ describe('to-api-format', () => {
     iWantToHavePapersServedAnotherWay: null,
     applicant1EnglishOrWelsh: LanguagePreference.English,
     applicant2EnglishOrWelsh: LanguagePreference.English,
-    applicant1NameChangedHow: [],
-    applicant2NameChangedHow: [],
     applicant1LegalProceedingsRelated: [],
     applicant2LegalProceedingsRelated: [],
     applicant1CannotUploadDocuments: [],
