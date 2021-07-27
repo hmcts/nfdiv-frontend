@@ -47,8 +47,6 @@ describe('to-api-format', () => {
       applicant2ContactDetailsConfidential: ConfidentialAddress.KEEP,
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
-      applicant1NameChangedHow: [],
-      applicant2NameChangedHow: [],
       applicant1LegalProceedingsRelated: [],
       applicant2LegalProceedingsRelated: [],
       prayerHasBeenGiven: 'Yes',
