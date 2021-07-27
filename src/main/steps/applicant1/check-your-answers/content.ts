@@ -49,7 +49,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
         ?.join(' / ')
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
-        .replace(ChangedNameHow.DEED_POLL, 'Another way'),
+        .replace(ChangedNameHow.OTHER, 'Another way'),
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
     [urls.ENTER_YOUR_ADDRESS]: {
