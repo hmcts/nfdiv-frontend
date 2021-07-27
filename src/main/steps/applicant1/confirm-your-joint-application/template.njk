@@ -3,6 +3,9 @@
 
 {% extends "common/page.njk" %}
 
+{% set isCompleteCase = true %}
+{% set showActions = false %}
+
 {% block backLink %}{% endblock %}
 
 {% block content %}
@@ -14,7 +17,7 @@
   <h3 class="govuk-body-l">{{ subHeader }}</h3>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, true, false) %}
+    {% set rows = getAnswerRows(section, isCompleteCase, showActions) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
