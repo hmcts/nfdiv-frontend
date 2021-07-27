@@ -19,7 +19,7 @@ Feature: Applicant 2 Upload your documents
     Given I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Check your wife's answers"
 
   @nightly
   Scenario: Applicant 2 - They have not uploaded any documents and have not selected that they can't upload
