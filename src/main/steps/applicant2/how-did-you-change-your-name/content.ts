@@ -1,6 +1,7 @@
 import { ChangedNameHow } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, ValidationCheck } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -25,11 +26,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
-      validator: value => {
-        if ((value as string[])?.length === 3) {
-          return 'required';
-        }
-      },
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
           name: 'applicant2NameChangedHow',

@@ -44,7 +44,7 @@ export class Form {
         });
     }
 
-    return { ...body, ...Object.fromEntries(parsedBody), ...subFieldsParsedBody };
+    return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
   }
 
   /**
