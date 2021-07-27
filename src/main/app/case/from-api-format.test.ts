@@ -21,6 +21,7 @@ describe('from-api-format', () => {
     applicant2PrayerHasBeenGiven: YesOrNo.YES,
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
+    dueDate: '2021-07-26',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -43,6 +44,7 @@ describe('from-api-format', () => {
       applicant2IBelieveApplicationIsTrue: 'checked',
       applicant1IConfirmPrayer: 'checked',
       applicant2IConfirmPrayer: 'checked',
+      dueDate: 'July 26th 2021',
     });
   });
 
@@ -76,6 +78,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
+      dueDate: 'July 26th 2021',
     });
   });
 
