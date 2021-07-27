@@ -4,7 +4,7 @@ import config from 'config';
 import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE, DivorceOrDissolution } from '../case/definition';
+import { DivorceOrDissolution } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
 
@@ -50,7 +50,6 @@ describe('PaymentClient', () => {
 
     expect(mockPost).toHaveBeenCalledWith('/card-payments', {
       amount: 123.45,
-      case_type: CASE_TYPE,
       ccd_case_number: '1234',
       currency: 'GBP',
       description: 'Divorce application fee',

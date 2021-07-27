@@ -3,7 +3,7 @@ import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 
-import { UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
+import { APPLICANT_2, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
@@ -30,7 +30,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
       } else {
-        return res.redirect(UPLOAD_YOUR_DOCUMENTS);
+        return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     }
 
@@ -71,7 +71,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
       } else {
-        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     });
   }
@@ -95,7 +95,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: null });
       } else {
-        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
       return;
     }
@@ -121,7 +121,7 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json({ deletedId: req.params.id });
       } else {
-        res.redirect(UPLOAD_YOUR_DOCUMENTS);
+        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       }
     });
   }

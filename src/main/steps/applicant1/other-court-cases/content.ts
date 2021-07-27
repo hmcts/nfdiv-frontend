@@ -20,10 +20,10 @@ const en = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
     property: 'Property',
     children: 'Children',
     errors: {
-      legalProceedings: {
+      applicant1LegalProceedings: {
         required,
       },
-      legalProceedingsRelated: {
+      applicant1LegalProceedingsRelated: {
         required: 'You need to select what the proceedings relate to.',
       },
     },
@@ -46,10 +46,10 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
     property: 'Ein heiddo',
     children: 'Ein plant',
     errors: {
-      legalProceedings: {
+      applicant1LegalProceedings: {
         required,
       },
-      legalProceedingsRelated: {
+      applicant1LegalProceedingsRelated: {
         required: "Mae angen i chi ddewis ynghylch beth y mae'r achos.",
       },
     },
@@ -58,7 +58,7 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
 
 export const form: FormContent = {
   fields: {
-    legalProceedings: {
+    applicant1LegalProceedings: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.question,
@@ -68,24 +68,24 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
-            legalProceedingsRelated: {
+            applicant1LegalProceedingsRelated: {
               type: 'checkboxes',
               label: l => l.subField,
               hint: l => l.subFieldHint,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'applicant1LegalProceedingsRelated',
                   label: l => l.partnership,
                   value: LegalProceedingsRelated.MARRIAGE,
                 },
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'applicant1LegalProceedingsRelated',
                   label: l => l.property,
                   value: LegalProceedingsRelated.PROPERTY,
                 },
                 {
-                  name: 'legalProceedingsRelated',
+                  name: 'applicant1LegalProceedingsRelated',
                   label: l => l.children,
                   value: LegalProceedingsRelated.CHILDREN,
                 },

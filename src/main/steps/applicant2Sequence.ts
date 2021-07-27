@@ -9,16 +9,19 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
+  DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
   RELATIONSHIP_NOT_BROKEN_URL,
   UPLOAD_YOUR_DOCUMENTS,
+  YOUR_COMMENTS_SENT,
   YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
@@ -80,6 +83,11 @@ const sequences: Step[] = [
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
+    url: OTHER_COURT_CASES,
+    showInSection: Sections.OtherCourtCases,
+    getNextStep: data => (data.applicant1LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
+  },
+  {
     url: APPLY_FINANCIAL_ORDER,
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
@@ -108,14 +116,15 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
     url: CHECK_JOINT_APPLICATION,
-    getNextStep: data =>
-      data.applicant2Confirmation === YesOrNo.YES
-        ? CHECK_ANSWERS_URL
-        : YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: data => (data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : YOUR_COMMENTS_SENT),
+  },
+  {
+    url: YOUR_COMMENTS_SENT,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
 ];
 

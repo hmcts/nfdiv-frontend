@@ -19,6 +19,7 @@ describe('from-api-format', () => {
     applicant2ContactDetailsConfidential: 'keep',
     prayerHasBeenGiven: YesOrNo.YES,
     statementOfTruth: YesOrNo.YES,
+    dueDate: '2021-07-26',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -39,6 +40,7 @@ describe('from-api-format', () => {
       applicant2EnglishOrWelsh: 'welsh',
       iBelieveApplicationIsTrue: 'checked',
       iConfirmPrayer: 'checked',
+      dueDate: 'July 26th 2021',
     });
   });
 
@@ -70,6 +72,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
+      dueDate: 'July 26th 2021',
     });
   });
 
