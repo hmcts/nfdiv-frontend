@@ -60,6 +60,10 @@ const sequences: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
