@@ -44,7 +44,7 @@ export class Form {
         });
     }
 
-    return { ...body, ...Object.fromEntries(parsedBody), ...subFieldsParsedBody };
+    return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
   }
 
   /**
@@ -126,14 +126,16 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type ValidationCheck = (value: string | string[] | CaseDate | undefined, formData: Partial<Case>) => void | string;
-
 type Parser = (value: Record<string, unknown> | string[]) => void;
 
 type Label = string | LanguageLookup;
 
 type Warning = Label;
 
+export type ValidationCheck = (
+  value: string | string[] | CaseDate | undefined,
+  formData: Partial<Case>
+) => void | string;
 export type FormFields = Partial<Record<string, FormField>>;
 export type FormFieldsFn = (formState: Partial<Case>) => FormFields;
 
