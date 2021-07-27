@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-23 12:18:10.
+// Generated using typescript-generator version 2.32.889 on 2021-07-27 09:51:10.
 
 export interface Address {
   AddressLine1: string;
@@ -111,7 +111,7 @@ export interface Applicant {
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
-  NameChangedHow: ChangedNameHow;
+  NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
   HomeAddress: AddressGlobalUK;
   PhoneNumber: string;
@@ -208,7 +208,7 @@ export interface CaseData {
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
-  applicant1NameChangedHow: ChangedNameHow;
+  applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1HomeAddress: AddressGlobalUK;
   applicant1PhoneNumber: string;
@@ -237,7 +237,7 @@ export interface CaseData {
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
-  applicant2NameChangedHow: ChangedNameHow;
+  applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
   applicant2PhoneNumber: string;
@@ -619,7 +619,7 @@ export const enum Gender {
 }
 
 export const enum GeneralOrderDivorceParties {
-  PETITIONER = 'petitioner',
+  APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
 }
 
@@ -867,7 +867,7 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
-export const CASE_TYPE = 'NO_FAULT_DIVORCE18';
+export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
