@@ -200,7 +200,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     sections: Sections,
     getAnswerRows,
-
     form,
   };
 };

@@ -14,7 +14,7 @@
   <h3 class="govuk-body-l">{{ subHeader }}</h3>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, true) %}
+    {% set rows = getAnswerRows(section, true, false) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
@@ -28,7 +28,7 @@
   {% block form %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        {% include "./form.njk" %}
+        {% include "../check-your-answers/form.njk" %}
       </div>
     </div>
   {% endblock %}

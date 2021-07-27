@@ -477,7 +477,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.AboutPartnership, true);
+      })(Sections.AboutPartnership, true, false);
 
       expect(actual).toEqual([
         {
@@ -506,7 +506,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: APPLY_FINANCIAL_ORDER,
-          showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -543,7 +542,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: APPLICANT_2 + APPLY_FINANCIAL_ORDER,
-          showInSection: Sections.DividingAssets,
           showInCompleteSection: Sections.DividingAssets,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -579,7 +577,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.DividingAssets, true);
+      })(Sections.DividingAssets, true, false);
 
       expect(actual).toEqual([
         {
@@ -597,7 +595,7 @@ describe('getAnswerRows()', () => {
             html: 'Who is the financial order for? 	',
           },
           value: {
-            html: 'Me / the children',
+            html: 'Me / The children',
           },
         },
         {
@@ -615,7 +613,7 @@ describe('getAnswerRows()', () => {
             html: 'Who is the financial order for? 	',
           },
           value: {
-            html: 'Me / the children',
+            html: 'Me / The children',
           },
         },
       ]);
@@ -626,7 +624,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: '/enter-your-name',
-          showInSection: Sections.AboutApplicant1,
           showInCompleteSection: Sections.AboutApplicant1,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -641,7 +638,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.AboutApplicant1, true);
+      })(Sections.AboutApplicant1, true, false);
 
       expect(actual).toEqual([
         {
@@ -670,7 +667,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: APPLICANT_2 + YOUR_NAME,
-          showInSection: Sections.AboutApplicant2,
           showInCompleteSection: Sections.AboutApplicant2,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -685,7 +681,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.AboutApplicant2, true);
+      })(Sections.AboutApplicant2, true, false);
 
       expect(actual).toEqual([
         {
@@ -714,7 +710,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: OTHER_COURT_CASES,
-          showInSection: Sections.OtherCourtCases,
           showInCompleteSection: Sections.OtherCourtCases,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
@@ -751,7 +746,6 @@ describe('getAnswerRows()', () => {
         {
           stepDir: '/',
           url: APPLICANT_2 + OTHER_COURT_CASES,
-          showInSection: Sections.OtherCourtCases,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: {
@@ -786,7 +780,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.OtherCourtCases, true);
+      })(Sections.OtherCourtCases, true, false);
 
       expect(actual).toEqual([
         {

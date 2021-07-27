@@ -31,8 +31,8 @@ export const getAnswerRows = function (
   const { stepsWithContent, processedFormState } = setUpSteps(
     formState,
     isCompleteCase,
-    overrideStepsContent,
-    isApplicant2
+    isApplicant2,
+    overrideStepsContent
   );
 
   return stepsWithContent
@@ -83,18 +83,6 @@ export const getAnswerRows = function (
               }),
         });
 
-      const addCompleteQuestionAnswer = (question: string, answer: string) => {
-        questionAnswers.push({
-          key: {
-            html: question,
-            classes: 'govuk-!-width-two-thirds',
-          },
-          value: {
-            html: answer,
-          },
-        });
-      };
-
       for (const fieldKey of fieldKeys) {
         const field = fields[fieldKey] as FormOptions;
         let answer = getAnswer(processedFormState, field, fieldKey);
@@ -122,32 +110,26 @@ export const getAnswerRows = function (
           continue;
         }
         const customAnswerWithHtml = this.ctx.stepAnswersWithHTML?.[step.url]?.[fieldKey];
+        const stepLinks = isCompleteCase ? undefined : this.ctx.stepLinks[step.url];
 
-        if (isCompleteCase) {
-          addCompleteQuestionAnswer(
-            customQuestion || (question as string),
-            this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer))
-          );
-        } else {
-          addQuestionAnswer(
-            customQuestion || (question as string),
-            this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
-            this.ctx.stepLinks[step.url],
-            customAnswerWithHtml
-          );
-        }
+        addQuestionAnswer(
+          customQuestion || (question as string),
+          this.env.filters.nl2br(this.env.filters.escape(customAnswer ?? answer)),
+          stepLinks,
+          customAnswerWithHtml
+        );
       }
 
       if (isCompleteCase) {
         if (section === 'aboutApplicant1' && step.url === YOUR_NAME) {
-          addCompleteQuestionAnswer(
+          addQuestionAnswer(
             'Full name on the marriage certificate',
             processedFormState.applicant1FullNameOnCertificate as string
           );
         }
 
         if (section === 'aboutApplicant2' && step.url === APPLICANT_2 + YOUR_NAME) {
-          addCompleteQuestionAnswer(
+          addQuestionAnswer(
             'Full name on the marriage certificate',
             processedFormState.applicant2FullNameOnCertificate as string
           );
@@ -157,7 +139,7 @@ export const getAnswerRows = function (
           const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
             processedFormState.applicant2LegalProceedingsRelated || []
           );
-          addCompleteQuestionAnswer(
+          addQuestionAnswer(
             'What do the legal proceedings relate to?',
             Array.from(new Set(totalLegalProceedingsRelated))
               ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -170,12 +152,12 @@ export const getAnswerRows = function (
           step.url === APPLY_FINANCIAL_ORDER &&
           processedFormState.whoIsFinancialOrderFor?.length
         ) {
-          addCompleteQuestionAnswer(
+          addQuestionAnswer(
             'Who is the financial order for? 	',
             processedFormState.whoIsFinancialOrderFor
               ?.join(' / ')
               .replace('applicant1', 'Me')
-              .replace('children', 'the children')
+              .replace('children', 'The children')
           );
         }
 
@@ -184,12 +166,12 @@ export const getAnswerRows = function (
           step.url === APPLICANT_2 + APPLY_FINANCIAL_ORDER &&
           processedFormState.applicant2WhoIsFinancialOrderFor?.length
         ) {
-          addCompleteQuestionAnswer(
+          addQuestionAnswer(
             'Who is the financial order for? 	',
             processedFormState.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace('applicant2', 'Me')
-              .replace('children', 'the children')
+              .replace('children', 'The children')
           );
         }
       }
@@ -216,7 +198,12 @@ const getSelectedRadioLabel = (answer, field, stepContent) => {
   return typeof selectedRadio?.label === 'function' ? selectedRadio.label(stepContent) : selectedRadio?.label;
 };
 
-const setUpSteps = (formState, isCompleteCase, overrideStepsContent, isApplicant2) => {
+const setUpSteps = (
+  formState: Partial<Case>,
+  isCompleteCase: boolean,
+  isApplicant2: boolean,
+  overrideStepsContent?: number
+) => {
   if ((!isCompleteCase && !isApplicant2 && overrideStepsContent !== 2) || overrideStepsContent === 1) {
     const stepsWithContent = stepsWithContentApplicant1;
     const processedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
