@@ -56,9 +56,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2LastNameChangedWhenRelationshipFormed: 'applicant2LastNameChangedWhenMarried',
   applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
   applicant2NameChangedSinceRelationshipFormed: 'applicant2NameDifferentToMarriageCertificate',
-  applicant1ChangedNameHow: 'applicant1NameChangedHow',
+  applicant1NameChangedHow: 'applicant1NameChangedHow',
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
-  applicant2ChangedNameHow: 'applicant2NameChangedHow',
+  applicant2NameChangedHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant2PhoneNumber: 'applicant2PhoneNumber',
@@ -163,8 +163,8 @@ export interface Case {
   applicant2LastNameChangedWhenRelationshipFormed?: YesOrNo;
   applicant1NameChangedSinceRelationshipFormed?: YesOrNo;
   applicant2NameChangedSinceRelationshipFormed?: YesOrNo;
-  applicant1ChangedNameHow?: ChangedNameHow;
-  applicant2ChangedNameHow?: ChangedNameHow;
+  applicant1NameChangedHow?: ChangedNameHow[];
+  applicant2NameChangedHow?: ChangedNameHow[];
   applicant1ChangedNameHowAnotherWay?: string;
   applicant2ChangedNameHowAnotherWay?: string;
   applicant2EmailAddress?: string;

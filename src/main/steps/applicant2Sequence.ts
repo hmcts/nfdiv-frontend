@@ -63,6 +63,10 @@ const sequences: Step[] = [
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
@@ -84,7 +88,7 @@ const sequences: Step[] = [
   {
     url: OTHER_COURT_CASES,
     showInSection: Sections.OtherCourtCases,
-    getNextStep: data => (data.applicant1LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
+    getNextStep: data => (data.applicant2LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
   },
   {
     url: APPLY_FINANCIAL_ORDER,
