@@ -172,6 +172,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: COUNTRY_AND_PLACE,
     showInSection: Sections.ConnectionsToEnglandWales,
+    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => CHECK_JURISDICTION,
   },
   {

@@ -64,6 +64,7 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {

@@ -3,7 +3,7 @@ import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
-import { Case } from '../case';
+import { Case, Checkbox } from '../case';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -34,6 +34,8 @@ export const getAnswerRows = function (
     isApplicant2,
     overrideStepsContent
   );
+
+  let sameSexHasBeenAnswered = false;
 
   return stepsWithContent
     .filter(step => (isCompleteCase ? step.showInCompleteSection === section : step.showInSection === section))
@@ -82,6 +84,16 @@ export const getAnswerRows = function (
                 },
               }),
         });
+
+      if (
+        isCompleteCase &&
+        section === 'aboutPartnership' &&
+        processedFormState.sameSex === Checkbox.Checked &&
+        sameSexHasBeenAnswered === false
+      ) {
+        sameSexHasBeenAnswered = true;
+        addQuestionAnswer('Same-sex couples', 'We were a same-sex couple when we got married');
+      }
 
       for (const fieldKey of fieldKeys) {
         const field = fields[fieldKey] as FormOptions;

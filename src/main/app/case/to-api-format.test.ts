@@ -22,8 +22,6 @@ describe('to-api-format', () => {
     applicant2IConfirmPrayer: Checkbox.Checked,
     applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
-    applicant1NameChangedHow: [],
-    applicant2NameChangedHow: [],
     applicant1LegalProceedingsRelated: [],
     applicant2LegalProceedingsRelated: [],
     applicant1CannotUploadDocuments: [],
@@ -55,8 +53,6 @@ describe('to-api-format', () => {
       applicant2PrayerHasBeenGiven: 'Yes',
       applicant1StatementOfTruth: 'Yes',
       applicant2StatementOfTruth: 'Yes',
-      applicant1NameChangedHow: [],
-      applicant2NameChangedHow: [],
       applicant1LegalProceedingsRelated: [],
       applicant2LegalProceedingsRelated: [],
     });
