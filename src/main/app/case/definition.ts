@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-23 12:18:10.
+// Generated using typescript-generator version 2.32.889 on 2021-07-27 09:30:08.
 
 export interface Address {
   AddressLine1: string;
@@ -623,7 +623,7 @@ export const enum Gender {
 }
 
 export const enum GeneralOrderDivorceParties {
-  PETITIONER = 'petitioner',
+  APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
 }
 
@@ -878,6 +878,7 @@ export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
