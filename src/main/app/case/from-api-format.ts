@@ -10,7 +10,7 @@ import {
   formatCase,
   readOnlyFormFieldsToCaseMapping,
 } from './case';
-import { CaseData, ChangedNameHow, ConfidentialAddress, YesOrNo } from './definition';
+import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
@@ -36,16 +36,6 @@ const fields: FromApiConverters = {
   }),
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
-  }),
-  applicant1NameChangedHowOtherDetails: data => ({
-    applicant1ChangedNameHowAnotherWay: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant1NameChangedHowOtherDetails
-      : '',
-  }),
-  applicant2NameChangedHowOtherDetails: data => ({
-    applicant2ChangedNameHowAnotherWay: data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant2NameChangedHowOtherDetails
-      : '',
   }),
   applicant1LanguagePreferenceWelsh: data => ({
     applicant1EnglishOrWelsh:
