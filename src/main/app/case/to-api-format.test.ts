@@ -1,5 +1,5 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ChangedNameHow, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -18,10 +18,12 @@ describe('to-api-format', () => {
     iWantToHavePapersServedAnotherWay: null,
     applicant1EnglishOrWelsh: LanguagePreference.English,
     applicant2EnglishOrWelsh: LanguagePreference.English,
-    applicant1NameChangedHow: [],
-    applicant2NameChangedHow: [],
     applicant1LegalProceedingsRelated: [],
     applicant2LegalProceedingsRelated: [],
+    applicant1NameChangedHow: [ChangedNameHow.OTHER],
+    applicant2NameChangedHow: [ChangedNameHow.OTHER],
+    applicant1ChangedNameHowAnotherWay: 'Test',
+    applicant2ChangedNameHowAnotherWay: 'Test',
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
     iConfirmPrayer: Checkbox.Checked,
@@ -49,10 +51,12 @@ describe('to-api-format', () => {
       applicant2ContactDetailsConfidential: ConfidentialAddress.KEEP,
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
-      applicant1NameChangedHow: [],
-      applicant2NameChangedHow: [],
       applicant1LegalProceedingsRelated: [],
       applicant2LegalProceedingsRelated: [],
+      applicant1NameChangedHow: [ChangedNameHow.OTHER],
+      applicant2NameChangedHow: [ChangedNameHow.OTHER],
+      applicant1NameChangedHowOtherDetails: 'Test',
+      applicant2NameChangedHowOtherDetails: 'Test',
       prayerHasBeenGiven: 'Yes',
       statementOfTruth: 'Yes',
     });
