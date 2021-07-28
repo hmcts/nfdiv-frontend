@@ -113,11 +113,15 @@ const sequences: Step[] = [
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    getNextStep: () => CHECK_JOINT_APPLICATION,
   },
   {
-    url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
-    getNextStep: () => HOME_URL,
+    url: CHECK_JOINT_APPLICATION,
+    getNextStep: data => (data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : YOUR_COMMENTS_SENT),
+  },
+  {
+    url: YOUR_COMMENTS_SENT,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: CHECK_ANSWERS_URL,
@@ -128,12 +132,8 @@ const sequences: Step[] = [
     getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
-    url: CHECK_JOINT_APPLICATION,
-    getNextStep: data => (data.applicant2Confirmation === YesOrNo.YES ? CHECK_ANSWERS_URL : YOUR_COMMENTS_SENT),
-  },
-  {
-    url: YOUR_COMMENTS_SENT,
-    getNextStep: () => CHECK_ANSWERS_URL,
+    url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => HOME_URL,
   },
 ];
 
