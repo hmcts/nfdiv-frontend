@@ -14,9 +14,9 @@ const en = {
   point6: 'the date the proceedings began',
   point7: 'the dates of any hearings that have been scheduled',
   point8: 'the details of any orders that have been made',
-  legalProceedingsDetails: 'Provide details about the other legal proceedings.',
+  applicant1LegalProceedingsDetails: 'Provide details about the other legal proceedings.',
   errors: {
-    LegalProceedingsDetails: {
+    applicant1LegalProceedingsDetails: {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
     },
   },
