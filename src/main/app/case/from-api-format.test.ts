@@ -3,7 +3,7 @@ import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<Record<keyof CaseData, string | string[] | null>> = {
+  const results: Partial<Record<keyof CaseData, string | null>> = {
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     marriageIsSameSexCouple: YesOrNo.YES,
     applicant2Gender: Gender.MALE,
