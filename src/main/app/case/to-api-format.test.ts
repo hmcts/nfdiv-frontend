@@ -26,6 +26,10 @@ describe('to-api-format', () => {
     applicant2ChangedNameHowAnotherWay: 'Test',
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
+    applicant1IConfirmPrayer: Checkbox.Checked,
+    applicant2IConfirmPrayer: Checkbox.Checked,
+    applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
