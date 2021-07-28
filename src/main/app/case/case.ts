@@ -191,8 +191,10 @@ export interface Case {
   applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
   dueDate?: DateAsString;
-  iConfirmPrayer?: Checkbox;
-  iBelieveApplicationIsTrue?: Checkbox;
+  applicant1IConfirmPrayer?: Checkbox;
+  applicant2IConfirmPrayer?: Checkbox;
+  applicant1IBelieveApplicationIsTrue?: Checkbox;
+  applicant2IBelieveApplicationIsTrue?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
   dateSubmitted?: Date;

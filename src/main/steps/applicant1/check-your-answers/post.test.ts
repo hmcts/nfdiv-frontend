@@ -10,8 +10,8 @@ describe('CheckYourAnswersPostController', () => {
   it('triggers CITIZEN_SUBMIT when sole application', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
-      iConfirmPrayer: Checkbox.Checked,
-      iBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -27,11 +27,11 @@ describe('CheckYourAnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_SUBMIT);
   });
 
-  it('triggers CITIZEN_INVITE_APPLICANT_2 when join application', async () => {
+  it('triggers CITIZEN_INVITE_APPLICANT_2 when joint application', async () => {
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
-      iConfirmPrayer: Checkbox.Checked,
-      iBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
     const mockForm = {
       setFormState: jest.fn(),
