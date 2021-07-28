@@ -148,13 +148,13 @@ export const form: FormContent = {
     formState.applicationType === ApplicationType.JOINT_APPLICATION
       ? {}
       : {
-          iConfirmPrayer: {
+          applicant1IConfirmPrayer: {
             type: 'checkboxes',
             label: l => l.confirm,
             labelSize: 'm',
             values: [
               {
-                name: 'iConfirmPrayer',
+                name: 'applicant1IConfirmPrayer',
                 label: l => l.confirmPrayer,
                 hint: l => l.confirmPrayerHint,
                 value: Checkbox.Checked,
@@ -162,12 +162,12 @@ export const form: FormContent = {
               },
             ],
           },
-          iBelieveApplicationIsTrue: {
+          applicant1IBelieveApplicationIsTrue: {
             type: 'checkboxes',
             labelHidden: true,
             values: [
               {
-                name: 'iBelieveApplicationIsTrue',
+                name: 'applicant1IBelieveApplicationIsTrue',
                 label: l => l.confirmApplicationIsTrue,
                 hint: l => l.confirmApplicationIsTrueHint,
                 value: Checkbox.Checked,

@@ -20,8 +20,8 @@ describe('JurisdictionPostController', () => {
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
     };
     const bodyWithConnection = {
-      iConfirmPrayer: Checkbox.Unchecked,
-      iBelieveApplicationIsTrue: Checkbox.Unchecked,
+      applicant1IConfirmPrayer: Checkbox.Unchecked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
