@@ -24,8 +24,10 @@ describe('to-api-format', () => {
     applicant2LegalProceedingsRelated: [],
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
-    iConfirmPrayer: Checkbox.Checked,
-    iBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant1IConfirmPrayer: Checkbox.Checked,
+    applicant2IConfirmPrayer: Checkbox.Checked,
+    applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -53,8 +55,10 @@ describe('to-api-format', () => {
       applicant2NameChangedHow: [],
       applicant1LegalProceedingsRelated: [],
       applicant2LegalProceedingsRelated: [],
-      prayerHasBeenGiven: 'Yes',
-      statementOfTruth: 'Yes',
+      applicant1PrayerHasBeenGiven: 'Yes',
+      applicant2PrayerHasBeenGiven: 'Yes',
+      applicant1StatementOfTruth: 'Yes',
+      applicant2StatementOfTruth: 'Yes',
     });
   });
 

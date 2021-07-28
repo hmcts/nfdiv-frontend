@@ -17,8 +17,10 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsConfidential: 'keep',
-    prayerHasBeenGiven: YesOrNo.YES,
-    statementOfTruth: YesOrNo.YES,
+    applicant1PrayerHasBeenGiven: YesOrNo.YES,
+    applicant2PrayerHasBeenGiven: YesOrNo.YES,
+    applicant1StatementOfTruth: YesOrNo.YES,
+    applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
   };
 
@@ -38,8 +40,10 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IConfirmPrayer: 'checked',
       dueDate: 'July 26th 2021',
     });
   });
@@ -61,8 +65,10 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IConfirmPrayer: 'checked',
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
