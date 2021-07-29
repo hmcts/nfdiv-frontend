@@ -31,7 +31,7 @@ describe('from-api-format', () => {
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       sameSex: Checkbox.Checked,
       gender: Gender.MALE,
-      screenHasUnionBroken: YesOrNo.YES,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
@@ -59,7 +59,7 @@ describe('from-api-format', () => {
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
-      screenHasUnionBroken: YesOrNo.YES,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
       relationshipDate: {
         day: '2',
         month: '9',

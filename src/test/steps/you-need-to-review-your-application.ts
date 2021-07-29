@@ -11,7 +11,7 @@ Given('I am reviewing an application for divorce created by my wife', async () =
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     gender: Gender.FEMALE,
     sameSex: Checkbox.Unchecked,
-    screenHasUnionBroken: YesOrNo.YES,
+    applicant1ScreenHasUnionBroken: YesOrNo.YES,
   });
 });
 
@@ -22,7 +22,7 @@ Given('I am reviewing an application for divorce created by my husband', async (
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     gender: Gender.MALE,
     sameSex: Checkbox.Unchecked,
-    screenHasUnionBroken: YesOrNo.YES,
+    applicant1ScreenHasUnionBroken: YesOrNo.YES,
   });
 });
 
@@ -33,6 +33,6 @@ Given('I am reviewing an application for dissolution of my civil partnership', a
     divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
     gender: Gender.MALE,
     sameSex: Checkbox.Checked,
-    screenHasUnionBroken: YesOrNo.YES,
+    applicant1ScreenHasUnionBroken: YesOrNo.YES,
   });
 });
