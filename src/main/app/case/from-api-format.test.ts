@@ -17,8 +17,10 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsConfidential: 'keep',
-    prayerHasBeenGiven: YesOrNo.YES,
-    statementOfTruth: YesOrNo.YES,
+    applicant1PrayerHasBeenGiven: YesOrNo.YES,
+    applicant2PrayerHasBeenGiven: YesOrNo.YES,
+    applicant1StatementOfTruth: YesOrNo.YES,
+    applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
   };
 
@@ -38,8 +40,10 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IConfirmPrayer: 'checked',
       dueDate: 'July 26th 2021',
     });
   });
@@ -61,8 +65,10 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      iBelieveApplicationIsTrue: 'checked',
-      iConfirmPrayer: 'checked',
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IConfirmPrayer: 'checked',
       applicant1EnglishOrWelsh: 'welsh',
       applicant2EnglishOrWelsh: 'welsh',
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
@@ -72,6 +78,60 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
+      dueDate: 'July 26th 2021',
+    });
+  });
+
+  test('convert results including handling null applicant2LanguagePreferenceWelsh', async () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      applicant2LanguagePreferenceWelsh: null,
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      gender: Gender.MALE,
+      sameSex: Checkbox.Checked,
+      screenHasUnionBroken: YesOrNo.YES,
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant2IConfirmPrayer: 'checked',
+      applicant1EnglishOrWelsh: 'welsh',
+      applicant2EnglishOrWelsh: null,
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: undefined,
+      dueDate: 'July 26th 2021',
+    });
+  });
+
+  test('convert results including handling applicant2LanguagePreferenceWelsh No value', async () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      applicant2LanguagePreferenceWelsh: YesOrNo.NO,
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      gender: Gender.MALE,
+      sameSex: Checkbox.Checked,
+      screenHasUnionBroken: YesOrNo.YES,
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant2IConfirmPrayer: 'checked',
+      applicant1EnglishOrWelsh: 'welsh',
+      applicant2EnglishOrWelsh: 'english',
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: undefined,
       dueDate: 'July 26th 2021',
     });
   });

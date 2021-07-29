@@ -43,7 +43,11 @@ const fields: FromApiConverters = {
   }),
   applicant2LanguagePreferenceWelsh: data => ({
     applicant2EnglishOrWelsh:
-      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
+      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
+        ? LanguagePreference.Welsh
+        : data.applicant2LanguagePreferenceWelsh === null
+        ? data.applicant2LanguagePreferenceWelsh
+        : LanguagePreference.English,
   }),
   applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
@@ -76,11 +80,17 @@ const fields: FromApiConverters = {
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
   applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
   applicant2CannotUploadSupportingDocument: uploadedFilesFromApiApplicant2,
-  prayerHasBeenGiven: data => ({
-    iConfirmPrayer: checkboxConverter(data.prayerHasBeenGiven),
+  applicant1PrayerHasBeenGiven: data => ({
+    applicant1IConfirmPrayer: checkboxConverter(data.applicant1PrayerHasBeenGiven),
   }),
-  statementOfTruth: data => ({
-    iBelieveApplicationIsTrue: checkboxConverter(data.statementOfTruth),
+  applicant2PrayerHasBeenGiven: data => ({
+    applicant2IConfirmPrayer: checkboxConverter(data.applicant2PrayerHasBeenGiven),
+  }),
+  applicant1StatementOfTruth: data => ({
+    applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
+  }),
+  applicant2StatementOfTruth: data => ({
+    applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
   }),
   dateSubmitted: data => ({
     dateSubmitted: new Date(data.dateSubmitted as string),

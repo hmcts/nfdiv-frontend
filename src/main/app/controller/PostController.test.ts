@@ -16,8 +16,8 @@ const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreacha
 
 describe('PostController', () => {
   const defaultCaseProps = {
-    iConfirmPrayer: Checkbox.Unchecked,
-    iBelieveApplicationIsTrue: Checkbox.Unchecked,
+    applicant1IConfirmPrayer: Checkbox.Unchecked,
+    applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
   };
 
   afterEach(() => {
@@ -88,7 +88,7 @@ describe('PostController', () => {
   test('Saves the users prayer and statement of truth', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const errors = [] as never[];
-    const body = { iConfirmPrayer: Checkbox.Checked, iBelieveApplicationIsTrue: Checkbox.Checked };
+    const body = { applicant1IConfirmPrayer: Checkbox.Checked, applicant1IBelieveApplicationIsTrue: Checkbox.Checked };
     const mockForm = {
       setFormState: jest.fn(),
       getErrors: () => errors,

@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -83,19 +83,15 @@ const fields: ToApiConverters = {
     applicant2LegalProceedingsRelated:
       data.applicant2LegalProceedings === YesOrNo.YES ? data.applicant2LegalProceedingsRelated : [],
   }),
-  applicant1NameChangedHow: data => ({
-    applicant1NameChangedHow:
-      data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES ||
-      data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES
-        ? data.applicant1NameChangedHow
-        : [],
+  applicant1ChangedNameHowAnotherWay: data => ({
+    applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
+      ? data.applicant1ChangedNameHowAnotherWay
+      : '',
   }),
-  applicant2NameChangedHow: data => ({
-    applicant2NameChangedHow:
-      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES ||
-      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES
-        ? data.applicant2NameChangedHow
-        : [],
+  applicant2ChangedNameHowAnotherWay: data => ({
+    applicant2NameChangedHowOtherDetails: data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
+      ? data.applicant2ChangedNameHowAnotherWay
+      : '',
   }),
   applicant1CannotUploadDocuments: data => ({
     applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
@@ -111,11 +107,17 @@ const fields: ToApiConverters = {
         : data.applicant2CannotUploadDocuments
       : [],
   }),
-  iConfirmPrayer: data => ({
-    prayerHasBeenGiven: checkboxConverter(data.iConfirmPrayer),
+  applicant1IConfirmPrayer: data => ({
+    applicant1PrayerHasBeenGiven: checkboxConverter(data.applicant1IConfirmPrayer),
   }),
-  iBelieveApplicationIsTrue: data => ({
-    statementOfTruth: checkboxConverter(data.iBelieveApplicationIsTrue),
+  applicant2IConfirmPrayer: data => ({
+    applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
+  }),
+  applicant1IBelieveApplicationIsTrue: data => ({
+    applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
+  }),
+  applicant2IBelieveApplicationIsTrue: data => ({
+    applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
   }),
 };
 

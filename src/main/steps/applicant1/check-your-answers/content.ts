@@ -1,7 +1,7 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, YesOrNo } from '../../../app/case/definition';
+import { ApplicationType, ChangedNameHow, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -43,6 +43,13 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
           ? `Yes
           ${formState?.applicant1HelpWithFeesRefNo}`
           : false,
+    },
+    [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
+      applicant1NameChangedHow: formState?.applicant1NameChangedHow
+        ?.join(' / ')
+        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
+        .replace(ChangedNameHow.OTHER, 'Another way'),
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
     [urls.ENTER_YOUR_ADDRESS]: {
@@ -141,13 +148,13 @@ export const form: FormContent = {
     formState.applicationType === ApplicationType.JOINT_APPLICATION
       ? {}
       : {
-          iConfirmPrayer: {
+          applicant1IConfirmPrayer: {
             type: 'checkboxes',
             label: l => l.confirm,
             labelSize: 'm',
             values: [
               {
-                name: 'iConfirmPrayer',
+                name: 'applicant1IConfirmPrayer',
                 label: l => l.confirmPrayer,
                 hint: l => l.confirmPrayerHint,
                 value: Checkbox.Checked,
@@ -155,12 +162,12 @@ export const form: FormContent = {
               },
             ],
           },
-          iBelieveApplicationIsTrue: {
+          applicant1IBelieveApplicationIsTrue: {
             type: 'checkboxes',
             labelHidden: true,
             values: [
               {
-                name: 'iBelieveApplicationIsTrue',
+                name: 'applicant1IBelieveApplicationIsTrue',
                 label: l => l.confirmApplicationIsTrue,
                 hint: l => l.confirmApplicationIsTrueHint,
                 value: Checkbox.Checked,
