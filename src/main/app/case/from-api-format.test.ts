@@ -82,6 +82,60 @@ describe('from-api-format', () => {
     });
   });
 
+  test('convert results including handling null applicant2LanguagePreferenceWelsh', async () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      applicant2LanguagePreferenceWelsh: null,
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      gender: Gender.MALE,
+      sameSex: Checkbox.Checked,
+      screenHasUnionBroken: YesOrNo.YES,
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant2IConfirmPrayer: 'checked',
+      applicant1EnglishOrWelsh: 'welsh',
+      applicant2EnglishOrWelsh: null,
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: undefined,
+      dueDate: 'July 26th 2021',
+    });
+  });
+
+  test('convert results including handling applicant2LanguagePreferenceWelsh No value', async () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      applicant2LanguagePreferenceWelsh: YesOrNo.NO,
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      gender: Gender.MALE,
+      sameSex: Checkbox.Checked,
+      screenHasUnionBroken: YesOrNo.YES,
+      applicant1IBelieveApplicationIsTrue: 'checked',
+      applicant1IConfirmPrayer: 'checked',
+      applicant2IBelieveApplicationIsTrue: 'checked',
+      applicant2IConfirmPrayer: 'checked',
+      applicant1EnglishOrWelsh: 'welsh',
+      applicant2EnglishOrWelsh: 'english',
+      applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
+      applicant1AgreeToReceiveEmails: Checkbox.Checked,
+      applicant1AddressPrivate: YesOrNo.YES,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant2AddressPrivate: YesOrNo.YES,
+      iWantToHavePapersServedAnotherWay: undefined,
+      dueDate: 'July 26th 2021',
+    });
+  });
+
   test('ignores empty addresses', async () => {
     const nfdivFormat = fromApiFormat({
       marriageDate: undefined,

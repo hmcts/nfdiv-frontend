@@ -43,7 +43,11 @@ const fields: FromApiConverters = {
   }),
   applicant2LanguagePreferenceWelsh: data => ({
     applicant2EnglishOrWelsh:
-      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
+      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
+        ? LanguagePreference.Welsh
+        : data.applicant2LanguagePreferenceWelsh === null
+        ? data.applicant2LanguagePreferenceWelsh
+        : LanguagePreference.English,
   }),
   applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
