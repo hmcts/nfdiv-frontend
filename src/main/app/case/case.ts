@@ -26,9 +26,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
-  applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
-  applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
-  applicant1HelpWithFeesRefNo: 'helpWithFeesReferenceNumber',
+  applicant1HelpPayingNeeded: 'applicant1HelpWithFeesNeedHelp',
+  applicant1AlreadyAppliedForHelpPaying: 'applicant1HelpWithFeesAppliedForFees',
+  applicant1HelpWithFeesRefNo: 'applicant1HelpWithFeesReferenceNumber',
+  applicant2HelpPayingNeeded: 'applicant2HelpWithFeesNeedHelp',
+  applicant2AlreadyAppliedForHelpPaying: 'applicant2HelpWithFeesAppliedForFees',
+  applicant2HelpWithFeesRefNo: 'applicant2HelpWithFeesReferenceNumber',
   inTheUk: 'marriageMarriedInUk',
   certificateInEnglish: 'marriageCertificateInEnglish',
   certifiedTranslation: 'marriageCertifiedTranslation',
@@ -115,6 +118,9 @@ export interface Case {
   applicant1HelpPayingNeeded?: YesOrNo;
   applicant1AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant1HelpWithFeesRefNo?: string;
+  applicant2HelpPayingNeeded?: YesOrNo;
+  applicant2AlreadyAppliedForHelpPaying?: YesOrNo;
+  applicant2HelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;

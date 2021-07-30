@@ -44,8 +44,13 @@ const fields: ToApiConverters = {
     marriageDate: toApiDate(data.relationshipDate),
   }),
   applicant1HelpWithFeesRefNo: data => ({
-    helpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
+    applicant1HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
       ? data.applicant1HelpWithFeesRefNo
+      : '',
+  }),
+  applicant2HelpWithFeesRefNo: data => ({
+    applicant2HelpWithFeesReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant2HelpWithFeesRefNo)
+      ? data.applicant2HelpWithFeesRefNo
       : '',
   }),
   applicant1EnglishOrWelsh: data => ({
