@@ -3,7 +3,7 @@ import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { DivorceOrDissolution, JURISDICTION } from '../case/definition';
+import { CASE_TYPE, DivorceOrDissolution, JURISDICTION } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -28,7 +28,7 @@ export class PaymentClient {
     const caseId = userCase.id.toString();
     const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
     const body = {
-      site_id: config.get('services.payments.siteId'),
+      case_type_id: CASE_TYPE,
       amount: total,
       ccd_case_number: caseId,
       description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
