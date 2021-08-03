@@ -91,6 +91,8 @@ export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 
+export const PAY_AND_SUBMIT_URL: PageLink = '/pay-and-submit';
+
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
 export const SWITCH_TO_SOLE_APPLICATION: PageLink = '/switch-to-sole-application';

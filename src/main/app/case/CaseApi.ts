@@ -38,7 +38,9 @@ export class CaseApi {
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
     const cases = await this.getCases();
 
-    const serviceCases = cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
+    const serviceCases = cases.filter(
+      c => c.case_data.divorceOrDissolution === serviceType && c.state !== State.Withdrawn
+    );
     switch (serviceCases.length) {
       case 0: {
         return false;

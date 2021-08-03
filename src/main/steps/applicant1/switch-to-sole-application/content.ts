@@ -1,13 +1,12 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
-const en = {
+const en = ({ partner }) => ({
   title: 'Create a new application',
-  newApplicationDisclaimer:
-    'Your husband or wife will not be able to access the new application. They will receive an email confirming this.',
+  newApplicationDisclaimer: `Your ${partner} will not be able to access the new application. They will receive an email confirming this.`,
   create: 'Create a new application',
   cancel: 'Cancel',
-};
+});
 
 // @TODO translations
 const cy: typeof en = en;
@@ -25,7 +24,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
