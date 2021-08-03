@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import config from 'config';
-import dayjs from 'dayjs';
 import { Response } from 'express';
 
 import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
@@ -16,31 +15,25 @@ export default class PaymentPostController {
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, CITIZEN_SUBMIT);
     }
 
-    const payments = new PaymentModel(req.session.userCase.payments);
-    if (payments.hasPayment && payments.lastPayment.paymentStatus === PaymentStatus.IN_PROGRESS) {
-      if (payments.lastPayment.paymentReference) {
-        return this.saveAndRedirect(req, res, PAYMENT_CALLBACK_URL);
-      }
-      payments.update(payments.lastPayment.paymentTransactionId, { paymentStatus: PaymentStatus.TIMED_OUT });
+    const payments = new PaymentModel(req.session.userCase.payments || []);
+    if (payments.isPaymentInProgress()) {
+      return this.saveAndRedirect(req, res, PAYMENT_CALLBACK_URL);
     }
 
-    const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
+    const fee = req.session.userCase.applicationFeeOrderSummary.Fees[0].value;
+    const client = this.getPaymentClient(req, res);
+    const payment = await client.create();
+    const now = new Date().toISOString();
 
-    const paymentClient = new PaymentClient(req.session, returnUrl);
-
-    const { applicationFeeOrderSummary } = req.session.userCase;
-    const payment = await paymentClient.create();
     payments.add({
-      paymentDate: dayjs(payment?.date_created).format('YYYY-MM-DD'),
-      paymentFeeId: applicationFeeOrderSummary.Fees[0].value.FeeCode,
-      paymentAmount: parseInt(applicationFeeOrderSummary.Fees[0].value.FeeAmount, 10),
-      paymentSiteId: config.get('services.payments.siteId'),
-      paymentStatus: PaymentStatus.IN_PROGRESS,
-      paymentChannel: payment._links.next_url.href,
-      paymentReference: payment.reference,
-      paymentTransactionId: payment.external_reference,
+      created: now,
+      updated: now,
+      feeCode: fee.FeeCode,
+      amount: parseInt(fee.FeeAmount, 10),
+      status: PaymentStatus.IN_PROGRESS,
+      channel: payment._links.next_url.href,
+      reference: payment.reference,
+      transactionId: payment.external_reference,
     });
 
     req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
@@ -56,5 +49,13 @@ export default class PaymentPostController {
 
       res.redirect(url);
     });
+  }
+
+  private getPaymentClient(req: AppRequest, res: Response) {
+    const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
+    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+    const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
+
+    return new PaymentClient(req.session, returnUrl);
   }
 }
