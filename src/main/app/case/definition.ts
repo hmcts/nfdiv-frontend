@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-07-30 15:42:22.
+// Generated using typescript-generator version 2.32.889 on 2021-08-03 11:35:25.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -131,9 +131,6 @@ export interface Applicant {
   LegalProceedings: YesOrNo;
   LegalProceedingsRelated: LegalProceedingsRelated[];
   LegalProceedingsDetails: string;
-  HelpWithFeesReferenceNumber: string;
-  HelpWithFeesNeedHelp: YesOrNo;
-  HelpWithFeesAppliedForFees: YesOrNo;
 }
 
 export interface Application {
@@ -162,6 +159,12 @@ export interface Application {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -238,9 +241,6 @@ export interface CaseData {
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant1LegalProceedingsDetails: string;
-  applicant1HelpWithFeesReferenceNumber: string;
-  applicant1HelpWithFeesNeedHelp: YesOrNo;
-  applicant1HelpWithFeesAppliedForFees: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -269,9 +269,6 @@ export interface CaseData {
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant2LegalProceedingsDetails: string;
-  applicant2HelpWithFeesReferenceNumber: string;
-  applicant2HelpWithFeesNeedHelp: YesOrNo;
-  applicant2HelpWithFeesAppliedForFees: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -297,6 +294,12 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -355,6 +358,7 @@ export interface CaseData {
   generalOrderRecitals: string;
   generalOrderJudgeType: GeneralOrderJudge;
   generalOrderJudgeName: string;
+  generalOrderLegalAdvisorName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
   generalEmailParties: GeneralParties;
@@ -374,6 +378,7 @@ export interface CaseData {
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
+  documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   generalOrders: ListValue<DivorceGeneralOrder>[];
   payments: ListValue<Payment>[];
@@ -425,6 +430,7 @@ export interface GeneralOrder {
   generalOrderRecitals: string;
   generalOrderJudgeType: GeneralOrderJudge;
   generalOrderJudgeName: string;
+  generalOrderLegalAdvisorName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
 }
@@ -497,6 +503,15 @@ export interface Solicitor {
   Address: string;
   AgreeToReceiveEmails: YesOrNo;
   OrganisationPolicy: OrganisationPolicy<UserRole>;
+}
+
+export interface CaseworkerUploadedDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: CaseworkerUploadedDocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export interface ConfidentialDivorceDocument {
@@ -829,6 +844,46 @@ export const enum UserRole {
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
+}
+
+export const enum CaseworkerUploadedDocumentType {
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgeOfService',
+  ANNEX_A = 'annexA',
+  APPLICATION = 'application',
+  BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
+  BAILIFF_SERVICE = 'bailiffService',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  CERTIFICATE_OF_SERVICE = 'certificateOfService',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  D84 = 'd84',
+  D9D = 'd9D',
+  D9H = 'd9H',
+  DEEMED_SERVICE = 'deemedService',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  GENERAL_ORDER = 'generalOrder',
+  MARRIAGE_CERT = 'marriageCert',
+  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
+  NAME_CHANGE = 'nameChange',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OBJECTION_TO_COSTS = 'objectionToCosts',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum ConfidentialDocumentsReceived {
