@@ -20,10 +20,6 @@ Feature: Check Your Joint Application
     And the page should include "Did you get married in the UK?	Yes"
 
   Scenario: Not confirming answers
-    Given I login
-    And I am reviewing an application for divorce created by my wife
-    When I go to '/applicant2/check-your-joint-application'
-    Then the page should include "Check your wife's answers"
     And I clear the form
     And I click "Continue"
     And the page should include "There was a problem"
