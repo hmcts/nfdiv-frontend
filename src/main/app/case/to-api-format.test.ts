@@ -40,9 +40,9 @@ describe('to-api-format', () => {
       applicant2Gender: Gender.MALE,
       applicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
-      applicant1HelpWithFeesNeedHelp: YesOrNo.YES,
-      applicant1HelpWithFeesAppliedForFees: YesOrNo.YES,
-      applicant1HelpWithFeesReferenceNumber: 'HWF-123-ABC',
+      applicant1HWFNeedHelp: YesOrNo.YES,
+      applicant1HWFAppliedForFees: YesOrNo.YES,
+      applicant1HWFReferenceNumber: 'HWF-123-ABC',
       applicant1AgreedToReceiveEmails: YesOrNo.YES,
       applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
@@ -73,7 +73,7 @@ describe('to-api-format', () => {
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      applicant1HelpWithFeesReferenceNumber: '',
+      applicant1HWFReferenceNumber: '',
       marriageDate: '',
     });
   });
