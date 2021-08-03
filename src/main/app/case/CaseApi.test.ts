@@ -164,7 +164,7 @@ describe('CaseApi', () => {
     await api.addPayment('1234', payments.list);
 
     const expectedRequest = {
-      data: { payments: payments.list },
+      data: { applicationPayments: payments.list },
       event: { id: CITIZEN_ADD_PAYMENT },
       event_token: '123',
     };
