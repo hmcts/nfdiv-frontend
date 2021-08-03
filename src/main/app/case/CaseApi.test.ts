@@ -48,7 +48,7 @@ describe('CaseApi', () => {
             case_data: {
               divorceOrDissolution: 'divorce',
               applicationFeeOrderSummary: [{ test: 'fees' }],
-              payments: [{ test: 'payment' }],
+              applicationPayments: [{ test: 'payment' }],
             },
           },
           {
@@ -57,7 +57,7 @@ describe('CaseApi', () => {
             case_data: {
               divorceOrDissolution: 'dissolution',
               applicationFeeOrderSummary: [{ test: 'fees' }],
-              payments: [{ test: 'payment' }],
+              applicationPayments: [{ test: 'payment' }],
             },
           },
         ],
