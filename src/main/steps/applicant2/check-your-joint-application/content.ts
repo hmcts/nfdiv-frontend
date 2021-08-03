@@ -3,15 +3,16 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
+import { jurisdictionMoreDetailsContent } from '../../applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
-const moreDetailsComponent = (text: string, title?: string) => {
+export const moreDetailsComponent: (text: string, title?: string) => string = (text: string, title?: string) => {
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
-        Find out more ${title || ''}
+        ${title || 'Find out more '}
       </span>
     </summary>
     <div class="govuk-details__text">
@@ -29,8 +30,6 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
         ? 'They have said that they need help paying the fee. They can only use help with the fees if you apply too. That is why you were asked whether you needed help paying the fee.'
         : ''
     }`,
-    connectedToEnglandWales:
-      "If your life is mainly based in England or Wales then you're what is legally known as 'habitually resident'. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.<br>The examples above aren't a complete list of what makes up habitual residence, and just because some of them apply to you doesn't mean you're habitually resident. If you're not sure, you should get legal advice.",
     otherCourtCases:
       'The court only needs to know about court proceedings relating to your marriage, property or children. It does not need to know about other court proceedings.',
   };
@@ -44,15 +43,21 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
     continue: 'Continue',
     stepAnswersWithHTML: {
       [urls.HELP_WITH_YOUR_FEE_URL]: {
-        applicant1HelpPayingNeeded: moreDetailsComponent(moreDetailsContent.helpWithFees, 'about help with fees'),
+        applicant1HelpPayingNeeded: moreDetailsComponent(
+          moreDetailsContent.helpWithFees,
+          'Find out more about help with fees'
+        ),
       },
       [urls.JURISDICTION_INTERSTITIAL_URL]: {
-        connections: moreDetailsComponent(moreDetailsContent.connectedToEnglandWales),
+        connections: moreDetailsComponent(
+          jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
+          jurisdictionMoreDetailsContent(formState).readMore
+        ),
       },
       [urls.OTHER_COURT_CASES]: {
         applicant1LegalProceedings: moreDetailsComponent(
           moreDetailsContent.otherCourtCases,
-          'about other court proceedings'
+          'Find out more about other court proceedings'
         ),
       },
     },

@@ -755,6 +755,7 @@ export const enum State {
   AwaitingAos = 'AwaitingAos',
   AosDrafted = 'AosDrafted',
   AosOverdue = 'AosOverdue',
+  Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',

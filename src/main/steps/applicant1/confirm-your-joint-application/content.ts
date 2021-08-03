@@ -6,8 +6,10 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { Sections } from '../../applicant1Sequence';
+import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
+import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   title: 'Confirm your joint application',
@@ -123,6 +125,14 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
+    },
+  },
+  stepAnswersWithHTML: {
+    [urls.JURISDICTION_INTERSTITIAL_URL]: {
+      connections: moreDetailsComponent(
+        jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
+        jurisdictionMoreDetailsContent(formState).readMore
+      ),
     },
   },
   confirm: 'Confirm before continuing',
