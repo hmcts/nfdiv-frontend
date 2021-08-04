@@ -66,7 +66,9 @@ const enContainsHabitualResConnection = (
       connections.includes(JurisdictionConnections.APP_2_RESIDENT) ||
       connections.includes(JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS) ||
       connections.includes(JurisdictionConnections.APP_1_APP_2_RESIDENT) ||
-      connections.includes(JurisdictionConnections.APP_1_RESIDENT_JOINT))
+      connections.includes(JurisdictionConnections.APP_1_RESIDENT_JOINT) ||
+      connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION) ||
+      connections.includes(JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS))
   ) {
     return enHabitualResident;
   }
@@ -110,7 +112,13 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
 const cy: typeof en = en;
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    connections: {
+      type: 'hidden',
+      label: l => l.title,
+      labelHidden: true,
+    },
+  },
   submit: {
     text: l => l.continue,
   },

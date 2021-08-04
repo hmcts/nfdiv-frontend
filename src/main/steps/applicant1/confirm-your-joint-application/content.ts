@@ -9,6 +9,7 @@ import { Sections } from '../../applicant1Sequence';
 import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
+import { connectionBulletPointsText } from '../check-your-answers/content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, partner, formState }: CommonContent) => ({
@@ -99,7 +100,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
           ${formState?.applicant1HelpWithFeesRefNo}`
           : false,
     },
-    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
+    [urls.JURISDICTION_INTERSTITIAL_URL]: {
+      connections: formState?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
+    },
     [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
       applicant1NameChangedHow: formState?.applicant1NameChangedHow
         ?.join(' / ')
@@ -129,10 +132,14 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   },
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections: moreDetailsComponent(
-        jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
-        jurisdictionMoreDetailsContent(formState).readMore
-      ),
+      connections:
+        (formState?.connections && formState?.connections?.length > 1
+          ? connectionBulletPointsText(formState?.connections, partner)
+          : '') +
+        moreDetailsComponent(
+          jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
+          jurisdictionMoreDetailsContent(formState).readMore
+        ),
     },
   },
   confirm: 'Confirm before continuing',
