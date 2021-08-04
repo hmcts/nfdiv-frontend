@@ -3,12 +3,15 @@ export type PageLink = `/${string}`;
 export const HOME_URL: PageLink = '/';
 export const CALLBACK_URL: PageLink = '/oauth2/callback';
 export const APPLICANT_2_CALLBACK_URL: PageLink = '/oauth2/callback-applicant2';
+export const SWITCH_TO_SOLE_APPLICATION_CALLBACK_URL: PageLink = '/oauth2/callback-switch-to-sole-application';
 export const SIGN_IN_URL: PageLink = '/login';
 export const APPLICANT_2_SIGN_IN_URL: PageLink = '/login-applicant2';
+export const SWITCH_TO_SOLE_APPLICATION_SIGN_IN_URL: PageLink = '/login-switch';
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
+export const SWITCH_TO_SOLE_LOGIN: PageLink = '/switch-to-sole';
 
 export const APPLICANT_1: PageLink = '/applicant1';
 export const APPLICANT_2: PageLink = '/applicant2';
