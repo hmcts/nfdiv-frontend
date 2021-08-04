@@ -13,6 +13,8 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HELP_PAYING_HAVE_YOU_APPLIED,
+  HELP_PAYING_NEED_TO_APPLY,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -45,6 +47,16 @@ const sequences: Step[] = [
   {
     url: NOT_CONFIRMED_JOINT_APPLICATION,
     getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
+  },
+  {
+    url: HELP_PAYING_HAVE_YOU_APPLIED,
+    showInSection: Sections.HelpWithFees,
+    getNextStep: data =>
+      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
+  },
+  {
+    url: HELP_PAYING_NEED_TO_APPLY,
+    getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
   },
   {
     url: YOUR_NAME,
