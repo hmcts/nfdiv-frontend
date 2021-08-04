@@ -31,7 +31,8 @@ describe('PaymentPostController', () => {
             {
               id: 'timed out payment',
               value: {
-                paymentStatus: PaymentStatus.IN_PROGRESS,
+                status: PaymentStatus.IN_PROGRESS,
+                reference: 'ref',
               },
             },
           ],
@@ -54,36 +55,8 @@ describe('PaymentPostController', () => {
       });
 
       await paymentController.post(req, res);
-
-      expect(mockCreate).toHaveBeenCalled();
-
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
-        {
-          id: 'timed out payment',
-          value: {
-            paymentStatus: PaymentStatus.TIMED_OUT,
-          },
-        },
-        {
-          id: 'mock external reference payment id',
-          value: {
-            paymentAmount: 123,
-            paymentChannel: 'http://example.com/pay',
-            paymentDate: '1999-12-31',
-            paymentFeeId: 'mock fee code',
-            paymentReference: 'mock ref',
-            paymentSiteId: expect.any(String),
-            paymentStatus: PaymentStatus.IN_PROGRESS,
-            paymentTransactionId: 'mock external reference payment id',
-          },
-        },
-      ]);
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-
-      expect(req.session.userCase.payments).toEqual([{ new: 'payment' }]);
-
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('http://example.com/pay');
+      expect(res.redirect).toHaveBeenCalledWith('/payment-callback');
     });
 
     it('transitions the case to awaiting payment if the state is draft', async () => {
@@ -117,14 +90,14 @@ describe('PaymentPostController', () => {
             {
               id: 'mock external reference payment id',
               value: {
-                paymentAmount: 123,
-                paymentChannel: 'HMCTS Pay',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'mock fee code',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'AA00',
-                paymentStatus: 'inProgress',
-                paymentTransactionId: 'mock external reference payment id',
+                amount: 123,
+                channel: 'HMCTS Pay',
+                create: '1999-12-31T20:00:01.123',
+                feeCode: 'mock fee code',
+                reference: 'mock ref',
+                siteId: 'AA00',
+                status: 'inProgress',
+                transactionId: 'mock external reference payment id',
               },
             },
           ],

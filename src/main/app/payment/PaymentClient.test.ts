@@ -61,8 +61,7 @@ describe('PaymentClient', () => {
         },
       ],
       language: undefined,
-      service: 'DIVORCE',
-      site_id: 'mock-api-key',
+      case_type: 'NFD',
     });
 
     expect(actual).toEqual({

@@ -24,7 +24,6 @@ services:
     url: http://dm-store-aat.service.core-compute-aat.internal
   payments:
     url: http://payment-api-aat.service.core-compute-aat.internal
-    siteId: 'AA07'
 health:
   timeout: 5000
   deadline: 15000
