@@ -39,7 +39,12 @@ const sequences: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.applicant2ScreenHasUnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
+    getNextStep: data =>
+      data.applicant2ScreenHasUnionBroken === YesOrNo.NO
+        ? YOU_CANNOT_APPLY
+        : data.applicant1HelpPayingNeeded === YesOrNo.YES
+        ? HELP_WITH_YOUR_FEE_URL
+        : YOUR_NAME,
   },
   {
     url: YOU_CANNOT_APPLY,
