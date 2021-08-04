@@ -85,7 +85,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
-  payments: 'payments',
+  payments: 'applicationPayments',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
