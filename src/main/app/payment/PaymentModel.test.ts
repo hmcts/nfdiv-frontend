@@ -14,15 +14,15 @@ describe('PaymentModel', () => {
       { id: '123', value: { data: 'mock' } as unknown as Payment },
       { id: '456', value: { data: 'last one' } as unknown as Payment },
     ]);
-    expect(payment.lastPayment).toEqual({ paymentTransactionId: '456', data: 'last one' });
+    expect(payment.lastPayment).toEqual({ transactionId: '456', data: 'last one' });
   });
 
   it('adds a payment', async () => {
     const payment = new PaymentModel([{ id: '123', value: { data: 'mock' } as unknown as Payment }]);
-    payment.add({ paymentTransactionId: 'newId', new: 'payment' } as unknown as Payment);
+    payment.add({ transactionId: 'newId', new: 'payment' } as unknown as Payment);
     expect(payment.list).toEqual([
       { id: '123', value: { data: 'mock' } },
-      { id: 'newId', value: { new: 'payment', paymentTransactionId: 'newId' } },
+      { id: 'newId', value: { new: 'payment', transactionId: 'newId' } },
     ]);
   });
 
