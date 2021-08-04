@@ -15,6 +15,7 @@ import {
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
+  HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -49,10 +50,14 @@ const sequences: Step[] = [
     getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
   },
   {
+    url: HELP_WITH_YOUR_FEE_URL,
+    getNextStep: data => (data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : YOUR_NAME),
+  },
+  {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     showInSection: Sections.HelpWithFees,
     getNextStep: data =>
-      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
