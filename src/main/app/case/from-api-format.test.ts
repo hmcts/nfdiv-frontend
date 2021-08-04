@@ -212,7 +212,7 @@ describe('from-api-format', () => {
   test('adds read only fields', () => {
     expect(
       fromApiFormat({
-        payments: [
+        applicationPayments: [
           {
             id: 'mock-payment',
           },
