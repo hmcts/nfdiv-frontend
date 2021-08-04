@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-03 11:35:25.
+// Generated using typescript-generator version 2.32.889 on 2021-08-04 09:44:00.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -159,16 +159,12 @@ export interface Application {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  applicant1HWFReferenceNumber: string;
-  applicant1HWFNeedHelp: YesOrNo;
-  applicant1HWFAppliedForFees: YesOrNo;
-  applicant2HWFReferenceNumber: string;
-  applicant2HWFNeedHelp: YesOrNo;
-  applicant2HWFAppliedForFees: YesOrNo;
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
-  divorceCostsClaim: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
@@ -189,7 +185,6 @@ export interface Application {
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
-  divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
@@ -201,6 +196,7 @@ export interface Application {
   issueDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
+  applicationPayments: ListValue<Payment>[];
 }
 
 export interface CaseData {
@@ -294,16 +290,12 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  applicant1HWFReferenceNumber: string;
-  applicant1HWFNeedHelp: YesOrNo;
-  applicant1HWFAppliedForFees: YesOrNo;
-  applicant2HWFReferenceNumber: string;
-  applicant2HWFNeedHelp: YesOrNo;
-  applicant2HWFAppliedForFees: YesOrNo;
+  helpWithFeesReferenceNumber: string;
+  helpWithFeesNeedHelp: YesOrNo;
+  helpWithFeesAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
-  divorceCostsClaim: YesOrNo;
   applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   solServiceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
@@ -324,7 +316,6 @@ export interface CaseData {
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
-  divorceClaimFrom: ClaimsCostFrom[];
   app2ContactMethodIsDigital: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
@@ -336,6 +327,7 @@ export interface CaseData {
   issueDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
+  applicationPayments: ListValue<Payment>[];
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -371,17 +363,17 @@ export interface CaseData {
   generalApplicationAddedDate: DateAsString;
   generalReferralType: GeneralReferralType;
   alternativeServiceMedium: AlternativeServiceType;
-  generalReferralDetails: string;
+  generalReferralJudgeDetails: string;
+  generalReferralLegalAdvisorDetails: string;
   generalReferralFeeRequired: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  documentsUploaded: ListValue<DivorceDocument>[];
+  documentsUploaded: ListValue<CaseworkerUploadedDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   generalOrders: ListValue<DivorceGeneralOrder>[];
-  payments: ListValue<Payment>[];
   previousCaseId: CaseLink;
   dueDate: DateAsString;
   notes: ListValue<CaseNote>[];
@@ -442,7 +434,8 @@ export interface GeneralReferral {
   generalApplicationAddedDate: DateAsString;
   generalReferralType: GeneralReferralType;
   alternativeServiceMedium: AlternativeServiceType;
-  generalReferralDetails: string;
+  generalReferralJudgeDetails: string;
+  generalReferralLegalAdvisorDetails: string;
   generalReferralFeeRequired: YesOrNo;
 }
 
@@ -573,14 +566,14 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  paymentDate: DateAsString;
-  paymentFeeId: string;
-  paymentAmount: number;
-  paymentSiteId: string;
-  paymentStatus: PaymentStatus;
-  paymentChannel: string;
-  paymentReference: string;
-  paymentTransactionId: string;
+  created: DateAsString;
+  updated: DateAsString;
+  feeCode: string;
+  amount: number;
+  status: PaymentStatus;
+  channel: string;
+  reference: string;
+  transactionId: string;
 }
 
 export type DateAsString = string;
@@ -625,10 +618,6 @@ export const enum ChangedNameHow {
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   DEED_POLL = 'deedPoll',
   OTHER = 'other',
-}
-
-export const enum ClaimsCostFrom {
-  APPLICANT_2 = 'applicant2',
 }
 
 export const enum ConfidentialAddress {
@@ -787,7 +776,7 @@ export const enum RespondentAgreeToCosts {
 }
 
 export const enum ServiceMethod {
-  PERSONAL_SERVICE = 'personalService',
+  SOLICITOR_SERVICE = 'solicitorService',
   COURT_SERVICE = 'courtService',
 }
 
