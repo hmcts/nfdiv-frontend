@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-04 09:44:00.
+// Generated using typescript-generator version 2.32.889 on 2021-08-04 09:48:49.
 
 export interface Address {
   AddressLine1: string;
@@ -159,9 +159,12 @@ export interface Application {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -290,9 +293,12 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
