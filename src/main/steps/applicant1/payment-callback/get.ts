@@ -25,13 +25,13 @@ export default class PaymentCallbackGetController {
     }
 
     const lastPaymentAttempt = payments.lastPayment;
-    const payment = await paymentClient.get(lastPaymentAttempt.paymentReference);
+    const payment = await paymentClient.get(lastPaymentAttempt.reference);
 
     if (payment?.status === 'Initiated') {
-      return res.redirect(lastPaymentAttempt.paymentChannel);
+      return res.redirect(lastPaymentAttempt.channel);
     }
 
-    payments.setStatus(lastPaymentAttempt.paymentTransactionId, payment?.status);
+    payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
 

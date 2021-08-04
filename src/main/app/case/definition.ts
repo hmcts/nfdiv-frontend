@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-02 11:15:48.
+// Generated using typescript-generator version 2.32.889 on 2021-08-03 09:52:41.
 
 export interface Address {
   AddressLine1: string;
@@ -198,6 +198,7 @@ export interface Application {
   issueDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
+  applicationPayments: ListValue<Payment>[];
 }
 
 export interface CaseData {
@@ -330,6 +331,7 @@ export interface CaseData {
   issueDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
+  applicationPayments: ListValue<Payment>[];
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -371,9 +373,9 @@ export interface CaseData {
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
+  documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   generalOrders: ListValue<DivorceGeneralOrder>[];
-  payments: ListValue<Payment>[];
   previousCaseId: CaseLink;
   dueDate: DateAsString;
   notes: ListValue<CaseNote>[];
@@ -496,6 +498,15 @@ export interface Solicitor {
   OrganisationPolicy: OrganisationPolicy<UserRole>;
 }
 
+export interface CaseworkerUploadedDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: CaseworkerUploadedDocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export interface ConfidentialDivorceDocument {
   confidentialDocumentsReceived: ConfidentialDocumentsReceived;
   documentEmailContent: string;
@@ -555,14 +566,14 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  paymentDate: DateAsString;
-  paymentFeeId: string;
-  paymentAmount: number;
-  paymentSiteId: string;
-  paymentStatus: PaymentStatus;
-  paymentChannel: string;
-  paymentReference: string;
-  paymentTransactionId: string;
+  created: DateAsString;
+  updated: DateAsString;
+  feeCode: string;
+  amount: number;
+  status: PaymentStatus;
+  channel: string;
+  reference: string;
+  transactionId: string;
 }
 
 export type DateAsString = string;
@@ -828,6 +839,46 @@ export const enum WhoDivorcing {
   WIFE = 'wife',
 }
 
+export const enum CaseworkerUploadedDocumentType {
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgeOfService',
+  ANNEX_A = 'annexA',
+  APPLICATION = 'application',
+  BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
+  BAILIFF_SERVICE = 'bailiffService',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  CERTIFICATE_OF_SERVICE = 'certificateOfService',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  D84 = 'd84',
+  D9D = 'd9D',
+  D9H = 'd9H',
+  DEEMED_SERVICE = 'deemedService',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  GENERAL_ORDER = 'generalOrder',
+  MARRIAGE_CERT = 'marriageCert',
+  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
+  NAME_CHANGE = 'nameChange',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OBJECTION_TO_COSTS = 'objectionToCosts',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
+}
+
 export const enum ConfidentialDocumentsReceived {
   AOS = 'aos',
   ANNEX_A = 'annexa',
@@ -901,16 +952,16 @@ export const enum PaymentStatus {
 }
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const APPLICANT_2_APPROVE = 'applicant2-approve';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const WITHDRAW_JOINT_APPLICATION = 'withdraw-joint-application';
-export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';

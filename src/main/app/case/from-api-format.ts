@@ -31,6 +31,7 @@ const checkboxConverter = (value: string | undefined) => {
 
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
+  ...invert(readOnlyFormFieldsToCaseMapping),
   marriageIsSameSexCouple: data => ({
     sameSex: checkboxConverter(data.marriageIsSameSexCouple),
   }),
@@ -109,5 +110,4 @@ const fromApiDate = date => {
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
-export const fromApiFormat = (data: CaseData): Case =>
-  formatCase({ ...fields, ...readOnlyFormFieldsToCaseMapping }, data);
+export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
