@@ -15,9 +15,6 @@ import {
   SIGN_IN_URL,
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
-  SWITCH_TO_SOLE_APPLICATION_CALLBACK_URL,
-  SWITCH_TO_SOLE_APPLICATION_SIGN_IN_URL,
-  SWITCH_TO_SOLE_LOGIN,
 } from '../../steps/urls';
 
 /**
@@ -34,9 +31,6 @@ export class OidcMiddleware {
     );
     app.get(APPLICANT_2_SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, APPLICANT_2_CALLBACK_URL))
-    );
-    app.get(SWITCH_TO_SOLE_APPLICATION_SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, SWITCH_TO_SOLE_APPLICATION_CALLBACK_URL))
     );
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
     app.get(
@@ -65,21 +59,6 @@ export class OidcMiddleware {
         }
       })
     );
-    app.get(
-      SWITCH_TO_SOLE_APPLICATION_CALLBACK_URL,
-      errorHandler(async (req, res) => {
-        if (typeof req.query.code === 'string') {
-          req.session.user = await getUserDetails(
-            `${protocol}${res.locals.host}${port}`,
-            req.query.code,
-            SWITCH_TO_SOLE_APPLICATION_CALLBACK_URL
-          );
-          req.session.save(() => res.redirect(SWITCH_TO_SOLE_APPLICATION));
-        } else {
-          res.redirect(SWITCH_TO_SOLE_APPLICATION_SIGN_IN_URL);
-        }
-      })
-    );
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
@@ -98,6 +77,7 @@ export class OidcMiddleware {
           if (
             req.url === SWITCH_TO_SOLE_APPLICATION &&
             req.session.userCase.state !== State.AwaitingApplicant1Response &&
+            req.session.userCase.state !== State.AwaitingApplicant2Response &&
             req.session.userCase.state !== State.Applicant2Approved &&
             req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
             req.session.isApplicant2
@@ -108,8 +88,6 @@ export class OidcMiddleware {
           return next();
         } else if (req.url === APPLICANT_2) {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
-        } else if (req.url === SWITCH_TO_SOLE_LOGIN) {
-          res.redirect(SWITCH_TO_SOLE_APPLICATION_SIGN_IN_URL);
         } else {
           res.redirect(SIGN_IN_URL);
         }
