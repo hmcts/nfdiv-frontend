@@ -10,6 +10,9 @@ describe('to-api-format', () => {
     applicant1HelpPayingNeeded: YesOrNo.YES,
     applicant1AlreadyAppliedForHelpPaying: YesOrNo.YES,
     applicant1HelpWithFeesRefNo: 'HWF-123-ABC',
+    applicant2HelpPayingNeeded: YesOrNo.YES,
+    applicant2AlreadyAppliedForHelpPaying: YesOrNo.YES,
+    applicant2HelpWithFeesRefNo: 'HWF-123-CBA',
     applicant1AgreeToReceiveEmails: Checkbox.Checked,
     applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
     applicant1AddressPrivate: YesOrNo.YES,
@@ -40,9 +43,12 @@ describe('to-api-format', () => {
       applicant2Gender: Gender.MALE,
       applicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
-      helpWithFeesNeedHelp: YesOrNo.YES,
-      helpWithFeesAppliedForFees: YesOrNo.YES,
-      helpWithFeesReferenceNumber: 'HWF-123-ABC',
+      applicant1HWFNeedHelp: YesOrNo.YES,
+      applicant1HWFAppliedForFees: YesOrNo.YES,
+      applicant1HWFReferenceNumber: 'HWF-123-ABC',
+      applicant2HWFNeedHelp: YesOrNo.YES,
+      applicant2HWFAppliedForFees: YesOrNo.YES,
+      applicant2HWFReferenceNumber: 'HWF-123-CBA',
       applicant1AgreedToReceiveEmails: YesOrNo.YES,
       applicant1ContactDetailsConfidential: ConfidentialAddress.KEEP,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
@@ -69,11 +75,13 @@ describe('to-api-format', () => {
   test('handles invalid data correctly', async () => {
     const apiFormat = toApiFormat({
       applicant1HelpWithFeesRefNo: '123-ABC',
+      applicant2HelpWithFeesRefNo: '123-123',
       relationshipDate: { year: '123' },
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      helpWithFeesReferenceNumber: '',
+      applicant1HWFReferenceNumber: '',
+      applicant2HWFReferenceNumber: '',
       marriageDate: '',
     });
   });
