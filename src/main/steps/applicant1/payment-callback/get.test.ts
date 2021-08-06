@@ -28,14 +28,12 @@ describe('PaymentCallbackGetController', () => {
             {
               id: 'mock payment id',
               value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.IN_PROGRESS,
-                paymentTransactionId: 'mock payment id',
+                amount: 55000,
+                channel: 'mock payment provider',
+                feeCode: 'FEE0002',
+                reference: 'mock ref',
+                status: PaymentStatus.IN_PROGRESS,
+                transactionId: 'mock payment id',
               },
             },
           ],
@@ -52,21 +50,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
-        {
-          id: 'mock payment id',
-          value: {
-            paymentAmount: 55000,
-            paymentChannel: 'mock payment provider',
-            paymentDate: '1999-12-31',
-            paymentFeeId: 'FEE0002',
-            paymentReference: 'mock ref',
-            paymentSiteId: 'GOV Pay',
-            paymentStatus: PaymentStatus.SUCCESS,
-            paymentTransactionId: 'mock payment id',
-          },
-        },
-      ]);
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -109,14 +93,13 @@ describe('PaymentCallbackGetController', () => {
             {
               id: 'mock payment id',
               value: {
-                paymentAmount: 55000,
-                paymentChannel: 'mock payment provider',
-                paymentDate: '1999-12-31',
-                paymentFeeId: 'FEE0002',
-                paymentReference: 'mock ref',
-                paymentSiteId: 'GOV Pay',
-                paymentStatus: PaymentStatus.IN_PROGRESS,
-                paymentTransactionId: 'mock payment id',
+                amount: 55000,
+                channel: 'mock payment provider',
+                created: '1999-12-31T20:01:00.123',
+                feeCode: 'FEE0002',
+                reference: 'mock ref',
+                status: PaymentStatus.IN_PROGRESS,
+                transactionId: 'mock payment id',
               },
             },
           ],
@@ -133,21 +116,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', [
-        {
-          id: 'mock payment id',
-          value: {
-            paymentAmount: 55000,
-            paymentChannel: 'mock payment provider',
-            paymentDate: '1999-12-31',
-            paymentFeeId: 'FEE0002',
-            paymentReference: 'mock ref',
-            paymentSiteId: 'GOV Pay',
-            paymentStatus: PaymentStatus.ERROR,
-            paymentTransactionId: 'mock payment id',
-          },
-        },
-      ]);
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });

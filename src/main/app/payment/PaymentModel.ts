@@ -15,15 +15,15 @@ export class PaymentModel {
 
   public get lastPayment(): Payment {
     const idx = this.payments.length - 1;
-    return { ...this.payments[idx].value, paymentTransactionId: this.payments[idx].id };
+    return { ...this.payments[idx].value, transactionId: this.payments[idx].id };
   }
 
   public get wasLastPaymentSuccessful(): boolean {
-    return this.lastPayment?.paymentStatus === PaymentStatus.SUCCESS;
+    return this.lastPayment?.status === PaymentStatus.SUCCESS;
   }
 
   public add(payment: Payment): void {
-    this.payments.push({ id: payment.paymentTransactionId, value: payment });
+    this.payments.push({ id: payment.transactionId, value: payment });
   }
 
   public update(transactionId: string, details: Partial<Payment>): void {
@@ -36,7 +36,14 @@ export class PaymentModel {
 
   public setStatus(transactionId: string, status: HmctsPayStatus | undefined): void {
     this.update(transactionId, {
-      paymentStatus: status === 'Success' ? PaymentStatus.SUCCESS : PaymentStatus.ERROR,
+      status: status === 'Success' ? PaymentStatus.SUCCESS : PaymentStatus.ERROR,
+      updated: new Date().toISOString(),
     });
+  }
+
+  public isPaymentInProgress(): boolean {
+    return (
+      this.hasPayment && this.lastPayment.status === PaymentStatus.IN_PROGRESS && this.lastPayment.reference !== null
+    );
   }
 }

@@ -14,6 +14,8 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HELP_PAYING_HAVE_YOU_APPLIED,
+  HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -46,6 +48,10 @@ const sequences: Step[] = [
   {
     url: NOT_CONFIRMED_JOINT_APPLICATION,
     getNextStep: () => RELATIONSHIP_NOT_BROKEN_URL,
+  },
+  {
+    url: HELP_WITH_YOUR_FEE_URL,
+    getNextStep: data => (data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : YOUR_NAME),
   },
   {
     url: YOUR_NAME,

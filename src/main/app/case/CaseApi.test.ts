@@ -48,7 +48,7 @@ describe('CaseApi', () => {
             case_data: {
               divorceOrDissolution: 'divorce',
               applicationFeeOrderSummary: [{ test: 'fees' }],
-              payments: [{ test: 'payment' }],
+              applicationPayments: [{ test: 'payment' }],
             },
           },
           {
@@ -57,7 +57,7 @@ describe('CaseApi', () => {
             case_data: {
               divorceOrDissolution: 'dissolution',
               applicationFeeOrderSummary: [{ test: 'fees' }],
-              payments: [{ test: 'payment' }],
+              applicationPayments: [{ test: 'payment' }],
             },
           },
         ],
@@ -164,7 +164,7 @@ describe('CaseApi', () => {
     await api.addPayment('1234', payments.list);
 
     const expectedRequest = {
-      data: { payments: payments.list },
+      data: { applicationPayments: payments.list },
       event: { id: CITIZEN_ADD_PAYMENT },
       event_token: '123',
     };

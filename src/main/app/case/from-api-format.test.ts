@@ -9,7 +9,7 @@ describe('from-api-format', () => {
     applicant2Gender: Gender.MALE,
     applicant1Gender: Gender.MALE,
     applicant1ScreenHasMarriageBroken: YesOrNo.YES,
-    helpWithFeesReferenceNumber: 'HWF-ABC-123',
+    applicant1HWFReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsConfidential: 'keep',
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
@@ -212,7 +212,7 @@ describe('from-api-format', () => {
   test('adds read only fields', () => {
     expect(
       fromApiFormat({
-        payments: [
+        applicationPayments: [
           {
             id: 'mock-payment',
           },
