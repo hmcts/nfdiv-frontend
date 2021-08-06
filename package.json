@@ -98,7 +98,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
+    "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.14.8",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/jest": "^26.0.24",
