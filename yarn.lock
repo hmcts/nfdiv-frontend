@@ -2826,10 +2826,10 @@ axe-core@^4.0.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.1.tgz#0c6a076e4a1c3e0544ba6a9479158f9be7a7928e"
   integrity sha512-3WVgVPs/7OnKU3s+lqMtkv3wQlg3WxK1YifmpJSDO0E1aPBrZWlrrTO6cxRqCXLuX2aYgCljqXIQd0VnRidV0g==
 
-axios-debug-log@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/axios-debug-log/-/axios-debug-log-0.8.3.tgz#4fe5e569bcb8a5879a5395d12899643b4e5f385b"
-  integrity sha512-B8BNDpgm5Wwc5NxdZA48SinDTUXPFiOGXcYBPb8pQBu+FLR2qiV1WtRGaLO7R9zAtoCBtO9UkraFfcQtUPOBcg==
+axios-debug-log@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/axios-debug-log/-/axios-debug-log-0.8.4.tgz#2f311d70bbe36725562b1bb9c86e202ac3cd26fe"
+  integrity sha512-DvmaJiYusndhfAjQ94HqlvhaVoEjOetwo9cpb+OVtOZNZTqdz0VAVed3ZjSQKpyM1g8jDXUXFx0Pg1DhUZzAdw==
   dependencies:
     "@types/debug" "^4.0.0"
     debug "^4.0.0"
@@ -3670,10 +3670,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codeceptjs@^3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.0.7.tgz#5d453630f8a4d3886993f423b3daad08c2491947"
-  integrity sha512-YtIhxfkgASI+mTvpxRYFiBUu2lXCNQXMKp8D9RWiYBT4sX3885yUU4FVIhFfpUaOeOUxDDkyUQRP9odW1boAiA==
+codeceptjs@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.1.0.tgz#b49a01292e19664cddc5e789f87e44ee89752c2a"
+  integrity sha512-qUb//dbSt+CFIM5Ao4wz55rK2x7RpdtKjQ1RTZYNt+Box7JYOXWm+BvHl8BZpdnUimtdKLT2yN+qJ8hcvlK7KA==
   dependencies:
     "@codeceptjs/configure" "^0.6.2"
     "@codeceptjs/helper" "^1.0.2"
@@ -11106,9 +11106,9 @@ tar-stream@^2.0.0, tar-stream@^2.1.4, tar-stream@^2.2.0:
     readable-stream "^3.1.1"
 
 tar@^6.0.2:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.0.tgz#d1724e9bcc04b977b18d5c573b333a2207229a83"
-  integrity sha512-DUCttfhsnLCjwoDoFcI+B2iJgYa93vBnDUATYEeRx6sntCTdN01VnqsIuTlALXla/LWooNg0yEGeB+Y8WdFxGA==
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.5.tgz#6e25bee1cfda94317aedc3f5d49290ae68361d73"
+  integrity sha512-FiK6MQyyaqd5vHuUjbg/NpO8BuEGeSXcmlH7Pt/JkugWS8s0w8nKybWjHDJiwzCAIKZ66uof4ghm4tBADjcqRA==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
