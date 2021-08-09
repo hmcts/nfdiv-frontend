@@ -13,7 +13,6 @@ export default class ConfirmYourJointApplicationPostController extends PostContr
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response, next?: NextFunction): Promise<void> {
-    const event = APPLICANT_2_APPROVE;
-    await super.post(req, res, next, event);
+    await super.post(req, res, next, APPLICANT_2_APPROVE);
   }
 }
