@@ -1,29 +1,54 @@
+import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
-import {
-  form as applicant1Form,
-  generateContent as applicant1GenerateContent,
-} from '../../applicant1/confirm-your-joint-application/content';
+import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/confirm-your-joint-application/content';
 
-const labels = applicant1Content => {
+const labels = content => {
   return {
     errors: {
       applicant2IConfirmPrayer: {
-        ...applicant1Content.errors.applicant1IConfirmPrayer,
+        ...content.errors.applicant1IConfirmPrayer,
       },
       applicant2IBelieveApplicationIsTrue: {
-        ...applicant1Content.errors.applicant1IBelieveApplicationIsTrue,
+        ...content.errors.applicant1IBelieveApplicationIsTrue,
       },
     },
   };
 };
 
-const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
-  ...applicant1Form,
   fields: {
-    applicant2IConfirmPrayer: applicant1FormFields.applicant1IConfirmPrayer,
-    applicant2IBelieveApplicationIsTrue: applicant1FormFields.applicant1IBelieveApplicationIsTrue,
+    applicant2IConfirmPrayer: {
+      type: 'checkboxes',
+      label: l => l.confirm,
+      labelSize: 'm',
+      values: [
+        {
+          name: 'applicant2IConfirmPrayer',
+          label: l => l.confirmPrayer,
+          hint: l => l.confirmPrayerHint,
+          value: Checkbox.Checked,
+          validator: isFieldFilledIn,
+        },
+      ],
+    },
+    applicant2IBelieveApplicationIsTrue: {
+      type: 'checkboxes',
+      labelHidden: true,
+      values: [
+        {
+          name: 'applicant2IBelieveApplicationIsTrue',
+          label: l => l.confirmApplicationIsTrue,
+          hint: l => l.confirmApplicationIsTrueHint,
+          value: Checkbox.Checked,
+          validator: isFieldFilledIn,
+        },
+      ],
+    },
+  },
+  submit: {
+    text: l => l.continue,
   },
 };
 
