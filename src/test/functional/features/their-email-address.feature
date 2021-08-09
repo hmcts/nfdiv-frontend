@@ -44,7 +44,7 @@ Feature: Their email address
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  @nightly
+
   Scenario: They have not indicated their partners email address or chosen that that don't know it
     Given I clear the form
     When I click "Continue"

@@ -29,7 +29,7 @@ Feature: Changes to your name
     When I click "Continue"
     Then the page URL should be "/how-did-you-change-your-name"
 
-  @nightly
+
   Scenario: They have not indicated if their name has changed
     Given I clear the form
     And I click "Continue"

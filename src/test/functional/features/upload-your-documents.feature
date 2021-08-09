@@ -3,7 +3,6 @@ Feature: Upload your documents
   Background:
     Given I login
 
-  @nightly
   Scenario: They upload documents
     Given I go to "/upload-your-documents"
     And I delete any previously uploaded files
@@ -28,7 +27,6 @@ Feature: Upload your documents
     And I click "Continue"
     Then the page should include "Check your answers"
 
-  @nightly
   Scenario: They have not uploaded any documents and have not selected that they can't upload
     Given I go to "/upload-your-documents"
     And I clear the form

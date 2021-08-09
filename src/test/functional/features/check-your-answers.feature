@@ -51,7 +51,7 @@ Feature: Check Your Answers
     Given I go to '/check-your-answers?lng=cy'
     Then the page should include "Ydy, mae fy mhriodas wedi chwalu'n gyfan gwbl"
 
-  @nightly
+
   Scenario: Completed all required questions and not confirming
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'

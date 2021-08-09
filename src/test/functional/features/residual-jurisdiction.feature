@@ -5,7 +5,7 @@ Feature: Residual Jurisdiction
     When I go to '/are-you-eligible-for-residual-jurisdiction'
     Then the page should include "Residual jurisdiction"
 
-  @nightly
+
   Scenario: Error when not answering are you eligible for residual jurisdiction?
     Given I clear the form
     When I click "Continue"

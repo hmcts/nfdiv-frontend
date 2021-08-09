@@ -6,7 +6,7 @@ Feature: How do you want to apply
     When I go to "/how-do-you-want-to-apply"
     Then the page should include "How do you want to apply for the divorce?"
 
-  @nightly
+
   Scenario: They have not indicated how they want to apply
     Given I clear the form
     When I click "Continue"

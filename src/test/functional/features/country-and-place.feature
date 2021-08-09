@@ -8,7 +8,7 @@ Feature: Country and Place
     And I click "Continue"
     When the page should include "Is your original marriage certificate in English?"
 
-  @nightly
+
   Scenario: Not completing where the union happened
     Given I click "Yes"
     And I click "Continue"

@@ -5,7 +5,7 @@ Feature: Did union happen in the UK
     When I go to '/in-the-uk'
     Then the page should include "Did you get married in the UK?"
 
-  @nightly
+
   Scenario: Error when not answering where union happened
     Given I clear the form
     When I click "Continue"

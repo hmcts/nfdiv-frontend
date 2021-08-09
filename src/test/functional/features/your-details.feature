@@ -19,7 +19,7 @@ Feature: Your details step
     Then I expect the page title to be "Apply to end a civil partnership - Are you male or female? - GOV.UK"
     And the page should include "Are you male or female?"
 
-  @nightly
+
   Scenario: They have not selected who they are applying to dissolve the union from
     Given I clear the form
     When I select "We were a same-sex couple when we got married"

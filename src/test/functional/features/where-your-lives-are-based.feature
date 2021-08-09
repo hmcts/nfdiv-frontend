@@ -30,7 +30,7 @@ Feature: Where your lives are based
     When I click "Continue"
     Then the page URL should be "/your-domicile"
 
-  @nightly
+
   Scenario: They have not indicated where their lives are based
     Given I clear the form
     And I click "Continue"

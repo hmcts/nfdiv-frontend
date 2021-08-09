@@ -6,7 +6,7 @@ Feature: Applicant 2 Union broken down
     When I go to '/applicant2/irretrievable-breakdown'
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
-  @nightly
+
   Scenario: They have not indicated if their partnership has broken down
     Given I clear the form
     When I click "Continue"

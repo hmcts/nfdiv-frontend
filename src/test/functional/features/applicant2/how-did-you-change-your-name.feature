@@ -16,7 +16,7 @@ Feature: Applicant 2 how did you change your name
     When I click "Continue"
     Then the page should include "How the court will contact you"
 
-  @nightly
+
   Scenario: They did not indicate how their name was changed
     Given I select "Another way"
     When I click "Continue"
@@ -29,7 +29,7 @@ Feature: Applicant 2 how did you change your name
     When I click "Continue"
     Then the page should include "How the court will contact you"
 
-  @nightly
+
   Scenario: They have not indicated how they changed their name
     Given I clear the form
     And I click "Continue"

@@ -27,7 +27,7 @@ Feature: How did you change your name
     When I click "Continue"
     Then the page should include "How the court will contact you"
 
-  @nightly
+
   Scenario: They have not indicated how they changed their name
     Given I clear the form
     And I click "Continue"

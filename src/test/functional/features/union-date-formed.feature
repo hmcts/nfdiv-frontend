@@ -6,12 +6,12 @@ Feature: Date union formed
     Then the page should include "When did you get married?"
     And I clear the form
 
-  @nightly
+
   Scenario: They have not entered the date their union happened
     When I click "Continue"
     Then the page should include "You have not entered a date. Enter a date to continue."
 
-  @nightly
+
   Scenario: Error when entering non numeric value
     Given I select "Day"
     And I type "!"
@@ -22,7 +22,7 @@ Feature: Date union formed
     When I click "Continue"
     Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
 
-  @nightly
+
   Scenario: Error when entering future date value
     Given I enter a date 2 years ahead
     When I click "Continue"

@@ -15,7 +15,7 @@ Feature: Applicant 2 Your names
     And I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
 
-  @nightly
+
   Scenario: Error when entering a number in the your name field
     Given I clear the form
     When I select "Your first name"
@@ -25,7 +25,7 @@ Feature: Applicant 2 Your names
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
-  @nightly
+
   Scenario: Error when not entering my name name
     Given I clear the form
     When I click "Continue"

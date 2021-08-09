@@ -62,13 +62,13 @@ Feature: Their address
     When I go to "/enter-their-address"
     Then the form input "Country" should be "Their country"
 
-  @nightly
+
   Scenario: Not entering their partners postcode
     Given I reset the postcode lookup form
     When I click "Find address"
     Then the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
 
-  @nightly
+
   Scenario: Their partners postcode is invalid
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
@@ -76,7 +76,7 @@ Feature: Their address
     When I click "Find address"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
 
-  @nightly
+
   Scenario: They miss a field when entering their partners UK address
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
@@ -88,7 +88,7 @@ Feature: Their address
     And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
     And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
 
-  @nightly
+
   Scenario: They haven't completed their partners international address
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"

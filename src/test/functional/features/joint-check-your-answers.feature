@@ -23,7 +23,7 @@ Feature: Check Your Answers (Joint Application)
     When I go to '/check-your-answers'
     Then the page should include "Your answers will be sent to your husband to review. Once they have reviewed and provided some of their own information then the application will be ready to submit."
 
-  @nightly
+
   Scenario: Sending application to applicant 2 to confirm
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I go to '/check-your-answers'

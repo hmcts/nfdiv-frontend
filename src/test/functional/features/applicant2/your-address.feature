@@ -22,7 +22,7 @@ Feature: Applicant 2 Your address
     And the form input "County" should be "CITY OF WESTMINSTER"
     And the form input "Postcode" should be "SW1H 9AJ"
 
-  @nightly
+
   Scenario: Error when missing a required UK address field
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
