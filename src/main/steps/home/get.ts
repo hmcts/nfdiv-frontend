@@ -1,10 +1,12 @@
 import { Response } from 'express';
 
+import { State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form } from '../../app/form/Form';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CONFIRM_JOINT_APPLICATION,
   YOUR_DETAILS_URL,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../steps/urls';
@@ -30,6 +32,10 @@ export class HomeGetController {
       );
     }
 
-    res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+    if (req.session.userCase.state === State.Applicant2Approved) {
+      res.redirect(`${CONFIRM_JOINT_APPLICATION}`);
+    } else {
+      res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+    }
   }
 }

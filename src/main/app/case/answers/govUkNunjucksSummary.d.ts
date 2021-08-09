@@ -1,6 +1,6 @@
 export interface GovUkNunjucksSummary {
   key: {
-    text: string;
+    html: string;
     classes: string;
   };
   value: {

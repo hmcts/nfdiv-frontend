@@ -9,11 +9,13 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
+  CONFIRM_JOINT_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
+  HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
@@ -38,7 +40,12 @@ const sequences: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.applicant2ScreenHasUnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
+    getNextStep: data =>
+      data.applicant2ScreenHasUnionBroken === YesOrNo.NO
+        ? YOU_CANNOT_APPLY
+        : data.applicant1HelpPayingNeeded === YesOrNo.YES
+        ? HELP_WITH_YOUR_FEE_URL
+        : YOUR_NAME,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -53,12 +60,24 @@ const sequences: Step[] = [
     getNextStep: data => (data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : YOUR_NAME),
   },
   {
+    url: HELP_PAYING_HAVE_YOU_APPLIED,
+    showInSection: Sections.HelpWithFees,
+    getNextStep: data =>
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
+  },
+  {
+    url: HELP_PAYING_NEED_TO_APPLY,
+    getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
+  },
+  {
     url: YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: data =>
       data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
@@ -67,6 +86,7 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
@@ -95,6 +115,7 @@ const sequences: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
+    showInCompleteSection: Sections.DividingAssets,
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
@@ -126,6 +147,10 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
+    getNextStep: () => CONFIRM_JOINT_APPLICATION,
+  },
+  {
+    url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
