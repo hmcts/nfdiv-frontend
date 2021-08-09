@@ -86,12 +86,15 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
-    // [urls.HELP_WITH_YOUR_FEE_URL]: {
-    //   applicant1HelpPayingNeeded:
-    //   formState?.applicant1HelpPayingNeeded === YesOrNo.YES && formState.applicant2HelpPayingNeeded === YesOrNo.YES ? 'Yes'
-    //   : formState?.applicant1HelpPayingNeeded === YesOrNo.YES || formState?.applicant2HelpPayingNeeded === YesOrNo.YES ? 'No'
-    //   : `No, because both applicants	did not apply`,
-    // },
+    [urls.HELP_WITH_YOUR_FEE_URL]: {
+      applicant1HelpPayingNeeded:
+        formState?.applicant1HelpPayingNeeded === YesOrNo.YES && formState.applicant2HelpPayingNeeded === YesOrNo.YES
+          ? 'Yes'
+          : formState?.applicant1HelpPayingNeeded === YesOrNo.YES ||
+            formState?.applicant2HelpPayingNeeded === YesOrNo.YES
+          ? 'No'
+          : 'No, because both applicants	did not apply',
+    },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
         formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
