@@ -1,13 +1,36 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, ChangedNameHow, YesOrNo } from '../../../app/case/definition';
+import { ApplicationType, ChangedNameHow, JurisdictionConnections, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { Sections } from '../../applicant1Sequence';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
+
+export const connectionBulletPointsText: (connections, partner) => string = (connections, partner) => {
+  const line1 = 'Your answers indicate that you can apply in England and Wales because:';
+  let bulletPointText = '<ul>';
+
+  const connectionBulletPoints = {
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
+    [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
+      'you’re domiciled and habitually resident and have lived here for at least 6 months',
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]:
+      'the courts of England and Wales have jurisdiction on a residual basis',
+    [JurisdictionConnections.APP_1_DOMICILED]: 'you are domiciled in England or Wales',
+    [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
+  };
+
+  for (const index in connections) {
+    bulletPointText += '<li>' + connectionBulletPoints[connections[index]] + '</li>';
+  }
+
+  return line1 + bulletPointText + '</ul>';
+};
 
 const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent) => ({
   titleSoFar: 'Check your answers so far',
@@ -51,7 +74,9 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
     },
-    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: stepContent => stepContent.line1 },
+    [urls.JURISDICTION_INTERSTITIAL_URL]: {
+      connections: formState?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
+    },
     [urls.ENTER_YOUR_ADDRESS]: {
       applicant1Address1: false,
       applicant1Address2: false,
@@ -102,6 +127,14 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
   stepLinks: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
     [urls.APPLY_FINANCIAL_ORDER]: urls.MONEY_PROPERTY,
+  },
+  stepAnswersWithHTML: {
+    [urls.JURISDICTION_INTERSTITIAL_URL]: {
+      connections:
+        formState?.connections && formState?.connections?.length > 1
+          ? connectionBulletPointsText(formState?.connections, partner)
+          : '',
+    },
   },
   continueApplication: 'Continue application',
   confirm: `Confirm before ${formState?.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
