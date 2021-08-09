@@ -98,7 +98,7 @@ export const applicant1Sequence: Step[] = [
     showInSection: Sections.AboutPartnership,
     showInCompleteSection: Sections.AboutPartnership,
     getNextStep: data =>
-      data.screenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
+      data.applicant1ScreenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
   {
     url: RELATIONSHIP_NOT_BROKEN_URL,
