@@ -14,6 +14,7 @@ import {
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
+  HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
@@ -38,7 +39,12 @@ const sequences: Step[] = [
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.applicant2ScreenHasUnionBroken === YesOrNo.NO ? YOU_CANNOT_APPLY : YOUR_NAME),
+    getNextStep: data =>
+      data.applicant2ScreenHasUnionBroken === YesOrNo.NO
+        ? YOU_CANNOT_APPLY
+        : data.applicant1HelpPayingNeeded === YesOrNo.YES
+        ? HELP_WITH_YOUR_FEE_URL
+        : YOUR_NAME,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -51,6 +57,16 @@ const sequences: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     getNextStep: data => (data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : YOUR_NAME),
+  },
+  {
+    url: HELP_PAYING_HAVE_YOU_APPLIED,
+    showInSection: Sections.HelpWithFees,
+    getNextStep: data =>
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
+  },
+  {
+    url: HELP_PAYING_NEED_TO_APPLY,
+    getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
   },
   {
     url: YOUR_NAME,
