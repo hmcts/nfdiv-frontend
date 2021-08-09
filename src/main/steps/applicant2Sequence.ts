@@ -9,6 +9,7 @@ import {
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
+  CONFIRM_JOINT_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
@@ -70,11 +71,13 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: data =>
       data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
@@ -83,6 +86,7 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
@@ -111,6 +115,7 @@ const sequences: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
+    showInCompleteSection: Sections.DividingAssets,
     showInSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
@@ -142,6 +147,10 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
+    getNextStep: () => CONFIRM_JOINT_APPLICATION,
+  },
+  {
+    url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
   {
