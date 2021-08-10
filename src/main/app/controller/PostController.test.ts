@@ -42,7 +42,6 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual({
       id: '1234',
       divorceOrDissolution: 'divorce',
-      ...defaultCaseProps,
       gender: 'female',
     });
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
@@ -121,7 +120,6 @@ describe('PostController', () => {
 
     expect(req.session.userCase).toEqual({
       id: '1234',
-      ...defaultCaseProps,
       divorceOrDissolution: 'divorce',
       gender: 'female',
     });
