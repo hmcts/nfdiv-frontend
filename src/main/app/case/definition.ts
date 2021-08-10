@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-04 10:22:06.
+// Generated using typescript-generator version 2.32.889 on 2021-08-10 09:47:50.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -159,9 +159,12 @@ export interface Application {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -197,6 +200,7 @@ export interface Application {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  overdueNotificationSent: YesOrNo;
 }
 
 export interface CaseData {
@@ -290,9 +294,12 @@ export interface CaseData {
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
   jurisdictionLegalConnections: LegalConnections[];
-  helpWithFeesReferenceNumber: string;
-  helpWithFeesNeedHelp: YesOrNo;
-  helpWithFeesAppliedForFees: YesOrNo;
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -328,6 +335,7 @@ export interface CaseData {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  overdueNotificationSent: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -640,9 +648,8 @@ export const enum DivorceOrDissolution {
 }
 
 export const enum FinancialOrderFor {
+  ME = 'me',
   CHILDREN = 'children',
-  APPLICANT_1 = 'applicant1',
-  APPLICANT_2 = 'applicant2',
 }
 
 export const enum Gender {
@@ -949,9 +956,9 @@ export const enum PaymentStatus {
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
@@ -959,4 +966,5 @@ export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
