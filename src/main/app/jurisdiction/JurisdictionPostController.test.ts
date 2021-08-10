@@ -1,6 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../case/case';
 import { CITIZEN_UPDATE, JurisdictionConnections, YesOrNo } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -20,8 +19,6 @@ describe('JurisdictionPostController', () => {
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
     };
     const bodyWithConnection = {
-      applicant1IConfirmPrayer: Checkbox.Unchecked,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
