@@ -1,7 +1,13 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { DivorceOrDissolution, YesOrNo } from '../../app/case/definition';
-import { APPLICANT_2, CHECK_ANSWERS_URL, YOUR_DETAILS_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../urls';
+import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
+import {
+  APPLICANT_2,
+  CHECK_ANSWERS_URL,
+  CONFIRM_JOINT_APPLICATION,
+  YOUR_DETAILS_URL,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+} from '../urls';
 
 import { HomeGetController } from './get';
 
@@ -81,5 +87,21 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
+  });
+
+  test('redirects to confirmation page for applicant 1 users in applicant2Approved state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Applicant2Approved,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${CONFIRM_JOINT_APPLICATION}`);
   });
 });

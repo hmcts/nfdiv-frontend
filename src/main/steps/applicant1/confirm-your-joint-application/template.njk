@@ -3,11 +3,12 @@
 
 {% extends "common/page.njk" %}
 
-{% set overrideStepsContent = 1 %}
-{% set showActions = false %}
-{% set isCompleteCase = false %}
+{% block backLink %}
+  <a href="#" class="govuk-back-link">{{ back }}</a>
+{% endblock %}
 
-{% block backLink %}{% endblock %}
+{% set isCompleteCase = true %}
+{% set showActions = false %}
 
 {% block content %}
   {% block error_summary %}
@@ -15,10 +16,10 @@
   {% endblock %}
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <p class="govuk-body">{{ line1 }}</p>
+  <h3 class="govuk-body-l">{{ subHeader }}</h3>
 
   {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, isCompleteCase, showActions, overrideStepsContent) %}
+    {% set rows = getAnswerRows(section, isCompleteCase, showActions) %}
     {% if rows | length %}
       <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
 
@@ -28,12 +29,13 @@
       }) }}
     {% endif %}
   {% endfor %}
+
   {% block form %}
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          {% include "common/form/form.njk"%}
-        </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% include "../check-your-answers/form.njk" %}
       </div>
+    </div>
   {% endblock %}
 
   {% include "common/contact-us.njk" %}

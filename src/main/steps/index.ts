@@ -105,7 +105,6 @@ const getStepsWithContent = (applicant: number): StepWithContent => {
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
-
   return results;
 };
 

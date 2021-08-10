@@ -1,6 +1,7 @@
 import { StepWithContent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
+import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
 
 import { getAnswerRows } from './getAnswerRows';
@@ -88,6 +89,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'dont-pickThisOne',
           showInSection: Sections.AboutPartners,
+          showInCompleteSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -97,6 +99,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'pickThisOne',
           showInSection: Sections.AboutPartnership,
+          showInCompleteSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -108,6 +111,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'dont-pickThisOne-applicant2',
           showInSection: Sections.AboutPartners,
+          showInCompleteSection: Sections.AboutPartners,
           getNextStep: () => '/pickThisOne',
           generateContent: () => ({}),
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -117,6 +121,7 @@ describe('getAnswerRows()', () => {
           stepDir: '/',
           url: 'pickThisOne-applicant2',
           showInSection: Sections.AboutPartnership,
+          showInCompleteSection: Sections.AboutPartnership,
           getNextStep: () => '/',
           generateContent: mockGenerateContent,
           form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
@@ -126,7 +131,18 @@ describe('getAnswerRows()', () => {
 
       mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
-      mockFormState = { mockField: 'example response' };
+      mockFormState = {
+        mockField: 'example response',
+        applyForFinancialOrder: 'YES',
+        whoIsFinancialOrderFor: ['applicant1', 'children'],
+        applicant2WhoIsFinancialOrderFor: ['applicant2', 'children'],
+        applicant1FullNameOnCertificate: 'Sarah Smith',
+        applicant2FullNameOnCertificate: 'Billy Bob',
+        applicant1LegalProceedings: 'YES',
+        applicant1LegalProceedingsRelated: ['marriage', 'property'],
+        applicant2LegalProceedings: 'YES',
+        applicant2LegalProceedingsRelated: ['marriage', 'children'],
+      };
       mockCtx = {
         language: 'en',
         isDivorce: true,
@@ -159,7 +175,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -187,7 +203,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -238,7 +254,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
@@ -271,7 +287,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))',
@@ -304,7 +320,7 @@ describe('getAnswerRows()', () => {
       expect(actual).toEqual([
         {
           actions: { items: [{ href: 'pickThisOne', text: 'Change', visuallyHiddenText: 'Mock question title' }] },
-          key: { classes: 'govuk-!-width-two-thirds', text: 'Mock question title' },
+          key: { classes: 'govuk-!-width-two-thirds', html: 'Mock question title' },
           value: { html: '' },
         },
       ]);
@@ -357,7 +373,7 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock Checkboxes',
+            html: 'Mock Checkboxes',
           },
           value: {
             html: 'newlineToBr(escaped(Mock checkbox title 1\nAnother checkbox title 2))',
@@ -378,13 +394,13 @@ describe('getAnswerRows()', () => {
           },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership, true, 1);
+      })(Sections.AboutPartnership, false, true, 1);
 
       expect(actual).toEqual([
         {
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
@@ -414,13 +430,13 @@ describe('getAnswerRows()', () => {
           },
           stepLinks: { pickThisOne: '/custom-link' },
         },
-      })(Sections.AboutPartnership, false, 1);
+      })(Sections.AboutPartnership, false, false, 1);
 
       expect(actual).toEqual([
         {
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Custom question text',
+            html: 'Custom question text',
           },
           value: {
             html: 'newlineToBr(escaped(Custom answer text. Original answer: example response))<div>test</div>',
@@ -433,7 +449,7 @@ describe('getAnswerRows()', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: mockCtx,
-      })(Sections.AboutPartnership, true, 2);
+      })(Sections.AboutPartnership, false, true, 2);
 
       expect(actual).toEqual([
         {
@@ -448,10 +464,341 @@ describe('getAnswerRows()', () => {
           },
           key: {
             classes: 'govuk-!-width-two-thirds',
-            text: 'Mock question title',
+            html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page', () => {
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutPartnership, true, false);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(example response))',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional dividingAssets questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: APPLY_FINANCIAL_ORDER,
+          showInCompleteSection: Sections.DividingAssets,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              applyForFinancialOrder: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      whoIsFinancialOrderFor: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'whoIsFinancialOrderFor', label: () => 'applicant1', value: 'applicant1' },
+                          { name: 'whoIsFinancialOrderFor', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      mockStepsWithContentApplicant2.mockReturnValue([
+        {
+          stepDir: '/',
+          url: APPLICANT_2 + APPLY_FINANCIAL_ORDER,
+          showInCompleteSection: Sections.DividingAssets,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              applyForFinancialOrder: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      applicant2WhoIsFinancialOrderFor: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'applicant2', value: 'applicant2' },
+                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.DividingAssets, true, false);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Who is the financial order for? 	',
+          },
+          value: {
+            html: 'Me / The children',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Who is the financial order for? 	',
+          },
+          value: {
+            html: 'Me / The children',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional aboutApplicant1 questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: '/enter-your-name',
+          showInCompleteSection: Sections.AboutApplicant1,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: { applicant1FullNameOnCertificate: { type: 'text', label: l => l.title } },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutApplicant1, true, false);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Sarah Smith))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Full name on the marriage certificate',
+          },
+          value: {
+            html: 'Sarah Smith',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional aboutApplicant2 questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: APPLICANT_2 + YOUR_NAME,
+          showInCompleteSection: Sections.AboutApplicant2,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: { applicant2FullNameOnCertificate: { type: 'text', label: l => l.title } },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.AboutApplicant2, true, false);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Billy Bob))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Full name on the marriage certificate',
+          },
+          value: {
+            html: 'Billy Bob',
+          },
+        },
+      ]);
+    });
+
+    it('converts steps into the correct check answers rows for confirm joint application page with additional otherCourtCases questions', () => {
+      mockStepsWithContentApplicant1.mockReturnValue([
+        {
+          stepDir: '/',
+          url: OTHER_COURT_CASES,
+          showInCompleteSection: Sections.OtherCourtCases,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              applicant1LegalProceedings: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      applicant1LegalProceedingsRelated: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'applicant1LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
+                          { name: 'applicant1LegalProceedingsRelated', label: () => 'property', value: 'property' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      mockStepsWithContentApplicant2.mockReturnValue([
+        {
+          stepDir: '/',
+          url: APPLICANT_2 + OTHER_COURT_CASES,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: {
+            fields: {
+              applicant2LegalProceedings: {
+                type: 'radios',
+                label: l => l.title,
+                values: [
+                  {
+                    label: l => l.yes,
+                    value: 'YES',
+                    subFields: {
+                      applicant2LegalProceedingsRelated: {
+                        type: 'checkboxes',
+                        label: () => 'Mock Checkboxes',
+                        values: [
+                          { name: 'applicant2LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
+                          { name: 'applicant2LegalProceedingsRelated', label: () => 'children', value: 'children' },
+                        ],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            submit: { text: '' },
+          },
+          view: '/template',
+        },
+      ]);
+
+      const actual = getAnswerRows.bind({
+        ...mockNunjucksEnv,
+        ctx: { ...mockCtx, isApplicant2: true },
+      })(Sections.OtherCourtCases, true, false);
+
+      expect(actual).toEqual([
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'Mock question title',
+          },
+          value: {
+            html: 'newlineToBr(escaped(Yes))',
+          },
+        },
+        {
+          key: {
+            classes: 'govuk-!-width-two-thirds',
+            html: 'What do the legal proceedings relate to?',
+          },
+          value: {
+            html: 'Marriage / Property / Children',
           },
         },
       ]);

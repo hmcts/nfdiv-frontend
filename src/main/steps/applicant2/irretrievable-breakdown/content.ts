@@ -19,7 +19,7 @@ const labels = ({ required }: CommonContent) => {
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    applicant2ScreenHasUnionBroken: (applicant1Form.fields as FormFields).screenHasUnionBroken,
+    applicant2ScreenHasUnionBroken: (applicant1Form.fields as FormFields).applicant1ScreenHasUnionBroken,
   },
 };
 

@@ -29,7 +29,7 @@ describe('Steps', () => {
 
     it('moves into a dead end when the response matches', () => {
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      const data = { screenHasUnionBroken: YesOrNo.NO };
+      const data = { applicant1ScreenHasUnionBroken: YesOrNo.NO };
       const actual = getNextStepUrl(mockReq, data);
       expect(actual).toBe(RELATIONSHIP_NOT_BROKEN_URL);
     });
@@ -60,7 +60,7 @@ describe('Steps', () => {
     it('returns the previous step if its a dead end', () => {
       mockReq.session.userCase.gender = Gender.MALE;
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
-      mockReq.session.userCase.screenHasUnionBroken = YesOrNo.NO;
+      mockReq.session.userCase.applicant1ScreenHasUnionBroken = YesOrNo.NO;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(HAS_RELATIONSHIP_BROKEN_URL);
     });

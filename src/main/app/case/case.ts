@@ -23,12 +23,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
-  screenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
+  applicant1ScreenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
-  applicant1HelpPayingNeeded: 'helpWithFeesNeedHelp',
-  applicant1AlreadyAppliedForHelpPaying: 'helpWithFeesAppliedForFees',
-  applicant1HelpWithFeesRefNo: 'helpWithFeesReferenceNumber',
+  applicant1HelpPayingNeeded: 'applicant1HWFNeedHelp',
+  applicant1AlreadyAppliedForHelpPaying: 'applicant1HWFAppliedForFees',
+  applicant1HelpWithFeesRefNo: 'applicant1HWFReferenceNumber',
+  applicant2HelpPayingNeeded: 'applicant2HWFNeedHelp',
+  applicant2AlreadyAppliedForHelpPaying: 'applicant2HWFAppliedForFees',
+  applicant2HelpWithFeesRefNo: 'applicant2HWFReferenceNumber',
   inTheUk: 'marriageMarriedInUk',
   certificateInEnglish: 'marriageCertificateInEnglish',
   certifiedTranslation: 'marriageCertifiedTranslation',
@@ -108,13 +111,16 @@ export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
   gender?: Gender;
   sameSex?: Checkbox;
-  screenHasUnionBroken?: YesOrNo;
+  applicant1ScreenHasUnionBroken?: YesOrNo;
   applicant2ScreenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
   applicant1HelpPayingNeeded?: YesOrNo;
   applicant1AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant1HelpWithFeesRefNo?: string;
+  applicant2HelpPayingNeeded?: YesOrNo;
+  applicant2AlreadyAppliedForHelpPaying?: YesOrNo;
+  applicant2HelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
