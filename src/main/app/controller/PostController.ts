@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
-import { Case, CaseWithId, Checkbox } from '../case/case';
+import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -75,12 +75,7 @@ export class PostController<T extends AnyObject> {
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
     const dataToSave = {
-      // reset the prayer on all events by default
-      applicant1IConfirmPrayer: Checkbox.Unchecked,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
-      // unset any answers that are no longer reachable
       ...unreachableAnswersAsNull,
-      // apply the the data that was actually submitted
       ...formData,
     };
 
