@@ -1,7 +1,7 @@
 Feature: Pay your fee
 
   Background:
-    Given I login
+    Given I create a new user and login
 
 
   Scenario: Continuing to payment
