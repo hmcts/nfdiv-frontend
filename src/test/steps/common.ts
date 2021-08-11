@@ -65,7 +65,7 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 25);
+  I.waitForText(text, 60);
 });
 
 Then('the page should not include {string}', (text: string) => {
