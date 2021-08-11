@@ -162,11 +162,11 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
   errors: isJointApplication
     ? undefined
     : {
-        iConfirmPrayer: {
+        applicant1IConfirmPrayer: {
           required:
             'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
         },
-        iBelieveApplicationIsTrue: {
+        applicant1IBelieveApplicationIsTrue: {
           required:
             'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
         },
