@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-04 10:26:11.
+// Generated using typescript-generator version 2.32.889 on 2021-08-11 12:29:35.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -200,6 +200,7 @@ export interface Application {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  overdueNotificationSent: YesOrNo;
 }
 
 export interface CaseData {
@@ -334,6 +335,7 @@ export interface CaseData {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  overdueNotificationSent: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -646,9 +648,8 @@ export const enum DivorceOrDissolution {
 }
 
 export const enum FinancialOrderFor {
+  APPLICANT = 'applicant',
   CHILDREN = 'children',
-  APPLICANT_1 = 'applicant1',
-  APPLICANT_2 = 'applicant2',
 }
 
 export const enum Gender {
@@ -959,6 +960,7 @@ export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
