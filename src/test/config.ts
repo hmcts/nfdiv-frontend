@@ -1,4 +1,10 @@
 import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
+import { PropertiesVolume } from '../main/modules/properties-volume';
+import { Application } from 'express';
+
+if (!process.env.TEST_PASSWORD) {
+  new PropertiesVolume().enableFor({ locals: { developmentMode: true } } as unknown as Application);
+}
 
 import sysConfig from 'config';
 import dayjs from 'dayjs';

@@ -22,7 +22,7 @@ describe('CheckYourJointApplicationPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { applicant2Confirmation: YesOrNo.NO, applicant1IBelieveApplicationIsTrue: '', applicant1IConfirmPrayer: '' },
+      { applicant2Confirmation: YesOrNo.NO },
       CITIZEN_APPLICANT_2_REQUEST_CHANGES
     );
   });
@@ -43,7 +43,7 @@ describe('CheckYourJointApplicationPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { applicant2Confirmation: YesOrNo.YES, applicant1IBelieveApplicationIsTrue: '', applicant1IConfirmPrayer: '' },
+      { applicant2Confirmation: YesOrNo.YES },
       CITIZEN_APPLICANT2_UPDATE
     );
   });

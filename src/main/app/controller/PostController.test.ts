@@ -15,11 +15,6 @@ const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 
 describe('PostController', () => {
-  const defaultCaseProps = {
-    applicant1IConfirmPrayer: Checkbox.Unchecked,
-    applicant1IBelieveApplicationIsTrue: Checkbox.Unchecked,
-  };
-
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
@@ -42,7 +37,6 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual({
       id: '1234',
       divorceOrDissolution: 'divorce',
-      ...defaultCaseProps,
       gender: 'female',
     });
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
@@ -78,7 +72,7 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...defaultCaseProps, ...body }, CITIZEN_UPDATE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...body }, CITIZEN_UPDATE);
 
     expect(getNextStepUrlMock).toBeCalledWith(req, expectedUserCase);
     expect(res.redirect).toBeCalledWith('/next-step-url');
@@ -121,15 +115,10 @@ describe('PostController', () => {
 
     expect(req.session.userCase).toEqual({
       id: '1234',
-      ...defaultCaseProps,
       divorceOrDissolution: 'divorce',
       gender: 'female',
     });
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_UPDATE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_UPDATE);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith('/request');
@@ -167,7 +156,6 @@ describe('PostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
-        ...defaultCaseProps,
         inTheUk: YesOrNo.YES,
         exampleExistingField: null,
       },
@@ -240,7 +228,6 @@ describe('PostController', () => {
 
     const expectedUserCase = {
       divorceOrDissolution: 'divorce',
-      ...defaultCaseProps,
       date: { day: '1', month: '1', year: '2000' },
       id: '1234',
     };
@@ -253,7 +240,7 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...defaultCaseProps, date: { day: '1', month: '1', year: '2000' } },
+      { date: { day: '1', month: '1', year: '2000' } },
       CITIZEN_UPDATE
     );
 
@@ -275,11 +262,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_UPDATE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_UPDATE);
 
     expect(res.end).toBeCalled();
   });
@@ -298,11 +281,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_SAVE_AND_CLOSE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
@@ -322,11 +301,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_SAVE_AND_CLOSE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
@@ -346,11 +321,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { ...defaultCaseProps, gender: 'female' },
-      CITIZEN_APPLICANT2_UPDATE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_APPLICANT2_UPDATE);
 
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
