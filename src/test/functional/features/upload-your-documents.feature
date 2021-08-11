@@ -9,7 +9,7 @@ Feature: Upload your documents
     And I delete any previously uploaded files
     And the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains "larry-the-cat.jpg"
+    Then I wait until the page contains image "larry-the-cat.jpg"
     And I click "Delete"
     And I wait until the page doesn't contain "larry-the-cat.jpg"
 
