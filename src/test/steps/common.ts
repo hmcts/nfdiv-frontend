@@ -65,6 +65,10 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
+  I.waitForText(text, 25);
+});
+
+Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 60);
 });
 
