@@ -3,6 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
 import {
   APPLICANT_2,
+  APPLICATION_ENDED,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
   YOUR_DETAILS_URL,
@@ -89,6 +90,23 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
   });
 
+  test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ScreenHasUnionBroken: YesOrNo.NO,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingApplicant2Response,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(APPLICATION_ENDED);
+  });
+
   test('redirects to confirmation page for applicant 1 users in applicant2Approved state', () => {
     const req = mockRequest({
       session: {
@@ -102,6 +120,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${CONFIRM_JOINT_APPLICATION}`);
+    expect(res.redirect).toBeCalledWith(CONFIRM_JOINT_APPLICATION);
   });
 });
