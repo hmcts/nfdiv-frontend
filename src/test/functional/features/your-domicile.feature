@@ -47,7 +47,7 @@ Feature: Your domicile
     When I click "Continue"
     Then the page URL should be "/habitually-resident-england-wales"
 
-
+  @nightly
   Scenario: They do not indicate if their domicile is in England/Wales
     Given I clear the form
     And I click "Continue"

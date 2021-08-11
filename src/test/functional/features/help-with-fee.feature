@@ -5,7 +5,7 @@ Feature: Help with fee
     When I go to '/help-with-your-fee'
     Then the page should include "Do you need help paying the fee for your divorce?"
 
-
+  @nightly
   Scenario: They have not indicated if they need help paying for the fees
     Given I clear the form
     When I click "Continue"
@@ -19,7 +19,7 @@ Feature: Help with fee
     And I click "Continue"
     Then the page should include "You need to apply for help with your divorce fees"
 
-
+  @nightly
   Scenario: Error when missing required reference number
     Given I go to '/have-you-applied-for-help-with-fees'
     And I clear the form

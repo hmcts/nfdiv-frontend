@@ -36,7 +36,7 @@ Feature: Your and their names
     And I click "Continue"
     Then the page should include "Your names on your marriage certificate"
 
-
+  @nightly
   Scenario: Error when entering a number in the your name field
     Given I go to "/enter-your-name"
     Given I clear the form
@@ -47,7 +47,7 @@ Feature: Your and their names
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
-
+  @nightly
   Scenario: Error when not entering their name
     Given I go to "/enter-your-name"
     Given I clear the form

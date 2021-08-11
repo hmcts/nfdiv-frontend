@@ -10,7 +10,7 @@ Feature: Certificate step
     When I click "Continue"
     Then the page should include "How do you want to apply for the divorce?"
 
-
+  @nightly
   Scenario: They have not indicated if they have the certificate
     Given I clear the form
     When I click "Continue"

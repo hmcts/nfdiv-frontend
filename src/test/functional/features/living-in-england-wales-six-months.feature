@@ -15,7 +15,7 @@ Feature: Living in England or Wales for the last 6 months
     Then the page URL should be "/living-england-wales-six-months"
     And the page should include "Have you been living in England or Wales for the last 6 months?"
 
-
+  @nightly
   Scenario: Error when not answering Have you been living in England or Wales for the last 6 months?
     Given I clear the form
     When I click "Continue"

@@ -23,7 +23,7 @@ Feature: Other court cases
     When I click "Continue"
     Then the page URL should be "/details-other-proceedings"
 
-
+  @nightly
   Scenario: They don't indicate if they have any other court cases
     Given I clear the form
     When I select "Yes"

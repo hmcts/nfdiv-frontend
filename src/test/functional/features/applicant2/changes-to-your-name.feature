@@ -30,7 +30,7 @@ Feature: Applicant 2 changes to your name
     When I click "Continue"
     Then the page URL should be "/applicant2/how-did-you-change-your-name"
 
-
+  @nightly
   Scenario: They have not indicated if their name has changed
     Given I clear the form
     And I click "Continue"

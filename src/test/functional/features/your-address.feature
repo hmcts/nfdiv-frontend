@@ -6,7 +6,7 @@ Feature: Your address
     When I go to "/enter-your-address"
     Then the page should include "Enter your postal address"
 
-
+  @nightly
   Scenario: Successfully searching for a UK postcode
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
@@ -64,13 +64,13 @@ Feature: Your address
     When I go to "/enter-your-address"
     Then the form input "Country" should be "Example country"
 
-
+  @nightly
   Scenario: Error when missing the postcode
     Given I reset the postcode lookup form
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
-
+  @nightly
   Scenario: Error when postcode is invalid
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
@@ -78,7 +78,7 @@ Feature: Your address
     When I click "Find address"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
 
-
+  @nightly
   Scenario: Error when missing a required UK address field
     Given I reset the postcode lookup form
     And I select "Enter a UK postcode"
@@ -90,7 +90,7 @@ Feature: Your address
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
     And the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
-
+  @nightly
   Scenario: Error when missing a required international address field
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"

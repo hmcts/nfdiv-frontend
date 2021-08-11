@@ -19,7 +19,7 @@ Feature: Do you have address
     When I click "Continue"
     Then the page URL should be "/need-to-get-address"
 
-
+  @nightly
   Scenario: They have not indicated if they have their partners postal address
     Given I clear the form
     And I click "Continue"

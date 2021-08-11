@@ -13,14 +13,14 @@ Feature: Applicant 2 How the court will contact you
     When I click "Continue"
     Then the page should include "What language do you want to receive emails and documents in?"
 
-
+  @nightly
   Scenario: They don't agree notifications can be sent via email
     Given I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-
+  @nightly
   Scenario: They enter an invalid phone number
     Given I clear the form
     And I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."

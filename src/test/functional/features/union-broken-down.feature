@@ -5,7 +5,7 @@ Feature: Union broken down
     When I go to '/irretrievable-breakdown'
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
-
+  @nightly
   Scenario: They have not indicated if their partnership has broken down
     Given I clear the form
     When I click "Continue"
