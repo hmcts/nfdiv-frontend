@@ -3,7 +3,7 @@ Feature: Upload your documents
   Background:
     Given I login
 
-  @nightly
+  @flaky
   Scenario: They upload documents
     Given I go to "/upload-your-documents"
     And I delete any previously uploaded files
