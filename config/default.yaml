@@ -16,7 +16,7 @@ services:
     systemPassword: 'dummy_password'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-  #    url: 'http://ccd-data-store-api-nfdiv-case-api-pr-557.service.core-compute-preview.internal'
+  #    url: 'http://ccd-data-store-api-nfdiv-case-api-pr-558.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
