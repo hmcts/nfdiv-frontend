@@ -24,8 +24,6 @@ describe('Applicant2IrretrievableBreakdownPostController', () => {
       '1234',
       {
         applicant2ScreenHasUnionBroken: YesOrNo.NO,
-        applicant1IBelieveApplicationIsTrue: '',
-        applicant1IConfirmPrayer: '',
       },
       APPLICANT_2_NOT_BROKEN
     );
@@ -49,8 +47,6 @@ describe('Applicant2IrretrievableBreakdownPostController', () => {
       '1234',
       {
         applicant2ScreenHasUnionBroken: YesOrNo.YES,
-        applicant1IBelieveApplicationIsTrue: '',
-        applicant1IConfirmPrayer: '',
       },
       CITIZEN_APPLICANT2_UPDATE
     );
