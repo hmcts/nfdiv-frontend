@@ -1455,7 +1455,7 @@
     "@opentelemetry/core" "0.23.0"
     "@opentelemetry/semantic-conventions" "0.23.0"
 
-"@opentelemetry/semantic-conventions@0.23.0":
+"@opentelemetry/semantic-conventions@0.23.0", "@opentelemetry/semantic-conventions@^0.23.0":
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-0.23.0.tgz#ec1467fd71f6551628b60cd2107acc923b9b77cc"
   integrity sha512-Tzo+VGR1zlzLbjVI+7mlDJ2xuaUsue4scWvFlK+fzcUfn9siF4NWbxoC2X6Br2B/g4dsq1OAwAYsPVYIEoY2rQ==
@@ -2608,18 +2608,19 @@ append-field@^1.0.0:
   resolved "https://registry.yarnpkg.com/append-field/-/append-field-1.0.0.tgz#1e3440e915f0b1203d23748e78edd7b9b5b43e56"
   integrity sha1-HjRA6RXwsSA9I3SOeO3XubW0PlY=
 
-applicationinsights@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.1.4.tgz#bb124c67f162d2935b24d9960aede916ba8e352a"
-  integrity sha512-5cMAyW7jwHvdrKk4KU9VD6GR4o5D458KbdmAKKRp9SP9UNuY4pQHJoX60EmE14IlCXbIJd9CWUPhF4xQpCcwoQ==
+applicationinsights@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.1.5.tgz#06b589b882ae0f5c4d9bb413ad73615ea5260b26"
+  integrity sha512-GSvr8Rk7kc1bvSGFYP1E5KherWfeVs/JPXmM4c5prfZ4ix2XaM0weADfXzuDcSN7GgGlOrSWwtl3T0cOBbTwOw==
   dependencies:
     "@azure/core-http" "^2.0.0"
     "@opentelemetry/api" "^1.0.0"
+    "@opentelemetry/semantic-conventions" "^0.23.0"
     "@opentelemetry/tracing" "^0.23.0"
     cls-hooked "^4.2.2"
     continuation-local-storage "^3.2.1"
     diagnostic-channel "1.0.0"
-    diagnostic-channel-publishers "1.0.1"
+    diagnostic-channel-publishers "1.0.2"
 
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
@@ -4494,10 +4495,10 @@ devtools@7.9.1:
     ua-parser-js "^0.7.21"
     uuid "^8.0.0"
 
-diagnostic-channel-publishers@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-1.0.1.tgz#8209b38f327bec6a0a1716e8ff892c0c9e1cbb96"
-  integrity sha512-9D6XicU15MLXVtYEaBc3q1Di/4ciUFMULApfBc8/RUUwBk7g16t7/aFKZF4Kt4B3aFBtCbsTYJRAMKCSFaYWDA==
+diagnostic-channel-publishers@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-1.0.2.tgz#474cc391422dbcc085cbc200f3bcf4a11afd3b85"
+  integrity sha512-pehVi/egaf7PIZQeetZuAd7VFpIOicv1uGh5AjM6YQRgOtckwKTONcOtdW9HFymSmjfiGg9kcRlHTD3dbwq0ww==
 
 diagnostic-channel@1.0.0:
   version "1.0.0"
