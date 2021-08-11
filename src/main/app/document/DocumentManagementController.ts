@@ -54,16 +54,12 @@ export class DocumentManagerController {
       },
     }));
 
-    const documentsUploaded = isApplicant2
-      ? req.session.userCase.applicant2DocumentsUploaded
-      : req.session.userCase.applicant1DocumentsUploaded;
-    const updatedDocumentsUploaded = [...(documentsUploaded || []), ...newUploads];
+    const documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
+    const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      isApplicant2
-        ? { applicant2DocumentsUploaded: updatedDocumentsUploaded }
-        : { applicant1DocumentsUploaded: updatedDocumentsUploaded },
+      { [documentsKey]: updatedDocumentsUploaded },
       isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
