@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
+import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights';
@@ -47,6 +48,7 @@ new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
 new SessionStorage().enableFor(app);
+new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
 new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
@@ -55,9 +57,14 @@ new OidcMiddleware().enableFor(app);
 new StateRedirectMiddleware().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
-new TooBusy().enableFor(app);
 
 const port = config.get('port');
-app.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`Application started: http://localhost:${port}`);
+});
+
+process.on('SIGINT', function () {
+  server.close();
+  toobusy.shutdown();
+  process.exit();
 });
