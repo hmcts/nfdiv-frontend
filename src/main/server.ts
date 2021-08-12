@@ -20,6 +20,7 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { StateRedirectMiddleware } from './modules/state-redirect';
 import { LoadTimeouts } from './modules/timeouts';
+import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 
@@ -54,6 +55,7 @@ new OidcMiddleware().enableFor(app);
 new StateRedirectMiddleware().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
+new TooBusy().enableFor(app);
 
 const port = config.get('port');
 app.listen(port, () => {
