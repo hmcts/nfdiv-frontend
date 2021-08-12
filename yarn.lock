@@ -1960,6 +1960,11 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
 
+"@types/toobusy-js@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@types/toobusy-js/-/toobusy-js-0.5.2.tgz#e5816a216cf4c5c4a09534a4341352ce3ec7b939"
+  integrity sha512-jK/CMvC5h/ECMhWRNjeFYIZzGFFvjt38+zbMndFKyDUHl1dm89SX7u8njoNHQKrW+OZoqxteBLvtSBFQOdGyHA==
+
 "@types/tunnel@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@types/tunnel/-/tunnel-0.0.1.tgz#0d72774768b73df26f25df9184273a42da72b19c"
@@ -11324,6 +11329,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+toobusy-js@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/toobusy-js/-/toobusy-js-0.5.1.tgz#5511f78f6a87a6a512d44fdb0efa13672217f659"
+  integrity sha1-VRH3j2qHpqUS1E/bDvoTZyIX9lk=
 
 touch@^3.1.0:
   version "3.1.0"
