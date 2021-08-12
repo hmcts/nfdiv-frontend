@@ -3,7 +3,7 @@ import toobusy from 'toobusy-js';
 
 export class TooBusy {
   public enableFor(app: Application): void {
-    toobusy.maxLag(10);
+    toobusy.maxLag(100);
 
     app.use(function (req, res, next) {
       if (toobusy()) {
