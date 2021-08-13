@@ -11,12 +11,12 @@ Feature: Applicant 2 Upload your documents
     When I go to "/applicant2/upload-your-documents"
     And the page should include "Upload your documents"
 
-  @nightly
+  @flaky
   Scenario: Applicant 2 - They upload documents
     Given I delete any previously uploaded files
     And the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains "larry-the-cat.jpg"
+    Then I wait until the page contains image "larry-the-cat.jpg"
     And I click "Delete"
     And I wait until the page doesn't contain "larry-the-cat.jpg"
 

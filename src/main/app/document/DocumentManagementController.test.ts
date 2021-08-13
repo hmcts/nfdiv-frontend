@@ -56,7 +56,6 @@ describe('DocumentManagerController', () => {
         '1234',
         {
           applicant1DocumentsUploaded: [
-            'an-existing-doc',
             {
               id: expect.any(String),
               value: {
@@ -69,6 +68,7 @@ describe('DocumentManagerController', () => {
                 },
               },
             },
+            'an-existing-doc',
           ],
         },
         CITIZEN_UPDATE
@@ -119,7 +119,6 @@ describe('DocumentManagerController', () => {
         '1234',
         {
           applicant2DocumentsUploaded: [
-            'an-existing-doc',
             {
               id: expect.any(String),
               value: {
@@ -132,6 +131,7 @@ describe('DocumentManagerController', () => {
                 },
               },
             },
+            'an-existing-doc',
           ],
         },
         CITIZEN_APPLICANT2_UPDATE

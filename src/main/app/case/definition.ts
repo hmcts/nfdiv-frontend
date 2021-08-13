@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-11 12:29:35.
+// Generated using typescript-generator version 2.32.889 on 2021-08-13 15:04:22.
 
 export interface Address {
   AddressLine1: string;
@@ -100,6 +100,8 @@ export interface AcknowledgementOfService {
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
+  statementOfTruth: YesOrNo;
+  prayerHasBeenGiven: YesOrNo;
 }
 
 export interface Applicant {
@@ -201,6 +203,8 @@ export interface Application {
   previousState: State;
   applicationPayments: ListValue<Payment>[];
   overdueNotificationSent: YesOrNo;
+  applicant1ReminderSent: YesOrNo;
+  applicant2ReminderSent: YesOrNo;
 }
 
 export interface CaseData {
@@ -336,6 +340,8 @@ export interface CaseData {
   previousState: State;
   applicationPayments: ListValue<Payment>[];
   overdueNotificationSent: YesOrNo;
+  applicant1ReminderSent: YesOrNo;
+  applicant2ReminderSent: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -351,6 +357,8 @@ export interface CaseData {
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
+  statementOfTruth: YesOrNo;
+  prayerHasBeenGiven: YesOrNo;
   dateConditionalOrderSubmitted: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
   generalOrderDate: DateAsString;
@@ -814,7 +822,7 @@ export const enum State {
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
-  DefendedDivorce = 'DefendedDivorce',
+  Disputed = 'Disputed',
   Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   AwaitingPronouncement = 'AwaitingPronouncement',
@@ -956,15 +964,18 @@ export const enum PaymentStatus {
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';

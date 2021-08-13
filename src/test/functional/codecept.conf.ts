@@ -27,6 +27,7 @@ export const config: CodeceptJS.Config = {
     },
     screenshotOnFail: {
       enabled: true,
+      fullPageScreenshots: true,
     },
   },
 };
