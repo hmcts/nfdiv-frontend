@@ -97,7 +97,7 @@ describe('HomeGetController', () => {
           id: '123',
           applicant2ScreenHasUnionBroken: YesOrNo.NO,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          state: State.AwaitingApplicant2Response,
+          state: State.AwaitingApplicant1Response,
         },
       },
     });

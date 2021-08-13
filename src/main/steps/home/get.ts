@@ -33,7 +33,10 @@ export class HomeGetController {
       );
     }
 
-    if (req.session.userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO) {
+    if (
+      req.session.userCase.state === State.AwaitingApplicant1Response &&
+      req.session.userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO
+    ) {
       res.redirect(APPLICATION_ENDED);
     } else if (req.session.userCase.state === State.Applicant2Approved) {
       res.redirect(CONFIRM_JOINT_APPLICATION);
