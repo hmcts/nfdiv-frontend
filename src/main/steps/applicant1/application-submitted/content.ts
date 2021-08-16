@@ -15,7 +15,7 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
     </div>
   `,
   confirmationEmail: `You have been sent a confirmation${
-    formState?.applicant1HelpWithFeesRefNo ? ' and payment receipt' : ''
+    formState?.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
   partnerResponse: `Your ${partner} responds`,
   conditionalOrderGranted: 'Conditional order granted',
