@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-13 15:04:22.
+// Generated using typescript-generator version 2.32.889 on 2021-08-16 15:57:47.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -828,6 +828,7 @@ export const enum State {
   AwaitingPronouncement = 'AwaitingPronouncement',
   PendingRejection = 'PendingRejection',
   Submitted = 'Submitted',
+  SwitchedToSole = 'SwitchedToSole',
 }
 
 export const enum UserRole {
@@ -971,6 +972,7 @@ export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SWITCHED_TO_SOLE = 'switched-to-sole';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
