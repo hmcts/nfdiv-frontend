@@ -35,7 +35,8 @@ def secrets = [
         'nfdiv-${env}'    :[
                 secret('e2e-test-user-password', 'TEST_PASSWORD'),
                 secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
-                secret('idam-secret', 'IDAM_SECRET')
+                secret('idam-secret', 'IDAM_SECRET'),
+                secret('pcq-token-key', 'PCQ_TOKEN')
         ]
 ]
 

@@ -91,6 +91,8 @@ export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 
+export const EQUALITY: PageLink = '/equality';
+
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
 export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-application';

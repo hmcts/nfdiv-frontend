@@ -208,6 +208,7 @@ export interface Case {
   applicationFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
+  applicant1PcqId?: string;
 }
 
 export interface CaseWithId extends Case {
