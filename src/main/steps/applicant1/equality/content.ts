@@ -1,10 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
-const en = () => {
-  return {};
-};
-
 export const form: FormContent = {
   fields: {},
   submit: {
@@ -14,7 +10,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = () => {
   return {
-    ...en(),
+    ...{},
     form,
   };
 };
