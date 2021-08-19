@@ -29,6 +29,7 @@ nodejs:
         - os-places-token
         - idam-systemupdate-username
         - idam-systemupdate-password
+        - pcq-token-key
   environment:
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
