@@ -13,7 +13,6 @@ Feature: Upload your documents
     And I click "Delete"
     And I wait until the page doesn't contain "larry-the-cat.jpg"
 
-  @ignore ## ignore test until PCQ is set up so correct page content can be asserted
   Scenario: They cannot upload documents
     Given I go to "/in-the-uk"
     And I select "Yes"
@@ -27,7 +26,7 @@ Feature: Upload your documents
     And I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
-    Then the page should include "Check your answers"
+    Then the page should include "Equality and diversity questions"
 
   @nightly
   Scenario: They have not uploaded any documents and have not selected that they can't upload

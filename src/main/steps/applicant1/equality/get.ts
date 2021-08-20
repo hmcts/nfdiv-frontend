@@ -32,10 +32,9 @@ export default class PCQGetController {
         partyId: req.session.user.email,
         returnUrl: `${req.headers.host}${CHECK_ANSWERS_URL}`,
         language: req.session.lang || 'en',
-        token: '',
       };
 
-      params.token = createToken(params);
+      params['token'] = createToken(params);
       params.partyId = encodeURIComponent(params.partyId);
 
       const qs = Object.keys(params)
