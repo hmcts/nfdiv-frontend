@@ -2,10 +2,7 @@ Feature: PCQ Equality and diversity questions
 
   Scenario: Answer all Equality and diversity questions
     Given I create a new user and login
-    When I go to "/in-the-uk"
-    And I select "Yes"
-    And I click "Continue"
-    And I go to "/upload-your-documents"
+    When I go to "/upload-your-documents"
     And I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
@@ -52,10 +49,7 @@ Feature: PCQ Equality and diversity questions
 
   Scenario: Choose not to answer all Equality and diversity questions
     Given I create a new user and login
-    When I go to "/in-the-uk"
-    And I select "Yes"
-    And I click "Continue"
-    And I go to "/upload-your-documents"
+    When I go to "/upload-your-documents"
     And I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
