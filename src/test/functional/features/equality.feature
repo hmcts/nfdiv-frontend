@@ -2,7 +2,13 @@ Feature: PCQ Equality and diversity questions
 
   Scenario: Answer all Equality and diversity questions
     Given I create a new user and login
-    When I go to "/equality"
+    When I go to "/in-the-uk"
+    And I select "Yes"
+    And I click "Continue"
+    And I go to "/upload-your-documents"
+    And I clear the form
+    When I select "I cannot upload my original marriage certificate"
+    And I click "Continue"
     Then the page should include "Equality and diversity questions"
     And I click "Continue to the questions"
     And the page should include "What is your date of birth?"
@@ -46,7 +52,13 @@ Feature: PCQ Equality and diversity questions
 
   Scenario: Choose not to answer all Equality and diversity questions
     Given I create a new user and login
-    When I go to "/equality"
+    When I go to "/in-the-uk"
+    And I select "Yes"
+    And I click "Continue"
+    And I go to "/upload-your-documents"
+    And I clear the form
+    When I select "I cannot upload my original marriage certificate"
+    And I click "Continue"
     Then the page should include "Equality and diversity questions"
     And I click "I don't want to answer these questions"
     Then the page should include "Check your answers"
