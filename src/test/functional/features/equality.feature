@@ -1,11 +1,9 @@
 Feature: PCQ Equality and diversity questions
 
-  Background:
-    Given I create a new user and login
-
   Scenario: Answer all Equality and diversity questions
-    Given I go to "/equality"
-    And the page should include "Equality and diversity questions"
+    Given I create a new user and login
+    When I go to "/equality"
+    Then the page should include "Equality and diversity questions"
     And I click "Continue to the questions"
     And the page should include "What is your date of birth?"
     Given I select "Day"
@@ -47,7 +45,8 @@ Feature: PCQ Equality and diversity questions
     And the page should include "Check your answers"
 
   Scenario: Choose not to answer all Equality and diversity questions
-    Given I go to "/equality"
-    And the page should include "Equality and diversity questions"
+    Given I create a new user and login
+    When I go to "/equality"
+    Then the page should include "Equality and diversity questions"
     And I click "I don't want to answer these questions"
     Then the page should include "Check your answers"
