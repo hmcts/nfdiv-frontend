@@ -1,7 +1,7 @@
 Feature: PCQ Equality and diversity questions
 
   Background:
-    Given I login
+    Given I create a new user and login
 
   Scenario: Answer all Equality and diversity questions
     Given I go to "/equality"
