@@ -1,19 +1,21 @@
 Feature: PCQ Equality and diversity questions
 
-  Scenario: Answer all Equality and diversity questions
+  Background:
     Given I create a new user and login
     When I go to "/upload-your-documents"
     And I clear the form
     When I select "I cannot upload my original marriage certificate"
     And I click "Continue"
     Then the page should include "Equality and diversity questions"
-    And I click "Continue to the questions"
+
+  Scenario: Answer all Equality and diversity questions
+    Given I click "Continue to the questions"
     And the page should include "What is your date of birth?"
-    Given I select "Day"
+    Then I select "Day"
     And I type "1"
-    Given I select "Month"
+    And I select "Month"
     And I type "1"
-    Given I select "Year"
+    And I select "Year"
     And I type "2000"
     And I click "Continue"
     And the page should include "What is your main language?"
@@ -45,14 +47,8 @@ Feature: PCQ Equality and diversity questions
     And I click "Continue"
     And the page should include "You have answered"
     And I click "Continue to the next steps"
-    And the page should include "Check your answers"
+    Then the page should include "Check your answers"
 
   Scenario: Choose not to answer all Equality and diversity questions
-    Given I create a new user and login
-    When I go to "/upload-your-documents"
-    And I clear the form
-    When I select "I cannot upload my original marriage certificate"
-    And I click "Continue"
-    Then the page should include "Equality and diversity questions"
-    And I click "I don't want to answer these questions"
+    Given I click "I don't want to answer these questions"
     Then the page should include "Check your answers"
