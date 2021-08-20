@@ -14,7 +14,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_NAME,
 } from '../../main/steps/urls';
-import { config as testConfig } from '../config';
+import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
 
@@ -42,6 +42,10 @@ Given('I login', () => {
 
 Given('I create a new user and login', () => {
   login('citizenSingleton');
+});
+
+Given('I login with applicant 1', () => {
+  autoLogin.login(I, testConfig.GetUser(1).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -182,6 +186,11 @@ When('I enter my valid case reference and valid access code', async () => {
   if (!caseReference || !accessCode) {
     throw new Error(`No case reference or access code was returned for ${testUser}`);
   }
+
+  iClick('Sign out');
+  await login('citizenSingleton');
+  await I.amOnPage('/applicant2/enter-your-access-code');
+  iClearTheForm();
 
   iClick('Your reference number');
   I.type(caseReference);
