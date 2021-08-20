@@ -7,7 +7,13 @@ import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import { DivorceOrDissolution } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
-import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
+import {
+  APPLICANT_2,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_URL,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+  YOUR_NAME,
+} from '../../main/steps/urls';
 import { config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -221,8 +227,14 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+  executeUserCaseScript(userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL);
+
+export const iSetApp2UsersCasTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+  executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
+
+const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
   I.executeScript(
-    async ([userCase, relationshipDateUrl, livesBasedUrl]) => {
+    async ([userCase, requestUrl, redirectUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
       const formData = new FormData(mainForm);
       for (const [key, value] of Object.entries(userCase)) {
@@ -234,11 +246,11 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
         body: new URLSearchParams(formData as unknown as Record<string, string>),
       };
 
-      await fetch(relationshipDateUrl, request);
+      await fetch(requestUrl, request);
       await new Promise(resolve => setTimeout(resolve, 500));
-      await fetch(livesBasedUrl, request);
+      await fetch(redirectUrl, request);
     },
-    [userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL]
+    [userCaseObj, requestPageLink, redirectPageLink]
   );
 
 export interface BrowserCase extends Case {
