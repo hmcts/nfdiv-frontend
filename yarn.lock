@@ -1866,10 +1866,10 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@^16.6.1":
-  version "16.6.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.6.1.tgz#aee62c7b966f55fc66c7b6dfa1d58db2a616da61"
-  integrity sha512-Sr7BhXEAer9xyGuCN3Ek9eg9xPviCF2gfu9kTfuU2HkTVAMYSDeX40fvpmo72n5nansg3nsBjuQBrsS28r+NUw==
+"@types/node@*", "@types/node@^16.6.2":
+  version "16.6.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.6.2.tgz#331b7b9f8621c638284787c5559423822fdffc50"
+  integrity sha512-LSw8TZt12ZudbpHc6EkIyDM3nHVWKYrAvGy6EAJfNfjusbwnThqjqxUKKRwuV3iWYeW/LYMzNgaq3MaLffQ2xA==
 
 "@types/node@^15.12.5":
   version "15.14.7"
@@ -2103,10 +2103,10 @@
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
 
-"@uppy/core@^1.20.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.20.0.tgz#019c262442e2e13b2239ce6c33f513596fdb0a2a"
-  integrity sha512-dfI6J0mznf76F3YL6A4oIKHrrueUtUbWR9DmAHEOP99mpy7jjDnqxAJL+f57fTttndg28L6UzhnePyi+3qLuNg==
+"@uppy/core@^1.20.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.20.1.tgz#23ca28d4388c29987fdc4e65a968474dcdc303c6"
+  integrity sha512-Z0yGixSNOSMgT/2aLylXQaEBB6X32RqGLQUgDJDK08jI0ZcMha5glNhD2RU1Gs9noQOAR/f7QwBssSnYJUNRfg==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^1.2.7"
@@ -11421,10 +11421,10 @@ ts-loader@^9.2.4:
     micromatch "^4.0.0"
     semver "^7.3.4"
 
-ts-node@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.2.0.tgz#f1e88249a00e26aa95e9a93c50f70241a8a1c4bb"
-  integrity sha512-FstYHtQz6isj8rBtYMN4bZdnXN1vq4HCbqn9vdNQcInRqtB86PePJQIxE6es0PhxKWhj2PHuwbG40H+bxkZPmg==
+ts-node@^10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.2.1.tgz#4cc93bea0a7aba2179497e65bb08ddfc198b3ab5"
+  integrity sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==
   dependencies:
     "@cspotcode/source-map-support" "0.6.1"
     "@tsconfig/node10" "^1.0.7"
@@ -11982,10 +11982,10 @@ webpack-sources@^3.2.0:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.0.tgz#b16973bcf844ebcdb3afde32eda1c04d0b90f89d"
   integrity sha512-fahN08Et7P9trej8xz/Z7eRu8ltyiygEo/hnRi9KqBUs80KeDcnf96ZJo++ewWd84fEf3xSX9bp4ZS9hbw0OBw==
 
-webpack@^5, webpack@^5.1.0, webpack@^5.38.1, webpack@^5.49.0:
-  version "5.50.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.50.0.tgz#5562d75902a749eb4d75131f5627eac3a3192527"
-  integrity sha512-hqxI7t/KVygs0WRv/kTgUW8Kl3YC81uyWQSo/7WUs5LsuRw0htH/fCwbVBGCuiX/t4s7qzjXFcf41O8Reiypag==
+webpack@^5, webpack@^5.1.0, webpack@^5.38.1, webpack@^5.51.1:
+  version "5.51.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.51.1.tgz#41bebf38dccab9a89487b16dbe95c22e147aac57"
+  integrity sha512-xsn3lwqEKoFvqn4JQggPSRxE4dhsRcysWTqYABAZlmavcoTmwlOb9b1N36Inbt/eIispSkuHa80/FJkDTPos1A==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"
