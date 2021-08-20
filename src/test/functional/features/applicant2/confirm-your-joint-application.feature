@@ -26,7 +26,6 @@ Feature: Applicant 2 Confirm Your Joint Application
     And the page should include "There was a problem"
     And the page should include "You have not confirmed"
 
-
   Scenario: Confirming answers is correct
     When I go to '/applicant2/enter-your-name'
     And I clear the form
