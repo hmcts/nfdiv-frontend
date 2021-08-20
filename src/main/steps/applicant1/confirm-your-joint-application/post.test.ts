@@ -1,7 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, CITIZEN_SUBMIT } from '../../../app/case/definition';
+import { CITIZEN_SUBMIT } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
 
 import ConfirmYourJointApplicationPostController from './post';
@@ -11,9 +10,6 @@ describe('ConfirmYourAnswersPostController', () => {
     const body = {
       applicant1IConfirmPrayer: '',
       applicant1IBelieveApplicationIsTrue: '',
-      applicationType: ApplicationType.JOINT_APPLICATION,
-      applicant2IConfirmPrayer: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -22,7 +18,7 @@ describe('ConfirmYourAnswersPostController', () => {
     } as unknown as Form;
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockForm);
 
-    const req = mockRequest({ body, session: { isApplicant2: true } });
+    const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();
     await confirmYourAnswerPostController.post(req, res);
 
