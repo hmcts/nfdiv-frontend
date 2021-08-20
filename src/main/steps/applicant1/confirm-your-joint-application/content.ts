@@ -64,7 +64,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       applicationType: 'We want to apply jointly',
     },
     [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
-      screenHasUnionBroken: 'Yes, the marriage has irretrievably broken down ',
+      applicant1ScreenHasUnionBroken: 'Yes, the marriage has irretrievably broken down ',
     },
     [urls.CERTIFIED_TRANSLATION]: {
       certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
@@ -146,7 +146,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     },
   },
   confirm: 'Confirm before continuing',
-  confirmPrayer: `I confirm that I’m applying to the court to the court with my ${partner} to:`,
+  confirmPrayer: `I confirm that I’m applying to the court with my ${partner} to:`,
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
     <li>decide how our money and property will be split (known as a financial order)</li>
