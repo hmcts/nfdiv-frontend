@@ -48,6 +48,7 @@ import {
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
+  PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -404,6 +405,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: PAY_YOUR_FEE,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
+  },
+  {
+    url: PAY_AND_SUBMIT,
     getNextStep: () => PAYMENT_CALLBACK_URL,
   },
   {
