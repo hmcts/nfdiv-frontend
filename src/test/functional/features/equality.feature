@@ -2,11 +2,7 @@ Feature: PCQ Equality and diversity questions
 
   Background:
     Given I create a new user and login
-    When I go to "/upload-your-documents"
-    And I clear the form
-    When I select "I cannot upload my original marriage certificate"
-    And I click "Continue"
-    Then the page should include "Equality and diversity questions"
+    When I go to "/equality"
 
   Scenario: Answer all Equality and diversity questions
     Given I click "Continue to the questions"
