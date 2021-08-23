@@ -1,6 +1,6 @@
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, HAS_RELATIONSHIP_BROKEN_URL } from '../../main/steps/urls';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetApp2UsersCasTo, iSetTheUsersCaseTo } from './common';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetApp2UsersCaseTo, iSetTheUsersCaseTo } from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -19,7 +19,7 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
 Given("I've already completed the form using the fixture {string} for applicant 2", async (fixture: string) => {
   const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
 
-  await iSetApp2UsersCasTo(fixtureJson);
+  await iSetApp2UsersCaseTo(fixtureJson);
 
   const url = await I.grabCurrentUrl();
   I.amOnPage(APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL);

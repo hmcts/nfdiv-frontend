@@ -238,7 +238,7 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL);
 
-export const iSetApp2UsersCasTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
 
 const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
