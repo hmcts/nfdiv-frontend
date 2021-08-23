@@ -20,7 +20,7 @@ Feature: Confirm Your Joint Application
     Given I login with applicant 1
     And I go to '/confirm-your-joint-application'
 
-  Scenario: confirming joint application
+  Scenario: Confirming joint application
     And I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"

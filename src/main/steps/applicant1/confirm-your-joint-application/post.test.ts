@@ -1,15 +1,16 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { Checkbox } from '../../../app/case/case';
 import { CITIZEN_SUBMIT } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
 
 import ConfirmYourJointApplicationPostController from './post';
 
 describe('ConfirmYourAnswersPostController', () => {
-  it('triggers APPLICANT_2_APPROVED', async () => {
+  it('triggers CITIZEN_SUBMIT', async () => {
     const body = {
-      applicant1IConfirmPrayer: '',
-      applicant1IBelieveApplicationIsTrue: '',
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
     const mockForm = {
       setFormState: jest.fn(),
