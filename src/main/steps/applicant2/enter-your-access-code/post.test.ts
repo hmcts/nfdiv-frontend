@@ -62,6 +62,8 @@ describe('AccessCodePostController', () => {
       {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
+        applicant2FirstNames: 'First name',
+        applicant2LastNames: 'Last name',
         respondentUserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_2
