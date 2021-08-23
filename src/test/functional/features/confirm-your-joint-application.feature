@@ -25,7 +25,7 @@ Feature: Confirm Your Joint Application
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue"
-    Then the page URL should be "/pay-your-fee"
+    Then the page URL should be "/pay-and-submit"
 
   Scenario: Not confirming answers
     And I clear the form
