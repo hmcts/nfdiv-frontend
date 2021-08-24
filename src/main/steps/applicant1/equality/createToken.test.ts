@@ -26,12 +26,4 @@ describe('createToken', () => {
 
     expect(result).toHaveLength(374);
   });
-
-  test('Should NOT create token if tokenKey does not exist', async () => {
-    mockedConfig.get.mockReturnValueOnce(null);
-
-    const result = await createToken(params);
-
-    expect(result).toHaveLength(0);
-  });
 });
