@@ -25,12 +25,15 @@ export default class PCQGetController {
         return res.redirect(CHECK_ANSWERS_URL);
       }
 
+      const protocol = req.app.locals.developmentMode ? 'http://' : '';
+      const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+
       const params = {
         serviceId: 'NEW_DIVORCE_LAW',
         actor: 'APPLICANT1',
         pcqId: req.session.userCase.applicant1PcqId,
         partyId: req.session.user.email,
-        returnUrl: `${res.locals.host}${CHECK_ANSWERS_URL}`,
+        returnUrl: `${protocol}${res.locals.host}${port}${CHECK_ANSWERS_URL}`,
         language: req.session.lang || 'en',
       };
 
