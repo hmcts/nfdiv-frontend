@@ -7,14 +7,14 @@ import type { CommonContent } from '../../common/common.content';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) => ({
+const en = ({ isDivorce, formState, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
   referenceNumber: `Your reference number is:
     <div class="govuk-panel__body">
       <strong>${referenceNumber}</strong>
     </div>
   `,
-  confirmationEmail: `You have been sent a confirmation${
+  confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     formState?.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
   partnerResponse: `Your ${partner} responds`,
@@ -67,7 +67,7 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
     isDivorce ? 'divorce' : 'civil partnership'
   } papers another way</a>`,
   subHeading4: 'What happens next',
-  line5: `Your application${
+  line5: `Your${isJointApplication ? ' joint' : ''} application${
     formState?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? ' and Help With Fees reference number' : ''
   } will be checked by court staff. You will receive an email notification by ${dayjs(formState?.dateSubmitted)
     .add(2, 'weeks')
