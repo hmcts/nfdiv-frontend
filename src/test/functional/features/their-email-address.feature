@@ -29,6 +29,16 @@ Feature: Their email address
     Then the page URL should be "/you-need-their-email-address"
     And the page should include "You need to get their email address"
 
+  Scenario: They do know their partners email (joint application)
+    Given I go to "/how-do-you-want-to-apply"
+    And I select "I want to apply jointly, with my husband"
+    And I click "Continue"
+    And I clear the form
+    And I select "Your husband's email address"
+    And I type "test@test.com"
+    When I click "Continue"
+    Then the page should include "Did you get married in the UK?"
+
   Scenario: Error when entering both their email and selecting I do not know their email
     Given I clear the form
     And I select "Your husband's email address"

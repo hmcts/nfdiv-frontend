@@ -8,7 +8,7 @@ Feature: Certificate step
   Scenario: They have their union certificate
     Given I select "Yes, I have my marriage certificate"
     When I click "Continue"
-    Then the page should include "How do you want to apply for the divorce?"
+    Then the page should include "Help paying the divorce fee"
 
   @nightly
   Scenario: They have not indicated if they have the certificate

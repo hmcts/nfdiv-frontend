@@ -120,34 +120,34 @@ export const applicant1Sequence: Step[] = [
   {
     url: CERTIFICATE_URL,
     showInSection: Sections.AboutPartnership,
-    getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HOW_DO_YOU_WANT_TO_APPLY),
+    getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
   },
   {
     url: NO_CERTIFICATE_URL,
     getNextStep: () => CERTIFICATE_URL,
   },
   {
-    url: HOW_DO_YOU_WANT_TO_APPLY,
-    showInSection: Sections.AboutPartnership,
-    showInCompleteSection: Sections.AboutPartnership,
-    getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL,
-  },
-  {
     url: HELP_WITH_YOUR_FEE_URL,
     showInSection: Sections.HelpWithFees,
     showInCompleteSection: Sections.HelpWithFees,
-    getNextStep: data => (data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : IN_THE_UK),
+    getNextStep: data =>
+      data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : HOW_DO_YOU_WANT_TO_APPLY,
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     showInSection: Sections.HelpWithFees,
     getNextStep: data =>
-      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : IN_THE_UK,
+      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : HOW_DO_YOU_WANT_TO_APPLY,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
     getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
+  },
+  {
+    url: HOW_DO_YOU_WANT_TO_APPLY,
+    showInSection: Sections.AboutPartnership,
+    showInCompleteSection: Sections.AboutPartnership,
+    getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? THEIR_EMAIL_ADDRESS : IN_THE_UK),
   },
   {
     url: IN_THE_UK,
@@ -323,7 +323,7 @@ export const applicant1Sequence: Step[] = [
     showInSection: Sections.ContactThem,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : HELP_WITH_YOUR_FEE_URL;
+        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : IN_THE_UK;
       } else {
         return DO_YOU_HAVE_ADDRESS;
       }
