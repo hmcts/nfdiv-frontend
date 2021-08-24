@@ -19,6 +19,7 @@ nodejs:
         - os-places-token
         - idam-systemupdate-username
         - idam-systemupdate-password
+        - pcq-token-key
 
 idam-pr:
   enabled: true

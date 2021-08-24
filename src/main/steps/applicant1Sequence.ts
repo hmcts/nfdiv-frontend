@@ -25,6 +25,7 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
+  EQUALITY,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -384,6 +385,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: UPLOAD_YOUR_DOCUMENTS,
     showInSection: Sections.Documents,
+    getNextStep: () => EQUALITY,
+  },
+  {
+    url: EQUALITY,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
