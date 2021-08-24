@@ -30,7 +30,7 @@ export default class PCQGetController {
         actor: 'APPLICANT1',
         pcqId: req.session.userCase.applicant1PcqId,
         partyId: req.session.user.email,
-        returnUrl: `${req.headers.host}${CHECK_ANSWERS_URL}`,
+        returnUrl: `${res.locals.host}${CHECK_ANSWERS_URL}`,
         language: req.session.lang || 'en',
       };
 
