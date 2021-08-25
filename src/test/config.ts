@@ -37,7 +37,7 @@ const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 
-const autoLogin = {
+export const autoLogin = {
   login: (I: CodeceptJS.I, username = TestUser, password = TestPass): void => {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
     I.waitForText('Sign in or create an account');
@@ -63,6 +63,10 @@ export const config = {
   WaitForTimeout: 5000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
+    password: TestPass,
+  }),
+  GetUser: (index: number): { username: string; password: string } => ({
+    username: idamUserManager.getUsername(index),
     password: TestPass,
   }),
   Gherkin: {

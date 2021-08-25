@@ -132,7 +132,7 @@ const sequences: Step[] = [
         : data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
           data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
         ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_ANSWERS_URL,
+        : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
@@ -140,7 +140,7 @@ const sequences: Step[] = [
       data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
         ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_ANSWERS_URL,
+        : CHECK_JOINT_APPLICATION,
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,

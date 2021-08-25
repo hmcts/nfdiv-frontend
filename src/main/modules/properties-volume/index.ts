@@ -18,6 +18,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.nfdiv.os-places-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.nfdiv.idam-systemupdate-username', 'services.idam.systemUsername');
       this.setSecret('secrets.nfdiv.idam-systemupdate-password', 'services.idam.systemPassword');
+      this.setSecret('secrets.nfdiv.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     } else {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
@@ -25,6 +26,7 @@ export class PropertiesVolume {
       this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
+      this.setLocalSecret('pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
   }
 

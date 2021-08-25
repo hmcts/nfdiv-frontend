@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-13 15:04:22.
+// Generated using typescript-generator version 2.32.889 on 2021-08-17 11:51:30.
 
 export interface Address {
   AddressLine1: string;
@@ -133,6 +133,7 @@ export interface Applicant {
   LegalProceedings: YesOrNo;
   LegalProceedingsRelated: LegalProceedingsRelated[];
   LegalProceedingsDetails: string;
+  PcqId: string;
 }
 
 export interface Application {
@@ -245,6 +246,7 @@ export interface CaseData {
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant1LegalProceedingsDetails: string;
+  applicant1PcqId: string;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -273,6 +275,7 @@ export interface CaseData {
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant2LegalProceedingsDetails: string;
+  applicant2PcqId: string;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -828,6 +831,7 @@ export const enum State {
   AwaitingPronouncement = 'AwaitingPronouncement',
   PendingRejection = 'PendingRejection',
   Submitted = 'Submitted',
+  SwitchedToSole = 'SwitchedToSole',
 }
 
 export const enum UserRole {
@@ -971,6 +975,8 @@ export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SWITCHED_TO_SOLE = 'switched-to-sole';
+export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
