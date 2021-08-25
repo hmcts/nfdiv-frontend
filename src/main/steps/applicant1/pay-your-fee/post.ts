@@ -4,13 +4,17 @@ import { Response } from 'express';
 
 import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { AnyObject } from '../../../app/controller/PostController';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
-import { PAYMENT_CALLBACK_URL } from '../../urls';
+import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
 
 @autobind
 export default class PaymentPostController {
-  public async post(req: AppRequest, res: Response): Promise<void> {
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    if (req.body.saveAndSignOut) {
+      return res.redirect(SAVE_AND_SIGN_OUT);
+    }
     if (req.session.userCase.state !== State.AwaitingPayment) {
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, CITIZEN_SUBMIT);
     }
