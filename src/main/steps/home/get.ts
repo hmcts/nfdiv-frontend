@@ -7,6 +7,7 @@ import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
+  HUB_1,
   YOUR_DETAILS_URL,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../steps/urls';
@@ -23,6 +24,10 @@ export class HomeGetController {
       req.session.isApplicant2 ? applicant2FirstQuestionForm : applicant1FirstQuestionForm
     );
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
+
+    if (req.session.userCase.state === State.Holding) {
+      res.redirect(HUB_1);
+    }
 
     if (req.session.isApplicant2) {
       return res.redirect(

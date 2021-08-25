@@ -5,6 +5,7 @@ import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
+  HUB_1,
   YOUR_DETAILS_URL,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../urls';
@@ -103,5 +104,21 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${CONFIRM_JOINT_APPLICATION}`);
+  });
+
+  test('redirects to the hub page for applicant 1 and applicant 2 users in holding state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Holding,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_1);
   });
 });
