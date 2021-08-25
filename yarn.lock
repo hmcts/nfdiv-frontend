@@ -2117,12 +2117,12 @@
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/drop-target@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-0.2.4.tgz#92e4ffa0d34781a37760e98850262c14b8718c2d"
-  integrity sha512-aRACD7f5jznt7NhLAtw/Nyi94XVjgYnqO3LN2mIbBQrsoQ+mINMzIu4rdVBhpGvk7qNM6961d5jPmPYSUBNiUw==
+"@uppy/drop-target@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.0.0.tgz#6b2067515b768519af401d827d3e48c90b8fd9b4"
+  integrity sha512-DrjbDKguCybUaYGNG7WunU7GcEVTUZbrPgcTaiHDTnfVddTqV0SXS1+cTHgOunHuyajP7DvQt04GZHP8wakjZQ==
   dependencies:
-    "@uppy/utils" "^3.6.2"
+    "@uppy/utils" "^4.0.0"
 
 "@uppy/file-input@^1.5.2":
   version "1.5.2"
@@ -2151,6 +2151,13 @@
   integrity sha512-wGTZma7eywIojfuE1vXlT0fxPSpmCRMkfgFWYc+6TL2FfGqWInmePoB+yal6/M2AnjeKHz6XYMhIpZkjOxFvcw==
   dependencies:
     abortcontroller-polyfill "^1.4.0"
+    lodash.throttle "^4.1.1"
+
+"@uppy/utils@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.0.tgz#337ffe668843a393171c8e9ff885d70af3a57417"
+  integrity sha512-sQOIM0cZOuV63l8JxgpRxAJiD/sJChKdEb1c5clRoxs4oafgtD9pl/BcBrOarMwk3r7kVZHt2apOL3V4BvD2Zw==
+  dependencies:
     lodash.throttle "^4.1.1"
 
 "@uppy/xhr-upload@^1.7.5":
