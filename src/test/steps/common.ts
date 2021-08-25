@@ -7,8 +7,14 @@ import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import { DivorceOrDissolution } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
-import { RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../main/steps/urls';
-import { config as testConfig } from '../config';
+import {
+  APPLICANT_2,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  RELATIONSHIP_DATE_URL,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+  YOUR_NAME,
+} from '../../main/steps/urls';
+import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
 
@@ -36,6 +42,10 @@ Given('I login', () => {
 
 Given('I create a new user and login', () => {
   login('citizenSingleton');
+});
+
+Given('I login with applicant 1', () => {
+  autoLogin.login(I, testConfig.GetUser(1).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -177,6 +187,11 @@ When('I enter my valid case reference and valid access code', async () => {
     throw new Error(`No case reference or access code was returned for ${testUser}`);
   }
 
+  iClick('Sign out');
+  await login('citizenSingleton');
+  await I.amOnPage('/applicant2/enter-your-access-code');
+  iClearTheForm();
+
   iClick('Your reference number');
   I.type(caseReference);
   iClick('Your access code');
@@ -221,8 +236,14 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+  executeUserCaseScript(userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL);
+
+export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+  executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
+
+const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
   I.executeScript(
-    async ([userCase, relationshipDateUrl, livesBasedUrl]) => {
+    async ([userCase, requestUrl, redirectUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
       const formData = new FormData(mainForm);
       for (const [key, value] of Object.entries(userCase)) {
@@ -234,11 +255,11 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
         body: new URLSearchParams(formData as unknown as Record<string, string>),
       };
 
-      await fetch(relationshipDateUrl, request);
+      await fetch(requestUrl, request);
       await new Promise(resolve => setTimeout(resolve, 500));
-      await fetch(livesBasedUrl, request);
+      await fetch(redirectUrl, request);
     },
-    [userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL]
+    [userCaseObj, requestPageLink, redirectPageLink]
   );
 
 export interface BrowserCase extends Case {
