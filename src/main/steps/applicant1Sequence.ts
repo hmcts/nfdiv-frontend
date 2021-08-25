@@ -247,7 +247,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
-      data.jurisdictionResidualEligible === YesOrNo.YES
+      data.jurisdictionResidualEligible === Checkbox.Checked
         ? JURISDICTION_CONNECTION_SUMMARY
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
