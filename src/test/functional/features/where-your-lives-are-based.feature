@@ -1,7 +1,7 @@
 Feature: Where your lives are based
 
   Background:
-    Given I login
+    Given I create a new user and login
     And I've said I'm divorcing my husband
     When I go to "/where-your-lives-are-based"
     Then the page should include "Where your lives are based"
