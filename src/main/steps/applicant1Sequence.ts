@@ -26,6 +26,7 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
+  EQUALITY,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -49,6 +50,7 @@ import {
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
+  PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
   RELATIONSHIP_DATE_URL,
@@ -384,6 +386,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: UPLOAD_YOUR_DOCUMENTS,
     showInSection: Sections.Documents,
+    getNextStep: () => EQUALITY,
+  },
+  {
+    url: EQUALITY,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
@@ -401,10 +407,14 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => PAY_YOUR_FEE,
+    getNextStep: () => PAY_AND_SUBMIT,
   },
   {
     url: PAY_YOUR_FEE,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
+  },
+  {
+    url: PAY_AND_SUBMIT,
     getNextStep: () => PAYMENT_CALLBACK_URL,
   },
   {

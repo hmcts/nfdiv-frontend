@@ -53,4 +53,8 @@ export class IdamUserManager {
   getCurrentUsername(): string {
     return Array.from(this.users).pop() as string;
   }
+
+  getUsername(index: number): string {
+    return Array.from(this.users)[index] as string;
+  }
 }
