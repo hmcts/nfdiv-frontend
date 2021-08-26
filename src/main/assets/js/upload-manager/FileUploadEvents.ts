@@ -42,6 +42,8 @@ export class FileUploadEvents {
     }
     const uploadInfo = uppy.getState();
     if (result.failed.length || !result.successful.length || uploadInfo.info?.message) {
+      console.log(result.failed);
+      console.log(uploadInfo);
       const error = { message: uploadInfo.info!.message, name: 'Error' };
       return this.onError(error);
     }
