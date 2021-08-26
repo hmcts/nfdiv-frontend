@@ -35,24 +35,28 @@ export class HomeGetController {
       );
     }
 
-    let redirectPage;
-
-    if (
-      req.session.userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO &&
-      req.session.userCase.state === State.AwaitingApplicant1Response
-    ) {
-      redirectPage = APPLICATION_ENDED;
-    } else if (req.session.userCase.state === State.AwaitingApplicant2Response) {
-      redirectPage = SENT_TO_APPLICANT2_FOR_REVIEW;
-    } else if (req.session.userCase.state === State.AwaitingApplicant1Response) {
-      redirectPage = CHECK_ANSWERS_URL;
-    } else if (req.session.userCase.state === State.Applicant2Approved) {
-      redirectPage = CONFIRM_JOINT_APPLICATION;
-    } else if (req.session.userCase.state === State.Submitted) {
-      redirectPage = APPLICATION_SUBMITTED;
-    } else {
-      redirectPage = isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
+    switch (req.session.userCase.state) {
+      case State.AwaitingApplicant1Response: {
+        req.session.userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO
+          ? res.redirect(APPLICATION_ENDED)
+          : res.redirect(CHECK_ANSWERS_URL);
+        break;
+      }
+      case State.AwaitingApplicant2Response: {
+        res.redirect(SENT_TO_APPLICANT2_FOR_REVIEW);
+        break;
+      }
+      case State.Applicant2Approved: {
+        res.redirect(CONFIRM_JOINT_APPLICATION);
+        break;
+      }
+      case State.Submitted: {
+        res.redirect(APPLICATION_SUBMITTED);
+        break;
+      }
+      default: {
+        res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+      }
     }
-    res.redirect(redirectPage);
   }
 }
