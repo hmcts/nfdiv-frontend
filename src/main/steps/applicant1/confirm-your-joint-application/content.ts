@@ -88,7 +88,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     },
     [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
       applicant2ApplyForFinancialOrder:
-        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n\n Yes' : ' \n\n No',
+        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n\n Yes' : ' \n\n\n No',
     },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded:
