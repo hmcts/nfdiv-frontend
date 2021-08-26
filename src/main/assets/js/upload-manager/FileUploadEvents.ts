@@ -41,11 +41,8 @@ export class FileUploadEvents {
       uploadedFiles.add(Object.values(result.successful[0].response.body) as []);
     }
     const uploadInfo = uppy.getState();
-    if (result.failed.length || !result.successful.length || uploadInfo.info?.message) {
-      console.log(result.failed);
-      console.log(uploadInfo);
-      const error = { message: uploadInfo.info!.message, name: 'Error' };
-      return this.onError(error);
+    if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
+      return this.onError(uploadInfo.info![0]);
     }
 
     location.hash = '#uploadGroup';
