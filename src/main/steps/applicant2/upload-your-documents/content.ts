@@ -1,8 +1,10 @@
 import { isObject } from 'lodash';
 
+import { Checkbox } from '../../../app/case/case';
 import { DocumentType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -51,16 +53,35 @@ export const form: FormContent = {
       },
       ...(checkboxes.length === 1
         ? {
-            applicant2CannotUploadDocuments: {
+            applicant2CannotUpload: {
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,
-              subtext: l => l.cannotUploadYouCanPost,
-              values: checkboxes.map(checkbox => ({
-                name: 'applicant2CannotUploadDocuments',
-                label: l => l[`${checkbox.id}Singular`],
-                value: checkbox.value,
-              })),
+              validator: (value, formData) => {
+                if ((value as string[])?.includes(Checkbox.Checked)) {
+                  return atLeastOneFieldIsChecked(formData?.applicant2CannotUploadDocuments);
+                }
+              },
+              values: [
+                {
+                  name: 'applicant2CannotUpload',
+                  label: l => l.cannotUploadDocuments,
+                  value: Checkbox.Checked,
+                  subFields: {
+                    applicant2CannotUploadDocuments: {
+                      type: 'checkboxes',
+                      label: l => l.cannotUploadWhich,
+                      hint: l => l.checkAllThatApply,
+                      subtext: l => l.cannotUploadYouCanPost,
+                      values: checkboxes.map(checkbox => ({
+                        name: 'applicant2CannotUploadDocuments',
+                        label: l => l[checkbox.id],
+                        value: checkbox.value,
+                      })),
+                    },
+                  },
+                },
+              ],
             },
           }
         : {}),
