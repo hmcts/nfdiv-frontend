@@ -4,6 +4,7 @@ import { generatePageContent } from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
+import { YesOrNo } from '../definition';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -147,7 +148,12 @@ export const getAnswerRows = function (
           );
         }
 
-        if (section === 'otherCourtCases' && step.url === OTHER_COURT_CASES) {
+        if (
+          section === 'otherCourtCases' &&
+          step.url === OTHER_COURT_CASES &&
+          (processedFormState.applicant1LegalProceedings === YesOrNo.YES ||
+            processedFormState.applicant2LegalProceedings === YesOrNo.YES)
+        ) {
           const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
             processedFormState.applicant2LegalProceedingsRelated || []
           );
@@ -168,7 +174,7 @@ export const getAnswerRows = function (
             'Who is the financial order for? 	',
             processedFormState.whoIsFinancialOrderFor
               ?.join(' / ')
-              .replace('applicant1', 'Me')
+              .replace('applicant', 'Me')
               .replace('children', 'The children')
           );
         }
@@ -182,7 +188,7 @@ export const getAnswerRows = function (
             'Who is the financial order for? 	',
             processedFormState.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
-              .replace('applicant2', 'Me')
+              .replace('applicant', 'Me')
               .replace('children', 'The children')
           );
         }
@@ -223,7 +229,7 @@ const setUpSteps = (
     return { stepsWithContent, processedFormState };
   } else {
     const stepsWithContent = isCompleteCase
-      ? [...stepsWithContentApplicant2, ...stepsWithContentApplicant1]
+      ? [...stepsWithContentApplicant1, ...stepsWithContentApplicant2]
       : stepsWithContentApplicant2;
 
     const applicant2ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant2);

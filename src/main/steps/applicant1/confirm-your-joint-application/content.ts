@@ -42,6 +42,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: 'Applicant 1<br><br> Do you want to apply for a financial order?',
     },
+    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
+      applicant2ApplyForFinancialOrder: '<br>Applicant 2<br><br> Do you want to apply for a financial order?',
+    },
     [urls.WHERE_YOUR_LIVES_ARE_BASED_URL]: {
       applicant1LifeBasedInEnglandAndWales: "Is applicant 1's life mainly based in England or Wales?",
       applicant2LifeBasedInEnglandAndWales: "Is applicant 2's life mainly based in England or Wales?",
@@ -51,9 +54,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       applicant2FirstNames: 'First name',
       applicant2MiddleNames: 'Middle name',
       applicant2LastNames: 'Last name',
-    },
-    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
-      applicant2ApplyForFinancialOrder: 'Applicant 2<br><br> Do you want to apply for a financial order?',
     },
   },
   stepAnswers: {
@@ -86,6 +86,10 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
+    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
+      applicant2ApplyForFinancialOrder:
+        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
+    },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded:
         formState?.applicant1HelpPayingNeeded === YesOrNo.YES && formState.applicant2HelpPayingNeeded === YesOrNo.YES
@@ -94,14 +98,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
             formState?.applicant2HelpPayingNeeded === YesOrNo.YES
           ? 'No'
           : 'No, because both applicants	did not apply',
-    },
-    [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
-      applicant1AlreadyAppliedForHelpPaying:
-        formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
-        formState?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes
-          ${formState?.applicant1HelpWithFeesRefNo}`
-          : false,
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections: formState?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
@@ -112,18 +108,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
-    },
-    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
-      applicant2ApplyForFinancialOrder:
-        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
-    },
-    [urls.APPLICANT_2 + urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
-      applicant2AlreadyAppliedForHelpPaying:
-        formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
-        formState?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes
-            ${formState?.applicant1HelpWithFeesRefNo}`
-          : false,
     },
     [urls.APPLICANT_2 + urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
       applicant2NameChangedHow: formState?.applicant2NameChangedHow
