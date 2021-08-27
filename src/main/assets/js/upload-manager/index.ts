@@ -20,7 +20,7 @@ const initUploadManager = (): void => {
   const csrfQuery = `?_csrf=${csrfToken}`;
   location.hash = '';
 
-  const uppy = Uppy<Uppy.StrictTypes>({
+  const uppy = new Uppy({
     restrictions: {
       maxFileSize: 10485760,
       maxNumberOfFiles: 5,
@@ -35,7 +35,6 @@ const initUploadManager = (): void => {
   uppy
     .use(FileInput, {
       target: '#upload',
-      replaceTargetContent: true,
       locale: {
         strings: {
           chooseFiles: getById('upload')?.textContent || '',

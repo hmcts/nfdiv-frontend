@@ -406,7 +406,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => PAY_YOUR_FEE,
+    getNextStep: () => PAY_AND_SUBMIT,
   },
   {
     url: PAY_YOUR_FEE,
