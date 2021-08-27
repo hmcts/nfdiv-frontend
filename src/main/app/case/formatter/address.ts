@@ -17,13 +17,13 @@ export const fromApi = (data: Partial<CaseData>, address: 'applicant1' | 'applic
 };
 
 const toApiAddress = (data: Partial<Case>, address: 'applicant1' | 'applicant2'): AddressGlobalUK => ({
-  AddressLine1: data[`${address}Address1`],
-  AddressLine2: data[`${address}Address2`],
-  AddressLine3: data[`${address}Address3`],
-  PostTown: data[`${address}AddressTown`],
-  County: data[`${address}AddressCounty`],
-  PostCode: data[`${address}AddressPostcode`],
-  Country: data[`${address}AddressCountry`],
+  AddressLine1: data[`${address}Address1`]!,
+  AddressLine2: data[`${address}Address2`]!,
+  AddressLine3: data[`${address}Address3`]!,
+  PostTown: data[`${address}AddressTown`]!,
+  County: data[`${address}AddressCounty`]!,
+  PostCode: data[`${address}AddressPostcode`]!,
+  Country: data[`${address}AddressCountry`]!,
 });
 
 export const applicant1AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
