@@ -2590,10 +2590,10 @@ append-field@^1.0.0:
   resolved "https://registry.yarnpkg.com/append-field/-/append-field-1.0.0.tgz#1e3440e915f0b1203d23748e78edd7b9b5b43e56"
   integrity sha1-HjRA6RXwsSA9I3SOeO3XubW0PlY=
 
-applicationinsights@^2.1.4:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.1.5.tgz#06b589b882ae0f5c4d9bb413ad73615ea5260b26"
-  integrity sha512-GSvr8Rk7kc1bvSGFYP1E5KherWfeVs/JPXmM4c5prfZ4ix2XaM0weADfXzuDcSN7GgGlOrSWwtl3T0cOBbTwOw==
+applicationinsights@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.1.6.tgz#ded415ded7b0ce9a99b3b51be3f8575ea50a9cc7"
+  integrity sha512-iXdWfHMAdPADCSJjjAiP+eoIga6LLTQ6CgoqXg0BRAiZTqWS28CiFGB1CSNHlmfpb5d4wIXkTA9Vj4OdAAP+FQ==
   dependencies:
     "@azure/core-http" "^2.0.0"
     "@opentelemetry/api" "^1.0.0"
@@ -2602,7 +2602,7 @@ applicationinsights@^2.1.4:
     cls-hooked "^4.2.2"
     continuation-local-storage "^3.2.1"
     diagnostic-channel "1.0.0"
-    diagnostic-channel-publishers "1.0.2"
+    diagnostic-channel-publishers "1.0.3"
 
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
@@ -4472,10 +4472,10 @@ devtools@7.10.1:
     ua-parser-js "^0.7.21"
     uuid "^8.0.0"
 
-diagnostic-channel-publishers@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-1.0.2.tgz#474cc391422dbcc085cbc200f3bcf4a11afd3b85"
-  integrity sha512-pehVi/egaf7PIZQeetZuAd7VFpIOicv1uGh5AjM6YQRgOtckwKTONcOtdW9HFymSmjfiGg9kcRlHTD3dbwq0ww==
+diagnostic-channel-publishers@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-1.0.3.tgz#1bc26d099ee7ded997da63372b477071e5b8523d"
+  integrity sha512-RJJA1QYDHVJUpV3HYQx0TLFZLlqxRL1H5Z0Z8ywIiEHDunT9UMJKwcnWkKa/I0z3kwozg3PKfaNJP9OkIeqN2Q==
 
 diagnostic-channel@1.0.0:
   version "1.0.0"
