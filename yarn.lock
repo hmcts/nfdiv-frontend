@@ -2196,7 +2196,7 @@
   dependencies:
     "@wdio/utils" "7.11.0"
 
-"@wdio/sauce-service@^7.10.1":
+"@wdio/sauce-service@^7.11.0":
   version "7.11.0"
   resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.11.0.tgz#006ff4143c0ca835534565c8c4721fcaa43cb2de"
   integrity sha512-4GX3rqVQHgvdv2cndjGSmkUIwRID8mQ4IbaAs6CBSFCXcUT1rcqUJLmyM7T/f3S9/JBReTvFv221W4N1STxvMw==
@@ -2590,7 +2590,7 @@ append-field@^1.0.0:
   resolved "https://registry.yarnpkg.com/append-field/-/append-field-1.0.0.tgz#1e3440e915f0b1203d23748e78edd7b9b5b43e56"
   integrity sha1-HjRA6RXwsSA9I3SOeO3XubW0PlY=
 
-applicationinsights@^2.1.4:
+applicationinsights@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.1.6.tgz#ded415ded7b0ce9a99b3b51be3f8575ea50a9cc7"
   integrity sha512-iXdWfHMAdPADCSJjjAiP+eoIga6LLTQ6CgoqXg0BRAiZTqWS28CiFGB1CSNHlmfpb5d4wIXkTA9Vj4OdAAP+FQ==
@@ -11418,7 +11418,7 @@ ts-node@^10.2.1:
     make-error "^1.1.1"
     yn "3.1.1"
 
-tsconfig-paths@^3.10.1, tsconfig-paths@^3.11.0:
+tsconfig-paths@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.11.0.tgz#954c1fe973da6339c78e06b03ce2e48810b65f36"
   integrity sha512-7ecdYDnIdmv639mmDwslG6KQg1Z9STTz1j7Gcz0xa+nshh/gKDAHcPxRbWOsA3SPp0tXP2leTcY9Kw+NAkfZzA==
@@ -11531,7 +11531,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.3.5:
+typescript@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
   integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
@@ -11852,7 +11852,7 @@ webdriver@7.11.0:
     ky "^0.28.5"
     lodash.merge "^4.6.1"
 
-webdriverio@7.11.0, webdriverio@^7.10.1:
+webdriverio@7.11.0, webdriverio@^7.11.0:
   version "7.11.0"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.11.0.tgz#86688704e1bee5df8eac1dd9b71dabcfb8daaefe"
   integrity sha512-II28RBTi7+/W8e6li4qKsgS/KF3yE/r0Q3QHysylU+QTZnH3xIzMz0TRoo8bNyeBZiZuTqH6yuWi+kJ5m5FC/g==
