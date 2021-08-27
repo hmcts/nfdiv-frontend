@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { DocumentType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -28,35 +28,10 @@ export const form: FormContent = {
   ...applicant1Form,
   fields: formState => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
-
-    if (formState?.inTheUk === YesOrNo.NO) {
-      checkboxes.push({
-        id: 'cannotUploadForeignCertificate',
-        value: DocumentType.MARRIAGE_CERTIFICATE,
-      });
-    } else {
-      checkboxes.push({
-        id: 'cannotUploadCertificate',
-        value: DocumentType.MARRIAGE_CERTIFICATE,
-      });
-    }
-
-    if (formState?.certifiedTranslation === YesOrNo.YES) {
-      checkboxes.push({
-        id: 'cannotUploadForeignCertificateTranslation',
-        value: DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION,
-      });
-    }
-
-    if (
-      formState?.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      formState?.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
-    ) {
-      checkboxes.push({
-        id: 'cannotUploadNameChangeProof',
-        value: DocumentType.NAME_CHANGE_EVIDENCE,
-      });
-    }
+    checkboxes.push({
+      id: 'cannotUploadNameChangeProof',
+      value: DocumentType.NAME_CHANGE_EVIDENCE,
+    });
 
     return {
       applicant2UploadedFiles: {
@@ -76,7 +51,7 @@ export const form: FormContent = {
           }
         },
       },
-      ...(checkboxes.length > 1
+      ...(checkboxes.length === 1
         ? {
             applicant2CannotUpload: {
               type: 'checkboxes',
@@ -107,21 +82,6 @@ export const form: FormContent = {
                   },
                 },
               ],
-            },
-          }
-        : {}),
-      ...(checkboxes.length === 1
-        ? {
-            applicant2CannotUploadDocuments: {
-              type: 'checkboxes',
-              label: l => l.cannotUploadDocuments,
-              labelHidden: true,
-              subtext: l => l.cannotUploadYouCanPost,
-              values: checkboxes.map(checkbox => ({
-                name: 'applicant2CannotUploadDocuments',
-                label: l => l[`${checkbox.id}Singular`],
-                value: checkbox.value,
-              })),
             },
           }
         : {}),
