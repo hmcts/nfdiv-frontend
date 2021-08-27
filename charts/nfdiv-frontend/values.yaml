@@ -17,7 +17,9 @@ nodejs:
   cpuLimits: '1000m'
   memoryRequests: '700Mi'
   cpuRequests: '50m'
-  devmemoryRequests: '700Mi'
+  devcpuRequests: '100m'
+  devmemoryLimits: '2Gi'
+  devmemoryRequests: '1Gi'
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv

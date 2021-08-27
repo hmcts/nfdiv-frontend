@@ -44,12 +44,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ certificate if formState.inTheUk === 'Yes' else certificateForeign }}</li>
-    {% if formState.certifiedTranslation === 'Yes' %}<li>{{ certificateForeignTranslation }}</li>{% endif %}
-    {% if formState.applicant2LastNameChangedWhenRelationshipFormed === 'Yes' or
-          formState.applicant2NameChangedSinceRelationshipFormed === 'Yes'%}
-      <li>{{ proofOfNameChange }}</li>
-    {% endif %}
+    <li>{{ proofOfNameChange }}</li>
   </ul>
   {{ govukWarningText({
     text: warningPhoto,
