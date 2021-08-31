@@ -2196,17 +2196,17 @@
   dependencies:
     "@wdio/utils" "7.11.0"
 
-"@wdio/sauce-service@^7.11.0":
-  version "7.11.0"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.11.0.tgz#006ff4143c0ca835534565c8c4721fcaa43cb2de"
-  integrity sha512-4GX3rqVQHgvdv2cndjGSmkUIwRID8mQ4IbaAs6CBSFCXcUT1rcqUJLmyM7T/f3S9/JBReTvFv221W4N1STxvMw==
+"@wdio/sauce-service@^7.11.1":
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.11.1.tgz#979cde2290fa68ba1602924f5a4c0de6bf1c2d01"
+  integrity sha512-9TahVN5oDZqioIlwXK/750wo3l9sb5YNFKyFHc2rwvUy1qlfNLmdR+L9KQUAh0cAgBKy+Z80G5gY9u0oxNf9WQ==
   dependencies:
     "@types/node" "^15.12.5"
     "@wdio/logger" "7.7.0"
     "@wdio/types" "7.10.1"
     "@wdio/utils" "7.11.0"
     saucelabs "^6.0.0"
-    webdriverio "7.11.0"
+    webdriverio "7.11.1"
 
 "@wdio/types@7.10.1":
   version "7.10.1"
@@ -11852,10 +11852,10 @@ webdriver@7.11.0:
     ky "^0.28.5"
     lodash.merge "^4.6.1"
 
-webdriverio@7.11.0, webdriverio@^7.11.0:
-  version "7.11.0"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.11.0.tgz#86688704e1bee5df8eac1dd9b71dabcfb8daaefe"
-  integrity sha512-II28RBTi7+/W8e6li4qKsgS/KF3yE/r0Q3QHysylU+QTZnH3xIzMz0TRoo8bNyeBZiZuTqH6yuWi+kJ5m5FC/g==
+webdriverio@7.11.1, webdriverio@^7.11.0:
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.11.1.tgz#8c086b5e622aa80243c1635a1af683a999f51f8c"
+  integrity sha512-N796qZIqkfIJJtSNBcAimnVr3SrnEjbwjYSBqAhVdGSidUKb1k6bxjC223WFwpANGkxABJUrVkx+qGNOtc+yGg==
   dependencies:
     "@types/aria-query" "^4.2.1"
     "@types/node" "^15.12.5"
