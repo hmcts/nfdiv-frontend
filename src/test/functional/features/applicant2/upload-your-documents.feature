@@ -22,7 +22,8 @@ Feature: Applicant 2 Upload your documents
 
   Scenario: Applicant 2 - They cannot upload documents
     Given I clear the form
-    When I select "I cannot upload my original marriage certificate"
+    When I select "I cannot upload some or all of my documents"
+    Then I select "Proof that I changed my name"
     And I click "Continue"
     Then the page should include "Check your wife's answers"
 

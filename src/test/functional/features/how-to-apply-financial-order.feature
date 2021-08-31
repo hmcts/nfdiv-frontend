@@ -8,4 +8,4 @@ Feature: How to apply for a financial order
 
   Scenario: They click Continue on the "How to apply for a financial order" page
     When I click "Continue"
-    Then the page should include "Upload your documents"
+    Then I wait until the page contains "Upload your documents"
