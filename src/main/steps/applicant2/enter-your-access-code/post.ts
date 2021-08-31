@@ -7,13 +7,17 @@ import { SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
-import { APPLICANT_2, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
+import { APPLICANT_2, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
 @autobind
 export class AccessCodePostController {
   constructor(protected readonly form: Form) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    if (req.body.saveAndSignOut) {
+      return res.redirect(SIGN_OUT_URL);
+    }
+
     const caseworkerUser = await getSystemUser();
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 

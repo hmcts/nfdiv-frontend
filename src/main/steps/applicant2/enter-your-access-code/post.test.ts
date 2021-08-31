@@ -4,7 +4,7 @@ import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
-import { APPLICANT_2, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
+import { APPLICANT_2, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
 
 import { AccessCodePostController } from './post';
 
@@ -167,5 +167,15 @@ describe('AccessCodePostController', () => {
         propertyName: '*',
       },
     ]);
+  });
+  it('saves and signs out', async () => {
+    const req = mockRequest();
+    req.body['saveAndSignOut'] = true;
+    const res = mockResponse();
+
+    const controller = new AccessCodePostController({} as unknown as Form);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(SIGN_OUT_URL);
   });
 });

@@ -3,6 +3,7 @@ import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
+import { FinancialOrderFor, YesOrNo } from '../definition';
 
 import { getAnswerRows } from './getAnswerRows';
 
@@ -133,14 +134,14 @@ describe('getAnswerRows()', () => {
 
       mockFormState = {
         mockField: 'example response',
-        applyForFinancialOrder: 'YES',
-        whoIsFinancialOrderFor: ['applicant1', 'children'],
-        applicant2WhoIsFinancialOrderFor: ['applicant2', 'children'],
+        applyForFinancialOrder: YesOrNo.YES,
+        whoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
-        applicant1LegalProceedings: 'YES',
+        applicant1LegalProceedings: YesOrNo.YES,
         applicant1LegalProceedingsRelated: ['marriage', 'property'],
-        applicant2LegalProceedings: 'YES',
+        applicant2LegalProceedings: YesOrNo.YES,
         applicant2LegalProceedingsRelated: ['marriage', 'children'],
       };
       mockCtx = {
@@ -517,7 +518,7 @@ describe('getAnswerRows()', () => {
                 values: [
                   {
                     label: l => l.yes,
-                    value: 'YES',
+                    value: YesOrNo.YES,
                     subFields: {
                       whoIsFinancialOrderFor: {
                         type: 'checkboxes',
@@ -553,7 +554,7 @@ describe('getAnswerRows()', () => {
                 values: [
                   {
                     label: l => l.yes,
-                    value: 'YES',
+                    value: YesOrNo.YES,
                     subFields: {
                       applicant2WhoIsFinancialOrderFor: {
                         type: 'checkboxes',
@@ -721,7 +722,7 @@ describe('getAnswerRows()', () => {
                 values: [
                   {
                     label: l => l.yes,
-                    value: 'YES',
+                    value: YesOrNo.YES,
                     subFields: {
                       applicant1LegalProceedingsRelated: {
                         type: 'checkboxes',
@@ -756,7 +757,7 @@ describe('getAnswerRows()', () => {
                 values: [
                   {
                     label: l => l.yes,
-                    value: 'YES',
+                    value: YesOrNo.YES,
                     subFields: {
                       applicant2LegalProceedingsRelated: {
                         type: 'checkboxes',
