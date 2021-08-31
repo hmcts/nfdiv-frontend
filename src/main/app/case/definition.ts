@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-08-17 11:51:30.
+// Generated using typescript-generator version 2.32.889 on 2021-08-25 13:37:50.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -203,9 +203,6 @@ export interface Application {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
-  overdueNotificationSent: YesOrNo;
-  applicant1ReminderSent: YesOrNo;
-  applicant2ReminderSent: YesOrNo;
 }
 
 export interface CaseData {
@@ -342,9 +339,6 @@ export interface CaseData {
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
-  overdueNotificationSent: YesOrNo;
-  applicant1ReminderSent: YesOrNo;
-  applicant2ReminderSent: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -574,6 +568,46 @@ export interface Print {
   letterType: string;
 }
 
+export interface CreditAccountPaymentRequest {
+  ccd_case_number: string;
+  account_number: string;
+  amount: string;
+  case_reference: string;
+  fees: PaymentItem[];
+  service: string;
+  customer_reference: string;
+  site_id: string;
+  description: string;
+  currency: string;
+  organisation_name: string;
+}
+
+export interface CreditAccountPaymentResponse {
+  account_number: string;
+  ccd_case_number: string;
+  amount: number;
+  fees: Fee[];
+  date_updated: string;
+  method: string;
+  status_histories: StatusHistoriesItem[];
+  date_created: string;
+  service_name: string;
+  channel: string;
+  description: string;
+  organisation_name: string;
+  payment_reference: string;
+  external_provider: string;
+  reference: string;
+  case_reference: string;
+  customer_reference: string;
+  external_reference: string;
+  site_id: string;
+  payment_group_reference: string;
+  currency: string;
+  id: string;
+  status: string;
+}
+
 /**
  * The response from retrieving a fee from fees and payments service
  */
@@ -593,6 +627,32 @@ export interface Payment {
   channel: string;
   reference: string;
   transactionId: string;
+}
+
+export interface PaymentItem {
+  reference: string;
+  volume: string;
+  ccd_case_number: string;
+  memo_line: string;
+  natural_account_code: string;
+  code: string;
+  calculated_amount: string;
+  version: string;
+}
+
+export interface PbaResponse {
+  httpStatus: HttpStatus;
+  errorMessage: string;
+  paymentReference: string;
+}
+
+export interface StatusHistoriesItem {
+  date_updated: string;
+  date_created: string;
+  external_status: string;
+  status: string;
+  error_code: string;
+  error_message: string;
 }
 
 export type DateAsString = string;
@@ -704,54 +764,54 @@ export const enum GeneralReferralType {
 
 /**
  * Values:
- * - `A` - The applicant and the respondent are habitually resident
- * - `B` - The applicant and the respondent were last habitually resident in England and Wales
- * - `C` - The respondent habitually resides in England and Wales
- * - `D` - The applicant is habitually resident in England and Wales and has been for 12 months
- * - `E` - The applicant is habitually resident in England and Wales and has been for 6 months
- * - `F` - The applicant and the respondent are both domiciled in England and Wales
- * - `G` - Eligible for Residual Jurisdiction
- * - `H` - The applicant is domiciled in England and Wales
- * - `I` - The respondent is domiciled in England and Wales
+ * - `A` - The applicant and the respondent are habitually resident in England and Wales
+ * - `B` - The applicant and respondent were last habitually resident in England and Wales and one of them still resides there
+ * - `C` - The respondent is habitually resident in England and Wales
+ * - `D` - The applicant is habitually resident in England and Wales and has resided there for at least a year immediately prior to the presentation of the application
+ * - `E` - The applicant is domiciled and habitually resident in England and Wales and has resided there for at least six months immediately prior to the application
+ * - `F` - The applicant and respondent are both domiciled in England and Wales
+ * - `G` - The applicant is domiciled in England and Wales
+ * - `H` - The respondent is domiciled in England and Wales
+ * - `I` - The Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case (same sex married couples only)
  * - `J` - The applicant habitually resides in England and Wales
  */
 export const enum JurisdictionConnections {
   /**
-   * The applicant and the respondent are habitually resident
+   * The applicant and the respondent are habitually resident in England and Wales
    */
   APP_1_APP_2_RESIDENT = 'A',
   /**
-   * The applicant and the respondent were last habitually resident in England and Wales
+   * The applicant and respondent were last habitually resident in England and Wales and one of them still resides there
    */
   APP_1_APP_2_LAST_RESIDENT = 'B',
   /**
-   * The respondent habitually resides in England and Wales
+   * The respondent is habitually resident in England and Wales
    */
   APP_2_RESIDENT = 'C',
   /**
-   * The applicant is habitually resident in England and Wales and has been for 12 months
+   * The applicant is habitually resident in England and Wales and has resided there for at least a year immediately prior to the presentation of the application
    */
   APP_1_RESIDENT_TWELVE_MONTHS = 'D',
   /**
-   * The applicant is habitually resident in England and Wales and has been for 6 months
+   * The applicant is domiciled and habitually resident in England and Wales and has resided there for at least six months immediately prior to the application
    */
   APP_1_RESIDENT_SIX_MONTHS = 'E',
   /**
-   * The applicant and the respondent are both domiciled in England and Wales
+   * The applicant and respondent are both domiciled in England and Wales
    */
   APP_1_APP_2_DOMICILED = 'F',
   /**
-   * Eligible for Residual Jurisdiction
-   */
-  RESIDUAL_JURISDICTION = 'G',
-  /**
    * The applicant is domiciled in England and Wales
    */
-  APP_1_DOMICILED = 'H',
+  APP_1_DOMICILED = 'G',
   /**
    * The respondent is domiciled in England and Wales
    */
-  APP_2_DOMICILED = 'I',
+  APP_2_DOMICILED = 'H',
+  /**
+   * The Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case (same sex married couples only)
+   */
+  RESIDUAL_JURISDICTION = 'I',
   /**
    * The applicant habitually resides in England and Wales
    */
@@ -764,15 +824,15 @@ export const enum LanguagePreference {
 }
 
 export const enum LegalConnections {
-  RESPONDENT_DOMICILED = 'I',
-  APPLICANT_DOMICILED = 'H',
-  COURTS_RESIDUAL_JURISDICTION = 'G',
-  APPLICANT_RESPONDENT_DOMICILED = 'F',
-  APPLICANT_DOMICILED_RESIDENT = 'E',
-  APPLICANT_RESIDENT = 'D',
-  RESPONDENT_RESIDENT = 'C',
-  APPLICANT_RESPONDENT_ONE_RESIDENT = 'B',
   APPLICANT_RESPONDENT_RESIDENT = 'A',
+  APPLICANT_RESPONDENT_ONE_RESIDENT = 'B',
+  RESPONDENT_RESIDENT = 'C',
+  APPLICANT_RESIDENT = 'D',
+  APPLICANT_DOMICILED_RESIDENT = 'E',
+  APPLICANT_RESPONDENT_DOMICILED = 'F',
+  APPLICANT_DOMICILED = 'G',
+  RESPONDENT_DOMICILED = 'H',
+  COURTS_RESIDUAL_JURISDICTION = 'I',
 }
 
 export const enum LegalProceedingsRelated {
@@ -831,7 +891,6 @@ export const enum State {
   AwaitingPronouncement = 'AwaitingPronouncement',
   PendingRejection = 'PendingRejection',
   Submitted = 'Submitted',
-  SwitchedToSole = 'SwitchedToSole',
 }
 
 export const enum UserRole {
@@ -965,23 +1024,194 @@ export const enum PaymentStatus {
   CANCELLED = 'cancelled',
   ERROR = 'error',
 }
+
+export const enum PbaErrorMessage {
+  CAE0001 = 'CAE0001',
+  CAE0003 = 'CAE0003',
+  CAE0004 = 'CAE0004',
+  NOT_FOUND = 'NOT_FOUND',
+  GENERAL = 'GENERAL',
+}
+
+/**
+ * Values:
+ * - `CONTINUE`
+ * - `SWITCHING_PROTOCOLS`
+ * - `PROCESSING`
+ * - `CHECKPOINT`
+ * - `OK`
+ * - `CREATED`
+ * - `ACCEPTED`
+ * - `NON_AUTHORITATIVE_INFORMATION`
+ * - `NO_CONTENT`
+ * - `RESET_CONTENT`
+ * - `PARTIAL_CONTENT`
+ * - `MULTI_STATUS`
+ * - `ALREADY_REPORTED`
+ * - `IM_USED`
+ * - `MULTIPLE_CHOICES`
+ * - `MOVED_PERMANENTLY`
+ * - `FOUND`
+ * - `MOVED_TEMPORARILY` - @deprecated
+ * - `SEE_OTHER`
+ * - `NOT_MODIFIED`
+ * - `USE_PROXY` - @deprecated
+ * - `TEMPORARY_REDIRECT`
+ * - `PERMANENT_REDIRECT`
+ * - `BAD_REQUEST`
+ * - `UNAUTHORIZED`
+ * - `PAYMENT_REQUIRED`
+ * - `FORBIDDEN`
+ * - `NOT_FOUND`
+ * - `METHOD_NOT_ALLOWED`
+ * - `NOT_ACCEPTABLE`
+ * - `PROXY_AUTHENTICATION_REQUIRED`
+ * - `REQUEST_TIMEOUT`
+ * - `CONFLICT`
+ * - `GONE`
+ * - `LENGTH_REQUIRED`
+ * - `PRECONDITION_FAILED`
+ * - `PAYLOAD_TOO_LARGE`
+ * - `REQUEST_ENTITY_TOO_LARGE` - @deprecated
+ * - `URI_TOO_LONG`
+ * - `REQUEST_URI_TOO_LONG` - @deprecated
+ * - `UNSUPPORTED_MEDIA_TYPE`
+ * - `REQUESTED_RANGE_NOT_SATISFIABLE`
+ * - `EXPECTATION_FAILED`
+ * - `I_AM_A_TEAPOT`
+ * - `INSUFFICIENT_SPACE_ON_RESOURCE` - @deprecated
+ * - `METHOD_FAILURE` - @deprecated
+ * - `DESTINATION_LOCKED` - @deprecated
+ * - `UNPROCESSABLE_ENTITY`
+ * - `LOCKED`
+ * - `FAILED_DEPENDENCY`
+ * - `TOO_EARLY`
+ * - `UPGRADE_REQUIRED`
+ * - `PRECONDITION_REQUIRED`
+ * - `TOO_MANY_REQUESTS`
+ * - `REQUEST_HEADER_FIELDS_TOO_LARGE`
+ * - `UNAVAILABLE_FOR_LEGAL_REASONS`
+ * - `INTERNAL_SERVER_ERROR`
+ * - `NOT_IMPLEMENTED`
+ * - `BAD_GATEWAY`
+ * - `SERVICE_UNAVAILABLE`
+ * - `GATEWAY_TIMEOUT`
+ * - `HTTP_VERSION_NOT_SUPPORTED`
+ * - `VARIANT_ALSO_NEGOTIATES`
+ * - `INSUFFICIENT_STORAGE`
+ * - `LOOP_DETECTED`
+ * - `BANDWIDTH_LIMIT_EXCEEDED`
+ * - `NOT_EXTENDED`
+ * - `NETWORK_AUTHENTICATION_REQUIRED`
+ */
+export const enum HttpStatus {
+  CONTINUE = 'CONTINUE',
+  SWITCHING_PROTOCOLS = 'SWITCHING_PROTOCOLS',
+  PROCESSING = 'PROCESSING',
+  CHECKPOINT = 'CHECKPOINT',
+  OK = 'OK',
+  CREATED = 'CREATED',
+  ACCEPTED = 'ACCEPTED',
+  NON_AUTHORITATIVE_INFORMATION = 'NON_AUTHORITATIVE_INFORMATION',
+  NO_CONTENT = 'NO_CONTENT',
+  RESET_CONTENT = 'RESET_CONTENT',
+  PARTIAL_CONTENT = 'PARTIAL_CONTENT',
+  MULTI_STATUS = 'MULTI_STATUS',
+  ALREADY_REPORTED = 'ALREADY_REPORTED',
+  IM_USED = 'IM_USED',
+  MULTIPLE_CHOICES = 'MULTIPLE_CHOICES',
+  MOVED_PERMANENTLY = 'MOVED_PERMANENTLY',
+  FOUND = 'FOUND',
+  /**
+   * @deprecated
+   */
+  MOVED_TEMPORARILY = 'MOVED_TEMPORARILY',
+  SEE_OTHER = 'SEE_OTHER',
+  NOT_MODIFIED = 'NOT_MODIFIED',
+  /**
+   * @deprecated
+   */
+  USE_PROXY = 'USE_PROXY',
+  TEMPORARY_REDIRECT = 'TEMPORARY_REDIRECT',
+  PERMANENT_REDIRECT = 'PERMANENT_REDIRECT',
+  BAD_REQUEST = 'BAD_REQUEST',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  PAYMENT_REQUIRED = 'PAYMENT_REQUIRED',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED',
+  NOT_ACCEPTABLE = 'NOT_ACCEPTABLE',
+  PROXY_AUTHENTICATION_REQUIRED = 'PROXY_AUTHENTICATION_REQUIRED',
+  REQUEST_TIMEOUT = 'REQUEST_TIMEOUT',
+  CONFLICT = 'CONFLICT',
+  GONE = 'GONE',
+  LENGTH_REQUIRED = 'LENGTH_REQUIRED',
+  PRECONDITION_FAILED = 'PRECONDITION_FAILED',
+  PAYLOAD_TOO_LARGE = 'PAYLOAD_TOO_LARGE',
+  /**
+   * @deprecated
+   */
+  REQUEST_ENTITY_TOO_LARGE = 'REQUEST_ENTITY_TOO_LARGE',
+  URI_TOO_LONG = 'URI_TOO_LONG',
+  /**
+   * @deprecated
+   */
+  REQUEST_URI_TOO_LONG = 'REQUEST_URI_TOO_LONG',
+  UNSUPPORTED_MEDIA_TYPE = 'UNSUPPORTED_MEDIA_TYPE',
+  REQUESTED_RANGE_NOT_SATISFIABLE = 'REQUESTED_RANGE_NOT_SATISFIABLE',
+  EXPECTATION_FAILED = 'EXPECTATION_FAILED',
+  I_AM_A_TEAPOT = 'I_AM_A_TEAPOT',
+  /**
+   * @deprecated
+   */
+  INSUFFICIENT_SPACE_ON_RESOURCE = 'INSUFFICIENT_SPACE_ON_RESOURCE',
+  /**
+   * @deprecated
+   */
+  METHOD_FAILURE = 'METHOD_FAILURE',
+  /**
+   * @deprecated
+   */
+  DESTINATION_LOCKED = 'DESTINATION_LOCKED',
+  UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY',
+  LOCKED = 'LOCKED',
+  FAILED_DEPENDENCY = 'FAILED_DEPENDENCY',
+  TOO_EARLY = 'TOO_EARLY',
+  UPGRADE_REQUIRED = 'UPGRADE_REQUIRED',
+  PRECONDITION_REQUIRED = 'PRECONDITION_REQUIRED',
+  TOO_MANY_REQUESTS = 'TOO_MANY_REQUESTS',
+  REQUEST_HEADER_FIELDS_TOO_LARGE = 'REQUEST_HEADER_FIELDS_TOO_LARGE',
+  UNAVAILABLE_FOR_LEGAL_REASONS = 'UNAVAILABLE_FOR_LEGAL_REASONS',
+  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+  NOT_IMPLEMENTED = 'NOT_IMPLEMENTED',
+  BAD_GATEWAY = 'BAD_GATEWAY',
+  SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  GATEWAY_TIMEOUT = 'GATEWAY_TIMEOUT',
+  HTTP_VERSION_NOT_SUPPORTED = 'HTTP_VERSION_NOT_SUPPORTED',
+  VARIANT_ALSO_NEGOTIATES = 'VARIANT_ALSO_NEGOTIATES',
+  INSUFFICIENT_STORAGE = 'INSUFFICIENT_STORAGE',
+  LOOP_DETECTED = 'LOOP_DETECTED',
+  BANDWIDTH_LIMIT_EXCEEDED = 'BANDWIDTH_LIMIT_EXCEEDED',
+  NOT_EXTENDED = 'NOT_EXTENDED',
+  NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
+}
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
-export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
-export const CITIZEN_UPDATE = 'citizen-update-application';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
-export const SWITCHED_TO_SOLE = 'switched-to-sole';
-export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const CITIZEN_SWITCH_TO_SOLE = 'citizen-switch-to-sole';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
-export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
