@@ -43,6 +43,9 @@ const fields: ToApiConverters = {
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
   }),
+  jurisdictionResidualEligible: data => ({
+    jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
+  }),
   applicant1HelpWithFeesRefNo: data => ({
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
       ? data.applicant1HelpWithFeesRefNo

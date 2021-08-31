@@ -38,6 +38,9 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  jurisdictionResidualEligible: data => ({
+    jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
+  }),
   applicant1LanguagePreferenceWelsh: data => ({
     applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
