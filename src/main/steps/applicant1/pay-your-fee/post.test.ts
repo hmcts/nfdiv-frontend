@@ -3,7 +3,7 @@ import 'jest-extended';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
-import { PAYMENT_CALLBACK_URL } from '../../urls';
+import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import PaymentPostController from './post';
 
@@ -111,6 +111,16 @@ describe('PaymentPostController', () => {
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(req.locals.api.addPayment).not.toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
+    });
+
+    it('saves and signs out', async () => {
+      const req = mockRequest();
+      req.body['saveAndSignOut'] = true;
+      const res = mockResponse();
+
+      await paymentController.post(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
     });
   });
 });
