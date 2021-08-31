@@ -97,6 +97,7 @@ const sequences: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
