@@ -8,6 +8,7 @@ import {
 
 import {
   ADDRESS_PRIVATE,
+  APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
@@ -247,7 +248,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
-      data.jurisdictionResidualEligible === YesOrNo.YES
+      data.jurisdictionResidualEligible === Checkbox.Checked
         ? JURISDICTION_CONNECTION_SUMMARY
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
@@ -406,7 +407,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => PAY_YOUR_FEE,
+    getNextStep: () => PAY_AND_SUBMIT,
   },
   {
     url: PAY_YOUR_FEE,
@@ -426,6 +427,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: APPLICATION_ENDED,
     getNextStep: () => HOME_URL,
   },
 ];

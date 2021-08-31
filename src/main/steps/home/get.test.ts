@@ -3,8 +3,11 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
 import {
   APPLICANT_2,
+  APPLICATION_ENDED,
+  APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../urls';
@@ -89,6 +92,39 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
   });
 
+  test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ScreenHasUnionBroken: YesOrNo.NO,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingApplicant1Response,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(APPLICATION_ENDED);
+  });
+
+  test('redirects to application sent for review page for applicant 1 users in awaitingApplicant2 state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingApplicant2Response,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(SENT_TO_APPLICANT2_FOR_REVIEW);
+  });
+
   test('redirects to confirmation page for applicant 1 users in applicant2Approved state', () => {
     const req = mockRequest({
       session: {
@@ -102,6 +138,38 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${CONFIRM_JOINT_APPLICATION}`);
+    expect(res.redirect).toBeCalledWith(CONFIRM_JOINT_APPLICATION);
+  });
+
+  test('redirects to application submitted page for applicant 1 users in submitted state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  test('redirects to the check your answers page for applicant 1 users in awaitingApplicant1Response state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingApplicant1Response,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
   });
 });

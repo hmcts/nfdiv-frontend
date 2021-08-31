@@ -1,4 +1,4 @@
-import type { State, Uppy } from '@uppy/core';
+import type { Uppy } from '@uppy/core';
 
 import { getById, hidden } from '../selectors';
 
@@ -13,12 +13,12 @@ const errorUploadingTooBigEl = getById('errorFileSizeTooBig');
 const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
 
 export class FileUploadEvents {
-  constructor(private readonly uppy: Uppy<'strict'>) {}
+  constructor(private readonly uppy: Uppy) {}
 
-  public onError = (state: State): void => {
-    if (state.info?.message.includes('exceeds maximum allowed size')) {
+  public onError = (state: Error): void => {
+    if (state.message.includes('exceeds maximum allowed size')) {
       errorUploadingTooBigEl?.classList.remove(hidden);
-    } else if (state.info?.message.includes('You can only upload: image/jpeg')) {
+    } else if (state.message.includes('You can only upload: image/jpeg')) {
       errorUploadingWrongFormatEl?.classList.remove(hidden);
     } else {
       errorUploadingGenericEl?.classList.remove(hidden);
@@ -31,18 +31,18 @@ export class FileUploadEvents {
     this.uppy.reset();
   };
 
-  public onFilesSelected = async (uppy: Uppy<'strict'>, uploadedFiles: UploadedFiles): Promise<void> => {
+  public onFilesSelected = async (uppy: Uppy, uploadedFiles: UploadedFiles): Promise<void> => {
     this.resetErrorMessages();
     uploadProcessEl?.classList.add('govuk-!-margin-top-5');
 
     const result = await uppy.upload();
     location.hash = '#';
     if (result.successful[0]?.response?.body) {
-      uploadedFiles.add(result.successful[0].response.body as []);
+      uploadedFiles.add(Object.values(result.successful[0].response.body) as []);
     }
     const uploadInfo = uppy.getState();
-    if (result.failed.length || !result.successful.length || uploadInfo.info?.message) {
-      return this.onError(uploadInfo);
+    if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
+      return this.onError(uploadInfo.info![0]);
     }
 
     location.hash = '#uploadGroup';

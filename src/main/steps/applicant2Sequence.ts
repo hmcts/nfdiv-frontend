@@ -1,4 +1,4 @@
-import { YesOrNo } from '../app/case/definition';
+import { ChangedNameHow, YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
@@ -86,6 +86,7 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
+    showInSection: Sections.AboutPartners,
     showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
@@ -127,18 +128,19 @@ const sequences: Step[] = [
         : data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
           data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
         ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_ANSWERS_URL,
+        : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+      data.applicant2NameChangedHow?.includes(ChangedNameHow.DEED_POLL) ||
+      data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
         ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_ANSWERS_URL,
+        : CHECK_JOINT_APPLICATION,
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,
+    showInSection: Sections.Documents,
     getNextStep: () => CHECK_JOINT_APPLICATION,
   },
   {

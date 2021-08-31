@@ -2,23 +2,24 @@ Feature: Applicant 2 apply for a financial order
 
   Background:
     Given I login
-    When I am reviewing an application for divorce created by my wife
-    Then I go to '/applicant2/do-you-want-to-apply-financial-order'
+    And I am reviewing an application for divorce created by my wife
+    And I go to '/applicant2/do-you-want-to-apply-financial-order'
+    Then the page should include "Do you want to apply for a financial order?"
 
   Scenario: They want to apply for a financial order
-    Given I go to '/dividing-money-property'
-    And the page should include "Dividing your money and property"
-    And I click "Continue"
-    And I clear the form
-    When I select "Yes"
+    Given I select "Yes"
     And I select "The children"
     And I click "Continue"
-    Then the page URL should be "/how-to-apply-financial-order"
+    Then the page URL should be "/applicant2/how-to-apply-financial-order"
+
+  Scenario: They do not want to apply for a financial order
+    Given I select "No"
+    And I click "Continue"
+    Then the page URL should be "/applicant2/check-your-joint-application"
 
   @nightly
   Scenario: Error when not answering if they want to apply for a financial order
-    Given I go to '/do-you-want-to-apply-financial-order'
-    And I clear the form
+    Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You have not answered the question"

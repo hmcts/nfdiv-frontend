@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import axios from 'axios';
 import config from 'config';
@@ -9,6 +10,8 @@ import { CHECK_ANSWERS_URL } from '../../urls';
 
 import { createToken } from './createToken';
 
+const logger = Logger.getLogger('PCQGetController');
+
 @autobind
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -17,20 +20,27 @@ export default class PCQGetController {
       const path: string = config.get('services.equalityAndDiversity.path');
 
       const health = `${url}/health`;
-      const response = await axios.get(health);
-
-      if (response.data.status && response.data.status === 'UP') {
-        req.session.userCase.applicant1PcqId = uuid();
-      } else {
+      try {
+        const response = await axios.get(health);
+        if (response.data.status && response.data.status === 'UP') {
+          req.session.userCase.applicant1PcqId = uuid();
+        } else {
+          return res.redirect(CHECK_ANSWERS_URL);
+        }
+      } catch (err) {
+        logger.error('Could not connect to PCQ: ', err.message);
         return res.redirect(CHECK_ANSWERS_URL);
       }
+
+      const protocol = req.app.locals.developmentMode ? 'http://' : '';
+      const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
 
       const params = {
         serviceId: 'NEW_DIVORCE_LAW',
         actor: 'APPLICANT1',
         pcqId: req.session.userCase.applicant1PcqId,
         partyId: req.session.user.email,
-        returnUrl: `${req.headers.host}${CHECK_ANSWERS_URL}`,
+        returnUrl: `${protocol}${res.locals.host}${port}${CHECK_ANSWERS_URL}`,
         language: req.session.lang || 'en',
       };
 

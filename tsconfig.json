@@ -11,6 +11,7 @@
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "experimentalDecorators": true,
+    "useUnknownInCatchVariables": false,
     "skipLibCheck": true,
     "lib": ["es2019", "dom", "dom.iterable"],
     "baseUrl": "src/main",

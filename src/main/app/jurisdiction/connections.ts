@@ -82,7 +82,7 @@ export const previousConnectionMadeUptoLastHabituallyResident = (data: Partial<C
 };
 
 const hasResidualJurisdiction = data => {
-  return allowedToAnswerResidualJurisdiction(data) && data.jurisdictionResidualEligible === YesOrNo.YES;
+  return allowedToAnswerResidualJurisdiction(data) && data.jurisdictionResidualEligible === Checkbox.Checked;
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {

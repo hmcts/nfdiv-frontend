@@ -1,12 +1,15 @@
 import { Response } from 'express';
 
-import { State } from '../../app/case/definition';
+import { State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form } from '../../app/form/Form';
 import {
   APPLICANT_2,
+  APPLICATION_ENDED,
+  APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../steps/urls';
@@ -32,10 +35,28 @@ export class HomeGetController {
       );
     }
 
-    if (req.session.userCase.state === State.Applicant2Approved) {
-      res.redirect(`${CONFIRM_JOINT_APPLICATION}`);
-    } else {
-      res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+    switch (req.session.userCase.state) {
+      case State.AwaitingApplicant1Response: {
+        req.session.userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO
+          ? res.redirect(APPLICATION_ENDED)
+          : res.redirect(CHECK_ANSWERS_URL);
+        break;
+      }
+      case State.AwaitingApplicant2Response: {
+        res.redirect(SENT_TO_APPLICANT2_FOR_REVIEW);
+        break;
+      }
+      case State.Applicant2Approved: {
+        res.redirect(CONFIRM_JOINT_APPLICATION);
+        break;
+      }
+      case State.Submitted: {
+        res.redirect(APPLICATION_SUBMITTED);
+        break;
+      }
+      default: {
+        res.redirect(isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL);
+      }
     }
   }
 }
