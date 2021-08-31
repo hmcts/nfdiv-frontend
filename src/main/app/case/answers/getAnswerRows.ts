@@ -4,7 +4,7 @@ import { generatePageContent } from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
-import { YesOrNo } from '../definition';
+import { FinancialOrderFor, YesOrNo } from '../definition';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -174,8 +174,8 @@ export const getAnswerRows = function (
             'Who is the financial order for? 	',
             processedFormState.whoIsFinancialOrderFor
               ?.join(' / ')
-              .replace('applicant', 'Me')
-              .replace('children', 'The children')
+              .replace(FinancialOrderFor.APPLICANT, 'Me')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           );
         }
 
@@ -188,8 +188,8 @@ export const getAnswerRows = function (
             'Who is the financial order for? 	',
             processedFormState.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
-              .replace('applicant', 'Me')
-              .replace('children', 'The children')
+              .replace(FinancialOrderFor.APPLICANT, 'Me')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           );
         }
       }

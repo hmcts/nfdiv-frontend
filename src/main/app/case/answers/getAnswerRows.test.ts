@@ -3,7 +3,7 @@ import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
-import { YesOrNo } from '../definition';
+import { FinancialOrderFor, YesOrNo } from '../definition';
 
 import { getAnswerRows } from './getAnswerRows';
 
@@ -135,8 +135,8 @@ describe('getAnswerRows()', () => {
       mockFormState = {
         mockField: 'example response',
         applyForFinancialOrder: YesOrNo.YES,
-        whoIsFinancialOrderFor: ['applicant', 'children'],
-        applicant2WhoIsFinancialOrderFor: ['applicant', 'children'],
+        whoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
         applicant1LegalProceedings: YesOrNo.YES,
