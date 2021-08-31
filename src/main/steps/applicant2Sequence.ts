@@ -97,6 +97,7 @@ const sequences: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    showInSection: Sections.ContactYou,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -125,8 +126,8 @@ const sequences: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
-    showInCompleteSection: Sections.DividingAssets,
     showInSection: Sections.DividingAssets,
+    showInCompleteSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
