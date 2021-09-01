@@ -54,7 +54,7 @@ export class IdamUserManager {
     return Array.from(this.users).pop() as string;
   }
 
-  getUsername(index: number): string {
-    return Array.from(this.users)[index] as string;
+  getApplicant1Username(): string {
+    return Array.from(this.users)[this.users.size - 2] as string;
   }
 }
