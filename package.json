@@ -128,7 +128,7 @@
     "jest-circus": "^27.1.0",
     "jest-extended": "^0.11.5",
     "lint-staged": "^11.1.1",
-    "mini-css-extract-plugin": "^2.2.0",
+    "mini-css-extract-plugin": "^2.2.1",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.12",
     "pa11y": "^6.0.1",
