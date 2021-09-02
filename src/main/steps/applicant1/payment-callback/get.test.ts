@@ -2,8 +2,8 @@ import 'jest-extended';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { PaymentStatus, State } from '../../../app/case/definition';
-import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAY_YOUR_FEE } from '../../urls';
+import { ApplicationType, PaymentStatus, State } from '../../../app/case/definition';
+import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAY_AND_SUBMIT, PAY_YOUR_FEE } from '../../urls';
 
 import PaymentCallbackGetController from './get';
 
@@ -86,25 +86,28 @@ describe('PaymentCallbackGetController', () => {
     });
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
-      const req = mockRequest({
-        userCase: {
-          state: State.AwaitingPayment,
-          payments: [
-            {
-              id: 'mock payment id',
-              value: {
-                amount: 55000,
-                channel: 'mock payment provider',
-                created: '1999-12-31T20:01:00.123',
-                feeCode: 'FEE0002',
-                reference: 'mock ref',
-                status: PaymentStatus.IN_PROGRESS,
-                transactionId: 'mock payment id',
-              },
+      const userCase = {
+        state: State.AwaitingPayment,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        payments: [
+          {
+            id: 'mock payment id',
+            value: {
+              amount: 55000,
+              channel: 'mock payment provider',
+              created: '1999-12-31T20:01:00.123',
+              feeCode: 'FEE0002',
+              reference: 'mock ref',
+              status: PaymentStatus.IN_PROGRESS,
+              transactionId: 'mock payment id',
             },
-          ],
-        },
+          },
+        ],
+      };
+      const req = mockRequest({
+        userCase,
       });
+      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
       const res = mockResponse();
 
       (mockGet as jest.Mock).mockReturnValueOnce({
@@ -119,6 +122,45 @@ describe('PaymentCallbackGetController', () => {
       expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
+    });
+
+    it('saves and redirects to the pay and submit page if last payment was unsuccessful and is joint application', async () => {
+      const userCase = {
+        state: State.AwaitingPayment,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+        payments: [
+          {
+            id: 'mock payment id',
+            value: {
+              amount: 55000,
+              channel: 'mock payment provider',
+              created: '1999-12-31T20:01:00.123',
+              feeCode: 'FEE0002',
+              reference: 'mock ref',
+              status: PaymentStatus.IN_PROGRESS,
+              transactionId: 'mock payment id',
+            },
+          },
+        ],
+      };
+      const req = mockRequest({
+        userCase,
+      });
+      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
+      const res = mockResponse();
+
+      (mockGet as jest.Mock).mockReturnValueOnce({
+        payment_id: 'mock payment id',
+        status: 'Failed',
+      });
+
+      await paymentController.get(req, res);
+
+      expect(mockGet).toHaveBeenCalledWith('mock ref');
+
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
+
+      expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
     });
   });
 });
