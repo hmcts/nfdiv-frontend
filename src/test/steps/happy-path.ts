@@ -150,6 +150,9 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
 
+  I.waitForText('Equality and diversity questions');
+  iClick("I don't want to answer these questions");
+
   I.waitInUrl('/check-your-answers');
   iClearTheForm();
   iClick('I confirm');

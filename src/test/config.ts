@@ -65,8 +65,8 @@ export const config = {
     username: idamUserManager.getCurrentUsername(),
     password: TestPass,
   }),
-  GetUser: (index: number): { username: string; password: string } => ({
-    username: idamUserManager.getUsername(index),
+  GetApplicant1User: (): { username: string; password: string } => ({
+    username: idamUserManager.getApplicant1Username(),
     password: TestPass,
   }),
   Gherkin: {

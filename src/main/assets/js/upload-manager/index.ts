@@ -20,6 +20,8 @@ const initUploadManager = (): void => {
   const csrfQuery = `?_csrf=${csrfToken}`;
   location.hash = '';
 
+  const chooseFilePhoto = 'Choose a file or take a photo';
+
   const uppy = new Uppy({
     restrictions: {
       maxFileSize: 10485760,
@@ -37,7 +39,7 @@ const initUploadManager = (): void => {
       target: '#upload',
       locale: {
         strings: {
-          chooseFiles: getById('upload')?.textContent || '',
+          chooseFiles: chooseFilePhoto,
         },
       },
     })

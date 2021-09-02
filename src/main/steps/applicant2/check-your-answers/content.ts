@@ -14,6 +14,14 @@ const labels = ({ formState }: CommonContent) => ({
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
     },
+    [urls.APPLICANT_2 + urls.UPLOAD_YOUR_DOCUMENTS]: {
+      applicant2UploadedFiles: (formState?.applicant2DocumentsUploaded || []).length
+        ? `${formState?.applicant2DocumentsUploaded?.reduce(
+            (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
+            ''
+          )}`
+        : false,
+    },
   },
 });
 
