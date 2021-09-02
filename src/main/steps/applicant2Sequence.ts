@@ -116,6 +116,11 @@ const sequences: Step[] = [
     getNextStep: data => (data.applicant2LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
   },
   {
+    url: DETAILS_OTHER_PROCEEDINGS,
+    showInSection: Sections.OtherCourtCases,
+    getNextStep: () => MONEY_PROPERTY,
+  },
+  {
     url: MONEY_PROPERTY,
     getNextStep: () => APPLY_FINANCIAL_ORDER,
   },
