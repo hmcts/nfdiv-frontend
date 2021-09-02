@@ -1,11 +1,17 @@
 import config from 'config';
 import { Response } from 'express';
 
-import { State } from '../../../app/case/definition';
+import { ApplicationType, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
-import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE } from '../../urls';
+import {
+  APPLICATION_SUBMITTED,
+  CHECK_ANSWERS_URL,
+  PAYMENT_CALLBACK_URL,
+  PAY_AND_SUBMIT,
+  PAY_YOUR_FEE,
+} from '../../urls';
 
 export default class PaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -40,7 +46,13 @@ export default class PaymentCallbackGetController {
         return res.redirect(APPLICATION_SUBMITTED);
       }
 
-      res.redirect(req.query.back ? CHECK_ANSWERS_URL : PAY_YOUR_FEE);
+      res.redirect(
+        req.query.back
+          ? CHECK_ANSWERS_URL
+          : req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+          ? PAY_AND_SUBMIT
+          : PAY_YOUR_FEE
+      );
     });
   }
 }

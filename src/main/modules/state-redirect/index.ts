@@ -3,7 +3,7 @@ import { Application, NextFunction, Response } from 'express';
 import { State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
-import { APPLICATION_SUBMITTED, PAYMENT_CALLBACK_URL, PAY_YOUR_FEE, PageLink } from '../../steps/urls';
+import { APPLICATION_SUBMITTED, PAYMENT_CALLBACK_URL, PAY_AND_SUBMIT, PAY_YOUR_FEE, PageLink } from '../../steps/urls';
 
 /**
  * Adds the state redirect middleware to redirect when application is in certain states
@@ -23,7 +23,7 @@ export class StateRedirectMiddleware {
 
         if (
           req.session.userCase?.state !== State.AwaitingPayment ||
-          [PAY_YOUR_FEE, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
+          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
         ) {
           return next();
         }
