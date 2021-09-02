@@ -16,7 +16,7 @@ Feature: How do you want to apply
   Scenario: They want to apply as a sole applicant
     When I select "I want to apply on my own, as a sole applicant"
     When I click "Continue"
-    Then the page should include "Do you need help paying the fee for your divorce?"
+    Then the page should include "Did you get married in the UK?"
 
   Scenario: They want to apply as a joint applicant
     When I select "I want to apply jointly, with my husband"
