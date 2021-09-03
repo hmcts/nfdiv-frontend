@@ -23,6 +23,10 @@ Before(test => {
   test.retries(3);
 });
 
+After(async () => {
+  await testConfig.clearNewUsers();
+});
+
 export const iAmOnPage = (text: string): void => {
   const url = new URL(text, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {

@@ -69,6 +69,9 @@ export const config = {
     username: idamUserManager.getApplicant1Username(),
     password: TestPass,
   }),
+  clearNewUsers: async (): Promise<void> => {
+    await idamUserManager.clearAndKeepOnlyOriginalUser();
+  },
   Gherkin: {
     features: './features/**/*.feature',
     steps: [
