@@ -13,11 +13,13 @@ export class HealthCheck {
       ? healthcheck.raw(() => (app.locals.redisClient.ping() ? healthcheck.up() : healthcheck.down()))
       : null;
 
+    const idamUrl = config.get('services.idam.tokenURL') as string;
+
     healthcheck.addTo(app, {
       checks: {
         ...(redis ? { redis } : {}),
         'authProvider-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
-        'idam-api': healthcheck.web(new URL('/health', config.get('services.idam.tokenURL'))),
+        'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
         'case-api': healthcheck.web(new URL('/health', config.get('services.case.url'))),
       },
       ...(redis
