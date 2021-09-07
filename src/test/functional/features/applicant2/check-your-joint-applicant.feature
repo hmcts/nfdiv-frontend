@@ -33,7 +33,7 @@ Feature: Check Your Joint Application
     When I select "Your first name"
     And I type "My first name"
     And I select "Your last name"
-    And I type "My last-name"
+    And I type "My last name"
     And I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
     And I go to '/applicant2/check-your-joint-application'
