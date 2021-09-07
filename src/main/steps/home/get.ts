@@ -41,53 +41,40 @@ export class HomeGetController {
 }
 
 const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>, isFirstQuestionComplete: boolean) => {
-  let redirectLink;
-
   switch (caseState) {
     case State.AwaitingApplicant1Response: {
-      redirectLink = userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO ? APPLICATION_ENDED : CHECK_ANSWERS_URL;
-      break;
+      return userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO ? APPLICATION_ENDED : CHECK_ANSWERS_URL;
     }
     case State.AwaitingApplicant2Response: {
-      redirectLink = SENT_TO_APPLICANT2_FOR_REVIEW;
-      break;
+      return SENT_TO_APPLICANT2_FOR_REVIEW;
     }
     case State.Applicant2Approved: {
-      redirectLink = CONFIRM_JOINT_APPLICATION;
-      break;
+      return CONFIRM_JOINT_APPLICATION;
     }
     case State.Submitted: {
-      redirectLink = APPLICATION_SUBMITTED;
-      break;
+      return APPLICATION_SUBMITTED;
     }
     case State.Holding: {
-      redirectLink = HUB_1;
-      break;
+      return HUB_1;
     }
     default: {
-      redirectLink = isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
+      return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
     }
   }
-  return redirectLink;
 };
 
 const applicant2RedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
-  let redirectLink;
-
   switch (caseState) {
     case State.Holding: {
-      redirectLink = `${APPLICANT_2}${HUB_1}`;
-      break;
+      return `${APPLICANT_2}${HUB_1}`;
     }
     case State.Applicant2Approved: {
-      redirectLink = `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
-      break;
+      return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
     }
     default: {
-      redirectLink = isFirstQuestionComplete
+      return isFirstQuestionComplete
         ? `${APPLICANT_2}${CHECK_ANSWERS_URL}`
         : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
     }
   }
-  return redirectLink;
 };
