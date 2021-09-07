@@ -107,7 +107,7 @@
     "@types/mini-css-extract-plugin": "^2.2.0",
     "@types/webpack-dev-middleware": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@typescript-eslint/parser": "^4.31.0",
     "@wdio/sauce-service": "^7.11.1",
     "allure-commandline": "^2.13.8",
     "axios-debug-log": "^0.8.4",
