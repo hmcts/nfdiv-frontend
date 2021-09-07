@@ -23,6 +23,10 @@ Before(test => {
   test.retries(3);
 });
 
+After(async () => {
+  await testConfig.clearNewUsers();
+});
+
 export const iAmOnPage = (text: string): void => {
   const url = new URL(text, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
@@ -45,7 +49,7 @@ Given('I create a new user and login', () => {
 });
 
 Given('I login with applicant 1', () => {
-  autoLogin.login(I, testConfig.GetApplicant1User().username);
+  autoLogin.login(I, testConfig.GetUser(1).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {

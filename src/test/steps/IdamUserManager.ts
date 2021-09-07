@@ -50,11 +50,15 @@ export class IdamUserManager {
     }
   }
 
+  async clearAndKeepOnlyOriginalUser(): Promise<void> {
+    this.users = new Set([...this.users][0]);
+  }
+
   getCurrentUsername(): string {
     return Array.from(this.users).pop() as string;
   }
 
-  getApplicant1Username(): string {
-    return Array.from(this.users)[this.users.size - 2] as string;
+  getUsername(index: number): string {
+    return Array.from(this.users)[index] as string;
   }
 }
