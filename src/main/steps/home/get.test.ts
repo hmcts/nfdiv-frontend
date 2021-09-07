@@ -10,6 +10,7 @@ import {
   HUB_1,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
+  YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../urls';
 
@@ -93,6 +94,40 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
   });
 
+  test('redirects to your spouse needs to confirm page for applicant 2 users in applicant2Approved state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Applicant2Approved,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`);
+  });
+
+  test('redirects to the hub page for applicant 2 users in holding state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Holding,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_1}`);
+  });
+
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
     const req = mockRequest({
       session: {
@@ -174,7 +209,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
   });
 
-  test('redirects to the hub page for applicant 1 and applicant 2 users in holding state', () => {
+  test('redirects to the hub page for applicant 1 users in holding state', () => {
     const req = mockRequest({
       session: {
         userCase: {
