@@ -67,7 +67,7 @@
     "@uppy/xhr-upload": "^2.0.2",
     "applicationinsights": "^2.1.6",
     "autobind-decorator": "^2.4.0",
-    "axios": "^0.21.3",
+    "axios": "^0.21.4",
     "config": "^3.3.6",
     "connect-redis": "^6.0.0",
     "cookie-parser": "^1.4.5",
