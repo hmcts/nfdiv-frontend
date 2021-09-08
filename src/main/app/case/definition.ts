@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-07 15:37:15.
+// Generated using typescript-generator version 2.32.889 on 2021-09-08 11:00:37.
 
 export interface Address {
   AddressLine1: string;
@@ -93,9 +93,6 @@ export interface AcknowledgementOfService {
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
-  agreeToCosts: RespondentAgreeToCosts;
-  costsAmount: string;
-  costsReason: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -347,9 +344,6 @@ export interface CaseData {
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
-  agreeToCosts: RespondentAgreeToCosts;
-  costsAmount: string;
-  costsReason: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -832,12 +826,6 @@ export const enum RejectReasonType {
   NO_INFO = 'noInfo',
   INCORRECT_INFO = 'incorrectInfo',
   OTHER = 'Other',
-}
-
-export const enum RespondentAgreeToCosts {
-  YES = 'Yes',
-  NO = 'No',
-  DIFFERENT_AMOUNT = 'DifferentAmount',
 }
 
 export const enum ServiceMethod {
