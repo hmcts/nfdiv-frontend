@@ -5,6 +5,7 @@ import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
+import { CITIZEN_UPDATE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { CHECK_ANSWERS_URL } from '../../urls';
 
@@ -16,7 +17,7 @@ const logger = Logger.getLogger('PCQGetController');
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (!req.session.userCase.applicant1PcqId) {
-      const url = config.get('services.equalityAndDiversity.url');
+      const url = 'https://pcq.aat.platform.hmcts.net'; //config.get('services.equalityAndDiversity.url');
       const path: string = config.get('services.equalityAndDiversity.path');
 
       const health = `${url}/health`;
@@ -47,13 +48,29 @@ export default class PCQGetController {
       params['token'] = createToken(params);
       params.partyId = encodeURIComponent(params.partyId);
 
+      try {
+        req.session.userCase = await req.locals.api.triggerEvent(
+          req.session.userCase.id,
+          { applicant1PcqId: req.session.userCase.applicant1PcqId },
+          CITIZEN_UPDATE
+        );
+      } catch (err) {
+        req.locals.logger.error('Error updating PCQ ID for Applicant 1', err);
+        res.redirect(CHECK_ANSWERS_URL);
+      }
+
       const qs = Object.keys(params)
         .map(key => {
           return `${key}=${params[key]}`;
         })
         .join('&');
 
-      res.redirect(`${url}${path}?${qs}`);
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(`${url}${path}?${qs}`);
+      });
     } else {
       res.redirect(CHECK_ANSWERS_URL);
     }
