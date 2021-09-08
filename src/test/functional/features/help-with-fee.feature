@@ -2,6 +2,7 @@ Feature: Help with fee
 
   Background:
     Given I login
+    And I've said I'm applying as a sole application
     When I go to '/help-with-your-fee'
     Then the page should include "Do you need help paying the fee for your divorce?"
 
