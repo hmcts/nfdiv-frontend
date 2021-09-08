@@ -17,10 +17,10 @@ const logger = Logger.getLogger('PCQGetController');
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (!req.session.userCase.applicant1PcqId) {
-      const url = 'https://pcq.aat.platform.hmcts.net'; //config.get('services.equalityAndDiversity.url');
+      const url = config.get('services.equalityAndDiversity.url');
       const path: string = config.get('services.equalityAndDiversity.path');
-
       const health = `${url}/health`;
+
       try {
         const response = await axios.get(health);
         if (response.data.status && response.data.status === 'UP') {
