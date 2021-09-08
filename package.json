@@ -54,7 +54,7 @@
     "@types/negotiator": "^0.6.1",
     "@types/node": "^16.7.12",
     "@types/nunjucks": "^3.1.5",
-    "@types/redis": "^2.8.31",
+    "@types/redis": "^2.8.32",
     "@types/require-directory": "^2.1.2",
     "@types/serve-favicon": "^2.5.3",
     "@types/session-file-store": "^1.2.2",
