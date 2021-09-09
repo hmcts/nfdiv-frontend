@@ -25,6 +25,7 @@ const IGNORE_UNREACHABLE_FIELDS = [
   'applicant1IBelieveApplicationIsTrue',
   'applicant2IConfirmPrayer',
   'applicant2IBelieveApplicationIsTrue',
+  'applicant1PcqId',
 ];
 
 export const getAllPossibleAnswers = (caseState: Partial<Case>, steps: Step[]): string[] => {
