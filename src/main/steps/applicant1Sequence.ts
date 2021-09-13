@@ -38,6 +38,7 @@ import {
   HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
+  HUB_1,
   IN_THE_UK,
   JURISDICTION_CONNECTION_SUMMARY,
   JURISDICTION_DOMICILE,
@@ -431,6 +432,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: APPLICATION_ENDED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_1,
     getNextStep: () => HOME_URL,
   },
 ];

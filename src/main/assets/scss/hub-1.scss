@@ -1,0 +1,17 @@
+.govuk-panel--outstanding {
+  background-color: #f2f8f5;
+  text-align: left;
+  div {
+    color: govuk-colour('black');
+  }
+}
+.govuk-section-break--thinner {
+  height: 1px;
+  color: #1d70b8;
+  background-color: #1d70b8;
+}
+.govuk-section-break--additional {
+  height: 5px;
+  color: #1d70b8;
+  background-color: #1d70b8;
+}

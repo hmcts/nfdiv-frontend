@@ -20,6 +20,7 @@ import {
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HUB_1,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
@@ -167,6 +168,10 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_1,
     getNextStep: () => HOME_URL,
   },
 ];
