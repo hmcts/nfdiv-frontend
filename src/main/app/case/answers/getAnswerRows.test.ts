@@ -7,8 +7,8 @@ import { FinancialOrderFor, YesOrNo } from '../definition';
 
 import { getAnswerRows } from './getAnswerRows';
 
-const mockStepsWithContentApplicant1: jest.Mock<StepWithContent> = jest.fn();
-const mockStepsWithContentApplicant2: jest.Mock<StepWithContent> = jest.fn();
+const mockStepsWithContentApplicant1: jest.Mock<StepWithContent[]> = jest.fn();
+const mockStepsWithContentApplicant2: jest.Mock<StepWithContent[]> = jest.fn();
 
 jest.mock('../../../steps', () => ({
   get stepsWithContentApplicant1() {
