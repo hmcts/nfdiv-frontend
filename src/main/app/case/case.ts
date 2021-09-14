@@ -149,8 +149,10 @@ export interface Case {
   applicant1AddressCountry?: string;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
+  applicant1ConfirmReceipt: YesOrNo;
   applicant2PhoneNumber?: string;
   applicant2AgreeToReceiveEmails?: Checkbox;
+  applicant2ConfirmReceipt: YesOrNo;
   connections: JurisdictionConnections[];
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;

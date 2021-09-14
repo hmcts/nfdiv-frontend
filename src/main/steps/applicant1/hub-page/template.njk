@@ -3,14 +3,6 @@
 
 {% extends "common/page.njk" %}
 
-<style>
-  .govuk-panel--confirmation {
-     background-color: govuk-colour('blue');
-     div {
-       color: govuk-colour('black');
-     }
-<style>
-
 {% block content %}
 
   {% block backLink %}{% endblock %}
@@ -69,7 +61,7 @@
           <p class="govuk-body">  {{ line1 }} </p>
           <p class="govuk-body"> {{ line2 }} </p>
 
-          <form action="/joint_divorce/hub_2" method="post" novalidate>
+          <form action="/hub-page" method="get" novalidate>
             <button type="submit" class="govuk-button" data-module="govuk-button">
               {{ confirmReceipt }}
             </button>
@@ -94,11 +86,8 @@
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
         <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
-
         <p class="govuk-body">{{ telephone | safe }}</p>
-
         <p class="govuk-body">{{ email | safe }}</p>
-
         <p class="govuk-body">{{ post | safe}}</p>
       </div>
 

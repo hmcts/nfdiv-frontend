@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-08 11:00:37.
+// Generated using typescript-generator version 2.32.889 on 2021-09-14 12:59:43.
 
 export interface Address {
   AddressLine1: string;
@@ -107,6 +107,7 @@ export interface Applicant {
   LastName: string;
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
+  ConfirmReceipt: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
@@ -217,6 +218,7 @@ export interface CaseData {
   applicant1LastName: string;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
+  applicant1ConfirmReceipt: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
@@ -246,6 +248,7 @@ export interface CaseData {
   applicant2LastName: string;
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
+  applicant2ConfirmReceipt: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
@@ -864,16 +867,16 @@ export const enum State {
   Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   AwaitingPronouncement = 'AwaitingPronouncement',
+  PendingDispute = 'PendingDispute',
   PendingRejection = 'PendingRejection',
   Submitted = 'Submitted',
 }
 
 export const enum UserRole {
-  CASEWORKER_COURTADMIN_CTSC = 'caseworker-divorce-courtadmin_beta',
-  CASEWORKER_COURTADMIN_RDU = 'caseworker-divorce-courtadmin',
-  CASEWORKER_LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
-  CASEWORKER_SUPERUSER = 'caseworker-divorce-superuser',
-  CASEWORKER_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
+  LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
+  SUPER_USER = 'caseworker-divorce-superuser',
+  SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
   SOLICITOR = 'caseworker-divorce-solicitor',
   APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
   APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
@@ -988,6 +991,7 @@ export const enum DocumentType {
   GENERAL_APPLICATION = 'generalApplication',
   EMAIL = 'email',
   GENERAL_ORDER = 'generalOrder',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
   OTHER = 'other',
 }
 
@@ -1172,21 +1176,22 @@ export const enum HttpStatus {
 }
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
-export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
-export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
-export const CITIZEN_SWITCH_TO_SOLE = 'citizen-switch-to-sole';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
-export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
+export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const CITIZEN_SWITCH_TO_SOLE = 'citizen-switch-to-sole';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
-export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
-export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
-export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
