@@ -10,6 +10,9 @@ Feature: Confirm Your Joint Application
     Then the page should include "You need to review your joint application"
     And I click "Continue"
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    And I go to '/applicant2/check-your-joint-application'
+    And I click "Yes"
+    When I click "Continue"
     And I go to '/applicant2/confirm-your-joint-application'
     And I clear the form
     And I click "I confirm"
