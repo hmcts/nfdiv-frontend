@@ -51,3 +51,8 @@ export const jointApplicant1CompleteCase: Partial<BrowserCase> = {
   applicant1UploadedFiles: [],
   whoIsFinancialOrderFor: [],
 };
+
+export const jointApplicant1CompleteCaseHwf: Partial<BrowserCase> = {
+  ...jointApplicant1CompleteCase,
+  applicant1AlreadyAppliedForHelpPaying: YesOrNo.YES,
+};

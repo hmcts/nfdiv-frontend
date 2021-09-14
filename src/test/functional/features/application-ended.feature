@@ -13,7 +13,7 @@ Feature: Application Ended
     And I click "No"
     And I click "Continue"
     Then the page should include "You cannot apply to get a divorce"
-    And I click "Continue"
+    And I click "End joint application"
     Then the page should include "You have not confirmed your joint application"
     And I click "Sign out"
     Given I login with applicant 1
