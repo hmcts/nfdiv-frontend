@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { ApplicationType, CITIZEN_SWITCH_TO_SOLE, DivorceOrDissolution, State } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
@@ -7,9 +8,24 @@ import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../../urls';
 
 import SwitchToSoleApplicationPostController from './post';
 
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('SwitchToSoleApplicationPostController', () => {
+  beforeEach(() => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+    });
+  });
+
+  afterEach(() => {
+    getSystemUserMock.mockClear();
+  });
+
   test('Should have no errors and redirect to the next page', async () => {
     const errors = [] as never[];
     const body = {};
@@ -42,14 +58,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      {
-        divorceOrDissolution: 'divorce',
-        id: '1234',
-      },
-      CITIZEN_SWITCH_TO_SOLE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -69,7 +78,6 @@ describe('SwitchToSoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(PAY_AND_SUBMIT);
-    expect(req.session.errors).toStrictEqual([]);
   });
 
   test('Should redirect to home page when cancel button used in any non Applicant2Approved state', async () => {
@@ -86,7 +94,6 @@ describe('SwitchToSoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(HOME_URL);
-    expect(req.session.errors).toStrictEqual([]);
   });
 
   test('Should return error when event could not be triggered and redirect to the same page', async () => {
