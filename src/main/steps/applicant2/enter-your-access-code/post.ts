@@ -46,6 +46,7 @@ export class AccessCodePostController {
           formData,
           SYSTEM_LINK_APPLICANT_2
         );
+        req.session.isApplicant2 = true;
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2 to joint application', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
