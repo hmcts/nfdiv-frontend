@@ -20,7 +20,7 @@ import {
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
-  HUB_1,
+  HUB_PAGE,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
@@ -171,7 +171,7 @@ const sequences: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: HUB_1,
+    url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
 ];

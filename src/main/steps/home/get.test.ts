@@ -7,7 +7,7 @@ import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
-  HUB_1,
+  HUB_PAGE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -125,7 +125,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_1}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
@@ -222,6 +222,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(HUB_1);
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
   });
 });
