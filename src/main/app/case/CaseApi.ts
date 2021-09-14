@@ -112,11 +112,10 @@ export class CaseApi {
   }
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-    const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
-    const token = tokenResponse.data.token;
-    const event = { id: eventName };
-
     try {
+      const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
+      const token = tokenResponse.data.token;
+      const event = { id: eventName };
       const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };

@@ -127,6 +127,8 @@ const fields: ToApiConverters = {
   applicant2IBelieveApplicationIsTrue: data => ({
     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
   }),
+  applicant1UploadedFiles: () => ({}),
+  applicant2UploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
