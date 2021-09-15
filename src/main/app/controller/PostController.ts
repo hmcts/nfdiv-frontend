@@ -18,7 +18,6 @@ export class PostController<T extends AnyObject> {
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    this.form.setFormState(req.session.userCase);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
 
     if (req.body.saveAndSignOut) {
@@ -50,7 +49,6 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
-    this.form.setFormState(req.session.userCase);
     req.session.errors = this.form.getErrors(formData);
 
     if (req.session.errors.length === 0) {

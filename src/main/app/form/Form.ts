@@ -6,10 +6,6 @@ import { setupCheckboxParser } from './parser';
 export class Form {
   constructor(private readonly form: FormContent, private formState: Partial<Case> = {}) {}
 
-  public setFormState(formState: Partial<Case>): void {
-    this.formState = formState;
-  }
-
   public getFields(checkFields?: FormContent['fields']): FormContent['fields'] {
     const fields = checkFields || this.form?.fields;
     if (typeof fields === 'function') {

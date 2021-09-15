@@ -22,9 +22,7 @@ describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const errors = [{ field: 'field1', errorName: 'fail' }];
     const body = { gender: Gender.FEMALE };
-    const setFormStateMock = jest.fn();
     const mockForm = {
-      setFormState: setFormStateMock,
       getErrors: () => errors,
       getParsedBody: () => body,
     } as unknown as Form;
@@ -41,7 +39,6 @@ describe('PostController', () => {
     });
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
-    expect(setFormStateMock).toBeCalledWith(req.session.userCase);
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith(req.path);
     expect(req.session.errors).toBe(errors);
