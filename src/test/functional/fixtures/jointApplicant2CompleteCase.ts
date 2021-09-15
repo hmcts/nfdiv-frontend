@@ -23,8 +23,3 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AddressPrivate: YesOrNo.NO,
   applicant2AddressTown: 'LONDON',
 };
-
-export const jointApplicant2CompleteCaseNoHwf: Partial<BrowserCase> = {
-  ...jointApplicant2CompleteCase,
-  applicant2AlreadyAppliedForHelpPaying: YesOrNo.NO,
-};
