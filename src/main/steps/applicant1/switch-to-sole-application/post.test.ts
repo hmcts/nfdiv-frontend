@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
-import { ApplicationType, CITIZEN_SWITCH_TO_SOLE, DivorceOrDissolution, State } from '../../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
 import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../../urls';
 
@@ -58,7 +58,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SWITCH_TO_SOLE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
