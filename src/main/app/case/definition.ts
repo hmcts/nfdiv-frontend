@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-08 11:00:37.
+// Generated using typescript-generator version 2.32.889 on 2021-09-15 16:30:11.
 
 export interface Address {
   AddressLine1: string;
@@ -107,6 +107,7 @@ export interface Applicant {
   LastName: string;
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
+  ConfirmReceipt: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
@@ -158,6 +159,16 @@ export interface Application {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  solServiceDateOfService: DateAsString;
+  solServiceDocumentsServed: string;
+  solServiceOnWhomServed: string;
+  solServiceHowServed: DocumentsServedHow;
+  solServiceAddressServed: string;
+  solServiceBeingThe: DocumentsServedBeingThe;
+  solServiceLocationServed: DocumentsServedWhere;
+  solServiceSpecifyLocationServed: string;
+  solServiceServiceSotName: string;
+  solServiceServiceSotFirm: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -217,6 +228,7 @@ export interface CaseData {
   applicant1LastName: string;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
+  applicant1ConfirmReceipt: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
@@ -246,6 +258,7 @@ export interface CaseData {
   applicant2LastName: string;
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
+  applicant2ConfirmReceipt: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
@@ -294,6 +307,16 @@ export interface CaseData {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  solServiceDateOfService: DateAsString;
+  solServiceDocumentsServed: string;
+  solServiceOnWhomServed: string;
+  solServiceHowServed: DocumentsServedHow;
+  solServiceAddressServed: string;
+  solServiceBeingThe: DocumentsServedBeingThe;
+  solServiceLocationServed: DocumentsServedWhere;
+  solServiceSpecifyLocationServed: string;
+  solServiceServiceSotName: string;
+  solServiceServiceSotFirm: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -378,7 +401,7 @@ export interface CaseData {
   divorceUnit: Court;
   selectedDivorceCentreSiteId: string;
   documentsGenerated: ListValue<DivorceDocument>[];
-  documentsUploaded: ListValue<CaseworkerUploadedDocument>[];
+  documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   generalOrders: ListValue<DivorceGeneralOrder>[];
   previousCaseId: CaseLink;
@@ -504,13 +527,17 @@ export interface Solicitor {
   OrganisationPolicy: OrganisationPolicy<UserRole>;
 }
 
-export interface CaseworkerUploadedDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: CaseworkerUploadedDocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
+export interface SolicitorService {
+  DateOfService: DateAsString;
+  DocumentsServed: string;
+  OnWhomServed: string;
+  HowServed: DocumentsServedHow;
+  AddressServed: string;
+  BeingThe: DocumentsServedBeingThe;
+  LocationServed: DocumentsServedWhere;
+  SpecifyLocationServed: string;
+  ServiceSotName: string;
+  ServiceSotFirm: string;
 }
 
 export interface ConfidentialDivorceDocument {
@@ -711,6 +738,34 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
+export const enum DocumentsServedBeingThe {
+  LITIGATION_FRIEND = 'litigationFriend',
+  SOLICITOR = 'solicitors',
+  RESPONDENT = 'respondents',
+  APPLICANT = 'applicants',
+}
+
+export const enum DocumentsServedHow {
+  COURT_PERMITTED = 'courtPermitted',
+  HANDED_TO = 'handedTo',
+  DELIVERED_TO = 'deliveredTo',
+  POSTED_TO = 'postedTo',
+}
+
+export const enum DocumentsServedWhere {
+  OTHER_SPECIFY = 'otherSpecify',
+  PLACE_BUSINESS_COMPANY = 'placeOfBusinessOfCompany',
+  PRINCIPAL_OFFICE_COMPANY = 'principalOfficeCompany',
+  PRINCIPAL_OFFICE_CORPORATION = 'principalOfficeCorporation',
+  PRINCIPAL_OFFICE_PARTNERSHIP = 'principalOfficePartnership',
+  LAST_KNOWN_PRINCIPAL_BUSINESS_PLACE = 'lastKnownPricipalBusinessPlace',
+  LAST_KNOWN_BUSINESS_PLACE = 'lastKnownBusinessPlace',
+  PRINCIPAL_PLACE_BUSINESS = 'principalPlaceBusiness',
+  PLACE_BUSINESS = 'placeBusiness',
+  LAST_KNOWN_RESIDENCE = 'lastKnownResidence',
+  USUAL_RESIDENCE = 'usualResidence',
+}
+
 export const enum FinancialOrderFor {
   APPLICANT = 'applicant',
   CHILDREN = 'children',
@@ -845,6 +900,7 @@ export const enum State {
   AosOverdue = 'AosOverdue',
   Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
+  AwaitingService = 'AwaitingService',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
@@ -864,16 +920,16 @@ export const enum State {
   Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   AwaitingPronouncement = 'AwaitingPronouncement',
+  PendingDispute = 'PendingDispute',
   PendingRejection = 'PendingRejection',
   Submitted = 'Submitted',
 }
 
 export const enum UserRole {
-  CASEWORKER_COURTADMIN_CTSC = 'caseworker-divorce-courtadmin_beta',
-  CASEWORKER_COURTADMIN_RDU = 'caseworker-divorce-courtadmin',
-  CASEWORKER_LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
-  CASEWORKER_SUPERUSER = 'caseworker-divorce-superuser',
-  CASEWORKER_SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
+  LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
+  SUPER_USER = 'caseworker-divorce-superuser',
+  SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
   SOLICITOR = 'caseworker-divorce-solicitor',
   APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
   APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
@@ -886,46 +942,6 @@ export const enum UserRole {
 export const enum WhoDivorcing {
   HUSBAND = 'husband',
   WIFE = 'wife',
-}
-
-export const enum CaseworkerUploadedDocumentType {
-  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
-  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgeOfService',
-  ANNEX_A = 'annexA',
-  APPLICATION = 'application',
-  BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
-  BAILIFF_SERVICE = 'bailiffService',
-  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
-  CERTIFICATE_OF_SERVICE = 'certificateOfService',
-  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
-  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
-  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
-  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
-  CORRESPONDENCE = 'correspondence',
-  COSTS = 'costs',
-  COSTS_ORDER = 'costsOrder',
-  D84 = 'd84',
-  D9D = 'd9D',
-  D9H = 'd9H',
-  DEEMED_SERVICE = 'deemedService',
-  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
-  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
-  DISPENSE_WITH_SERVICE = 'dispenseWithService',
-  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
-  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
-  EMAIL = 'email',
-  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
-  FINAL_ORDER_GRANTED = 'finalOrderGranted',
-  GENERAL_ORDER = 'generalOrder',
-  MARRIAGE_CERT = 'marriageCert',
-  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
-  NAME_CHANGE = 'nameChange',
-  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
-  OBJECTION_TO_COSTS = 'objectionToCosts',
-  OTHER = 'other',
-  RESPONDENT_ANSWERS = 'respondentAnswers',
-  SOLICITOR_SERVICE = 'solicitorService',
-  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum ConfidentialDocumentsReceived {
@@ -961,34 +977,44 @@ export const enum ConfidentialDocumentsReceived {
 }
 
 export const enum DocumentType {
-  DIVORCE_APPLICATION = 'divorceApplication',
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgeOfService',
+  ANNEX_A = 'annexA',
+  APPLICATION = 'application',
+  BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
+  BAILIFF_SERVICE = 'bailiffService',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  CERTIFICATE_OF_SERVICE = 'certificateOfService',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  D84 = 'd84',
+  D9D = 'd9D',
+  D9H = 'd9H',
+  DEEMED_SERVICE = 'deemedService',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  GENERAL_ORDER = 'generalOrder',
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
   NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
-  COSTS = 'costs',
-  COSTS_ORDER = 'costsOrder',
-  SERVICE_SOLICITOR = 'serviceSolicitor',
-  SERVICE_DISPENSED_WITH = 'serviceDispensedWith',
-  SERVICE_DISPENSED_WITH_GRANTED = 'serviceDispensedWithGranted',
-  SERVICE_DEEMED = 'serviceDeemed',
-  SERVICE_DEEMED_AS_GRANTED = 'serviceDeemedAsGranted',
-  SERVICE_BALIFF = 'serviceBaliff',
-  AOS_OFFLINE_INVITATION_LETTER_TO_APPLICANT_2 = 'aosOfflineInvitationLetterToApplicant2',
-  DOCUMENT_TYPE_RESPONDENT_INVITATION = 'aos',
-  APPLICANT_2_ANSWERS = 'applicant2Answers',
-  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
-  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
-  CONDITIONAL_ORDER_REFUSAL_CLARIFICATION_RESPONSE = 'conditionalOrderRefusalClarificationResponse',
-  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
-  CONDITIONAL_ORDER_CERTIFICATE_OF_ENTITLEMENT = 'conditionalOrderCertificateOfEntitlement',
-  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
-  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
-  FINAL_ORDER_GRANTED = 'finalOrderGranted',
-  CORRESPONDENCE = 'correspondence',
-  GENERAL_APPLICATION = 'generalApplication',
-  EMAIL = 'email',
-  GENERAL_ORDER = 'generalOrder',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OBJECTION_TO_COSTS = 'objectionToCosts',
   OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  RESPONDENT_INVITATION = 'aos',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum PaymentStatus {
@@ -1172,21 +1198,24 @@ export const enum HttpStatus {
 }
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
-export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
-export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
-export const CITIZEN_SWITCH_TO_SOLE = 'citizen-switch-to-sole';
+export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
-export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
+export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SWITCH_TO_SOLE = 'switch-to-sole';
+export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
-export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
-export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
-export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
