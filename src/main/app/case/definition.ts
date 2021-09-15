@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-14 12:59:43.
+// Generated using typescript-generator version 2.32.889 on 2021-09-15 12:43:32.
 
 export interface Address {
   AddressLine1: string;
@@ -159,6 +159,16 @@ export interface Application {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  solServiceDateOfService: DateAsString;
+  solServiceDocumentsServed: string;
+  solServiceOnWhomServed: string;
+  solServiceHowServed: DocumentsServedHow;
+  solServiceAddressServed: string;
+  solServiceBeingThe: DocumentsServedBeingThe;
+  solServiceLocationServed: DocumentsServedWhere;
+  solServiceSpecifyLocationServed: string;
+  solServiceServiceSotName: string;
+  solServiceServiceSotFirm: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -297,6 +307,16 @@ export interface CaseData {
   jurisdictionResidualEligible: YesOrNo;
   jurisdictionBothLastHabituallyResident: YesOrNo;
   jurisdictionConnections: JurisdictionConnections[];
+  solServiceDateOfService: DateAsString;
+  solServiceDocumentsServed: string;
+  solServiceOnWhomServed: string;
+  solServiceHowServed: DocumentsServedHow;
+  solServiceAddressServed: string;
+  solServiceBeingThe: DocumentsServedBeingThe;
+  solServiceLocationServed: DocumentsServedWhere;
+  solServiceSpecifyLocationServed: string;
+  solServiceServiceSotName: string;
+  solServiceServiceSotFirm: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -507,6 +527,19 @@ export interface Solicitor {
   OrganisationPolicy: OrganisationPolicy<UserRole>;
 }
 
+export interface SolicitorService {
+  DateOfService: DateAsString;
+  DocumentsServed: string;
+  OnWhomServed: string;
+  HowServed: DocumentsServedHow;
+  AddressServed: string;
+  BeingThe: DocumentsServedBeingThe;
+  LocationServed: DocumentsServedWhere;
+  SpecifyLocationServed: string;
+  ServiceSotName: string;
+  ServiceSotFirm: string;
+}
+
 export interface CaseworkerUploadedDocument {
   documentDateAdded: DateAsString;
   documentComment: string;
@@ -714,6 +747,34 @@ export const enum DivorceOrDissolution {
   DISSOLUTION = 'dissolution',
 }
 
+export const enum DocumentsServedBeingThe {
+  LITIGATION_FRIEND = 'litigationFriend',
+  SOLICITOR = 'solicitors',
+  RESPONDENT = 'respondents',
+  APPLICANT = 'applicants',
+}
+
+export const enum DocumentsServedHow {
+  COURT_PERMITTED = 'courtPermitted',
+  HANDED_TO = 'handedTo',
+  DELIVERED_TO = 'deliveredTo',
+  POSTED_TO = 'postedTo',
+}
+
+export const enum DocumentsServedWhere {
+  OTHER_SPECIFY = 'otherSpecify',
+  PLACE_BUSINESS_COMPANY = 'placeOfBusinessOfCompany',
+  PRINCIPAL_OFFICE_COMPANY = 'principalOfficeCompany',
+  PRINCIPAL_OFFICE_CORPORATION = 'principalOfficeCorporation',
+  PRINCIPAL_OFFICE_PARTNERSHIP = 'principalOfficePartnership',
+  LAST_KNOWN_PRINCIPAL_BUSINESS_PLACE = 'lastKnownPricipalBusinessPlace',
+  LAST_KNOWN_BUSINESS_PLACE = 'lastKnownBusinessPlace',
+  PRINCIPAL_PLACE_BUSINESS = 'principalPlaceBusiness',
+  PLACE_BUSINESS = 'placeBusiness',
+  LAST_KNOWN_RESIDENCE = 'lastKnownResidence',
+  USUAL_RESIDENCE = 'usualResidence',
+}
+
 export const enum FinancialOrderFor {
   APPLICANT = 'applicant',
   CHILDREN = 'children',
@@ -848,6 +909,7 @@ export const enum State {
   AosOverdue = 'AosOverdue',
   Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
+  AwaitingService = 'AwaitingService',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
@@ -1180,11 +1242,13 @@ export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
+export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const CITIZEN_SWITCH_TO_SOLE = 'citizen-switch-to-sole';
+export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';

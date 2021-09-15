@@ -1,11 +1,8 @@
+import config from 'config';
 import { Application } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { AppRequest } from '../../app/controller/AppRequest';
-
-/**
- * Adds the document download middleware to proxy calls to doc store
- */
 
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
@@ -24,7 +21,7 @@ export class DocumentDownloadMiddleware {
 
     const dmStoreProxy = {
       endpoints: ['/downloads/divorce-application', '/downloads/application-to-end-civil-partnership'],
-      target: 'http://dm-store-aat.service.core-compute-aat.internal',
+      target: config.get('services.documentManagement.url'),
     };
 
     app.use(

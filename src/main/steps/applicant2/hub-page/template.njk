@@ -1,1 +1,10 @@
-{% include "../../applicant1/hub-page/template.njk" %}
+{% extends "../../applicant1/hub-page/template.njk" %}
+
+{% block confirm_receipt %}
+  <form action="" method="post" novalidate>
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <button type="submit" class="govuk-button" name="applicant2ConfirmReceipt" value="Yes" >
+      {{ confirmReceipt }}
+    </button>
+  </form>
+{% endblock %}

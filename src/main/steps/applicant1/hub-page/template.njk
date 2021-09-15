@@ -16,7 +16,6 @@
         </div>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
-
         <div class="govuk-!-padding-bottom-8"></div>
 
         {{ hmctsProgressBar({
@@ -61,11 +60,14 @@
           <p class="govuk-body">  {{ line1 }} </p>
           <p class="govuk-body"> {{ line2 }} </p>
 
-          <form action="/hub-page" method="get" novalidate>
-            <button type="submit" class="govuk-button" data-module="govuk-button">
-              {{ confirmReceipt }}
-            </button>
-          </form>
+          {% block confirm_receipt %}
+            <form action="" method="post" novalidate>
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+              <button type="submit" class="govuk-button" name="applicant1ConfirmReceipt" value="Yes" >
+                {{ confirmReceipt }}
+              </button>
+            </form>
+          {% endblock %}
 
           <h3 class="govuk-heading-s">{{ subHeading2 | safe }}</h3>
           <p class="govuk-body">{{ line3 | safe }}</p>

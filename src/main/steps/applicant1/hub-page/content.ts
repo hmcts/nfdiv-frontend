@@ -69,7 +69,9 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const progressionIndex = [
     State.Holding,
-    State.Holding && content.formState?.applicant1LegalProceedings === YesOrNo.YES,
+    State.Holding && content.isApplicant2
+      ? content.formState?.applicant2ConfirmReceipt === YesOrNo.YES
+      : content.formState?.applicant1ConfirmReceipt === YesOrNo.YES,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
