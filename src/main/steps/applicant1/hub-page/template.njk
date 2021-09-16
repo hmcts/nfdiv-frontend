@@ -23,32 +23,32 @@
             label: {
               text: applicationSubmitted
             },
-            complete: true,
-            active: true
+              complete: progressionIndex == 0,
+              active: progressionIndex == 0
             }, {
               label: {
                 text: conditionalOrderApplication
+              },
+              complete: progressionIndex > 0,
+              active: hasApplicantConfirmedReceipt
+            }, {
+              label: {
+                text: conditionalOrderGranted
               },
               complete: progressionIndex > 1,
               active: progressionIndex == 1
             }, {
               label: {
-                text: conditionalOrderGranted
-              },
-              complete: progressionIndex > 2,
-              active: progressionIndex == 2
-            }, {
-              label: {
                 text: finalOrderApplication
               },
-              complete: progressionIndex >= 3,
-              active: progressionIndex == 3
+              complete: progressionIndex >= 2,
+              active: progressionIndex == 2
             }, {
               label: {
                 text: applicationEnded
               },
-              complete: progressionIndex >= 4,
-              active: progressionIndex == 4
+              complete: progressionIndex >= 3,
+              active: progressionIndex == 3
             }]
             }) }}
 
@@ -57,17 +57,23 @@
         <h2 class="govuk-heading-m"> {{ subHeading1 | safe }}</h2>
         <div class="govuk-panel govuk-panel--outstanding">
 
+
+          {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
+            {% for property, line in applicationSubmittedLatestUpdate %}
+              <p class="govuk-body">{{ line }}</p>
+            {% endfor %}
+            {% block form %}
+              {% include "./form.njk" %}
+            {% endblock %}
+            {% else %}
+            {% for property, line in applicantConfirmedReceiptLatestUpdate %}
+              <p class="govuk-body">{{ line }}</p>
+            {% endfor %}
+          {% endif %}
+
           <p class="govuk-body">  {{ line1 }} </p>
           <p class="govuk-body"> {{ line2 }} </p>
 
-          {% block confirm_receipt %}
-            <form action="" method="post" novalidate>
-              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-              <button type="submit" class="govuk-button" name="applicant1ConfirmReceipt" value="Yes" >
-                {{ confirmReceipt }}
-              </button>
-            </form>
-          {% endblock %}
 
           <h3 class="govuk-heading-s">{{ subHeading2 | safe }}</h3>
           <p class="govuk-body">{{ line3 | safe }}</p>

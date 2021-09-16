@@ -54,6 +54,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2LastNames: 'applicant2LastName',
   applicant1FullNameOnCertificate: 'marriageApplicant1Name',
   applicant2FullNameOnCertificate: 'marriageApplicant2Name',
+  applicant1ConfirmReceipt: 'applicant1ConfirmReceipt',
+  applicant2ConfirmReceipt: 'applicant2ConfirmReceipt',
   applicant1LastNameChangedWhenRelationshipFormed: 'applicant1LastNameChangedWhenMarried',
   applicant2LastNameChangedWhenRelationshipFormed: 'applicant2LastNameChangedWhenMarried',
   applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
