@@ -2,6 +2,7 @@ import config from 'config';
 import { Application } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
+import { DocumentType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
 export class DocumentDownloadMiddleware {
@@ -9,8 +10,9 @@ export class DocumentDownloadMiddleware {
     const proxy = require('express-http-proxy');
 
     const addToReqPath = (req: AppRequest) => {
-      return req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === 'divorceApplication')
-        ?.value.documentLink.document_binary_url;
+      return req.session.userCase?.documentsGenerated?.find(
+        doc => doc.value.documentType === DocumentType.DIVORCE_APPLICATION
+      )?.value.documentLink.document_binary_url;
     };
 
     const addHeaders = proxyReqOpts => {
