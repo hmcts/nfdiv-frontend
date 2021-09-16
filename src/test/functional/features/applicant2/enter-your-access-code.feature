@@ -14,7 +14,7 @@ Feature: Enter your access code
     And I go to "/applicant2/enter-your-access-code"
     And I clear the form
     And I select "Your reference number"
-    And I type "1234123412341234"
+    And I type "1627463526743704"
     And I select "Your access code"
     When I type "QWERTY45"
     And I click "Continue"
@@ -34,7 +34,7 @@ Feature: Enter your access code
     And I go to "/applicant2/enter-your-access-code"
     And I clear the form
     And I select "Your reference number"
-    When I type "1234123412341234"
+    When I type "1627463526743704"
     And I click "Continue"
     Then the page should include "You have not entered an access code"
 
