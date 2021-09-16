@@ -65,7 +65,7 @@
     "@uppy/file-input": "^2.0.1",
     "@uppy/progress-bar": "^2.0.1",
     "@uppy/xhr-upload": "^2.0.2",
-    "applicationinsights": "^2.1.6",
+    "applicationinsights": "^2.1.7",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.21.4",
     "config": "^3.3.6",
