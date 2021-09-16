@@ -3,103 +3,89 @@
 
 {% extends "common/page.njk" %}
 
+{% block backLink %}{% endblock %}
+
 {% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ title }}</h1>
 
-  {% block backLink %}{% endblock %}
+      <div class="govuk-body">
+        {{ referenceNumber }}
+      </div>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">{{ title }}</h1>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
+      <div class="govuk-!-padding-bottom-8"></div>
 
-        <div class="govuk-body">
-          {{ referenceNumber | safe }}
-        </div>
-
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
-        <div class="govuk-!-padding-bottom-8"></div>
-
-        {{ hmctsProgressBar({
-          items: [{
+      {{ hmctsProgressBar({
+        classes: 'hub-progress-bar',
+        items: [{
+          label: {
+            text: applicationSubmitted
+          },
+            complete: progressionIndex == 0,
+            active: progressionIndex == 0
+          }, {
             label: {
-              text: applicationSubmitted
+              text: conditionalOrderApplication
             },
-              complete: progressionIndex == 0,
-              active: progressionIndex == 0
-            }, {
-              label: {
-                text: conditionalOrderApplication
-              },
-              complete: progressionIndex > 0,
-              active: hasApplicantConfirmedReceipt
-            }, {
-              label: {
-                text: conditionalOrderGranted
-              },
-              complete: progressionIndex > 1,
-              active: progressionIndex == 1
-            }, {
-              label: {
-                text: finalOrderApplication
-              },
-              complete: progressionIndex >= 2,
-              active: progressionIndex == 2
-            }, {
-              label: {
-                text: applicationEnded
-              },
-              complete: progressionIndex >= 3,
-              active: progressionIndex == 3
-            }]
-            }) }}
+            complete: progressionIndex > 0,
+            active: hasApplicantConfirmedReceipt
+          }, {
+            label: {
+              text: conditionalOrderGranted
+            },
+            complete: progressionIndex > 1,
+            active: progressionIndex == 1
+          }, {
+            label: {
+              text: finalOrderApplication
+            },
+            complete: progressionIndex >= 2,
+            active: progressionIndex == 2
+          }, {
+            label: {
+              text: applicationEnded
+            },
+            complete: progressionIndex >= 3,
+            active: progressionIndex == 3
+          }]
+          }) }}
 
-        <div class="govuk-!-padding-bottom-2"></div>
+      <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
+      <div class="govuk-panel govuk-panel--outstanding">
+        {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
+          {% for property, line in applicationSubmittedLatestUpdate %}
+            <p class="govuk-body">{{ line }}</p>
+          {% endfor %}
+          {% block form %}
+            {% include "./form.njk" %}
+          {% endblock %}
+          {% else %}
+          {% for property, line in applicantConfirmedReceiptLatestUpdate %}
+            <p class="govuk-body">{{ line }}</p>
+          {% endfor %}
+        {% endif %}
 
-        <h2 class="govuk-heading-m"> {{ subHeading1 | safe }}</h2>
-        <div class="govuk-panel govuk-panel--outstanding">
-
-
-          {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
-            {% for property, line in applicationSubmittedLatestUpdate %}
-              <p class="govuk-body">{{ line }}</p>
-            {% endfor %}
-            {% block form %}
-              {% include "./form.njk" %}
-            {% endblock %}
-            {% else %}
-            {% for property, line in applicantConfirmedReceiptLatestUpdate %}
-              <p class="govuk-body">{{ line }}</p>
-            {% endfor %}
-          {% endif %}
-
-          <h3 class="govuk-heading-s">{{ subHeading2 | safe }}</h3>
-          <p class="govuk-body">{{ line3 | safe }}</p>
-
-        </div>
+        <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
+        <p class="govuk-body">{{ line3 | safe }}</p>
       </div>
+    </div>
 
-      <div class="govuk-grid-column-one-third">
-        <div class="govuk-!-padding-bottom-9"></div>
-        <div class="govuk-!-padding-bottom-6"></div>
-        <div class="govuk-!-padding-bottom-1"></div>
+    <div class="govuk-grid-column-one-third hub-right-column">
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--additional">
+      <h2 class="govuk-heading-s">{{ subHeading3 }}</h2>
 
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--additional">
-        <h2 class="govuk-heading-s">{{ subHeading3 | safe }}</h2>
+      <p class="govuk-body">{{ line4 | safe }}</p>
+      <p class="govuk-body">{{ line5 | safe }}</p>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-        <p class="govuk-body">{{ line4 | safe }}</p>
-        <p class="govuk-body">{{ line5 | safe }}</p>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-
-        <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
-        <p class="govuk-body">{{ telephone | safe }}</p>
-        <p class="govuk-body">{{ email | safe }}</p>
-        <p class="govuk-body">{{ post | safe}}</p>
-      </div>
-
+      <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
+      <p class="govuk-body">{{ telephone | safe }}</p>
+      <p class="govuk-body">{{ email | safe }}</p>
+      <p class="govuk-body">{{ post | safe}}</p>
     </div>
   </div>
-
-  {% block contact_us %}{% endblock %}
-
-</div>
-
 {% endblock %}
+
+{% block contact_us %}{% endblock %}
