@@ -10,9 +10,8 @@ export class DocumentDownloadMiddleware {
     const proxy = require('express-http-proxy');
 
     const addToReqPath = (req: AppRequest) => {
-      return req.session.userCase?.documentsGenerated?.find(
-        doc => doc.value.documentType === DocumentType.DIVORCE_APPLICATION
-      )?.value.documentLink.document_binary_url;
+      return req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.APPLICATION)
+        ?.value.documentLink.document_binary_url;
     };
 
     const addHeaders = proxyReqOpts => {

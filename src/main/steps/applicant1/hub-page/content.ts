@@ -2,7 +2,7 @@ import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import type { CommonContent } from '../../common/common.content';
-import { REVIEW_CONTACT_DETAILS } from '../../urls';
+import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) => ({
   title: `${formState?.applicant1FullNameOnCertificate} & ${formState?.applicant2FullNameOnCertificate}`,
@@ -38,15 +38,18 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
      } was issued.
       You will receive an email to remind you.`,
   },
-  line3:
+  line1:
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
-  line4: `<a class="govuk-link" href="/downloads/${
+  line2: `<a class="govuk-link" href="/downloads/${
     isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'
   }"
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
-  line5: `<a class="govuk-link" href="${REVIEW_CONTACT_DETAILS}">View or update my contact details</a>`,
+  applicant1ReviewContactDetails: `<a class="govuk-link" href="${REVIEW_CONTACT_DETAILS}">View or update my contact details</a>`,
+  applicant2ReviewContactDetails: `<a class="govuk-link" href="${
+    APPLICANT_2 + REVIEW_CONTACT_DETAILS
+  }">View or update my contact details</a>`,
   email: `<strong>Email</strong><br> <a class="govuk-link" href="mailto:${
     isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
   }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
@@ -89,9 +92,11 @@ export const generateContent: TranslationFn = content => {
     ? content.formState?.applicant2ConfirmReceipt === YesOrNo.YES
     : content.formState?.applicant1ConfirmReceipt === YesOrNo.YES;
   const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     progressionIndex,
     hasApplicantConfirmedReceipt,
+    isApplicant2,
   };
 };

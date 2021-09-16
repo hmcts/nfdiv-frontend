@@ -68,7 +68,7 @@
         {% endif %}
 
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
-        <p class="govuk-body">{{ line3 | safe }}</p>
+        <p class="govuk-body">{{ line1 | safe }}</p>
       </div>
     </div>
 
@@ -76,8 +76,12 @@
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--additional">
       <h2 class="govuk-heading-s">{{ subHeading3 }}</h2>
 
-      <p class="govuk-body">{{ line4 | safe }}</p>
-      <p class="govuk-body">{{ line5 | safe }}</p>
+      <p class="govuk-body">{{ line2 | safe }}</p>
+      {% if isApplicant2 %}
+        <p class="govuk-body">{{ applicant2ReviewContactDetails | safe }}</p>
+      {% else %}
+        <p class="govuk-body">{{ applicant1ReviewContactDetails | safe }}</p>
+      {% endif %}
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
       <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
