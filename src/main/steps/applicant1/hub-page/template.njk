@@ -54,17 +54,10 @@
 
       <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
       <div class="govuk-panel govuk-panel--outstanding">
-        {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
-          {% for property, line in applicationSubmittedLatestUpdate %}
-            <p class="govuk-body">{{ line }}</p>
-          {% endfor %}
-          {% block form %}
-            {% include "./form.njk" %}
-          {% endblock %}
-          {% else %}
-          {% for property, line in applicantConfirmedReceiptLatestUpdate %}
-            <p class="govuk-body">{{ line }}</p>
-          {% endfor %}
+        {% if isJointApplication %}
+          {% include "./pages/joint/hub-1.njk" %}
+        {% else %}
+          {% include "./pages/sole/hub-1.njk" %}
         {% endif %}
 
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
