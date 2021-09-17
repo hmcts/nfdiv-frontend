@@ -6,7 +6,7 @@ import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../urls';
 import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
-const en = ({ isDivorce, formState, referenceNumber }: CommonContent) => ({
+const en = ({ isDivorce, formState, referenceNumber, isApplicant2 }: CommonContent) => ({
   title: `${formState?.applicant1FullNameOnCertificate} & ${formState?.applicant2FullNameOnCertificate}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
@@ -25,9 +25,8 @@ const en = ({ isDivorce, formState, referenceNumber }: CommonContent) => ({
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
-  applicant1ReviewContactDetails: `<a class="govuk-link" href="${REVIEW_CONTACT_DETAILS}">View or update my contact details</a>`,
-  applicant2ReviewContactDetails: `<a class="govuk-link" href="${
-    APPLICANT_2 + REVIEW_CONTACT_DETAILS
+  reviewContactDetails: `<a class="govuk-link" href="${
+    (isApplicant2 ? APPLICANT_2 : '') + REVIEW_CONTACT_DETAILS
   }">View or update my contact details</a>`,
   subHeading3: 'I want to...',
   subHeading4: 'Getting help',
