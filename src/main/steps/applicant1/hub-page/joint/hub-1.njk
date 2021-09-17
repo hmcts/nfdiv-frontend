@@ -3,7 +3,7 @@
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
   {% block form %}
-    {% include "../../form.njk" %}
+    {% include "../form.njk" %}
   {% endblock %}
 {% else %}
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
