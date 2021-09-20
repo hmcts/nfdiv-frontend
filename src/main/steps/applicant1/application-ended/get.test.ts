@@ -11,7 +11,7 @@ import ApplicationEndedGetController from './get';
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
-describe('AccessCodeGetController', () => {
+describe('ApplicationEndedGetController', () => {
   beforeEach(() => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
