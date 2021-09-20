@@ -88,6 +88,7 @@ export const NOT_CONFIRMED_JOINT_APPLICATION: PageLink = '/you-have-not-confirme
 export const YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION: PageLink = '/needs-to-confirm-joint-application';
 export const CHECK_JOINT_APPLICATION: PageLink = '/check-your-joint-application';
 export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
+export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 
