@@ -91,11 +91,12 @@ export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
-export const SUBMIT_SOLE_APPLICATION: PageLink = '/submit-sole-application';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 
 export const EQUALITY: PageLink = '/equality';
+
+export const SWITCH_TO_SOLE_APPLICATION: PageLink = '/switch-to-sole-application';
 
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
