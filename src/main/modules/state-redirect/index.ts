@@ -13,7 +13,7 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
-  SUBMIT_SOLE_APPLICATION,
+  SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -28,7 +28,7 @@ export class StateRedirectMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (
           this.hasPartnerNotResponded(req.session.userCase, req.session.isApplicant2) &&
-          ![NO_RESPONSE_YET, SUBMIT_SOLE_APPLICATION].includes(req.path as PageLink)
+          ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
         ) {
           return res.redirect(NO_RESPONSE_YET);
         }

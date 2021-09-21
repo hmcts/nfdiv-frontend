@@ -60,6 +60,7 @@ import {
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
+  SWITCH_TO_SOLE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
@@ -438,6 +439,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: SWITCH_TO_SOLE_APPLICATION,
+    getNextStep: () => YOUR_DETAILS_URL,
   },
   {
     url: NO_RESPONSE_YET,
