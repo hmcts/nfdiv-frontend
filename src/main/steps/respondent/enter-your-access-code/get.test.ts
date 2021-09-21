@@ -5,10 +5,10 @@ import { DivorceOrDissolution } from '../../../app/case/definition';
 import { generatePageContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { Applicant2AccessCodeGetController } from './get';
+import { RespondentAccessCodeGetController } from './get';
 
 describe('AccessCodeGetController', () => {
-  const controller = new Applicant2AccessCodeGetController();
+  const controller = new RespondentAccessCodeGetController();
   const language = 'en';
 
   test('Should render the enter your access code page with divorce content', async () => {
