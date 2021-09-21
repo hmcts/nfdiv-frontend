@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 import {
   form as applicant2Form,
   generateContent as applicant2GenerateContent,
@@ -7,10 +7,6 @@ import {
 
 export const form: FormContent = {
   ...applicant2Form,
-  fields: {
-    caseReference: (applicant2Form.fields as FormFields).caseReference,
-    accessCode: (applicant2Form.fields as FormFields).accessCode,
-  },
 };
 
 export const generateContent: TranslationFn = content => {
