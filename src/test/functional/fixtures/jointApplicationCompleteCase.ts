@@ -4,13 +4,11 @@ import {
   DivorceOrDissolution,
   DocumentType,
   Gender,
-  State,
   YesOrNo,
 } from '../../../main/app/case/definition';
 import { CaseWithState } from '../../steps/common';
 
 export const jointApplicationCompleteCase: Partial<CaseWithState> = {
-  state: State.Holding,
   applicant1Address1: 'BUCKINGHAM PALACE',
   applicant1Address2: '',
   applicant1Address3: '',

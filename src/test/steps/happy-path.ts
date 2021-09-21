@@ -1,6 +1,15 @@
+import { State } from '../../main/app/case/definition';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, HAS_RELATIONSHIP_BROKEN_URL } from '../../main/steps/urls';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetApp2UsersCaseTo, iSetTheUsersCaseTo } from './common';
+import {
+  checkOptionFor,
+  iAmOnPage,
+  iClearTheForm,
+  iClick,
+  iSetApp2UsersCaseTo,
+  iSetTheUsersCaseAndStateTo,
+  iSetTheUsersCaseTo,
+} from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -14,6 +23,12 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   I.amOnPage(APPLY_FINANCIAL_ORDER);
   iClick('Continue');
   I.amOnPage(url);
+});
+
+Given('I set the case state to Holding', async () => {
+  iSetTheUsersCaseAndStateTo({
+    state: State.Holding,
+  });
 });
 
 Given("I've already completed the form using the fixture {string} for applicant 2", async (fixture: string) => {
