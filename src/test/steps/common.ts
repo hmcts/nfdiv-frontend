@@ -5,7 +5,7 @@ import { Logger, transports } from 'winston';
 
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution } from '../../main/app/case/definition';
+import { DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
@@ -267,6 +267,14 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
   );
 
 export interface BrowserCase extends Case {
+  'relationshipDate-day': number;
+  'relationshipDate-month': number;
+  'relationshipDate-year': number;
+}
+
+export interface CaseWithState extends Case {
+  id: string;
+  state: State;
   'relationshipDate-day': number;
   'relationshipDate-month': number;
   'relationshipDate-year': number;
