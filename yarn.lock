@@ -2205,14 +2205,14 @@
     "@uppy/utils" "^4.0.0"
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.0.2.tgz#e21fbe826d758094b1ac647e4b89b9c4721a26b7"
-  integrity sha512-ZCyZNjrCnCXN18+yr1Em9y+LqUeH4VLle9hgEA3a0lM+kDlMl7uB56NAQdEei5pFoPBLkJuU+xV35B0CjS/vIw==
+"@uppy/core@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.0.3.tgz#8f903bf74d8a6d5d98ebe8db195a5b1de842fe96"
+  integrity sha512-jYkyytkUwFrQPWn5XUI6Fy6kNrLwSxGFmXuJ74oIMyJxBHU2ksl8UHFs1esxp9GN3cdvTmZ7A04a1d8nV9JtUw==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^2.0.0"
-    "@uppy/utils" "^4.0.0"
+    "@uppy/utils" "^4.0.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
@@ -2247,10 +2247,10 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-2.0.0.tgz#c446a89d07a6df7f980a15eeb880d169baa14d7f"
   integrity sha512-5HXTR2Qn20rpPUCUFBuNBfYDIa20oyUV14+FAnklgv2P32/zIyk79eFYloDRg8H7mOosVpovlysfDkI4iJh8Ag==
 
-"@uppy/utils@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.0.tgz#337ffe668843a393171c8e9ff885d70af3a57417"
-  integrity sha512-sQOIM0cZOuV63l8JxgpRxAJiD/sJChKdEb1c5clRoxs4oafgtD9pl/BcBrOarMwk3r7kVZHt2apOL3V4BvD2Zw==
+"@uppy/utils@^4.0.0", "@uppy/utils@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.1.tgz#3caabaeb6db0bcb4dde6f839cd976ec42d08f0de"
+  integrity sha512-blgQkWkc6yrxGcNXehf9gFTT/f1MNonuxkpBNOwI51DT/yv/QFLLdRPMFM6CpcuA0TNhVwSUuFLeNTkerRrXeQ==
   dependencies:
     lodash.throttle "^4.1.1"
 
