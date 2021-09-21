@@ -12,6 +12,7 @@ export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 
 export const APPLICANT_1: PageLink = '/applicant1';
 export const APPLICANT_2: PageLink = '/applicant2';
+export const RESPONDENT: PageLink = '/respondent';
 
 export const PRIVACY_POLICY_URL: PageLink = '/privacy-policy';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
