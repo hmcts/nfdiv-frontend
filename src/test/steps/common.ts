@@ -267,13 +267,6 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
   );
 
 export interface BrowserCase extends Case {
-  'relationshipDate-day': number;
-  'relationshipDate-month': number;
-  'relationshipDate-year': number;
-}
-
-export interface CaseWithState extends Case {
-  id: string;
   state: State;
   'relationshipDate-day': number;
   'relationshipDate-month': number;

@@ -3,6 +3,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
+import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
   APPLICANT_2,
@@ -10,8 +11,10 @@ import {
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
   SIGN_IN_URL,
   SIGN_OUT_URL,
+  SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -69,6 +72,15 @@ export class OidcMiddleware {
             req.session.isApplicant2 =
               req.session.isApplicant2 ??
               (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          }
+
+          if (
+            req.path.endsWith(SWITCH_TO_SOLE_APPLICATION) &&
+            req.session.userCase.state !== State.Applicant2Approved &&
+            req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
+            req.session.isApplicant2
+          ) {
+            res.redirect(HOME_URL);
           }
 
           return next();
