@@ -54,9 +54,10 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.Submitted: {
       return APPLICATION_SUBMITTED;
     }
-    case State.Holding:
     case State.AwaitingAos:
-    case State.AosDrafted: {
+    case State.AosDrafted:
+    case State.AosOverdue:
+    case State.Holding: {
       return HUB_PAGE;
     }
     default: {

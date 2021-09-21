@@ -18,6 +18,16 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
+  aosDue: {
+    line1: `Your ${partner} should have responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partner'
+    } by ${
+      formState?.dueDate
+    }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
+    line2: `If you do not think they will respond then you can view the options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    }`,
+  },
 });
 
 // @TODO translations
@@ -33,6 +43,7 @@ export const generateContent: TranslationFn = content => {
     State.Submitted,
     State.AwaitingAos,
     State.AosDrafted,
+    State.AosOverdue,
     State.Holding,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,

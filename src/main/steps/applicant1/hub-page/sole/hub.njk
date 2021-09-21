@@ -1,3 +1,9 @@
-{% for property, line in aosAwaitingOrDrafted %}
-  <p class="govuk-body">{{ line }}</p>
-{% endfor %}
+{% if progressionIndex > 2 %}
+  {% for property, line in aosDue %}
+    <p class="govuk-body">{{ line }}</p>
+  {% endfor %}
+{% else %}
+  {% for property, line in aosAwaitingOrDrafted %}
+    <p class="govuk-body">{{ line }}</p>
+  {% endfor %}
+{% endif %}
