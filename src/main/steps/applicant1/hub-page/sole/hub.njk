@@ -28,7 +28,7 @@
     summaryText: holding.readMore,
     html: readMoreContent
   }) }}
-{% elif progressionIndex > 2 %}
+{% elif progressionIndex == 3 %}
   {% for property, line in aosDue %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
