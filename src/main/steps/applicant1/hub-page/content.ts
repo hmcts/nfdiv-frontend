@@ -1,43 +1,22 @@
-import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import type { CommonContent } from '../../common/common.content';
+import { CommonContent } from '../../common/common.content';
 import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) => ({
+import { generateContent as jointGenerateContent } from './joint/content';
+import { generateContent as soleGenerateContent } from './sole/content';
+
+const en = ({ isDivorce, formState, referenceNumber, isApplicant2 }: CommonContent) => ({
   title: `${formState?.applicant1FullNameOnCertificate} & ${formState?.applicant2FullNameOnCertificate}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
+  response: 'Response',
   conditionalOrderApplication: 'Conditional order application',
   conditionalOrderGranted: 'Conditional order granted',
   finalOrderApplication: 'Final order application',
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: 'Latest update',
   subHeading2: 'Helpful information',
-  applicationSubmittedLatestUpdate: {
-    line1: `Your application ${isDivorce ? 'for divorce ' : 'to end your civil partnership'} has been submitted
-  and checked by court staff. It has been sent to you and your ${partner} by ${
-      formState?.applicant1AgreeToReceiveEmails ? 'email' : 'post'
-    }.`,
-    line2: `You should confirm that you have received your application ${
-      isDivorce ? 'for divorce' : 'to end your civil partnership'
-    }.`,
-  },
-  applicantConfirmedReceiptLatestUpdate: {
-    line1: `You have confirmed receipt of the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }.
-     Your ${partner} should also confirm receipt, if they have not already done so.`,
-    line2: `The next step is to apply for a 'conditional order'.
-     A conditional order is a document that says the court does not see any reason why you cannot ${
-       isDivorce ? 'get a divorce' : 'end your civil partnership'
-     }.`,
-    line3: `You can apply for a conditional order on ${formState?.dueDate}.
-     This is because you have to wait until 20 weeks from when the ${
-       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-     } was issued.
-      You will receive an email to remind you.`,
-  },
   line1:
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
   line2: `<a class="govuk-link" href="/downloads/${
@@ -46,17 +25,16 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
-  applicant1ReviewContactDetails: `<a class="govuk-link" href="${REVIEW_CONTACT_DETAILS}">View or update my contact details</a>`,
-  applicant2ReviewContactDetails: `<a class="govuk-link" href="${
-    APPLICANT_2 + REVIEW_CONTACT_DETAILS
+  reviewContactDetails: `<a class="govuk-link" href="${
+    (isApplicant2 ? APPLICANT_2 : '') + REVIEW_CONTACT_DETAILS
   }">View or update my contact details</a>`,
-  email: `<strong>Email</strong><br> <a class="govuk-link" href="mailto:${
-    isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-  }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   subHeading3: 'I want to...',
-  confirmReceipt: 'Confirm receipt',
   subHeading4: 'Getting help',
   telephone: '<strong>Phone</strong></br> 0300 303 0642</br> (Monday to Friday, 8am to 8PM, Saturday 8AM to 2PM)',
+  email: `<strong>Email</strong><br>
+    <a class="govuk-link" href="mailto:${
+      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
+    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   post: `
     <strong>Post</strong></br>
     Courts and Tribunals Service Centre</br>
@@ -64,6 +42,7 @@ const en = ({ isDivorce, formState, partner, referenceNumber }: CommonContent) =
     PO Box 12706</br>
     Harlow</br>
     CM20 9QT`,
+  whatHappensNext: 'What happens next',
 });
 
 // @TODO translations
@@ -82,21 +61,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const progressionIndex = [
-    State.Holding,
-    State.AwaitingLegalAdvisorReferral,
-    State.AwaitingPronouncement,
-    State.FinalOrderComplete,
-  ].indexOf(content.formState?.state as State);
-  const hasApplicantConfirmedReceipt = content.isApplicant2
-    ? content.formState?.applicant2ConfirmReceipt === YesOrNo.YES
-    : content.formState?.applicant1ConfirmReceipt === YesOrNo.YES;
   const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
-  const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
-    progressionIndex,
-    hasApplicantConfirmedReceipt,
-    isApplicant2,
+    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
   };
 };

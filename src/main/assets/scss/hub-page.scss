@@ -18,6 +18,9 @@
 
 .hub-progress-bar {
   padding-bottom: 10px;
+  .hmcts-progress-bar__list-item {
+    max-width: 15%;
+  }
 }
 
 .hub-right-column {
