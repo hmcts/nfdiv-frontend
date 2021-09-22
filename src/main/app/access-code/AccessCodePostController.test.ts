@@ -1,12 +1,12 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import * as oidc from '../../../app/auth/user/oidc';
-import * as caseApi from '../../../app/case/CaseApi';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
-import { APPLICANT_2, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../urls';
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { APPLICANT_2, HUB_1, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
+import * as oidc from '../auth/user/oidc';
+import * as caseApi from '../case/CaseApi';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
+import { Form } from '../form/Form';
 
-import { AccessCodePostController } from './post';
+import { AccessCodePostController } from './AccessCodePostController';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
@@ -26,7 +26,7 @@ describe('AccessCodePostController', () => {
     getSystemUserMock.mockClear();
   });
 
-  test('Should have no errors and redirect to the next page', async () => {
+  test('Should have no errors and redirect to the next page in joint application journey', async () => {
     const errors = [] as never[];
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
     const mockForm = {
@@ -44,7 +44,11 @@ describe('AccessCodePostController', () => {
 
     const req = mockRequest({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(),
+      triggerEvent: jest.fn(() => {
+        return {
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        };
+      }),
       getCaseById: jest.fn(() => {
         return {
           accessCode: 'QWERTY78',
@@ -69,6 +73,57 @@ describe('AccessCodePostController', () => {
       SYSTEM_LINK_APPLICANT_2
     );
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('Should have no errors and redirect to the next page in AOS journey', async () => {
+    const errors = [] as never[];
+    const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
+    const mockForm = {
+      setFormState: jest.fn(),
+      getErrors: () => errors,
+      getParsedBody: () => body,
+    } as unknown as Form;
+    const controller = new AccessCodePostController(mockForm);
+
+    const caseData = {
+      accessCode: 'QWERTY78',
+      caseReference: '1234123412341234',
+      applicationType: ApplicationType.SOLE_APPLICATION,
+    };
+
+    const req = mockRequest({ body });
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(() => {
+        return {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      getCaseById: jest.fn(() => {
+        return {
+          accessCode: 'QWERTY78',
+          caseReference: '1234123412341234',
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+    });
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234123412341234',
+      {
+        accessCode: 'QWERTY78',
+        caseReference: '1234123412341234',
+        applicant2FirstNames: 'First name',
+        applicant2LastNames: 'Last name',
+        respondentUserId: '123456',
+      },
+      SYSTEM_LINK_APPLICANT_2
+    );
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_1}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 

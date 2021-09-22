@@ -3,6 +3,7 @@ import fs from 'fs';
 import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
+import { AccessCodePostController } from './app/access-code/AccessCodePostController';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -12,13 +13,14 @@ import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
-import * as accessCodeContent from './steps/applicant2/enter-your-access-code/content';
-import { AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
-import { AccessCodePostController } from './steps/applicant2/enter-your-access-code/post';
+import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
+import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import * as respondentAccessCodeContent from './steps/respondent/enter-your-access-code/content';
+import { RespondentAccessCodeGetController } from './steps/respondent/enter-your-access-code/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -32,6 +34,7 @@ import {
   HOME_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
+  RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
@@ -54,7 +57,6 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
-    app.get(ENTER_YOUR_ACCESS_CODE, (req, res) => res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
@@ -76,10 +78,16 @@ export class Routes {
       }
     }
 
-    app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new AccessCodeGetController().get));
+    app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new Applicant2AccessCodeGetController().get));
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
-      errorHandler(new AccessCodePostController(new Form(accessCodeContent.form)).post)
+      errorHandler(new AccessCodePostController(new Form(applicant2AccessCodeContent.form)).post)
+    );
+
+    app.get(`${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new RespondentAccessCodeGetController().get));
+    app.post(
+      `${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`,
+      errorHandler(new AccessCodePostController(new Form(respondentAccessCodeContent.form)).post)
     );
 
     app.get(

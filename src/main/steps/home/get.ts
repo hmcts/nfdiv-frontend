@@ -1,9 +1,11 @@
 import { Response } from 'express';
 
 import { Case } from '../../app/case/case';
-import { State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form } from '../../app/form/Form';
+import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
+import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -11,13 +13,12 @@ import {
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
   HUB_PAGE,
+  RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from '../../steps/urls';
-import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
-import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
+} from '../urls';
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
@@ -30,7 +31,9 @@ export class HomeGetController {
     );
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
-    if (req.session.isApplicant2) {
+    if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
+      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+    } else if (req.session.isApplicant2) {
       res.redirect(applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
     } else {
       res.redirect(
@@ -82,4 +85,8 @@ const applicant2RedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
         : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
     }
   }
+};
+
+const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
+  return isFirstQuestionComplete ? `${RESPONDENT}${CHECK_ANSWERS_URL}` : `${RESPONDENT}${HUB_PAGE}`;
 };
