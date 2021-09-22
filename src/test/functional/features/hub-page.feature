@@ -2,7 +2,7 @@ Feature: Hub page
 
   Background: Logged in for hub page
     Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicationCompleteCase"
+    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I set the case state to Holding
     And I go to "/"
     Then the page URL should be "/hub-page"
