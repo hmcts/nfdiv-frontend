@@ -1,4 +1,23 @@
-{% if progressionIndex > 2 %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% if progressionIndex == 4 %}
+  <p class="govuk-body">{{ holding.line1 }}</p>
+  <p class="govuk-body">{{ holding.line2 }}</p>
+  <p class="govuk-body">{{ holding.line3 }}</p>
+  {% set readMoreContent %}
+    <p class="govuk-body">{{ holding.line4 }}</p>
+    <ol class="govuk-list govuk-list--number">
+    {% for property, line in holding.steps %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+    </ol>
+    <p class="govuk-body">{{ holding.line5 | safe }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: holding.readMore,
+    html: readMoreContent
+  }) }}
+{% elif progressionIndex > 2 %}
   {% for property, line in aosDue %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
