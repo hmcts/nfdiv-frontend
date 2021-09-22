@@ -42,6 +42,7 @@ const en = ({ isDivorce, formState, referenceNumber, isApplicant2 }: CommonConte
     PO Box 12706</br>
     Harlow</br>
     CM20 9QT`,
+  whatHappensNext: 'What happens next',
 });
 
 // @TODO translations

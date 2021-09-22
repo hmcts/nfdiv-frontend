@@ -62,7 +62,6 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can read their response here.`,
-    whatHappensNext: 'What happens next',
     line2: `They have to submit an ‘answer’ to the court by ${
       formState?.dueDate
     }. This is a form which explains their reasons for defending the ${
@@ -71,6 +70,18 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     line3: `If they submit the ‘answer’ then a judge will decide how to proceed. If they do not submit the form in time, then you will be able to proceed with the ${
       isDivorce ? 'divorce applicaiton' : 'applicaiton to end your civil partnership'
     }.`,
+  },
+  dispute: {
+    line1: `Your ${partner} has responded to your application and said they want to defend the ${
+      isDivorce ? 'divorce' : 'ending of your civil partnership'
+    }. This means they want to try and prevent ${
+      isDivorce ? 'the divorce' : 'the ending of your civil partnership'
+    }. You can read their response here.`,
+    line2: `They have submitted their ‘answer’. This is the form which explains their case for defending the ${
+      isDivorce ? 'divorce' : 'ending of your civil partnership'
+    }.`,
+    line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
+    line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
 });
 
@@ -90,6 +101,7 @@ export const generateContent: TranslationFn = content => {
     State.AosOverdue,
     State.Holding,
     State.PendingDispute,
+    State.Disputed,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
