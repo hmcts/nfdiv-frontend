@@ -56,6 +56,22 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
   },
+  pendingDispute: {
+    line1: `Your ${partner} has responded to your application and said they want to defend the ${
+      isDivorce ? 'divorce' : 'ending of your civil partnership'
+    }. This means they want to try and prevent ${
+      isDivorce ? 'the divorce' : 'the ending of your civil partnership'
+    }. You can read their response here.`,
+    whatHappensNext: 'What happens next',
+    line2: `They have to submit an ‘answer’ to the court by ${
+      formState?.dueDate
+    }. This is a form which explains their reasons for defending the ${
+      isDivorce ? 'divorce' : 'ending of your civil partnership'
+    }.`,
+    line3: `If they submit the ‘answer’ then a judge will decide how to proceed. If they do not submit the form in time, then you will be able to proceed with the ${
+      isDivorce ? 'divorce applicaiton' : 'applicaiton to end your civil partnership'
+    }.`,
+  },
 });
 
 // @TODO translations
@@ -73,6 +89,7 @@ export const generateContent: TranslationFn = content => {
     State.AosDrafted,
     State.AosOverdue,
     State.Holding,
+    State.PendingDispute,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
