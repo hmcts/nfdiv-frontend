@@ -14,6 +14,11 @@ Feature: Their email address
     Then the page URL should be "/do-you-have-address"
 
   Scenario: They do not know their partners email (sole application)
+    Given I go to "/how-do-you-want-to-apply"
+    When I select "I want to apply on my own, as a sole applicant"
+    And I click "Continue"
+    When I go to '/their-email-address'
+    Then the page should include "Enter your husband's email address"
     Given I clear the form
     And I select "I do not know their email address"
     When I click "Continue"
