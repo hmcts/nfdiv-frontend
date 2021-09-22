@@ -132,10 +132,39 @@ describe('CaseApi', () => {
     const mockCase = { case_data: { divorceOrDissolution: serviceType } };
 
     mockedAxios.get.mockResolvedValue({
-      data: [mockCase, mockCase],
+      data: [mockCase, mockCase, mockCase],
     });
 
     await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Too many cases assigned to user.');
+  });
+
+  test('Should retrieve the second case if two cases found', async () => {
+    const firstMockCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: serviceType,
+      },
+    };
+    const secondMockCase = {
+      id: '2',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: serviceType,
+      },
+    };
+
+    mockedAxios.get.mockResolvedValue({
+      data: [firstMockCase, secondMockCase],
+    });
+
+    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+
+    expect(userCase).toStrictEqual({
+      id: '2',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
   });
 
   test('Should update case', async () => {

@@ -47,6 +47,10 @@ export class CaseApi {
         const { id, state, case_data: caseData } = serviceCases[0];
         return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
+      case 2: {
+        const { id, state, case_data: caseData } = serviceCases[1];
+        return { ...fromApiFormat(caseData), id: id.toString(), state };
+      }
       default: {
         throw new Error('Too many cases assigned to user.');
       }
