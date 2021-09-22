@@ -21,7 +21,9 @@
       <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
       <div class="govuk-panel govuk-panel--outstanding">
         {% if isJointApplication %}
-          {% include "./joint/hub.njk" %}
+          {% block jointLatestUpdate %}
+            {% include "./joint/hub.njk" %}
+          {% endblock %}
         {% else %}
           {% include "./sole/hub.njk" %}
         {% endif %}
