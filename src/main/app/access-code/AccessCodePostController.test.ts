@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { APPLICANT_2, HUB_1, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
+import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
@@ -123,7 +123,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_1}`);
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 
