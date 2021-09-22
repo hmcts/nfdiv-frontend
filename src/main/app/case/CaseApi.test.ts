@@ -138,7 +138,7 @@ describe('CaseApi', () => {
     await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Too many cases assigned to user.');
   });
 
-  test('Should retrieve the second case if two cases found', async () => {
+  test('Should retrieve the first case if two cases found', async () => {
     const firstMockCase = {
       id: '1',
       state: State.Draft,
@@ -161,7 +161,7 @@ describe('CaseApi', () => {
     const userCase = await api.getOrCreateCase(serviceType, userDetails);
 
     expect(userCase).toStrictEqual({
-      id: '2',
+      id: '1',
       state: State.Draft,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
