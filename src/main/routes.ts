@@ -77,6 +77,9 @@ export class Routes {
       }
     }
 
+    app.get(ENTER_YOUR_ACCESS_CODE, (req, res) => res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`));
+    app.get(RESPONDENT, (req, res) => res.redirect(`${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`));
+
     app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new Applicant2AccessCodeGetController().get));
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
