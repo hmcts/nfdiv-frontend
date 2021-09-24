@@ -10,7 +10,7 @@ import {
   formatCase,
   readOnlyFormFieldsToCaseMapping,
 } from './case';
-import { CaseData, ConfidentialAddress, YesOrNo } from './definition';
+import { CaseData, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
