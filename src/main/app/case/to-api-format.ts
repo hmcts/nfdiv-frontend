@@ -149,7 +149,7 @@ const addressPrivateYesNoOrNull = (value: YesOrNo) => {
   if (!value) {
     return null;
   }
-  return value === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE;
+  return value;
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
