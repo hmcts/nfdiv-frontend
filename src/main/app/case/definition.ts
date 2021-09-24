@@ -710,136 +710,136 @@ export interface StatusHistoriesItem {
 export type DateAsString = string;
 
 export const enum FieldType {
-  Unspecified = "Unspecified",
-  Email = "Email",
-  PhoneUK = "PhoneUK",
-  Date = "Date",
-  Document = "Document",
-  Schedule = "Schedule",
-  TextArea = "TextArea",
-  FixedList = "FixedList",
-  FixedRadioList = "FixedRadioList",
-  YesOrNo = "YesOrNo",
-  Address = "Address",
-  CaseLink = "CaseLink",
-  OrderSummary = "OrderSummary",
-  MultiSelectList = "MultiSelectList",
-  Collection = "Collection",
-  Label = "Label",
+  Unspecified = 'Unspecified',
+  Email = 'Email',
+  PhoneUK = 'PhoneUK',
+  Date = 'Date',
+  Document = 'Document',
+  Schedule = 'Schedule',
+  TextArea = 'TextArea',
+  FixedList = 'FixedList',
+  FixedRadioList = 'FixedRadioList',
+  YesOrNo = 'YesOrNo',
+  Address = 'Address',
+  CaseLink = 'CaseLink',
+  OrderSummary = 'OrderSummary',
+  MultiSelectList = 'MultiSelectList',
+  Collection = 'Collection',
+  Label = 'Label',
 }
 
 export const enum YesOrNo {
-  YES = "Yes",
-  NO = "No",
+  YES = 'Yes',
+  NO = 'No',
 }
 
 export const enum AlternativeServiceType {
-  TEXT = "text",
-  EMAIL = "email",
-  SOCIAL_MEDIA = "socialMedia",
-  OTHER = "other",
+  TEXT = 'text',
+  EMAIL = 'email',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 export const enum ApplicationType {
-  SOLE_APPLICATION = "soleApplication",
-  JOINT_APPLICATION = "jointApplication",
+  SOLE_APPLICATION = 'soleApplication',
+  JOINT_APPLICATION = 'jointApplication',
 }
 
 export const enum ChangedNameHow {
-  MARRIAGE_CERTIFICATE = "marriageCertificate",
-  DEED_POLL = "deedPoll",
-  OTHER = "other",
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  DEED_POLL = 'deedPoll',
+  OTHER = 'other',
 }
 
 export const enum ConfidentialAddress {
-  SHARE = "share",
-  KEEP = "keep",
+  SHARE = 'share',
+  KEEP = 'keep',
 }
 
 export const enum Court {
-  SERVICE_CENTRE = "serviceCentre",
-  EAST_MIDLANDS = "eastMidlands",
-  WEST_MIDLANDS = "westMidlands",
-  SOUTH_WEST = "southWest",
-  NORTH_WEST = "northWest",
-  BURY_ST_EDMUNDS = "buryStEdmunds",
+  SERVICE_CENTRE = 'serviceCentre',
+  EAST_MIDLANDS = 'eastMidlands',
+  WEST_MIDLANDS = 'westMidlands',
+  SOUTH_WEST = 'southWest',
+  NORTH_WEST = 'northWest',
+  BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
 export const enum DivorceOrDissolution {
-  DIVORCE = "divorce",
-  DISSOLUTION = "dissolution",
+  DIVORCE = 'divorce',
+  DISSOLUTION = 'dissolution',
 }
 
 export const enum DocumentsServedBeingThe {
-  LITIGATION_FRIEND = "litigationFriend",
-  SOLICITOR = "solicitors",
-  RESPONDENT = "respondents",
-  APPLICANT = "applicants",
+  LITIGATION_FRIEND = 'litigationFriend',
+  SOLICITOR = 'solicitors',
+  RESPONDENT = 'respondents',
+  APPLICANT = 'applicants',
 }
 
 export const enum DocumentsServedHow {
-  COURT_PERMITTED = "courtPermitted",
-  HANDED_TO = "handedTo",
-  DELIVERED_TO = "deliveredTo",
-  POSTED_TO = "postedTo",
+  COURT_PERMITTED = 'courtPermitted',
+  HANDED_TO = 'handedTo',
+  DELIVERED_TO = 'deliveredTo',
+  POSTED_TO = 'postedTo',
 }
 
 export const enum DocumentsServedWhere {
-  OTHER_SPECIFY = "otherSpecify",
-  PLACE_BUSINESS_COMPANY = "placeOfBusinessOfCompany",
-  PRINCIPAL_OFFICE_COMPANY = "principalOfficeCompany",
-  PRINCIPAL_OFFICE_CORPORATION = "principalOfficeCorporation",
-  PRINCIPAL_OFFICE_PARTNERSHIP = "principalOfficePartnership",
-  LAST_KNOWN_PRINCIPAL_BUSINESS_PLACE = "lastKnownPricipalBusinessPlace",
-  LAST_KNOWN_BUSINESS_PLACE = "lastKnownBusinessPlace",
-  PRINCIPAL_PLACE_BUSINESS = "principalPlaceBusiness",
-  PLACE_BUSINESS = "placeBusiness",
-  LAST_KNOWN_RESIDENCE = "lastKnownResidence",
-  USUAL_RESIDENCE = "usualResidence",
+  OTHER_SPECIFY = 'otherSpecify',
+  PLACE_BUSINESS_COMPANY = 'placeOfBusinessOfCompany',
+  PRINCIPAL_OFFICE_COMPANY = 'principalOfficeCompany',
+  PRINCIPAL_OFFICE_CORPORATION = 'principalOfficeCorporation',
+  PRINCIPAL_OFFICE_PARTNERSHIP = 'principalOfficePartnership',
+  LAST_KNOWN_PRINCIPAL_BUSINESS_PLACE = 'lastKnownPricipalBusinessPlace',
+  LAST_KNOWN_BUSINESS_PLACE = 'lastKnownBusinessPlace',
+  PRINCIPAL_PLACE_BUSINESS = 'principalPlaceBusiness',
+  PLACE_BUSINESS = 'placeBusiness',
+  LAST_KNOWN_RESIDENCE = 'lastKnownResidence',
+  USUAL_RESIDENCE = 'usualResidence',
 }
 
 export const enum FinancialOrderFor {
-  APPLICANT = "applicant",
-  CHILDREN = "children",
+  APPLICANT = 'applicant',
+  CHILDREN = 'children',
 }
 
 export const enum Gender {
-  MALE = "male",
-  FEMALE = "female",
-  NOT_GIVEN = "notGiven",
+  MALE = 'male',
+  FEMALE = 'female',
+  NOT_GIVEN = 'notGiven',
 }
 
 export const enum GeneralOrderDivorceParties {
-  APPLICANT = "applicant",
-  RESPONDENT = "respondent",
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
 }
 
 export const enum GeneralOrderJudge {
-  DISTRICT_JUDGE = "districtJudge",
-  DEPUTY_DISTRICT_JUDGE = "deputyDistrictJudge",
-  HIS_HONOUR_JUDGE = "hisHonourJudge",
-  HER_HONOUR_JUDGE = "herHonourJudge",
-  RECORDER = "recorder",
+  DISTRICT_JUDGE = 'districtJudge',
+  DEPUTY_DISTRICT_JUDGE = 'deputyDistrictJudge',
+  HIS_HONOUR_JUDGE = 'hisHonourJudge',
+  HER_HONOUR_JUDGE = 'herHonourJudge',
+  RECORDER = 'recorder',
 }
 
 export const enum GeneralParties {
-  APPLICANT = "applicant",
-  RESPONDENT = "respondent",
-  OTHER = "other",
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
+  OTHER = 'other',
 }
 
 export const enum GeneralReferralReason {
-  CASEWORKER_REFERRAL = "caseworkerReferral",
-  GENERAL_APPLICATION_REFERRAL = "generalApplicationReferral",
+  CASEWORKER_REFERRAL = 'caseworkerReferral',
+  GENERAL_APPLICATION_REFERRAL = 'generalApplicationReferral',
 }
 
 export const enum GeneralReferralType {
-  CASEWORKER_REFERRAL = "alternativeServiceApplication",
-  ORDER_APPLICATION_WITHOUT_MC = "orderApplicationWithoutMc",
-  ORDER_ON_FILLING_OF_ANSWERS = "orderOnFilingOfAnswers",
-  PERMISSION_ON_DA_OOT = "permissionOnDaOot",
-  DISCLOSURE_VIA_DWP = "disclosureViaDwp",
-  OTHER = "other",
+  CASEWORKER_REFERRAL = 'alternativeServiceApplication',
+  ORDER_APPLICATION_WITHOUT_MC = 'orderApplicationWithoutMc',
+  ORDER_ON_FILLING_OF_ANSWERS = 'orderOnFilingOfAnswers',
+  PERMISSION_ON_DA_OOT = 'permissionOnDaOot',
+  DISCLOSURE_VIA_DWP = 'disclosureViaDwp',
+  OTHER = 'other',
 }
 
 /**
@@ -859,223 +859,223 @@ export const enum JurisdictionConnections {
   /**
    * APP_1_RESIDENT_JOINT
    */
-  APP_1_RESIDENT_JOINT = "J",
+  APP_1_RESIDENT_JOINT = 'J',
   /**
    * APP_1_APP_2_RESIDENT
    */
-  APP_1_APP_2_RESIDENT = "A",
+  APP_1_APP_2_RESIDENT = 'A',
   /**
    * APP_1_APP_2_LAST_RESIDENT
    */
-  APP_1_APP_2_LAST_RESIDENT = "B",
+  APP_1_APP_2_LAST_RESIDENT = 'B',
   /**
    * APP_2_RESIDENT
    */
-  APP_2_RESIDENT = "C",
+  APP_2_RESIDENT = 'C',
   /**
    * APP_1_RESIDENT_TWELVE_MONTHS
    */
-  APP_1_RESIDENT_TWELVE_MONTHS = "D",
+  APP_1_RESIDENT_TWELVE_MONTHS = 'D',
   /**
    * APP_1_RESIDENT_SIX_MONTHS
    */
-  APP_1_RESIDENT_SIX_MONTHS = "E",
+  APP_1_RESIDENT_SIX_MONTHS = 'E',
   /**
    * APP_1_APP_2_DOMICILED
    */
-  APP_1_APP_2_DOMICILED = "F",
+  APP_1_APP_2_DOMICILED = 'F',
   /**
    * APP_1_DOMICILED
    */
-  APP_1_DOMICILED = "G",
+  APP_1_DOMICILED = 'G',
   /**
    * APP_2_DOMICILED
    */
-  APP_2_DOMICILED = "H",
+  APP_2_DOMICILED = 'H',
   /**
    * RESIDUAL_JURISDICTION
    */
-  RESIDUAL_JURISDICTION = "I",
+  RESIDUAL_JURISDICTION = 'I',
 }
 
 export const enum LanguagePreference {
-  ENGLISH = "ENGLISH",
-  WELSH = "WELSH",
+  ENGLISH = 'ENGLISH',
+  WELSH = 'WELSH',
 }
 
 export const enum LegalProceedingsRelated {
-  MARRIAGE = "marriage",
-  PROPERTY = "property",
-  CHILDREN = "children",
+  MARRIAGE = 'marriage',
+  PROPERTY = 'property',
+  CHILDREN = 'children',
 }
 
 export const enum ReissueOption {
-  DIGITAL_AOS = "digitalAos",
-  OFFLINE_AOS = "offlineAos",
-  REISSUE_CASE = "reissueCase",
+  DIGITAL_AOS = 'digitalAos',
+  OFFLINE_AOS = 'offlineAos',
+  REISSUE_CASE = 'reissueCase',
 }
 
 export const enum RejectReasonType {
-  NO_INFO = "noInfo",
-  INCORRECT_INFO = "incorrectInfo",
-  OTHER = "Other",
+  NO_INFO = 'noInfo',
+  INCORRECT_INFO = 'incorrectInfo',
+  OTHER = 'Other',
 }
 
 export const enum ServiceApplicationType {
-  DEEMED = "deemed",
-  DISPENSED = "dispensed",
-  BAILIFF = "bailiff",
+  DEEMED = 'deemed',
+  DISPENSED = 'dispensed',
+  BAILIFF = 'bailiff',
 }
 
 export const enum ServiceMethod {
-  SOLICITOR_SERVICE = "solicitorService",
-  COURT_SERVICE = "courtService",
+  SOLICITOR_SERVICE = 'solicitorService',
+  COURT_SERVICE = 'courtService',
 }
 
 export const enum SolicitorPaymentMethod {
-  FEE_PAY_BY_ACCOUNT = "feePayByAccount",
-  FEES_HELP_WITH = "feesHelpWith",
+  FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
+  FEES_HELP_WITH = 'feesHelpWith',
 }
 
 export const enum State {
-  Holding = "Holding",
-  AwaitingAos = "AwaitingAos",
-  AosDrafted = "AosDrafted",
-  AosOverdue = "AosOverdue",
-  Applicant2Approved = "Applicant2Approved",
-  AwaitingPayment = "AwaitingPayment",
-  AwaitingService = "AwaitingService",
-  Rejected = "Rejected",
-  Withdrawn = "Withdrawn",
-  AwaitingDocuments = "AwaitingDocuments",
-  AwaitingApplicant1Response = "AwaitingApplicant1Response",
-  AwaitingApplicant2Response = "AwaitingApplicant2Response",
-  AwaitingClarification = "AwaitingClarification",
-  AwaitingConditionalOrder = "AwaitingConditionalOrder",
-  AwaitingGeneralConsideration = "AwaitingGeneralConsideration",
-  AwaitingGeneralReferralPayment = "AwaitingGeneralReferralPayment",
-  AwaitingHWFDecision = "AwaitingHWFDecision",
-  AwaitingLegalAdvisorReferral = "AwaitingLegalAdvisorReferral",
-  AwaitingReissue = "AwaitingReissue",
-  ConditionalOrderDrafted = "ConditionalOrderDrafted",
-  ConditionalOrderPronounced = "ConditionalOrderPronounced",
-  ConditionalOrderRefused = "ConditionalOrderRefused",
-  Disputed = "Disputed",
-  Draft = "Draft",
-  FinalOrderComplete = "FinalOrderComplete",
-  AwaitingPronouncement = "AwaitingPronouncement",
-  PendingDispute = "PendingDispute",
-  PendingRejection = "PendingRejection",
-  Submitted = "Submitted",
+  Holding = 'Holding',
+  AwaitingAos = 'AwaitingAos',
+  AosDrafted = 'AosDrafted',
+  AosOverdue = 'AosOverdue',
+  Applicant2Approved = 'Applicant2Approved',
+  AwaitingPayment = 'AwaitingPayment',
+  AwaitingService = 'AwaitingService',
+  Rejected = 'Rejected',
+  Withdrawn = 'Withdrawn',
+  AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingApplicant1Response = 'AwaitingApplicant1Response',
+  AwaitingApplicant2Response = 'AwaitingApplicant2Response',
+  AwaitingClarification = 'AwaitingClarification',
+  AwaitingConditionalOrder = 'AwaitingConditionalOrder',
+  AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
+  AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
+  AwaitingHWFDecision = 'AwaitingHWFDecision',
+  AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
+  AwaitingReissue = 'AwaitingReissue',
+  ConditionalOrderDrafted = 'ConditionalOrderDrafted',
+  ConditionalOrderPronounced = 'ConditionalOrderPronounced',
+  ConditionalOrderRefused = 'ConditionalOrderRefused',
+  Disputed = 'Disputed',
+  Draft = 'Draft',
+  FinalOrderComplete = 'FinalOrderComplete',
+  AwaitingPronouncement = 'AwaitingPronouncement',
+  PendingDispute = 'PendingDispute',
+  PendingRejection = 'PendingRejection',
+  Submitted = 'Submitted',
 }
 
 export const enum UserRole {
-  CASE_WORKER = "caseworker-divorce-courtadmin_beta",
-  LEGAL_ADVISOR = "caseworker-divorce-courtadmin-la",
-  SUPER_USER = "caseworker-divorce-superuser",
-  SYSTEMUPDATE = "caseworker-divorce-systemupdate",
-  SOLICITOR = "caseworker-divorce-solicitor",
-  APPLICANT_1_SOLICITOR = "[APPONESOLICITOR]",
-  APPLICANT_2_SOLICITOR = "[APPTWOSOLICITOR]",
-  ORGANISATION_CASE_ACCESS_ADMINISTRATOR = "caseworker-caa",
-  CITIZEN = "citizen",
-  CREATOR = "[CREATOR]",
-  APPLICANT_2 = "[APPLICANTTWO]",
+  CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
+  LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
+  SUPER_USER = 'caseworker-divorce-superuser',
+  SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
+  SOLICITOR = 'caseworker-divorce-solicitor',
+  APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
+  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
+  ORGANISATION_CASE_ACCESS_ADMINISTRATOR = 'caseworker-caa',
+  CITIZEN = 'citizen',
+  CREATOR = '[CREATOR]',
+  APPLICANT_2 = '[APPLICANTTWO]',
 }
 
 export const enum WhoDivorcing {
-  HUSBAND = "husband",
-  WIFE = "wife",
+  HUSBAND = 'husband',
+  WIFE = 'wife',
 }
 
 export const enum ConfidentialDocumentsReceived {
-  AOS = "aos",
-  ANNEX_A = "annexa",
-  AOS_INVITATION_LETTER_OFFLINE_RESP = "aosInvitationLetterOfflineResp",
-  APPLICATION = "application",
-  BAILIFF_SERVICE = "baliffService",
-  COE = "coe",
-  CO_ANSWERS = "coAnswers",
-  CONDITIONAL_ORDER_APPLICATION = "conditionalOrderApplication",
-  CONDITIONAL_ORDER_GRANTED = "conditionalOrderGranted",
-  CO_REFUSAL_CLARIFICATION_RESP = "coRefusalClarificationResp",
-  CORRESPONDENCE = "correspondence",
-  COSTS = "costs",
-  COSTS_ORDER = "costsOrder",
-  DEEMED_SERVICE = "deemedService",
-  DISPENSE_WITH_SERVICE = "dispenseWithService",
-  D84A = "d84a",
-  D9D = "d9d",
-  D9H = "d9h",
-  EMAIL = "email",
-  FINAL_ORDER_APPLICATION = "finalOrderApplication",
-  FINAL_ORDER_GRANTED = "finalOrderGranted",
-  MARRIAGE_CERT = "marriageCert",
-  MARRIAGE_CERT_TRANSLATION = "marriageCertTranslation",
-  NAME_CHANGE = "nameChange",
-  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = "noticeOfRefusalOfEntitlement",
-  OTHER = "other",
-  RESPONDENT_ANSWERS = "respondentAnswers",
-  SOLICITOR_SERVICE = "solicitorService",
-  WELSH_TRANSLATION = "welshTranslation",
+  AOS = 'aos',
+  ANNEX_A = 'annexa',
+  AOS_INVITATION_LETTER_OFFLINE_RESP = 'aosInvitationLetterOfflineResp',
+  APPLICATION = 'application',
+  BAILIFF_SERVICE = 'baliffService',
+  COE = 'coe',
+  CO_ANSWERS = 'coAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CO_REFUSAL_CLARIFICATION_RESP = 'coRefusalClarificationResp',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  DEEMED_SERVICE = 'deemedService',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  D84A = 'd84a',
+  D9D = 'd9d',
+  D9H = 'd9h',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  MARRIAGE_CERT = 'marriageCert',
+  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
+  NAME_CHANGE = 'nameChange',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum DocumentType {
-  AOS_OVERDUE_COVER_LETTER = "aosOverdueCoverLetter",
-  ACKNOWLEDGEMENT_OF_SERVICE = "acknowledgementOfService",
-  ANNEX_A = "annexA",
-  APPLICATION = "application",
-  BAILIFF_CERTIFICATE_OF_SERVICE = "bailiffCertificateOfService",
-  BAILIFF_SERVICE = "bailiffService",
-  CERTIFICATE_OF_ENTITLEMENT = "certificateOfEntitlement",
-  CERTIFICATE_OF_SERVICE = "certificateOfService",
-  CONDITIONAL_ORDER_ANSWERS = "conditionalOrderAnswers",
-  CONDITIONAL_ORDER_APPLICATION = "conditionalOrderApplication",
-  CONDITIONAL_ORDER_GRANTED = "conditionalOrderGranted",
-  CONDITIONAL_ORDER_REFUSAL = "conditionalOrderRefusal",
-  CORRESPONDENCE = "correspondence",
-  COSTS = "costs",
-  COSTS_ORDER = "costsOrder",
-  D84 = "d84",
-  D9D = "d9D",
-  D9H = "d9H",
-  DEEMED_SERVICE = "deemedService",
-  DEEMED_AS_SERVICE_GRANTED = "deemedAsServiceGranted",
-  DEEMED_SERVICE_REFUSED = "deemedServiceRefused",
-  DISPENSE_WITH_SERVICE = "dispenseWithService",
-  DISPENSE_WITH_SERVICE_GRANTED = "dispenseWithServiceGranted",
-  DISPENSE_WITH_SERVICE_REFUSED = "dispenseWithServiceRefused",
-  EMAIL = "email",
-  FINAL_ORDER_APPLICATION = "finalOrderApplication",
-  FINAL_ORDER_GRANTED = "finalOrderGranted",
-  GENERAL_ORDER = "generalOrder",
-  MARRIAGE_CERTIFICATE = "marriageCertificate",
-  MARRIAGE_CERTIFICATE_TRANSLATION = "marriageCertificateTranslation",
-  NAME_CHANGE_EVIDENCE = "nameChangeEvidence",
-  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = "noticeOfRefusalOfEntitlement",
-  OBJECTION_TO_COSTS = "objectionToCosts",
-  OTHER = "other",
-  RESPONDENT_ANSWERS = "respondentAnswers",
-  RESPONDENT_INVITATION = "aos",
-  SOLICITOR_SERVICE = "solicitorService",
-  WELSH_TRANSLATION = "welshTranslation",
+  AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
+  ANNEX_A = 'annexA',
+  APPLICATION = 'application',
+  BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
+  BAILIFF_SERVICE = 'bailiffService',
+  CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
+  CERTIFICATE_OF_SERVICE = 'certificateOfService',
+  CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  D84 = 'd84',
+  D9D = 'd9D',
+  D9H = 'd9H',
+  DEEMED_SERVICE = 'deemedService',
+  DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
+  DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
+  DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  GENERAL_ORDER = 'generalOrder',
+  MARRIAGE_CERTIFICATE = 'marriageCertificate',
+  MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
+  NAME_CHANGE_EVIDENCE = 'nameChangeEvidence',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OBJECTION_TO_COSTS = 'objectionToCosts',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  RESPONDENT_INVITATION = 'aos',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
 }
 
 export const enum PaymentStatus {
-  IN_PROGRESS = "inProgress",
-  SUCCESS = "success",
-  DECLINED = "declined",
-  TIMED_OUT = "timedOut",
-  CANCELLED = "cancelled",
-  ERROR = "error",
+  IN_PROGRESS = 'inProgress',
+  SUCCESS = 'success',
+  DECLINED = 'declined',
+  TIMED_OUT = 'timedOut',
+  CANCELLED = 'cancelled',
+  ERROR = 'error',
 }
 
 export const enum PbaErrorMessage {
-  CAE0001 = "CAE0001",
-  CAE0003 = "CAE0003",
-  CAE0004 = "CAE0004",
-  NOT_FOUND = "NOT_FOUND",
-  GENERAL = "GENERAL",
+  CAE0001 = 'CAE0001',
+  CAE0003 = 'CAE0003',
+  CAE0004 = 'CAE0004',
+  NOT_FOUND = 'NOT_FOUND',
+  GENERAL = 'GENERAL',
 }
 
 /**
@@ -1150,123 +1150,123 @@ export const enum PbaErrorMessage {
  * - `NETWORK_AUTHENTICATION_REQUIRED`
  */
 export const enum HttpStatus {
-  CONTINUE = "CONTINUE",
-  SWITCHING_PROTOCOLS = "SWITCHING_PROTOCOLS",
-  PROCESSING = "PROCESSING",
-  CHECKPOINT = "CHECKPOINT",
-  OK = "OK",
-  CREATED = "CREATED",
-  ACCEPTED = "ACCEPTED",
-  NON_AUTHORITATIVE_INFORMATION = "NON_AUTHORITATIVE_INFORMATION",
-  NO_CONTENT = "NO_CONTENT",
-  RESET_CONTENT = "RESET_CONTENT",
-  PARTIAL_CONTENT = "PARTIAL_CONTENT",
-  MULTI_STATUS = "MULTI_STATUS",
-  ALREADY_REPORTED = "ALREADY_REPORTED",
-  IM_USED = "IM_USED",
-  MULTIPLE_CHOICES = "MULTIPLE_CHOICES",
-  MOVED_PERMANENTLY = "MOVED_PERMANENTLY",
-  FOUND = "FOUND",
+  CONTINUE = 'CONTINUE',
+  SWITCHING_PROTOCOLS = 'SWITCHING_PROTOCOLS',
+  PROCESSING = 'PROCESSING',
+  CHECKPOINT = 'CHECKPOINT',
+  OK = 'OK',
+  CREATED = 'CREATED',
+  ACCEPTED = 'ACCEPTED',
+  NON_AUTHORITATIVE_INFORMATION = 'NON_AUTHORITATIVE_INFORMATION',
+  NO_CONTENT = 'NO_CONTENT',
+  RESET_CONTENT = 'RESET_CONTENT',
+  PARTIAL_CONTENT = 'PARTIAL_CONTENT',
+  MULTI_STATUS = 'MULTI_STATUS',
+  ALREADY_REPORTED = 'ALREADY_REPORTED',
+  IM_USED = 'IM_USED',
+  MULTIPLE_CHOICES = 'MULTIPLE_CHOICES',
+  MOVED_PERMANENTLY = 'MOVED_PERMANENTLY',
+  FOUND = 'FOUND',
   /**
    * @deprecated
    */
-  MOVED_TEMPORARILY = "MOVED_TEMPORARILY",
-  SEE_OTHER = "SEE_OTHER",
-  NOT_MODIFIED = "NOT_MODIFIED",
+  MOVED_TEMPORARILY = 'MOVED_TEMPORARILY',
+  SEE_OTHER = 'SEE_OTHER',
+  NOT_MODIFIED = 'NOT_MODIFIED',
   /**
    * @deprecated
    */
-  USE_PROXY = "USE_PROXY",
-  TEMPORARY_REDIRECT = "TEMPORARY_REDIRECT",
-  PERMANENT_REDIRECT = "PERMANENT_REDIRECT",
-  BAD_REQUEST = "BAD_REQUEST",
-  UNAUTHORIZED = "UNAUTHORIZED",
-  PAYMENT_REQUIRED = "PAYMENT_REQUIRED",
-  FORBIDDEN = "FORBIDDEN",
-  NOT_FOUND = "NOT_FOUND",
-  METHOD_NOT_ALLOWED = "METHOD_NOT_ALLOWED",
-  NOT_ACCEPTABLE = "NOT_ACCEPTABLE",
-  PROXY_AUTHENTICATION_REQUIRED = "PROXY_AUTHENTICATION_REQUIRED",
-  REQUEST_TIMEOUT = "REQUEST_TIMEOUT",
-  CONFLICT = "CONFLICT",
-  GONE = "GONE",
-  LENGTH_REQUIRED = "LENGTH_REQUIRED",
-  PRECONDITION_FAILED = "PRECONDITION_FAILED",
-  PAYLOAD_TOO_LARGE = "PAYLOAD_TOO_LARGE",
+  USE_PROXY = 'USE_PROXY',
+  TEMPORARY_REDIRECT = 'TEMPORARY_REDIRECT',
+  PERMANENT_REDIRECT = 'PERMANENT_REDIRECT',
+  BAD_REQUEST = 'BAD_REQUEST',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  PAYMENT_REQUIRED = 'PAYMENT_REQUIRED',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED',
+  NOT_ACCEPTABLE = 'NOT_ACCEPTABLE',
+  PROXY_AUTHENTICATION_REQUIRED = 'PROXY_AUTHENTICATION_REQUIRED',
+  REQUEST_TIMEOUT = 'REQUEST_TIMEOUT',
+  CONFLICT = 'CONFLICT',
+  GONE = 'GONE',
+  LENGTH_REQUIRED = 'LENGTH_REQUIRED',
+  PRECONDITION_FAILED = 'PRECONDITION_FAILED',
+  PAYLOAD_TOO_LARGE = 'PAYLOAD_TOO_LARGE',
   /**
    * @deprecated
    */
-  REQUEST_ENTITY_TOO_LARGE = "REQUEST_ENTITY_TOO_LARGE",
-  URI_TOO_LONG = "URI_TOO_LONG",
+  REQUEST_ENTITY_TOO_LARGE = 'REQUEST_ENTITY_TOO_LARGE',
+  URI_TOO_LONG = 'URI_TOO_LONG',
   /**
    * @deprecated
    */
-  REQUEST_URI_TOO_LONG = "REQUEST_URI_TOO_LONG",
-  UNSUPPORTED_MEDIA_TYPE = "UNSUPPORTED_MEDIA_TYPE",
-  REQUESTED_RANGE_NOT_SATISFIABLE = "REQUESTED_RANGE_NOT_SATISFIABLE",
-  EXPECTATION_FAILED = "EXPECTATION_FAILED",
-  I_AM_A_TEAPOT = "I_AM_A_TEAPOT",
+  REQUEST_URI_TOO_LONG = 'REQUEST_URI_TOO_LONG',
+  UNSUPPORTED_MEDIA_TYPE = 'UNSUPPORTED_MEDIA_TYPE',
+  REQUESTED_RANGE_NOT_SATISFIABLE = 'REQUESTED_RANGE_NOT_SATISFIABLE',
+  EXPECTATION_FAILED = 'EXPECTATION_FAILED',
+  I_AM_A_TEAPOT = 'I_AM_A_TEAPOT',
   /**
    * @deprecated
    */
-  INSUFFICIENT_SPACE_ON_RESOURCE = "INSUFFICIENT_SPACE_ON_RESOURCE",
+  INSUFFICIENT_SPACE_ON_RESOURCE = 'INSUFFICIENT_SPACE_ON_RESOURCE',
   /**
    * @deprecated
    */
-  METHOD_FAILURE = "METHOD_FAILURE",
+  METHOD_FAILURE = 'METHOD_FAILURE',
   /**
    * @deprecated
    */
-  DESTINATION_LOCKED = "DESTINATION_LOCKED",
-  UNPROCESSABLE_ENTITY = "UNPROCESSABLE_ENTITY",
-  LOCKED = "LOCKED",
-  FAILED_DEPENDENCY = "FAILED_DEPENDENCY",
-  TOO_EARLY = "TOO_EARLY",
-  UPGRADE_REQUIRED = "UPGRADE_REQUIRED",
-  PRECONDITION_REQUIRED = "PRECONDITION_REQUIRED",
-  TOO_MANY_REQUESTS = "TOO_MANY_REQUESTS",
-  REQUEST_HEADER_FIELDS_TOO_LARGE = "REQUEST_HEADER_FIELDS_TOO_LARGE",
-  UNAVAILABLE_FOR_LEGAL_REASONS = "UNAVAILABLE_FOR_LEGAL_REASONS",
-  INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
-  NOT_IMPLEMENTED = "NOT_IMPLEMENTED",
-  BAD_GATEWAY = "BAD_GATEWAY",
-  SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE",
-  GATEWAY_TIMEOUT = "GATEWAY_TIMEOUT",
-  HTTP_VERSION_NOT_SUPPORTED = "HTTP_VERSION_NOT_SUPPORTED",
-  VARIANT_ALSO_NEGOTIATES = "VARIANT_ALSO_NEGOTIATES",
-  INSUFFICIENT_STORAGE = "INSUFFICIENT_STORAGE",
-  LOOP_DETECTED = "LOOP_DETECTED",
-  BANDWIDTH_LIMIT_EXCEEDED = "BANDWIDTH_LIMIT_EXCEEDED",
-  NOT_EXTENDED = "NOT_EXTENDED",
-  NETWORK_AUTHENTICATION_REQUIRED = "NETWORK_AUTHENTICATION_REQUIRED",
+  DESTINATION_LOCKED = 'DESTINATION_LOCKED',
+  UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY',
+  LOCKED = 'LOCKED',
+  FAILED_DEPENDENCY = 'FAILED_DEPENDENCY',
+  TOO_EARLY = 'TOO_EARLY',
+  UPGRADE_REQUIRED = 'UPGRADE_REQUIRED',
+  PRECONDITION_REQUIRED = 'PRECONDITION_REQUIRED',
+  TOO_MANY_REQUESTS = 'TOO_MANY_REQUESTS',
+  REQUEST_HEADER_FIELDS_TOO_LARGE = 'REQUEST_HEADER_FIELDS_TOO_LARGE',
+  UNAVAILABLE_FOR_LEGAL_REASONS = 'UNAVAILABLE_FOR_LEGAL_REASONS',
+  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+  NOT_IMPLEMENTED = 'NOT_IMPLEMENTED',
+  BAD_GATEWAY = 'BAD_GATEWAY',
+  SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  GATEWAY_TIMEOUT = 'GATEWAY_TIMEOUT',
+  HTTP_VERSION_NOT_SUPPORTED = 'HTTP_VERSION_NOT_SUPPORTED',
+  VARIANT_ALSO_NEGOTIATES = 'VARIANT_ALSO_NEGOTIATES',
+  INSUFFICIENT_STORAGE = 'INSUFFICIENT_STORAGE',
+  LOOP_DETECTED = 'LOOP_DETECTED',
+  BANDWIDTH_LIMIT_EXCEEDED = 'BANDWIDTH_LIMIT_EXCEEDED',
+  NOT_EXTENDED = 'NOT_EXTENDED',
+  NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
-export const CASE_TYPE = "NFD";
-export const JURISDICTION = "DIVORCE";
-export const CITIZEN_SUBMIT = "citizen-submit-application";
-export const CITIZEN_INVITE_APPLICANT_2 = "citizen-invite-applicant2";
-export const CITIZEN_CREATE = "citizen-create-application";
-export const APPLICANT_2_APPROVE = "applicant2-approve";
-export const APPLICANT_2_CONFIRM_RECEIPT = "applicant2-confirm-receipt";
-export const CITIZEN_SAVE_AND_CLOSE = "citizen-save-and-close";
-export const APPLICANT_2_NOT_BROKEN = "applicant2-not-broken";
-export const CITIZEN_UPDATE = "citizen-update-application";
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = "applicant2-request-changes";
-export const SWITCH_TO_SOLE = "switch-to-sole";
-export const APPLICANT_1_CONFIRM_RECEIPT = "applicant1-confirm-receipt";
-export const APPLICANT_1_RESUBMIT = "applicant1-resubmit";
-export const CITIZEN_ADD_PAYMENT = "citizen-add-payment";
+export const CASE_TYPE = 'NFD';
+export const JURISDICTION = 'DIVORCE';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_CREATE = 'citizen-create-application';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
+export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
+export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
+export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SWITCH_TO_SOLE = 'switch-to-sole';
+export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
+export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE =
-  "citizen-applicant2-update-application";
-export const SYSTEM_REMIND_APPLICANT2 = "system-remind-applicant2";
-export const SYSTEM_LINK_APPLICANT_2 = "system-link-applicant2";
+  'citizen-applicant2-update-application';
+export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED =
-  "system-remind-applicant1";
-export const SYSTEM_MIGRATE_CASE = "system-migrate-case";
+  'system-remind-applicant1';
+export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK =
-  "system-issue-solicitor-service-pack";
-export const SYSTEM_PROGRESS_HELD_CASE = "system-progress-held-case";
+  'system-issue-solicitor-service-pack';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
 export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER =
-  "system-notify-applicant1-conditional-order";
+  'system-notify-applicant1-conditional-order';
 export const SYSTEM_APPLICATION_NOT_REVIEWED =
-  "system-application-not-reviewed";
-export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = "system-progress-to-aos-overdue";
+  'system-application-not-reviewed';
+export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
