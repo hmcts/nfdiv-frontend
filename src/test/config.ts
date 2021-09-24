@@ -114,7 +114,7 @@ config.helpers = {
   Playwright: {
     url: config.TEST_URL,
     show: !config.TestHeadlessBrowser,
-    browser: 'chromium',
+    browser: 'firefox',
     waitForTimeout: config.WaitForTimeout,
     waitForAction: 500,
     waitForNavigation: 'networkidle0',
