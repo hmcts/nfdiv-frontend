@@ -1,5 +1,5 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ChangedNameHow, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
