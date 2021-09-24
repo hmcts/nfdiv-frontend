@@ -1,9 +1,9 @@
 import { StepWithContent } from '../../../steps';
 import { Case } from '../case';
-import { CaseData, YesOrNo } from '../definition';
+import { ApplicationType, CaseData, YesOrNo } from '../definition';
 import { fromApiFormat } from '../from-api-format';
 
-import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
+import { deleteAddressIfPrivate, getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answers', () => {
@@ -309,6 +309,55 @@ describe('omitUnreachableAnswers()', () => {
 
     expect(actual).toEqual({
       applicant2UploadedFiles: null,
+    });
+  });
+
+  test('deletes applicant 2 address if private', () => {
+    const userCase = {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant2AddressPrivate: YesOrNo.YES,
+      applicant2AddressCounty: 'CITY OF WESTMINSTER',
+      applicant2AddressCountry: 'UK',
+      applicant2AddressPostcode: 'SW1H 9AJ',
+      applicant2AddressTown: 'LONDON',
+      applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
+      applicant2Address2: '',
+      applicant2Address3: '',
+    };
+
+    deleteAddressIfPrivate(userCase);
+
+    expect(userCase).toEqual({
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant2AddressPrivate: YesOrNo.YES,
+    });
+  });
+
+  test('does not delete applicant 2 address if not private', () => {
+    const userCase = {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant2AddressPrivate: YesOrNo.NO,
+      applicant2AddressCounty: 'CITY OF WESTMINSTER',
+      applicant2AddressCountry: 'UK',
+      applicant2AddressPostcode: 'SW1H 9AJ',
+      applicant2AddressTown: 'LONDON',
+      applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
+      applicant2Address2: '',
+      applicant2Address3: '',
+    };
+
+    deleteAddressIfPrivate(userCase);
+
+    expect(userCase).toEqual({
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant2AddressPrivate: YesOrNo.NO,
+      applicant2AddressCounty: 'CITY OF WESTMINSTER',
+      applicant2AddressCountry: 'UK',
+      applicant2AddressPostcode: 'SW1H 9AJ',
+      applicant2AddressTown: 'LONDON',
+      applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
+      applicant2Address2: '',
+      applicant2Address3: '',
     });
   });
 });

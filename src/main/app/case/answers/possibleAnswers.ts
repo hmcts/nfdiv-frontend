@@ -3,7 +3,7 @@ import { pick } from 'lodash';
 import { StepWithContent, stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
 import { Form } from '../../form/Form';
 import { Case } from '../case';
-import { ApplicationType } from '../definition';
+import { ApplicationType, YesOrNo } from '../definition';
 
 const getAllPossibleAnswers = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
   return steps.filter(step => step.form).flatMap(step => [...new Form(step.form, caseState).getFieldNames().values()]);
@@ -46,4 +46,19 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
   return Object.fromEntries(
     everyField.filter(key => !possibleAnswers.includes(key) && userCase[key]).map(key => [key, null])
   );
+};
+
+export const deleteAddressIfPrivate = (userCase: Partial<Case>): void => {
+  if (
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+    userCase.applicant2AddressPrivate === YesOrNo.YES
+  ) {
+    delete userCase.applicant2Address1;
+    delete userCase.applicant2Address2;
+    delete userCase.applicant2Address3;
+    delete userCase.applicant2AddressTown;
+    delete userCase.applicant2AddressCounty;
+    delete userCase.applicant2AddressCountry;
+    delete userCase.applicant2AddressPostcode;
+  }
 };

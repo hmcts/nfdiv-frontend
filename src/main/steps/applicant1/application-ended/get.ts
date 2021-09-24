@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { getSystemUser } from '../../../app/auth/user/oidc';
 import { getCaseApi } from '../../../app/case/CaseApi';
-import { getUnreachableAnswersAsNull } from '../../../app/case/answers/possibleAnswers';
+import { deleteAddressIfPrivate, getUnreachableAnswersAsNull } from '../../../app/case/answers/possibleAnswers';
 import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
@@ -22,6 +22,7 @@ export default class ApplicationEndedGetController extends GetController {
 
     try {
       req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+      deleteAddressIfPrivate(req.session.userCase);
       const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
 
       req.session.userCase = await req.locals.api.triggerEvent(
