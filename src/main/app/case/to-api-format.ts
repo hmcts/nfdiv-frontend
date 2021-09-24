@@ -70,10 +70,10 @@ const fields: ToApiConverters = {
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
   applicant1AddressPrivate: data => ({
-    applicant1KeepContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant1AddressPrivate),
+    applicant1KeepContactDetailsConfidential: data.applicant1AddressPrivate,
   }),
   applicant2AddressPrivate: data => ({
-    applicant2KeepContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant2AddressPrivate),
+    applicant2KeepContactDetailsConfidential: data.applicant2AddressPrivate,
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
@@ -143,13 +143,6 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
     return null;
   }
   return value === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO;
-};
-
-const addressPrivateYesNoOrNull = (value: YesOrNo) => {
-  if (!value) {
-    return null;
-  }
-  return value;
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
