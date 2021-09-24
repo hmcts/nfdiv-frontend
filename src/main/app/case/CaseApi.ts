@@ -43,7 +43,8 @@ export class CaseApi {
       case 0: {
         return false;
       }
-      case 1: {
+      case 1:
+      case 2: {
         const { id, state, case_data: caseData } = serviceCases[0];
         return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
