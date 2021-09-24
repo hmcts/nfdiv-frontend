@@ -64,13 +64,13 @@ const fields: FromApiConverters = {
     applicant1DoesNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
-  applicant1ContactDetailsConfidential: data => ({
+  applicant1KeepContactDetailsConfidential: data => ({
     applicant1AddressPrivate: data.applicant1KeepContactDetailsConfidential,
   }),
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
-  applicant2ContactDetailsConfidential: data => ({
+  applicant2KeepContactDetailsConfidential: data => ({
     applicant2AddressPrivate: data.applicant2KeepContactDetailsConfidential,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
