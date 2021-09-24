@@ -1,13 +1,12 @@
-import { Case } from '../../../app/case/case';
 import { JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
 export const jurisdictionMoreDetailsContent: (
-  formState: Partial<Case>,
-  isRespondent: boolean
-) => { connectedToEnglandWales: string; readMore: string } = (formState: Partial<Case>, isRespondent: boolean) => {
+  formState,
+  isRespondent
+) => { connectedToEnglandWales: string; readMore: string } = (formState, isRespondent) => {
   const resConnection = isRespondent ? enHabitualResident : enContainsHabitualResConnection(formState.connections);
   const domConnection = isRespondent ? enDomicile : enContainsDomConnection(formState.connections);
 
