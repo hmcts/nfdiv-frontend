@@ -70,10 +70,10 @@ const fields: ToApiConverters = {
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
   applicant1AddressPrivate: data => ({
-    applicant1ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant1AddressPrivate),
+    applicant1KeepContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant1AddressPrivate),
   }),
   applicant2AddressPrivate: data => ({
-    applicant2ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant2AddressPrivate),
+    applicant2KeepContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant2AddressPrivate),
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
