@@ -66,18 +66,14 @@ const fields: FromApiConverters = {
   }),
   applicant1ContactDetailsConfidential: data => ({
     applicant1AddressPrivate:
-      data.applicant1ContactDetailsConfidential === ConfidentialAddress.KEEP ? YesOrNo.YES : YesOrNo.NO,
+      data.applicant1KeepContactDetailsConfidential,
   }),
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
   applicant2ContactDetailsConfidential: data => ({
     applicant2AddressPrivate:
-      data.applicant2ContactDetailsConfidential === ConfidentialAddress.KEEP
-        ? YesOrNo.YES
-        : data.applicant2ContactDetailsConfidential === null
-        ? data.applicant2ContactDetailsConfidential
-        : YesOrNo.NO,
+      data.applicant2KeepContactDetailsConfidential,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
