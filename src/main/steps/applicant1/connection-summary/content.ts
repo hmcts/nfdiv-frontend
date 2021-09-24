@@ -1,38 +1,49 @@
+import { Case } from '../../../app/case/case';
 import { JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
-export const jurisdictionMoreDetailsContent: (formState) => { connectedToEnglandWales: string; readMore: string } =
-  formState => {
-    const resConnection = enContainsHabitualResConnection(formState.connections);
-    const domConnection = enContainsDomConnection(formState.connections);
+export const jurisdictionMoreDetailsContent: (
+  formState: Partial<Case>,
+  isRespondent: boolean
+) => { connectedToEnglandWales: string; readMore: string } = (formState: Partial<Case>, isRespondent: boolean) => {
+  const resConnection = isRespondent ? enHabitualResident : enContainsHabitualResConnection(formState.connections);
+  const domConnection = isRespondent ? enDomicile : enContainsDomConnection(formState.connections);
 
-    const resTitleReplacement = domConnection ? '<strong>Habitual residence</strong><br><br>' : '';
-    const domTitleReplacement = resConnection ? '<strong>Domicile</strong><br><br>' : '';
-    const bothTexts = resConnection && domConnection ? '<br><br>' : '';
+  const resTitleReplacement = domConnection ? '<strong>Habitual residence</strong><br><br>' : '';
+  const domTitleReplacement = resConnection ? '<strong>Domicile</strong><br><br>' : '';
+  const bothTexts = resConnection && domConnection ? '<br><br>' : '';
 
-    const resConnectionText = resConnection
-      ? Object.values(resConnection).join('<br><br>').replace('Habitual residence<br><br>', resTitleReplacement)
-      : '';
-    const domConnectionText = domConnection
-      ? Object.values(domConnection)
-          .join('<br><br>')
-          .replace('Domicile<br><br>', domTitleReplacement)
-          .replace('</ul><br><br>', '</ul>')
-          .replace('<br><ul', '<ul')
-      : '';
+  const resConnectionText = resConnection
+    ? Object.values(resConnection).join('<br><br>').replace('Habitual residence<br><br>', resTitleReplacement)
+    : '';
+  const domConnectionText = domConnection
+    ? Object.values(domConnection)
+        .join('<br><br>')
+        .replace('Domicile<br><br>', domTitleReplacement)
+        .replace('</ul><br><br>', '</ul>')
+        .replace('<br><ul', '<ul')
+    : '';
 
-    const totalText = (resConnection ? resConnectionText : '') + bothTexts + domConnectionText;
-    const readMoreText =
-      resConnection && domConnection
-        ? 'Read more about your connections'
-        : resConnection
-        ? 'Read more about habitual residence'
-        : 'Read more about domicile';
+  const respondentIntroduction =
+    'The courts of England or Wales must have the jurisdiction (the legal power) to be able to grant a divorce.' +
+    ' The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.';
 
-    return { connectedToEnglandWales: totalText, readMore: readMoreText };
-  };
+  const totalText =
+    (isRespondent ? respondentIntroduction + '<br><br>' : '') +
+    (resConnection ? resConnectionText : '') +
+    bothTexts +
+    domConnectionText;
+  const readMoreText =
+    resConnection && domConnection
+      ? 'Read more about your connections'
+      : resConnection
+      ? 'Read more about habitual residence'
+      : 'Read more about domicile';
+
+  return { connectedToEnglandWales: totalText, readMore: readMoreText };
+};
 
 const enHabitualResident = {
   helpText1: 'Habitual residence',

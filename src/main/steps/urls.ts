@@ -103,3 +103,5 @@ export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
 export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-application';
 export const HUB_1: PageLink = '/hub-1';
+
+export const REVIEW_THE_APPLICATION: PageLink = '/review-the-application';

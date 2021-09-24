@@ -81,6 +81,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
   applicant1PcqId: 'applicant1PcqId',
+  issueDate: 'issueDate',
+  applicant1SolicitorAddress: 'applicant1SolicitorAddress',
+  applicant2SolicitorAddress: 'applicant2SolicitorAddress',
 };
 
 export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -109,6 +112,9 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 export interface Case {
   applicationType?: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
+  issueDate?: DateAsString;
+  applicant1SolicitorAddress?: string;
+  applicant2SolicitorAddress?: string;
   gender?: Gender;
   sameSex?: Checkbox;
   applicant1ScreenHasUnionBroken?: YesOrNo;

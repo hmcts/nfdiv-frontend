@@ -124,8 +124,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
           ? connectionBulletPointsText(formState?.connections, partner)
           : '') +
         moreDetailsComponent(
-          jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
-          jurisdictionMoreDetailsContent(formState).readMore
+          jurisdictionMoreDetailsContent(formState, false).connectedToEnglandWales,
+          jurisdictionMoreDetailsContent(formState, false).readMore
         ),
     },
   },
