@@ -12,6 +12,9 @@ import {
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
   HOME_URL,
+  RESPONDENT,
+  RESPONDENT_CALLBACK_URL,
+  RESPONDENT_SIGN_IN_URL,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
@@ -31,6 +34,9 @@ export class OidcMiddleware {
     );
     app.get(APPLICANT_2_SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, APPLICANT_2_CALLBACK_URL))
+    );
+    app.get(RESPONDENT_SIGN_IN_URL, (req, res) =>
+      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, RESPONDENT_CALLBACK_URL))
     );
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
     app.get(
@@ -56,6 +62,21 @@ export class OidcMiddleware {
           req.session.save(() => res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`));
         } else {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
+        }
+      })
+    );
+    app.get(
+      RESPONDENT_CALLBACK_URL,
+      errorHandler(async (req, res) => {
+        if (typeof req.query.code === 'string') {
+          req.session.user = await getUserDetails(
+            `${protocol}${res.locals.host}${port}`,
+            req.query.code,
+            RESPONDENT_CALLBACK_URL
+          );
+          req.session.save(() => res.redirect(`${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`));
+        } else {
+          res.redirect(RESPONDENT_SIGN_IN_URL);
         }
       })
     );
@@ -86,6 +107,8 @@ export class OidcMiddleware {
           return next();
         } else if (req.url === APPLICANT_2) {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
+        } else if (req.url === RESPONDENT) {
+          res.redirect(RESPONDENT_SIGN_IN_URL);
         } else {
           res.redirect(SIGN_IN_URL);
         }
