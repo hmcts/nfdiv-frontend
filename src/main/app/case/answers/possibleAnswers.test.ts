@@ -119,7 +119,7 @@ describe('omitUnreachableAnswers()', () => {
     const userCase = fromApiFormat({
       applicant1AgreedToReceiveEmails: 'Yes',
       applicant1LegalProceedingsRelated: [],
-      applicant1ContactDetailsConfidential: 'share',
+      applicant1KeepContactDetailsConfidential: 'No',
       applicationType: 'jointApplication',
       labelContentTheApplicant2UC: null,
       generalReferralType: null,
@@ -295,7 +295,7 @@ describe('omitUnreachableAnswers()', () => {
       generalApplicationFrom: null,
       applicant2LegalProceedings: null,
       applicant2PrayerHasBeenGiven: 'Yes',
-      applicant2ContactDetailsConfidential: 'share',
+      applicant2KeepContactDetailsConfidential: 'No',
       applicant2CannotUploadSupportingDocument: null,
       jurisdictionBothLastHabituallyResident: null,
       applicant2Email: null,
