@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-15 16:30:11.
+// Generated using typescript-generator version 2.32.889 on 2021-09-23 18:22:40.
 
 
 export interface Address {
@@ -116,7 +116,7 @@ export interface Applicant {
   NameChangedHowOtherDetails: string;
   HomeAddress: AddressGlobalUK;
   PhoneNumber: string;
-  ContactDetailsConfidential: ConfidentialAddress;
+  KeepContactDetailsConfidential: YesOrNo;
   Gender: Gender;
   CorrespondenceAddress: AddressGlobalUK;
   SolicitorRepresented: YesOrNo;
@@ -164,12 +164,14 @@ export interface Application {
   solServiceDocumentsServed: string;
   solServiceOnWhomServed: string;
   solServiceHowServed: DocumentsServedHow;
+  solServiceServiceDetails: string;
   solServiceAddressServed: string;
   solServiceBeingThe: DocumentsServedBeingThe;
   solServiceLocationServed: DocumentsServedWhere;
   solServiceSpecifyLocationServed: string;
   solServiceServiceSotName: string;
   solServiceServiceSotFirm: string;
+  solServiceTruthStatement: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -208,10 +210,13 @@ export interface Application {
   applicant2ConfirmApplicant1Information: YesOrNo;
   applicant2ExplainsApplicant1IncorrectInformation: string;
   issueDate: DateAsString;
+  reissueDate: DateAsString;
   createdDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  reissueOption: ReissueOption;
 }
 
 export interface CaseData {
@@ -237,7 +242,7 @@ export interface CaseData {
   applicant1NameChangedHowOtherDetails: string;
   applicant1HomeAddress: AddressGlobalUK;
   applicant1PhoneNumber: string;
-  applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant1KeepContactDetailsConfidential: YesOrNo;
   applicant1Gender: Gender;
   applicant1CorrespondenceAddress: AddressGlobalUK;
   applicant1SolicitorRepresented: YesOrNo;
@@ -267,7 +272,7 @@ export interface CaseData {
   applicant2NameChangedHowOtherDetails: string;
   applicant2HomeAddress: AddressGlobalUK;
   applicant2PhoneNumber: string;
-  applicant2ContactDetailsConfidential: ConfidentialAddress;
+  applicant2KeepContactDetailsConfidential: YesOrNo;
   applicant2Gender: Gender;
   applicant2CorrespondenceAddress: AddressGlobalUK;
   applicant2SolicitorRepresented: YesOrNo;
@@ -312,12 +317,14 @@ export interface CaseData {
   solServiceDocumentsServed: string;
   solServiceOnWhomServed: string;
   solServiceHowServed: DocumentsServedHow;
+  solServiceServiceDetails: string;
   solServiceAddressServed: string;
   solServiceBeingThe: DocumentsServedBeingThe;
   solServiceLocationServed: DocumentsServedWhere;
   solServiceSpecifyLocationServed: string;
   solServiceServiceSotName: string;
   solServiceServiceSotFirm: string;
+  solServiceTruthStatement: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
   applicant1HWFAppliedForFees: YesOrNo;
@@ -356,10 +363,13 @@ export interface CaseData {
   applicant2ConfirmApplicant1Information: YesOrNo;
   applicant2ExplainsApplicant1IncorrectInformation: string;
   issueDate: DateAsString;
+  reissueDate: DateAsString;
   createdDate: DateAsString;
   rejectReason: RejectReason;
   previousState: State;
   applicationPayments: ListValue<Payment>[];
+  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  reissueOption: ReissueOption;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -397,6 +407,9 @@ export interface CaseData {
   generalReferralJudgeDetails: string;
   generalReferralLegalAdvisorDetails: string;
   generalReferralFeeRequired: YesOrNo;
+  receivedServiceApplicationDate: DateAsString;
+  serviceApplicationType: ServiceApplicationType;
+  receivedServiceAddedDate: DateAsString;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
@@ -409,6 +422,10 @@ export interface CaseData {
   dueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+  dataVersion: number;
+  exampleRetiredField: string;
+  applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant2ContactDetailsConfidential: ConfidentialAddress;
 }
 
 export interface CaseInvite {
@@ -518,6 +535,19 @@ export interface RejectReason {
   rejectDetails: string;
 }
 
+export interface RetiredFields {
+  dataVersion: number;
+  exampleRetiredField: string;
+  applicant1ContactDetailsConfidential: ConfidentialAddress;
+  applicant2ContactDetailsConfidential: ConfidentialAddress;
+}
+
+export interface ServiceApplication {
+  receivedServiceApplicationDate: DateAsString;
+  serviceApplicationType: ServiceApplicationType;
+  receivedServiceAddedDate: DateAsString;
+}
+
 export interface Solicitor {
   Name: string;
   Reference: string;
@@ -533,12 +563,14 @@ export interface SolicitorService {
   DocumentsServed: string;
   OnWhomServed: string;
   HowServed: DocumentsServedHow;
+  ServiceDetails: string;
   AddressServed: string;
   BeingThe: DocumentsServedBeingThe;
   LocationServed: DocumentsServedWhere;
   SpecifyLocationServed: string;
   ServiceSotName: string;
   ServiceSotFirm: string;
+  TruthStatement: string;
 }
 
 export interface ConfidentialDivorceDocument {
@@ -878,10 +910,22 @@ export const enum LegalProceedingsRelated {
   CHILDREN = 'children',
 }
 
+export const enum ReissueOption {
+  DIGITAL_AOS = 'digitalAos',
+  OFFLINE_AOS = 'offlineAos',
+  REISSUE_CASE = 'reissueCase',
+}
+
 export const enum RejectReasonType {
   NO_INFO = 'noInfo',
   INCORRECT_INFO = 'incorrectInfo',
   OTHER = 'Other',
+}
+
+export const enum ServiceApplicationType {
+  DEEMED = 'deemed',
+  DISPENSED = 'dispensed',
+  BAILIFF = 'bailiff',
 }
 
 export const enum ServiceMethod {
@@ -979,7 +1023,7 @@ export const enum ConfidentialDocumentsReceived {
 
 export const enum DocumentType {
   AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
-  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgeOfService',
+  ACKNOWLEDGEMENT_OF_SERVICE = 'acknowledgementOfService',
   ANNEX_A = 'annexA',
   APPLICATION = 'application',
   BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
@@ -1212,11 +1256,18 @@ export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_APPLICANT2_UPDATE =
+  'citizen-applicant2-update-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
-export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED =
+  'system-remind-applicant1';
+export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
+export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK =
+  'system-issue-solicitor-service-pack';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
-export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER =
+  'system-notify-applicant1-conditional-order';
+export const SYSTEM_APPLICATION_NOT_REVIEWED =
+  'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';

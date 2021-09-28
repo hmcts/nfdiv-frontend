@@ -19,8 +19,6 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import * as respondentAccessCodeContent from './steps/respondent/enter-your-access-code/content';
-import { RespondentAccessCodeGetController } from './steps/respondent/enter-your-access-code/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -34,7 +32,6 @@ import {
   HOME_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
-  RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
@@ -82,12 +79,6 @@ export class Routes {
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
       errorHandler(new AccessCodePostController(new Form(applicant2AccessCodeContent.form)).post)
-    );
-
-    app.get(`${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new RespondentAccessCodeGetController().get));
-    app.post(
-      `${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`,
-      errorHandler(new AccessCodePostController(new Form(respondentAccessCodeContent.form)).post)
     );
 
     app.get(
