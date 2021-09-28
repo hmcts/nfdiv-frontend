@@ -1,3 +1,4 @@
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { FinancialOrderFor, JurisdictionConnections, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -33,6 +34,11 @@ const connectionBulletPointsTextForRespondent = connections => {
 
   return connectionBulletPointList;
 };
+
+const respondentIntroduction =
+  'The courts of England or Wales must have the jurisdiction (the legal power) to be able to grant a divorce.' +
+  ' The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.' +
+  ' Each legal statement includes some or all of the following legal connections to England or Wales.';
 
 const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -78,12 +84,12 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   line13: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
   line14: `${formState?.ceremonyPlace}`,
   line15: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
-  line16: `${formState?.relationshipDate}`,
+  line16: `${getFormattedDate(formState?.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
   jurisdictionsMoreDetails: moreDetailsComponent(
-    jurisdictionMoreDetailsContent(formState, true).connectedToEnglandWales,
+    respondentIntroduction + '<br><br>' + jurisdictionMoreDetailsContent(formState, true).connectedToEnglandWales,
     'What this means'
   ),
   subHeading4: 'Other court cases',
