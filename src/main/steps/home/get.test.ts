@@ -1,3 +1,4 @@
+import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
@@ -102,7 +103,7 @@ describe('HomeGetController', () => {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.AwaitingApplicant2Response,
-          applicant2ApplyForFinancialOrder: YesOrNo.NO,
+          ...jointApplicant2CompleteCase,
         },
         isApplicant2: true,
       },

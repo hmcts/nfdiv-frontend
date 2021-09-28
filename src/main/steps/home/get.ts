@@ -5,8 +5,8 @@ import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
-import { form as applicant2LastQuestionForm } from '../applicant2/do-you-want-to-apply-financial-order/content';
 import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
+import { getNextIncompleteStepUrl } from '../index';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -36,8 +36,7 @@ export class HomeGetController {
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
       res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
     } else if (req.session.isApplicant2) {
-      const lastQuestionForm = new Form(applicant2LastQuestionForm);
-      const isLastQuestionComplete = lastQuestionForm.getErrors(req.session.userCase).length === 0;
+      const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
         applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete, isLastQuestionComplete)
       );
