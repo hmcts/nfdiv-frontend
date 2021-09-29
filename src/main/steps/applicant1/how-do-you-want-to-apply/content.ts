@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { ApplicationType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -23,7 +25,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   readMore: 'Find out more about help with fees.',
   helpText1: `This ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } costs £550. In a sole application you will have to pay the divorce fee. In a joint application, either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`,
+  } costs ${config.get(
+    'fees.applicationFee'
+  )}. In a sole application you will have to pay the divorce fee. In a joint application, either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`,
   helpText2: 'Help can be claimed to pay the fee, if the applicant: ',
   helpPayingWhen: ['is on certain benefits <em>or</em>', 'has a little or no savings <em>or</em>', 'has low income'],
   helpText3: `In a sole application, only you have to be eligible and claim help with fees. In a joint application, both you and your ${partner} have to be eligible and claim help with fees separately.`,
