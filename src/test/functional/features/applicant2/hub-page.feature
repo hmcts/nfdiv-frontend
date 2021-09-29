@@ -10,9 +10,6 @@ Feature: Applicant 2 hub page
     And I set the case state to Holding
     And I go to "/"
     Then the page URL should be "/applicant2/hub-page"
-
-  Scenario: Applicant 2 has not confirmed the receipt
-    When I go to "/applicant2/hub-page"
     Then the page should include "Your application for divorce has been submitted and checked by court staff."
     And the page should include "Confirm receipt"
 
