@@ -14,7 +14,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
-  HUB_1,
+  HUB_PAGE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -62,8 +62,14 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.Submitted: {
       return APPLICATION_SUBMITTED;
     }
-    case State.Holding: {
-      return HUB_1;
+    case State.AwaitingAos:
+    case State.AwaitingConditionalOrder:
+    case State.AosDrafted:
+    case State.AosOverdue:
+    case State.Holding:
+    case State.PendingDispute:
+    case State.Disputed: {
+      return HUB_PAGE;
     }
     default: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
@@ -78,7 +84,7 @@ const applicant2RedirectPageSwitch = (
 ) => {
   switch (caseState) {
     case State.Holding: {
-      return `${APPLICANT_2}${HUB_1}`;
+      return `${APPLICANT_2}${HUB_PAGE}`;
     }
     case State.Applicant2Approved: {
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
@@ -96,5 +102,5 @@ const applicant2RedirectPageSwitch = (
 };
 
 const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
-  return isFirstQuestionComplete ? `${RESPONDENT}${CHECK_ANSWERS_URL}` : `${RESPONDENT}${HUB_1}`;
+  return isFirstQuestionComplete ? `${RESPONDENT}${CHECK_ANSWERS_URL}` : `${RESPONDENT}${HUB_PAGE}`;
 };
