@@ -13,6 +13,7 @@ import {
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
   HUB_1,
+  HUB_4,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -59,6 +60,9 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     }
     case State.Holding: {
       return HUB_1;
+    }
+    case State.AwaitingConditionalOrder: {
+      return HUB_4;
     }
     default: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
