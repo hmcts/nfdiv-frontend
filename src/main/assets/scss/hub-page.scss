@@ -5,15 +5,11 @@
     color: govuk-colour('black');
   }
 }
-.govuk-section-break--main {
-  height: 1px;
-  color: #1d70b8;
-  background-color: #1d70b8;
-}
+
 .govuk-section-break--additional {
   height: 5px;
-  color: #1d70b8;
-  background-color: #1d70b8;
+  color: govuk-colour('blue');
+  background-color: govuk-colour('blue');
 }
 
 .hub-progress-bar {

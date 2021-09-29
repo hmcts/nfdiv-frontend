@@ -5,10 +5,10 @@ import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-tok
 import { DocumentType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
+const proxy = require('express-http-proxy');
+
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
-    const proxy = require('express-http-proxy');
-
     const addToReqPath = (req: AppRequest) => {
       return req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.APPLICATION)
         ?.value.documentLink.document_binary_url;
