@@ -2,6 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.32.889 on 2021-09-23 18:22:40.
 
+
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
