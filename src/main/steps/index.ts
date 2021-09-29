@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 
 import { Case, CaseWithId } from '../app/case/case';
+import { ApplicationType } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
@@ -73,7 +74,15 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => (req.session.isApplicant2 ? applicant2Sequence : applicant1Sequence);
+const getUserSequence = (req: AppRequest) => {
+  if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
+    return respondentSequence;
+  } else if (req.session.isApplicant2) {
+    return applicant2Sequence;
+  } else {
+    return applicant1Sequence;
+  }
+};
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');

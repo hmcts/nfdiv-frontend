@@ -311,4 +311,17 @@ describe('omitUnreachableAnswers()', () => {
       applicant2UploadedFiles: null,
     });
   });
+
+  test('returns respondent answers as null', async () => {
+    const userCase = {
+      applicant2LegalProceedings: YesOrNo.NO,
+      applicant2LegalProceedingsDetails: 'test',
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      applicant2LegalProceedingsDetails: null,
+    });
+  });
 });

@@ -5,7 +5,15 @@ import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import * as possibleAnswers from '../case/answers/possibleAnswers';
 import { Case, Checkbox } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender, YesOrNo } from '../case/definition';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_DRAFT_AOS,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_UPDATE,
+  Gender,
+  YesOrNo,
+} from '../case/definition';
 
 import { PostController } from './PostController';
 
@@ -322,6 +330,27 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_APPLICANT2_UPDATE);
+
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
+  });
+
+  test('triggers citizen-draft-aos event if user is respondent', async () => {
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const body = { gender: Gender.FEMALE };
+    const mockForm = {
+      setFormState: jest.fn(),
+      getErrors: () => [],
+      getParsedBody: () => body,
+    } as unknown as Form;
+    const controller = new PostController(mockForm);
+
+    const req = mockRequest({ body });
+    req.session.isApplicant2 = true;
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_DRAFT_AOS);
 
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
