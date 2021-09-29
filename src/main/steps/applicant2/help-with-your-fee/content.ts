@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -5,9 +7,9 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ isDivorce, required, partner }) => ({
   title: `Help with the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
-  line1: `This ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } costs £550. This service will not ask you to pay the fee. Your ${partner} will be asked to pay because they are the first applicant.`,
+  line1: `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${config.get(
+    'fees.applicationFee'
+  )}. This service will not ask you to pay the fee. Your ${partner} will be asked to pay because they are the first applicant.`,
   line2: `Your ${partner} has said they need help paying the fee. They can only use Help With Fees on this application if you claim and are eligible for Help With Fees too.`,
   line3: 'You can claim Help With Fees if you: (one or more of the following):',
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
