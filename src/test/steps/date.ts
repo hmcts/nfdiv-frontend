@@ -13,8 +13,9 @@ const enterDate = (day: string, month: string, year: string) => {
 
 Given(/I enter a date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
+  date.setDate(1);
   date.getMonth() - +month === 0 ? date.setMonth(1) : date.setMonth(date.getMonth() - +month);
-  enterDate(date.getDate().toString(), date.getMonth().toString(), date.getFullYear().toString());
+  enterDate(date.getDate().toString(), (date.getMonth() + 1).toString(), date.getFullYear().toString());
 });
 
 Given(/I enter a date (\d+) (?:year|years) ahead/, (year: string) => {
