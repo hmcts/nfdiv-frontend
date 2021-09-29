@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -11,8 +13,11 @@ const en = ({ partner, required }: CommonContent) => ({
     'agree on dividing your money and property and want to make your agreement legally binding (this is also known as a consent order).',
   point2: 'disagree on dividing your money and property and want the court to decide.',
   point3: 'have nothing to split but want to make your financial separation final.',
-  line2:
-    'Applying to the court for a consent order costs an additional £50. Asking the court to decide for you and make a financial order costs an additional £255. The court needs to know now if you want to apply.',
+  line2: `Applying to the court for a consent order costs an additional ${config.get(
+    'fees.consentOrder'
+  )}. Asking the court to decide for you and make a financial order costs an additional ${config.get(
+    'fees.financialOrder'
+  )}. The court needs to know now if you want to apply.`,
   selectYes: 'If you select yes:',
   yesPoint1: 'you do not have to proceed with the application.',
   yesPoint2: `you can proceed with the application at any time, so long as your ${partner} is still alive.`,
