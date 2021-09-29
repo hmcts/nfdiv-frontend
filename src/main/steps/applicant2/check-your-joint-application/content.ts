@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -28,7 +30,9 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
   const moreDetailsContent = {
     helpWithFees: `This ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } costs £550. You will not be asked to pay the fee. Your ${partner} will be asked to pay. ${
+    } costs ${config.get(
+      'fees.applicationFee'
+    )}. You will not be asked to pay the fee. Your ${partner} will be asked to pay. ${
       formState?.applicant1HelpPayingNeeded === YesOrNo.YES
         ? 'They have said that they need help paying the fee. They can only use help with the fees if you apply too. That is why you were asked whether you needed help paying the fee.'
         : ''
