@@ -1,3 +1,4 @@
+import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
@@ -6,6 +7,7 @@ import {
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
+  CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   HUB_PAGE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
@@ -92,6 +94,24 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_ANSWERS_URL}`);
+  });
+
+  test('redirects to the check your joint application page for applicant 2 users if last question has been answered', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingApplicant2Response,
+          ...jointApplicant2CompleteCase,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_JOINT_APPLICATION}`);
   });
 
   test('redirects to your spouse needs to confirm page for applicant 2 users in applicant2Approved state', () => {

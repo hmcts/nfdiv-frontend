@@ -6,11 +6,13 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { Form } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
 import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
+import { getNextIncompleteStepUrl } from '../index';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
+  CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   HUB_PAGE,
   RESPONDENT,
@@ -34,7 +36,10 @@ export class HomeGetController {
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
       res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
     } else if (req.session.isApplicant2) {
-      res.redirect(applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+      const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
+      res.redirect(
+        applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete, isLastQuestionComplete)
+      );
     } else {
       res.redirect(
         applicant1RedirectPageSwitch(req.session.userCase.state, req.session.userCase, isFirstQuestionComplete)
@@ -72,7 +77,11 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
   }
 };
 
-const applicant2RedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
+const applicant2RedirectPageSwitch = (
+  caseState: State,
+  isFirstQuestionComplete: boolean,
+  isLastQuestionComplete: boolean
+) => {
   switch (caseState) {
     case State.Holding: {
       return `${APPLICANT_2}${HUB_PAGE}`;
@@ -81,9 +90,13 @@ const applicant2RedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
     }
     default: {
-      return isFirstQuestionComplete
-        ? `${APPLICANT_2}${CHECK_ANSWERS_URL}`
-        : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+      if (isLastQuestionComplete) {
+        return `${APPLICANT_2}${CHECK_JOINT_APPLICATION}`;
+      } else if (isFirstQuestionComplete) {
+        return `${APPLICANT_2}${CHECK_ANSWERS_URL}`;
+      } else {
+        return `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+      }
     }
   }
 };
