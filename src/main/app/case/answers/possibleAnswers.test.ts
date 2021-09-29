@@ -102,7 +102,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: YesOrNo.NO,
       certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',
-      ceremonyPlace: 'Belfast',
     };
 
     const actual = getUnreachableAnswersAsNull(userCase);
@@ -111,7 +110,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: null,
       certifiedTranslation: null,
       ceremonyCountry: null,
-      ceremonyPlace: null,
     });
   });
 
