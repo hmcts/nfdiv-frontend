@@ -7,7 +7,7 @@ Feature: Applicant 2 hub page
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     And I enter my valid case reference and valid access code
-    And I set the case state to Holding
+    And I set the case state to "Holding"
     And I go to "/"
     Then the page URL should be "/applicant2/hub-page"
     Then the page should include "Your application for divorce has been submitted and checked by court staff."
