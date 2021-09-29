@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { APPLICANT_2, HUB_1, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
+import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
@@ -55,7 +55,7 @@ export class AccessCodePostController {
 
     const nextUrl =
       req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION
-        ? `${RESPONDENT}${HUB_1}`
+        ? `${RESPONDENT}${HUB_PAGE}`
         : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
 
     const nextStep = req.session.errors.length > 0 ? req.url : nextUrl;
