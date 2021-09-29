@@ -11,6 +11,7 @@ const enterDate = (day: string, month: string, year: string) => {
   I.type(year);
 };
 
+/** Setting the date to the first due to different months having different total number of days **/
 Given(/I enter a date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
   date.setDate(1);
