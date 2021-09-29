@@ -12,6 +12,8 @@ import {
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
   HOME_URL,
+  PageLink,
+  RESPONDENT,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
@@ -84,7 +86,7 @@ export class OidcMiddleware {
           }
 
           return next();
-        } else if (req.url === APPLICANT_2) {
+        } else if ([APPLICANT_2, RESPONDENT].includes(req.url as PageLink)) {
           res.redirect(APPLICANT_2_SIGN_IN_URL);
         } else {
           res.redirect(SIGN_IN_URL);

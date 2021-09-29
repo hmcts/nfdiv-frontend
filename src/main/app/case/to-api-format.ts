@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ChangedNameHow, ConfidentialAddress, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -70,10 +70,10 @@ const fields: ToApiConverters = {
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
   applicant1AddressPrivate: data => ({
-    applicant1ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant1AddressPrivate),
+    applicant1KeepContactDetailsConfidential: data.applicant1AddressPrivate,
   }),
   applicant2AddressPrivate: data => ({
-    applicant2ContactDetailsConfidential: addressPrivateYesNoOrNull(data.applicant2AddressPrivate),
+    applicant2KeepContactDetailsConfidential: data.applicant2AddressPrivate,
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
@@ -143,13 +143,6 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
     return null;
   }
   return value === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO;
-};
-
-const addressPrivateYesNoOrNull = (value: YesOrNo) => {
-  if (!value) {
-    return null;
-  }
-  return value === YesOrNo.YES ? ConfidentialAddress.KEEP : ConfidentialAddress.SHARE;
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
