@@ -1,0 +1,39 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% if progressionIndex == 6 %}
+  <p class="govuk-body">{{ dispute.line1 }}</p>
+  <p class="govuk-body">{{ dispute.line2 }}</p>
+  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+  <p class="govuk-body">{{ dispute.line3 }}</p>
+  <p class="govuk-body">{{ dispute.line4 }}</p>
+{% elif progressionIndex == 5 %}
+  <p class="govuk-body">{{ pendingDispute.line1 }}</p>
+  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+  <p class="govuk-body">{{ pendingDispute.line2 }}</p>
+  <p class="govuk-body">{{ pendingDispute.line3 }}</p>
+{% elif progressionIndex == 4 %}
+  <p class="govuk-body">{{ holding.line1 }}</p>
+  <p class="govuk-body">{{ holding.line2 }}</p>
+  <p class="govuk-body">{{ holding.line3 }}</p>
+  {% set readMoreContent %}
+    <p class="govuk-body">{{ holding.line4 }}</p>
+    <ol class="govuk-list govuk-list--number">
+    {% for property, line in holding.steps %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+    </ol>
+    <p class="govuk-body">{{ holding.line5 | safe }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: holding.readMore,
+    html: readMoreContent
+  }) }}
+{% elif progressionIndex == 3 %}
+  {% for property, line in aosDue %}
+    <p class="govuk-body">{{ line }}</p>
+  {% endfor %}
+{% else %}
+  {% for property, line in aosAwaitingOrDrafted %}
+    <p class="govuk-body">{{ line }}</p>
+  {% endfor %}
+{% endif %}

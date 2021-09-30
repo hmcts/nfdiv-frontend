@@ -102,7 +102,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: YesOrNo.NO,
       certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',
-      ceremonyPlace: 'Belfast',
     };
 
     const actual = getUnreachableAnswersAsNull(userCase);
@@ -111,7 +110,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: null,
       certifiedTranslation: null,
       ceremonyCountry: null,
-      ceremonyPlace: null,
     });
   });
 
@@ -309,6 +307,19 @@ describe('omitUnreachableAnswers()', () => {
 
     expect(actual).toEqual({
       applicant2UploadedFiles: null,
+    });
+  });
+
+  test('returns respondent answers as null', async () => {
+    const userCase = {
+      applicant2LegalProceedings: YesOrNo.NO,
+      applicant2LegalProceedingsDetails: 'test',
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      applicant2LegalProceedingsDetails: null,
     });
   });
 });
