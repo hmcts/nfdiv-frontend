@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -7,7 +9,7 @@ const en = ({ isDivorce, required, isJointApplication, partner }) => ({
   title: isJointApplication
     ? `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`
     : `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
-  line1: `This ${isDivorce ? 'divorce application' : 'application'} costs £550. ${
+  line1: `This ${isDivorce ? 'divorce application' : 'application'} costs ${config.get('fees.applicationFee')}. ${
     isJointApplication
       ? `Either you or your ${partner} will be able to pay. The payment system does not allow you to split the payment.`
       : 'You may be able to get help paying the fee if you:'
@@ -33,9 +35,9 @@ const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => 
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,
-  line1: `Mae'r ${
-    isDivorce ? 'cais am ysgariad' : 'cais'
-  } hwn yn costio £550. Efallai y byddwch yn gallu cael help i dalu'r ffi:`,
+  line1: `Mae'r ${isDivorce ? 'cais am ysgariad' : 'cais'} hwn yn costio ${config.get(
+    'fees.applicationFee'
+  )}. Efallai y byddwch yn gallu cael help i dalu'r ffi:`,
   helpPayingWhen: [
     'os ydych yn cael budd-daliadau penodol, <em>neu</em>',
     'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl, <em>neu</em>',

@@ -54,6 +54,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2LastNames: 'applicant2LastName',
   applicant1FullNameOnCertificate: 'marriageApplicant1Name',
   applicant2FullNameOnCertificate: 'marriageApplicant2Name',
+  applicant1ConfirmReceipt: 'applicant1ConfirmReceipt',
+  applicant2ConfirmReceipt: 'applicant2ConfirmReceipt',
   applicant1LastNameChangedWhenRelationshipFormed: 'applicant1LastNameChangedWhenMarried',
   applicant2LastNameChangedWhenRelationshipFormed: 'applicant2LastNameChangedWhenMarried',
   applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
@@ -77,6 +79,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
+  documentsGenerated: 'documentsGenerated',
   respondentUserId: 'applicant2UserId',
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
@@ -154,8 +157,10 @@ export interface Case {
   applicant1AddressCountry?: string;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
+  applicant1ConfirmReceipt: YesOrNo;
   applicant2PhoneNumber?: string;
   applicant2AgreeToReceiveEmails?: Checkbox;
+  applicant2ConfirmReceipt: YesOrNo;
   connections: JurisdictionConnections[];
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
@@ -195,6 +200,7 @@ export interface Case {
   applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
+  documentsGenerated: ListValue<DivorceDocument>[];
   applicant1DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   applicant1CannotUpload?: Checkbox;

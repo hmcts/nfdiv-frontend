@@ -3,16 +3,13 @@ import { FormContent } from '../../../app/form/Form';
 import {
   form as applicant2Form,
   generateContent as applicant2GenerateContent,
-} from '../../applicant2/enter-your-access-code/content';
+} from '../../applicant2/other-court-cases/content';
 
-export const form: FormContent = {
-  ...applicant2Form,
-};
+export const form: FormContent = applicant2Form;
 
 export const generateContent: TranslationFn = content => {
-  const applicant2Content = applicant2GenerateContent(content);
   return {
-    ...applicant2Content,
+    ...applicant2GenerateContent(content),
     form,
   };
 };

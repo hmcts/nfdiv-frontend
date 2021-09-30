@@ -1,6 +1,12 @@
 import { pick } from 'lodash';
 
-import { StepWithContent, stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
+import {
+  StepWithContent,
+  stepsWithContentApplicant1,
+  stepsWithContentApplicant2,
+  stepsWithContentRespondent,
+} from '../../../steps';
+import { CONFIRM_JOINT_APPLICATION } from '../../../steps/urls';
 import { Form } from '../../form/Form';
 import { Case } from '../case';
 import { ApplicationType } from '../definition';
@@ -35,12 +41,23 @@ export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: StepWith
   pick(caseState, getAllPossibleAnswersForPath(caseState, steps));
 
 export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
-  const everyField = getAllPossibleAnswers(userCase, stepsWithContentApplicant1);
+  const everyField = getAllPossibleAnswers(userCase, stepsWithContentApplicant1).filter(
+    field => field !== 'ceremonyPlace'
+  );
   const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
 
   if (userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
     everyField.push(...getAllPossibleAnswers(userCase, stepsWithContentApplicant2));
     possibleAnswers.push(...getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant2));
+
+    const applicant1JointConfirmation = stepsWithContentApplicant1.slice(
+      stepsWithContentApplicant1.findIndex(step => step.url === CONFIRM_JOINT_APPLICATION)
+    );
+    everyField.push(...getAllPossibleAnswers(userCase, applicant1JointConfirmation));
+    possibleAnswers.push(...getAllPossibleAnswersForPath(userCase, applicant1JointConfirmation));
+  } else {
+    everyField.push(...getAllPossibleAnswers(userCase, stepsWithContentRespondent));
+    possibleAnswers.push(...getAllPossibleAnswersForPath(userCase, stepsWithContentRespondent));
   }
 
   return Object.fromEntries(

@@ -102,7 +102,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: YesOrNo.NO,
       certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',
-      ceremonyPlace: 'Belfast',
     };
 
     const actual = getUnreachableAnswersAsNull(userCase);
@@ -111,7 +110,6 @@ describe('omitUnreachableAnswers()', () => {
       certificateInEnglish: null,
       certifiedTranslation: null,
       ceremonyCountry: null,
-      ceremonyPlace: null,
     });
   });
 
@@ -119,7 +117,7 @@ describe('omitUnreachableAnswers()', () => {
     const userCase = fromApiFormat({
       applicant1AgreedToReceiveEmails: 'Yes',
       applicant1LegalProceedingsRelated: [],
-      applicant1ContactDetailsConfidential: 'share',
+      applicant1KeepContactDetailsConfidential: 'No',
       applicationType: 'jointApplication',
       labelContentTheApplicant2UC: null,
       generalReferralType: null,
@@ -295,7 +293,7 @@ describe('omitUnreachableAnswers()', () => {
       generalApplicationFrom: null,
       applicant2LegalProceedings: null,
       applicant2PrayerHasBeenGiven: 'Yes',
-      applicant2ContactDetailsConfidential: 'share',
+      applicant2KeepContactDetailsConfidential: 'No',
       applicant2CannotUploadSupportingDocument: null,
       jurisdictionBothLastHabituallyResident: null,
       applicant2Email: null,
@@ -309,6 +307,19 @@ describe('omitUnreachableAnswers()', () => {
 
     expect(actual).toEqual({
       applicant2UploadedFiles: null,
+    });
+  });
+
+  test('returns respondent answers as null', async () => {
+    const userCase = {
+      applicant2LegalProceedings: YesOrNo.NO,
+      applicant2LegalProceedingsDetails: 'test',
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      applicant2LegalProceedingsDetails: null,
     });
   });
 });
