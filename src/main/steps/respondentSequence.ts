@@ -1,9 +1,19 @@
 import { YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
-import { DETAILS_OTHER_PROCEEDINGS, HOW_THE_COURTS_WILL_CONTACT_YOU, OTHER_COURT_CASES, RESPONDENT } from './urls';
+import {
+  DETAILS_OTHER_PROCEEDINGS,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
+  OTHER_COURT_CASES,
+  RESPONDENT,
+  REVIEW_THE_APPLICATION,
+} from './urls';
 
 const sequences: Step[] = [
+  {
+    url: REVIEW_THE_APPLICATION,
+    getNextStep: () => OTHER_COURT_CASES,
+  },
   {
     url: OTHER_COURT_CASES,
     showInSection: Sections.OtherCourtCases,

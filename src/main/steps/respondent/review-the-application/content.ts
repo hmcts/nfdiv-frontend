@@ -5,8 +5,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { jurisdictionMoreDetailsContent } from '../../applicant1/connection-summary/content';
+import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
-import { moreDetailsComponent } from '../check-your-joint-application/content';
 
 const connectionBulletPointsTextForRespondent = connections => {
   const connectionBulletPoints = {
