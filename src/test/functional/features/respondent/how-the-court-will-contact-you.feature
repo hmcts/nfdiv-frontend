@@ -12,7 +12,7 @@ Feature: Respondent how the court will contact you
     Given I clear the form
     And I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in?"
+    Then the page URL should be "/respondent/english-or-welsh"
 
   @nightly
   Scenario: They don't agree notifications can be sent via email
