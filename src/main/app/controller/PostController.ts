@@ -5,7 +5,13 @@ import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_DRAFT_AOS,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_UPDATE,
+} from '../case/definition';
 import { Form } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -83,7 +89,13 @@ export class PostController<T extends AnyObject> {
   }
 
   protected getEventName(req: AppRequest<T>): string {
-    return req.session.isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE;
+    if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
+      return CITIZEN_DRAFT_AOS;
+    } else if (req.session.isApplicant2) {
+      return CITIZEN_APPLICANT2_UPDATE;
+    } else {
+      return CITIZEN_UPDATE;
+    }
   }
 }
 

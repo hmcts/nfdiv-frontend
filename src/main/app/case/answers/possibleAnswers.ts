@@ -1,6 +1,11 @@
 import { pick } from 'lodash';
 
-import { StepWithContent, stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
+import {
+  StepWithContent,
+  stepsWithContentApplicant1,
+  stepsWithContentApplicant2,
+  stepsWithContentRespondent,
+} from '../../../steps';
 import { CONFIRM_JOINT_APPLICATION } from '../../../steps/urls';
 import { Form } from '../../form/Form';
 import { Case } from '../case';
@@ -50,6 +55,9 @@ export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Ca
     );
     everyField.push(...getAllPossibleAnswers(userCase, applicant1JointConfirmation));
     possibleAnswers.push(...getAllPossibleAnswersForPath(userCase, applicant1JointConfirmation));
+  } else {
+    everyField.push(...getAllPossibleAnswers(userCase, stepsWithContentRespondent));
+    possibleAnswers.push(...getAllPossibleAnswersForPath(userCase, stepsWithContentRespondent));
   }
 
   return Object.fromEntries(

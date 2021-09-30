@@ -1,17 +1,19 @@
 import * as fs from 'fs';
 
 import { Case, CaseWithId } from '../app/case/case';
+import { ApplicationType } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step, applicant1Sequence } from './applicant1Sequence';
 import { applicant2Sequence } from './applicant2Sequence';
+import { respondentSequence } from './respondentSequence';
 import { CHECK_ANSWERS_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
-[applicant1Sequence, applicant2Sequence].forEach((sequence: Step[], i: number) => {
+[applicant1Sequence, applicant2Sequence, respondentSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content.ts`;
@@ -66,13 +68,21 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...applicant1Sequence, ...applicant2Sequence].find(s => s.url === path);
+  const nextStep = [...applicant1Sequence, ...applicant2Sequence, ...respondentSequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => (req.session.isApplicant2 ? applicant2Sequence : applicant1Sequence);
+const getUserSequence = (req: AppRequest) => {
+  if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
+    return respondentSequence;
+  } else if (req.session.isApplicant2) {
+    return applicant2Sequence;
+  } else {
+    return applicant1Sequence;
+  }
+};
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');
@@ -96,9 +106,8 @@ export type StepWithContent = Step & {
   view: string;
 };
 
-const getStepsWithContent = (applicant: number): StepWithContent[] => {
-  const sequence = applicant === 1 ? applicant1Sequence : applicant2Sequence;
-  const dir = __dirname + (applicant === 1 ? '/applicant1' : '');
+const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithContent[] => {
+  const dir = __dirname + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
@@ -109,6 +118,11 @@ const getStepsWithContent = (applicant: number): StepWithContent[] => {
   return results;
 };
 
-export const stepsWithContentApplicant1 = getStepsWithContent(1);
-export const stepsWithContentApplicant2 = getStepsWithContent(2);
-export const stepsWithContent = [...stepsWithContentApplicant1, ...stepsWithContentApplicant2];
+export const stepsWithContentApplicant1 = getStepsWithContent(applicant1Sequence, true);
+export const stepsWithContentApplicant2 = getStepsWithContent(applicant2Sequence);
+export const stepsWithContentRespondent = getStepsWithContent(respondentSequence);
+export const stepsWithContent = [
+  ...stepsWithContentApplicant1,
+  ...stepsWithContentApplicant2,
+  ...stepsWithContentRespondent,
+];

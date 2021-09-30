@@ -17,9 +17,9 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   I.amOnPage(url);
 });
 
-Given('I set the case state to Holding', async () => {
+Given('I set the case state to {string}', async (state: State) => {
   iSetTheUsersCaseTo({
-    state: State.Holding,
+    state,
   });
 });
 
