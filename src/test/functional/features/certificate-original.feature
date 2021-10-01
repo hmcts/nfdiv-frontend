@@ -11,11 +11,6 @@ Feature: Certificate Original
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: does not have the original marriage certificate in English?
-    And I select "No"
-    When I click "Continue"
-    Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
-
   @nightly
   Scenario: Error when not answering 'Do you have a ‘certified translation’ of your marriage certificate?'
     And I select "No"
@@ -25,7 +20,7 @@ Feature: Certificate Original
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: you need a ‘certified translation’ of your marriage certificate'
+  Scenario: You need a ‘certified translation’ of your marriage certificate'
     And I select "No"
     When I click "Continue"
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"

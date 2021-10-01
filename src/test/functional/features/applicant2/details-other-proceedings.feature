@@ -6,6 +6,7 @@ Feature: Applicant 2 Details other proceedings
     When I go to '/applicant2/details-other-proceedings'
     Then the page should include "Details of the other legal proceedings"
 
+  @nightly
   Scenario: Failed to fill in the form
     Given I clear the form
     When I click "Continue"
