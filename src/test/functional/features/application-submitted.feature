@@ -12,6 +12,7 @@ Feature: Submitting an application
     And I pay and submit the application
     Then the page should include "Application submitted"
 
+  @nightly
   Scenario: Completed all required questions and confirming with a HWF code
     Given I've already completed the form using the fixture "completeCaseWithHWF"
     And I go to '/check-your-answers'

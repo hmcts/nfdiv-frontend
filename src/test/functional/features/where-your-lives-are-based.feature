@@ -12,19 +12,22 @@ Feature: Where your lives are based
     When I click "Continue"
     Then the page URL should be "/you-can-use-english-welsh-courts"
 
+  @nightly
   Scenario: Their life is based in England/Wale, but their partners is not
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
     Then the page URL should be "/living-england-wales-twelve-months"
 
+  @nightly
   Scenario: Their life is not based in England/Wales, but their partners is
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
     Then the page URL should be "/you-can-use-english-welsh-courts"
 
-  Scenario: Both their life's are not based in England/Wales
+  @nightly
+  Scenario: Both their lives are not based in England/Wales
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
