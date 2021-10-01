@@ -104,6 +104,7 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.AwaitingApplicant2Response,
           ...jointApplicant2CompleteCase,
+          applicant2WhoIsFinancialOrderFor: [],
         },
         isApplicant2: true,
       },
