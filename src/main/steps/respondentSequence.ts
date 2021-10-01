@@ -4,7 +4,9 @@ import { Sections, Step } from './applicant1Sequence';
 import {
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
+  HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HUB_PAGE,
   OTHER_COURT_CASES,
   RESPONDENT,
 } from './urls';
@@ -25,6 +27,10 @@ const sequences: Step[] = [
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
   },
 ];
 
