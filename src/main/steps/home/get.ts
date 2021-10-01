@@ -36,7 +36,9 @@ export class HomeGetController {
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
       res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
     } else if (req.session.isApplicant2) {
-      const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
+      const nextStepUrl = getNextIncompleteStepUrl(req);
+      const isLastQuestionComplete =
+        nextStepUrl.endsWith(CHECK_JOINT_APPLICATION) || nextStepUrl.endsWith(CHECK_ANSWERS_URL);
       res.redirect(
         applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete, isLastQuestionComplete)
       );
