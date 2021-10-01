@@ -11,12 +11,14 @@ Feature: Union broken down
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: Their partnership has not broken down
     When I select "No, my marriage has not irretrievably broken down"
     Then the page should include "This is the law in England and Wales."
     When I click "Continue"
     Then the page should include "You cannot apply to get a divorce"
 
+  @nightly
   Scenario: Civil partnership has not broken down
     Given I go to '/irretrievable-breakdown?forceCivilMode'
     When I select "No, my civil partnership has not irretrievably broken down"
