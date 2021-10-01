@@ -30,6 +30,7 @@ Feature: Confirm Your Joint Application
     When I click "Continue"
     Then the page URL should be "/pay-and-submit"
 
+  @nightly
   Scenario: Not confirming answers
     And I clear the form
     When I click "Continue"

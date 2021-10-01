@@ -11,14 +11,18 @@ Feature: Check Your Joint Application
     And I go to '/applicant2/check-your-joint-application'
     Then the page should include "Check your wife's answers"
 
-  Scenario: Checking answers
+  Scenario: Confirming answers is correct
     And the page should include "Yes, my marriage has irretrievably broken down"
     And the page should include "When did you get married?	31 December 1999"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
     And the page should include "Help with fees"
     And the page should include "Help paying the divorce fee	I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
+    And I select "Yes"
+    When I click "Continue"
+    Then the page URL should be "/applicant2/check-your-answers"
 
+  @nightly
   Scenario: Not confirming answers
     And I clear the form
     And I click "Continue"
@@ -44,8 +48,3 @@ Feature: Check Your Joint Application
     When I click "Continue"
     Then the page URL should be "/applicant2/your-comments-sent"
     And the page should include "Your comments have been sent to your wife"
-
-  Scenario: Confirming answers is correct
-    And I select "Yes"
-    When I click "Continue"
-    Then the page URL should be "/applicant2/check-your-answers"
