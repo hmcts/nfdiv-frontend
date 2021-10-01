@@ -11,7 +11,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
       isDivorce ? 'for divorce ' : 'to end your civil partnership'
-    } has been submitted and checked by court staff. It has been sent to you and your ${partner} by [email / post].`,
+    } has been submitted and checked by court staff. It has been sent to you and your ${partner} by
+    ${formState?.applicant1AgreeToReceiveEmails ? 'email' : 'post'}.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partner'
     } by ${formState?.dueDate || dayjs().add(17, 'day').format('MMMM Do YYYY')}.`,
@@ -95,7 +96,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const progressionIndex = [
-    State.Submitted,
     State.AwaitingAos,
     State.AosDrafted,
     State.AosOverdue,
