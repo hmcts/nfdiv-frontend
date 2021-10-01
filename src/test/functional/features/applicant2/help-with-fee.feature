@@ -11,6 +11,7 @@ Feature: Applicant 2 Help with fee
     When I go to '/applicant2/help-with-your-fee'
     Then the page should include "Help with the divorce fee"
 
+  @nightly
   Scenario: They have not indicated if they need help paying for the fees
     Given I clear the form
     When I click "Continue"
@@ -24,6 +25,7 @@ Feature: Applicant 2 Help with fee
     And I click "Continue"
     Then the page should include "You need to apply for help with your divorce fees"
 
+  @nightly
   Scenario: Error when missing required reference number
     Given I go to '/applicant2/have-you-applied-for-help-with-fees'
     And I clear the form

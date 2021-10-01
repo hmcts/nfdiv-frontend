@@ -28,6 +28,7 @@ Feature: Date union formed
     When I click "Continue"
     Then the page should include "You have entered a date that is in the future. Enter a date that is in the past before continuing."
 
+  @nightly
   Scenario: Entering date less than a year
     Given I enter a date 6 months ago
     When I click "Continue"

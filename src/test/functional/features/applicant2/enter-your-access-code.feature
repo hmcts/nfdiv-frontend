@@ -9,6 +9,7 @@ Feature: Enter your access code
     And I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
 
+  @nightly
   Scenario: They have entered an incorrect case reference
     Given I login
     And I go to "/applicant2/enter-your-access-code"
@@ -20,6 +21,7 @@ Feature: Enter your access code
     And I click "Continue"
     Then the page should include "You have entered the wrong reference number"
 
+  @nightly
   Scenario: They have not entered their case reference
     Given I login
     And I go to "/applicant2/enter-your-access-code"
@@ -29,6 +31,7 @@ Feature: Enter your access code
     And I click "Continue"
     Then the page should include "You have not entered a reference number"
 
+  @nightly
   Scenario: They have not entered their access code
     Given I login
     And I go to "/applicant2/enter-your-access-code"
@@ -38,6 +41,7 @@ Feature: Enter your access code
     And I click "Continue"
     Then the page should include "You have not entered an access code"
 
+  @nightly
   Scenario: They have not filled in any of the form
     Given I login
     And I go to "/applicant2/enter-your-access-code"
