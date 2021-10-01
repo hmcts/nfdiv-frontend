@@ -10,8 +10,6 @@ Feature: Applicant 2 Confirm Your Joint Application
     Then the page should include "You need to review your joint application"
     And I go to '/applicant2/confirm-your-joint-application'
     Then the page should include "Confirm your joint application"
-
-  Scenario: Checking answers
     And the page should include "Yes, the marriage has irretrievably broken down"
     And the page should include "About your marriage"
     And the page should include "When did you get married?	31 December 1999"
