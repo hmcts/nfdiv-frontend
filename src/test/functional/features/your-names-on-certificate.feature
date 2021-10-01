@@ -15,6 +15,7 @@ Feature: Names on Certificate
     And I click "Continue"
     Then the page should include "Changes to your name"
 
+  @nightly
   Scenario: Error when entering a number in the fields
     Given I clear the form
     And I select "Copy your full name from the marriage certificate"

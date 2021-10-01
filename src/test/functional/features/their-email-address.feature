@@ -44,6 +44,7 @@ Feature: Their email address
     When I click "Continue"
     Then the page should include "Did you get married in the UK?"
 
+  @nightly
   Scenario: Error when entering both their email and selecting I do not know their email
     Given I clear the form
     And I select "Your husband's email address"
@@ -52,6 +53,7 @@ Feature: Their email address
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: Error when entering invalid email
     Given I clear the form
     And I select "Your husband's email address"
