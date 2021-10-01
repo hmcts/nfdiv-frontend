@@ -5,7 +5,9 @@ import {
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
+  HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HUB_PAGE,
   OTHER_COURT_CASES,
   RESPONDENT,
 } from './urls';
@@ -26,6 +28,10 @@ const sequences: Step[] = [
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
   },
 ];
 

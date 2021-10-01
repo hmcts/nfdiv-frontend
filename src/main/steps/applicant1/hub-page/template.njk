@@ -25,7 +25,9 @@
             {% include "./joint/hub.njk" %}
           {% endblock %}
         {% else %}
-          {% include "./sole/hub.njk" %}
+          {% block soleLatestUpdate %}
+            {% include "./sole/hub.njk" %}
+          {% endblock %}
         {% endif %}
 
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
