@@ -6,7 +6,8 @@ Feature: Respondent Language Preference
     And I set the case state to "AwaitingAos"
     When I go to '/respondent/english-or-welsh'
     Then the page should include "What language do you want to receive emails and documents in?"
-
+  
+  @nightly
   Scenario: Error when not answering language preference?
     Given I clear the form
     When I click "Continue"
