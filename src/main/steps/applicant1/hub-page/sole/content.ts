@@ -20,7 +20,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partner'
-    } by ${formState?.dueDate || dayjs().add(2, 'weeks').format('MMMM Do YYYY')}.`,
+    } by ${formState?.dueDate || dayjs().add(2, 'weeks').format('D MMMM YYYY')}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
