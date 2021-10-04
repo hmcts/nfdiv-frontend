@@ -84,9 +84,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
   applicant1PcqId: 'applicant1PcqId',
-};
-
-export const readOnlyFormFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
 };
