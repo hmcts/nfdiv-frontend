@@ -2,14 +2,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import {
-  Case,
-  Checkbox,
-  LanguagePreference,
-  formFieldsToCaseMapping,
-  formatCase,
-  readOnlyFormFieldsToCaseMapping,
-} from './case';
+import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
@@ -31,7 +24,6 @@ const checkboxConverter = (value: string | undefined) => {
 
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
-  ...invert(readOnlyFormFieldsToCaseMapping),
   marriageIsSameSexCouple: data => ({
     sameSex: checkboxConverter(data.marriageIsSameSexCouple),
   }),
@@ -94,7 +86,7 @@ const fields: FromApiConverters = {
     dateSubmitted: new Date(data.dateSubmitted as string),
   }),
   dueDate: data => ({
-    dueDate: dayjs(data.dueDate).format('MMMM Do YYYY'),
+    dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
   }),
 };
 

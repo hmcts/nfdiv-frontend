@@ -1,8 +1,9 @@
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import sysConfig from 'config';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
+import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import { DivorceOrDissolution, State } from '../../main/app/case/definition';
@@ -212,7 +213,7 @@ export const iGetTheTestUser = async (): Promise<UserDetails> => {
   const user = testConfig.GetCurrentUser();
   const data = `grant_type=password&username=${user.username}&password=${user.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
-  const response = await Axios.post(tokenUrl, data, { headers });
+  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;
