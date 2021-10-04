@@ -14,6 +14,7 @@ Feature: Respondent review the application
     And the page should include "Financial order application"
     And the page should include "The applicant is not intending to apply to the court for financial orders."
 
+  @nightly
   Scenario: Failed to fill in the form
     Given I clear the form
     When I click "Continue"
