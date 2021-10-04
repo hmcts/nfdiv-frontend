@@ -30,7 +30,7 @@ export class DocumentManagementClient {
       formData.append('files', file.buffer, file.originalname);
     }
 
-    const response = await this.client.post('/documents', formData, {
+    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
       headers: { ...formData.getHeaders(), 'user-id': this.user.id },
     });
     return response.data?._embedded?.documents || [];
@@ -39,6 +39,12 @@ export class DocumentManagementClient {
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
     return this.client.delete(url, { headers: { 'user-id': this.user.id } });
   }
+}
+
+interface DocumentManagementResponse {
+  _embedded: {
+    documents: DocumentManagementFile[];
+  };
 }
 
 export interface DocumentManagementFile {
