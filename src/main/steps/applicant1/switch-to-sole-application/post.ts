@@ -3,7 +3,6 @@ import { Response } from 'express';
 
 import { getSystemUser } from '../../../app/auth/user/oidc';
 import { getCaseApi } from '../../../app/case/CaseApi';
-import { getUnreachableAnswersAsNull } from '../../../app/case/answers/possibleAnswers';
 import { ApplicationType, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
@@ -26,11 +25,10 @@ export default class SwitchToSoleApplicationPostController {
 
     try {
       req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-      const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
 
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        { ...unreachableAnswersAsNull },
+        req.session.userCase,
         SWITCH_TO_SOLE
       );
     } catch (err) {
