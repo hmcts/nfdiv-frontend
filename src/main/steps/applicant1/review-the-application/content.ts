@@ -91,7 +91,9 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
   jurisdictionsMoreDetails: moreDetailsComponent(
-    respondentIntroduction + '<br><br>' + jurisdictionMoreDetailsContent(formState, true).connectedToEnglandWales,
+    respondentIntroduction +
+      '<br><br>' +
+      jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
     'What this means'
   ),
   subHeading4: 'Other court cases',

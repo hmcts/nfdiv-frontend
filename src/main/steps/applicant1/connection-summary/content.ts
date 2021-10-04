@@ -1,15 +1,14 @@
-import { Case } from '../../../app/case/case';
 import { JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
 export const jurisdictionMoreDetailsContent = (
-  formState: Partial<Case>,
+  connections: JurisdictionConnections[] | undefined,
   isRespondent = false
 ): { connectedToEnglandWales: string; readMore: string } => {
-  const resConnection = enContainsHabitualResConnection(formState.connections);
-  const domConnection = enContainsDomConnection(formState.connections);
+  const resConnection = enContainsHabitualResConnection(connections);
+  const domConnection = enContainsDomConnection(connections);
 
   const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : resConnection ? 1 : 0;
 
