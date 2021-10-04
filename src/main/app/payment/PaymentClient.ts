@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios, { AxiosInstance } from 'axios';
+import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -44,7 +44,7 @@ export class PaymentClient {
     logger.info(body);
 
     try {
-      const response = await this.client.post('/card-payments', body);
+      const response: AxiosResponse<Payment> = await this.client.post('/card-payments', body);
       logger.info('Payment response');
       logger.info(response.data);
 
