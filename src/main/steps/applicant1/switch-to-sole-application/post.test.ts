@@ -58,7 +58,15 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        applicationType: 'soleApplication',
+        divorceOrDissolution: 'divorce',
+        id: '1234',
+      },
+      SWITCH_TO_SOLE
+    );
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
   });

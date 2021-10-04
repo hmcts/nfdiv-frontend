@@ -6,6 +6,7 @@ Feature: Other court cases
     When I go to '/other-court-cases'
     Then the page should include "Other court cases"
 
+  @nightly
   Scenario: Failed to fill in the form
     Given I clear the form
     When I click "Continue"
