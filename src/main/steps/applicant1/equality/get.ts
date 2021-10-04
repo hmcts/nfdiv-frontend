@@ -1,6 +1,6 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
@@ -22,7 +22,7 @@ export default class PCQGetController {
       const health = `${url}/health`;
 
       try {
-        const response = await axios.get(health);
+        const response: AxiosResponse<StatusResponse> = await axios.get(health);
         if (response.data.status && response.data.status === 'UP') {
           req.session.userCase.applicant1PcqId = uuid();
         } else {
@@ -60,9 +60,7 @@ export default class PCQGetController {
       }
 
       const qs = Object.keys(params)
-        .map(key => {
-          return `${key}=${params[key]}`;
-        })
+        .map(key => `${key}=${params[key]}`)
         .join('&');
 
       req.session.save(err => {
@@ -75,4 +73,8 @@ export default class PCQGetController {
       res.redirect(CHECK_ANSWERS_URL);
     }
   }
+}
+
+export interface StatusResponse {
+  status: 'UP' | 'DOWN' | undefined;
 }
