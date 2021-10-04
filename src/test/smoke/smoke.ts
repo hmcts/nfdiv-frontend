@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 
+import { StatusResponse } from '../../main/steps/applicant1/equality/get';
 import { config as testConfig } from '../config';
 
 jest.retryTimes(20); // 20 retries at 1 second intervals
@@ -22,7 +23,7 @@ describe('Smoke Test', () => {
       test(`${name}: ${parsedUrl}`, async () => {
         const checkService = async () => {
           try {
-            const response = await axios.get(parsedUrl, {
+            const response: AxiosResponse<StatusResponse> = await axios.get(parsedUrl, {
               headers: {
                 'Accept-Encoding': 'gzip',
                 accept: 'application/json',
