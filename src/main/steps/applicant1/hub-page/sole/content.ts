@@ -101,7 +101,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const progressionIndex = [
-    State.Submitted,
     State.AwaitingAos,
     State.AosDrafted,
     State.AosOverdue,
