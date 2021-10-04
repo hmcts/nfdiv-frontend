@@ -15,7 +15,8 @@ Feature: How did you change your name
     When I click "Continue"
     Then the page should include "How the court will contact you"
 
-  Scenario: They did not indicate how their name was changed
+  @nightly
+  Scenario: They changed their name another way but did not indicate how
     Given I select "Another way"
     When I click "Continue"
     Then the page should include "There was a problem"

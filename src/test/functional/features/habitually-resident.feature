@@ -15,6 +15,7 @@ Feature: Habitually Resident
   # Scenario: Was not last habitually resident in England or Wales and is same sex
   # Tested in can-use-english-or-welsh-courts.feature: G Eligible for Residual Jurisdiction
 
+  @nightly
   Scenario: Was not last habitually resident in England or Wales and is not same sex
     When I go to '/your-details'
     Then the page should include "Who are you applying to divorce?"

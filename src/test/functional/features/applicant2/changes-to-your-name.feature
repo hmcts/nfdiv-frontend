@@ -18,12 +18,14 @@ Feature: Applicant 2 changes to your name
     When I click "Continue"
     Then the page URL should be "/applicant2/how-did-you-change-your-name"
 
+  @nightly
   Scenario: They changed their name when the union happened
     Given I select "Yes" for "Did you change your last name when you got married?"
     And I select "No" for "Have you changed any part of your name since getting married?"
     When I click "Continue"
     Then the page URL should be "/applicant2/how-did-you-change-your-name"
 
+  @nightly
   Scenario: They changed the name after the union happened
     Given I select "No" for "Did you change your last name when you got married?"
     And I select "Yes" for "Have you changed any part of your name since getting married?"
