@@ -227,7 +227,7 @@ describe('CaseApi', () => {
     });
 
     const userCase = await api.getCaseById('1234');
-    expect(userCase).toStrictEqual({ accessCode: 'NFSDCLV3' });
+    expect(userCase).toStrictEqual({ id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' });
   });
 
   test('Should throw error when case could not be fetched', async () => {
