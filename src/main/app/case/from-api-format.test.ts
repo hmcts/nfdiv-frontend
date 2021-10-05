@@ -44,7 +44,7 @@ describe('from-api-format', () => {
       applicant2IBelieveApplicationIsTrue: 'checked',
       applicant1IConfirmPrayer: 'checked',
       applicant2IConfirmPrayer: 'checked',
-      dueDate: 'July 26th 2021',
+      dueDate: '26 July 2021',
     });
   });
 
@@ -78,7 +78,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
-      dueDate: 'July 26th 2021',
+      dueDate: '26 July 2021',
     });
   });
 
@@ -105,7 +105,7 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
-      dueDate: 'July 26th 2021',
+      dueDate: '26 July 2021',
     });
   });
 
@@ -132,7 +132,7 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
-      dueDate: 'July 26th 2021',
+      dueDate: '26 July 2021',
     });
   });
 
