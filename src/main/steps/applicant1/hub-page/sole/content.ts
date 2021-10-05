@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partner'
     } by ${
-      formState?.dueDate || dayjs().add(17, 'day').format('MMMM Do YYYY')
+      formState?.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }`,
     line3: `You can apply for a conditional order on ${
-      formState?.dueDate || dayjs().add(141, 'day').format('MMMM Do YYYY')
+      formState?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
     }. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
