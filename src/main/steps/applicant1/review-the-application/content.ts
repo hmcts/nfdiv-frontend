@@ -37,11 +37,6 @@ const connectionBulletPointsTextForRespondent = connections => {
   return connectionBulletPointList;
 };
 
-const respondentIntroduction =
-  'The courts of England or Wales must have the jurisdiction (the legal power) to be able to grant a divorce.' +
-  ' The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.' +
-  ' Each legal statement includes some or all of the following legal connections to England or Wales.';
-
 const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
@@ -91,7 +86,11 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
   jurisdictionsMoreDetails: moreDetailsComponent(
-    respondentIntroduction +
+    `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+      isDivorce ? 'grant a divorce' : 'end a civil partnership'
+    }.
+      The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
+      Each legal statement includes some or all of the following legal connections to England or Wales.` +
       '<br><br>' +
       jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
     'What this means'
