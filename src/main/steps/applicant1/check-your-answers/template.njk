@@ -32,23 +32,25 @@
     {% endif %}
   {% endfor %}
 
-  {% if isApplicationReadyToSubmit and not isJointApplication %}
-    {% block form %}
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          {% include "./form.njk" %}
+  {% block submission %}
+    {% if isApplicationReadyToSubmit and not isJointApplication %}
+      {% block form %}
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            {% include "./form.njk" %}
+          </div>
         </div>
-      </div>
-    {% endblock %}
-  {% elif not isApplicant2 and isApplicationReadyToSubmit and isJointApplication %}
-    {% include "./joint-form.njk" %}
-  {% else %}
-    {{ govukButton({
-      text: continueApplication,
-      href: nextIncompleteStep,
-      preventDoubleClick: true
-    }) }}
-  {% endif %}
+      {% endblock %}
+    {% elif not isApplicant2 and isApplicationReadyToSubmit and isJointApplication %}
+      {% include "./joint-form.njk" %}
+    {% else %}
+      {{ govukButton({
+        text: continueApplication,
+        href: nextIncompleteStep,
+        preventDoubleClick: true
+      }) }}
+    {% endif %}
+  {% endblock %}
 
   {% include "common/contact-us.njk" %}
 {% endblock %}
