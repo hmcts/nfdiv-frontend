@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
@@ -10,12 +10,17 @@ dayjs.extend(advancedFormat);
 const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
-      isDivorce ? 'for divorce ' : 'to end your civil partnership'
-    } has been submitted and checked by court staff. It has been sent to you and your ${partner} by
-    ${formState?.applicant1AgreeToReceiveEmails ? 'email' : 'post'}.`,
+      isDivorce ? 'for divorce' : 'to end your civil partnership'
+    } has been submitted and checked by court staff. It's been ‘served’ (sent) to you and your ${partner}${
+      formState?.applicant2EmailAddress
+        ? ' by email'
+        : formState?.applicant1KnowsApplicant2Address === YesOrNo.YES
+        ? ' by post'
+        : ''
+    }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partner'
-    } by ${formState?.dueDate || dayjs().add(17, 'day').format('MMMM Do YYYY')}.`,
+    } by ${formState?.dueDate || dayjs().add(2, 'weeks').format('D MMMM YYYY')}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
@@ -23,7 +28,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partner'
     } by ${
-      formState?.dueDate
+      formState?.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -34,10 +39,10 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. You can read their response.`,
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
-      isDivorce ? 'end your civil partnership' : 'get a divorce'
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
     }`,
     line3: `You can apply for a conditional order on ${
-      formState?.dueDate || dayjs().add(141, 'day').format('MMMM Do YYYY')
+      formState?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
     }. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
@@ -69,7 +74,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
     line3: `If they submit the ‘answer’ then a judge will decide how to proceed. If they do not submit the form in time, then you will be able to proceed with the ${
-      isDivorce ? 'divorce applicaiton' : 'applicaiton to end your civil partnership'
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
   dispute: {
@@ -96,7 +101,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const progressionIndex = [
-    State.Submitted,
     State.AwaitingAos,
     State.AosDrafted,
     State.AosOverdue,

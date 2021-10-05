@@ -5,8 +5,8 @@
     label: {
       text: applicationSubmitted
     },
-    complete: progressionIndex == 0,
-    active: progressionIndex == 0
+    complete: true,
+    active: false
   }, {
     label: {
       text: conditionalOrderApplication
@@ -37,38 +37,38 @@
     label: {
       text: applicationSubmitted
     },
-    complete: progressionIndex == 0,
-    active: progressionIndex == 0
+    complete: true,
+    active: false
   }, {
     label: {
       text: response
     },
-    complete: progressionIndex > 6,
-    active: progressionIndex > 0 and progressionIndex < 7
+    complete: progressionIndex > 5,
+    active: progressionIndex >= 0 and progressionIndex < 6
   }, {
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 7,
+    complete: progressionIndex > 6,
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 8,
-    active: progressionIndex == 8
+    complete: progressionIndex > 7,
+    active: progressionIndex == 7
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 9,
-    active: progressionIndex == 9
+    complete: progressionIndex > 8,
+    active: progressionIndex == 8
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 10,
-    active: progressionIndex == 10
+    complete: progressionIndex >= 9,
+    active: progressionIndex == 9
   }] %}
 {% endif %}
 
