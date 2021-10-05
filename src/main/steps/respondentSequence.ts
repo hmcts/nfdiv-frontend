@@ -3,6 +3,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Sections, Step } from './applicant1Sequence';
 import {
   DETAILS_OTHER_PROCEEDINGS,
+  ENGLISH_OR_WELSH,
   HOME_URL,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
@@ -26,6 +27,11 @@ const sequences: Step[] = [
     url: DETAILS_OTHER_PROCEEDINGS,
     showInSection: Sections.OtherCourtCases,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
   },
   {
     url: HUB_PAGE,
