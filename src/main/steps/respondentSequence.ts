@@ -2,6 +2,7 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
+  CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   HOME_URL,
@@ -32,6 +33,11 @@ const sequences: Step[] = [
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
     showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
     url: HUB_PAGE,
