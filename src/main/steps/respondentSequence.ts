@@ -52,6 +52,17 @@ const sequences: Step[] = [
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
+<<<<<<< HEAD
+=======
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+>>>>>>> implementation
 ];
 
 export const respondentSequence = ((): Step[] => {
