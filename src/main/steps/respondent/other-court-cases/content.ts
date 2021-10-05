@@ -7,9 +7,4 @@ import {
 
 export const form: FormContent = applicant2Form;
 
-export const generateContent: TranslationFn = content => {
-  return {
-    ...applicant2GenerateContent(content),
-    form,
-  };
-};
+export const generateContent: TranslationFn = applicant2GenerateContent;
