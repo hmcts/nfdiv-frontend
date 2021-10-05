@@ -1,7 +1,7 @@
 Feature: Their email address
 
   Background:
-    Given I login
+    Given I create a new user and login
     And I've said I'm divorcing my husband
     When I go to '/their-email-address'
     Then the page should include "Enter your husband's email address"
