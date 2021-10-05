@@ -5,7 +5,6 @@ import {
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
-  HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
   OTHER_COURT_CASES,
@@ -20,7 +19,7 @@ const sequences: Step[] = [
   },
   {
     url: REVIEW_THE_APPLICATION,
-    getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: OTHER_COURT_CASES,
