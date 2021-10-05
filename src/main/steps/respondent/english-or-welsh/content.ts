@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 import {
   form as applicant2Form,
   generateContent as applicant2GenerateContent,
-} from '../../applicant2/details-other-proceedings/content';
+} from '../../applicant2/english-or-welsh/content';
 
 export const form: FormContent = applicant2Form;
 
