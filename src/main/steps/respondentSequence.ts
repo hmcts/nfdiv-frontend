@@ -25,6 +25,11 @@ const sequences: Step[] = [
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
+    url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    showInSection: Sections.ContactYou,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
