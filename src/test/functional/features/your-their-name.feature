@@ -2,10 +2,10 @@ Feature: Your and their names
 
   Background:
     Given I login
+    And I've said I'm divorcing my husband
 
   Scenario: Entering your and their names
-    Given I've said I'm divorcing my husband
-    And I go to "/enter-your-name"
+    Given I go to "/enter-your-name"
     And the page should include "Enter your name"
     And I clear the form
     When I select "Your first name"
@@ -25,11 +25,13 @@ Feature: Your and their names
     Then the page should include "Your names on your marriage certificate"
 
   Scenario: Entering your name for a joint application
-    Given I've said I'm applying as a joint application
+    Given I go to "/how-do-you-want-to-apply"
+    And I select "I want to apply jointly, with my husband"
+    And I click "Continue"
     And I go to "/enter-your-name"
-    And the page should include "Enter your name"
-    And I clear the form
-    When I select "Your first name"
+    Then the page should include "Enter your name"
+    When I clear the form
+    And I select "Your first name"
     And I type "My first name"
     And I select "Your last name"
     And I type "My last-name"
