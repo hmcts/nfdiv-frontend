@@ -17,7 +17,7 @@ const label = ({ isDivorce }) => ({
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }. The second is your statement of truth.`,
   errors: {
-    applicant2ConfirmsCheck: {
+    applicant2IBelieveApplicationIsTrue: {
       required:
         'You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing.',
     },
@@ -26,7 +26,7 @@ const label = ({ isDivorce }) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant2ConfirmsCheck: {
+    applicant2IBelieveApplicationIsTrue: {
       type: 'checkboxes',
       label: l => l.confirmBeforeSubmit,
       labelSize: 'm',
