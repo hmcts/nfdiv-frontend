@@ -1,4 +1,4 @@
-import { stepsWithContentApplicant1, stepsWithContentApplicant2 } from '../../../steps';
+import { stepsWithContentApplicant1, stepsWithContentApplicant2, stepsWithContentRespondent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
@@ -21,18 +21,21 @@ export const getAnswerRows = function (
     isApplicant2,
     formState,
     userEmail,
+    isJointApplication,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     isApplicant2: boolean;
     userEmail: string;
     formState: Partial<Case>;
+    isJointApplication: boolean;
   } = this.ctx;
 
   const { stepsWithContent, processedFormState } = setUpSteps(
     formState,
     isCompleteCase,
     isApplicant2,
+    isJointApplication,
     overrideStepsContent
   );
 
@@ -220,6 +223,7 @@ const setUpSteps = (
   formState: Partial<Case>,
   isCompleteCase: boolean,
   isApplicant2: boolean,
+  isJointApplication: boolean,
   overrideStepsContent?: number
 ) => {
   if ((!isCompleteCase && !isApplicant2 && overrideStepsContent !== 2) || overrideStepsContent === 1) {
@@ -230,9 +234,9 @@ const setUpSteps = (
   } else {
     const stepsWithContent = isCompleteCase
       ? [...stepsWithContentApplicant1, ...stepsWithContentApplicant2]
-      : stepsWithContentApplicant2;
+      : getApplicant2Steps(isJointApplication);
 
-    const applicant2ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant2);
+    const applicant2ProcessedFormState = omitUnreachableAnswers(formState, getApplicant2Steps(isJointApplication));
     const applicant1ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
     const processedFormState = isCompleteCase
       ? { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState }
@@ -240,4 +244,8 @@ const setUpSteps = (
 
     return { stepsWithContent, processedFormState };
   }
+};
+
+const getApplicant2Steps = (isJointApplication: boolean) => {
+  return isJointApplication ? stepsWithContentApplicant2 : stepsWithContentRespondent;
 };

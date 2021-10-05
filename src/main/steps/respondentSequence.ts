@@ -35,6 +35,10 @@ const sequences: Step[] = [
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
