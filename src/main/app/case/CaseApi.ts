@@ -1,4 +1,4 @@
-import Axios, { AxiosError, AxiosInstance } from 'axios';
+import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -54,7 +54,7 @@ export class CaseApi {
     }
   }
 
-  private async getCases(): Promise<GetCaseResponse[]> {
+  private async getCases(): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get(
         `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
@@ -69,8 +69,9 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      const response = await this.axios.get(`/cases/${caseId}`);
-      return response.data.data;
+      const response: AxiosResponse<CcdV2Response> = await this.axios.get(`/cases/${caseId}`);
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -78,7 +79,9 @@ export class CaseApi {
   }
 
   private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const tokenResponse = await this.axios.get(`/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`);
+    const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
+      `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
+    );
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
@@ -89,7 +92,11 @@ export class CaseApi {
     };
 
     try {
-      const response = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, { data, event, event_token: token });
+      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, {
+        data,
+        event,
+        event_token: token,
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
@@ -114,10 +121,16 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      const tokenResponse = await this.axios.get(`/cases/${caseId}/event-triggers/${eventName}`);
+      const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
+        `/cases/${caseId}/event-triggers/${eventName}`
+      );
       const token = tokenResponse.data.token;
       const event = { id: eventName };
-      const response = await this.axios.post(`/cases/${caseId}/events`, { event, data, event_token: token });
+      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: token,
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
@@ -163,8 +176,18 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
   );
 };
 
-interface GetCaseResponse {
-  id: string | number;
+interface CcdV1Response {
+  id: string;
   state: State;
   case_data: CaseData;
+}
+
+interface CcdV2Response {
+  id: string;
+  state: State;
+  data: CaseData;
+}
+
+interface CcdTokenResponse {
+  token: string;
 }
