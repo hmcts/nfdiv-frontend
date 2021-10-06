@@ -27,7 +27,7 @@ const en = ({ isDivorce, formState, referenceNumber, isApplicant2 }: CommonConte
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? APPLICANT_2 : '') + REVIEW_CONTACT_DETAILS
-  }">View or update my contact details</a>`,
+  }">Review your contact details</a>`,
   subHeading3: 'I want to...',
   subHeading4: 'Getting help',
   telephone: '<strong>Phone</strong></br> 0300 303 0642</br> (Monday to Friday, 8am to 8PM, Saturday 8AM to 2PM)',

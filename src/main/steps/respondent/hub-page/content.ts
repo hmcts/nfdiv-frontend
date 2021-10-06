@@ -5,9 +5,11 @@ import {
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ isDivorce, partner }: CommonContent) => ({
   awaitingAos: {
-    line1: `Your ${partner} has submitted an application for divorce.`,
+    line1: `Your ${partner} has submitted an application ${
+      isDivorce ? 'for divorce' : 'to end your civil partnership'
+    }.`,
   },
 });
 

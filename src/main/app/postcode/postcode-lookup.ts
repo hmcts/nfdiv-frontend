@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { StatusCodes } from 'http-status-codes';
 import { LoggerInstance } from 'winston';
@@ -14,7 +14,7 @@ export type Address = {
 
 export const getAddressesFromPostcode = async (postcode: string, logger: LoggerInstance): Promise<Address[]> => {
   try {
-    const response = await axios.get('postcode', {
+    const response: AxiosResponse<PostcodeResponse> = await axios.get('postcode', {
       baseURL: config.get('services.postcodeLookup.url'),
       headers: {
         accept: 'application/json',
@@ -71,3 +71,22 @@ export const getAddressesFromPostcode = async (postcode: string, logger: LoggerI
     return [];
   }
 };
+
+interface PostcodeResponse {
+  results: {
+    DPA: {
+      ADDRESS: string;
+      BUILDING_NUMBER: string;
+      SUB_BUILDING_NAME: string;
+      BUILDING_NAME: string;
+      ORGANISATION_NAME: string;
+      THOROUGHFARE_NAME: string;
+      DEPENDENT_THOROUGHFARE_NAME: string;
+      DEPENDENT_LOCALITY: string;
+      DOUBLE_DEPENDENT_LOCALITY: string;
+      POST_TOWN: string;
+      LOCAL_CUSTODIAN_CODE_DESCRIPTION: string;
+      POSTCODE: string;
+    };
+  }[];
+}
