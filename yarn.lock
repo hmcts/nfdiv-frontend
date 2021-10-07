@@ -2266,12 +2266,12 @@
   dependencies:
     "@uppy/utils" "^4.0.1"
 
-"@uppy/file-input@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-2.0.2.tgz#1cfaace0d2a11dcc328b12b008c0607b669603d7"
-  integrity sha512-txh9czf4lrRUWJpHgrpZWSXVG2ecmY15gG2teARrcgCjdrAReLudhqvMmMsgN0JhUvmooI/nvHkwhXfnkhMScQ==
+"@uppy/file-input@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-2.0.3.tgz#d0b590edd4f2ad05e88c6f7ac449f0edf5215b3c"
+  integrity sha512-+f/kbX+kGLFEPxqwwE44WgyFXohwpT8JDj7wO/zgCoBRQGTBRvkG85TKhw5LuCr9dQpLKeQlWM9AZygTiEkUgA==
   dependencies:
-    "@uppy/utils" "^4.0.1"
+    "@uppy/utils" "^4.0.2"
     preact "^10.5.13"
 
 "@uppy/progress-bar@^2.0.2":
@@ -2287,10 +2287,10 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-2.0.0.tgz#c446a89d07a6df7f980a15eeb880d169baa14d7f"
   integrity sha512-5HXTR2Qn20rpPUCUFBuNBfYDIa20oyUV14+FAnklgv2P32/zIyk79eFYloDRg8H7mOosVpovlysfDkI4iJh8Ag==
 
-"@uppy/utils@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.1.tgz#3caabaeb6db0bcb4dde6f839cd976ec42d08f0de"
-  integrity sha512-blgQkWkc6yrxGcNXehf9gFTT/f1MNonuxkpBNOwI51DT/yv/QFLLdRPMFM6CpcuA0TNhVwSUuFLeNTkerRrXeQ==
+"@uppy/utils@^4.0.1", "@uppy/utils@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.2.tgz#6767e47ab659d4acc0fb7e47e45eb20445fd9713"
+  integrity sha512-Vk3iOVPUAR2gbP+OuJSetGgX0hQPIDpsnliobEXmV88xtmRTUryMaNGTE8Ka5LKxd3XM03svauoRnco+5ISHyQ==
   dependencies:
     lodash.throttle "^4.1.1"
 
