@@ -11,7 +11,7 @@ Feature: Joint Application Sent for Review
     Then the page URL should be "/application-sent-for-review"
     And I cannot go back to the previous page
 
-  Scenario: Canoot go back from no-response-yet page
+  Scenario: Cannot go back from no-response-yet page
     When I go to "/no-response-yet"
     Then the page URL should be "/no-response-yet"
     And I cannot go back to the previous page
@@ -23,7 +23,7 @@ Feature: Joint Application Sent for Review
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And I cannot go back to the previous page
 
-  Scenario: Canoot go back from your-comments-sent page
+  Scenario: Cannot go back from your-comments-sent page
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
     And I go to '/applicant2/your-comments-sent'
