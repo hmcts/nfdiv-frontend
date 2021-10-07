@@ -104,3 +104,7 @@ export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-application';
 export const HUB_PAGE: PageLink = '/hub-page';
 export const REVIEW_CONTACT_DETAILS: PageLink = '/check-contact-details';
+
+export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
+export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
+export const DO_YOU_AGREE_JURISDICTION: PageLink = '/do-you-agree-jurisdiction';

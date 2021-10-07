@@ -1,0 +1,32 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  {% set summary %}
+    <p>{{ helpText }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in helpPayingWhen %}
+        <li>{{ item | safe }}</li>
+      {% endfor %}
+    </ul>
+    <p>{{ helpText3 }}</p>
+  {% endset %}
+  {{
+    govukDetails({
+      summaryText: readMore,
+      html: summary
+    })
+  }}
+  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ line5 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ point4 }}</li>
+    <li>{{ point5 }}</li>
+    <li>{{ point6 }}</li>
+  </ul>
+  <p class="govuk-body">{{ line6 }}</p>
+{% endblock %}

@@ -213,6 +213,8 @@ export interface Case {
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
   applicant1PcqId?: string;
+  issueDate?: DateAsString;
+  disputeApplication?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

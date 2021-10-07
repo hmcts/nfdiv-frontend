@@ -4,8 +4,10 @@ import { Sections, Step } from './applicant1Sequence';
 import {
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
+  DISPUTING_THE_APPLICATION,
+  DO_YOU_AGREE_JURISDICTION,
   ENGLISH_OR_WELSH,
-  HOME_URL,
+  HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
   OTHER_COURT_CASES,
@@ -13,6 +15,20 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: data =>
+      data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : DO_YOU_AGREE_JURISDICTION,
+  },
+  {
+    url: DISPUTING_THE_APPLICATION,
+    getNextStep: data =>
+      data.disputeApplication === YesOrNo.YES ? DO_YOU_AGREE_JURISDICTION : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
   {
     url: OTHER_COURT_CASES,
     showInSection: Sections.OtherCourtCases,
@@ -33,10 +49,6 @@ const sequences: Step[] = [
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
-  },
-  {
-    url: HUB_PAGE,
-    getNextStep: () => HOME_URL,
   },
 ];
 

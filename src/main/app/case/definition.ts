@@ -89,6 +89,7 @@ export interface CaseNote {
 
 export interface AcknowledgementOfService {
   confirmReadPetition: YesOrNo;
+  disputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
@@ -378,6 +379,7 @@ export interface CaseData {
   accessCode: string;
   applicant2UserId: string;
   confirmReadPetition: YesOrNo;
+  disputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
