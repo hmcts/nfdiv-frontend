@@ -4,7 +4,6 @@ import { FinancialOrderFor, JurisdictionConnections, YesOrNo } from '../../../ap
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
@@ -85,16 +84,15 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
-  jurisdictionsMoreDetails: moreDetailsComponent(
+  jurisdictionsMoreDetails:
     `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
-      '<br><br>' +
-      jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
-    'What this means'
-  ),
+    '<br><br>' +
+    jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
+  whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
@@ -113,24 +111,19 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
-  line21: `${
-    formState?.applyForFinancialOrder === YesOrNo.YES
-      ? 'The applicant intends to apply to the court for financial orders for the applicant' +
-        formState.whoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN)
-        ? `, and for the
-  children of the applicant and the respondent.`
-        : '.'
-      : 'The applicant is not intending to apply to the court for financial orders.'
-  }`,
-  financialOrderMoreDetails: moreDetailsComponent(
-    `${isApplicant2 ? `Your ${partner} was asked if they` : 'You were asked if you'}
+  financialOrderYes: `The applicant intends to apply to the court for financial orders for the applicant
+   ${
+     formState!.whoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN)
+       ? 'and for the children of the applicant and the respondent.'
+       : '.'
+   }`,
+  financialOrderNo: 'The applicant is not intending to apply to the court for financial orders.',
+  financialOrderMoreDetails: `${isApplicant2 ? `Your ${partner} was asked if they` : 'You were asked if you'}
    want the court to decide how your money, property, pensions and other assets will be split.
    These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.
    <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’.
    <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs £255. Applying for a ‘financial order by consent’ costs £50. You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
-    'What this means'
-  ),
   subHeading7: "Applicant's correspondence address",
   applicantAddressCountry: `${
     formState?.applicant1SolicitorAddress
@@ -148,7 +141,7 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
           .join('<br>')
   }`,
   subHeading8: "Applicant's email address",
-  line22: `${userEmail}`,
+  line21: `${userEmail}`,
   subHeading9: "Respondent's correspondence address",
   respondentAddressCountry: `${
     formState?.applicant2SolicitorAddress
@@ -166,9 +159,9 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
           .join('<br>')
   }`,
   subHeading10: "Respondent's email address",
-  line23: `${formState?.applicant2EmailAddress}`,
+  line22: `${formState?.applicant2EmailAddress}`,
   subHeading11: 'Statement of truth',
-  line24: 'I believe that the facts stated in this application are true.',
+  line23: 'I believe that the facts stated in this application are true.',
   applicantName: `<em>${
     isApplicant2
       ? formState?.applicant2FirstNames + ' ' + formState?.applicant2LastNames
@@ -216,10 +209,12 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicantAddressNotPrivate = content.formState?.applicant1AddressPrivate !== YesOrNo.YES;
   const isRespondentAddressNotPrivate = content.formState?.applicant2AddressPrivate !== YesOrNo.YES;
+  const isFinancialOrderYes = content.formState?.applyForFinancialOrder === YesOrNo.YES;
   return {
     ...translations,
     form,
     isApplicantAddressNotPrivate,
     isRespondentAddressNotPrivate,
+    isFinancialOrderYes,
   };
 };

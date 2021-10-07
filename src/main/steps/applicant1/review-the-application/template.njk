@@ -1,3 +1,5 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% extends "common/page.njk" %}
 
 {% block page_content %}
@@ -27,29 +29,40 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
-  <p class="govuk-body">{{ jurisdictionsMoreDetails | safe }}</p>
+  {{ govukDetails({
+    summaryText: whatThisMeans,
+    html: jurisdictionsMoreDetails
+  }) }}
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
   <p class="govuk-body">{{ line18 }}</p>
   <p class="govuk-body">{{ line19 | safe }}</p>
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
   <p class="govuk-body">{{ line20 }}</p>
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
+  {% if isFinancialOrderYes %}
+    <p class="govuk-body">{{ financialOrderYes }}</p>
+  {% else %}
+    <p class="govuk-body">{{ financialOrderNo }}</p>
+  {% endif %}
   <p class="govuk-body">{{ line21 }}</p>
-  <p class="govuk-body">{{ financialOrderMoreDetails | safe }}</p>
+  {{ govukDetails({
+    summaryText: whatThisMeans,
+    html: financialOrderMoreDetails
+  }) }}
   {% if isApplicantAddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
     <p class="govuk-body">{{ applicantAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
-    <p class="govuk-body">{{ line22 | safe }}</p>
+    <p class="govuk-body">{{ line21 | safe }}</p>
   {% endif %}
   {% if isRespondentAddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
-    <p class="govuk-body">{{ line23 | safe }}</p>
+    <p class="govuk-body">{{ line22 | safe }}</p>
   {% endif %}
   <h3 class="govuk-heading-m">{{ subHeading11 }}</h3>
-  <p class="govuk-body">{{ line24 | safe }}</p>
+  <p class="govuk-body">{{ line23 | safe }}</p>
   <p class="govuk-body">{{ applicantName | safe }}</p>
   <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
 
