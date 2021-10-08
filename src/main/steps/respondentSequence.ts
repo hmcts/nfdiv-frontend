@@ -7,6 +7,7 @@ import {
   ENGLISH_OR_WELSH,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
@@ -19,6 +20,10 @@ const sequences: Step[] = [
   },
   {
     url: REVIEW_THE_APPLICATION,
+    getNextStep: () => LEGAL_JURISDICTION_OF_THE_COURTS,
+  },
+  {
+    url: LEGAL_JURISDICTION_OF_THE_COURTS,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
