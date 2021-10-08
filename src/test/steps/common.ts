@@ -103,6 +103,10 @@ Then('{string} should be ticked', (text: string) => {
   I.seeCheckboxIsChecked(text);
 });
 
+Then('I cannot go back to the previous page', () => {
+  I.dontSeeElement('a.govuk-back-link');
+});
+
 Then('I type {string}', (text: string) => {
   I.type(text);
 });
