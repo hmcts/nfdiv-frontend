@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-09-28 11:49:01.
+// Generated using typescript-generator version 2.32.889 on 2021-10-07 11:30:46.
 
 export interface Address {
   AddressLine1: string;
@@ -100,6 +100,15 @@ export interface AcknowledgementOfService {
   noticeOfProceedingsSolicitorFirm: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
+}
+
+export interface AlternativeService {
+  receivedServiceApplicationDate: DateAsString;
+  serviceApplicationType: ServiceApplicationType;
+  receivedServiceAddedDate: DateAsString;
+  serviceApplicationGranted: YesOrNo;
+  serviceApplicationRefusalReason: string;
+  serviceApplicationDecisionDate: DateAsString;
 }
 
 export interface Applicant {
@@ -222,6 +231,7 @@ export interface Application {
 export interface Bailiff {
   localCourtName: string;
   localCourtEmail: string;
+  certificateOfServiceDocument: DivorceDocument;
 }
 
 export interface CaseData {
@@ -390,7 +400,20 @@ export interface CaseData {
   noticeOfProceedingsSolicitorFirm: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
-  dateConditionalOrderSubmitted: DateAsString;
+  coDateSubmitted: DateAsString;
+  coRespondentAnswersLink: Document;
+  coApplyForConditionalOrder: YesOrNo;
+  coOnlinePetitionLink: Document;
+  coChangeOrAddToApplication: YesOrNo;
+  coIsEverythingInPetitionTrue: YesOrNo;
+  coAddNewDocuments: YesOrNo;
+  coDocumentsUploaded: ListValue<DivorceDocument>[];
+  coSolicitorName: string;
+  coSolicitorFirm: string;
+  coSolicitorAdditionalComments: string;
+  coGranted: YesOrNo;
+  coClaimsGranted: YesOrNo;
+  coClaimsCostsOrderInformation: string;
   dateFinalOrderSubmitted: DateAsString;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
@@ -416,8 +439,12 @@ export interface CaseData {
   receivedServiceApplicationDate: DateAsString;
   serviceApplicationType: ServiceApplicationType;
   receivedServiceAddedDate: DateAsString;
+  serviceApplicationGranted: YesOrNo;
+  serviceApplicationRefusalReason: string;
+  serviceApplicationDecisionDate: DateAsString;
   localCourtName: string;
   localCourtEmail: string;
+  certificateOfServiceDocument: DivorceDocument;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
@@ -434,6 +461,7 @@ export interface CaseData {
   exampleRetiredField: string;
   applicant1ContactDetailsConfidential: ConfidentialAddress;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
+  dateConditionalOrderSubmitted: DateAsString;
 }
 
 export interface CaseInvite {
@@ -443,7 +471,20 @@ export interface CaseInvite {
 }
 
 export interface ConditionalOrder {
-  dateConditionalOrderSubmitted: DateAsString;
+  DateSubmitted: DateAsString;
+  RespondentAnswersLink: Document;
+  ApplyForConditionalOrder: YesOrNo;
+  OnlinePetitionLink: Document;
+  ChangeOrAddToApplication: YesOrNo;
+  IsEverythingInPetitionTrue: YesOrNo;
+  AddNewDocuments: YesOrNo;
+  DocumentsUploaded: ListValue<DivorceDocument>[];
+  SolicitorName: string;
+  SolicitorFirm: string;
+  SolicitorAdditionalComments: string;
+  Granted: YesOrNo;
+  ClaimsGranted: YesOrNo;
+  ClaimsCostsOrderInformation: string;
 }
 
 export interface CtscContactDetails {
@@ -548,12 +589,7 @@ export interface RetiredFields {
   exampleRetiredField: string;
   applicant1ContactDetailsConfidential: ConfidentialAddress;
   applicant2ContactDetailsConfidential: ConfidentialAddress;
-}
-
-export interface ServiceApplication {
-  receivedServiceApplicationDate: DateAsString;
-  serviceApplicationType: ServiceApplicationType;
-  receivedServiceAddedDate: DateAsString;
+  dateConditionalOrderSubmitted: DateAsString;
 }
 
 export interface Solicitor {
@@ -953,12 +989,12 @@ export const enum State {
   AosOverdue = 'AosOverdue',
   Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
-  AwaitingService = 'AwaitingService',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
+  AwaitingBailiffReferral = 'AwaitingBailiffReferral',
   AwaitingBailiffService = 'AwaitingBailiffService',
   AwaitingClarification = 'AwaitingClarification',
   AwaitingConditionalOrder = 'AwaitingConditionalOrder',
@@ -967,6 +1003,8 @@ export const enum State {
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingReissue = 'AwaitingReissue',
+  AwaitingService = 'AwaitingService',
+  AwaitingServicePayment = 'AwaitingServicePayment',
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
@@ -1263,6 +1301,7 @@ export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const CITIZEN_UPDATE_AOS = 'citizen-update-aos';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
