@@ -61,8 +61,8 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
             ? connectionBulletPointsText(formState?.connections, partner)
             : '') +
           moreDetailsComponent(
-            jurisdictionMoreDetailsContent(formState).connectedToEnglandWales,
-            jurisdictionMoreDetailsContent(formState).readMore
+            jurisdictionMoreDetailsContent(formState?.connections).connectedToEnglandWales,
+            jurisdictionMoreDetailsContent(formState?.connections).readMore
           ),
       },
       [urls.OTHER_COURT_CASES]: {
