@@ -2,7 +2,7 @@ Feature: Respondent disputing the application
 
   Background:
     Given I create a new user and login
-    Given I've already completed the form using the fixture "completeCase"
+    And I've already completed the form using the fixture "completeCase"
     And I set the case state to "AwaitingAos"
     When I go to '/respondent/disputing-the-application'
     Then the page should include "Disputing the divorce application"
@@ -14,11 +14,11 @@ Feature: Respondent disputing the application
     Then the page should include "There was a problem"
     And the page should include "You have not answered the question. You need to select an answer before continuing."
 
-  Scenario: They want to dispute
+  Scenario: They confirm they want to dispute
     Given I select "I confirm I want to dispute the divorce"
     Then the page should include "You are about to confirm that you want to dispute the divorce."
 
-  Scenario: They do not want to dispute
+  Scenario: They no longer want to dispute
     Given I select "I do not want to dispute the divorce"
     When I click "Continue"
     Then the page URL should be "/how-do-you-want-to-respond"
