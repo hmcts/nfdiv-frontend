@@ -1,5 +1,8 @@
 {% extends "common/page.njk" %}
 
+{% block backLink %}
+{% endblock %}
+
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ sentTo }} <strong>{{ formState.applicant2EmailAddress }}</strong>.</p>
