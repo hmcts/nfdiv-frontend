@@ -28,6 +28,7 @@ Feature: Your and their names
     Given I go to "/how-do-you-want-to-apply"
     And I select "I want to apply jointly, with my husband"
     And I click "Continue"
+    Then the page URL should be "/their-email-address"
     And I go to "/enter-your-name"
     Then the page should include "Enter your name"
     When I clear the form
