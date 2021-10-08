@@ -12,6 +12,7 @@ import {
   OTHER_COURT_CASES,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
+  LEGAL_JURISDICTION_OF_THE_COURTS
 } from './urls';
 
 const sequences: Step[] = [
@@ -25,11 +26,15 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DO_YOU_WANT_TO_RESPOND,
-    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : OTHER_COURT_CASES),
+    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : LEGAL_JURISDICTION_OF_THE_COURTS),
   },
   {
     url: DISPUTING_THE_APPLICATION,
-    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : HOW_DO_YOU_WANT_TO_RESPOND),
+    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : LEGAL_JURISDICTION_OF_THE_COURTS),
+  },
+  {
+    url: LEGAL_JURISDICTION_OF_THE_COURTS,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: OTHER_COURT_CASES,
@@ -52,17 +57,6 @@ const sequences: Step[] = [
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
-<<<<<<< HEAD
-=======
-  {
-    url: CHECK_ANSWERS_URL,
-    getNextStep: () => HUB_PAGE,
-  },
-  {
-    url: HUB_PAGE,
-    getNextStep: () => HOME_URL,
-  },
->>>>>>> implementation
 ];
 
 export const respondentSequence = ((): Step[] => {
