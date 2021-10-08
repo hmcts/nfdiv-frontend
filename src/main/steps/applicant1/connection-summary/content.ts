@@ -3,36 +3,35 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
-export const jurisdictionMoreDetailsContent: (formState) => { connectedToEnglandWales: string; readMore: string } =
-  formState => {
-    const resConnection = enContainsHabitualResConnection(formState.connections);
-    const domConnection = enContainsDomConnection(formState.connections);
+export const jurisdictionMoreDetailsContent = (
+  connections: JurisdictionConnections[] | undefined,
+  isRespondent = false
+): { connectedToEnglandWales: string; readMore: string } => {
+  const resConnection = enContainsHabitualResConnection(connections);
+  const domConnection = enContainsDomConnection(connections);
 
-    const resTitleReplacement = domConnection ? '<strong>Habitual residence</strong><br><br>' : '';
-    const domTitleReplacement = resConnection ? '<strong>Domicile</strong><br><br>' : '';
-    const bothTexts = resConnection && domConnection ? '<br><br>' : '';
+  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : resConnection ? 1 : 0;
 
-    const resConnectionText = resConnection
-      ? Object.values(resConnection).join('<br><br>').replace('Habitual residence<br><br>', resTitleReplacement)
-      : '';
-    const domConnectionText = domConnection
-      ? Object.values(domConnection)
-          .join('<br><br>')
-          .replace('Domicile<br><br>', domTitleReplacement)
-          .replace('</ul><br><br>', '</ul>')
-          .replace('<br><ul', '<ul')
-      : '';
+  const connectionText = [
+    'Read more about habitual residence',
+    'Read more about domicile',
+    'Read more about your connections',
+  ];
+  const totalText = [
+    Object.values(enHabitualResident).join('<br><br>').replace('Habitual residence<br><br>', ''),
+    Object.values(enDomicile).join('<br><br>').replace('Domicile<br><br>', '').replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(enDomicile)
+        .join('<br><br>')
+        .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+  ];
 
-    const totalText = (resConnection ? resConnectionText : '') + bothTexts + domConnectionText;
-    const readMoreText =
-      resConnection && domConnection
-        ? 'Read more about your connections'
-        : resConnection
-        ? 'Read more about habitual residence'
-        : 'Read more about domicile';
-
-    return { connectedToEnglandWales: totalText, readMore: readMoreText };
-  };
+  return { connectedToEnglandWales: totalText[connectionIndex], readMore: connectionText[connectionIndex] };
+};
 
 const enHabitualResident = {
   helpText1: 'Habitual residence',
