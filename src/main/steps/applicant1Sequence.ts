@@ -59,6 +59,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   SWITCH_TO_SOLE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
@@ -446,6 +447,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: NO_RESPONSE_YET,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOME_URL,
   },
 ];
