@@ -3,7 +3,7 @@ Feature: Respondent disputing the application
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
-    And I set the case state to "AwaitingAos"
+    And I set the case state to "AosDrafted"
     When I go to '/respondent/disputing-the-application'
     Then the page should include "Disputing the divorce application"
 

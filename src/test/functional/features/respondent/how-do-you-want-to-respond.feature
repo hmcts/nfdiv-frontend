@@ -3,7 +3,7 @@ Feature: Respondent how do you want to respond
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
-    And I set the case state to "AwaitingAos"
+    And I set the case state to "AosDrafted"
     When I go to '/respondent/how-do-you-want-to-respond'
     Then the page should include "How do you want to respond to the application?"
 

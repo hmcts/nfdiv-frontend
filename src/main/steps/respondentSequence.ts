@@ -19,7 +19,7 @@ const sequences: Step[] = [
     url: HUB_PAGE,
     getNextStep: () => REVIEW_THE_APPLICATION,
   },
-    {
+  {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
@@ -30,7 +30,6 @@ const sequences: Step[] = [
   {
     url: DISPUTING_THE_APPLICATION,
     getNextStep: data => (data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : HOW_DO_YOU_WANT_TO_RESPOND),
-    getNextStep: () => REVIEW_THE_APPLICATION,
   },
   {
     url: OTHER_COURT_CASES,
