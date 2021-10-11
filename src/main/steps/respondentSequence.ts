@@ -9,10 +9,10 @@ import {
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
-  LEGAL_JURISDICTION_OF_THE_COURTS
 } from './urls';
 
 const sequences: Step[] = [
@@ -26,11 +26,13 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DO_YOU_WANT_TO_RESPOND,
-    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : LEGAL_JURISDICTION_OF_THE_COURTS),
+    getNextStep: data =>
+      data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : LEGAL_JURISDICTION_OF_THE_COURTS,
   },
   {
     url: DISPUTING_THE_APPLICATION,
-    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : LEGAL_JURISDICTION_OF_THE_COURTS),
+    getNextStep: data =>
+      data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : LEGAL_JURISDICTION_OF_THE_COURTS,
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
