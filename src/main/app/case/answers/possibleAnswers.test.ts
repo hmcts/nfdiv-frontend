@@ -322,4 +322,20 @@ describe('omitUnreachableAnswers()', () => {
       applicant2LegalProceedingsDetails: null,
     });
   });
+
+  test('does not set IGNORE_UNREACHABLE_FIELDS to null', async () => {
+    const userCase = {
+      applicant1FirstNames: 'test',
+      applicant1LastNames: 'test',
+      certificateInEnglish: YesOrNo.NO,
+      certifiedTranslation: YesOrNo.YES,
+    };
+
+    const actual = getUnreachableAnswersAsNull(userCase);
+
+    expect(actual).toEqual({
+      certificateInEnglish: null,
+      certifiedTranslation: null,
+    });
+  });
 });
