@@ -11,6 +11,8 @@ import { Form } from '../../form/Form';
 import { Case } from '../case';
 import { ApplicationType } from '../definition';
 
+const IGNORE_UNREACHABLE_FIELDS = ['applicant1FirstNames', 'applicant1LastNames', 'ceremonyPlace'];
+
 const getAllPossibleAnswers = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
   return steps.filter(step => step.form).flatMap(step => [...new Form(step.form, caseState).getFieldNames().values()]);
 };
@@ -42,7 +44,7 @@ export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: StepWith
 
 export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
   const everyField = getAllPossibleAnswers(userCase, stepsWithContentApplicant1).filter(
-    field => field !== 'ceremonyPlace'
+    field => !IGNORE_UNREACHABLE_FIELDS.includes(field)
   );
   const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
 
