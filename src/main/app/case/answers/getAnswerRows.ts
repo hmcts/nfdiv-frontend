@@ -88,7 +88,7 @@ export const getAnswerRows = function (
 
       if (
         isCompleteCase &&
-        section === 'aboutPartnership' &&
+        section === Sections.AboutPartnership &&
         processedFormState.sameSex === Checkbox.Checked &&
         sameSexHasBeenAnswered === false
       ) {
@@ -134,63 +134,9 @@ export const getAnswerRows = function (
       }
 
       if (isCompleteCase) {
-        if (section === 'aboutApplicant1' && step.url === YOUR_NAME) {
-          addQuestionAnswer(
-            'Full name on the marriage certificate',
-            processedFormState.applicant1FullNameOnCertificate as string
-          );
-        }
-
-        if (section === 'aboutApplicant2' && step.url === APPLICANT_2 + YOUR_NAME) {
-          addQuestionAnswer(
-            'Full name on the marriage certificate',
-            processedFormState.applicant2FullNameOnCertificate as string
-          );
-        }
-
-        if (
-          section === 'otherCourtCases' &&
-          step.url === OTHER_COURT_CASES &&
-          (processedFormState.applicant1LegalProceedings === YesOrNo.YES ||
-            processedFormState.applicant2LegalProceedings === YesOrNo.YES)
-        ) {
-          const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
-            processedFormState.applicant2LegalProceedingsRelated || []
-          );
-          addQuestionAnswer(
-            'What do the legal proceedings relate to?',
-            Array.from(new Set(totalLegalProceedingsRelated))
-              ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' / ') as string
-          );
-        }
-
-        if (
-          section === 'dividingAssets' &&
-          step.url === APPLY_FINANCIAL_ORDER &&
-          processedFormState.whoIsFinancialOrderFor?.length
-        ) {
-          addQuestionAnswer(
-            'Who is the financial order for? 	',
-            processedFormState.whoIsFinancialOrderFor
-              ?.join(' / ')
-              .replace(FinancialOrderFor.APPLICANT, 'Me')
-              .replace(FinancialOrderFor.CHILDREN, 'The children')
-          );
-        }
-
-        if (
-          section === 'dividingAssets' &&
-          step.url === APPLICANT_2 + APPLY_FINANCIAL_ORDER &&
-          processedFormState.applicant2WhoIsFinancialOrderFor?.length
-        ) {
-          addQuestionAnswer(
-            'Who is the financial order for? 	',
-            processedFormState.applicant2WhoIsFinancialOrderFor
-              ?.join(' / ')
-              .replace(FinancialOrderFor.APPLICANT, 'Me')
-              .replace(FinancialOrderFor.CHILDREN, 'The children')
-          );
+        const [question, answer] = getCompleteQuestionAnswers(step.url, processedFormState);
+        if (question && answer) {
+          addQuestionAnswer(question, answer);
         }
       }
 
@@ -240,4 +186,59 @@ const setUpSteps = (
 
     return { stepsWithContent, processedFormState };
   }
+};
+
+const getCompleteQuestionAnswers = (stepUrl: string, processedFormState: Partial<Case>): [string, string] => {
+  let question;
+  let answer;
+
+  switch (stepUrl) {
+    case YOUR_NAME: {
+      question = 'Full name on the marriage certificate';
+      answer = processedFormState.applicant1FullNameOnCertificate;
+      break;
+    }
+    case APPLICANT_2 + YOUR_NAME: {
+      question = 'Full name on the marriage certificate';
+      answer = processedFormState.applicant2FullNameOnCertificate;
+      break;
+    }
+    case OTHER_COURT_CASES: {
+      if (
+        processedFormState.applicant1LegalProceedings === YesOrNo.YES ||
+        processedFormState.applicant2LegalProceedings === YesOrNo.YES
+      ) {
+        const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
+          processedFormState.applicant2LegalProceedingsRelated || []
+        );
+        question = 'What do the legal proceedings relate to?';
+        answer = Array.from(new Set(totalLegalProceedingsRelated))
+          ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' / ');
+      }
+      break;
+    }
+    case APPLY_FINANCIAL_ORDER: {
+      if (processedFormState.whoIsFinancialOrderFor?.length) {
+        question = 'Who is the financial order for? 	';
+        answer = processedFormState.whoIsFinancialOrderFor
+          ?.join(' / ')
+          .replace(FinancialOrderFor.APPLICANT, 'Me')
+          .replace(FinancialOrderFor.CHILDREN, 'The children');
+      }
+      break;
+    }
+    case APPLICANT_2 + APPLY_FINANCIAL_ORDER: {
+      if (processedFormState.applicant2WhoIsFinancialOrderFor?.length) {
+        question = 'Who is the financial order for? 	';
+        answer = processedFormState.applicant2WhoIsFinancialOrderFor
+          ?.join(' / ')
+          .replace(FinancialOrderFor.APPLICANT, 'Me')
+          .replace(FinancialOrderFor.CHILDREN, 'The children');
+      }
+      break;
+    }
+  }
+
+  return [question, answer];
 };
