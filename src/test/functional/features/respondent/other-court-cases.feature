@@ -3,7 +3,7 @@ Feature: Respondent other court cases
   Background:
     Given I create a new user and login
     Given I've already completed the form using the fixture "completeCase"
-    And I set the case state to "AwaitingAos"
+    And I set the case state to "AosDrafted"
     When I go to '/respondent/other-court-cases'
     Then the page should include "Other court cases"
 
