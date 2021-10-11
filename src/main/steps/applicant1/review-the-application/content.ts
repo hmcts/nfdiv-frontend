@@ -121,8 +121,12 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   financialOrderMoreDetails: `${isApplicant2 ? `Your ${partner} was asked if they` : 'You were asked if you'}
    want the court to decide how your money, property, pensions and other assets will be split.
    These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.
-   <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’.
-   <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs £255. Applying for a ‘financial order by consent’ costs £50. You can get a solicitor to draft these and apply for you.
+   <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding.
+   This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
+   This is known as a ‘contested financial order’.
+   <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee.
+   Applying for a ‘contested financial order’ costs £255. Applying for a ‘financial order by consent’ costs £50.
+   You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
   applicantAddressCountry: `${

@@ -4,7 +4,9 @@ import { Sections, Step } from './applicant1Sequence';
 import {
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
+  DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
+  HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
   OTHER_COURT_CASES,
@@ -19,7 +21,15 @@ const sequences: Step[] = [
   },
   {
     url: REVIEW_THE_APPLICATION,
-    getNextStep: () => OTHER_COURT_CASES,
+    getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : OTHER_COURT_CASES),
+  },
+  {
+    url: DISPUTING_THE_APPLICATION,
+    getNextStep: data => (data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : HOW_DO_YOU_WANT_TO_RESPOND),
   },
   {
     url: OTHER_COURT_CASES,

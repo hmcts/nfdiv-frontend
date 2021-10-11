@@ -40,7 +40,8 @@ const enHabitualResident = {
   helpText3:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   helpText4:
-    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+    'The examples above aren’t a complete list of what makes up habitual residence, ' +
+    'and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
 };
 const enDomicile = {
   helpText5: 'Domicile',
@@ -50,7 +51,8 @@ const enDomicile = {
     'However, domicile can be more complex, for example, if you or your parents have moved countries in the past.',
   helpText8: "When you’re born, you acquire a 'domicile of origin'. This is usually:",
   helpText9:
-    '<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">the country your father was domiciled in if your parents were married </li> <li class="govuk-list govuk-list--bullet">the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li></ul>',
+    '<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">the country your father was domiciled in if your parents were married</li>' +
+    '<li class="govuk-list govuk-list--bullet">the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li></ul>',
   helpText10:
     "If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.",
   helpText11: 'If you’re not sure about your domicile, you should get legal advice.',
