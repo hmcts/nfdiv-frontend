@@ -3,36 +3,35 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
-export const jurisdictionMoreDetailsContent: (formState) => { connectedToEnglandWales: string; readMore: string } =
-  formState => {
-    const resConnection = enContainsHabitualResConnection(formState.connections);
-    const domConnection = enContainsDomConnection(formState.connections);
+export const jurisdictionMoreDetailsContent = (
+  connections: JurisdictionConnections[] | undefined,
+  isRespondent = false
+): { connectedToEnglandWales: string; readMore: string } => {
+  const resConnection = enContainsHabitualResConnection(connections);
+  const domConnection = enContainsDomConnection(connections);
 
-    const resTitleReplacement = domConnection ? '<strong>Habitual residence</strong><br><br>' : '';
-    const domTitleReplacement = resConnection ? '<strong>Domicile</strong><br><br>' : '';
-    const bothTexts = resConnection && domConnection ? '<br><br>' : '';
+  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : resConnection ? 1 : 0;
 
-    const resConnectionText = resConnection
-      ? Object.values(resConnection).join('<br><br>').replace('Habitual residence<br><br>', resTitleReplacement)
-      : '';
-    const domConnectionText = domConnection
-      ? Object.values(domConnection)
-          .join('<br><br>')
-          .replace('Domicile<br><br>', domTitleReplacement)
-          .replace('</ul><br><br>', '</ul>')
-          .replace('<br><ul', '<ul')
-      : '';
+  const connectionText = [
+    'Read more about habitual residence',
+    'Read more about domicile',
+    'Read more about your connections',
+  ];
+  const totalText = [
+    Object.values(enHabitualResident).join('<br><br>').replace('Habitual residence<br><br>', ''),
+    Object.values(enDomicile).join('<br><br>').replace('Domicile<br><br>', '').replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(enDomicile)
+        .join('<br><br>')
+        .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+  ];
 
-    const totalText = (resConnection ? resConnectionText : '') + bothTexts + domConnectionText;
-    const readMoreText =
-      resConnection && domConnection
-        ? 'Read more about your connections'
-        : resConnection
-        ? 'Read more about habitual residence'
-        : 'Read more about domicile';
-
-    return { connectedToEnglandWales: totalText, readMore: readMoreText };
-  };
+  return { connectedToEnglandWales: totalText[connectionIndex], readMore: connectionText[connectionIndex] };
+};
 
 const enHabitualResident = {
   helpText1: 'Habitual residence',
@@ -41,7 +40,8 @@ const enHabitualResident = {
   helpText3:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   helpText4:
-    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+    'The examples above aren’t a complete list of what makes up habitual residence, ' +
+    'and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
 };
 const enDomicile = {
   helpText5: 'Domicile',
@@ -51,7 +51,8 @@ const enDomicile = {
     'However, domicile can be more complex, for example, if you or your parents have moved countries in the past.',
   helpText8: "When you’re born, you acquire a 'domicile of origin'. This is usually:",
   helpText9:
-    '<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">the country your father was domiciled in if your parents were married </li> <li class="govuk-list govuk-list--bullet">the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li></ul>',
+    '<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">the country your father was domiciled in if your parents were married</li>' +
+    '<li class="govuk-list govuk-list--bullet">the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li></ul>',
   helpText10:
     "If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.",
   helpText11: 'If you’re not sure about your domicile, you should get legal advice.',

@@ -8,9 +8,9 @@ import { Case, CaseWithId } from '../case/case';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
-  CITIZEN_DRAFT_AOS,
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
+  CITIZEN_UPDATE_AOS,
 } from '../case/definition';
 import { Form } from '../form/Form';
 
@@ -90,7 +90,7 @@ export class PostController<T extends AnyObject> {
 
   protected getEventName(req: AppRequest<T>): string {
     if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-      return CITIZEN_DRAFT_AOS;
+      return CITIZEN_UPDATE_AOS;
     } else if (req.session.isApplicant2) {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {

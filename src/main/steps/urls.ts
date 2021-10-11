@@ -102,5 +102,9 @@ export const SWITCH_TO_SOLE_APPLICATION: PageLink = '/switch-to-sole-application
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
 export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-application';
+
+export const REVIEW_THE_APPLICATION: PageLink = '/review-the-application';
 export const HUB_PAGE: PageLink = '/hub-page';
 export const REVIEW_CONTACT_DETAILS: PageLink = '/check-contact-details';
+export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
+export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
