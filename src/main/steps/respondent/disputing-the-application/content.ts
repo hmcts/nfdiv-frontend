@@ -16,23 +16,23 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => ({
   readMore: 'Find out more about Help With Fees',
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
   helpPayingWhen: ['is on certain benefits', 'has a little or no savings', 'has low income'],
-  line4: `You will have until ${dayjs(formState?.issueDate)
+  line2: `You will have until ${dayjs(formState?.issueDate)
     .add(37, 'day')
     .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.`,
-  line5: `The only valid reasons for disputing the ${
+  line3: `The only valid reasons for disputing the ${
     isDivorce ? 'divorce' : 'ending of your civil partnership'
   } are because (one or both of the following):`,
-  point4: `you do not believe the courts of England and Wales have the legal power (jurisdiction) to grant the
+  point1: `you do not believe the courts of England and Wales have the legal power (jurisdiction) to grant the
   ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
-  point5: `you do not believe your ${isDivorce ? 'marriage' : 'civil partnership'} is legally valid. For example,
+  point2: `you do not believe your ${isDivorce ? 'marriage' : 'civil partnership'} is legally valid. For example,
   if one of you was already married or in a civil partnership when you ${
     isDivorce ? 'got married' : 'formed your civil partnership'
   }`,
-  point6: `this ${isDivorce ? 'marriage' : 'civil partnership'} has already been legally ended`,
-  line6: 'Are you sure you want to dispute the application?',
+  point3: `this ${isDivorce ? 'marriage' : 'civil partnership'} has already been legally ended`,
+  line4: 'Are you sure you want to dispute the application?',
   disputedSelected: `<strong>You are about to confirm that you want to dispute the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.</strong>`,
