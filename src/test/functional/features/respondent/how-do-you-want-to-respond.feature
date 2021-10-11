@@ -1,7 +1,7 @@
 Feature: Respondent how do you want to respond
 
   Background:
-    Given I create a new user and login
+    Given I login
     And I've already completed the form using the fixture "completeCase"
     And I set the case state to "AosDrafted"
     When I go to '/respondent/how-do-you-want-to-respond'
@@ -13,8 +13,3 @@ Feature: Respondent how do you want to respond
     When I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You need to select how you want to respond before continuing."
-
-  Scenario: They do not want to dispute
-    Given I select "Continue without disputing the divorce"
-    When I click "Continue"
-    Then the page URL should be "/do-you-agree-jurisdiction"
