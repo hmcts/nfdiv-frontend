@@ -7,7 +7,9 @@
   <p class="govuk-body">{{ line1 }}</p>
   <p class="govuk-body">{{ line2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ point1 }}</li>
+    {% for line in connectionBulletPoints %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
   </ul>
   {{ govukDetails({
     summaryText: readMore,
