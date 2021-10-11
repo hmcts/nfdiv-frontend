@@ -126,7 +126,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
   },
   stepLinks: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
-    [urls.APPLY_FINANCIAL_ORDER]: urls.MONEY_PROPERTY,
+    [urls.APPLY_FINANCIAL_ORDER]: urls.APPLY_FINANCIAL_ORDER,
   },
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
