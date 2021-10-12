@@ -7,7 +7,7 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 const label = ({ isDivorce }) => ({
   confirmBeforeSubmit: 'Confirm before submitting',
   iConfirm: 'I confirm that:',
-  confirmPrayerHint: `
+  confirmSotHint: `
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>I am the person named as the respondent in the application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -33,9 +33,9 @@ export const form: FormContent = {
       labelSize: 'm',
       values: [
         {
-          name: 'applicant1IConfirmPrayer',
+          name: 'applicant2IBelieveApplicationIsTrue',
           label: l => l.iConfirm,
-          hint: l => l.confirmPrayerHint,
+          hint: l => l.confirmSotHint,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
         },
