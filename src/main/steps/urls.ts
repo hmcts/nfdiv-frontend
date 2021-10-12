@@ -108,3 +108,4 @@ export const HUB_PAGE: PageLink = '/hub-page';
 export const REVIEW_CONTACT_DETAILS: PageLink = '/check-contact-details';
 export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
 export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
+export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
