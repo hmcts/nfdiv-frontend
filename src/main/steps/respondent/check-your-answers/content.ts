@@ -16,6 +16,7 @@ const label = ({ isDivorce }) => ({
   confirmationExplanation: `The first statement is confirming that you’re the person who should be responding to this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }. The second is your statement of truth.`,
+  continue: 'Submit',
   errors: {
     applicant2IBelieveApplicationIsTrue: {
       required:
