@@ -32,7 +32,7 @@ const sequences: Step[] = [
   {
     url: DISPUTING_THE_APPLICATION,
     getNextStep: data =>
-      data.disputeApplication === YesOrNo.YES ? OTHER_COURT_CASES : LEGAL_JURISDICTION_OF_THE_COURTS,
+      data.disputeApplication === YesOrNo.YES ? LEGAL_JURISDICTION_OF_THE_COURTS : HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
