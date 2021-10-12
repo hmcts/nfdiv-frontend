@@ -20,11 +20,5 @@ export const connectionBulletPointsTextForRespondent = (connections: Jurisdictio
       ' in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
   };
 
-  const connectionBulletPointList: string[] = [];
-
-  for (const index in connections) {
-    connectionBulletPointList.push(connectionBulletPoints[connections[index]]);
-  }
-
-  return connectionBulletPointList;
+  return connections.map(connection => connectionBulletPoints[connection]);
 };
