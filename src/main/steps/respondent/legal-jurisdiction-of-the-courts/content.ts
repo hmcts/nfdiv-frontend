@@ -12,7 +12,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
-    connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
+    connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
     doYouAgreeCourtHasJurisdiction: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,

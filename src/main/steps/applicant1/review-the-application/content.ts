@@ -55,7 +55,7 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   line16: `${getFormattedDate(formState?.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: connectionBulletPointsTextForRespondent(formState?.connections),
+  connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
