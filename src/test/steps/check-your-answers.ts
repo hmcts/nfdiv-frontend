@@ -3,6 +3,8 @@ import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../ma
 
 import { iSetTheUsersCaseTo } from './common';
 
+const { I } = inject();
+
 Given("I've completed enough questions correctly to get to the check your answers page", async () => {
   iSetTheUsersCaseTo({
     applicationType: ApplicationType.SOLE_APPLICATION,
@@ -49,3 +51,7 @@ Given(
     });
   }
 );
+
+When('I click to change the answer to {string}', questionText => {
+  I.click(`//div/*[contains(text(), '${questionText}')]/../dd/a`);
+});
