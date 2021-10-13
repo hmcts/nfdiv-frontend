@@ -56,7 +56,7 @@ export class CaseApi {
 
   private async getCases(): Promise<CcdV1Response[]> {
     try {
-      const response = await this.axios.get(
+      const response = await this.axios.get<CcdV1Response[]>(
         `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
       );
 
@@ -69,7 +69,7 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      const response: AxiosResponse<CcdV2Response> = await this.axios.get(`/cases/${caseId}`);
+      const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
@@ -92,7 +92,7 @@ export class CaseApi {
     };
 
     try {
-      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/case-types/${CASE_TYPE}/cases`, {
+      const response = await this.axios.post<CcdV2Response>(`/case-types/${CASE_TYPE}/cases`, {
         data,
         event,
         event_token: token,
@@ -107,7 +107,7 @@ export class CaseApi {
 
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
-      const response = await this.axios.get(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -121,9 +121,7 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
-        `/cases/${caseId}/event-triggers/${eventName}`
-      );
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
       const event = { id: eventName };
       const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
