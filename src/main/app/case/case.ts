@@ -90,6 +90,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
+  disputeApplication: 'disputeApplication',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -219,6 +220,7 @@ export interface Case {
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
   applicant1PcqId?: string;
+  disputeApplication?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

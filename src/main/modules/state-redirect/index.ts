@@ -61,7 +61,7 @@ export class StateRedirectMiddleware {
     return (
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
         (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&
-      dayjs(userCase.dueDate, 'MMMM Do YYYY').diff(dayjs()) < 0
+      dayjs(userCase.dueDate, 'D MMMM YYYY').diff(dayjs()) < 0
     );
   }
 }
