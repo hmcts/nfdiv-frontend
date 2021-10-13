@@ -83,14 +83,6 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
-  applicant1LegalProceedingsRelated: data => ({
-    applicant1LegalProceedingsRelated:
-      data.applicant1LegalProceedings === YesOrNo.YES ? data.applicant1LegalProceedingsRelated : [],
-  }),
-  applicant2LegalProceedingsRelated: data => ({
-    applicant2LegalProceedingsRelated:
-      data.applicant2LegalProceedings === YesOrNo.YES ? data.applicant2LegalProceedingsRelated : [],
-  }),
   applicant1ChangedNameHowAnotherWay: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
       ? data.applicant1ChangedNameHowAnotherWay

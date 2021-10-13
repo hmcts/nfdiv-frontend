@@ -20,8 +20,6 @@ Feature: Respondent other court cases
 
   Scenario: They do have other court cases
     Given I select "Yes"
-    Given I select "Marriage"
-    Given I select "Property"
     When I click "Continue"
     Then the page URL should be "/respondent/details-other-proceedings"
     Given I select "Provide details about the other legal proceedings"
