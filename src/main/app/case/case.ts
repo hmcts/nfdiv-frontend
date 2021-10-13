@@ -221,6 +221,7 @@ export interface Case {
   applicant2Explanation: string;
   applicant1PcqId?: string;
   disputeApplication?: YesOrNo;
+  confirmReadPetition?: Checkbox;
 }
 
 export interface CaseWithId extends Case {
