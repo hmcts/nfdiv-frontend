@@ -11,7 +11,13 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 // @TODO translations
-const cy = en;
+const cy = ({ partner }: CommonContent) => ({
+  title: 'Rydych angen eu cyfeiriad e-bost',
+  line1: `Rydych angen cyfeiriad e-bost eich ${partner} er mwyn iddynt allu ymuno â'r cais ar y cyd hwn ar-lein. Dylech <a href="${SAVE_AND_SIGN_OUT}">gadw eich cais ac allgofnodi</a> a dychwelyd ato pan fydd gennych.`,
+  line2:
+    'Os ydych yn gwybod na fyddwch yn gallu cael eu cyfeiriad e-bost a\'ch bod eisiau gwneud cais ar y cyd, bydd rhaid ichi wneud cais gan ddefnyddio\'r <a href="https://www.gov.uk/government/publications/form-d8-application-for-a-divorce-dissolution-or-to-apply-for-a-judicial-separation-order">ffurflen gais bapur</a>.',
+  line3: `Os ydych yn gwybod na fyddwch yn gallu cael eu cyfeiriad e-bost a'ch bod eisiau gwneud cais ar-lein, rhaid ichi wneud cais fel <a href="${HOW_DO_YOU_WANT_TO_APPLY}">ceisydd unigol</a>.`,
+});
 
 const languages = {
   en,
