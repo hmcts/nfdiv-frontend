@@ -53,5 +53,5 @@ Given(
 );
 
 When('I click to change the answer to {string}', questionText => {
-  I.click(`//div/*[contains(text(), '${questionText}')]/../dd/a`);
+  I.click(`//a/*[contains(text(), '${questionText}')]/..`);
 });
