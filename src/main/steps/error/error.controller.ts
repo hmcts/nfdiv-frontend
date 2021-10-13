@@ -26,9 +26,9 @@ export class ErrorController {
   public internalServerError(error: Errors, req: AppRequest, res: Response): void {
     const { message = error, stack = undefined } = typeof error === 'object' ? error : {};
 
-    let response: AxiosResponse<string | Record<string, unknown>> | undefined;
+    let response;
     if (typeof error === 'object' && (error as AxiosError).isAxiosError) {
-      response = (error as AxiosError).response?.data;
+      response = (error as AxiosError).response?.data as AxiosResponse<string | Record<string, unknown>>;
     }
 
     req.locals.logger.error(`${stack || message || 'Internal Server Error'}`, response);
