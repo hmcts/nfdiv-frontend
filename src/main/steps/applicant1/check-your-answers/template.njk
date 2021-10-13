@@ -5,7 +5,7 @@
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
 {% set isApplicationReadyToSubmit =
-        nextIncompleteStep.startsWith('/check-your-answers') or
+        '/check-your-answers' in nextIncompleteStep or
         nextIncompleteStep.startsWith('/pay') or
         nextIncompleteStep.startsWith('/application-submitted')
 %}
@@ -32,25 +32,23 @@
     {% endif %}
   {% endfor %}
 
-  {% block submission %}
-    {% if isApplicationReadyToSubmit and not isJointApplication %}
-      {% block form %}
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-            {% include "./form.njk" %}
-          </div>
+  {% if isApplicationReadyToSubmit and not isJointApplication %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "./form.njk" %}
         </div>
-      {% endblock %}
-    {% elif not isApplicant2 and isApplicationReadyToSubmit and isJointApplication %}
-      {% include "./joint-form.njk" %}
-    {% else %}
-      {{ govukButton({
-        text: continueApplication,
-        href: nextIncompleteStep,
-        preventDoubleClick: true
-      }) }}
-    {% endif %}
-  {% endblock %}
+      </div>
+    {% endblock %}
+  {% elif not isApplicant2 and isApplicationReadyToSubmit and isJointApplication %}
+    {% include "./joint-form.njk" %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
 
   {% include "common/contact-us.njk" %}
 {% endblock %}
