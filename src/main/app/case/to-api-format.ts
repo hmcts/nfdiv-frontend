@@ -129,6 +129,9 @@ const fields: ToApiConverters = {
   }),
   applicant1UploadedFiles: () => ({}),
   applicant2UploadedFiles: () => ({}),
+  confirmReadPetition: data => ({
+    confirmReadPetition: checkboxConverter(data.confirmReadPetition),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
