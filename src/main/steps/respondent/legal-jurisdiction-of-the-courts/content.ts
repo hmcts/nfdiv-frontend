@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     <h2>Residual jurisdiction</h2>
     <p>Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).</p> 
 
-    <p>In addition, if you’re married to a member of the same sex, you may be eligable for residul jurisdiction if: (all the following apply): </p>
+    <p>In addition, if you’re married to a member of the same sex, you may be eligible for residul jurisdiction if: (all the following apply): </p>
     <ul>
     <li>you married each other in the UK </li>
     <li>neither of you are nationals of, or habitually resident in, another country in the EU (except Denmark) </li>
@@ -87,14 +87,14 @@ export const form: FormContent = {
           subFields: {
             reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
               type: 'textarea',
-              classes: 'govuk-label govuk-textarea',
               label: l => l.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction,
+              labelSize: 's',
               validator: value => isFieldFilledIn(value),
             },
             inWhichCountryIsYourLifeMainllyBased: {
               type: 'textarea',
-              classes: 'govuk-label govuk-textarea',
               label: l => l.inWhichCountryIsYourLifeMainllyBased,
+              labelSize: 's',
               validator: value => isFieldFilledIn(value),
             },
           },
