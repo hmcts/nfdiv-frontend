@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -44,7 +44,7 @@ export class PaymentClient {
     logger.info(body);
 
     try {
-      const response: AxiosResponse<Payment> = await this.client.post('/card-payments', body);
+      const response = await this.client.post<Payment>('/card-payments', body);
       logger.info('Payment response');
       logger.info(response.data);
 
@@ -62,7 +62,7 @@ export class PaymentClient {
 
   public async get(paymentReference: string): Promise<Payment | undefined> {
     try {
-      const response = await this.client.get(`/card-payments/${paymentReference}`);
+      const response = await this.client.get<Payment>(`/card-payments/${paymentReference}`);
       return response.data;
     } catch (e) {
       const errMsg = 'Error fetching payment';
