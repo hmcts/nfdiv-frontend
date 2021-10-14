@@ -19,7 +19,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
-    inWhichCountryIsYourLifeMainllyBased: 'Which country is your life mainly based?',
+    inWhichCountryIsYourLifeMainlyBased: 'Which country is your life mainly based?',
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
@@ -27,12 +27,12 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     <p>If your life is mainly based in England or Wales then you’re what is legally known as 'habitually resident'.</p>
 
     <p>This may include working, owning property, having children in school, and your main family life taking place in England or Wales.</p>
-    
+
     <p>The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.</p>
-    <h2>Domicile</h2>  
+    <h2>Domicile</h2>
     <p>Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.</p>
     <p>However, domicile can be more complex. For example, if you or your parents have moved countries in the past. </p>
-    <p>When you’re born, you acquire the ‘domicile of origin’. This is usually: 
+    <p>When you’re born, you acquire the ‘domicile of origin’. This is usually:
     <ul>
     <li>the country your father was domiciled in if your parents were married </li>
     <li>the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li>
@@ -40,7 +40,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     <p>If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’. </p>
     <p>If you’re not sure about your domicile, you should get legal advice. </p>
     <h2>Residual jurisdiction</h2>
-    <p>Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).</p> 
+    <p>Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).</p>
 
     <p>In addition, if you’re married to a member of the same sex, you may be eligible for residul jurisdiction if: (all the following apply): </p>
     <ul>
@@ -61,7 +61,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
         }`,
         characterLengthError: 'You have exceeded the number of characters allowed',
       },
-      inWhichCountryIsYourLifeMainllyBased: {
+      inWhichCountryIsYourLifeMainlyBased: {
         required: 'You need to tell us which country your life is mainly based',
       },
     },
@@ -91,9 +91,9 @@ export const form: FormContent = {
               labelSize: 's',
               validator: value => isFieldFilledIn(value),
             },
-            inWhichCountryIsYourLifeMainllyBased: {
+            inWhichCountryIsYourLifeMainlyBased: {
               type: 'textarea',
-              label: l => l.inWhichCountryIsYourLifeMainllyBased,
+              label: l => l.inWhichCountryIsYourLifeMainlyBased,
               labelSize: 's',
               validator: value => isFieldFilledIn(value),
             },

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-10-07 11:30:46.
+// Generated using typescript-generator version 2.32.889 on 2021-10-14 09:59:18.
 
 export interface Address {
   AddressLine1: string;
@@ -90,6 +90,7 @@ export interface CaseNote {
 export interface AcknowledgementOfService {
   confirmReadPetition: YesOrNo;
   disputeApplication: YesOrNo;
+  confirmDisputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
@@ -98,17 +99,27 @@ export interface AcknowledgementOfService {
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
+  doYouAgreeCourtHasJurisdiction: YesOrNo;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
+  inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
 }
 
 export interface AlternativeService {
   receivedServiceApplicationDate: DateAsString;
-  serviceApplicationType: ServiceApplicationType;
+  alternativeServiceType: AlternativeServiceType;
   receivedServiceAddedDate: DateAsString;
   serviceApplicationGranted: YesOrNo;
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
+  deemedServiceDate: DateAsString;
+  dateOfPayment: DateAsString;
+  paymentMethod: ServicePaymentMethod;
+  feeAccountNumber: string;
+  feeAccountReferenceNumber: string;
+  helpWithFeesReferenceNumber: string;
+  servicePaymentFeeOrderSummary: OrderSummary;
 }
 
 export interface Applicant {
@@ -232,6 +243,9 @@ export interface Bailiff {
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
+  certificateOfServiceDate: DateAsString;
+  successfulServedByBailiff: YesOrNo;
+  reasonFailureToServeByBailiff: string;
 }
 
 export interface CaseData {
@@ -390,6 +404,7 @@ export interface CaseData {
   applicant2UserId: string;
   confirmReadPetition: YesOrNo;
   disputeApplication: YesOrNo;
+  confirmDisputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
   legalProceedingsExist: YesOrNo;
@@ -398,6 +413,9 @@ export interface CaseData {
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
+  doYouAgreeCourtHasJurisdiction: YesOrNo;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
+  inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
   coDateSubmitted: DateAsString;
@@ -414,6 +432,7 @@ export interface CaseData {
   coGranted: YesOrNo;
   coClaimsGranted: YesOrNo;
   coClaimsCostsOrderInformation: string;
+  coDecisionDate: DateAsString;
   dateFinalOrderSubmitted: DateAsString;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
@@ -432,19 +451,29 @@ export interface CaseData {
   generalApplicationReferralDate: DateAsString;
   generalApplicationAddedDate: DateAsString;
   generalReferralType: GeneralReferralType;
-  alternativeServiceMedium: AlternativeServiceType;
+  alternativeServiceMedium: AlternativeServiceMediumType;
   generalReferralJudgeDetails: string;
   generalReferralLegalAdvisorDetails: string;
   generalReferralFeeRequired: YesOrNo;
   receivedServiceApplicationDate: DateAsString;
-  serviceApplicationType: ServiceApplicationType;
+  alternativeServiceType: AlternativeServiceType;
   receivedServiceAddedDate: DateAsString;
   serviceApplicationGranted: YesOrNo;
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
+  deemedServiceDate: DateAsString;
+  dateOfPayment: DateAsString;
+  paymentMethod: ServicePaymentMethod;
+  feeAccountNumber: string;
+  feeAccountReferenceNumber: string;
+  helpWithFeesReferenceNumber: string;
+  servicePaymentFeeOrderSummary: OrderSummary;
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
+  certificateOfServiceDate: DateAsString;
+  successfulServedByBailiff: YesOrNo;
+  reasonFailureToServeByBailiff: string;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   divorceUnit: Court;
@@ -457,6 +486,7 @@ export interface CaseData {
   dueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
+  bulkListCaseReference: string;
   dataVersion: number;
   exampleRetiredField: string;
   applicant1ContactDetailsConfidential: ConfidentialAddress;
@@ -485,6 +515,7 @@ export interface ConditionalOrder {
   Granted: YesOrNo;
   ClaimsGranted: YesOrNo;
   ClaimsCostsOrderInformation: string;
+  DecisionDate: DateAsString;
 }
 
 export interface CtscContactDetails {
@@ -530,7 +561,7 @@ export interface GeneralReferral {
   generalApplicationReferralDate: DateAsString;
   generalApplicationAddedDate: DateAsString;
   generalReferralType: GeneralReferralType;
-  alternativeServiceMedium: AlternativeServiceType;
+  alternativeServiceMedium: AlternativeServiceMediumType;
   generalReferralJudgeDetails: string;
   generalReferralLegalAdvisorDetails: string;
   generalReferralFeeRequired: YesOrNo;
@@ -778,11 +809,17 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
-export const enum AlternativeServiceType {
+export const enum AlternativeServiceMediumType {
   TEXT = 'text',
   EMAIL = 'email',
   SOCIAL_MEDIA = 'socialMedia',
   OTHER = 'other',
+}
+
+export const enum AlternativeServiceType {
+  DEEMED = 'deemed',
+  DISPENSED = 'dispensed',
+  BAILIFF = 'bailiff',
 }
 
 export const enum ApplicationType {
@@ -966,15 +1003,16 @@ export const enum RejectReasonType {
   OTHER = 'Other',
 }
 
-export const enum ServiceApplicationType {
-  DEEMED = 'deemed',
-  DISPENSED = 'dispensed',
-  BAILIFF = 'bailiff',
-}
-
 export const enum ServiceMethod {
   SOLICITOR_SERVICE = 'solicitorService',
   COURT_SERVICE = 'courtService',
+}
+
+export const enum ServicePaymentMethod {
+  FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
+  FEE_PAY_BY_HWF = 'feePayByHelp',
+  FEE_PAY_BY_PHONE = 'feePayByTelephone',
+  FEE_PAY_BY_CHEQUE = 'feePayByCheque',
 }
 
 export const enum SolicitorPaymentMethod {
@@ -1004,6 +1042,7 @@ export const enum State {
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingReissue = 'AwaitingReissue',
   AwaitingService = 'AwaitingService',
+  AwaitingServiceConsideration = 'AwaitingServiceConsideration',
   AwaitingServicePayment = 'AwaitingServicePayment',
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
@@ -1291,28 +1330,30 @@ export const enum HttpStatus {
 }
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_UPDATE_AOS = 'citizen-update-aos';
+export const CITIZEN_SUBMIT_AOS = 'citizen-submit-aos';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
+export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
+export const CITIZEN_UPDATE = 'citizen-update-application';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CITIZEN_DRAFT_AOS = 'citizen-draft-aos';
-export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
-export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
-export const CITIZEN_UPDATE = 'citizen-update-application';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
-export const CITIZEN_UPDATE_AOS = 'citizen-update-aos';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
-export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
-export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SYSTEM_UPDATE_BULK_CASE_REFERENCE = 'system-update-bulk-case-reference';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
-export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
-export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
-export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
 export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applicant1-conditional-order';
-export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
