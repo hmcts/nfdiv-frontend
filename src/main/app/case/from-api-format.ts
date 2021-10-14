@@ -88,6 +88,9 @@ const fields: FromApiConverters = {
   dueDate: data => ({
     dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
   }),
+  confirmReadPetition: data => ({
+    confirmReadPetition: checkboxConverter(data.confirmReadPetition),
+  }),
 };
 
 const fromApiDate = date => {

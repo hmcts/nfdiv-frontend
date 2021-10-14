@@ -15,8 +15,14 @@ const en = ({ partner, formState }: CommonContent) => ({
     'You will receive a notification when they have reviewed. If they do not review then you will be told what you can do to progress the application.',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy = ({ partner, formState }: CommonContent) => ({
+  title: `Mae eich atebion wedi'u hanfon at eich ${partner} i'w hadolygu`,
+  sentTo: `Mae eich atebion wedi'u hanfon at eich ${partner} i'r cyfeiriad e-bost canlynol:`,
+  theyShouldReviewBy: 'Dylent eu hadolygu a darparu eu gwybodaeth eu hunain erbyn',
+  reviewDate: formState?.dueDate || dayjs().add(2, 'weeks').format('MMMM Do YYYY'),
+  line3:
+    "Fe gewch hysbysiad i'w gadarnhau. Os na fyddant yn adolygu'r atebion yna ddywedir wrthych beth y gallwch ei wneud i symud y cais yn ei flaen.",
+});
 
 const languages = {
   en,
