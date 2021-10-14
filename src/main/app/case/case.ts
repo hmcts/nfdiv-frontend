@@ -91,6 +91,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
   disputeApplication: 'disputeApplication',
+  doYouAgreeCourtHasJurisdiction: 'doYouAgreeCourtHasJurisdiction',
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
+  inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -222,6 +225,9 @@ export interface Case {
   applicant1PcqId?: string;
   disputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
+  doYouAgreeCourtHasJurisdiction?: YesOrNo;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
+  inWhichCountryIsYourLifeMainlyBased: string;
 }
 
 export interface CaseWithId extends Case {
