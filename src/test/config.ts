@@ -69,6 +69,10 @@ export const config = {
     username: idamUserManager.getUsername(index),
     password: TestPass,
   }),
+  GetCaseWorker: (): { username: string; password: string } => ({
+    username: idamUserManager.getCaseWorker(),
+    password: TestPass,
+  }),
   clearNewUsers: async (): Promise<void> => {
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
@@ -84,7 +88,8 @@ export const config = {
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
-  bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
+  bootstrap: async (): Promise<void> => idamUserManager.createUser(TestUser, TestPass),
+  bootstrapAll: async (): Promise<void> => idamUserManager.createCaseWorker(TestUser, TestPass),
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
   AutoLogin: {
@@ -95,7 +100,7 @@ export const config = {
       citizenSingleton: {
         login: (I: CodeceptJS.I): void => {
           const username = generateTestUsername();
-          idamUserManager.create(username, TestPass);
+          idamUserManager.createUser(username, TestPass);
           autoLogin.login(I, username, TestPass);
         },
         check: autoLogin.check,

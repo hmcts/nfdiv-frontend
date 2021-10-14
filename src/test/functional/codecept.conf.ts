@@ -10,6 +10,7 @@ export const config: CodeceptJS.Config = {
   output: '../../../functional-output/functional/reports',
   helpers: testConfig.helpers,
   bootstrap: testConfig.bootstrap,
+  bootstrapAll: testConfig.bootstrapAll,
   teardown: testConfig.teardown,
   plugins: {
     autoLogin: testConfig.AutoLogin,
