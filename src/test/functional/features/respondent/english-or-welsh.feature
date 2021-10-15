@@ -12,7 +12,9 @@ Feature: Respondent Language Preference
     Given CaseWorker issues application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
-    When I click "Stop here"
+    When I click "Respond to the application"
+    When I select "I have read the application for divorce"
+    When I click "Continue"
     When I go to '/respondent/english-or-welsh'
     Then the page should include "What language do you want to receive emails and documents in?"
 

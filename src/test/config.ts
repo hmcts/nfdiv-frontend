@@ -69,10 +69,14 @@ export const config = {
     username: idamUserManager.getUsername(index),
     password: TestPass,
   }),
-  GetCaseWorker: (): { username: string; password: string } => ({
-    username: idamUserManager.getCaseWorker(),
-    password: TestPass,
-  }),
+  CreateAndGetCaseWorker: async (): Promise<{ username: string; password: string }> => {
+    const username = generateTestUsername();
+    await idamUserManager.createCaseWorker(username, TestPass);
+    return {
+      username: username,
+      password: TestPass,
+    };
+  },
   clearNewUsers: async (): Promise<void> => {
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
