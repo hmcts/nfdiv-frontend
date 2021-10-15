@@ -226,8 +226,8 @@ export interface Case {
   disputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
   doYouAgreeCourtHasJurisdiction?: YesOrNo;
-  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
-  inWhichCountryIsYourLifeMainlyBased: string;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
+  inWhichCountryIsYourLifeMainlyBased?: string;
 }
 
 export interface CaseWithId extends Case {
