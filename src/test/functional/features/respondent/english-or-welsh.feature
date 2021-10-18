@@ -24,7 +24,7 @@ Feature: Respondent Language Preference
     When I click "Continue"
     Then the page should include "There was a problem"
 
-  Scenario: Select English okay
+  Scenario: Select English as preferred language
     And I select "English"
     When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
