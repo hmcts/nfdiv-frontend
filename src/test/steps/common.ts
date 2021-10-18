@@ -223,7 +223,7 @@ When('CaseWorker issues application', async () => {
     throw new Error(`No case reference or access code was returned for ${testUser}`);
   }
 
-  const cwUser = await testConfig.CreateAndGetCaseWorker();
+  const cwUser = await testConfig.GetOrCreateCaseWorker();
   const caseWorker = await iGetTheTestUser(cwUser);
   const cwCaseApi = iGetTheCaseApi(caseWorker);
   await cwCaseApi.triggerEvent(caseReference, { placeOfMarriage: 'Somewhere' }, 'caseworker-issue-application');

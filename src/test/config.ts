@@ -69,11 +69,14 @@ export const config = {
     username: idamUserManager.getUsername(index),
     password: TestPass,
   }),
-  CreateAndGetCaseWorker: async (): Promise<{ username: string; password: string }> => {
-    const username = generateTestUsername();
-    await idamUserManager.createCaseWorker(username, TestPass);
+  GetOrCreateCaseWorker: async (): Promise<{ username: string; password: string }> => {
+    let caseWorker = idamUserManager.getCaseWorker();
+    if (!caseWorker) {
+      caseWorker = generateTestUsername();
+      await idamUserManager.createCaseWorker(caseWorker, TestPass);
+    }
     return {
-      username: username,
+      username: caseWorker,
       password: TestPass,
     };
   },
@@ -93,7 +96,6 @@ export const config = {
     ],
   },
   bootstrap: async (): Promise<void> => idamUserManager.createUser(TestUser, TestPass),
-  bootstrapAll: async (): Promise<void> => idamUserManager.createCaseWorker(TestUser, TestPass),
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
   AutoLogin: {

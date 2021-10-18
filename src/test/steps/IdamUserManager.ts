@@ -63,6 +63,9 @@ export class IdamUserManager {
     for (const user of this.users) {
       await this.delete(user);
     }
+    if (this.caseWorker) {
+      await this.delete(this.caseWorker);
+    }
   }
 
   async clearAndKeepOnlyOriginalUser(): Promise<void> {
