@@ -12,7 +12,7 @@ import * as urls from '../../urls';
 import { connectionBulletPointsText } from '../check-your-answers/content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => ({
+const en = ({ isDivorce, partner, formState, marriage, civilPartnership }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   sectionTitles: {
@@ -33,8 +33,21 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
       applicant1ScreenHasUnionBroken: 'Has your marriage irretrievably broken down?',
     },
+    [urls.OTHER_COURT_CASES]: {
+      applicant1LegalProceedings: `Applicant 1<br><br> Are there, or have there ever been, any other court cases relating to this ${
+        isDivorce ? marriage : civilPartnership
+      }?`,
+    },
     [urls.DETAILS_OTHER_PROCEEDINGS]: {
       applicant1LegalProceedingsDetails: 'Details of court cases',
+    },
+    [urls.APPLICANT_2 + urls.OTHER_COURT_CASES]: {
+      applicant2LegalProceedings: `<br>Applicant 2<br><br> Are there, or have there ever been, any other court cases relating to this ${
+        isDivorce ? marriage : civilPartnership
+      }?`,
+    },
+    [urls.APPLICANT_2 + urls.DETAILS_OTHER_PROCEEDINGS]: {
+      applicant2LegalProceedingsDetails: 'Details of court cases',
     },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded: 'Is help with fees being claimed on this application?',
@@ -70,18 +83,10 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
     },
     [urls.OTHER_COURT_CASES]: {
-      applicant1LegalProceedings:
-        formState?.applicant1LegalProceedings === YesOrNo.YES || formState?.applicant2LegalProceedings === YesOrNo.YES
-          ? 'Yes'
-          : 'No',
+      applicant1LegalProceedings: `\n\n ${formState?.applicant1LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
     },
-    [urls.DETAILS_OTHER_PROCEEDINGS]: {
-      applicant1LegalProceedingsDetails:
-        formState?.applicant1LegalProceedingsDetails && formState?.applicant2LegalProceedingsDetails
-          ? formState?.applicant1LegalProceedingsDetails + '\n\n' + formState?.applicant2LegalProceedingsDetails
-          : formState?.applicant1LegalProceedingsDetails
-          ? formState?.applicant1LegalProceedingsDetails
-          : formState?.applicant2LegalProceedingsDetails,
+    [urls.APPLICANT_2 + urls.OTHER_COURT_CASES]: {
+      applicant2LegalProceedings: `\n\n\n ${formState?.applicant2LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
     },
     [urls.APPLY_FINANCIAL_ORDER]: {
       applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
