@@ -91,6 +91,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
   disputeApplication: 'disputeApplication',
+  confirmDisputeApplication: 'confirmDisputeApplication',
   doYouAgreeCourtHasJurisdiction: 'doYouAgreeCourtHasJurisdiction',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
@@ -224,6 +225,7 @@ export interface Case {
   applicant2Explanation: string;
   applicant1PcqId?: string;
   disputeApplication?: YesOrNo;
+  confirmDisputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
   doYouAgreeCourtHasJurisdiction?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
