@@ -10,7 +10,6 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2FirstNames: 'Test your name',
   applicant2LastNames: 'Test your last name',
   applicant2LegalProceedings: YesOrNo.NO,
-  applicant2LegalProceedingsRelated: [],
   applicant2ApplyForFinancialOrder: YesOrNo.NO,
   applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
   applicant2PhoneNumber: '',

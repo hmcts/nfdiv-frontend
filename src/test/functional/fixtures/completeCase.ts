@@ -55,7 +55,6 @@ export const completeCase: Partial<BrowserCase> = {
   applicant1IConfirmPrayer: Checkbox.Checked,
   inTheUk: YesOrNo.YES,
   applicant1LegalProceedings: YesOrNo.NO,
-  applicant1LegalProceedingsRelated: [],
   'relationshipDate-day': 31,
   'relationshipDate-month': 12,
   'relationshipDate-year': 1999,
