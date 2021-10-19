@@ -1,10 +1,10 @@
 import { stepsWithContentApplicant1, stepsWithContentApplicant2, stepsWithContentRespondent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
-import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, PageLink, YOUR_NAME } from '../../../steps/urls';
+import { APPLICANT_2, APPLY_FINANCIAL_ORDER, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
-import { FinancialOrderFor, YesOrNo } from '../definition';
+import { FinancialOrderFor } from '../definition';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -209,21 +209,6 @@ const getCompleteQuestionAnswers = (stepUrl: string, processedFormState: Partial
     case APPLICANT_2 + YOUR_NAME: {
       question = 'Full name on the marriage certificate';
       answer = processedFormState.applicant2FullNameOnCertificate;
-      break;
-    }
-    case OTHER_COURT_CASES: {
-      if (
-        processedFormState.applicant1LegalProceedings === YesOrNo.YES ||
-        processedFormState.applicant2LegalProceedings === YesOrNo.YES
-      ) {
-        const totalLegalProceedingsRelated = processedFormState.applicant1LegalProceedingsRelated?.concat(
-          processedFormState.applicant2LegalProceedingsRelated || []
-        );
-        question = 'What do the legal proceedings relate to?';
-        answer = Array.from(new Set(totalLegalProceedingsRelated))
-          ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' / ');
-      }
       break;
     }
     case APPLY_FINANCIAL_ORDER: {

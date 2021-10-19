@@ -167,9 +167,7 @@ describe('getAnswerRows()', () => {
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
         applicant1LegalProceedings: YesOrNo.YES,
-        applicant1LegalProceedingsRelated: ['marriage', 'property'],
         applicant2LegalProceedings: YesOrNo.YES,
-        applicant2LegalProceedingsRelated: ['marriage', 'children'],
       };
       mockCtx = {
         language: 'en',

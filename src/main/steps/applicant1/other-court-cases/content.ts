@@ -1,30 +1,20 @@
-import { LegalProceedingsRelated, YesOrNo } from '../../../app/case/definition';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, required, marriage, civilPartnership }: CommonContent) => {
+const en = ({ isDivorce, required, marriage, civilPartnership }: CommonContent) => {
   const partnership = isDivorce ? marriage : civilPartnership;
   return {
-    title: 'Other court cases',
-    line1: `The court needs to know if there are any other legal proceedings related to your ${partnership}, property or children. This includes any legal proceedings that are:`,
-    point1: 'ongoing, finished or abandoned',
-    point2: `between you and your ${partner}`,
-    point3: `between you, your ${partner} and anyone else`,
-    question: `Are there, or have there ever been, any other legal proceedings relating to your ${partnership}, property or children?`,
+    title: `Other court cases relating to this ${partnership}`,
+    line1: `The court needs to know if there are any other legal proceedings related to your ${partnership}. For example, another court case which has already dealt with ending this ${partnership}. This includes any court cases which are ongoing, finished or abandoned, either in the UK or overseas.`,
+    question: `Are there, or have there ever been, any other court cases relating to this ${partnership}?`,
     hint: 'Not including legal proceedings that may happen in the future.',
     subField: 'What do the legal proceedings relate to?',
-    subFieldHint: 'Select all that apply',
-    partnership: `${isDivorce ? 'Marriage' : 'Civil partnership'}`,
-    property: 'Property',
-    children: 'Children',
     errors: {
       applicant1LegalProceedings: {
         required,
-      },
-      applicant1LegalProceedingsRelated: {
-        required: 'You need to select what the proceedings relate to.',
       },
     },
   };
@@ -49,9 +39,6 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
       applicant1LegalProceedings: {
         required,
       },
-      applicant1LegalProceedingsRelated: {
-        required: "Mae angen i chi ddewis ynghylch beth y mae'r achos.",
-      },
     },
   };
 };
@@ -60,39 +47,11 @@ export const form: FormContent = {
   fields: {
     applicant1LegalProceedings: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.question,
       hint: l => l.hint,
       values: [
-        {
-          label: l => l.yes,
-          value: YesOrNo.YES,
-          subFields: {
-            applicant1LegalProceedingsRelated: {
-              type: 'checkboxes',
-              label: l => l.subField,
-              hint: l => l.subFieldHint,
-              validator: atLeastOneFieldIsChecked,
-              values: [
-                {
-                  name: 'applicant1LegalProceedingsRelated',
-                  label: l => l.partnership,
-                  value: LegalProceedingsRelated.MARRIAGE,
-                },
-                {
-                  name: 'applicant1LegalProceedingsRelated',
-                  label: l => l.property,
-                  value: LegalProceedingsRelated.PROPERTY,
-                },
-                {
-                  name: 'applicant1LegalProceedingsRelated',
-                  label: l => l.children,
-                  value: LegalProceedingsRelated.CHILDREN,
-                },
-              ],
-            },
-          },
-        },
+        { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,

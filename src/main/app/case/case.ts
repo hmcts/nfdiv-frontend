@@ -11,7 +11,6 @@ import {
   FinancialOrderFor,
   Gender,
   JurisdictionConnections,
-  LegalProceedingsRelated,
   ListValue,
   OrderSummary,
   Payment,
@@ -69,10 +68,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   applicant1LegalProceedings: 'applicant1LegalProceedings',
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
-  applicant1LegalProceedingsRelated: 'applicant1LegalProceedingsRelated',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
-  applicant2LegalProceedingsRelated: 'applicant2LegalProceedingsRelated',
   applyForFinancialOrder: 'applicant1FinancialOrder',
   whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
@@ -192,10 +189,8 @@ export interface Case {
   iWantToHavePapersServedAnotherWay?: Checkbox;
   applicant1LegalProceedings?: YesOrNo;
   applicant1LegalProceedingsDetails?: string;
-  applicant1LegalProceedingsRelated?: LegalProceedingsRelated[];
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
-  applicant2LegalProceedingsRelated?: LegalProceedingsRelated[];
   applyForFinancialOrder?: YesOrNo;
   whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
