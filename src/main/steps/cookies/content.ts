@@ -152,24 +152,21 @@ const cy: typeof en = ({ isDivorce }) => ({
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
   sessionCookieName1: 'connect.sid',
   sessionCookiePurpose1: 'Gwybodaeth am eich sesiwn gyfredol',
-  sessionCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   identityCookiesHeading1: 'Cwcis a ddefnyddir i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth',
   identityCookiesParagraph1:
     'Rydym yn defnyddio cwcis dilysu i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth.',
   identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
   identityCookieName1: '__auth-token',
   identityCookiePurpose1: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi',
-  identityCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   securityCookiesHeading1: 'Cwcis a ddefnyddir i wneud y gwasanaeth yn fwy diogel',
   securityCookiesParagraph1:
     'Rydym yn gosod cwcis er mwyn rhwystro hacwyr rhag addasu cynnwys y cwcis eraill a osodon ni. Mae hyn yn gwneud y gwasanaeth yn fwy diogel ac yn diogelu eich gwybodaeth bersonol.',
   securityCookiesAriaDescribedby: 'List of security cookies used.',
   securityCookieName1: 'TSxxxxxxxx',
   securityCookiePurpose1: 'Amddiffyn eich sesiwn rhag i rywun ymyrryd ag o',
-  securityCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   securityCookieName2: '__state',
   securityCookiePurpose2: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi a diogelu eich manylion',
-  securityCookieExpiry2: 'Pan fyddwch chi’n cau’ch porwr',
+  whenYouCloseYourBrowser: 'Pan fyddwch chi’n cau’ch porwr',
 });
 
 const languages = {
