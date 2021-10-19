@@ -67,7 +67,7 @@ const en = ({ isDivorce }) => ({
   securityCookiePurpose1: 'Protects your session from tampering',
   securityCookieName2: '__state',
   securityCookiePurpose2: 'Identifies you to the service and secures your authentication',
-  dynatraceCookiesHeading1: ' To measure application performance',
+  dynatraceCookiesHeading1: 'To measure application performance',
   dynatraceCookiesParagraph1:
     'We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services.' +
     ' We do this to monitor HMCTS services in order to resolve issues within our services as well as collect data on how our services can be improved.' +
