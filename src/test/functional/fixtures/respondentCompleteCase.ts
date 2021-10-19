@@ -4,7 +4,6 @@ import { BrowserCase } from '../../steps/common';
 
 export const respondentCompleteCase: Partial<BrowserCase> = {
   applicant2LegalProceedings: YesOrNo.NO,
-  applicant2LegalProceedingsRelated: [],
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
   applicant2EnglishOrWelsh: LanguagePreference.English,
 };
