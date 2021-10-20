@@ -26,7 +26,7 @@
     "test:cucumber:reports": "npx allure-commandline serve functional-output/functional/reports",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
-    "test:functional": "run-p test:e2e test:pa11y",
+    "test:functional": "yarn test:e2e",
     "test:fullfunctional": "run-p test:cucumber test:pa11y",
     "test:crossbrowser": "concurrently \"yarn test:crossbrowser:playwright:docker\" \"yarn test:crossbrowser:sauce\" --names playwright,sauce",
     "test:crossbrowser:playwright": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --grep '^(?!.*@flaky)'",
