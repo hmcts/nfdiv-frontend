@@ -1,0 +1,50 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "../hub-page/template.njk" %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: phase
+    },
+    html: feedback + languageToggle
+  }) }}
+  {% block backLink %}
+    <a href="#" class="govuk-back-link">{{ back }}</a>
+  {% endblock %}
+{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  {{ govukWarningText({
+    text: line2,
+    iconFallbackText: "Warning"
+  }) }}
+  <p class="govuk-body">{{ line3 }}</p>
+  {{ govukDetails({
+    summaryText: anotherEmailAddress,
+    html: anotherEmailAddressContent
+  }) }}
+  {{ govukDetails({
+    summaryText: emailButNotPostal,
+    html: emailButNotPostalContent
+  }) }}
+  {{ govukDetails({
+    summaryText: needToSearchForAddress,
+    html: needToSearchForAddressContent
+  }) }}
+  {{ govukDetails({
+    summaryText: thinkPartnerChoosingNotToRespond,
+    html: thinkPartnerChoosingNotToRespondContent
+  }) }}
+  {{ govukDetails({
+    summaryText: evidencePartnerNotResponded,
+    html: evidencePartnerNotRespondedContent
+  }) }}
+  {{ govukDetails({
+    summaryText: triedEveryWayToDeliver,
+    html: triedEveryWayToDeliverContent
+  }) }}
+{% endblock %}

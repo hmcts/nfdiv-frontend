@@ -7,43 +7,50 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">{{ title }}</h1>
 
-      <div class="govuk-body">
-        {{ referenceNumber }}
-      </div>
+      {% block page_content %}
+        <h1 class="govuk-heading-l">{{ title }}</h1>
 
-      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
-      <div class="govuk-!-padding-bottom-8"></div>
+        <div class="govuk-body">
+          {{ referenceNumber }}
+        </div>
 
-      {% include "./progress-bar.njk" %}
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
+        <div class="govuk-!-padding-bottom-8"></div>
 
-      <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
-      <div class="govuk-panel govuk-panel--outstanding">
-        {% if isJointApplication %}
-          {% block jointLatestUpdate %}
-            {% include "./joint/hub.njk" %}
-          {% endblock %}
-        {% else %}
-          {% block soleLatestUpdate %}
-            {% include "./sole/hub.njk" %}
-          {% endblock %}
-        {% endif %}
+        {% include "./progress-bar.njk" %}
 
-        <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
-        <p class="govuk-body">{{ line1 | safe }}</p>
-      </div>
+        <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
+        <div class="govuk-panel govuk-panel--outstanding">
+          {% if isJointApplication %}
+            {% block jointLatestUpdate %}
+              {% include "./joint/hub.njk" %}
+            {% endblock %}
+          {% else %}
+            {% block soleLatestUpdate %}
+              {% include "./sole/hub.njk" %}
+            {% endblock %}
+          {% endif %}
+
+          <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
+          <p class="govuk-body">{{ line1 | safe }}</p>
+        </div>
+      {% endblock %}
     </div>
 
-    <div class="govuk-grid-column-one-third hub-right-column">
+    {% if isHubPage %}
+      <div class="govuk-grid-column-one-third hub-right-column">
+    {% else %}
+      <div class="govuk-grid-column-one-third">
+    {% endif %}
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
-      <h2 class="govuk-heading-s">{{ subHeading3 }}</h2>
+      <h2 class="govuk-heading-s">{{ iWantTo }}</h2>
 
-      <p class="govuk-body">{{ line2 | safe }}</p>
+      <p class="govuk-body">{{ downloadLink | safe }}</p>
       <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-      <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
+      <h3 class="govuk-heading-s">{{ gettingHelp }}</h3>
       <p class="govuk-body">{{ telephone | safe }}</p>
       <p class="govuk-body">{{ email | safe }}</p>
       <p class="govuk-body">{{ post | safe}}</p>
