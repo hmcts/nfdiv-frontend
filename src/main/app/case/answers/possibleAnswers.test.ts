@@ -116,7 +116,6 @@ describe('omitUnreachableAnswers()', () => {
   test('returns unreachable answers as null on joint application', async () => {
     const userCase = fromApiFormat({
       applicant1AgreedToReceiveEmails: 'Yes',
-      applicant1LegalProceedingsRelated: [],
       applicant1KeepContactDetailsConfidential: 'No',
       applicationType: 'jointApplication',
       labelContentTheApplicant2UC: null,
@@ -194,7 +193,6 @@ describe('omitUnreachableAnswers()', () => {
       jurisdictionConnections: ['A'],
       applicant1NameChangedHowOtherDetails: null,
       solStatementOfReconciliationCertify: null,
-      applicant2LegalProceedingsRelated: [],
       createdDate: null,
       applicant2FinancialOrder: 'No',
       applicant2LastNameChangedWhenMarried: 'No',

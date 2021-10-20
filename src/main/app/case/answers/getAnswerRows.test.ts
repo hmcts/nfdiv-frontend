@@ -1,7 +1,7 @@
 import { StepWithContent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
-import { APPLICANT_2, APPLY_FINANCIAL_ORDER, OTHER_COURT_CASES, YOUR_NAME } from '../../../steps/urls';
+import { APPLICANT_2, APPLY_FINANCIAL_ORDER, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
 import { FinancialOrderFor, YesOrNo } from '../definition';
 
@@ -9,6 +9,7 @@ import { getAnswerRows } from './getAnswerRows';
 
 const mockStepsWithContentApplicant1: jest.Mock<StepWithContent[]> = jest.fn();
 const mockStepsWithContentApplicant2: jest.Mock<StepWithContent[]> = jest.fn();
+const mockStepsWithContentRespondent: jest.Mock<StepWithContent[]> = jest.fn();
 
 jest.mock('../../../steps', () => ({
   get stepsWithContentApplicant1() {
@@ -16,6 +17,9 @@ jest.mock('../../../steps', () => ({
   },
   get stepsWithContentApplicant2() {
     return mockStepsWithContentApplicant2();
+  },
+  get stepsWithContentRespondent() {
+    return mockStepsWithContentRespondent();
   },
 }));
 
@@ -67,6 +71,7 @@ describe('getAnswerRows()', () => {
         formState: {},
         userEmail: 'test@example.com',
         isApplicant2: false,
+        isJointApplication: false,
       },
     })(Sections.AboutPartnership);
 
@@ -129,6 +134,28 @@ describe('getAnswerRows()', () => {
           view: '/template',
         },
       ]);
+      mockStepsWithContentRespondent.mockReturnValue([
+        {
+          stepDir: '/',
+          url: 'dont-pickThisOne-respondent',
+          showInSection: Sections.AboutPartners,
+          showInCompleteSection: Sections.AboutPartners,
+          getNextStep: () => '/pickThisOne',
+          generateContent: () => ({}),
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+        {
+          stepDir: '/',
+          url: 'pickThisOne-respondent',
+          showInSection: Sections.AboutPartnership,
+          showInCompleteSection: Sections.AboutPartnership,
+          getNextStep: () => '/',
+          generateContent: mockGenerateContent,
+          form: { fields: { mockField: { type: 'text', label: l => l.title } }, submit: { text: '' } },
+          view: '/template',
+        },
+      ]);
 
       mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
@@ -140,14 +167,13 @@ describe('getAnswerRows()', () => {
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
         applicant1LegalProceedings: YesOrNo.YES,
-        applicant1LegalProceedingsRelated: ['marriage', 'property'],
         applicant2LegalProceedings: YesOrNo.YES,
-        applicant2LegalProceedingsRelated: ['marriage', 'children'],
       };
       mockCtx = {
         language: 'en',
         isDivorce: true,
         isApplicant2: false,
+        isJointApplication: false,
         partner: 'husband',
         formState: mockFormState,
         change: 'Change',
@@ -188,7 +214,7 @@ describe('getAnswerRows()', () => {
     it('converts steps into the correct check answers rows for applicant 2', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
+        ctx: { ...mockCtx, isApplicant2: true, isJointApplication: true },
       })(Sections.AboutPartnership);
 
       expect(actual).toEqual([
@@ -297,7 +323,7 @@ describe('getAnswerRows()', () => {
       ]);
     });
 
-    it('removes steps if check your answer page considerers it incomplete', () => {
+    it('removes steps if check your answer page considers it incomplete', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
@@ -388,6 +414,7 @@ describe('getAnswerRows()', () => {
         ctx: {
           ...mockCtx,
           isApplicant2: true,
+          isJointApplication: true,
           stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
           stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
           stepAnswersWithHTML: {
@@ -424,6 +451,7 @@ describe('getAnswerRows()', () => {
         ctx: {
           ...mockCtx,
           isApplicant2: true,
+          isJointApplication: true,
           stepQuestions: { pickThisOne: { mockField: 'Custom question text' } },
           stepAnswers: { pickThisOne: { mockField: () => 'Custom answer text. Original answer: example response' } },
           stepAnswersWithHTML: {
@@ -449,7 +477,10 @@ describe('getAnswerRows()', () => {
     it('converts steps into the correct check answers rows with overridden values to show applicant 2', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: mockCtx,
+        ctx: {
+          ...mockCtx,
+          isJointApplication: true,
+        },
       })(Sections.AboutPartnership, false, true, 2);
 
       expect(actual).toEqual([
@@ -477,7 +508,7 @@ describe('getAnswerRows()', () => {
     it('converts steps into the correct check answers rows for confirm joint application page', () => {
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
+        ctx: { ...mockCtx, isApplicant2: true, isJointApplication: true },
       })(Sections.AboutPartnership, true, false);
 
       expect(actual).toEqual([
@@ -577,7 +608,7 @@ describe('getAnswerRows()', () => {
 
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
+        ctx: { ...mockCtx, isApplicant2: true, isJointApplication: true },
       })(Sections.DividingAssets, true, false);
 
       expect(actual).toEqual([
@@ -638,7 +669,7 @@ describe('getAnswerRows()', () => {
 
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
+        ctx: { ...mockCtx, isApplicant2: true, isJointApplication: true },
       })(Sections.AboutApplicant1, true, false);
 
       expect(actual).toEqual([
@@ -681,7 +712,7 @@ describe('getAnswerRows()', () => {
 
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
+        ctx: { ...mockCtx, isApplicant2: true, isJointApplication: true },
       })(Sections.AboutApplicant2, true, false);
 
       expect(actual).toEqual([
@@ -701,105 +732,6 @@ describe('getAnswerRows()', () => {
           },
           value: {
             html: 'Billy Bob',
-          },
-        },
-      ]);
-    });
-
-    it('converts steps into the correct check answers rows for confirm joint application page with additional otherCourtCases questions', () => {
-      mockStepsWithContentApplicant1.mockReturnValue([
-        {
-          stepDir: '/',
-          url: OTHER_COURT_CASES,
-          showInCompleteSection: Sections.OtherCourtCases,
-          getNextStep: () => '/',
-          generateContent: mockGenerateContent,
-          form: {
-            fields: {
-              applicant1LegalProceedings: {
-                type: 'radios',
-                label: l => l.title,
-                values: [
-                  {
-                    label: l => l.yes,
-                    value: YesOrNo.YES,
-                    subFields: {
-                      applicant1LegalProceedingsRelated: {
-                        type: 'checkboxes',
-                        label: () => 'Mock Checkboxes',
-                        values: [
-                          { name: 'applicant1LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
-                          { name: 'applicant1LegalProceedingsRelated', label: () => 'property', value: 'property' },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            submit: { text: '' },
-          },
-          view: '/template',
-        },
-      ]);
-
-      mockStepsWithContentApplicant2.mockReturnValue([
-        {
-          stepDir: '/',
-          url: APPLICANT_2 + OTHER_COURT_CASES,
-          getNextStep: () => '/',
-          generateContent: mockGenerateContent,
-          form: {
-            fields: {
-              applicant2LegalProceedings: {
-                type: 'radios',
-                label: l => l.title,
-                values: [
-                  {
-                    label: l => l.yes,
-                    value: YesOrNo.YES,
-                    subFields: {
-                      applicant2LegalProceedingsRelated: {
-                        type: 'checkboxes',
-                        label: () => 'Mock Checkboxes',
-                        values: [
-                          { name: 'applicant2LegalProceedingsRelated', label: () => 'marriage', value: 'marriage' },
-                          { name: 'applicant2LegalProceedingsRelated', label: () => 'children', value: 'children' },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            submit: { text: '' },
-          },
-          view: '/template',
-        },
-      ]);
-
-      const actual = getAnswerRows.bind({
-        ...mockNunjucksEnv,
-        ctx: { ...mockCtx, isApplicant2: true },
-      })(Sections.OtherCourtCases, true, false);
-
-      expect(actual).toEqual([
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
-            html: 'Mock question title',
-          },
-          value: {
-            html: 'newlineToBr(escaped(Yes))',
-          },
-        },
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
-            html: 'What do the legal proceedings relate to?',
-          },
-          value: {
-            html: 'Marriage / Property / Children',
           },
         },
       ]);
