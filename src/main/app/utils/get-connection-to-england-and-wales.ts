@@ -1,4 +1,4 @@
-import { JurisdictionConnections } from '../../app/case/definition';
+import { JurisdictionConnections } from '../case/definition';
 
 export const connectionBulletPointsTextForRespondent = (connections: JurisdictionConnections[]): string[] => {
   const connectionBulletPoints = {
