@@ -15,9 +15,9 @@ Feature: Respondent Check Your Answers
     When I click "Respond to the application"
     When I select "I have read the application for divorce"
     When I click "Continue"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
     And I go to "/respondent/check-your-answers"
-    Then the page should include "What language do you want to receive emails and documents in? English"
-    Then the page should include "Are there, or have there ever been, any other legal proceedings relating to your marriage, property or children? No"
+    Then the page should include "Check your answers"
 
   Scenario: Checking answers and submitting
     And I select "I confirm that:"

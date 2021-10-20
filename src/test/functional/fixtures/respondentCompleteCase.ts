@@ -3,7 +3,12 @@ import { YesOrNo } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
 
 export const respondentCompleteCase: Partial<BrowserCase> = {
+  disputeApplication: YesOrNo.NO,
+  doYouAgreeCourtHasJurisdiction: YesOrNo.YES,
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
+  inWhichCountryIsYourLifeMainlyBased: '',
   applicant2LegalProceedings: YesOrNo.NO,
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
+  applicant2PhoneNumber: '',
   applicant2EnglishOrWelsh: LanguagePreference.English,
 };
