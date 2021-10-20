@@ -5,6 +5,7 @@ Feature: Applicant 2 Your names
     When I am reviewing an application for divorce created by my wife
     Then I go to '/applicant2/enter-your-name'
 
+  @nightly
   Scenario: Entering my names
     Given the page should include "Enter your name"
     And I clear the form

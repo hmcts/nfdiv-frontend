@@ -6,11 +6,13 @@ Feature: Applicant 2 how did you change your name
     When I go to '/applicant2/how-did-you-change-your-name'
     Then the page should include "How did you change your name?"
 
+  @nightly
   Scenario: They changed their name by sending of their certificate
     Given I select "By sending off my marriage certificate"
     When I click "Continue"
     Then the page should include "How the court will contact you"
 
+  @nightly
   Scenario: They changed their name by deed poll or statutory declaration
     Given I select "By deed poll or ‘statutory declaration’"
     When I click "Continue"
@@ -22,6 +24,7 @@ Feature: Applicant 2 how did you change your name
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They changed their name another way
     Given I select "Another way"
     And I select "Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here."
