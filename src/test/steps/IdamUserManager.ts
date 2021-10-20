@@ -5,28 +5,43 @@ import axios, { AxiosInstance } from 'axios';
 export class IdamUserManager {
   client: AxiosInstance;
   users: Set<string> = new Set();
+  caseWorker: string;
 
   constructor(idamUrl: string) {
     this.client = axios.create({
       baseURL: new URL('/', idamUrl).toString(),
     });
+    this.caseWorker = '';
   }
 
-  async create(email: string, password: string, role = 'citizen'): Promise<void> {
+  async createUser(email: string, password: string, role = ['citizen']): Promise<void> {
+    await this.create(email, password, role);
+    this.users.add(email);
+  }
+
+  async createCaseWorker(
+    email: string,
+    password: string,
+    role = ['caseworker', 'caseworker-divorce', 'caseworker-divorce-courtadmin_beta']
+  ): Promise<void> {
+    await this.create(email, password, role);
+    this.caseWorker = email;
+  }
+
+  async create(email: string, password: string, role: string[]): Promise<void> {
     try {
       await this.client.post('/testing-support/accounts', {
         id: 'No Fault Divorce Citizen 12345',
         email,
         password,
-        roles: [
-          {
-            code: role,
-          },
-        ],
+        roles: role.map(r => {
+          return {
+            code: r,
+          };
+        }),
         forename: 'FunctionalTest',
-        surname: role,
+        surname: 'LastNameTest',
       });
-      this.users.add(email);
       console.info('Created user', email);
     } catch (e) {
       console.info('Error creating user', email, e);
@@ -47,6 +62,9 @@ export class IdamUserManager {
   async deleteAll(): Promise<void> {
     for (const user of this.users) {
       await this.delete(user);
+    }
+    if (this.caseWorker) {
+      await this.delete(this.caseWorker);
     }
   }
 
@@ -69,5 +87,9 @@ export class IdamUserManager {
 
   getUsername(index: number): string {
     return Array.from(this.users)[index] as string;
+  }
+
+  getCaseWorker(): string {
+    return this.caseWorker;
   }
 }

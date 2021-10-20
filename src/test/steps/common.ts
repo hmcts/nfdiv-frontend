@@ -184,7 +184,8 @@ When('I enter my valid case reference and valid access code', async () => {
   await I.amOnPage('/applicant2/enter-your-access-code');
   iClearTheForm();
 
-  const testUser = await iGetTheTestUser();
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
   const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
   const fetchedCase = await caseApi.getCaseById(userCase.id);
@@ -208,13 +209,32 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Continue');
 });
 
-export const iGetTheTestUser = async (): Promise<UserDetails> => {
+When('CaseWorker issues application', async () => {
+  await I.amOnPage('/applicant2/enter-your-access-code');
+  iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const caseReference = userCase.id;
+
+  if (!caseReference) {
+    throw new Error(`No case reference or access code was returned for ${testUser}`);
+  }
+
+  const cwUser = await testConfig.GetOrCreateCaseWorker();
+  const caseWorker = await iGetTheTestUser(cwUser);
+  const cwCaseApi = iGetTheCaseApi(caseWorker);
+  await cwCaseApi.triggerEvent(caseReference, { placeOfMarriage: 'Somewhere' }, 'caseworker-issue-application');
+});
+
+export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');
   const secret = sysConfig.get('services.idam.clientSecret');
   const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const user = testConfig.GetCurrentUser();
   const data = `grant_type=password&username=${user.username}&password=${user.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
