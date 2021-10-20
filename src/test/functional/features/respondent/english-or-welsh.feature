@@ -24,11 +24,13 @@ Feature: Respondent Language Preference
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: Select English as preferred language
     And I select "English"
     When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
 
+  @nightly
   Scenario: Select Welsh as preferred language
     And I select "Welsh"
     And I click "Continue"

@@ -12,6 +12,7 @@ Feature: Applicant 2 Union broken down
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: Their partnership has not broken down
     Given I select "No, my marriage has not irretrievably broken down"
     Then the page should include "This is the law in England and Wales."
