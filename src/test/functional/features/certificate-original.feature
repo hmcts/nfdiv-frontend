@@ -20,6 +20,7 @@ Feature: Certificate Original
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: You need a ‘certified translation’ of your marriage certificate'
     And I select "No"
     When I click "Continue"

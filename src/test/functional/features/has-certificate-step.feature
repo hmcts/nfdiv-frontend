@@ -16,6 +16,7 @@ Feature: Certificate step
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They do not have their union certificate
     Given I select "No, I do not have marriage certificate"
     When I click "Continue"
