@@ -6,6 +6,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
+  HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
@@ -16,10 +17,6 @@ import {
 } from './urls';
 
 const sequences: Step[] = [
-  {
-    url: HUB_PAGE,
-    getNextStep: () => REVIEW_THE_APPLICATION,
-  },
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
@@ -58,6 +55,14 @@ const sequences: Step[] = [
     url: ENGLISH_OR_WELSH,
     showInSection: Sections.ContactYou,
     getNextStep: () => CHECK_ANSWERS_URL,
+  },
+  {
+    url: CHECK_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
   },
 ];
 
