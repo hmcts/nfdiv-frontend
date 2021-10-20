@@ -54,26 +54,51 @@ const en = ({ isDivorce }) => ({
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
   sessionCookieName1: 'connect.sid',
   sessionCookiePurpose1: 'Carries details of your current session',
-  sessionCookieExpiry1: 'When you close your browser',
   identityCookiesHeading1: 'To identify you when you come back to the service',
   identityCookiesParagraph1: 'We use authentication cookies to identify you when you return to the service.',
   identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
   identityCookieName1: '__auth-token',
   identityCookiePurpose1: 'Identifies you to the service',
-  identityCookieExpiry1: 'When you close your browser',
   securityCookiesHeading1: 'To make the service more secure',
   securityCookiesParagraph1:
     'We set cookies which prevent attackers from modifying the contents of the other cookies we set. This makes the service more secure and protects your personal information.',
   securityCookiesAriaDescribedby: 'List of security cookies used.',
   securityCookieName1: 'TSxxxxxxxx',
   securityCookiePurpose1: 'Protects your session from tampering',
-  securityCookieExpiry1: 'When you close your browser',
   securityCookieName2: '__state',
   securityCookiePurpose2: 'Identifies you to the service and secures your authentication',
-  securityCookieExpiry2: 'When you close your browser',
+  dynatraceCookiesHeading1: 'To measure application performance',
+  dynatraceCookiesParagraph1:
+    'We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services.' +
+    ' We do this to monitor HMCTS services in order to resolve issues within our services as well as collect data on how our services can be improved.' +
+    ' HMCTS store information about:',
+  dynatraceCookiesItem1: 'Site performance',
+  dynatraceCookiesItem2: 'Website usage',
+  dynatraceCookiesItem3: 'User behaviour',
+  dynatraceCookiesParagraph2:
+    'Information is presented within the Application Performance Monitoring service for the purposes detailed above.' +
+    ' We do not use or share the information for any other purpose. We do not allow Dynatrace to use or share the information for any other purposes.',
+  dynatraceCookiesPurpose1: 'Tracks a visit across multiple request',
+  dynatraceCookiesPurpose2: 'Measures server latency for performance monitoring',
+  dynatraceCookiesPurpose3:
+    'Required to identify proper endpoints for beacon transmission; includes session ID for correlation',
+  dynatraceCookiesPurpose4: 'Intermediate store for page-spanning actions',
+  dynatraceCookiesPurpose5: 'Visitor ID to correlate sessions',
+  dynatraceCookiesPurpose6: 'Session timeout',
+  dynatraceCookieName1: 'dtCookie',
+  dynatraceCookieName2: 'dtLatC',
+  dynatraceCookieName3: 'dtPC',
+  dynatraceCookieName4: 'dtSa',
+  dynatraceCookieName5: 'rxVisitor',
+  dynatraceCookieName6: 'rxvt',
+  sessionEnd: 'Session end',
+  whenYouCloseYourBrowser: 'When you close your browser',
+  dynatraceCookiesAriaDescribedby: 'List of dynatrace cookies used.',
+  oneYear: '1 year',
 });
 
 const cy: typeof en = ({ isDivorce }) => ({
+  ...en({ isDivorce }),
   title: 'Cwcis',
   paragraph1:
     'Darn bach o ddata sy&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
@@ -127,24 +152,21 @@ const cy: typeof en = ({ isDivorce }) => ({
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
   sessionCookieName1: 'connect.sid',
   sessionCookiePurpose1: 'Gwybodaeth am eich sesiwn gyfredol',
-  sessionCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   identityCookiesHeading1: 'Cwcis a ddefnyddir i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth',
   identityCookiesParagraph1:
     'Rydym yn defnyddio cwcis dilysu i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth.',
   identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
   identityCookieName1: '__auth-token',
   identityCookiePurpose1: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi',
-  identityCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   securityCookiesHeading1: 'Cwcis a ddefnyddir i wneud y gwasanaeth yn fwy diogel',
   securityCookiesParagraph1:
     'Rydym yn gosod cwcis er mwyn rhwystro hacwyr rhag addasu cynnwys y cwcis eraill a osodon ni. Mae hyn yn gwneud y gwasanaeth yn fwy diogel ac yn diogelu eich gwybodaeth bersonol.',
   securityCookiesAriaDescribedby: 'List of security cookies used.',
   securityCookieName1: 'TSxxxxxxxx',
   securityCookiePurpose1: 'Amddiffyn eich sesiwn rhag i rywun ymyrryd ag o',
-  securityCookieExpiry1: 'Pan fyddwch chi’n cau’ch porwr',
   securityCookieName2: '__state',
   securityCookiePurpose2: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi a diogelu eich manylion',
-  securityCookieExpiry2: 'Pan fyddwch chi’n cau’ch porwr',
+  whenYouCloseYourBrowser: 'Pan fyddwch chi’n cau’ch porwr',
 });
 
 const languages = {
