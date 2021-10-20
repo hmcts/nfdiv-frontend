@@ -50,7 +50,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    disputeApplication: {
+    confirmDisputeApplication: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
