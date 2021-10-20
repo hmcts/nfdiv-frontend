@@ -13,13 +13,13 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryLimits: '2Gi'
+  memoryLimits: '1Gi'
+  memoryRequests: '512Mi'
   cpuLimits: '1000m'
-  memoryRequests: '700Mi'
   cpuRequests: '50m'
   devcpuRequests: '100m'
-  devmemoryLimits: '2Gi'
-  devmemoryRequests: '1Gi'
+  devmemoryLimits: '1Gi'
+  devmemoryRequests: '512Mi'
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv

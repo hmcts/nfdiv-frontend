@@ -27,7 +27,7 @@ if (!fileExistsSync(filename)) {
 getTokenFromApi();
 
 const content = readFileSync(filename).toString();
-const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
+const instanceNo = (content === '' || +content >= 12 ? 0 : +content) + 1;
 
 writeFileSync(filename, instanceNo + '');
 lockFile.unlockSync(lock);
@@ -125,7 +125,7 @@ config.helpers = {
   Playwright: {
     url: config.TEST_URL,
     show: !config.TestHeadlessBrowser,
-    browser: 'firefox',
+    browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
     waitForAction: 500,
     waitForNavigation: 'networkidle0',
