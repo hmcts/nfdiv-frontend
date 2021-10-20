@@ -34,7 +34,7 @@ export class HomeGetController {
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state));
     } else if (req.session.isApplicant2) {
       const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
@@ -101,6 +101,14 @@ const applicant2RedirectPageSwitch = (
   }
 };
 
-const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
-  return isFirstQuestionComplete ? `${RESPONDENT}${CHECK_ANSWERS_URL}` : `${RESPONDENT}${HUB_PAGE}`;
+const respondentRedirectPageSwitch = (caseState: State) => {
+  switch (caseState) {
+    case State.AosDrafted:
+    case State.AosOverdue: {
+      return `${RESPONDENT}${CHECK_ANSWERS_URL}`;
+    }
+    default: {
+      return `${RESPONDENT}${HUB_PAGE}`;
+    }
+  }
 };

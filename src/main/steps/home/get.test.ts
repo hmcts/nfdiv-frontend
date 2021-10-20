@@ -1,7 +1,7 @@
 import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -10,6 +10,7 @@ import {
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   HUB_PAGE,
+  RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -244,5 +245,41 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the check your answers page for respondent users in AosDrafted state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.AosDrafted,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
+  });
+
+  test('redirects to the hub page for respondent users in holding state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.Holding,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
   });
 });
