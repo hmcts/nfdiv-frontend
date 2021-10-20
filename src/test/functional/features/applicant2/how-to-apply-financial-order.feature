@@ -7,6 +7,7 @@ Feature: Applicant 2 how to apply for a financial order
     Then the page should include "How to apply for a financial order"
     And the page should include "You will need to complete another form (Form A or Form A1) and pay an additional fee."
 
+  @nightly
   Scenario: They click Continue on the "How to apply for a financial order" page and have changed their names
     When I go to "/applicant2/changes-to-your-name"
     Given I select "Yes" for "Did you change your last name when you got married?"
@@ -19,6 +20,7 @@ Feature: Applicant 2 how to apply for a financial order
     When I click "Continue"
     Then the page URL should be "/applicant2/upload-your-documents"
 
+  @nightly
   Scenario: They click Continue on the "How to apply for a financial order" page and have not changed their names
     When I go to "/applicant2/changes-to-your-name"
     Given I select "No" for "Did you change your last name when you got married?"

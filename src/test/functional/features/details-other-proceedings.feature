@@ -11,6 +11,7 @@ Feature: Details other proceedings
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: Form is filled in
     Given I select "Provide details about the other legal proceedings."
     And I type "These are the court case details"
