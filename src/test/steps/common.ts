@@ -209,7 +209,7 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Continue');
 });
 
-When('CaseWorker issues application', async () => {
+When('a case worker issues the application', async () => {
   await I.amOnPage('/applicant2/enter-your-access-code');
   iClearTheForm();
 
