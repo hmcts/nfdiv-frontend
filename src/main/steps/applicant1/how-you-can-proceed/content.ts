@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -23,7 +25,9 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   You do not have to pay anything to update their email or postal address.`,
   emailButNotPostal: 'I have their email address but not their postal address',
   emailButNotPostalContent: `If you have their email address but not their postal address, then you can apply to the court to only send the application to their email address.
-  This application costs an additional , unless you are eligible for Help With Fees. <br><br>
+  This application costs an additional ${config.get(
+    'fees.alternativeService'
+  )}, unless you are eligible for Help With Fees.<br><br>
   <strong>How to apply:</strong> Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
   Send the form to the Courts and Tribunals Service Centre by email or post <br><br>
   Email: ${contactEmail} <br><br>
@@ -34,9 +38,13 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   CM20 9QT`,
   needToSearchForAddress: `I need to search government records for my ${partner}'s postal address`,
   needToSearchForAddressContent: `You can apply to search government records for your ${partner}'s address, for example the electoral register.
-   They must live in England or Wales. The application costs an additional £50, unless you are eligible for Help With Fees.<br><br>
+   They must live in England or Wales. The application costs an additional ${config.get(
+     'fees.searchForAddress'
+   )}, unless you are eligible for Help With Fees.<br><br>
   <strong>How to apply:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 and ask for the form to be sent to you.<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the £50 payment by card (between 8.30am and 5pm).
+  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the ${config.get(
+    'fees.searchForAddress'
+  )} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.`,
   thinkPartnerChoosingNotToRespond: `I think my ${partner} is receiving the application but is choosing not to respond`,
@@ -68,7 +76,9 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   <strong>Serving using the court bailiffs</strong><br>
   The bailiff service can only be used at addresses in England and Wales where delivery by post has already failed.
   If you have a new address for your ${partner}, you’ll have to get it delivered by post to that address, before you can apply for the bailiff service.
-  Using the court bailiff service costs an additional £110, unless you’re eligible for Help With Fees.<br><br>
+  Using the court bailiff service costs an additional ${config.get(
+    'fees.courtBailiffService'
+  )}, unless you’re eligible for Help With Fees.<br><br>
   <strong>How to apply:</strong> Download and complete <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff" class="govuk-link">form D89</a>.
   You'll also need to send:
   <ul><li>a photo of your ${partner}</li><li>a copy of your ${
@@ -81,12 +91,16 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   PO Box 12706<br>
   Harlow<br>
   CM20 9QT<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the £110 payment by card (between 8.30am and 5pm).
+  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the ${config.get(
+    'fees.courtBailiffService'
+  )} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.`,
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   evidencePartnerNotRespondedContent: `If you know your ${partner} has received the application, but will not or cannot respond, you can apply to the court for ‘deemed service’.
   This means that the court decides that your ${partner} has received the application, and that you can continue without their response.
-  This application costs an additional £50, unless you are eligible for Help With Fees.<br><br>
+  This application costs an additional ${config.get(
+    'fees.deemedService'
+  )}, unless you are eligible for Help With Fees.<br><br>
   You will need to be able to prove that your ${partner} received the application.
   For example, you have a text message from your ${partner} saying they have received it.<br><br>
   <strong>How to apply:</strong>  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
@@ -97,7 +111,9 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   PO Box 12706<br>
   Harlow<br>
   CM20 9QT<br><br>
- <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the £50 payment by card (between 8.30am and 5pm).
+ <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the ${config.get(
+   'fees.deemedService'
+ )} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",
@@ -105,7 +121,9 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   This means the court decides the court documents do not have to be ‘served’ (delivered) to your ${partner} because it’s impossible to locate them.<br><br>
   You will have to show that you have done everything you can to find your ${partner} and ‘serve’ (deliver) the application to them.
   For example by contacting their relatives, friends and last-known employer and searching government databases for their address.
-  This application costs an additional £50, unless you are eligible for Help With Fees.<br><br>
+  This application costs an additional ${config.get(
+    'fees.dispensedService'
+  )}, unless you are eligible for Help With Fees.<br><br>
   <strong>How to apply:</strong>  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>
   and <a href="https://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=1112" class="govuk-link">form D13b</a>.
   Send the forms to the Courts and Tribunals Service Centre by email or post:<br>
@@ -115,7 +133,9 @@ const en = ({ isDivorce, marriage, divorce, civilPartnership, partner, contactEm
   PO Box 12706<br>
   Harlow<br>
   CM20 9QT<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the £50 payment by card (between 8.30am and 5pm).
+  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the ${config.get(
+    'fees.dispensedService'
+  )} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.`,
 });

@@ -7,6 +7,10 @@ fees:
   alternativeService: £50
   consentOrder: £50
   financialOrder: £255
+  courtBailiffService: £110
+  deemedService: £50
+  dispensedService: £50
+  searchForAddress: £50
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
