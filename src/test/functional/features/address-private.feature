@@ -12,6 +12,7 @@ Feature: Contact details kept private
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They want to keep their details private
     And I select "Keep my contact details private"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.8.1"
   },
   "scripts": {
     "prepare": "husky install",
@@ -19,21 +19,21 @@
     "test:a11y": "echo 'nope' && exit 0",
     "test:pa11y": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.a11y.config.js --maxWorkers 15",
     "test:cucumber": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env SERVICE_AUTH_SECRET --env IDAM_SECRET --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:cucumber:docker $UID",
-    "test:cucumber:docker": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run-workers 8 parallel --grep '^(?!.*@flaky)'",
+    "test:cucumber:docker": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run-workers 12 parallel --grep '^(?!.*@flaky)'",
     "test:e2e": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env SERVICE_AUTH_SECRET --env IDAM_SECRET --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:e2e:docker $UID",
-    "test:e2e:docker": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run-workers 8 parallel --grep '^(?!.*(@nightly|@flaky))'",
+    "test:e2e:docker": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run-workers 12 parallel --grep '^(?!.*(@nightly|@flaky))'",
     "test:cucumber:grep": "TEST_HEADLESS=false NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/functional/codecept.conf.js run --steps --verbose --grep",
     "test:cucumber:reports": "npx allure-commandline serve functional-output/functional/reports",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
-    "test:functional": "yarn test:e2e && yarn test:pa11y",
-    "test:fullfunctional": "yarn test:cucumber && yarn test:pa11y",
+    "test:functional": "run-p test:e2e test:pa11y",
+    "test:fullfunctional": "run-p test:cucumber test:pa11y",
     "test:crossbrowser": "concurrently \"yarn test:crossbrowser:playwright:docker\" \"yarn test:crossbrowser:sauce\" --names playwright,sauce",
     "test:crossbrowser:playwright": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --grep '^(?!.*@flaky)'",
     "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:crossbrowser:playwright $UID",
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs --config ./src/test/cross-browser/codecept.conf.js",
-    "cichecks": "yarn && yarn build && yarn lint && yarn test"
+    "cichecks": "yarn && run-p build lint test"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^0.0.4",
@@ -134,6 +134,7 @@
     "mini-css-extract-plugin": "^2.4.2",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.14",
+    "npm-run-all": "^4.1.5",
     "pa11y": "^6.0.1",
     "playwright": "^1.15.2",
     "prettier": "^2.4.1",
