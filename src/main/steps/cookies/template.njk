@@ -92,7 +92,7 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ sessionCookieName1 }}</td>
           <td class="govuk-table__cell">{{ sessionCookiePurpose1 }}</td>
-          <td class="govuk-table__cell">{{ sessionCookieExpiry1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
         </tr>
       </table>
     </section>
@@ -108,7 +108,7 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ identityCookieName1 }}</td>
           <td class="govuk-table__cell">{{ identityCookiePurpose1 }}</td>
-          <td class="govuk-table__cell">{{ identityCookieExpiry1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
         </tr>
       </table>
     </section>
@@ -124,12 +124,59 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ securityCookieName1 }}</td>
           <td class="govuk-table__cell">{{ securityCookiePurpose1 }}</td>
-          <td class="govuk-table__cell">{{ securityCookieExpiry1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ securityCookieName2 }}</td>
           <td class="govuk-table__cell">{{ securityCookiePurpose2 }}</td>
-          <td class="govuk-table__cell">{{ securityCookieExpiry2 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ dynatraceCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ dynatraceCookiesParagraph1 }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ dynatraceCookiesItem1 }}</li>
+        <li>{{ dynatraceCookiesItem2 }}</li>
+        <li>{{ dynatraceCookiesItem3 }}</li>
+      </ul>
+      <p class="govuk-body">{{ dynatraceCookiesParagraph2 }}</p>
+      <table class="govuk-table" aria-describedby="{{ dynatraceCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose1 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName2 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose2 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName3 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose3 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName4 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose4 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName5 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose5 }}</td>
+          <td class="govuk-table__cell">{{ oneYear }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName6 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose6 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
         </tr>
       </table>
     </section>
