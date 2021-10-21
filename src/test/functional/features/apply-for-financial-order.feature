@@ -8,8 +8,7 @@ Feature: Apply for a financial order
     And the page should include "Dividing your money and property"
     And I click "Continue"
     And I clear the form
-    When I select "Yes"
-    And I select "The children"
+    When I select "Yes, I want to apply for a financial order"
     And I click "Continue"
     Then the page URL should be "/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
@@ -22,8 +21,5 @@ Feature: Apply for a financial order
     And I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
-    And the page should include "You have not answered the question"
-    And I select "Yes"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You need to select who the financial order is for"
+    And the page should include "You have not answered the question. You need to select an answer before continuing."
+    
