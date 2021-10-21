@@ -148,7 +148,7 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
-  FinancialOrderFor: FinancialOrderFor[];
+  // FinancialOrderFor: FinancialOrderFor[];
   LegalProceedings: YesOrNo;
   LegalProceedingsRelated: LegalProceedingsRelated[];
   LegalProceedingsDetails: string;
@@ -283,7 +283,7 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
+  // applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant1LegalProceedingsDetails: string;
@@ -313,7 +313,7 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
-  applicant2FinancialOrderFor: FinancialOrderFor[];
+  // applicant2FinancialOrderFor: FinancialOrderFor[];
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant2LegalProceedingsDetails: string;
@@ -878,11 +878,6 @@ export const enum DocumentsServedWhere {
   PLACE_BUSINESS = 'placeBusiness',
   LAST_KNOWN_RESIDENCE = 'lastKnownResidence',
   USUAL_RESIDENCE = 'usualResidence',
-}
-
-export const enum FinancialOrderFor {
-  APPLICANT = 'applicant',
-  CHILDREN = 'children',
 }
 
 export const enum Gender {
