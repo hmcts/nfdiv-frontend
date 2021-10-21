@@ -255,6 +255,7 @@ describe('HomeGetController', () => {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
+          disputeApplication: YesOrNo.NO,
           state: State.AosDrafted,
         },
         isApplicant2: true,
