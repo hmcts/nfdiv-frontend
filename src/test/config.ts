@@ -1,4 +1,3 @@
-import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
 import { PropertiesVolume } from '../main/modules/properties-volume';
 import { Application } from 'express';
 
@@ -16,23 +15,9 @@ import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
-const lock = '/tmp/concepts.worker.lock';
-lockFile.lockSync(lock);
-
-const filename = '/tmp/concepts.worker.id';
-if (!fileExistsSync(filename)) {
-  closeSync(openSync(filename, 'w'));
-}
-
 getTokenFromApi();
 
-const content = readFileSync(filename).toString();
-const instanceNo = (content === '' ? 0 : +content) + 1;
-
-writeFileSync(filename, instanceNo + '');
-lockFile.unlockSync(lock);
-
-const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
+const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}@hmcts.net`;
 const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
