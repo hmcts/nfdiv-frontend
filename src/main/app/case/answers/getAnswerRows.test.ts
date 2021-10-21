@@ -3,7 +3,7 @@ import { Sections } from '../../../steps/applicant1Sequence';
 import * as commonContent from '../../../steps/common/common.content';
 import { APPLICANT_2, APPLY_FINANCIAL_ORDER, YOUR_NAME } from '../../../steps/urls';
 import { Checkbox } from '../case';
-import { FinancialOrderFor, YesOrNo } from '../definition';
+import { YesOrNo } from '../definition';
 
 import { getAnswerRows } from './getAnswerRows';
 
@@ -162,8 +162,6 @@ describe('getAnswerRows()', () => {
       mockFormState = {
         mockField: 'example response',
         applyForFinancialOrder: YesOrNo.YES,
-        whoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-        applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant1FullNameOnCertificate: 'Sarah Smith',
         applicant2FullNameOnCertificate: 'Billy Bob',
         applicant1LegalProceedings: YesOrNo.YES,
@@ -550,16 +548,6 @@ describe('getAnswerRows()', () => {
                   {
                     label: l => l.yes,
                     value: YesOrNo.YES,
-                    subFields: {
-                      whoIsFinancialOrderFor: {
-                        type: 'checkboxes',
-                        label: () => 'Mock Checkboxes',
-                        values: [
-                          { name: 'whoIsFinancialOrderFor', label: () => 'applicant1', value: 'applicant1' },
-                          { name: 'whoIsFinancialOrderFor', label: () => 'children', value: 'children' },
-                        ],
-                      },
-                    },
                   },
                 ],
               },
@@ -586,16 +574,6 @@ describe('getAnswerRows()', () => {
                   {
                     label: l => l.yes,
                     value: YesOrNo.YES,
-                    subFields: {
-                      applicant2WhoIsFinancialOrderFor: {
-                        type: 'checkboxes',
-                        label: () => 'Mock Checkboxes',
-                        values: [
-                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'applicant2', value: 'applicant2' },
-                          { name: 'applicant2WhoIsFinancialOrderFor', label: () => 'children', value: 'children' },
-                        ],
-                      },
-                    },
                   },
                 ],
               },
