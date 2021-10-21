@@ -13,7 +13,7 @@ import { IdamUserManager } from './steps/IdamUserManager';
 
 getTokenFromApi();
 
-const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}@hmcts.net`;
+const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
 const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
