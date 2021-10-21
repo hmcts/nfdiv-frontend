@@ -4,16 +4,15 @@ Feature: Applicant 2 apply for a financial order
     Given I login
     And I am reviewing an application for divorce created by my wife
     And I go to '/applicant2/do-you-want-to-apply-financial-order'
-    Then the page should include "Do you want to apply for a financial order?"
+    Then the page should include "Applying for a financial order"
 
   Scenario: They want to apply for a financial order
-    Given I select "Yes"
-    And I select "The children"
+    Given I select "Yes, I want to apply for a financial order"
     And I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
 
   Scenario: They do not want to apply for a financial order
-    Given I select "No"
+    Given I select "No, I do not want to apply for a financial order"
     And I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
 
@@ -23,7 +22,3 @@ Feature: Applicant 2 apply for a financial order
     When I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You have not answered the question"
-    And I select "Yes"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You need to select who the financial order is for"
