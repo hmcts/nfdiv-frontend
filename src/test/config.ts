@@ -27,7 +27,7 @@ if (!fileExistsSync(filename)) {
 getTokenFromApi();
 
 const content = readFileSync(filename).toString();
-const instanceNo = (content === '' || +content >= 12 ? 0 : +content) + 1;
+const instanceNo = (content === '' ? 0 : +content) + 1;
 
 writeFileSync(filename, instanceNo + '');
 lockFile.unlockSync(lock);
@@ -60,7 +60,7 @@ export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   TestSlowMo: 250,
-  WaitForTimeout: 5000,
+  WaitForTimeout: 10000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
     password: TestPass,
