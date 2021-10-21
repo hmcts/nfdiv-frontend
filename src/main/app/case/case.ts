@@ -8,7 +8,6 @@ import {
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
-  FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   ListValue,
@@ -71,9 +70,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
   applyForFinancialOrder: 'applicant1FinancialOrder',
-  whoIsFinancialOrderFor: 'applicant1FinancialOrderFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
-  applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrderFor',
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   documentsGenerated: 'documentsGenerated',
@@ -194,9 +191,7 @@ export interface Case {
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
   applyForFinancialOrder?: YesOrNo;
-  whoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
-  applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
   documentsGenerated: ListValue<DivorceDocument>[];
