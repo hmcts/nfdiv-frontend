@@ -6,10 +6,6 @@ if (!process.env.TEST_PASSWORD) {
 }
 
 import sysConfig from 'config';
-import dayjs from 'dayjs';
-import * as lockFile from 'lockfile';
-import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
-
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
