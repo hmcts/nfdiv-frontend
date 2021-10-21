@@ -13,6 +13,7 @@ Feature: Respondent other court cases
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They don't have any other court cases
     Given I select "No"
     When I click "Continue"

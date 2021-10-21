@@ -39,7 +39,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => ({
   yes: `I confirm I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
   no: `I do not want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
   errors: {
-    disputeApplication: {
+    confirmDisputeApplication: {
       required,
     },
   },
@@ -50,7 +50,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    disputeApplication: {
+    confirmDisputeApplication: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,

@@ -17,6 +17,7 @@ Feature: Applicant 2 Help with fee
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They need help paying for the fees, but don't have a HWF reference number
     Given I select "I need help paying the fee"
     And I click "Continue"
@@ -39,6 +40,7 @@ Feature: Applicant 2 Help with fee
     When I click "Continue"
     Then the page should include "There was a problem"
 
+  @nightly
   Scenario: They need help paying the fee and have a valid reference number
     Given I select "I need help paying the fee"
     And I click "Continue"

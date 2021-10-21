@@ -6,12 +6,14 @@ Feature: Applicant 2 apply for a financial order
     And I go to '/applicant2/do-you-want-to-apply-financial-order'
     Then the page should include "Do you want to apply for a financial order?"
 
+  @nightly
   Scenario: They want to apply for a financial order
     Given I select "Yes"
     And I select "The children"
     And I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
 
+  @nightly
   Scenario: They do not want to apply for a financial order
     Given I select "No"
     And I click "Continue"

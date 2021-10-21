@@ -27,7 +27,7 @@ if (!fileExistsSync(filename)) {
 getTokenFromApi();
 
 const content = readFileSync(filename).toString();
-const instanceNo = (content === '' || +content >= 8 ? 0 : +content) + 1;
+const instanceNo = (content === '' ? 0 : +content) + 1;
 
 writeFileSync(filename, instanceNo + '');
 lockFile.unlockSync(lock);
@@ -60,7 +60,7 @@ export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   TestSlowMo: 250,
-  WaitForTimeout: 5000,
+  WaitForTimeout: 10000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
     password: TestPass,
@@ -69,6 +69,17 @@ export const config = {
     username: idamUserManager.getUsername(index),
     password: TestPass,
   }),
+  GetOrCreateCaseWorker: async (): Promise<{ username: string; password: string }> => {
+    let caseWorker = idamUserManager.getCaseWorker();
+    if (!caseWorker) {
+      caseWorker = generateTestUsername();
+      await idamUserManager.createCaseWorker(caseWorker, TestPass);
+    }
+    return {
+      username: caseWorker,
+      password: TestPass,
+    };
+  },
   clearNewUsers: async (): Promise<void> => {
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
@@ -84,7 +95,7 @@ export const config = {
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
-  bootstrap: async (): Promise<void> => idamUserManager.create(TestUser, TestPass),
+  bootstrap: async (): Promise<void> => idamUserManager.createUser(TestUser, TestPass),
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
   AutoLogin: {
@@ -95,7 +106,7 @@ export const config = {
       citizenSingleton: {
         login: (I: CodeceptJS.I): void => {
           const username = generateTestUsername();
-          idamUserManager.create(username, TestPass);
+          idamUserManager.createUser(username, TestPass);
           autoLogin.login(I, username, TestPass);
         },
         check: autoLogin.check,
@@ -114,7 +125,7 @@ config.helpers = {
   Playwright: {
     url: config.TEST_URL,
     show: !config.TestHeadlessBrowser,
-    browser: 'firefox',
+    browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
     waitForAction: 500,
     waitForNavigation: 'networkidle0',

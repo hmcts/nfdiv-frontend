@@ -13,6 +13,7 @@ Feature: Do you have address
     When I click "Continue"
     Then the page URL should be "/enter-their-address"
 
+  @nightly
   Scenario: They do not know their partners address
     Given I clear the form
     Given I select "No, I do not have their address"
