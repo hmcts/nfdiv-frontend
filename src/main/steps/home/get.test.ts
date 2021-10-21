@@ -9,6 +9,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
@@ -281,5 +282,23 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+  });
+
+  test('redirects to the how do you want to respond page for respondent users if first question not complete', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.AosDrafted,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`);
   });
 });
