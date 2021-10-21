@@ -54,7 +54,7 @@ Feature: Check Your Answers
   Scenario: Changing financial order answers
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
-    When I click to change the answer to "Do you want to apply for a financial order?"
+    When I click to change the answer to "Applying for a financial order"
     Then the page URL should be "/do-you-want-to-apply-financial-order"
 
   @nightly
