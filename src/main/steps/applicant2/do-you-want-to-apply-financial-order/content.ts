@@ -23,7 +23,7 @@ export const form: FormContent = {
     applicant2ApplyForFinancialOrder: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
+      label: l => l.doYouWantToApplyForFinacialOrder,
       hint: l => l.hint,
       values: [
         {
