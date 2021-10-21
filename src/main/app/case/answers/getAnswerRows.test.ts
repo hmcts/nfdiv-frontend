@@ -602,28 +602,10 @@ describe('getAnswerRows()', () => {
         {
           key: {
             classes: 'govuk-!-width-two-thirds',
-            html: 'Who is the financial order for? 	',
-          },
-          value: {
-            html: 'Me / The children',
-          },
-        },
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
             html: 'Mock question title',
           },
           value: {
             html: 'newlineToBr(escaped(Yes))',
-          },
-        },
-        {
-          key: {
-            classes: 'govuk-!-width-two-thirds',
-            html: 'Who is the financial order for? 	',
-          },
-          value: {
-            html: 'Me / The children',
           },
         },
       ]);
