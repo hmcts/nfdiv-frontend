@@ -1,6 +1,6 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -83,12 +83,7 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
-  financialOrderYes: `The applicant intends to apply to the court for financial orders for the applicant
-   ${
-     formState!.whoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN)
-       ? 'and for the children of the applicant and the respondent.'
-       : '.'
-   }`,
+  financialOrderYes: 'The applicant intends to apply to the court for financial orders',
   financialOrderNo: 'The applicant is not intending to apply to the court for financial orders.',
   financialOrderMoreDetails: `${isApplicant2 ? `Your ${partner} was asked if they` : 'You were asked if you'}
    want the court to decide how your money, property, pensions and other assets will be split.
