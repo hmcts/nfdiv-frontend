@@ -18,6 +18,7 @@ import {
   CERTIFIED_TRANSLATION,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CHECK_JURISDICTION,
   CONFIRM_JOINT_APPLICATION,
   COUNTRY_AND_PLACE,
@@ -451,6 +452,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: REVIEW_THE_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },
 ];

@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
-import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../urls';
+import { APPLICANT_2, CHECK_CONTACT_DETAILS } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as soleGenerateContent } from './sole/content';
@@ -26,7 +26,7 @@ const en = ({ isDivorce, formState, referenceNumber, isApplicant2 }: CommonConte
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
-    (isApplicant2 ? APPLICANT_2 : '') + REVIEW_CONTACT_DETAILS
+    (isApplicant2 ? APPLICANT_2 : '') + CHECK_CONTACT_DETAILS
   }">Review your contact details</a>`,
   subHeading3: 'I want to...',
   subHeading4: 'Getting help',

@@ -1,0 +1,63 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: yourAddress
+        },
+        value: {
+          text: applicantAddress | safe
+        },
+        actions: {
+          items: [
+            {
+              href: prefixUrl + '/enter-your-address',
+              text: "Change",
+              visuallyHiddenText: "enter your address"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: yourPhoneNumber
+        },
+        value: {
+          text: phoneNumber
+        },
+        actions: {
+          items: [
+            {
+              href: prefixUrl + '/check-phone-number',
+              text: "Change",
+              visuallyHiddenText: "check your phone number"
+            }
+          ]
+        }
+      }
+    ]
+
+  }) }}
+
+  {{ govukButton({
+    text: 'Continue',
+    href: '/',
+    preventDoubleClick: true
+  }) }}
+
+  {% block contact_us %}
+    {% include "../../common/contact-us.njk" %}
+  {% endblock %}
+
+{% endblock %}

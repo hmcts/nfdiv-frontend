@@ -3,6 +3,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Sections, Step } from './applicant1Sequence';
 import {
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
@@ -62,6 +63,10 @@ const sequences: Step[] = [
   },
   {
     url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },
 ];

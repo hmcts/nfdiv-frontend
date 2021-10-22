@@ -8,6 +8,7 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
@@ -174,6 +175,10 @@ const sequences: Step[] = [
   },
   {
     url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },
 ];

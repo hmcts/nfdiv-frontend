@@ -26,7 +26,7 @@ const en = ({ partner, required }: CommonContent) => ({
   noPoint1:
     'you’ll only be able to apply until you remarry or form a new civil partnership (this does not apply to pension sharing or pension compensation orders, which can be applied at any time)',
   hint: ' If you want to apply for either a ‘financial order by consent’ or a ‘contested financial order’ then select yes',
-  doYouWantToApplyForFinacialOrder: 'Do you want to apply for a financial order?',
+  doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
   yes: 'Yes, I want to apply for a financial order',
   no: 'No, I do not want to apply for a financial order',
   errors: {
@@ -44,7 +44,7 @@ export const form: FormContent = {
     applyForFinancialOrder: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.doYouWantToApplyForFinacialOrder,
+      label: l => l.doYouWantToApplyForFinancialOrder,
       hint: l => l.hint,
       values: [
         {
