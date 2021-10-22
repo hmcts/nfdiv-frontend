@@ -1,7 +1,7 @@
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -13,9 +13,6 @@ const labels = applicant1Content => {
       applicant2ApplyForFinancialOrder: {
         ...applicant1Content.errors.applyForFinancialOrder,
       },
-      applicant2WhoIsFinancialOrderFor: {
-        ...applicant1Content.errors.whoIsFinancialOrderFor,
-      },
     },
   };
 };
@@ -25,33 +22,13 @@ export const form: FormContent = {
   fields: {
     applicant2ApplyForFinancialOrder: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
-      label: l => l.title,
+      classes: 'govuk-radios',
+      label: l => l.doYouWantToApplyForFinacialOrder,
       hint: l => l.hint,
       values: [
         {
           label: l => l.yes,
           value: YesOrNo.YES,
-          subFields: {
-            applicant2WhoIsFinancialOrderFor: {
-              type: 'checkboxes',
-              label: l => l.subField,
-              hint: l => l.subFieldHint,
-              validator: atLeastOneFieldIsChecked,
-              values: [
-                {
-                  name: 'applicant2WhoIsFinancialOrderFor',
-                  label: l => l.me,
-                  value: FinancialOrderFor.APPLICANT,
-                },
-                {
-                  name: 'applicant2WhoIsFinancialOrderFor',
-                  label: l => l.children,
-                  value: FinancialOrderFor.CHILDREN,
-                },
-              ],
-            },
-          },
         },
         { label: l => l.no, value: YesOrNo.NO },
       ],
