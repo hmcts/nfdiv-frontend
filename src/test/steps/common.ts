@@ -76,7 +76,7 @@ Then('I expect the page title to be {string}', (title: string) => {
 });
 
 Then('the page should include {string}', (text: string) => {
-  I.waitForText(text);
+  I.waitForText(text, 10);
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
