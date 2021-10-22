@@ -23,6 +23,7 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DO_YOU_WANT_TO_RESPOND,
+    showInSection: Sections.AboutApplication,
     getNextStep: data =>
       data.disputeApplication === YesOrNo.YES ? DISPUTING_THE_APPLICATION : LEGAL_JURISDICTION_OF_THE_COURTS,
   },
@@ -33,6 +34,7 @@ const sequences: Step[] = [
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
+    showInSection: Sections.AboutApplication,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
