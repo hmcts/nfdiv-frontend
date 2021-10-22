@@ -1,6 +1,10 @@
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
+
+dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
@@ -44,14 +48,15 @@ export const isDateInputInvalid: DateValidator = date => {
   const year = parseInt(date.year, 10) || 0;
   const month = parseInt(date.month, 10) || 0;
   const day = parseInt(date.day, 10) || 0;
-  if (month < 1 || month > 12 || day < 1 || day > 31) {
-    return invalid;
+  if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
+    if (year < 1000) {
+      return 'invalidYear';
+    } else {
+      return invalid;
+    }
   }
 
   if (year < 1900) {
-    if (year < 1000) {
-      return 'invalidYear';
-    }
     return 'invalidDateTooFarInPast';
   }
 };
