@@ -76,7 +76,7 @@ Then('I expect the page title to be {string}', (title: string) => {
 });
 
 Then('the page should include {string}', (text: string) => {
-  I.waitForText(text, 10);
+  I.waitForText(text, 2);
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
@@ -274,7 +274,7 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
   I.executeScript(
     async ([userCase, requestUrl, redirectUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
-      const formData = new FormData(mainForm);
+      const formData = mainForm ? new FormData(mainForm) : new FormData();
       for (const [key, value] of Object.entries(userCase)) {
         formData.set(key, value as string);
       }
