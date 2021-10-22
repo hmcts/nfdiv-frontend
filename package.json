@@ -28,7 +28,7 @@
     "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
     "test:functional": "yarn test:e2e",
     "test:fullfunctional": "run-p test:cucumber test:pa11y",
-    "test:crossbrowser": "concurrently \"yarn test:crossbrowser:playwright:docker\" \"yarn test:crossbrowser:sauce\" --names playwright,sauce",
+    "test:crossbrowser": "yarn test:crossbrowser:sauce",
     "test:crossbrowser:playwright": "yarn test:crossbrowser:codeceptjs run-multiple crossBrowser --grep '^(?!.*@flaky)'",
     "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:crossbrowser:playwright $UID",
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
