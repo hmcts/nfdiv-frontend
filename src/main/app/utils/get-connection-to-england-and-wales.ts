@@ -1,6 +1,6 @@
-import { JurisdictionConnections } from '../../app/case/definition';
+import { JurisdictionConnections } from '../case/definition';
 
-export const connectionBulletPointsTextForRespondent = (connections: JurisdictionConnections[]): string[] => {
+export const connectionBulletPointsTextForRespondent = (connections: JurisdictionConnections[] = []): string[] => {
   const connectionBulletPoints = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]:
       'the applicant and respondent are habitually resident in England and Wales',

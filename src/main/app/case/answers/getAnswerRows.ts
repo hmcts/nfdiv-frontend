@@ -25,8 +25,8 @@ export const getAnswerRows = function (
     language: 'en' | 'cy';
     isDivorce: boolean;
     isApplicant2: boolean;
-    userEmail: string;
     formState: Partial<Case>;
+    userEmail: string;
     isJointApplication: boolean;
   } = this.ctx;
 

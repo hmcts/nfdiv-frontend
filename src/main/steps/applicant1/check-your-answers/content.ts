@@ -39,6 +39,7 @@ const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     [Sections.HelpWithFees]: 'Help with fees',
     [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
+    [Sections.AboutApplication]: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     [Sections.AboutPartners]: `About you and your ${partner}`,
     [Sections.ContactYou]: 'How the court will contact you',
     [Sections.ContactThem]: `How the court will contact your ${partner}`,
