@@ -13,11 +13,14 @@ Feature: Respondent
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Respond to the application"
-    And I select "I have read the application for divorce"
-    And I click "Continue"
-    Then the page URL should be "/respondent/how-do-you-want-to-respond"
+    Then the page URL should be "/respondent/review-the-application"
+    And the page should include "Review the divorce application"
 
   Scenario: They fill out a happy path respondent journey
+    Given I select "I have read the application for divorce"
+    And I click "Continue"
+    Then the page URL should be "/respondent/how-do-you-want-to-respond"
+    And the page should include "How do you want to respond to the application?"
     Given I select "Continue without disputing the divorce"
     And I click "Continue"
     Then the page URL should be "legal-jurisdiction-of-the-courts"
@@ -38,9 +41,16 @@ Feature: Respondent
     And I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
+    Given I select "I confirm that:"
+    When I click "Submit"
+    Then the page URL should be "/respondent/hub-page"
 
   @nightly
   Scenario: They fill out a non happy path respondent journey
+    Given I select "I have read the application for divorce"
+    And I click "Continue"
+    Then the page URL should be "/respondent/how-do-you-want-to-respond"
+    And the page should include "How do you want to respond to the application?"
     Given I select "I want to dispute the divorce"
     And I click "Continue"
     Then the page URL should be "/respondent/disputing-the-application"
@@ -88,6 +98,13 @@ Feature: Respondent
 
   @nightly
   Scenario: They fail to fill out the respondent forms
+    Given I clear the form
+    And I click "Continue"
+    Then the page should include "There was a problem"
+    And the page should include "You need to confirm that you have read the application before you continue."
+    Given I select "I have read the application for divorce"
+    And I click "Continue"
+    Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I clear the form
     When I click "Continue"
     Then the page should include "There was a problem"
