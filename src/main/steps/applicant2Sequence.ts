@@ -1,3 +1,4 @@
+import { Checkbox } from '../app/case/case';
 import { ChangedNameHow, YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
@@ -106,7 +107,11 @@ const sequences: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.applicant2IConfirmPrayer === Checkbox.Checked &&
+      data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked
+        ? CHECK_CONTACT_DETAILS
+        : ENTER_YOUR_ADDRESS,
   },
   {
     url: ENTER_YOUR_ADDRESS,
