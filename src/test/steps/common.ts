@@ -285,7 +285,7 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
       };
 
       await fetch(requestUrl, request);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       await fetch(redirectUrl, request);
     },
     [userCaseObj, requestPageLink, redirectPageLink]
