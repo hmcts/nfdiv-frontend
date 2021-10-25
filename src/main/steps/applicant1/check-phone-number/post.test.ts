@@ -16,6 +16,7 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const body = {
       applicant1PhoneNumber: YesOrNo.YES,
       applicant1AddressPrivate: YesOrNo.NO,
+      state: State.Draft,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -25,7 +26,6 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
-    req.session.userCase.state = State.Draft;
     const res = mockResponse();
     await citizenUpdateContactDetailsPostController.post(req, res);
 
@@ -36,6 +36,7 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const body = {
       applicant1PhoneNumber: YesOrNo.YES,
       applicant1AddressPrivate: YesOrNo.NO,
+      state: State.AwaitingApplicant1Response,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -45,7 +46,6 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
-    req.session.userCase.state = State.AwaitingApplicant1Response;
     const res = mockResponse();
     await citizenUpdateContactDetailsPostController.post(req, res);
 
@@ -56,6 +56,7 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const body = {
       applicant1PhoneNumber: YesOrNo.YES,
       applicant1AddressPrivate: YesOrNo.NO,
+      state: State.AwaitingApplicant2Response,
     };
     const mockForm = {
       setFormState: jest.fn(),
@@ -65,7 +66,6 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
-    req.session.userCase.state = State.AwaitingApplicant2Response;
     const res = mockResponse();
     await citizenUpdateContactDetailsPostController.post(req, res);
 
