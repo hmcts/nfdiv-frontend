@@ -29,9 +29,9 @@ export const generateContent: TranslationFn = content => {
   const prefixUrl =
     content.formState?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
   return {
+    ...translations,
     applicantAddress,
     phoneNumber,
-    ...translations,
     prefixUrl,
   };
 };

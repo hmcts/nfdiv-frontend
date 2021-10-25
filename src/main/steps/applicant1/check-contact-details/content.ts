@@ -16,6 +16,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const address = [content.formState?.applicant1Address1];
+  address.push(content.formState?.applicant1Address2);
   address.push(content.formState?.applicant1Address3);
   address.push(content.formState?.applicant1AddressTown);
   address.push(content.formState?.applicant1AddressCounty);
@@ -26,9 +27,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const prefixUrl = '';
   return {
+    ...translations,
     applicantAddress,
     phoneNumber,
-    ...translations,
     prefixUrl,
   };
 };
