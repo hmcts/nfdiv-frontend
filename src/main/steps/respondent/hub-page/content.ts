@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   pendingDispute: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. and said that you want to dispute it.`,
+    } and said that you want to dispute it.`,
     line2: `You have until ${
       formState?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
@@ -66,7 +66,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   dispute: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. and said that you want to dispute it.`,
+    } and said that you want to dispute it.`,
     line2: `You have submitted the ‘answer a ${
       isDivorce ? 'divorce' : 'dissolution'
     }’ form. This is the form for disputing ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,
