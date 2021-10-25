@@ -10,6 +10,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_JOINT_APPLICATION,
+  CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
@@ -180,6 +181,10 @@ const sequences: Step[] = [
   {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
   },
 ];
 

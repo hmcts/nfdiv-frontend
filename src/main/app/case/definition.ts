@@ -1357,3 +1357,4 @@ export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';

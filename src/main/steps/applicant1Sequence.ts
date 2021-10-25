@@ -20,6 +20,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_JURISDICTION,
+  CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
@@ -457,5 +458,9 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
   },
 ];
