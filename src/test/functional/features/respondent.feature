@@ -1,4 +1,4 @@
-Feature: Respondent disputing the application
+Feature: Respondent
 
   Background:
     Given I create a new user and login
