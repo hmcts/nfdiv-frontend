@@ -7,6 +7,7 @@ import { Form } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
 import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
 import { getNextIncompleteStepUrl } from '../index';
+import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -14,6 +15,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
@@ -28,13 +30,14 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const firstQuestionForm = new Form(
-      req.session.isApplicant2 ? applicant2FirstQuestionForm : applicant1FirstQuestionForm
+    const firstQuestionForm = getApplicantFirstQuestionForm(
+      req.session.isApplicant2,
+      req.session.userCase.applicationType!
     );
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state));
+      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
     } else if (req.session.isApplicant2) {
       const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
@@ -101,14 +104,24 @@ const applicant2RedirectPageSwitch = (
   }
 };
 
-const respondentRedirectPageSwitch = (caseState: State) => {
+const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
   switch (caseState) {
     case State.AosDrafted:
     case State.AosOverdue: {
-      return `${RESPONDENT}${CHECK_ANSWERS_URL}`;
+      return isFirstQuestionComplete
+        ? `${RESPONDENT}${CHECK_ANSWERS_URL}`
+        : `${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`;
     }
     default: {
       return `${RESPONDENT}${HUB_PAGE}`;
     }
+  }
+};
+
+const getApplicantFirstQuestionForm = (isApplicant2: boolean, applicationType: ApplicationType) => {
+  if (isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION) {
+    return new Form(respondentFirstQuestionForm);
+  } else {
+    return new Form(isApplicant2 ? applicant2FirstQuestionForm : applicant1FirstQuestionForm);
   }
 };
