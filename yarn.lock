@@ -1878,11 +1878,6 @@
   resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.0.tgz#2303629c91cdd39de103af979046d4a8590351e4"
   integrity sha512-1FM36Hm3EdidJmWlZZafkg/kZME0UZ/0vQ46JE8R7R0JqQafah0r+d4i6d/MJg5DnKxEeAOAeifEVkzo7fEvGg==
 
-"@types/parse-json@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
-  integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
-
 "@types/prettier@^2.0.0", "@types/prettier@^2.1.5":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.1.tgz#e1303048d5389563e130f5bdd89d37a99acb75eb"
@@ -2152,16 +2147,6 @@
     "@uppy/utils" "^4.0.3"
     nanoid "^3.1.25"
 
-"@wdio/config@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/config/-/config-7.16.0.tgz#1d68197f0059909187586a39efb98f6d11219055"
-  integrity sha512-BrHJvdiA1hPmVu69/X7TBz0kxDri584MW1meBHOyPcJAwcavdmK4AcaS1v5hcZ1zOZPl+cTuF5QN2q3Y56z7hw==
-  dependencies:
-    "@wdio/logger" "7.16.0"
-    "@wdio/types" "7.16.0"
-    deepmerge "^4.0.0"
-    glob "^7.1.2"
-
 "@wdio/config@7.16.1":
   version "7.16.1"
   resolved "https://registry.yarnpkg.com/@wdio/config/-/config-7.16.1.tgz#719a76b410f8ec1116d40074057f952a289107d9"
@@ -2182,22 +2167,10 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/protocols@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/protocols/-/protocols-7.16.0.tgz#76887cad1e88fd74769f0cb2ce43e681593e192b"
-  integrity sha512-95z2sJZ3W+J1z8gPAlvxRH45Ct/ZMl8+m8cDj1zrnrJ9VcWW7seW6ksyBUSegyQ0S6JmeR6qqIKhewDpjq0NSw==
-
 "@wdio/protocols@7.16.1":
   version "7.16.1"
   resolved "https://registry.yarnpkg.com/@wdio/protocols/-/protocols-7.16.1.tgz#058e316364bf4ca7a7e377dbcb25bdb57b68f2d0"
   integrity sha512-Bxfqak67+/d/1c2c/eHWmVw5xAKhDU+5Ekqpka5Kt1VmW8Se7w9rFligrU0LrrgY9zzhYfVAL4sYkHfDPCOWbA==
-
-"@wdio/repl@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/repl/-/repl-7.16.0.tgz#dfe0992519710c9bc4cdb60b4db1f1bbaf4cfa1a"
-  integrity sha512-FI4E5MLI81sb125TvLV4DHsxd+2XjXxzxTaaCSx+/GBNuR8JjC2/GhCJV9v7jb7mxBSX18ab2+t8dkKlAqWACA==
-  dependencies:
-    "@wdio/utils" "7.16.0"
 
 "@wdio/repl@7.16.1":
   version "7.16.1"
@@ -2206,25 +2179,17 @@
   dependencies:
     "@wdio/utils" "7.16.1"
 
-"@wdio/sauce-service@^7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.0.tgz#614f7b0c1f3f40f69d1bcbb21eb4a821fb780dea"
-  integrity sha512-3yNVHJdHMTfBMT5o3xUqgg+xGXYqrG9DSljEe4oPBBK8z9Zlil817D75sL1BUR2ki/LUjKnuIjlimHyTdLHHmw==
+"@wdio/sauce-service@^7.16.2":
+  version "7.16.2"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.2.tgz#cfa4a8a1a4ba4e669b9a06effc86de4554d8ec64"
+  integrity sha512-Z6OWii/AyMLIwOeCVOSYvPgabkc9FfoV81RTHIPJmeTCuHESJF2VYXNbGkGHDc20shdrv9zzz92LaXeDSVO9/g==
   dependencies:
     "@types/node" "^16.11.1"
     "@wdio/logger" "7.16.0"
-    "@wdio/types" "7.16.0"
-    "@wdio/utils" "7.16.0"
+    "@wdio/types" "7.16.1"
+    "@wdio/utils" "7.16.1"
     saucelabs "^6.0.0"
-    webdriverio "7.16.0"
-
-"@wdio/types@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/types/-/types-7.16.0.tgz#4c86f1d38e044c2e7bd1e55bbbc2075ff8d444dc"
-  integrity sha512-qXl+icSQQ9tKn3lgpjuxMFtHj34r74/JlaHxGTgjzP8ghDDJCn1xH94mUL5C0MBBeNezxvfWYOb+DzxiQoqblw==
-  dependencies:
-    "@types/node" "^16.11.1"
-    got "^11.8.1"
+    webdriverio "7.16.2"
 
 "@wdio/types@7.16.1":
   version "7.16.1"
@@ -2233,15 +2198,6 @@
   dependencies:
     "@types/node" "^16.11.1"
     got "^11.8.1"
-
-"@wdio/utils@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-7.16.0.tgz#ffab38d12ce27277c4dafd44c002f417fc85b7b1"
-  integrity sha512-eSZWkSmVTfQU+lVOK8KUn5AXagpzC2BseGWDsqZME47BwoKtov3H7q6xfalDG89YkZMgO8K04RAlEDDRNodUMA==
-  dependencies:
-    "@wdio/logger" "7.16.0"
-    "@wdio/types" "7.16.0"
-    p-iteration "^1.1.8"
 
 "@wdio/utils@7.16.1":
   version "7.16.1"
@@ -2697,6 +2653,11 @@ argparse@^1.0.7:
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
 aria-query@^5.0.0:
   version "5.0.0"
@@ -4046,17 +4007,6 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-cosmiconfig@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-7.0.1.tgz#714d756522cace867867ccb4474c5d01bbae5d6d"
-  integrity sha512-a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==
-  dependencies:
-    "@types/parse-json" "^4.0.0"
-    import-fresh "^3.2.1"
-    parse-json "^5.0.0"
-    path-type "^4.0.0"
-    yaml "^1.10.0"
-
 crc-32@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.0.tgz#cb2db6e29b88508e32d9dd0ec1693e7b41a18208"
@@ -4482,24 +4432,6 @@ devtools-protocol@^0.0.928170:
   version "0.0.928170"
   resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.928170.tgz#4a21610efd01b5744d02bd0fc3fef87f825d0277"
   integrity sha512-zLPUM55N6OvUzIeCz8ceD48Hm310c4nC4vqrCfAtRlhv7zoSDl3BAeuCmFLHhgA60QF38vMb2YIGAq+BP6QMMA==
-
-devtools@7.16.0:
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/devtools/-/devtools-7.16.0.tgz#c78ddeb446358201286537bfe45c285114b3881e"
-  integrity sha512-W4r2Y5KhXi+w/qQrONxRsBM2hJBVZXv7qm2eoRRCto8vmR+TkJzS/TrD9hOn2XEM/EjcUGHzGEhwOf3NqyPKEQ==
-  dependencies:
-    "@types/node" "^16.11.1"
-    "@wdio/config" "7.16.0"
-    "@wdio/logger" "7.16.0"
-    "@wdio/protocols" "7.16.0"
-    "@wdio/types" "7.16.0"
-    "@wdio/utils" "7.16.0"
-    chrome-launcher "^0.14.0"
-    edge-paths "^2.1.0"
-    puppeteer-core "^10.1.0"
-    query-selector-shadow-dom "^1.0.0"
-    ua-parser-js "^0.7.21"
-    uuid "^8.0.0"
 
 devtools@7.16.2:
   version "7.16.2"
@@ -7713,6 +7645,13 @@ js-yaml@^3.13.1, js-yaml@^3.8.4:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+js-yaml@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
+  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  dependencies:
+    argparse "^2.0.1"
+
 js2xmlparser@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/js2xmlparser/-/js2xmlparser-3.0.0.tgz#3fb60eaa089c5440f9319f51760ccd07e2499733"
@@ -7973,23 +7912,29 @@ lighthouse-logger@^1.0.0:
     debug "^2.6.9"
     marky "^1.2.2"
 
+lilconfig@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.3.tgz#68f3005e921dafbd2a2afb48379986aa6d2579fd"
+  integrity sha512-EHKqr/+ZvdKCifpNrJCKxBTgk5XupZA3y/aCPY9mxfgBzmgh93Mt/WqjjQ38oMxXuvDokaKiM3lAgvSH2sjtHg==
+
 lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^11.2.3:
-  version "11.2.3"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-11.2.3.tgz#fc3f4569cc4f46553309dfc1447b8aef69f744fb"
-  integrity sha512-Tfmhk8O2XFMD25EswHPv+OYhUjsijy5D7liTdxeXvhG2rsadmOLFtyj8lmlfoFFXY8oXWAIOKpoI+lJe1DB1mw==
+lint-staged@^11.2.4:
+  version "11.2.4"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-11.2.4.tgz#29bc84e0318e6e9d4a7a043513236d066e39ee1d"
+  integrity sha512-aTUqcPDSV05EyKlMT4N5h7tmnevKfAxI3xZkRb+DHfmcFaoCxfxVvpqlLMCVGy3EYle9JYER2nA5zc4eNTkZVQ==
   dependencies:
     cli-truncate "2.1.0"
     colorette "^1.4.0"
     commander "^8.2.0"
-    cosmiconfig "^7.0.1"
     debug "^4.3.2"
     enquirer "^2.3.6"
     execa "^5.1.1"
+    js-yaml "^4.1.0"
+    lilconfig "^2.0.3"
     listr2 "^3.12.2"
     micromatch "^4.0.4"
     normalize-path "^3.0.0"
@@ -11646,7 +11591,7 @@ typescript@^4.4.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
   integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
-ua-parser-js@0.7.28, ua-parser-js@^0.7.21:
+ua-parser-js@0.7.28:
   version "0.7.28"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
   integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
@@ -11948,21 +11893,6 @@ watchpack@^2.2.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-webdriver@7.16.0:
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.16.0.tgz#55a6ad0827e3a12d6ff804d98f68d81656600a0f"
-  integrity sha512-MWGlfg9X9Lnz/8uFyEiiwk3PbG+/IpPoOmrfgHgM1i0KfiUiraKAS8H4gt4kQ3J33TbnotG5+mc6xGUBJ0IDdQ==
-  dependencies:
-    "@types/node" "^16.11.1"
-    "@wdio/config" "7.16.0"
-    "@wdio/logger" "7.16.0"
-    "@wdio/protocols" "7.16.0"
-    "@wdio/types" "7.16.0"
-    "@wdio/utils" "7.16.0"
-    got "^11.0.2"
-    ky "^0.28.5"
-    lodash.merge "^4.6.1"
-
 webdriver@7.16.1:
   version "7.16.1"
   resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.16.1.tgz#baae5cbce2957ba0fc9ab97cc6d69a892e21bb73"
@@ -11978,42 +11908,7 @@ webdriver@7.16.1:
     ky "^0.28.5"
     lodash.merge "^4.6.1"
 
-webdriverio@7.16.0:
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.0.tgz#2ea69873beded175c2c7bd3d2a7575a2420db3e9"
-  integrity sha512-zCRhHyr+VOk0BXSlvBJfqjqKPj6xFTI90Z0AyOaVxI5MytI9nVyySZsKyfK/r4gIcP2BAJwaxPPhaOySFmRm1Q==
-  dependencies:
-    "@types/aria-query" "^4.2.1"
-    "@types/node" "^16.11.1"
-    "@wdio/config" "7.16.0"
-    "@wdio/logger" "7.16.0"
-    "@wdio/protocols" "7.16.0"
-    "@wdio/repl" "7.16.0"
-    "@wdio/types" "7.16.0"
-    "@wdio/utils" "7.16.0"
-    archiver "^5.0.0"
-    aria-query "^5.0.0"
-    atob "^2.1.2"
-    css-shorthand-properties "^1.1.1"
-    css-value "^0.0.1"
-    devtools "7.16.0"
-    devtools-protocol "^0.0.928170"
-    fs-extra "^10.0.0"
-    get-port "^5.1.1"
-    grapheme-splitter "^1.0.2"
-    lodash.clonedeep "^4.5.0"
-    lodash.isobject "^3.0.2"
-    lodash.isplainobject "^4.0.6"
-    lodash.zip "^4.2.0"
-    minimatch "^3.0.4"
-    puppeteer-core "^10.1.0"
-    query-selector-shadow-dom "^1.0.0"
-    resq "^1.9.1"
-    rgb2hex "0.2.5"
-    serialize-error "^8.0.0"
-    webdriver "7.16.0"
-
-webdriverio@^7.16.2:
+webdriverio@7.16.2, webdriverio@^7.16.2:
   version "7.16.2"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.2.tgz#acf9f28385d0827b6c56dbcbb2e339383474c92d"
   integrity sha512-YU5wCJHNi9ArfpxyVcacI0p2qg5dKlvUBlMjuPW3hr3GwLrHnZkoMp7z40PFdd8QiHmweA/SQXD3rDdlFFBB3Q==
@@ -12384,11 +12279,6 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-
-yaml@^1.10.0:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.2.tgz#2301c5ffbf12b467de8da2333a459e29e7920e4b"
-  integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
 
 yargs-parser@13.1.2, yargs-parser@^13.1.2:
   version "13.1.2"
