@@ -85,7 +85,7 @@ Feature: Applicant 2
     And the page should include "Your wife needs to confirm your joint application"
 
   @nightly
-  Scenario: They fill out a non happy path applicant 2 journey with Hwf
+  Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
     And I select "I need help paying the fee"
     And I click "Continue"
@@ -110,10 +110,9 @@ Feature: Applicant 2
     Given I select "I do not need help paying the fee"
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
-    When I click "Back"
-    Then the page URL should be "/applicant2/help-with-your-fee"
-    Given I select "I need help paying the fee"
-    And I click "Continue"
+    Given I go to "/applicant2/help-with-your-fee"
+    And I select "I need help paying the fee"
+    When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
     And the page should include "Have you already applied for help with your divorce fee?"
     Given I select "No"
