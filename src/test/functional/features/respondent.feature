@@ -46,7 +46,7 @@ Feature: Respondent
     Then the page URL should be "/respondent/hub-page"
 
   @nightly
-  Scenario: They fill out a non happy path respondent journey
+  Scenario: They fill out an unhappy path respondent journey
     Given I select "I have read the application for divorce"
     And I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
