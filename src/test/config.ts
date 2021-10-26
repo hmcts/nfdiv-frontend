@@ -11,6 +11,11 @@ import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
+// better handling of unhandled exceptions
+process.on('unhandledRejection', reason => {
+  throw reason;
+});
+
 getTokenFromApi();
 
 const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
