@@ -156,7 +156,7 @@ Feature: Applicant 2
     And I click "Continue"
     Then the page URL should be "/applicant2/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in"
-    Given I select "Welsh"
+    Given I select "English"
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
     And the page should include "Do you need your contact details kept private from your wife?"
@@ -211,6 +211,12 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
+    Given I select "No" for "Is the information your wife provided correct?"
+    And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
+    And I type "Incorrect test details"
+    When I click "Continue"
+    Then the page URL should be "/applicant2/your-comments-sent"
+    And the page should include "Your comments have been sent to your wife"
 
   @nightly
   Scenario: They fail to fill out the applicant 2 forms

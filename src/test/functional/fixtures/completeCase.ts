@@ -36,7 +36,7 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2AddressCounty: 'CITY OF WESTMINSTER',
   applicant2AddressPostcode: 'SW1H 9AJ',
   applicant2AddressTown: 'LONDON',
-  applicant2EmailAddress: 'husband@example.com',
+  applicant2EmailAddress: 'simulate-delivered@notifications.service.gov.uk',
   applicant2FirstNames: 'Test their name',
   applicant2FullNameOnCertificate: 'Husbands name',
   applicant2LastNames: 'Test their last name',

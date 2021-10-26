@@ -91,10 +91,14 @@ Feature: Respondent
     And I click "Continue"
     Then the page URL should be "/respondent/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in?"
-    Given I select "Welsh"
+    Given I select "English"
     And I select "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
+    Given I select "I confirm that:"
+    When I click "Submit"
+    Then the page URL should be "/respondent/hub-page"
+    And the page should include "First name Last name & Husbands name"
 
   @nightly
   Scenario: They fail to fill out the respondent forms
