@@ -5,12 +5,12 @@ import { ChangedNameHow, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/model';
+import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { Sections } from '../../applicant1Sequence';
 import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, partner, formState, marriage, civilPartnership }: CommonContent) => ({
   title: 'Confirm your joint application',

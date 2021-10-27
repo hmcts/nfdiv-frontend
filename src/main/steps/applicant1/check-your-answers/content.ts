@@ -5,7 +5,7 @@ import { ApplicationType, ChangedNameHow, YesOrNo } from '../../../app/case/defi
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/model';
+import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
 import { Sections } from '../../applicant1Sequence';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
