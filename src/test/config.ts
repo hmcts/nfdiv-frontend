@@ -11,11 +11,6 @@ import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
-// better handling of unhandled exceptions
-process.on('unhandledRejection', reason => {
-  throw reason;
-});
-
 getTokenFromApi();
 
 const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
@@ -46,7 +41,7 @@ export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   TestSlowMo: 250,
-  WaitForTimeout: 7000,
+  WaitForTimeout: 10000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
     password: TestPass,
@@ -116,6 +111,5 @@ config.helpers = {
     waitForAction: 1000,
     waitForNavigation: 'networkidle0',
     ignoreHTTPSErrors: true,
-    retries: 3,
   },
 };

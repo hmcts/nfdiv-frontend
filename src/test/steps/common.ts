@@ -21,7 +21,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(3);
+  test.retries(5);
 });
 
 After(async () => {
