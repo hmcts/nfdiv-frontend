@@ -5,11 +5,11 @@ import { ChangedNameHow, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/model';
 import { Sections } from '../../applicant1Sequence';
 import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
-import { connectionBulletPointsText } from '../check-your-answers/content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, partner, formState, marriage, civilPartnership }: CommonContent) => ({
@@ -126,7 +126,7 @@ const en = ({ isDivorce, partner, formState, marriage, civilPartnership }: Commo
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections:
         (formState?.connections && formState?.connections?.length > 1
-          ? connectionBulletPointsText(formState?.connections, partner)
+          ? connectionBulletPointsTextForSoleAndJoint(formState?.connections, partner)
           : '') +
         moreDetailsComponent(
           jurisdictionMoreDetailsContent(formState?.connections).connectedToEnglandWales,
