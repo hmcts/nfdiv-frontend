@@ -4,9 +4,9 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/model';
+import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

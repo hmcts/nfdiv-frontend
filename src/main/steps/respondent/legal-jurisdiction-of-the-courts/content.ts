@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/model';
+import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
