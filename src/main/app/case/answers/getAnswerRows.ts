@@ -1,10 +1,9 @@
 import { stepsWithContentApplicant1, stepsWithContentApplicant2, stepsWithContentRespondent } from '../../../steps';
 import { Sections } from '../../../steps/applicant1Sequence';
 import { generatePageContent } from '../../../steps/common/common.content';
-import { APPLICANT_2, APPLY_FINANCIAL_ORDER, PageLink, YOUR_NAME } from '../../../steps/urls';
+import { APPLICANT_2, PageLink, YOUR_NAME } from '../../../steps/urls';
 import type { FormOptions } from '../../form/Form';
 import { Case, Checkbox } from '../case';
-import { FinancialOrderFor } from '../definition';
 
 import type { GovUkNunjucksSummary } from './govUkNunjucksSummary';
 import { omitUnreachableAnswers } from './possibleAnswers';
@@ -26,8 +25,8 @@ export const getAnswerRows = function (
     language: 'en' | 'cy';
     isDivorce: boolean;
     isApplicant2: boolean;
-    userEmail: string;
     formState: Partial<Case>;
+    userEmail: string;
     isJointApplication: boolean;
   } = this.ctx;
 
@@ -209,26 +208,6 @@ const getCompleteQuestionAnswers = (stepUrl: string, processedFormState: Partial
     case APPLICANT_2 + YOUR_NAME: {
       question = 'Full name on the marriage certificate';
       answer = processedFormState.applicant2FullNameOnCertificate;
-      break;
-    }
-    case APPLY_FINANCIAL_ORDER: {
-      if (processedFormState.whoIsFinancialOrderFor?.length) {
-        question = 'Who is the financial order for? 	';
-        answer = processedFormState.whoIsFinancialOrderFor
-          ?.join(' / ')
-          .replace(FinancialOrderFor.APPLICANT, 'Me')
-          .replace(FinancialOrderFor.CHILDREN, 'The children');
-      }
-      break;
-    }
-    case APPLICANT_2 + APPLY_FINANCIAL_ORDER: {
-      if (processedFormState.applicant2WhoIsFinancialOrderFor?.length) {
-        question = 'Who is the financial order for? 	';
-        answer = processedFormState.applicant2WhoIsFinancialOrderFor
-          ?.join(' / ')
-          .replace(FinancialOrderFor.APPLICANT, 'Me')
-          .replace(FinancialOrderFor.CHILDREN, 'The children');
-      }
       break;
     }
   }

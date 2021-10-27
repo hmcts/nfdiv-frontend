@@ -1,4 +1,3 @@
-import { closeSync, openSync, readFileSync, writeFileSync } from 'fs';
 import { PropertiesVolume } from '../main/modules/properties-volume';
 import { Application } from 'express';
 
@@ -7,32 +6,19 @@ if (!process.env.TEST_PASSWORD) {
 }
 
 import sysConfig from 'config';
-import dayjs from 'dayjs';
-import * as lockFile from 'lockfile';
-import { fileExistsSync } from 'tsconfig-paths/lib/filesystem';
-
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
-const lock = '/tmp/concepts.worker.lock';
-lockFile.lockSync(lock);
-
-const filename = '/tmp/concepts.worker.id';
-if (!fileExistsSync(filename)) {
-  closeSync(openSync(filename, 'w'));
-}
+// better handling of unhandled exceptions
+process.on('unhandledRejection', reason => {
+  throw reason;
+});
 
 getTokenFromApi();
 
-const content = readFileSync(filename).toString();
-const instanceNo = (content === '' ? 0 : +content) + 1;
-
-writeFileSync(filename, instanceNo + '');
-lockFile.unlockSync(lock);
-
-const generateTestUsername = () => `nfdiv.frontend.test${instanceNo}.${dayjs().format('YYYYMMDD-HHmmssSSS')}@hmcts.net`;
+const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
 const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
@@ -127,7 +113,7 @@ config.helpers = {
     show: !config.TestHeadlessBrowser,
     browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
-    waitForAction: 500,
+    waitForAction: 1000,
     waitForNavigation: 'networkidle0',
     ignoreHTTPSErrors: true,
   },

@@ -45,7 +45,7 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
     title: `Check your ${partner}'s answers`,
     line1: `This is the information your ${partner} provided for your joint application. Check it to make sure it’s correct.`,
     detailsCorrect: `Is the information your ${partner} provided correct?`,
-    detailsCorrectHint: 'If you select no then your husband will be notified and asked to change it.',
+    detailsCorrectHint: `If you select no then your ${partner} will be notified and asked to change it.`,
     explainWhyIncorrect: `Explain what is incorrect or needs changing. Your answer will be sent to your ${partner}.`,
     continue: 'Continue',
     stepAnswersWithHTML: {
