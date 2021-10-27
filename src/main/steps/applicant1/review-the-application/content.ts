@@ -4,7 +4,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/utils/get-connection-to-england-and-wales';
+import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/model';
 import { CommonContent } from '../../common/common.content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
