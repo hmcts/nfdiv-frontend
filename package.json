@@ -40,7 +40,7 @@
     "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^3.0.4",
-    "@hmcts/properties-volume": "^0.0.11",
+    "@hmcts/properties-volume": "^0.0.12",
     "@types/autobind-decorator": "^2.1.0",
     "@types/config": "^0.0.39",
     "@types/connect-redis": "^0.0.17",
