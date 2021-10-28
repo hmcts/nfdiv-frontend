@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_SUBMIT_AOS } from '../../../app/case/definition';
+import { SUBMIT_AOS } from '../../../app/case/definition';
 import { Form } from '../../../app/form/Form';
 
 import CheckYourAnswersPostController from './post';
@@ -22,6 +22,6 @@ describe('CheckYourAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_SUBMIT_AOS);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SUBMIT_AOS);
   });
 });

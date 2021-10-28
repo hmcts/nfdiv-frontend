@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-10-28 07:27:15.
+// Generated using typescript-generator version 2.32.889 on 2021-10-28 10:05:02.
 
 export interface Address {
   AddressLine1: string;
@@ -93,8 +93,6 @@ export interface AcknowledgementOfService {
   confirmDisputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
-  legalProceedingsExist: YesOrNo;
-  legalProceedingsDescription: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -410,8 +408,6 @@ export interface CaseData {
   confirmDisputeApplication: YesOrNo;
   jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
-  legalProceedingsExist: YesOrNo;
-  legalProceedingsDescription: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -518,6 +514,8 @@ export interface CaseData {
   coJudgeTypeCostsDecision: CostOrderList;
   selectedDivorceCentreSiteId: string;
   coTypeCostsDecision: CostOrderList;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
 }
 
 export interface CaseInvite {
@@ -670,6 +668,8 @@ export interface RetiredFields {
   coJudgeTypeCostsDecision: CostOrderList;
   selectedDivorceCentreSiteId: string;
   coTypeCostsDecision: CostOrderList;
+  legalProceedingsExist: YesOrNo;
+  legalProceedingsDescription: string;
 }
 
 export interface Solicitor {
@@ -1420,7 +1420,6 @@ export const enum HttpStatus {
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const CITIZEN_SUBMIT_AOS = 'citizen-submit-aos';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
@@ -1434,6 +1433,7 @@ export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const SUBMIT_AOS = 'submit-aos';
 export const UPDATE_AOS = 'update-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
