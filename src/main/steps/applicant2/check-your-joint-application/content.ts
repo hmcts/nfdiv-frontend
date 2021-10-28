@@ -5,7 +5,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';

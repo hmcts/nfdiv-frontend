@@ -6,7 +6,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { Sections } from '../../applicant1Sequence';
 import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
