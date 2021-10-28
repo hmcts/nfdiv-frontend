@@ -1,5 +1,5 @@
 import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
-import { ChangedNameHow, YesOrNo } from '../../../main/app/case/definition';
+import { ChangedNameHow, DocumentType, YesOrNo } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
 
 export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
@@ -23,5 +23,9 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AddressPostcode: 'SW1H 9AJ',
   applicant2AddressPrivate: YesOrNo.NO,
   applicant2AddressTown: 'LONDON',
-  applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
+  applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+  applicant2CannotUpload: Checkbox.Checked,
+  applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+  applicant2UploadedFiles: [],
+  applicant2ChangedNameHowAnotherWay: '',
 };
