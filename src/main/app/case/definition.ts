@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.32.889 on 2021-10-28 10:05:02.
+// Generated using typescript-generator version 2.32.889 on 2021-10-28 11:14:01.
 
 export interface Address {
   AddressLine1: string;
@@ -97,7 +97,6 @@ export interface AcknowledgementOfService {
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
-  doYouAgreeCourtHasJurisdiction: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
@@ -406,13 +405,11 @@ export interface CaseData {
   confirmReadPetition: YesOrNo;
   disputeApplication: YesOrNo;
   confirmDisputeApplication: YesOrNo;
-  jurisdictionAgree: YesOrNo;
   jurisdictionDisagreeReason: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
-  doYouAgreeCourtHasJurisdiction: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
@@ -516,6 +513,7 @@ export interface CaseData {
   coTypeCostsDecision: CostOrderList;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
+  jurisdictionAgree: YesOrNo;
 }
 
 export interface CaseInvite {
@@ -670,6 +668,7 @@ export interface RetiredFields {
   coTypeCostsDecision: CostOrderList;
   legalProceedingsExist: YesOrNo;
   legalProceedingsDescription: string;
+  jurisdictionAgree: YesOrNo;
 }
 
 export interface Solicitor {
