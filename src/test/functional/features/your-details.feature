@@ -14,11 +14,6 @@ Feature: Your details step
     When I click "Continue"
     Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
 
-  Scenario: Loading the your details for civil partnership
-    Given I go to '/your-details?forceCivilMode'
-    Then I expect the page title to be "Apply to end a civil partnership - Are you male or female? - GOV.UK"
-    And the page should include "Are you male or female?"
-
   @nightly
   Scenario: They have not selected who they are applying to dissolve the union from
     Given I clear the form
