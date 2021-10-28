@@ -10,8 +10,8 @@ import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
-  CITIZEN_UPDATE_AOS,
   Gender,
+  UPDATE_AOS,
   YesOrNo,
 } from '../case/definition';
 
@@ -350,7 +350,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_UPDATE_AOS);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, UPDATE_AOS);
 
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
