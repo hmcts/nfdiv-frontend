@@ -4,11 +4,9 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import {
-  generateContent as applicant1GenerateContent,
-  connectionBulletPointsText,
-} from '../../applicant1/check-your-answers/content';
-import { jurisdictionMoreDetailsContent } from '../../applicant1/connection-summary/content';
+import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
@@ -58,7 +56,7 @@ const labels = ({ isDivorce, partner, required, formState }: CommonContent) => {
       [urls.JURISDICTION_INTERSTITIAL_URL]: {
         connections:
           (formState?.connections && formState?.connections?.length > 1
-            ? connectionBulletPointsText(formState?.connections, partner)
+            ? connectionBulletPointsTextForSoleAndJoint(formState?.connections, partner)
             : '') +
           moreDetailsComponent(
             jurisdictionMoreDetailsContent(formState?.connections).connectedToEnglandWales,
