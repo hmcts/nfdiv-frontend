@@ -47,7 +47,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
     readMore: 'Read more about the next steps',
-    line4: 'You have to complete 2 more steps before you are legally divorced:',
+    line4: `You have to complete 2 more steps before ${
+      isDivorce ? 'you are legally divorced' : 'your civil partnership has ended'
+    }:`,
     steps: {
       step1: `
         <strong>Apply for a conditional order</strong><br>
