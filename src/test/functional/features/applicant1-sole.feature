@@ -1,4 +1,4 @@
-Feature: Applicant 1 joint application
+Feature: Applicant 1 sole application
 
   Background:
     Given I create a new user and login
