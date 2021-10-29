@@ -76,7 +76,6 @@ Feature: Applicant 1 joint application
     When I click "Continue"
     Then the page URL should be "/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
-    And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     When I click "Continue"
     Then the page URL should be "/english-or-welsh"

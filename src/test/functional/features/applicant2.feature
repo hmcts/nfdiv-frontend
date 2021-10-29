@@ -83,7 +83,8 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
-    Given I login with applicant 1
+    Given I click "Sign out"
+    When I login with applicant 1
     And I go to '/confirm-your-joint-application'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
