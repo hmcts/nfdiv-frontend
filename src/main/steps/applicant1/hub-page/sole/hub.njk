@@ -7,12 +7,12 @@
   <p class="govuk-body">{{ dispute.line3 }}</p>
   <p class="govuk-body">{{ dispute.line4 }}</p>
 {% elif progressionIndex == 4 %}
-  <p class="govuk-body">{{ pendingDispute.line1 }}</p>
+  <p class="govuk-body">{{ pendingDispute.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ pendingDispute.line2 }}</p>
   <p class="govuk-body">{{ pendingDispute.line3 }}</p>
 {% elif progressionIndex == 3 %}
-  <p class="govuk-body">{{ holding.line1 }}</p>
+  <p class="govuk-body">{{ holding.line1 | safe }}</p>
   <p class="govuk-body">{{ holding.line2 }}</p>
   <p class="govuk-body">{{ holding.line3 }}</p>
   {% set readMoreContent %}
@@ -29,9 +29,8 @@
     html: readMoreContent
   }) }}
 {% elif progressionIndex == 2 %}
-  {% for property, line in aosDue %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
+  <p class="govuk-body">{{ aosDue.line1 }}</p>
+  <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
 {% else %}
   {% for property, line in aosAwaitingOrDrafted %}
     <p class="govuk-body">{{ line }}</p>
