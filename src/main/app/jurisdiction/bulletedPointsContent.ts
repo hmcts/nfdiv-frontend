@@ -23,7 +23,10 @@ export const connectionBulletPointsTextForRespondent = (connections: Jurisdictio
   return connections.map(connection => connectionBulletPoints[connection]);
 };
 
-export const connectionBulletPointsTextForSoleAndJoint: (connections, partner) => string = (connections, partner) => {
+export const connectionBulletPointsTextForSoleAndJoint = (
+  connections: JurisdictionConnections[],
+  partner: string
+): string => {
   const line1 = 'Your answers indicate that you can apply in England and Wales because:';
   let bulletPointText = '<ul>';
 
