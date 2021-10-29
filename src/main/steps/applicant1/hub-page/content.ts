@@ -39,11 +39,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
-  const isHubPage = true;
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
-    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
     ...columnGenerateContent(content),
-    isHubPage,
+    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
   };
 };
