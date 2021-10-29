@@ -17,7 +17,8 @@ Feature: Applicant 2
     And I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
-    Given I select "Your first name(s)"
+    Given I clear the form
+    And I select "Your first name(s)"
     And I type "Billy"
     And I select "Your last name(s)"
     And I type "Bob"
