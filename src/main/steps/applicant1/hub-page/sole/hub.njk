@@ -1,17 +1,17 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% if progressionIndex == 6 %}
+{% if progressionIndex == 5 %}
   <p class="govuk-body">{{ dispute.line1 }}</p>
   <p class="govuk-body">{{ dispute.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ dispute.line3 }}</p>
   <p class="govuk-body">{{ dispute.line4 }}</p>
-{% elif progressionIndex == 5 %}
+{% elif progressionIndex == 4 %}
   <p class="govuk-body">{{ pendingDispute.line1 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ pendingDispute.line2 }}</p>
   <p class="govuk-body">{{ pendingDispute.line3 }}</p>
-{% elif progressionIndex == 4 %}
+{% elif progressionIndex == 3 %}
   <p class="govuk-body">{{ holding.line1 }}</p>
   <p class="govuk-body">{{ holding.line2 }}</p>
   <p class="govuk-body">{{ holding.line3 }}</p>
@@ -28,7 +28,7 @@
     summaryText: holding.readMore,
     html: readMoreContent
   }) }}
-{% elif progressionIndex == 3 %}
+{% elif progressionIndex == 2 %}
   {% for property, line in aosDue %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}

@@ -29,7 +29,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     }.`,
     line3: `Your ${partner} can apply for a conditional order from ${
       formState?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
-    } This is because they have to wait 20 weeks from when the ${
+    }. This is because they have to wait 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email when the conditional order has been granted.`,
     line4: `After the conditional order, they need to apply for a final order, which legally ends the ${
@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   pendingDispute: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. and said that you want to dispute it.`,
+    } and said that you want to dispute it.`,
     line2: `You have until ${
       formState?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
@@ -66,7 +66,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
   dispute: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. and said that you want to dispute it.`,
+    } and said that you want to dispute it.`,
     line2: `You have submitted the ‘answer a ${
       isDivorce ? 'divorce' : 'dissolution'
     }’ form. This is the form for disputing ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,

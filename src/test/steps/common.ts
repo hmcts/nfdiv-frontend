@@ -21,7 +21,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(3);
+  test.retries(5);
 });
 
 After(async () => {
@@ -226,7 +226,7 @@ When('a case worker issues the application', async () => {
   const cwUser = await testConfig.GetOrCreateCaseWorker();
   const caseWorker = await iGetTheTestUser(cwUser);
   const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, { placeOfMarriage: 'Somewhere' }, 'caseworker-issue-application');
+  await cwCaseApi.triggerEvent(caseReference, { ceremonyPlace: 'Somewhere' }, 'caseworker-issue-application');
 });
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
@@ -274,7 +274,7 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
   I.executeScript(
     async ([userCase, requestUrl, redirectUrl]) => {
       const mainForm = document.getElementById('main-form') as HTMLFormElement;
-      const formData = new FormData(mainForm);
+      const formData = mainForm ? new FormData(mainForm) : new FormData();
       for (const [key, value] of Object.entries(userCase)) {
         formData.set(key, value as string);
       }
@@ -285,7 +285,7 @@ const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPag
       };
 
       await fetch(requestUrl, request);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       await fetch(redirectUrl, request);
     },
     [userCaseObj, requestPageLink, redirectPageLink]
