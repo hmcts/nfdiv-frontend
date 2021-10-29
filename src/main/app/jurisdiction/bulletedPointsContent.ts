@@ -1,6 +1,6 @@
 import { JurisdictionConnections } from '../case/definition';
 
-export const connectionBulletPointsTextForRespondent = (connections: JurisdictionConnections[] = []): string[] => {
+export const connectionBulletPointsTextForRespondent = (connections: JurisdictionConnections[]): string[] => {
   const connectionBulletPoints = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]:
       'the applicant and respondent are habitually resident in England and Wales',
@@ -21,4 +21,30 @@ export const connectionBulletPointsTextForRespondent = (connections: Jurisdictio
   };
 
   return connections.map(connection => connectionBulletPoints[connection]);
+};
+
+export const connectionBulletPointsTextForSoleAndJoint = (
+  connections: JurisdictionConnections[],
+  partner: string
+): string => {
+  const line1 = 'Your answers indicate that you can apply in England and Wales because:';
+  let bulletPointText = '<ul>';
+
+  const connectionBulletPoints = {
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
+    [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
+      'you’re domiciled and habitually resident and have lived here for at least 6 months',
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]:
+      'the courts of England and Wales have jurisdiction on a residual basis',
+    [JurisdictionConnections.APP_1_DOMICILED]: 'you are domiciled in England or Wales',
+    [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
+  };
+
+  for (const index in connections) {
+    bulletPointText += '<li>' + connectionBulletPoints[connections[index]] + '</li>';
+  }
+
+  return line1 + bulletPointText + '</ul>';
 };

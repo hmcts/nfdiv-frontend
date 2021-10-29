@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/utils/get-connection-to-england-and-wales';
+import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
@@ -13,7 +13,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
     connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
-    doYouAgreeCourtHasJurisdiction: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
+    jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,
     reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
@@ -52,7 +52,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
     </ul>
     <p>However, residual jurisdiction can be complex. If you’re not sure whether this applies to you then you should get legal advice</p> `,
     errors: {
-      doYouAgreeCourtHasJurisdiction: {
+      jurisdictionAgree: {
         required,
       },
       reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
@@ -72,10 +72,10 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    doYouAgreeCourtHasJurisdiction: {
+    jurisdictionAgree: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.doYouAgreeCourtHasJurisdiction,
+      label: l => l.jurisdictionAgree,
       values: [
         {
           label: l => l.yes,

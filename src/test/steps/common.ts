@@ -226,7 +226,7 @@ When('a case worker issues the application', async () => {
   const cwUser = await testConfig.GetOrCreateCaseWorker();
   const caseWorker = await iGetTheTestUser(cwUser);
   const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, { placeOfMarriage: 'Somewhere' }, 'caseworker-issue-application');
+  await cwCaseApi.triggerEvent(caseReference, { ceremonyPlace: 'Somewhere' }, 'caseworker-issue-application');
 });
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
