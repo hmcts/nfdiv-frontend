@@ -1,13 +1,10 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
-
-dayjs.extend(advancedFormat);
 
 const en = ({ isDivorce, marriage, civilPartnership, partner, formState }: CommonContent) => ({
   title: `How to proceed with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
