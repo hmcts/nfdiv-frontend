@@ -30,7 +30,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     } by ${
       formState?.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
-    line2: `If you do not think they will respond then you can <a class="govuk-link" href="">view the options for proceeding with your ${
+    line2: `If you do not think they will respond then you can <a class="govuk-link" href="/how-you-can-proceed">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a>.`,
   },
