@@ -6,41 +6,6 @@ Feature: Your address
     When I go to "/enter-your-address"
     Then the page should include "Enter your postal address"
 
-  @flaky
-  Scenario: Successfully searching for a UK postcode
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "SW1A 2AA"
-    When I click "Find address"
-    Then the page should include "SW1A 2AA"
-    And I wait for the postcode lookup to return results
-    Given I choose "PRIME MINISTER & FIRST LORD OF THE TREASURY, 10, DOWNING STREET, LONDON, SW1A 2AA" from "Select an address"
-    When I click "Continue"
-    Then the page URL should be "/their-email-address"
-    Given I go to "/enter-your-address"
-    Then the form input "Building and street" should be "10 PRIME MINISTER & FIRST LORD OF THE TREASURY, DOWNING STREET"
-    And the form input "Town or city" should be "LONDON"
-    And the form input "County" should be "CITY OF WESTMINSTER"
-    And the form input "Postcode" should be "SW1A 2AA"
-    And the form input "Country" should be "UK"
-
-  Scenario: Successfully manually entering a UK address
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And the page should include "ZZ00 0ZZ"
-    And the page should include "0 addresses found"
-    When I click "I cannot find the address in the list"
-    And I select "Building and street"
-    And I type "Buckingham Palace"
-    And I select "Town or city"
-    And I type "London"
-    And I select "Postcode"
-    And I type "SW1A 1AA"
-    And I click "Continue"
-    Then the page URL should be "/their-email-address"
-
   Scenario: Successfully entering an international address
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"
@@ -63,32 +28,6 @@ Feature: Your address
     Then the page URL should be "/their-email-address"
     When I go to "/enter-your-address"
     Then the form input "Country" should be "Example country"
-
-  @nightly
-  Scenario: Error when missing the postcode
-    Given I reset the postcode lookup form
-    When I click "Find address"
-    Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-
-  @nightly
-  Scenario: Error when postcode is invalid
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "not a postcode!"
-    When I click "Find address"
-    Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
-
-  @nightly
-  Scenario: Error when missing a required UK address field
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "SW1A 1AA"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
-    And I click "Continue"
-    Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
-    And the page should include "You have not entered your town or city. Enter your town or city before continuing."
-    And the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
   @nightly
   Scenario: Error when missing a required international address field

@@ -17,7 +17,8 @@ Feature: Applicant 2
     And I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
-    Given I select "Your first name(s)"
+    Given I clear the form
+    And I select "Your first name(s)"
     And I type "Billy"
     And I select "Your last name(s)"
     And I type "Bob"
@@ -83,6 +84,13 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
+    Given I click "Sign out"
+    When I login with applicant 1
+    And I go to '/confirm-your-joint-application'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue"
+    Then the page URL should be "/pay-and-submit"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
@@ -219,140 +227,6 @@ Feature: Applicant 2
     And the page should include "Your comments have been sent to your wife"
 
   @nightly
-  Scenario: They fail to fill out the applicant 2 forms
-    When I go to "/check-your-answers"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    When I click "Continue"
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/help-with-your-fee"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/have-you-applied-for-help-with-fees"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes"
-    When I click "Continue"
-    Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
-    Given I go to "/applicant2/enter-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not entered your first name. Enter it before continuing."
-    And the page should include "You have not entered your last name. Enter it before continuing."
-    Given I select "Your first name"
-    And I type "My first name!"
-    And I select "Your last name"
-    And I type "My last-name1"
-    When I click "Continue"
-    Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
-    Given I go to "/applicant2/changes-to-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/how-did-you-change-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Another way"
-    When I click "Continue"
-    Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
-    Given I go to "/applicant2/how-the-court-will-contact-you"
-    And I clear the form
-    And I select "Enter your phone number (optional)"
-    And I type "12345"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have to agree to receive email notifications in order to use this online service."
-    And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
-    Given I go to "/applicant2/english-or-welsh"
-    And I clear the form
-    When I select "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/address-private"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/enter-your-address"
-    And I clear the form
-    When I click "Find address"
-    Then the page should include "There was a problem"
-    And the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I select "Enter a UK postcode"
-    And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
-    When I click "Continue"
-    Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
-    And the page should include "You have not entered your town or city. Enter your town or city before continuing."
-    And the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    When I click "Find address"
-    Then the page should include "SW1H 9AJ"
-    Given I wait for the postcode lookup to return results
-    And I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not selected your address. Select your address from the list before continuing."
-    Given I go to "/applicant2/other-court-cases"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/details-other-proceedings"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
-    Given I go to "/applicant2/do-you-want-to-apply-financial-order"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I go to "/applicant2/how-to-apply-financial-order"
-    When I click "Continue"
-    Then the page URL should be "/applicant2/check-your-joint-application"
-    Given I go to "/applicant2/upload-your-documents"
-    And I clear the form
-    And I select "I cannot upload some or all of my documents"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
-    And the page should include "Select which file you could not upload before continuing."
-    Given I go to "/applicant2/check-your-joint-application"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "No"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
-    And I go to "/applicant2/confirm-your-joint-application"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
-
-  @nightly
   Scenario: They end the joint application
     When I go to "/check-your-answers"
     And I click "Send for review"
@@ -369,3 +243,6 @@ Feature: Applicant 2
     When I click "End joint application"
     Then the page URL should be "/applicant2/you-have-not-confirmed-joint-application"
     And the page should include "You have not confirmed your joint application"
+    And I click "Sign out"
+    Given I login with applicant 1
+    Then the page URL should be "/application-ended"

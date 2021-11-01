@@ -19,35 +19,37 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         : ''
     }.`,
     line2: `Your ${partner} should respond to the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partner'
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } by ${formState?.dueDate || dayjs().add(2, 'weeks').format('D MMMM YYYY')}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partner'
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } by ${
       formState?.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
-    line2: `If you do not think they will respond then you can view the options for proceeding with your ${
+    line2: `If you do not think they will respond then you can <a class="govuk-link" href="">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
-    }`,
+    }</a>.`,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. You can read their response.`,
+    }. You can <a class="govuk-link" href="">download and read their response (PDF)</a>.`,
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }`,
+    }.`,
     line3: `You can apply for a conditional order on ${
       formState?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
     }. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
     readMore: 'Read more about the next steps',
-    line4: 'You have to complete 2 more steps before you are legally divorced:',
+    line4: `You have to complete 2 more steps before ${
+      isDivorce ? 'you are legally divorced' : 'your civil partnership has ended'
+    }:`,
     steps: {
       step1: `
         <strong>Apply for a conditional order</strong><br>
@@ -67,7 +69,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
-    }. You can read their response here.`,
+    }. You can <a class="govuk-link" href="">read their response here</a>.`,
     line2: `They have to submit an ‘answer’ to the court by ${
       formState?.dueDate
     }. This is a form which explains their reasons for defending the ${
