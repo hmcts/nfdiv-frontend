@@ -3,7 +3,7 @@ import config from 'config';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
-import { generateContent as columnGenerateContent } from '../hub-page/right-column';
+import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) => ({
   title: `How to proceed with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,

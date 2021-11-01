@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { CommonContent } from '../../common/common.content';
-import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../urls';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { CommonContent } from '../../../common/common.content';
+import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../../urls';
 
 const en = ({ isDivorce, isApplicant2 }: CommonContent) => ({
   downloadLink: `<a class="govuk-link" href="/downloads/${

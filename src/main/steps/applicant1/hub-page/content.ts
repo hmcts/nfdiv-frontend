@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent as jointGenerateContent } from './joint/content';
-import { generateContent as columnGenerateContent } from './right-column';
+import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
 const en = ({ isDivorce, formState, referenceNumber }: CommonContent) => ({
