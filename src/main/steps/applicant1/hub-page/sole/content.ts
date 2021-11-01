@@ -59,7 +59,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         }.`,
       step2: `
         <strong>Apply for a final order</strong><br>
-        This legally ends the marriage. You cannot apply for a final order until 6 weeks after the conditional order.`,
+        This legally ends the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }. You cannot apply for a final order until 6 weeks after the conditional order.`,
     },
     line5: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
