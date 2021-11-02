@@ -29,7 +29,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, formState }: Commo
   thinkPartnerChoosingNotToRespond: `I think my ${partner} is receiving the application but is choosing not to respond`,
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",
-  dueDate: `${dayjs(formState?.issueDate).add(18, 'day').format('D MMMM YYYY')}`,
+  dueDate: `${dayjs(formState?.issueDate).add(28, 'day').format('D MMMM YYYY')}`,
 });
 
 // @TODO translations
