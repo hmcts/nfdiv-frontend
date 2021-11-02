@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 
+import { Case, CaseWithId } from '../../../app/case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
@@ -19,5 +20,9 @@ export default class CitizenUpdateContactDetailsPostController extends PostContr
     } else {
       return CITIZEN_UPDATE_CONTACT_DETAILS;
     }
+  }
+
+  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 }
