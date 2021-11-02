@@ -314,11 +314,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: data =>
-      data.applicant1IConfirmPrayer === Checkbox.Checked &&
-      data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked
-        ? CHECK_CONTACT_DETAILS
-        : ENTER_YOUR_ADDRESS,
+    getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -328,7 +324,11 @@ export const applicant1Sequence: Step[] = [
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
     getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
+      hasApp1Confirmed(data)
+        ? ADDRESS_PRIVATE
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? OTHER_COURT_CASES
+        : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -469,3 +469,6 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => ADDRESS_PRIVATE,
   },
 ];
+
+const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
+  data.applicant1IConfirmPrayer === Checkbox.Checked && data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
