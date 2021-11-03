@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, YesOrNo } from '../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -476,4 +476,6 @@ export const applicant1Sequence: Step[] = [
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
-  data.applicant1IConfirmPrayer === Checkbox.Checked && data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
+  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
+  data.applicant1IConfirmPrayer === Checkbox.Checked &&
+  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;

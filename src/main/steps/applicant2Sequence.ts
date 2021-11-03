@@ -198,6 +198,6 @@ export const applicant2Sequence = ((): Step[] => {
 })();
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
+  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant2IConfirmPrayer === Checkbox.Checked &&
-  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked &&
-  data.state !== State.AwaitingApplicant1Response;
+  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
