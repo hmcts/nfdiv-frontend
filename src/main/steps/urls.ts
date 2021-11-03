@@ -110,3 +110,5 @@ export const CHECK_PHONE_NUMBER: PageLink = '/check-phone-number';
 export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
 export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
 export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
+
+export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';

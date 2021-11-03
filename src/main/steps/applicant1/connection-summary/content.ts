@@ -10,7 +10,7 @@ export const jurisdictionMoreDetailsContent = (
   const resConnection = enContainsHabitualResConnection(connections);
   const domConnection = enContainsDomConnection(connections);
 
-  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : resConnection ? 1 : 0;
+  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : domConnection ? 1 : 0;
 
   const connectionText = [
     'Read more about habitual residence',
