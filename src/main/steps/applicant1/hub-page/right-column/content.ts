@@ -1,8 +1,9 @@
+import { ApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
-import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../../urls';
+import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
-const en = ({ isDivorce, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, formState }: CommonContent) => ({
   downloadLink: `<a class="govuk-link" href="/downloads/${
     isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'
   }"
@@ -10,7 +11,8 @@ const en = ({ isDivorce, isApplicant2 }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
-    (isApplicant2 ? APPLICANT_2 : '') + REVIEW_CONTACT_DETAILS
+    (isApplicant2 ? (formState?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
+    CHECK_CONTACT_DETAILS
   }">Review your contact details</a>`,
   iWantTo: 'I want to...',
   gettingHelp: 'Getting help',
