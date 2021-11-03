@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ChangedNameHow, YesOrNo } from '../app/case/definition';
+import { ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
@@ -198,4 +198,6 @@ export const applicant2Sequence = ((): Step[] => {
 })();
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
-  data.applicant2IConfirmPrayer === Checkbox.Checked && data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
+  data.applicant2IConfirmPrayer === Checkbox.Checked &&
+  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked &&
+  data.state !== State.AwaitingApplicant1Response;

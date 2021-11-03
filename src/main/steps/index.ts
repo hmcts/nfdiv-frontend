@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { Case, CaseWithId } from '../app/case/case';
+import { CaseWithId } from '../app/case/case';
 import { ApplicationType } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
@@ -66,7 +66,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   return `${url}${queryString}`;
 };
 
-export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
+export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = [...applicant1Sequence, ...applicant2Sequence, ...respondentSequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
