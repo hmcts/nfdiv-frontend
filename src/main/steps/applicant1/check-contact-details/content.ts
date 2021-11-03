@@ -15,20 +15,22 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const address = [content.formState?.applicant1Address1];
-  address.push(content.formState?.applicant1Address2);
-  address.push(content.formState?.applicant1Address3);
-  address.push(content.formState?.applicant1AddressTown);
-  address.push(content.formState?.applicant1AddressCounty);
-  address.push(content.formState?.applicant1AddressPostcode);
-  address.push(content.formState?.applicant1AddressCountry);
-  const applicantAddress = address.filter(Boolean).join('<br>');
+  const { formState } = content;
+  const address = `
+    ${formState?.applicant1Address1}<br>
+    ${formState?.applicant1Address2}<br>
+    ${formState?.applicant1Address3}<br>
+    ${formState?.applicant1AddressTown}<br>
+    ${formState?.applicant1AddressCounty}<br>
+    ${formState?.applicant1AddressPostcode}<br>
+    ${formState?.applicant1AddressCountry}
+  `;
   const phoneNumber = content.formState?.applicant1PhoneNumber;
   const translations = languages[content.language]();
   const prefixUrl = '';
   return {
     ...translations,
-    applicantAddress,
+    address,
     phoneNumber,
     prefixUrl,
   };

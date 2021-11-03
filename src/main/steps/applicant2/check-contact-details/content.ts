@@ -1,36 +1,25 @@
 import { ApplicationType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-
-const en = () => ({
-  title: 'Review your contact details',
-  yourAddress: 'Your address',
-  yourPhoneNumber: 'Your phone number',
-});
-
-// @TODO translations
-const cy = en;
-
-const languages = {
-  en,
-  cy,
-};
+import { generateContent as applicant1GenerateContent } from '../../applicant1/check-contact-details/content';
 
 export const generateContent: TranslationFn = content => {
-  const address = [content.formState?.applicant2Address1];
-  address.push(content.formState?.applicant2Address2);
-  address.push(content.formState?.applicant2Address3);
-  address.push(content.formState?.applicant2AddressTown);
-  address.push(content.formState?.applicant2AddressCounty);
-  address.push(content.formState?.applicant2AddressPostcode);
-  address.push(content.formState?.applicant2AddressCountry);
-  const applicantAddress = address.filter(Boolean).join('<br>');
+  const { formState } = content;
+  const address = `
+    ${formState?.applicant2Address1}<br>
+    ${formState?.applicant2Address2}<br>
+    ${formState?.applicant2Address3}<br>
+    ${formState?.applicant2AddressTown}<br>
+    ${formState?.applicant2AddressCounty}<br>
+    ${formState?.applicant2AddressPostcode}<br>
+    ${formState?.applicant2AddressCountry}
+  `;
   const phoneNumber = content.formState?.applicant2PhoneNumber;
-  const translations = languages[content.language]();
   const prefixUrl =
     content.formState?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
+  const translations = applicant1GenerateContent(content);
   return {
     ...translations,
-    applicantAddress,
+    address,
     phoneNumber,
     prefixUrl,
   };
