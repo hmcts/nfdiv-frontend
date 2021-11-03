@@ -6,12 +6,6 @@ Feature: Habitually Resident
     When I go to '/habitually-resident-england-wales'
     Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
 
-  @nightly
-  Scenario: Error when not answering did you get married in the UK?
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-
   # Scenario: Was not last habitually resident in England or Wales and is same sex
   # Tested in can-use-english-or-welsh-courts.feature: G Eligible for Residual Jurisdiction
 

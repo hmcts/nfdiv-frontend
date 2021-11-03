@@ -4,6 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
+import { HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -30,7 +31,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     } by ${
       formState?.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
-    line2: `If you do not think they will respond then you can <a class="govuk-link" href="">view the options for proceeding with your ${
+    line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a>.`,
   },
@@ -58,7 +59,9 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
         }.`,
       step2: `
         <strong>Apply for a final order</strong><br>
-        This legally ends the marriage. You cannot apply for a final order until 6 weeks after the conditional order.`,
+        This legally ends the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }. You cannot apply for a final order until 6 weeks after the conditional order.`,
     },
     line5: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
