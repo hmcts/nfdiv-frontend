@@ -51,8 +51,14 @@
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
   {% if not isApplicant1FinancialOrderYes and not isApplicant2FinancialOrderYes %}
+<<<<<<< HEAD
     <p class="govuk-body">{{ financialOrderNo }}</p>
   {% endif %}
+=======
+    <p class="govuk-body">{{ financialOrderNo }}</p> 
+  {% endif %}
+  <p class="govuk-body">{{ line21 }}</p>
+>>>>>>> ongoing dev
   {{ govukDetails({
     summaryText: whatThisMeans,
     html: financialOrderMoreDetails
@@ -63,7 +69,11 @@
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
     <p class="govuk-body">{{ line21 | safe }}</p>
   {% endif %}
+<<<<<<< HEAD
   {% if isApplicant2AddressNotPrivate %}
+=======
+  {% if isRespondentAddressNotPrivate %}
+>>>>>>> ongoing dev
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
@@ -73,9 +83,14 @@
   <p class="govuk-body">{{ line23 | safe }}</p>
   <p class="govuk-body">{{ applicant1Name | safe }}</p>
   <p class="govuk-body">{{ applicant2Name | safe }}</p>
+<<<<<<< HEAD
   <h3 class="govuk-heading-m">{{ confirm}}</h3> 
 {% endblock %}
 
 {% block form %}
   {% include "../check-your-answers/form.njk" %}
+=======
+  <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
+
+>>>>>>> ongoing dev
 {% endblock %}
