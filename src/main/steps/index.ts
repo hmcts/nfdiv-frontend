@@ -66,9 +66,13 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   return `${url}${queryString}`;
 };
 
-export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
+export const getNextStepUrl = (
+  req: AppRequest,
+  data: Partial<CaseWithId>,
+  sequence = [...applicant1Sequence, ...applicant2Sequence, ...respondentSequence]
+): string => {
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...applicant1Sequence, ...applicant2Sequence, ...respondentSequence].find(s => s.url === path);
+  const nextStep = sequence.find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;

@@ -1,5 +1,4 @@
-import { CaseWithId, Checkbox } from '../app/case/case';
-import { ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { ChangedNameHow, YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
@@ -107,12 +106,12 @@ const sequences: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: data => (hasApp2Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: data => (hasApp2Confirmed(data) ? ADDRESS_PRIVATE : OTHER_COURT_CASES),
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: OTHER_COURT_CASES,
@@ -196,8 +195,3 @@ export const applicant2Sequence = ((): Step[] => {
     getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
   }));
 })();
-
-const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
-  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
-  data.applicant2IConfirmPrayer === Checkbox.Checked &&
-  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;

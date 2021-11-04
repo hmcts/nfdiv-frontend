@@ -68,7 +68,7 @@ export class PostController<T extends AnyObject> {
       }
     }
 
-    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
+    const nextUrl = req.session.errors.length > 0 ? req.url : this.getNextStep(req, req.session.userCase);
 
     req.session.save(err => {
       if (err) {
@@ -76,6 +76,10 @@ export class PostController<T extends AnyObject> {
       }
       res.redirect(nextUrl);
     });
+  }
+
+  protected getNextStep(req: AppRequest<T>, formData: Partial<CaseWithId>): string {
+    return getNextStepUrl(req, formData);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {

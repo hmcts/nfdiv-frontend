@@ -1,28 +1,3 @@
-import autobind from 'autobind-decorator';
+import UpdateContactDetailsPostController from '../../../app/update-contact-details/UpdateContactDetailsPostController';
 
-import { Case, CaseWithId } from '../../../app/case/case';
-import {
-  CITIZEN_APPLICANT2_UPDATE,
-  CITIZEN_UPDATE,
-  CITIZEN_UPDATE_CONTACT_DETAILS,
-  State,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-
-@autobind
-export default class CitizenUpdateContactDetailsPostController extends PostController<AnyObject> {
-  protected getEventName(req: AppRequest<AnyObject>): string {
-    if (req.session.userCase.state === State.Draft || req.session.userCase.state === State.AwaitingApplicant1Response) {
-      return CITIZEN_UPDATE;
-    } else if (req.session.userCase.state === State.AwaitingApplicant2Response) {
-      return CITIZEN_APPLICANT2_UPDATE;
-    } else {
-      return CITIZEN_UPDATE_CONTACT_DETAILS;
-    }
-  }
-
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-  }
-}
+export default UpdateContactDetailsPostController;

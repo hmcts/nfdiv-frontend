@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -315,7 +315,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -325,11 +325,7 @@ export const applicant1Sequence: Step[] = [
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
     getNextStep: data =>
-      hasApp1Confirmed(data)
-        ? ADDRESS_PRIVATE
-        : data.applicationType === ApplicationType.JOINT_APPLICATION
-        ? OTHER_COURT_CASES
-        : THEIR_EMAIL_ADDRESS,
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -474,8 +470,3 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => ADDRESS_PRIVATE,
   },
 ];
-
-const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
-  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
-  data.applicant1IConfirmPrayer === Checkbox.Checked &&
-  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
