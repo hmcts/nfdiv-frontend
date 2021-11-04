@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
@@ -92,7 +94,9 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
    This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
    This is known as a ‘contested financial order’.
    <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee.
-   Applying for a ‘contested financial order’ costs £255. Applying for a ‘financial order by consent’ costs £50.
+   Applying for a ‘contested financial order’ costs ${config.get(
+     'fees.financialOrder'
+   )}. Applying for a ‘financial order by consent’ costs ${config.get('fees.consentOrder')}.
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
