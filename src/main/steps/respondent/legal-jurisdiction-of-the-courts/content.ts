@@ -59,7 +59,6 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
         required: `You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
           isDivorce ? 'grant your divorce' : 'end your civil partnership'
         }`,
-        characterLengthError: 'You have exceeded the number of characters allowed',
       },
       inWhichCountryIsYourLifeMainlyBased: {
         required: 'You need to tell us which country your life is mainly based',
