@@ -9,9 +9,15 @@ const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
-    const addToReqPath = (req: AppRequest) => {
+    const addApplicationToReqPath = (req: AppRequest) => {
       return req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.APPLICATION)
         ?.value.documentLink.document_binary_url;
+    };
+
+    const addRespondentAnswersToReqPath = (req: AppRequest) => {
+      return req.session.userCase?.documentsGenerated?.find(
+        doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
+      )?.value.documentLink.document_binary_url;
     };
 
     const addHeaders = proxyReqOpts => {
@@ -20,15 +26,30 @@ export class DocumentDownloadMiddleware {
       return proxyReqOpts;
     };
 
-    const dmStoreProxy = {
+    const dmStoreProxyForApplicationPdf = {
       endpoints: ['/downloads/divorce-application', '/downloads/application-to-end-civil-partnership'],
       target: config.get('services.documentManagement.url'),
     };
 
+    const dmStoreProxyForRespondentAnswersPdf = {
+      endpoints: ['/downloads/respondent-answers'],
+      target: config.get('services.documentManagement.url'),
+    };
+
     app.use(
-      dmStoreProxy.endpoints,
-      proxy(dmStoreProxy.target, {
-        proxyReqPathResolver: addToReqPath,
+      dmStoreProxyForApplicationPdf.endpoints,
+      proxy(dmStoreProxyForApplicationPdf.target, {
+        proxyReqPathResolver: addApplicationToReqPath,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForRespondentAnswersPdf.endpoints,
+      proxy(dmStoreProxyForRespondentAnswersPdf.target, {
+        proxyReqPathResolver: addRespondentAnswersToReqPath,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
