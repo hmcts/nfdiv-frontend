@@ -11,7 +11,7 @@ const en = ({ isDivorce, isApplicant2 }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   respondentAnswersDownloadLink: `<a class="govuk-link" href="/downloads/respondent-answers"
-  download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the response to the ${
+  download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
