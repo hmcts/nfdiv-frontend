@@ -9,10 +9,64 @@
   <p class="govuk-body">{{ line2 | safe }}</p>
   {% if isApplicant1FinancialOrderYes %}
     <p class="govuk-body">{{ applicant1FinancialOrderYes }}</p>
+<<<<<<< HEAD
     {% endif %}
   {% if isApplicant2FinancialOrderYes %}
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
+  <p class="govuk-body">{{ line3 | safe }}</p>
+  <p class="govuk-body">{{ line4 | safe }}</p>
+  <p class="govuk-body">{{ line5 | safe }}</p>
+  <p class="govuk-body">{{ line6 }}</p>
+  <p class="govuk-body">{{ line7 | safe }}</p>
+  <p class="govuk-body">{{ line8 }}</p>
+  <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
+  <p class="govuk-body">{{ line10 }}</p>
+  <p class="govuk-body">{{ line11 | safe }}</p>
+  <p class="govuk-body">{{ line12 }}</p>
+  <p class="govuk-body">{{ line13 | safe }}</p>
+  <p class="govuk-body">{{ line14 }}</p>
+  <p class="govuk-body">{{ line15 | safe }}</p>
+  <p class="govuk-body">{{ line16 }}</p>
+  <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
+  <p class="govuk-body">{{ line17 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for line in connectionBulletPoints %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+  </ul>
+  {{ govukDetails({
+    summaryText: whatThisMeans,
+    html: jurisdictionsMoreDetails
+  }) }}
+  <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
+  <p class="govuk-body">{{ line18 }}</p>
+  <p class="govuk-body">{{ line19 | safe }}</p>
+  <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
+  <p class="govuk-body">{{ line20 }}</p>
+  <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
+  {% if isApplicant1FinancialOrderYes %}
+    <p class="govuk-body">{{ applicant1FinancialOrderYes }}</p>
+=======
+>>>>>>> ongoing dev
+    {% endif %}
+  {% if isApplicant2FinancialOrderYes %}
+    <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
+  {% endif %}
+<<<<<<< HEAD
+  {% if not isApplicant1FinancialOrderYes and not isApplicant2FinancialOrderYes %}
+<<<<<<< HEAD
+    <p class="govuk-body">{{ financialOrderNo }}</p>
+  {% endif %}
+=======
+    <p class="govuk-body">{{ financialOrderNo }}</p> 
+  {% endif %}
+<<<<<<< HEAD
+  <p class="govuk-body">{{ line21 }}</p>
+>>>>>>> ongoing dev
+=======
+>>>>>>> confirm joint application
+=======
   <p class="govuk-body">{{ line3 | safe }}</p>
   <p class="govuk-body">{{ line4 | safe }}</p>
   <p class="govuk-body">{{ line5 | safe }}</p>
@@ -51,17 +105,10 @@
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
   {% if not isApplicant1FinancialOrderYes and not isApplicant2FinancialOrderYes %}
-<<<<<<< HEAD
-    <p class="govuk-body">{{ financialOrderNo }}</p>
-  {% endif %}
-=======
     <p class="govuk-body">{{ financialOrderNo }}</p> 
   {% endif %}
-<<<<<<< HEAD
   <p class="govuk-body">{{ line21 }}</p>
 >>>>>>> ongoing dev
-=======
->>>>>>> confirm joint application
   {{ govukDetails({
     summaryText: whatThisMeans,
     html: financialOrderMoreDetails
@@ -73,7 +120,11 @@
     <p class="govuk-body">{{ line21 | safe }}</p>
   {% endif %}
 <<<<<<< HEAD
+<<<<<<< HEAD
   {% if isApplicant2AddressNotPrivate %}
+=======
+  {% if isRespondentAddressNotPrivate %}
+>>>>>>> ongoing dev
 =======
   {% if isRespondentAddressNotPrivate %}
 >>>>>>> ongoing dev
@@ -87,11 +138,16 @@
   <p class="govuk-body">{{ applicant1Name | safe }}</p>
   <p class="govuk-body">{{ applicant2Name | safe }}</p>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <h3 class="govuk-heading-m">{{ confirm}}</h3> 
 {% endblock %}
 
 {% block form %}
   {% include "../check-your-answers/form.njk" %}
+=======
+  <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
+
+>>>>>>> ongoing dev
 =======
   <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
 
