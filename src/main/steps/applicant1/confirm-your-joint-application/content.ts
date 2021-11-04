@@ -1,159 +1,151 @@
+import config from 'config';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
-import { ChangedNameHow, YesOrNo } from '../../../app/case/definition';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
-import { Sections } from '../../applicant1Sequence';
-import { moreDetailsComponent } from '../../applicant2/check-your-joint-application/content';
 import { CommonContent } from '../../common/common.content';
-import * as urls from '../../urls';
 
-const en = ({ isDivorce, partner, formState, marriage, civilPartnership }: CommonContent) => ({
+const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
-  sectionTitles: {
-    [Sections.AboutApplicant1]: 'About applicant 1',
-    [Sections.AboutApplicant2]: 'About applicant 2',
-    [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
-    [Sections.HelpWithFees]: 'Help with fees',
-    [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
-    [Sections.OtherCourtCases]: 'Other court cases',
-    [Sections.DividingAssets]: 'Dividing your money and property',
-  },
-  stepQuestions: {
-    [urls.YOUR_NAME]: {
-      applicant1FirstNames: 'First name',
-      applicant1MiddleNames: 'Middle name',
-      applicant1LastNames: 'Last name',
-    },
-    [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
-      applicant1ScreenHasUnionBroken: 'Has your marriage irretrievably broken down?',
-    },
-    [urls.OTHER_COURT_CASES]: {
-      applicant1LegalProceedings: `Applicant 1<br><br> Are there, or have there ever been, any other court cases relating to this ${
-        isDivorce ? marriage : civilPartnership
-      }?`,
-    },
-    [urls.DETAILS_OTHER_PROCEEDINGS]: {
-      applicant1LegalProceedingsDetails: 'Details of court cases',
-    },
-    [urls.APPLICANT_2 + urls.OTHER_COURT_CASES]: {
-      applicant2LegalProceedings: `<br>Applicant 2<br><br> Are there, or have there ever been, any other court cases relating to this ${
-        isDivorce ? marriage : civilPartnership
-      }?`,
-    },
-    [urls.APPLICANT_2 + urls.DETAILS_OTHER_PROCEEDINGS]: {
-      applicant2LegalProceedingsDetails: 'Details of court cases',
-    },
-    [urls.HELP_WITH_YOUR_FEE_URL]: {
-      applicant1HelpPayingNeeded: 'Is help with fees being claimed on this application?',
-    },
-    [urls.APPLY_FINANCIAL_ORDER]: {
-      applyForFinancialOrder: 'Applicant 1<br><br> Do you want to apply for a financial order?',
-    },
-    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
-      applicant2ApplyForFinancialOrder: '<br>Applicant 2<br><br> Do you want to apply for a financial order?',
-    },
-    [urls.WHERE_YOUR_LIVES_ARE_BASED_URL]: {
-      applicant1LifeBasedInEnglandAndWales: "Is applicant 1's life mainly based in England or Wales?",
-      applicant2LifeBasedInEnglandAndWales: "Is applicant 2's life mainly based in England or Wales?",
-    },
-    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
-    [urls.APPLICANT_2 + urls.YOUR_NAME]: {
-      applicant2FirstNames: 'First name',
-      applicant2MiddleNames: 'Middle name',
-      applicant2LastNames: 'Last name',
-    },
-  },
-  stepAnswers: {
-    [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: formState?.relationshipDate ? getFormattedDate(formState?.relationshipDate) : false,
-    },
-    [urls.HOW_DO_YOU_WANT_TO_APPLY]: {
-      applicationType: 'We want to apply jointly',
-    },
-    [urls.HAS_RELATIONSHIP_BROKEN_URL]: {
-      applicant1ScreenHasUnionBroken: 'Yes, the marriage has irretrievably broken down ',
-    },
-    [urls.CERTIFIED_TRANSLATION]: {
-      certifiedTranslation: formState?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
-    },
-    [urls.OTHER_COURT_CASES]: {
-      applicant1LegalProceedings: `\n\n ${formState?.applicant1LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
-    },
-    [urls.APPLICANT_2 + urls.OTHER_COURT_CASES]: {
-      applicant2LegalProceedings: `\n\n\n ${formState?.applicant2LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
-    },
-    [urls.APPLY_FINANCIAL_ORDER]: {
-      applyForFinancialOrder: formState?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
-    },
-    [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
-      applicant2ApplyForFinancialOrder:
-        formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n\n Yes' : ' \n\n\n No',
-    },
-    [urls.HELP_WITH_YOUR_FEE_URL]: {
-      applicant1HelpPayingNeeded:
-        formState?.applicant1HelpPayingNeeded === YesOrNo.YES && formState.applicant2HelpPayingNeeded === YesOrNo.YES
-          ? 'Yes'
-          : formState?.applicant1HelpPayingNeeded === YesOrNo.YES ||
-            formState?.applicant2HelpPayingNeeded === YesOrNo.YES
-          ? 'No'
-          : 'No, because both applicants	did not apply',
-    },
-    [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections: formState?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
-    },
-    [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant1NameChangedHow: formState?.applicant1NameChangedHow
-        ?.join(' / ')
-        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
-        .replace(ChangedNameHow.OTHER, 'Another way'),
-    },
-    [urls.APPLICANT_2 + urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant2NameChangedHow: formState?.applicant2NameChangedHow
-        ?.join(' / ')
-        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
-        .replace(ChangedNameHow.OTHER, 'Another way'),
-    },
-  },
-  stepAnswersWithHTML: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections:
-        (formState?.connections && formState?.connections?.length > 1
-          ? connectionBulletPointsTextForSoleAndJoint(formState?.connections, partner)
-          : '') +
-        moreDetailsComponent(
-          jurisdictionMoreDetailsContent(formState?.connections).connectedToEnglandWales,
-          jurisdictionMoreDetailsContent(formState?.connections).readMore
-        ),
-    },
-  },
-  confirm: 'Confirm before continuing',
-  confirmPrayer: `I confirm that I’m applying to the court with my ${partner} to:`,
-  confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
-    <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
-    <li>decide how our money and property will be split (known as a financial order)</li>
-  </ul>
-  <p class="govuk-body govuk-!-margin-bottom-0">This confirms what you are asking the court to do. It’s known as ‘the prayer’.</p>`,
-  confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
-  confirmApplicationIsTrueHint:
-    '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
-  confirmApplicationIsTrueWarning: 'You could be fined or imprisoned if you deliberately submit false information. ',
-  continue: 'Continue',
+  subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
+  line1: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
+  line2: `${formState?.applicant1FirstNames} ${formState?.applicant1LastNames} and ${formState?.applicant2FirstNames} ${
+    formState?.applicant2LastNames
+  } are applying to the court for ${
+    isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
+  }`,
+  line3: `<strong>Case reference number: </strong>${formState?.id?.replace(
+    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
+    '$1-$2-$3-$4'
+  )}`,
+  line4: `<strong>Issued: </strong>${formState?.issueDate}`,
+  line5: '<strong> Applicant 1 </strong>',
+  line6: `${formState?.applicant1FirstNames} ${formState?.applicant1MiddleNames} ${formState?.applicant1LastNames}`,
+  line7: '<strong> Applicant 2 </strong>',
+  line8: `${formState?.applicant2FirstNames} ${formState?.applicant2MiddleNames} ${formState?.applicant2LastNames}`,
+  subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
+  line10: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
+     or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
+      applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+  line11: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
+  line12: `${formState?.applicant1FullNameOnCertificate}  and ${formState?.applicant2FullNameOnCertificate}
+      (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
+  line13: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
+  line14: `${formState?.ceremonyPlace}`,
+  line15: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
+  line16: `${getFormattedDate(formState?.relationshipDate)}`,
+  subHeading3: 'Why the court can deal with the case (jurisdiction)',
+  line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
+  connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
+  jurisdictionsMoreDetails:
+    `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+      isDivorce ? 'grant a divorce' : 'end a civil partnership'
+    }.
+    The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants. Each legal statement includes some or all of the following legal connections to England or Wales.` +
+    '<br><br>' +
+    jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
+  whatThisMeans: 'What this means',
+  subHeading4: 'Other court cases',
+  line18: `The court needs to know about any other court cases relating to the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }, which might affect the legal power (jurisdiction) of the court.`,
+  line19: `${
+    formState?.applicant1LegalProceedings === YesOrNo.YES && formState?.applicant2LegalProceedings === YesOrNo.YES
+      ? `Applicant 1 has given details of other court cases relating to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }:` +
+        '<br>' +
+        formState.applicant1LegalProceedingsDetails +
+        '<br><br>' +
+        `Applicant 2 has given details of other court cases relating to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }:` +
+        '<br>' +
+        formState.applicant2LegalProceedingsDetails
+      : formState?.applicant1LegalProceedings === YesOrNo.NO && formState?.applicant2LegalProceedings === YesOrNo.NO
+      ? `The applicants have indicated that there are no other court cases which are related to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }`
+      : formState?.applicant1LegalProceedings === YesOrNo.YES
+      ? `Applicant 1 has given details of other court cases relating to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }:` +
+        '<br>' +
+        formState.applicant1LegalProceedingsDetails
+      : formState?.applicant2LegalProceedings === YesOrNo.YES
+      ? `Applicant 2 has given details of other court cases relating to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }:` +
+        '<br>' +
+        formState.applicant2LegalProceedingsDetails
+      : ''
+  }.`,
+  subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
+  line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
+  subHeading6: 'Financial order application',
+  applicant1FinancialOrderYes: 'Applicant 1 is applying to the court for financial orders',
+  applicant2FinancialOrderYes: 'Applicant 2 is applying to the court for financial orders',
+  financialOrderNo: 'The applicants are not intending to apply to the court for financial orders.',
+  financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’.
+  <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’. 
+  <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
+    'fees.financialOrder'
+  )}. Applying for a ‘financial order by consent’ costs ${config.get(
+    'fees.consentOrder'
+  )}. You can get a solicitor to draft these for you. 
+  <br><br>If you are not sure what to do then you should seek legal advice. `,
+  subHeading7: "Applicant 1's correspondence address",
+  applicantAddressCountry: `${
+    formState?.applicant1SolicitorAddress
+      ? formState.applicant1SolicitorAddress
+      : [
+          formState?.applicant1Address1,
+          formState?.applicant1Address2,
+          formState?.applicant1Address3,
+          formState?.applicant1AddressTown,
+          formState?.applicant1AddressCounty,
+          formState?.applicant1AddressPostcode,
+          formState?.applicant1AddressCountry,
+        ]
+          .filter(Boolean)
+          .join('<br>')
+  }`,
+  subHeading8: "Applicant 1's email address",
+  line21: `${userEmail}`,
+  subHeading9: "Applicant 2's correspondence address",
+  respondentAddressCountry: `${
+    formState?.applicant2SolicitorAddress
+      ? formState.applicant2SolicitorAddress
+      : [
+          formState?.applicant2Address1,
+          formState?.applicant2Address2,
+          formState?.applicant2Address3,
+          formState?.applicant2AddressTown,
+          formState?.applicant2AddressCounty,
+          formState?.applicant2AddressPostcode,
+          formState?.applicant2AddressCountry,
+        ]
+          .filter(Boolean)
+          .join('<br>')
+  }`,
+  subHeading10: "Applicant 2's email address",
+  line22: `${formState?.applicant2EmailAddress}`,
+  subHeading11: 'Statement of truth',
+  line23: 'I believe that the facts stated in this application are true.',
+  applicant1Name: `<em>${formState?.applicant1FirstNames} ${formState?.applicant1LastNames}</em>`,
+  applicant2Name: `<em>${formState?.applicant2FirstNames} ${formState?.applicant2LastNames}</em>`,
+  subHeading12: 'Your acknowledgement',
+  confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
   errors: {
-    applicant1IConfirmPrayer: {
+    confirmReadPetition: {
       required:
-        'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
-    },
-    applicant1IBelieveApplicationIsTrue: {
-      required:
-        'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
+        'You need to confirm that you have read the application before you continue. You can say whether you want to dispute it later.',
     },
   },
 });
@@ -203,10 +195,16 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const isApplicantAddressNotPrivate = content.formState?.applicant1AddressPrivate !== YesOrNo.YES;
+  const isRespondentAddressNotPrivate = content.formState?.applicant2AddressPrivate !== YesOrNo.YES;
+  const isApplicant1ApplyForFinancialOrder = content.formState?.applyForFinancialOrder === YesOrNo.YES;
+  const isApplicant2ApplyForFinancialOrder = content.formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   return {
     ...translations,
-    sections: Sections,
-    getAnswerRows,
     form,
+    isApplicantAddressNotPrivate,
+    isRespondentAddressNotPrivate,
+    isApplicant1ApplyForFinancialOrder,
+    isApplicant2ApplyForFinancialOrder,
   };
 };
