@@ -173,6 +173,17 @@ Given('I pay and submit the application', () => {
   I.waitInUrl('/pay-your-fee');
   iClick('Pay and submit application');
 
+  completePayment();
+});
+
+Given('I pay and submit the joint application', () => {
+  I.waitInUrl('/pay-and-submit');
+  iClick('Pay and submit');
+
+  completePayment();
+});
+
+const completePayment = () => {
   I.waitInUrl('/card_details', 15);
   iClick('Card number', '#card-no', 15);
   I.type('4444333322221111');
@@ -198,4 +209,4 @@ Given('I pay and submit the application', () => {
   I.click('Confirm payment');
 
   I.waitInUrl('/application-submitted', 15);
-});
+};

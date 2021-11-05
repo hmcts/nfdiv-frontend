@@ -1,13 +1,19 @@
 Feature: Update contact details
   Background: Logged in for hub page
     Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
+    And I've already completed the form using the fixture "completeCase"
 
   Scenario: Applicant 1 updates contact details
-    Given I set the case state to "Holding"
-    And I go to "/"
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application submitted"
+    Given a case worker issues the application
+    And I click "Sign out"
+    And I login with applicant 1
     Then the page URL should be "/hub-page"
-    Then the page should include "Your application for divorce has been submitted and checked by court staff."
     When I click "Review your contact details"
     Then the page should include "Review your contact details"
     When I click "Change"
@@ -32,14 +38,16 @@ Feature: Update contact details
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: Applicant 2 updates contact details
-    Given I go to "/check-your-answers"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
+  Scenario: respondent updates contact details
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application submitted"
+    Given a case worker issues the application
     And I enter my valid case reference and valid access code
-    And I set the case state to "Holding"
-    And I go to "/"
-    Then the page URL should be "/applicant2/hub-page"
+    Then the page URL should be "/respondent/hub-page"
     When I click "Review your contact details"
     Then the page should include "Review your contact details"
     When I click "Change"
