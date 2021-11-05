@@ -315,11 +315,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: data =>
-      data.applicant1IConfirmPrayer === Checkbox.Checked &&
-      data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked
-        ? CHECK_CONTACT_DETAILS
-        : ENTER_YOUR_ADDRESS,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: YOU_CANNOT_APPLY,

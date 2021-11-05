@@ -9,6 +9,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -75,6 +76,10 @@ const sequences: Step[] = [
   },
   {
     url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {

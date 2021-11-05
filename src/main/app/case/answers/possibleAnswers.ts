@@ -8,16 +8,21 @@ import {
 } from '../../../steps';
 import { CONFIRM_JOINT_APPLICATION } from '../../../steps/urls';
 import { Form } from '../../form/Form';
-import { Case } from '../case';
+import { Case, CaseWithId } from '../case';
 import { ApplicationType } from '../definition';
 
-const IGNORE_UNREACHABLE_FIELDS = ['applicant1FirstNames', 'applicant1LastNames', 'ceremonyPlace'];
+const IGNORE_UNREACHABLE_FIELDS = [
+  'applicant1FirstNames',
+  'applicant1LastNames',
+  'ceremonyPlace',
+  'applicant2AddressPrivate',
+];
 
 const getAllPossibleAnswers = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
   return steps.filter(step => step.form).flatMap(step => [...new Form(step.form, caseState).getFieldNames().values()]);
 };
 
-export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
+export const getAllPossibleAnswersForPath = (caseState: Partial<CaseWithId>, steps: StepWithContent[]): string[] => {
   const sequenceWithForms = steps.filter(step => step.form);
 
   const getPossibleFields = (step: StepWithContent, fields: string[]) => {
@@ -39,10 +44,10 @@ export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: St
   return getPossibleFields(sequenceWithForms[0], []);
 };
 
-export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: StepWithContent[]): Partial<Case> =>
+export const omitUnreachableAnswers = (caseState: Partial<CaseWithId>, steps: StepWithContent[]): Partial<Case> =>
   pick(caseState, getAllPossibleAnswersForPath(caseState, steps));
 
-export const getUnreachableAnswersAsNull = (userCase: Partial<Case>): Partial<Case> => {
+export const getUnreachableAnswersAsNull = (userCase: Partial<CaseWithId>): Partial<Case> => {
   const everyField = getAllPossibleAnswers(userCase, stepsWithContentApplicant1).filter(
     field => !IGNORE_UNREACHABLE_FIELDS.includes(field)
   );

@@ -91,6 +91,8 @@ Feature: Applicant 2
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue"
     Then the page URL should be "/pay-and-submit"
+    Given I pay and submit the joint application
+    Then the page should include "Application submitted"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
