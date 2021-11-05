@@ -2213,17 +2213,17 @@
   dependencies:
     "@wdio/utils" "7.16.3"
 
-"@wdio/sauce-service@^7.16.3":
-  version "7.16.3"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.3.tgz#d4a05d586314a640c6dbb7484307debd1d8feef3"
-  integrity sha512-QypvuzDZMHCH4e4zjE3C2LZhXd7rdL6kgsLUqN6F/0kwHnNujbn9Yq3zkI4gjOVApKTZSasseqE059pAo00VVw==
+"@wdio/sauce-service@^7.16.4":
+  version "7.16.4"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.4.tgz#351abcf70d3d4bb812e491fe1cd8aa37796e0088"
+  integrity sha512-A3+iJQ4/WFJTLpxLOGxmgRRxCphoeHeD+d/aUBhlsvUQzUVIqtWzgpYkt12XfEKFe2DmJcnE8zA57HzQOw3RHw==
   dependencies:
     "@types/node" "^16.11.1"
     "@wdio/logger" "7.16.0"
     "@wdio/types" "7.16.3"
     "@wdio/utils" "7.16.3"
     saucelabs "^7.0.0"
-    webdriverio "7.16.3"
+    webdriverio "7.16.4"
 
 "@wdio/types@7.16.3":
   version "7.16.3"
@@ -4132,10 +4132,10 @@ csrf@3.1.0:
     tsscmp "1.0.6"
     uid-safe "2.1.5"
 
-css-loader@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-6.5.0.tgz#9d1cf7766a9a8f0b3c6e1638309b964dbdab46d3"
-  integrity sha512-VmuSdQa3K+wJsl39i7X3qGBM5+ZHmtTnv65fqMGI+fzmHoYmszTVvTqC1XN8JwWDViCB1a8wgNim5SV4fb37xg==
+css-loader@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-6.5.1.tgz#0c43d4fbe0d97f699c91e9818cb585759091d1b1"
+  integrity sha512-gEy2w9AnJNnD9Kuo4XAP9VflW/ujKoS9c/syO+uWMlm5igc7LysKzPXaDoR2vroROkSwsTS2tGr1yGGEbZOYZQ==
   dependencies:
     icss-utils "^5.1.0"
     postcss "^8.2.15"
@@ -4484,10 +4484,10 @@ devtools-protocol@0.0.901419:
   resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.901419.tgz#79b5459c48fe7e1c5563c02bd72f8fec3e0cebcd"
   integrity sha512-4INMPwNm9XRpBukhNbF7OB6fNTTCaI8pzy/fXg0xQzAy5h3zL1P8xT3QazgKqBrb/hAYwIBizqDBZ7GtJE74QQ==
 
-devtools-protocol@^0.0.933220:
-  version "0.0.933220"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.933220.tgz#1689ac0d5bebdc8703ff96d1a04e2e41ee6a020b"
-  integrity sha512-6BHFljAlcA4jG2L6gMJfyQLnIrtftCZkZL7AZC7SBTlnda4yN5TqFtd/ZcqvcFS5VHkrc7QZGT/VGWCmeeiHAg==
+devtools-protocol@^0.0.937139:
+  version "0.0.937139"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.937139.tgz#bdee3751fdfdb81cb701fd3afa94b1065dafafcf"
+  integrity sha512-daj+rzR3QSxsPRy5vjjthn58axO8c11j58uY0lG5vvlJk/EiOdCWOptGdkXDjtuRHr78emKq0udHCXM4trhoDQ==
 
 devtools@7.16.3:
   version "7.16.3"
@@ -8406,10 +8406,10 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-mini-css-extract-plugin@^2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.4.3.tgz#be742943c192b028645d4389084ef187615fff82"
-  integrity sha512-zekavl9mZuGyk7COjsfFY/f655AX61EKE0AthXPrmDk+oZyjZ9WzO4WPjXnnO9xl8obK2kmM6rAQrBEmk+WK1g==
+mini-css-extract-plugin@^2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.4.4.tgz#c7e5d2d931dcf100ae50ae949ba757c506b54b0f"
+  integrity sha512-UJ+aNuFQaQaECu7AamlWOBLj2cJ6XSGU4zNiqXeZ7lZLe5VD0DoSPWFbWArXueo+6FZVbgHzpX9lUIaBIDLuYg==
   dependencies:
     schema-utils "^3.1.0"
 
@@ -11967,10 +11967,10 @@ webdriver@7.16.3:
     ky "^0.28.5"
     lodash.merge "^4.6.1"
 
-webdriverio@7.16.3, webdriverio@^7.16.3:
-  version "7.16.3"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.3.tgz#b09d65a12a1e98ce8eabb265988680354b56de1c"
-  integrity sha512-hXLXP8IDgA3DojDHJrI4j+V4YmikKpJ8UUhuIjgoNWNRJom+sHLihy3AF92O4Rnt/vEe+glbO8gNL+/i8vMLGQ==
+webdriverio@7.16.4, webdriverio@^7.16.4:
+  version "7.16.4"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.4.tgz#8fc907ed07694f57b435ec8480517d4a984b13f1"
+  integrity sha512-DQH103SbY4gF6vxUIE2Q/BZfgqnQrf4/A47iPc48P76CKFjwHEX5Gyi07fVgwVVDNPTiHfiMBlR381rKAlj3Rw==
   dependencies:
     "@types/aria-query" "^5.0.0"
     "@types/node" "^16.11.1"
@@ -11986,7 +11986,7 @@ webdriverio@7.16.3, webdriverio@^7.16.3:
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"
     devtools "7.16.3"
-    devtools-protocol "^0.0.933220"
+    devtools-protocol "^0.0.937139"
     fs-extra "^10.0.0"
     get-port "^5.1.1"
     grapheme-splitter "^1.0.2"
