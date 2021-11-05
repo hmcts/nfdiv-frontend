@@ -44,7 +44,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const statesWithoutRespondentAnswers = [State.AwaitingAos, State.AosDrafted, State.AosOverdue];
-  const aosSubmitted = !statesWithoutRespondentAnswers.includes(<State>content.formState?.state);
+  const aosSubmitted =
+    !content.isJointApplication && !statesWithoutRespondentAnswers.includes(<State>content.formState?.state);
   return {
     aosSubmitted,
     ...languages[content.language](content),

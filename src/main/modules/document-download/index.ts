@@ -10,12 +10,12 @@ const proxy = require('express-http-proxy');
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
     const addApplicationToReqPath = (req: AppRequest) => {
-      return req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.APPLICATION)
+      return req.session.userCase.documentsGenerated.find(doc => doc.value.documentType === DocumentType.APPLICATION)
         ?.value.documentLink.document_binary_url;
     };
 
     const addRespondentAnswersToReqPath = (req: AppRequest) => {
-      return req.session.userCase?.documentsGenerated?.find(
+      return req.session.userCase.documentsGenerated.find(
         doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
       )?.value.documentLink.document_binary_url;
     };
