@@ -13,7 +13,13 @@ export const jurisdictionMoreDetailsContent = (
   const residualConnection = enContainsResidualConnection(connections, isDivorce);
 
   const connectionIndex =
-    isRespondent || (resConnection && domConnection && residualConnection) ? 2 : domConnection ? 1 : 0;
+    isRespondent || (resConnection && domConnection && residualConnection)
+      ? 3
+      : domConnection
+      ? 1
+      : residualConnection
+      ? 2
+      : 0;
 
   const connectionText = [
     'Read more about habitual residence',
@@ -23,6 +29,10 @@ export const jurisdictionMoreDetailsContent = (
   const totalText = [
     Object.values(enHabitualResident).join('<br><br>').replace('Habitual residence<br><br>', ''),
     Object.values(enDomicile).join('<br><br>').replace('Domicile<br><br>', '').replace('</ul><br><br>', '</ul>'),
+    Object.values(getResidual(isDivorce))
+      .join('<br><br>')
+      .replace('Residual<br><br>', '')
+      .replace('</ul><br><br>', '</ul>'),
     Object.values(enHabitualResident)
       .join('<br><br>')
       .replace('Habitual residence', '<strong>Habitual residence</strong>') +
@@ -110,7 +120,7 @@ const enContainsDomConnection = (connections: JurisdictionConnections[] | undefi
 
 const enContainsResidualConnection = (connections: JurisdictionConnections[] | undefined, isDivorce: boolean) => {
   if (connections && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)) {
-    getResidual(isDivorce);
+    return getResidual(isDivorce);
   }
 };
 
