@@ -26,7 +26,7 @@ const labels = applicant1Content => ({
 
 export const form: FormContent = {
   ...applicant1Form,
-  fields: formState => {
+  fields: userCase => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
     checkboxes.push({
       id: 'cannotUploadNameChangeProof',
@@ -39,9 +39,9 @@ export const form: FormContent = {
         label: l => l.uploadFiles,
         labelHidden: true,
         value:
-          (isObject(formState.applicant2UploadedFiles)
-            ? JSON.stringify(formState.applicant2UploadedFiles)
-            : formState.applicant2UploadedFiles) || '[]',
+          (isObject(userCase.applicant2UploadedFiles)
+            ? JSON.stringify(userCase.applicant2UploadedFiles)
+            : userCase.applicant2UploadedFiles) || '[]',
         parser: data => JSON.parse((data as Record<string, string>).applicant2UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
@@ -97,6 +97,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.formState || {}) },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

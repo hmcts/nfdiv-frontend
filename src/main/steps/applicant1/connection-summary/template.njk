@@ -6,7 +6,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
 <ul class="govuk-list govuk-list--bullet">
-  {% for connection in formState.connections %}
+  {% for connection in userCase.connections %}
       <li>{{ connectionBulletPoints[connection] }}</li>
   {% endfor %}
 </ul>

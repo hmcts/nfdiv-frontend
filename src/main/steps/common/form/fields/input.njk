@@ -12,7 +12,7 @@
   hint: {
     html: getContent(field.hint)
   } if field.hint else undefined,
-  value: field.value if field.value !== undefined else formState[fieldName],
+  value: field.value if field.value !== undefined else userCase[fieldName],
   attributes: field.attributes,
   errorMessage: null if field.hideError else getError(fieldName),
   formGroup: {

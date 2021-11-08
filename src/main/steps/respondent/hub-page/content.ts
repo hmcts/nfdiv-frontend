@@ -11,8 +11,8 @@ import { CommonContent } from '../../common/common.content';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => ({
-  subHeading1: [State.PendingDispute, State.Disputed].includes(formState?.state as State)
+const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
+  subHeading1: [State.PendingDispute, State.Disputed].includes(userCase?.state as State)
     ? 'What you need to do next'
     : 'Latest update',
   awaitingAos: {
@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
     line3: `Your ${partner} can apply for a conditional order from ${
-      formState?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
+      userCase?.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
     }. This is because they have to wait 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email when the conditional order has been granted.`,
@@ -44,7 +44,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
     line2: `You have until ${
-      formState?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
+      userCase?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
     }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
@@ -60,7 +60,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
     line5:
       'You’ll have to pay a £245 fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.',
     line6: `If you do not submit your answer before ${
-      formState?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
+      userCase?.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } then your ${partner} can continue ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,
   },
   dispute: {

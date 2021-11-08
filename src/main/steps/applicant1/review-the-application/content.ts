@@ -8,35 +8,35 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   } and confirm you have read it.`,
   subHeading1: `Sole ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
-  line2: `${formState?.applicant1FirstNames + ' ' + formState?.applicant1LastNames} is applying to the court
+  line2: `${userCase?.applicant1FirstNames + ' ' + userCase?.applicant1LastNames} is applying to the court
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>for ${isDivorce ? 'a final order of divorce from' : 'the dissolution of the civil partnership with'}
-    ${formState?.applicant2FirstNames + ' ' + formState?.applicant2LastNames}</li>
+    ${userCase?.applicant2FirstNames + ' ' + userCase?.applicant2LastNames}</li>
     <li>to make a financial order</li></ul>`,
-  line3: `<strong>Issued: </strong>${formState?.issueDate}`,
-  line4: `<strong>Case reference number: </strong>${formState?.id?.replace(
+  line3: `<strong>Issued: </strong>${userCase?.issueDate}`,
+  line4: `<strong>Case reference number: </strong>${userCase?.id?.replace(
     /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
     '$1-$2-$3-$4'
   )}`,
   line5: '<strong>Applicant</strong>',
   line6: `${
-    formState?.applicant1FirstNames +
+    userCase?.applicant1FirstNames +
     ' ' +
-    (formState?.applicant1MiddleNames ? formState?.applicant1MiddleNames + ' ' : '') +
-    formState?.applicant1LastNames
+    (userCase?.applicant1MiddleNames ? userCase?.applicant1MiddleNames + ' ' : '') +
+    userCase?.applicant1LastNames
   }`,
   line7: '<strong>Respondent</strong>',
   line8: `${
-    formState?.applicant2FirstNames +
+    userCase?.applicant2FirstNames +
     ' ' +
-    (formState?.applicant2MiddleNames ? formState?.applicant2MiddleNames + ' ' : '') +
-    formState?.applicant2LastNames
+    (userCase?.applicant2MiddleNames ? userCase?.applicant2MiddleNames + ' ' : '') +
+    userCase?.applicant2LastNames
   }`,
   line9: `The applicant is the person who has applied ${
     isDivorce ? 'for the divorce' : 'to end their civil partnership'
@@ -47,15 +47,15 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   line11: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
-  line12: `${formState?.applicant1FullNameOnCertificate + ' and ' + formState?.applicant2FullNameOnCertificate}
+  line12: `${userCase?.applicant1FullNameOnCertificate + ' and ' + userCase?.applicant2FullNameOnCertificate}
   (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line13: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
-  line14: `${formState?.ceremonyPlace}`,
+  line14: `${userCase?.ceremonyPlace}`,
   line15: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
-  line16: `${getFormattedDate(formState?.relationshipDate)}`,
+  line16: `${getFormattedDate(userCase?.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
+  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
@@ -63,19 +63,19 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-    jurisdictionMoreDetailsContent(formState?.connections).connectedToEnglandWales,
+    jurisdictionMoreDetailsContent(userCase?.connections).connectedToEnglandWales,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }, which might affect the legal power (jurisdiction) of the court.`,
   line19: `${
-    formState?.applicant1LegalProceedings === YesOrNo.YES
+    userCase?.applicant1LegalProceedings === YesOrNo.YES
       ? `The applicant has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }:` +
         '<br>' +
-        formState.applicant1LegalProceedingsDetails
+        userCase.applicant1LegalProceedingsDetails
       : `The applicant has indicated that there are no other court cases which are related to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }`
@@ -97,16 +97,16 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
   applicantAddressCountry: `${
-    formState?.applicant1SolicitorAddress
-      ? formState.applicant1SolicitorAddress
+    userCase?.applicant1SolicitorAddress
+      ? userCase.applicant1SolicitorAddress
       : [
-          formState?.applicant1Address1,
-          formState?.applicant1Address2,
-          formState?.applicant1Address3,
-          formState?.applicant1AddressTown,
-          formState?.applicant1AddressCounty,
-          formState?.applicant1AddressPostcode,
-          formState?.applicant1AddressCountry,
+          userCase?.applicant1Address1,
+          userCase?.applicant1Address2,
+          userCase?.applicant1Address3,
+          userCase?.applicant1AddressTown,
+          userCase?.applicant1AddressCounty,
+          userCase?.applicant1AddressPostcode,
+          userCase?.applicant1AddressCountry,
         ]
           .filter(Boolean)
           .join('<br>')
@@ -115,28 +115,28 @@ const en = ({ isDivorce, formState, partner, userEmail, isApplicant2 }: CommonCo
   line21: `${userEmail}`,
   subHeading9: "Respondent's correspondence address",
   respondentAddressCountry: `${
-    formState?.applicant2SolicitorAddress
-      ? formState.applicant2SolicitorAddress
+    userCase?.applicant2SolicitorAddress
+      ? userCase.applicant2SolicitorAddress
       : [
-          formState?.applicant2Address1,
-          formState?.applicant2Address2,
-          formState?.applicant2Address3,
-          formState?.applicant2AddressTown,
-          formState?.applicant2AddressCounty,
-          formState?.applicant2AddressPostcode,
-          formState?.applicant2AddressCountry,
+          userCase?.applicant2Address1,
+          userCase?.applicant2Address2,
+          userCase?.applicant2Address3,
+          userCase?.applicant2AddressTown,
+          userCase?.applicant2AddressCounty,
+          userCase?.applicant2AddressPostcode,
+          userCase?.applicant2AddressCountry,
         ]
           .filter(Boolean)
           .join('<br>')
   }`,
   subHeading10: "Respondent's email address",
-  line22: `${formState?.applicant2EmailAddress}`,
+  line22: `${userCase?.applicant2EmailAddress}`,
   subHeading11: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
   applicantName: `<em>${
     isApplicant2
-      ? formState?.applicant2FirstNames + ' ' + formState?.applicant2LastNames
-      : formState?.applicant1FirstNames + ' ' + formState?.applicant1LastNames
+      ? userCase?.applicant2FirstNames + ' ' + userCase?.applicant2LastNames
+      : userCase?.applicant1FirstNames + ' ' + userCase?.applicant1LastNames
   }</em>`,
   subHeading12: 'Your acknowledgement',
   confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
@@ -178,9 +178,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const isApplicantAddressNotPrivate = content.formState?.applicant1AddressPrivate !== YesOrNo.YES;
-  const isRespondentAddressNotPrivate = content.formState?.applicant2AddressPrivate !== YesOrNo.YES;
-  const isFinancialOrderYes = content.formState?.applyForFinancialOrder === YesOrNo.YES;
+  const isApplicantAddressNotPrivate = content.userCase?.applicant1AddressPrivate !== YesOrNo.YES;
+  const isRespondentAddressNotPrivate = content.userCase?.applicant2AddressPrivate !== YesOrNo.YES;
+  const isFinancialOrderYes = content.userCase?.applyForFinancialOrder === YesOrNo.YES;
   return {
     ...translations,
     form,

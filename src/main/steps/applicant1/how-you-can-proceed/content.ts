@@ -6,7 +6,7 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
-const en = ({ isDivorce, marriage, civilPartnership, partner, formState }: CommonContent) => ({
+const en = ({ isDivorce, marriage, civilPartnership, partner, userCase }: CommonContent) => ({
   title: `How to proceed with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
   line1: `The court usually needs to hear from both parties in a ${
     isDivorce ? marriage : civilPartnership
@@ -29,7 +29,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, formState }: Commo
   thinkPartnerChoosingNotToRespond: `I think my ${partner} is receiving the application but is choosing not to respond`,
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",
-  dueDate: `${dayjs(formState?.issueDate).add(28, 'day').format('D MMMM YYYY')}`,
+  dueDate: `${dayjs(userCase?.issueDate).add(28, 'day').format('D MMMM YYYY')}`,
 });
 
 // @TODO translations

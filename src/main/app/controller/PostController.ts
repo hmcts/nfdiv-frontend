@@ -12,20 +12,19 @@ import {
   CITIZEN_UPDATE,
   UPDATE_AOS,
 } from '../case/definition';
-import { Form } from '../form/Form';
+import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
-  constructor(protected readonly form: Form) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const fields =
-      typeof this.form['fields'] === 'function' ? this.form['fields'](req.session.userCase) : this.form['fields'];
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);

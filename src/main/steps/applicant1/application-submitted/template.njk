@@ -39,14 +39,14 @@
       active: progressionIndex == 3
     }]
   }) }}
-  {% if formState.applicant1CannotUpload or formState.applicant2CannotUpload or formState.iWantToHavePapersServedAnotherWay %}
+  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
-    {% if formState.applicant1CannotUpload or formState.applican2CannotUpload %}
+    {% if userCase.applicant1CannotUpload or userCase.applican2CannotUpload %}
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
-        {% for document in formState.applicant1CannotUploadDocuments %}
+        {% for document in userCase.applicant1CannotUploadDocuments %}
           <li>{{ documents[document] }}</li>
         {% endfor %}
       </ul>
@@ -81,7 +81,7 @@
         html: sendingDocumentsByPost
       }) }}
     {% endif %}
-    {% if formState.iWantToHavePapersServedAnotherWay %}
+    {% if userCase.iWantToHavePapersServedAnotherWay %}
       <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
       <p class="govuk-body">{{ line3 }}</p>
       <p class="govuk-body">{{ line4 | safe }}</p>

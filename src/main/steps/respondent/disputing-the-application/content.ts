@@ -6,7 +6,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, required, formState }: CommonContent) => ({
+const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   title: `Disputing the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `If you want to dispute the ${
     isDivorce ? 'application for divorce' : 'application to end your civil partnership'
@@ -16,7 +16,7 @@ const en = ({ isDivorce, partner, required, formState }: CommonContent) => ({
   readMore: 'Find out more about Help With Fees',
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
   helpPayingWhen: ['is on certain benefits', 'has a little or no savings', 'has low income'],
-  line2: `You will have until ${dayjs(formState?.issueDate)
+  line2: `You will have until ${dayjs(userCase?.issueDate)
     .add(37, 'day')
     .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${

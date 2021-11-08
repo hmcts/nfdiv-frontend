@@ -84,7 +84,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const knowsPartnersEmailAddress = content.formState?.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked;
+  const knowsPartnersEmailAddress = content.userCase?.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked;
   const translations = languages[content.language](content, knowsPartnersEmailAddress);
   return {
     ...translations,

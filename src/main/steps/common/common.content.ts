@@ -181,22 +181,22 @@ export const generatePageContent = ({
   pageContent,
   isDivorce = true,
   isApplicant2 = false,
-  formState,
+  userCase,
   userEmail,
 }: {
   language: Language;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
   isApplicant2?: boolean;
-  formState?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
-  const selectedGender = getSelectedGender(formState as Partial<CaseWithId>, isApplicant2);
+  const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
-  const isJointApplication = formState?.applicationType === ApplicationType.JOINT_APPLICATION;
+  const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -206,7 +206,7 @@ export const generatePageContent = ({
     language,
     isDivorce,
     isApplicant2,
-    formState,
+    userCase,
     userEmail,
     contactEmail,
     isJointApplication,
@@ -224,11 +224,11 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
   return capitalize(serviceName);
 };
 
-const getSelectedGender = (formState: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
-  if (isApplicant2 && formState.sameSex === Checkbox.Unchecked) {
-    return formState?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
+const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
+  if (isApplicant2 && userCase.sameSex === Checkbox.Unchecked) {
+    return userCase?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
   }
-  return formState?.gender as Gender;
+  return userCase?.gender as Gender;
 };
 
 const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
@@ -250,7 +250,7 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   isDivorce: boolean;
   isApplicant2: boolean;
-  formState?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
   contactEmail?: string;

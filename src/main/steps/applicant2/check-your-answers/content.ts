@@ -5,18 +5,18 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
-const labels = ({ formState }: CommonContent) => ({
+const labels = ({ userCase }: CommonContent) => ({
   stepAnswers: {
     [urls.APPLICANT_2 + urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant2NameChangedHow: formState?.applicant2NameChangedHow
+      applicant2NameChangedHow: userCase?.applicant2NameChangedHow
         ?.join(' / ')
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
     },
     [urls.APPLICANT_2 + urls.UPLOAD_YOUR_DOCUMENTS]: {
-      applicant2UploadedFiles: (formState?.applicant2DocumentsUploaded || []).length
-        ? `${formState?.applicant2DocumentsUploaded?.reduce(
+      applicant2UploadedFiles: (userCase?.applicant2DocumentsUploaded || []).length
+        ? `${userCase?.applicant2DocumentsUploaded?.reduce(
             (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
             ''
           )}`

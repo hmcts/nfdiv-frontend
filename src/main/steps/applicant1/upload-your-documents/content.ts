@@ -124,10 +124,10 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
 };
 
 export const form: FormContent = {
-  fields: formState => {
+  fields: userCase => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
 
-    if (formState?.inTheUk === YesOrNo.NO) {
+    if (userCase?.inTheUk === YesOrNo.NO) {
       checkboxes.push({
         id: 'cannotUploadForeignCertificate',
         value: DocumentType.MARRIAGE_CERTIFICATE,
@@ -139,7 +139,7 @@ export const form: FormContent = {
       });
     }
 
-    if (formState?.certifiedTranslation === YesOrNo.YES) {
+    if (userCase?.certifiedTranslation === YesOrNo.YES) {
       checkboxes.push({
         id: 'cannotUploadForeignCertificateTranslation',
         value: DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION,
@@ -147,8 +147,8 @@ export const form: FormContent = {
     }
 
     if (
-      formState?.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      formState?.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      userCase?.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      userCase?.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
@@ -162,9 +162,9 @@ export const form: FormContent = {
         label: l => l.uploadFiles,
         labelHidden: true,
         value:
-          (isObject(formState.applicant1UploadedFiles)
-            ? JSON.stringify(formState.applicant1UploadedFiles)
-            : formState.applicant1UploadedFiles) || '[]',
+          (isObject(userCase.applicant1UploadedFiles)
+            ? JSON.stringify(userCase.applicant1UploadedFiles)
+            : userCase.applicant1UploadedFiles) || '[]',
         parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
@@ -239,6 +239,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.formState || {}) },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

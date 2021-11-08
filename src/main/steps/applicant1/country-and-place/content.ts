@@ -75,7 +75,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const certInEnglish = content.formState?.certificateInEnglish === YesOrNo.YES;
+  const certInEnglish = content.userCase?.certificateInEnglish === YesOrNo.YES;
   const translations = languages[content.language](content, certInEnglish);
   return {
     ...translations,

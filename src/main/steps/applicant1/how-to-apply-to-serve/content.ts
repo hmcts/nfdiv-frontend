@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonContent) => ({
+const en = ({ isDivorce, divorce, endingCivilPartnership, userCase }: CommonContent) => ({
   title: 'How to apply to serve (deliver) the papers another way',
   line1: `You have to make a separate application to serve the ${
     isDivorce ? divorce : endingCivilPartnership
@@ -12,12 +12,12 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, formState }: CommonCon
     'fees.alternativeService'
   )}.`,
   line3: `For example, you could apply to have the papers served (delivered) by ${
-    formState?.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
+    userCase?.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
   }.`,
   line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
 
-const cy: typeof en = ({ isDivorce, formState }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, userCase }: CommonContent) => ({
   title: 'Sut i wneud cais i gyflwyno (danfon) y papurau drwy ddull arall',
   line1: `Rydych wedi gwneud cais ar wahân i gyflwyno'r ${
     isDivorce ? 'papurau ysgaru' : 'papurau diweddu eich partneriaeth sifil'
@@ -25,7 +25,7 @@ const cy: typeof en = ({ isDivorce, formState }: CommonContent) => ({
     'fees.alternativeService'
   )}.`,
   line3: `Er enghraifft, gallwch wneud cais i'r papurau gael eu cyflwyno (danfon) ${
-    formState?.applicant2EmailAddress
+    userCase?.applicant2EmailAddress
       ? "i'r cyfeiriad e-bost wnaethoch chi ei nodi yn gynharach"
       : 'trwy neges e-bost, neges destun, neu drwy gyfrwng cymdeithasol'
   }.`,

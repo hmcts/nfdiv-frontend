@@ -74,9 +74,9 @@
 
   <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if formState.applicant2DocumentsUploaded|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if userCase.applicant2DocumentsUploaded|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
     <ul id="filesUploaded" class="govuk-list">
-      {% for file in formState.applicant2DocumentsUploaded %}
+      {% for file in userCase.applicant2DocumentsUploaded %}
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
           {{ file.value.documentFileName }} <a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ delete }}</a>
         </li>

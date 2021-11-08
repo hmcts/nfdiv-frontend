@@ -7,13 +7,15 @@ import { getCaseApi } from '../case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { Form } from '../form/Form';
+import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 @autobind
 export class AccessCodePostController {
-  constructor(protected readonly form: Form) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const form = new Form(this.fields);
+
     if (req.body.saveAndSignOut) {
       return res.redirect(SIGN_OUT_URL);
     }
@@ -21,12 +23,12 @@ export class AccessCodePostController {
     const caseworkerUser = await getSystemUser();
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
     formData.applicant2FirstNames = req.session.user.givenName;
     formData.applicant2LastNames = req.session.user.familyName;
-    req.session.errors = this.form.getErrors(formData);
+    req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
     try {

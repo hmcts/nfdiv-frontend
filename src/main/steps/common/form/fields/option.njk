@@ -6,7 +6,7 @@
   label: {
     text: getContent(field.label)
   },
-  items: formItems(field.values, formState[fieldName]),
+  items: formItems(field.values, userCase[fieldName]),
   errorMessage: getError(fieldName),
   formGroup: {
     classes: "hidden " + field.id if field.hidden else field.id

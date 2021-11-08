@@ -6,6 +6,7 @@
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
 {% set isApplicationReadyToSubmit =
         '/check-your-answers' in nextIncompleteStep or
+        nextIncompleteStep === '/' or
         nextIncompleteStep.startsWith('/pay') or
         nextIncompleteStep.startsWith('/application-submitted')
 %}
@@ -19,6 +20,8 @@
   {% endblock %}
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  <p>{{nextIncompleteStep}}</p>
 
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}

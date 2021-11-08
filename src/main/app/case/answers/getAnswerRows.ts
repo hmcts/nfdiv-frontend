@@ -18,20 +18,20 @@ export const getAnswerRows = function (
     language,
     isDivorce,
     isApplicant2,
-    formState,
+    userCase,
     userEmail,
     isJointApplication,
   }: {
     language: 'en' | 'cy';
     isDivorce: boolean;
     isApplicant2: boolean;
-    formState: Partial<Case>;
+    userCase: Partial<Case>;
     userEmail: string;
     isJointApplication: boolean;
   } = this.ctx;
 
-  const { stepsWithContent, processedFormState } = setUpSteps(
-    formState,
+  const { stepsWithContent, processedUserCase } = setUpSteps(
+    userCase,
     isCompleteCase,
     isApplicant2,
     isJointApplication,
@@ -43,7 +43,7 @@ export const getAnswerRows = function (
   return stepsWithContent
     .filter(step => (isCompleteCase ? step.showInCompleteSection === section : step.showInSection === section))
     .flatMap(step => {
-      const fields = typeof step.form.fields === 'function' ? step.form.fields(processedFormState) : step.form.fields;
+      const fields = typeof step.form.fields === 'function' ? step.form.fields(processedUserCase) : step.form.fields;
       const fieldKeys = Object.keys(fields);
       let stepContent;
       try {
@@ -54,7 +54,7 @@ export const getAnswerRows = function (
             pageContent: step.generateContent,
             isDivorce,
             isApplicant2,
-            formState: processedFormState,
+            userCase: processedUserCase,
             userEmail,
           }),
         };
@@ -91,7 +91,7 @@ export const getAnswerRows = function (
       if (
         isCompleteCase &&
         section === Sections.AboutPartnership &&
-        processedFormState.sameSex === Checkbox.Checked &&
+        processedUserCase.sameSex === Checkbox.Checked &&
         sameSexHasBeenAnswered === false
       ) {
         sameSexHasBeenAnswered = true;
@@ -100,7 +100,7 @@ export const getAnswerRows = function (
 
       for (const fieldKey of fieldKeys) {
         const field = fields[fieldKey] as FormOptions;
-        let answer = getAnswer(processedFormState, field, fieldKey);
+        let answer = getAnswer(processedUserCase, field, fieldKey);
         if (!field.label || !answer) {
           continue;
         }
@@ -136,7 +136,7 @@ export const getAnswerRows = function (
       }
 
       if (isCompleteCase) {
-        const [question, answer] = getCompleteQuestionAnswers(step.url, processedFormState);
+        const [question, answer] = getCompleteQuestionAnswers(step.url, processedUserCase);
         if (question && answer) {
           addQuestionAnswer(question, answer);
         }
@@ -146,10 +146,10 @@ export const getAnswerRows = function (
     });
 };
 
-const getAnswer = (formState, field, fieldKey) =>
+const getAnswer = (userCase, field, fieldKey) =>
   field.type === 'checkboxes'
-    ? field.values.reduce((previous, current) => [...previous, [current.name, formState?.[current.name]]], [])
-    : formState?.[fieldKey];
+    ? field.values.reduce((previous, current) => [...previous, [current.name, userCase?.[current.name]]], [])
+    : userCase?.[fieldKey];
 
 const getCheckedLabels = (answer, field, stepContent) =>
   answer
@@ -165,7 +165,7 @@ const getSelectedRadioLabel = (answer, field, stepContent) => {
 };
 
 const setUpSteps = (
-  formState: Partial<Case>,
+  userCase: Partial<Case>,
   isCompleteCase: boolean,
   isApplicant2: boolean,
   isJointApplication: boolean,
@@ -173,21 +173,21 @@ const setUpSteps = (
 ) => {
   if ((!isCompleteCase && !isApplicant2 && overrideStepsContent !== 2) || overrideStepsContent === 1) {
     const stepsWithContent = stepsWithContentApplicant1;
-    const processedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
+    const processedUserCase = omitUnreachableAnswers(userCase, stepsWithContentApplicant1);
 
-    return { stepsWithContent, processedFormState };
+    return { stepsWithContent, processedUserCase };
   } else {
     const stepsWithContent = isCompleteCase
       ? [...stepsWithContentApplicant1, ...stepsWithContentApplicant2]
       : getApplicant2Steps(isJointApplication);
 
-    const applicant2ProcessedFormState = omitUnreachableAnswers(formState, getApplicant2Steps(isJointApplication));
-    const applicant1ProcessedFormState = omitUnreachableAnswers(formState, stepsWithContentApplicant1);
-    const processedFormState = isCompleteCase
-      ? { ...applicant2ProcessedFormState, ...applicant1ProcessedFormState }
-      : applicant2ProcessedFormState;
+    const applicant2ProcessedUserCase = omitUnreachableAnswers(userCase, getApplicant2Steps(isJointApplication));
+    const applicant1ProcessedUserCase = omitUnreachableAnswers(userCase, stepsWithContentApplicant1);
+    const processedUserCase = isCompleteCase
+      ? { ...applicant2ProcessedUserCase, ...applicant1ProcessedUserCase }
+      : applicant2ProcessedUserCase;
 
-    return { stepsWithContent, processedFormState };
+    return { stepsWithContent, processedUserCase };
   }
 };
 
@@ -195,19 +195,19 @@ const getApplicant2Steps = (isJointApplication: boolean) => {
   return isJointApplication ? stepsWithContentApplicant2 : stepsWithContentRespondent;
 };
 
-const getCompleteQuestionAnswers = (stepUrl: string, processedFormState: Partial<Case>): [string, string] => {
+const getCompleteQuestionAnswers = (stepUrl: string, processedUserCase: Partial<Case>): [string, string] => {
   let question;
   let answer;
 
   switch (stepUrl) {
     case YOUR_NAME: {
       question = 'Full name on the marriage certificate';
-      answer = processedFormState.applicant1FullNameOnCertificate;
+      answer = processedUserCase.applicant1FullNameOnCertificate;
       break;
     }
     case APPLICANT_2 + YOUR_NAME: {
       question = 'Full name on the marriage certificate';
-      answer = processedFormState.applicant2FullNameOnCertificate;
+      answer = processedUserCase.applicant2FullNameOnCertificate;
       break;
     }
   }

@@ -5,14 +5,14 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, required, formState }: CommonContent) => {
+const en = ({ isDivorce, partner, required, userCase }: CommonContent) => {
   return {
     title: 'The legal power (jurisdiction) of the courts',
     line1: `Your ${partner} was asked some questions to find out whether the courts of England and Wales have the legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
-    connectionBulletPoints: formState ? connectionBulletPointsTextForRespondent(formState.connections!) : [],
+    connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,

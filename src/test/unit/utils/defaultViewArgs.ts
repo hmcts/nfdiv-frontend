@@ -10,7 +10,7 @@ export const defaultViewArgs = {
   isDivorce: expect.any(Boolean),
   isApplicant2: expect.any(Boolean),
   partner: expect.any(String),
-  formState: expect.any(Object),
+  userCase: expect.any(Object),
   language: expect.any(String),
   htmlLang: expect.any(String),
   userEmail: expect.any(String),

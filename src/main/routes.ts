@@ -8,7 +8,6 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { Form } from './app/form/Form';
 import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -70,14 +69,14 @@ export class Routes {
         const postController = fs.existsSync(`${step.stepDir}/post.ts`)
           ? require(`${step.stepDir}/post.ts`).default
           : PostController;
-        app.post(step.url, errorHandler(new postController(step.form).post));
+        app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
 
     app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new Applicant2AccessCodeGetController().get));
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
-      errorHandler(new AccessCodePostController(new Form(applicant2AccessCodeContent.form.fields)).post)
+      errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
     );
 
     app.get(
