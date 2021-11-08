@@ -1,6 +1,8 @@
+import { Case } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { setUnreachableAnswers } from '../../../app/form/parser';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ isDivorce, marriage, civilPartnership, required }) => ({
@@ -36,6 +38,8 @@ export const form: FormContent = {
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
       ],
+      parser: body =>
+        setUnreachableAnswers((body as Partial<Case>).certificateInEnglish === YesOrNo.NO, ['certifiedTranslation']),
       validator: value => isFieldFilledIn(value),
     },
   },

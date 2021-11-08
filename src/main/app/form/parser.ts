@@ -2,7 +2,9 @@ import { CaseDate } from '../case/case';
 
 import { FormField, FormOptions } from './Form';
 
-export type DateParser = (property: string, body: Record<string, unknown>) => CaseDate;
+type DateParser = (property: string, body: Record<string, unknown>) => CaseDate;
+type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string, FormField]) => [string, FormField];
+type UnreachableAnswersParser = (condition: boolean, properties: string[]) => (string | null)[][];
 
 export const covertToDateObject: DateParser = (property, body) =>
   ['day', 'month', 'year'].reduce(
@@ -14,8 +16,6 @@ export const covertToDateObject: DateParser = (property, body) =>
     },
     { year: '', month: '', day: '' }
   );
-
-type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string, FormField]) => [string, FormField];
 
 export const setupCheckboxParser: CheckboxParser =
   isSavingAndSigningOut =>
@@ -39,3 +39,10 @@ export const setupCheckboxParser: CheckboxParser =
     }
     return [key, field];
   };
+
+export const setUnreachableAnswers: UnreachableAnswersParser = (condition, properties) => {
+  if (condition) {
+    return properties.map(property => [property, null]);
+  }
+  return [];
+};

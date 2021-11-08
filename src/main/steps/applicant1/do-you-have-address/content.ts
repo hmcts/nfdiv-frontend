@@ -1,7 +1,8 @@
-import { Checkbox } from '../../../app/case/case';
+import { Case, Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { setUnreachableAnswers } from '../../../app/form/parser';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
 
@@ -69,6 +70,19 @@ export const form: FormContent = {
       values: [
         { label: l => l.haveTheirAddress, value: YesOrNo.YES },
         { label: l => l.doNotHaveTheirAddress, value: YesOrNo.NO },
+      ],
+      parser: body => [
+        ...setUnreachableAnswers((body as Partial<Case>).applicant1KnowsApplicant2Address === YesOrNo.YES, [
+          'iWantToHavePapersServedAnotherWay',
+        ]),
+        ...setUnreachableAnswers((body as Partial<Case>).applicant1KnowsApplicant2Address === YesOrNo.NO, [
+          'applicant2Address1',
+          'applicant2Address2',
+          'applicant2Address3',
+          'applicant2AddressCountry',
+          'applicant2AddressCounty',
+          'applicant2AddressPostcode',
+        ]),
       ],
       validator: value => isFieldFilledIn(value),
     },
