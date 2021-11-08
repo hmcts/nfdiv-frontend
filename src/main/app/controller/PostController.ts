@@ -24,15 +24,18 @@ export class PostController<T extends AnyObject> {
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    this.form.setFormState(req.session.userCase);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = this.form.getParsedBody(req.body);
+    const fields =
+      typeof this.form['fields'] === 'function' ? this.form['fields'](req.session.userCase) : this.form['fields'];
+    const form = new Form(fields);
+
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else {
-      await this.saveAndContinue(req, res, formData);
+      await this.saveAndContinue(req, res, form, formData);
     }
   }
 
@@ -54,10 +57,9 @@ export class PostController<T extends AnyObject> {
     res.end();
   }
 
-  private async saveAndContinue(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+  private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
-    this.form.setFormState(req.session.userCase);
-    req.session.errors = this.form.getErrors(formData);
+    req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {

@@ -4,26 +4,13 @@ import { AnyObject } from '../controller/PostController';
 import { setupCheckboxParser } from './parser';
 
 export class Form {
-  constructor(private readonly form: FormContent, private formState: Partial<Case> = {}) {}
-
-  public setFormState(formState: Partial<Case>): void {
-    this.formState = formState;
-  }
-
-  public getFields(checkFields?: FormContent['fields']): FormContent['fields'] {
-    const fields = checkFields || this.form?.fields;
-    if (typeof fields === 'function') {
-      return fields(this.formState);
-    }
-
-    return fields;
-  }
+  constructor(private readonly fields: FormFields | FormFieldsFn) {}
 
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
   public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
-    const fields = this.getFields(checkFields);
+    const fields = checkFields || this.fields;
 
     const parsedBody = Object.entries(fields)
       .map(setupCheckboxParser(!!body.saveAndSignOut))
@@ -50,8 +37,9 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>, checkFields = this.form?.fields): FormError[] {
-    const fields = this.getFields(checkFields);
+  public getErrors(body: Partial<Case>, checkFields = this.fields): FormError[] {
+    const fields = checkFields || this.fields;
+
     if (!fields) {
       return [];
     }
@@ -88,7 +76,7 @@ export class Form {
   }
 
   public getFieldNames(): Set<string> {
-    const fields = this.getFields();
+    const fields = this.fields;
     const fieldNames: Set<string> = new Set();
     for (const fieldKey in fields) {
       const stepField = fields[fieldKey] as FormOptions;

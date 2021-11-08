@@ -70,14 +70,14 @@ export class Routes {
         const postController = fs.existsSync(`${step.stepDir}/post.ts`)
           ? require(`${step.stepDir}/post.ts`).default
           : PostController;
-        app.post(step.url, errorHandler(new postController(new Form(step.form)).post));
+        app.post(step.url, errorHandler(new postController(step.form).post));
       }
     }
 
     app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new Applicant2AccessCodeGetController().get));
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
-      errorHandler(new AccessCodePostController(new Form(applicant2AccessCodeContent.form)).post)
+      errorHandler(new AccessCodePostController(new Form(applicant2AccessCodeContent.form.fields)).post)
     );
 
     app.get(

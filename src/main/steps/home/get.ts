@@ -120,8 +120,8 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
 
 const getApplicantFirstQuestionForm = (isApplicant2: boolean, applicationType: ApplicationType) => {
   if (isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION) {
-    return new Form(respondentFirstQuestionForm);
+    return new Form(respondentFirstQuestionForm.fields);
   } else {
-    return new Form(isApplicant2 ? applicant2FirstQuestionForm : applicant1FirstQuestionForm);
+    return new Form(isApplicant2 ? applicant2FirstQuestionForm.fields : applicant1FirstQuestionForm.fields);
   }
 };
