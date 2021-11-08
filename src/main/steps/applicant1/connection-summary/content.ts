@@ -5,12 +5,15 @@ import { CommonContent } from '../../common/common.content';
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
+  isDivorce: boolean,
   isRespondent = false
 ): { connectedToEnglandWales: string; readMore: string } => {
   const resConnection = enContainsHabitualResConnection(connections);
   const domConnection = enContainsDomConnection(connections);
+  const residualConnection = enContainsResidualConnection(connections, isDivorce);
 
-  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : domConnection ? 1 : 0;
+  const connectionIndex =
+    isRespondent || (resConnection && domConnection && residualConnection) ? 2 : domConnection ? 1 : 0;
 
   const connectionText = [
     'Read more about habitual residence',
@@ -27,6 +30,11 @@ export const jurisdictionMoreDetailsContent = (
       Object.values(enDomicile)
         .join('<br><br>')
         .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
         .replace('</ul><br><br>', '</ul>'),
   ];
 
@@ -58,6 +66,20 @@ const enDomicile = {
   helpText11: 'If you’re not sure about your domicile, you should get legal advice.',
 };
 
+const getResidual = (isDivorce: boolean) => {
+  return {
+    helpText12: 'Residual',
+    helpText13:
+      'If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if: ',
+    helpText14: `<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
+      isDivorce ? 'married' : 'formed your civil partnership'
+    } in England or Wales and</li>
+      <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
+        isDivorce ? 'divorce' : 'civil partnerships to be ended] between same-sex couples'
+      } between same-sex couples</li></ul>`,
+  };
+};
+
 const enContainsHabitualResConnection = (
   connections: JurisdictionConnections[] | undefined
 ): typeof enHabitualResident | undefined => {
@@ -86,6 +108,12 @@ const enContainsDomConnection = (connections: JurisdictionConnections[] | undefi
   }
 };
 
+const enContainsResidualConnection = (connections: JurisdictionConnections[] | undefined, isDivorce: boolean) => {
+  if (connections && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)) {
+    getResidual(isDivorce);
+  }
+};
+
 const en = ({ isDivorce, partner, formState }: CommonContent) => {
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
@@ -106,6 +134,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
     readMore: 'Read more about your connections',
     ...enContainsHabitualResConnection(formState?.connections),
     ...enContainsDomConnection(formState?.connections),
+    ...getResidual(isDivorce),
   };
 };
 

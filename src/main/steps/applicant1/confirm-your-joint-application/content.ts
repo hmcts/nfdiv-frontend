@@ -10,7 +10,7 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
+const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -49,7 +49,7 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants. Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-    jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
+    jurisdictionMoreDetailsContent(formState?.connections, isDivorce, true).connectedToEnglandWales,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
@@ -118,7 +118,7 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
   }`,
   subHeading8: "Applicant 1's email address",
   line21: `${userEmail}`,
-  subHeading9: "Applicant 2's correspondence address",
+  subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     formState?.applicant2SolicitorAddress
       ? formState.applicant2SolicitorAddress
@@ -140,12 +140,34 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
   line23: 'I believe that the facts stated in this application are true.',
   applicant1Name: `<em>${formState?.applicant1FirstNames} ${formState?.applicant1LastNames}</em>`,
   applicant2Name: `<em>${formState?.applicant2FirstNames} ${formState?.applicant2LastNames}</em>`,
-  subHeading12: 'Your acknowledgement',
-  confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
+  subHeading12: 'Confirm before continuing',
+  confirmPrayer: `I confirm that I’m applying to the court to ${
+    isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
+  } ${
+    formState?.applyForFinancialOrder === YesOrNo.YES || formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES
+      ? 'and make financial orders to decide how our money and property will be split.'
+      : '.'
+  }`,
+  confirmPrayerHint: 'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
+  confirmApplicationIsTrue: 'I believe the facts stated in this application are true.',
+  confirmApplicationIsTrueHint:
+    'This confirms that the information you are submitting is true and accurate to the best of your knowledge. It’s known as the ‘statement of truth’.',
+  continue: `${
+    isApplicant2 ||
+    (!isApplicant2 &&
+      formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
+      formState?.applicant2HelpPayingNeeded === YesOrNo.YES)
+      ? 'Submit'
+      : 'Continue to payment'
+  }`,
   errors: {
-    confirmReadPetition: {
-      required:
-        'You need to confirm that you have read the application before you continue. You can say whether you want to dispute it later.',
+    applicant1IConfirmPrayer: {
+      required: `You need to confirm you are applying to the court to  ${
+        isDivorce ? 'dissolve your marriage (get a divorce)' : 'end your civil partnership'
+      }.`,
+    },
+    applicant1IBelieveApplicationIsTrue: {
+      required: 'You need to confirm the facts stated in this application are true',
     },
   },
 });
@@ -157,11 +179,10 @@ export const form: FormContent = {
   fields: {
     applicant1IConfirmPrayer: {
       type: 'checkboxes',
-      label: l => l.confirm,
       labelSize: 'm',
       values: [
         {
-          name: 'applicant1IConfirmPrayer',
+          name: 'confirmPrayer',
           label: l => l.confirmPrayer,
           hint: l => l.confirmPrayerHint,
           value: Checkbox.Checked,
@@ -172,9 +193,10 @@ export const form: FormContent = {
     applicant1IBelieveApplicationIsTrue: {
       type: 'checkboxes',
       labelHidden: true,
+      labelSize: 'm',
       values: [
         {
-          name: 'applicant1IBelieveApplicationIsTrue',
+          name: 'confirmApplicationIsTrue',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,
           value: Checkbox.Checked,
