@@ -1,5 +1,6 @@
 import config from 'config';
 
+import { Case } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -63,6 +64,15 @@ export const form: FormContent = {
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
       ],
+      parser: body => {
+        if ((body as Partial<Case>).applicant1HelpPayingNeeded === YesOrNo.NO) {
+          return [
+            ['applicant1AlreadyAppliedForHelpPaying', null],
+            ['applicant1HelpWithFeesRefNo', null],
+          ];
+        }
+        return [];
+      },
       validator: value => isFieldFilledIn(value),
     },
   },

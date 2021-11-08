@@ -126,7 +126,7 @@ export class Form {
 
 type LanguageLookup = (lang: Record<string, never>) => string;
 
-type Parser = (value: Record<string, unknown> | string[]) => void;
+type Parser = (value: Partial<Case> | Record<string, unknown> | string[]) => void;
 
 type Label = string | LanguageLookup;
 
