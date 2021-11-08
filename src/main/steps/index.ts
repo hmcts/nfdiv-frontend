@@ -21,7 +21,7 @@ const stepForms: Record<string, Form> = {};
       const content = require(stepContentFile);
 
       if (content.form) {
-        stepForms[step.url] = new Form(content.form);
+        stepForms[step.url] = new Form(content.form.fields);
       }
     }
   }
