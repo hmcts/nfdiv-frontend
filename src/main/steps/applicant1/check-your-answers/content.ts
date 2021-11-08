@@ -11,17 +11,19 @@ import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
 const en = ({ isDivorce, partner, formState, isJointApplication }: CommonContent) => ({
-  titleSoFar: 'Confirm your joint application',
-  titleSubmit: 'Confirm your joint application',
-  line1:
-    'This is the information you and your husband or wife have provided for your joint application. Confirm it before continuing.',
+  titleSoFar: 'Check your answers so far',
+  titleSubmit: 'Check your answers',
   sectionTitles: {
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
+    [Sections.HelpWithFees]: 'Help with fees',
     [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
-    [Sections.AboutApplicant1]: 'About Applicant 1',
-    [Sections.AboutApplicant2]: 'About Applicant 2',
+    [Sections.AboutApplication]: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
+    [Sections.AboutPartners]: `About you and your ${partner}`,
+    [Sections.ContactYou]: 'How the court will contact you',
+    [Sections.ContactThem]: `How the court will contact your ${partner}`,
     [Sections.OtherCourtCases]: 'Other court cases',
     [Sections.DividingAssets]: 'Dividing your money and property',
+    [Sections.Documents]: 'Your documents',
   },
   stepQuestions: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
