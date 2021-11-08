@@ -19,7 +19,7 @@
   {% endblock %}
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
-
+  <p class="govuk-body">{{ line1 }}</p>
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}
     {% if rows | length %}
