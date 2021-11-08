@@ -65,11 +65,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-<<<<<<< HEAD
     jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-=======
-    jurisdictionMoreDetailsContent(formState?.connections, isDivorce).connectedToEnglandWales,
->>>>>>> confirm joint application
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
