@@ -10,11 +10,7 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 
-<<<<<<< HEAD
 const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonContent) => ({
-=======
-const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
->>>>>>> ongoing dev
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -53,11 +49,7 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants. Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-<<<<<<< HEAD
     jurisdictionMoreDetailsContent(formState?.connections, isDivorce).connectedToEnglandWales,
-=======
-    jurisdictionMoreDetailsContent(formState?.connections, true).connectedToEnglandWales,
->>>>>>> ongoing dev
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
@@ -126,11 +118,7 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
   }`,
   subHeading8: "Applicant 1's email address",
   line21: `${userEmail}`,
-<<<<<<< HEAD
   subHeading9: "Applicant 2's postal address",
-=======
-  subHeading9: "Applicant 2's correspondence address",
->>>>>>> ongoing dev
   respondentAddressCountry: `${
     formState?.applicant2SolicitorAddress
       ? formState.applicant2SolicitorAddress
@@ -152,7 +140,6 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
   line23: 'I believe that the facts stated in this application are true.',
   applicant1Name: `<em>${formState?.applicant1FirstNames} ${formState?.applicant1LastNames}</em>`,
   applicant2Name: `<em>${formState?.applicant2FirstNames} ${formState?.applicant2LastNames}</em>`,
-<<<<<<< HEAD
   subHeading12: 'Confirm before continuing',
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
@@ -181,14 +168,6 @@ const en = ({ isDivorce, partner, formState, userEmail }: CommonContent) => ({
     },
     applicant1IBelieveApplicationIsTrue: {
       required: 'You need to confirm the facts stated in this application are true',
-=======
-  subHeading12: 'Your acknowledgement',
-  confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
-  errors: {
-    confirmReadPetition: {
-      required:
-        'You need to confirm that you have read the application before you continue. You can say whether you want to dispute it later.',
->>>>>>> ongoing dev
     },
   },
 });
