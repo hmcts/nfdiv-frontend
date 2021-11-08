@@ -5,12 +5,27 @@ import { CommonContent } from '../../common/common.content';
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
+  isDivorce: boolean,
   isRespondent = false
 ): { connectedToEnglandWales: string; readMore: string } => {
-  const resConnection = enContainsHabitualResConnection(connections);
+  const habConnection = enContainsHabitualResConnection(connections);
   const domConnection = enContainsDomConnection(connections);
+  const residualConnection = enContainsResidualConnection(connections, isDivorce);
 
-  const connectionIndex = isRespondent || (resConnection && domConnection) ? 2 : domConnection ? 1 : 0;
+  const connectionIndex =
+    isRespondent || (habConnection && domConnection && residualConnection)
+      ? 3
+      : habConnection && domConnection
+      ? 4
+      : habConnection && residualConnection
+      ? 5
+      : domConnection && residualConnection
+      ? 6
+      : domConnection
+      ? 1
+      : residualConnection
+      ? 2
+      : 0;
 
   const connectionText = [
     'Read more about habitual residence',
@@ -21,6 +36,10 @@ export const jurisdictionMoreDetailsContent = (
   const totalText = [
     Object.values(enHabitualResident).join('<br><br>').replace('Habitual residence<br><br>', ''),
     Object.values(enDomicile).join('<br><br>').replace('Domicile<br><br>', '').replace('</ul><br><br>', '</ul>'),
+    Object.values(getResidual(isDivorce))
+      .join('<br><br>')
+      .replace('Residual<br><br>', '')
+      .replace('</ul><br><br>', '</ul>'),
     Object.values(enHabitualResident)
       .join('<br><br>')
       .replace('Habitual residence', '<strong>Habitual residence</strong>') +
@@ -28,6 +47,36 @@ export const jurisdictionMoreDetailsContent = (
       Object.values(enDomicile)
         .join('<br><br>')
         .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(enDomicile)
+        .join('<br><br>')
+        .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enDomicile)
+      .join('<br><br>')
+      .replace('Domicile', '<strong>Domicile</strong>')
+      .replace('</ul><br><br>', '</ul>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
         .replace('</ul><br><br>', '</ul>'),
   ];
 
@@ -59,6 +108,20 @@ const enDomicile = {
   helpText11: 'If you’re not sure about your domicile, you should get legal advice.',
 };
 
+const getResidual = (isDivorce: boolean) => {
+  return {
+    helpText12: 'Residual',
+    helpText13:
+      'If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if: ',
+    helpText14: `<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
+      isDivorce ? 'married' : 'formed your civil partnership'
+    } in England or Wales and</li>
+      <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
+        isDivorce ? 'divorce' : 'civil partnerships to be ended'
+      } between same-sex couples</li></ul>`,
+  };
+};
+
 const enContainsHabitualResConnection = (
   connections: JurisdictionConnections[] | undefined
 ): typeof enHabitualResident | undefined => {
@@ -87,6 +150,12 @@ const enContainsDomConnection = (connections: JurisdictionConnections[] | undefi
   }
 };
 
+const enContainsResidualConnection = (connections: JurisdictionConnections[] | undefined, isDivorce: boolean) => {
+  if (connections && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)) {
+    return getResidual(isDivorce);
+  }
+};
+
 const en = ({ isDivorce, partner, userCase }: CommonContent) => {
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
@@ -105,8 +174,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => {
       [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
     },
     readMore: 'Read more about your connections',
-    ...enContainsHabitualResConnection(userCase.connections),
+    ...enContainsHabitualResConnection(userCase?.connections),
     ...enContainsDomConnection(userCase.connections),
+    ...enContainsResidualConnection(userCase.connections, isDivorce),
   };
 };
 
