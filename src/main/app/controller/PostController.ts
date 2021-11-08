@@ -3,7 +3,6 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { getUnreachableAnswersAsNull } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId } from '../case/case';
 import {
   ApplicationType,
@@ -79,13 +78,7 @@ export class PostController<T extends AnyObject> {
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    const unreachableAnswersAsNull = getUnreachableAnswersAsNull(req.session.userCase);
-    const dataToSave = {
-      ...unreachableAnswersAsNull,
-      ...formData,
-    };
-
-    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 
   protected getEventName(req: AppRequest<T>): string {
