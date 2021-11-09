@@ -31,7 +31,6 @@ export class IdamUserManager {
   async create(email: string, password: string, role: string[]): Promise<void> {
     try {
       await this.client.post('/testing-support/accounts', {
-        id: 'No Fault Divorce Citizen 12345',
         email,
         password,
         roles: role.map(r => {
