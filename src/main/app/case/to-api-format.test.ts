@@ -1,5 +1,5 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ApplicationType, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -65,6 +65,15 @@ describe('to-api-format', () => {
       applicant2NameChangedHow: [ChangedNameHow.OTHER],
       applicant1NameChangedHowOtherDetails: 'Test',
       applicant2NameChangedHowOtherDetails: 'Test',
+      applicant2HomeAddress: {
+        AddressLine1: null,
+        AddressLine2: null,
+        AddressLine3: null,
+        PostTown: null,
+        County: null,
+        PostCode: null,
+        Country: null,
+      },
     });
   });
 
@@ -149,5 +158,121 @@ describe('to-api-format', () => {
         Country: 'UK',
       },
     });
+  });
+
+  test.each([
+    {
+      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
+      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      expected: {
+        applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
+      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      expected: {
+        applicant1LastNameChangedWhenMarried: YesOrNo.NO,
+        applicant1NameChangedHow: null,
+        applicant1NameChangedHowOtherDetails: null,
+      },
+    },
+    {
+      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
+      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      expected: {
+        applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+      },
+    },
+    {
+      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
+      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      expected: {
+        applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+        applicant2NameChangedHow: null,
+        applicant2NameChangedHowOtherDetails: null,
+      },
+    },
+    {
+      applicant1HelpPayingNeeded: YesOrNo.YES,
+      expected: {
+        applicant1HWFNeedHelp: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1HelpPayingNeeded: YesOrNo.NO,
+      expected: {
+        applicant1HWFNeedHelp: YesOrNo.NO,
+        applicant1HWFAppliedForFees: null,
+        applicant1HWFReferenceNumber: null,
+      },
+    },
+    {
+      applicant1KnowsApplicant2Address: YesOrNo.YES,
+      expected: {
+        applicant1KnowsApplicant2Address: YesOrNo.YES,
+        applicant1WantsToHavePapersServedAnotherWay: null,
+      },
+    },
+    {
+      applicant1KnowsApplicant2Address: YesOrNo.NO,
+      expected: {
+        applicant1KnowsApplicant2Address: YesOrNo.NO,
+        applicant2HomeAddress: {
+          AddressLine1: null,
+          AddressLine2: null,
+          AddressLine3: null,
+          PostTown: null,
+          County: null,
+          PostCode: null,
+          Country: null,
+        },
+      },
+    },
+    {
+      inTheUk: YesOrNo.NO,
+      expected: {
+        marriageMarriedInUk: YesOrNo.NO,
+      },
+    },
+    {
+      certificateInEnglish: YesOrNo.NO,
+      certifiedTranslation: YesOrNo.YES,
+      ceremonyCountry: 'Northern Ireland',
+      inTheUk: YesOrNo.YES,
+      expected: {
+        marriageMarriedInUk: YesOrNo.YES,
+        marriageCertificateInEnglish: null,
+        marriageCertifiedTranslation: null,
+        marriageCountryOfMarriage: null,
+        marriagePlaceOfMarriage: null,
+      },
+    },
+    {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      expected: {
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    },
+    {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+      expected: {
+        applicationType: ApplicationType.JOINT_APPLICATION,
+        applicant2FirstName: null,
+        applicant2MiddleName: null,
+        applicant2LastName: null,
+        applicant2HomeAddress: {
+          AddressLine1: null,
+          AddressLine2: null,
+          AddressLine3: null,
+          PostTown: null,
+          County: null,
+          PostCode: null,
+          Country: null,
+        },
+      },
+    },
+  ])('set unreachable answers to null if condition met', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 });

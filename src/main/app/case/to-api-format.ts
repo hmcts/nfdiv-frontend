@@ -161,6 +161,7 @@ const fields: ToApiConverters = {
             'applicant2AddressCountry',
             'applicant2AddressCounty',
             'applicant2AddressPostcode',
+            'applicant2AddressTown',
           ])
         )
       : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
@@ -205,6 +206,7 @@ const fields: ToApiConverters = {
               'applicant2AddressCountry',
               'applicant2AddressCounty',
               'applicant2AddressPostcode',
+              'applicant2AddressTown',
             ])
           ),
         }
