@@ -28,14 +28,14 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
   line6: `${
     userCase?.applicant1FirstNames +
     ' ' +
-    (userCase?.applicant1MiddleNames ? userCase?.applicant1MiddleNames + ' ' : '') +
+    (userCase?.applicant1MiddleNames ? userCase.applicant1MiddleNames + ' ' : '') +
     userCase?.applicant1LastNames
   }`,
   line7: '<strong>Respondent</strong>',
   line8: `${
     userCase?.applicant2FirstNames +
     ' ' +
-    (userCase?.applicant2MiddleNames ? userCase?.applicant2MiddleNames + ' ' : '') +
+    (userCase?.applicant2MiddleNames ? userCase.applicant2MiddleNames + ' ' : '') +
     userCase?.applicant2LastNames
   }`,
   line9: `The applicant is the person who has applied ${

@@ -55,8 +55,8 @@ const labels = ({ isDivorce, partner, required, userCase }: CommonContent) => {
       },
       [urls.JURISDICTION_INTERSTITIAL_URL]: {
         connections:
-          (userCase?.connections && userCase?.connections?.length > 1
-            ? connectionBulletPointsTextForSoleAndJoint(userCase?.connections, partner)
+          (userCase?.connections && userCase.connections?.length > 1
+            ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
             : '') +
           moreDetailsComponent(
             jurisdictionMoreDetailsContent(userCase?.connections).connectedToEnglandWales,

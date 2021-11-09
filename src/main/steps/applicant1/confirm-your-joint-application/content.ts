@@ -71,7 +71,7 @@ const en = ({ isDivorce, partner, userCase, marriage, civilPartnership }: Common
   },
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase?.relationshipDate) : false,
+      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
     },
     [urls.HOW_DO_YOU_WANT_TO_APPLY]: {
       applicationType: 'We want to apply jointly',
@@ -124,8 +124,8 @@ const en = ({ isDivorce, partner, userCase, marriage, civilPartnership }: Common
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections:
-        (userCase?.connections && userCase?.connections?.length > 1
-          ? connectionBulletPointsTextForSoleAndJoint(userCase?.connections, partner)
+        (userCase?.connections && userCase.connections.length > 1
+          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
           : '') +
         moreDetailsComponent(
           jurisdictionMoreDetailsContent(userCase?.connections).connectedToEnglandWales,

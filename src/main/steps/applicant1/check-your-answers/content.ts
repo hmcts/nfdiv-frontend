@@ -36,14 +36,14 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   },
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase?.relationshipDate) : false,
+      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
     },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
         userCase?.applicant1HelpPayingNeeded === YesOrNo.YES &&
-        userCase?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
+        userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
           ? `Yes
-          ${userCase?.applicant1HelpWithFeesRefNo}`
+          ${userCase.applicant1HelpWithFeesRefNo}`
           : false,
     },
     [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
@@ -110,8 +110,8 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections:
-        userCase?.connections && userCase?.connections?.length > 1
-          ? connectionBulletPointsTextForSoleAndJoint(userCase?.connections, partner)
+        userCase?.connections && userCase.connections?.length > 1
+          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
           : '',
     },
   },

@@ -127,7 +127,7 @@ export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
 
-    if (userCase?.inTheUk === YesOrNo.NO) {
+    if (userCase.inTheUk === YesOrNo.NO) {
       checkboxes.push({
         id: 'cannotUploadForeignCertificate',
         value: DocumentType.MARRIAGE_CERTIFICATE,
@@ -139,7 +139,7 @@ export const form: FormContent = {
       });
     }
 
-    if (userCase?.certifiedTranslation === YesOrNo.YES) {
+    if (userCase.certifiedTranslation === YesOrNo.YES) {
       checkboxes.push({
         id: 'cannotUploadForeignCertificateTranslation',
         value: DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION,
@@ -147,8 +147,8 @@ export const form: FormContent = {
     }
 
     if (
-      userCase?.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      userCase?.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+      userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',

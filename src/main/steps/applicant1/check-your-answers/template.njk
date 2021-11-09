@@ -21,8 +21,6 @@
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
-  <p>{{nextIncompleteStep}}</p>
-
   {% for key, section in sections %}
     {% set rows = getAnswerRows(section) %}
     {% if rows | length %}
