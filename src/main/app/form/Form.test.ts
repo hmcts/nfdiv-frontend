@@ -1,7 +1,7 @@
 import { Case, CaseDate, Checkbox } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
-import { Form, FormContent } from './Form';
+import { Form, FormContent, FormFieldsFn } from './Form';
 import { covertToDateObject } from './parser';
 import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
 
@@ -40,7 +40,7 @@ describe('Form', () => {
     },
   };
 
-  const form = new Form(mockForm);
+  const form = new Form(mockForm.fields);
 
   test('Should validate a form', async () => {
     const errors = form.getErrors({
@@ -117,7 +117,7 @@ describe('Form', () => {
       },
     };
 
-    const subFieldForm = new Form(mockSubFieldForm);
+    const subFieldForm = new Form(mockSubFieldForm.fields);
 
     it('returns the field error', () => {
       const errors = subFieldForm.getErrors({});
@@ -204,16 +204,25 @@ describe('Form', () => {
 
   test('Should build a form with a custom field function', async () => {
     const mockFieldFnForm: FormContent = {
-      fields: formState => ({
-        ...(formState?.applicant1AddressPrivate ? { customQuestion: { type: 'text', label: 'custom' } } : {}),
+      fields: userCase => ({
+        ...(userCase?.applicant1AddressPrivate ? { customQuestion: { type: 'text', label: 'custom' } } : {}),
       }),
       submit: {
         text: l => l.continue,
       },
     };
+    mockFieldFnForm.fields = mockFieldFnForm.fields as FormFieldsFn;
 
-    const fieldFnForm = new Form(mockFieldFnForm, { applicant1AddressPrivate: YesOrNo.YES });
+    const mockUserCase = { applicant1AddressPrivate: YesOrNo.YES };
+    const fieldFnForm = new Form(mockFieldFnForm.fields(mockUserCase));
 
-    expect(fieldFnForm.getFields()).toEqual({ customQuestion: { label: 'custom', type: 'text' } });
+    expect(fieldFnForm).toEqual({
+      fields: {
+        customQuestion: {
+          label: 'custom',
+          type: 'text',
+        },
+      },
+    });
   });
 });

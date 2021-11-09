@@ -8,23 +8,25 @@ import {
   CITIZEN_SUBMIT,
   State,
 } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 import CheckYourAnswersPostController from './post';
 
 describe('CheckYourAnswersPostController', () => {
+  const mockFormContent = {
+    fields: {
+      applicant1IConfirmPrayer: {},
+      applicant1IBelieveApplicationIsTrue: {},
+    },
+  } as unknown as FormContent;
+
   it('triggers CITIZEN_SUBMIT when sole application', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockForm);
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -39,12 +41,7 @@ describe('CheckYourAnswersPostController', () => {
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockForm);
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -60,12 +57,7 @@ describe('CheckYourAnswersPostController', () => {
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockForm);
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();

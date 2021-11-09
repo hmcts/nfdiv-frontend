@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, DRAFT_AOS } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 import ReviewTheApplicationPostController from './post';
 
@@ -13,12 +13,13 @@ describe('ReviewTheApplicationPostController', () => {
       applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockForm);
+    const mockFormContent = {
+      fields: {
+        applicant1IConfirmPrayer: {},
+        applicant1IBelieveApplicationIsTrue: {},
+      },
+    } as unknown as FormContent;
+    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { isApplicant2: true } });
     const res = mockResponse();

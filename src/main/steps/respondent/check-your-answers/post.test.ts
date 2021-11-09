@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { SUBMIT_AOS } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 import CheckYourAnswersPostController from './post';
 
@@ -11,12 +11,12 @@ describe('CheckYourAnswersPostController', () => {
     const body = {
       applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockForm);
+    const mockFormContent = {
+      fields: {
+        applicant2IBelieveApplicationIsTrue: {},
+      },
+    } as unknown as FormContent;
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();

@@ -43,7 +43,7 @@ describe('ApplicationEndedGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 

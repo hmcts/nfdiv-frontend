@@ -20,7 +20,7 @@ describe('PrivacyPolicyGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 
@@ -34,7 +34,7 @@ describe('PrivacyPolicyGetController', () => {
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 });

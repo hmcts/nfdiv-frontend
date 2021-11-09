@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CITIZEN_UPDATE, JurisdictionConnections, YesOrNo } from '../case/definition';
-import { Form } from '../form/Form';
+import { FormContent } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
 import { addConnection } from './connections';
@@ -13,7 +13,6 @@ describe('JurisdictionPostController', () => {
   test('Should add connections field and call trigger PATCH', async () => {
     addConnectionMock.mockReturnValue([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
 
-    const errors = [] as never[];
     const body = {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
@@ -23,13 +22,14 @@ describe('JurisdictionPostController', () => {
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
+    const mockFormContent = {
+      fields: {
+        applicant2LifeBasedInEnglandAndWales: {},
+        applicant1LifeBasedInEnglandAndWales: {},
+      },
+    } as unknown as FormContent;
 
-    const jurisdictionController = new JurisdictionPostController(mockForm);
+    const jurisdictionController = new JurisdictionPostController(mockFormContent.fields);
     const expectedUserCase = {
       id: '1234',
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,

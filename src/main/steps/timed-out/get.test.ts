@@ -15,7 +15,7 @@ describe('TimedOutGetController', () => {
     await controller.get(req, res);
     const language = 'en';
     const isDivorce = true;
-    const formState = req.session.userCase;
+    const userCase = req.session.userCase;
 
     expect(req.session.destroy).toBeCalled();
     expect(res.render).toBeCalledWith(expect.anything(), {
@@ -23,7 +23,7 @@ describe('TimedOutGetController', () => {
         language,
         pageContent: generateContent,
         isDivorce,
-        formState,
+        userCase,
         userEmail: 'test@example.com',
       }),
       ...defaultViewArgs,

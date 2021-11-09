@@ -16,18 +16,18 @@ describe('AccessibilityStatementGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
     const isDivorce = true;
-    const formState = req.session.userCase;
+    const userCase = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
         isDivorce,
-        formState,
+        userCase,
         userEmail: 'test@example.com',
       }),
       ...defaultViewArgs,
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 
@@ -38,18 +38,18 @@ describe('AccessibilityStatementGetController', () => {
 
     await controller.get(req, res);
     const isDivorce = false;
-    const formState = req.session.userCase;
+    const userCase = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
         isDivorce,
-        formState,
+        userCase,
         userEmail: 'test@example.com',
       }),
       ...defaultViewArgs,
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 });

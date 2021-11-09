@@ -21,7 +21,7 @@ describe('CookiesGetController', () => {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
       serviceName: 'Apply for a divorce',
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 
@@ -36,7 +36,7 @@ describe('CookiesGetController', () => {
       ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
       ...defaultViewArgs,
       serviceName: 'Apply to end a civil partnership',
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 });
