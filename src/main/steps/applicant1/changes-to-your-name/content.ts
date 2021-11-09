@@ -8,14 +8,14 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 const en = ({ isDivorce, required }) => ({
   title: 'Changes to your name',
   line1: 'The court needs to know if you have changed your name.',
-  applicant1LastNameChangedWhenRelationshipFormed: `Did you change your last name when you ${
+  lastNameChangedWhenRelationshipFormed: `Did you change your last name when you ${
     isDivorce ? 'got married' : 'formed your civil partnership'
   }?`,
-  applicant1LastNameChangedWhenRelationshipFormedHint: 'For example, from a maiden name',
-  applicant1NameChangedSinceRelationshipFormed: `Have you changed any part of your name since ${
+  lastNameChangedWhenRelationshipFormedHint: 'For example, from a maiden name',
+  nameChangedSinceRelationshipFormed: `Have you changed any part of your name since ${
     isDivorce ? 'getting married' : 'forming your civil partnership'
   }?`,
-  applicant1NameChangedSinceRelationshipFormedHint: 'For example, by deed poll',
+  nameChangedSinceRelationshipFormedHint: 'For example, by deed poll',
   errors: {
     applicant1LastNameChangedWhenRelationshipFormed: { required },
     applicant1NameChangedSinceRelationshipFormed: { required },
@@ -25,10 +25,10 @@ const en = ({ isDivorce, required }) => ({
 const cy = ({ required }) => ({
   title: "Newidiadau i'ch enw",
   line1: "Mae angen ichi roi gwybod i'r llys os ydych wedi newid eich enw",
-  applicant1LastNameChangedWhenRelationshipFormed: 'A wnaethoch chi newid eich cyfenw pan wnaethoch chi briodi?',
-  applicant1LastNameChangedWhenRelationshipFormedHint: "Er enghraifft, o'ch enw morwynaidd",
-  applicant1NameChangedSinceRelationshipFormed: "A ydych wedi newid unrhyw ran o'ch enw ers priodi?",
-  applicant1NameChangedSinceRelationshipFormedHint: 'Er enghraifft, trwy weithred newid enw',
+  lastNameChangedWhenRelationshipFormed: 'A wnaethoch chi newid eich cyfenw pan wnaethoch chi briodi?',
+  lastNameChangedWhenRelationshipFormedHint: "Er enghraifft, o'ch enw morwynaidd",
+  nameChangedSinceRelationshipFormed: "A ydych wedi newid unrhyw ran o'ch enw ers priodi?",
+  nameChangedSinceRelationshipFormedHint: 'Er enghraifft, trwy weithred newid enw',
   errors: {
     applicant1LastNameChangedWhenRelationshipFormed: { required },
     applicant1NameChangedSinceRelationshipFormed: { required },
@@ -40,8 +40,8 @@ export const form: FormContent = {
     applicant1LastNameChangedWhenRelationshipFormed: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.applicant1LastNameChangedWhenRelationshipFormed,
-      hint: l => l.applicant1LastNameChangedWhenRelationshipFormedHint,
+      label: l => l.lastNameChangedWhenRelationshipFormed,
+      hint: l => l.lastNameChangedWhenRelationshipFormedHint,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
@@ -57,8 +57,8 @@ export const form: FormContent = {
     applicant1NameChangedSinceRelationshipFormed: {
       type: 'radios',
       classes: 'govuk-radios--inline',
-      label: l => l.applicant1NameChangedSinceRelationshipFormed,
-      hint: l => l.applicant1NameChangedSinceRelationshipFormedHint,
+      label: l => l.nameChangedSinceRelationshipFormed,
+      hint: l => l.nameChangedSinceRelationshipFormedHint,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },

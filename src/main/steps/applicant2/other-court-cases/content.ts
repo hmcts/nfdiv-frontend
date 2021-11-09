@@ -1,5 +1,9 @@
+import { Case } from '../../../app/case/case';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
+import { setUnreachableAnswers } from '../../../app/form/parser';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -11,11 +15,24 @@ const labels = content => ({
   },
 });
 
-const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    applicant2LegalProceedings: applicant1FormFields.applicant1LegalProceedings,
+    applicant2LegalProceedings: {
+      type: 'radios',
+      classes: 'govuk-radios',
+      label: l => l.question,
+      hint: l => l.hint,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+      parser: body =>
+        setUnreachableAnswers((body as Partial<Case>).applicant2LegalProceedings === YesOrNo.YES, [
+          'applicant2LegalProceedingsDetails',
+        ]),
+      validator: isFieldFilledIn,
+    },
   },
 };
 

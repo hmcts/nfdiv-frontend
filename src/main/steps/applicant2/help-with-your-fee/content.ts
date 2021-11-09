@@ -1,8 +1,10 @@
 import config from 'config';
 
+import { Case } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { setUnreachableAnswers } from '../../../app/form/parser';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ isDivorce, required, partner }) => ({
@@ -37,6 +39,11 @@ export const form: FormContent = {
         { label: l => l.yes, value: YesOrNo.YES },
         { label: l => l.no, value: YesOrNo.NO },
       ],
+      parser: body =>
+        setUnreachableAnswers((body as Partial<Case>).applicant1HelpPayingNeeded === YesOrNo.NO, [
+          'applicant2AlreadyAppliedForHelpPaying',
+          'applicant2HelpWithFeesRefNo',
+        ]),
       validator: value => isFieldFilledIn(value),
     },
   },

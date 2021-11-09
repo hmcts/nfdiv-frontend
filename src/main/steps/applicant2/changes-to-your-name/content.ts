@@ -1,5 +1,9 @@
+import { Case } from '../../../app/case/case';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
+import { setUnreachableAnswers } from '../../../app/form/parser';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -22,10 +26,34 @@ const labels = ({ required }: CommonContent) => {
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
-    applicant2LastNameChangedWhenRelationshipFormed: (applicant1Form.fields as FormFields)
-      .applicant1LastNameChangedWhenRelationshipFormed,
-    applicant2NameChangedSinceRelationshipFormed: (applicant1Form.fields as FormFields)
-      .applicant1NameChangedSinceRelationshipFormed,
+    applicant2LastNameChangedWhenRelationshipFormed: {
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.lastNameChangedWhenRelationshipFormed,
+      hint: l => l.lastNameChangedWhenRelationshipFormedHint,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+      parser: body =>
+        setUnreachableAnswers(
+          (body as Partial<Case>).applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
+            (body as Partial<Case>).applicant2NameChangedSinceRelationshipFormed === YesOrNo.NO,
+          ['applicant2NameChangedHow', 'applicant2ChangedNameHowAnotherWay']
+        ),
+      validator: value => isFieldFilledIn(value),
+    },
+    applicant2NameChangedSinceRelationshipFormed: {
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.nameChangedSinceRelationshipFormed,
+      hint: l => l.nameChangedSinceRelationshipFormedHint,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+      validator: value => isFieldFilledIn(value),
+    },
   },
 };
 
