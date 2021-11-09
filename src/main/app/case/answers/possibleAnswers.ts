@@ -8,10 +8,8 @@ export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: St
   const sequenceWithForms = steps.filter(step => step.form);
 
   const getPossibleFields = (step: StepWithContent, fields: string[]) => {
-    if (step.form) {
-      const formFieldNames = new Form(step.form, caseState).getFieldNames().values();
-      fields.push(...formFieldNames);
-    }
+    const formFieldNames = new Form(step.form, caseState).getFieldNames().values();
+    fields.push(...formFieldNames);
 
     const nextStepUrl = step.getNextStep(caseState);
     const nextStep = sequenceWithForms.find(sequenceStep => sequenceStep.url === nextStepUrl);
