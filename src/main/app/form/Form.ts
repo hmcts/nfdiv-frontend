@@ -4,7 +4,7 @@ import { AnyObject } from '../controller/PostController';
 import { setupCheckboxParser } from './parser';
 
 export class Form {
-  constructor(private readonly fields: FormFields | FormFieldsFn) {}
+  constructor(private readonly fields: FormFields) {}
 
   /**
    * Pass the form body to any fields with a parser and return mutated body;
@@ -45,7 +45,7 @@ export class Form {
     }
 
     const errors = Object.keys(fields)
-      .filter(key => fields[key].validator !== undefined)
+      .filter(key => fields[key]?.validator !== undefined)
       .reduce((formErrors: FormError[], propertyName: string) => {
         const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
         const errorType = field.validator(body?.[propertyName] as string, body);

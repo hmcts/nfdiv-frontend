@@ -14,7 +14,7 @@ export class AccessCodePostController {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(this.fields);
+    const form = new Form(<FormFields>this.fields);
 
     if (req.body.saveAndSignOut) {
       return res.redirect(SIGN_OUT_URL);

@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { Case } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { Form } from '../../app/form/Form';
+import { Form, FormFields } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
 import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
 import { getNextIncompleteStepUrl } from '../index';
@@ -120,8 +120,10 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
 
 const getApplicantFirstQuestionForm = (isApplicant2: boolean, applicationType: ApplicationType) => {
   if (isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION) {
-    return new Form(respondentFirstQuestionForm.fields);
+    return new Form(<FormFields>respondentFirstQuestionForm.fields);
   } else {
-    return new Form(isApplicant2 ? applicant2FirstQuestionForm.fields : applicant1FirstQuestionForm.fields);
+    return new Form(
+      isApplicant2 ? <FormFields>applicant2FirstQuestionForm.fields : <FormFields>applicant1FirstQuestionForm.fields
+    );
   }
 };

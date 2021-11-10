@@ -1,7 +1,7 @@
 import { Case, CaseDate, Checkbox } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
-import { Form, FormContent, FormFieldsFn } from './Form';
+import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
 import { covertToDateObject } from './parser';
 import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
 
@@ -40,7 +40,7 @@ describe('Form', () => {
     },
   };
 
-  const form = new Form(mockForm.fields);
+  const form = new Form(<FormFields>mockForm.fields);
 
   test('Should validate a form', async () => {
     const errors = form.getErrors({
@@ -117,7 +117,7 @@ describe('Form', () => {
       },
     };
 
-    const subFieldForm = new Form(mockSubFieldForm.fields);
+    const subFieldForm = new Form(<FormFields>mockSubFieldForm.fields);
 
     it('returns the field error', () => {
       const errors = subFieldForm.getErrors({});
