@@ -1,7 +1,7 @@
 import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -9,6 +9,15 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
+
+const isSubmit = (isApplicant2: boolean, formState: Partial<CaseWithId> | undefined): boolean => {
+  return (
+    isApplicant2 ||
+    (!isApplicant2 &&
+      formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
+      formState?.applicant2HelpPayingNeeded === YesOrNo.YES)
+  );
+};
 
 const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
@@ -91,7 +100,7 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
   subHeading6: 'Financial order application',
   applicant1FinancialOrderYes: 'Applicant 1 is applying to the court for financial orders',
   applicant2FinancialOrderYes: 'Applicant 2 is applying to the court for financial orders',
-  financialOrderNo: 'The applicants are not intending to apply to the court for financial orders.',
+  financialOrderNo: 'The applicants are not applying to the court for financial orders.',
   financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’.
   <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’. 
   <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
@@ -140,7 +149,7 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
   line23: 'I believe that the facts stated in this application are true.',
   applicant1Name: `<em>${formState?.applicant1FirstNames} ${formState?.applicant1LastNames}</em>`,
   applicant2Name: `<em>${formState?.applicant2FirstNames} ${formState?.applicant2LastNames}</em>`,
-  subHeading12: 'Confirm before continuing',
+  confirm: `Confirm before  ${isSubmit(isApplicant2, formState) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
   } ${
@@ -152,14 +161,9 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
   confirmApplicationIsTrue: 'I believe the facts stated in this application are true.',
   confirmApplicationIsTrueHint:
     'This confirms that the information you are submitting is true and accurate to the best of your knowledge. It’s known as the ‘statement of truth’.',
-  continue: `${
-    isApplicant2 ||
-    (!isApplicant2 &&
-      formState?.applicant1HelpPayingNeeded === YesOrNo.YES &&
-      formState?.applicant2HelpPayingNeeded === YesOrNo.YES)
-      ? 'Submit'
-      : 'Continue to payment'
-  }`,
+  continue: `${isSubmit(isApplicant2, formState) ? 'Submit' : 'Continue to payment'}`,
+  confirmApplicationIsTrueWarning:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   errors: {
     applicant1IConfirmPrayer: {
       required: `You need to confirm you are applying to the court to  ${
@@ -179,6 +183,7 @@ export const form: FormContent = {
   fields: {
     applicant1IConfirmPrayer: {
       type: 'checkboxes',
+      label: l => l.confirm,
       labelSize: 'm',
       values: [
         {
@@ -193,7 +198,6 @@ export const form: FormContent = {
     applicant1IBelieveApplicationIsTrue: {
       type: 'checkboxes',
       labelHidden: true,
-      labelSize: 'm',
       values: [
         {
           name: 'confirmApplicationIsTrue',
@@ -218,15 +222,15 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicantAddressNotPrivate = content.formState?.applicant1AddressPrivate !== YesOrNo.YES;
-  const isRespondentAddressNotPrivate = content.formState?.applicant2AddressPrivate !== YesOrNo.YES;
+  const isApplicant2AddressNotPrivate = content.formState?.applicant2AddressPrivate !== YesOrNo.YES;
   const isApplicant1ApplyForFinancialOrder = content.formState?.applyForFinancialOrder === YesOrNo.YES;
   const isApplicant2ApplyForFinancialOrder = content.formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   return {
     ...translations,
-    form,
     isApplicantAddressNotPrivate,
-    isRespondentAddressNotPrivate,
+    isApplicant2AddressNotPrivate,
     isApplicant1ApplyForFinancialOrder,
     isApplicant2ApplyForFinancialOrder,
+    form,
   };
 };

@@ -24,6 +24,7 @@ export const jurisdictionMoreDetailsContent = (
   const connectionText = [
     'Read more about habitual residence',
     'Read more about domicile',
+    'Read more about residual',
     'Read more about your connections',
   ];
   const totalText = [
