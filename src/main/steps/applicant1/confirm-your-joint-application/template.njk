@@ -51,7 +51,7 @@
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
   {% if not isApplicant1FinancialOrderYes and not isApplicant2FinancialOrderYes %}
-    <p class="govuk-body">{{ financialOrderNo }}</p> 
+    <p class="govuk-body">{{ financialOrderNo }}</p>
   {% endif %}
   {{ govukDetails({
     summaryText: whatThisMeans,
@@ -74,4 +74,8 @@
   <p class="govuk-body">{{ applicant1Name | safe }}</p>
   <p class="govuk-body">{{ applicant2Name | safe }}</p>
 
+{% endblock %}
+
+{% block form %}
+  {% include "../check-your-answers/form.njk" %}
 {% endblock %}
