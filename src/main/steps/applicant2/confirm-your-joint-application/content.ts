@@ -21,7 +21,6 @@ export const form: FormContent = {
   fields: {
     applicant2IConfirmPrayer: {
       type: 'checkboxes',
-      label: l => l.confirm,
       labelSize: 'm',
       values: [
         {
