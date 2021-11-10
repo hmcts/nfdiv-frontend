@@ -38,7 +38,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   holding: {
     line1: `Your ${partner} has responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. You can <a class="govuk-link" href="">download and read their response (PDF)</a>.`,
+    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">download and read their response (PDF)</a>.`,
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
