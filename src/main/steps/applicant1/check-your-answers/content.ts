@@ -3,7 +3,7 @@ import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, ChangedNameHow, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
 import { Sections } from '../../applicant1Sequence';
@@ -158,7 +158,7 @@ const cy: typeof en = en;
 export const form: FormContent = {
   fields: userCase =>
     userCase.applicationType === ApplicationType.JOINT_APPLICATION
-      ? {}
+      ? <FormFields>{}
       : {
           applicant1IConfirmPrayer: {
             type: 'checkboxes',
