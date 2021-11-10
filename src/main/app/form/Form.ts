@@ -45,10 +45,18 @@ export class Form {
     const errorType = field.validator && field.validator(body[id], body);
     const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
 
+    // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
-      errors.push(...field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value)));
-    } else if (field.subFields && body[id] === field.value) {
-      errors.push(...Object.entries(field.subFields).flatMap(subField => this.getErrorsFromField(body, ...subField)));
+      const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value));
+
+      errors.push(...valuesErrors);
+    }
+    // if there are subfields and the current field is selected then check for errors in the subfields
+    else if (field.subFields && body[id] === field.value) {
+      const subFields = Object.entries(field.subFields);
+      const subFieldErrors = subFields.flatMap(([subId, subField]) => this.getErrorsFromField(body, subId, subField));
+
+      errors.push(...subFieldErrors);
     }
 
     return errors;
