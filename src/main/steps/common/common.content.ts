@@ -225,10 +225,10 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
 };
 
 const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
-  if (isApplicant2 && userCase.sameSex === Checkbox.Unchecked) {
-    return userCase.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
+  if (isApplicant2 && userCase?.sameSex === Checkbox.Unchecked) {
+    return userCase?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
   }
-  return userCase.gender as Gender;
+  return userCase?.gender as Gender;
 };
 
 const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
