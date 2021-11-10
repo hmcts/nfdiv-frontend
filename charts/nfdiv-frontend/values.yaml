@@ -14,9 +14,9 @@ nodejs:
   livenessTimeout: 5
   livenessPeriod: 15
   memoryLimits: '2Gi'
-  memoryRequests: '512Mi'
+  memoryRequests: '1Gi'
   cpuLimits: '1000m'
-  cpuRequests: '50m'
+  cpuRequests: '200m'
   devcpuRequests: '400m'
   devmemoryLimits: '2Gi'
   devmemoryRequests: '1Gi'
