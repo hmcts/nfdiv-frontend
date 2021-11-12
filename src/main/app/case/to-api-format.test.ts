@@ -1,5 +1,5 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ChangedNameHow, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -57,7 +57,7 @@ describe('to-api-format', () => {
       applicant2KeepContactDetailsConfidential: YesOrNo.YES,
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
-      applicant1PrayerHasBeenGiven: 'Yes',
+      applicant1PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
       applicant2PrayerHasBeenGiven: 'Yes',
       applicant1StatementOfTruth: 'Yes',
       applicant2StatementOfTruth: 'Yes',
