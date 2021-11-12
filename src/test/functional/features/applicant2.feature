@@ -79,7 +79,7 @@ Feature: Applicant 2
     And the page should include "Date of marriage"
     And the page should include "The applicants are not applying to the court for financial orders."
     Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
-    And I select "I believe the facts stated in this application are true"
+    And I select "I believe that the facts stated in this application are true"
     When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"

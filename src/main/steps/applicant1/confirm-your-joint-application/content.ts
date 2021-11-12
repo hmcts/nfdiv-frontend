@@ -150,7 +150,6 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
   subHeading10: "Applicant 2's email address",
   line22: `${formState?.applicant2EmailAddress}`,
   subHeading11: 'Statement of truth',
-  line23: 'I believe that the facts stated in this application are true.',
   applicant1Name: `<em>${formState?.applicant1FirstNames} ${formState?.applicant1LastNames}</em>`,
   applicant2Name: `<em>${formState?.applicant2FirstNames} ${formState?.applicant2LastNames}</em>`,
   confirm: `Confirm before  ${isSubmit(isApplicant2, formState) ? 'submitting' : 'continuing'}`,
@@ -162,7 +161,7 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
       : ''
   }`,
   confirmPrayerHint: 'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
-  confirmApplicationIsTrue: 'I believe the facts stated in this application are true',
+  confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     'This confirms that the information you are submitting is true and accurate to the best of your knowledge. It’s known as the ‘statement of truth’.',
   continue: `${isSubmit(isApplicant2, formState) ? 'Submit' : 'Continue to payment'}`,
