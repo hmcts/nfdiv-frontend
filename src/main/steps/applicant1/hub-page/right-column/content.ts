@@ -1,12 +1,17 @@
+import { State } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, REVIEW_CONTACT_DETAILS } from '../../../urls';
 
 const en = ({ isDivorce, isApplicant2 }: CommonContent) => ({
-  downloadLink: `<a class="govuk-link" href="/downloads/${
+  applicationDownloadLink: `<a class="govuk-link" href="/downloads/${
     isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'
   }"
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  } (PDF)</a>`,
+  respondentAnswersDownloadLink: `<a class="govuk-link" href="/downloads/respondent-answers"
+  download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
@@ -38,7 +43,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const statesWithoutRespondentAnswers = [State.AwaitingAos, State.AosDrafted, State.AosOverdue];
+  const aosSubmitted =
+    !content.isJointApplication && !statesWithoutRespondentAnswers.includes(<State>content.formState?.state);
   return {
+    aosSubmitted,
     ...languages[content.language](content),
   };
 };
