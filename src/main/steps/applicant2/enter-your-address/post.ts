@@ -1,3 +1,3 @@
-import UpdateContactDetailsPostController from '../../../app/update-contact-details/UpdateContactDetailsPostController';
+import CitizenUpdateContactDetailsPostController from '../../applicant1/check-phone-number/post';
 
-export default UpdateContactDetailsPostController;
+export default CitizenUpdateContactDetailsPostController;
