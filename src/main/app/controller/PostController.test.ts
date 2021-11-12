@@ -3,8 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form, FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import * as possibleAnswers from '../case/answers/possibleAnswers';
-import { Case, Checkbox } from '../case/case';
+import { Checkbox } from '../case/case';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
@@ -12,7 +11,6 @@ import {
   CITIZEN_UPDATE,
   Gender,
   UPDATE_AOS,
-  YesOrNo,
 } from '../case/definition';
 
 import { PostController } from './PostController';
@@ -20,7 +18,6 @@ import { PostController } from './PostController';
 import Mock = jest.Mock;
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-const getUnreachableAnswersAsNullMock = jest.spyOn(possibleAnswers, 'getUnreachableAnswersAsNull');
 
 describe('PostController', () => {
   afterEach(() => {
@@ -137,38 +134,6 @@ describe('PostController', () => {
         propertyName: '*',
       },
     ]);
-  });
-
-  test('sets unreachable answers as null', async () => {
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const errors = [] as never[];
-    const body = { inTheUk: YesOrNo.YES };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new PostController(mockForm);
-
-    getUnreachableAnswersAsNullMock.mockReturnValueOnce({
-      exampleExistingField: null,
-    } as Partial<Case>);
-
-    const req = mockRequest({
-      body,
-      userCase: { exampleExistingField: 'you need to null me' },
-    });
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      {
-        inTheUk: YesOrNo.YES,
-        exampleExistingField: null,
-      },
-      CITIZEN_UPDATE
-    );
   });
 
   test('rejects with an error when unable to save session data', async () => {
