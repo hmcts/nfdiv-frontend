@@ -19,6 +19,10 @@ const isSubmit = (isApplicant2: boolean, formState: Partial<CaseWithId> | undefi
   );
 };
 
+const bothApplicantsLegalProceedings = (formState: Partial<CaseWithId> | undefined): boolean => {
+  return formState?.applicant1LegalProceedings === YesOrNo.YES && formState?.applicant2LegalProceedings === YesOrNo.YES;
+};
+
 const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
@@ -65,19 +69,19 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
     isDivorce ? 'marriage' : 'civil partnership'
   }, which might affect the legal power (jurisdiction) of the court.`,
   line19: `${
-    formState?.applicant1LegalProceedings === YesOrNo.YES && formState?.applicant2LegalProceedings === YesOrNo.YES
+    bothApplicantsLegalProceedings(formState)
       ? `Applicant 1 has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }:` +
         '<br>' +
-        formState.applicant1LegalProceedingsDetails +
+        formState?.applicant1LegalProceedingsDetails +
         '<br><br>' +
         `Applicant 2 has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }:` +
         '<br>' +
-        formState.applicant2LegalProceedingsDetails
-      : formState?.applicant1LegalProceedings === YesOrNo.NO && formState?.applicant2LegalProceedings === YesOrNo.NO
+        formState?.applicant2LegalProceedingsDetails
+      : !bothApplicantsLegalProceedings(formState)
       ? `The applicants have indicated that there are no other court cases which are related to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }`
@@ -155,10 +159,10 @@ const en = ({ isDivorce, partner, formState, userEmail, isApplicant2 }: CommonCo
   } ${
     formState?.applyForFinancialOrder === YesOrNo.YES || formState?.applicant2ApplyForFinancialOrder === YesOrNo.YES
       ? 'and make financial orders to decide how our money and property will be split.'
-      : '.'
+      : ''
   }`,
   confirmPrayerHint: 'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
-  confirmApplicationIsTrue: 'I believe the facts stated in this application are true.',
+  confirmApplicationIsTrue: 'I believe the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     'This confirms that the information you are submitting is true and accurate to the best of your knowledge. It’s known as the ‘statement of truth’.',
   continue: `${isSubmit(isApplicant2, formState) ? 'Submit' : 'Continue to payment'}`,
