@@ -248,28 +248,6 @@ describe('to-api-format', () => {
         marriagePlaceOfMarriage: null,
       },
     },
-    {
-      applicant1KnowsApplicant2Address: YesOrNo.YES,
-      expected: {
-        applicant1KnowsApplicant2Address: YesOrNo.YES,
-        applicant1WantsToHavePapersServedAnotherWay: null,
-      },
-    },
-    {
-      applicant1KnowsApplicant2Address: YesOrNo.NO,
-      expected: {
-        applicant1KnowsApplicant2Address: YesOrNo.NO,
-        applicant2HomeAddress: {
-          AddressLine1: null,
-          AddressLine2: null,
-          AddressLine3: null,
-          PostTown: null,
-          County: null,
-          PostCode: null,
-          Country: null,
-        },
-      },
-    },
   ])('set unreachable answers to null if condition met', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
