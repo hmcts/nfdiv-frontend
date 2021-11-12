@@ -1,9 +1,9 @@
 import { Checkbox } from './case';
-import { CaseData, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<Record<keyof CaseData, string | null>> = {
+  const results: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     marriageIsSameSexCouple: YesOrNo.YES,
     applicant2Gender: Gender.MALE,
@@ -17,7 +17,7 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2KeepContactDetailsConfidential: YesOrNo.YES,
-    applicant1PrayerHasBeenGiven: YesOrNo.YES,
+    applicant1PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
     applicant2PrayerHasBeenGiven: YesOrNo.YES,
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
