@@ -1,5 +1,5 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ApplicationType, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -249,18 +249,16 @@ describe('to-api-format', () => {
       },
     },
     {
-      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant1KnowsApplicant2Address: YesOrNo.YES,
       expected: {
-        applicationType: ApplicationType.SOLE_APPLICATION,
+        applicant1KnowsApplicant2Address: YesOrNo.YES,
+        applicant1WantsToHavePapersServedAnotherWay: null,
       },
     },
     {
-      applicationType: ApplicationType.JOINT_APPLICATION,
+      applicant1KnowsApplicant2Address: YesOrNo.NO,
       expected: {
-        applicationType: ApplicationType.JOINT_APPLICATION,
-        applicant2FirstName: null,
-        applicant2MiddleName: null,
-        applicant2LastName: null,
+        applicant1KnowsApplicant2Address: YesOrNo.NO,
         applicant2HomeAddress: {
           AddressLine1: null,
           AddressLine2: null,

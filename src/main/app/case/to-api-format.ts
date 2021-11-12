@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { ApplicationType, CaseData, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -191,25 +191,6 @@ const fields: ToApiConverters = {
     applicant2LegalProceedings: data.applicant2LegalProceedings,
     ...(data.applicant2LegalProceedings === YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
-      : {}),
-  }),
-  applicationType: data => ({
-    applicationType: data.applicationType,
-    ...(data.applicationType === ApplicationType.JOINT_APPLICATION
-      ? {
-          ...setUnreachableAnswersToNull(['applicant2FirstName', 'applicant2MiddleName', 'applicant2LastName']),
-          ...applicant2AddressToApi(
-            setUnreachableAnswersToNull([
-              'applicant2Address1',
-              'applicant2Address2',
-              'applicant2Address3',
-              'applicant2AddressCountry',
-              'applicant2AddressCounty',
-              'applicant2AddressPostcode',
-              'applicant2AddressTown',
-            ])
-          ),
-        }
       : {}),
   }),
 };
