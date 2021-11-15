@@ -18,7 +18,13 @@ describe('PrivacyPolicyGetController', () => {
     const isDivorce = true;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        userEmail: 'test@example.com',
+        userCase: req.session.userCase,
+      }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
     });
@@ -32,7 +38,13 @@ describe('PrivacyPolicyGetController', () => {
     const isDivorce = false;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        userEmail: 'test@example.com',
+        userCase: req.session.userCase,
+      }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
     });
