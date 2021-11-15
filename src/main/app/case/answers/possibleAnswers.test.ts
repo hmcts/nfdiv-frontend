@@ -1,8 +1,7 @@
 import { StepWithContent } from '../../../steps';
 import { Case } from '../case';
-import { YesOrNo } from '../definition';
 
-import { getUnreachableAnswersAsNull, omitUnreachableAnswers } from './possibleAnswers';
+import { omitUnreachableAnswers } from './possibleAnswers';
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answers', () => {
@@ -94,50 +93,5 @@ describe('omitUnreachableAnswers()', () => {
     const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
 
     expect(actual).toEqual({ valid1: 'pick-me' });
-  });
-
-  test('returns unreachable answers as null', async () => {
-    const userCase = {
-      certificateInEnglish: YesOrNo.NO,
-      certifiedTranslation: YesOrNo.YES,
-      ceremonyCountry: 'Northern Ireland',
-    };
-
-    const actual = getUnreachableAnswersAsNull(userCase);
-
-    expect(actual).toEqual({
-      certificateInEnglish: null,
-      certifiedTranslation: null,
-      ceremonyCountry: null,
-    });
-  });
-
-  test('returns respondent answers as null', async () => {
-    const userCase = {
-      applicant2LegalProceedings: YesOrNo.NO,
-      applicant2LegalProceedingsDetails: 'test',
-    };
-
-    const actual = getUnreachableAnswersAsNull(userCase);
-
-    expect(actual).toEqual({
-      applicant2LegalProceedingsDetails: null,
-    });
-  });
-
-  test('does not set IGNORE_UNREACHABLE_FIELDS to null', async () => {
-    const userCase = {
-      applicant1FirstNames: 'test',
-      applicant1LastNames: 'test',
-      certificateInEnglish: YesOrNo.NO,
-      certifiedTranslation: YesOrNo.YES,
-    };
-
-    const actual = getUnreachableAnswersAsNull(userCase);
-
-    expect(actual).toEqual({
-      certificateInEnglish: null,
-      certifiedTranslation: null,
-    });
   });
 });
