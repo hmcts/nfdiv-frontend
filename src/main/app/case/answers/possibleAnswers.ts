@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
 
 import { StepWithContent } from '../../../steps';
-import { Form } from '../../form/Form';
+import { Form, FormFields } from '../../form/Form';
 import { Case } from '../case';
 
 export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
