@@ -72,7 +72,7 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => ({
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
-    }. You can <a class="govuk-link" href="">read their response here</a>.`,
+    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
     line2: `They have to submit an ‘answer’ to the court by ${
       formState?.dueDate
     }. This is a form which explains their reasons for defending the ${
