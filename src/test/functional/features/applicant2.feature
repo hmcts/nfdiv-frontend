@@ -86,9 +86,9 @@ Feature: Applicant 2
     Given I click "Sign out"
     When I login with applicant 1
     And I go to '/confirm-your-joint-application'
-    And I click "I confirm"
+    And I click "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue"
+    When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
 
   @nightly
