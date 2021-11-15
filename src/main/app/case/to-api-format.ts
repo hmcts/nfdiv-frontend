@@ -1,7 +1,7 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, YesOrNo } from './definition';
+import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -108,7 +108,7 @@ const fields: ToApiConverters = {
       : [],
   }),
   applicant1IConfirmPrayer: data => ({
-    applicant1PrayerHasBeenGiven: checkboxConverter(data.applicant1IConfirmPrayer),
+    applicant1PrayerHasBeenGivenCheckbox: data.applicant1IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
   }),
   applicant2IConfirmPrayer: data => ({
     applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
@@ -123,6 +123,75 @@ const fields: ToApiConverters = {
   applicant2UploadedFiles: () => ({}),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
+  }),
+  applicant1LastNameChangedWhenRelationshipFormed: data => ({
+    applicant1LastNameChangedWhenMarried: data.applicant1LastNameChangedWhenRelationshipFormed,
+    ...(data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
+    data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1NameChangedHow', 'applicant1NameChangedHowOtherDetails'])
+      : {}),
+  }),
+  applicant2LastNameChangedWhenRelationshipFormed: data => ({
+    applicant2LastNameChangedWhenMarried: data.applicant2LastNameChangedWhenRelationshipFormed,
+    ...(data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
+    data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant2NameChangedHow', 'applicant2NameChangedHowOtherDetails'])
+      : {}),
+  }),
+  applicant1HelpPayingNeeded: data => ({
+    applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,
+    ...(data.applicant1HelpPayingNeeded === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1HWFAppliedForFees', 'applicant1HWFReferenceNumber'])
+      : {}),
+  }),
+  applicant2HelpPayingNeeded: data => ({
+    applicant2HWFNeedHelp: data.applicant2HelpPayingNeeded,
+    ...(data.applicant2HelpPayingNeeded === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      : {}),
+  }),
+  applicant1KnowsApplicant2Address: data => ({
+    applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
+    ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
+      ? applicant2AddressToApi(
+          setUnreachableAnswersToNull([
+            'applicant2Address1',
+            'applicant2Address2',
+            'applicant2Address3',
+            'applicant2AddressCountry',
+            'applicant2AddressCounty',
+            'applicant2AddressPostcode',
+            'applicant2AddressTown',
+          ])
+        )
+      : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
+  }),
+  inTheUk: data => ({
+    marriageMarriedInUk: data.inTheUk,
+    ...(data.inTheUk === YesOrNo.YES
+      ? setUnreachableAnswersToNull([
+          'marriageCertificateInEnglish',
+          'marriageCertifiedTranslation',
+          'marriageCountryOfMarriage',
+          'marriagePlaceOfMarriage',
+        ])
+      : {}),
+  }),
+  certificateInEnglish: data => ({
+    marriageCertificateInEnglish: data.certificateInEnglish,
+    ...(data.certificateInEnglish === YesOrNo.NO ? setUnreachableAnswersToNull(['marriageCertifiedTranslation']) : {}),
+  }),
+  applicant1LegalProceedings: data => ({
+    applicant1LegalProceedings: data.applicant1LegalProceedings,
+    ...(data.applicant1LegalProceedings === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1LegalProceedingsDetails'])
+      : {}),
+  }),
+  applicant2LegalProceedings: data => ({
+    applicant2LegalProceedings: data.applicant2LegalProceedings,
+    ...(data.applicant2LegalProceedings === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
+      : {}),
   }),
 };
 
@@ -139,5 +208,8 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
   }
   return value === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO;
 };
+
+const setUnreachableAnswersToNull = (properties: string[]): Record<string, null> =>
+  properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
