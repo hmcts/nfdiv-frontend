@@ -6,6 +6,7 @@
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
 {% set isApplicationReadyToSubmit =
         '/check-your-answers' in nextIncompleteStep or
+        nextIncompleteStep === '/' or
         nextIncompleteStep.startsWith('/pay') or
         nextIncompleteStep.startsWith('/application-submitted')
 %}

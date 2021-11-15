@@ -5,7 +5,7 @@ Feature: Applicant 2
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
 
   Scenario: They fill out a happy path applicant 2 journey
-    When I go to "/check-your-answers"
+    When I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
@@ -103,7 +103,7 @@ Feature: Applicant 2
     And I type "HWF-ABC-123"
     When I click "Continue"
     Then the page URL should be "/how-do-you-want-to-apply"
-    Given I go to "/check-your-answers"
+    Given I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
@@ -228,7 +228,7 @@ Feature: Applicant 2
 
   @nightly
   Scenario: They end the joint application
-    When I go to "/check-your-answers"
+    Given I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code

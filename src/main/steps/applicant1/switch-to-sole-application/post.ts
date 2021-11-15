@@ -6,13 +6,13 @@ import { getCaseApi } from '../../../app/case/CaseApi';
 import { ApplicationType, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
-import { Form } from '../../../app/form/Form';
+import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getNextStepUrl } from '../../index';
 import { HOME_URL, PAY_AND_SUBMIT } from '../../urls';
 
 @autobind
 export default class SwitchToSoleApplicationPostController {
-  constructor(protected readonly form: Form) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     if (req.body.cancel) {

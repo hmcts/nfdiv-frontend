@@ -68,7 +68,7 @@ describe('getAnswerRows()', () => {
         language: 'en',
         isDivorce: true,
         applicant2: 'husband',
-        formState: {},
+        userCase: {},
         userEmail: 'test@example.com',
         isApplicant2: false,
         isJointApplication: false,
@@ -76,7 +76,7 @@ describe('getAnswerRows()', () => {
     })(Sections.AboutPartnership);
 
     expect(generatePageContentSpy).toHaveBeenCalledWith({
-      formState: {},
+      userCase: {},
       isDivorce: true,
       isApplicant2: false,
       language: 'en',
@@ -88,7 +88,7 @@ describe('getAnswerRows()', () => {
 
   describe('when we have response', () => {
     let mockCtx;
-    let mockFormState;
+    let mockUserCase;
     beforeEach(() => {
       mockStepsWithContentApplicant1.mockReturnValue([
         {
@@ -159,7 +159,7 @@ describe('getAnswerRows()', () => {
 
       mockGenerateContent.mockReturnValue({ title: 'Mock question title' });
 
-      mockFormState = {
+      mockUserCase = {
         mockField: 'example response',
         applyForFinancialOrder: YesOrNo.YES,
         applicant1FullNameOnCertificate: 'Sarah Smith',
@@ -173,7 +173,7 @@ describe('getAnswerRows()', () => {
         isApplicant2: false,
         isJointApplication: false,
         partner: 'husband',
-        formState: mockFormState,
+        userCase: mockUserCase,
         change: 'Change',
         stepQuestions: {},
         stepAnswers: {},
@@ -376,12 +376,12 @@ describe('getAnswerRows()', () => {
         },
       ]);
 
-      mockFormState = { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked };
+      mockUserCase = { mockField1: Checkbox.Checked, mockField2: Checkbox.Checked };
       const actual = getAnswerRows.bind({
         ...mockNunjucksEnv,
         ctx: {
           ...mockCtx,
-          formState: mockFormState,
+          userCase: mockUserCase,
         },
       })(Sections.AboutPartnership);
 
