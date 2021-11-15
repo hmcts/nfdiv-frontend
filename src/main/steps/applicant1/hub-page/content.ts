@@ -6,8 +6,8 @@ import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
-const en = ({ isDivorce, formState, referenceNumber }: CommonContent) => ({
-  title: `${formState?.applicant1FullNameOnCertificate} & ${formState?.applicant2FullNameOnCertificate}`,
+const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
+  title: `${userCase?.applicant1FullNameOnCertificate} & ${userCase?.applicant2FullNameOnCertificate}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
   response: 'Response',
@@ -38,7 +38,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const referenceNumber = content.formState?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = content.userCase?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),

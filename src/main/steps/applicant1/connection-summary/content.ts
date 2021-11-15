@@ -86,7 +86,7 @@ const enContainsDomConnection = (connections: JurisdictionConnections[] | undefi
   }
 };
 
-const en = ({ isDivorce, partner, formState }: CommonContent) => {
+const en = ({ isDivorce, partner, userCase }: CommonContent) => {
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
     line1: `Your answers indicate that you can apply ${
@@ -104,8 +104,8 @@ const en = ({ isDivorce, partner, formState }: CommonContent) => {
       [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
     },
     readMore: 'Read more about your connections',
-    ...enContainsHabitualResConnection(formState?.connections),
-    ...enContainsDomConnection(formState?.connections),
+    ...enContainsHabitualResConnection(userCase?.connections),
+    ...enContainsDomConnection(userCase?.connections),
   };
 };
 

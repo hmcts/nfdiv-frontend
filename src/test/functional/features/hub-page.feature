@@ -15,7 +15,7 @@ Feature: Hub page
     And the page should include "The next step is to apply for a 'conditional order'."
 
   Scenario: Applicant 2 confirms receipt
-    Given I go to "/check-your-answers"
+    When I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     And I enter my valid case reference and valid access code

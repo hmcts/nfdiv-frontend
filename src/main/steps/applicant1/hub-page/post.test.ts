@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { APPLICANT_1_CONFIRM_RECEIPT, YesOrNo } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 import HubPagePostController from './post';
 
@@ -10,12 +10,12 @@ describe('HubPagePostController', () => {
     const body = {
       applicant1ConfirmReceipt: YesOrNo.YES,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const hubPagePostController = new HubPagePostController(mockForm);
+    const mockFormContent = {
+      fields: {
+        applicant1ConfirmReceipt: {},
+      },
+    } as unknown as FormContent;
+    const hubPagePostController = new HubPagePostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();

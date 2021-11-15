@@ -31,7 +31,7 @@ describe('GetController', () => {
       isDraft: true,
       isDivorce: true,
       text: 'english',
-      formState: req.session.userCase,
+      userCase: req.session.userCase,
       userEmail,
     });
   });
@@ -65,7 +65,7 @@ describe('GetController', () => {
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
-        formState: req.session.userCase,
+        userCase: req.session.userCase,
         userEmail,
       });
     });
@@ -85,7 +85,7 @@ describe('GetController', () => {
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
-        formState: req.session.userCase,
+        userCase: req.session.userCase,
         userEmail,
       });
     });
@@ -105,7 +105,7 @@ describe('GetController', () => {
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
-        formState: req.session.userCase,
+        userCase: req.session.userCase,
         userEmail,
       });
     });
@@ -143,7 +143,7 @@ describe('GetController', () => {
 
     expect(res.render).toBeCalledWith('page', {
       ...defaultViewArgs,
-      formState: {
+      userCase: {
         id: '1234',
         divorceOrDissolution: 'divorce',
         gender: Gender.FEMALE,
@@ -170,14 +170,14 @@ describe('GetController', () => {
         ...commonContent,
         language: 'en',
         isDivorce: true,
-        formState: req.session.userCase,
+        userCase: req.session.userCase,
         partner: 'partner',
         userEmail,
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
         isDraft: true,
-        formState: req.session.userCase,
+        userCase: req.session.userCase,
       });
     });
 
@@ -202,7 +202,7 @@ describe('GetController', () => {
             language,
             pageContent: getContentMock,
             isDivorce,
-            formState: { gender },
+            userCase: { gender },
             userEmail,
           });
 
@@ -211,13 +211,13 @@ describe('GetController', () => {
             ...commonContent,
             isDivorce,
             language,
-            formState: req.session.userCase,
+            userCase: req.session.userCase,
           });
           expect(res.render).toBeCalledWith('page', {
             ...defaultViewArgs,
             ...commonContent,
             isDivorce,
-            formState: req.session.userCase,
+            userCase: req.session.userCase,
             language,
             pageText: `something in ${language}`,
             userEmail,

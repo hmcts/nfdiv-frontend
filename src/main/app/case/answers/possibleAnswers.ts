@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
 
 import { StepWithContent } from '../../../steps';
-import { Form } from '../../form/Form';
+import { Form, FormFields } from '../../form/Form';
 import { Case } from '../case';
 
 export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
@@ -9,7 +9,7 @@ export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: St
 
   const getPossibleFields = (step: StepWithContent, fields: string[]) => {
     if (step.form) {
-      const formFieldNames = new Form(step.form, caseState).getFieldNames().values();
+      const formFieldNames = new Form(<FormFields>step.form.fields).getFieldNames().values();
       fields.push(...formFieldNames);
     }
 
