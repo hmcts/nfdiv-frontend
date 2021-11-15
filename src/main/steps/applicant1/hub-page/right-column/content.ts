@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
-const en = ({ isDivorce, isApplicant2, formState }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   applicationDownloadLink: `<a class="govuk-link" href="/downloads/${
     isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'
   }"
@@ -15,7 +15,7 @@ const en = ({ isDivorce, isApplicant2, formState }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
-    (isApplicant2 ? (formState?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
+    (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
   }">Review your contact details</a>`,
   iWantTo: 'I want to...',

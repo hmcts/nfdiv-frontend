@@ -7,23 +7,24 @@ import {
   State,
   YesOrNo,
 } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 
 import CitizenUpdateContactDetailsPostController from './post';
 
 describe('CitizenUpdateContactDetailsPostController', () => {
+  const mockFormContent = {
+    fields: {},
+  } as unknown as FormContent;
+
   it('triggers CITIZEN_UPDATE for case in Draft state', async () => {
     const body = {
       applicant1PhoneNumber: YesOrNo.YES,
       applicant1AddressPrivate: YesOrNo.NO,
       state: State.Draft,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
+    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(
+      mockFormContent.fields
+    );
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();
@@ -38,12 +39,9 @@ describe('CitizenUpdateContactDetailsPostController', () => {
       applicant1AddressPrivate: YesOrNo.NO,
       state: State.AwaitingApplicant1Response,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
+    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(
+      mockFormContent.fields
+    );
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();
@@ -58,12 +56,9 @@ describe('CitizenUpdateContactDetailsPostController', () => {
       applicant1AddressPrivate: YesOrNo.NO,
       state: State.AwaitingApplicant2Response,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
+    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(
+      mockFormContent.fields
+    );
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();
@@ -76,12 +71,9 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const body = {
       applicant1PhoneNumber: YesOrNo.YES,
     };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => [],
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(mockForm);
+    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(
+      mockFormContent.fields
+    );
 
     const req = mockRequest({ body, session: { isApplicant2: false } });
     const res = mockResponse();

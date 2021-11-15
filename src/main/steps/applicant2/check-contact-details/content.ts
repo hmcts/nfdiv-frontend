@@ -17,20 +17,20 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicantAddress = [
-    content.formState?.applicant2Address1,
-    content.formState?.applicant2Address2,
-    content.formState?.applicant2Address3,
-    content.formState?.applicant2AddressTown,
-    content.formState?.applicant2AddressCounty,
-    content.formState?.applicant2AddressPostcode,
-    content.formState?.applicant2AddressCountry,
+    content.userCase?.applicant2Address1,
+    content.userCase?.applicant2Address2,
+    content.userCase?.applicant2Address3,
+    content.userCase?.applicant2AddressTown,
+    content.userCase?.applicant2AddressCounty,
+    content.userCase?.applicant2AddressPostcode,
+    content.userCase?.applicant2AddressCountry,
   ]
     .filter(Boolean)
     .join('<br>');
-  const phoneNumber = content.formState?.applicant2PhoneNumber;
+  const phoneNumber = content.userCase?.applicant2PhoneNumber;
   const translations = languages[content.language]();
   const prefixUrl =
-    content.formState?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
+    content.userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
   return {
     ...translations,
     applicantAddress,
