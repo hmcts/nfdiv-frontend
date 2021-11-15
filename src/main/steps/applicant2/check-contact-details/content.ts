@@ -16,14 +16,17 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const address = [content.formState?.applicant2Address1];
-  address.push(content.formState?.applicant2Address2);
-  address.push(content.formState?.applicant2Address3);
-  address.push(content.formState?.applicant2AddressTown);
-  address.push(content.formState?.applicant2AddressCounty);
-  address.push(content.formState?.applicant2AddressPostcode);
-  address.push(content.formState?.applicant2AddressCountry);
-  const applicantAddress = address.filter(Boolean).join('<br>');
+  const applicantAddress = [
+    content.formState?.applicant2Address1,
+    content.formState?.applicant2Address2,
+    content.formState?.applicant2Address3,
+    content.formState?.applicant2AddressTown,
+    content.formState?.applicant2AddressCounty,
+    content.formState?.applicant2AddressPostcode,
+    content.formState?.applicant2AddressCountry,
+  ]
+    .filter(Boolean)
+    .join('<br>');
   const phoneNumber = content.formState?.applicant2PhoneNumber;
   const translations = languages[content.language]();
   const prefixUrl =
