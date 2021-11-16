@@ -19,10 +19,6 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId> | undefin
   );
 };
 
-const bothApplicantsLegalProceedings = (userCase: Partial<CaseWithId> | undefined): boolean => {
-  return userCase?.applicant1LegalProceedings === YesOrNo.YES && userCase?.applicant2LegalProceedings === YesOrNo.YES;
-};
-
 const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
@@ -69,7 +65,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
     isDivorce ? 'marriage' : 'civil partnership'
   }, which might affect the legal power (jurisdiction) of the court.`,
   line19: `${
-    bothApplicantsLegalProceedings(userCase)
+    userCase?.applicant1LegalProceedings === YesOrNo.YES && userCase?.applicant2LegalProceedings === YesOrNo.YES
       ? `Applicant 1 has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }:` +
@@ -81,7 +77,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
         }:` +
         '<br>' +
         userCase?.applicant2LegalProceedingsDetails
-      : !bothApplicantsLegalProceedings(userCase)
+      : userCase?.applicant1LegalProceedings === YesOrNo.NO && userCase?.applicant2LegalProceedings === YesOrNo.NO
       ? `The applicants have indicated that there are no other court cases which are related to the ${
           isDivorce ? 'marriage' : 'civil partnership'
         }`

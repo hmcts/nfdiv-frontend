@@ -8,12 +8,12 @@ export const jurisdictionMoreDetailsContent = (
   isDivorce: boolean,
   isRespondent = false
 ): { connectedToEnglandWales: string; readMore: string } => {
-  const resConnection = enContainsHabitualResConnection(connections);
+  const habConnection = enContainsHabitualResConnection(connections);
   const domConnection = enContainsDomConnection(connections);
   const residualConnection = enContainsResidualConnection(connections, isDivorce);
 
   const connectionIndex =
-    isRespondent || (resConnection && domConnection && residualConnection)
+    isRespondent || (habConnection && domConnection && residualConnection)
       ? 3
       : domConnection
       ? 1
@@ -87,7 +87,7 @@ const getResidual = (isDivorce: boolean) => {
     } in England or Wales and</li>
       <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
         isDivorce ? 'divorce' : 'civil partnerships to be ended] between same-sex couples'
-      } between same-sex couples</li></ul>`,
+      } </li></ul>`,
   };
 };
 
@@ -145,7 +145,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => {
     readMore: 'Read more about your connections',
     ...enContainsHabitualResConnection(userCase?.connections),
     ...enContainsDomConnection(userCase?.connections),
-    ...getResidual(isDivorce),
+    ...enContainsResidualConnection(userCase?.connections, isDivorce),
   };
 };
 
