@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { extname } from 'path';
 
 import { CaseWithId } from '../app/case/case';
 import { ApplicationType } from '../app/case/definition';
@@ -12,11 +13,12 @@ import { respondentSequence } from './respondentSequence';
 import { CHECK_ANSWERS_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
+const ext = extname(__filename);
 
 [applicant1Sequence, applicant2Sequence, respondentSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/applicant1' : '');
   for (const step of sequence) {
-    const stepContentFile = `${dir}${step.url}/content.js`;
+    const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
       const content = require(stepContentFile);
 
@@ -91,7 +93,7 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
 };
 
 const getStepFiles = (stepDir: string) => {
-  const stepContentFile = `${stepDir}/content.js`;
+  const stepContentFile = `${stepDir}/content${ext}`;
   const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
   const stepViewFile = `${stepDir}/template.njk`;
   const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepDir}/../../common/template.njk`;

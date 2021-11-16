@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { extname } from 'path';
 
 import { Application, RequestHandler, Response } from 'express';
 import multer from 'multer';
@@ -38,6 +39,7 @@ import {
 } from './steps/urls';
 
 const handleUploads = multer();
+const ext = extname(__filename);
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -59,15 +61,15 @@ export class Routes {
     app.get(`${DOCUMENT_MANAGER}/delete/:id`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
-      const getController = fs.existsSync(`${step.stepDir}/get.js`)
-        ? require(`${step.stepDir}/get.js`).default
+      const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
+        ? require(`${step.stepDir}/get${ext}`).default
         : GetController;
 
       app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
 
       if (step.form) {
-        const postController = fs.existsSync(`${step.stepDir}/post.js`)
-          ? require(`${step.stepDir}/post.js`).default
+        const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
+          ? require(`${step.stepDir}/post${ext}`).default
           : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
