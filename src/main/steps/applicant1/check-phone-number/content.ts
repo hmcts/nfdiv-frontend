@@ -2,11 +2,9 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isPhoneNoValid } from '../../../app/form/validation';
 
-const en = () => ({
+const en = ({ partner }) => ({
   title: 'Your phone number',
-  line1:
-    'Enter your phone number so court staff can contact you quickly, if they need to. ' +
-    'You can choose to keep your phone number private from your later in this application.',
+  line1: `Enter your phone number so court staff can contact you quickly, if they need to. You can choose to keep your phone number private from your ${partner} later in this application.`,
   enterPhoneNumber: 'Enter your phone number (optional)',
   errors: {
     applicant1PhoneNumber: {
@@ -39,7 +37,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

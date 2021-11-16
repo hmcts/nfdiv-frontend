@@ -10,7 +10,7 @@ Feature: Update contact details
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-    Given a case worker issues the application
+    When a case worker issues the application
     And I click "Sign out"
     And I login with applicant 1
     Then the page URL should be "/hub-page"
@@ -45,7 +45,7 @@ Feature: Update contact details
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-    Given a case worker issues the application
+    When a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Review your contact details"
