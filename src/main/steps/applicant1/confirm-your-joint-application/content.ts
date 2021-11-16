@@ -189,7 +189,7 @@ export const form: FormContent = {
       labelSize: 'm',
       values: [
         {
-          name: 'confirmPrayer',
+          name: 'applicant1IConfirmPrayer',
           label: l => l.confirmPrayer,
           hint: l => l.confirmPrayerHint,
           value: Checkbox.Checked,
@@ -202,7 +202,7 @@ export const form: FormContent = {
       labelHidden: true,
       values: [
         {
-          name: 'confirmApplicationIsTrue',
+          name: 'applicant1IBelieveApplicationIsTrue',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,
           value: Checkbox.Checked,
