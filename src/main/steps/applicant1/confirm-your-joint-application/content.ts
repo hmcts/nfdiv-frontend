@@ -13,9 +13,7 @@ import { CommonContent } from '../../common/common.content';
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId> | undefined): boolean => {
   return (
     isApplicant2 ||
-    (!isApplicant2 &&
-      userCase?.applicant1HelpPayingNeeded === YesOrNo.YES &&
-      userCase?.applicant2HelpPayingNeeded === YesOrNo.YES)
+    (userCase?.applicant1HelpPayingNeeded === YesOrNo.YES && userCase?.applicant2HelpPayingNeeded === YesOrNo.YES)
   );
 };
 
@@ -77,10 +75,6 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
         }:` +
         '<br>' +
         userCase?.applicant2LegalProceedingsDetails
-      : userCase?.applicant1LegalProceedings === YesOrNo.NO && userCase?.applicant2LegalProceedings === YesOrNo.NO
-      ? `The applicants have indicated that there are no other court cases which are related to the ${
-          isDivorce ? 'marriage' : 'civil partnership'
-        }`
       : userCase?.applicant1LegalProceedings === YesOrNo.YES
       ? `Applicant 1 has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
@@ -93,7 +87,9 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
         }:` +
         '<br>' +
         userCase.applicant2LegalProceedingsDetails
-      : ''
+      : `The applicants have indicated that there are no other court cases which are related to the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }`
   }.`,
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
