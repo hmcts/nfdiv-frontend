@@ -2,10 +2,14 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
+  ADDRESS_PRIVATE,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
+  CHECK_PHONE_NUMBER,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -65,6 +69,22 @@ const sequences: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
   },
 ];
 

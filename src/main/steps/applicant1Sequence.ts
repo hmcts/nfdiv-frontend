@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, YesOrNo } from '../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -18,7 +18,9 @@ import {
   CERTIFIED_TRANSLATION,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CHECK_JURISDICTION,
+  CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
@@ -313,7 +315,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -323,7 +325,11 @@ export const applicant1Sequence: Step[] = [
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
     getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : THEIR_EMAIL_ADDRESS,
+      hasApp1Confirmed(data)
+        ? ADDRESS_PRIVATE
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? OTHER_COURT_CASES
+        : THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -459,4 +465,17 @@ export const applicant1Sequence: Step[] = [
     url: HOW_YOU_CAN_PROCEED,
     getNextStep: () => HOME_URL,
   },
+  {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
 ];
+
+const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
+  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
+  data.applicant1IConfirmPrayer === Checkbox.Checked &&
+  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
