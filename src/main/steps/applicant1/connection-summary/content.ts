@@ -86,8 +86,8 @@ const getResidual = (isDivorce: boolean) => {
       isDivorce ? 'married' : 'formed your civil partnership'
     } in England or Wales and</li>
       <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
-        isDivorce ? 'divorce' : 'civil partnerships to be ended] between same-sex couples'
-      } </li></ul>`,
+        isDivorce ? 'divorce' : 'civil partnerships to be ended'
+      } between same-sex couples</li></ul>`,
   };
 };
 
