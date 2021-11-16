@@ -178,17 +178,17 @@ const cy: typeof en = {
 
 export const generatePageContent = ({
   language,
+  userCase,
   pageContent,
   isDivorce = true,
   isApplicant2 = false,
-  userCase,
   userEmail,
 }: {
   language: Language;
+  userCase: Partial<CaseWithId>;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
   isApplicant2?: boolean;
-  userCase?: Partial<CaseWithId>;
   userEmail?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
@@ -250,7 +250,7 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   isDivorce: boolean;
   isApplicant2: boolean;
-  userCase?: Partial<CaseWithId>;
+  userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
   contactEmail?: string;

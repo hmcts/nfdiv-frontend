@@ -19,7 +19,13 @@ describe('AccessCodeGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        userEmail: 'test@example.com',
+        userCase: req.session.userCase,
+      }),
       userCase: req.session.userCase,
     });
   });
@@ -33,7 +39,13 @@ describe('AccessCodeGetController', () => {
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...defaultViewArgs,
-      ...generatePageContent({ language, pageContent: generateContent, isDivorce, userEmail: 'test@example.com' }),
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        isDivorce,
+        userEmail: 'test@example.com',
+        userCase: req.session.userCase,
+      }),
       userCase: req.session.userCase,
     });
   });

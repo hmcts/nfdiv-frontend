@@ -156,7 +156,7 @@ export const form: FormContent = {
 const languages = { en, cy };
 
 export const generateContent: TranslationFn = content => {
-  if (!content.userCase?.connections?.length) {
+  if (!content.userCase.connections?.length) {
     throw new Error('User cannot view "You can use English/Welsh courts" page if they have no connections');
   }
 

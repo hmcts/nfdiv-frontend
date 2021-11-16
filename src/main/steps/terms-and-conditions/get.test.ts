@@ -18,7 +18,12 @@ describe('TermsAndConditionsGetController', () => {
     expect(res.render).toBeCalledWith(
       expect.anything(),
       expect.objectContaining({
-        ...generatePageContent({ language, pageContent: generateContent, userEmail: 'test@example.com' }),
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          userEmail: 'test@example.com',
+          userCase: req.session.userCase,
+        }),
         ...defaultViewArgs,
       })
     );

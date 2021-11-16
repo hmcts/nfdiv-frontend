@@ -61,7 +61,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -81,7 +81,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -101,7 +101,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -163,7 +163,7 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      const commonContent = generatePageContent({ language: 'en', userEmail });
+      const commonContent = generatePageContent({ language: 'en', userEmail, userCase: req.session.userCase });
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({

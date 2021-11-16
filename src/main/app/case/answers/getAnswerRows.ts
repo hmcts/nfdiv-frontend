@@ -148,8 +148,8 @@ export const getAnswerRows = function (
 
 const getAnswer = (userCase, field, fieldKey) =>
   field.type === 'checkboxes'
-    ? field.values.reduce((previous, current) => [...previous, [current.name, userCase?.[current.name]]], [])
-    : userCase?.[fieldKey];
+    ? field.values.reduce((previous, current) => [...previous, [current.name, userCase[current.name]]], [])
+    : userCase[fieldKey];
 
 const getCheckedLabels = (answer, field, stepContent) =>
   answer

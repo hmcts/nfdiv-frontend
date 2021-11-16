@@ -36,25 +36,25 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   },
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
+      relationshipDate: userCase.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
     },
     [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
       applicant1AlreadyAppliedForHelpPaying:
-        userCase?.applicant1HelpPayingNeeded === YesOrNo.YES &&
+        userCase.applicant1HelpPayingNeeded === YesOrNo.YES &&
         userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
           ? `Yes
           ${userCase.applicant1HelpWithFeesRefNo}`
           : false,
     },
     [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant1NameChangedHow: userCase?.applicant1NameChangedHow
+      applicant1NameChangedHow: userCase.applicant1NameChangedHow
         ?.join(' / ')
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections: userCase?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
+      connections: userCase.connections?.length === 1 ? stepContent => stepContent.line1 : '',
     },
     [urls.ENTER_YOUR_ADDRESS]: {
       applicant1Address1: false,
@@ -64,13 +64,13 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
       applicant1AddressCounty: false,
       applicant1AddressPostcode: false,
       applicant1AddressCountry: [
-        userCase?.applicant1Address1,
-        userCase?.applicant1Address2,
-        userCase?.applicant1Address3,
-        userCase?.applicant1AddressTown,
-        userCase?.applicant1AddressCounty,
-        userCase?.applicant1AddressPostcode,
-        userCase?.applicant1AddressCountry,
+        userCase.applicant1Address1,
+        userCase.applicant1Address2,
+        userCase.applicant1Address3,
+        userCase.applicant1AddressTown,
+        userCase.applicant1AddressCounty,
+        userCase.applicant1AddressPostcode,
+        userCase.applicant1AddressCountry,
       ]
         .filter(Boolean)
         .join('\n'),
@@ -83,20 +83,20 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
       applicant2AddressCounty: false,
       applicant2AddressPostcode: false,
       applicant2AddressCountry: [
-        userCase?.applicant2Address1,
-        userCase?.applicant2Address2,
-        userCase?.applicant2Address3,
-        userCase?.applicant2AddressTown,
-        userCase?.applicant2AddressCounty,
-        userCase?.applicant2AddressPostcode,
-        userCase?.applicant2AddressCountry,
+        userCase.applicant2Address1,
+        userCase.applicant2Address2,
+        userCase.applicant2Address3,
+        userCase.applicant2AddressTown,
+        userCase.applicant2AddressCounty,
+        userCase.applicant2AddressPostcode,
+        userCase.applicant2AddressCountry,
       ]
         .filter(Boolean)
         .join('\n'),
     },
     [urls.UPLOAD_YOUR_DOCUMENTS]: {
-      applicant1UploadedFiles: (userCase?.applicant1DocumentsUploaded || []).length
-        ? `${userCase?.applicant1DocumentsUploaded?.reduce(
+      applicant1UploadedFiles: (userCase.applicant1DocumentsUploaded || []).length
+        ? `${userCase.applicant1DocumentsUploaded?.reduce(
             (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
             ''
           )}`
@@ -110,19 +110,19 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections:
-        userCase?.connections && userCase.connections?.length > 1
+        userCase.connections && userCase.connections?.length > 1
           ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
           : '',
     },
   },
   continueApplication: 'Continue application',
-  confirm: `Confirm before ${userCase?.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
+  confirm: `Confirm before ${userCase.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
   jointApplicantReview: `Your answers will be sent to your ${partner} to review. Once they have reviewed and provided some of their own information then the application will be ready to submit.`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
     ${
-      userCase?.applyForFinancialOrder === YesOrNo.YES
+      userCase.applyForFinancialOrder === YesOrNo.YES
         ? '<li>decide how our money and property will be split (known as a financial order)</li>'
         : ''
     }
@@ -135,7 +135,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: isJointApplication
     ? 'Send for review'
-    : userCase?.applicant1HelpWithFeesRefNo
+    : userCase.applicant1HelpWithFeesRefNo
     ? 'Submit application'
     : 'Continue to payment',
   errors: isJointApplication

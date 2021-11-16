@@ -12,7 +12,7 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, userCase }: CommonCont
     'fees.alternativeService'
   )}.`,
   line3: `For example, you could apply to have the papers served (delivered) by ${
-    userCase?.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
+    userCase.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
   }.`,
   line4: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
@@ -25,7 +25,7 @@ const cy: typeof en = ({ isDivorce, userCase }: CommonContent) => ({
     'fees.alternativeService'
   )}.`,
   line3: `Er enghraifft, gallwch wneud cais i'r papurau gael eu cyflwyno (danfon) ${
-    userCase?.applicant2EmailAddress
+    userCase.applicant2EmailAddress
       ? "i'r cyfeiriad e-bost wnaethoch chi ei nodi yn gynharach"
       : 'trwy neges e-bost, neges destun, neu drwy gyfrwng cymdeithasol'
   }.`,
