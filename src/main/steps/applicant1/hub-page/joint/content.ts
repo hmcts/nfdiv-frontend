@@ -6,7 +6,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce ' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
-      userCase?.applicant1AgreeToReceiveEmails ? 'email' : 'post'
+      userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
     }.`,
     line2: `You should confirm that you have received your application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -21,7 +21,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
      A conditional order is a document that says the court does not see any reason why you cannot ${
        isDivorce ? 'get a divorce' : 'end your civil partnership'
      }.`,
-    line3: `You can apply for a conditional order on ${userCase?.dueDate}.
+    line3: `You can apply for a conditional order on ${userCase.dueDate}.
      This is because you have to wait until 20 weeks from when the ${
        isDivorce ? 'divorce application' : 'application to end your civil partnership'
      } was issued.
@@ -44,10 +44,10 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase?.state as State);
+  ].indexOf(content.userCase.state as State);
   const hasApplicantConfirmedReceipt = content.isApplicant2
-    ? content.userCase?.applicant2ConfirmReceipt === YesOrNo.YES
-    : content.userCase?.applicant1ConfirmReceipt === YesOrNo.YES;
+    ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
+    : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language](content),

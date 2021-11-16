@@ -104,8 +104,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => {
       [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
     },
     readMore: 'Read more about your connections',
-    ...enContainsHabitualResConnection(userCase?.connections),
-    ...enContainsDomConnection(userCase?.connections),
+    ...enContainsHabitualResConnection(userCase.connections),
+    ...enContainsDomConnection(userCase.connections),
   };
 };
 
