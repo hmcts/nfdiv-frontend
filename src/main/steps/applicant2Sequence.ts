@@ -1,4 +1,5 @@
-import { ChangedNameHow, YesOrNo } from '../app/case/definition';
+import { CaseWithId, Checkbox } from '../app/case/case';
+import { ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
 import { Sections, Step } from './applicant1Sequence';
 import {
@@ -8,7 +9,9 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CHECK_JOINT_APPLICATION,
+  CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
@@ -104,12 +107,12 @@ const sequences: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     showInSection: Sections.ContactYou,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data => (hasApp2Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
     url: ENTER_YOUR_ADDRESS,
     showInSection: Sections.ContactYou,
-    getNextStep: () => OTHER_COURT_CASES,
+    getNextStep: data => (hasApp2Confirmed(data) ? ADDRESS_PRIVATE : OTHER_COURT_CASES),
   },
   {
     url: OTHER_COURT_CASES,
@@ -176,6 +179,14 @@ const sequences: Step[] = [
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
+  {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
 ];
 
 export const applicant2Sequence = ((): Step[] => {
@@ -185,3 +196,8 @@ export const applicant2Sequence = ((): Step[] => {
     getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
   }));
 })();
+
+const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
+  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
+  data.applicant2IConfirmPrayer === Checkbox.Checked &&
+  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
