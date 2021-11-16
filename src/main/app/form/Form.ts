@@ -4,26 +4,13 @@ import { AnyObject } from '../controller/PostController';
 import { setupCheckboxParser } from './parser';
 
 export class Form {
-  constructor(private readonly form: FormContent, private formState: Partial<Case> = {}) {}
-
-  public setFormState(formState: Partial<Case>): void {
-    this.formState = formState;
-  }
-
-  public getFields(checkFields?: FormContent['fields']): FormContent['fields'] {
-    const fields = checkFields || this.form?.fields;
-    if (typeof fields === 'function') {
-      return fields(this.formState);
-    }
-
-    return fields;
-  }
+  constructor(private readonly fields: FormFields) {}
 
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
   public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
-    const fields = this.getFields(checkFields);
+    const fields = checkFields || this.fields;
 
     const parsedBody = Object.entries(fields)
       .map(setupCheckboxParser(!!body.saveAndSignOut))
@@ -50,45 +37,33 @@ export class Form {
   /**
    * Pass the form body to any fields with a validator and return a list of errors
    */
-  public getErrors(body: Partial<Case>, checkFields = this.form?.fields): FormError[] {
-    const fields = this.getFields(checkFields);
-    if (!fields) {
-      return [];
+  public getErrors(body: Partial<Case>): FormError[] {
+    return Object.entries(this.fields).flatMap(fieldWithId => this.getErrorsFromField(body, ...fieldWithId));
+  }
+
+  private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
+    const errorType = field.validator && field.validator(body[id], body);
+    const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
+
+    // if there are checkboxes or options, check them for errors
+    if (isFormOptions(field)) {
+      const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value));
+
+      errors.push(...valuesErrors);
+    }
+    // if there are subfields and the current field is selected then check for errors in the subfields
+    else if (field.subFields && body[id] === field.value) {
+      const subFields = Object.entries(field.subFields);
+      const subFieldErrors = subFields.flatMap(([subId, subField]) => this.getErrorsFromField(body, subId, subField));
+
+      errors.push(...subFieldErrors);
     }
 
-    const errors = Object.keys(fields)
-      .filter(key => fields[key].validator !== undefined)
-      .reduce((formErrors: FormError[], propertyName: string) => {
-        const field = <FormField & { validator: ValidationCheck }>fields[propertyName];
-        const errorType = field.validator(body?.[propertyName] as string, body);
-
-        return errorType ? formErrors.concat({ errorType, propertyName }) : formErrors;
-      }, []);
-
-    const checkboxErrors: FormError[] = [];
-    const subFieldErrors: FormError[] = [];
-    for (const [key, value] of Object.entries(fields)) {
-      (value as FormOptions)?.values
-        ?.filter(option => option.validator !== undefined)
-        .map(option => {
-          const errorType = option.validator?.(body?.[option.name as string], body);
-          if (errorType) {
-            checkboxErrors.push({ errorType, propertyName: key });
-          }
-        });
-
-      (value as FormOptions)?.values
-        ?.filter(option => option.subFields !== undefined && body[key] === option.value)
-        .map(fieldWithSubFields => fieldWithSubFields.subFields)
-        .map(subField => this.getErrors(body, subField))
-        .map(subErrors => subFieldErrors.push(...subErrors));
-    }
-
-    return [...errors, ...checkboxErrors, ...subFieldErrors];
+    return errors;
   }
 
   public getFieldNames(): Set<string> {
-    const fields = this.getFields();
+    const fields = this.fields;
     const fieldNames: Set<string> = new Set();
     for (const fieldKey in fields) {
       const stepField = fields[fieldKey] as FormOptions;
@@ -136,8 +111,8 @@ export type ValidationCheck = (
   value: string | string[] | CaseDate | undefined,
   formData: Partial<Case>
 ) => void | string;
-export type FormFields = Partial<Record<string, FormField>>;
-export type FormFieldsFn = (formState: Partial<Case>) => FormFields;
+export type FormFields = Record<string, FormField>;
+export type FormFieldsFn = (userCase: Partial<Case>) => FormFields;
 
 export interface FormContent {
   submit: {
@@ -178,6 +153,10 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
+}
+
+function isFormOptions(field: FormField): field is FormOptions {
+  return (field as FormOptions).values !== undefined;
 }
 
 export interface CsrfField {

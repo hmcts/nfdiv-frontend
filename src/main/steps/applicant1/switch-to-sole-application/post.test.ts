@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { ApplicationType, DivorceOrDissolution, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
-import { Form } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../../urls';
 
 import SwitchToSoleApplicationPostController from './post';
@@ -26,15 +26,13 @@ describe('SwitchToSoleApplicationPostController', () => {
     getSystemUserMock.mockClear();
   });
 
+  const mockFormContent = {
+    fields: {},
+  } as unknown as FormContent;
+
   test('Should have no errors and redirect to the next page', async () => {
-    const errors = [] as never[];
     const body = {};
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new SwitchToSoleApplicationPostController(mockForm);
+    const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const caseData = {
       applicationType: ApplicationType.JOINT_APPLICATION,
@@ -72,14 +70,8 @@ describe('SwitchToSoleApplicationPostController', () => {
   });
 
   test('Should redirect to pay and submit page when cancel button used in Applicant2Approved state', async () => {
-    const errors = [] as never[];
     const body = { cancel: 'cancel button' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new SwitchToSoleApplicationPostController(mockForm);
+    const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
     const req = mockRequest({ body });
     req.session.userCase.state = State.Applicant2Approved;
     const res = mockResponse();
@@ -89,14 +81,8 @@ describe('SwitchToSoleApplicationPostController', () => {
   });
 
   test('Should redirect to home page when cancel button used in any non Applicant2Approved state', async () => {
-    const errors = [] as never[];
     const body = { cancel: 'cancel button' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new SwitchToSoleApplicationPostController(mockForm);
+    const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
     const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
@@ -105,14 +91,8 @@ describe('SwitchToSoleApplicationPostController', () => {
   });
 
   test('Should return error when event could not be triggered and redirect to the same page', async () => {
-    const errors = [] as never[];
     const body = {};
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new SwitchToSoleApplicationPostController(mockForm);
+    const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({

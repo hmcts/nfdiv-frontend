@@ -4,7 +4,7 @@ import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOU
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
-import { Form } from '../form/Form';
+import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
 
@@ -26,15 +26,16 @@ describe('AccessCodePostController', () => {
     getSystemUserMock.mockClear();
   });
 
+  const mockFormContent = {
+    fields: {
+      accessCode: {},
+      caseReference: {},
+    },
+  } as unknown as FormContent;
+
   test('Should have no errors and redirect to the next page in joint application journey', async () => {
-    const errors = [] as never[];
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new AccessCodePostController(mockForm);
+    const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseData = {
       accessCode: 'QWERTY78',
@@ -77,14 +78,8 @@ describe('AccessCodePostController', () => {
   });
 
   test('Should have no errors and redirect to the next page in AOS journey', async () => {
-    const errors = [] as never[];
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new AccessCodePostController(mockForm);
+    const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseData = {
       accessCode: 'QWERTY78',
@@ -128,14 +123,8 @@ describe('AccessCodePostController', () => {
   });
 
   test('Should return error when access code does not match and should redirect to the same page', async () => {
-    const errors = [] as never[];
     const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new AccessCodePostController(mockForm);
+    const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
@@ -161,14 +150,8 @@ describe('AccessCodePostController', () => {
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
-    const errors = [] as never[];
     const body = { accessCode: 'QWERTY67', caseReference: 'INVALID' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new AccessCodePostController(mockForm);
+    const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
@@ -190,14 +173,8 @@ describe('AccessCodePostController', () => {
   });
 
   test('Should return error when case cannot be saved and should redirect to the same page', async () => {
-    const errors = [] as never[];
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
-    const mockForm = {
-      setFormState: jest.fn(),
-      getErrors: () => errors,
-      getParsedBody: () => body,
-    } as unknown as Form;
-    const controller = new AccessCodePostController(mockForm);
+    const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
@@ -228,7 +205,7 @@ describe('AccessCodePostController', () => {
     req.body['saveAndSignOut'] = true;
     const res = mockResponse();
 
-    const controller = new AccessCodePostController({} as unknown as Form);
+    const controller = new AccessCodePostController({} as unknown as FormFields);
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(SIGN_OUT_URL);
