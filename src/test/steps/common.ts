@@ -11,7 +11,10 @@ import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOW_DO_YOU_WANT_TO_RESPOND,
+  LEGAL_JURISDICTION_OF_THE_COURTS,
   RELATIONSHIP_DATE_URL,
+  RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_NAME,
 } from '../../main/steps/urls';
@@ -269,6 +272,13 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
 
 export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
+
+export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
+  executeUserCaseScript(
+    userCaseObj,
+    RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND,
+    RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS
+  );
 
 const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
   I.executeScript(

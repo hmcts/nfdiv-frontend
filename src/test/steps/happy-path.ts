@@ -1,7 +1,21 @@
 import { State } from '../../main/app/case/definition';
-import { APPLICANT_2, APPLY_FINANCIAL_ORDER, HAS_RELATIONSHIP_BROKEN_URL } from '../../main/steps/urls';
+import {
+  APPLICANT_2,
+  APPLY_FINANCIAL_ORDER,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  HOW_DO_YOU_WANT_TO_RESPOND,
+  RESPONDENT,
+} from '../../main/steps/urls';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetApp2UsersCaseTo, iSetTheUsersCaseTo } from './common';
+import {
+  checkOptionFor,
+  iAmOnPage,
+  iClearTheForm,
+  iClick,
+  iSetApp2UsersCaseTo,
+  iSetRespondentUsersCaseTo,
+  iSetTheUsersCaseTo,
+} from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -30,6 +44,17 @@ Given("I've already completed the form using the fixture {string} for applicant 
 
   const url = await I.grabCurrentUrl();
   I.amOnPage(APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL);
+  iClick('Continue');
+  I.amOnPage(url);
+});
+
+Given("I've already completed the form using the fixture {string} for respondent", async (fixture: string) => {
+  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+  await iSetRespondentUsersCaseTo(fixtureJson);
+
+  const url = await I.grabCurrentUrl();
+  I.amOnPage(RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND);
   iClick('Continue');
   I.amOnPage(url);
 });
