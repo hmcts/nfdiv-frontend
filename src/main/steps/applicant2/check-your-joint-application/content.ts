@@ -31,7 +31,7 @@ const labels = ({ isDivorce, partner, required, userCase }: CommonContent) => {
     } costs ${config.get(
       'fees.applicationFee'
     )}. You will not be asked to pay the fee. Your ${partner} will be asked to pay. ${
-      userCase?.applicant1HelpPayingNeeded === YesOrNo.YES
+      userCase.applicant1HelpPayingNeeded === YesOrNo.YES
         ? 'They have said that they need help paying the fee. They can only use help with the fees if you apply too. That is why you were asked whether you needed help paying the fee.'
         : ''
     }`,
@@ -55,12 +55,12 @@ const labels = ({ isDivorce, partner, required, userCase }: CommonContent) => {
       },
       [urls.JURISDICTION_INTERSTITIAL_URL]: {
         connections:
-          (userCase?.connections && userCase.connections?.length > 1
+          (userCase.connections && userCase.connections?.length > 1
             ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
             : '') +
           moreDetailsComponent(
-            jurisdictionMoreDetailsContent(userCase?.connections, isDivorce).connectedToEnglandWales,
-            jurisdictionMoreDetailsContent(userCase?.connections, isDivorce).readMore
+            jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+            jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
           ),
       },
       [urls.OTHER_COURT_CASES]: {

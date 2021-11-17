@@ -15,6 +15,12 @@ export const jurisdictionMoreDetailsContent = (
   const connectionIndex =
     isRespondent || (habConnection && domConnection && residualConnection)
       ? 3
+      : habConnection && domConnection
+      ? 4
+      : habConnection && residualConnection
+      ? 5
+      : domConnection && residualConnection
+      ? 6
       : domConnection
       ? 1
       : residualConnection
@@ -42,6 +48,31 @@ export const jurisdictionMoreDetailsContent = (
         .join('<br><br>')
         .replace('Domicile', '<strong>Domicile</strong>')
         .replace('</ul><br><br>', '</ul>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(enDomicile)
+        .join('<br><br>')
+        .replace('Domicile', '<strong>Domicile</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enHabitualResident)
+      .join('<br><br>')
+      .replace('Habitual residence', '<strong>Habitual residence</strong>') +
+      '<br><br>' +
+      Object.values(getResidual(isDivorce))
+        .join('<br><br>')
+        .replace('Residual', '<strong>Residual</strong>')
+        .replace('</ul><br><br>', '</ul>'),
+    Object.values(enDomicile)
+      .join('<br><br>')
+      .replace('Domicile', '<strong>Domicile</strong>')
+      .replace('</ul><br><br>', '</ul>') +
       '<br><br>' +
       Object.values(getResidual(isDivorce))
         .join('<br><br>')
@@ -144,8 +175,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => {
     },
     readMore: 'Read more about your connections',
     ...enContainsHabitualResConnection(userCase?.connections),
-    ...enContainsDomConnection(userCase?.connections),
-    ...enContainsResidualConnection(userCase?.connections, isDivorce),
+    ...enContainsDomConnection(userCase.connections),
+    ...enContainsResidualConnection(userCase.connections, isDivorce),
   };
 };
 
