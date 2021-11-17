@@ -12,5 +12,6 @@ RUN PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=true yarn install && yarn build:prod
 FROM base as runtime
 RUN rm -rf webpack/ webpack.config.js
 COPY --from=build $WORKDIR/src/main ./src/main
+RUN yarn build:ts
 
 EXPOSE 3001
