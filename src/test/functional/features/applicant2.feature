@@ -74,16 +74,6 @@ Feature: Applicant 2
     When I select "Continue"
     Then the page URL should be "/applicant2/confirm-your-joint-application"
     And the page should include "Confirm your joint application"
-<<<<<<< HEAD
-    And the page should include "Yes, the marriage has irretrievably broken down"
-    And the page should include "About your marriage"
-    And the page should include "When did you get married?	31 December 1999"
-    And the page should include "Is help with fees being claimed on this application?	No, because both applicants did not apply"
-    And the page should include "Did you get married in the UK?	Yes"
-    Given I select "I confirm that I’m applying to the court with my wife to:"
-    And I select "I believe that the facts stated in this application are true"
-    When I click "Continue"
-=======
     And the page should include "The marriage has broken down irretrievably (it cannot be saved)"
     And the page should include "About the marriage"
     And the page should include "Date of marriage"
@@ -91,7 +81,6 @@ Feature: Applicant 2
     Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Submit"
->>>>>>> update test
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
     Given I click "Sign out"
