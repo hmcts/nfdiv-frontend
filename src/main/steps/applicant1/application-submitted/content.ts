@@ -15,7 +15,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     </div>
   `,
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
-    userCase?.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
+    userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
   partnerResponse: `Your ${partner} responds`,
   conditionalOrderGranted: 'Conditional order granted',
@@ -26,7 +26,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
     [DocumentType.MARRIAGE_CERTIFICATE]:
-      userCase?.inTheUk === YesOrNo.NO
+      userCase.inTheUk === YesOrNo.NO
         ? `Your original foreign ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
         : `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate or a certified copy`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
@@ -68,8 +68,8 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   } papers another way</a>`,
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
-    userCase?.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? ' and Help With Fees reference number' : ''
-  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase?.dateSubmitted)
+    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? ' and Help With Fees reference number' : ''
+  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
     .add(2, 'weeks')
     .format(
       'D MMMM YYYY'
@@ -116,8 +116,8 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingApplicant2Response,
     State.AwaitingLegalAdvisorReferral,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase?.state as State);
-  const referenceNumber = content.userCase?.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  ].indexOf(content.userCase.state as State);
+  const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     progressionIndex,

@@ -71,7 +71,7 @@ const en = ({ isDivorce, partner, userCase, marriage, civilPartnership }: Common
   },
   stepAnswers: {
     [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: userCase?.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
+      relationshipDate: userCase.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
     },
     [urls.HOW_DO_YOU_WANT_TO_APPLY]: {
       applicationType: 'We want to apply jointly',
@@ -80,41 +80,41 @@ const en = ({ isDivorce, partner, userCase, marriage, civilPartnership }: Common
       applicant1ScreenHasUnionBroken: 'Yes, the marriage has irretrievably broken down ',
     },
     [urls.CERTIFIED_TRANSLATION]: {
-      certifiedTranslation: userCase?.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
+      certifiedTranslation: userCase.certifiedTranslation === YesOrNo.YES ? 'Yes' : 'No',
     },
     [urls.OTHER_COURT_CASES]: {
-      applicant1LegalProceedings: `\n\n ${userCase?.applicant1LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
+      applicant1LegalProceedings: `\n\n ${userCase.applicant1LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
     },
     [urls.APPLICANT_2 + urls.OTHER_COURT_CASES]: {
-      applicant2LegalProceedings: `\n\n\n ${userCase?.applicant2LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
+      applicant2LegalProceedings: `\n\n\n ${userCase.applicant2LegalProceedings === YesOrNo.YES ? 'Yes' : 'No'}`,
     },
     [urls.APPLY_FINANCIAL_ORDER]: {
-      applyForFinancialOrder: userCase?.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
+      applyForFinancialOrder: userCase.applyForFinancialOrder === YesOrNo.YES ? ' \n\n Yes' : ' \n\n No',
     },
     [urls.APPLICANT_2 + urls.APPLY_FINANCIAL_ORDER]: {
       applicant2ApplyForFinancialOrder:
-        userCase?.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n\n Yes' : ' \n\n\n No',
+        userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES ? ' \n\n\n Yes' : ' \n\n\n No',
     },
     [urls.HELP_WITH_YOUR_FEE_URL]: {
       applicant1HelpPayingNeeded:
-        userCase?.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES
+        userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES
           ? 'Yes'
-          : userCase?.applicant1HelpPayingNeeded === YesOrNo.YES || userCase?.applicant2HelpPayingNeeded === YesOrNo.YES
+          : userCase.applicant1HelpPayingNeeded === YesOrNo.YES || userCase.applicant2HelpPayingNeeded === YesOrNo.YES
           ? 'No'
           : 'No, because both applicants	did not apply',
     },
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections: userCase?.connections?.length === 1 ? stepContent => stepContent.line1 : '',
+      connections: userCase.connections?.length === 1 ? stepContent => stepContent.line1 : '',
     },
     [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant1NameChangedHow: userCase?.applicant1NameChangedHow
+      applicant1NameChangedHow: userCase.applicant1NameChangedHow
         ?.join(' / ')
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
         .replace(ChangedNameHow.OTHER, 'Another way'),
     },
     [urls.APPLICANT_2 + urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant2NameChangedHow: userCase?.applicant2NameChangedHow
+      applicant2NameChangedHow: userCase.applicant2NameChangedHow
         ?.join(' / ')
         .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
         .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
@@ -124,12 +124,12 @@ const en = ({ isDivorce, partner, userCase, marriage, civilPartnership }: Common
   stepAnswersWithHTML: {
     [urls.JURISDICTION_INTERSTITIAL_URL]: {
       connections:
-        (userCase?.connections && userCase.connections.length > 1
+        (userCase.connections && userCase.connections.length > 1
           ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
           : '') +
         moreDetailsComponent(
-          jurisdictionMoreDetailsContent(userCase?.connections).connectedToEnglandWales,
-          jurisdictionMoreDetailsContent(userCase?.connections).readMore
+          jurisdictionMoreDetailsContent(userCase.connections).connectedToEnglandWales,
+          jurisdictionMoreDetailsContent(userCase.connections).readMore
         ),
     },
   },
