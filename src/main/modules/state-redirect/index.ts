@@ -34,14 +34,14 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase.state) &&
+          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state) &&
           req.path !== APPLICATION_SUBMITTED
         ) {
           return res.redirect(APPLICATION_SUBMITTED);
         }
 
         if (
-          req.session.userCase.state !== State.AwaitingPayment ||
+          req.session.userCase?.state !== State.AwaitingPayment ||
           [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
         ) {
           return next();
@@ -59,8 +59,8 @@ export class StateRedirectMiddleware {
 
   private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
     return (
-      ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase.state)) ||
-        (!isApplicant2 && userCase.state === State.AwaitingApplicant2Response)) &&
+      ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
+        (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&
       dayjs(userCase.dueDate, 'D MMMM YYYY').diff(dayjs()) < 0
     );
   }
