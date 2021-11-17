@@ -10,12 +10,9 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 
-const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId> | undefined): boolean => {
-  return (
-    isApplicant2 ||
-    (userCase?.applicant1HelpPayingNeeded === YesOrNo.YES && userCase?.applicant2HelpPayingNeeded === YesOrNo.YES)
-  );
-};
+const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId> | undefined): boolean =>
+  isApplicant2 ||
+  (userCase?.applicant1HelpPayingNeeded === YesOrNo.YES && userCase?.applicant2HelpPayingNeeded === YesOrNo.YES);
 
 const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
