@@ -11,10 +11,8 @@ import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent) => ({
-  titleSoFar: 'Confirm your joint application',
-  titleSubmit: 'Confirm your joint application',
-  line1:
-    'This is the information you and your husband or wife have provided for your joint application. Confirm it before continuing.',
+  titleSoFar: 'Check your answers so far',
+  titleSubmit: 'Check your answers',
   sectionTitles: {
     [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     [Sections.HelpWithFees]: 'Help with fees',

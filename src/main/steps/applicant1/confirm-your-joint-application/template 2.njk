@@ -51,19 +51,19 @@
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
   {% if not isApplicant1FinancialOrderYes and not isApplicant2FinancialOrderYes %}
-    <p class="govuk-body">{{ financialOrderNo }}</p>
+    <p class="govuk-body">{{ financialOrderNo }}</p> 
   {% endif %}
   {{ govukDetails({
     summaryText: whatThisMeans,
     html: financialOrderMoreDetails
   }) }}
-  {% if isApplicant1AddressNotPrivate %}
+  {% if isApplicantAddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
     <p class="govuk-body">{{ applicantAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
     <p class="govuk-body">{{ line21 | safe }}</p>
   {% endif %}
-  {% if isApplicant2AddressNotPrivate %}
+  {% if isRespondentAddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
@@ -73,9 +73,6 @@
   <p class="govuk-body">{{ line23 | safe }}</p>
   <p class="govuk-body">{{ applicant1Name | safe }}</p>
   <p class="govuk-body">{{ applicant2Name | safe }}</p>
-  <h3 class="govuk-heading-m">{{ confirm}}</h3> 
-{% endblock %}
+  <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
 
-{% block form %}
-  {% include "../check-your-answers/form.njk" %}
 {% endblock %}
