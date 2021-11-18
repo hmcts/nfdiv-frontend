@@ -6,14 +6,14 @@ import { CommonContent } from '../../common/common.content';
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean,
-  isRespondent = false
+  showAllResidences = false
 ): { connectedToEnglandWales: string; readMore: string } => {
   const habConnection = enContainsHabitualResConnection(connections);
   const domConnection = enContainsDomConnection(connections);
   const residualConnection = enContainsResidualConnection(connections, isDivorce);
 
   const connectionIndex =
-    isRespondent || (habConnection && domConnection && residualConnection)
+    showAllResidences || (habConnection && domConnection && residualConnection)
       ? 3
       : habConnection && domConnection
       ? 4
