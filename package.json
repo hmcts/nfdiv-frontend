@@ -61,7 +61,7 @@
     "@types/serve-favicon": "^2.5.3",
     "@types/session-file-store": "^1.2.2",
     "@types/toobusy-js": "^0.5.2",
-    "@types/uuid": "^8.3.1",
+    "@types/uuid": "^8.3.3",
     "@uppy/core": "^2.1.2",
     "@uppy/drop-target": "^1.1.1",
     "@uppy/file-input": "^2.0.4",
@@ -98,7 +98,7 @@
     "toobusy-js": "^0.5.1",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.11.0",
-    "typescript": "^4.4.4",
+    "typescript": "^4.5.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -117,7 +117,7 @@
     "babel-loader": "^8.2.2",
     "codeceptjs": "^3.2.1",
     "concurrently": "^6.4.0",
-    "copy-webpack-plugin": "^9.1.0",
+    "copy-webpack-plugin": "^10.0.0",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -130,11 +130,11 @@
     "jest-circus": "^27.3.1",
     "jest-extended": "^0.11.5",
     "lint-staged": "^12.0.2",
-    "mini-css-extract-plugin": "^2.4.4",
+    "mini-css-extract-plugin": "^2.4.5",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
-    "pa11y": "^6.1.0",
+    "pa11y": "^6.1.1",
     "playwright": "^1.15.2",
     "prettier": "^2.4.1",
     "sass-loader": "^12.3.0",
@@ -146,7 +146,7 @@
     "webdriverio": "^7.16.7",
     "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-middleware": "^5.2.1",
+    "webpack-dev-middleware": "^5.2.2",
     "webpack-node-externals": "^3.0.0"
   }
 }

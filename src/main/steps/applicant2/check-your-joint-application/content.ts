@@ -59,8 +59,8 @@ const labels = ({ isDivorce, partner, required, userCase }: CommonContent) => {
             ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
             : '') +
           moreDetailsComponent(
-            jurisdictionMoreDetailsContent(userCase.connections).connectedToEnglandWales,
-            jurisdictionMoreDetailsContent(userCase.connections).readMore
+            jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+            jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
           ),
       },
       [urls.OTHER_COURT_CASES]: {

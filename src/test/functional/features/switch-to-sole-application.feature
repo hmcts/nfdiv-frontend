@@ -17,7 +17,7 @@ Feature: Switch To Sole Application
     And I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And I click "Sign out"
     Given I login with applicant 1

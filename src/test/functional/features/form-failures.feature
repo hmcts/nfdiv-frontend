@@ -272,15 +272,21 @@ Feature: Form failures
     And I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"
-    Given I've already completed the form using the fixture "respondentCompleteCase"
-    And I go to "/respondent/check-your-answers"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
+    When I go to "/respondent/legal-jurisdiction-of-the-courts"
+    And I click "Continue"
+    Then the page should include "Other court cases relating to this marriage"
+    When I go to "/respondent/how-the-court-will-contact-you"
+    And I click "Continue"
+    Then the page should include "What language do you want to receive emails and documents in?"
+    When I go to "/"
     And I click "Submit"
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
 
   @nightly
   Scenario: They fail to fill out the applicant 2 forms
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "/check-your-answers"
+    When I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
@@ -393,6 +399,6 @@ Feature: Form failures
     Then the page should include "Select which file you could not upload before continuing."
     Given I go to "/applicant2/confirm-your-joint-application"
     And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+    When I click "Submit"
+    Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
+    And the page should include "You need to confirm the facts stated in this application are true"
