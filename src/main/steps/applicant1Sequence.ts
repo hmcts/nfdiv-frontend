@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -231,9 +231,11 @@ export const applicant1Sequence: Step[] = [
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (allowedToAnswerResidualJurisdiction(data, data.connections)) {
+      if (allowedToAnswerResidualJurisdiction(data, data.connections as JurisdictionConnections[])) {
         return RESIDUAL_JURISDICTION;
-      } else if (previousConnectionMadeUptoLastHabituallyResident(data, data.connections)) {
+      } else if (
+        previousConnectionMadeUptoLastHabituallyResident(data, data.connections as JurisdictionConnections[])
+      ) {
         return JURISDICTION_CONNECTION_SUMMARY;
       } else if (data.bothLastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;

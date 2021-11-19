@@ -65,7 +65,7 @@ const onlyApplicant1Domiciled = data => {
 
 export const allowedToAnswerResidualJurisdiction = (
   data: Partial<CaseWithId>,
-  connections: JurisdictionConnections[] | undefined
+  connections: JurisdictionConnections[]
 ): boolean => {
   return (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
@@ -76,7 +76,7 @@ export const allowedToAnswerResidualJurisdiction = (
 
 export const previousConnectionMadeUptoLastHabituallyResident = (
   data: Partial<CaseWithId>,
-  connections: JurisdictionConnections[] | undefined
+  connections: JurisdictionConnections[]
 ): boolean => {
   if (connections?.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) && connections?.length > 1) {
     return true;
