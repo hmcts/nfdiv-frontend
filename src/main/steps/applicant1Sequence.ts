@@ -231,9 +231,9 @@ export const applicant1Sequence: Step[] = [
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (allowedToAnswerResidualJurisdiction(data)) {
+      if (allowedToAnswerResidualJurisdiction(data, data.connections)) {
         return RESIDUAL_JURISDICTION;
-      } else if (previousConnectionMadeUptoLastHabituallyResident(data)) {
+      } else if (previousConnectionMadeUptoLastHabituallyResident(data, data.connections)) {
         return JURISDICTION_CONNECTION_SUMMARY;
       } else if (data.bothLastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;

@@ -63,26 +63,32 @@ const onlyApplicant1Domiciled = data => {
   return isDomiciled('applicant1', data) && !isDomiciled('applicant2', data);
 };
 
-export const allowedToAnswerResidualJurisdiction = (data: Partial<CaseWithId>): boolean => {
+export const allowedToAnswerResidualJurisdiction = (
+  data: Partial<CaseWithId>,
+  connections: JurisdictionConnections[] | undefined
+): boolean => {
   return (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.bothLastHabituallyResident === YesOrNo.NO &&
-    !previousConnectionMadeUptoLastHabituallyResident(data)
+    !previousConnectionMadeUptoLastHabituallyResident(data, connections)
   );
 };
 
-export const previousConnectionMadeUptoLastHabituallyResident = (data: Partial<CaseWithId>): boolean => {
-  if (data.connections?.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) && data.connections?.length > 1) {
+export const previousConnectionMadeUptoLastHabituallyResident = (
+  data: Partial<CaseWithId>,
+  connections: JurisdictionConnections[] | undefined
+): boolean => {
+  if (connections?.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) && connections?.length > 1) {
     return true;
   } else {
-    return !!(
-      !data.connections?.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) && data.connections?.length
-    );
+    return !!(!connections?.includes(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT) && connections?.length);
   }
 };
 
-const hasResidualJurisdiction = data => {
-  return allowedToAnswerResidualJurisdiction(data) && data.jurisdictionResidualEligible === Checkbox.Checked;
+const hasResidualJurisdiction = (data, connections) => {
+  return (
+    allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === Checkbox.Checked
+  );
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
@@ -112,7 +118,7 @@ export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnection
   if (areBothDomiciled(data)) {
     connections.push(JurisdictionConnections.APP_1_APP_2_DOMICILED);
   }
-  if (hasResidualJurisdiction(data)) {
+  if (hasResidualJurisdiction(data, connections)) {
     connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION);
   }
   if (isOnlyApplicant1Domiciled(data)) {
