@@ -39,7 +39,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about dividing money and property</a>`,
   },
-  pendingDispute: {
+  d8Awaiting: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
@@ -63,7 +63,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       userCase.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } then your ${partner} can continue ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,
   },
-  dispute: {
+  d8Submitted: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,

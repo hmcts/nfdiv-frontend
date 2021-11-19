@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
+// Generated using typescript-generator version 2.33.956 on 2021-11-17 17:11:40.
 
 export interface Address {
   AddressLine1: string;
@@ -101,6 +101,7 @@ export interface AcknowledgementOfService {
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
+  howToRespondApplication: HowToRespondApplication;
 }
 
 export interface AlternativeService {
@@ -151,7 +152,6 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmails: YesOrNo;
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
-  FinancialOrderFor: FinancialOrderFor[];
   LegalProceedings: YesOrNo;
   LegalProceedingsDetails: string;
   PcqId: string;
@@ -288,7 +288,6 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsDetails: string;
   applicant1PcqId: string;
@@ -317,7 +316,6 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
-  applicant2FinancialOrderFor: FinancialOrderFor[];
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsDetails: string;
   applicant2PcqId: string;
@@ -421,6 +419,7 @@ export interface CaseData {
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
+  howToRespondApplication: HowToRespondApplication;
   coDateSubmitted: DateAsString;
   coRespondentAnswersLink: Document;
   coApplyForConditionalOrder: YesOrNo;
@@ -523,11 +522,12 @@ export interface CaseData {
   doYouAgreeCourtHasJurisdiction: YesOrNo;
   serviceApplicationType: AlternativeServiceType;
   coCourtName: Court;
-  courtName: Court;
   applicant1PrayerHasBeenGiven: YesOrNo;
   coAddNewDocuments: YesOrNo;
   coDocumentsUploaded: ListValue<DivorceDocument>[];
   coIsEverythingInPetitionTrue: YesOrNo;
+  applicant1FinancialOrderFor: FinancialOrderFor[];
+  applicant2FinancialOrderFor: FinancialOrderFor[];
 }
 
 export interface CaseInvite {
@@ -685,11 +685,12 @@ export interface RetiredFields {
   doYouAgreeCourtHasJurisdiction: YesOrNo;
   serviceApplicationType: AlternativeServiceType;
   coCourtName: Court;
-  courtName: Court;
   applicant1PrayerHasBeenGiven: YesOrNo;
   coAddNewDocuments: YesOrNo;
   coDocumentsUploaded: ListValue<DivorceDocument>[];
   coIsEverythingInPetitionTrue: YesOrNo;
+  applicant1FinancialOrderFor: FinancialOrderFor[];
+  applicant2FinancialOrderFor: FinancialOrderFor[];
 }
 
 export interface Solicitor {
@@ -1012,6 +1013,11 @@ export const enum GeneralReferralType {
   PERMISSION_ON_DA_OOT = 'permissionOnDaOot',
   DISCLOSURE_VIA_DWP = 'disclosureViaDwp',
   OTHER = 'other',
+}
+
+export const enum HowToRespondApplication {
+  WITHOUT_DISPUTE_DIVORCE = 'withoutDisputeDivorce',
+  DISPUTE_DIVORCE = 'disputeDivorce',
 }
 
 export const enum JudgeCostsClaimGranted {
@@ -1471,6 +1477,7 @@ export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
 export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
+export const SYSTEM_MIGRATE_BULK_CASE = 'system-migrate-bulk-case';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
