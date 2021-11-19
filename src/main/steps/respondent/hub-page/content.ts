@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import {
   form as applicant1Form,
@@ -12,9 +12,11 @@ import { CommonContent } from '../../common/common.content';
 dayjs.extend(advancedFormat);
 
 const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
-  subHeading1: [State.PendingDispute, State.Disputed].includes(userCase.state as State)
-    ? 'What you need to do next'
-    : 'Latest update',
+  subHeading1:
+    [State.AwaitingGeneralConsideration, State.Holding].includes(userCase.state as State) &&
+    userCase.confirmDisputeApplication === YesOrNo.YES
+      ? 'What you need to do next'
+      : 'Latest update',
   awaitingAos: {
     line1: `Your ${partner} has submitted an application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'

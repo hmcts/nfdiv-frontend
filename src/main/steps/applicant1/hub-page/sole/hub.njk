@@ -1,7 +1,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% if progressionIndex == 4 %}
-  <p class="govuk-body">{{ d8Submitted.line1 }}</p>
+  <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
   <p class="govuk-body">{{ d8Submitted.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Submitted.line3 }}</p>

@@ -87,7 +87,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
-    }. You can read their response here.`,
+    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
     line2: `They have submitted their ‘answer’. This is the form which explains their case for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
