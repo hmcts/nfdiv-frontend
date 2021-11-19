@@ -4,7 +4,7 @@ import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { ApplicationType, DivorceOrDissolution, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../../urls';
+import { HOME_URL, PAY_AND_SUBMIT, SWITCH_TO_SOLE_APPLICATION, YOUR_DETAILS_URL } from '../../urls';
 
 import SwitchToSoleApplicationPostController from './post';
 
@@ -39,7 +39,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     };
 
     const req = mockRequest({ body });
-    req.originalUrl = '/switch-to-sole-application';
+    req.originalUrl = SWITCH_TO_SOLE_APPLICATION;
 
     (getCaseApiMock as jest.Mock).mockReturnValue({
       triggerEvent: jest.fn(),
@@ -59,7 +59,6 @@ describe('SwitchToSoleApplicationPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       {
-        applicationType: 'soleApplication',
         divorceOrDissolution: 'divorce',
         id: '1234',
       },
@@ -69,18 +68,57 @@ describe('SwitchToSoleApplicationPostController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
-  test('Should redirect to pay and submit page when cancel button used in Applicant2Approved state', async () => {
+  test('Should create a new case and unset isApplicant2 for applicant 2', async () => {
+    const body = {};
+    const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
+
+    const caseData = {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+    };
+
+    const req = mockRequest({ body, isApplicant2: true });
+    req.originalUrl = SWITCH_TO_SOLE_APPLICATION;
+
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(),
+      getOrCreateCase: jest.fn(() => {
+        return {
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicant1FirstName: 'test',
+          applicant1LastName: 'user',
+          applicant1Email: 'test_user@email.com',
+        };
+      }),
+    });
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        divorceOrDissolution: 'divorce',
+        id: '1234',
+      },
+      SWITCH_TO_SOLE
+    );
+    expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
+    expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.isApplicant2).toEqual(false);
+  });
+
+  test('Should redirect to pay and submit page when cancel button used in AwaitingPayment state', async () => {
     const body = { cancel: 'cancel button' };
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
     const req = mockRequest({ body });
-    req.session.userCase.state = State.Applicant2Approved;
+    req.session.userCase.state = State.AwaitingPayment;
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(PAY_AND_SUBMIT);
   });
 
-  test('Should redirect to home page when cancel button used in any non Applicant2Approved state', async () => {
+  test('Should redirect to home page when cancel button used in any non AwaitingPayment state', async () => {
     const body = { cancel: 'cancel button' };
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
     const req = mockRequest({ body });
