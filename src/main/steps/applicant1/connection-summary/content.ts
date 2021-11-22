@@ -36,7 +36,7 @@ export const jurisdictionMoreDetailsContent = (
   const totalText = [
     Object.values(enHabitualResident).join('<br><br>').replace('Habitual residence<br><br>', ''),
     Object.values(enDomicile).join('<br><br>').replace('Domicile<br><br>', '').replace('</ul><br><br>', '</ul>'),
-    Object.values(getResidual(isDivorce))
+    Object.values(enResidual(isDivorce))
       .join('<br><br>')
       .replace('Residual<br><br>', '')
       .replace('</ul><br><br>', '</ul>'),
@@ -49,7 +49,7 @@ export const jurisdictionMoreDetailsContent = (
         .replace('Domicile', '<strong>Domicile</strong>')
         .replace('</ul><br><br>', '</ul>') +
       '<br><br>' +
-      Object.values(getResidual(isDivorce))
+      Object.values(enResidual(isDivorce))
         .join('<br><br>')
         .replace('Residual', '<strong>Residual</strong>')
         .replace('</ul><br><br>', '</ul>'),
@@ -65,7 +65,7 @@ export const jurisdictionMoreDetailsContent = (
       .join('<br><br>')
       .replace('Habitual residence', '<strong>Habitual residence</strong>') +
       '<br><br>' +
-      Object.values(getResidual(isDivorce))
+      Object.values(enResidual(isDivorce))
         .join('<br><br>')
         .replace('Residual', '<strong>Residual</strong>')
         .replace('</ul><br><br>', '</ul>'),
@@ -74,7 +74,7 @@ export const jurisdictionMoreDetailsContent = (
       .replace('Domicile', '<strong>Domicile</strong>')
       .replace('</ul><br><br>', '</ul>') +
       '<br><br>' +
-      Object.values(getResidual(isDivorce))
+      Object.values(enResidual(isDivorce))
         .join('<br><br>')
         .replace('Residual', '<strong>Residual</strong>')
         .replace('</ul><br><br>', '</ul>'),
@@ -108,7 +108,7 @@ const enDomicile = {
   helpText11: 'If you’re not sure about your domicile, you should get legal advice.',
 };
 
-const getResidual = (isDivorce: boolean) => {
+const enResidual = (isDivorce: boolean) => {
   return {
     helpText12: 'Residual',
     helpText13:
@@ -152,7 +152,7 @@ const enContainsDomConnection = (connections: JurisdictionConnections[] | undefi
 
 const enContainsResidualConnection = (connections: JurisdictionConnections[] | undefined, isDivorce: boolean) => {
   if (connections && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)) {
-    return getResidual(isDivorce);
+    return enResidual(isDivorce);
   }
 };
 

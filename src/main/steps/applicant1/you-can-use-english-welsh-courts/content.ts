@@ -56,7 +56,7 @@ const en = (
     readMore: 'Read more about habitual residence',
     ...enHabitualResident,
   };
-  const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident | undefined>> = {
+  const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident>> = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident,
     [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident,
