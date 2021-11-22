@@ -46,10 +46,9 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
-      isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
-      isAwaitingApplicant2Response: req.session?.userCase?.state
-        ? req.session.userCase.state === State.AwaitingApplicant2Response
-        : false,
+      isInitialStates: [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(
+        req.session?.userCase?.state
+      ),
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }

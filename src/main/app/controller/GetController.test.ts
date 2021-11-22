@@ -28,7 +28,7 @@ describe('GetController', () => {
       ...defaultViewArgs,
       language: 'en',
       serviceName: 'Apply for a divorce',
-      isDraft: true,
+      isInitialStates: true,
       isDivorce: true,
       text: 'english',
       userCase: req.session.userCase,
@@ -45,7 +45,7 @@ describe('GetController', () => {
 
     expect(res.render).toBeCalledWith('page', {
       ...defaultViewArgs,
-      isDraft: false,
+      isInitialStates: false,
     });
   });
 
@@ -176,7 +176,7 @@ describe('GetController', () => {
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        isDraft: true,
+        isInitialStates: true,
         userCase: req.session.userCase,
       });
     });
