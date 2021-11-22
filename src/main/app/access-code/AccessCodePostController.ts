@@ -28,7 +28,7 @@ export class AccessCodePostController {
     formData.respondentUserId = req.session.user.id;
     formData.applicant2FirstNames = req.session.user.givenName;
     formData.applicant2LastNames = req.session.user.familyName;
-    formData.applicant2EmailAddress = req.session.user.email;
+    formData.applicant2Email = req.session.user.email;
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
