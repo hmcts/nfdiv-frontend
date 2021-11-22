@@ -399,6 +399,6 @@ Feature: Form failures
     Then the page should include "Select which file you could not upload before continuing."
     Given I go to "/applicant2/confirm-your-joint-application"
     And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+    When I click "Submit"
+    Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
+    And the page should include "You need to confirm the facts stated in this application are true"
