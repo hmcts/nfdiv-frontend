@@ -50,7 +50,7 @@ Feature: Switch To Sole Application
     Given I go to "/applicant2/confirm-your-joint-application"
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
     Given I go to "/switch-to-sole-application"
