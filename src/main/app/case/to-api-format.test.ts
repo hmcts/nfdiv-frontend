@@ -1,5 +1,12 @@
 import { Case, Checkbox, LanguagePreference } from './case';
-import { ChangedNameHow, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
+import {
+  ChangedNameHow,
+  DivorceOrDissolution,
+  Gender,
+  HowToRespondApplication,
+  ThePrayer,
+  YesOrNo,
+} from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
@@ -38,6 +45,7 @@ describe('to-api-format', () => {
     confirmReadPetition: Checkbox.Checked,
     applicant1LegalProceedings: YesOrNo.YES,
     applicant2LegalProceedings: YesOrNo.YES,
+    disputeApplication: YesOrNo.YES,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -88,6 +96,7 @@ describe('to-api-format', () => {
       applicant1LegalProceedingsDetails: null,
       applicant2LegalProceedings: YesOrNo.YES,
       applicant2LegalProceedingsDetails: null,
+      howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     });
   });
 
