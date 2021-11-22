@@ -131,27 +131,31 @@ describe('connections', () => {
     const body = {
       connections: [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT, JurisdictionConnections.APP_2_DOMICILED],
     };
-    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(true);
+    const connections = [JurisdictionConnections.RESIDUAL_JURISDICTION];
+    expect(previousConnectionMadeUptoLastHabituallyResident(body, connections)).toEqual(true);
   });
 
   test('Given no previous connection made up to last habitually resident and connection B made, should return false', async () => {
     const body = {
       connections: [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
     };
-    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(false);
+    const connections = [];
+    expect(previousConnectionMadeUptoLastHabituallyResident(body, connections)).toEqual(false);
   });
 
   test('Given previous connection made up to last habitually resident, should return true', async () => {
     const body = {
       connections: [JurisdictionConnections.APP_2_DOMICILED],
     };
-    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(true);
+    const connections = [JurisdictionConnections.RESIDUAL_JURISDICTION];
+    expect(previousConnectionMadeUptoLastHabituallyResident(body, connections)).toEqual(true);
   });
 
   test('Given no previous connection made up to last habitually resident, should return false', async () => {
     const body = {
       connections: [],
     };
-    expect(previousConnectionMadeUptoLastHabituallyResident(body)).toEqual(false);
+    const connections = [];
+    expect(previousConnectionMadeUptoLastHabituallyResident(body, connections)).toEqual(false);
   });
 });
