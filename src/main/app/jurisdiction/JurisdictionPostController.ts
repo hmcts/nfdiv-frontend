@@ -46,7 +46,11 @@ const getJurisdictionUnreachableAnswersAsNull = (userCase: Partial<Case>) => {
   ];
 
   const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
-  jurisdictionFields.forEach(field => (!possibleAnswers.includes(field) ? (userCase[field] = null) : userCase[field]));
+  for (const field of jurisdictionFields) {
+    if (!possibleAnswers.includes(field)) {
+      userCase[field] = null;
+    }
+  }
 
   return userCase;
 };
