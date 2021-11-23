@@ -2268,17 +2268,17 @@
   dependencies:
     "@wdio/utils" "7.16.3"
 
-"@wdio/sauce-service@^7.16.8":
-  version "7.16.8"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.8.tgz#065467cdb2e1d26c84f651bd3b6ab585a135f1c8"
-  integrity sha512-xfregXPG9kuVFfiZzn3K0haXDoGzZZLZ0UbbwgSQxpGQlAkPBBNAuOca4L2gJR1cE+Rkb1lWrvHOiCOJNdC1aA==
+"@wdio/sauce-service@^7.16.9":
+  version "7.16.9"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.16.9.tgz#0930e1f16c1953645510fd20659aa4a2df023025"
+  integrity sha512-nidzPZ1frzO1ar5HCyrsjPnULHua0zZdon07cElA8wcQeSj72zjH8W4tUouLgdA6uF6QJDX2oysphVWzHAyI8Q==
   dependencies:
     "@types/node" "^16.11.1"
     "@wdio/logger" "7.16.0"
     "@wdio/types" "7.16.3"
     "@wdio/utils" "7.16.3"
     saucelabs "^7.0.0"
-    webdriverio "7.16.8"
+    webdriverio "7.16.9"
 
 "@wdio/types@7.16.3":
   version "7.16.3"
@@ -3824,10 +3824,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codeceptjs@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.2.1.tgz#a9019ed9162804cfd8cd887651109dee87a0011e"
-  integrity sha512-NH2sNoV0H3z07RSHQ2TILSsrhA1zo25f8MsIAGDxXGEgQPaxWgI5n0OaetrJE8VLhaXjrhJ1T08PulMo8gxiIA==
+codeceptjs@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.2.2.tgz#d2cc2948098cb4db8f6117243d44b0deb288a7ca"
+  integrity sha512-mlShe0DuX+uGzyCx/49n5jOJNsv2Q4Uxzcf3kNJROm60GkEl+hP0aH3BWEgBdI4r4XkCuG5+VOU0KB6wFAgTdg==
   dependencies:
     "@codeceptjs/configure" "^0.6.2"
     "@codeceptjs/helper" "^1.0.2"
@@ -4563,10 +4563,15 @@ devtools-protocol@0.0.901419:
   resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.901419.tgz#79b5459c48fe7e1c5563c02bd72f8fec3e0cebcd"
   integrity sha512-4INMPwNm9XRpBukhNbF7OB6fNTTCaI8pzy/fXg0xQzAy5h3zL1P8xT3QazgKqBrb/hAYwIBizqDBZ7GtJE74QQ==
 
-devtools-protocol@^0.0.940865:
-  version "0.0.940865"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.940865.tgz#e6fd24c574a4ae63ecb8d33d8ca143dd0d925203"
-  integrity sha512-AXqHKZSkRYDcMnKpg9Xoqf0aIVFR7pcgkN3cW4xTT9PazaEAQXa3JKgeN6oYAqYN2flyk+xqGlU5sbmi98wj9Q==
+devtools-protocol@^0.0.943687:
+  version "0.0.943687"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.943687.tgz#203b5e5f6c8aadecdf2118aef36ac262b21601de"
+  integrity sha512-vYsXYB+zxza24csySewtim2OgZbrynYPeH9El7AaLncI5sGSFFZixKYCgZA245uyq/ZjK5eJ2Jay2RvoKWr//Q==
+
+devtools-protocol@^0.0.943687:
+  version "0.0.943687"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.943687.tgz#203b5e5f6c8aadecdf2118aef36ac262b21601de"
+  integrity sha512-vYsXYB+zxza24csySewtim2OgZbrynYPeH9El7AaLncI5sGSFFZixKYCgZA245uyq/ZjK5eJ2Jay2RvoKWr//Q==
 
 devtools@7.16.7:
   version "7.16.7"
@@ -12079,10 +12084,10 @@ watchpack@^2.2.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-webdriver@7.16.7:
-  version "7.16.7"
-  resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.16.7.tgz#512ce4a0cfe2f97650cd561492a9657a8fd2b04c"
-  integrity sha512-3CL4eKkyu6uok7HIal+7047x3lxHZYquFk37dDzWty6ZDqeDJCnARQzaR40xr7rGQtKpD/k+RcUYKwQCMZOERQ==
+webdriver@7.16.9:
+  version "7.16.9"
+  resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.16.9.tgz#35b8c4b5ccefd698424e83091a3222d4b5217c61"
+  integrity sha512-6bpiyE3/1ncgyNM/RwzEWjpxu2NLYyeYNu/97OMEwFMDV8EqvlZh3wFnODi6tY0K5t4dEryIPiyjF3MDVySRAg==
   dependencies:
     "@types/node" "^16.11.1"
     "@wdio/config" "7.16.3"
@@ -12094,7 +12099,22 @@ webdriver@7.16.7:
     ky "^0.28.5"
     lodash.merge "^4.6.1"
 
-webdriverio@7.16.8, webdriverio@^7.16.7:
+webdriver@7.16.9:
+  version "7.16.9"
+  resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.16.9.tgz#35b8c4b5ccefd698424e83091a3222d4b5217c61"
+  integrity sha512-6bpiyE3/1ncgyNM/RwzEWjpxu2NLYyeYNu/97OMEwFMDV8EqvlZh3wFnODi6tY0K5t4dEryIPiyjF3MDVySRAg==
+  dependencies:
+    "@types/node" "^16.11.1"
+    "@wdio/config" "7.16.3"
+    "@wdio/logger" "7.16.0"
+    "@wdio/protocols" "7.16.7"
+    "@wdio/types" "7.16.3"
+    "@wdio/utils" "7.16.3"
+    got "^11.0.2"
+    ky "^0.28.5"
+    lodash.merge "^4.6.1"
+
+webdriverio@7.16.8:
   version "7.16.8"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.8.tgz#82a41a8ceefaed8167f350afd6c83e41fec96af3"
   integrity sha512-TNWibj3ZbUqIDgezI1Kvj5uExEiwCXI10NZxtjMozJKPatGwmIsJNXelJFAmMRa7sD9jqFGv1UzTQoyca2eGVg==
@@ -12109,11 +12129,10 @@ webdriverio@7.16.8, webdriverio@^7.16.7:
     "@wdio/utils" "7.16.3"
     archiver "^5.0.0"
     aria-query "^5.0.0"
-    atob "^2.1.2"
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"
     devtools "7.16.7"
-    devtools-protocol "^0.0.940865"
+    devtools-protocol "^0.0.943687"
     fs-extra "^10.0.0"
     get-port "^5.1.1"
     grapheme-splitter "^1.0.2"
@@ -12127,7 +12146,41 @@ webdriverio@7.16.8, webdriverio@^7.16.7:
     resq "^1.9.1"
     rgb2hex "0.2.5"
     serialize-error "^8.0.0"
-    webdriver "7.16.7"
+    webdriver "7.16.9"
+
+webdriverio@^7.16.9:
+  version "7.16.9"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.16.9.tgz#c0460854ff533cfdfc61a9d2dcd52ae6c4fdaca6"
+  integrity sha512-FbHyYfuuM6bvnlUQA51ZBisriWCSgK+HkSnEqTBMKDoBACFwJmiIFykbYXqUE05DEfp04ErQu0Kt5d7N+cC1eA==
+  dependencies:
+    "@types/aria-query" "^5.0.0"
+    "@types/node" "^16.11.1"
+    "@wdio/config" "7.16.3"
+    "@wdio/logger" "7.16.0"
+    "@wdio/protocols" "7.16.7"
+    "@wdio/repl" "7.16.3"
+    "@wdio/types" "7.16.3"
+    "@wdio/utils" "7.16.3"
+    archiver "^5.0.0"
+    aria-query "^5.0.0"
+    css-shorthand-properties "^1.1.1"
+    css-value "^0.0.1"
+    devtools "7.16.7"
+    devtools-protocol "^0.0.943687"
+    fs-extra "^10.0.0"
+    get-port "^5.1.1"
+    grapheme-splitter "^1.0.2"
+    lodash.clonedeep "^4.5.0"
+    lodash.isobject "^3.0.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.zip "^4.2.0"
+    minimatch "^3.0.4"
+    puppeteer-core "^11.0.0"
+    query-selector-shadow-dom "^1.0.0"
+    resq "^1.9.1"
+    rgb2hex "0.2.5"
+    serialize-error "^8.0.0"
+    webdriver "7.16.9"
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
