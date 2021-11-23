@@ -3,7 +3,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ThePrayer, YesOrNo } from './definition';
+import { CaseData, HowToRespondApplication, ThePrayer, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
@@ -92,6 +92,9 @@ const fields: FromApiConverters = {
   }),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
+  }),
+  howToRespondApplication: ({ howToRespondApplication }) => ({
+    disputeApplication: howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE ? YesOrNo.YES : YesOrNo.NO,
   }),
 };
 
