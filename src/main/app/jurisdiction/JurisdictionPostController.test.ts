@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CITIZEN_UPDATE, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 import { FormContent } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
@@ -10,7 +10,7 @@ jest.mock('./connections');
 const addConnectionMock = addConnection as jest.Mock<JurisdictionConnections[]>;
 
 describe('JurisdictionPostController', () => {
-  test('Should add connections field and call trigger PATCH', async () => {
+  test('Should add connections field and call trigger PATCH and set unreachable fields as null', async () => {
     addConnectionMock.mockReturnValue([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
 
     const body = {
@@ -21,6 +21,14 @@ describe('JurisdictionPostController', () => {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
+      applicant1DomicileInEnglandWales: null,
+      applicant1LivingInEnglandWalesSixMonths: null,
+      applicant1LivingInEnglandWalesTwelveMonths: null,
+      applicant2DomicileInEnglandWales: null,
+      bothLastHabituallyResident: null,
+      jurisdictionResidualEligible: null,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      id: '1234',
     };
     const mockFormContent = {
       fields: {
