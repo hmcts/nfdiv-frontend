@@ -94,7 +94,12 @@ const fields: FromApiConverters = {
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
   howToRespondApplication: ({ howToRespondApplication }) => ({
-    disputeApplication: howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE ? YesOrNo.YES : YesOrNo.NO,
+    disputeApplication:
+      howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE
+        ? YesOrNo.YES
+        : howToRespondApplication === null
+        ? howToRespondApplication
+        : YesOrNo.NO,
   }),
 };
 

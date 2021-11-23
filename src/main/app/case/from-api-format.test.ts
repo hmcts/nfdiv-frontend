@@ -85,10 +85,11 @@ describe('from-api-format', () => {
     });
   });
 
-  test('convert results including handling null applicant2LanguagePreferenceWelsh', async () => {
+  test('convert results including handling null applicant2LanguagePreferenceWelsh and null howToRespondApplication', async () => {
     const nfdivFormat = fromApiFormat({
       ...results,
       applicant2LanguagePreferenceWelsh: null,
+      howToRespondApplication: null,
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -109,14 +110,15 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
-      disputeApplication: YesOrNo.YES,
+      disputeApplication: null,
     });
   });
 
-  test('convert results including handling applicant2LanguagePreferenceWelsh No value', async () => {
+  test('convert results including handling applicant2LanguagePreferenceWelsh No value and howToRespondApplication No value', async () => {
     const nfdivFormat = fromApiFormat({
       ...results,
       applicant2LanguagePreferenceWelsh: YesOrNo.NO,
+      howToRespondApplication: YesOrNo.NO,
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -137,7 +139,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
-      disputeApplication: YesOrNo.YES,
+      disputeApplication: YesOrNo.NO,
     });
   });
 
