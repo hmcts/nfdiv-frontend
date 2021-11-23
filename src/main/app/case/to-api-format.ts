@@ -1,7 +1,15 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ChangedNameHow, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
+import {
+  CaseData,
+  ChangedNameHow,
+  DivorceOrDissolution,
+  Gender,
+  HowToRespondApplication,
+  ThePrayer,
+  YesOrNo,
+} from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
@@ -192,6 +200,12 @@ const fields: ToApiConverters = {
     ...(data.applicant2LegalProceedings === YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
       : {}),
+  }),
+  disputeApplication: ({ disputeApplication }) => ({
+    howToRespondApplication:
+      disputeApplication === YesOrNo.YES
+        ? HowToRespondApplication.DISPUTE_DIVORCE
+        : HowToRespondApplication.WITHOUT_DISPUTE_DIVORCE,
   }),
 };
 

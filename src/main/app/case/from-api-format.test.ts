@@ -1,5 +1,5 @@
 import { Checkbox } from './case';
-import { CaseData, DivorceOrDissolution, Gender, ThePrayer, YesOrNo } from './definition';
+import { CaseData, DivorceOrDissolution, Gender, HowToRespondApplication, ThePrayer, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -22,6 +22,7 @@ describe('from-api-format', () => {
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
+    howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -45,6 +46,7 @@ describe('from-api-format', () => {
       applicant1IConfirmPrayer: 'checked',
       applicant2IConfirmPrayer: 'checked',
       dueDate: '26 July 2021',
+      disputeApplication: YesOrNo.YES,
     });
   });
 
@@ -79,6 +81,7 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       dateSubmitted: new Date('2021-01-01'),
       dueDate: '26 July 2021',
+      disputeApplication: YesOrNo.YES,
     });
   });
 
@@ -106,6 +109,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
+      disputeApplication: YesOrNo.YES,
     });
   });
 
@@ -133,6 +137,7 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.YES,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
+      disputeApplication: YesOrNo.YES,
     });
   });
 
