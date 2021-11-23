@@ -115,7 +115,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
-  const applicationDisputing = content.userCase.confirmDisputeApplication === YesOrNo.YES;
+  const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
   return {
     ...languages[content.language](content),
     progressionIndex,

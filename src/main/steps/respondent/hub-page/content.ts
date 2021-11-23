@@ -15,7 +15,7 @@ dayjs.extend(advancedFormat);
 const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   subHeading1:
     [State.AwaitingGeneralConsideration, State.Holding].includes(userCase.state as State) &&
-    userCase.confirmDisputeApplication === YesOrNo.YES
+    userCase.disputeApplication === YesOrNo.YES
       ? 'What you need to do next'
       : 'Latest update',
   awaitingAos: {
