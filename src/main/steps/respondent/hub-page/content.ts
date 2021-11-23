@@ -1,3 +1,4 @@
+import config from 'config';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
@@ -59,8 +60,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       PO Box 12706<br>
       Harlow<br>
       CM20 9QT`,
-    line5:
-      'You’ll have to pay a £245 fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.',
+    line5: `You’ll have to pay a ${config.get(
+      'fees.d8bFormSubmission'
+    )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
     line6: `If you do not submit your answer before ${
       userCase.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
     } then your ${partner} can continue ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,
