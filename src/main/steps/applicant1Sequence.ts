@@ -213,6 +213,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
@@ -230,6 +231,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data, data.connections as JurisdictionConnections[])) {
         return RESIDUAL_JURISDICTION;
@@ -246,6 +248,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: JURISDICTION_LAST_TWELVE_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.applicant1LivingInEnglandWalesTwelveMonths === YesOrNo.NO
         ? JURISDICTION_DOMICILE
@@ -253,10 +256,12 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => HABITUALLY_RESIDENT_ENGLAND_WALES,
   },
   {
     url: RESIDUAL_JURISDICTION,
+    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.jurisdictionResidualEligible === Checkbox.Checked
         ? JURISDICTION_CONNECTION_SUMMARY
