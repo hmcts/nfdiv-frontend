@@ -3,7 +3,8 @@ import { Response } from 'express';
 
 import { getSystemUser } from '../../../app/auth/user/oidc';
 import { getCaseApi } from '../../../app/case/CaseApi';
-import { ApplicationType, SWITCH_TO_SOLE, State } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { SWITCH_TO_SOLE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -16,7 +17,7 @@ export default class SwitchToSoleApplicationPostController {
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     if (req.body.cancel) {
-      return res.redirect(req.session.userCase.state === State.Applicant2Approved ? PAY_AND_SUBMIT : HOME_URL);
+      return res.redirect(req.session.userCase.state === State.AwaitingPayment ? PAY_AND_SUBMIT : HOME_URL);
     }
 
     const caseworkerUser = await getSystemUser();
@@ -24,8 +25,6 @@ export default class SwitchToSoleApplicationPostController {
     req.session.errors = [];
 
     try {
-      req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         req.session.userCase,
@@ -34,6 +33,11 @@ export default class SwitchToSoleApplicationPostController {
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+    }
+
+    if (req.session.isApplicant2) {
+      req.session.userCase = undefined as unknown as CaseWithId;
+      req.session.isApplicant2 = false;
     }
 
     const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
