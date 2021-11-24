@@ -67,7 +67,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
   },
-  pendingDispute: {
+  d8Awaiting: {
     line1: `Your ${partner} has responded to your application and said they want to defend the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }. This means they want to try and prevent ${
@@ -82,12 +82,12 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
-  dispute: {
+  d8Submitted: {
     line1: `Your ${partner} has responded to your application and said they want to defend the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
-    }. You can read their response here.`,
+    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
     line2: `They have submitted their ‘answer’. This is the form which explains their case for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
@@ -110,14 +110,15 @@ export const generateContent: TranslationFn = content => {
     State.AosDrafted,
     State.AosOverdue,
     State.Holding,
-    State.PendingDispute,
-    State.Disputed,
+    State.AwaitingGeneralConsideration,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
+  const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
   return {
     ...languages[content.language](content),
     progressionIndex,
+    applicationDisputing,
   };
 };
