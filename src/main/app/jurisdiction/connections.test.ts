@@ -1,9 +1,23 @@
 import { Checkbox } from '../case/case';
 import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
-import { addConnection, previousConnectionMadeUptoLastHabituallyResident } from './connections';
+import {
+  addConnection,
+  allowedToAnswerResidualJurisdiction,
+  previousConnectionMadeUptoLastHabituallyResident,
+} from './connections';
 
 describe('connections', () => {
+  test('Should be allowed to answer residual jurisdiction if residual jurisdiction connection is already made', async () => {
+    const body = {
+      sameSex: Checkbox.Checked,
+      bothLastHabituallyResident: YesOrNo.NO,
+    };
+    const connections = [JurisdictionConnections.RESIDUAL_JURISDICTION];
+
+    const isAllowedToAnswerResidualJurisdiction = allowedToAnswerResidualJurisdiction(body, connections);
+    expect(isAllowedToAnswerResidualJurisdiction).toBeTruthy();
+  });
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A', async () => {
     const body = {
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
