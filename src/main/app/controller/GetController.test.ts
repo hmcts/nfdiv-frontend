@@ -20,7 +20,7 @@ describe('GetController', () => {
   test('Should render the page', async () => {
     const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
+    const req = mockRequest({ userCase: { state: State.Draft } });
     const res = mockResponse();
     await controller.get(req, res);
 
