@@ -12,6 +12,7 @@ import {
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
+  PAY_YOUR_FEE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -201,12 +202,30 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CONFIRM_JOINT_APPLICATION);
   });
 
-  test('redirects to the pay and submit page for applicant 1 users in awaitingPayment state', () => {
+  test('redirects to the pay your fee page for applicant 1 users for joint application in awaitingPayment state', () => {
     const req = mockRequest({
       session: {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.AwaitingPayment,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(PAY_YOUR_FEE);
+  });
+
+  test('redirects to the pay and submit page for applicant 1 users for joint application in awaitingPayment state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
           state: State.AwaitingPayment,
         },
       },
