@@ -32,14 +32,11 @@ export class SessionStorage {
   }
 
   private getStore(app: Application) {
-    const redisHost = config.get('session.redis.host');
+    const redisHost = config.get<string>('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({
-        host: redisHost as string,
-        password: config.get('session.redis.key') as string,
-        port: 6380,
-        tls: true,
-        connect_timeout: 15000,
+        url: redisHost + ':6380',
+        password: config.get<string>('session.redis.key'),
       });
 
       app.locals.redisClient = client;
