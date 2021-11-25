@@ -70,7 +70,8 @@ export const allowedToAnswerResidualJurisdiction = (
   return (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.bothLastHabituallyResident === YesOrNo.NO &&
-    !previousConnectionMadeUptoLastHabituallyResident(data, connections)
+    (!previousConnectionMadeUptoLastHabituallyResident(data, connections) ||
+      (connections.length === 1 && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)))
   );
 };
 
