@@ -12,7 +12,7 @@ const FileStore = FileStoreFactory(session);
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
 
 export class SessionStorage {
-  public async enableFor(app: Application): Promise<void> {
+  public enableFor(app: Application): void {
     app.use(cookieParser());
 
     app.use(
@@ -26,20 +26,19 @@ export class SessionStorage {
           maxAge: cookieMaxAge,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
-        store: await this.getStore(app),
+        store: this.getStore(app),
       })
     );
   }
 
-  private async getStore(app: Application) {
+  private getStore(app: Application) {
     const redisHost = config.get<string>('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({
         url: 'redis://' + redisHost + ':6380',
         password: config.get<string>('session.redis.key'),
+        legacyMode: true,
       });
-
-      await client.connect();
 
       app.locals.redisClient = client;
       return new RedisStore({ client });
