@@ -17,6 +17,8 @@ import {
   CONFIRM_JOINT_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
+  PAY_AND_SUBMIT,
+  PAY_YOUR_FEE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -64,6 +66,9 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     }
     case State.Submitted: {
       return APPLICATION_SUBMITTED;
+    }
+    case State.AwaitingPayment: {
+      return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
