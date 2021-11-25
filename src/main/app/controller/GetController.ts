@@ -46,7 +46,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
-      isInitialStates: [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(
+      isAmendableStates: [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(
         req.session?.userCase?.state
       ),
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
