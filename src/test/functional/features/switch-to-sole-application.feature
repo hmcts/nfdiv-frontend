@@ -1,15 +1,16 @@
 Feature: Switch To Sole Application
 
-  Scenario: Switching to Sole application by Applicant 1
+  Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
+
+  Scenario: Switching to Sole application by Applicant 1
     And I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    And I click "Continue"
-    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
     When I click "Continue"
@@ -34,11 +35,6 @@ Feature: Switch To Sole Application
     Then the page URL should be "/irretrievable-breakdown"
 
   Scenario: Switching to Sole application by Applicant 1 before Applicant 2 links to the case
-    Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
     Given I go to '/switch-to-sole-application'
     And I click "Create a new application"
     Then the page URL should be "/your-details"
@@ -46,15 +42,9 @@ Feature: Switch To Sole Application
     Then the page URL should be "/check-your-answers"
 
   Scenario: Switching to Sole application by Applicant 2
-    Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    And I enter my valid case reference and valid access code
+    Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    And I click "Continue"
-    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
     When I click "Continue"
