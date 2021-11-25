@@ -63,11 +63,6 @@ Feature: Switch To Sole Application
     Then the page URL should be "/irretrievable-breakdown"
 
   Scenario: Switching to Sole application by Applicant 1 in AwaitingApplicant1Response state
-    Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
     And I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
     And I click "Continue"

@@ -41,10 +41,7 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    if (
-      req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
-      req.session.userCase.state === State.AwaitingApplicant1Response
-    ) {
+    if (req.session.userCase.state === State.AwaitingApplicant1Response) {
       return APPLICANT_1_RESUBMIT;
     } else if (req.body.applicationType === ApplicationType.JOINT_APPLICATION) {
       return CITIZEN_INVITE_APPLICANT_2;
