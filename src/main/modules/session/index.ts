@@ -35,7 +35,7 @@ export class SessionStorage {
     const redisHost = config.get<string>('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({
-        url: 'http://' + redisHost + ':6380',
+        url: redisHost + ':6380,ssl=True,abortConnect=False',
         password: config.get<string>('session.redis.key'),
       });
 
