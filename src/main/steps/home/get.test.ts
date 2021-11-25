@@ -202,8 +202,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CONFIRM_JOINT_APPLICATION);
   });
 
-  test('redirects to the pay your fee page for applicant 1 users for sole application in 
-       Payment state', () => {
+  test('redirects to the pay your fee page for applicant 1 users for sole application in awaitingPayment state', () => {
     const req = mockRequest({
       session: {
         userCase: {
