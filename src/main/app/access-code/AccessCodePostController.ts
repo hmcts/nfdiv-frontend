@@ -56,12 +56,15 @@ export class AccessCodePostController {
       }
     }
 
-    const nextUrl =
-      req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION
-        ? `${RESPONDENT}${HUB_PAGE}`
-        : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
-
-    const nextStep = req.session.errors.length > 0 ? req.url : nextUrl;
+    let nextStep;
+    if (req.session.errors.length > 0) {
+      nextStep = req.url;
+    } else {
+      nextStep =
+        req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION
+          ? `${RESPONDENT}${HUB_PAGE}`
+          : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+    }
 
     req.session.save(err => {
       if (err) {
