@@ -20,7 +20,7 @@ describe('GetController', () => {
   test('Should render the page', async () => {
     const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
+    const req = mockRequest({ userCase: { state: State.Draft } });
     const res = mockResponse();
     await controller.get(req, res);
 
@@ -28,7 +28,7 @@ describe('GetController', () => {
       ...defaultViewArgs,
       language: 'en',
       serviceName: 'Apply for a divorce',
-      isDraft: true,
+      isAmendableStates: true,
       isDivorce: true,
       text: 'english',
       userCase: req.session.userCase,
@@ -45,7 +45,7 @@ describe('GetController', () => {
 
     expect(res.render).toBeCalledWith('page', {
       ...defaultViewArgs,
-      isDraft: false,
+      isAmendableStates: false,
     });
   });
 
@@ -176,7 +176,7 @@ describe('GetController', () => {
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        isDraft: true,
+        isAmendableStates: true,
         userCase: req.session.userCase,
       });
     });
