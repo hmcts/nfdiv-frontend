@@ -50,6 +50,7 @@ Feature: Switch To Sole Application
     When I click "Continue"
     Then the page should include "Check your answers so far"
     Given I go to "/applicant2/confirm-your-joint-application"
+    Given I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Submit"

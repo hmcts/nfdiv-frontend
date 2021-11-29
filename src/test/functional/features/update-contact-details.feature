@@ -5,6 +5,7 @@ Feature: Update contact details
 
   Scenario: Applicant 1 updates contact details
     And I go to '/check-your-answers'
+    Given I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
@@ -40,6 +41,7 @@ Feature: Update contact details
 
   Scenario: respondent updates contact details
     And I go to '/check-your-answers'
+    Given I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"

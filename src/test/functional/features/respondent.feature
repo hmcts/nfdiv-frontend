@@ -4,6 +4,7 @@ Feature: Respondent
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
+    Given I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
