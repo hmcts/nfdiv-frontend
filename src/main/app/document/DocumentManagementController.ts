@@ -78,11 +78,11 @@ export class DocumentManagerController {
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
-    if (!isApplicant2 && req.session.userCase.state !== State.Draft) {
-      throw new Error('Cannot delete uploaded documents as case is not in draft state');
+    if (!isApplicant2 && ![State.Draft, State.AwaitingApplicant1Response].includes(req.session.userCase.state)) {
+      throw new Error('Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response state');
     }
     if (isApplicant2 && req.session.userCase.state !== State.AwaitingApplicant2Response) {
-      throw new Error('Cannot delete uploaded documents as case is not in AwaitingApplicant2Response state');
+      throw new Error('Cannot upload new documents as case is not in AwaitingApplicant2Response state');
     }
 
     const documentIndexToDelete = documentsUploaded.findIndex(i => i.id === req.params.id) ?? -1;
