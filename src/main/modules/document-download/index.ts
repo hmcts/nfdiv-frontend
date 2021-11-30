@@ -9,22 +9,7 @@ const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
-    const addApplicationToReqPath = (req: AppRequest) => {
-      return req.session.userCase.documentsGenerated.find(doc => doc.value.documentType === DocumentType.APPLICATION)
-        ?.value.documentLink.document_binary_url;
-    };
-
-    const addRespondentAnswersToReqPath = (req: AppRequest) => {
-      return req.session.userCase.documentsGenerated.find(
-        doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
-      )?.value.documentLink.document_binary_url;
-    };
-
-    const addCertificateOfServiceToReqPath = (req: AppRequest) => {
-      return req.session.userCase.documentsGenerated.find(
-        doc => doc.value.documentType === DocumentType.CERTIFICATE_OF_SERVICE
-      )?.value.documentLink.document_binary_url;
-    };
+    const documentManagementTarget = config.get('services.documentManagement.url');
 
     const addHeaders = proxyReqOpts => {
       proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
@@ -34,23 +19,34 @@ export class DocumentDownloadMiddleware {
 
     const dmStoreProxyForApplicationPdf = {
       endpoints: ['/downloads/divorce-application', '/downloads/application-to-end-civil-partnership'],
-      target: config.get('services.documentManagement.url'),
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(doc => doc.value.documentType === DocumentType.APPLICATION)
+          ?.value.documentLink.document_binary_url;
+      },
     };
 
     const dmStoreProxyForRespondentAnswersPdf = {
       endpoints: ['/downloads/respondent-answers'],
-      target: config.get('services.documentManagement.url'),
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
+        )?.value.documentLink.document_binary_url;
+      },
     };
 
     const dmStoreProxyForCertificateOfServicePdf = {
       endpoints: ['/downloads/certificate-of-service'],
-      target: config.get('services.documentManagement.url'),
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.CERTIFICATE_OF_SERVICE
+        )?.value.documentLink.document_binary_url;
+      },
     };
 
     app.use(
       dmStoreProxyForApplicationPdf.endpoints,
-      proxy(dmStoreProxyForApplicationPdf.target, {
-        proxyReqPathResolver: addApplicationToReqPath,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForApplicationPdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
@@ -59,8 +55,8 @@ export class DocumentDownloadMiddleware {
 
     app.use(
       dmStoreProxyForRespondentAnswersPdf.endpoints,
-      proxy(dmStoreProxyForRespondentAnswersPdf.target, {
-        proxyReqPathResolver: addRespondentAnswersToReqPath,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForApplicationPdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
@@ -69,8 +65,8 @@ export class DocumentDownloadMiddleware {
 
     app.use(
       dmStoreProxyForCertificateOfServicePdf.endpoints,
-      proxy(dmStoreProxyForCertificateOfServicePdf.target, {
-        proxyReqPathResolver: addCertificateOfServiceToReqPath,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForCertificateOfServicePdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
