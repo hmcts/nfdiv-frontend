@@ -204,7 +204,7 @@ describe('DocumentManagerController', () => {
       expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
     });
 
-    it("uploading throws an error if the case isn't in a draft state as applicant 1", async () => {
+    it("uploading throws an error if the case isn't in a Draft or AwaitingApplicant1Response state as applicant 1", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Submitted,
@@ -215,7 +215,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in draft state'
+        'Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response state'
       );
     });
 
@@ -530,7 +530,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete uploaded documents as case is not in draft state'
+        'Cannot delete documents as case is not in Draft or AwaitingApplicant1Response state'
       );
     });
 
@@ -549,7 +549,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete uploaded documents as case is not in AwaitingApplicant2Response state'
+        'Cannot delete documents as case is not in AwaitingApplicant2Response state'
       );
     });
   });
