@@ -207,7 +207,6 @@ Feature: Form failures
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
     Given I've already completed the form using the fixture "completeCase"
     And I go to "/check-your-answers"
-    Given I clear the form
     When I click "Continue"
     Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
     And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
@@ -225,7 +224,6 @@ Feature: Form failures
   Scenario: They fail to fill out the respondent forms
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
-    Given I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
