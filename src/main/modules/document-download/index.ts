@@ -20,6 +20,12 @@ export class DocumentDownloadMiddleware {
       )?.value.documentLink.document_binary_url;
     };
 
+    const addCertificateOfServiceToReqPath = (req: AppRequest) => {
+      return req.session.userCase.documentsGenerated.find(
+        doc => doc.value.documentType === DocumentType.CERTIFICATE_OF_SERVICE
+      )?.value.documentLink.document_binary_url;
+    };
+
     const addHeaders = proxyReqOpts => {
       proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
       proxyReqOpts.headers['user-roles'] = 'caseworker';
@@ -33,6 +39,11 @@ export class DocumentDownloadMiddleware {
 
     const dmStoreProxyForRespondentAnswersPdf = {
       endpoints: ['/downloads/respondent-answers'],
+      target: config.get('services.documentManagement.url'),
+    };
+
+    const dmStoreProxyForCertificateOfServicePdf = {
+      endpoints: ['/downloads/certificate-of-service'],
       target: config.get('services.documentManagement.url'),
     };
 
@@ -50,6 +61,16 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForRespondentAnswersPdf.endpoints,
       proxy(dmStoreProxyForRespondentAnswersPdf.target, {
         proxyReqPathResolver: addRespondentAnswersToReqPath,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForCertificateOfServicePdf.endpoints,
+      proxy(dmStoreProxyForCertificateOfServicePdf.target, {
+        proxyReqPathResolver: addCertificateOfServiceToReqPath,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,

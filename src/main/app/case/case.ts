@@ -90,6 +90,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
+  successfulServedByBailiff: 'successfulServedByBailiff',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -222,6 +223,7 @@ export interface Case {
   jurisdictionAgree?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
+  successfulServedByBailiff?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
