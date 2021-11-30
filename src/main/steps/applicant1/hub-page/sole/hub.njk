@@ -11,6 +11,23 @@
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
+{% elif progressionIndex == 3 and deemedOrDispensedServiceAccepted %}
+  <p class="govuk-body">{{ holdingAndDeemedOrDispensedService.line1 | safe }}</p>
+  <p class="govuk-body">{{ holdingAndDeemedOrDispensedService.line2 }}</p>
+  <p class="govuk-body">{{ holdingAndDeemedOrDispensedService.line3 }}</p>
+  {% set readMoreContent %}
+    <p class="govuk-body">{{ holdingAndDeemedOrDispensedService.line4 }}</p>
+    <ol class="govuk-list govuk-list--number">
+    {% for property, line in holdingAndDeemedOrDispensedService.steps %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+    </ol>
+    <p class="govuk-body">{{ holdingAndDeemedOrDispensedService.line5 | safe }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: holdingAndDeemedOrDispensedService.readMore,
+    html: readMoreContent
+  }) }}
 {% elif progressionIndex == 3 %}
   <p class="govuk-body">{{ holding.line1 | safe }}</p>
   <p class="govuk-body">{{ holding.line2 }}</p>

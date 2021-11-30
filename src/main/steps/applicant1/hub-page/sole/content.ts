@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -47,6 +47,52 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
+    readMore: 'Read more about the next steps',
+    line4: `You have to complete 2 more steps before ${
+      isDivorce ? 'you are legally divorced' : 'your civil partnership has ended'
+    }:`,
+    steps: {
+      step1: `
+        <strong>Apply for a conditional order</strong><br>
+        This shows that the court agrees that you’re entitled to ${
+          isDivorce ? 'get a divorce' : 'end your civil partnership'
+        }.`,
+      step2: `
+        <strong>Apply for a final order</strong><br>
+        This legally ends the ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        }. You cannot apply for a final order until 6 weeks after the conditional order.`,
+    },
+    line5: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  },
+  holdingAndDeemedOrDispensedService: {
+    line1: `Your application ${
+      userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'to dispense with service'
+        : 'for deemed service'
+    } was granted.
+     You can <a class="govuk-link" href="/downloads/${
+       userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+         ? 'certificate-of-dispensed-with-service'
+         : 'certificate-of-deemed-as-service'
+     }" download="Certificate-of-Service">
+     download the court order granting your application for ${
+       userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+         ? 'dispensed'
+         : 'deemed'
+     } service</a>`,
+    line2: `The next step is for you to apply for a ‘conditional order’.
+    A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }`,
+    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
+      .add(141, 'day')
+      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } was issued.
+     You will receive an email to remind you.`,
     readMore: 'Read more about the next steps',
     line4: `You have to complete 2 more steps before ${
       isDivorce ? 'you are legally divorced' : 'your civil partnership has ended'
@@ -116,9 +162,16 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
+  let deemedOrDispensedServiceAccepted;
+  if (
+    content.userCase.alternativeServiceApplications?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF
+  ) {
+    deemedOrDispensedServiceAccepted = true;
+  }
   return {
     ...languages[content.language](content),
     progressionIndex,
     applicationDisputing,
+    deemedOrDispensedServiceAccepted,
   };
 };

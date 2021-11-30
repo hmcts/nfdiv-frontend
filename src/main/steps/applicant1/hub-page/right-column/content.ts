@@ -1,4 +1,4 @@
-import { ApplicationType, State } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -14,6 +14,13 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
+  certificateOfServiceDownloadLink: `<a class="govuk-link"
+    href="/downloads/${
+      userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-deemed-as-service'
+        : 'certificate-of-dispense-with-service'
+    }"
+  download="Certificate-of-Service">View the court order granting your application for deemed service (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -44,11 +51,14 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const statesWithoutRespondentAnswers = [State.AwaitingAos, State.AosDrafted, State.AosOverdue];
-  const aosSubmitted =
-    !content.isJointApplication && !statesWithoutRespondentAnswers.includes(<State>content.userCase.state);
+  const aosSubmitted = !content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue;
+  const hasCertificateOfService =
+    content.userCase.alternativeServiceApplications?.length &&
+    content.userCase.alternativeServiceApplications?.[0].value.alternativeServiceType !==
+      AlternativeServiceType.BAILIFF;
   return {
     aosSubmitted,
+    hasCertificateOfService,
     ...languages[content.language](content),
   };
 };

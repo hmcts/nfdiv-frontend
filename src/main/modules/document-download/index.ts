@@ -20,6 +20,18 @@ export class DocumentDownloadMiddleware {
       )?.value.documentLink.document_binary_url;
     };
 
+    const addDeemedAsServiceToReqPath = (req: AppRequest) => {
+      return req.session.userCase.documentsGenerated.find(
+        doc => doc.value.documentType === DocumentType.DEEMED_AS_SERVICE_GRANTED
+      )?.value.documentLink.document_binary_url;
+    };
+
+    const addDispenseWithServiceToReqPath = (req: AppRequest) => {
+      return req.session.userCase.documentsGenerated.find(
+        doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_GRANTED
+      )?.value.documentLink.document_binary_url;
+    };
+
     const addHeaders = proxyReqOpts => {
       proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
       proxyReqOpts.headers['user-roles'] = 'caseworker';
@@ -33,6 +45,16 @@ export class DocumentDownloadMiddleware {
 
     const dmStoreProxyForRespondentAnswersPdf = {
       endpoints: ['/downloads/respondent-answers'],
+      target: config.get('services.documentManagement.url'),
+    };
+
+    const dmStoreProxyForDeemedAsServicePdf = {
+      endpoints: ['/downloads/certificate-of-deemed-as-service'],
+      target: config.get('services.documentManagement.url'),
+    };
+
+    const dmStoreProxyForDispenseWithServicePdf = {
+      endpoints: ['/downloads/certificate-of-dispense-with-service'],
       target: config.get('services.documentManagement.url'),
     };
 
@@ -50,6 +72,26 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForRespondentAnswersPdf.endpoints,
       proxy(dmStoreProxyForRespondentAnswersPdf.target, {
         proxyReqPathResolver: addRespondentAnswersToReqPath,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForDeemedAsServicePdf.endpoints,
+      proxy(dmStoreProxyForApplicationPdf.target, {
+        proxyReqPathResolver: addDeemedAsServiceToReqPath,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForDispenseWithServicePdf.endpoints,
+      proxy(dmStoreProxyForApplicationPdf.target, {
+        proxyReqPathResolver: addDispenseWithServiceToReqPath,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
