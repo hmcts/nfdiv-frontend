@@ -9,7 +9,9 @@ export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: St
 
   const getPossibleFields = (step: StepWithContent, fields: string[]) => {
     if (step.form) {
-      const formFieldNames = new Form(<FormFields>step.form.fields).getFieldNames().values();
+      const stepFields: FormFields =
+        typeof step.form.fields === 'function' ? step.form.fields(caseState) : step.form.fields;
+      const formFieldNames = new Form(stepFields).getFieldNames().values();
       fields.push(...formFieldNames);
     }
 

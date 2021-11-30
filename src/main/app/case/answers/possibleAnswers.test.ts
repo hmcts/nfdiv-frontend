@@ -94,4 +94,22 @@ describe('omitUnreachableAnswers()', () => {
 
     expect(actual).toEqual({ valid1: 'pick-me' });
   });
+
+  test('omits unreachable answers with fields as functions', () => {
+    const caseStateWithUnreachableAnswers = {
+      valid1: 'pick-me',
+      invalid1: 'dont-pick-me',
+    } as unknown as Partial<Case>;
+
+    const mockSteps = [
+      {
+        getNextStep: () => 'next-url',
+        form: { fields: () => ({ valid1: {} }) },
+      },
+    ] as unknown as StepWithContent[];
+
+    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+
+    expect(actual).toEqual({ valid1: 'pick-me' });
+  });
 });
