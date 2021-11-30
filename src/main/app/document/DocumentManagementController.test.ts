@@ -530,7 +530,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response state'
+        'Cannot delete documents as case is not in Draft or AwaitingApplicant1Response state'
       );
     });
 
@@ -549,7 +549,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in AwaitingApplicant2Response state'
+        'Cannot delete documents as case is not in AwaitingApplicant2Response state'
       );
     });
   });
