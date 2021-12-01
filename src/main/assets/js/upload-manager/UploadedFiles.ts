@@ -17,14 +17,6 @@ export class UploadedFiles {
     this.updateStore();
   }
 
-  remove(documentId: string): void {
-    const indexToDelete = this.documents.findIndex(f => f.id === documentId);
-    if (indexToDelete > -1) {
-      this.documents.splice(indexToDelete, 1);
-    }
-    this.updateStore();
-  }
-
   get length(): number {
     return this.documents.length;
   }

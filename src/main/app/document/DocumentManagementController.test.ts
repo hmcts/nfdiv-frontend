@@ -313,6 +313,8 @@ describe('DocumentManagerController', () => {
       });
       const res = mockResponse();
 
+      req.params = { index: '0' };
+
       await documentManagerController.delete(req, res);
 
       expect(res.redirect).toHaveBeenCalledWith(UPLOAD_YOUR_DOCUMENTS);
@@ -331,6 +333,8 @@ describe('DocumentManagerController', () => {
       },
     });
     const res = mockResponse();
+
+    req.params = { index: '1' };
 
     await documentManagerController.delete(req, res);
 
@@ -356,7 +360,7 @@ describe('DocumentManagerController', () => {
           api: { triggerEvent: jest.fn() },
         },
       });
-      req.params = { id: '2' };
+      req.params = { index: '1' };
       req.headers.accept = 'application/json';
       const res = mockResponse();
 
@@ -389,7 +393,7 @@ describe('DocumentManagerController', () => {
       expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
       expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
 
-      expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
+      expect(res.redirect).toHaveBeenCalledWith('/upload-your-documents');
     });
 
     it('deletes an existing file as applicant 2', async () => {
@@ -407,7 +411,7 @@ describe('DocumentManagerController', () => {
           api: { triggerEvent: jest.fn() },
         },
       });
-      req.params = { id: '2' };
+      req.params = { index: '1' };
       req.headers.accept = 'application/json';
       const res = mockResponse();
 
@@ -440,7 +444,7 @@ describe('DocumentManagerController', () => {
       expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
       expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
 
-      expect(res.json).toHaveBeenCalledWith({ deletedId: '2' });
+      expect(res.redirect).toHaveBeenCalledWith('/applicant2/upload-your-documents');
     });
 
     it("redirects if browser doesn't accept JSON/has JavaScript disabled", async () => {
@@ -494,7 +498,7 @@ describe('DocumentManagerController', () => {
       expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}`);
     });
 
-    it("returns null if file to deletes doesn't exist", async () => {
+    it("redirects if file to deletes doesn't exist", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Draft,
@@ -513,7 +517,7 @@ describe('DocumentManagerController', () => {
       expect(mockDelete).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
-      expect(res.json).toHaveBeenCalledWith({ deletedId: null });
+      expect(res.redirect).toHaveBeenCalledWith('/upload-your-documents');
     });
 
     it("deleting throws an error if the case isn't in a draft state", async () => {
