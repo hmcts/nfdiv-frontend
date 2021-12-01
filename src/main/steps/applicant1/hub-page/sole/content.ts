@@ -162,12 +162,9 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
-  let deemedOrDispensedServiceAccepted;
-  if (
-    content.userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF
-  ) {
-    deemedOrDispensedServiceAccepted = true;
-  }
+  const deemedOrDispensedServiceAccepted =
+    content.userCase.alternativeServiceOutcomes &&
+    content.userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF;
   return {
     ...languages[content.language](content),
     progressionIndex,
