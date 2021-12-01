@@ -56,7 +56,7 @@ export class DocumentDownloadMiddleware {
     app.use(
       dmStoreProxyForRespondentAnswersPdf.endpoints,
       proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForApplicationPdf.path,
+        proxyReqPathResolver: dmStoreProxyForRespondentAnswersPdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,

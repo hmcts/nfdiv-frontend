@@ -97,7 +97,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   servedByBailiff: {
     line1: `The court has seen evidence that your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } has been successfully ‘served’ (delivered) to your ${partner}. You can <a class="govuk-link" href="/downloads/certificate-of-service" download="Respondent-answers">view and download your ‘certificate of service’</a>.`,
+    } has been successfully ‘served’ (delivered) to your ${partner}. You can <a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">view and download your ‘certificate of service’</a>.`,
   },
 });
 
@@ -121,11 +121,13 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
-  const successfulServedByBailiff = content.userCase.successfulServedByBailiff === YesOrNo.YES;
+  const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+  );
   return {
     ...languages[content.language](content),
     progressionIndex,
     applicationDisputing,
-    successfulServedByBailiff,
+    isSuccessfullyServedByBailiff,
   };
 };

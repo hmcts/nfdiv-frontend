@@ -12,7 +12,7 @@
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
 {% elif progressionIndex == 3 %}
-  {% if successfulServedByBailiff %}
+  {% if isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}</p>
   {% else %}
     <p class="govuk-body">{{ holding.line1 | safe }}</p>
