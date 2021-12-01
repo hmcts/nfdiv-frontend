@@ -16,9 +16,9 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   } (PDF)</a>`,
   certificateOfServiceDownloadLink: `<a class="govuk-link"
     href="/downloads/${
-      userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'certificate-of-deemed-as-service'
-        : 'certificate-of-dispense-with-service'
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
     }"
   download="Certificate-of-Service">View the court order granting your application for deemed service (PDF)</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
@@ -53,9 +53,8 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const aosSubmitted = !content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue;
   const hasCertificateOfService =
-    content.userCase.alternativeServiceApplications?.length &&
-    content.userCase.alternativeServiceApplications?.[0].value.alternativeServiceType !==
-      AlternativeServiceType.BAILIFF;
+    content.userCase.alternativeServiceOutcomes?.length &&
+    content.userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF;
   return {
     aosSubmitted,
     hasCertificateOfService,

@@ -69,17 +69,17 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   holdingAndDeemedOrDispensedService: {
     line1: `Your application ${
-      userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'to dispense with service'
         : 'for deemed service'
     } was granted.
      You can <a class="govuk-link" href="/downloads/${
-       userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
          ? 'certificate-of-dispensed-with-service'
          : 'certificate-of-deemed-as-service'
      }" download="Certificate-of-Service">
      download the court order granting your application for ${
-       userCase.alternativeServiceApplications?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
          ? 'dispensed'
          : 'deemed'
      } service</a>`,
@@ -164,7 +164,7 @@ export const generateContent: TranslationFn = content => {
   const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
   let deemedOrDispensedServiceAccepted;
   if (
-    content.userCase.alternativeServiceApplications?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF
+    content.userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF
   ) {
     deemedOrDispensedServiceAccepted = true;
   }

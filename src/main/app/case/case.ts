@@ -1,7 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
-  AlternativeService,
+  AlternativeServiceOutcome,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -91,7 +91,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
-  alternativeServiceApplications: 'alternativeServiceApplications',
+  alternativeServiceOutcomes: 'alternativeServiceOutcomes',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -224,7 +224,7 @@ export interface Case {
   jurisdictionAgree?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
-  alternativeServiceApplications: ListValue<AlternativeService>[];
+  alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
 }
 
 export interface CaseWithId extends Case {
