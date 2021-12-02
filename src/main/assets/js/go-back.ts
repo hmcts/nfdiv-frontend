@@ -20,6 +20,8 @@ if (backLink) {
       document.location.pathname === JURISDICTION_CONNECTION_SUMMARY
     ) {
       document.location.pathname = WHERE_YOUR_LIVES_ARE_BASED_URL;
+    } else if (document.location.pathname === WHERE_YOUR_LIVES_ARE_BASED_URL) {
+      document.location.pathname = CHECK_JURISDICTION;
     } else if (document.location.pathname === PAY_YOUR_FEE || document.location.pathname === PAY_AND_SUBMIT) {
       document.location.href = `${PAYMENT_CALLBACK_URL}?back=true`;
     } else {
