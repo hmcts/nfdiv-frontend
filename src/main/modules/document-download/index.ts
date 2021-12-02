@@ -37,9 +37,9 @@ export class DocumentDownloadMiddleware {
     const dmStoreProxyForCertificateOfServicePdf = {
       endpoints: ['/downloads/certificate-of-service'],
       path: (req: AppRequest) => {
-        return req.session.userCase.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.CERTIFICATE_OF_SERVICE
-        )?.value.documentLink.document_binary_url;
+        return req.session.userCase.alternativeServiceOutcomes.find(
+          doc => doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
+        )?.value.certificateOfServiceDocument.documentLink.document_binary_url;
       },
     };
 
