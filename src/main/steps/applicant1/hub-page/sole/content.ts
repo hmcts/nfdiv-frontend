@@ -114,20 +114,25 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingAos,
     State.AosDrafted,
     State.AosOverdue,
+    State.AwaitingServicePayment,
+    State.AwaitingServiceConsideration,
+    State.AwaitingBailiffReferral,
+    State.AwaitingBailiffService,
+    State.IssuedToBailiff,
     State.Holding,
     State.AwaitingGeneralConsideration,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
-  const applicationDisputing = content.userCase.disputeApplication === YesOrNo.YES;
+  const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
   return {
     ...languages[content.language](content),
     progressionIndex,
-    applicationDisputing,
+    isDisputedApplication,
     isSuccessfullyServedByBailiff,
   };
 };
