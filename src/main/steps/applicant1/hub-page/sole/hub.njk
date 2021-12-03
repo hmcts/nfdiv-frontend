@@ -1,11 +1,32 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% if progressionIndex == 4 %}
+{% from "../form.njk" import hubButton %}
+
+{% set readMoreContent %}
+  <p class="govuk-body">{{ readMoreSummary }}</p>
+  <ol class="govuk-list govuk-list--number">
+    {% for property, line in readMoreSteps %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+  </ol>
+  <p class="govuk-body">{{ holding.line4 | safe }}</p>
+{% endset %}
+
+{% if progressionIndex == 5 %}
   <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
   <p class="govuk-body">{{ d8Submitted.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Submitted.line3 }}</p>
   <p class="govuk-body">{{ d8Submitted.line4 }}</p>
+{% if progressionIndex == 4 %}
+  <p class="govuk-body">{{ conditionalOrder.line1 | safe }}</p>
+  {{ govukDetails({
+    summaryText: readMore,
+    html: readMoreContent
+  }) }}
+  {% block form %}
+    {{ hubButton(conditionalOrder.applyForConditionalOrder) }}
+  {% endblock %}
 {% elif progressionIndex == 3 and applicationDisputing %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
@@ -15,17 +36,8 @@
   <p class="govuk-body">{{ holding.line1 | safe }}</p>
   <p class="govuk-body">{{ holding.line2 }}</p>
   <p class="govuk-body">{{ holding.line3 }}</p>
-  {% set readMoreContent %}
-    <p class="govuk-body">{{ holding.line4 }}</p>
-    <ol class="govuk-list govuk-list--number">
-    {% for property, line in holding.steps %}
-      <li>{{ line | safe }}</li>
-    {% endfor %}
-    </ol>
-    <p class="govuk-body">{{ holding.line5 | safe }}</p>
-  {% endset %}
   {{ govukDetails({
-    summaryText: holding.readMore,
+    summaryText: readMore,
     html: readMoreContent
   }) }}
 {% elif progressionIndex == 2 %}

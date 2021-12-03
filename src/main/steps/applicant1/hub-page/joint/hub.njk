@@ -1,9 +1,11 @@
+{% from "../form.njk" import hubButton %}
+
 {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
   {% for property, line in applicationSubmittedLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
   {% block form %}
-    {% include "../form.njk" %}
+    {{ hubButton('Confirm receipt', 'applicant1ConfirmReceipt') }}
   {% endblock %}
 {% else %}
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
