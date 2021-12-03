@@ -1,7 +1,5 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% from "../form.njk" import hubButton %}
-
 {% set readMoreContent %}
   <p class="govuk-body">{{ readMoreSummary }}</p>
   <ol class="govuk-list govuk-list--number">
@@ -25,7 +23,7 @@
     html: readMoreContent
   }) }}
   {% block form %}
-    {{ hubButton(conditionalOrder.applyForConditionalOrder) }}
+    {% include "./form.njk" %}
   {% endblock %}
 {% elif progressionIndex == 8 and isDisputedApplication %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
