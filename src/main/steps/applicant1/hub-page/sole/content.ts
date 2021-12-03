@@ -94,6 +94,11 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
+  servedByBailiff: {
+    line1: `The court has seen evidence that your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } has been successfully ‘served’ (delivered) to your ${partner}. You can <a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">view and download your ‘certificate of service’</a>.`,
+  },
 });
 
 // @TODO translations
@@ -121,9 +126,13 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
+  const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+  );
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
+    isSuccessfullyServedByBailiff,
   };
 };
