@@ -1,4 +1,4 @@
-import { ApplicationType, State } from '../../../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -10,6 +10,8 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
+  certificateOfServiceDownloadLink:
+    '<a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">View your ‘certificate of service’ (PDF)</a>',
   respondentAnswersDownloadLink: `<a class="govuk-link" href="/downloads/respondent-answers"
   download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -47,8 +49,12 @@ export const generateContent: TranslationFn = content => {
   const statesWithoutRespondentAnswers = [State.AwaitingAos, State.AosDrafted, State.AosOverdue];
   const aosSubmitted =
     !content.isJointApplication && !statesWithoutRespondentAnswers.includes(<State>content.userCase.state);
+  const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+  );
   return {
     aosSubmitted,
     ...languages[content.language](content),
+    hasCertificateOfService,
   };
 };
