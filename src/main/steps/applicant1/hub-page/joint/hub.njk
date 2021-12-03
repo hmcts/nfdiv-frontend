@@ -5,7 +5,7 @@
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
   {% block form %}
-    {{ hubButton('Confirm receipt', 'applicant1ConfirmReceipt') }}
+    {{ hubButton(confirmReceipt, 'applicant1ConfirmReceipt') }}
   {% endblock %}
 {% else %}
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
