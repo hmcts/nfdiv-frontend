@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { ApplicationType, Gender } from '../../app/case/definition';
+import { ApplicationType, Gender, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
@@ -197,6 +197,9 @@ export const generatePageContent = ({
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
   const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
+  const isAmendableStates =
+    userCase &&
+    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -210,6 +213,7 @@ export const generatePageContent = ({
     userEmail,
     contactEmail,
     isJointApplication,
+    isAmendableStates,
   };
 
   if (pageContent) {
@@ -257,6 +261,7 @@ export type CommonContent = typeof en & {
   selectedGender: Gender;
   isJointApplication: boolean;
   referenceNumber?: string;
+  isAmendableStates: boolean;
 };
 
 export type Language = 'en' | 'cy';
