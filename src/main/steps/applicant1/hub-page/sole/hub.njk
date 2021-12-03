@@ -12,7 +12,7 @@
   <p class="govuk-body">{{ holding.line4 | safe }}</p>
 {% endset %}
 
-{% if progressionIndex == 5 %}
+{% if progressionIndex == 9 %}
   <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
   <p class="govuk-body">{{ d8Submitted.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
@@ -26,21 +26,25 @@
   }) }}
   {% block form %}
     {{ hubButton(conditionalOrder.applyForConditionalOrder) }}
-  {% endblock %}
-{% elif progressionIndex == 3 and applicationDisputing %}
+{% endblock %}
+{% elif progressionIndex == 8 and isDisputedApplication %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
-{% elif progressionIndex == 3 %}
-  <p class="govuk-body">{{ holding.line1 | safe }}</p>
+{% elif progressionIndex == 8 %}
+  {% if isSuccessfullyServedByBailiff %}
+    <p class="govuk-body">{{ servedByBailiff.line1 | safe }}</p>
+  {% else %}
+    <p class="govuk-body">{{ holding.line1 | safe }}</p>
+  {% endif %}
   <p class="govuk-body">{{ holding.line2 }}</p>
   <p class="govuk-body">{{ holding.line3 }}</p>
   {{ govukDetails({
     summaryText: readMore,
     html: readMoreContent
   }) }}
-{% elif progressionIndex == 2 %}
+{% elif progressionIndex > 1 and progressionIndex < 8 %}
   <p class="govuk-body">{{ aosDue.line1 }}</p>
   <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
 {% else %}

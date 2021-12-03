@@ -13,7 +13,7 @@ export class UploadedFiles {
   }
 
   add(documents: UploadedFile[]): void {
-    this.documents.push(...documents);
+    this.documents = documents.concat(this.documents);
     this.updateStore();
   }
 
