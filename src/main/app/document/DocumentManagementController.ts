@@ -19,8 +19,8 @@ export class DocumentManagerController {
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
-    if (!isApplicant2 && req.session.userCase.state !== State.Draft) {
-      throw new Error('Cannot upload new documents as case is not in draft state');
+    if (!isApplicant2 && ![State.Draft, State.AwaitingApplicant1Response].includes(req.session.userCase.state)) {
+      throw new Error('Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response state');
     }
     if (isApplicant2 && req.session.userCase.state !== State.AwaitingApplicant2Response) {
       throw new Error('Cannot upload new documents as case is not in AwaitingApplicant2Response state');
@@ -78,21 +78,17 @@ export class DocumentManagerController {
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
-    if (!isApplicant2 && req.session.userCase.state !== State.Draft) {
-      throw new Error('Cannot delete uploaded documents as case is not in draft state');
+    if (!isApplicant2 && ![State.Draft, State.AwaitingApplicant1Response].includes(req.session.userCase.state)) {
+      throw new Error('Cannot delete documents as case is not in Draft or AwaitingApplicant1Response state');
     }
     if (isApplicant2 && req.session.userCase.state !== State.AwaitingApplicant2Response) {
-      throw new Error('Cannot delete uploaded documents as case is not in AwaitingApplicant2Response state');
+      throw new Error('Cannot delete documents as case is not in AwaitingApplicant2Response state');
     }
 
-    const documentIndexToDelete = documentsUploaded.findIndex(i => i.id === req.params.id) ?? -1;
+    const documentIndexToDelete = parseInt(req.params.index, 10);
     const documentToDelete = documentsUploaded[documentIndexToDelete];
-    if (documentIndexToDelete === -1 || !documentToDelete.value?.documentLink?.document_url) {
-      if (req.headers.accept?.includes('application/json')) {
-        res.json({ deletedId: null });
-      } else {
-        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
-      }
+    if (!documentToDelete?.value?.documentLink?.document_url) {
+      res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
       return;
     }
     const documentUrlToDelete = documentToDelete.value.documentLink.document_url;
@@ -106,19 +102,13 @@ export class DocumentManagerController {
     );
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    await documentManagementClient.delete({
-      url: documentUrlToDelete,
-    });
+    await documentManagementClient.delete({ url: documentUrlToDelete });
 
     req.session.save(err => {
       if (err) {
         throw err;
       }
-      if (req.headers.accept?.includes('application/json')) {
-        res.json({ deletedId: req.params.id });
-      } else {
-        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
-      }
+      res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
     });
   }
 }
