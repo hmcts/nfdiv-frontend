@@ -3,26 +3,26 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if progressionIndex == 4 %}
+  {% if progressionIndex == 9 %}
     <p class="govuk-body">{{ d8Submitted.line1 }}</p>
     <p class="govuk-body">{{ d8Submitted.line2 }}</p>
     <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
     <p class="govuk-body">{{ d8Submitted.line3 }}</p>
     <p class="govuk-body">{{ d8Submitted.line4 }}</p>
-  {% elif progressionIndex == 3 and applicationDisputing %}
+  {% elif progressionIndex == 8 and isDisputedApplication %}
     <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
     <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
     <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
     <p class="govuk-body">{{ d8Awaiting.line4 | safe }}</p>
     <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
     <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
-  {% elif progressionIndex == 3 %}
+  {% elif progressionIndex == 8 %}
     <p class="govuk-body">{{ holding.line1 }}</p>
     <p class="govuk-body">{{ holding.line2 }}</p>
     <p class="govuk-body">{{ holding.line3 }}</p>
     <p class="govuk-body">{{ holding.line4 }}</p>
     <p class="govuk-body">{{ holding.line5 | safe }}</p>
-  {% elif progressionIndex == 0 %}
+  {% elif progressionIndex < 8 %}
     {% for property, line in awaitingAos %}
       <p class="govuk-body">{{ line }}</p>
       {{ govukButton({
