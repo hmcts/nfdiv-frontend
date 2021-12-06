@@ -30,7 +30,7 @@ Feature: Hub page
     And I click "Sign out"
 
   Scenario: Joint Applicant 1 confirms receipt
-    And I login with applicant "1"
+    When I login with applicant "1"
     And I go to "/"
     Then the page URL should be "/hub-page"
     Then the page should include "Your application for divorce has been submitted and checked by court staff."
@@ -40,7 +40,7 @@ Feature: Hub page
     And the page should include "The next step is to apply for a 'conditional order'."
 
   Scenario: Joint Applicant 2 confirms receipt
-    And I login with applicant "2"
+    When I login with applicant "2"
     And I go to "/"
     Then the page URL should be "/applicant2/hub-page"
     Then the page should include "Your application for divorce has been submitted and checked by court staff."
