@@ -12,7 +12,7 @@ Feature: Update contact details
     Then the page should include "Application submitted"
     When a case worker issues the application
     And I click "Sign out"
-    And I login with applicant 1
+    And I login with applicant "1"
     Then the page URL should be "/hub-page"
     When I click "Review your contact details"
     Then the page should include "Review your contact details"

@@ -52,8 +52,8 @@ Given('I create a new user and login', () => {
   login('citizenSingleton');
 });
 
-Given('I login with applicant 1', () => {
-  autoLogin.login(I, testConfig.GetUser(1).username);
+Given('I login with applicant {number}', async (applicant: number) => {
+  autoLogin.login(I, testConfig.GetUser(applicant).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
