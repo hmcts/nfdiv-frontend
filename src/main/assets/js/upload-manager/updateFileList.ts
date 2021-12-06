@@ -18,6 +18,8 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
 
   if (filesUploadedEl) {
     filesUploadedEl.innerHTML = '';
+    let i = 0;
+
     for (const file of uploadedFiles) {
       const filenameEl = document.createElement('li');
       filenameEl.classList.add(
@@ -32,7 +34,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       if (content.isAmendableStates) {
         const deleteEl = document.createElement('a');
         deleteEl.classList.add('govuk-link--no-visited-state');
-        deleteEl.href = `${DOCUMENT_MANAGER}/delete/${file.id}`;
+        deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i++}`;
         deleteEl.textContent = content.delete;
         filenameEl.appendChild(deleteEl);
       }

@@ -2,7 +2,7 @@ import config from 'config';
 import { Application } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { DocumentType } from '../../app/case/definition';
+import { DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
 const proxy = require('express-http-proxy');
@@ -52,6 +52,17 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForCertificateOfServicePdf = {
+      endpoints: ['/downloads/certificate-of-service'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.alternativeServiceOutcomes.find(
+          doc =>
+            doc.value.successfulServedByBailiff === YesOrNo.YES &&
+            doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
+        )?.value.certificateOfServiceDocument.documentLink.document_binary_url;
+      },
+    };
+
     app.use(
       dmStoreProxyForApplicationPdf.endpoints,
       proxy(documentManagementTarget, {
@@ -86,6 +97,16 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForDispenseWithServicePdf.endpoints,
       proxy(documentManagementTarget, {
         proxyReqPathResolver: dmStoreProxyForDispenseWithServicePdf.path,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForCertificateOfServicePdf.endpoints,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForCertificateOfServicePdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,

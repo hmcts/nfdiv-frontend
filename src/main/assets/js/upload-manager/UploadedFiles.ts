@@ -13,15 +13,7 @@ export class UploadedFiles {
   }
 
   add(documents: UploadedFile[]): void {
-    this.documents.push(...documents);
-    this.updateStore();
-  }
-
-  remove(documentId: string): void {
-    const indexToDelete = this.documents.findIndex(f => f.id === documentId);
-    if (indexToDelete > -1) {
-      this.documents.splice(indexToDelete, 1);
-    }
+    this.documents = documents.concat(this.documents);
     this.updateStore();
   }
 

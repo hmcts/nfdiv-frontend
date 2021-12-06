@@ -43,32 +43,32 @@
     label: {
       text: response
     },
-    complete: progressionIndex > 4,
-    active: progressionIndex >= 0 and progressionIndex < 5
+    complete: progressionIndex > 7,
+    active: progressionIndex >= 0 and progressionIndex < 8
   }, {
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 5,
+    complete: progressionIndex > 10,
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 6,
-    active: progressionIndex == 6
+    complete: progressionIndex > 11,
+    active: progressionIndex == 11
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 7,
-    active: progressionIndex == 7
+    complete: progressionIndex > 12,
+    active: progressionIndex == 12
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 8,
-    active: progressionIndex == 8
+    complete: progressionIndex >= 13,
+    active: progressionIndex == 13
   }] %}
 {% endif %}
 

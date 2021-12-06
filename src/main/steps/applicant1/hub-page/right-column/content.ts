@@ -1,4 +1,4 @@
-import { AlternativeServiceType, ApplicationType } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -10,11 +10,13 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
+  certificateOfServiceDownloadLink:
+    '<a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">View your ‘certificate of service’ (PDF)</a>',
   respondentAnswersDownloadLink: `<a class="govuk-link" href="/downloads/respondent-answers"
   download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
-  certificateOfServiceDownloadLink: `<a class="govuk-link"
+  deemedOrDispensedDownloadLink: `<a class="govuk-link"
     href="/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'certificate-of-dispense-with-service'
@@ -52,12 +54,18 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const aosSubmitted = !content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue;
-  const hasCertificateOfService =
-    content.userCase.alternativeServiceOutcomes?.length &&
-    content.userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType !== AlternativeServiceType.BAILIFF;
+  const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+  );
+  const hasCertificateOfDeemedOrDispensedService = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
+  );
   return {
     aosSubmitted,
     hasCertificateOfService,
+    hasCertificateOfDeemedOrDispensedService,
     ...languages[content.language](content),
   };
 };
