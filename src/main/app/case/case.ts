@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AlternativeServiceOutcome,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -159,6 +160,8 @@ export interface Case {
   applicant2PhoneNumber?: string;
   applicant2AgreeToReceiveEmails?: Checkbox;
   applicant2ConfirmReceipt: YesOrNo;
+  applicant1ApplyForConditionalOrderStarted: YesOrNo;
+  applicant2ApplyForConditionalOrderStarted: YesOrNo;
   connections: JurisdictionConnections[];
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
@@ -222,6 +225,7 @@ export interface Case {
   jurisdictionAgree?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
+  alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
 }
 
 export interface CaseWithId extends Case {

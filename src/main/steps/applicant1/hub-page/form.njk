@@ -2,10 +2,11 @@
 
 <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
   <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-    {% block form_content %}
-      {% include "common/form/fields.njk" %}
-    {% endblock %}
+  {% block form_content %}
+    {% include "common/form/fields.njk" %}
+  {% endblock %}
 
+  {% if progressionIndex == 0 %}
     {{ govukButton({
       text: "Confirm receipt",
       classes: form.submit.classes,
@@ -14,5 +15,14 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-
+  {% else %}
+    {{ govukButton({
+      text: "Apply for conditional order",
+      classes: form.submit.classes,
+      type: "submit",
+      name: "applicant1ApplyForConditionalOrderStarted",
+      value: "Yes",
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
  </form>

@@ -28,6 +28,10 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       You will receive an email to remind you.`,
   },
   confirmReceipt: 'Confirm receipt',
+  applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
+  A conditional order is a document that says the court does not see any reason why you cannot
+  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
+  applyForConditionalOrder: 'Apply for conditional order',
 });
 
 // @TODO translations
@@ -41,6 +45,8 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const progressionIndex = [
     State.Holding,
+    State.AwaitingConditionalOrder,
+    State.ConditionalOrderDrafted,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
@@ -48,11 +54,15 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const hasApplicantAppliedForConditionalOrderConfirmed = content.isApplicant2
+    ? content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES
+    : content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES;
   const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language](content),
     progressionIndex,
     hasApplicantConfirmedReceipt,
+    hasApplicantAppliedForConditionalOrderConfirmed,
     isApplicant2,
   };
 };

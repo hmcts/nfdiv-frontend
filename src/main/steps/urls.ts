@@ -112,3 +112,5 @@ export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
 export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
 
 export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
+
+export const CONTINUE_WITH_CONDITIONAL_ORDER: PageLink = '/continue-with-conditional-order';
