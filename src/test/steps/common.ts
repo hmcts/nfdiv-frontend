@@ -212,6 +212,23 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Continue');
 });
 
+Given('I set the case state to {string}', async (state: string) => {
+  await I.amOnPage('/your-details');
+  iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const caseReference = userCase.id;
+
+  if (!caseReference) {
+    throw new Error(`No case reference was returned for ${testUser}`);
+  }
+
+  await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, 'citizen-update-case-state-aat');
+});
+
 When('a case worker issues the application', async () => {
   await I.amOnPage('/applicant2/enter-your-access-code');
   iClearTheForm();
