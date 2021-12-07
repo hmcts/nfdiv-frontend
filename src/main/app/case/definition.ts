@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.33.956 on 2021-12-01 10:57:57.
+// Generated using typescript-generator version 2.34.976 on 2021-12-07 13:57:06.
 
 export interface Address {
   AddressLine1: string;
@@ -33,8 +33,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -92,7 +92,6 @@ export interface AcknowledgementOfService {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
-  jurisdictionDisagreeReason: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -154,6 +153,7 @@ export interface Applicant {
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
   ConfirmReceipt: YesOrNo;
+  ApplyForConditionalOrderStarted: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
@@ -170,7 +170,7 @@ export interface Applicant {
   SolicitorPhone: string;
   SolicitorEmail: string;
   SolicitorAddress: string;
-  SolicitorAgreeToReceiveEmails: YesOrNo;
+  SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
   LegalProceedings: YesOrNo;
@@ -261,7 +261,7 @@ export interface Application {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
 }
 
@@ -285,6 +285,9 @@ export interface CaseData {
   labelContentUnionTypeUC: string;
   labelContentDivorceOrCivilPartnershipApplication: string;
   labelContentDivorceOrEndCivilPartnership: string;
+  labelContentApplicantOrApplicant1: string;
+  labelContentDivorceOrCivilPartnership: string;
+  labelContentFinaliseDivorceOrEndCivilPartnership: string;
   labelContentApplicationType: ApplicationType;
   applicant1FirstName: string;
   applicant1MiddleName: string;
@@ -292,6 +295,7 @@ export interface CaseData {
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
+  applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
@@ -308,7 +312,7 @@ export interface CaseData {
   applicant1SolicitorPhone: string;
   applicant1SolicitorEmail: string;
   applicant1SolicitorAddress: string;
-  applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
   applicant1LegalProceedings: YesOrNo;
@@ -320,6 +324,7 @@ export interface CaseData {
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2ConfirmReceipt: YesOrNo;
+  applicant2ApplyForConditionalOrderStarted: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
@@ -336,7 +341,7 @@ export interface CaseData {
   applicant2SolicitorPhone: string;
   applicant2SolicitorEmail: string;
   applicant2SolicitorAddress: string;
-  applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
   applicant2LegalProceedings: YesOrNo;
@@ -424,7 +429,7 @@ export interface CaseData {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2InviteEmailAddress: string;
   accessCode: string;
@@ -433,7 +438,6 @@ export interface CaseData {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
-  jurisdictionDisagreeReason: string;
   dateAosSubmitted: DateAsString;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
@@ -478,6 +482,9 @@ export interface CaseData {
   coApplicantStatementOfTruth: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
+  granted: Granted[];
+  grantedDate: DateAsString;
+  doesApplicantWantToApplyForFinalOrder: YesOrNo;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -558,6 +565,9 @@ export interface CaseData {
   disputeApplication: YesOrNo;
   generalReferralJudgeDetails: string;
   generalReferralLegalAdvisorDetails: string;
+  applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
+  jurisdictionDisagreeReason: string;
 }
 
 export interface CaseInvite {
@@ -617,6 +627,9 @@ export interface DivorceGeneralOrder {
 export interface FinalOrder {
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
+  granted: Granted[];
+  grantedDate: DateAsString;
+  doesApplicantWantToApplyForFinalOrder: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -675,6 +688,9 @@ export interface LabelContent {
   UnionTypeUC: string;
   DivorceOrCivilPartnershipApplication: string;
   DivorceOrEndCivilPartnership: string;
+  ApplicantOrApplicant1: string;
+  DivorceOrCivilPartnership: string;
+  FinaliseDivorceOrEndCivilPartnership: string;
   ApplicationType: ApplicationType;
 }
 
@@ -726,6 +742,9 @@ export interface RetiredFields {
   disputeApplication: YesOrNo;
   generalReferralJudgeDetails: string;
   generalReferralLegalAdvisorDetails: string;
+  applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
+  applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
+  jurisdictionDisagreeReason: string;
 }
 
 export interface Solicitor {
@@ -734,7 +753,7 @@ export interface Solicitor {
   Phone: string;
   Email: string;
   Address: string;
-  AgreeToReceiveEmails: YesOrNo;
+  AgreeToReceiveEmailsCheckbox: Prayer[];
   OrganisationPolicy: OrganisationPolicy<UserRole>;
 }
 
@@ -841,9 +860,6 @@ export interface CreditAccountPaymentResponse {
   status: string;
 }
 
-/**
- * The response from retrieving a fee from fees and payments service
- */
 export interface FeeResponse {
   version: number;
   description: string;
@@ -1146,10 +1162,8 @@ export const enum RejectReasonType {
 }
 
 export const enum RejectionReason {
-  NO_JURISDICTION = 'noJurisdiction',
-  NO_CRITERIA = 'noCriteria',
-  INSUFFICIENT_DETAILS = 'insufficentDetails',
   OTHER = 'other',
+  NO_JURISDICTION = 'noJurisdiction',
 }
 
 export const enum ServiceMethod {
@@ -1178,6 +1192,7 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingAdminClarification = 'AwaitingAdminClarification',
+  AwaitingAmendedApplication = 'AwaitingAmendedApplication',
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
@@ -1200,6 +1215,7 @@ export const enum State {
   Disputed = 'Disputed',
   Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
+  FinalOrderRequested = 'FinalOrderRequested',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',
   BulkCaseReject = 'BulkCaseReject',
@@ -1326,6 +1342,14 @@ export const enum PbaErrorMessage {
 
 export const enum ThePrayer {
   I_CONFIRM = 'Yes',
+}
+
+export const enum Granted {
+  YES = 'Yes',
+}
+
+export const enum Prayer {
+  CONFIRM = 'Yes',
 }
 
 /**
@@ -1495,6 +1519,7 @@ export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';

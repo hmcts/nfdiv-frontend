@@ -6,7 +6,7 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
@@ -226,7 +226,7 @@ Given('I set the case state to {string}', async (state: string) => {
     throw new Error(`No case reference was returned for ${testUser}`);
   }
 
-  await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, 'citizen-update-case-state-aat');
+  await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
 });
 
 When('a case worker issues the application', async () => {
