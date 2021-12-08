@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -67,6 +67,23 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
   },
+  holdingAndDeemedOrDispensedAccepted: {
+    line1: `Your application ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'to dispense with service'
+        : 'for deemed service'
+    } was granted.
+     You can <a class="govuk-link" href="/downloads/${
+       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+         ? 'certificate-of-dispensed-with-service'
+         : 'certificate-of-deemed-as-service'
+     }" download="Certificate-of-Service">
+     download the court order granting your application for ${
+       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+         ? 'dispensed'
+         : 'deemed'
+     } service</a>`,
+  },
   d8Awaiting: {
     line1: `Your ${partner} has responded to your application and said they want to defend the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
@@ -129,10 +146,16 @@ export const generateContent: TranslationFn = content => {
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
+  const isDeemedOrDispensedApplication = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
+  );
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
+    isDeemedOrDispensedApplication,
   };
 };

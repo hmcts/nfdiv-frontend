@@ -8,6 +8,9 @@
 {% if hasCertificateOfService %}
   <p class="govuk-body">{{ certificateOfServiceDownloadLink | safe }}</p>
 {% endif %}
+{% if hasCertificateOfDeemedOrDispensedService %}
+  <p class="govuk-body">{{ deemedOrDispensedDownloadLink | safe }}</p>
+{% endif %}
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
