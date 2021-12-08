@@ -72,17 +72,17 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'to dispense with service'
         : 'for deemed service'
-    } was granted.
-     You can <a class="govuk-link" href="/downloads/${
-       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-         ? 'certificate-of-dispensed-with-service'
-         : 'certificate-of-deemed-as-service'
-     }" download="Certificate-of-Service">
-     download the court order granting your application for ${
-       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-         ? 'dispensed'
-         : 'deemed'
-     } service</a>`,
+    } was granted. You can`,
+    line2: `download the court order granting your application for ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service`,
+    downloadReference: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
+    }`,
   },
   d8Awaiting: {
     line1: `Your ${partner} has responded to your application and said they want to defend the ${

@@ -16,13 +16,17 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
-  deemedOrDispensedDownloadLink: `<a class="govuk-link"
-    href="/downloads/${
-      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'certificate-of-dispense-with-service'
-        : 'certificate-of-deemed-as-service'
-    }"
-  download="Certificate-of-Service">View the court order granting your application for deemed service (PDF)</a>`,
+  deemedOrDispensedDownloadLink: `View the court order granting your application for
+  ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'dispensed'
+      : 'deemed'
+  } service (PDF)`,
+  deemedOrDispensedDownloadReference: `/downloads/${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'certificate-of-dispense-with-service'
+      : 'certificate-of-deemed-as-service'
+  }`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
