@@ -42,9 +42,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${
-      userCase.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
-    }. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
+      .add(141, 'day')
+      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
     readMore: 'Read more about the next steps',
