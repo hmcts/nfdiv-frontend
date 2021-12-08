@@ -15,6 +15,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_CONDITIONAL_ORDER,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -43,7 +44,12 @@ export class HomeGetController {
     } else if (req.session.isApplicant2) {
       const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
-        applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete, isLastQuestionComplete)
+        applicant2RedirectPageSwitch(
+          req.session.userCase.state,
+          req.session.userCase,
+          isFirstQuestionComplete,
+          isLastQuestionComplete
+        )
       );
     } else {
       res.redirect(
@@ -70,6 +76,9 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
+    case State.ConditionalOrderDrafted: {
+      return userCase.applicant1ApplyForConditionalOrderStarted ? CONTINUE_WITH_CONDITIONAL_ORDER : HUB_PAGE;
+    }
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
     case State.AosDrafted:
@@ -86,6 +95,7 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
 
 const applicant2RedirectPageSwitch = (
   caseState: State,
+  userCase: Partial<Case>,
   isFirstQuestionComplete: boolean,
   isLastQuestionComplete: boolean
 ) => {
@@ -95,6 +105,11 @@ const applicant2RedirectPageSwitch = (
     }
     case State.Applicant2Approved: {
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
+    }
+    case State.ConditionalOrderDrafted: {
+      return userCase.applicant1ApplyForConditionalOrderStarted
+        ? `${APPLICANT_2}${CONTINUE_WITH_CONDITIONAL_ORDER}`
+        : `${APPLICANT_2}${HUB_PAGE}`;
     }
     default: {
       if (isLastQuestionComplete) {
