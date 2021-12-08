@@ -229,26 +229,6 @@ Given('I set the case state to {string}', async (state: string) => {
   await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
 });
 
-When('a case worker issues the application', async () => {
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
-
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
-  const caseReference = userCase.id;
-
-  if (!caseReference) {
-    throw new Error(`No case reference or access code was returned for ${testUser}`);
-  }
-
-  const cwUser = await testConfig.GetOrCreateCaseWorker();
-  const caseWorker = await iGetTheTestUser(cwUser);
-  const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, { ceremonyPlace: 'Somewhere' }, 'caseworker-issue-application');
-});
-
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');
   const secret = sysConfig.get('services.idam.clientSecret');
