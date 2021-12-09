@@ -107,7 +107,7 @@ const applicant2RedirectPageSwitch = (
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
     }
     case State.ConditionalOrderDrafted: {
-      return userCase.applicant1ApplyForConditionalOrderStarted
+      return userCase.applicant2ApplyForConditionalOrderStarted
         ? `${APPLICANT_2}${CONTINUE_WITH_CONDITIONAL_ORDER}`
         : `${APPLICANT_2}${HUB_PAGE}`;
     }

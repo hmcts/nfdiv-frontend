@@ -9,6 +9,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_CONDITIONAL_ORDER,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -151,6 +152,76 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to hub page for applicant 2 users in ConditionalOrderDrafted state if not applicant2ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrderStarted: null,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to first conditional order page for applicant 2 users in ConditionalOrderDrafted state if applicant2ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_CONDITIONAL_ORDER}`);
+  });
+
+  test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: null,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to first conditional order page for applicant 1 users in ConditionalOrderDrafted state if applicant1ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_CONDITIONAL_ORDER);
   });
 
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
