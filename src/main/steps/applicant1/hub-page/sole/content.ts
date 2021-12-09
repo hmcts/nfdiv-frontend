@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -42,9 +42,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${
-      userCase.dueDate || dayjs().add(141, 'day').format('D MMMM YYYY')
-    }. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
+      .add(141, 'day')
+      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
     readMore: 'Read more about the next steps',
@@ -66,6 +66,23 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line5: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  },
+  holdingAndDeemedOrDispensedAccepted: {
+    line1: `Your application ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'to dispense with service'
+        : 'for deemed service'
+    } was granted. You can`,
+    line2: `download the court order granting your application for ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service`,
+    downloadReference: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
+    }`,
   },
   d8Awaiting: {
     line1: `Your ${partner} has responded to your application and said they want to defend the ${
@@ -129,10 +146,16 @@ export const generateContent: TranslationFn = content => {
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
+  const isDeemedOrDispensedApplication = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
+  );
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
+    isDeemedOrDispensedApplication,
   };
 };

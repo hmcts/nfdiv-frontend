@@ -45,6 +45,24 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForDeemedAsServicePdf = {
+      endpoints: ['/downloads/certificate-of-deemed-as-service'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.DEEMED_AS_SERVICE_GRANTED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
+    const dmStoreProxyForDispenseWithServicePdf = {
+      endpoints: ['/downloads/certificate-of-dispense-with-service'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_GRANTED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     app.use(
       dmStoreProxyForApplicationPdf.endpoints,
       proxy(documentManagementTarget, {
@@ -69,6 +87,26 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForCertificateOfServicePdf.endpoints,
       proxy(documentManagementTarget, {
         proxyReqPathResolver: dmStoreProxyForCertificateOfServicePdf.path,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForDeemedAsServicePdf.endpoints,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForDeemedAsServicePdf.path,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForDispenseWithServicePdf.endpoints,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForDispenseWithServicePdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,
