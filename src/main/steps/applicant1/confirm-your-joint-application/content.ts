@@ -28,24 +28,23 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
     /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
     '$1-$2-$3-$4'
   )}`,
-  line4: `<strong>Issued: </strong>${userCase.issueDate}`,
-  line5: '<strong> Applicant 1 </strong>',
-  line6: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
-  line7: '<strong> Applicant 2 </strong>',
-  line8: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  line4: '<strong> Applicant 1 </strong>',
+  line5: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
+  line6: '<strong> Applicant 2 </strong>',
+  line7: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line10: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
+  line8: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-  line11: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
-  line12: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
+  line9: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
+  line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  line13: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
-  line14: `${userCase.ceremonyPlace}`,
-  line15: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
-  line16: `${getFormattedDate(userCase.relationshipDate)}`,
+  line11: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
+  line12: `${userCase.ceremonyPlace}`,
+  line13: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
+  line14: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
-  line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
+  line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
@@ -56,10 +55,10 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
     jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).connectedToEnglandWales,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
-  line18: `The court needs to know about any other court cases relating to the ${
+  line16: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }, which might affect the legal power (jurisdiction) of the court.`,
-  line19: `${
+  line17: `${
     userCase.applicant1LegalProceedings === YesOrNo.YES && userCase.applicant2LegalProceedings === YesOrNo.YES
       ? `Applicant 1 has given details of other court cases relating to the ${
           isDivorce ? 'marriage' : 'civil partnership'
@@ -89,18 +88,18 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
         }`
   }.`,
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
-  line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
+  line18: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
   applicant1FinancialOrderYes: 'Applicant 1 is applying to the court for financial orders',
   applicant2FinancialOrderYes: 'Applicant 2 is applying to the court for financial orders',
   financialOrderNo: 'The applicants are not applying to the court for financial orders.',
   financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’.
-  <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’. 
+  <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’.
   <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
     'fees.financialOrder'
   )}. Applying for a ‘financial order by consent’ costs ${config.get(
     'fees.consentOrder'
-  )}. You can get a solicitor to draft these for you. 
+  )}. You can get a solicitor to draft these for you.
   <br><br>If you are not sure what to do then you should seek legal advice. `,
   subHeading7: "Applicant 1's correspondence address",
   applicantAddressCountry: `${
@@ -119,7 +118,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
           .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line21: `${userEmail}`,
+  line19: `${userEmail}`,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress
@@ -137,7 +136,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
           .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line22: `${userCase.applicant2EmailAddress}`,
+  line20: `${userCase.applicant2EmailAddress}`,
   subHeading11: 'Statement of truth',
   applicant1Name: `<em>${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}</em>`,
   applicant2Name: `<em>${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}</em>`,
@@ -216,12 +215,14 @@ export const generateContent: TranslationFn = content => {
   const isApplicant2AddressNotPrivate = content.userCase.applicant2AddressPrivate !== YesOrNo.YES;
   const isApplicant1ApplyForFinancialOrder = content.userCase.applyForFinancialOrder === YesOrNo.YES;
   const isApplicant2ApplyForFinancialOrder = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
+  const isCeremonyPlace = content.userCase.ceremonyPlace;
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
     isApplicant2AddressNotPrivate,
     isApplicant1ApplyForFinancialOrder,
     isApplicant2ApplyForFinancialOrder,
+    isCeremonyPlace,
     form,
   };
 };
