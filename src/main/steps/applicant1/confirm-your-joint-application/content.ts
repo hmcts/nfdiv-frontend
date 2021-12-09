@@ -50,7 +50,8 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
     `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
-    The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants. Each legal statement includes some or all of the following legal connections to England or Wales.` +
+    The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
+     Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
     jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).connectedToEnglandWales,
   whatThisMeans: 'What this means',
@@ -93,11 +94,15 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   applicant1FinancialOrderYes: 'Applicant 1 is applying to the court for financial orders',
   applicant2FinancialOrderYes: 'Applicant 2 is applying to the court for financial orders',
   financialOrderNo: 'The applicants are not applying to the court for financial orders.',
-  financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’.
-  <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide. This is known as a ‘contested financial order’.
-  <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
-    'fees.financialOrder'
-  )}. Applying for a ‘financial order by consent’ costs ${config.get(
+  financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property,
+ pensions and other assets will be split. These decisions are called ‘financial orders’.
+  <br><br>A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding.
+   This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
+    This is known as a ‘contested financial order’.
+  <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee.
+   Applying for a ‘contested financial order’ costs ${config.get(
+     'fees.financialOrder'
+   )}. Applying for a ‘financial order by consent’ costs ${config.get(
     'fees.consentOrder'
   )}. You can get a solicitor to draft these for you.
   <br><br>If you are not sure what to do then you should seek legal advice. `,
@@ -151,10 +156,12 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   confirmPrayerHint: 'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
-    'This confirms that the information you are submitting is true and accurate to the best of your knowledge. It’s known as the ‘statement of truth’.',
+    'This confirms that the information you are submitting is true and accurate to the best of your knowledge. ' +
+    'It’s known as the ‘statement of truth’.',
   continue: `${isSubmit(isApplicant2, userCase) ? 'Submit' : 'Continue to payment'}`,
   confirmApplicationIsTrueWarning:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement ' +
+    'verified by a statement of truth without an honest belief in its truth.',
   errors: {
     applicant1IConfirmPrayer: {
       required: `You need to confirm you are applying to the court to  ${
