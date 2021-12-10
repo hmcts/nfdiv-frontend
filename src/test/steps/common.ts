@@ -212,7 +212,7 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Continue');
 });
 
-Given('I set the case state to {string}', async (state: string) => {
+Given('I set the case state to {string}', async (state: State) => {
   await I.amOnPage('/your-details');
   iClearTheForm();
 
@@ -227,6 +227,10 @@ Given('I set the case state to {string}', async (state: string) => {
   }
 
   await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
+
+  iSetTheUsersCaseTo({
+    state,
+  });
 });
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
