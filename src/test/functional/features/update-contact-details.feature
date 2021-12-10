@@ -10,8 +10,8 @@ Feature: Update contact details
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-    When I set the case state to "Holding"
-    And I click "Sign out"
+    When I click "Sign out"
+    And I set the case state to "Holding"
     And I login with applicant 1
     Then the page URL should be "/hub-page"
     When I click "Review your contact details"
@@ -38,15 +38,15 @@ Feature: Update contact details
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: respondent updates contact details
+  Scenario: Respondent updates contact details
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-    When I set the case state to "Holding"
-    And I enter my valid case reference and valid access code
+    When a case worker issues the application
+    When I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Review your contact details"
     Then the page should include "Review your contact details"
