@@ -3,7 +3,14 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, HowToRespondApplication, ThePrayer, YesOrNo } from './definition';
+import {
+  CaseData,
+  ContactDetailsType,
+  HowToRespondApplication,
+  MarriageFormation,
+  ThePrayer,
+  YesOrNo,
+} from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
@@ -24,8 +31,8 @@ const checkboxConverter = (value: string | undefined) => {
 
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
-  marriageIsSameSexCouple: data => ({
-    sameSex: checkboxConverter(data.marriageIsSameSexCouple),
+  marriageFormationType: ({ marriageFormationType }) => ({
+    sameSex: marriageFormationType === MarriageFormation.SAME_SEX_COUPLE ? Checkbox.Checked : Checkbox.Unchecked,
   }),
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
@@ -56,14 +63,14 @@ const fields: FromApiConverters = {
     applicant1DoesNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
-  applicant1KeepContactDetailsConfidential: data => ({
-    applicant1AddressPrivate: data.applicant1KeepContactDetailsConfidential,
+  applicant1ContactDetailsType: ({ applicant1ContactDetailsType }) => ({
+    applicant1AddressPrivate: applicant1ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
-  applicant2KeepContactDetailsConfidential: data => ({
-    applicant2AddressPrivate: data.applicant2KeepContactDetailsConfidential,
+  applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
+    applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
