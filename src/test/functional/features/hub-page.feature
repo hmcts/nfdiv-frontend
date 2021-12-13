@@ -28,3 +28,28 @@ Feature: Hub page
     Then the page should include "You have confirmed receipt of the divorce application"
     And the page should include "The next step is to apply for a 'conditional order'."
 
+  Scenario: Applicant 1 draft conditional order from AwaitingConditionalOrderState
+    Given I set the case state to "AwaitingConditionalOrder"
+    When I go to "/"
+    Then the page should include "You can now apply for a ‘conditional order’"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-conditional-order"
+    Given I enter my valid case reference and valid access code
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘conditional order’"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-conditional-order"
+
+  Scenario: Applicant 2 draft conditional order from AwaitingConditionalOrderState
+    Given I enter my valid case reference and valid access code
+    And I set the case state to "AwaitingConditionalOrder"
+    When I go to "/"
+    Then the page should include "You can now apply for a ‘conditional order’"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-conditional-order"
+    Given I login with applicant "1"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘conditional order’"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-conditional-order"  
+

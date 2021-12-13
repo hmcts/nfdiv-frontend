@@ -6,7 +6,7 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
@@ -52,8 +52,8 @@ Given('I create a new user and login', () => {
   login('citizenSingleton');
 });
 
-Given('I login with applicant 1', () => {
-  autoLogin.login(I, testConfig.GetUser(1).username);
+Given('I login with applicant {string}', (number: string) => {
+  autoLogin.login(I, testConfig.GetUser(parseInt(number)).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -210,6 +210,27 @@ When('I enter my valid case reference and valid access code', async () => {
   iClick('Your access code');
   I.type(accessCode as string);
   iClick('Continue');
+});
+
+Given('I set the case state to {string}', async (state: State) => {
+  await I.amOnPage('/your-details');
+  iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const caseReference = userCase.id;
+
+  if (!caseReference) {
+    throw new Error(`No case reference was returned for ${testUser}`);
+  }
+
+  await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
+
+  iSetTheUsersCaseTo({
+    state,
+  });
 });
 
 When('a case worker issues the application', async () => {
