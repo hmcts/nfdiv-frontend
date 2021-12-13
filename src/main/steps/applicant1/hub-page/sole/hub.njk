@@ -31,7 +31,13 @@
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
 {% elif progressionIndex == 8 %}
-  {% if isSuccessfullyServedByBailiff %}
+  {% if isDeemedOrDispensedApplication %}
+    <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted.line1 }}
+    <a class="govuk-link" href={{holdingAndDeemedOrDispensedAccepted.downloadReference}}
+      download="Certificate-of-Service">
+      {{holdingAndDeemedOrDispensedAccepted.line2}}</a>
+    </p>
+  {% elif isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}</p>
   {% else %}
     <p class="govuk-body">{{ holding.line1 | safe }}</p>

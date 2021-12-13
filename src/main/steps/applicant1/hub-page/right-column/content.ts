@@ -1,4 +1,4 @@
-import { ApplicationType, State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -16,6 +16,17 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   download="Respondent-answers">View the response to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } (PDF)</a>`,
+  deemedOrDispensedDownloadLink: `View the court order granting your application for
+  ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'dispensed'
+      : 'deemed'
+  } service (PDF)`,
+  deemedOrDispensedDownloadReference: `/downloads/${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'certificate-of-dispense-with-service'
+      : 'certificate-of-deemed-as-service'
+  }`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -46,15 +57,19 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const statesWithoutRespondentAnswers = [State.AwaitingAos, State.AosDrafted, State.AosOverdue];
-  const aosSubmitted =
-    !content.isJointApplication && !statesWithoutRespondentAnswers.includes(<State>content.userCase.state);
+  const aosSubmitted = !content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue;
   const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
+  const hasCertificateOfDeemedOrDispensedService = content.userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
+  );
   return {
     aosSubmitted,
-    ...languages[content.language](content),
     hasCertificateOfService,
+    hasCertificateOfDeemedOrDispensedService,
+    ...languages[content.language](content),
   };
 };
