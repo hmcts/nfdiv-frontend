@@ -34,7 +34,9 @@ describe('HubPagePostController', () => {
   });
 
   it('triggers DRAFT_CONDITIONAL_ORDER', async () => {
-    const mockFormContent = {} as unknown as FormContent;
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
     const hubPagePostController = new HubPagePostController(mockFormContent.fields);
 
     const req = mockRequest({
