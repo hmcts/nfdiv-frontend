@@ -30,7 +30,7 @@ const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
   sameSex: ({ sameSex }) => ({
     marriageFormationType:
-      sameSex === Checkbox.Checked ? MarriageFormation.SAME_SEX_COUPLE : MarriageFormation.SAME_SEX_COUPLE,
+      sameSex === Checkbox.Checked ? MarriageFormation.SAME_SEX_COUPLE : MarriageFormation.OPPOSITE_SEX_COUPLE,
   }),
   gender: data => {
     // Applicant 1 makes the request
