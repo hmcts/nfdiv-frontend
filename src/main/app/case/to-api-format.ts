@@ -4,9 +4,11 @@ import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, 
 import {
   CaseData,
   ChangedNameHow,
+  ContactDetailsType,
   DivorceOrDissolution,
   Gender,
   HowToRespondApplication,
+  MarriageFormation,
   ThePrayer,
   YesOrNo,
 } from './definition';
@@ -26,8 +28,9 @@ const checkboxConverter = (value: string | undefined) => {
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
-  sameSex: data => ({
-    marriageIsSameSexCouple: checkboxConverter(data.sameSex),
+  sameSex: ({ sameSex }) => ({
+    marriageFormationType:
+      sameSex === Checkbox.Checked ? MarriageFormation.SAME_SEX_COUPLE : MarriageFormation.OPPOSITE_SEX_COUPLE,
   }),
   gender: data => {
     // Applicant 1 makes the request
@@ -77,11 +80,13 @@ const fields: ToApiConverters = {
   applicant2AgreeToReceiveEmails: data => ({
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
-  applicant1AddressPrivate: data => ({
-    applicant1KeepContactDetailsConfidential: data.applicant1AddressPrivate,
+  applicant1AddressPrivate: ({ applicant1AddressPrivate }) => ({
+    applicant1ContactDetailsType:
+      applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
   }),
-  applicant2AddressPrivate: data => ({
-    applicant2KeepContactDetailsConfidential: data.applicant2AddressPrivate,
+  applicant2AddressPrivate: ({ applicant2AddressPrivate }) => ({
+    applicant2ContactDetailsType:
+      applicant2AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
