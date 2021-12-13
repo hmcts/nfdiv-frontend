@@ -1,9 +1,11 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
   ChangedNameHow,
+  ContactDetailsType,
   DivorceOrDissolution,
   Gender,
   HowToRespondApplication,
+  MarriageFormation,
   ThePrayer,
   YesOrNo,
 } from './definition';
@@ -52,7 +54,7 @@ describe('to-api-format', () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
 
     expect(apiFormat).toStrictEqual({
-      marriageIsSameSexCouple: YesOrNo.YES,
+      marriageFormationType: MarriageFormation.SAME_SEX_COUPLE,
       applicant2Gender: Gender.MALE,
       applicant1Gender: Gender.MALE,
       marriageDate: '1900-01-04',
@@ -63,13 +65,13 @@ describe('to-api-format', () => {
       applicant2HWFAppliedForFees: YesOrNo.YES,
       applicant2HWFReferenceNumber: 'HWF-123-CBA',
       applicant1AgreedToReceiveEmails: YesOrNo.YES,
-      applicant1KeepContactDetailsConfidential: YesOrNo.YES,
+      applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
       applicant1LanguagePreferenceWelsh: 'No',
       applicant2LanguagePreferenceWelsh: 'No',
-      applicant2KeepContactDetailsConfidential: YesOrNo.YES,
+      applicant2ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
       applicant1PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
