@@ -6,14 +6,11 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOW_DO_YOU_WANT_TO_RESPOND,
   LEGAL_JURISDICTION_OF_THE_COURTS,
-  RELATIONSHIP_DATE_URL,
   RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_NAME,
@@ -268,38 +265,25 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL);
+  executeUserCaseScript(userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL);
 
 export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
+  executeUserCaseScript(userCaseObj, APPLICANT_2 + YOUR_NAME);
 
 export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(
-    userCaseObj,
-    RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND,
-    RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS
-  );
+  executeUserCaseScript(userCaseObj, RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS);
 
-const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
-  I.executeScript(
-    async ([userCase, requestUrl, redirectUrl]) => {
-      const mainForm = document.getElementById('main-form') as HTMLFormElement;
-      const formData = mainForm ? new FormData(mainForm) : new FormData();
-      for (const [key, value] of Object.entries(userCase)) {
-        formData.set(key, value as string);
-      }
+const executeUserCaseScript = async (data, redirectPageLink: string) => {
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const api = iGetTheCaseApi(testUser);
+  const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
-      const request = {
-        method: 'POST',
-        body: new URLSearchParams(formData as unknown as Record<string, string>),
-      };
+  data.applicant2SolicitorAddress = userCase.state;
+  await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
 
-      await fetch(requestUrl, request);
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      await fetch(redirectUrl, request);
-    },
-    [userCaseObj, requestPageLink, redirectPageLink]
-  );
+  await I.amOnPage(redirectPageLink);
+};
 
 export interface BrowserCase extends Case {
   state: State;
