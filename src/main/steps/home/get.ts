@@ -19,8 +19,8 @@ import {
   HUB_PAGE,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  READ_THE_RESPONSE,
   RESPONDENT,
-  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -80,7 +80,7 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
       return HUB_PAGE;
     }
     case State.ConditionalOrderDrafted: {
-      return REVIEW_THE_APPLICATION;
+      return READ_THE_RESPONSE;
     }
     default: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
