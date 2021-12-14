@@ -21,7 +21,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => ({
   line5:
     userCase.jurisdictionAgree === YesOrNo.YES
       ? 'The respondent agrees the court has jurisdiction'
-      : `The respondent does not agree the court has jurisdiction. They provided the following reasons:<br> ${userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction}`,
+      : `The respondent does not agree the court has jurisdiction.<br> They provided the following reasons:<br> ${userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction}`,
   countryLifeMainlyBased: `They said their life was mainly based in the following country:<br> ${userCase.inWhichCountryIsYourLifeMainlyBased}`,
   subHeading5: 'Other court cases',
   line6:
