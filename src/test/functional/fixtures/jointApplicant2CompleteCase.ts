@@ -14,7 +14,6 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
   applicant2PhoneNumber: '',
   applicant2EnglishOrWelsh: LanguagePreference.English,
-  applicant2MiddleNames: '',
   applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
   applicant2Address2: '',
   applicant2Address3: '',

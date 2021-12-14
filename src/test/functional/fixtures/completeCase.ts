@@ -41,7 +41,6 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2FullNameOnCertificate: 'Husbands name',
   applicant2LastNames: 'Test their last name',
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
-  applicant2MiddleNames: '',
   applicationType: ApplicationType.SOLE_APPLICATION,
   applyForFinancialOrder: YesOrNo.NO,
   applicant1CannotUpload: Checkbox.Checked,
