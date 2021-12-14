@@ -1,12 +1,8 @@
-import config from 'config';
 import { v4 as uuid } from 'uuid';
 
 import { CHECK_ANSWERS_URL } from '../../urls';
 
 import { createToken } from './createToken';
-
-jest.mock('config');
-const mockedConfig = config as jest.Mocked<typeof config>;
 
 describe('createToken', () => {
   const params = {
@@ -20,9 +16,7 @@ describe('createToken', () => {
   };
 
   test('Should create token if tokenKey exists', async () => {
-    mockedConfig.get.mockReturnValueOnce('PCQ_TOKEN');
-
-    const result = await createToken(params);
+    const result = await createToken(params, 'PCQ_TOKEN');
 
     expect(result).toHaveLength(374);
   });

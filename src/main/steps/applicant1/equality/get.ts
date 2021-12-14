@@ -16,8 +16,10 @@ const logger = Logger.getLogger('PCQGetController');
 @autobind
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!req.session.userCase.applicant1PcqId) {
-      const url = config.get('services.equalityAndDiversity.url');
+    const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
+    const url = config.get('services.equalityAndDiversity.url');
+
+    if (!req.session.userCase.applicant1PcqId && tokenKey && url) {
       const path: string = config.get('services.equalityAndDiversity.path');
       const health = `${url}/health`;
 
@@ -43,9 +45,10 @@ export default class PCQGetController {
         partyId: req.session.user.email,
         returnUrl: `${protocol}${res.locals.host}${port}${CHECK_ANSWERS_URL}`,
         language: req.session.lang || 'en',
+        ccdCaseId: req.session.userCase.id,
       };
 
-      params['token'] = createToken(params);
+      params['token'] = createToken(params, tokenKey);
       params.partyId = encodeURIComponent(params.partyId);
 
       try {
