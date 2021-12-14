@@ -47,9 +47,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
-    line4: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
   },
   holdingAndDeemedOrDispensedAccepted: {
     line1: `Your application ${
@@ -122,6 +119,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
           isDivorce ? 'marriage' : 'civil partnership'
         }. You cannot apply for a final order until 6 weeks after the conditional order.`,
   },
+  moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
 });
 
 // @TODO translations
