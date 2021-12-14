@@ -310,7 +310,4 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
 
 export interface BrowserCase extends Case {
   state: State;
-  'relationshipDate-day': number;
-  'relationshipDate-month': number;
-  'relationshipDate-year': number;
 }
