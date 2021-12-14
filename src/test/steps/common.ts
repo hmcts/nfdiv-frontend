@@ -133,30 +133,30 @@ export const iClearTheForm = async (): Promise<void> => {
 };
 Given('I clear the form', iClearTheForm);
 
-Given("I've said I'm applying as a sole application", () => {
+Given("I've said I'm applying as a sole application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I want to apply on my own, as a sole applicant');
   I.click('Continue');
 });
 
-Given("I've said I'm applying as a joint application", () => {
+Given("I've said I'm applying as a joint application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I want to apply jointly');
   I.click('Continue');
 });
 
-Given("I've said I'm divorcing my husband", () => {
+Given("I've said I'm divorcing my husband", async () => {
   I.amOnPage('/your-details');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('My husband');
   I.click('Continue');
 });
 
-Given("I've said I do not have my husband's email address", () => {
+Given("I've said I do not have my husband's email address", async () => {
   I.amOnPage('/their-email-address');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I do not know their email address');
   I.click('Continue');
 });

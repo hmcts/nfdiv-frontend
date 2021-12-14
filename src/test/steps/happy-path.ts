@@ -35,6 +35,7 @@ Given('I set the case state to {string}', async (state: State) => {
   await iSetTheUsersCaseTo({
     state,
   });
+  await I.grabCurrentUrl();
 });
 
 Given("I've already completed the form using the fixture {string} for applicant 2", async (fixture: string) => {
