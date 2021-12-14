@@ -1,0 +1,25 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% extends "common/page.njk" %}
+
+{% set readMoreContent %}
+  <p class="govuk-body">{{ line2 }}</p>
+  <ol class="govuk-list govuk-list--number">
+    <li>{{ conditionalOrder }}</li><p class="govuk-body">{{ conditionalOrderInfo }}</p>
+    <li>{{ finalOrder }}</li><p class="govuk-body">{{ finalOrderInfo }}</p>
+  </ol>
+{% endset %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 | safe }}</p>
+
+  {% if isJointApplication %}
+    <p class="govuk-body">{{ jointLine1 }}</p>
+    <p class="govuk-body">{{ jointLine2 }}</p>
+  {% endif %}
+
+  {{ govukDetails({
+      summaryText: readMore,
+      html: readMoreContent
+    }) }}
+{% endblock %}
