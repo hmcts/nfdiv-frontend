@@ -8,6 +8,7 @@ import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
+import { addConnection } from '../../main/app/jurisdiction/connections';
 import {
   APPLICANT_2,
   LEGAL_JURISDICTION_OF_THE_COURTS,
@@ -21,7 +22,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(5);
+  test.retries(1);
 });
 
 After(async () => {
@@ -45,8 +46,8 @@ Given('I login', () => {
   login('citizen');
 });
 
-Given('I create a new user and login', () => {
-  login('citizenSingleton');
+Given('I create a new user and login', async () => {
+  await login('citizenSingleton');
 });
 
 Given('I login with applicant 1', () => {
@@ -111,8 +112,8 @@ Then('I type {string}', (text: string) => {
   I.type(text);
 });
 
-export const iClearTheForm = (): void => {
-  I.executeScript(() => {
+export const iClearTheForm = async (): Promise<void> => {
+  await I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
     for (const checkedInput of checkedInputs) {
       checkedInput.checked = false;
@@ -181,8 +182,8 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
@@ -199,19 +200,19 @@ When('I enter my valid case reference and valid access code', async () => {
 
   iClick('Sign out');
   await login('citizenSingleton');
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   iClick('Your reference number');
   I.type(caseReference);
   iClick('Your access code');
-  I.type(accessCode as string);
+  I.type(accessCode);
   iClick('Continue');
 });
 
 When('a case worker issues the application', async () => {
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
@@ -280,6 +281,7 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
   const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
   data.applicant2MiddleNames = userCase.state;
+  data.connections = addConnection(data);
   await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
 
   I.amOnPage('/logout');
