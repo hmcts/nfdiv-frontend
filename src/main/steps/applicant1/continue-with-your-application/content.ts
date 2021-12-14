@@ -40,7 +40,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    continueApplication: {
+    applicant1ContinueApplication: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

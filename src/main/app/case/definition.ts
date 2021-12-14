@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-14 16:31:26.
+// Generated using typescript-generator version 2.34.976 on 2021-12-14 17:00:07.
 
 export interface Address {
   AddressLine1: string;
@@ -183,6 +183,7 @@ export interface Applicant {
   LegalProceedingsDetails: string;
   PcqId: string;
   DivorceWho: WhoDivorcing;
+  ContinueApplication: YesOrNo;
 }
 
 export interface Application {
@@ -334,6 +335,7 @@ export interface CaseData {
   applicant1LegalProceedingsDetails: string;
   applicant1PcqId: string;
   applicant1DivorceWho: WhoDivorcing;
+  applicant1ContinueApplication: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -365,6 +367,7 @@ export interface CaseData {
   applicant2LegalProceedingsDetails: string;
   applicant2PcqId: string;
   applicant2DivorceWho: WhoDivorcing;
+  applicant2ContinueApplication: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -503,7 +506,6 @@ export interface CaseData {
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicantStatementOfTruth: YesOrNo;
-  coContinueApplication: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -637,7 +639,6 @@ export interface ConditionalOrder {
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
   ApplicantStatementOfTruth: YesOrNo;
-  ContinueApplication: YesOrNo;
 }
 
 export interface CtscContactDetails {
