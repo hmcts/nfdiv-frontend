@@ -58,6 +58,7 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
+  READ_THE_RESPONSE,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
@@ -454,6 +455,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: READ_THE_RESPONSE,
     getNextStep: () => HOME_URL,
   },
   {
