@@ -1,7 +1,5 @@
 import crypto from 'crypto';
 
-import config from 'config';
-
 import { PcqParameters } from './PcqParameters';
 
 const algorithm = 'aes-256-gcm';
@@ -9,8 +7,7 @@ const bufferSize = 16;
 const iv = Buffer.alloc(bufferSize, 0); // Initialization vector.
 const keyLen = 32;
 
-export const createToken = (params: PcqParameters): string => {
-  const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
+export const createToken = (params: PcqParameters, tokenKey: string): string => {
   const key = crypto.scryptSync(tokenKey, 'salt', keyLen);
 
   // Convert all params to string before encrypting
