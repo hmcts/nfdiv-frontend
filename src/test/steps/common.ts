@@ -7,6 +7,7 @@ import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnection } from '../../main/app/jurisdiction/connections';
 import {
@@ -42,16 +43,16 @@ Then('the page URL should be {string}', (url: string) => {
   I.waitInUrl(url);
 });
 
-Given('I login', () => {
-  login('citizen');
+Given('I login', async () => {
+  await login('citizen');
 });
 
 Given('I create a new user and login', async () => {
   await login('citizenSingleton');
 });
 
-Given('I login with applicant 1', () => {
-  autoLogin.login(I, testConfig.GetUser(1).username);
+Given('I login with applicant 1', async () => {
+  await autoLogin.login(I, testConfig.GetUser(1).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -128,6 +129,7 @@ export const iClearTheForm = async (): Promise<void> => {
     clearInputs(document.querySelectorAll('textarea'));
     clearInputs(document.querySelectorAll('input[type="text"]'));
   });
+  await I.grabCurrentUrl();
 };
 Given('I clear the form', iClearTheForm);
 
@@ -200,6 +202,9 @@ When('I enter my valid case reference and valid access code', async () => {
 
   iClick('Sign out');
   await login('citizenSingleton');
+
+  await I.grabCurrentUrl();
+
   I.amOnPage('/applicant2/enter-your-access-code');
   await iClearTheForm();
 
@@ -275,17 +280,30 @@ export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase
   executeUserCaseScript(userCaseObj, RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS);
 
 const executeUserCaseScript = async (data, redirectPageLink: string) => {
+  await I.grabCurrentUrl();
+
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const api = iGetTheCaseApi(testUser);
   const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
   data.applicant2MiddleNames = userCase.state;
-  data.connections = addConnection(data);
-  await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+
+  const connections = addConnection(data);
+
+  // don't set as applicant 2 as they don't have permission
+  data.connections = connections.length > 0 ? connections : undefined;
+
+  try {
+    await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+  } catch (error) {
+    console.error('Could not set fixture data as ' + user.username);
+    console.error(toApiFormat(data));
+    process.exit(-1);
+  }
 
   I.amOnPage('/logout');
-  autoLogin.login(I, user.username);
+  await autoLogin.login(I, user.username);
 
   I.amOnPage(redirectPageLink);
 };
