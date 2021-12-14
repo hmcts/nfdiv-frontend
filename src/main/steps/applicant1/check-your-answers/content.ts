@@ -1,12 +1,10 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { getAnswerRows } from '../../../app/case/answers/getAnswerRows';
 import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, ChangedNameHow, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
-import { Sections } from '../../applicant1Sequence';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
@@ -14,56 +12,194 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
-    [Sections.AboutPartnership]: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
-    [Sections.HelpWithFees]: 'Help with fees',
-    [Sections.ConnectionsToEnglandWales]: 'Your connections to England and Wales',
-    [Sections.AboutApplication]: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
-    [Sections.AboutPartners]: `About you and your ${partner}`,
-    [Sections.ContactYou]: 'How the court will contact you',
-    [Sections.ContactThem]: `How the court will contact your ${partner}`,
-    [Sections.OtherCourtCases]: 'Other court cases',
-    [Sections.DividingAssets]: 'Dividing your money and property',
-    [Sections.Documents]: 'Your documents',
+    aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
+    helpWithFees: 'Help with fees',
+    connectionsToEnglandWales: 'Your connections to England and Wales',
+    aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
+    aboutPartners: `About you and your ${partner}`,
+    contactYou: 'How the court will contact you',
+    contactThem: `How the court will contact your ${partner}`,
+    otherCourtCases: 'Other court cases',
+    dividingAssets: 'Dividing your money and property',
+    documents: 'Your documents',
   },
   stepQuestions: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: { connections: 'How you’re connected to England and Wales' },
-    [urls.ENTER_YOUR_ADDRESS]: {
-      applicant1AddressCountry: 'Your postal address',
+    aboutPartnership: {
+      line1: `${isDivorce ? 'Who are you applying to divorce' : 'Are you male or female'}?`,
+      line2: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} irretrievably broken down (it cannot be saved)?`,
+      line3: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
+      line4: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
+      line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership?'}`,
     },
-    [urls.ENTER_THEIR_ADDRESS]: {
-      applicant2AddressCountry: `Your ${partner}’s postal address`,
+    helpWithFees: {
+      line1: `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
+      line2: `Have you already applied for help with your ${isDivorce ? 'divorce ' : ''}fee?`,
+    },
+    connectionsToEnglandWales: {
+      line1: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
+      line2: `Is your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate in English?`,
+      line3: `Do you have a ‘certified translation’ of your ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line4: `Enter the country where you ${isDivorce ? 'got married ' : 'formed your civil partnership'}`,
+      line5: `Enter the place where you ${isDivorce ? 'got married ' : 'formed your civil partnership'}`,
+      line6: 'Is your life mainly based in England and Wales?',
+      line7: `Is your ${partner}'s life mainly based in England or Wales?`,
+      line8: 'Have you been living in England or Wales for the last 12 months?',
+      line9: 'Have you been living in England or Wales for the last 6 months?',
+      line10: 'Is your domicile in England or Wales?',
+      line11: `Is your ${partner}’s domicile in England or Wales?`,
+      line12: 'Were you both last habitually resident in England or Wales and does one of you still live here?',
+      line13: "How you're connected to England and Wales",
+    },
+    aboutPartners: {
+      line1: `Copy your full name from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+      line2: `Copy your ${partner}'s full name from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+      line3: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
+      line4: `Have you changed any part of your name since ${
+        isDivorce ? 'getting married' : 'forming your civil partnership'
+      }?`,
+      line5: 'How did you change your name?',
+    },
+    contactYou: {
+      line1: 'Your first name(s)',
+      line2: 'Your middle name(s)',
+      line3: 'Your last name(s)',
+      line4: 'By email',
+      line5: 'By phone',
+      line6: 'What language do you want to receive emails and documents in?',
+      line7: `Do you need your contact details kept private from your ${partner}?`,
+      line8: 'Your postal address',
+    },
+    contactThem: {
+      line1: `Your ${partner}'s first name(s)`,
+      line2: `Your ${partner}'s middle name(s)`,
+      line3: `Your ${partner}'s last name(s)`,
+      line4: `Your ${partner}'s email address`,
+      line5: `Do you have your ${partner}'s postal address?`,
+      line6: `Your ${partner}'s postal address`,
+    },
+    otherCourtCases: {
+      line1: `Are there, or have there ever been, any other court cases relating to this ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }?`,
+      line2: 'Provide details about the other legal proceedings.',
+    },
+    dividingAssets: {
+      line1: 'Do you want to apply for a financial order?',
+    },
+    documents: {
+      line1: 'Uploaded files',
+      line2: 'I cannot upload some or all of my documents',
     },
   },
   stepAnswers: {
-    [urls.RELATIONSHIP_DATE_URL]: {
-      relationshipDate: userCase.relationshipDate ? getFormattedDate(userCase.relationshipDate) : false,
+    aboutPartnership: {
+      line1: `${userCase.gender ? `My ${partner}` : ''}`,
+      line2: `${
+        userCase.applicant1ScreenHasUnionBroken
+          ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
+            ? 'Yes my marriage has irretrievably broken'
+            : 'No, my marriage has not irretrievably broken down'
+          : ''
+      }`,
+      line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line4: `${
+        userCase.hasCertificate
+          ? userCase.hasCertificate === YesOrNo.YES
+            ? 'Yes, I have my marriage certificate'
+            : 'No I do not have my marriage certificate'
+          : ''
+      }`,
+      line5: `${
+        userCase.applicationType
+          ? isJointApplication
+            ? `I want to apply jointly, with my ${partner}`
+            : 'I want to apply on my own, as a sole applicant'
+          : ''
+      }`,
     },
-    [urls.HELP_PAYING_HAVE_YOU_APPLIED]: {
-      applicant1AlreadyAppliedForHelpPaying:
-        userCase.applicant1HelpPayingNeeded === YesOrNo.YES &&
-        userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes
-          ${userCase.applicant1HelpWithFeesRefNo}`
-          : false,
+    helpWithFees: {
+      line1: `${
+        userCase.applicant1HelpPayingNeeded
+          ? userCase.applicant1HelpPayingNeeded === YesOrNo.YES
+            ? 'I need help paying the fee'
+            : 'I do not need help paying the fee'
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant1AlreadyAppliedForHelpPaying
+          ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
+            ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
+            : ''
+          : ''
+      }`,
     },
-    [urls.HOW_DID_YOU_CHANGE_YOUR_NAME]: {
-      applicant1NameChangedHow: userCase.applicant1NameChangedHow
-        ?.join(' / ')
-        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
-        .replace(ChangedNameHow.OTHER, 'Another way'),
+    connectionsToEnglandWales: {
+      line1: `${userCase.inTheUk ? userCase.inTheUk : ''}`,
+      line2: `${userCase.certificateInEnglish ? userCase.certificateInEnglish : ''}`,
+      line3: `${userCase.certifiedTranslation ? userCase.certifiedTranslation : ''}`,
+      line4: `${userCase.ceremonyCountry ? userCase.ceremonyCountry : ''}`,
+      line5: `${userCase.ceremonyPlace ? userCase.ceremonyPlace : ''}`,
+      line6: `${userCase.applicant1LifeBasedInEnglandAndWales ? userCase.applicant1LifeBasedInEnglandAndWales : ''}`,
+      line7: `${userCase.applicant2LifeBasedInEnglandAndWales ? userCase.applicant2LifeBasedInEnglandAndWales : ''}`,
+      line8: `${userCase.applicant1DomicileInEnglandWales ? userCase.applicant1DomicileInEnglandWales : ''}`,
+      line9: `${
+        userCase.applicant1LivingInEnglandWalesTwelveMonths ? userCase.applicant1LivingInEnglandWalesTwelveMonths : ''
+      }`,
+      line10: `${
+        userCase.applicant1LivingInEnglandWalesSixMonths ? userCase.applicant1LivingInEnglandWalesSixMonths : ''
+      }`,
+      line11: `${userCase.applicant2DomicileInEnglandWales ? userCase.applicant2DomicileInEnglandWales : ''}`,
+      line12: `${userCase.bothLastHabituallyResident ? userCase.bothLastHabituallyResident : ''}`,
+      line13: `${userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner) : ''}`,
     },
-    [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections: userCase.connections?.length === 1 ? stepContent => stepContent.line1 : '',
+    aboutPartners: {
+      line1: `${userCase.applicant1FullNameOnCertificate}`,
+      line2: `${userCase.applicant2FullNameOnCertificate}`,
+      line3: `${
+        userCase.applicant1LastNameChangedWhenRelationshipFormed
+          ? userCase.applicant1LastNameChangedWhenRelationshipFormed
+          : ''
+      }`,
+      line4: `${
+        userCase.applicant1NameChangedSinceRelationshipFormed
+          ? userCase.applicant1NameChangedSinceRelationshipFormed
+          : ''
+      }`,
+      line5: `${
+        userCase.applicant1NameChangedHow?.length
+          ? userCase.applicant1NameChangedHow
+              .join(' / ')
+              .replace(ChangedNameHow.OTHER, 'Another way')
+              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
+          : ''
+      }`,
     },
-    [urls.ENTER_YOUR_ADDRESS]: {
-      applicant1Address1: false,
-      applicant1Address2: false,
-      applicant1Address3: false,
-      applicant1AddressTown: false,
-      applicant1AddressCounty: false,
-      applicant1AddressPostcode: false,
-      applicant1AddressCountry: [
+    contactYou: {
+      line1: `${userCase.applicant1FirstNames}`,
+      line2: `${userCase.applicant1MiddleNames}`,
+      line3: `${userCase.applicant1LastNames}`,
+      line4: `${
+        userCase.applicant1AgreeToReceiveEmails
+          ? 'I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email.'
+          : ''
+      }`,
+      line5: `${userCase.applicant1PhoneNumber}`,
+      line6: `${
+        userCase.applicant1EnglishOrWelsh
+          ? userCase.applicant1EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant1EnglishOrWelsh.slice(1)
+          : ''
+      }`,
+      line7: `${
+        userCase.applicant1AddressPrivate
+          ? userCase.applicant1AddressPrivate === YesOrNo.YES
+            ? 'Keep my contact details private'
+            : 'I do not need my contact details kept private'
+          : ''
+      }`,
+      line8: `${[
         userCase.applicant1Address1,
         userCase.applicant1Address2,
         userCase.applicant1Address3,
@@ -73,46 +209,120 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
         userCase.applicant1AddressCountry,
       ]
         .filter(Boolean)
-        .join('\n'),
+        .join('<br>')}`,
     },
-    [urls.ENTER_THEIR_ADDRESS]: {
-      applicant2Address1: false,
-      applicant2Address2: false,
-      applicant2Address3: false,
-      applicant2AddressTown: false,
-      applicant2AddressCounty: false,
-      applicant2AddressPostcode: false,
-      applicant2AddressCountry: [
-        userCase.applicant2Address1,
-        userCase.applicant2Address2,
-        userCase.applicant2Address3,
-        userCase.applicant2AddressTown,
-        userCase.applicant2AddressCounty,
-        userCase.applicant2AddressPostcode,
-        userCase.applicant2AddressCountry,
-      ]
-        .filter(Boolean)
-        .join('\n'),
+    contactThem: {
+      line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
+      line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
+      line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
+      line4: `${userCase.applicant2EmailAddress}`,
+      line5: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
+      line6: `${
+        isJointApplication
+          ? ''
+          : [
+              userCase.applicant2Address1,
+              userCase.applicant2Address2,
+              userCase.applicant2Address3,
+              userCase.applicant2AddressTown,
+              userCase.applicant2AddressCounty,
+              userCase.applicant2AddressPostcode,
+              userCase.applicant2AddressCountry,
+            ]
+              .filter(Boolean)
+              .join('<br>')
+      }`,
     },
-    [urls.UPLOAD_YOUR_DOCUMENTS]: {
-      applicant1UploadedFiles: (userCase.applicant1DocumentsUploaded || []).length
-        ? `${userCase.applicant1DocumentsUploaded?.reduce(
-            (acc, curr) => `${acc}${curr.value?.documentFileName}\n`,
-            ''
-          )}`
-        : false,
+    otherCourtCases: {
+      line1: `${userCase.applicant1LegalProceedings}`,
+      line2: `${userCase.applicant1LegalProceedingsDetails ? userCase.applicant1LegalProceedingsDetails : ''}`,
+    },
+    dividingAssets: {
+      line1: `${
+        userCase.applyForFinancialOrder
+          ? userCase.applyForFinancialOrder === YesOrNo.YES
+            ? 'Yes, I want to apply for a financial order'
+            : '\tNo, I do not want to apply for a financial order'
+          : ''
+      }`,
+    },
+    documents: {
+      line1: `${
+        userCase.applicant1DocumentsUploaded?.length
+          ? userCase.applicant1DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant1CannotUploadDocuments
+          ? userCase.applicant1CannotUploadDocuments.length
+            ? 'I cannot upload some or all of my documents'
+            : ''
+          : ''
+      }`,
     },
   },
   stepLinks: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: urls.CHECK_JURISDICTION,
-    [urls.APPLY_FINANCIAL_ORDER]: urls.APPLY_FINANCIAL_ORDER,
-  },
-  stepAnswersWithHTML: {
-    [urls.JURISDICTION_INTERSTITIAL_URL]: {
-      connections:
-        userCase.connections && userCase.connections?.length > 1
-          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner)
-          : '',
+    aboutPartnership: {
+      line1: urls.YOUR_NAME,
+      line2: urls.HAS_RELATIONSHIP_BROKEN_URL,
+      line3: urls.RELATIONSHIP_DATE_URL,
+      line4: urls.CERTIFICATE_URL,
+      line5: urls.HOW_DO_YOU_WANT_TO_APPLY,
+    },
+    helpWithFees: {
+      line1: urls.HELP_WITH_YOUR_FEE_URL,
+      line2: urls.HELP_PAYING_HAVE_YOU_APPLIED,
+    },
+    connectionsToEnglandWales: {
+      line1: urls.IN_THE_UK,
+      line2: urls.CERTIFICATE_IN_ENGLISH,
+      line3: urls.CERTIFIED_TRANSLATION,
+      line4: urls.COUNTRY_AND_PLACE,
+      line5: urls.COUNTRY_AND_PLACE,
+      line6: urls.WHERE_YOUR_LIVES_ARE_BASED_URL,
+      line7: urls.WHERE_YOUR_LIVES_ARE_BASED_URL,
+      line8: urls.JURISDICTION_LAST_TWELVE_MONTHS,
+      line9: urls.LIVING_ENGLAND_WALES_SIX_MONTHS,
+      line10: urls.JURISDICTION_DOMICILE,
+      line11: urls.JURISDICTION_DOMICILE,
+      line12: urls.HABITUALLY_RESIDENT_ENGLAND_WALES,
+      line13: urls.CHECK_JURISDICTION,
+    },
+    aboutPartners: {
+      line1: urls.CERTIFICATE_NAME,
+      line2: urls.CERTIFICATE_NAME,
+      line3: urls.CHANGES_TO_YOUR_NAME_URL,
+      line4: urls.CHANGES_TO_YOUR_NAME_URL,
+      line5: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
+    },
+    contactYou: {
+      line1: urls.YOUR_NAME,
+      line2: urls.YOUR_NAME,
+      line3: urls.YOUR_NAME,
+      line4: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line5: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line6: urls.ENGLISH_OR_WELSH,
+      line7: urls.ADDRESS_PRIVATE,
+      line8: urls.ENTER_YOUR_ADDRESS,
+    },
+    contactThem: {
+      line1: urls.THEIR_NAME,
+      line2: urls.THEIR_NAME,
+      line3: urls.THEIR_NAME,
+      line4: urls.THEIR_EMAIL_ADDRESS,
+      line5: urls.DO_YOU_HAVE_ADDRESS,
+      line6: urls.ENTER_THEIR_ADDRESS,
+    },
+    otherCourtCases: {
+      line1: urls.OTHER_COURT_CASES,
+      line2: urls.DETAILS_OTHER_PROCEEDINGS,
+    },
+    dividingAssets: {
+      line1: urls.APPLY_FINANCIAL_ORDER,
+    },
+    documents: {
+      line1: urls.UPLOAD_YOUR_DOCUMENTS,
+      line2: urls.UPLOAD_YOUR_DOCUMENTS,
     },
   },
   continueApplication: 'Continue application',
@@ -202,8 +412,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    sections: Sections,
-    getAnswerRows,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

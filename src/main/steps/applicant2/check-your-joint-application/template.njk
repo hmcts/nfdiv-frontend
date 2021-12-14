@@ -3,10 +3,6 @@
 
 {% extends "common/page.njk" %}
 
-{% set overrideStepsContent = 1 %}
-{% set showActions = false %}
-{% set isCompleteCase = false %}
-
 {% block backLink %}{% endblock %}
 
 {% block content %}
@@ -17,17 +13,31 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
 
-  {% for key, section in sections %}
-    {% set rows = getAnswerRows(section, isCompleteCase, showActions, overrideStepsContent) %}
-    {% if rows | length %}
-      <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
+  {% for property, section in sectionTitles %}
+    {% set answerRows = [] %}
+      {% for newProperty, line in stepAnswers[property] %}
+        {% if line %}
+          {% set answerRows = (answerRows.push({
+            key: {
+              html: stepQuestions[property][newProperty],
+              classes: 'govuk-!-width-two-thirds'
+            },
+            value: {
+              text: line | safe
+            }
+          }), answerRows) %}
+        {% endif %}
+      {% endfor %}
 
+    {% if answerRows.length %}
+      <h2 class="govuk-heading-m">{{sectionTitles[property]}}</h2>
       {{ govukSummaryList({
         classes: 'govuk-!-margin-bottom-9',
-        rows: rows
+        rows: answerRows
       }) }}
     {% endif %}
   {% endfor %}
+
   {% block form %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">

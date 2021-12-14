@@ -1,5 +1,6 @@
 import config from 'config';
 
+import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -111,10 +112,18 @@ export const form: FormContent = {
   },
 };
 
+const getApplicant1PartnerContent = (content: CommonContent): string => {
+  if (content.userCase?.sameSex === Checkbox.Unchecked && content.partner !== content.civilPartner) {
+    return content.partner === content.husband ? content.wife : content.husband;
+  } else {
+    return content.partner;
+  }
+};
+
 export const generateContent: TranslationFn = content => {
-  const applicant1Content = applicant1GenerateContent(content);
+  content.partner = getApplicant1PartnerContent(content);
   return {
-    ...applicant1Content,
+    ...applicant1GenerateContent(content),
     ...labels(content),
     form,
   };
