@@ -34,18 +34,23 @@ describe('HubPagePostController', () => {
   });
 
   it('triggers DRAFT_CONDITIONAL_ORDER', async () => {
+    const body = {
+      applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+    };
     const mockFormContent = {
-      fields: {},
+      fields: {
+        applicant1ApplyForConditionalOrderStarted: {},
+      },
     } as unknown as FormContent;
     const hubPagePostController = new HubPagePostController(mockFormContent.fields);
 
     const req = mockRequest({
-      body: {},
+      body,
       session: { isApplicant2: false },
     });
     const res = mockResponse();
     await hubPagePostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, DRAFT_CONDITIONAL_ORDER);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, DRAFT_CONDITIONAL_ORDER);
   });
 });
