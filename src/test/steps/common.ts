@@ -279,10 +279,13 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
   const api = iGetTheCaseApi(testUser);
   const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
-  data.applicant2SolicitorAddress = userCase.state;
+  data.applicant2MiddleNames = userCase.state;
   await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
 
-  await I.amOnPage(redirectPageLink);
+  I.amOnPage('/logout');
+  autoLogin.login(I, user.username);
+
+  I.amOnPage(redirectPageLink);
 };
 
 export interface BrowserCase extends Case {
