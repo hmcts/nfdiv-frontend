@@ -4,6 +4,7 @@ import {
   APPLICANT_1_CONFIRM_RECEIPT,
   ApplicationType,
   DRAFT_CONDITIONAL_ORDER,
+  State,
   YesOrNo,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
@@ -47,6 +48,7 @@ describe('HubPagePostController', () => {
     const req = mockRequest({
       body,
       session: { isApplicant2: false },
+      userCase: { state: State.AwaitingConditionalOrder },
     });
     const res = mockResponse();
     await hubPagePostController.post(req, res);
