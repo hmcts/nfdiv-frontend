@@ -87,8 +87,7 @@ export class PostController<T extends AnyObject> {
   protected getEventName(req: AppRequest<T>): string {
     if (
       req.session.userCase.state === State.ConditionalOrderDrafted &&
-      (req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION ||
-        (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && !req.session.isApplicant2))
+      !(req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2)
     ) {
       return UPDATE_CONDITIONAL_ORDER;
     } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {

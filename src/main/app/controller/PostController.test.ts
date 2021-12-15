@@ -274,7 +274,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
 
-  test('triggers update-conditional-order event if solo case is in ConditionalOrderDrafted and is applicant1', async () => {
+  test('triggers update-conditional-order event if sole case is in ConditionalOrderDrafted and is applicant1', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = {};
     const controller = new PostController(mockFormContent.fields);
@@ -290,7 +290,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
 
-  test('should not trigger update-conditional-order event if solo case is in ConditionalOrderDrafted and is applicant2', async () => {
+  test('should not trigger update-conditional-order event if sole case is in ConditionalOrderDrafted and is applicant2', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = {};
     const controller = new PostController(mockFormContent.fields);
