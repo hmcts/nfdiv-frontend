@@ -113,4 +113,6 @@ export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-o
 
 export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
 
-export const CONTINUE_WITH_CONDITIONAL_ORDER: PageLink = '/continue-with-conditional-order';
+export const CONTINUE_WITH_YOUR_APPLICATION: PageLink = '/continue-with-your-application';
+export const REVIEW_YOUR_APPLICATION: PageLink = '/review-your-application';
+export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-application';

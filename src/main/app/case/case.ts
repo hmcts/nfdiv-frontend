@@ -93,6 +93,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
   applicant1ApplyForConditionalOrderStarted: 'applicant1ApplyForConditionalOrderStarted',
+  applicant1ContinueApplication: 'applicant1ContinueApplication',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -228,6 +229,7 @@ export interface Case {
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
+  applicant1ContinueApplication?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
