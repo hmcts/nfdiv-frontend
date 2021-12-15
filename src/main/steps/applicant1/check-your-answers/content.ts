@@ -500,58 +500,46 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => 
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${userCase.inTheUk ? (userCase.inTheUk === YesOrNo.YES ? 'Do' : 'Naddo') : ''}`,
+      line1: `${userCase.inTheUk ? userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo') : ''}`,
       line2: `${userCase.certificateInEnglish ? userCase.certificateInEnglish : ''}`,
-      line3: `${userCase.certifiedTranslation ? (userCase.certifiedTranslation === YesOrNo.YES ? 'Do' : 'Naddo') : ''}`,
+      line3: `${
+        userCase.certifiedTranslation ? userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo') : ''
+      }`,
       line4: `${userCase.ceremonyCountry ? userCase.ceremonyCountry : ''}`,
       line5: `${userCase.ceremonyPlace ? userCase.ceremonyPlace : ''}`,
       line6: `${
         userCase.applicant1LifeBasedInEnglandAndWales
-          ? userCase.applicant1LifeBasedInEnglandAndWales === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line7: `${
         userCase.applicant2LifeBasedInEnglandAndWales
-          ? userCase.applicant2LifeBasedInEnglandAndWales === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line8: `${
         userCase.applicant1DomicileInEnglandWales
-          ? userCase.applicant1DomicileInEnglandWales === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line9: `${
         userCase.applicant1LivingInEnglandWalesTwelveMonths
-          ? userCase.applicant1LivingInEnglandWalesTwelveMonths === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line10: `${
         userCase.applicant1LivingInEnglandWalesSixMonths
-          ? userCase.applicant1LivingInEnglandWalesSixMonths === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line11: `${
         userCase.applicant2DomicileInEnglandWales
-          ? userCase.applicant2DomicileInEnglandWales === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line12: `${
         userCase.bothLastHabituallyResident
-          ? userCase.bothLastHabituallyResident === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line13: `${userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner) : ''}`,
@@ -643,9 +631,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => 
     otherCourtCases: {
       line1: `${
         userCase.applicant1LegalProceedings
-          ? userCase.applicant1LegalProceedings === YesOrNo.YES
-            ? 'Do'
-            : 'Naddo'
+          ? userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
       line2: `${userCase.applicant1LegalProceedingsDetails ? userCase.applicant1LegalProceedingsDetails : ''}`,
