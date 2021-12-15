@@ -4,14 +4,14 @@ import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
 import { CommonContent } from '../../common/common.content';
 
-const labels = ({ userCase }: CommonContent) => ({
+const labels = ({ userCase, isDivorce }: CommonContent) => ({
   stepAnswers: {
     aboutPartnership: {
       line2: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
-            ? 'Yes my marriage has irretrievably broken'
-            : 'No, my marriage has not irretrievably broken down'
+            ? `Yes, my ${isDivorce ? 'marriage' : 'civil partnership'} has irretrievably broken down`
+            : `No, my ${isDivorce ? 'marriage' : 'civil partnership'} has not irretrievably broken down`
           : ''
       }`,
     },
@@ -49,7 +49,10 @@ const labels = ({ userCase }: CommonContent) => ({
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Another way')
               .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-              .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, 'Marriage certificate')
+              .replace(
+                ChangedNameHow.MARRIAGE_CERTIFICATE,
+                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+              )
           : ''
       }`,
     },
@@ -59,7 +62,9 @@ const labels = ({ userCase }: CommonContent) => ({
       line3: `${userCase.applicant2LastNames}`,
       line4: `${
         userCase.applicant2AgreeToReceiveEmails
-          ? 'I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email.'
+          ? `I agree that the ${
+              isDivorce ? 'divorce' : 'civil partnership'
+            } service can send me notifications and serve (deliver) court documents to me by email.`
           : ''
       }`,
       line5: `${userCase.applicant2PhoneNumber}`,
@@ -108,10 +113,8 @@ const labels = ({ userCase }: CommonContent) => ({
           : ''
       }`,
       line2: `${
-        userCase.applicant2CannotUploadDocuments
-          ? userCase.applicant2CannotUploadDocuments.length
-            ? 'I cannot upload some or all of my documents'
-            : ''
+        userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
+          ? 'I cannot upload some or all of my documents'
           : ''
       }`,
     },

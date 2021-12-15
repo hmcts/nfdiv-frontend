@@ -264,10 +264,8 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
           : ''
       }`,
       line2: `${
-        userCase.applicant1CannotUploadDocuments
-          ? userCase.applicant1CannotUploadDocuments.length
-            ? 'I cannot upload some or all of my documents'
-            : ''
+        userCase.applicant1CannotUploadDocuments && userCase.applicant1CannotUploadDocuments.length
+          ? 'I cannot upload some or all of my documents'
           : ''
       }`,
     },

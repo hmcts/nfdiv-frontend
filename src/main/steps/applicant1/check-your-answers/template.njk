@@ -21,24 +21,24 @@
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
-  {% for property, section in sectionTitles %}
+  {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
-      {% for newProperty, line in stepAnswers[property] %}
+      {% for line, text in stepAnswers[section] %}
         {% if line %}
           {% set answerRows = (answerRows.push({
             key: {
-              html: stepQuestions[property][newProperty],
+              html: stepQuestions[section][line],
               classes: 'govuk-!-width-two-thirds'
             },
             value: {
-              text: line | safe
+              text: text | safe
             },
             actions: {
               items: [
                 {
-                  href: stepLinks[property][newProperty],
+                  href: stepLinks[section][line],
                   text: change,
-                  visuallyHiddenText: stepQuestions[property][newProperty]
+                  visuallyHiddenText: stepQuestions[section][line]
                 }
               ]
             }
@@ -47,7 +47,7 @@
       {% endfor %}
 
     {% if answerRows.length %}
-      <h2 class="govuk-heading-m">{{sectionTitles[property]}}</h2>
+      <h2 class="govuk-heading-m">{{sectionTitles[section]}}</h2>
       {{ govukSummaryList({
         classes: 'govuk-!-margin-bottom-9',
         rows: answerRows
