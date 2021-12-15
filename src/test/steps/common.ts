@@ -6,7 +6,7 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
@@ -230,6 +230,27 @@ When('a case worker issues the application', async () => {
   const caseWorker = await iGetTheTestUser(cwUser);
   const cwCaseApi = iGetTheCaseApi(caseWorker);
   await cwCaseApi.triggerEvent(caseReference, { ceremonyPlace: 'Somewhere' }, 'caseworker-issue-application');
+});
+
+Given('I set the case state to {string}', async (state: State) => {
+  await I.amOnPage('/your-details');
+  iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const caseReference = userCase.id;
+
+  if (!caseReference) {
+    throw new Error(`No case reference was returned for ${testUser}`);
+  }
+
+  await caseApi.triggerEvent(caseReference, { applicant2MiddleNames: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
+
+  iSetTheUsersCaseTo({
+    state,
+  });
 });
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {

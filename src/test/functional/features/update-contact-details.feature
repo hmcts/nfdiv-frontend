@@ -38,7 +38,7 @@ Feature: Update contact details
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: respondent updates contact details
+  Scenario: Respondent updates contact details
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
