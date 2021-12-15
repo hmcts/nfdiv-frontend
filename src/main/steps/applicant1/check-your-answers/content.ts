@@ -190,30 +190,37 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
             } service can send me notifications and serve (deliver) court documents to me by email.`
           : ''
       }`,
-      line5: `${userCase.applicant1PhoneNumber}`,
+      line5: `${
+        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2 ? '' : userCase.applicant1PhoneNumber
+      }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
           ? userCase.applicant1EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant1EnglishOrWelsh.slice(1)
           : ''
       }`,
       line7: `${
-        userCase.applicant1AddressPrivate
-          ? userCase.applicant1AddressPrivate === YesOrNo.YES
-            ? 'Keep my contact details private'
-            : 'I do not need my contact details kept private'
-          : ''
+        !userCase.applicant1AddressPrivate ||
+        (userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2)
+          ? ''
+          : userCase.applicant1AddressPrivate === YesOrNo.YES
+          ? 'Keep my contact details private'
+          : 'I do not need my contact details kept private'
       }`,
-      line8: `${[
-        userCase.applicant1Address1,
-        userCase.applicant1Address2,
-        userCase.applicant1Address3,
-        userCase.applicant1AddressTown,
-        userCase.applicant1AddressCounty,
-        userCase.applicant1AddressPostcode,
-        userCase.applicant1AddressCountry,
-      ]
-        .filter(Boolean)
-        .join('<br>')}`,
+      line8: `${
+        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2
+          ? ''
+          : [
+              userCase.applicant1Address1,
+              userCase.applicant1Address2,
+              userCase.applicant1Address3,
+              userCase.applicant1AddressTown,
+              userCase.applicant1AddressCounty,
+              userCase.applicant1AddressPostcode,
+              userCase.applicant1AddressCountry,
+            ]
+              .filter(Boolean)
+              .join('<br>')
+      }`,
     },
     contactThem: {
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
@@ -581,30 +588,37 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => 
             } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`
           : ''
       }`,
-      line5: `${userCase.applicant1PhoneNumber}`,
+      line5: `${
+        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2 ? '' : userCase.applicant1PhoneNumber
+      }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
           ? userCase.applicant1EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant1EnglishOrWelsh.slice(1)
           : ''
       }`,
       line7: `${
-        userCase.applicant1AddressPrivate
-          ? userCase.applicant1AddressPrivate === YesOrNo.YES
-            ? 'Cadwch fy manylion cyswllt yn breifat'
-            : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
-          : ''
+        !userCase.applicant1AddressPrivate ||
+        (userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2)
+          ? ''
+          : userCase.applicant1AddressPrivate === YesOrNo.YES
+          ? 'Cadwch fy manylion cyswllt yn breifat'
+          : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
       }`,
-      line8: `${[
-        userCase.applicant1Address1,
-        userCase.applicant1Address2,
-        userCase.applicant1Address3,
-        userCase.applicant1AddressTown,
-        userCase.applicant1AddressCounty,
-        userCase.applicant1AddressPostcode,
-        userCase.applicant1AddressCountry,
-      ]
-        .filter(Boolean)
-        .join('<br>')}`,
+      line8: `${
+        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2
+          ? ''
+          : [
+              userCase.applicant1Address1,
+              userCase.applicant1Address2,
+              userCase.applicant1Address3,
+              userCase.applicant1AddressTown,
+              userCase.applicant1AddressCounty,
+              userCase.applicant1AddressPostcode,
+              userCase.applicant1AddressCountry,
+            ]
+              .filter(Boolean)
+              .join('<br>')
+      }`,
     },
     contactThem: {
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
