@@ -274,47 +274,13 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
 
-  test('triggers update-conditional-order event if sole case is in ConditionalOrderDrafted and is applicant1', async () => {
+  test('triggers update-conditional-order event if case is in ConditionalOrderDrafted', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = {};
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-    req.session.userCase.state = State.ConditionalOrderDrafted;
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, UPDATE_CONDITIONAL_ORDER);
-
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
-  });
-
-  test('should not trigger update-conditional-order event if sole case is in ConditionalOrderDrafted and is applicant2', async () => {
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = {};
-    const controller = new PostController(mockFormContent.fields);
-
-    const req = mockRequest({ body });
-    req.session.isApplicant2 = true;
-    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-    req.session.userCase.state = State.ConditionalOrderDrafted;
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, UPDATE_AOS);
-
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
-  });
-
-  test('should trigger update-conditional-order event if joint case is in ConditionalOrderDrafted', async () => {
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = {};
-    const controller = new PostController(mockFormContent.fields);
-
-    const req = mockRequest({ body });
-    req.session.isApplicant2 = true;
-    req.session.userCase.applicationType = ApplicationType.JOINT_APPLICATION;
     req.session.userCase.state = State.ConditionalOrderDrafted;
     const res = mockResponse();
     await controller.post(req, res);
