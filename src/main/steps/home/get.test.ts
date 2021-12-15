@@ -9,7 +9,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
-  CONTINUE_WITH_CONDITIONAL_ORDER,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -187,7 +187,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_CONDITIONAL_ORDER}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
@@ -221,7 +221,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_CONDITIONAL_ORDER);
+    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
   });
 
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
