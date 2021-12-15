@@ -29,27 +29,38 @@ Feature: Hub page
     And the page should include "The next step is to apply for a 'conditional order'."
 
   Scenario: Applicant 1 draft conditional order from AwaitingConditionalOrderState
-    Given I set the case state to "AwaitingConditionalOrder"
+    Given I go to "/"
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
+    Given I enter my valid case reference and valid access code
+    When I click "Sign out"
+    And I login with applicant "1"
+    And I set the case state to "AwaitingConditionalOrder"
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
-    Then the page URL should be "/continue-with-conditional-order"
-    Given I enter my valid case reference and valid access code
+    Then the page URL should be "/continue-with-your-application"
+    When I click "Sign out"
+    Given I login with applicant "2"
     And I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
-    Then the page URL should be "/continue-with-conditional-order"
+    Then the page URL should be "/continue-with-your-application"
 
   Scenario: Applicant 2 draft conditional order from AwaitingConditionalOrderState
+    Given I go to "/"
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
     And I set the case state to "AwaitingConditionalOrder"
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
-    Then the page URL should be "/continue-with-conditional-order"
-    Given I login with applicant "1"
+    Then the page URL should be "/continue-with-your-application"
+    Given I click "Sign out"
+    And I login with applicant "1"
     And I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
-    Then the page URL should be "/continue-with-conditional-order"  
+    Then the page URL should be "/continue-with-your-application"
 

@@ -100,6 +100,7 @@ const applicant2RedirectPageSwitch = (
   isLastQuestionComplete: boolean
 ) => {
   switch (caseState) {
+    case State.AwaitingConditionalOrder:
     case State.Holding: {
       return `${APPLICANT_2}${HUB_PAGE}`;
     }

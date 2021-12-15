@@ -2,15 +2,13 @@
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
-{% else %}
-  {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
-    {% for property, line in applicationSubmittedLatestUpdate %}
-      <p class="govuk-body">{{ line }}</p>
-    {% endfor %}
-  {% elif progressionIndex > 0 and progressionIndex < 4 and not hasApplicantAppliedForConditionalOrderConfirmed %}
+{% elif progressionIndex == 0 %}
+  {% for property, line in applicationSubmittedLatestUpdate %}
+    <p class="govuk-body">{{ line }}</p>
+  {% endfor %}
+{% elif progressionIndex > 0 and progressionIndex < 4 and hasApplicantNotYetAppliedForConditionalOrder %}
     <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
-  {% endif %}
-  {% block form %}
-    {% include "../form.njk" %}
-  {% endblock %}
 {% endif %}
+{% block form %}
+  {% include "../form.njk" %}
+{% endblock %}

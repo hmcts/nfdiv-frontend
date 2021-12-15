@@ -226,7 +226,7 @@ Given('I set the case state to {string}', async (state: State) => {
     throw new Error(`No case reference was returned for ${testUser}`);
   }
 
-  await caseApi.triggerEvent(caseReference, { applicant2SolicitorAddress: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
+  await caseApi.triggerEvent(caseReference, { applicant2MiddleNames: state }, CITIZEN_UPDATE_CASE_STATE_AAT);
 
   iSetTheUsersCaseTo({
     state,

@@ -54,15 +54,15 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
-  const hasApplicantAppliedForConditionalOrderConfirmed = content.isApplicant2
-    ? content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES
-    : content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES;
+  const hasApplicantNotYetAppliedForConditionalOrder = content.isApplicant2
+    ? content.userCase.applicant2ApplyForConditionalOrderStarted !== YesOrNo.YES
+    : content.userCase.applicant1ApplyForConditionalOrderStarted !== YesOrNo.YES;
   const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language](content),
     progressionIndex,
     hasApplicantConfirmedReceipt,
-    hasApplicantAppliedForConditionalOrderConfirmed,
+    hasApplicantNotYetAppliedForConditionalOrder,
     isApplicant2,
   };
 };
