@@ -93,6 +93,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
   applicant1ApplyForConditionalOrderStarted: 'applicant1ApplyForConditionalOrderStarted',
+  applicant2ApplyForConditionalOrderStarted: 'applicant2ApplyForConditionalOrderStarted',
   applicant1ContinueApplication: 'applicant1ContinueApplication',
 };
 

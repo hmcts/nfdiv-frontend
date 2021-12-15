@@ -15,7 +15,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
-  CONTINUE_WITH_CONDITIONAL_ORDER,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -77,7 +77,7 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
     case State.ConditionalOrderDrafted: {
-      return userCase.applicant1ApplyForConditionalOrderStarted ? CONTINUE_WITH_CONDITIONAL_ORDER : HUB_PAGE;
+      return userCase.applicant1ApplyForConditionalOrderStarted ? CONTINUE_WITH_YOUR_APPLICATION : HUB_PAGE;
     }
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
@@ -108,7 +108,7 @@ const applicant2RedirectPageSwitch = (
     }
     case State.ConditionalOrderDrafted: {
       return userCase.applicant2ApplyForConditionalOrderStarted
-        ? `${APPLICANT_2}${CONTINUE_WITH_CONDITIONAL_ORDER}`
+        ? `${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`
         : `${APPLICANT_2}${HUB_PAGE}`;
     }
     default: {
