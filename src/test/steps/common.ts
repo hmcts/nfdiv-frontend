@@ -287,7 +287,7 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
   const api = iGetTheCaseApi(testUser);
   const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
-  data.applicant2MiddleNames = userCase.state;
+  data.applicant2MiddleNames = data.state || userCase.state;
 
   const connections = addConnection(data);
 
