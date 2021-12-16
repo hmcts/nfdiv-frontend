@@ -6,14 +6,13 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
+import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
+import { addConnection } from '../../main/app/jurisdiction/connections';
 import {
   APPLICANT_2,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOW_DO_YOU_WANT_TO_RESPOND,
   LEGAL_JURISDICTION_OF_THE_COURTS,
-  RELATIONSHIP_DATE_URL,
   RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   YOUR_NAME,
@@ -24,7 +23,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(5);
+  test.retries(3);
 });
 
 After(async () => {
@@ -44,16 +43,16 @@ Then('the page URL should be {string}', (url: string) => {
   I.waitInUrl(url);
 });
 
-Given('I login', () => {
-  login('citizen');
+Given('I login', async () => {
+  await login('citizen');
 });
 
-Given('I create a new user and login', () => {
-  login('citizenSingleton');
+Given('I create a new user and login', async () => {
+  await login('citizenSingleton');
 });
 
-Given('I login with applicant 1', () => {
-  autoLogin.login(I, testConfig.GetUser(1).username);
+Given('I login with applicant 1', async () => {
+  await autoLogin.login(I, testConfig.GetUser(1).username);
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -114,8 +113,8 @@ Then('I type {string}', (text: string) => {
   I.type(text);
 });
 
-export const iClearTheForm = (): void => {
-  I.executeScript(() => {
+export const iClearTheForm = async (): Promise<void> => {
+  await I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
     for (const checkedInput of checkedInputs) {
       checkedInput.checked = false;
@@ -130,33 +129,34 @@ export const iClearTheForm = (): void => {
     clearInputs(document.querySelectorAll('textarea'));
     clearInputs(document.querySelectorAll('input[type="text"]'));
   });
+  await I.grabCurrentUrl();
 };
 Given('I clear the form', iClearTheForm);
 
-Given("I've said I'm applying as a sole application", () => {
+Given("I've said I'm applying as a sole application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I want to apply on my own, as a sole applicant');
   I.click('Continue');
 });
 
-Given("I've said I'm applying as a joint application", () => {
+Given("I've said I'm applying as a joint application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I want to apply jointly');
   I.click('Continue');
 });
 
-Given("I've said I'm divorcing my husband", () => {
+Given("I've said I'm divorcing my husband", async () => {
   I.amOnPage('/your-details');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('My husband');
   I.click('Continue');
 });
 
-Given("I've said I do not have my husband's email address", () => {
+Given("I've said I do not have my husband's email address", async () => {
   I.amOnPage('/their-email-address');
-  iClearTheForm();
+  await iClearTheForm();
   I.checkOption('I do not know their email address');
   I.click('Continue');
 });
@@ -184,8 +184,8 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
@@ -202,19 +202,22 @@ When('I enter my valid case reference and valid access code', async () => {
 
   iClick('Sign out');
   await login('citizenSingleton');
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+
+  await I.grabCurrentUrl();
+
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   iClick('Your reference number');
   I.type(caseReference);
   iClick('Your access code');
-  I.type(accessCode as string);
+  I.type(accessCode);
   iClick('Continue');
 });
 
 When('a case worker issues the application', async () => {
-  await I.amOnPage('/applicant2/enter-your-access-code');
-  iClearTheForm();
+  I.amOnPage('/applicant2/enter-your-access-code');
+  await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
@@ -268,42 +271,43 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, RELATIONSHIP_DATE_URL, WHERE_YOUR_LIVES_ARE_BASED_URL);
+  executeUserCaseScript(userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL);
 
 export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL, APPLICANT_2 + YOUR_NAME);
+  executeUserCaseScript(userCaseObj, APPLICANT_2 + YOUR_NAME);
 
 export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(
-    userCaseObj,
-    RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND,
-    RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS
-  );
+  executeUserCaseScript(userCaseObj, RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS);
 
-const executeUserCaseScript = (userCaseObj, requestPageLink: string, redirectPageLink: string) =>
-  I.executeScript(
-    async ([userCase, requestUrl, redirectUrl]) => {
-      const mainForm = document.getElementById('main-form') as HTMLFormElement;
-      const formData = mainForm ? new FormData(mainForm) : new FormData();
-      for (const [key, value] of Object.entries(userCase)) {
-        formData.set(key, value as string);
-      }
+const executeUserCaseScript = async (data, redirectPageLink: string) => {
+  await I.grabCurrentUrl();
 
-      const request = {
-        method: 'POST',
-        body: new URLSearchParams(formData as unknown as Record<string, string>),
-      };
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const api = iGetTheCaseApi(testUser);
+  const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
-      await fetch(requestUrl, request);
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      await fetch(redirectUrl, request);
-    },
-    [userCaseObj, requestPageLink, redirectPageLink]
-  );
+  data.applicant2MiddleNames = data.state || userCase.state;
+
+  const connections = addConnection(data);
+
+  // don't set as applicant 2 as they don't have permission
+  data.connections = connections.length > 0 ? connections : undefined;
+
+  try {
+    await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+  } catch (error) {
+    console.error('Could not set fixture data as ' + user.username);
+    console.error(toApiFormat(data));
+    process.exit(-1);
+  }
+
+  I.amOnPage('/logout');
+  await autoLogin.login(I, user.username);
+
+  I.amOnPage(redirectPageLink);
+};
 
 export interface BrowserCase extends Case {
   state: State;
-  'relationshipDate-day': number;
-  'relationshipDate-month': number;
-  'relationshipDate-year': number;
 }
