@@ -93,6 +93,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
   applicant1ContinueApplication: 'applicant1ContinueApplication',
+  coApplicantStatementOfTruth: 'coApplicantStatementOfTruth',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -227,6 +228,7 @@ export interface Case {
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   applicant1ContinueApplication?: YesOrNo;
+  coApplicantStatementOfTruth?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

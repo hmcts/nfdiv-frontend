@@ -1,0 +1,58 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% extends "common/page.njk" %}
+
+{% block content %}
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: question1,
+          classes: 'govuk-!-width-two-thirds'
+        },
+        value: {
+          text: userCase.applicant1ContinueApplication
+        },
+        actions: {
+          items: [
+            {
+              href: '/continue-with-your-application',
+              text: "Change",
+              visuallyHiddenText: "continue with your application"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+        text: question2
+      },
+        value: {
+        text: userCase.applicant1ContinueApplication
+      },
+        actions: {
+          items: [
+            {
+              href: '/continue-with-your-application',
+              text: "Change",
+              visuallyHiddenText: "continue with your application"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  {% block form %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% include "./form.njk" %}
+      </div>
+    </div>
+  {% endblock %}
+{% endblock %}

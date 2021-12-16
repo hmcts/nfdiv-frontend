@@ -18,6 +18,7 @@ import {
   CERTIFIED_TRANSLATION,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_JURISDICTION,
   CHECK_PHONE_NUMBER,
@@ -491,6 +492,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: WITHDRAWING_YOUR_APPLICATION,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
   },
 ];
 
