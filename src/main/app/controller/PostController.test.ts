@@ -31,6 +31,12 @@ describe('PostController', () => {
         type: 'checkboxes',
         values: [{ name: 'sameSex', value: Checkbox.Checked }],
       },
+      gender: {},
+      applicant1IBelieveApplicationIsTrue: {},
+      applicant1IConfirmPrayer: {},
+      day: {},
+      month: {},
+      year: {},
     },
   } as unknown as FormContent;
 
