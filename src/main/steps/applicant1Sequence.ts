@@ -461,10 +461,6 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: READ_THE_RESPONSE,
-    getNextStep: () => HOME_URL,
-  },
-  {
     url: SWITCH_TO_SOLE_APPLICATION,
     getNextStep: () => YOUR_DETAILS_URL,
   },
@@ -487,6 +483,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_PHONE_NUMBER,
     getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: READ_THE_RESPONSE,
+    getNextStep: () => CONTINUE_WITH_YOUR_APPLICATION,
   },
   {
     url: CONTINUE_WITH_YOUR_APPLICATION,
