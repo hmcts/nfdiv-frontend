@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-16 15:07:37.
+// Generated using typescript-generator version 2.34.976 on 2021-12-16 15:48:14.
 
 export interface Address {
   AddressLine1: string;
@@ -44,8 +44,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -195,8 +195,6 @@ export interface Applicant {
   PcqId: string;
   DivorceWho: WhoDivorcing;
   ContinueApplication: YesOrNo;
-  ConfirmInformationStillCorrect: YesOrNo;
-  ReasonInformationNotCorrect: string;
 }
 
 export interface Application {
@@ -348,8 +346,6 @@ export interface CaseData {
   applicant1PcqId: string;
   applicant1DivorceWho: WhoDivorcing;
   applicant1ContinueApplication: YesOrNo;
-  applicant1ConfirmInformationStillCorrect: YesOrNo;
-  applicant1ReasonInformationNotCorrect: string;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -382,8 +378,6 @@ export interface CaseData {
   applicant2PcqId: string;
   applicant2DivorceWho: WhoDivorcing;
   applicant2ContinueApplication: YesOrNo;
-  applicant2ConfirmInformationStillCorrect: YesOrNo;
-  applicant2ReasonInformationNotCorrect: string;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -523,6 +517,10 @@ export interface CaseData {
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicantStatementOfTruth: YesOrNo;
+  coApplicant1ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant2ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant2ReasonInformationNotCorrect: string;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -657,6 +655,10 @@ export interface ConditionalOrder {
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
   ApplicantStatementOfTruth: YesOrNo;
+  Applicant1ConfirmInformationStillCorrect: YesOrNo;
+  Applicant1ReasonInformationNotCorrect: string;
+  Applicant2ConfirmInformationStillCorrect: YesOrNo;
+  Applicant2ReasonInformationNotCorrect: string;
 }
 
 export interface CtscContactDetails {
