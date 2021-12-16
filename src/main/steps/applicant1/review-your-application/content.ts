@@ -5,7 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import { CommonContent } from '../../common/common.content';
-import { HOW_THE_COURTS_WILL_CONTACT_YOU } from '../../urls';
+import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your ${isJointApplication ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -103,7 +103,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
   reasonInformationNotCorrect: `<strong>Changing your contact details</strong>
     <br>
-    You can update your address and phone number in the <a class="govuk-link" href="${HOW_THE_COURTS_WILL_CONTACT_YOU}">‘contact details’ section of your ${
+    You can update your address and phone number in the <a class="govuk-link" href="${CHECK_CONTACT_DETAILS}">‘contact details’ section of your ${
     isDivorce ? 'divorce' : ''
   } account.</a> There is no cost for this.</p>
     <br>
