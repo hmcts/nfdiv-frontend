@@ -6,7 +6,7 @@ import { FormContent } from '../../../app/form/Form';
 
 import ConfirmYourJointApplicationPostController from './post';
 
-describe('ConfirmYourAnswersPostController', () => {
+describe('ConfirmYourJointApplicationPostController', () => {
   it('triggers APPLICANT_2_APPROVED', async () => {
     const body = {
       applicant1IConfirmPrayer: '',
@@ -19,6 +19,9 @@ describe('ConfirmYourAnswersPostController', () => {
       fields: {
         applicant2IConfirmPrayer: {},
         applicant2IBelieveApplicationIsTrue: {},
+        applicationType: {},
+        applicant1IConfirmPrayer: {},
+        applicant1IBelieveApplicationIsTrue: {},
       },
     } as unknown as FormContent;
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockFormContent.fields);

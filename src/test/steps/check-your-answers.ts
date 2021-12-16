@@ -6,7 +6,7 @@ import { iSetTheUsersCaseTo } from './common';
 const { I } = inject();
 
 Given("I've completed enough questions correctly to get to the check your answers page", async () => {
-  iSetTheUsersCaseTo({
+  await iSetTheUsersCaseTo({
     applicationType: ApplicationType.SOLE_APPLICATION,
     applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
     certificateInEnglish: YesOrNo.NO,
@@ -19,9 +19,7 @@ Given("I've completed enough questions correctly to get to the check your answer
     certifiedTranslation: YesOrNo.YES,
     applicant1HelpPayingNeeded: YesOrNo.YES,
     ceremonyCountry: 'Mozambique',
-    'relationshipDate-day': 31,
-    'relationshipDate-month': 12,
-    'relationshipDate-year': 1999,
+    relationshipDate: { day: '31', month: '12', year: '1999' },
     sameSex: Checkbox.Unchecked,
     ceremonyPlace: 'Maputo',
   });
@@ -30,7 +28,7 @@ Given("I've completed enough questions correctly to get to the check your answer
 Given(
   "I've completed enough questions correctly to get to the check your answers page as a joint applicant",
   async () => {
-    iSetTheUsersCaseTo({
+    await iSetTheUsersCaseTo({
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       certificateInEnglish: YesOrNo.NO,
@@ -43,9 +41,7 @@ Given(
       certifiedTranslation: YesOrNo.YES,
       applicant1HelpPayingNeeded: YesOrNo.YES,
       ceremonyCountry: 'Mozambique',
-      'relationshipDate-day': 31,
-      'relationshipDate-month': 12,
-      'relationshipDate-year': 1999,
+      relationshipDate: { day: '31', month: '12', year: '1999' },
       sameSex: Checkbox.Unchecked,
       ceremonyPlace: 'Maputo',
     });
