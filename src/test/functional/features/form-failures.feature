@@ -394,7 +394,6 @@ Feature: Form failures
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
     And I go to "/applicant2/upload-your-documents"
-    And I select "I cannot upload some or all of my documents"
     When I click "Continue"
     Then the page should include "Select which file you could not upload before continuing."
     Given I go to "/applicant2/confirm-your-joint-application"
