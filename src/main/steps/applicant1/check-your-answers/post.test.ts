@@ -15,6 +15,8 @@ import CheckYourAnswersPostController from './post';
 describe('CheckYourAnswersPostController', () => {
   const mockFormContent = {
     fields: {
+      applicationType: {},
+      state: {},
       applicant1IConfirmPrayer: {},
       applicant1IBelieveApplicationIsTrue: {},
     },
