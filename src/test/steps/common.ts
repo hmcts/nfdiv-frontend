@@ -23,7 +23,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(3);
+  test.retries(1);
 });
 
 After(async () => {
@@ -82,11 +82,11 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 25);
+  I.waitForText(text, 15);
 });
 
 Then('I wait until the page contains image {string}', (text: string) => {
-  I.waitForText(text, 60);
+  I.waitForText(text, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -169,7 +169,7 @@ Given('I delete any previously uploaded files', async () => {
   let i = 0;
   while (numberOfElements > 0 && i < maxRetries) {
     I.click('Delete');
-    I.wait(3);
+    I.wait(1);
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
     i++;
   }
