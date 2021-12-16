@@ -3,6 +3,15 @@ import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
 
+const WHITELISTED_FIELDS = [
+  'applicant1ConfirmReceipt',
+  'applicant2ConfirmReceipt',
+  'saveAndSignOut',
+  'saveBeforeSessionTimeout',
+  '_csrf',
+  'connections',
+];
+
 export class Form {
   constructor(private readonly fields: FormFields) {}
 
@@ -31,7 +40,11 @@ export class Form {
         });
     }
 
-    return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
+    const formFieldValues = Object.keys(body)
+      .filter(key => WHITELISTED_FIELDS.includes(key) || fields[key])
+      .reduce((newBody, key) => ({ [key]: body[key], ...newBody }), {});
+
+    return { ...formFieldValues, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
   }
 
   /**

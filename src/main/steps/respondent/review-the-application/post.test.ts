@@ -15,6 +15,7 @@ describe('ReviewTheApplicationPostController', () => {
     };
     const mockFormContent = {
       fields: {
+        applicationType: {},
         applicant1IConfirmPrayer: {},
         applicant1IBelieveApplicationIsTrue: {},
       },
