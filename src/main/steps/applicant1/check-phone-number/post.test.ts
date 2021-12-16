@@ -13,7 +13,11 @@ import CitizenUpdateContactDetailsPostController from './post';
 
 describe('CitizenUpdateContactDetailsPostController', () => {
   const mockFormContent = {
-    fields: {},
+    fields: {
+      applicant1PhoneNumber: {},
+      applicant1AddressPrivate: {},
+      state: {},
+    },
   } as unknown as FormContent;
 
   it('triggers CITIZEN_UPDATE for case in Draft state', async () => {

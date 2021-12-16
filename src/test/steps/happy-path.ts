@@ -1,3 +1,4 @@
+import { State } from '../../main/app/case/definition';
 import {
   APPLICANT_2,
   APPLY_FINANCIAL_ORDER,
@@ -28,6 +29,13 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   I.amOnPage(APPLY_FINANCIAL_ORDER);
   iClick('Continue');
   I.amOnPage(url);
+});
+
+Given('I set the case state to {string}', async (state: State) => {
+  await iSetTheUsersCaseTo({
+    state,
+  });
+  await I.grabCurrentUrl();
 });
 
 Given("I've already completed the form using the fixture {string} for applicant 2", async (fixture: string) => {
