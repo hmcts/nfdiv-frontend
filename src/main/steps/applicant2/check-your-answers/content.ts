@@ -256,7 +256,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...applicant1GenerateContent(content),
     ...translations,
-    // ...labels(content),
     form,
   };
 };

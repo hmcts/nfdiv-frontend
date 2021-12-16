@@ -1,5 +1,6 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% extends "common/page.njk" %}
 
@@ -13,24 +14,24 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
 
-  {% for property, section in sectionTitles %}
+  {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
-      {% for newProperty, line in stepAnswers[property] %}
-        {% if line %}
+      {% for line, text in stepAnswers[section] %}
+        {% if text %}
           {% set answerRows = (answerRows.push({
             key: {
-              html: stepQuestions[property][newProperty],
+              html: stepQuestions[section][line],
               classes: 'govuk-!-width-two-thirds'
             },
             value: {
-              text: line | safe
+              html: text | safe
             }
           }), answerRows) %}
         {% endif %}
       {% endfor %}
 
     {% if answerRows.length %}
-      <h2 class="govuk-heading-m">{{sectionTitles[property]}}</h2>
+      <h2 class="govuk-heading-m">{{sectionTitles[section]}}</h2>
       {{ govukSummaryList({
         classes: 'govuk-!-margin-bottom-9',
         rows: answerRows

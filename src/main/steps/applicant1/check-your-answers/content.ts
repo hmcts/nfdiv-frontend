@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, ChangedNameHow, Gender, YesOrNo } from '../../../app/case/definition';
@@ -7,7 +9,21 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
 import * as urls from '../../urls';
 
-const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
+export const moreDetailsComponent: (text: string, title?: string) => string = (text: string, title?: string) => {
+  return `
+  <details class="govuk-details summary" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        ${title || 'Find out more '}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      ${text}
+    </div>
+  </details>`;
+};
+
+const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkYourAnswersPartner }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -139,12 +155,28 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
             ? 'I need help paying the fee'
             : 'I do not need help paying the fee'
           : ''
+      }
+      ${
+        isApplicant2 && userCase.applicant1HelpPayingNeeded
+          ? moreDetailsComponent(
+              `This ${
+                isDivorce ? 'divorce application' : 'application to end your civil partnership'
+              } costs ${config.get('fees.applicationFee')}.
+      You will not be asked to pay the fee. Your ${checkYourAnswersPartner} will be asked to pay.
+      ${
+        userCase.applicant1HelpPayingNeeded === YesOrNo.YES
+          ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
+          : 'They have said that they do not need help paying the fee.'
+      }`,
+              'Find out more about help with fees'
+            )
+          : ''
       }`,
       line2: `${
-        userCase.applicant1AlreadyAppliedForHelpPaying
-          ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-            ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
-            : ''
+        !isApplicant2 &&
+        userCase.applicant1AlreadyAppliedForHelpPaying &&
+        userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
+          ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo} <br>}`
           : ''
       }`,
     },
@@ -259,7 +291,16 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
       }`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant1LegalProceedings}`,
+      line1: `${userCase.applicant1LegalProceedings}
+        ${
+          isApplicant2
+            ? moreDetailsComponent(
+                'The court only needs to know about court proceedings relating to your' +
+                  'marriage, property or children. It does not need to know about other court proceedings.',
+                'Find out more about other court proceedings'
+              )
+            : ''
+        }`,
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
@@ -387,8 +428,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
-  ...en({ isDivorce, partner, userCase, isJointApplication }),
+const cy: typeof en = ({
+  isDivorce,
+  partner,
+  userCase,
+  isJointApplication,
+  isApplicant2,
+  checkYourAnswersPartner,
+}) => ({
+  ...en({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkYourAnswersPartner }),
   sectionTitles: {
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
