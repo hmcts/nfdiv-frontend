@@ -28,10 +28,8 @@ export class PostController<T extends AnyObject> {
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (req.body.saveAndSignOut) {
+    if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
       await this.saveAndSignOut(req, res, formData);
-    } else if (req.body.saveBeforeSessionTimeout) {
-      await this.saveBeforeSessionTimeout(req, res, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }
@@ -44,15 +42,6 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
     res.redirect(SAVE_AND_SIGN_OUT);
-  }
-
-  private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, this.getEventName(req));
-    } catch {
-      // ignore
-    }
-    res.end();
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
