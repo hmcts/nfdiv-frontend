@@ -25,12 +25,18 @@ export const connectionBulletPointsTextForRespondent = (connections: Jurisdictio
 
 export const connectionBulletPointsTextForSoleAndJoint = (
   connections: JurisdictionConnections[],
-  partner: string
+  partner: string,
+  isDivorce: boolean
 ): string => {
   const line1 = 'Your answers indicate that you can apply in England and Wales because:';
   let bulletPointText = '<ul>';
 
   const connectionBulletPoints = {
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: `Your answers indicate that you can apply
+     ${
+       isDivorce ? 'for a divorce' : 'to end a civil partnership'
+     } in England and Wales because you are 'habitually resident'.`,
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `you and your ${partner} are habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
     [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:

@@ -8,13 +8,14 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
 import * as urls from '../../urls';
+import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
-export const moreDetailsComponent: (text: string, title?: string) => string = (text: string, title?: string) => {
+const moreDetailsComponent: (text: string, title: string) => string = (text: string, title: string) => {
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
-        ${title || 'Find out more '}
+        ${title}
       </span>
     </summary>
     <div class="govuk-details__text">
@@ -197,7 +198,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
       line11: `${userCase.applicant2DomicileInEnglandWales ? userCase.applicant2DomicileInEnglandWales : ''}`,
       line12: `${userCase.bothLastHabituallyResident ? userCase.bothLastHabituallyResident : ''}`,
-      line13: `${userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner) : ''}`,
+      line13: `${
+        userCase.connections && userCase.connections?.length
+          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
+          : ''
+      }
+      ${moreDetailsComponent(
+        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
+      )}`,
     },
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
@@ -623,7 +632,9 @@ const cy: typeof en = ({
           ? userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')
           : ''
       }`,
-      line13: `${userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner) : ''}`,
+      line13: `${
+        userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce) : ''
+      }`,
     },
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,

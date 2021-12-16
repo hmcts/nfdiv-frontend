@@ -13,18 +13,6 @@ const en = ({ checkYourAnswersPartner, required }) => ({
   detailsCorrectHint: `If you select no then your ${checkYourAnswersPartner} will be notified and asked to change it.`,
   explainWhyIncorrect: `Explain what is incorrect or needs changing. Your answer will be sent to your ${checkYourAnswersPartner}.`,
   continue: 'Continue',
-
-  //   [urls.JURISDICTION_INTERSTITIAL_URL]: {
-  //     connections:
-  //       (userCase.connections && userCase.connections?.length > 1
-  //         ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, checkYourAnswersPartner)
-  //         : '') +
-  //       moreDetailsComponent(
-  //         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-  //         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-  //       ),
-  //   },
-
   errors: {
     applicant2Confirmation: {
       required,
