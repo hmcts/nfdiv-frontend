@@ -24,7 +24,7 @@
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
       {% for line, text in stepAnswers[section] %}
-        {% if line %}
+        {% if text %}
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
@@ -36,7 +36,7 @@
             actions: {
               items: [
                 {
-                  href: stepLinks[section][line],
+                  href: applicant2Url + stepLinks[section][line],
                   text: change,
                   visuallyHiddenText: stepQuestions[section][line]
                 }

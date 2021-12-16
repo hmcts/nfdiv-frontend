@@ -11,11 +11,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
+    readApplication: `Confirm that you have read the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }`,
     aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     helpWithFees: 'Help with fees',
     connectionsToEnglandWales: 'Your connections to England and Wales',
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     aboutPartners: `About you and your ${partner}`,
+    aboutYouForApplicant2: 'About you',
     contactYou: 'How the court will contact you',
     contactThem: `How the court will contact your ${partner}`,
     otherCourtCases: 'Other court cases',
@@ -59,6 +63,16 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
         isDivorce ? 'getting married' : 'forming your civil partnership'
       }?`,
       line5: 'How did you change your name?',
+    },
+    aboutYouForApplicant2: {
+      line1: 'Your first name(s)',
+      line2: 'Your middle name(s)',
+      line3: 'Your last name(s)',
+      line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
+      line5: `Have you changed any part of your name since ${
+        isDivorce ? 'getting married' : 'forming your civil partnership'
+      }?`,
+      line6: 'How did you change your name?',
     },
     contactYou: {
       line1: 'Your first name(s)',
@@ -246,7 +260,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
     },
     otherCourtCases: {
       line1: `${userCase.applicant1LegalProceedings}`,
-      line2: `${userCase.applicant1LegalProceedingsDetails ? userCase.applicant1LegalProceedingsDetails : ''}`,
+      line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
       line1: `${
@@ -376,11 +390,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
 const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => ({
   ...en({ isDivorce, partner, userCase, isJointApplication }),
   sectionTitles: {
+    readApplication: `Confirm that you have read the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }`,
     aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
     helpWithFees: 'Help with fees',
     connectionsToEnglandWales: 'Your connections to England and Wales',
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     aboutPartners: `About you and your ${partner}`,
+    aboutYouForApplicant2: 'About you',
     contactYou: 'Sut bydd y llys yn cysylltu â chi',
     contactThem: `How the court will contact your ${partner}`,
     otherCourtCases: 'Other court cases',
@@ -429,6 +447,16 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }) => 
         isDivorce ? 'getting married' : 'forming your civil partnership'
       }?`,
       line5: 'Sut wnaethoch chi newid eich enw?',
+    },
+    aboutYouForApplicant2: {
+      line1: 'Your first name(s)',
+      line2: 'Your middle name(s)',
+      line3: 'Your last name(s)',
+      line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
+      line5: `Have you changed any part of your name since ${
+        isDivorce ? 'getting married' : 'forming your civil partnership'
+      }?`,
+      line6: 'Sut wnaethoch chi newid eich enw?',
     },
     contactYou: {
       line1: 'Your first name(s)',
@@ -720,8 +748,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const applicant2Url = content.isApplicant2 ? '/applicant2' : '';
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    applicant2Url,
   };
 };
