@@ -15,13 +15,35 @@ const moreDetailsComponent: (text: string, title: string) => string = (text: str
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
-        ${title}
+        ${title || 'Find out more '}
       </span>
     </summary>
     <div class="govuk-details__text">
       ${text}
     </div>
   </details>`;
+};
+
+const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkYourAnswersPartner) => {
+  const title = 'Find out more about help with fees';
+  const text = `This ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  } costs ${config.get('fees.applicationFee')}.
+  You will not be asked to pay the fee. Your ${checkYourAnswersPartner} will be asked to pay. ${
+    applicant1HelpPayingNeeded === YesOrNo.YES
+      ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
+      : 'They have said that they do not need help paying the fee.'
+  }`;
+
+  return moreDetailsComponent(text, title);
+};
+
+const getOtherCourtCasesMoreDetailsContent = () => {
+  const title = 'Find out more about other court proceedings';
+  const text =
+    'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
+    'It does not need to know about other court proceedings.';
+  return moreDetailsComponent(text, title);
 };
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkYourAnswersPartner }) => ({
@@ -153,24 +175,24 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line1: `${
         userCase.applicant1HelpPayingNeeded
           ? userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-            ? 'I need help paying the fee'
-            : 'I do not need help paying the fee'
-          : ''
-      }
-      ${
-        isApplicant2 && userCase.applicant1HelpPayingNeeded
-          ? moreDetailsComponent(
-              `This ${
-                isDivorce ? 'divorce application' : 'application to end your civil partnership'
-              } costs ${config.get('fees.applicationFee')}.
-      You will not be asked to pay the fee. Your ${checkYourAnswersPartner} will be asked to pay.
-      ${
-        userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-          ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
-          : 'They have said that they do not need help paying the fee.'
-      }`,
-              'Find out more about help with fees'
-            )
+            ? `I need help paying the fee ${
+                isApplicant2
+                  ? getHelpWithFeesMoreDetailsContent(
+                      userCase.applicant1HelpPayingNeeded,
+                      isDivorce,
+                      checkYourAnswersPartner
+                    )
+                  : ''
+              }`
+            : `I do not need help paying the fee ${
+                isApplicant2
+                  ? getHelpWithFeesMoreDetailsContent(
+                      userCase.applicant1HelpPayingNeeded,
+                      isDivorce,
+                      checkYourAnswersPartner
+                    )
+                  : ''
+              }`
           : ''
       }`,
       line2: `${
@@ -196,13 +218,13 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line12: `${userCase.bothLastHabituallyResident}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
-          : ''
-      } <br><br>
+          ? `${connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)}
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`,
+      )}`
+          : ''
+      }`,
     },
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
@@ -288,16 +310,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant1LegalProceedings}
-        ${
-          isApplicant2
-            ? moreDetailsComponent(
-                'The court only needs to know about court proceedings relating to your' +
-                  'marriage, property or children. It does not need to know about other court proceedings.',
-                'Find out more about other court proceedings'
-              )
-            : ''
-        }`,
+      line1: `${
+        userCase.applicant1LegalProceedings
+          ? `${userCase.applicant1LegalProceedings} ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
+          : ''
+      }`,
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
@@ -565,8 +582,24 @@ const cy: typeof en = ({
       line1: `${
         userCase.applicant1HelpPayingNeeded
           ? userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-            ? "Mae angen help arnaf i dalu'r ffi"
-            : "Nid oes angen help arnaf i dalu'r ffi"
+            ? `Mae angen help arnaf i dalu'r ffi ${
+                isApplicant2
+                  ? getHelpWithFeesMoreDetailsContent(
+                      userCase.applicant1HelpPayingNeeded,
+                      isDivorce,
+                      checkYourAnswersPartner
+                    )
+                  : ''
+              }`
+            : `Nid oes angen help arnaf i dalu'r ffi ${
+                isApplicant2
+                  ? getHelpWithFeesMoreDetailsContent(
+                      userCase.applicant1HelpPayingNeeded,
+                      isDivorce,
+                      checkYourAnswersPartner
+                    )
+                  : ''
+              }`
           : ''
       }`,
       line2: `${
@@ -592,13 +625,13 @@ const cy: typeof en = ({
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
-          : ''
-      } <br><br>
+          ? `${connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)}
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`,
+      )}`
+          : ''
+      }`,
     },
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
@@ -684,7 +717,12 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line1: `${
+        userCase.applicant1LegalProceedings
+          ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
+       ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
+          : ''
+      }`,
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {

@@ -8,7 +8,7 @@ import {
 describe('connectionBulletPointsTextForSoleAndJoint', () => {
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A', async () => {
     const expected =
-      'Your answers indicate that you can apply in England and Wales because you and your husband were both last habitually resident and one of you still lives here';
+      'Your answers indicate that you can apply in England and Wales because:<ul><li>you and your husband were both last habitually resident and one of you still lives here</li></ul>';
     const result = connectionBulletPointsTextForSoleAndJoint(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
       'husband',

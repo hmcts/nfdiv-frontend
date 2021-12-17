@@ -24,7 +24,7 @@
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
       {% for line, text in stepAnswers[section] %}
-        {% if text and text != 'undefined' %}
+        {% if text and text != 'undefined' and text != 'null' %}
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
