@@ -74,13 +74,13 @@
     "csurf": "^1.11.0",
     "dayjs": "^1.10.7",
     "email-validator": "^2.0.4",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "express-http-proxy": "^1.6.3",
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.17.2",
     "form-data": "^4.0.0",
     "glob": "^7.2.0",
-    "govuk-frontend": "^3.14.0",
+    "govuk-frontend": "^4.0.0",
     "helmet": "^4.6.0",
     "http-status-codes": "^2.1.4",
     "jwt-decode": "^3.1.2",
@@ -115,7 +115,7 @@
     "babel-loader": "^8.2.2",
     "codeceptjs": "^3.2.2",
     "concurrently": "^6.4.0",
-    "copy-webpack-plugin": "^10.1.0",
+    "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -144,7 +144,7 @@
     "webdriverio": "^7.16.9",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-middleware": "^5.2.2",
+    "webpack-dev-middleware": "^5.3.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
