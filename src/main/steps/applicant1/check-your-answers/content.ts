@@ -24,12 +24,7 @@ const moreDetailsComponent: (text: string, title: string) => string = (text: str
   </details>`;
 };
 
-const getHelpWithFeesMoreDetailsContent = (
-  applicant1HelpPayingNeeded,
-  isDivorce,
-  isApplicant2,
-  checkYourAnswersPartner
-) => {
+const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkYourAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -40,7 +35,7 @@ const getHelpWithFeesMoreDetailsContent = (
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return isApplicant2 ? moreDetailsComponent(text, title) : '';
+  return moreDetailsComponent(text, title);
 };
 
 const getOtherCourtCasesMoreDetailsContent = () => {
@@ -184,12 +179,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
                 ? 'I need help paying the fee'
                 : 'I do not need help paying the fee'
             }
-            ${getHelpWithFeesMoreDetailsContent(
-              userCase.applicant1HelpPayingNeeded,
-              isDivorce,
-              isApplicant2,
-              checkYourAnswersPartner
-            )}`
+            ${
+              isApplicant2
+                ? getHelpWithFeesMoreDetailsContent(
+                    userCase.applicant1HelpPayingNeeded,
+                    isDivorce,
+                    checkYourAnswersPartner
+                  )
+                : ''
+            }`
           : ''
       }`,
       line2: `${
@@ -583,12 +581,15 @@ const cy: typeof en = ({
                 ? "Mae angen help arnaf i dalu'r ffi"
                 : "Nid oes angen help arnaf i dalu'r ffi"
             }
-            ${getHelpWithFeesMoreDetailsContent(
-              userCase.applicant1HelpPayingNeeded,
-              isDivorce,
-              isApplicant2,
-              checkYourAnswersPartner
-            )}`
+            ${
+              isApplicant2
+                ? getHelpWithFeesMoreDetailsContent(
+                    userCase.applicant1HelpPayingNeeded,
+                    isDivorce,
+                    checkYourAnswersPartner
+                  )
+                : ''
+            }`
           : ''
       }`,
       line2: `${
