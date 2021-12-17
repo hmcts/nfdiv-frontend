@@ -13,6 +13,7 @@ Feature: Hub page
     When I click "Confirm receipt"
     Then the page should include "You have confirmed receipt of the divorce application"
     And the page should include "The next step is to apply for a 'conditional order'."
+    And the page should not include "Confirm receipt"
 
   Scenario: Applicant 2 confirms receipt
     When I go to "/"
@@ -27,6 +28,7 @@ Feature: Hub page
     When I click "Confirm receipt"
     Then the page should include "You have confirmed receipt of the divorce application"
     And the page should include "The next step is to apply for a 'conditional order'."
+    And the page should not include "Confirm receipt"
 
   Scenario: Applicant 1 draft conditional order from AwaitingConditionalOrderState
     Given I go to "/"
