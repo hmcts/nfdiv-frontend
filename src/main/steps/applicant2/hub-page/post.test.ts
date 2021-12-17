@@ -20,6 +20,7 @@ describe('HubPagePostController', () => {
     const mockFormContent = {
       fields: {
         applicant1ConfirmReceipt: {},
+        state: {},
       },
     } as unknown as FormContent;
     const hubPagePostController = new HubPagePostController(mockFormContent.fields);
@@ -39,6 +40,7 @@ describe('HubPagePostController', () => {
     const mockFormContent = {
       fields: {
         applicant1ApplyForConditionalOrderStarted: {},
+        state: {},
       },
     } as unknown as FormContent;
     const hubPagePostController = new HubPagePostController(mockFormContent.fields);
@@ -58,6 +60,7 @@ describe('HubPagePostController', () => {
     const mockFormContent = {
       fields: {
         applicant1ConfirmReceipt: {},
+        state: {},
       },
     } as unknown as FormContent;
     const hubPagePostController = new HubPagePostController(mockFormContent.fields);
