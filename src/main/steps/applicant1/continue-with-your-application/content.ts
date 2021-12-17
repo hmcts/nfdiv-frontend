@@ -29,7 +29,7 @@ const en = ({ isDivorce, partner, isJointApplication }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end my civil partnership'
   }`,
   errors: {
-    disputeApplication: {
+    applicant1ApplyForConditionalOrder: {
       required: 'You have not answered the question. You need to select an answer before continuing.',
     },
   },
@@ -40,7 +40,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    applicant1ContinueApplication: {
+    applicant1ApplyForConditionalOrder: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
