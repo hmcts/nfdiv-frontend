@@ -177,7 +177,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
         userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo} <br>}`
+          ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo}`
           : ''
       }`,
     },
@@ -202,7 +202,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
         userCase.connections && userCase.connections?.length
           ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
           : ''
-      }
+      } <br><br>
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
@@ -633,8 +633,14 @@ const cy: typeof en = ({
           : ''
       }`,
       line13: `${
-        userCase.connections ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce) : ''
-      }`,
+        userCase.connections && userCase.connections?.length
+          ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
+          : ''
+      } <br>
+      ${moreDetailsComponent(
+        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
+      )}`,
     },
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
