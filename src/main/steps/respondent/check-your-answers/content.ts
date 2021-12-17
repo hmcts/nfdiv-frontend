@@ -92,23 +92,24 @@ const en = ({ isDivorce, userCase }) => ({
   },
   stepLinks: {
     readApplication: {
-      line1: `${urls.RESPONDENT}${urls.REVIEW_THE_APPLICATION}`,
+      line1: urls.REVIEW_THE_APPLICATION,
     },
     aboutApplication: {
-      line1: `${urls.RESPONDENT}${urls.HOW_DO_YOU_WANT_TO_RESPOND}`,
-      line2: `${urls.RESPONDENT}${urls.LEGAL_JURISDICTION_OF_THE_COURTS}`,
-      line3: `${urls.RESPONDENT}${urls.LEGAL_JURISDICTION_OF_THE_COURTS}`,
+      line1: urls.HOW_DO_YOU_WANT_TO_RESPOND,
+      line2: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
+      line3: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
     },
     contactYou: {
-      line1: `${urls.RESPONDENT}${urls.HOW_THE_COURTS_WILL_CONTACT_YOU}`,
-      line2: `${urls.RESPONDENT}${urls.HOW_THE_COURTS_WILL_CONTACT_YOU}`,
-      line3: `${urls.RESPONDENT}${urls.ENGLISH_OR_WELSH}`,
+      line1: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line2: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line3: urls.ENGLISH_OR_WELSH,
     },
     otherCourtCases: {
-      line1: `${urls.RESPONDENT}${urls.OTHER_COURT_CASES}`,
-      line2: `${urls.RESPONDENT}${urls.DETAILS_OTHER_PROCEEDINGS}`,
+      line1: urls.OTHER_COURT_CASES,
+      line2: urls.DETAILS_OTHER_PROCEEDINGS,
     },
   },
+  continueApplication: 'Continue application',
   confirmBeforeSubmit: 'Confirm before submitting',
   iConfirm: 'I confirm that:',
   confirmSotHint: `
@@ -245,8 +246,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const applicant2Url = content.isApplicant2 ? urls.RESPONDENT : '';
   return {
     ...translations,
     form,
+    applicant2Url,
   };
 };
