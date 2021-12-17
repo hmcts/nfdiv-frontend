@@ -34,16 +34,8 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${
-        userCase.applicant2LastNameChangedWhenRelationshipFormed
-          ? userCase.applicant2LastNameChangedWhenRelationshipFormed
-          : ''
-      }`,
-      line5: `${
-        userCase.applicant2NameChangedSinceRelationshipFormed
-          ? userCase.applicant2NameChangedSinceRelationshipFormed
-          : ''
-      }`,
+      line4: `${userCase.applicant2LastNameChangedWhenRelationshipFormed}`,
+      line5: `${userCase.applicant2NameChangedSinceRelationshipFormed}`,
       line6: `${
         userCase.applicant2NameChangedHow?.length
           ? userCase.applicant2NameChangedHow
@@ -151,16 +143,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${
-        userCase.applicant2LastNameChangedWhenRelationshipFormed
-          ? userCase.applicant2LastNameChangedWhenRelationshipFormed
-          : ''
-      }`,
-      line5: `${
-        userCase.applicant2NameChangedSinceRelationshipFormed
-          ? userCase.applicant2NameChangedSinceRelationshipFormed
-          : ''
-      }`,
+      line4: `${userCase.applicant2LastNameChangedWhenRelationshipFormed}`,
+      line5: `${userCase.applicant2NameChangedSinceRelationshipFormed}`,
       line6: `${
         userCase.applicant2NameChangedHow?.length
           ? userCase.applicant2NameChangedHow
