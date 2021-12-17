@@ -33,9 +33,9 @@ Feature: Hub page
     When I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
+    And I set the case state to "AwaitingConditionalOrder"
     And I click "Sign out"
     And I login with applicant "1"
-    And I set the case state to "AwaitingConditionalOrder"
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"

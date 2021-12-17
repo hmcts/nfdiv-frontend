@@ -47,8 +47,12 @@ export const generateContent: TranslationFn = content => {
     State.Holding,
     State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
+    State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
+    State.ConditionalOrderPronounced,
+    State.AwaitingFinalOrder,
+    State.FinalOrderRequested,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const hasApplicantConfirmedReceipt = content.isApplicant2
