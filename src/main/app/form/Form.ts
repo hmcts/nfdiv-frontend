@@ -6,6 +6,8 @@ import { setupCheckboxParser } from './parser';
 const WHITELISTED_FIELDS = [
   'applicant1ConfirmReceipt',
   'applicant2ConfirmReceipt',
+  'applicant1ApplyForConditionalOrderStarted',
+  'applicant2ApplyForConditionalOrderStarted',
   'saveAndSignOut',
   'saveBeforeSessionTimeout',
   '_csrf',
