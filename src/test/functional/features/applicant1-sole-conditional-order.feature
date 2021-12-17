@@ -25,7 +25,7 @@ Feature: Hub page
     Then the page URL should be "/respondent/hub-page"
     And I set the case state to "AwaitingConditionalOrder"
     And I click "Sign out"
-    And I login with applicant 1
+    And I login with applicant "1"
 
   Scenario: Applicant 1 applies for condition order
     When I go to "/"
