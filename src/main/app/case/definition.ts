@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-14 17:00:07.
+// Generated using typescript-generator version 2.34.976 on 2021-12-16 15:48:14.
 
 export interface Address {
   AddressLine1: string;
@@ -22,6 +22,17 @@ export interface CaseLink {
   CaseReference: string;
 }
 
+export interface ChangeOrganisationRequest<R> {
+  OrganisationToAdd: Organisation;
+  OrganisationToRemove: Organisation;
+  CaseRoleId: R;
+  Reason: string;
+  NotesReason: string;
+  ApprovalStatus: ChangeOrganisationApprovalStatus;
+  RequestTimestamp: DateAsString;
+  ApprovalRejectionTimestamp: DateAsString;
+}
+
 export interface Document {
   document_url: string;
   document_filename: string;
@@ -33,8 +44,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -269,7 +280,7 @@ export interface Application {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
 }
 
@@ -299,7 +310,6 @@ export interface CaseData {
   labelContentMarriageOrCivilPartnership: string;
   labelContentDivorceOrLegallyEnd: string;
   labelContentApplicantsOrApplicant1s: string;
-  labelContentTheApplicantsOrApplicant1s: string;
   labelContentTheApplicantOrApplicant1: string;
   labelContentGotMarriedOrFormedCivilPartnership: string;
   labelContentRespondentsOrApplicant2s: string;
@@ -450,7 +460,7 @@ export interface CaseData {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2InviteEmailAddress: string;
   accessCode: string;
@@ -476,7 +486,8 @@ export interface CaseData {
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
   disputingFee: OrderSummary;
-  coDateSubmitted: DateAsString;
+  coApplicant1SubmittedDate: DateAsString;
+  coApplicant2SubmittedDate: DateAsString;
   coRespondentAnswersLink: Document;
   coApplyForConditionalOrder: YesOrNo;
   coOnlinePetitionLink: Document;
@@ -506,6 +517,10 @@ export interface CaseData {
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicantStatementOfTruth: YesOrNo;
+  coApplicant1ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant2ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant2ReasonInformationNotCorrect: string;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -609,7 +624,8 @@ export interface CaseInvite {
 }
 
 export interface ConditionalOrder {
-  DateSubmitted: DateAsString;
+  Applicant1SubmittedDate: DateAsString;
+  Applicant2SubmittedDate: DateAsString;
   RespondentAnswersLink: Document;
   ApplyForConditionalOrder: YesOrNo;
   OnlinePetitionLink: Document;
@@ -639,6 +655,10 @@ export interface ConditionalOrder {
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
   ApplicantStatementOfTruth: YesOrNo;
+  Applicant1ConfirmInformationStillCorrect: YesOrNo;
+  Applicant1ReasonInformationNotCorrect: string;
+  Applicant2ConfirmInformationStillCorrect: YesOrNo;
+  Applicant2ReasonInformationNotCorrect: string;
 }
 
 export interface CtscContactDetails {
@@ -728,7 +748,6 @@ export interface LabelContent {
   MarriageOrCivilPartnership: string;
   DivorceOrLegallyEnd: string;
   ApplicantsOrApplicant1s: string;
-  TheApplicantsOrApplicant1s: string;
   TheApplicantOrApplicant1: string;
   GotMarriedOrFormedCivilPartnership: string;
   RespondentsOrApplicant2s: string;
@@ -827,12 +846,12 @@ export interface ConfidentialDivorceDocument {
 }
 
 export interface DivorceDocument {
+  documentEmailContent: string;
+  documentLink: Document;
   documentDateAdded: DateAsString;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
 }
 
 export interface DocAssemblyRequest {
@@ -950,6 +969,12 @@ export interface StatusHistoriesItem {
 }
 
 export type DateAsString = string;
+
+export const enum ChangeOrganisationApprovalStatus {
+  NOT_CONSIDERED = '0',
+  APPROVED = '1',
+  REJECTED = '2',
+}
 
 export const enum FieldType {
   Unspecified = 'Unspecified',
@@ -1259,6 +1284,7 @@ export const enum State {
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
+  ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
   AwaitingServiceConsideration = 'AwaitingServiceConsideration',
@@ -1599,10 +1625,10 @@ export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_MIGRATE_BULK_CASE = 'system-migrate-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_AOS_UNDISPUTED = 'system-issue-solicitor-aos-undisputed';
+export const SYSTEM_REMIND_APPLICANTS_CONDITIONAL_ORDER = 'system-remind-applicants-conditional-order';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
-export const SYSTEM_NOTIFY_APPLICANTS_CONDITIONAL_ORDER = 'system-notify-applicants-conditional-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
