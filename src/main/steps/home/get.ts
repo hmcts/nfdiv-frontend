@@ -20,6 +20,7 @@ import {
   HUB_PAGE,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  READ_THE_RESPONSE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -33,10 +34,9 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const firstQuestionForm = getApplicantFirstQuestionForm(
-      req.session.isApplicant2,
-      req.session.userCase.applicationType!
-    );
+    const firstQuestionForm = req.session.isApplicant2
+      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
+      : new Form(<FormFields>applicant1FirstQuestionForm.fields);
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
@@ -77,7 +77,11 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
     case State.ConditionalOrderDrafted: {
-      return userCase.applicant1ApplyForConditionalOrderStarted ? CONTINUE_WITH_YOUR_APPLICATION : HUB_PAGE;
+      return userCase.applicant1ApplyForConditionalOrderStarted
+        ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
+          ? READ_THE_RESPONSE
+          : CONTINUE_WITH_YOUR_APPLICATION
+        : HUB_PAGE;
     }
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
@@ -138,12 +142,8 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
   }
 };
 
-const getApplicantFirstQuestionForm = (isApplicant2: boolean, applicationType: ApplicationType) => {
-  if (isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION) {
-    return new Form(<FormFields>respondentFirstQuestionForm.fields);
-  } else {
-    return new Form(
-      isApplicant2 ? <FormFields>applicant2FirstQuestionForm.fields : <FormFields>applicant1FirstQuestionForm.fields
-    );
-  }
+const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) => {
+  return applicationType === ApplicationType.SOLE_APPLICATION
+    ? new Form(<FormFields>respondentFirstQuestionForm.fields)
+    : new Form(<FormFields>applicant2FirstQuestionForm.fields);
 };
