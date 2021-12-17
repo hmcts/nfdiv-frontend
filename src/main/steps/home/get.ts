@@ -34,9 +34,11 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const firstQuestionForm = req.session.isApplicant2
-      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
-      : new Form(<FormFields>applicant1FirstQuestionForm.fields);
+    const firstQuestionFormFields = req.session.isApplicant2
+      ? getApplicant2FirstQuestionFormFields(req.session.userCase.applicationType!)
+      : applicant1FirstQuestionForm.fields;
+
+    const firstQuestionForm = new Form(<FormFields>firstQuestionFormFields);
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
@@ -142,8 +144,8 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
   }
 };
 
-const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) => {
+const getApplicant2FirstQuestionFormFields = (applicationType: ApplicationType) => {
   return applicationType === ApplicationType.SOLE_APPLICATION
-    ? new Form(<FormFields>respondentFirstQuestionForm.fields)
-    : new Form(<FormFields>applicant2FirstQuestionForm.fields);
+    ? respondentFirstQuestionForm.fields
+    : applicant2FirstQuestionForm.fields;
 };
