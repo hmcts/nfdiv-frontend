@@ -104,6 +104,7 @@ export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-application';
 
 export const REVIEW_THE_APPLICATION: PageLink = '/review-the-application';
+export const READ_THE_RESPONSE: PageLink = '/read-the-response';
 export const HUB_PAGE: PageLink = '/hub-page';
 export const CHECK_CONTACT_DETAILS: PageLink = '/check-contact-details';
 export const CHECK_PHONE_NUMBER: PageLink = '/check-phone-number';

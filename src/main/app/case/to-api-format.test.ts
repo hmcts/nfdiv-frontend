@@ -263,6 +263,14 @@ describe('to-api-format', () => {
       },
     },
     {
+      certifiedTranslation: YesOrNo.YES,
+      certificateInEnglish: YesOrNo.YES,
+      expected: {
+        marriageCertificateInEnglish: YesOrNo.YES,
+        marriageCertifiedTranslation: null,
+      },
+    },
+    {
       certificateInEnglish: YesOrNo.NO,
       certifiedTranslation: YesOrNo.YES,
       ceremonyCountry: 'Northern Ireland',

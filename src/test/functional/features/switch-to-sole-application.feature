@@ -21,7 +21,7 @@ Feature: Switch To Sole Application
     When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And I click "Sign out"
-    Given I login with applicant 1
+    Given I login with applicant "1"
     And I go to '/confirm-your-joint-application'
     And I clear the form
     And I click "I confirm"
@@ -75,7 +75,7 @@ Feature: Switch To Sole Application
     Then the page URL should be "/applicant2/your-comments-sent"
     And the page should include "Your comments have been sent to your wife"
     Given I click "Sign out"
-    When I login with applicant 1
+    When I login with applicant "1"
     Given I go to "/how-do-you-want-to-apply"
     Given I select "I want to apply on my own, as a sole applicant"
     When I click "Continue"
