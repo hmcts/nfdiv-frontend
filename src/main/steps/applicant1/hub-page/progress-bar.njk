@@ -11,20 +11,20 @@
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 0,
+    complete: progressionIndex > 5,
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 1,
-    active: progressionIndex == 1
+    complete: progressionIndex > 5,
+    active: progressionIndex == 6
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 2,
-    active: progressionIndex == 2
+    complete: progressionIndex > 8,
+    active: progressionIndex == 7
   }, {
     label: {
       text: applicationEnded

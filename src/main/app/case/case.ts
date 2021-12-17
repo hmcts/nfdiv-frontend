@@ -92,6 +92,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
+  applicant1ApplyForConditionalOrderStarted: 'applicant1ApplyForConditionalOrderStarted',
+  applicant2ApplyForConditionalOrderStarted: 'applicant2ApplyForConditionalOrderStarted',
   applicant1ContinueApplication: 'applicant1ContinueApplication',
   applicant1ConfirmInformationStillCorrect: 'coApplicant1ConfirmInformationStillCorrect',
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
@@ -166,6 +168,8 @@ export interface Case {
   applicant2PhoneNumber?: string;
   applicant2AgreeToReceiveEmails?: Checkbox;
   applicant2ConfirmReceipt: YesOrNo;
+  applicant1ApplyForConditionalOrderStarted: YesOrNo;
+  applicant2ApplyForConditionalOrderStarted: YesOrNo;
   connections: JurisdictionConnections[];
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
