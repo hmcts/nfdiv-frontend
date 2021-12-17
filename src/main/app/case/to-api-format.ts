@@ -196,13 +196,13 @@ const fields: ToApiConverters = {
   }),
   applicant1LegalProceedings: data => ({
     applicant1LegalProceedings: data.applicant1LegalProceedings,
-    ...(data.applicant1LegalProceedings === YesOrNo.YES
+    ...(data.applicant1LegalProceedings !== YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant1LegalProceedingsDetails'])
       : {}),
   }),
   applicant2LegalProceedings: data => ({
     applicant2LegalProceedings: data.applicant2LegalProceedings,
-    ...(data.applicant2LegalProceedings === YesOrNo.YES
+    ...(data.applicant2LegalProceedings !== YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
       : {}),
   }),
