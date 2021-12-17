@@ -1,0 +1,127 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% extends "common/page.njk" %}
+
+{% set whatThisMeansContent1 %}
+  <p class="govuk-body">{{ whatThisMeansInfo1 }}</p>
+  <p class="govuk-body">{{ whatThisMeansInfo2 }}</p>
+{% endset %}
+
+{% set whatThisMeansContent2 %}
+  <p class="govuk-body">{{ whatThisMeansInfo3 }}</p>
+{% endset %}
+
+{% set whatThisMeansContent3 %}
+  <p class="govuk-body">{{ financialOrderMoreInfoLine1 }}</p>
+  <p class="govuk-body">{{ financialOrderMoreInfoLine2 }}</p>
+  <p class="govuk-body">{{ financialOrderMoreInfoLine3 }}</p>
+  <p class="govuk-body">{{ financialOrderMoreInfoLine4 }}</p>
+{% endset %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ subtitle }}</p>
+
+  <h2 class="govuk-heading-m">{{ heading1 }}</h2>
+  <p class="govuk-body">{{ line1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ listItem1 }}</li>
+    {% if userCase.applyForFinancialOrder === 'Yes' %}
+      <li>{{ listItem2 }}</li>
+    {% endif %}
+  </ul>
+  <p class="govuk-body">{{ caseReference | safe }}</p>
+  <p class="govuk-body">{{ issuedDate | safe }}</p>
+
+  <h3 class="govuk-heading-s">{{ applicantHeading }}</h3>
+  <p class="govuk-body">{{ applicantNames }}</p>
+
+  <h3 class="govuk-heading-s">{{ respondentHeading }}</h3>
+  <p class="govuk-body">{{ respondentNames }}</p>
+
+  {{ govukDetails({
+      summaryText: whatThisMeans,
+      html: whatThisMeansContent1
+  }) }}
+
+  <h2 class="govuk-heading-m">{{ heading2 }}</h2>
+  <p class="govuk-body">{{ line2 }}</p>
+
+  <h3 class="govuk-heading-s">{{ heading3 }}</h3>
+  <p class="govuk-body">{{ line3 }}</p>
+
+  <h3 class="govuk-heading-s">{{ heading4 }}</h3>
+  <p class="govuk-body">{{ userCase.ceremonyPlace }}</p>
+
+  <h3 class="govuk-heading-s">{{ heading5 }}</h3>
+  <p class="govuk-body">{{ relationshipDate }}</p>
+
+  <h2 class="govuk-heading-m">{{ heading6 }}</h2>
+  <p class="govuk-body">{{ line4 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for line in connectionBulletPoints %}
+      <li>{{ line | safe }}</li>
+    {% endfor %}
+  </ul>
+
+  {{ govukDetails({
+      summaryText: whatThisMeans,
+      html: whatThisMeansContent2
+  }) }}
+
+  <h3 class="govuk-heading-m">{{ heading7 }}</h3>
+  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
+  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
+  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
+
+  <h3 class="govuk-heading-m">{{ heading8 }}</h3>
+  <p class="govuk-body">{{ domicileLine1 }}</p>
+  <p class="govuk-body">{{ domicileLine2 }}</p>
+  <p class="govuk-body">{{ domicileLine3 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ domicileListItem1 }}</li>
+    <li>{{ domicileListItem2 }}</li>
+  </ul>
+  <p class="govuk-body">{{ domicileLine4 }}</p>
+  <p class="govuk-body">{{ domicileLine5 }}</p>
+
+  <h3 class="govuk-heading-m">{{ heading9 }}</h3>
+  <p class="govuk-body">{{ residualJurisdictionLine1 }}</p>
+  <p class="govuk-body">{{ residualJurisdictionLine2 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ residualJurisdictionListItem1 }}</li>
+    <li>{{ residualJurisdictionListItem2 }}</li>
+    <li>{{ residualJurisdictionListItem3 }}</li>
+  </ul>
+  <p class="govuk-body">{{ residualJurisdictionLine3 }}</p>
+
+  <h3 class="govuk-heading-m">{{ heading10 }}</h3>
+  {% if userCase.applicant1LegalProceedings === 'Yes' %}
+    <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
+    <p class="govuk-body">{{ otherCourtCasesLine2 }}</p>
+    <p class="govuk-body">{{ userCase.applicant1LegalProceedingsDetails }}</p>
+  {% else %}
+    <p class="govuk-body">{{ noOtherCourtCases }}</p>
+  {% endif %}
+
+  <h2 class="govuk-heading-m">{{ heading11 }}</h2>
+  <p class="govuk-body">{{ line5 }}</p>
+
+  <h2 class="govuk-heading-m">{{ heading12 }}</h2>
+  {% if userCase.applyForFinancialOrder === 'Yes' %}
+    <p class="govuk-body">{{ financialOrderLine1 }}</p>
+  {% else %}
+    <p class="govuk-body">{{ noFinancialOrder }}</p>
+  {% endif %}
+
+  {{ govukDetails({
+      summaryText: whatThisMeans,
+      html: whatThisMeansContent3
+  }) }}
+
+  <h2 class="govuk-heading-m">{{ heading13 }}</h2>
+  <p class="govuk-body">{{ factsTrue }}</p>
+  <p class="govuk-body"><i>{{ userCase.applicant1FirstNames }} {{ userCase.applicant1LastNames }}</i></p>
+  <br>
+  <br>
+
+{% endblock %}
