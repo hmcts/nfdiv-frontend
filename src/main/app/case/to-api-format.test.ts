@@ -45,8 +45,10 @@ describe('to-api-format', () => {
     applicant1UploadedFiles: [],
     applicant2UploadedFiles: [],
     confirmReadPetition: Checkbox.Checked,
-    applicant1LegalProceedings: YesOrNo.YES,
-    applicant2LegalProceedings: YesOrNo.YES,
+    applicant1LegalProceedingsDetails: 'Test',
+    applicant2LegalProceedingsDetails: 'Test',
+    applicant1LegalProceedings: YesOrNo.NO,
+    applicant2LegalProceedings: YesOrNo.NO,
     disputeApplication: YesOrNo.YES,
   };
 
@@ -94,9 +96,9 @@ describe('to-api-format', () => {
       jurisdictionResidualEligible: YesOrNo.YES,
       applicant2AgreedToReceiveEmails: YesOrNo.YES,
       confirmReadPetition: YesOrNo.YES,
-      applicant1LegalProceedings: YesOrNo.YES,
+      applicant1LegalProceedings: YesOrNo.NO,
       applicant1LegalProceedingsDetails: null,
-      applicant2LegalProceedings: YesOrNo.YES,
+      applicant2LegalProceedings: YesOrNo.NO,
       applicant2LegalProceedingsDetails: null,
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     });
