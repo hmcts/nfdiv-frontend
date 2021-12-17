@@ -24,7 +24,12 @@ const moreDetailsComponent: (text: string, title: string) => string = (text: str
   </details>`;
 };
 
-const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkYourAnswersPartner) => {
+const getHelpWithFeesMoreDetailsContent = (
+  applicant1HelpPayingNeeded,
+  isDivorce,
+  isApplicant2,
+  checkYourAnswersPartner
+) => {
   const title = 'Find out more about help with fees';
   const text = `This ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -35,7 +40,7 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent(text, title);
+  return isApplicant2 ? moreDetailsComponent(text, title) : '';
 };
 
 const getOtherCourtCasesMoreDetailsContent = () => {
@@ -174,25 +179,17 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     helpWithFees: {
       line1: `${
         userCase.applicant1HelpPayingNeeded
-          ? userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-            ? `I need help paying the fee ${
-                isApplicant2
-                  ? getHelpWithFeesMoreDetailsContent(
-                      userCase.applicant1HelpPayingNeeded,
-                      isDivorce,
-                      checkYourAnswersPartner
-                    )
-                  : ''
-              }`
-            : `I do not need help paying the fee ${
-                isApplicant2
-                  ? getHelpWithFeesMoreDetailsContent(
-                      userCase.applicant1HelpPayingNeeded,
-                      isDivorce,
-                      checkYourAnswersPartner
-                    )
-                  : ''
-              }`
+          ? `${
+              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
+                ? 'I need help paying the fee'
+                : 'I do not need help paying the fee'
+            }
+            ${getHelpWithFeesMoreDetailsContent(
+              userCase.applicant1HelpPayingNeeded,
+              isDivorce,
+              isApplicant2,
+              checkYourAnswersPartner
+            )}`
           : ''
       }`,
       line2: `${
@@ -581,25 +578,17 @@ const cy: typeof en = ({
     helpWithFees: {
       line1: `${
         userCase.applicant1HelpPayingNeeded
-          ? userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-            ? `Mae angen help arnaf i dalu'r ffi ${
-                isApplicant2
-                  ? getHelpWithFeesMoreDetailsContent(
-                      userCase.applicant1HelpPayingNeeded,
-                      isDivorce,
-                      checkYourAnswersPartner
-                    )
-                  : ''
-              }`
-            : `Nid oes angen help arnaf i dalu'r ffi ${
-                isApplicant2
-                  ? getHelpWithFeesMoreDetailsContent(
-                      userCase.applicant1HelpPayingNeeded,
-                      isDivorce,
-                      checkYourAnswersPartner
-                    )
-                  : ''
-              }`
+          ? `${
+              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
+                ? "Mae angen help arnaf i dalu'r ffi"
+                : "Nid oes angen help arnaf i dalu'r ffi"
+            }
+            ${getHelpWithFeesMoreDetailsContent(
+              userCase.applicant1HelpPayingNeeded,
+              isDivorce,
+              isApplicant2,
+              checkYourAnswersPartner
+            )}`
           : ''
       }`,
       line2: `${

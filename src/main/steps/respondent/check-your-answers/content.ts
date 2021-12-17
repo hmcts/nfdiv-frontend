@@ -121,6 +121,8 @@ const en = ({ isDivorce, userCase }) => ({
   confirmationExplanation: `The first statement is confirming that you’re the person who should be responding to this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }. The second is your statement of truth.`,
+  confirmApplicationIsTrueWarning:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: 'Submit',
   errors: {
     applicant2IBelieveApplicationIsTrue: {
