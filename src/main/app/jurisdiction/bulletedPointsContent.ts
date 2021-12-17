@@ -39,6 +39,8 @@ export const connectionBulletPointsTextForSoleAndJoint = (
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `you and your ${partner} are habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
     [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
+      "you are 'habitually resident' and hae lived here for at least 12 months",
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
       'you’re domiciled and habitually resident and have lived here for at least 6 months',
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
