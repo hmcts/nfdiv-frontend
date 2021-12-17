@@ -15,6 +15,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -33,10 +34,11 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const firstQuestionForm = getApplicantFirstQuestionForm(
-      req.session.isApplicant2,
-      req.session.userCase.applicationType!
-    );
+    const firstQuestionFormFields = req.session.isApplicant2
+      ? getApplicant2FirstQuestionFormFields(req.session.userCase.applicationType!)
+      : applicant1FirstQuestionForm.fields;
+
+    const firstQuestionForm = new Form(<FormFields>firstQuestionFormFields);
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
@@ -44,7 +46,12 @@ export class HomeGetController {
     } else if (req.session.isApplicant2) {
       const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
-        applicant2RedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete, isLastQuestionComplete)
+        applicant2RedirectPageSwitch(
+          req.session.userCase.state,
+          req.session.userCase,
+          isFirstQuestionComplete,
+          isLastQuestionComplete
+        )
       );
     } else {
       res.redirect(
@@ -71,6 +78,13 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
+    case State.ConditionalOrderDrafted: {
+      return userCase.applicant1ApplyForConditionalOrderStarted
+        ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
+          ? READ_THE_RESPONSE
+          : CONTINUE_WITH_YOUR_APPLICATION
+        : HUB_PAGE;
+    }
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
     case State.AosDrafted:
@@ -78,9 +92,6 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.Holding:
     case State.AwaitingGeneralConsideration: {
       return HUB_PAGE;
-    }
-    case State.ConditionalOrderDrafted: {
-      return READ_THE_RESPONSE;
     }
     default: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
@@ -90,15 +101,22 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
 
 const applicant2RedirectPageSwitch = (
   caseState: State,
+  userCase: Partial<Case>,
   isFirstQuestionComplete: boolean,
   isLastQuestionComplete: boolean
 ) => {
   switch (caseState) {
+    case State.AwaitingConditionalOrder:
     case State.Holding: {
       return `${APPLICANT_2}${HUB_PAGE}`;
     }
     case State.Applicant2Approved: {
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
+    }
+    case State.ConditionalOrderDrafted: {
+      return userCase.applicant2ApplyForConditionalOrderStarted
+        ? `${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`
+        : `${APPLICANT_2}${HUB_PAGE}`;
     }
     default: {
       if (isLastQuestionComplete) {
@@ -126,12 +144,8 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
   }
 };
 
-const getApplicantFirstQuestionForm = (isApplicant2: boolean, applicationType: ApplicationType) => {
-  if (isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION) {
-    return new Form(<FormFields>respondentFirstQuestionForm.fields);
-  } else {
-    return new Form(
-      isApplicant2 ? <FormFields>applicant2FirstQuestionForm.fields : <FormFields>applicant1FirstQuestionForm.fields
-    );
-  }
+const getApplicant2FirstQuestionFormFields = (applicationType: ApplicationType) => {
+  return applicationType === ApplicationType.SOLE_APPLICATION
+    ? respondentFirstQuestionForm.fields
+    : applicant2FirstQuestionForm.fields;
 };
