@@ -182,22 +182,18 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${userCase.inTheUk ? userCase.inTheUk : ''}`,
-      line2: `${userCase.certificateInEnglish ? userCase.certificateInEnglish : ''}`,
-      line3: `${userCase.certifiedTranslation ? userCase.certifiedTranslation : ''}`,
-      line4: `${userCase.ceremonyCountry ? userCase.ceremonyCountry : ''}`,
-      line5: `${userCase.ceremonyPlace ? userCase.ceremonyPlace : ''}`,
-      line6: `${userCase.applicant1LifeBasedInEnglandAndWales ? userCase.applicant1LifeBasedInEnglandAndWales : ''}`,
-      line7: `${userCase.applicant2LifeBasedInEnglandAndWales ? userCase.applicant2LifeBasedInEnglandAndWales : ''}`,
-      line8: `${userCase.applicant1DomicileInEnglandWales ? userCase.applicant1DomicileInEnglandWales : ''}`,
-      line9: `${
-        userCase.applicant1LivingInEnglandWalesTwelveMonths ? userCase.applicant1LivingInEnglandWalesTwelveMonths : ''
-      }`,
-      line10: `${
-        userCase.applicant1LivingInEnglandWalesSixMonths ? userCase.applicant1LivingInEnglandWalesSixMonths : ''
-      }`,
-      line11: `${userCase.applicant2DomicileInEnglandWales ? userCase.applicant2DomicileInEnglandWales : ''}`,
-      line12: `${userCase.bothLastHabituallyResident ? userCase.bothLastHabituallyResident : ''}`,
+      line1: `${userCase.inTheUk}`,
+      line2: `${userCase.certificateInEnglish}`,
+      line3: `${userCase.certifiedTranslation}`,
+      line4: `${userCase.ceremonyCountry}`,
+      line5: `${userCase.ceremonyPlace}`,
+      line6: `${userCase.applicant1LifeBasedInEnglandAndWales}`,
+      line7: `${userCase.applicant2LifeBasedInEnglandAndWales}`,
+      line8: `${userCase.applicant1DomicileInEnglandWales}`,
+      line9: `${userCase.applicant1LivingInEnglandWalesTwelveMonths}`,
+      line10: `${userCase.applicant1LivingInEnglandWalesSixMonths}`,
+      line11: `${userCase.applicant2DomicileInEnglandWales}`,
+      line12: `${userCase.bothLastHabituallyResident}`,
       line13: `${
         userCase.connections && userCase.connections?.length
           ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
@@ -211,16 +207,8 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
       line2: `${userCase.applicant2FullNameOnCertificate}`,
-      line3: `${
-        userCase.applicant1LastNameChangedWhenRelationshipFormed
-          ? userCase.applicant1LastNameChangedWhenRelationshipFormed
-          : ''
-      }`,
-      line4: `${
-        userCase.applicant1NameChangedSinceRelationshipFormed
-          ? userCase.applicant1NameChangedSinceRelationshipFormed
-          : ''
-      }`,
+      line3: `${userCase.applicant1LastNameChangedWhenRelationshipFormed}`,
+      line4: `${userCase.applicant1NameChangedSinceRelationshipFormed}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length
           ? userCase.applicant1NameChangedHow
@@ -590,53 +578,23 @@ const cy: typeof en = ({
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${userCase.inTheUk ? userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo') : ''}`,
-      line2: `${userCase.certificateInEnglish ? userCase.certificateInEnglish : ''}`,
-      line3: `${
-        userCase.certifiedTranslation ? userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo') : ''
-      }`,
-      line4: `${userCase.ceremonyCountry ? userCase.ceremonyCountry : ''}`,
-      line5: `${userCase.ceremonyPlace ? userCase.ceremonyPlace : ''}`,
-      line6: `${
-        userCase.applicant1LifeBasedInEnglandAndWales
-          ? userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line7: `${
-        userCase.applicant2LifeBasedInEnglandAndWales
-          ? userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line8: `${
-        userCase.applicant1DomicileInEnglandWales
-          ? userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line9: `${
-        userCase.applicant1LivingInEnglandWalesTwelveMonths
-          ? userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line10: `${
-        userCase.applicant1LivingInEnglandWalesSixMonths
-          ? userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line11: `${
-        userCase.applicant2DomicileInEnglandWales
-          ? userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line12: `${
-        userCase.bothLastHabituallyResident
-          ? userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
+      line1: `${userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line2: `${userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line3: `${userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line4: `${userCase.ceremonyCountry}`,
+      line5: `${userCase.ceremonyPlace}`,
+      line6: `${userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line7: `${userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line8: `${userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line9: `${userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line10: `${userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${
         userCase.connections && userCase.connections?.length
           ? connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)
           : ''
-      } <br>
+      } <br><br>
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
@@ -645,16 +603,8 @@ const cy: typeof en = ({
     aboutPartners: {
       line1: `${userCase.applicant1FullNameOnCertificate}`,
       line2: `${userCase.applicant2FullNameOnCertificate}`,
-      line3: `${
-        userCase.applicant1LastNameChangedWhenRelationshipFormed
-          ? userCase.applicant1LastNameChangedWhenRelationshipFormed
-          : ''
-      }`,
-      line4: `${
-        userCase.applicant1NameChangedSinceRelationshipFormed
-          ? userCase.applicant1NameChangedSinceRelationshipFormed
-          : ''
-      }`,
+      line3: `${userCase.applicant1LastNameChangedWhenRelationshipFormed}`,
+      line4: `${userCase.applicant1NameChangedSinceRelationshipFormed}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length
           ? userCase.applicant1NameChangedHow
@@ -734,12 +684,8 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')
-          : ''
-      }`,
-      line2: `${userCase.applicant1LegalProceedingsDetails ? userCase.applicant1LegalProceedingsDetails : ''}`,
+      line1: `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
       line1: `${
