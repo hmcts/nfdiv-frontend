@@ -31,7 +31,7 @@ Feature: Hub page
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
-    Then the page URL should be "/respondent/read-the-response"
+    Then the page URL should be "/read-the-response"
     And the page should include "Read your husband's response"
     And I click "Continue"
     Then the page URL should be "/continue-with-your-application"
