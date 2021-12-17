@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-16 15:48:14.
+// Generated using typescript-generator version 2.34.976 on 2021-12-17 11:59:24.
 
 export interface Address {
   AddressLine1: string;
@@ -169,7 +169,6 @@ export interface Applicant {
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
   ConfirmReceipt: YesOrNo;
-  ApplyForConditionalOrderStarted: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
@@ -194,7 +193,6 @@ export interface Applicant {
   LegalProceedingsDetails: string;
   PcqId: string;
   DivorceWho: WhoDivorcing;
-  ContinueApplication: YesOrNo;
 }
 
 export interface Application {
@@ -320,7 +318,6 @@ export interface CaseData {
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
-  applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
@@ -345,14 +342,12 @@ export interface CaseData {
   applicant1LegalProceedingsDetails: string;
   applicant1PcqId: string;
   applicant1DivorceWho: WhoDivorcing;
-  applicant1ContinueApplication: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2ConfirmReceipt: YesOrNo;
-  applicant2ApplyForConditionalOrderStarted: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
@@ -377,7 +372,6 @@ export interface CaseData {
   applicant2LegalProceedingsDetails: string;
   applicant2PcqId: string;
   applicant2DivorceWho: WhoDivorcing;
-  applicant2ContinueApplication: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -486,13 +480,8 @@ export interface CaseData {
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
   disputingFee: OrderSummary;
-  coApplicant1SubmittedDate: DateAsString;
-  coApplicant2SubmittedDate: DateAsString;
   coRespondentAnswersLink: Document;
-  coApplyForConditionalOrder: YesOrNo;
   coOnlinePetitionLink: Document;
-  coChangeOrAddToApplication: YesOrNo;
-  coIsEverythingInApplicationTrue: YesOrNo;
   coSolicitorName: string;
   coSolicitorFirm: string;
   coSolicitorAdditionalComments: string;
@@ -516,11 +505,22 @@ export interface CaseData {
   coJudgeCostsClaimGranted: JudgeCostsClaimGranted;
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicantStatementOfTruth: YesOrNo;
+  coApplicant1SubmittedDate: DateAsString;
+  coApplicant1ApplyForConditionalOrder: YesOrNo;
   coApplicant1ConfirmInformationStillCorrect: YesOrNo;
   coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant1ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant1ChangeOrAddToApplication: YesOrNo;
+  coApplicant1IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant1StatementOfTruth: YesOrNo;
+  coApplicant2SubmittedDate: DateAsString;
+  coApplicant2ApplyForConditionalOrder: YesOrNo;
   coApplicant2ConfirmInformationStillCorrect: YesOrNo;
   coApplicant2ReasonInformationNotCorrect: string;
+  coApplicant2ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant2ChangeOrAddToApplication: YesOrNo;
+  coApplicant2IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant2StatementOfTruth: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -615,6 +615,7 @@ export interface CaseData {
   marriageIsSameSexCouple: YesOrNo;
   applicant1KeepContactDetailsConfidential: YesOrNo;
   applicant2KeepContactDetailsConfidential: YesOrNo;
+  hyphenatedCaseRef: string;
 }
 
 export interface CaseInvite {
@@ -624,13 +625,8 @@ export interface CaseInvite {
 }
 
 export interface ConditionalOrder {
-  Applicant1SubmittedDate: DateAsString;
-  Applicant2SubmittedDate: DateAsString;
   RespondentAnswersLink: Document;
-  ApplyForConditionalOrder: YesOrNo;
   OnlinePetitionLink: Document;
-  ChangeOrAddToApplication: YesOrNo;
-  IsEverythingInApplicationTrue: YesOrNo;
   SolicitorName: string;
   SolicitorFirm: string;
   SolicitorAdditionalComments: string;
@@ -654,11 +650,17 @@ export interface ConditionalOrder {
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
-  ApplicantStatementOfTruth: YesOrNo;
-  Applicant1ConfirmInformationStillCorrect: YesOrNo;
-  Applicant1ReasonInformationNotCorrect: string;
-  Applicant2ConfirmInformationStillCorrect: YesOrNo;
-  Applicant2ReasonInformationNotCorrect: string;
+}
+
+export interface ConditionalOrderQuestions {
+  SubmittedDate: DateAsString;
+  ApplyForConditionalOrder: YesOrNo;
+  ConfirmInformationStillCorrect: YesOrNo;
+  ReasonInformationNotCorrect: string;
+  ApplyForConditionalOrderStarted: YesOrNo;
+  ChangeOrAddToApplication: YesOrNo;
+  IsEverythingInApplicationTrue: YesOrNo;
+  StatementOfTruth: YesOrNo;
 }
 
 export interface CtscContactDetails {
@@ -1601,6 +1603,7 @@ export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
@@ -1640,4 +1643,3 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
-export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';

@@ -92,9 +92,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
-  applicant1ApplyForConditionalOrderStarted: 'applicant1ApplyForConditionalOrderStarted',
-  applicant2ApplyForConditionalOrderStarted: 'applicant2ApplyForConditionalOrderStarted',
-  applicant1ContinueApplication: 'applicant1ContinueApplication',
+  applicant1ApplyForConditionalOrderStarted: 'coApplicant1ApplyForConditionalOrderStarted',
+  applicant2ApplyForConditionalOrderStarted: 'coApplicant2ApplyForConditionalOrderStarted',
+  applicant1ApplyForConditionalOrder: 'coApplicant1ApplyForConditionalOrder',
   applicant1ConfirmInformationStillCorrect: 'coApplicant1ConfirmInformationStillCorrect',
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
@@ -234,7 +234,7 @@ export interface Case {
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
-  applicant1ContinueApplication?: YesOrNo;
+  applicant1ApplyForConditionalOrder?: YesOrNo;
   applicant1ConfirmInformationStillCorrect?: YesOrNo;
   applicant1ReasonInformationNotCorrect?: string;
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
