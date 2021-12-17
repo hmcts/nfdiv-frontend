@@ -36,5 +36,7 @@ Feature: Hub page
     And I click "Continue"
     Then the page URL should be "/continue-with-your-application"
     And I click "I want to continue with my divorce application"
+    And I click "Continue"
     Then the page URL should be "/review-your-application"
     And I click "Yes"
+    And I click "Continue"
