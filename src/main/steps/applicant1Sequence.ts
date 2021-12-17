@@ -487,7 +487,11 @@ export const applicant1Sequence: Step[] = [
   {
     url: CONTINUE_WITH_YOUR_APPLICATION,
     getNextStep: data =>
-      data.applicant1ContinueApplication === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
+      data.applicant1ApplyForConditionalOrder === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
+  },
+  {
+    url: REVIEW_YOUR_APPLICATION,
+    getNextStep: () => HOME_URL,
   },
   {
     url: WITHDRAWING_YOUR_APPLICATION,

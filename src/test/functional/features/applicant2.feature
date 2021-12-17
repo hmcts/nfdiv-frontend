@@ -84,7 +84,7 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
     Given I click "Sign out"
-    When I login with applicant 1
+    When I login with applicant "1"
     And I go to '/confirm-your-joint-application'
     And I click "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I click "I believe that the facts stated in this application are true"
@@ -245,5 +245,5 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/you-have-not-confirmed-joint-application"
     And the page should include "You have not confirmed your joint application"
     And I click "Sign out"
-    Given I login with applicant 1
+    Given I login with applicant "1"
     Then the page URL should be "/application-ended"

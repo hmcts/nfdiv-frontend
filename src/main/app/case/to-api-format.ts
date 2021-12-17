@@ -192,17 +192,17 @@ const fields: ToApiConverters = {
   }),
   certificateInEnglish: data => ({
     marriageCertificateInEnglish: data.certificateInEnglish,
-    ...(data.certificateInEnglish === YesOrNo.NO ? setUnreachableAnswersToNull(['marriageCertifiedTranslation']) : {}),
+    ...(data.certificateInEnglish !== YesOrNo.NO ? setUnreachableAnswersToNull(['marriageCertifiedTranslation']) : {}),
   }),
   applicant1LegalProceedings: data => ({
     applicant1LegalProceedings: data.applicant1LegalProceedings,
-    ...(data.applicant1LegalProceedings === YesOrNo.YES
+    ...(data.applicant1LegalProceedings !== YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant1LegalProceedingsDetails'])
       : {}),
   }),
   applicant2LegalProceedings: data => ({
     applicant2LegalProceedings: data.applicant2LegalProceedings,
-    ...(data.applicant2LegalProceedings === YesOrNo.YES
+    ...(data.applicant2LegalProceedings !== YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
       : {}),
   }),

@@ -8,10 +8,10 @@
 
   {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
-      text: "Confirm receipt",
+      text: confirmReceipt,
       classes: form.submit.classes,
       type: "submit",
-      name: "applicant2ConfirmReceipt",
+      name: "applicant1ConfirmReceipt",
       value: "Yes",
       preventDoubleClick: true
     }) }}
@@ -20,7 +20,7 @@
       text: "Apply for conditional order",
       classes: form.submit.classes,
       type: "submit",
-      name: "applicant2ApplyForConditionalOrderStarted",
+      name: "applicant1ApplyForConditionalOrderStarted",
       value: "Yes",
       preventDoubleClick: true
     }) }}

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-14 17:00:07.
+// Generated using typescript-generator version 2.34.976 on 2021-12-17 11:59:24.
 
 export interface Address {
   AddressLine1: string;
@@ -22,6 +22,17 @@ export interface CaseLink {
   CaseReference: string;
 }
 
+export interface ChangeOrganisationRequest<R> {
+  OrganisationToAdd: Organisation;
+  OrganisationToRemove: Organisation;
+  CaseRoleId: R;
+  Reason: string;
+  NotesReason: string;
+  ApprovalStatus: ChangeOrganisationApprovalStatus;
+  RequestTimestamp: DateAsString;
+  ApprovalRejectionTimestamp: DateAsString;
+}
+
 export interface Document {
   document_url: string;
   document_filename: string;
@@ -33,8 +44,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueLabel: string;
   valueCode: string;
+  valueLabel: string;
 }
 
 export interface DynamicListElement {
@@ -158,7 +169,6 @@ export interface Applicant {
   Email: string;
   AgreedToReceiveEmails: YesOrNo;
   ConfirmReceipt: YesOrNo;
-  ApplyForConditionalOrderStarted: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
   NameDifferentToMarriageCertificate: YesOrNo;
@@ -183,7 +193,6 @@ export interface Applicant {
   LegalProceedingsDetails: string;
   PcqId: string;
   DivorceWho: WhoDivorcing;
-  ContinueApplication: YesOrNo;
 }
 
 export interface Application {
@@ -269,7 +278,7 @@ export interface Application {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
 }
 
@@ -299,7 +308,6 @@ export interface CaseData {
   labelContentMarriageOrCivilPartnership: string;
   labelContentDivorceOrLegallyEnd: string;
   labelContentApplicantsOrApplicant1s: string;
-  labelContentTheApplicantsOrApplicant1s: string;
   labelContentTheApplicantOrApplicant1: string;
   labelContentGotMarriedOrFormedCivilPartnership: string;
   labelContentRespondentsOrApplicant2s: string;
@@ -310,7 +318,6 @@ export interface CaseData {
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
-  applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
@@ -335,14 +342,12 @@ export interface CaseData {
   applicant1LegalProceedingsDetails: string;
   applicant1PcqId: string;
   applicant1DivorceWho: WhoDivorcing;
-  applicant1ContinueApplication: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2ConfirmReceipt: YesOrNo;
-  applicant2ApplyForConditionalOrderStarted: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
@@ -367,7 +372,6 @@ export interface CaseData {
   applicant2LegalProceedingsDetails: string;
   applicant2PcqId: string;
   applicant2DivorceWho: WhoDivorcing;
-  applicant2ContinueApplication: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -450,7 +454,7 @@ export interface CaseData {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2InviteEmailAddress: string;
   accessCode: string;
@@ -476,12 +480,8 @@ export interface CaseData {
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
   disputingFee: OrderSummary;
-  coDateSubmitted: DateAsString;
   coRespondentAnswersLink: Document;
-  coApplyForConditionalOrder: YesOrNo;
   coOnlinePetitionLink: Document;
-  coChangeOrAddToApplication: YesOrNo;
-  coIsEverythingInApplicationTrue: YesOrNo;
   coSolicitorName: string;
   coSolicitorFirm: string;
   coSolicitorAdditionalComments: string;
@@ -505,7 +505,22 @@ export interface CaseData {
   coJudgeCostsClaimGranted: JudgeCostsClaimGranted;
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicantStatementOfTruth: YesOrNo;
+  coApplicant1SubmittedDate: DateAsString;
+  coApplicant1ApplyForConditionalOrder: YesOrNo;
+  coApplicant1ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant1ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant1ChangeOrAddToApplication: YesOrNo;
+  coApplicant1IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant1StatementOfTruth: YesOrNo;
+  coApplicant2SubmittedDate: DateAsString;
+  coApplicant2ApplyForConditionalOrder: YesOrNo;
+  coApplicant2ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant2ReasonInformationNotCorrect: string;
+  coApplicant2ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant2ChangeOrAddToApplication: YesOrNo;
+  coApplicant2IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant2StatementOfTruth: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -600,6 +615,7 @@ export interface CaseData {
   marriageIsSameSexCouple: YesOrNo;
   applicant1KeepContactDetailsConfidential: YesOrNo;
   applicant2KeepContactDetailsConfidential: YesOrNo;
+  hyphenatedCaseRef: string;
 }
 
 export interface CaseInvite {
@@ -609,12 +625,8 @@ export interface CaseInvite {
 }
 
 export interface ConditionalOrder {
-  DateSubmitted: DateAsString;
   RespondentAnswersLink: Document;
-  ApplyForConditionalOrder: YesOrNo;
   OnlinePetitionLink: Document;
-  ChangeOrAddToApplication: YesOrNo;
-  IsEverythingInApplicationTrue: YesOrNo;
   SolicitorName: string;
   SolicitorFirm: string;
   SolicitorAdditionalComments: string;
@@ -638,7 +650,17 @@ export interface ConditionalOrder {
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
-  ApplicantStatementOfTruth: YesOrNo;
+}
+
+export interface ConditionalOrderQuestions {
+  SubmittedDate: DateAsString;
+  ApplyForConditionalOrder: YesOrNo;
+  ConfirmInformationStillCorrect: YesOrNo;
+  ReasonInformationNotCorrect: string;
+  ApplyForConditionalOrderStarted: YesOrNo;
+  ChangeOrAddToApplication: YesOrNo;
+  IsEverythingInApplicationTrue: YesOrNo;
+  StatementOfTruth: YesOrNo;
 }
 
 export interface CtscContactDetails {
@@ -728,7 +750,6 @@ export interface LabelContent {
   MarriageOrCivilPartnership: string;
   DivorceOrLegallyEnd: string;
   ApplicantsOrApplicant1s: string;
-  TheApplicantsOrApplicant1s: string;
   TheApplicantOrApplicant1: string;
   GotMarriedOrFormedCivilPartnership: string;
   RespondentsOrApplicant2s: string;
@@ -827,12 +848,12 @@ export interface ConfidentialDivorceDocument {
 }
 
 export interface DivorceDocument {
+  documentEmailContent: string;
+  documentLink: Document;
   documentDateAdded: DateAsString;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
 }
 
 export interface DocAssemblyRequest {
@@ -950,6 +971,12 @@ export interface StatusHistoriesItem {
 }
 
 export type DateAsString = string;
+
+export const enum ChangeOrganisationApprovalStatus {
+  NOT_CONSIDERED = '0',
+  APPROVED = '1',
+  REJECTED = '2',
+}
 
 export const enum FieldType {
   Unspecified = 'Unspecified',
@@ -1259,6 +1286,7 @@ export const enum State {
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
+  ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
   AwaitingServiceConsideration = 'AwaitingServiceConsideration',
@@ -1599,10 +1627,10 @@ export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_MIGRATE_BULK_CASE = 'system-migrate-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_AOS_UNDISPUTED = 'system-issue-solicitor-aos-undisputed';
+export const SYSTEM_REMIND_APPLICANTS_CONDITIONAL_ORDER = 'system-remind-applicants-conditional-order';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
-export const SYSTEM_NOTIFY_APPLICANTS_CONDITIONAL_ORDER = 'system-notify-applicants-conditional-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
