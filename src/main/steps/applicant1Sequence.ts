@@ -59,6 +59,7 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
+  READ_THE_RESPONSE,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
@@ -416,9 +417,13 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
+    url: READ_THE_RESPONSE,
+    getNextStep: () => CONTINUE_WITH_YOUR_APPLICATION,
+  },
+  {
     url: CONTINUE_WITH_YOUR_APPLICATION,
     getNextStep: data =>
-      data.applicant1ContinueApplication === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
+      data.applicant1ApplyForConditionalOrder === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
   },
   {
     url: REVIEW_YOUR_APPLICATION,
