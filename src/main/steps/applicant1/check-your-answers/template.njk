@@ -21,14 +21,36 @@
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
 
-  {% for key, section in sections %}
-    {% set rows = getAnswerRows(section) %}
-    {% if rows | length %}
-      <h2 class="govuk-heading-m">{{ sectionTitles[section] }}</h2>
+  {% for section, title in sectionTitles %}
+    {% set answerRows = [] %}
+      {% for line, text in stepAnswers[section] %}
+        {% if text and text != 'undefined' and text != 'null' %}
+          {% set answerRows = (answerRows.push({
+            key: {
+              html: stepQuestions[section][line],
+              classes: 'govuk-!-width-two-thirds'
+            },
+            value: {
+              text: text | safe
+            },
+            actions: {
+              items: [
+                {
+                  href: applicant2Url + stepLinks[section][line],
+                  text: change,
+                  visuallyHiddenText: stepQuestions[section][line]
+                }
+              ]
+            }
+          }), answerRows) %}
+        {% endif %}
+      {% endfor %}
 
+    {% if answerRows.length %}
+      <h2 class="govuk-heading-m">{{sectionTitles[section]}}</h2>
       {{ govukSummaryList({
         classes: 'govuk-!-margin-bottom-9',
-        rows: rows
+        rows: answerRows
       }) }}
     {% endif %}
   {% endfor %}

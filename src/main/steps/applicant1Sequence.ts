@@ -79,25 +79,8 @@ import {
   YOU_NEED_THEIR_EMAIL_ADDRESS,
 } from './urls';
 
-export enum Sections {
-  AboutApplicant1 = 'aboutApplicant1',
-  AboutApplicant2 = 'aboutApplicant2',
-  AboutApplication = 'aboutApplication',
-  AboutPartnership = 'aboutPartnership',
-  HelpWithFees = 'helpWithFees',
-  ConnectionsToEnglandWales = 'connectionsToEnglandWales',
-  AboutPartners = 'aboutPartners',
-  ContactYou = 'contactYou',
-  ContactThem = 'contactThem',
-  OtherCourtCases = 'otherCourtCases',
-  DividingAssets = 'dividingAssets',
-  Documents = 'documents',
-}
-
 export interface Step {
   url: string;
-  showInSection?: Sections;
-  showInCompleteSection?: Sections;
   excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
@@ -105,13 +88,10 @@ export interface Step {
 export const applicant1Sequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
-    showInSection: Sections.AboutPartnership,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    showInSection: Sections.AboutPartnership,
-    showInCompleteSection: Sections.AboutPartnership,
     getNextStep: data =>
       data.applicant1ScreenHasUnionBroken === YesOrNo.NO ? RELATIONSHIP_NOT_BROKEN_URL : RELATIONSHIP_DATE_URL,
   },
@@ -121,8 +101,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: RELATIONSHIP_DATE_URL,
-    showInSection: Sections.AboutPartnership,
-    showInCompleteSection: Sections.AboutPartnership,
     getNextStep: data =>
       isLessThanAYear(data.relationshipDate) === 'lessThanAYear' ? RELATIONSHIP_NOT_LONG_ENOUGH_URL : CERTIFICATE_URL,
   },
@@ -132,7 +110,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CERTIFICATE_URL,
-    showInSection: Sections.AboutPartnership,
     getNextStep: data => (data.hasCertificate === YesOrNo.NO ? NO_CERTIFICATE_URL : HELP_WITH_YOUR_FEE_URL),
   },
   {
@@ -141,14 +118,11 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
-    showInSection: Sections.HelpWithFees,
-    showInCompleteSection: Sections.HelpWithFees,
     getNextStep: data =>
       data.applicant1HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : HOW_DO_YOU_WANT_TO_APPLY,
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
-    showInSection: Sections.HelpWithFees,
     getNextStep: data =>
       data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : HOW_DO_YOU_WANT_TO_APPLY,
   },
@@ -158,26 +132,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HOW_DO_YOU_WANT_TO_APPLY,
-    showInSection: Sections.AboutPartnership,
-    showInCompleteSection: Sections.AboutPartnership,
     getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? THEIR_EMAIL_ADDRESS : IN_THE_UK),
   },
   {
     url: IN_THE_UK,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data => (data.inTheUk === YesOrNo.NO ? CERTIFICATE_IN_ENGLISH : CHECK_JURISDICTION),
   },
   {
     url: CERTIFICATE_IN_ENGLISH,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data => (data.certificateInEnglish === YesOrNo.NO ? CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
     url: CERTIFIED_TRANSLATION,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data => (data.certifiedTranslation === YesOrNo.NO ? GET_CERTIFIED_TRANSLATION : COUNTRY_AND_PLACE),
   },
   {
@@ -186,8 +152,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: COUNTRY_AND_PLACE,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => CHECK_JURISDICTION,
   },
   {
@@ -196,8 +160,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: WHERE_YOUR_LIVES_ARE_BASED_URL,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
@@ -217,7 +179,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: JURISDICTION_DOMICILE,
-    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       const YES = YesOrNo.YES;
       const NO = YesOrNo.NO;
@@ -235,7 +196,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HABITUALLY_RESIDENT_ENGLAND_WALES,
-    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (allowedToAnswerResidualJurisdiction(data, data.connections as JurisdictionConnections[])) {
         return RESIDUAL_JURISDICTION;
@@ -252,7 +212,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: JURISDICTION_LAST_TWELVE_MONTHS,
-    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.applicant1LivingInEnglandWalesTwelveMonths === YesOrNo.NO
         ? JURISDICTION_DOMICILE
@@ -260,12 +219,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: LIVING_ENGLAND_WALES_SIX_MONTHS,
-    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => HABITUALLY_RESIDENT_ENGLAND_WALES,
   },
   {
     url: RESIDUAL_JURISDICTION,
-    showInSection: Sections.ConnectionsToEnglandWales,
     getNextStep: data =>
       data.jurisdictionResidualEligible === Checkbox.Checked
         ? JURISDICTION_CONNECTION_SUMMARY
@@ -277,30 +234,22 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    showInSection: Sections.ConnectionsToEnglandWales,
-    showInCompleteSection: Sections.ConnectionsToEnglandWales,
     getNextStep: () => YOUR_NAME,
   },
   {
     url: YOUR_NAME,
-    showInSection: Sections.ContactYou,
-    showInCompleteSection: Sections.AboutApplicant1,
     getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
   },
   {
     url: THEIR_NAME,
-    showInSection: Sections.ContactThem,
     getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: CERTIFICATE_NAME,
-    showInSection: Sections.AboutPartners,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    showInSection: Sections.AboutPartners,
-    showInCompleteSection: Sections.AboutApplicant1,
     getNextStep: data =>
       data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
@@ -309,23 +258,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
-    showInSection: Sections.AboutPartners,
-    showInCompleteSection: Sections.AboutApplicant1,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
-    showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
   },
   {
     url: ENGLISH_OR_WELSH,
-    showInSection: Sections.ContactYou,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
-    showInSection: Sections.ContactYou,
     getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
@@ -334,7 +278,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    showInSection: Sections.ContactYou,
     getNextStep: data =>
       hasApp1Confirmed(data)
         ? ADDRESS_PRIVATE
@@ -344,7 +287,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: THEIR_EMAIL_ADDRESS,
-    showInSection: Sections.ContactThem,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
         return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : IN_THE_UK;
@@ -359,20 +301,17 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: DO_YOU_HAVE_ADDRESS,
-    showInSection: Sections.ContactThem,
     getNextStep: data =>
       data.applicant1KnowsApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS,
   },
   {
     url: NEED_TO_GET_ADDRESS,
-    showInSection: Sections.ContactThem,
     excludeFromContinueApplication: true,
     getNextStep: data =>
       data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
   },
   {
     url: ENTER_THEIR_ADDRESS,
-    showInSection: Sections.ContactThem,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
@@ -381,14 +320,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: OTHER_COURT_CASES,
-    showInSection: Sections.OtherCourtCases,
-    showInCompleteSection: Sections.OtherCourtCases,
     getNextStep: data => (data.applicant1LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
   },
   {
     url: DETAILS_OTHER_PROCEEDINGS,
-    showInSection: Sections.OtherCourtCases,
-    showInCompleteSection: Sections.OtherCourtCases,
     getNextStep: () => MONEY_PROPERTY,
   },
   {
@@ -397,8 +332,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
-    showInSection: Sections.DividingAssets,
-    showInCompleteSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
   },
@@ -408,7 +341,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,
-    showInSection: Sections.Documents,
     getNextStep: () => EQUALITY,
   },
   {
