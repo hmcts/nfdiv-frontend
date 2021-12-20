@@ -40,3 +40,6 @@ Feature: Hub page
     Then the page URL should be "/review-your-application"
     And I click "Yes"
     And I click "Continue"
+    And I click "I believe that the facts stated in this application are true"
+    And I click "Continue"
+    Then the page URL should be "/hub-page"

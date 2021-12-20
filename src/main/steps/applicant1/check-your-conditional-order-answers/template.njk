@@ -7,46 +7,38 @@
     {% include "common/error/summary.njk" %}
   {% endblock %}
 
-  <h1 class="govuk-heading-l">{{ title }}</h1>
-  {{ govukSummaryList({
-    rows: [
-      {
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  {% set answerRows = [] %}
+  {% for question, text in stepQuestions %}
+    {% if stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null' %}
+      {% set answerRows = (answerRows.push({
         key: {
-          text: question1,
+          html: text,
           classes: 'govuk-!-width-two-thirds'
         },
         value: {
-          text: userCase.applicant1ContinueApplication
+          text: stepAnswers[question]
         },
         actions: {
           items: [
             {
-              href: '/continue-with-your-application',
-              text: "Change",
-              visuallyHiddenText: "continue with your application"
+              href: stepLinks[question],
+              text: change,
+              visuallyHiddenText: text
             }
           ]
         }
-      },
-      {
-        key: {
-        text: question2
-      },
-        value: {
-        text: userCase.applicant1ConfirmInformationStillCorrect
-      },
-        actions: {
-          items: [
-            {
-              href: '/review-your-application',
-              text: "Change",
-              visuallyHiddenText: "review-your-application"
-            }
-          ]
-        }
-      }
-    ]
-  }) }}
+      }), answerRows) %}
+    {% endif %}
+  {% endfor %}
+
+  {% if answerRows.length %}
+    {{ govukSummaryList({
+      classes: 'govuk-!-margin-bottom-9',
+      rows: answerRows
+    }) }}
+  {% endif %}
 
   {% block form %}
     <div class="govuk-grid-row">
@@ -55,4 +47,6 @@
       </div>
     </div>
   {% endblock %}
+
+  {% include "common/contact-us.njk" %}
 {% endblock %}

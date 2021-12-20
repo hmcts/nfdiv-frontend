@@ -9,13 +9,13 @@ import CheckYourConditionalOrderAnswersPostController from './post';
 describe('CheckYourConditionalOrderAnswersPostController', () => {
   const mockFormContent = {
     fields: {
-      coApplicantStatementOfTruth: {},
+      coApplicant1StatementOfTruth: {},
     },
   } as unknown as FormContent;
 
   it('triggers SUBMIT_CONDITIONAL_ORDER when submitting conditional order application', async () => {
     const body = {
-      coApplicantStatementOfTruth: Checkbox.Checked,
+      coApplicant1StatementOfTruth: Checkbox.Checked,
     };
     const checkYourAnswerPostController = new CheckYourConditionalOrderAnswersPostController(mockFormContent.fields);
 

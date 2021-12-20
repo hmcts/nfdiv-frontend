@@ -428,7 +428,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: REVIEW_YOUR_APPLICATION,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   },
   {
     url: WITHDRAWING_YOUR_APPLICATION,
