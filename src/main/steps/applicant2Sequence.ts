@@ -1,7 +1,7 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
-import { Sections, Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -43,7 +43,6 @@ const sequences: Step[] = [
   },
   {
     url: HAS_RELATIONSHIP_BROKEN_URL,
-    showInSection: Sections.AboutPartnership,
     getNextStep: data =>
       data.applicant2ScreenHasUnionBroken === YesOrNo.NO
         ? YOU_CANNOT_APPLY
@@ -65,7 +64,6 @@ const sequences: Step[] = [
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
-    showInSection: Sections.HelpWithFees,
     getNextStep: data =>
       data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
   },
@@ -75,13 +73,10 @@ const sequences: Step[] = [
   },
   {
     url: YOUR_NAME,
-    showInCompleteSection: Sections.AboutApplicant2,
-    showInSection: Sections.ContactYou,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: data =>
       data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
       data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
@@ -90,40 +85,30 @@ const sequences: Step[] = [
   },
   {
     url: HOW_DID_YOU_CHANGE_YOUR_NAME,
-    showInSection: Sections.AboutPartners,
-    showInCompleteSection: Sections.AboutApplicant2,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
-    showInSection: Sections.ContactYou,
     getNextStep: () => ENGLISH_OR_WELSH,
   },
   {
     url: ENGLISH_OR_WELSH,
-    showInSection: Sections.ContactYou,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
-    showInSection: Sections.ContactYou,
     getNextStep: data => (hasApp2Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    showInSection: Sections.ContactYou,
     getNextStep: data => (hasApp2Confirmed(data) ? ADDRESS_PRIVATE : OTHER_COURT_CASES),
   },
   {
     url: OTHER_COURT_CASES,
-    showInSection: Sections.OtherCourtCases,
-    showInCompleteSection: Sections.OtherCourtCases,
     getNextStep: data => (data.applicant2LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
   },
   {
     url: DETAILS_OTHER_PROCEEDINGS,
-    showInSection: Sections.OtherCourtCases,
-    showInCompleteSection: Sections.OtherCourtCases,
     getNextStep: () => MONEY_PROPERTY,
   },
   {
@@ -132,8 +117,6 @@ const sequences: Step[] = [
   },
   {
     url: APPLY_FINANCIAL_ORDER,
-    showInSection: Sections.DividingAssets,
-    showInCompleteSection: Sections.DividingAssets,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
@@ -152,7 +135,6 @@ const sequences: Step[] = [
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,
-    showInSection: Sections.Documents,
     getNextStep: () => CHECK_JOINT_APPLICATION,
   },
   {

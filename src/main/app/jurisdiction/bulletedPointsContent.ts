@@ -25,21 +25,29 @@ export const connectionBulletPointsTextForRespondent = (connections: Jurisdictio
 
 export const connectionBulletPointsTextForSoleAndJoint = (
   connections: JurisdictionConnections[],
-  partner: string
+  partner: string,
+  isDivorce: boolean
 ): string => {
   const line1 = 'Your answers indicate that you can apply in England and Wales because:';
   let bulletPointText = '<ul>';
 
   const connectionBulletPoints = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: 'both of you are habitually resident',
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were both last habitually resident and one of you still lives here`,
     [JurisdictionConnections.APP_2_RESIDENT]: `your ${partner} is habitually resident`,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
+      "you are 'habitually resident' and hae lived here for at least 12 months",
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
       'you’re domiciled and habitually resident and have lived here for at least 6 months',
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both you and your ${partner} are domiciled`,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]:
-      'the courts of England and Wales have jurisdiction on a residual basis',
     [JurisdictionConnections.APP_1_DOMICILED]: 'you are domiciled in England or Wales',
     [JurisdictionConnections.APP_2_DOMICILED]: `your ${partner} is domiciled in England or Wales`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]:
+      'the courts of England and Wales have jurisdiction on a residual basis',
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: `Your answers indicate that you can apply
+     ${
+       isDivorce ? 'for a divorce' : 'to end a civil partnership'
+     } in England and Wales because you are 'habitually resident'.`,
   };
 
   for (const index in connections) {
