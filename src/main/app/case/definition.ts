@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-17 11:59:24.
+// Generated using typescript-generator version 2.34.976 on 2021-12-22 10:39:20.
 
 export interface Address {
   AddressLine1: string;
@@ -193,6 +193,7 @@ export interface Applicant {
   LegalProceedingsDetails: string;
   PcqId: string;
   DivorceWho: WhoDivorcing;
+  ContinueApplication: YesOrNo;
 }
 
 export interface Application {
@@ -278,7 +279,7 @@ export interface Application {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
 }
 
@@ -454,7 +455,7 @@ export interface CaseData {
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
-  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2InviteEmailAddress: string;
   accessCode: string;
@@ -480,6 +481,22 @@ export interface CaseData {
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
   disputingFee: OrderSummary;
+  coApplicant1SubmittedDate: DateAsString;
+  coApplicant1ApplyForConditionalOrder: YesOrNo;
+  coApplicant1ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant1ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant1ChangeOrAddToApplication: YesOrNo;
+  coApplicant1IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant1StatementOfTruth: YesOrNo;
+  coApplicant2SubmittedDate: DateAsString;
+  coApplicant2ApplyForConditionalOrder: YesOrNo;
+  coApplicant2ConfirmInformationStillCorrect: YesOrNo;
+  coApplicant2ReasonInformationNotCorrect: string;
+  coApplicant2ApplyForConditionalOrderStarted: YesOrNo;
+  coApplicant2ChangeOrAddToApplication: YesOrNo;
+  coApplicant2IsEverythingInApplicationTrue: YesOrNo;
+  coApplicant2StatementOfTruth: YesOrNo;
   coRespondentAnswersLink: Document;
   coOnlinePetitionLink: Document;
   coSolicitorName: string;
@@ -505,22 +522,6 @@ export interface CaseData {
   coJudgeCostsClaimGranted: JudgeCostsClaimGranted;
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicant1SubmittedDate: DateAsString;
-  coApplicant1ApplyForConditionalOrder: YesOrNo;
-  coApplicant1ConfirmInformationStillCorrect: YesOrNo;
-  coApplicant1ReasonInformationNotCorrect: string;
-  coApplicant1ApplyForConditionalOrderStarted: YesOrNo;
-  coApplicant1ChangeOrAddToApplication: YesOrNo;
-  coApplicant1IsEverythingInApplicationTrue: YesOrNo;
-  coApplicant1StatementOfTruth: YesOrNo;
-  coApplicant2SubmittedDate: DateAsString;
-  coApplicant2ApplyForConditionalOrder: YesOrNo;
-  coApplicant2ConfirmInformationStillCorrect: YesOrNo;
-  coApplicant2ReasonInformationNotCorrect: string;
-  coApplicant2ApplyForConditionalOrderStarted: YesOrNo;
-  coApplicant2ChangeOrAddToApplication: YesOrNo;
-  coApplicant2IsEverythingInApplicationTrue: YesOrNo;
-  coApplicant2StatementOfTruth: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -528,12 +529,13 @@ export interface CaseData {
   doesApplicantWantToApplyForFinalOrder: YesOrNo;
   dateFinalOrderEligibleToRespondent: DateAsString;
   dateFinalOrderNoLongerEligible: DateAsString;
+  finalOrderReminderSentApplicant1: YesOrNo;
+  finalOrderReminderSentApplicant2: YesOrNo;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
-  generalOrderJudgeType: GeneralOrderJudge;
-  generalOrderJudgeName: string;
-  generalOrderLegalAdvisorName: string;
+  generalOrderJudgeOrLegalAdvisorType: GeneralOrderJudgeOrLegalAdvisorType;
+  generalOrderJudgeOrLegalAdvisorName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
   generalEmailParties: GeneralParties;
@@ -615,6 +617,20 @@ export interface CaseData {
   marriageIsSameSexCouple: YesOrNo;
   applicant1KeepContactDetailsConfidential: YesOrNo;
   applicant2KeepContactDetailsConfidential: YesOrNo;
+  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  coDateSubmitted: DateAsString;
+  applicant1ApplyForConditionalOrderStarted: YesOrNo;
+  applicant2ApplyForConditionalOrderStarted: YesOrNo;
+  applicant1ContinueApplication: YesOrNo;
+  applicant2ContinueApplication: YesOrNo;
+  coIsEverythingInApplicationTrue: YesOrNo;
+  coChangeOrAddToApplication: YesOrNo;
+  coApplyForConditionalOrder: YesOrNo;
+  generalOrderJudgeType: GeneralOrderJudgeOrLegalAdvisorType;
+  generalOrderJudgeName: string;
+  generalOrderLegalAdvisorName: string;
   hyphenatedCaseRef: string;
 }
 
@@ -625,6 +641,22 @@ export interface CaseInvite {
 }
 
 export interface ConditionalOrder {
+  Applicant1SubmittedDate: DateAsString;
+  Applicant1ApplyForConditionalOrder: YesOrNo;
+  Applicant1ConfirmInformationStillCorrect: YesOrNo;
+  Applicant1ReasonInformationNotCorrect: string;
+  Applicant1ApplyForConditionalOrderStarted: YesOrNo;
+  Applicant1ChangeOrAddToApplication: YesOrNo;
+  Applicant1IsEverythingInApplicationTrue: YesOrNo;
+  Applicant1StatementOfTruth: YesOrNo;
+  Applicant2SubmittedDate: DateAsString;
+  Applicant2ApplyForConditionalOrder: YesOrNo;
+  Applicant2ConfirmInformationStillCorrect: YesOrNo;
+  Applicant2ReasonInformationNotCorrect: string;
+  Applicant2ApplyForConditionalOrderStarted: YesOrNo;
+  Applicant2ChangeOrAddToApplication: YesOrNo;
+  Applicant2IsEverythingInApplicationTrue: YesOrNo;
+  Applicant2StatementOfTruth: YesOrNo;
   RespondentAnswersLink: Document;
   OnlinePetitionLink: Document;
   SolicitorName: string;
@@ -686,6 +718,8 @@ export interface FinalOrder {
   doesApplicantWantToApplyForFinalOrder: YesOrNo;
   dateFinalOrderEligibleToRespondent: DateAsString;
   dateFinalOrderNoLongerEligible: DateAsString;
+  finalOrderReminderSentApplicant1: YesOrNo;
+  finalOrderReminderSentApplicant2: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -699,9 +733,8 @@ export interface GeneralOrder {
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
-  generalOrderJudgeType: GeneralOrderJudge;
-  generalOrderJudgeName: string;
-  generalOrderLegalAdvisorName: string;
+  generalOrderJudgeOrLegalAdvisorType: GeneralOrderJudgeOrLegalAdvisorType;
+  generalOrderJudgeOrLegalAdvisorName: string;
   generalOrderDetails: string;
   generalOrderDraft: Document;
 }
@@ -811,6 +844,20 @@ export interface RetiredFields {
   marriageIsSameSexCouple: YesOrNo;
   applicant1KeepContactDetailsConfidential: YesOrNo;
   applicant2KeepContactDetailsConfidential: YesOrNo;
+  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsNotifiedCanApplyForConditionalOrder: YesOrNo;
+  jointApplicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  coDateSubmitted: DateAsString;
+  applicant1ApplyForConditionalOrderStarted: YesOrNo;
+  applicant2ApplyForConditionalOrderStarted: YesOrNo;
+  applicant1ContinueApplication: YesOrNo;
+  applicant2ContinueApplication: YesOrNo;
+  coIsEverythingInApplicationTrue: YesOrNo;
+  coChangeOrAddToApplication: YesOrNo;
+  coApplyForConditionalOrder: YesOrNo;
+  generalOrderJudgeType: GeneralOrderJudgeOrLegalAdvisorType;
+  generalOrderJudgeName: string;
+  generalOrderLegalAdvisorName: string;
 }
 
 export interface Solicitor {
@@ -1113,12 +1160,13 @@ export const enum GeneralOrderDivorceParties {
   RESPONDENT = 'respondent',
 }
 
-export const enum GeneralOrderJudge {
+export const enum GeneralOrderJudgeOrLegalAdvisorType {
   DISTRICT_JUDGE = 'districtJudge',
   DEPUTY_DISTRICT_JUDGE = 'deputyDistrictJudge',
   HIS_HONOUR_JUDGE = 'hisHonourJudge',
   HER_HONOUR_JUDGE = 'herHonourJudge',
-  RECORDER = 'recorder',
+  ASSISTANT_JUSTICES_CLERK = 'assistantJusticesClerk',
+  PROPER_OFFICER_OF_THE_COURT = 'properOfficerOfTheCourt',
 }
 
 export const enum GeneralParties {
@@ -1636,6 +1684,7 @@ export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-app
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
+export const SYSTEM_NOTIFY_RESPONDENT_APPLY_FINAL_ORDER = 'system-notify-respondent-apply-final-order';
 export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
 export const SYSTEM_REMOVE_BULK_CASE = 'system-remove-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_AOS_DISPUTED = 'system-issue-solicitor-aos-disputed';
