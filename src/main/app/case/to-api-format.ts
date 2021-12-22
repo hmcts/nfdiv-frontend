@@ -212,6 +212,9 @@ const fields: ToApiConverters = {
         ? HowToRespondApplication.DISPUTE_DIVORCE
         : HowToRespondApplication.WITHOUT_DISPUTE_DIVORCE,
   }),
+  coApplicant1StatementOfTruth: data => ({
+    coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

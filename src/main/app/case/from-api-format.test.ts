@@ -32,6 +32,7 @@ describe('from-api-format', () => {
     applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
     howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
+    coApplicant1StatementOfTruth: YesOrNo.YES,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -56,6 +57,7 @@ describe('from-api-format', () => {
       applicant2IConfirmPrayer: 'checked',
       dueDate: '26 July 2021',
       disputeApplication: YesOrNo.YES,
+      coApplicant1StatementOfTruth: Checkbox.Checked,
     });
   });
 
@@ -91,6 +93,7 @@ describe('from-api-format', () => {
       dateSubmitted: new Date('2021-01-01'),
       dueDate: '26 July 2021',
       disputeApplication: YesOrNo.YES,
+      coApplicant1StatementOfTruth: Checkbox.Checked,
     });
   });
 
@@ -120,6 +123,7 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
       disputeApplication: null,
+      coApplicant1StatementOfTruth: Checkbox.Checked,
     });
   });
 
@@ -149,6 +153,7 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
       disputeApplication: YesOrNo.NO,
+      coApplicant1StatementOfTruth: Checkbox.Checked,
     });
   });
 

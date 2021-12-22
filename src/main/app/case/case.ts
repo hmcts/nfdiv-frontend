@@ -239,6 +239,7 @@ export interface Case {
   applicant1ReasonInformationNotCorrect?: string;
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
+  coApplicant1StatementOfTruth?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

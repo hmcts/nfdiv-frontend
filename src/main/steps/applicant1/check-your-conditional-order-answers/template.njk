@@ -1,0 +1,52 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% extends "common/page.njk" %}
+
+{% block content %}
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  {% set answerRows = [] %}
+  {% for question, text in stepQuestions %}
+    {% if stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null' %}
+      {% set answerRows = (answerRows.push({
+        key: {
+          html: text,
+          classes: 'govuk-!-width-two-thirds'
+        },
+        value: {
+          text: stepAnswers[question]
+        },
+        actions: {
+          items: [
+            {
+              href: stepLinks[question],
+              text: change,
+              visuallyHiddenText: text
+            }
+          ]
+        }
+      }), answerRows) %}
+    {% endif %}
+  {% endfor %}
+
+  {% if answerRows.length %}
+    {{ govukSummaryList({
+      classes: 'govuk-!-margin-bottom-9',
+      rows: answerRows
+    }) }}
+  {% endif %}
+
+  {% block form %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% include "./form.njk" %}
+      </div>
+    </div>
+  {% endblock %}
+
+  {% include "common/contact-us.njk" %}
+{% endblock %}

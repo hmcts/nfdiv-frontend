@@ -117,3 +117,4 @@ export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
 export const CONTINUE_WITH_YOUR_APPLICATION: PageLink = '/continue-with-your-application';
 export const REVIEW_YOUR_APPLICATION: PageLink = '/review-your-application';
 export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-application';
+export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-conditional-order-answers';

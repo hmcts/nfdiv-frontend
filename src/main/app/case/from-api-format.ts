@@ -108,6 +108,9 @@ const fields: FromApiConverters = {
         ? howToRespondApplication
         : YesOrNo.NO,
   }),
+  coApplicant1StatementOfTruth: data => ({
+    coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
+  }),
 };
 
 const fromApiDate = date => {
