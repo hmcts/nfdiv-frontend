@@ -209,14 +209,8 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/upload-your-documents"
     And the page should include "Upload your documents"
     Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
-    When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    When I clear the form
     And I select "I cannot upload some or all of my documents"
-    Then I select "Proof that I changed my name"
+    And I select "Proof that I changed my name"
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
@@ -247,3 +241,27 @@ Feature: Applicant 2
     And I click "Sign out"
     Given I login with applicant "1"
     Then the page URL should be "/application-ended"
+
+  @flaky
+  Scenario: Applicant 2 upload larry-the-cat
+    When I go to "/"
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
+    When I enter my valid case reference and valid access code
+    Then the page should include "You need to review your joint application"
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    When I go to "/applicant2/upload-your-documents"
+    Then the page should include "Upload your documents"
+    Given I delete any previously uploaded files
+    Then the page should include "No files uploaded"
+    When I upload the file "fixtures/larry-the-cat.jpg"
+    And I wait until the page contains image "larry-the-cat.jpg"
+    And I click "Delete"
+    And I wait until the page doesn't contain "larry-the-cat.jpg"
+    When I clear the form
+    And I select "I cannot upload some or all of my documents"
+    And I select "Proof that I changed my name"
+    When I click "Continue"
+    When I go to "/applicant2/check-your-answers"
+    Then the page should include "Check your answers"
+    And the page should include "I cannot upload some or all of my documents"
