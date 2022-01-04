@@ -90,8 +90,7 @@ Feature: Applicant 1 joint application
     Then the page should include "Upload your documents"
     Given I select "I cannot upload my original marriage certificate"
     When I click "Continue"
-    Then the page should include "Equality and diversity questions"
-    Given I click "I don't want to answer these questions"
+    And I go to "/"
     And the page should include "Check your answers"
     And the page should include "When did you get married?	1 January 2000"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
@@ -264,16 +263,10 @@ Feature: Applicant 1 joint application
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
     Then the page should include "No files uploaded"
-    When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    When I clear the form
-    And I select "I cannot upload some or all of my documents"
-    Then I select "Proof that I changed my name"
+    Given I select "I cannot upload some or all of my documents"
+    And I select "Proof that I changed my name"
     When I click "Continue"
-    Then the page should include "Equality and diversity questions"
-    Given I click "I don't want to answer these questions"
+    And I go to "/"
     Then the page should include "Check your answers"
     And the page should include "Yes, my marriage has irretrievably broken down"
     And the page should include "When did you get married?	1 January 2000"
@@ -287,3 +280,21 @@ Feature: Applicant 1 joint application
     Given I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     And the page should include "Your answers have been sent to your husband to review"
+
+  @flaky
+  Scenario: Applicant 1 upload larry-the-cat
+    Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
+    When I go to "/upload-your-documents"
+    Then the page should include "Upload your documents"
+    Given I delete any previously uploaded files
+    Then the page should include "No files uploaded"
+    When I upload the file "fixtures/larry-the-cat.jpg"
+    Then I wait until the page contains image "larry-the-cat.jpg"
+    And I click "Delete"
+    And I wait until the page doesn't contain "larry-the-cat.jpg"
+    When I clear the form
+    And I select "I cannot upload my original marriage certificate"
+    When I click "Continue"
+    And I go to "/"
+    Then the page should include "Check your answers"
+    And the page should include "I cannot upload some or all of my documents"
