@@ -4,15 +4,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import {
-  ApplicationType,
-  CITIZEN_APPLICANT2_UPDATE,
-  CITIZEN_SAVE_AND_CLOSE,
-  CITIZEN_UPDATE,
-  State,
-  UPDATE_AOS,
-  UPDATE_CONDITIONAL_ORDER,
-} from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
@@ -74,11 +66,7 @@ export class PostController<T extends AnyObject> {
   }
 
   protected getEventName(req: AppRequest<T>): string {
-    if (req.session.userCase.state === State.ConditionalOrderDrafted) {
-      return UPDATE_CONDITIONAL_ORDER;
-    } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-      return UPDATE_AOS;
-    } else if (req.session.isApplicant2) {
+    if (req.session.isApplicant2) {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
       return CITIZEN_UPDATE;
