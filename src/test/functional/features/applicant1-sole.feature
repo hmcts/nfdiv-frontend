@@ -296,14 +296,8 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
-    When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    When I clear the form
     And I select "I cannot upload some or all of my documents"
-    Then I select "Proof that I changed my name"
+    And I select "Proof that I changed my name"
     When I click "Continue"
     Then the page should include "Equality and diversity questions"
     Given I click "I don't want to answer these questions"
