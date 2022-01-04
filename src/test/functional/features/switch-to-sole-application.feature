@@ -48,7 +48,7 @@ Feature: Switch To Sole Application
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
     When I click "Continue"
-    Then the page should include "Check your answers so far"
+    Then the page should include "Check your answers"
     Given I go to "/applicant2/confirm-your-joint-application"
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
