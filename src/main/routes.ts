@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { extname } from 'path';
 
-import { Application, RequestHandler, Response } from 'express';
+import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
@@ -32,6 +32,7 @@ import {
   HOME_URL,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
+  RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
@@ -60,12 +61,23 @@ export class Routes {
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
+    const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
+      const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
+      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
+        return res.redirect('/');
+      }
+      next();
+    };
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
         : GetController;
 
-      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      app.get(
+        step.url,
+        isRouteForUser as RequestHandler,
+        errorHandler(new getController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
