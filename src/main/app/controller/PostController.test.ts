@@ -10,9 +10,6 @@ import {
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
   Gender,
-  State,
-  UPDATE_AOS,
-  UPDATE_CONDITIONAL_ORDER,
 } from '../case/definition';
 import { isPhoneNoValid } from '../form/validation';
 
@@ -264,7 +261,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
 
-  test('triggers citizen-draft-aos event if user is respondent', async () => {
+  test('triggers citizen-applicant2-update-application event if user is respondent', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { gender: Gender.FEMALE };
     const controller = new PostController(mockFormContent.fields);
@@ -275,23 +272,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, UPDATE_AOS);
-
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
-  });
-
-  test('triggers update-conditional-order event if case is in ConditionalOrderDrafted', async () => {
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = {};
-    const controller = new PostController(mockFormContent.fields);
-
-    const req = mockRequest({ body });
-    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-    req.session.userCase.state = State.ConditionalOrderDrafted;
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, UPDATE_CONDITIONAL_ORDER);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_APPLICANT2_UPDATE);
 
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
   });
