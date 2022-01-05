@@ -19,6 +19,8 @@ const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
   subHeading2: 'Helpful information',
   line1:
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
+  line2:
+    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
   whatHappensNext: 'What happens next',
 });
 
