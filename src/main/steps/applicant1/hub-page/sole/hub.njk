@@ -7,7 +7,9 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ol>
-  <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
+  {% if progressionIndex < 9 %}
+    <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
+  {% endif %}
 {% endset %}
 
 {% if progressionIndex == 10 %}
@@ -17,13 +19,20 @@
   <p class="govuk-body">{{ d8Submitted.line3 }}</p>
   <p class="govuk-body">{{ d8Submitted.line4 }}</p>
 {% elif progressionIndex == 9 %}
-  <p class="govuk-body">{{ conditionalOrder.line1 | safe }}</p>
+  <p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}
-    <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
+      <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
       download="Certificate-of-Service">
       {{deemedOrDispensedAccepted.line1}}</a>
     </p>
+  {% elif isSuccessfullyServedByBailiff %}
+    <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line1 }}
+      <a class="govuk-link" href={{servedByBailiff.downloadReference}}
+      download="Certificate-of-Service">
+      {{servedByBailiff.line2}}</a>
+    </p>
+    <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line2 }}</p>
   {% endif %}
   {{ govukDetails({
     summaryText: readMore,
@@ -45,7 +54,11 @@
       {{deemedOrDispensedAccepted.line1}}</a>
     </p>
   {% elif isSuccessfullyServedByBailiff %}
-    <p class="govuk-body">{{ servedByBailiff.line1 | safe }}</p>
+    <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
+      <a class="govuk-link" href={{servedByBailiff.downloadReference}}
+      download="Certificate-of-Service">
+      {{servedByBailiff.line1}}</a>
+    </p>
   {% else %}
     <p class="govuk-body">{{ holding.line1 | safe }}</p>
   {% endif %}
