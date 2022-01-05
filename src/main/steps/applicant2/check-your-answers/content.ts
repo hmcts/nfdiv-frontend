@@ -235,7 +235,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  content.checkYourAnswersPartner = content.partner;
+  content.checkTheirAnswersPartner = content.partner;
   const translations = languages[content.language](content);
   return {
     ...applicant1GenerateContent(content),
