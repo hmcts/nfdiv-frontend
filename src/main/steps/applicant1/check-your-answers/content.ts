@@ -251,7 +251,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
           : ''
       }`,
       line5: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2 ? '' : userCase.applicant1PhoneNumber
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2 ? '' : userCase.applicant1PhoneNumber
       }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
@@ -259,15 +259,14 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
           : ''
       }`,
       line7: `${
-        !userCase.applicant1AddressPrivate ||
-        (userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2)
+        !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
           ? 'Keep my contact details private'
           : 'I do not need my contact details kept private'
       }`,
       line8: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
               userCase.applicant1Address1,
@@ -653,7 +652,7 @@ const cy: typeof en = ({
           : ''
       }`,
       line5: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2 ? '' : userCase.applicant1PhoneNumber
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2 ? '' : userCase.applicant1PhoneNumber
       }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
@@ -661,15 +660,14 @@ const cy: typeof en = ({
           : ''
       }`,
       line7: `${
-        !userCase.applicant1AddressPrivate ||
-        (userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2)
+        !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
           ? 'Cadwch fy manylion cyswllt yn breifat'
           : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
       }`,
       line8: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && userCase.isApplicant2
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
               userCase.applicant1Address1,
