@@ -24,12 +24,12 @@ const moreDetailsComponent: (text: string, title: string) => string = (text: str
   </details>`;
 };
 
-const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkYourAnswersPartner) => {
+const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } costs ${config.get('fees.applicationFee')}.
-  You will not be asked to pay the fee. Your ${checkYourAnswersPartner} will be asked to pay. ${
+  You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
     applicant1HelpPayingNeeded === YesOrNo.YES
       ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
       : 'They have said that they do not need help paying the fee.'
@@ -46,7 +46,7 @@ const getOtherCourtCasesMoreDetailsContent = () => {
   return moreDetailsComponent(text, title);
 };
 
-const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkYourAnswersPartner }) => ({
+const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -184,7 +184,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
                 ? getHelpWithFeesMoreDetailsContent(
                     userCase.applicant1HelpPayingNeeded,
                     isDivorce,
-                    checkYourAnswersPartner
+                    checkTheirAnswersPartner
                   )
                 : ''
             }`
@@ -443,9 +443,9 @@ const cy: typeof en = ({
   userCase,
   isJointApplication,
   isApplicant2,
-  checkYourAnswersPartner,
+  checkTheirAnswersPartner,
 }) => ({
-  ...en({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkYourAnswersPartner }),
+  ...en({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }),
   sectionTitles: {
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -586,7 +586,7 @@ const cy: typeof en = ({
                 ? getHelpWithFeesMoreDetailsContent(
                     userCase.applicant1HelpPayingNeeded,
                     isDivorce,
-                    checkYourAnswersPartner
+                    checkTheirAnswersPartner
                   )
                 : ''
             }`
