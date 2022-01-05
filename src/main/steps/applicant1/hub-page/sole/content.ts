@@ -48,13 +48,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
-  holdingAndDeemedOrDispensedAccepted: {
-    line1: `Your application ${
-      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'to dispense with service'
-        : 'for deemed service'
-    } was granted. You can`,
-    line2: `download the court order granting your application for ${
+  holdingAndDeemedOrDispensedAccepted: `Your application ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'to dispense with service'
+      : 'for deemed service'
+  } was granted. You can`,
+  deemedOrDispensedAccepted: {
+    line1: `download the court order granting your application for ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispensed'
         : 'deemed'
@@ -103,6 +103,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }.`,
     applyForConditionalOrder: 'Apply for conditional order',
   },
+  conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.
+  This is because they did not respond to your application.
+  You applied to the court to ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? "'dispense with service"
+      : "for 'deemed service'"
+  }, which was granted. You can `,
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
     isDivorce ? 'you are legally divorced' : 'your civil partnership is legally ended'
