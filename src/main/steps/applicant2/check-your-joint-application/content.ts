@@ -6,12 +6,12 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ checkYourAnswersPartner, required }) => ({
-  title: `Check your ${checkYourAnswersPartner}'s answers`,
-  line1: `This is the information your ${checkYourAnswersPartner} provided for your joint application. Check it to make sure it’s correct.`,
-  detailsCorrect: `Is the information your ${checkYourAnswersPartner} provided correct?`,
-  detailsCorrectHint: `If you select no then your ${checkYourAnswersPartner} will be notified and asked to change it.`,
-  explainWhyIncorrect: `Explain what is incorrect or needs changing. Your answer will be sent to your ${checkYourAnswersPartner}.`,
+const en = ({ checkTheirAnswersPartner, required }) => ({
+  title: `Check your ${checkTheirAnswersPartner}'s answers`,
+  line1: `This is the information your ${checkTheirAnswersPartner} provided for your joint application. Check it to make sure it’s correct.`,
+  detailsCorrect: `Is the information your ${checkTheirAnswersPartner} provided correct?`,
+  detailsCorrectHint: `If you select no then your ${checkTheirAnswersPartner} will be notified and asked to change it.`,
+  explainWhyIncorrect: `Explain what is incorrect or needs changing. Your answer will be sent to your ${checkTheirAnswersPartner}.`,
   continue: 'Continue',
   errors: {
     applicant2Confirmation: {
@@ -70,7 +70,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  content.checkYourAnswersPartner = content.partner;
+  content.checkTheirAnswersPartner = content.partner;
   content.partner = getApplicant1PartnerContent(content);
   const translations = languages[content.language](content);
   return {

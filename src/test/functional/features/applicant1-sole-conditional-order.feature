@@ -1,4 +1,4 @@
-Feature: Hub page
+Feature: Hub page sole conditional order
 
   Background: Logged in for hub page
     Given I create a new user and login

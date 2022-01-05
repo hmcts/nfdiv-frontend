@@ -41,7 +41,7 @@ const en = {
   wife: 'wife',
   partner: 'partner',
   civilPartner: 'civil partner',
-  checkYourAnswersPartner: 'check your answers partner',
+  checkTheirAnswersPartner: 'partner for check their answers',
   withHim: 'with him',
   withHer: 'with her',
   months: [

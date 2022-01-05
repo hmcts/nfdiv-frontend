@@ -248,7 +248,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const applicant2Url = content.isApplicant2 ? urls.RESPONDENT : '';
+  const applicant2Url = urls.RESPONDENT;
   return {
     ...translations,
     form,
