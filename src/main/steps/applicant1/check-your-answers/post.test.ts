@@ -4,8 +4,8 @@ import { Checkbox } from '../../../app/case/case';
 import {
   APPLICANT_1_RESUBMIT,
   ApplicationType,
-  CITIZEN_INVITE_APPLICANT_2,
   CITIZEN_SUBMIT,
+  INVITE_APPLICANT_2,
   State,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
@@ -37,7 +37,7 @@ describe('CheckYourAnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_SUBMIT);
   });
 
-  it('triggers CITIZEN_INVITE_APPLICANT_2 when joint application', async () => {
+  it('triggers INVITE_APPLICANT_2 when joint application', async () => {
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant1IConfirmPrayer: Checkbox.Checked,
@@ -49,7 +49,7 @@ describe('CheckYourAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_INVITE_APPLICANT_2);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, INVITE_APPLICANT_2);
   });
 
   it('triggers APPLICANT_1_RESUBMIT when applicant 1 resubmits', async () => {
