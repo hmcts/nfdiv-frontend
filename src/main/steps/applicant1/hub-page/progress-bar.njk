@@ -50,7 +50,7 @@
       text: conditionalOrderApplication
     },
     complete: progressionIndex > 10,
-    active: hasApplicantConfirmedReceipt
+    active: progressionIndex == 9 or hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
