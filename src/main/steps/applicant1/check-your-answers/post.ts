@@ -3,8 +3,8 @@ import autobind from 'autobind-decorator';
 import {
   APPLICANT_1_RESUBMIT,
   ApplicationType,
-  CITIZEN_INVITE_APPLICANT_2,
   CITIZEN_SUBMIT,
+  INVITE_APPLICANT_2,
   State,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -16,7 +16,7 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
     if (req.session.userCase.state === State.AwaitingApplicant1Response) {
       return APPLICANT_1_RESUBMIT;
     } else if (req.body.applicationType === ApplicationType.JOINT_APPLICATION) {
-      return CITIZEN_INVITE_APPLICANT_2;
+      return INVITE_APPLICANT_2;
     } else {
       return CITIZEN_SUBMIT;
     }
