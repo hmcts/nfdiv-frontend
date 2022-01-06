@@ -190,6 +190,42 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
+  test('redirects to hub page for applicant 2 users in ConditionalOrderPending state if not applicant2ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrderStarted: null,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to first conditional order page for applicant 2 users in ConditionalOrderPending state if applicant2ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
+  });
+
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {
@@ -215,6 +251,40 @@ describe('HomeGetController', () => {
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
+  });
+
+  test('redirects to hub page for applicant 1 users in ConditionalOrderPending state if not applicant1ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: null,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to first conditional order page for applicant 1 users in ConditionalOrderPending state if applicant1ApplyForConditionalOrderStarted', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
         },
       },
     });
