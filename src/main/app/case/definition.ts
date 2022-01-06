@@ -1649,7 +1649,7 @@ export const enum HttpStatus {
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
+export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
