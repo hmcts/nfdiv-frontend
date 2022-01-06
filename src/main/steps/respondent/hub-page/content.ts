@@ -77,6 +77,14 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
+  awaitingPronouncement: {
+    line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on [pronouncement date plus 43 days]. This is the final step in the ${
+      isDivorce ? 'divorce ' : ''
+    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+  },
 });
 
 // @TODO translations
