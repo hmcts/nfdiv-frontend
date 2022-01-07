@@ -31,6 +31,7 @@ describe('HomeGetController', () => {
       session: {
         userCase: {
           id: '123',
+          state: State.Draft,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           mockQuestion: 'mockExistingAnswer',
         },
@@ -47,6 +48,7 @@ describe('HomeGetController', () => {
       session: {
         userCase: {
           id: '123',
+          state: State.Draft,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           gender: 'male',
         },

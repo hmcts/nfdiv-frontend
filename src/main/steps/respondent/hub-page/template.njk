@@ -3,7 +3,10 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if progressionIndex == 10 %}
+  {% if progressionIndex == 11 %}
+    <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
+    <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
+  {% elif progressionIndex == 10 %}
     <p class="govuk-body">{{ d8Submitted.line1 }}</p>
     <p class="govuk-body">{{ d8Submitted.line2 }}</p>
     <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
