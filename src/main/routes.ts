@@ -97,7 +97,7 @@ export class Routes {
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
     );
 
-    app.post(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
+    app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(
       SWITCH_TO_SOLE_APPLICATION,
       errorHandler(new SwitchToSoleApplicationPostController(switchToSoleAppContent.form.fields).post)
