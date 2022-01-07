@@ -3,7 +3,16 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if progressionIndex == 10 %}
+{% if progressionIndex == 15 %}
+    <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
+    <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPronounced.line3 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPronounced.line4 }}
+      <a class="govuk-link" href={{conditionalOrderPronounced.downloadReference}}
+      download="Certificate-of-Entitlement">
+      {{conditionalOrderPronounced.line5}}</a>
+    </p>
+{% elif progressionIndex == 10 %}
     <p class="govuk-body">{{ d8Submitted.line1 }}</p>
     <p class="govuk-body">{{ d8Submitted.line2 }}</p>
     <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>

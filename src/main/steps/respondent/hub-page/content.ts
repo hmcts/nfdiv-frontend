@@ -77,6 +77,21 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
+  conditionalOrderPronounced: {
+    line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
+    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateAndTimeOfHearing}. Your ${partner} has also been notified.`,
+    line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
+    Your ${partner} still has to apply for a final order which will end the ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    They can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line3: `If they do not apply for a final order by ${userCase.dateFinalOrderEligibleFrom} then you can apply for a final order.`,
+    line4: 'You can ',
+    line5: 'read and download your certificate of entitlement.',
+    downloadReference: 'certificate-of-service',
+  },
 });
 
 // @TODO translations

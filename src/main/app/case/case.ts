@@ -5,6 +5,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ConditionalOrderCourt,
   DateAsString,
   DivorceDocument,
   DivorceOrDissolution,
@@ -240,6 +241,9 @@ export interface Case {
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
+  coCourt: ConditionalOrderCourt;
+  coDateAndTimeOfHearing: DateAsString;
+  dateFinalOrderEligibleFrom: DateAsString;
 }
 
 export interface CaseWithId extends Case {

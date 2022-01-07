@@ -86,6 +86,8 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
           : CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
     }
+    case State.AwaitingPronouncement:
+    case State.ConditionalOrderPronounced:
     case State.AwaitingAos:
     case State.AwaitingConditionalOrder:
     case State.AosDrafted:
