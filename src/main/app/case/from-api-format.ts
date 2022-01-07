@@ -111,6 +111,10 @@ const fields: FromApiConverters = {
   coApplicant1StatementOfTruth: data => ({
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
   }),
+  coDateAndTimeOfHearing: data => ({
+    coDateOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
+    coTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('h:mma'),
+  }),
 };
 
 const fromApiDate = date => {

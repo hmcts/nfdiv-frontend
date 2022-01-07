@@ -99,6 +99,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
+  coCourtName: 'coCourtName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -240,6 +241,9 @@ export interface Case {
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
+  coCourtName?: string;
+  coDateOfHearing?: DateAsString;
+  coTimeOfHearing?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -21,12 +23,15 @@ const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
   whatHappensNext: 'What happens next',
   generalAwaitingPronouncement: {
-    line2:
-      "A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at [court name] on [date of hearing] at [time of hearing].",
-    line3:
-      'You do not need to come to the hearing, unless you want to object. You must contact the court by [hearing date - 7 days] if you want to attend.',
-    line5:
-      'You can view and download your ‘certificate of entitlement for a conditional order’. This is the document that says the court does not see any reason why you cannot [get divorced / end your civil partnership].',
+    line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${userCase.coCourtName} on ${userCase.coDateOfHearing} at ${userCase.coTimeOfHearing}.`,
+    line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
+      userCase.coDateOfHearing
+    )
+      .subtract(7, 'day')
+      .format('D MMMM YYYY')} if you want to attend.`,
+    line5: `You can <a class="govuk-link" href="/downloads/certificate-of-entitlement" download="Certificate-of-entitlement">view and download your ‘certificate of entitlement for a conditional order’</a>. This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
   },
 });
 
