@@ -35,6 +35,7 @@ import {
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
+  SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
 } from './steps/urls';
@@ -63,7 +64,10 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
+      if (
+        !req.path.includes(SWITCH_TO_SOLE_APPLICATION) &&
+        ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2))
+      ) {
         return res.redirect('/');
       }
       next();
