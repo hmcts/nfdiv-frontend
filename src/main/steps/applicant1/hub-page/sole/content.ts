@@ -111,7 +111,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   This is because they did not respond to your application.
   You applied to the court to ${
     userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-      ? "'dispense with service"
+      ? "'dispense with service'"
       : "for 'deemed service'"
   }, which was granted. You can `,
   legalAdvisorReferral: {
