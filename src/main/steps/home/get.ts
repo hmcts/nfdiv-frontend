@@ -78,7 +78,8 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
-    case State.ConditionalOrderDrafted: {
+    case State.ConditionalOrderDrafted:
+    case State.ConditionalOrderPending: {
       return userCase.applicant1ApplyForConditionalOrderStarted
         ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
           ? READ_THE_RESPONSE
@@ -108,7 +109,8 @@ const applicant2RedirectPageSwitch = (
     case State.Applicant2Approved: {
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
     }
-    case State.ConditionalOrderDrafted: {
+    case State.ConditionalOrderDrafted:
+    case State.ConditionalOrderPending: {
       return userCase.applicant2ApplyForConditionalOrderStarted
         ? `${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`
         : `${APPLICANT_2}${HUB_PAGE}`;

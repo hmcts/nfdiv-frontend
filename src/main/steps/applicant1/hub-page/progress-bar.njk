@@ -29,8 +29,8 @@
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 3,
-    active: progressionIndex == 3
+    complete: progressionIndex > 8,
+    active: progressionIndex == 9
   }] %}
 {% else %}
   {% set items = [{
@@ -50,7 +50,7 @@
       text: conditionalOrderApplication
     },
     complete: progressionIndex > 10,
-    active: hasApplicantConfirmedReceipt
+    active: progressionIndex == 9 or hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
