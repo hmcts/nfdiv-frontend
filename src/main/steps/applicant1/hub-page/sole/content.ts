@@ -48,13 +48,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
-  holdingAndDeemedOrDispensedAccepted: {
-    line1: `Your application ${
-      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'to dispense with service'
-        : 'for deemed service'
-    } was granted. You can`,
-    line2: `download the court order granting your application for ${
+  holdingAndDeemedOrDispensedAccepted: `Your application ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? 'to dispense with service'
+      : 'for deemed service'
+  } was granted. You can`,
+  deemedOrDispensedAccepted: {
+    line1: `download the court order granting your application for ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispensed'
         : 'deemed'
@@ -95,14 +95,25 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   servedByBailiff: {
     line1: `The court has seen evidence that your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } has been successfully ‘served’ (delivered) to your ${partner}. You can <a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">view and download your ‘certificate of service’</a>.`,
+    } has been successfully ‘served’ (delivered) to your ${partner}. You can `,
+    line2: "view and download your 'certificate of service'.",
+    downloadReference: '/downloads/certificate-of-service',
   },
-  conditionalOrder: {
-    line1: `You can now apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
-      isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }.`,
-    applyForConditionalOrder: 'Apply for conditional order',
+  awaitingConditionalOrder: `You can now apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+    isDivorce ? 'get a divorce' : 'end your civil partnership'
+  }.`,
+  awaitingConditionalOrderAndServedByBailiff: {
+    line1: `The court has seen evidence that the court documents have been successfully ‘served’ (delivered) to your ${partner}. You can`,
+    line2: `You will not see a response from your ${partner} when you apply for the conditional order.`,
   },
+  applyForConditionalOrder: 'Apply for conditional order',
+  conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.
+  This is because they did not respond to your application.
+  You applied to the court to ${
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      ? "'dispense with service"
+      : "for 'deemed service'"
+  }, which was granted. You can `,
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
     isDivorce ? 'you are legally divorced' : 'your civil partnership is legally ended'

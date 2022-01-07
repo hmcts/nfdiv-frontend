@@ -30,7 +30,7 @@ Feature: Hub page
     And the page should include "The next step is to apply for a 'conditional order'."
     And the page should not include "Confirm receipt"
 
-  Scenario: Applicant 1 draft conditional order from AwaitingConditionalOrderState
+  Scenario: Applicant 1 draft conditional order from AwaitingConditionalOrder state
     Given I go to "/"
     When I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
@@ -48,7 +48,7 @@ Feature: Hub page
     When I click "Apply for conditional order"
     Then the page URL should be "/continue-with-your-application"
 
-  Scenario: Applicant 2 draft conditional order from AwaitingConditionalOrderState
+  Scenario: Applicant 2 draft conditional order from AwaitingConditionalOrder state
     Given I go to "/"
     When I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
