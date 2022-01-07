@@ -20,6 +20,9 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
+import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
+import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -95,6 +98,12 @@ export class Routes {
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
+    );
+
+    app.post(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
+    app.post(
+      SWITCH_TO_SOLE_APPLICATION,
+      errorHandler(new SwitchToSoleApplicationPostController(switchToSoleAppContent.form.fields).post)
     );
 
     app.get(
