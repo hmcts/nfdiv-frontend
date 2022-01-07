@@ -67,10 +67,7 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if (
-        !req.path.includes(SWITCH_TO_SOLE_APPLICATION) &&
-        ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2))
-      ) {
+      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
         return res.redirect('/');
       }
       next();
