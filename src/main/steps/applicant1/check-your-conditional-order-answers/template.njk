@@ -2,6 +2,13 @@
 
 {% extends "common/page.njk" %}
 
+{% set nextIncompleteStep = getNextIncompleteConditionalOrderUrl() %}
+{% set isConditionalOrderAnswersComplete =
+        '/check-your-conditional-order-answers' in nextIncompleteStep or
+        nextIncompleteStep === '/'
+%}
+{% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
+
 {% block content %}
   {% block error_summary %}
     {% include "common/error/summary.njk" %}
@@ -40,13 +47,21 @@
     }) }}
   {% endif %}
 
-  {% block form %}
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        {% include "./form.njk" %}
+  {% if isConditionalOrderAnswersComplete %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "./form.njk" %}
+        </div>
       </div>
-    </div>
-  {% endblock %}
+    {% endblock %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
 
   {% include "common/contact-us.njk" %}
 {% endblock %}

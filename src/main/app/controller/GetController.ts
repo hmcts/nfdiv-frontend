@@ -3,7 +3,7 @@ import { Response } from 'express';
 import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
-import { getNextIncompleteStepUrl } from '../../steps';
+import { getNextIncompleteConditionalOrderUrl, getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import { DivorceOrDissolution } from '../case/definition';
 
@@ -47,6 +47,7 @@ export class GetController {
       sessionErrors,
       htmlLang: language,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
+      getNextIncompleteConditionalOrderUrl: () => getNextIncompleteConditionalOrderUrl(req),
     });
   }
 

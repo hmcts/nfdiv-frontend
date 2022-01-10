@@ -7,6 +7,7 @@ import {
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
@@ -259,7 +260,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
+    expect(res.redirect).toBeCalledWith(CHECK_CONDITIONAL_ORDER_ANSWERS_URL);
   });
 
   test('redirects to hub page for applicant 1 users in ConditionalOrderPending state if not applicant1ApplyForConditionalOrderStarted', () => {
@@ -293,7 +294,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
+    expect(res.redirect).toBeCalledWith(CHECK_CONDITIONAL_ORDER_ANSWERS_URL);
   });
 
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {

@@ -7,6 +7,7 @@ import * as urls from '../../urls';
 
 const en = ({ isJointApplication, isDivorce, userCase }: CommonContent) => ({
   title: 'Check your answers',
+  titleSoFar: 'Check your answers so far',
   confirm: 'Confirm before submitting',
   stepQuestions: {
     continueApplication: `Do you want to continue with your${isJointApplication ? ' joint' : ''} ${
@@ -27,6 +28,7 @@ const en = ({ isJointApplication, isDivorce, userCase }: CommonContent) => ({
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  continueApplication: 'Continue application',
   submit: 'submit',
   errors: {
     coApplicant1StatementOfTruth: {

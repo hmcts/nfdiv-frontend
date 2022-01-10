@@ -130,7 +130,7 @@ export const form: FormContent = {
   fields: {
     applicant1ConfirmInformationStillCorrect: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.confirmInformationStillCorrect,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
