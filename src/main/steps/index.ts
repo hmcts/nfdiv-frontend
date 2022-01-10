@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { extname } from 'path';
 
 import { CaseWithId } from '../app/case/case';
-import { ApplicationType } from '../app/case/definition';
+import { ApplicationType, State } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
@@ -63,17 +63,13 @@ const getNextIncompleteStep = (
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
   const sequence = getUserSequence(req);
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
+  const sequenceIndex =
+    req.session.userCase.state === State.ConditionalOrderDrafted ||
+    req.session.userCase.state === State.ConditionalOrderPending
+      ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
+      : 0;
+  const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
 
-  return `${url}${queryString}`;
-};
-
-export const getNextIncompleteConditionalOrderUrl = (req: AppRequest): string => {
-  const { queryString } = getPathAndQueryString(req);
-  const sequence = applicant1Sequence;
-  const stepIndex = sequence.findIndex(s => s.url === READ_THE_RESPONSE);
-
-  const url = getNextIncompleteStep(req.session.userCase, sequence[stepIndex], sequence, true);
   return `${url}${queryString}`;
 };
 

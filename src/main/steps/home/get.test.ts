@@ -10,7 +10,6 @@ import {
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
-  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -190,7 +189,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
   });
 
   test('redirects to hub page for applicant 2 users in ConditionalOrderPending state if not applicant2ApplyForConditionalOrderStarted', () => {
@@ -226,7 +225,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
   });
 
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {

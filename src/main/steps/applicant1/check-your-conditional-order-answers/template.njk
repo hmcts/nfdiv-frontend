@@ -1,8 +1,9 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "common/page.njk" %}
 
-{% set nextIncompleteStep = getNextIncompleteConditionalOrderUrl() %}
+{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
 {% set isConditionalOrderAnswersComplete =
         '/check-your-conditional-order-answers' in nextIncompleteStep or
         nextIncompleteStep === '/'
