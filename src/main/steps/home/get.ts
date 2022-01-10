@@ -82,9 +82,11 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       return userCase.applicant1ApplyForConditionalOrderStarted
-        ? userCase.applicant1ApplyForConditionalOrder
-          ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
-          : READ_THE_RESPONSE
+        ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
+          ? userCase.applicant1ApplyForConditionalOrder
+            ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
+            : READ_THE_RESPONSE
+          : CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
     }
     case State.Draft: {
