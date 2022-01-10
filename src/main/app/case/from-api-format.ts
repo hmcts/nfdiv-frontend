@@ -113,7 +113,7 @@ const fields: FromApiConverters = {
   }),
   coDateAndTimeOfHearing: data => ({
     coDateOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
-    coTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('h:mma'),
+    coTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('h:mmA'),
   }),
 };
 
