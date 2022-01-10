@@ -240,7 +240,7 @@ export interface Case {
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
-  coApplicant1SubmittedDate?: DateAsString;
+  coApplicant1SubmittedDate?: Date;
 }
 
 export interface CaseWithId extends Case {
