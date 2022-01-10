@@ -10,10 +10,12 @@ import {
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  READ_THE_RESPONSE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -189,7 +191,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
   test('redirects to hub page for applicant 2 users in ConditionalOrderPending state if not applicant2ApplyForConditionalOrderStarted', () => {
@@ -225,7 +227,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
@@ -251,6 +253,24 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(READ_THE_RESPONSE);
+  });
+
+  test('redirects to CO CYA page for applicant 1 users in ConditionalOrderDrafted state if first question answered', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant1ApplyForConditionalOrder: YesOrNo.YES,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderDrafted,
         },
@@ -285,6 +305,24 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(READ_THE_RESPONSE);
+  });
+
+  test('redirects to CO CYA page for applicant 1 users in ConditionalOrderPending state if first question answered', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant1ApplyForConditionalOrder: YesOrNo.YES,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderPending,
         },

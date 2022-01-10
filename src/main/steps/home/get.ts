@@ -16,10 +16,12 @@ import {
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  READ_THE_RESPONSE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
@@ -79,7 +81,11 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      return userCase.applicant1ApplyForConditionalOrderStarted ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL : HUB_PAGE;
+      return userCase.applicant1ApplyForConditionalOrderStarted
+        ? userCase.applicant1ApplyForConditionalOrder
+          ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
+          : READ_THE_RESPONSE
+        : HUB_PAGE;
     }
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
@@ -107,7 +113,7 @@ const applicant2RedirectPageSwitch = (
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       return userCase.applicant2ApplyForConditionalOrderStarted
-        ? `${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`
+        ? `${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`
         : `${APPLICANT_2}${HUB_PAGE}`;
     }
     default: {

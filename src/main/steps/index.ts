@@ -64,8 +64,9 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
   const sequence = getUserSequence(req);
   const sequenceIndex =
-    req.session.userCase.state === State.ConditionalOrderDrafted ||
-    req.session.userCase.state === State.ConditionalOrderPending
+    !req.session.isApplicant2 &&
+    (req.session.userCase.state === State.ConditionalOrderDrafted ||
+      req.session.userCase.state === State.ConditionalOrderPending)
       ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
       : 0;
   const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
