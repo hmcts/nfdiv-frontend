@@ -77,6 +77,12 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
+  legalAdvisorReferral: {
+    line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }`,
+    line2: 'You will receive an email when the conditional order has been granted by the court.',
+  },
   awaitingPronouncement: {
     line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
