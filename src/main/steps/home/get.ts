@@ -86,18 +86,11 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
           : CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
     }
-    case State.AwaitingPronouncement:
-    case State.ConditionalOrderPronounced:
-    case State.AwaitingAos:
-    case State.AwaitingConditionalOrder:
-    case State.AosDrafted:
-    case State.AosOverdue:
-    case State.Holding:
-    case State.AwaitingGeneralConsideration: {
-      return HUB_PAGE;
+    case State.Draft: {
+      return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
     }
     default: {
-      return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
+      return HUB_PAGE;
     }
   }
 };

@@ -92,6 +92,12 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line5: 'read and download your certificate of entitlement.',
     downloadReference: 'certificate-of-service',
   },
+  legalAdvisorReferral: {
+    line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }`,
+    line2: 'You will receive an email when the conditional order has been granted by the court.',
+  },
 });
 
 // @TODO translations
