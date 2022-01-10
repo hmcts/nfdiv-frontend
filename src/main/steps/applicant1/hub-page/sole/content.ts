@@ -117,9 +117,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   legalAdvisorReferral: {
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${
-      userCase.dueDate
-    } after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
+    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
+      userCase.coApplicant1SubmittedDate
+    )
+      .add(21, 'day')
+      .format(
+        'D MMMM YYYY'
+      )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
