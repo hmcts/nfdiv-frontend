@@ -22,8 +22,9 @@ const en = ({ isDivorce, partner, isJointApplication }: CommonContent) => ({
     isDivorce ? 'get a divorce' : 'end your civil partnership'
   }.`,
   finalOrder: 'Apply for a final order',
-  finalOrderInfo:
-    'This legally ends the marriage. You cannot apply for a final order until 6 weeks after the conditional order.',
+  finalOrderInfo: `This legally ends the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }. You cannot apply for a final order until 6 weeks after the conditional order.`,
   yes: `I want to continue with my ${isDivorce ? 'divorce application' : 'application to end my civil partnership'}`,
   no: `I do not want to continue with my ${
     isDivorce ? 'divorce application' : 'application to end my civil partnership'
