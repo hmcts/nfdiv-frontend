@@ -51,6 +51,7 @@ describe('to-api-format', () => {
     applicant2LegalProceedings: YesOrNo.NO,
     disputeApplication: YesOrNo.YES,
     coApplicant1StatementOfTruth: Checkbox.Checked,
+    coApplicant2StatementOfTruth: Checkbox.Checked,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -103,6 +104,7 @@ describe('to-api-format', () => {
       applicant2LegalProceedingsDetails: null,
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
+      coApplicant2StatementOfTruth: YesOrNo.YES,
     });
   });
 

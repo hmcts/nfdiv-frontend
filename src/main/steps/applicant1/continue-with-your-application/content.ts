@@ -4,7 +4,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, partner, isJointApplication, required }: CommonContent) => ({
   title: `Do you want to continue with your${isJointApplication ? ' joint' : ''} ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }?`,
@@ -30,9 +30,7 @@ const en = ({ isDivorce, partner, isJointApplication }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end my civil partnership'
   }`,
   errors: {
-    applicant1ApplyForConditionalOrder: {
-      required: 'You have not answered the question. You need to select an answer before continuing.',
-    },
+    applicant1ApplyForConditionalOrder: { required },
   },
 });
 
