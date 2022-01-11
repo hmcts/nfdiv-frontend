@@ -117,6 +117,9 @@ const fields: FromApiConverters = {
   coApplicant1StatementOfTruth: data => ({
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
   }),
+  coApplicant1SubmittedDate: data => ({
+    coApplicant1SubmittedDate: new Date(data.coApplicant1SubmittedDate as string),
+  }),
 };
 
 const fromApiDate = date => {

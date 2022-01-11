@@ -248,6 +248,7 @@ export interface Case {
   coDateAndTimeOfHearing: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
+  coApplicant1SubmittedDate?: Date;
 }
 
 export interface CaseWithId extends Case {

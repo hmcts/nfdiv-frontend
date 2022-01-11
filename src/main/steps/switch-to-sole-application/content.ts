@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { TranslationFn } from '../../app/controller/GetController';
+import { FormContent } from '../../app/form/Form';
 
 const en = ({ partner }) => ({
   title: 'Create a new application',
