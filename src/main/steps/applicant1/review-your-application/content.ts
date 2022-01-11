@@ -66,7 +66,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
   heading9: 'Residual jurisdiction',
   residualJurisdictionLine1:
-    'Usually, to be eligible for residual jurisdiction you or your [husband / wife / civil partner] must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).',
+    'Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).',
   residualJurisdictionLine2:
     'In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if: (all the following apply):',
   residualJurisdictionListItem1: 'you married each other in the UK',
