@@ -161,7 +161,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line6: `This is the document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
-    downloadReference: 'conditional-order-certificate',
+    downloadReference: '/downloads/certificate-of-entitlement',
   },
 });
 
@@ -190,7 +190,7 @@ export const generateContent: TranslationFn = content => {
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
-    State.ConditionalOrderPronounced, // 15
+    State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);

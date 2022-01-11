@@ -4,29 +4,42 @@ import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
-  applicationDownloadLink: `<a class="govuk-link" href="/downloads/${
-    isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'
-  }"
-  download="${isDivorce ? 'Divorce-application' : 'Civil-partnership-application'}">View the ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } (PDF)</a>`,
-  certificateOfServiceDownloadLink:
-    '<a class="govuk-link" href="/downloads/certificate-of-service" download="Certificate-of-service">View your ‘certificate of service’ (PDF)</a>',
-  respondentAnswersDownloadLink: `<a class="govuk-link" href="/downloads/respondent-answers"
-  download="Respondent-answers">View the response to the ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } (PDF)</a>`,
-  deemedOrDispensedDownloadLink: `View the court order granting your application for
-  ${
-    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-      ? 'dispensed'
-      : 'deemed'
-  } service (PDF)`,
-  deemedOrDispensedDownloadReference: `/downloads/${
-    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-      ? 'certificate-of-dispense-with-service'
-      : 'certificate-of-deemed-as-service'
-  }`,
+  applicationDownload: {
+    name: 'Divorce-Application',
+    reference: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
+    link: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
+  },
+  certificateOfServiceDownload: {
+    name: 'Certificate-of-Service',
+    reference: '/downloads/certificate-of-service',
+    link: "View your 'certificate of service' (PDF)",
+  },
+  respondentAnswersDownload: {
+    reference: '/downloads/respondent-answers',
+    name: 'Respondent-Answers',
+    link: `View the response to the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } (PDF)`,
+  },
+  deemedOrDispensedDownload: {
+    reference: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
+    }`,
+    name: 'Certificate-of-Service',
+    link: `View the court order granting your application for
+    ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service (PDF)`,
+  },
+  certificateOfEntitlementDownload: {
+    reference: '/downloads/certificate-of-service',
+    name: 'Certificate-of-Entitlement',
+    link: 'View the certificate of entitlement (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -66,10 +79,12 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
   return {
     aosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
+    hasCertificateOfEntitlement,
     ...languages[content.language](content),
   };
 };
