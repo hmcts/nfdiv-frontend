@@ -48,9 +48,7 @@ export class DocumentDownloadMiddleware {
     const dmStoreProxyForCertificateOfEntitlementPdf = {
       endpoints: ['/downloads/certificate-of-entitlement'],
       path: (req: AppRequest) => {
-        return req.session.userCase.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.CERTIFICATE_OF_ENTITLEMENT
-        )?.value.documentLink.document_binary_url;
+        return req.session.userCase.coCertificateOfEntitlementDocument.documentLink.document_binary_url;
       },
     };
 

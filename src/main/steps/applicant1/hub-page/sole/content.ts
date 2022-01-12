@@ -127,7 +127,11 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
-    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on [pronouncement date plus 43 days]. This is the final step in the ${
+    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
+      userCase.coDateOfHearing
+    )
+      .add(43, 'day')
+      .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   },
@@ -161,6 +165,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const { userCase } = content;
   const progressionIndex = [
     State.AwaitingAos,
     State.AosDrafted,
@@ -176,21 +181,27 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase.state as State);
-  const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
-  const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
+  ].indexOf(userCase.state as State);
+  const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
+  const isSuccessfullyServedByBailiff = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
-  const isDeemedOrDispensedApplication = content.userCase.alternativeServiceOutcomes?.find(
+  const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const isCoFieldsSet =
+    userCase.coCourtName &&
+    userCase.coDateOfHearing &&
+    userCase.coTimeOfHearing &&
+    userCase.coCertificateOfEntitlementDocument;
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
+    isCoFieldsSet,
   };
 };

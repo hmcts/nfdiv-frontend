@@ -12,6 +12,9 @@
   <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedDownloadReference}}
    download="Certificate-of-Service">{{deemedOrDispensedDownloadLink}}</a></p>
 {% endif %}
+{% if hasCertificateOfEntitlement %}
+  <p class="govuk-body">{{ certificateOfEntitlementDownloadLink | safe }}</p>
+{% endif %}
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 

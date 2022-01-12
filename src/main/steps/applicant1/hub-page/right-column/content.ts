@@ -31,6 +31,8 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
   }">Review your contact details</a>`,
+  certificateOfEntitlementDownloadLink:
+    '<a class="govuk-link" href="/downloads/certificate-of-entitlement" download="Certificate-of-entitlement">View your ‘certificate of entitlement’ (PDF)</a>',
   iWantTo: 'I want to...',
   gettingHelp: 'Getting help',
   telephone: '<strong>Phone</strong></br> 0300 303 0642</br> (Monday to Friday, 8am to 8PM, Saturday 8AM to 2PM)',
@@ -66,10 +68,12 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
   return {
     aosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
+    hasCertificateOfEntitlement,
     ...languages[content.language](content),
   };
 };
