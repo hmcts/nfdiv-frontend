@@ -1,3 +1,4 @@
+import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -61,7 +62,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const isJointApplication = content.isJointApplication;
+  const isApplicantFirstInTimeApplicant = content.isApplicant2
+    ? content.userCase.coApplicant1StatementOfTruth !== Checkbox.Checked
+    : content.userCase.coApplicant2StatementOfTruth !== Checkbox.Checked;
   return {
+    isJointApplication,
+    isApplicantFirstInTimeApplicant,
     ...translations,
     form,
   };

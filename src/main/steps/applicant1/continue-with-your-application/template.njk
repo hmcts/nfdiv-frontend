@@ -13,8 +13,9 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 | safe }}</p>
 
-  {% if isJointApplication %}
+  {% if isJointApplication and isApplicantFirstInTimeApplicant %}
     <p class="govuk-body">{{ jointLine1 }}</p>
+  {% elif isJointApplication %}
     <p class="govuk-body">{{ jointLine2 }}</p>
   {% endif %}
 
