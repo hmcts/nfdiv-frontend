@@ -81,13 +81,15 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      return userCase.applicant1ApplyForConditionalOrderStarted
-        ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
-          ? userCase.applicant1ApplyForConditionalOrder
-            ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
-            : READ_THE_RESPONSE
-          : CONTINUE_WITH_YOUR_APPLICATION
-        : HUB_PAGE;
+      if (userCase.applicant1ApplyForConditionalOrder) {
+        return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
+      } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
+        return userCase.applicationType === ApplicationType.SOLE_APPLICATION
+          ? READ_THE_RESPONSE
+          : CONTINUE_WITH_YOUR_APPLICATION;
+      } else {
+        return HUB_PAGE;
+      }
     }
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;

@@ -282,6 +282,25 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(READ_THE_RESPONSE);
   });
 
+  test('redirects to Check conditional order answers page for joint application in ConditionalOrderDrafted state if first question answered', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant1ApplyForConditionalOrder: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(CHECK_CONDITIONAL_ORDER_ANSWERS_URL);
+  });
+
   test('redirects to CO CYA page for sole application in ConditionalOrderDrafted state if first question answered', () => {
     const req = mockRequest({
       session: {
