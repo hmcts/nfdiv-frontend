@@ -97,6 +97,12 @@ const fields: FromApiConverters = {
   dueDate: data => ({
     dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
   }),
+  coDateAndTimeOfHearing: data => ({
+    coDateAndTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
+  }),
+  dateFinalOrderEligibleFrom: data => ({
+    dateFinalOrderEligibleFrom: dayjs(data.dateFinalOrderEligibleFrom).format('D MMMM YYYY'),
+  }),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),

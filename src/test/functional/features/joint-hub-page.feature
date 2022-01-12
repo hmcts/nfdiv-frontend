@@ -1,4 +1,4 @@
-Feature: Hub page
+Feature: Joint hub page
 
   Background: Logged in for hub page
     Given I create a new user and login
@@ -63,4 +63,3 @@ Feature: Hub page
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
     Then the page URL should be "/continue-with-your-application"
-

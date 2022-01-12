@@ -487,13 +487,45 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
   });
 
-  test('redirects to the hub page for applicant 1 users in holding state', () => {
+  test('redirects to the hub page for applicant 1 users in Holding state', () => {
     const req = mockRequest({
       session: {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.Holding,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the hub page for applicant 1 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the hub page for applicant 1 users in AwaitingPronouncement state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingPronouncement,
         },
       },
     });
