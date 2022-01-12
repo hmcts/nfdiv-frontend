@@ -45,13 +45,6 @@ export class DocumentDownloadMiddleware {
       },
     };
 
-    const dmStoreProxyForCertificateOfEntitlementPdf = {
-      endpoints: ['/downloads/certificate-of-entitlement'],
-      path: (req: AppRequest) => {
-        return req.session.userCase.coCertificateOfEntitlementDocument.documentLink.document_binary_url;
-      },
-    };
-
     const dmStoreProxyForDeemedAsServicePdf = {
       endpoints: ['/downloads/certificate-of-deemed-as-service'],
       path: (req: AppRequest) => {
@@ -101,16 +94,6 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForCertificateOfServicePdf.endpoints,
       proxy(documentManagementTarget, {
         proxyReqPathResolver: dmStoreProxyForCertificateOfServicePdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
-
-    app.use(
-      dmStoreProxyForCertificateOfEntitlementPdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForCertificateOfEntitlementPdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,

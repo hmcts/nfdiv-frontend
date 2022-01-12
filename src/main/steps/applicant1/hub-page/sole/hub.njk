@@ -23,7 +23,7 @@
       {{ conditionalOrderPronounced.line5 }}</a>
       {{ conditionalOrderPronounced.line6 }}
     </p>
-{% if progressionIndex == 14 %}
+{% elif progressionIndex == 14 %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   {% if isCoFieldsSet %}
     <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>

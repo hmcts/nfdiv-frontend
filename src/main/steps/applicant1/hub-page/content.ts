@@ -25,7 +25,7 @@ const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
   whatHappensNext: 'What happens next',
   generalAwaitingPronouncement: {
-    line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${userCase.coCourtName} on ${userCase.coDateOfHearing} at ${userCase.coTimeOfHearing}.`,
+    line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${userCase.coCourt} on ${userCase.coDateOfHearing} at ${userCase.coTimeOfHearing}.`,
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
       userCase.coDateOfHearing
     )
@@ -56,7 +56,7 @@ export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isCoFieldsSet =
-    userCase.coCourtName &&
+    userCase.coCourt &&
     userCase.coDateOfHearing &&
     userCase.coTimeOfHearing &&
     userCase.coCertificateOfEntitlementDocument;

@@ -79,7 +79,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateAndTimeOfHearing}. Your ${partner} has also been notified.`,
+    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateOfHearing}. Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
