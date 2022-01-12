@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2021-12-22 10:39:20.
+// Generated using typescript-generator version 2.34.976 on 2022-01-12 17:17:53.
 
 export interface Address {
   AddressLine1: string;
@@ -44,8 +44,8 @@ export interface DynamicElementIndicator {}
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];
-  valueCode: string;
   valueLabel: string;
+  valueCode: string;
 }
 
 export interface DynamicListElement {
@@ -192,7 +192,6 @@ export interface Applicant {
   LegalProceedings: YesOrNo;
   LegalProceedingsDetails: string;
   PcqId: string;
-  DivorceWho: WhoDivorcing;
   ContinueApplication: YesOrNo;
 }
 
@@ -247,13 +246,17 @@ export interface Application {
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
   applicant1PrayerHasBeenGivenCheckbox: ThePrayer[];
-  applicant2PrayerHasBeenGiven: YesOrNo;
+  applicant2PrayerHasBeenGivenCheckbox: ThePrayer[];
   applicant1StatementOfTruth: YesOrNo;
   applicant2StatementOfTruth: YesOrNo;
   solSignStatementOfTruth: YesOrNo;
+  applicant2SolSignStatementOfTruth: YesOrNo;
   solStatementOfReconciliationName: string;
+  applicant2SolStatementOfReconciliationName: string;
   solStatementOfReconciliationFirm: string;
+  applicant2SolStatementOfReconciliationFirm: string;
   statementOfReconciliationComments: string;
+  applicant2StatementOfReconciliationComments: string;
   solApplicationFeeInPounds: string;
   solPaymentHowToPay: SolicitorPaymentMethod;
   pbaNumbers: DynamicList;
@@ -281,6 +284,8 @@ export interface Application {
   applicant2ReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
+  applicant2NeedsHelpWithFees: YesOrNo;
+  applicant1SolicitorAnswersLink: Document;
 }
 
 export interface Bailiff {
@@ -342,7 +347,7 @@ export interface CaseData {
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsDetails: string;
   applicant1PcqId: string;
-  applicant1DivorceWho: WhoDivorcing;
+  applicant1ContinueApplication: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
@@ -372,7 +377,7 @@ export interface CaseData {
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsDetails: string;
   applicant2PcqId: string;
-  applicant2DivorceWho: WhoDivorcing;
+  applicant2ContinueApplication: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
   screenHasMarriageCert: YesOrNo;
@@ -423,13 +428,17 @@ export interface CaseData {
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
   applicant1PrayerHasBeenGivenCheckbox: ThePrayer[];
-  applicant2PrayerHasBeenGiven: YesOrNo;
+  applicant2PrayerHasBeenGivenCheckbox: ThePrayer[];
   applicant1StatementOfTruth: YesOrNo;
   applicant2StatementOfTruth: YesOrNo;
   solSignStatementOfTruth: YesOrNo;
+  applicant2SolSignStatementOfTruth: YesOrNo;
   solStatementOfReconciliationName: string;
+  applicant2SolStatementOfReconciliationName: string;
   solStatementOfReconciliationFirm: string;
+  applicant2SolStatementOfReconciliationFirm: string;
   statementOfReconciliationComments: string;
+  applicant2StatementOfReconciliationComments: string;
   solApplicationFeeInPounds: string;
   solPaymentHowToPay: SolicitorPaymentMethod;
   pbaNumbers: DynamicList;
@@ -457,6 +466,8 @@ export interface CaseData {
   applicant2ReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
+  applicant2NeedsHelpWithFees: YesOrNo;
+  applicant1SolicitorAnswersLink: Document;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -628,9 +639,13 @@ export interface CaseData {
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
   coApplyForConditionalOrder: YesOrNo;
+  coApplicantStatementOfTruth: YesOrNo;
   generalOrderJudgeType: GeneralOrderJudgeOrLegalAdvisorType;
   generalOrderJudgeName: string;
   generalOrderLegalAdvisorName: string;
+  applicant1DivorceWho: WhoDivorcing;
+  applicant2DivorceWho: WhoDivorcing;
+  applicant2PrayerHasBeenGiven: YesOrNo;
   hyphenatedCaseRef: string;
 }
 
@@ -855,9 +870,13 @@ export interface RetiredFields {
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
   coApplyForConditionalOrder: YesOrNo;
+  coApplicantStatementOfTruth: YesOrNo;
   generalOrderJudgeType: GeneralOrderJudgeOrLegalAdvisorType;
   generalOrderJudgeName: string;
   generalOrderLegalAdvisorName: string;
+  applicant1DivorceWho: WhoDivorcing;
+  applicant2DivorceWho: WhoDivorcing;
+  applicant2PrayerHasBeenGiven: YesOrNo;
 }
 
 export interface Solicitor {
@@ -1649,26 +1668,26 @@ export const enum HttpStatus {
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
-export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
-export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
+export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const UPDATE_AOS = 'update-aos';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
 export const SUBMIT_AOS = 'submit-aos';
+export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
 export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
