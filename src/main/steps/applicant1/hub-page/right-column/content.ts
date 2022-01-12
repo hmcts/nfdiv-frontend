@@ -5,30 +5,30 @@ import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   applicationDownload: {
-    name: 'Divorce-Application',
-    reference: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
-    link: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
+    reference: 'Divorce-Application',
+    link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
+    text: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
   },
   certificateOfServiceDownload: {
-    name: 'Certificate-of-Service',
-    reference: '/downloads/certificate-of-service',
-    link: "View your 'certificate of service' (PDF)",
+    reference: 'Certificate-of-Service',
+    link: '/downloads/certificate-of-service',
+    text: "View your 'certificate of service' (PDF)",
   },
   respondentAnswersDownload: {
-    reference: '/downloads/respondent-answers',
-    name: 'Respondent-Answers',
-    link: `View the response to the ${
+    reference: 'Respondent-Answers',
+    link: '/downloads/respondent-answers',
+    text: `View the response to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
   },
   deemedOrDispensedDownload: {
-    reference: `/downloads/${
+    reference: 'Certificate-of-Service',
+    link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'certificate-of-dispense-with-service'
         : 'certificate-of-deemed-as-service'
     }`,
-    name: 'Certificate-of-Service',
-    link: `View the court order granting your application for
+    text: `View the court order granting your application for
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispensed'
@@ -36,9 +36,9 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
     } service (PDF)`,
   },
   certificateOfEntitlementDownload: {
-    reference: '/downloads/certificate-of-service',
-    name: 'Certificate-of-Entitlement',
-    link: 'View the certificate of entitlement (PDF)',
+    reference: 'Certificate-of-Entitlement',
+    link: '/downloads/certificate-of-service',
+    text: 'View the certificate of entitlement (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
