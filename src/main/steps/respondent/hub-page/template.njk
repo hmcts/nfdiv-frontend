@@ -5,12 +5,14 @@
 {% block soleLatestUpdate %}
   {% if progressionIndex == 12 %}
     <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
-    <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>
-    {{ govukInsetText({
-      text: generalAwaitingPronouncement.line3
-    }) }}
-    <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-    <p class="govuk-body">{{ generalAwaitingPronouncement.line5 }}</p>
+    {% if isCoFieldsSet %}
+      <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>
+      {{ govukInsetText({
+        text: generalAwaitingPronouncement.line3
+      }) }}
+      <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
+      <p class="govuk-body">{{ generalAwaitingPronouncement.line5 }}</p>
+    {% endif %}
   {% elif progressionIndex == 11 %}
     <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
     <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>

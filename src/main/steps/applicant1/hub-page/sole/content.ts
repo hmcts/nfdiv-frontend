@@ -165,7 +165,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
   const progressionIndex = [
     State.AwaitingAos,
     State.AosDrafted,
@@ -181,27 +180,21 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
     State.FinalOrderComplete,
-  ].indexOf(userCase.state as State);
-  const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
-  const isSuccessfullyServedByBailiff = userCase.alternativeServiceOutcomes?.find(
+  ].indexOf(content.userCase.state as State);
+  const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
+  const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
-  const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
+  const isDeemedOrDispensedApplication = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
-  const isCoFieldsSet =
-    userCase.coCourtName &&
-    userCase.coDateOfHearing &&
-    userCase.coTimeOfHearing &&
-    userCase.coCertificateOfEntitlementDocument;
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
-    isCoFieldsSet,
   };
 };

@@ -53,10 +53,17 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const { userCase } = content;
+  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const isCoFieldsSet =
+    userCase.coCourtName &&
+    userCase.coDateOfHearing &&
+    userCase.coTimeOfHearing &&
+    userCase.coCertificateOfEntitlementDocument;
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    isCoFieldsSet,
   };
 };
