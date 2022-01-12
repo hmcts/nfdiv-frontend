@@ -230,6 +230,24 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
+  test('redirects to Check conditional order answers for applicant 2 in ConditionalOrderPending state if applicant2ApplyForConditionalOrder', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrder: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
+  });
+
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {

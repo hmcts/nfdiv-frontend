@@ -170,6 +170,10 @@ const sequences: Step[] = [
       data.applicant2ApplyForConditionalOrder === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
   },
   {
+    url: WITHDRAWING_YOUR_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },
