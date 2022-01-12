@@ -117,9 +117,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   legalAdvisorReferral: {
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${
-      userCase.dueDate
-    } after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
+    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
+      userCase.coApplicant1SubmittedDate
+    )
+      .add(21, 'day')
+      .format(
+        'D MMMM YYYY'
+      )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
@@ -154,6 +158,27 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  conditionalOrderPronounced: {
+    line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
+    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateAndTimeOfHearing}. Your ${partner} has also been notified.`,
+    line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
+    You / Your ${partner} still have to apply for a final order which will end the ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line3: `You can view and download your ‘certificate of entitlement for a conditional order’.
+    This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    line4: 'You can',
+    line5: "view and download your 'certificate of entitlement for a conditional order'.",
+    line6: `This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    downloadReference: '/downloads/certificate-of-entitlement',
+  },
 });
 
 // @TODO translations
@@ -177,8 +202,12 @@ export const generateContent: TranslationFn = content => {
     State.Holding,
     State.AwaitingConditionalOrder,
     State.AwaitingGeneralConsideration,
+    State.ConditionalOrderDrafted,
+    State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingPronouncement,
+    State.ConditionalOrderPronounced,
+    State.AwaitingFinalOrder,
     State.FinalOrderComplete,
   ].indexOf(content.userCase.state as State);
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;

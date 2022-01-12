@@ -243,10 +243,12 @@ export interface Case {
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
-  coCourtName?: ConditionalOrderCourt;
+  coCourt: ConditionalOrderCourt;
   coDateOfHearing?: DateAsString;
   coTimeOfHearing?: DateAsString;
+  dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
+  coApplicant1SubmittedDate?: Date;
 }
 
 export interface CaseWithId extends Case {

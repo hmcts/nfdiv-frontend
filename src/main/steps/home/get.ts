@@ -13,6 +13,7 @@ import {
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
@@ -82,7 +83,9 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
     case State.ConditionalOrderPending: {
       return userCase.applicant1ApplyForConditionalOrderStarted
         ? userCase.applicationType === ApplicationType.SOLE_APPLICATION
-          ? READ_THE_RESPONSE
+          ? userCase.applicant1ApplyForConditionalOrder
+            ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
+            : READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
     }

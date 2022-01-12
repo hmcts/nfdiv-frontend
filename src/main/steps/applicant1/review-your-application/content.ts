@@ -7,8 +7,8 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
-  title: `Review your ${isJointApplication ? 'divorce application' : 'application to end your civil partnership'}`,
+const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonContent) => ({
+  title: `Review your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your original application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   } below and confirm the information is still correct and true, to the best of your knowledge.`,
@@ -66,9 +66,9 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
   heading9: 'Residual jurisdiction',
   residualJurisdictionLine1:
-    'Usually, to be eligible for residual jurisdiction you or your [husband / wife / civil partner] must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).',
+    'Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).',
   residualJurisdictionLine2:
-    'In addition, if you’re married to a member of the same sex, you may be eligable for residul jurisdiction if: (all the following apply):',
+    'In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if: (all the following apply):',
   residualJurisdictionListItem1: 'you married each other in the UK',
   residualJurisdictionListItem2:
     'neither of you are nationals of, or habitually resident in, another country in the EU (except Denmark)',
@@ -130,7 +130,7 @@ export const form: FormContent = {
   fields: {
     applicant1ConfirmInformationStillCorrect: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.confirmInformationStillCorrect,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
