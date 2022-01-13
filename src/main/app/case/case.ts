@@ -224,7 +224,7 @@ export interface Case {
   applicant2IBelieveApplicationIsTrue?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
-  dateSubmitted?: Date;
+  dateSubmitted?: DateAsString;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
@@ -248,7 +248,7 @@ export interface Case {
   coTimeOfHearing?: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicant1SubmittedDate?: Date;
+  coApplicant1SubmittedDate?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

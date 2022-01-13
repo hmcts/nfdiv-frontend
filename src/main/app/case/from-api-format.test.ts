@@ -95,7 +95,7 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      dateSubmitted: new Date('2021-01-01'),
+      dateSubmitted: '1 January 2021',
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
@@ -179,7 +179,7 @@ describe('from-api-format', () => {
 
     expect(nfdivFormat).toStrictEqual({
       relationshipDate: undefined,
-      dateSubmitted: new Date('2021-01-01'),
+      dateSubmitted: '1 January 2021',
     });
   });
 
