@@ -78,7 +78,7 @@ describe('to-api-format', () => {
       applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [],
       applicant1PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
-      applicant2PrayerHasBeenGiven: 'Yes',
+      applicant2PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
       applicant1StatementOfTruth: 'Yes',
       applicant2StatementOfTruth: 'Yes',
       applicant1NameChangedHow: [ChangedNameHow.OTHER],
