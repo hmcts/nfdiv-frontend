@@ -82,8 +82,10 @@ const fields: FromApiConverters = {
       ? Checkbox.Checked
       : Checkbox.Unchecked,
   }),
-  applicant2PrayerHasBeenGiven: data => ({
-    applicant2IConfirmPrayer: checkboxConverter(data.applicant2PrayerHasBeenGiven),
+  applicant2PrayerHasBeenGivenCheckbox: data => ({
+    applicant2IConfirmPrayer: data.applicant2PrayerHasBeenGivenCheckbox?.includes(ThePrayer.I_CONFIRM)
+      ? Checkbox.Checked
+      : Checkbox.Unchecked,
   }),
   applicant1StatementOfTruth: data => ({
     applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
