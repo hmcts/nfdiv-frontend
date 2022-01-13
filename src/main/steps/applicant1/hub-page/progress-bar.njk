@@ -55,20 +55,20 @@
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 11,
+    complete: progressionIndex > 12,
     active: progressionIndex == 11
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 12,
-    active: progressionIndex == 12
+    complete: progressionIndex > 15,
+    active: progressionIndex == 14
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 13,
-    active: progressionIndex == 13
+    complete: progressionIndex >= 16,
+    active: progressionIndex == 16
   }] %}
 {% endif %}
 

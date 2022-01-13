@@ -12,7 +12,17 @@
   {% endif %}
 {% endset %}
 
-{% if progressionIndex == 11 %}
+{% if progressionIndex == 15 %}
+    <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
+    <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPronounced.line3 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPronounced.line4 }}
+      <a class="govuk-link" href={{conditionalOrderPronounced.downloadReference}}
+      download="Certificate-of-Entitlement">
+      {{ conditionalOrderPronounced.line5 }}</a>
+      {{ conditionalOrderPronounced.line6 }}
+    </p>
+{% elif progressionIndex == 13 %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
 {% elif progressionIndex == 10 %}
