@@ -38,6 +38,7 @@ describe('from-api-format', () => {
     jurisdictionResidualEligible: YesOrNo.YES,
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
+    coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -68,6 +69,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
+      coApplicant1SubmittedDate: new Date('2022-03-31'),
     });
   });
 
@@ -109,6 +111,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
+      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
     });
   });
 
@@ -144,6 +147,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
+      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
     });
   });
 
@@ -179,6 +183,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
+      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
     });
   });
 
