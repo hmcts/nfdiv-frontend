@@ -634,7 +634,6 @@ export interface CaseData {
   coDateSubmitted: DateAsString;
   applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant2ApplyForConditionalOrderStarted: YesOrNo;
-  applicant2ContinueApplication: YesOrNo;
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
   coApplyForConditionalOrder: YesOrNo;
