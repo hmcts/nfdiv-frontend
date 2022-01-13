@@ -124,7 +124,7 @@ const fields: ToApiConverters = {
     applicant1PrayerHasBeenGivenCheckbox: data.applicant1IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
   }),
   applicant2IConfirmPrayer: data => ({
-    applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
+    applicant2PrayerHasBeenGivenCheckbox: data.applicant2IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
   }),
   applicant1IBelieveApplicationIsTrue: data => ({
     applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
