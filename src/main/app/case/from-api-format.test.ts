@@ -68,7 +68,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31'),
+      coApplicant1SubmittedDate: '31 March 2022',
       coDateOfHearing: '26 July 2021',
       coTimeOfHearing: '3:30PM',
     });
@@ -111,7 +111,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
       coDateOfHearing: '26 July 2021',
       coTimeOfHearing: '3:30PM',
     });
@@ -148,7 +148,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
       coDateOfHearing: '26 July 2021',
       coTimeOfHearing: '3:30PM',
     });
@@ -185,7 +185,7 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
       coDateOfHearing: '26 July 2021',
       coTimeOfHearing: '3:30PM',
     });
