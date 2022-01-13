@@ -35,6 +35,9 @@ describe('from-api-format', () => {
     dateFinalOrderEligibleFrom: '2021-07-26',
     howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     coApplicant1StatementOfTruth: YesOrNo.YES,
+    jurisdictionResidualEligible: YesOrNo.YES,
+    applicant2AgreedToReceiveEmails: YesOrNo.YES,
+    confirmReadPetition: YesOrNo.YES,
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -62,6 +65,9 @@ describe('from-api-format', () => {
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
+      jurisdictionResidualEligible: Checkbox.Checked,
+      applicant2AgreeToReceiveEmails: Checkbox.Checked,
+      confirmReadPetition: Checkbox.Checked,
     });
   });
 
@@ -100,6 +106,9 @@ describe('from-api-format', () => {
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
+      jurisdictionResidualEligible: Checkbox.Checked,
+      applicant2AgreeToReceiveEmails: Checkbox.Checked,
+      confirmReadPetition: Checkbox.Checked,
     });
   });
 
@@ -132,6 +141,9 @@ describe('from-api-format', () => {
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: null,
       coApplicant1StatementOfTruth: Checkbox.Checked,
+      jurisdictionResidualEligible: Checkbox.Checked,
+      applicant2AgreeToReceiveEmails: Checkbox.Checked,
+      confirmReadPetition: Checkbox.Checked,
     });
   });
 
@@ -164,6 +176,9 @@ describe('from-api-format', () => {
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.NO,
       coApplicant1StatementOfTruth: Checkbox.Checked,
+      jurisdictionResidualEligible: Checkbox.Checked,
+      applicant2AgreeToReceiveEmails: Checkbox.Checked,
+      confirmReadPetition: Checkbox.Checked,
     });
   });
 
