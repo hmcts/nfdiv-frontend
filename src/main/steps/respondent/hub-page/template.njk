@@ -1,4 +1,5 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% extends "../../applicant1/hub-page/template.njk" %}
 
@@ -12,17 +13,15 @@
       download="Certificate-of-Entitlement">
       {{conditionalOrderPronounced.line5}}</a>
     </p>
-  {% elif progressionIndex == 14 %}
+  {% elif progressionIndex == 14 and isCoFieldsSet %}
     <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
-    {% if isCoFieldsSet %}
-      <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>
-      {{ govukInsetText({
-        text: generalAwaitingPronouncement.line3
-      }) }}
-      <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-      <p class="govuk-body">{{ generalAwaitingPronouncement.line5 }}</p>
-    {% endif %}
-  {% elif progressionIndex == 13 %}
+    <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>
+    {{ govukInsetText({
+      text: generalAwaitingPronouncement.line3
+    }) }}
+    <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
+    <p class="govuk-body">{{ generalAwaitingPronouncement.line5 | safe }}</p>
+  {% elif progressionIndex == 13 or progressionIndex == 14 and not isCoFieldsSet %}
     <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
     <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
   {% elif progressionIndex == 10 %}
