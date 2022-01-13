@@ -634,7 +634,6 @@ export interface CaseData {
   coDateSubmitted: DateAsString;
   applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant2ApplyForConditionalOrderStarted: YesOrNo;
-  applicant1ContinueApplication: YesOrNo;
   applicant2ContinueApplication: YesOrNo;
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
@@ -866,7 +865,6 @@ export interface RetiredFields {
   applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant2ApplyForConditionalOrderStarted: YesOrNo;
   applicant1ContinueApplication: YesOrNo;
-  applicant2ContinueApplication: YesOrNo;
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
   coApplyForConditionalOrder: YesOrNo;
