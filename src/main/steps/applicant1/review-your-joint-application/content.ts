@@ -5,34 +5,33 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsTextForJointApplications } from '../../../app/jurisdiction/bulletedPointsContent';
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonContent) => ({
-  title: `Review your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
-  subtitle: `Read your original application ${
+const en = ({ isDivorce, userCase, partner, required }: CommonContent) => ({
+  title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+  subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
-  } below and confirm the information is still correct and true, to the best of your knowledge.`,
-  heading1: `${isDivorce ? 'Divorce application' : 'Application to end a civil partnership'}`,
-  line1: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} is applying to the court:`,
-  listItem1: `${
-    isDivorce ? 'for a final order of divorce from' : 'for the dissolution of the civil partnership with'
-  } ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
-  listItem2: 'to make a financial order',
-  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
+  } and confirm the information is still correct.`,
+  heading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
+  line1: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} and ${userCase.applicant2FirstNames} ${
+    userCase.applicant2LastNames
+  }
+  are applying to the court for a conditional order of ${
+    isDivorce ? 'divorce in this case' : 'the dissolution of their civil partnership in this case'
+  }`, // check this
+  line112: 'Applicant 1 is also applying to the court to make a financial order.',
+  line113: 'Applicant 2 is also applying to the court to make a financial order.',
   issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
-  applicantHeading: 'Applicant',
-  applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
-  respondentHeading: 'Respondent',
-  respondentNames: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
-  whatThisMeansInfo1: `The applicant is the person who has applied ${
-    isDivorce ? 'for the divorce' : 'to end their civil partnership'
-  }.`,
-  whatThisMeansInfo2: `The respondent is their ${partner}.`,
+  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
+  applicant1Heading: 'Applicant 1',
+  applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
+  applicant2Heading: 'Applicant 2',
+  applicant2Names: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
   heading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line2: `These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English.
-  The names on the certificate are the names the applicant and respondent used before the ${
+  The names on the certificate are the names the applicants used before the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading3: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
@@ -45,11 +44,12 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase ? connectionBulletPointsTextForJointApplications(userCase.connections!) : [],
   whatThisMeans: 'What this means',
-  whatThisMeansInfo3: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  whatThisMeansInfo1: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
-  }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
+  }. The applicantS confirmed that the legal statement(s) in the application apply to either or both the applicants.
+    Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
   habitualResidenceLine1:
     'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.',
@@ -69,45 +69,38 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   domicileLine4:
     'If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’.',
   domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
-  heading9: 'Residual jurisdiction',
-  residualJurisdictionLine1: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).`,
-  residualJurisdictionLine2:
-    'In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if: (all the following apply):',
-  residualJurisdictionListItem1: 'you married each other in the UK',
-  residualJurisdictionListItem2:
-    'neither of you are nationals of, or habitually resident in, another country in the EU (except Denmark)',
-  residualJurisdictionListItem3:
-    'it would be in the interests of natural justice for the court to consider this application (this may apply if, for example, your home country does not allow divorce / ending a civil partnership between same-sex couples',
-  residualJurisdictionLine3:
-    'However, residual jurisdiction can be complex. If you’re not sure whether this applies to you then you should get legal advice',
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   },
-  which might affect the legal power (jurisdiction) of the court.`,
-  otherCourtCasesLine2: `The applicant has given details of other court cases relating to the ${
+    which might affect the legal power (jurisdiction) of the court.`,
+  applicant1OtherCourtCases: `Applicant 1 has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicant1LegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicant2OtherCourtCases: `Applicant 2 has given details of other court cases relating to the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }:`,
+  applicant2LegalProceedingsDetails: `${userCase.applicant2LegalProceedingsDetails}`,
   noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line5: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  financialOrderLine1: 'The applicant is applying to the court for financial orders.',
-  noFinancialOrder: 'The applicant is not applying to the court for financial orders.',
-  financialOrderMoreInfoLine1: `${
-    isApplicant2 ? 'You were asked if you' : `Your ${partner} was asked if they`
-  } want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
+  applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.', //TODO confirm this change cause FinancialOrderFor is retired
+  applicant2FinancialOrder: 'Applicant 2 is applying to the court for financial orders.',
+  noFinancialOrder: 'The applicants have said they do not intend to apply for financial orders.',
+  financialOrderMoreInfoLine1: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
   financialOrderMoreInfoLine2:
     'A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. This is known as a ‘contested financial order’.',
-  financialOrderMoreInfoLine3: `To formally start legal proceedings, your ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
+  financialOrderMoreInfoLine3: `To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
     'fees.financialOrder'
   )}. Applying for a ‘financial order by consent’ costs ${config.get(
     'fees.consentOrder'
-  )}. A solicitor can draft these for you.`,
+  )}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
+  // TODO - update the below
   heading13: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
@@ -129,8 +122,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
       required,
     },
     applicant1ReasonInformationNotCorrect: {
-      required:
-        'You have said the information is not still correct but not provided details. Provide details of what information is not correct.',
+      required: 'You need to say what information is incorrect before continuing.',
     },
   },
 });

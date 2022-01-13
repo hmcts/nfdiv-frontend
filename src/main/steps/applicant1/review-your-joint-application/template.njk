@@ -3,11 +3,6 @@
 
 {% set whatThisMeansContent1 %}
   <p class="govuk-body">{{ whatThisMeansInfo1 }}</p>
-  <p class="govuk-body">{{ whatThisMeansInfo2 }}</p>
-{% endset %}
-
-{% set whatThisMeansContent2 %}
-  <p class="govuk-body">{{ whatThisMeansInfo3 }}</p>
 {% endset %}
 
 {% set whatThisMeansContent3 %}
@@ -23,25 +18,20 @@
 
   <h2 class="govuk-heading-m">{{ heading1 }}</h2>
   <p class="govuk-body">{{ line1 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ listItem1 }}</li>
-    {% if userCase.applyForFinancialOrder === 'Yes' %}
-      <li>{{ listItem2 }}</li>
-    {% endif %}
-  </ul>
-  <p class="govuk-body">{{ caseReference | safe }}</p>
+  {% if userCase.applyForFinancialOrder === 'Yes' %}
+    <p class="govuk-body">{{ line112 }}</p>
+  {% endif %}
+  {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+    <p class="govuk-body">{{ line113 }}</p>
+  {% endif %}
   <p class="govuk-body">{{ issuedDate | safe }}</p>
+  <p class="govuk-body">{{ caseReference | safe }}</p>
 
-  <h3 class="govuk-heading-s">{{ applicantHeading }}</h3>
-  <p class="govuk-body">{{ applicantNames }}</p>
+  <h3 class="govuk-heading-s">{{ applicant1Heading }}</h3>
+  <p class="govuk-body">{{ applicant1Names }}</p>
 
-  <h3 class="govuk-heading-s">{{ respondentHeading }}</h3>
-  <p class="govuk-body">{{ respondentNames }}</p>
-
-  {{ govukDetails({
-      summaryText: whatThisMeans,
-      html: whatThisMeansContent1
-  }) }}
+  <h3 class="govuk-heading-s">{{ applicant2Heading }}</h3>
+  <p class="govuk-body">{{ applicant2Names }}</p>
 
   <h2 class="govuk-heading-m">{{ heading2 }}</h2>
   <p class="govuk-body">{{ line2 }}</p>
@@ -65,7 +55,7 @@
 
   {{ govukDetails({
       summaryText: whatThisMeans,
-      html: whatThisMeansContent2
+      html: whatThisMeansContent1
   }) }}
 
   <h3 class="govuk-heading-m">{{ heading7 }}</h3>
@@ -84,21 +74,17 @@
   <p class="govuk-body">{{ domicileLine4 }}</p>
   <p class="govuk-body">{{ domicileLine5 }}</p>
 
-  <h3 class="govuk-heading-m">{{ heading9 }}</h3>
-  <p class="govuk-body">{{ residualJurisdictionLine1 }}</p>
-  <p class="govuk-body">{{ residualJurisdictionLine2 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ residualJurisdictionListItem1 }}</li>
-    <li>{{ residualJurisdictionListItem2 }}</li>
-    <li>{{ residualJurisdictionListItem3 }}</li>
-  </ul>
-  <p class="govuk-body">{{ residualJurisdictionLine3 }}</p>
-
   <h3 class="govuk-heading-m">{{ heading10 }}</h3>
   <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
-  {% if userCase.applicant1LegalProceedings === 'Yes' %}
-    <p class="govuk-body">{{ otherCourtCasesLine2 }}</p>
-    <p class="govuk-body">{{ applicantLegalProceedingsDetails }}</p>
+  {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
+    {% if userCase.applicant1LegalProceedings === 'Yes' %}
+      <p class="govuk-body">{{ applicant1OtherCourtCases }}</p>
+      <p class="govuk-body">{{ applicant1LegalProceedingsDetails }}</p>
+    {% endif %}
+    {% if userCase.applicant2LegalProceedings === 'Yes' %}
+      <p class="govuk-body">{{ applicant2OtherCourtCases }}</p>
+      <p class="govuk-body">{{ applicant2LegalProceedingsDetails }}</p>
+    {% endif %}
   {% else %}
     <p class="govuk-body">{{ noOtherCourtCases }}</p>
   {% endif %}
@@ -107,8 +93,13 @@
   <p class="govuk-body">{{ line5 }}</p>
 
   <h2 class="govuk-heading-m">{{ heading12 }}</h2>
-  {% if userCase.applyForFinancialOrder === 'Yes' %}
-    <p class="govuk-body">{{ financialOrderLine1 }}</p>
+  {% if userCase.applyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+    {% if userCase.applyForFinancialOrder === 'Yes' %}
+      <p class="govuk-body">{{ applicant1FinancialOrder }}</p>
+    {% endif %}
+    {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+      <p class="govuk-body">{{ applicant2ApplyForFinancialOrder }}</p>
+    {% endif %}
   {% else %}
     <p class="govuk-body">{{ noFinancialOrder }}</p>
   {% endif %}
