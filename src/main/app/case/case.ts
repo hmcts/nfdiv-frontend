@@ -96,6 +96,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ApplyForConditionalOrderStarted: 'coApplicant1ApplyForConditionalOrderStarted',
   applicant2ApplyForConditionalOrderStarted: 'coApplicant2ApplyForConditionalOrderStarted',
   applicant1ApplyForConditionalOrder: 'coApplicant1ApplyForConditionalOrder',
+  applicant2ApplyForConditionalOrder: 'coApplicant2ApplyForConditionalOrder',
   applicant1ConfirmInformationStillCorrect: 'coApplicant1ConfirmInformationStillCorrect',
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
@@ -238,11 +239,13 @@ export interface Case {
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   applicant1ApplyForConditionalOrder?: YesOrNo;
+  applicant2ApplyForConditionalOrder?: YesOrNo;
   applicant1ConfirmInformationStillCorrect?: YesOrNo;
   applicant1ReasonInformationNotCorrect?: string;
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
+  coApplicant2StatementOfTruth?: Checkbox;
   coCourt: ConditionalOrderCourt;
   coDateOfHearing?: DateAsString;
   coTimeOfHearing?: DateAsString;

@@ -1,8 +1,25 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% extends "common/page.njk" %}
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ line1 | safe }}</p>
-  <p class="govuk-body">{{ line2 | safe }}</p>
-  <p class="govuk-body"><a href="https://www.gov.uk/apply-for-divorce" class="govuk-link">{{ exitLink }}</a></p>
+  {% if isJointApplication %}
+    <p class="govuk-body">{{ joint.line1 | safe }}</p>
+    {% if isApplicantFirstInTimeApplicant %}
+      {{ govukDetails({
+        summaryText: joint.continueAsSole,
+        html: joint.firstInTimeApplicant
+      }) }}
+    {% else %}
+      {{ govukDetails({
+        summaryText: joint.continueAsSole,
+        html: joint.secondInTimeApplicant
+      }) }}
+    {% endif %}
+  {% else %}
+    <p class="govuk-body">{{ sole.line1 | safe }}</p>
+    <p class="govuk-body">{{ sole.line2 | safe }}</p>
+    <p class="govuk-body"><a href="https://www.gov.uk/apply-for-divorce" class="govuk-link">{{ exitLink }}</a></p>
+  {% endif %}
 {% endblock %}
+
