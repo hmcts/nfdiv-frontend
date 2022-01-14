@@ -79,7 +79,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateAndTimeOfHearing}. Your ${partner} has also been notified.`,
+    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateOfHearing}. Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
@@ -97,6 +97,18 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
+  },
+  awaitingPronouncement: {
+    line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
+      userCase.coDateOfHearing
+    )
+      .add(43, 'day')
+      .format('D MMMM YYYY')}. This is the final step in the ${
+      isDivorce ? 'divorce ' : ''
+    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   },
 });
 

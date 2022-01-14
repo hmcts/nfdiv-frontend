@@ -31,7 +31,6 @@ describe('from-api-format', () => {
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
-    coDateAndTimeOfHearing: '2021-07-26',
     dateFinalOrderEligibleFrom: '2021-07-26',
     howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     coApplicant1StatementOfTruth: YesOrNo.YES,
@@ -40,6 +39,7 @@ describe('from-api-format', () => {
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
+    coDateAndTimeOfHearing: '2021-07-26T15:30',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -63,7 +63,6 @@ describe('from-api-format', () => {
       applicant1IConfirmPrayer: 'checked',
       applicant2IConfirmPrayer: 'checked',
       dueDate: '26 July 2021',
-      coDateAndTimeOfHearing: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
@@ -71,7 +70,9 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31'),
+      coApplicant1SubmittedDate: '31 March 2022',
+      coDateOfHearing: '26 July 2021',
+      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -104,9 +105,8 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      dateSubmitted: new Date('2021-01-01'),
+      dateSubmitted: '1 January 2021',
       dueDate: '26 July 2021',
-      coDateAndTimeOfHearing: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
@@ -114,7 +114,9 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
+      coDateOfHearing: '26 July 2021',
+      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -143,7 +145,6 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
-      coDateAndTimeOfHearing: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: null,
       coApplicant1StatementOfTruth: Checkbox.Checked,
@@ -151,7 +152,9 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
+      coDateOfHearing: '26 July 2021',
+      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -180,7 +183,6 @@ describe('from-api-format', () => {
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
-      coDateAndTimeOfHearing: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.NO,
       coApplicant1StatementOfTruth: Checkbox.Checked,
@@ -188,7 +190,9 @@ describe('from-api-format', () => {
       jurisdictionResidualEligible: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: new Date('2022-03-31T00:00:00.000Z'),
+      coApplicant1SubmittedDate: '31 March 2022',
+      coDateOfHearing: '26 July 2021',
+      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -200,7 +204,7 @@ describe('from-api-format', () => {
 
     expect(nfdivFormat).toStrictEqual({
       relationshipDate: undefined,
-      dateSubmitted: new Date('2021-01-01'),
+      dateSubmitted: '1 January 2021',
     });
   });
 
