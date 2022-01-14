@@ -94,13 +94,10 @@ const fields: FromApiConverters = {
     applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
   }),
   dateSubmitted: data => ({
-    dateSubmitted: new Date(data.dateSubmitted as string),
+    dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),
   }),
   dueDate: data => ({
     dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
-  }),
-  coDateAndTimeOfHearing: data => ({
-    coDateAndTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
   }),
   dateFinalOrderEligibleFrom: data => ({
     dateFinalOrderEligibleFrom: dayjs(data.dateFinalOrderEligibleFrom).format('D MMMM YYYY'),
@@ -120,7 +117,11 @@ const fields: FromApiConverters = {
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
   }),
   coApplicant1SubmittedDate: data => ({
-    coApplicant1SubmittedDate: new Date(data.coApplicant1SubmittedDate as string),
+    coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
+  }),
+  coDateAndTimeOfHearing: data => ({
+    coDateOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
+    coTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('h:mmA'),
   }),
 };
 

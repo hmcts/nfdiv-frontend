@@ -101,7 +101,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
   coCourt: 'coCourt',
-  coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
 };
 
@@ -225,7 +224,7 @@ export interface Case {
   applicant2IBelieveApplicationIsTrue?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
-  dateSubmitted?: Date;
+  dateSubmitted?: DateAsString;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
@@ -245,10 +244,11 @@ export interface Case {
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
   coCourt: ConditionalOrderCourt;
-  coDateAndTimeOfHearing: DateAsString;
+  coDateOfHearing?: DateAsString;
+  coTimeOfHearing?: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicant1SubmittedDate?: Date;
+  coApplicant1SubmittedDate?: DateAsString;
 }
 
 export interface CaseWithId extends Case {
