@@ -1,23 +1,54 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% extends "common/page.njk" %}
 
+{% set jointFirstInTimeApplicant %}
+  <p class="govuk-body">
+    {{ joint.firstInTimeApplicant.line1 | safe }} <br><br>
+    {{ joint.firstInTimeApplicant.line2.part1 | safe }}
+    <a class="govuk-link" href="{{joint.firstInTimeApplicant.line2.link}}"">{{joint.firstInTimeApplicant.line2.part2}}</a>
+    {{ joint.firstInTimeApplicant.line3 | safe }}<br><br>
+    {{ joint.firstInTimeApplicant.line4.part1 | safe }}
+    <a class="govuk-link" href="{{joint.firstInTimeApplicant.line4.link}}"" target="_blank">{{joint.firstInTimeApplicant.line4.part2}}</a>
+    {{ joint.firstInTimeApplicant.line5 | safe }}
+  </p>
+{% endset %}
+
+{% set jointSecondInTimeApplicant %}
+  <p class="govuk-body">
+    {{ joint.secondInTimeApplicant.line1.part1 | safe }}
+    <a class="govuk-link" href="{{joint.secondInTimeApplicant.line1.link}}"" target="_blank">{{joint.secondInTimeApplicant.line1.part2}}</a><br><br>
+    {{ joint.secondInTimeApplicant.line2.part1 | safe }}
+    <a class="govuk-link" href="{{joint.secondInTimeApplicant.line2.link}}"" target="_blank">{{joint.secondInTimeApplicant.line2.part2}}</a>
+    {{ joint.secondInTimeApplicant.line3| safe }}<br><br>
+    {{ joint.secondInTimeApplicant.line4 | safe }}
+  </p>
+{% endset %}
+
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   {% if isJointApplication %}
-    <p class="govuk-body">{{ joint.line1 | safe }}</p>
+    <p class="govuk-body">
+    {{ joint.line1.part1 | safe }}
+    <a class="govuk-link" href="{{joint.line1.link}}" target="_blank">{{joint.line1.part2}}</a>
+    {{ joint.line1.part3 | safe }}
+    </p>
     {% if isApplicantFirstInTimeApplicant %}
       {{ govukDetails({
         summaryText: joint.continueAsSole,
-        html: joint.firstInTimeApplicant
+        html: jointFirstInTimeApplicant
       }) }}
     {% else %}
       {{ govukDetails({
         summaryText: joint.continueAsSole,
-        html: joint.secondInTimeApplicant
+        html: jointSecondInTimeApplicant
       }) }}
     {% endif %}
   {% else %}
-    <p class="govuk-body">{{ sole.line1 | safe }}</p>
+    <p class="govuk-body">
+      {{ sole.line1.part1 | safe }}
+      <a class="govuk-link" href="{{sole.line1.link}}"" target="_blank">{{sole.line1.part2}}</a>
+      {{ sole.line1.part3 | safe }}
+    </p>
     <p class="govuk-body">{{ sole.line2 | safe }}</p>
     <p class="govuk-body"><a href="https://www.gov.uk/apply-for-divorce" class="govuk-link">{{ exitLink }}</a></p>
   {% endif %}
