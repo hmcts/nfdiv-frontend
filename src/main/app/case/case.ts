@@ -97,6 +97,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ApplyForConditionalOrderStarted: 'coApplicant2ApplyForConditionalOrderStarted',
   applicant1ApplyForConditionalOrder: 'coApplicant1ApplyForConditionalOrder',
   applicant1ConfirmInformationStillCorrect: 'coApplicant1ConfirmInformationStillCorrect',
+  applicant2ApplyForConditionalOrder: 'coApplicant2ApplyForConditionalOrder',
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
@@ -240,6 +241,7 @@ export interface Case {
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   applicant1ApplyForConditionalOrder?: YesOrNo;
   applicant1ConfirmInformationStillCorrect?: YesOrNo;
+  applicant2ApplyForConditionalOrder?: YesOrNo;
   applicant1ReasonInformationNotCorrect?: string;
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
