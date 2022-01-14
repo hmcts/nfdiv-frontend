@@ -3,6 +3,23 @@
 
 {% set whatThisMeansContent1 %}
   <p class="govuk-body">{{ whatThisMeansInfo1 }}</p>
+
+  <h3 class="govuk-heading-m">{{ heading7 }}</h3>
+  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
+  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
+  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
+
+  <h3 class="govuk-heading-m">{{ heading8 }}</h3>
+  <p class="govuk-body">{{ domicileLine1 }}</p>
+  <p class="govuk-body">{{ domicileLine2 }}</p>
+  <p class="govuk-body">{{ domicileLine3 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ domicileListItem1 }}</li>
+    <li>{{ domicileListItem2 }}</li>
+  </ul>
+  <p class="govuk-body">{{ domicileLine4 }}</p>
+  <p class="govuk-body">{{ domicileLine5 }}</p>
+
 {% endset %}
 
 {% set whatThisMeansContent3 %}
@@ -58,22 +75,6 @@
       html: whatThisMeansContent1
   }) }}
 
-  <h3 class="govuk-heading-m">{{ heading7 }}</h3>
-  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
-
-  <h3 class="govuk-heading-m">{{ heading8 }}</h3>
-  <p class="govuk-body">{{ domicileLine1 }}</p>
-  <p class="govuk-body">{{ domicileLine2 }}</p>
-  <p class="govuk-body">{{ domicileLine3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ domicileListItem1 }}</li>
-    <li>{{ domicileListItem2 }}</li>
-  </ul>
-  <p class="govuk-body">{{ domicileLine4 }}</p>
-  <p class="govuk-body">{{ domicileLine5 }}</p>
-
   <h3 class="govuk-heading-m">{{ heading10 }}</h3>
   <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
   {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
@@ -108,6 +109,18 @@
       summaryText: whatThisMeans,
       html: whatThisMeansContent3
   }) }}
+
+  <h2 class="govuk-heading-m">{{ heading113 }}</h2>
+  <p class="govuk-body">{{ applicant1Address | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ heading114 }}</h2>
+  <p class="govuk-body">{{ applicant2Address | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ heading115 }}</h2>
+  <p class="govuk-body">{{ applicant1EmailAddress }}</p>
+
+ <h2 class="govuk-heading-m">{{ heading116 }}</h2>
+ <p class="govuk-body">{{ applicant2EmailAddress }}</p>
 
   <h2 class="govuk-heading-m">{{ heading13 }}</h2>
   <p class="govuk-body">{{ factsTrue }}</p>

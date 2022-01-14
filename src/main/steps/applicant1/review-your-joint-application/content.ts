@@ -9,7 +9,7 @@ import { connectionBulletPointsTextForJointApplications } from '../../../app/jur
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -48,7 +48,7 @@ const en = ({ isDivorce, userCase, partner, required }: CommonContent) => ({
   whatThisMeans: 'What this means',
   whatThisMeansInfo1: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
-  }. The applicantS confirmed that the legal statement(s) in the application apply to either or both the applicants.
+  }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
   habitualResidenceLine1:
@@ -82,7 +82,7 @@ const en = ({ isDivorce, userCase, partner, required }: CommonContent) => ({
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
   applicant2LegalProceedingsDetails: `${userCase.applicant2LegalProceedingsDetails}`,
-  noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
+  noOtherCourtCases: `The applicants has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
@@ -100,7 +100,40 @@ const en = ({ isDivorce, userCase, partner, required }: CommonContent) => ({
     'fees.consentOrder'
   )}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
-  // TODO - update the below
+  heading113: 'Applicant 1’s correspondence address',
+  applicant1Address: `${
+    userCase.applicant1SolicitorAddress || // if this || works update elsewhere with it too
+    [
+      userCase.applicant1Address1,
+      userCase.applicant1Address2,
+      userCase.applicant1Address3,
+      userCase.applicant1AddressTown,
+      userCase.applicant1AddressCounty,
+      userCase.applicant1AddressPostcode,
+      userCase.applicant1AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
+  }`,
+  heading114: 'Applicant 2’s correspondence address',
+  applicant2Address: `${
+    userCase.applicant2SolicitorAddress || // if this || works update elsewhere with it too
+    [
+      userCase.applicant2Address1,
+      userCase.applicant2Address2,
+      userCase.applicant2Address3,
+      userCase.applicant2AddressTown,
+      userCase.applicant2AddressCounty,
+      userCase.applicant2AddressPostcode,
+      userCase.applicant2AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
+  }`,
+  heading115: 'Applicant 1’s email address',
+  applicant1EmailAddress: `${userEmail}`,
+  heading116: "Applicant 2's email address",
+  applicant2EmailAddress: `${userCase.applicant2EmailAddress}`,
   heading13: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
