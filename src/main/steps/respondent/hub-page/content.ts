@@ -90,7 +90,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `If they do not apply for a final order by ${userCase.dateFinalOrderEligibleFrom} then you can apply for a final order.`,
     line4: 'You can ',
     line5: 'read and download your certificate of entitlement.',
-    downloadReference: 'certificate-of-service',
+    downloadReference: 'certificate-of-entitlement',
   },
   legalAdvisorReferral: {
     line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
