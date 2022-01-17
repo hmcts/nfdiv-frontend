@@ -37,7 +37,7 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   },
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-service',
+    link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
