@@ -42,7 +42,6 @@ export const connectionBulletPointsTextForJointApplications = (connections: Juri
   return connections.map(connection => connectionBulletPoints[connection]);
 };
 
-// TODO - check if the above can be done using map, (Use e2e for testing of it)
 export const connectionBulletPointsTextForSoleAndJoint = (
   connections: JurisdictionConnections[],
   partner: string,
