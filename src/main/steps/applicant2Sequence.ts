@@ -180,6 +180,10 @@ const sequences: Step[] = [
     getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   },
   {
+    url: WITHDRAWING_YOUR_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },

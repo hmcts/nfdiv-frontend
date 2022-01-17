@@ -14,8 +14,11 @@
   <p class="govuk-body">{{ line1 | safe }}</p>
 
   {% if isJointApplication %}
-    <p class="govuk-body">{{ jointLine1 }}</p>
-    <p class="govuk-body">{{ jointLine2 }}</p>
+    {% if isApplicantFirstInTimeApplicant %}
+      <p class="govuk-body">{{ jointLine1 }}</p>
+    {% else %}
+      <p class="govuk-body">{{ jointLine2 }}</p>
+    {% endif %}
   {% endif %}
 
   {{ govukDetails({

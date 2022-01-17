@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2022-01-12 17:17:53.
+// Generated using typescript-generator version 2.34.976 on 2022-01-14 15:58:38.
 
 export interface Address {
   AddressLine1: string;
@@ -864,6 +864,7 @@ export interface RetiredFields {
   applicant1ApplyForConditionalOrderStarted: YesOrNo;
   applicant2ApplyForConditionalOrderStarted: YesOrNo;
   applicant1ContinueApplication: YesOrNo;
+  applicant2ContinueApplication: YesOrNo;
   coIsEverythingInApplicationTrue: YesOrNo;
   coChangeOrAddToApplication: YesOrNo;
   coApplyForConditionalOrder: YesOrNo;
@@ -1098,7 +1099,7 @@ export const enum ClarificationReason {
 }
 
 export const enum ConditionalOrderCourt {
-  BIRMIGHAM = 'birmingham',
+  BIRMINGHAM = 'birmingham',
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
@@ -1662,6 +1663,7 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
+
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
@@ -1684,7 +1686,7 @@ export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
 export const SUBMIT_AOS = 'submit-aos';
-export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
 export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
@@ -1708,3 +1710,5 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const birmingham = 'Birmingham Civil and Family Justice Centre';
+export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
