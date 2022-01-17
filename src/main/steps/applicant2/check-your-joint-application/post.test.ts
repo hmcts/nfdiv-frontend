@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_APPLICANT_2_REQUEST_CHANGES, YesOrNo } from '../../../app/case/definition';
+import { APPLICANT_2_REQUEST_CHANGES, CITIZEN_APPLICANT2_UPDATE, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
 import CheckYourJointApplicationPostController from './post';
@@ -25,7 +25,7 @@ describe('CheckYourJointApplicationPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       { applicant2Confirmation: YesOrNo.NO },
-      CITIZEN_APPLICANT_2_REQUEST_CHANGES
+      APPLICANT_2_REQUEST_CHANGES
     );
   });
 
