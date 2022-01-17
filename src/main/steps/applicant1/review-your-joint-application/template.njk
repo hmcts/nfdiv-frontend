@@ -36,10 +36,10 @@
   <h2 class="govuk-heading-m">{{ heading1 }}</h2>
   <p class="govuk-body">{{ line1 }}</p>
   {% if userCase.applyForFinancialOrder === 'Yes' %}
-    <p class="govuk-body">{{ line112 }}</p>
+    <p class="govuk-body">{{ line2 }}</p>
   {% endif %}
   {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
-    <p class="govuk-body">{{ line113 }}</p>
+    <p class="govuk-body">{{ line3 }}</p>
   {% endif %}
   <p class="govuk-body">{{ issuedDate | safe }}</p>
   <p class="govuk-body">{{ caseReference | safe }}</p>
@@ -51,10 +51,10 @@
   <p class="govuk-body">{{ applicant2Names }}</p>
 
   <h2 class="govuk-heading-m">{{ heading2 }}</h2>
-  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
 
   <h3 class="govuk-heading-s">{{ heading3 }}</h3>
-  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line5 }}</p>
 
   <h3 class="govuk-heading-s">{{ heading4 }}</h3>
   <p class="govuk-body">{{ ceremonyPlace }}</p>
@@ -63,7 +63,7 @@
   <p class="govuk-body">{{ relationshipDate }}</p>
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
-  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ line6 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for line in connectionBulletPoints %}
       <li>{{ line | safe }}</li>
@@ -91,7 +91,7 @@
   {% endif %}
 
   <h2 class="govuk-heading-m">{{ heading11 }}</h2>
-  <p class="govuk-body">{{ line5 }}</p>
+  <p class="govuk-body">{{ line7 }}</p>
 
   <h2 class="govuk-heading-m">{{ heading12 }}</h2>
   {% if userCase.applyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
@@ -110,19 +110,27 @@
       html: whatThisMeansContent3
   }) }}
 
-  <h2 class="govuk-heading-m">{{ heading113 }}</h2>
-  <p class="govuk-body">{{ applicant1Address | safe }}</p>
+  {% if not isApplicant2AndApplicant1AddressPrivate %}
+    <h2 class="govuk-heading-m">{{ heading13 }}</h2>
+    <p class="govuk-body">{{ applicant1Address | safe }}</p>
+  {% endif %}
 
-  <h2 class="govuk-heading-m">{{ heading114 }}</h2>
-  <p class="govuk-body">{{ applicant2Address | safe }}</p>
+  {% if not isApplicant1AndApplicant2AddressPrivate %}
+    <h2 class="govuk-heading-m">{{ heading14 }}</h2>
+    <p class="govuk-body">{{ applicant2Address | safe }}</p>
+  {% endif %}
 
-  <h2 class="govuk-heading-m">{{ heading115 }}</h2>
-  <p class="govuk-body">{{ applicant1EmailAddress }}</p>
+  {% if not isApplicant2AndApplicant1AddressPrivate %}
+    <h2 class="govuk-heading-m">{{ heading15 }}</h2>
+    <p class="govuk-body">{{ applicant1EmailAddress }}</p>
+  {% endif %}
 
- <h2 class="govuk-heading-m">{{ heading116 }}</h2>
- <p class="govuk-body">{{ applicant2EmailAddress }}</p>
+  {% if not isApplicant1AndApplicant2AddressPrivate %}
+    <h2 class="govuk-heading-m">{{ heading16 }}</h2>
+    <p class="govuk-body">{{ applicant2EmailAddress }}</p>
+  {% endif %}
 
-  <h2 class="govuk-heading-m">{{ heading13 }}</h2>
+  <h2 class="govuk-heading-m">{{ heading17 }}</h2>
   <p class="govuk-body">{{ factsTrue }}</p>
   <p class="govuk-body"><i>{{ userCase.applicant1FirstNames }} {{ userCase.applicant1LastNames }}</i></p>
   <br>

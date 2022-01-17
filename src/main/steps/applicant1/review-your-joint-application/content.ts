@@ -20,9 +20,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }
   are applying to the court for a conditional order of ${
     isDivorce ? 'divorce in this case' : 'the dissolution of their civil partnership in this case'
-  }`, // check this
-  line112: 'Applicant 1 is also applying to the court to make a financial order.',
-  line113: 'Applicant 2 is also applying to the court to make a financial order.',
+  }`,
+  line2: 'Applicant 1 is also applying to the court to make a financial order.',
+  line3: 'Applicant 2 is also applying to the court to make a financial order.',
   issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
   caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
   applicant1Heading: 'Applicant 1',
@@ -30,12 +30,12 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   applicant2Heading: 'Applicant 2',
   applicant2Names: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
   heading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line2: `These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English.
+  line4: `These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English.
   The names on the certificate are the names the applicants used before the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading3: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
-  line3: `${userCase.applicant1FullNameOnCertificate} and ${
+  line5: `${userCase.applicant1FullNameOnCertificate} and ${
     userCase.applicant2FullNameOnCertificate
   } (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
@@ -43,7 +43,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
   heading6: 'Why the court can deal with the case (jurisdiction)',
-  line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
+  line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase ? connectionBulletPointsTextForJointApplications(userCase.connections!) : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo1: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
@@ -86,7 +86,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
-  line5: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
+  line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
   applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.', //TODO confirm this change cause FinancialOrderFor is retired
   applicant2FinancialOrder: 'Applicant 2 is applying to the court for financial orders.',
@@ -100,9 +100,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     'fees.consentOrder'
   )}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
-  heading113: 'Applicant 1’s correspondence address',
+  heading13: 'Applicant 1’s correspondence address',
   applicant1Address: `${
-    userCase.applicant1SolicitorAddress || // if this || works update elsewhere with it too
+    userCase.applicant1SolicitorAddress ||
     [
       userCase.applicant1Address1,
       userCase.applicant1Address2,
@@ -115,9 +115,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
       .filter(Boolean)
       .join('<br>')
   }`,
-  heading114: 'Applicant 2’s correspondence address',
+  heading14: 'Applicant 2’s correspondence address',
   applicant2Address: `${
-    userCase.applicant2SolicitorAddress || // if this || works update elsewhere with it too
+    userCase.applicant2SolicitorAddress ||
     [
       userCase.applicant2Address1,
       userCase.applicant2Address2,
@@ -130,24 +130,24 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
       .filter(Boolean)
       .join('<br>')
   }`,
-  heading115: 'Applicant 1’s email address',
+  heading15: 'Applicant 1’s email address',
   applicant1EmailAddress: `${userEmail}`,
-  heading116: "Applicant 2's email address",
+  heading16: "Applicant 2's email address",
   applicant2EmailAddress: `${userCase.applicant2EmailAddress}`,
-  heading13: 'Statement of truth',
+  heading17: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
   reasonInformationNotCorrect: `<strong>Changing your contact details</strong>
     <br>
-    You can update your address and phone number in the <a class="govuk-link" href="${CHECK_CONTACT_DETAILS}">‘contact details’ section of your ${
+    You can update your email address, phone number and postal address in the <a class="govuk-link" href="${CHECK_CONTACT_DETAILS}">‘contact details’ section of your ${
     isDivorce ? 'divorce' : ''
   } account.</a> There is no cost for this.</p>
     <br>
     <p class="govuk-body"><strong>Changing any other information</strong>
     <br>
-    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${config.get(
+    If you want to change any other information then you should provide details below. You may need to pay a ${config.get(
       'fees.updateApplication'
-    )} fee. This is because the application will need to be updated and may need to be sent to your ${partner} again.`,
+    )} fee. This is because the application will need to be updated and sent to your ${partner} again.`,
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',
   errors: {
@@ -204,7 +204,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const isApplicant1AndApplicant2AddressPrivate =
+    !content.isApplicant2 && content.userCase.applicant2AddressPrivate === YesOrNo.YES;
+  const isApplicant2AndApplicant1AddressPrivate =
+    content.isApplicant2 && content.userCase.applicant1AddressPrivate === YesOrNo.YES;
   return {
+    isApplicant1AndApplicant2AddressPrivate,
+    isApplicant2AndApplicant1AddressPrivate,
     ...translations,
     form,
   };
