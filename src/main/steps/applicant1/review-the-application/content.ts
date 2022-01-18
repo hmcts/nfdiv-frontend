@@ -101,37 +101,35 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
   applicantAddressCountry: `${
-    userCase.applicant1SolicitorAddress
-      ? userCase.applicant1SolicitorAddress
-      : [
-          userCase.applicant1Address1,
-          userCase.applicant1Address2,
-          userCase.applicant1Address3,
-          userCase.applicant1AddressTown,
-          userCase.applicant1AddressCounty,
-          userCase.applicant1AddressPostcode,
-          userCase.applicant1AddressCountry,
-        ]
-          .filter(Boolean)
-          .join('<br>')
+    userCase.applicant1SolicitorAddress ||
+    [
+      userCase.applicant1Address1,
+      userCase.applicant1Address2,
+      userCase.applicant1Address3,
+      userCase.applicant1AddressTown,
+      userCase.applicant1AddressCounty,
+      userCase.applicant1AddressPostcode,
+      userCase.applicant1AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
   }`,
   subHeading8: "Applicant's email address",
   line21: `${userEmail}`,
   subHeading9: "Respondent's correspondence address",
   respondentAddressCountry: `${
-    userCase.applicant2SolicitorAddress
-      ? userCase.applicant2SolicitorAddress
-      : [
-          userCase.applicant2Address1,
-          userCase.applicant2Address2,
-          userCase.applicant2Address3,
-          userCase.applicant2AddressTown,
-          userCase.applicant2AddressCounty,
-          userCase.applicant2AddressPostcode,
-          userCase.applicant2AddressCountry,
-        ]
-          .filter(Boolean)
-          .join('<br>')
+    userCase.applicant2SolicitorAddress ||
+    [
+      userCase.applicant2Address1,
+      userCase.applicant2Address2,
+      userCase.applicant2Address3,
+      userCase.applicant2AddressTown,
+      userCase.applicant2AddressCounty,
+      userCase.applicant2AddressPostcode,
+      userCase.applicant2AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
   }`,
   subHeading10: "Respondent's email address",
   line22: `${userCase.applicant2EmailAddress}`,
