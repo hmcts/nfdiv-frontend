@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State, YesOrNo } from '../../../app/case/definition';
+import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import {
   form as applicant1Form,
@@ -79,7 +79,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${userCase.coCourt} on ${userCase.coDateOfHearing}. Your ${partner} has also been notified.`,
+    (read out) by a judge at ${userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds} on ${
+      userCase.coDateOfHearing
+    }.
+    Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
@@ -88,9 +91,12 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
     line3: `If they do not apply for a final order by ${userCase.dateFinalOrderEligibleFrom} then you can apply for a final order.`,
-    line4: 'You can ',
-    line5: 'read and download your certificate of entitlement.',
-    downloadReference: '/downloads/certificate-of-entitlement',
+    line4: {
+      part1: 'You can ',
+      part2: 'read and download your certificate of entitlement.',
+      downloadReference: 'Certificate-of-Entitlement',
+      link: '/downloads/certificate-of-entitlement',
+    },
   },
   legalAdvisorReferral: {
     line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
