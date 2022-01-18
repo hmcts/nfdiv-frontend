@@ -8,10 +8,10 @@
     <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
     <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
     <p class="govuk-body">{{ conditionalOrderPronounced.line3 }}</p>
-    <p class="govuk-body">{{ conditionalOrderPronounced.line4 }}
-      <a class="govuk-link" href={{conditionalOrderPronounced.downloadReference}}
-      download="Certificate-of-Entitlement">
-      {{conditionalOrderPronounced.line5}}</a>
+    <p class="govuk-body">{{ conditionalOrderPronounced.line4.part1 }}
+      <a class="govuk-link" href={{ conditionalOrderPronounced.line4.link }}
+      download={{ conditionalOrderPronounced.lin4.downloadReference }}>
+      {{ conditionalOrderPronounced.line4.part2 }}</a>
     </p>
   {% elif progressionIndex == 14 and isCoFieldsSet %}
     <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
