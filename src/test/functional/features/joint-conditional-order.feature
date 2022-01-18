@@ -45,4 +45,4 @@ Feature: Joint conditional order
     And the page should include "This is a joint application so your wife will also have to apply. They have been sent an email to tell them."
     Given I select "I want to continue with my divorce application"
     When I click "Continue"
-    Then the page URL should be "review-your-application"
+    Then the page URL should be "review-your-joint-application"
