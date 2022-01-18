@@ -7,7 +7,7 @@ Feature: Homepage
   @nightly
   Scenario: Redirect applicant 1 to its homepage
     When I go to '/applicant2/other-court-cases'
-    Then the page URL should be "/your-details"
+    Then the page URL should be "/error"
 
   @nightly
   Scenario: Redirect applicant 2 to its homepage
@@ -20,4 +20,4 @@ Feature: Homepage
     Given I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
     When I go to '/other-court-cases'
-    Then the page URL should be "/applicant2/you-need-to-review-your-application"
+    Then the page URL should be "/error"
