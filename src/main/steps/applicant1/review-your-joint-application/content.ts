@@ -56,7 +56,8 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   habitualResidenceLine2:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidenceLine3:
-    'The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+    'The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, ' +
+    'that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.',
   heading8: 'Domicile',
   domicileLine1:
     'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
@@ -88,17 +89,20 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.', //TODO confirm this change cause FinancialOrderFor is retired
+  applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.',
   applicant2FinancialOrder: 'Applicant 2 is applying to the court for financial orders.',
   noFinancialOrder: 'The applicants have said they do not intend to apply for financial orders.',
-  financialOrderMoreInfoLine1: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
+  financialOrderMoreInfoLine1: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split.
+  These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
   financialOrderMoreInfoLine2:
-    'A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. This is known as a ‘contested financial order’.',
-  financialOrderMoreInfoLine3: `To formally start legal proceedings, the applicants will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
+    'A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. ' +
+    'This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. ' +
+    'This is known as a ‘contested financial order’.',
+  financialOrderMoreInfoLine3: `To formally start legal proceedings, the applicants will need to complete another form and pay a fee.
+  Applying for a ‘contested financial order’ costs ${config.get(
     'fees.financialOrder'
-  )}. Applying for a ‘financial order by consent’ costs ${config.get(
-    'fees.consentOrder'
-  )}. You can get a solicitor to draft these for you. `,
+  )}. Applying for a ‘financial order by consent’ costs
+  ${config.get('fees.consentOrder')}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Applicant 1’s correspondence address',
   applicant1Address: `${
