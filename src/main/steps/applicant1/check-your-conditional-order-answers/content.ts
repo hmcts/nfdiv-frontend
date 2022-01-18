@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import * as urls from '../../urls';
 
-const en = ({ isJointApplication, isDivorce, userCase }: CommonContent) => ({
+const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonContent) => ({
   title: 'Check your answers',
   titleSoFar: 'Check your answers so far',
   confirm: 'Confirm before submitting',
@@ -20,8 +20,10 @@ const en = ({ isJointApplication, isDivorce, userCase }: CommonContent) => ({
     isInformationCorrect: userCase.applicant1ConfirmInformationStillCorrect,
   },
   stepLinks: {
-    continueApplication: urls.CONTINUE_WITH_YOUR_APPLICATION,
-    isInformationCorrect: urls.REVIEW_YOUR_APPLICATION,
+    continueApplication: `${isApplicant2 ? '/applicant2' : ''}${urls.CONTINUE_WITH_YOUR_APPLICATION}`,
+    isInformationCorrect: `${isApplicant2 ? '/applicant2' : ''}${
+      isJointApplication ? urls.REVIEW_YOUR_JOINT_APPLICATION : urls.REVIEW_YOUR_APPLICATION
+    }`,
   },
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
