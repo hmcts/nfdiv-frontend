@@ -12,6 +12,7 @@ fees:
   dispensedService: £50
   searchForAddress: £50
   d8bFormSubmission: £245
+  updateApplication: £95
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'

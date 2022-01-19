@@ -67,6 +67,7 @@ import {
   RESIDUAL_JURISDICTION,
   REVIEW_THE_APPLICATION,
   REVIEW_YOUR_APPLICATION,
+  REVIEW_YOUR_JOINT_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
@@ -419,10 +420,18 @@ export const applicant1Sequence: Step[] = [
   {
     url: CONTINUE_WITH_YOUR_APPLICATION,
     getNextStep: data =>
-      data.applicant1ApplyForConditionalOrder === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
+      data.applicant1ApplyForConditionalOrder === YesOrNo.YES
+        ? data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? REVIEW_YOUR_JOINT_APPLICATION
+          : REVIEW_YOUR_APPLICATION
+        : WITHDRAWING_YOUR_APPLICATION,
   },
   {
     url: REVIEW_YOUR_APPLICATION,
+    getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  },
+  {
+    url: REVIEW_YOUR_JOINT_APPLICATION,
     getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   },
   {
