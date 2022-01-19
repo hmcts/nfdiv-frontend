@@ -6,7 +6,7 @@
     {% include "common/form/fields.njk" %}
   {% endblock %}
 
-  {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
+  {% if userCase.state == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
       text: "Confirm receipt",
       classes: form.submit.classes,
@@ -15,7 +15,7 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif progressionIndex > 0 and progressionIndex < 4 %}
+  {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') %}
     {{ govukButton({
       text: "Apply for conditional order",
       classes: form.submit.classes,

@@ -11,26 +11,26 @@
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 5,
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 5,
-    active: progressionIndex == 6
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingPronouncement'),
+    active: userCase.state == 'ConditionalOrderPronounced'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 8,
-    active: progressionIndex == 7
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
+    active: userCase.state == 'ConditionalOrderPronounced'
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex > 8,
-    active: progressionIndex == 9
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
+    active: userCase.state == 'FinalOrderComplete'
   }] %}
 {% else %}
   {% set items = [{
