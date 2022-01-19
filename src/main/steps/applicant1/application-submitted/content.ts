@@ -116,7 +116,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingApplicant2Response,
     State.AwaitingLegalAdvisorReferral,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase.state as State);
+  ];
   const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
