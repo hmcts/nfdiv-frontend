@@ -134,18 +134,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line2:
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
-  awaitingPronouncement: {
-    line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
-      isDivorce ? 'get divorced' : 'end your civil partnership'
-    }.`,
-    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
-      userCase.coDateOfHearing
-    )
-      .add(43, 'day')
-      .format('D MMMM YYYY')}. This is the final step in the ${
-      isDivorce ? 'divorce ' : ''
-    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-  },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
     isDivorce ? 'you are legally divorced' : 'your civil partnership is legally ended'
