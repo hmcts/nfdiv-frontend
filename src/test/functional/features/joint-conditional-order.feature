@@ -46,3 +46,17 @@ Feature: Joint conditional order
     Given I select "I want to continue with my divorce application"
     When I click "Continue"
     Then the page URL should be "review-your-joint-application"
+
+  Scenario: Applicants CO entitlement granted
+    Given I set the case state to "AwaitingLegalAdvisorReferral"
+    Then a case worker grants condition order
+    And a case worker updates court case hearing
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 6:46PM."
+    When I click "Sign out"
+    And I login with applicant "2"
+    Given I go to "/"
+    Then the page URL should be "/applicant2/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 6:46PM."

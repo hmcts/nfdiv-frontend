@@ -1,3 +1,5 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% if progressionIndex == 5 and isCoFieldsSet %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
