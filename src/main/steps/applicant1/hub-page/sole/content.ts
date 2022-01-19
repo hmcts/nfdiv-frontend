@@ -216,7 +216,7 @@ export const generateContent: TranslationFn = content => {
     State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase.state as State);
+  ];
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES

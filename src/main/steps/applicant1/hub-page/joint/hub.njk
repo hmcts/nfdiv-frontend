@@ -1,12 +1,14 @@
-{% if progressionIndex == 0 and hasApplicantConfirmedReceipt %}
+{% if userCase.state == 'Holding' and hasApplicantConfirmedReceipt %}
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
-{% elif progressionIndex == 0 %}
+{% elif userCase.state == 'Holding' %}
   {% for property, line in applicationSubmittedLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
-{% elif progressionIndex > 0 and progressionIndex < 4 and hasApplicantNotYetAppliedForConditionalOrder %}
+{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
+  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and
+  hasApplicantNotYetAppliedForConditionalOrder %}
     <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
 {% endif %}
 {% block form %}
