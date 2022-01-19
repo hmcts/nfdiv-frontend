@@ -9,8 +9,11 @@ Feature: Joint conditional order
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
-    When I go to "/"
-    Then the page should include "Check your answers"
+    And I go to "/applicant2/confirm-your-joint-application"
+    Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
+    And I select "I believe that the facts stated in this application are true"
+    When I click "Submit"
+    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
 
   Scenario: Applicant 1 is first in time applicant for conditional order journey
     Given I set the case state to "AwaitingConditionalOrder"
