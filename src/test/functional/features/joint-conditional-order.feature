@@ -48,8 +48,7 @@ Feature: Joint conditional order
     Then the page URL should be "review-your-joint-application"
 
   Scenario: Applicants CO entitlement granted
-    Given I set the case state to "AwaitingLegalAdvisorReferral"
-    Then a case worker grants condition order
+    Given I set the case state to "AwaitingPronouncement"
     And a case worker updates court case hearing
     When I click "Sign out"
     And I login with applicant "1"

@@ -11,7 +11,6 @@ import {
   ConditionalOrderCourt,
   DivorceOrDissolution,
   State,
-  YesOrNo,
 } from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
@@ -225,14 +224,11 @@ When('a case worker issues the application', async () => {
   await triggerCaseWorkerEvent('caseworker-issue-application', { ceremonyPlace: 'Somewhere' });
 });
 
-When('a case worker grants condition order', async () => {
-  await triggerCaseWorkerEvent('legal-advisor-make-decision', { coGranted: YesOrNo.YES });
-});
-
 When('a case worker updates court case hearing', async () => {
   await triggerCaseWorkerEvent('system-update-case-court-hearing', {
     coDateAndTimeOfHearing: '2013-09-29T18:46',
     coCourt: ConditionalOrderCourt.BIRMINGHAM,
+    coDecisionDate: '2021-05-10',
   });
 });
 
