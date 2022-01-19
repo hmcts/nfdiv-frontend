@@ -155,9 +155,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
   conditionalOrderPronounced: {
     line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds} on ${
-      userCase.coDateOfHearing
-    }.
+    (read out) by a judge at ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
     Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     You still have to apply for a final order which will end the ${isDivorce ? 'marriage' : 'civil partnership'}.

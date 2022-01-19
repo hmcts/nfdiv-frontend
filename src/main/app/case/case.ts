@@ -249,8 +249,6 @@ export interface Case {
   coApplicant1StatementOfTruth?: Checkbox;
   coApplicant2StatementOfTruth?: Checkbox;
   coCourt: ConditionalOrderCourt;
-  coDateOfHearing?: DateAsString;
-  coTimeOfHearing?: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;

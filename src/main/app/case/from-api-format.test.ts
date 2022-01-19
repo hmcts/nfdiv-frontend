@@ -39,7 +39,6 @@ describe('from-api-format', () => {
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
-    coDateAndTimeOfHearing: '2021-07-26T15:30',
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -71,8 +70,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -115,8 +112,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -153,8 +148,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -191,8 +184,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
