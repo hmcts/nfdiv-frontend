@@ -367,6 +367,13 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
+    aboutYouForApplicant2: {
+      line1: urls.YOUR_NAME,
+      line2: urls.YOUR_NAME,
+      line3: urls.YOUR_NAME,
+      line4: urls.CHANGES_TO_YOUR_NAME_URL,
+      line5: urls.CHANGES_TO_YOUR_NAME_URL,
+    },
     contactYou: {
       line1: urls.YOUR_NAME,
       line2: urls.YOUR_NAME,
