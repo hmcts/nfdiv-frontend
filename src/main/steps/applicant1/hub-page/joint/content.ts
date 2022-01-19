@@ -54,7 +54,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingFinalOrder,
     State.FinalOrderRequested,
     State.FinalOrderComplete,
-  ].indexOf(content.userCase.state as State);
+  ];
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
