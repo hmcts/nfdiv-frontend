@@ -43,32 +43,32 @@
     label: {
       text: response
     },
-    complete: progressionIndex > 7,
-    active: progressionIndex >= 0 and progressionIndex < 8
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('IssuedToBailiff'),
+    active: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingAos') and progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding')
   }, {
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 10,
-    active: progressionIndex == 9 or hasApplicantConfirmedReceipt
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingGeneralConsideration'),
+    active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 12,
-    active: progressionIndex == 11
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('ConditionalOrderPending'),
+    active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 15,
-    active: progressionIndex == 14
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('ConditionalOrderPronounced'),
+    active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 16,
-    active: progressionIndex == 16
+    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingFinalOrder'),
+    active: userCase.state == 'AwaitingFinalOrder'
   }] %}
 {% endif %}
 
