@@ -44,7 +44,8 @@
       text: response
     },
     complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('IssuedToBailiff'),
-    active: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingAos') and progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding')
+    active: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingAos') and
+      progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding')
   }, {
     label: {
       text: conditionalOrderApplication

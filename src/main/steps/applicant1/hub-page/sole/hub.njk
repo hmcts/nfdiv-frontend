@@ -89,7 +89,8 @@
     summaryText: readMore,
     html: readMoreContent
   }) }}
-{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
+{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
+  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   <p class="govuk-body">{{ aosDue.line1 }}</p>
   <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
 {% else %}

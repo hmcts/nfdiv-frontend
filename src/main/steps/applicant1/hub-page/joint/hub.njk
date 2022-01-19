@@ -6,7 +6,9 @@
   {% for property, line in applicationSubmittedLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
-{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and hasApplicantNotYetAppliedForConditionalOrder %}
+{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
+  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and
+  hasApplicantNotYetAppliedForConditionalOrder %}
     <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
 {% endif %}
 {% block form %}
