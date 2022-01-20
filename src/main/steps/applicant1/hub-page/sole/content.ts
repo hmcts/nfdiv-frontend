@@ -186,6 +186,22 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       link: '/downloads/certificate-of-entitlement',
     },
   },
+  awaitingClarification: {
+    line1: `The court has reviewed your application for a conditional order and needs some more information before
+    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    courtsFeedback: 'The court’s feedback',
+    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+  },
 });
 
 // @TODO translations
@@ -212,6 +228,7 @@ export const generateContent: TranslationFn = content => {
     State.ConditionalOrderDrafted,
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
+    State.AwaitingClarification,
     State.AwaitingPronouncement,
     State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,

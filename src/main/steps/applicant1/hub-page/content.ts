@@ -18,7 +18,7 @@ const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
   conditionalOrderGranted: 'Conditional order granted',
   finalOrderApplication: 'Final order application',
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
-  subHeading1: 'Latest update',
+  subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
   line1:
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
