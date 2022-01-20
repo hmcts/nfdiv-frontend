@@ -8,12 +8,12 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ol>
-  {% if progressionIndex < 9 %}
+  {% if progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingConditionalOrder') %}
     <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
   {% endif %}
 {% endset %}
 
-{% if progressionIndex == 15 %}
+{% if userCase.state == 'ConditionalOrderPronounced' %}
   <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
   <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
   <p class="govuk-body">{{ conditionalOrderPronounced.line3.part1 }}
@@ -22,7 +22,7 @@
     {{ conditionalOrderPronounced.line3.part2 }}</a>
     {{ conditionalOrderPronounced.line3.part3 }}
   </p>
-{% elif progressionIndex == 14 and isCoFieldsSet %}
+{% elif userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ generalAwaitingPronouncement.line2 }}</p>
   {{ govukInsetText({
@@ -30,16 +30,16 @@
   }) }}
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
   <p class="govuk-body">{{ generalAwaitingPronouncement.line5 | safe }}</p>
-{% elif progressionIndex == 13 or progressionIndex == 14 and not isCoFieldsSet %}
+{% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
-{% elif progressionIndex == 10 %}
+{% elif userCase.state == 'AwaitingGeneralConsideration' %}
   <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
   <p class="govuk-body">{{ d8Submitted.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Submitted.line3 }}</p>
   <p class="govuk-body">{{ d8Submitted.line4 }}</p>
-{% elif progressionIndex == 9 %}
+{% elif userCase.state == 'AwaitingConditionalOrder' %}
   <p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}
@@ -62,12 +62,12 @@
   {% block form %}
     {% include "./form.njk" %}
   {% endblock %}
-{% elif progressionIndex == 8 and isDisputedApplication %}
+{% elif userCase.state == 'Holding' and isDisputedApplication %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
-{% elif progressionIndex == 8 %}
+{% elif userCase.state == 'Holding' %}
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
     <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
@@ -89,7 +89,8 @@
     summaryText: readMore,
     html: readMoreContent
   }) }}
-{% elif progressionIndex > 1 and progressionIndex < 8 %}
+{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
+  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   <p class="govuk-body">{{ aosDue.line1 }}</p>
   <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
 {% else %}

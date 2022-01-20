@@ -23,26 +23,26 @@
       label: {
         text: partnerResponse
       },
-      complete: progressionIndex > 1,
-      active: progressionIndex == 1
+      complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingApplicant2Response'),
+      active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
         text: conditionalOrderGranted
       },
-      complete: progressionIndex > 2,
-      active: progressionIndex == 2
+      complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingLegalAdvisorReferral'),
+      active: userCase.state == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
         text: applicationEnded
       },
-      complete: progressionIndex >= 3,
-      active: progressionIndex == 3
+      complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('FinalOrderComplete'),
+      active: userCase.state == 'FinalOrderComplete'
     }]
   }) }}
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
-    {% if userCase.applicant1CannotUpload or userCase.applican2CannotUpload %}
+    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">

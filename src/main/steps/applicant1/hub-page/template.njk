@@ -32,7 +32,7 @@
 
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
         <p class="govuk-body">{{ line1 | safe }}</p>
-        {% if progressionIndex == 11 %}
+        {% if userCase.state == 'ConditionalOrderDrafted' %}
           <p class="govuk-body">{{ line2 | safe }}</p>
         {% endif %}
       </div>
