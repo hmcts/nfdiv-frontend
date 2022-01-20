@@ -41,6 +41,7 @@ Feature: Switch To Sole Application
     Given I go to "/"
     Then the page URL should be "/check-your-answers"
 
+  @now
   Scenario: Switching to Sole application by Applicant 2
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"

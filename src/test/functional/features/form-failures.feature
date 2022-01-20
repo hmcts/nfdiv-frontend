@@ -402,7 +402,7 @@ Feature: Form failures
     Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
     And the page should include "You need to confirm the facts stated in this application are true"
 
-    @nightly
+    @now
     Scenario: They fail to fill out joint conditional order questions
       Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
       When I go to "/"

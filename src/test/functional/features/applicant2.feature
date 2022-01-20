@@ -93,7 +93,7 @@ Feature: Applicant 2
     When I pay and submit the joint application
     Then the page should include "Application submitted"
 
-  @nightly
+  @now
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
     And I select "I need help paying the fee"

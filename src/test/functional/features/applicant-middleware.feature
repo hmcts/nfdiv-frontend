@@ -9,7 +9,7 @@ Feature: Applicant middleware
     When I go to '/applicant2/other-court-cases'
     Then the page URL should be "/error"
 
-  @nightly
+  @now
   Scenario: Applicant 2 attempts to access an applicant 1 page
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "/"

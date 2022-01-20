@@ -101,7 +101,7 @@ Feature: Applicant 1 joint application
     Then the page URL should be "/application-sent-for-review"
     And the page should include "Your answers have been sent to your husband to review"
 
-  @nightly
+  @now
   Scenario: They fill out an unhappy path applicant 1 joint journey with help with fees
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"
