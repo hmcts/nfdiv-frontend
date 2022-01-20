@@ -218,6 +218,13 @@ const fields: ToApiConverters = {
   coApplicant2StatementOfTruth: data => ({
     coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
   }),
+  whoIsFinancialOrderFor: data => ({
+    applicant1FinancialOrderFor: data.applyForFinancialOrder !== YesOrNo.NO ? data.whoIsFinancialOrderFor : null,
+  }),
+  applicant2WhoIsFinancialOrderFor: data => ({
+    applicant2FinancialOrderFor:
+      data.applicant2ApplyForFinancialOrder !== YesOrNo.NO ? data.applicant2WhoIsFinancialOrderFor : null,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

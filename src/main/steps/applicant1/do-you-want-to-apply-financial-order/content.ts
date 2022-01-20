@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, required }: CommonContent) => ({
@@ -29,8 +29,15 @@ const en = ({ partner, required }: CommonContent) => ({
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
   yes: 'Yes, I want to apply for a financial order',
   no: 'No, I do not want to apply for a financial order',
+  subField: 'Who is the financial for?',
+  subFieldHint: 'Select all that apply',
+  me: 'Myself',
+  children: 'My children',
   errors: {
     applyForFinancialOrder: {
+      required,
+    },
+    whoIsFinancialOrderFor: {
       required,
     },
   },
@@ -50,6 +57,26 @@ export const form: FormContent = {
         {
           label: l => l.yes,
           value: YesOrNo.YES,
+          subFields: {
+            whoIsFinancialOrderFor: {
+              type: 'checkboxes',
+              label: l => l.subField,
+              hint: l => l.subFieldHint,
+              validator: atLeastOneFieldIsChecked,
+              values: [
+                {
+                  name: 'whoIsFinancialOrderFor',
+                  label: l => l.me,
+                  value: FinancialOrderFor.APPLICANT,
+                },
+                {
+                  name: 'whoIsFinancialOrderFor',
+                  label: l => l.children,
+                  value: FinancialOrderFor.CHILDREN,
+                },
+              ],
+            },
+          },
         },
         { label: l => l.no, value: YesOrNo.NO },
       ],

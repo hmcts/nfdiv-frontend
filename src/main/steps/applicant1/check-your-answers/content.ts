@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, ChangedNameHow, Gender, YesOrNo } from '../../../app/case/definition';
+import { ApplicationType, ChangedNameHow, FinancialOrderFor, Gender, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -139,6 +139,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     },
     dividingAssets: {
       line1: 'Do you want to apply for a financial order?',
+      line2: 'Who is the financial for?',
     },
     documents: {
       line1: 'Uploaded files',
@@ -319,6 +320,14 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
             : 'No, I do not want to apply for a financial order'
           : ''
       }`,
+      line2: `${
+        userCase.whoIsFinancialOrderFor
+          ? userCase.whoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'My children')
+          : ''
+      }`,
     },
     documents: {
       line1: `${
@@ -398,6 +407,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     },
     dividingAssets: {
       line1: urls.APPLY_FINANCIAL_ORDER,
+      line2: urls.APPLY_FINANCIAL_ORDER,
     },
     documents: {
       line1: urls.UPLOAD_YOUR_DOCUMENTS,
@@ -547,6 +557,7 @@ const cy: typeof en = ({
     },
     dividingAssets: {
       line1: 'Do you want to apply for a financial order?',
+      line2: 'Who is the financial for?',
     },
     documents: {
       line1: "Ffeiliau wedi'u huwchlwytho",
@@ -726,6 +737,14 @@ const cy: typeof en = ({
           ? userCase.applyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
+          : ''
+      }`,
+      line2: `${
+        userCase.whoIsFinancialOrderFor
+          ? userCase.whoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'My children')
           : ''
       }`,
     },
