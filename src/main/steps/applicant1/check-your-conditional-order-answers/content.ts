@@ -16,8 +16,14 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
     isInformationCorrect: 'Is the information in this application still correct?',
   },
   stepAnswers: {
-    continueApplication: userCase.applicant1ApplyForConditionalOrder,
-    isInformationCorrect: userCase.applicant1ConfirmInformationStillCorrect,
+    continueApplication: `${
+      isApplicant2 ? userCase.applicant2ApplyForConditionalOrder : userCase.applicant1ApplyForConditionalOrder
+    }`,
+    isInformationCorrect: `${
+      isApplicant2
+        ? userCase.applicant2ConfirmInformationStillCorrect
+        : userCase.applicant1ConfirmInformationStillCorrect
+    }`,
   },
   stepLinks: {
     continueApplication: `${isApplicant2 ? '/applicant2' : ''}${urls.CONTINUE_WITH_YOUR_APPLICATION}`,
