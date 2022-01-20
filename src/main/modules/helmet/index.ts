@@ -26,10 +26,6 @@ export class Helmet {
   private setContentSecurityPolicy(app: express.Express): void {
     const scriptSrc = [self, googleAnalyticsDomain, "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"];
 
-    if (app.locals.developmentMode) {
-      scriptSrc.push("'unsafe-eval'");
-    }
-
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
