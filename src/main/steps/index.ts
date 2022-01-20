@@ -50,11 +50,13 @@ const getNextIncompleteStep = (
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : [State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(data.state)
-        ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
-        : CHECK_ANSWERS_URL;
+      if (nextStep) {
+        return getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step));
+      } else if ([State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(data.state)) {
+        return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
+      } else {
+        return CHECK_ANSWERS_URL;
+      }
     }
   }
 
