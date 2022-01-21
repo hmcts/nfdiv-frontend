@@ -28,4 +28,5 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   applicant2UploadedFiles: [],
   applicant2ChangedNameHowAnotherWay: '',
+  applicant2Confirmation: YesOrNo.YES,
 };
