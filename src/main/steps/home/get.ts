@@ -115,6 +115,7 @@ const applicant2RedirectPageSwitch = (
       return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
     }
     case State.ConditionalOrderDrafted:
+    case State.AwaitingPronouncement:
     case State.ConditionalOrderPending: {
       return userCase.applicant2ApplyForConditionalOrder
         ? `${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`
