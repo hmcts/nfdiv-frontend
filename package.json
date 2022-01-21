@@ -101,7 +101,7 @@
     "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.16.8",
     "@types/jest": "^27.4.0",
-    "@types/mini-css-extract-plugin": "^2.4.0",
+    "@types/mini-css-extract-plugin": "^2.5.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@wdio/sauce-service": "^7.16.13",
