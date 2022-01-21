@@ -3,6 +3,7 @@ import {
   ChangedNameHow,
   ContactDetailsType,
   DivorceOrDissolution,
+  DocumentType,
   Gender,
   HowToRespondApplication,
   MarriageFormation,
@@ -69,6 +70,8 @@ describe('to-api-format', () => {
     applicant2NameChangedHow: [],
     applicant1ChangedNameHowAnotherWay: 'Test',
     applicant2ChangedNameHowAnotherWay: 'Test',
+    applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
+    applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -143,6 +146,8 @@ describe('to-api-format', () => {
       applicant2NameChangedHowOtherDetails: '',
       applicant1NameChangedHow: [],
       applicant2NameChangedHow: [],
+      applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
+      applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
     });
   });
 
