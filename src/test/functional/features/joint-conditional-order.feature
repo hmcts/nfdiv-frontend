@@ -92,6 +92,6 @@ Feature: Joint conditional order
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 6:46PM."
     When I click "Sign out"
     And I login with applicant "2"
-    Given I go to "/"
+    When I go to "/"
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 6:46PM."
