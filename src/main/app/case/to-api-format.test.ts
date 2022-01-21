@@ -54,6 +54,19 @@ describe('to-api-format', () => {
     coApplicant2StatementOfTruth: Checkbox.Checked,
   };
 
+  const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
+    applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
+    applicant1IConfirmPrayer: Checkbox.Unchecked,
+    applicant2IConfirmPrayer: Checkbox.Unchecked,
+    applicant1AddressPrivate: YesOrNo.NO,
+    applicant2AddressPrivate: YesOrNo.NO,
+    disputeApplication: YesOrNo.NO,
+    applicant1EnglishOrWelsh: LanguagePreference.Welsh,
+    applicant2AlreadyAppliedForHelpPaying: YesOrNo.YES,
+    applicant2HelpWithFeesRefNo: '12345',
+    applicant2HelpPayingNeeded: YesOrNo.NO,
+  };
+
   test('Should convert results from nfdiv to api fe format', async () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
 
@@ -105,6 +118,23 @@ describe('to-api-format', () => {
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
       coApplicant2StatementOfTruth: YesOrNo.YES,
+    });
+  });
+
+  test('Should convert results from nfdiv to api fe format with secondary values', async () => {
+    const apiFormat = toApiFormat(resultsWithSecondaryValues as Partial<Case>);
+
+    expect(apiFormat).toStrictEqual({
+      applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
+      applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
+      applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
+      applicant1PrayerHasBeenGivenCheckbox: [],
+      applicant2PrayerHasBeenGivenCheckbox: [],
+      howToRespondApplication: HowToRespondApplication.WITHOUT_DISPUTE_DIVORCE,
+      applicant1LanguagePreferenceWelsh: 'Yes',
+      applicant2HWFNeedHelp: YesOrNo.NO,
+      applicant2HWFAppliedForFees: null,
+      applicant2HWFReferenceNumber: null,
     });
   });
 
