@@ -90,7 +90,7 @@
     html: readMoreContent
   }) }}
 {% elif userCase.state == 'AwaitingClarification' %}
-  {% include "./green-box-content/awaiting-clarification.njk" %}
+  {% include "./latest-update-content/awaiting-clarification.njk" %}
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   <p class="govuk-body">{{ aosDue.line1 }}</p>
