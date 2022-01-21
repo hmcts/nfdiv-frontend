@@ -24,7 +24,7 @@
       text: finalOrderApplication
     },
     complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
-    active: userCase.state == 'ConditionalOrderPronounced'
+    active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
       text: applicationEnded
