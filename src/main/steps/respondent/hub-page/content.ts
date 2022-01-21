@@ -79,9 +79,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds} on ${
-      userCase.coDateOfHearing
-    }.
+    (read out) by a judge at ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
     Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     Your ${partner} still has to apply for a final order which will end the ${
@@ -109,7 +109,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
     line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
-      userCase.coDateOfHearing
+      userCase.coDateAndTimeOfHearing
     )
       .add(43, 'day')
       .format('D MMMM YYYY')}. This is the final step in the ${
