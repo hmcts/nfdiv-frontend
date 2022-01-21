@@ -65,6 +65,10 @@ describe('to-api-format', () => {
     applicant2AlreadyAppliedForHelpPaying: YesOrNo.YES,
     applicant2HelpWithFeesRefNo: '12345',
     applicant2HelpPayingNeeded: YesOrNo.NO,
+    applicant1NameChangedHow: [],
+    applicant2NameChangedHow: [],
+    applicant1ChangedNameHowAnotherWay: 'Test',
+    applicant2ChangedNameHowAnotherWay: 'Test',
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -135,6 +139,10 @@ describe('to-api-format', () => {
       applicant2HWFNeedHelp: YesOrNo.NO,
       applicant2HWFAppliedForFees: null,
       applicant2HWFReferenceNumber: null,
+      applicant1NameChangedHowOtherDetails: '',
+      applicant2NameChangedHowOtherDetails: '',
+      applicant1NameChangedHow: [],
+      applicant2NameChangedHow: [],
     });
   });
 
