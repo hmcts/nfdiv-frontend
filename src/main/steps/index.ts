@@ -10,7 +10,7 @@ import { Form, FormContent } from '../app/form/Form';
 import { Step, applicant1Sequence } from './applicant1Sequence';
 import { applicant2Sequence } from './applicant2Sequence';
 import { respondentSequence } from './respondentSequence';
-import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
+import { CHECK_ANSWERS_URL, CHECK_CONDITIONAL_ORDER_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
 
 const stepForms: Record<string, Form> = {};
 const ext = extname(__filename);
@@ -50,9 +50,13 @@ const getNextIncompleteStep = (
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : CHECK_ANSWERS_URL;
+      if (nextStep) {
+        return getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step));
+      } else if ([State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(data.state)) {
+        return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
+      } else {
+        return CHECK_ANSWERS_URL;
+      }
     }
   }
 
