@@ -1,7 +1,8 @@
 import config from 'config';
+import { isEqual } from 'lodash';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -91,8 +92,25 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.',
-  applicant2FinancialOrder: 'Applicant 2 is applying to the court for financial orders.',
+  applicant1FinancialOrderYes: `Applicant 1 is intending to apply to the court for financial orders ${
+    userCase.whoIsFinancialOrderFor?.includes(FinancialOrderFor.APPLICANT) ? 'for the applicant' : ''
+  }${
+    isEqual(userCase.whoIsFinancialOrderFor, [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN]) ? ' and ' : ''
+  }${
+    userCase.whoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN)
+      ? 'for the children of the applicant and the respondent.'
+      : '.'
+  }`,
+  applicant2FinancialOrderYes: `Applicant 2 is applying to the court for financial orders ${
+    userCase.applicant2WhoIsFinancialOrderFor?.includes(FinancialOrderFor.APPLICANT) ? 'for the applicant' : ''
+  }${
+    isEqual(userCase.applicant2WhoIsFinancialOrderFor, [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN])
+      ? ' and '
+      : ''
+  }${
+    userCase.applicant2WhoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN) ??
+    'for the children of both the applicants.'
+  }`,
   noFinancialOrder: 'The applicants have said they do not intend to apply for financial orders.',
   financialOrderMoreInfoLine1: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split.
   These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
