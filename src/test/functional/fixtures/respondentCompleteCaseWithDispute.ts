@@ -2,9 +2,10 @@ import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
 import { YesOrNo } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
 
-export const respondentCompleteCase: Partial<BrowserCase> = {
+export const respondentCompleteCaseWithDispute: Partial<BrowserCase> = {
   confirmReadPetition: Checkbox.Checked,
-  disputeApplication: YesOrNo.NO,
+  disputeApplication: YesOrNo.YES,
+  confirmDisputeApplication: YesOrNo.YES,
   jurisdictionAgree: YesOrNo.YES,
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
   inWhichCountryIsYourLifeMainlyBased: '',
