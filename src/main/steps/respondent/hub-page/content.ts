@@ -125,9 +125,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-    line5: `You can <a class="govuk-link" href="/downloads/certificate-of-entitlement" download="Certificate-of-entitlement">view and download your ‘certificate of entitlement for a conditional order’</a>. This is the document that says the court does not see any reason why you cannot ${
-      isDivorce ? 'get divorced' : 'end your civil partnership'
-    }.`,
   },
 });
 

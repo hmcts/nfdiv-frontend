@@ -13,15 +13,19 @@
   {% endif %}
 {% endset %}
 
+{% set certificateOfEntitlementLineHtml %}
+  <p class="govuk-body">{{ certificateOfEntitlementLine.part1 }}
+    <a class="govuk-link" href={{ certificateOfEntitlementLine.link }}
+    download={{ certificateOfEntitlementLine.downloadReference }}>
+      {{ certificateOfEntitlementLine.part2 }}</a>
+    {{ certificateOfEntitlementLine.part3 }}
+  </p>
+{% endset %}
+
 {% if userCase.state == 'ConditionalOrderPronounced' %}
   <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
   <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
-  <p class="govuk-body">{{ conditionalOrderPronounced.line3.part1 }}
-    <a class="govuk-link" href={{ conditionalOrderPronounced.line3.link }}
-    download={{ conditionalOrderPronounced.line3.downloadReference }}>
-    {{ conditionalOrderPronounced.line3.part2 }}</a>
-    {{ conditionalOrderPronounced.line3.part3 }}
-  </p>
+  {{ certificateOfEntitlementLineHtml }}
 {% elif userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
@@ -29,7 +33,7 @@
     text: awaitingPronouncement.line3
   }) }}
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-  <p class="govuk-body">{{ awaitingPronouncement.line5 | safe }}</p>
+  {{ certificateOfEntitlementLineHtml }}
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
