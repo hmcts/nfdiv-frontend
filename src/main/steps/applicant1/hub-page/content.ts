@@ -25,15 +25,27 @@ const en = ({ isDivorce, userCase, referenceNumber }: CommonContent) => ({
   line2:
     '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
   whatHappensNext: 'What happens next',
-  generalAwaitingPronouncement: {
+  awaitingPronouncement: {
+    line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
     line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } on ${userCase.coDateOfHearing} at ${userCase.coTimeOfHearing}.`,
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} at ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    ).format('h:mmA')}.`,
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
-      userCase.coDateOfHearing
+      userCase.coDateAndTimeOfHearing
     )
       .subtract(7, 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
+    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    )
+      .add(43, 'day')
+      .format('D MMMM YYYY')}. This is the final step in the ${
+      isDivorce ? 'divorce ' : ''
+    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
     line5: `You can <a class="govuk-link" href="/downloads/certificate-of-entitlement" download="Certificate-of-entitlement">view and download your ‘certificate of entitlement for a conditional order’</a>. This is the document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
@@ -59,10 +71,7 @@ export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isCoFieldsSet =
-    userCase.coCourt &&
-    userCase.coDateOfHearing &&
-    userCase.coTimeOfHearing &&
-    userCase.coCertificateOfEntitlementDocument;
+    userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
