@@ -184,6 +184,10 @@ const sequences: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },

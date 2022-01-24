@@ -106,6 +106,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
   coCourt: 'coCourt',
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
+  coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
+  coDecisionDate: 'coDecisionDate',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -252,11 +254,11 @@ export interface Case {
   coApplicant1StatementOfTruth?: Checkbox;
   coApplicant2StatementOfTruth?: Checkbox;
   coCourt: ConditionalOrderCourt;
-  coDateOfHearing?: DateAsString;
-  coTimeOfHearing?: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
+  coDateAndTimeOfHearing: DateAsString;
+  coDecisionDate: DateAsString;
 }
 
 export interface CaseWithId extends Case {

@@ -1,14 +1,17 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { Checkbox } from '../app/case/case';
-import { Gender, YesOrNo } from '../app/case/definition';
+import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { applicant1Sequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
+  CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
+  RESPONDENT,
+  REVIEW_THE_APPLICATION,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -87,8 +90,25 @@ describe('Steps', () => {
       mockReq.session.isApplicant2 = true;
       mockReq.session.userCase.caseReference = '1234123412341234';
       mockReq.session.userCase.accessCode = 'QWERTY78';
+      mockReq.session.userCase.applicationType = ApplicationType.JOINT_APPLICATION;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(`${APPLICANT_2}${HAS_RELATIONSHIP_BROKEN_URL}`);
+    });
+
+    it("uses respondent's sequence if they are logged in as respondent", () => {
+      mockReq.originalUrl = `${RESPONDENT}${ENTER_YOUR_ACCESS_CODE}`;
+      mockReq.session.isApplicant2 = true;
+      mockReq.session.userCase.caseReference = '1234123412341234';
+      mockReq.session.userCase.accessCode = 'QWERTY78';
+      mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
+    });
+
+    it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted", () => {
+      mockReq.session.userCase.state = State.ConditionalOrderDrafted;
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
     });
   });
 });

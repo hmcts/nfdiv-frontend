@@ -66,7 +66,7 @@ export class Routes {
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
-      const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.originalUrl.includes(prefixUrl));
+      const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
       if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
         return res.redirect('/error');
       }
