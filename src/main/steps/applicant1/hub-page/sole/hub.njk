@@ -22,6 +22,7 @@
     {{ conditionalOrderPronounced.line3.part2 }}</a>
     {{ conditionalOrderPronounced.line3.part3 }}
   </p>
+
 {% elif userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
@@ -30,15 +31,18 @@
   }) }}
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line5 | safe }}</p>
+
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
+
 {% elif userCase.state == 'AwaitingGeneralConsideration' %}
   <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
   <p class="govuk-body">{{ d8Submitted.line2 }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Submitted.line3 }}</p>
   <p class="govuk-body">{{ d8Submitted.line4 }}</p>
+
 {% elif userCase.state == 'AwaitingConditionalOrder' %}
   <p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
   {% if isDeemedOrDispensedApplication %}
@@ -62,11 +66,13 @@
   {% block form %}
     {% include "./form.njk" %}
   {% endblock %}
+
 {% elif userCase.state == 'Holding' and isDisputedApplication %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
+
 {% elif userCase.state == 'Holding' %}
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
@@ -89,10 +95,15 @@
     summaryText: readMore,
     html: readMoreContent
   }) }}
+
+{% elif userCase.state == 'ClarificationSubmitted' %}
+  {% include "./latest-update-content/clarification-submitted.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   <p class="govuk-body">{{ aosDue.line1 }}</p>
   <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
+
 {% else %}
   {% for property, line in aosAwaitingOrDrafted %}
     <p class="govuk-body">{{ line }}</p>

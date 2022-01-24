@@ -1,0 +1,11 @@
+{% if isClarificationDocumentsUploaded %}
+  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
+{% else %}
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line2 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>
+{% endif %}

@@ -132,7 +132,24 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
-      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
+      'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+  },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2: 'address',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
   },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
@@ -200,6 +217,9 @@ export const generateContent: TranslationFn = content => {
     State.ConditionalOrderDrafted,
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
+    State.AwaitingClarification,
+    State.ClarificationSubmitted,
+    State.AwaitingAmendedApplication,
     State.AwaitingPronouncement,
     State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,
@@ -214,11 +234,13 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const isClarificationDocumentsUploaded = content.userCase.applicant1AddressPrivate; // TODO need to change this field made when veli's ticket done
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
+    isClarificationDocumentsUploaded,
   };
 };
