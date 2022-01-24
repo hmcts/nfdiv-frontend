@@ -4,6 +4,7 @@ import {
   ContactDetailsType,
   DivorceOrDissolution,
   DocumentType,
+  FinancialOrderFor,
   Gender,
   HowToRespondApplication,
   MarriageFormation,
@@ -72,6 +73,10 @@ describe('to-api-format', () => {
     applicant2ChangedNameHowAnotherWay: 'Test',
     applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
+    applyForFinancialOrder: YesOrNo.YES,
+    whoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+    applicant2ApplyForFinancialOrder: YesOrNo.NO,
+    applicant2WhoIsFinancialOrderFor: [],
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -148,6 +153,10 @@ describe('to-api-format', () => {
       applicant2NameChangedHow: [],
       applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
       applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
+      applicant1FinancialOrder: YesOrNo.YES,
+      applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2FinancialOrder: YesOrNo.NO,
+      applicant2FinancialOrderFor: [],
     });
   });
 
