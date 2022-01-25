@@ -57,3 +57,15 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "Your husband has responded to your application and said they want to defend the divorce. This means they want to try and prevent the divorce."
 
+  Scenario: Update Court Case Hearing
+    Given I set the case state to "AwaitingPronouncement"
+    And a case worker updates court case hearing
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/"
+    Then the page URL should be "/respondent/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
