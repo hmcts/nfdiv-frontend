@@ -12,7 +12,7 @@ Feature: Sole hub page
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
 
-  Scenario: Respondent in Holding state
+  Scenario: Holding state
     Given I set the case state to "Holding"
     When I go to "/"
     Then the page should include "You have responded to the divorce application. You do not have to do anything further."
@@ -22,7 +22,7 @@ Feature: Sole hub page
     Then the page should include "Your husband has responded to your divorce application. You can download and read their response (PDF)."
     Then the page should include "The next step is for you to apply for a ‘conditional order’."
 
-  Scenario: Applicant and Respondent sole CO pronounced
+  Scenario: ConditionalOrderPronounced state
     Given I set the case state to "ConditionalOrderPronounced"
     When I go to "/"
     Then the page should include "You have been granted a ‘conditional order’ by the court."
@@ -32,7 +32,7 @@ Feature: Sole hub page
     Then the page should include "You have been granted a ‘conditional order’ by the court."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
-  Scenario: AosAwaiting or AosDrafted hub page
+  Scenario: AosAwaiting or AosDrafted state
     Given I set the case state to "AwaitingAos"
     When I go to "/"
     Then the page should include "Your wife has submitted an application for divorce."
@@ -56,4 +56,24 @@ Feature: Sole hub page
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Your husband has responded to your application and said they want to defend the divorce. This means they want to try and prevent the divorce."
+
+  Scenario: AwaitingGeneralConsideration state
+    Given I set the case state to "AwaitingGeneralConsideration"
+    When I go to "/"
+    Then the page should include "You have responded to the divorce application and said that you want to dispute it."
+    And the page should include "A judge will decide whether you and your wife need to attend a hearing."
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "Your husband has responded to your application and said they want to defend the divorce."
+    And the page should include "A judge will decide whether you and your husband need to attend a hearing."
+
+  Scenario: AwaitingLegalAdvisorReferral state
+    Given I set the case state to "AwaitingLegalAdvisorReferral"
+    When I go to "/"
+    Then the page should include "Your wife has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot get a divorce"
+    And the page should include "You will receive an email when the conditional order has been granted by the court."
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You have applied for a ‘conditional order’. The court will check your application and send it to a judge."
+    And the page should include "After your conditional order is pronounced, you then have to apply for a ‘final order’."
 

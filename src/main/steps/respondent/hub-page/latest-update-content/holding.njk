@@ -1,0 +1,14 @@
+{% if isDisputedApplication %}
+  <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
+  <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
+  <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
+  <p class="govuk-body">{{ d8Awaiting.line4 | safe }}</p>
+  <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
+  <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
+{% else %}
+  <p class="govuk-body">{{ holding.line1 }}</p>
+  <p class="govuk-body">{{ holding.line2 }}</p>
+  <p class="govuk-body">{{ holding.line3 }}</p>
+  <p class="govuk-body">{{ holding.line4 }}</p>
+  <p class="govuk-body">{{ holding.line5 | safe }}</p>
+{% endif %}
