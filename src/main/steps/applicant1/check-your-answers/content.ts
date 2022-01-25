@@ -139,7 +139,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     },
     dividingAssets: {
       line1: 'Do you want to apply for a financial order?',
-      line2: 'Who is the financial for?',
+      line2: 'Who is the financial order for?',
     },
     documents: {
       line1: 'Uploaded files',
@@ -314,15 +314,15 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     },
     dividingAssets: {
       line1: `${
-        userCase.applyForFinancialOrder
-          ? userCase.applyForFinancialOrder === YesOrNo.YES
+        userCase.applicant1ApplyForFinancialOrder
+          ? userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
           : ''
       }`,
       line2: `${
-        userCase.whoIsFinancialOrderFor
-          ? userCase.whoIsFinancialOrderFor
+        userCase.applicant1WhoIsFinancialOrderFor
+          ? userCase.applicant1WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
               .replace(FinancialOrderFor.CHILDREN, 'My children')
@@ -422,7 +422,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}
     ${
-      userCase.applyForFinancialOrder === YesOrNo.YES
+      userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES
         ? '<li>decide how our money and property will be split (known as a financial order)</li>'
         : ''
     }
@@ -557,7 +557,7 @@ const cy: typeof en = ({
     },
     dividingAssets: {
       line1: 'Do you want to apply for a financial order?',
-      line2: 'Who is the financial for?',
+      line2: 'Who is the financial order for?',
     },
     documents: {
       line1: "Ffeiliau wedi'u huwchlwytho",
@@ -733,15 +733,15 @@ const cy: typeof en = ({
     },
     dividingAssets: {
       line1: `${
-        userCase.applyForFinancialOrder
-          ? userCase.applyForFinancialOrder === YesOrNo.YES
+        userCase.applicant1ApplyForFinancialOrder
+          ? userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
           : ''
       }`,
       line2: `${
-        userCase.whoIsFinancialOrderFor
-          ? userCase.whoIsFinancialOrderFor
+        userCase.applicant1WhoIsFinancialOrderFor
+          ? userCase.applicant1WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
               .replace(FinancialOrderFor.CHILDREN, 'My children')

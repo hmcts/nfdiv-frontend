@@ -73,8 +73,8 @@ describe('to-api-format', () => {
     applicant2ChangedNameHowAnotherWay: 'Test',
     applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
-    applyForFinancialOrder: YesOrNo.YES,
-    whoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+    applicant1ApplyForFinancialOrder: YesOrNo.YES,
+    applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
     applicant2ApplyForFinancialOrder: YesOrNo.NO,
     applicant2WhoIsFinancialOrderFor: [],
   };

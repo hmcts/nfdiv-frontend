@@ -44,7 +44,7 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   applicant2MiddleNames: '',
   applicationType: ApplicationType.SOLE_APPLICATION,
-  applyForFinancialOrder: YesOrNo.NO,
+  applicant1ApplyForFinancialOrder: YesOrNo.NO,
   applicant1CannotUpload: Checkbox.Checked,
   applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,

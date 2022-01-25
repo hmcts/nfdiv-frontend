@@ -1,5 +1,4 @@
 import config from 'config';
-import { isEqual } from 'lodash';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
@@ -96,15 +95,11 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line5: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  financialOrderLine1: `The applicant is applying to the court for financial orders ${
-    userCase.whoIsFinancialOrderFor?.includes(FinancialOrderFor.APPLICANT) ? 'for the applicant' : ''
-  }${
-    isEqual(userCase.whoIsFinancialOrderFor, [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN]) ? ' and ' : ''
-  }${
-    userCase.whoIsFinancialOrderFor?.includes(FinancialOrderFor.CHILDREN)
-      ? 'for the children of the applicant and the respondent.'
-      : '.'
-  }`,
+  financialOrderLine1: `The applicant is applying to the court for financial orders ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'for the applicant')
+    .replace(FinancialOrderFor.CHILDREN, 'for the children of the applicant and the respondent')}.`,
   noFinancialOrder: 'The applicant is not applying to the court for financial orders.',
   financialOrderMoreInfoLine1: `${
     isApplicant2 ? 'You were asked if you' : `Your ${partner} was asked if they`
