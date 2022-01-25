@@ -342,4 +342,57 @@ describe('to-api-format', () => {
   ])('set unreachable answers to null if condition met', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
+
+  test.each([
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.YES,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.YES,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.YES,
+        applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2FinancialOrder: YesOrNo.YES,
+        applicant2FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      },
+    },
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.NO,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.NO,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.NO,
+        applicant1FinancialOrderFor: [],
+        applicant2FinancialOrder: YesOrNo.NO,
+        applicant2FinancialOrderFor: [],
+      },
+    },
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.NO,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.YES,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.NO,
+        applicant1FinancialOrderFor: [],
+        applicant2FinancialOrder: YesOrNo.YES,
+        applicant2FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      },
+    },
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.YES,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.NO,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.YES,
+        applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2FinancialOrder: YesOrNo.NO,
+        applicant2FinancialOrderFor: [],
+      },
+    },
+  ])('sets correct fields for subfields of financial order: %o', ({ expected }, ...args) => {
+    expect(toApiFormat(args as Partial<Case>)).toMatchObject(expected);
+  });
 });
