@@ -392,7 +392,7 @@ describe('to-api-format', () => {
         applicant2FinancialOrderFor: [],
       },
     },
-  ])('sets correct subfields of financial order: %o', ({ expected }, ...args) => {
-    expect(toApiFormat(args as Partial<Case>)).toMatchObject(expected);
+  ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 });
