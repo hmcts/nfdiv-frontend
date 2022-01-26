@@ -57,3 +57,9 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "Your husband has responded to your application and said they want to defend the divorce. This means they want to try and prevent the divorce."
 
+  Scenario: Applicant Awaiting clarification feedback
+    Given I set the case state to "AwaitingClarification"
+    And a caseworker updates coRefusalClarificationAdditionalInfo
+    Given I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "Refusal reason test"

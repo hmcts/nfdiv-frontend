@@ -232,6 +232,12 @@ When('a case worker updates court case hearing', async () => {
   });
 });
 
+When('a caseworker updates coRefusalClarificationAdditionalInfo', async () => {
+  await triggerCaseWorkerEvent(CITIZEN_UPDATE_CASE_STATE_AAT, {
+    coRefusalClarificationAdditionalInfo: 'Refusal reason test',
+  });
+});
+
 const triggerCaseWorkerEvent = async (eventName: string, userData: Partial<Case>) => {
   I.amOnPage('/applicant2/enter-your-access-code');
   await iClearTheForm();
