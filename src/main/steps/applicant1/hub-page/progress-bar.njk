@@ -17,20 +17,20 @@
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingPronouncement'),
-    active: userCase.state == 'ConditionalOrderPronounced'
+    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('ConditionalOrderPronounced'),
+    active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
       text: finalOrderApplication
     },
     complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
-    active: userCase.state == 'ConditionalOrderPronounced'
+    active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
-    active: userCase.state == 'FinalOrderComplete'
+    complete: userCase.state == 'FinalOrderComplete',
+    active: userCase.state == 'FinalOrderRequested'
   }] %}
 {% else %}
   {% set items = [{

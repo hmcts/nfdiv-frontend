@@ -4,6 +4,7 @@ import {
   DivorceOrDissolution,
   DocumentType,
   Gender,
+  JurisdictionConnections,
   YesOrNo,
 } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
@@ -61,4 +62,5 @@ export const completeCase: Partial<BrowserCase> = {
   sameSex: Checkbox.Unchecked,
   applicant1ScreenHasUnionBroken: YesOrNo.YES,
   applicant1UploadedFiles: [],
+  connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
 };

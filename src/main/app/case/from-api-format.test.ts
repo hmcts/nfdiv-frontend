@@ -1,4 +1,4 @@
-import { Checkbox } from './case';
+import { Checkbox, LanguagePreference } from './case';
 import {
   CaseData,
   ContactDetailsType,
@@ -39,7 +39,17 @@ describe('from-api-format', () => {
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
-    coDateAndTimeOfHearing: '2021-07-26T15:30',
+  };
+
+  const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
+    marriageFormationType: MarriageFormation.OPPOSITE_SEX_COUPLE,
+    applicant1LanguagePreferenceWelsh: YesOrNo.NO,
+    applicant2LanguagePreferenceWelsh: YesOrNo.NO,
+    applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
+    applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
+    applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
+    applicant1PrayerHasBeenGivenCheckbox: [],
+    applicant2PrayerHasBeenGivenCheckbox: [],
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
@@ -56,12 +66,12 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      applicant1EnglishOrWelsh: 'welsh',
-      applicant2EnglishOrWelsh: 'welsh',
-      applicant1IBelieveApplicationIsTrue: 'checked',
-      applicant2IBelieveApplicationIsTrue: 'checked',
-      applicant1IConfirmPrayer: 'checked',
-      applicant2IConfirmPrayer: 'checked',
+      applicant1EnglishOrWelsh: LanguagePreference.Welsh,
+      applicant2EnglishOrWelsh: LanguagePreference.Welsh,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant2IConfirmPrayer: Checkbox.Checked,
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
       disputeApplication: YesOrNo.YES,
@@ -71,8 +81,21 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
+    });
+  });
+
+  test('Should convert results from api to nfdiv fe format with secondary values', async () => {
+    const nfdivFormat = fromApiFormat(resultsWithSecondaryValues as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      sameSex: Checkbox.Unchecked,
+      applicant1EnglishOrWelsh: LanguagePreference.English,
+      applicant2EnglishOrWelsh: LanguagePreference.English,
+      applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
+      applicant1AddressPrivate: YesOrNo.NO,
+      applicant2AddressPrivate: YesOrNo.NO,
+      applicant1IConfirmPrayer: Checkbox.Unchecked,
+      applicant2IConfirmPrayer: Checkbox.Unchecked,
     });
   });
 
@@ -93,12 +116,12 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      applicant1IBelieveApplicationIsTrue: 'checked',
-      applicant2IBelieveApplicationIsTrue: 'checked',
-      applicant1IConfirmPrayer: 'checked',
-      applicant2IConfirmPrayer: 'checked',
-      applicant1EnglishOrWelsh: 'welsh',
-      applicant2EnglishOrWelsh: 'welsh',
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant2IConfirmPrayer: Checkbox.Checked,
+      applicant1EnglishOrWelsh: LanguagePreference.Welsh,
+      applicant2EnglishOrWelsh: LanguagePreference.Welsh,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
@@ -115,8 +138,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -132,11 +153,11 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
-      applicant1IBelieveApplicationIsTrue: 'checked',
-      applicant1IConfirmPrayer: 'checked',
-      applicant2IBelieveApplicationIsTrue: 'checked',
-      applicant2IConfirmPrayer: 'checked',
-      applicant1EnglishOrWelsh: 'welsh',
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2IConfirmPrayer: Checkbox.Checked,
+      applicant1EnglishOrWelsh: LanguagePreference.Welsh,
       applicant2EnglishOrWelsh: null,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
@@ -153,8 +174,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 
@@ -170,12 +189,12 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
-      applicant1IBelieveApplicationIsTrue: 'checked',
-      applicant1IConfirmPrayer: 'checked',
-      applicant2IBelieveApplicationIsTrue: 'checked',
-      applicant2IConfirmPrayer: 'checked',
-      applicant1EnglishOrWelsh: 'welsh',
-      applicant2EnglishOrWelsh: 'english',
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2IConfirmPrayer: Checkbox.Checked,
+      applicant1EnglishOrWelsh: LanguagePreference.Welsh,
+      applicant2EnglishOrWelsh: LanguagePreference.English,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
@@ -191,8 +210,6 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
-      coDateOfHearing: '26 July 2021',
-      coTimeOfHearing: '3:30PM',
     });
   });
 

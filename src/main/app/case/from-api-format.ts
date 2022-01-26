@@ -122,10 +122,6 @@ const fields: FromApiConverters = {
   coApplicant1SubmittedDate: data => ({
     coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
   }),
-  coDateAndTimeOfHearing: data => ({
-    coDateOfHearing: dayjs(data.coDateAndTimeOfHearing).format('D MMMM YYYY'),
-    coTimeOfHearing: dayjs(data.coDateAndTimeOfHearing).format('h:mmA'),
-  }),
 };
 
 const fromApiDate = date => {
