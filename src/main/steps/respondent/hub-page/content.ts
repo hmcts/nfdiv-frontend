@@ -78,7 +78,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
   conditionalOrderPronounced: {
-    line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
+    line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
     (read out) by a judge at ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
     } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
