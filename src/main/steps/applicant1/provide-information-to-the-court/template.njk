@@ -12,6 +12,39 @@
     <div class="govuk-grid-column-two-thirds">
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
+        {{ govukErrorSummary({
+          titleText: errorSummaryHeading,
+          classes: "hidden",
+          attributes: {
+            id: "uploadErrorSummary"
+          },
+          errorList: [
+            {
+              text: errors.coClarificationUploadedFiles.errorUploading,
+              href: "#upload",
+              attributes: {
+              id: "errorGeneric",
+              class: "hidden"
+            }
+            },
+            {
+              text: errors.coClarificationUploadedFiles.fileSizeTooBig,
+              href: "#upload",
+              attributes: {
+              id: "errorFileSizeTooBig",
+              class: "hidden"
+            }
+            },
+            {
+              text: errors.coClarificationUploadedFiles.fileWrongFormat,
+              href: "#upload",
+              attributes: {
+              id: "errorFileWrongFormat",
+              class: "hidden"
+            }
+            }
+          ]
+        }) }}
       {% endblock %}
 
       <h1 class="govuk-heading-l">{{ title }}</h1>
@@ -19,6 +52,7 @@
         text: line1
       }) }}
       <p class="govuk-body">{{ line2 }}</p>
+      <p class="govuk-body">"{{ userCase.coRefusalClarificationAdditionalInfo }}"</p>
       <h4 class="govuk-heading-s">{{ subheading1 }}</h4>
       <p class="govuk-body">{{ line4 }}</p>
       {% block form %}

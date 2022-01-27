@@ -6,7 +6,7 @@ import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
-const en = ({ partner, applicant1Content, required }) => ({
+const en = ({ partner, applicant1Content, required, referenceNumber }) => ({
   title: 'Respond to the court',
   line1: `You should agree your response with your ${partner} before submitting it to the court.`,
   line2: 'The court has made the following comments on your application:',
@@ -17,8 +17,12 @@ const en = ({ partner, applicant1Content, required }) => ({
   line5:
     'If the court has asked you to upload any documents or you want to upload a document to support what you wrote above, then you can upload it here.',
   cannotUploadDocuments: 'I cannot upload some or all of my documents',
-  cannotUploadYouCanPost:
-    '<p class="govuk-body govuk-!-margin-top-5">You can post or email your documents to the court. If you post them you must send the original documents or certified copies. You’ll receive details of how to send them after you have submitted this application.</p>',
+  cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">You can post your documents to the court if you cannot upload them, or you think uploading them will not help. You must send the original documents or certified copies. Make sure you include a covering letter with your case number: <strong>${referenceNumber}</strong></br></br>
+    <strong>Courts and Tribunals Service Centre</strong></br>
+    Digital Divorce</br>
+    PO Box 12706</br>
+    Harlow</br>
+    CM20 9QT</p>`,
   errors: {
     coClarificationResponses: {
       required,
@@ -67,12 +71,12 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUploadDocuments,
       labelHidden: true,
-      subtext: l => l.cannotUploadYouCanPost,
       values: [
         {
           name: 'coCannotUploadClarificationDocuments',
           label: l => l.cannotUploadDocuments,
           value: Checkbox.Checked,
+          conditionalText: l => l.cannotUploadYouCanPost,
         },
       ],
     },
@@ -89,9 +93,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = uploadDocumentGenerateContent(content);
+  const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   return {
     ...applicant1Content,
-    ...languages[content.language]({ applicant1Content, ...content }),
+    ...languages[content.language]({ applicant1Content, ...content, referenceNumber }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
