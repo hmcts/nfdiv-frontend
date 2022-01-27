@@ -1,0 +1,28 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+<p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
+
+{% if isDeemedOrDispensedApplication %}
+  <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}
+    <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
+    download="Certificate-of-Service">
+    {{deemedOrDispensedAccepted.line1}}</a>
+  </p>
+
+{% elif isSuccessfullyServedByBailiff %}
+  <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line1 }}
+    <a class="govuk-link" href={{servedByBailiff.downloadReference}}
+    download="Certificate-of-Service">
+    {{servedByBailiff.line2}}</a>
+  </p>
+  <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line2 }}</p>
+{% endif %}
+
+{{ govukDetails({
+  summaryText: readMore,
+  html: readMoreContent
+}) }}
+
+{% block form %}
+  {% include "../form.njk" %}
+{% endblock %}
