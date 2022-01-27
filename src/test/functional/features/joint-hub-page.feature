@@ -57,3 +57,16 @@ Feature: Joint hub page
     Then the page should include "You can now apply for a ‘conditional order’"
     When I click "Apply for conditional order"
     Then the page URL should be "/continue-with-your-application"
+
+  Scenario: Hub ConditionalOrderPronounced state
+    Given I set the case state to "ConditionalOrderPronounced"
+    When I go to "/"
+    Then the page should include "You have been granted a 'conditional order' by the court."
+    And the page should include "You are not divorced yet."
+    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    When I click "Sign out"
+    And I login with applicant "1"
+    When I go to "/"
+    And the page should include "You have been granted a 'conditional order' by the court."
+    And the page should include "You are not divorced yet."
+    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."

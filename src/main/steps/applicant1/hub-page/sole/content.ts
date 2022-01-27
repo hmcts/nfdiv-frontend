@@ -1,14 +1,7 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import {
-  AlternativeServiceType,
-  ConditionalOrderCourt,
-  State,
-  YesOrNo,
-  birmingham,
-  buryStEdmunds,
-} from '../../../../app/case/definition';
+import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -153,27 +146,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
-  conditionalOrderPronounced: {
-    line1: `You have been granted a ‘conditional order’ by the court. Your conditional order was formally pronounced
-    (read out) by a judge at ${
-      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
-    Your ${partner} has also been notified.`,
-    line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
-    You still have to apply for a final order which will end the ${isDivorce ? 'marriage' : 'civil partnership'}.
-    You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.`,
-    line3: {
-      part1: 'You can ',
-      part2: "view and download your 'certificate of entitlement for a conditional order'.",
-      part3: `This is the document that says the court does not see any reason why you cannot ${
-        isDivorce ? 'get divorced' : 'end your civil partnership'
-      }.`,
-      downloadReference: 'Certificate-of-Entitlement',
-      link: '/downloads/certificate-of-entitlement',
-    },
-  },
 });
 
 // @TODO translations
