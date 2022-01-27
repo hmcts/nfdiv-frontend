@@ -201,6 +201,7 @@ export const generatePageContent = ({
   const isAmendableStates =
     userCase &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
+  const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -215,6 +216,7 @@ export const generatePageContent = ({
     contactEmail,
     isJointApplication,
     isAmendableStates,
+    isClarificationAmendableState,
   };
 
   if (pageContent) {
@@ -263,6 +265,7 @@ export type CommonContent = typeof en & {
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;
+  isClarificationAmendableState: boolean;
 };
 
 export type Language = 'en' | 'cy';

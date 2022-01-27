@@ -122,6 +122,12 @@ const fields: FromApiConverters = {
   coApplicant1SubmittedDate: data => ({
     coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
   }),
+  coCannotUploadClarificationDocuments: data => ({
+    coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
+  }),
+  coClarificationResponses: data => ({
+    coClarificationResponses: data.coClarificationResponses?.[0].value,
+  }),
 };
 
 const fromApiDate = date => {

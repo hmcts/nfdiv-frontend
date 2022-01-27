@@ -133,6 +133,7 @@ const fields: ToApiConverters = {
     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
   }),
   applicant1UploadedFiles: () => ({}),
+  coClarificationUploadedFiles: () => ({}),
   applicant2UploadedFiles: () => ({}),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
@@ -217,6 +218,17 @@ const fields: ToApiConverters = {
   }),
   coApplicant2StatementOfTruth: data => ({
     coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
+  }),
+  coCannotUploadClarificationDocuments: data => ({
+    coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
+  }),
+  coClarificationResponses: data => ({
+    coClarificationResponses: [
+      {
+        id: '1',
+        value: data.coClarificationResponses,
+      },
+    ],
   }),
 };
 
