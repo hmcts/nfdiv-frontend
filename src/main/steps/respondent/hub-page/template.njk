@@ -1,61 +1,20 @@
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
   {% if userCase.state == 'ConditionalOrderPronounced' %}
-    <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
-    <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
-    <p class="govuk-body">{{ conditionalOrderPronounced.line3 }}</p>
-    <p class="govuk-body">{{ conditionalOrderPronounced.line4.part1 }}
-      <a class="govuk-link" href={{ conditionalOrderPronounced.line4.link }}
-      download={{ conditionalOrderPronounced.lin4.downloadReference }}>
-      {{ conditionalOrderPronounced.line4.part2 }}</a>
-    </p>
-  {% elif userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
-    <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
-    <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
-    {{ govukInsetText({
-      text: awaitingPronouncement.line3
-    }) }}
-    <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-    <p class="govuk-body">{{ certificateOfEntitlementLine.part1 }}
-      <a class="govuk-link" href={{ certificateOfEntitlementLine.link }}
-      download={{ certificateOfEntitlementLine.downloadReference }}>
-        {{ certificateOfEntitlementLine.part2 }}</a>
-      {{ certificateOfEntitlementLine.part3 }}
-    </p>
-  {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
-    <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
-    <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
+    {% include "./latest-update-content/conditional-order-pronounced.njk" %}
+
+  {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
+    {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
+
   {% elif userCase.state == 'AwaitingGeneralConsideration' %}
-    <p class="govuk-body">{{ d8Submitted.line1 }}</p>
-    <p class="govuk-body">{{ d8Submitted.line2 }}</p>
-    <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-    <p class="govuk-body">{{ d8Submitted.line3 }}</p>
-    <p class="govuk-body">{{ d8Submitted.line4 }}</p>
-  {% elif userCase.state == 'Holding' and isDisputedApplication %}
-    <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line4 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
+    {% include "./latest-update-content/awaiting-general-consideration.njk" %}
+
   {% elif userCase.state == 'Holding' %}
-    <p class="govuk-body">{{ holding.line1 }}</p>
-    <p class="govuk-body">{{ holding.line2 }}</p>
-    <p class="govuk-body">{{ holding.line3 }}</p>
-    <p class="govuk-body">{{ holding.line4 }}</p>
-    <p class="govuk-body">{{ holding.line5 | safe }}</p>
+    {% include "./latest-update-content/holding.njk" %}
+
   {% elif progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
-    {% for property, line in awaitingAos %}
-      <p class="govuk-body">{{ line }}</p>
-      {{ govukButton({
-        text: 'Respond to the application',
-        href: '/respondent/review-the-application',
-        preventDoubleClick: true
-      }) }}
-    {% endfor %}
+    {% include "./latest-update-content/awaiting-aos.njk" %}
+
   {% endif %}
 {% endblock %}

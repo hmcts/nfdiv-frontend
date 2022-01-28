@@ -1,6 +1,3 @@
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-
 {% set readMoreContent %}
   <p class="govuk-body">{{ readMoreSummary }}</p>
   <ol class="govuk-list govuk-list--number">
@@ -23,82 +20,24 @@
 {% endset %}
 
 {% if userCase.state == 'ConditionalOrderPronounced' %}
-  <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
-  <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
-  {{ certificateOfEntitlementLineHtml }}
-{% elif userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
-  <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
-  <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
-  {{ govukInsetText({
-    text: awaitingPronouncement.line3
-  }) }}
-  <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-  {{ certificateOfEntitlementLineHtml }}
-{% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
-  <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
-  <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
+  {% include "./latest-update-content/conditional-order-pronounced.njk" %}
+
+{% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
+  {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
+
 {% elif userCase.state == 'AwaitingGeneralConsideration' %}
-  <p class="govuk-body">{{ d8Submitted.line1 | safe }}</p>
-  <p class="govuk-body">{{ d8Submitted.line2 }}</p>
-  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-  <p class="govuk-body">{{ d8Submitted.line3 }}</p>
-  <p class="govuk-body">{{ d8Submitted.line4 }}</p>
+  {% include "./latest-update-content/awaiting-general-consideration.njk" %}
+
 {% elif userCase.state == 'AwaitingConditionalOrder' %}
-  <p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
-  {% if isDeemedOrDispensedApplication %}
-    <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}
-      <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
-      download="Certificate-of-Service">
-      {{deemedOrDispensedAccepted.line1}}</a>
-    </p>
-  {% elif isSuccessfullyServedByBailiff %}
-    <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line1 }}
-      <a class="govuk-link" href={{servedByBailiff.downloadReference}}
-      download="Certificate-of-Service">
-      {{servedByBailiff.line2}}</a>
-    </p>
-    <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line2 }}</p>
-  {% endif %}
-  {{ govukDetails({
-    summaryText: readMore,
-    html: readMoreContent
-  }) }}
-  {% block form %}
-    {% include "./form.njk" %}
-  {% endblock %}
-{% elif userCase.state == 'Holding' and isDisputedApplication %}
-  <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
-  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-  <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
-  <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
+  {% include "./latest-update-content/awaiting-conditional-order.njk" %}
+
 {% elif userCase.state == 'Holding' %}
-  {% if isDeemedOrDispensedApplication %}
-    <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
-    <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
-      download="Certificate-of-Service">
-      {{deemedOrDispensedAccepted.line1}}</a>
-    </p>
-  {% elif isSuccessfullyServedByBailiff %}
-    <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
-      <a class="govuk-link" href={{servedByBailiff.downloadReference}}
-      download="Certificate-of-Service">
-      {{servedByBailiff.line1}}</a>
-    </p>
-  {% else %}
-    <p class="govuk-body">{{ holding.line1 | safe }}</p>
-  {% endif %}
-  <p class="govuk-body">{{ holding.line2 }}</p>
-  <p class="govuk-body">{{ holding.line3 }}</p>
-  {{ govukDetails({
-    summaryText: readMore,
-    html: readMoreContent
-  }) }}
+  {% include "./latest-update-content/holding.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
-  <p class="govuk-body">{{ aosDue.line1 }}</p>
-  <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
+  {% include "./latest-update-content/aos-due.njk" %}
+
 {% else %}
-  {% for property, line in aosAwaitingOrDrafted %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
+  {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
 {% endif %}
