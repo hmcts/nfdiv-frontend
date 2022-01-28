@@ -1,0 +1,11 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% if isCoFieldsSet %}
+  <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
+  <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
+  {{ govukInsetText({
+    text: awaitingPronouncement.line3
+  }) }}
+  <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
+  <p class="govuk-body">{{ awaitingPronouncement.line5 | safe }}</p>
+{% endif %}
