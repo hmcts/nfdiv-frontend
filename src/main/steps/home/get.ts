@@ -109,6 +109,7 @@ const applicant2RedirectPageSwitch = (
   switch (caseState) {
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
+    case State.ConditionalOrderPronounced:
     case State.Holding: {
       return `${APPLICANT_2}${HUB_PAGE}`;
     }
