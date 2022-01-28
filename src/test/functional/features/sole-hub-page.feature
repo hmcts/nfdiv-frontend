@@ -85,7 +85,7 @@ Feature: Sole hub page
     Then the page should include "You can now apply for a ‘conditional order’."
     Then the page should include "Apply for conditional order"
 
-  Scenario: Update Court Case Hearing
+  Scenario: Hub AwaitingPronouncement and Update Court Case Hearing event
     Given I set the case state to "AwaitingPronouncement"
     And a case worker updates court case hearing
     When I click "Sign out"
