@@ -63,7 +63,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
     } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
     Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
-    You ${isJointApplication ? `/ Your ${partner} ` : ''}still have to apply for a final order which will end the ${
+    You ${isJointApplication ? `/ your ${partner} ` : ''}still have to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
     You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
