@@ -10,6 +10,15 @@
   {% endif %}
 {% endset %}
 
+{% set certificateOfEntitlementLineHtml %}
+  <p class="govuk-body">{{ certificateOfEntitlementLine.part1 }}
+    <a class="govuk-link" href={{ certificateOfEntitlementLine.link }}
+    download={{ certificateOfEntitlementLine.downloadReference }}>
+      {{ certificateOfEntitlementLine.part2 }}</a>
+    {{ certificateOfEntitlementLine.part3 }}
+  </p>
+{% endset %}
+
 {% if userCase.state == 'ConditionalOrderPronounced' %}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
