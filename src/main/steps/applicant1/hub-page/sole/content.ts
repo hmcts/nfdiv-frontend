@@ -164,15 +164,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
-    line3: {
-      part1: 'You can ',
-      part2: "view and download your 'certificate of entitlement for a conditional order'.",
-      part3: `This is the document that says the court does not see any reason why you cannot ${
-        isDivorce ? 'get divorced' : 'end your civil partnership'
-      }.`,
-      downloadReference: 'Certificate-of-Entitlement',
-      link: '/downloads/certificate-of-entitlement',
-    },
   },
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order and needs some more information before

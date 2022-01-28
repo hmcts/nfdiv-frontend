@@ -108,6 +108,16 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
+    line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} at ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    ).format('h:mmA')}.`,
+    line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    )
+      .subtract(7, 'day')
+      .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
