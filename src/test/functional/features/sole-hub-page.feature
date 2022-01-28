@@ -84,3 +84,18 @@ Feature: Sole hub page
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’."
     Then the page should include "Apply for conditional order"
+
+  Scenario: Hub AwaitingPronouncement and Update Court Case Hearing event
+    Given I set the case state to "AwaitingPronouncement"
+    And a case worker updates court case hearing
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/"
+    Then the page URL should be "/respondent/hub-page"
+    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."

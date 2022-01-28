@@ -46,9 +46,15 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
       .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-    line5: `You can <a class="govuk-link" href="/downloads/certificate-of-entitlement" download="Certificate-of-entitlement">view and download your ‘certificate of entitlement for a conditional order’</a>. This is the document that says the court does not see any reason why you cannot ${
+  },
+  certificateOfEntitlementLine: {
+    part1: 'You can ',
+    part2: "view and download your 'certificate of entitlement for a conditional order'.",
+    part3: `This is the document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
+    downloadReference: 'Certificate-of-Entitlement',
+    link: '/downloads/certificate-of-entitlement',
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
