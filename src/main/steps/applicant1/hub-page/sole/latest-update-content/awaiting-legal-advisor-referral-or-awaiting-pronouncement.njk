@@ -7,7 +7,7 @@
     text: awaitingPronouncement.line3
   }) }}
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-  {{ certificateOfEntitlementLineHtml }}
+  {{ certificateOfEntitlementLineHtml | safe }}
 
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
