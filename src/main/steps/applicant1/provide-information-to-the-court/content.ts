@@ -1,17 +1,16 @@
-import { isObject } from 'lodash';
+import { isEmpty, isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
-const en = ({ partner, applicant1Content, required, referenceNumber }) => ({
+const en = ({ partner, applicant1Content, referenceNumber }) => ({
   title: 'Respond to the court',
   line1: `You should agree your response with your ${partner} before submitting it to the court.`,
   line2: 'The court has made the following comments on your application:',
   subheading1: 'Enter your response',
-  line4:
+  response:
     'If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information.',
   uploadTitle: 'Upload any documents',
   line5:
@@ -25,10 +24,10 @@ const en = ({ partner, applicant1Content, required, referenceNumber }) => ({
     CM20 9QT</p>`,
   errors: {
     coClarificationResponses: {
-      required,
+      required:
+        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option.',
     },
     coClarificationUploadedFiles: {
-      notUploaded: applicant1Content.errors.applicant1UploadedFiles.notUploaded,
       errorUploading: applicant1Content.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1Content.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1Content.errors.applicant1UploadedFiles.fileWrongFormat,
@@ -46,9 +45,15 @@ export const form: FormContent = {
     coClarificationResponses: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.line4,
-      labelHidden: true,
-      validator: isFieldFilledIn,
+      label: l => l.response,
+      validator: (value, formData) => {
+        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.coCannotUploadClarificationDocuments?.length;
+        const hasEnteredResponse = !isEmpty(formData.coClarificationResponses);
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredResponse) {
+          return 'required';
+        }
+      },
     },
     coClarificationUploadedFiles: {
       type: 'hidden',
@@ -59,13 +64,6 @@ export const form: FormContent = {
           ? JSON.stringify(userCase.coClarificationUploadedFiles)
           : userCase.coClarificationUploadedFiles) || '[]',
       parser: data => JSON.parse((data as Record<string, string>).coClarificationUploadedFiles || '[]'),
-      validator: (value, formData) => {
-        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.coCannotUploadClarificationDocuments?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-          return 'notUploaded';
-        }
-      },
     },
     coCannotUploadClarificationDocuments: {
       type: 'checkboxes',
