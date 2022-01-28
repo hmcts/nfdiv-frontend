@@ -1,0 +1,10 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% for property, line in awaitingAos %}
+  <p class="govuk-body">{{ line }}</p>
+  {{ govukButton({
+    text: 'Respond to the application',
+    href: '/respondent/review-the-application',
+    preventDoubleClick: true
+  }) }}
+{% endfor %}
