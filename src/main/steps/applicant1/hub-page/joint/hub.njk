@@ -1,21 +1,9 @@
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% if userCase.state == 'AwaitingPronouncement' %}
+  {% include "./latest-update-content/awaiting-pronouncement.njk" %}
 
-{% if userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
-  <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
-  <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
-  {{ govukInsetText({
-    text: awaitingPronouncement.line3
-  }) }}
-  <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
-  <p class="govuk-body">{{ awaitingPronouncement.line5 | safe }}</p>
-{% elif userCase.state == 'Holding' and hasApplicantConfirmedReceipt %}
-  {% for property, line in applicantConfirmedReceiptLatestUpdate %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
-{% elif userCase.state == 'Holding' %}
-  {% for property, line in applicationSubmittedLatestUpdate %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
+{% elif userCase.state == 'Holding'%}
+  {% include "./latest-update-content/holding.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and
   hasApplicantNotYetAppliedForConditionalOrder %}

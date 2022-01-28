@@ -590,6 +590,24 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
   });
 
+  test('redirects to the hub page for applicant 2 users in AwaitingPronouncement state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.AwaitingPronouncement,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to the check your answers page for respondent users in AosDrafted state', () => {
     const req = mockRequest({
       session: {
