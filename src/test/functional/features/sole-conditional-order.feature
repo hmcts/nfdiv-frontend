@@ -28,12 +28,9 @@ Feature: Sole conditional order
 
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
-    Given I set the case state to "AwaitingConditionalOrder"
 
   Scenario: Applicant 1 applies for condition order
-    And I set the case state to "AwaitingConditionalOrder"
-    And I click "Sign out"
-    And I login with applicant "1"
+    Given I set the case state to "AwaitingConditionalOrder"
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
 
@@ -53,27 +50,21 @@ Feature: Sole conditional order
     And I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: Applicant 1 response with additional information and uploads for CO
-    When I go to "/"
-    Then the page should include "You can now apply for a ‘conditional order’"
+  Scenario: Applicant 1 response with additional information for condition order
+    And I set the case state to "AwaitingClarification"
+    When I go to "/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
 
-    When I click "Apply for conditional order"
-    Then the page URL should be "/read-the-response"
-    And the page should include "Read your husband's response"
+    When I clear the form
+    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
+    And I type "test details"
+    And I select "I cannot upload some or all of my documents"
+    Then the page should include "You can post your documents to the court"
 
-    And I click "Continue"
-    Then the page URL should be "/continue-with-your-application"
-    Given I click "I want to continue with my divorce application"
-
-    And I click "Continue"
-    Then the page URL should be "/review-your-application"
-
-    Given I click "Yes"
-    And I click "Continue"
-    And I click "I believe that the facts stated in this application are true"
-    And I click "Continue"
+    When I click "Continue"
     Then the page URL should be "/hub-page"
 
+  Scenario: Applicant 1 response with additional information and uploads for condition order
     And I set the case state to "AwaitingClarification"
     When I go to "/provide-information-to-the-court"
     Then the page should include "Upload any documents"
