@@ -539,3 +539,30 @@ Feature: Form failures
     Given I go to "/living-england-wales-twelve-months"
     When I click "Continue"
     Then the page should include "There was a problem"
+
+  @nightly
+  Scenario: Enter your access code form failures
+    Given I go to "/applicant2/enter-your-access-code"
+    And I clear the form
+    And I select "Your reference number"
+    And I type "1234123412341234"
+    And I select "Your access code"
+    And I type "QWERTY45"
+    When I click "Continue"
+    Then the page should include "You have entered the wrong reference number"
+
+    Given I clear the form
+    And I select "Your access code"
+    And I type "QWERTY45"
+    When I click "Continue"
+    Then the page should include "You have not entered a reference number"
+
+    Given I clear the form
+    And I select "Your reference number"
+    And I type "1234123412341234"
+    When I click "Continue"
+    Then the page should include "You have not entered an access code"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not entered"
