@@ -154,9 +154,9 @@ describe('to-api-format', () => {
       applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
       applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
       applicant1FinancialOrder: YesOrNo.YES,
-      applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2FinancialOrder: YesOrNo.NO,
-      applicant2FinancialOrderFor: [],
+      applicant2FinancialOrdersFor: [],
     });
   });
 
@@ -351,9 +351,9 @@ describe('to-api-format', () => {
       applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.YES,
-        applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant2FinancialOrder: YesOrNo.YES,
-        applicant2FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       },
     },
     {
@@ -363,9 +363,9 @@ describe('to-api-format', () => {
       applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.NO,
-        applicant1FinancialOrderFor: [],
+        applicant1FinancialOrdersFor: [],
         applicant2FinancialOrder: YesOrNo.NO,
-        applicant2FinancialOrderFor: [],
+        applicant2FinancialOrdersFor: [],
       },
     },
     {
@@ -375,9 +375,9 @@ describe('to-api-format', () => {
       applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.NO,
-        applicant1FinancialOrderFor: [],
+        applicant1FinancialOrdersFor: [],
         applicant2FinancialOrder: YesOrNo.YES,
-        applicant2FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       },
     },
     {
@@ -387,9 +387,9 @@ describe('to-api-format', () => {
       applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.YES,
-        applicant1FinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant2FinancialOrder: YesOrNo.NO,
-        applicant2FinancialOrderFor: [],
+        applicant2FinancialOrdersFor: [],
       },
     },
   ])('sets correct subfields of financial order', ({ expected, ...formData }) => {

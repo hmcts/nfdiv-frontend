@@ -34,6 +34,7 @@ export const jointApplicant1CompleteCase: Partial<BrowserCase> = {
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   applicationType: ApplicationType.JOINT_APPLICATION,
   applicant1ApplyForFinancialOrder: YesOrNo.NO,
+  applicant1WhoIsFinancialOrderFor: [],
   applicant1CannotUpload: Checkbox.Checked,
   applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,
