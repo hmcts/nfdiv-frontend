@@ -10,11 +10,13 @@ Feature: Applicant 2
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
     And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
-    When I select "Yes, my marriage has irretrievably broken down"
-    And I click "Continue"
+    Given I select "Yes, my marriage has irretrievably broken down"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
     Given I clear the form
@@ -22,23 +24,28 @@ Feature: Applicant 2
     And I type "Billy"
     And I select "Your last name(s)"
     And I type "Bob"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
     And the page should include "Changes to your name"
     Given I select "No" for "Did you change your last name when you got married?"
     And I select "No" for "Have you changed any part of your name since getting married?"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
+
     When I click "Continue"
     Then the page URL should be "/applicant2/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in"
     Given I select "English"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
     And the page should include "Do you need your contact details kept private from your wife?"
     Given I select "I do not need my contact details kept private"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-address"
     And the page should include "Enter your postal address"
@@ -48,17 +55,21 @@ Feature: Applicant 2
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/other-court-cases"
     And the page should include "Other court cases relating to this marriage"
     Given I select "No"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/dividing-money-property"
     And the page should include "Dividing your money and property"
+
     When I select "Continue"
     Then the page URL should be "/applicant2/do-you-want-to-apply-financial-order"
     And the page should include "Applying for a financial order"
     Given I select "No, I do not want to apply for a financial order"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
@@ -68,10 +79,12 @@ Feature: Applicant 2
     And the page should include "Help paying the divorce fee	I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
     Given I select "Yes" for "Is the information your wife provided correct?"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-answers"
     And the page should include "Check your answers"
-    When I select "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/confirm-your-joint-application"
     And the page should include "Confirm your joint application"
     And the page should include "The marriage has broken down irretrievably (it cannot be saved)"
@@ -80,62 +93,74 @@ Feature: Applicant 2
     And the page should include "The applicants are not applying to the court for financial orders."
     Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
+
     When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     And the page should include "Your wife needs to confirm your joint application"
+
     Given I click "Sign out"
-    When I login with applicant "1"
+    And I login with applicant "1"
     And I go to '/confirm-your-joint-application'
-    Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
+    And I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
     Then the page should include "Application submitted"
 
+
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
     And I select "I need help paying the fee"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/have-you-applied-for-help-with-fees"
     Given I select "Yes"
     And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
     When I click "Continue"
     Then the page URL should be "/how-do-you-want-to-apply"
-    Given I go to "/"
+
+    When I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
     And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
     Given I select "Yes, my marriage has irretrievably broken down"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/help-with-your-fee"
     And the page should include "Help with the divorce fee"
     Given I select "I do not need help paying the fee"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     Given I go to "/applicant2/help-with-your-fee"
     And I select "I need help paying the fee"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
     And the page should include "Have you already applied for help with your divorce fee?"
     Given I select "No"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/apply-for-help-with-fees"
     And the page should include "You need to apply for help with your divorce fees"
     Given I click "enter it here"
     Then the page URL should be "/applicant2/help-with-your-fee"
     Given I select "I need help paying the fee"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
     Given I select "Yes"
     And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
@@ -143,11 +168,13 @@ Feature: Applicant 2
     And I type "Sarah"
     And I select "Your last name(s)"
     And I type "Smith"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
     And the page should include "Changes to your name"
     Given I select "Yes" for "Did you change your last name when you got married?"
     And I select "Yes" for "Have you changed any part of your name since getting married?"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/how-did-you-change-your-name"
     And the page should include "How did you change your name?"
@@ -156,21 +183,25 @@ Feature: Applicant 2
     And I type "Test Another Way"
     And I select "By sending off my marriage certificate"
     And I select "By deed poll or ‘statutory declaration’"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I select "Enter your phone number (optional)"
     And I type "123456789"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in"
     Given I select "English"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
     And the page should include "Do you need your contact details kept private from your wife?"
     Given I select "Keep my contact details private"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-address"
     And the page should include "Enter your postal address"
@@ -180,6 +211,7 @@ Feature: Applicant 2
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/other-court-cases"
     Given I go to "/applicant2/enter-your-address"
@@ -187,36 +219,44 @@ Feature: Applicant 2
     And the form input "Town or city" should be "LONDON"
     And the form input "County" should be "CITY OF WESTMINSTER"
     And the form input "Postcode" should be "SW1H 9AJ"
+
     When I click "Continue"
     And the page should include "Other court cases relating to this marriage"
     Given I select "Yes"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings using the information above."
     And I type "Test other legal proceedings details"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/dividing-money-property"
     And the page should include "Dividing your money and property"
-    When I select "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/do-you-want-to-apply-financial-order"
     And the page should include "Applying for a financial order"
     Given I select "Yes, I want to apply for a financial order"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/upload-your-documents"
     And the page should include "Upload your documents"
     Given I delete any previously uploaded files
     And I select "I cannot upload some or all of my documents"
     And I select "Proof that I changed my name"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
     Given I select "No" for "Is the information your wife provided correct?"
     And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
     And I type "Incorrect test details"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/your-comments-sent"
     And the page should include "Your comments have been sent to your wife"

@@ -18,54 +18,66 @@ Feature: Respondent
 
   Scenario: They fill out a happy path respondent journey
     Given I select "I have read the application for divorce"
-    And I click "Continue"
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     And the page should include "How do you want to respond to the application?"
     Given I select "Continue without disputing the divorce"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "legal-jurisdiction-of-the-courts"
     And the page should include "The legal power (jurisdiction) of the courts"
     Given I select "Yes, I agree the courts have jurisdiction"
-    And I click "Continue"
+    When I click "Continue"
+
     Then the page URL should be "/respondent/other-court-cases"
     And the page should include "Other court cases relating to this marriage"
     Given I select "No"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "respondent/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in?"
     Given I select "English"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
     Given I select "I confirm that:"
+
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
+
 
   @nightly
   Scenario: They fill out an unhappy path respondent journey
     Given I select "I have read the application for divorce"
-    And I click "Continue"
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     And the page should include "How do you want to respond to the application?"
     Given I select "I want to dispute the divorce"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/disputing-the-application"
     And the page should include "Disputing the divorce application"
-    When I select "I do not want to dispute the divorce"
-    And I click "Continue"
+    Given I select "I do not want to dispute the divorce"
+
+    When I click "Continue"
     Then the page URL should be "how-do-you-want-to-respond"
+
     When I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You need to select how you want to respond before continuing."
-    When I select "I want to dispute the divorce"
-    And I select "Continue"
+    Given I select "I want to dispute the divorce"
+
+    When I click "Continue"
     Then the page URL should be "disputing-the-application"
-    When I select "I confirm I want to dispute the divorce"
+    Given I select "I confirm I want to dispute the divorce"
     Then the page should include "You are about to confirm that you want to dispute the divorce."
+
     When I click "Continue"
     Then the page URL should be "legal-jurisdiction-of-the-courts"
     Given I select "No, I do not agree the courts have jurisdiction"
@@ -73,29 +85,35 @@ Feature: Respondent
     And I type "test details"
     And I select "Which country is your life mainly based?"
     And I type "test details"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/other-court-cases"
     And the page should include "Other court cases relating to this marriage"
     Given I select "Yes"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings using the information above."
     And I type "test details"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I click "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I click "Enter your phone number (optional)"
     And I type "0123456789"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/english-or-welsh"
     And the page should include "What language do you want to receive emails and documents in?"
     Given I select "English"
-    And I select "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
     Given I select "I confirm that:"
+
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
     And the page should include "First name Last name & Husbands name"
