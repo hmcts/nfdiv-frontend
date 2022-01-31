@@ -465,50 +465,77 @@ Feature: Form failures
     Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
     And the page should include "You need to confirm the facts stated in this application are true"
 
-    @nightly
-    Scenario: They fail to fill out joint conditional order questions
-      Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-      When I go to "/"
-      And I click "Send for review"
-      Then the page URL should be "/application-sent-for-review"
-      When I enter my valid case reference and valid access code
-      Then the page should include "You need to review your joint application"
-      Given I set the case state to "AwaitingConditionalOrder"
-      When I click "Sign out"
-      And I login with applicant "1"
-      Then the page URL should be "/hub-page"
 
-      When I click "Apply for conditional order"
-      Then the page URL should be "/continue-with-your-application"
+  @nightly
+  Scenario: They fail to fill out joint conditional order questions
+    Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
+    When I go to "/"
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
+    When I enter my valid case reference and valid access code
+    Then the page should include "You need to review your joint application"
+    Given I set the case state to "AwaitingConditionalOrder"
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
 
-      When I click "Continue"
-      Then the page should include "You have not answered the question. You need to select an answer before continuing."
-      Given I select "I want to continue with my divorce application"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-your-application"
 
-      When I click "Continue"
-      Then the page URL should be "/review-your-joint-application"
-      When I click "Continue"
-      Then the page should include "You have not answered the question. You need to select an answer before continuing."
-      Given I select "No"
-      When I click "Continue"
-      Then the page should include "You need to say what information is incorrect before continuing."
-      Given I select "Yes"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "I want to continue with my divorce application"
 
-      When I click "Continue"
-      Then the page URL should be "/check-your-conditional-order-answers"
-      When I click "Continue"
-      Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
-      Given I select "I believe that the facts stated in this application are true"
+    When I click "Continue"
+    Then the page URL should be "/review-your-joint-application"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "No"
+    When I click "Continue"
+    Then the page should include "You need to say what information is incorrect before continuing."
+    Given I select "Yes"
 
-      When I click "Continue"
-      Then the page URL should be "/hub-page"
-      When I click "Sign out"
-      And I login with applicant "2"
-      And I set the case state to "ConditionalOrderPending"
-      When I go to "/"
-      Then the page URL should be "/applicant2/hub-page"
-      When I click "Apply for conditional order"
-      Then the page URL should be "/applicant2/continue-with-your-application"
-      When I click "Continue"
-      Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    When I click "Continue"
+    Then the page URL should be "/check-your-conditional-order-answers"
+    When I click "Continue"
+    Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+    Given I select "I believe that the facts stated in this application are true"
 
+    When I click "Continue"
+    Then the page URL should be "/hub-page"
+    When I click "Sign out"
+    And I login with applicant "2"
+    And I set the case state to "ConditionalOrderPending"
+    When I go to "/"
+    Then the page URL should be "/applicant2/hub-page"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/applicant2/continue-with-your-application"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
+
+  @nightly
+  Scenario: Jurisdiction form failures
+    Given I go to "/where-your-lives-are-based"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/your-domicile"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-twelve-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-six-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/habitually-resident-england-wales"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-twelve-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
