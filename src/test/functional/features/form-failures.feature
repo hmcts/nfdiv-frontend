@@ -223,6 +223,10 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    Given I select "Yes, I want to apply for a financial order"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/upload-your-documents"
     When I click "Continue"
     Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
