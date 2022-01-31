@@ -361,7 +361,7 @@ Feature: Applicant 1 sole application
     And I click "Continue"
     Then the page URL should be "/other-court-cases"
 
-    Given I go to "/enter-their-address"
+    Given I go to "/do-you-have-address"
     And I clear the form
     And I select "No, I do not have their address"
 
