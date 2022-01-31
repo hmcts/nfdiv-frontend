@@ -158,6 +158,23 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
+  test('redirects to hub page for applicant 2 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to hub page for applicant 2 users in ConditionalOrderDrafted state if not applicant2ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {
@@ -280,6 +297,22 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
+  });
+
+  test('redirects to hub page for applicant 1 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
   });
 
   test('redirects to Read the response page for sole application in ConditionalOrderDrafted state if first question not answered', () => {
