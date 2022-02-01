@@ -1,4 +1,5 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { YesOrNo } from '../../../app/case/definition';
@@ -23,8 +24,11 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }`,
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
-  issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
-  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
+  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
+  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
+    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
+    '$1-$2-$3-$4'
+  )}`,
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',
