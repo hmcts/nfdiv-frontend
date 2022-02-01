@@ -239,7 +239,7 @@ Feature: Applicant 2
     And the page should include "Applying for a financial order"
     Given I select "Yes, I want to apply for a financial order"
     And I select "Myself"
-    And I select "My Children"
+    And I select "My children"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
