@@ -31,6 +31,8 @@ Feature: Sole conditional order
 
   Scenario: Applicant 1 applies for condition order
     Given I set the case state to "AwaitingConditionalOrder"
+    When I click "Sign out"
+    And I login with applicant "1"
     When I go to "/"
     Then the page should include "You can now apply for a ‘conditional order’"
 
@@ -52,6 +54,8 @@ Feature: Sole conditional order
 
   Scenario: Applicant 1 response with additional information for condition order
     And I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
     When I go to "/provide-information-to-the-court"
     Then the page should include "Upload any documents"
 
@@ -66,6 +70,8 @@ Feature: Sole conditional order
 
   Scenario: Applicant 1 response with additional information and uploads for condition order
     And I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
     When I go to "/provide-information-to-the-court"
     Then the page should include "Upload any documents"
 
