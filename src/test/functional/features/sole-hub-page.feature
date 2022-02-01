@@ -102,7 +102,7 @@ Feature: Sole hub page
 
   Scenario: Hub Awaiting clarification state
     Given I set the case state to "AwaitingClarification"
-    And a caseworker updates coRefusalClarificationAdditionalInfo
+    And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
