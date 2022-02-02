@@ -107,6 +107,8 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
+    Given I click 'Respond to the court'
+    Then the page URL should be '/provide-information-to-the-court'
 
   Scenario: Sole hub AosOverdue state
     Given I set the case state to "AosOverdue"
