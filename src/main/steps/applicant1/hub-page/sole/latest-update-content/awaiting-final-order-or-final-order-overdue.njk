@@ -1,4 +1,8 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>
-{% block form %}
-  {% include "../form.njk" %}
-{% endblock %}
+{{ govukButton({
+  text: awaitingFinalOrderOrFinalOrderOverdue.buttonText,
+  href: awaitingFinalOrderOrFinalOrderOverdue.buttonLink,
+  preventDoubleClick: true
+}) }}

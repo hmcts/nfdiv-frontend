@@ -136,6 +136,15 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       .format('D MMMM YYYY')}
      then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
   },
+  awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
+    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
+    line3: 'If you apply then you may both have to come to court.',
+    buttonText: 'Apply for a final order',
+    buttonLink: '/respondent/finalising-your-application',
+  },
 });
 
 // @TODO translations
@@ -149,7 +158,11 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
+  // dayjs(userCase.dueDate, 'D MMMM YYYY').diff(dayjs()) < 0
+  const isRespondentAbleToApplyForFinalOrder =
+    dayjs(content.userCase.coDecisionDate).add(43, 'day').add(3, 'month').diff(dayjs()) < 0;
   return {
+    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
     ...languages[content.language](content),
   };
