@@ -106,8 +106,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
-  dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
-  dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
