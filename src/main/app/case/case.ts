@@ -105,8 +105,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
-  coClarificationUploadDocuments: 'coClarificationUploadDocuments',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
+  coClarificationUploadDocuments: 'coClarificationUploadDocuments',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -256,8 +256,8 @@ export interface Case {
   coApplicant1SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
-  coClarificationResponses: string;
-  coRefusalClarificationAdditionalInfo: string;
+  coRefusalClarificationAdditionalInfo?: string;
+  coClarificationResponses?: string;
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
