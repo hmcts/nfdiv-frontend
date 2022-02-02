@@ -222,7 +222,6 @@ Feature: Form failures
     Given I go to "/do-you-want-to-apply-financial-order"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I select "Yes, I want to apply for a financial order"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
