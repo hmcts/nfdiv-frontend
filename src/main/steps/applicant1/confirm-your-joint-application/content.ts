@@ -24,10 +24,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   } are applying to the court for ${
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
-  line3: `<strong>Case reference number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  line3: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
   line4: '<strong> Applicant 1 </strong>',
   line5: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   line6: '<strong> Applicant 2 </strong>',
