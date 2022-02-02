@@ -22,10 +22,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
     ${userCase.applicant2FirstNames + ' ' + userCase.applicant2LastNames}</li>
     <li>to make a financial order</li></ul>`,
   line3: `<strong>Issued: </strong>${userCase.issueDate}`,
-  line4: `<strong>Case reference number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  line4: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
   line5: '<strong>Applicant</strong>',
   line6: `${
     userCase.applicant1FirstNames +
