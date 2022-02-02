@@ -2,6 +2,8 @@
 
 import axios, { AxiosInstance } from 'axios';
 
+import { UserRole } from '../../main/app/case/definition';
+
 export class IdamUserManager {
   client: AxiosInstance;
   users: Set<string> = new Set();
@@ -22,7 +24,14 @@ export class IdamUserManager {
   async createCaseWorker(
     email: string,
     password: string,
-    role = ['caseworker', 'caseworker-divorce', 'caseworker-divorce-courtadmin_beta', 'caseworker-divorce-systemupdate']
+    role = [
+      'caseworker',
+      'caseworker-divorce',
+      UserRole.CASE_WORKER,
+      UserRole.SYSTEMUPDATE,
+      UserRole.LEGAL_ADVISOR,
+      UserRole.SUPER_USER,
+    ]
   ): Promise<void> {
     await this.create(email, password, role);
     this.caseWorker = email;

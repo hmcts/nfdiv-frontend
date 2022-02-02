@@ -100,6 +100,14 @@ Feature: Sole hub page
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
+  Scenario: Hub Awaiting clarification state
+    Given I set the case state to "AwaitingClarification"
+    And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
+    Given I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "Refusal reason test"
+    And the page should include "What you need to do now"
+
   Scenario: Hub AosOverdue state
     Given I set the case state to "AosOverdue"
     When I click "Sign out"
