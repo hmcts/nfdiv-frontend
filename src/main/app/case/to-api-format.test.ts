@@ -4,6 +4,7 @@ import {
   ContactDetailsType,
   DivorceOrDissolution,
   DocumentType,
+  FinancialOrderFor,
   Gender,
   HowToRespondApplication,
   MarriageFormation,
@@ -72,6 +73,10 @@ describe('to-api-format', () => {
     applicant2ChangedNameHowAnotherWay: 'Test',
     applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
+    applicant1ApplyForFinancialOrder: YesOrNo.YES,
+    applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+    applicant2ApplyForFinancialOrder: YesOrNo.NO,
+    applicant2WhoIsFinancialOrderFor: [],
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -148,6 +153,10 @@ describe('to-api-format', () => {
       applicant2NameChangedHow: [],
       applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
       applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
+      applicant1FinancialOrder: YesOrNo.YES,
+      applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2FinancialOrder: YesOrNo.NO,
+      applicant2FinancialOrdersFor: [],
     });
   });
 
@@ -331,6 +340,35 @@ describe('to-api-format', () => {
       },
     },
   ])('set unreachable answers to null if condition met', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.YES,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.YES,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.YES,
+        applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+        applicant2FinancialOrder: YesOrNo.YES,
+        applicant2FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      },
+    },
+    {
+      applicant1ApplyForFinancialOrder: YesOrNo.NO,
+      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2ApplyForFinancialOrder: YesOrNo.NO,
+      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      expected: {
+        applicant1FinancialOrder: YesOrNo.NO,
+        applicant1FinancialOrdersFor: [],
+        applicant2FinancialOrder: YesOrNo.NO,
+        applicant2FinancialOrdersFor: [],
+      },
+    },
+  ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 });

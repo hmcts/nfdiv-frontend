@@ -35,7 +35,7 @@
 
   <h2 class="govuk-heading-m">{{ heading1 }}</h2>
   <p class="govuk-body">{{ line1 }}</p>
-  {% if userCase.applyForFinancialOrder === 'Yes' %}
+  {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
     <p class="govuk-body">{{ line2 }}</p>
   {% endif %}
   {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
@@ -94,8 +94,8 @@
   <p class="govuk-body">{{ line7 }}</p>
 
   <h2 class="govuk-heading-m">{{ heading12 }}</h2>
-  {% if userCase.applyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
-    {% if userCase.applyForFinancialOrder === 'Yes' %}
+  {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+    {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
       <p class="govuk-body">{{ applicant1FinancialOrder }}</p>
     {% endif %}
     {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
