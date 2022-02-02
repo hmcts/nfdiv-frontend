@@ -12,6 +12,14 @@
         href: '/respond_to_court',
         preventDoubleClick: true
       }) }}
+
+    {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+      {{ govukButton({
+        text: 'Apply for a final order',
+        href: '/finalising-your-application',
+        preventDoubleClick: true
+      }) }}
+
     {% else %}
     {{ govukButton({
       text: applyForConditionalOrder,

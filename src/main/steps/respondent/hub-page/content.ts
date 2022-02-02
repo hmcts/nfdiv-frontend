@@ -126,6 +126,16 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
+     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
+     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `If they do not apply by ${dayjs(userCase.coDecisionDate)
+      .add(43, 'day')
+      .add(3, 'month')
+      .format('D MMMM YYYY')}
+     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+  },
 });
 
 // @TODO translations
