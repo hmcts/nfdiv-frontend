@@ -334,7 +334,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: APPLY_FINANCIAL_ORDER,
     getNextStep: data =>
-      data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
+      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,

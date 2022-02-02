@@ -51,7 +51,7 @@
   <p class="govuk-body">{{ line1 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ listItem1 }}</li>
-    {% if userCase.applyForFinancialOrder === 'Yes' %}
+    {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
       <li>{{ listItem2 }}</li>
     {% endif %}
   </ul>
@@ -107,7 +107,7 @@
   <p class="govuk-body">{{ line5 }}</p>
 
   <h2 class="govuk-heading-m">{{ heading12 }}</h2>
-  {% if userCase.applyForFinancialOrder === 'Yes' %}
+  {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
     <p class="govuk-body">{{ financialOrderLine1 }}</p>
   {% else %}
     <p class="govuk-body">{{ noFinancialOrder }}</p>

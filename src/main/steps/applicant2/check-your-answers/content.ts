@@ -1,4 +1,4 @@
-import { ChangedNameHow, YesOrNo } from '../../../app/case/definition';
+import { ChangedNameHow, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
@@ -92,6 +92,14 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant2WhoIsFinancialOrderFor
+          ? userCase.applicant2WhoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'My children')
           : ''
       }`,
     },
@@ -204,6 +212,14 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant2WhoIsFinancialOrderFor
+          ? userCase.applicant2WhoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'My children')
           : ''
       }`,
     },
