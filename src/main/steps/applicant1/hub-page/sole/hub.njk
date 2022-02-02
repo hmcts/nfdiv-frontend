@@ -34,6 +34,9 @@
 {% elif userCase.state == 'Holding' %}
   {% include "./latest-update-content/holding.njk" %}
 
+{% elif userCase.state == 'ClarificationSubmitted' %}
+  {% include "./latest-update-content/clarification-submitted.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
