@@ -106,6 +106,7 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
+    And the page should include "What you need to do now"
 
   Scenario: Hub AosOverdue state
     Given I set the case state to "AosOverdue"
