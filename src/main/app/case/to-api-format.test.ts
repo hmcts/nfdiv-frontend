@@ -368,30 +368,6 @@ describe('to-api-format', () => {
         applicant2FinancialOrdersFor: [],
       },
     },
-    {
-      applicant1ApplyForFinancialOrder: YesOrNo.NO,
-      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-      applicant2ApplyForFinancialOrder: YesOrNo.YES,
-      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-      expected: {
-        applicant1FinancialOrder: YesOrNo.NO,
-        applicant1FinancialOrdersFor: [],
-        applicant2FinancialOrder: YesOrNo.YES,
-        applicant2FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-      },
-    },
-    {
-      applicant1ApplyForFinancialOrder: YesOrNo.YES,
-      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-      applicant2ApplyForFinancialOrder: YesOrNo.NO,
-      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-      expected: {
-        applicant1FinancialOrder: YesOrNo.YES,
-        applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
-        applicant2FinancialOrder: YesOrNo.NO,
-        applicant2FinancialOrdersFor: [],
-      },
-    },
   ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
