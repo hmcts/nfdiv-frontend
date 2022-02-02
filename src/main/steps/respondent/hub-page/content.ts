@@ -119,10 +119,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       .subtract(7, 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .add(43, 'day')
-      .format('D MMMM YYYY')}. This is the final step in the ${
+      userCase.dateFinalOrderEligibleFrom
+    ).format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   },
@@ -130,10 +128,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
      ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
      ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    line2: `If they do not apply by ${dayjs(userCase.coDecisionDate)
-      .add(43, 'day')
-      .add(3, 'month')
-      .format('D MMMM YYYY')}
+    line2: `If they do not apply by ${dayjs(userCase.dateFinalOrderEligibleToRespondent).format('D MMMM YYYY')}
      then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
@@ -159,7 +154,7 @@ export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
   const isRespondentAbleToApplyForFinalOrder =
-    dayjs(content.userCase.coDecisionDate).add(43, 'day').add(3, 'month').diff(dayjs()) < 0;
+    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   return {
     isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),

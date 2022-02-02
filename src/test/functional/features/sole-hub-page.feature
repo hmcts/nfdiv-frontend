@@ -148,7 +148,7 @@ Feature: Sole hub page
     And I login with applicant "2"
     Then the page should include "Your wife can now apply for a 'final order'."
 
-    Given a superuser updates "coDecisionDate" with "2021-05-05"
+    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-05-05"
     When I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife has still not applied for a 'final order'"
