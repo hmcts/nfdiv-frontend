@@ -158,7 +158,6 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
-  // dayjs(userCase.dueDate, 'D MMMM YYYY').diff(dayjs()) < 0
   const isRespondentAbleToApplyForFinalOrder =
     dayjs(content.userCase.coDecisionDate).add(43, 'day').add(3, 'month').diff(dayjs()) < 0;
   return {
