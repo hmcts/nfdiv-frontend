@@ -56,7 +56,7 @@
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('ConditionalOrderPending'),
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingClarification'),
     active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
