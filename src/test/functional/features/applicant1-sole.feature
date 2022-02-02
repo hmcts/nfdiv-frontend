@@ -98,6 +98,11 @@ Feature: Applicant 1 sole application
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
 
     When I click "Continue"
+    Then the page should include "Does your husband have a solicitor representing them?"
+    Given I select "No"
+
+    When I click "Continue"
+    Then the page should include "Enter your husband's email address"
     Then I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
 
@@ -333,8 +338,16 @@ Feature: Applicant 1 sole application
     And I type "Their country"
 
     When I click "Continue"
-    Then the page URL should be "/their-email-address"
-    Given I select "I do not know their email address"
+    Then the page should include "Does your husband have a solicitor representing them?"
+    Given I select "Yes"
+
+    When I click "Continue"
+    Then the page URL should be "/enter-solicitor-details"
+
+    Given I go to "/their-email-address"
+    Then the page should include "Enter your husband's email address"
+    Given I select "Your husband's email address"
+    And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
     Then the page should include "Do you have your husband's postal address?"
