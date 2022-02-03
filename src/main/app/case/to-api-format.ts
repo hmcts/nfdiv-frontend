@@ -231,12 +231,14 @@ const fields: ToApiConverters = {
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
   }),
   coClarificationResponses: data => ({
-    coClarificationResponses: [
-      {
-        id: '1',
-        value: data.coClarificationResponses,
-      },
-    ],
+    coClarificationResponses: data.coClarificationResponses
+      ? [
+          {
+            id: '1',
+            value: data.coClarificationResponses,
+          },
+        ]
+      : [],
   }),
 };
 

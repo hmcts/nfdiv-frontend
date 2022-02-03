@@ -375,4 +375,14 @@ describe('to-api-format', () => {
   ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
+
+  test('sets coClarificationResponses to empty array if no response was entered', async () => {
+    const apiFormat = toApiFormat({
+      coClarificationResponses: '',
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      coClarificationResponses: [],
+    });
+  });
 });

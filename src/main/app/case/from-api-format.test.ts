@@ -314,4 +314,15 @@ describe('from-api-format', () => {
       ],
     });
   });
+
+  test('converts empty coClarificationResponses list value to empty string', () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      coClarificationResponses: [],
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toMatchObject({
+      coClarificationResponses: '',
+    });
+  });
 });

@@ -126,7 +126,7 @@ const fields: FromApiConverters = {
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
   }),
   coClarificationResponses: data => ({
-    coClarificationResponses: data.coClarificationResponses?.[0].value,
+    coClarificationResponses: data.coClarificationResponses?.length ? data.coClarificationResponses?.[0].value : '',
   }),
 };
 
