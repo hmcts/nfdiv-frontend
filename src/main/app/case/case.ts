@@ -261,6 +261,15 @@ export interface Case {
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   coRefusalClarificationAdditionalInfo?: string;
+  applicant2SolicitorName: string;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorFirmName: string;
+  applicant2SolicitorAddress1?: string;
+  applicant2SolicitorAddress2?: string;
+  applicant2SolicitorAddress3?: string;
+  applicant2SolicitorAddressTown?: string;
+  applicant2SolicitorAddressPostcode?: string;
+  applicant2SolicitorAddressCountry?: string;
 }
 
 export interface CaseWithId extends Case {

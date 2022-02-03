@@ -28,6 +28,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
+  ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   EQUALITY,
@@ -441,6 +442,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: ENTER_SOLICITOR_DETAILS,
+    getNextStep: () => HOME_URL,
   },
 ];
 

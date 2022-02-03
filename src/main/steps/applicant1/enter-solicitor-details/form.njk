@@ -1,0 +1,14 @@
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'applicant2SolicitorAddress1' %}
+      <br>
+      <p class="govuk-body">{{ solicitorAddress }}</p>
+      <p class="govuk-hint">{{ solicitorAddressHint }}</p>
+    {% endif %}
+
+    {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
+    {% include "common/form/fields/" + field.type + ".njk" %}
+  {% endfor %}
+{% endblock %}
