@@ -11,7 +11,6 @@ export const config: CodeceptJS.Config = {
   helpers: testConfig.helpers,
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
-  timeout: 5000,
   plugins: {
     autoLogin: testConfig.AutoLogin,
     allure: {
