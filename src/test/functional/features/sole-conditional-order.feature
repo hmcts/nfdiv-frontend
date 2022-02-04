@@ -68,6 +68,7 @@ Feature: Sole conditional order
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
+  @flaky
   Scenario: Applicant 1 response with additional information and uploads for condition order
     And I set the case state to "AwaitingClarification"
     When I click "Sign out"
