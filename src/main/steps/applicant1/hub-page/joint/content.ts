@@ -4,7 +4,7 @@ import type { CommonContent } from '../../../common/common.content';
 
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
-    line1: `Your application ${isDivorce ? 'for divorce ' : 'to end your civil partnership'} has been submitted
+    line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
       userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
     }.`,
