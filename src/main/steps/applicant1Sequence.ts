@@ -288,6 +288,10 @@ export const applicant1Sequence: Step[] = [
         : THEIR_EMAIL_ADDRESS,
   },
   {
+    url: ENTER_SOLICITOR_DETAILS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
+  },
+  {
     url: THEIR_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
@@ -442,10 +446,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
     getNextStep: () => HUB_PAGE,
-  },
-  {
-    url: ENTER_SOLICITOR_DETAILS,
-    getNextStep: () => HOME_URL,
   },
 ];
 
