@@ -54,6 +54,8 @@ describe('to-api-format', () => {
     disputeApplication: YesOrNo.YES,
     coApplicant1StatementOfTruth: Checkbox.Checked,
     coApplicant2StatementOfTruth: Checkbox.Checked,
+    coCannotUploadClarificationDocuments: Checkbox.Checked,
+    coClarificationResponses: 'test',
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -130,6 +132,8 @@ describe('to-api-format', () => {
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
       coApplicant2StatementOfTruth: YesOrNo.YES,
+      coClarificationResponses: [{ id: '1', value: 'test' }],
+      coCannotUploadClarificationDocuments: YesOrNo.YES,
     });
   });
 
@@ -370,5 +374,15 @@ describe('to-api-format', () => {
     },
   ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test('sets coClarificationResponses to empty array if no response was entered', async () => {
+    const apiFormat = toApiFormat({
+      coClarificationResponses: '',
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      coClarificationResponses: [],
+    });
   });
 });
