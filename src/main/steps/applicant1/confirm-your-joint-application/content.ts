@@ -224,15 +224,15 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicant1AddressNotPrivate = content.userCase.applicant1AddressPrivate !== YesOrNo.YES;
   const isApplicant2AddressNotPrivate = content.userCase.applicant2AddressPrivate !== YesOrNo.YES;
-  const isApplicant1ApplyForFinancialOrder = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
-  const isApplicant2ApplyForFinancialOrder = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
+  const isApplicant1FinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
+  const isApplicant2FinancialOrderYes = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   const isCeremonyPlace = content.userCase.ceremonyPlace;
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
     isApplicant2AddressNotPrivate,
-    isApplicant1ApplyForFinancialOrder,
-    isApplicant2ApplyForFinancialOrder,
+    isApplicant1FinancialOrderYes,
+    isApplicant2FinancialOrderYes,
     isCeremonyPlace,
     form,
   };

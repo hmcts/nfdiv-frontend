@@ -72,11 +72,11 @@ export const form: FormContent = {
                       type: 'checkboxes',
                       label: l => l.cannotUploadWhich,
                       hint: l => l.checkAllThatApply,
-                      subtext: l => l.cannotUploadYouCanPost,
                       values: checkboxes.map(checkbox => ({
                         name: 'applicant2CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
+                        conditionalText: l => l.cannotUploadYouCanPost,
                       })),
                     },
                   },
