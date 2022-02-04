@@ -147,11 +147,3 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife can now apply for a 'final order'."
-
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-05-05"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife has still not applied for a 'final order'"
-    Given I click "Apply for a final order"
-    Then the page URL should be '/respondent/finalising-your-application'
-
