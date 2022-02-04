@@ -31,7 +31,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       );
       filenameEl.textContent = file.name;
 
-      if (content.isAmendableStates) {
+      if (content.isAmendableStates || content.isClarificationAmendableState) {
         const deleteEl = document.createElement('a');
         deleteEl.classList.add('govuk-link--no-visited-state');
         deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i++}`;
