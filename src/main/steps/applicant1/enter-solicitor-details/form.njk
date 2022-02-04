@@ -8,7 +8,6 @@
       <p class="govuk-hint">{{ solicitorAddressHint }}</p>
     {% endif %}
 
-    {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
     {% include "common/form/fields/" + field.type + ".njk" %}
   {% endfor %}
 {% endblock %}

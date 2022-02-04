@@ -109,6 +109,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
+  applicant2SolicitorName: 'applicant2SolicitorName',
+  applicant2SolicitorEmail: 'applicant2SolicitorEmail',
+  applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

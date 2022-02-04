@@ -41,14 +41,12 @@ export const form: FormContent = {
       type: 'text',
       label: l => l.solicitorName,
       hint: l => l.solicitorNameHint,
-      labelSize: null,
       classes: 'govuk-input--width-20',
     },
     applicant2SolicitorEmail: {
       type: 'text',
       label: l => l.solicitorEmailAddress,
       hint: l => l.solicitorEmailAddressHint,
-      labelSize: null,
       classes: 'govuk-input--width-20',
       validator: value => {
         if (value) {
@@ -60,49 +58,42 @@ export const form: FormContent = {
       type: 'text',
       label: l => l.solicitorFirmName,
       hint: l => l.solicitorFirmNameHint,
-      labelSize: null,
       classes: 'govuk-input--width-20',
     },
     applicant2SolicitorAddress1: {
       type: 'text',
       classes: 'govuk-label',
       label: l => l.line1Optional,
-      labelSize: null,
     },
     applicant2SolicitorAddress2: {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.line2Optional,
-      labelSize: null,
     },
     applicant2SolicitorAddress3: {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.line3Optional,
-      labelSize: null,
     },
     applicant2SolicitorAddressTown: {
       id: 'addressTown',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.townOptional,
-      labelSize: null,
     },
     applicant2SolicitorAddressCounty: {
       id: 'addressCounty',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.countyOptional,
-      labelSize: null,
     },
     applicant2SolicitorAddressPostcode: {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcodeOptional,
-      labelSize: null,
       attributes: {
         maxLength: 14,
       },
@@ -112,7 +103,6 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.countryOptional,
-      labelSize: null,
     },
   },
   submit: {

@@ -371,4 +371,31 @@ describe('to-api-format', () => {
   ])('sets correct subfields of financial order', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
+
+  test.each([
+    {
+      applicant2SolicitorAddress1: 'testLine1',
+      applicant2SolicitorAddress2: 'testLine2',
+      applicant2SolicitorAddress3: 'testLine3',
+      applicant2SolicitorAddressTown: 'testLineTown',
+      applicant2SolicitorAddressPostcode: 'testLinePostcode',
+      applicant2SolicitorAddressCountry: 'testLineCountry',
+      expected: {
+        applicant2SolicitorAddress: 'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLinePostcode\ntestLineCountry',
+      },
+    },
+    {
+      applicant2SolicitorAddress1: '',
+      applicant2SolicitorAddress2: '',
+      applicant2SolicitorAddress3: '',
+      applicant2SolicitorAddressTown: '',
+      applicant2SolicitorAddressPostcode: 'testLinePostcode',
+      applicant2SolicitorAddressCountry: '',
+      expected: {
+        applicant2SolicitorAddress: '\n\n\n\ntestLinePostcode\n',
+      },
+    },
+  ])('sets correct solicitors address depending on the fields entered', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
 });

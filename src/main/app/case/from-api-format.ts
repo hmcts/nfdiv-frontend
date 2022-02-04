@@ -122,6 +122,17 @@ const fields: FromApiConverters = {
   coApplicant1SubmittedDate: data => ({
     coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
   }),
+  applicant2SolicitorAddress: data => {
+    const address = data.applicant2SolicitorAddress?.split('\n');
+    return {
+      applicant2SolicitorAddress1: address?.[0],
+      applicant2SolicitorAddress2: address?.[1],
+      applicant2SolicitorAddress3: address?.[2],
+      applicant2SolicitorAddressTown: address?.[3],
+      applicant2SolicitorAddressPostcode: address?.[4],
+      applicant2SolicitorAddressCountry: address?.[5],
+    };
+  },
 };
 
 const fromApiDate = date => {

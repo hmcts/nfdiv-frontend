@@ -226,6 +226,16 @@ const fields: ToApiConverters = {
     applicant2FinancialOrdersFor:
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? data.applicant2WhoIsFinancialOrderFor : [],
   }),
+  applicant2SolicitorAddress1: data => ({
+    applicant2SolicitorAddress: [
+      data.applicant2SolicitorAddress1,
+      data.applicant2SolicitorAddress2,
+      data.applicant2SolicitorAddress3,
+      data.applicant2SolicitorAddressTown,
+      data.applicant2SolicitorAddressPostcode,
+      data.applicant2SolicitorAddressCountry,
+    ].join('\n'),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
