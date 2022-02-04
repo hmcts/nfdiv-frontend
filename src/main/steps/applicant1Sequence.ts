@@ -60,6 +60,7 @@ import {
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  PROVIDE_INFORMATION_TO_THE_COURT,
   PageLink,
   READ_THE_RESPONSE,
   RELATIONSHIP_DATE_URL,
@@ -445,6 +446,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: PROVIDE_INFORMATION_TO_THE_COURT,
     getNextStep: () => HUB_PAGE,
   },
 ];
