@@ -323,9 +323,9 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor
-              ?.join(' / ')
+              ?.join(' and ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'My children')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },
@@ -744,7 +744,7 @@ const cy: typeof en = ({
           ? userCase.applicant1WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'My children')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },

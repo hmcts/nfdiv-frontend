@@ -32,7 +32,7 @@ const en = ({ partner, required }: CommonContent) => ({
   subField: 'Who is the financial order for?',
   subFieldHint: 'Select all that apply',
   me: 'Myself',
-  children: 'My children',
+  children: 'The children',
   errors: {
     applicant1ApplyForFinancialOrder: {
       required,
