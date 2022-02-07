@@ -47,6 +47,8 @@ export class SessionStorage {
         password: config.get('session.redis.key') as string,
       });
       client.connect().catch(logger.error);
+
+      setInterval(() => client.ping(), 5000);
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
