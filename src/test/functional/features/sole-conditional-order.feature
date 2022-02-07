@@ -29,7 +29,7 @@ Feature: Sole conditional order
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
 
-  Scenario: Applicant 1 applies for condition order
+  Scenario: Applicant 1 applies for conditional order and responds with additional information
     Given I set the case state to "AwaitingConditionalOrder"
     When I click "Sign out"
     And I login with applicant "1"
@@ -52,8 +52,7 @@ Feature: Sole conditional order
     And I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: Applicant 1 response with additional information for condition order
-    And I set the case state to "AwaitingClarification"
+    Given I set the case state to "AwaitingClarification"
     When I click "Sign out"
     And I login with applicant "1"
     When I go to "/provide-information-to-the-court"
