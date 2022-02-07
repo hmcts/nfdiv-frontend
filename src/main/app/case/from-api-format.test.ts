@@ -5,6 +5,7 @@ import {
   DivorceOrDissolution,
   Gender,
   HowToRespondApplication,
+  ListValue,
   MarriageFormation,
   ThePrayer,
   YesOrNo,
@@ -12,7 +13,7 @@ import {
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
+  const results: Partial<Record<keyof CaseData, string | ThePrayer[] | ListValue<string>[] | null>> = {
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     marriageFormationType: MarriageFormation.SAME_SEX_COUPLE,
     applicant2Gender: Gender.MALE,
@@ -39,6 +40,8 @@ describe('from-api-format', () => {
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
+    coClarificationResponses: [{ id: '1', value: 'test' }],
+    coCannotUploadClarificationDocuments: YesOrNo.YES,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -81,6 +84,8 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coCannotUploadClarificationDocuments: Checkbox.Checked,
+      coClarificationResponses: 'test',
     });
   });
 
@@ -138,6 +143,8 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coCannotUploadClarificationDocuments: Checkbox.Checked,
+      coClarificationResponses: 'test',
     });
   });
 
@@ -174,6 +181,8 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coCannotUploadClarificationDocuments: Checkbox.Checked,
+      coClarificationResponses: 'test',
     });
   });
 
@@ -210,6 +219,8 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coCannotUploadClarificationDocuments: Checkbox.Checked,
+      coClarificationResponses: 'test',
     });
   });
 
@@ -301,6 +312,17 @@ describe('from-api-format', () => {
           id: 'mock-payment',
         },
       ],
+    });
+  });
+
+  test('converts empty coClarificationResponses list value to empty string', () => {
+    const nfdivFormat = fromApiFormat({
+      ...results,
+      coClarificationResponses: [],
+    } as unknown as CaseData);
+
+    expect(nfdivFormat).toMatchObject({
+      coClarificationResponses: '',
     });
   });
 });

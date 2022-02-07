@@ -1,7 +1,8 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -23,8 +24,11 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }`,
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
-  issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
-  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
+  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
+  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
+    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
+    '$1-$2-$3-$4'
+  )}`,
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',
@@ -91,8 +95,16 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  applicant1FinancialOrder: 'Applicant 1 is applying to the court for financial orders.',
-  applicant2FinancialOrder: 'Applicant 2 is applying to the court for financial orders.',
+  applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'themselves')
+    .replace(FinancialOrderFor.CHILDREN, 'the children')}.`,
+  applicant2FinancialOrderYes: `Applicant 2 is applying to the court for financial orders for ${userCase.applicant2WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'themselves')
+    .replace(FinancialOrderFor.CHILDREN, 'the children')}.`,
   noFinancialOrder: 'The applicants have said they do not intend to apply for financial orders.',
   financialOrderMoreInfoLine1: `You and your ${partner} were asked if you want the court to decide how your money, property, pensions and other assets will be split.
   These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,

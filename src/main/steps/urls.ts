@@ -120,3 +120,4 @@ export const REVIEW_YOUR_APPLICATION: PageLink = '/review-your-application';
 export const REVIEW_YOUR_JOINT_APPLICATION: PageLink = '/review-your-joint-application';
 export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-application';
 export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-conditional-order-answers';
+export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-to-the-court';

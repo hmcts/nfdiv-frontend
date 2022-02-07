@@ -1,7 +1,8 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -20,8 +21,11 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
     isDivorce ? 'for a final order of divorce from' : 'for the dissolution of the civil partnership with'
   } ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
   listItem2: 'to make a financial order',
-  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
-  issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
+  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
+    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
+    '$1-$2-$3-$4'
+  )}`,
+  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
   applicantHeading: 'Applicant',
   applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   respondentHeading: 'Respondent',
@@ -95,7 +99,11 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line5: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
   heading12: 'Financial order application',
-  financialOrderLine1: 'The applicant is applying to the court for financial orders.',
+  financialOrderLine1: `The applicant is applying to the court for financial orders ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'for the applicant')
+    .replace(FinancialOrderFor.CHILDREN, 'for the children of the applicant and the respondent')}.`,
   noFinancialOrder: 'The applicant is not applying to the court for financial orders.',
   financialOrderMoreInfoLine1: `${
     isApplicant2 ? 'You were asked if you' : `Your ${partner} was asked if they`

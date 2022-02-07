@@ -10,6 +10,12 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant1DocumentsUploaded: data.applicant1DocumentsUploaded,
   applicant1CannotUpload: data.applicant1CannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
   applicant1CannotUploadDocuments: data.applicant1CannotUploadSupportingDocument,
+  coClarificationUploadDocuments: data.coClarificationUploadDocuments,
+  coClarificationUploadedFiles:
+    data.coClarificationUploadDocuments?.map(file => ({
+      id: `${file.id}`,
+      name: `${file.value.documentFileName}`,
+    })) || [],
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({

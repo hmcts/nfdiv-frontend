@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -22,10 +22,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
     ${userCase.applicant2FirstNames + ' ' + userCase.applicant2LastNames}</li>
     <li>to make a financial order</li></ul>`,
   line3: `<strong>Issued: </strong>${userCase.issueDate}`,
-  line4: `<strong>Case reference number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  line4: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
   line5: '<strong>Applicant</strong>',
   line6: `${
     userCase.applicant1FirstNames +
@@ -85,7 +82,11 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
-  financialOrderYes: 'The applicant intends to apply to the court for financial orders',
+  financialOrderYes: `The applicant intends to apply to the court for financial orders ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'for the applicant')
+    .replace(FinancialOrderFor.CHILDREN, 'for the children of the applicant and the respondent')}.`,
   financialOrderNo: 'The applicant is not intending to apply to the court for financial orders.',
   financialOrderMoreDetails: `${isApplicant2 ? `Your ${partner} was asked if they` : 'You were asked if you'}
    want the court to decide how your money, property, pensions and other assets will be split.
@@ -182,7 +183,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicantAddressNotPrivate = content.userCase.applicant1AddressPrivate !== YesOrNo.YES;
   const isRespondentAddressNotPrivate = content.userCase.applicant2AddressPrivate !== YesOrNo.YES;
-  const isFinancialOrderYes = content.userCase.applyForFinancialOrder === YesOrNo.YES;
+  const isFinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   return {
     ...translations,
     form,
