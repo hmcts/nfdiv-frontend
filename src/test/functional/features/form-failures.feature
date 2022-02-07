@@ -214,6 +214,10 @@ Feature: Form failures
     Given I wait for the postcode lookup to return results
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
+    
+    Given I go to "/do-they-have-a-solicitor"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. Select an answer before continuing."
 
     Given I go to "/details-other-proceedings"
     When I click "Continue"
