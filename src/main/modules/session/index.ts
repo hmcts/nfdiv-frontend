@@ -42,13 +42,13 @@ export class SessionStorage {
           port: 6380,
           tls: true,
           connectTimeout: 20000,
-          keepAlive: 4000,
+          keepAlive: 5000,
         },
         password: config.get('session.redis.key') as string,
       });
       client.connect().catch(logger.error);
 
-      setInterval(() => client.ping(), 5000);
+      // setInterval(() => client.ping(), 5000);
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
