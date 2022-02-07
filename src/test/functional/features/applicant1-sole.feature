@@ -401,7 +401,7 @@ Feature: Applicant 1 sole application
     Then the page should include "Applying for a financial order"
     Given I select "Yes, I want to apply for a financial order"
     And I select "Myself"
-    And I select "My children"
+    And I select "The children"
 
     When I click "Continue"
     Then the page should include "How to apply for a financial order"

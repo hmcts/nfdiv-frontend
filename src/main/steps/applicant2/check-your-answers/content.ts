@@ -99,7 +99,7 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'My children')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },
@@ -219,7 +219,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
               .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'My children')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },
