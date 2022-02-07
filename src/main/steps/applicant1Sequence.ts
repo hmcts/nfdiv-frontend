@@ -1,5 +1,11 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
+import {
+  Applicant2Represented,
+  ApplicationType,
+  JurisdictionConnections,
+  State,
+  YesOrNo,
+} from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -291,7 +297,9 @@ export const applicant1Sequence: Step[] = [
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
     getNextStep: data =>
-      data.applicant2SolicitorRepresented === YesOrNo.YES ? ENTER_SOLICITOR_DETAILS : THEIR_EMAIL_ADDRESS,
+      data.applicant1IsApplicant2Represented === Applicant2Represented.YES
+        ? ENTER_SOLICITOR_DETAILS
+        : THEIR_EMAIL_ADDRESS,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,

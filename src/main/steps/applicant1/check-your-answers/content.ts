@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, ChangedNameHow, Gender, YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented, ApplicationType, ChangedNameHow, Gender, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -286,7 +286,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
       line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
       line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
-      line4: `${isJointApplication ? '' : userCase.applicant2SolicitorRepresented}`,
+      line4: `${
+        isJointApplication
+          ? ''
+          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
+      }`,
       line5: `${userCase.applicant2EmailAddress}`,
       line6: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
       line7: `${

@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  Applicant2Represented,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -106,6 +107,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
+  applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -256,6 +258,7 @@ export interface Case {
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant2SolicitorRepresented: YesOrNo;
+  applicant1IsApplicant2Represented: Applicant2Represented;
 }
 
 export interface CaseWithId extends Case {

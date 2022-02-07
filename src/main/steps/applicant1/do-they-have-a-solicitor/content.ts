@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -13,7 +13,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   no: 'No, they do not have a solicitor representing them',
   notSure: "I'm not sure",
   errors: {
-    applicant2SolicitorRepresented: {
+    applicant1IsApplicant2Represented: {
       required: 'You have not answered the question. Select an answer before continuing.',
     },
   },
@@ -24,15 +24,15 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    applicant2SolicitorRepresented: {
+    applicant1IsApplicant2Represented: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
-        { label: l => l.notSure, value: YesOrNo.NO },
+        { label: l => l.yes, value: Applicant2Represented.YES },
+        { label: l => l.no, value: Applicant2Represented.NO },
+        { label: l => l.notSure, value: Applicant2Represented.NOT_SURE },
       ],
       validator: value => isFieldFilledIn(value),
     },
