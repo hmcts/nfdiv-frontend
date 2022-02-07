@@ -719,7 +719,11 @@ const cy: typeof en = ({
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
       line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
       line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
-      line4: `${isJointApplication ? '' : userCase.applicant2SolicitorRepresented}`,
+      line4: `${
+        isJointApplication
+          ? ''
+          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
+      }`,
       line5: `${userCase.applicant2EmailAddress}`,
       line6: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
       line7: `${
