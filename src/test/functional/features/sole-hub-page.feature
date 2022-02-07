@@ -119,6 +119,15 @@ Feature: Sole hub page
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
 
+    When I click "Respond to the court"
+    Then the page should include "Respond to the court"
+    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
+    And I type "test details"
+    And I select "I cannot upload some or all of my documents"
+    Then the page should include "You can post your documents to the court if you cannot upload them"
+    When I click "Continue"
+    Then the page should include "You or your husband need to post the documents requested by the court"
+
   Scenario: Hub AosOverdue state
     Given I set the case state to "AosOverdue"
     When I click "Sign out"

@@ -140,7 +140,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     },
     withoutDocuments: {
       line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line2: 'address',
+      line2:
+        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'You will receive an update when your documents have been received and checked.',
     },
   },
@@ -222,7 +223,7 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
-  const isClarificationDocumentsUploaded = content.userCase.applicant1AddressPrivate; // TODO need to change this field made when veli's ticket done
+  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
     progressionIndex,

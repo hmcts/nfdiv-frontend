@@ -52,22 +52,6 @@ Feature: Sole conditional order
     And I click "Continue"
     Then the page URL should be "/hub-page"
 
-  Scenario: Applicant 1 response with additional information for condition order
-    And I set the case state to "AwaitingClarification"
-    When I click "Sign out"
-    And I login with applicant "1"
-    When I go to "/provide-information-to-the-court"
-    Then the page should include "Upload any documents"
-
-    When I clear the form
-    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
-    And I type "test details"
-    And I select "I cannot upload some or all of my documents"
-    Then the page should include "You can post your documents to the court"
-
-    When I click "Continue"
-    Then the page URL should be "/hub-page"
-
   @flaky
   Scenario: Applicant 1 response with additional information and uploads for condition order
     And I set the case state to "AwaitingClarification"
@@ -91,3 +75,4 @@ Feature: Sole conditional order
 
     When I click "Continue"
     Then the page URL should be "/hub-page"
+    And the page should include "You have provided the information requested by the court."
