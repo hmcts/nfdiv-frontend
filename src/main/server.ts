@@ -48,7 +48,7 @@ new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
-new SessionStorage().enableFor(app);
+new SessionStorage().enableFor(app, logger);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
 new CSRFToken().enableFor(app);
