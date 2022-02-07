@@ -41,7 +41,8 @@ export class SessionStorage {
           host: redisHost as string,
           port: 6380,
           tls: true,
-          connectTimeout: 15000,
+          connectTimeout: 20000,
+          keepAlive: 4000,
         },
         password: config.get('session.redis.key') as string,
       });
