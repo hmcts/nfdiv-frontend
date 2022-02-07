@@ -48,7 +48,6 @@ export class SessionStorage {
       });
       client.connect().catch(logger.error);
 
-      // setInterval(() => client.ping(), 5000);
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
