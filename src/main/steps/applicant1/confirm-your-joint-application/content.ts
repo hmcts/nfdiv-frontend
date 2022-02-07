@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -88,8 +88,16 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line18: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
-  applicant1FinancialOrderYes: 'Applicant 1 is applying to the court for financial orders',
-  applicant2FinancialOrderYes: 'Applicant 2 is applying to the court for financial orders',
+  applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'themselves')
+    .replace(FinancialOrderFor.CHILDREN, 'the children')}.`,
+  applicant2FinancialOrderYes: `Applicant 2 is applying to the court for financial orders for ${userCase.applicant2WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'themselves')
+    .replace(FinancialOrderFor.CHILDREN, 'the children')}.`,
   financialOrderNo: 'The applicants are not applying to the court for financial orders.',
   financialOrderMoreDetails: `You and your ${partner} were asked if you want the court to decide how your money, property,
  pensions and other assets will be split. These decisions are called ‘financial orders’.
@@ -144,7 +152,8 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
   } ${
-    userCase.applyForFinancialOrder === YesOrNo.YES || userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
+    userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES ||
+    userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
       ? 'and make financial orders to decide how our money and property will be split.'
       : ''
   }`,
@@ -215,15 +224,15 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicant1AddressNotPrivate = content.userCase.applicant1AddressPrivate !== YesOrNo.YES;
   const isApplicant2AddressNotPrivate = content.userCase.applicant2AddressPrivate !== YesOrNo.YES;
-  const isApplicant1ApplyForFinancialOrder = content.userCase.applyForFinancialOrder === YesOrNo.YES;
-  const isApplicant2ApplyForFinancialOrder = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
+  const isApplicant1FinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
+  const isApplicant2FinancialOrderYes = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   const isCeremonyPlace = content.userCase.ceremonyPlace;
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
     isApplicant2AddressNotPrivate,
-    isApplicant1ApplyForFinancialOrder,
-    isApplicant2ApplyForFinancialOrder,
+    isApplicant1FinancialOrderYes,
+    isApplicant2FinancialOrderYes,
     isCeremonyPlace,
     form,
   };

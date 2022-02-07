@@ -10,6 +10,7 @@ import {
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
+  FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   ListValue,
@@ -72,8 +73,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
-  applyForFinancialOrder: 'applicant1FinancialOrder',
+  applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
+  applicant1WhoIsFinancialOrderFor: 'applicant1FinancialOrdersFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
+  applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrdersFor',
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   documentsGenerated: 'documentsGenerated',
@@ -106,6 +109,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
+  coClarificationUploadDocuments: 'coClarificationUploadDocuments',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -209,8 +213,10 @@ export interface Case {
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
-  applyForFinancialOrder?: YesOrNo;
+  applicant1ApplyForFinancialOrder?: YesOrNo;
+  applicant1WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
+  applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
   documentsGenerated: ListValue<DivorceDocument>[];
@@ -255,7 +261,11 @@ export interface Case {
   coApplicant1SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
-  coRefusalClarificationAdditionalInfo: string;
+  coRefusalClarificationAdditionalInfo?: string;
+  coClarificationResponses?: string;
+  coCannotUploadClarificationDocuments?: Checkbox;
+  coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
+  coClarificationUploadedFiles?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
