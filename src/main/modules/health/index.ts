@@ -9,9 +9,7 @@ import { Application } from 'express';
  */
 export class HealthCheck {
   public enableFor(app: Application): void {
-    const redis = app.locals.redisClient
-      ? healthcheck.raw(() => (app.locals.redisClient.get('live') ? healthcheck.up() : healthcheck.down()))
-      : undefined;
+    const redis = app.locals.redisClient ? healthcheck.raw(() => healthcheck.up()) : undefined;
 
     const idamUrl = config.get('services.idam.tokenURL') as string;
 
