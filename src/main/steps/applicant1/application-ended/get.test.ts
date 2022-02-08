@@ -1,31 +1,15 @@
 import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import * as oidc from '../../../app/auth/user/oidc';
 import * as caseApi from '../../../app/case/CaseApi';
 import { generatePageContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 import ApplicationEndedGetController from './get';
 
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('ApplicationEndedGetController', () => {
-  beforeEach(() => {
-    getSystemUserMock.mockResolvedValue({
-      accessToken: 'token',
-      id: '1234',
-      email: 'user@caseworker.com',
-      givenName: 'case',
-      familyName: 'worker',
-    });
-  });
-
-  afterEach(() => {
-    getSystemUserMock.mockClear();
-  });
-
   const controller = new ApplicationEndedGetController();
   const language = 'en';
 

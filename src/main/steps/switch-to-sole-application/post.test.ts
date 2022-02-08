@@ -1,6 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as oidc from '../../app/auth/user/oidc';
 import * as caseApi from '../../app/case/CaseApi';
 import { ApplicationType, DivorceOrDissolution, SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
@@ -8,24 +7,9 @@ import { HOME_URL, PAY_AND_SUBMIT, SWITCH_TO_SOLE_APPLICATION, YOUR_DETAILS_URL 
 
 import { SwitchToSoleApplicationPostController } from './post';
 
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('SwitchToSoleApplicationPostController', () => {
-  beforeEach(() => {
-    getSystemUserMock.mockResolvedValue({
-      accessToken: 'token',
-      id: '1234',
-      email: 'user@caseworker.com',
-      givenName: 'case',
-      familyName: 'worker',
-    });
-  });
-
-  afterEach(() => {
-    getSystemUserMock.mockClear();
-  });
-
   const mockFormContent = {
     fields: {},
   } as unknown as FormContent;

@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getSystemUser } from '../../../app/auth/user/oidc';
 import { getCaseApi } from '../../../app/case/CaseApi';
 import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -16,8 +15,7 @@ export default class ApplicationEndedGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
     try {
       req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
