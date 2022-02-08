@@ -215,6 +215,12 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
 
+    Given I go to "/enter-solicitor-details"
+    And I select "Solicitor email address (optional)"
+    And I type "test"
+    When I click "Continue"
+    Then the page should include "You have entered the email address in the wrong format. Check it and enter it again."
+
     Given I go to "/details-other-proceedings"
     When I click "Continue"
     Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
