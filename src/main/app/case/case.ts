@@ -86,7 +86,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
-  applicant2SolicitorAddress: 'applicant2SolicitorAddress',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
@@ -276,6 +275,7 @@ export interface Case {
   applicant2SolicitorAddress2?: string;
   applicant2SolicitorAddress3?: string;
   applicant2SolicitorAddressTown?: string;
+  applicant2SolicitorAddressCounty?: string;
   applicant2SolicitorAddressPostcode?: string;
   applicant2SolicitorAddressCountry?: string;
 }

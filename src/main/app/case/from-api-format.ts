@@ -135,8 +135,9 @@ const fields: FromApiConverters = {
       applicant2SolicitorAddress2: address?.[1],
       applicant2SolicitorAddress3: address?.[2],
       applicant2SolicitorAddressTown: address?.[3],
-      applicant2SolicitorAddressPostcode: address?.[4],
-      applicant2SolicitorAddressCountry: address?.[5],
+      applicant2SolicitorAddressCounty: address?.[4],
+      applicant2SolicitorAddressPostcode: address?.[5],
+      applicant2SolicitorAddressCountry: address?.[6],
     };
   },
 };

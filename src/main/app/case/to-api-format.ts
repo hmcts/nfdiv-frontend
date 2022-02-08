@@ -246,6 +246,7 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddress2,
       data.applicant2SolicitorAddress3,
       data.applicant2SolicitorAddressTown,
+      data.applicant2SolicitorAddressCounty,
       data.applicant2SolicitorAddressPostcode,
       data.applicant2SolicitorAddressCountry,
     ].join('\n'),

@@ -392,10 +392,12 @@ describe('to-api-format', () => {
       applicant2SolicitorAddress2: 'testLine2',
       applicant2SolicitorAddress3: 'testLine3',
       applicant2SolicitorAddressTown: 'testLineTown',
+      applicant2SolicitorAddressCounty: 'testLineCounty',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: 'testLineCountry',
       expected: {
-        applicant2SolicitorAddress: 'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLinePostcode\ntestLineCountry',
+        applicant2SolicitorAddress:
+          'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
       },
     },
     {
@@ -403,10 +405,11 @@ describe('to-api-format', () => {
       applicant2SolicitorAddress2: '',
       applicant2SolicitorAddress3: '',
       applicant2SolicitorAddressTown: '',
+      applicant2SolicitorAddressCounty: '',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: '',
       expected: {
-        applicant2SolicitorAddress: '\n\n\n\ntestLinePostcode\n',
+        applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
       },
     },
   ])('sets correct solicitors address depending on the fields entered', ({ expected, ...formData }) => {
