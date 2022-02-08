@@ -1868,5 +1868,6 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
