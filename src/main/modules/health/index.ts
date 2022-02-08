@@ -10,7 +10,7 @@ import { Application } from 'express';
 export class HealthCheck {
   public enableFor(app: Application): void {
     const redis = app.locals.redisClient
-      ? healthcheck.raw(() => (app.locals.redisClient.ping() ? healthcheck.up() : healthcheck.down()))
+      ? healthcheck.raw(() => (app.locals.redisClient.isOpen() ? healthcheck.up() : healthcheck.down()))
       : {};
 
     const idamUrl = config.get('services.idam.tokenURL') as string;
@@ -22,9 +22,9 @@ export class HealthCheck {
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
         'case-api': healthcheck.web(new URL('/health', config.get('services.case.url'))),
       },
-      // readinessChecks: {
-      //   redis,
-      // },
+      readinessChecks: {
+        redis,
+      },
       buildInfo: {
         name: 'nfdiv-frontend',
         host: os.hostname(),
