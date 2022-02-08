@@ -47,12 +47,6 @@ export class SessionStorage {
         password: config.get('session.redis.key') as string,
       });
       client.connect().catch(logger.error);
-      setInterval(() => {
-        client
-          .ping()
-          .then(() => logger.info('Successful ping'))
-          .catch(() => logger.error('Failed ping'));
-      }, 5000);
       setInterval(() => logger.info(client.ping() + ''), 5000);
       app.locals.redisClient = client;
       return new RedisStore({ client });
