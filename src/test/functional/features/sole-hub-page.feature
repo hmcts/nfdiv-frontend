@@ -57,17 +57,6 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "Your husband has responded to your application and said they want to defend the divorce. This means they want to try and prevent the divorce."
 
-
-  Scenario: Clarification Submitted state
-    Given I set the case state to "ClarificationSubmitted"
-    When I go to "/"
-    Then the page should include "Your wife has provided the information requested by the court."
-    And the page should include "This was the court’s feedback, explaining the information which was needed"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You have provided the information requested by the court."
-    And the page should include "This was the court’s feedback, explaining the information which was needed"
-
   Scenario: Sole hub AwaitingGeneralConsideration state
     Given I set the case state to "AwaitingGeneralConsideration"
     When I go to "/"
@@ -111,7 +100,7 @@ Feature: Sole hub page
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
-  Scenario: Hub Awaiting clarification state
+  Scenario: Hub AwaitingClarification state to ClarificationSubmitted state without documents
     Given I set the case state to "AwaitingClarification"
     And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
