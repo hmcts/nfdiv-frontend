@@ -50,6 +50,8 @@ export class SessionStorage {
         .connect()
         .then(() => client.set('live', 'true'))
         .catch(logger.error);
+
+      setInterval(() => logger.info(client.get('live') + ''), 5000);
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
