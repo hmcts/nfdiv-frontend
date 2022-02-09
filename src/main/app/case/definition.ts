@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.34.976 on 2022-01-25 14:25:03.
+// Generated using typescript-generator version 2.35.1025 on 2022-02-09 14:12:16.
 
 export interface Address {
   AddressLine1: string;
@@ -184,10 +184,12 @@ export interface Applicant {
   SolicitorReference: string;
   SolicitorPhone: string;
   SolicitorEmail: string;
+  SolicitorFirmName: string;
   SolicitorAddress: string;
   SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
+  FinancialOrderFor: FinancialOrderFor[];
   FinancialOrdersFor: FinancialOrderFor[];
   LegalProceedings: YesOrNo;
   LegalProceedingsDetails: string;
@@ -286,6 +288,7 @@ export interface Application {
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
+  applicant1IsApplicant2Represented: Applicant2Represented;
   applicant1SolicitorAnswersLink: Document;
   applicant2SolicitorAnswersLink: Document;
   progressPaperCase: ProgressPaperCase;
@@ -342,10 +345,12 @@ export interface CaseData {
   applicant1SolicitorReference: string;
   applicant1SolicitorPhone: string;
   applicant1SolicitorEmail: string;
+  applicant1SolicitorFirmName: string;
   applicant1SolicitorAddress: string;
   applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
+  applicant1FinancialOrderFor: FinancialOrderFor[];
   applicant1FinancialOrdersFor: FinancialOrderFor[];
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsDetails: string;
@@ -371,10 +376,12 @@ export interface CaseData {
   applicant2SolicitorReference: string;
   applicant2SolicitorPhone: string;
   applicant2SolicitorEmail: string;
+  applicant2SolicitorFirmName: string;
   applicant2SolicitorAddress: string;
   applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
+  applicant2FinancialOrderFor: FinancialOrderFor[];
   applicant2FinancialOrdersFor: FinancialOrderFor[];
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsDetails: string;
@@ -469,6 +476,7 @@ export interface CaseData {
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
+  applicant1IsApplicant2Represented: Applicant2Represented;
   applicant1SolicitorAnswersLink: Document;
   applicant2SolicitorAnswersLink: Document;
   progressPaperCase: ProgressPaperCase;
@@ -574,6 +582,8 @@ export interface CaseData {
   generalReferralDecision: GeneralReferralDecision;
   generalReferralDecisionDate: DateAsString;
   generalReferralDecisionReason: string;
+  generalReferralUrgentCase: YesOrNo;
+  generalReferrals: ListValue<GeneralReferral>[];
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   receivedServiceApplicationDate: DateAsString;
   alternativeServiceType: AlternativeServiceType;
@@ -628,8 +638,6 @@ export interface CaseData {
   coAddNewDocuments: YesOrNo;
   coDocumentsUploaded: ListValue<DivorceDocument>[];
   coIsEverythingInPetitionTrue: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
-  applicant2FinancialOrderFor: FinancialOrderFor[];
   alternativeServiceApplications: ListValue<AlternativeService>[];
   disputeApplication: YesOrNo;
   generalReferralJudgeDetails: string;
@@ -664,6 +672,7 @@ export interface CaseData {
   feeAccountNumber: string;
   feeAccountReferenceNumber: string;
   helpWithFeesReferenceNumber: string;
+  labelContentTheApplicantsOrApplicant1s: string;
   hyphenatedCaseRef: string;
 }
 
@@ -798,6 +807,7 @@ export interface GeneralReferral {
   generalReferralDecision: GeneralReferralDecision;
   generalReferralDecisionDate: DateAsString;
   generalReferralDecisionReason: string;
+  generalReferralUrgentCase: YesOrNo;
 }
 
 export interface HelpWithFees {
@@ -881,8 +891,6 @@ export interface RetiredFields {
   coAddNewDocuments: YesOrNo;
   coDocumentsUploaded: ListValue<DivorceDocument>[];
   coIsEverythingInPetitionTrue: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
-  applicant2FinancialOrderFor: FinancialOrderFor[];
   alternativeServiceApplications: ListValue<AlternativeService>[];
   disputeApplication: YesOrNo;
   generalReferralJudgeDetails: string;
@@ -917,6 +925,7 @@ export interface RetiredFields {
   feeAccountNumber: string;
   feeAccountReferenceNumber: string;
   helpWithFeesReferenceNumber: string;
+  labelContentTheApplicantsOrApplicant1s: string;
 }
 
 export interface Solicitor {
@@ -924,6 +933,7 @@ export interface Solicitor {
   Reference: string;
   Phone: string;
   Email: string;
+  FirmName: string;
   Address: string;
   AgreeToReceiveEmailsCheckbox: Prayer[];
   OrganisationPolicy: OrganisationPolicy<UserRole>;
@@ -1119,6 +1129,12 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+}
+
+export const enum Applicant2Represented {
+  YES = 'Yes',
+  No = 'No',
+  NOT_SURE = 'notSure',
 }
 
 export const enum ApplicationType {

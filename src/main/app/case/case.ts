@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  Applicant2Represented,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -266,6 +267,9 @@ export interface Case {
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
+  applicant1IsApplicant2Represented: Applicant2Represented;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorAddressPostcode?: string;
 }
 
 export interface CaseWithId extends Case {
