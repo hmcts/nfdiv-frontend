@@ -19,8 +19,11 @@ export class SwitchToSoleApplicationPostController {
       return res.redirect(req.session.userCase.state === State.AwaitingPayment ? PAY_AND_SUBMIT : HOME_URL);
     }
 
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    if (req.session.isApplicant2) {
+      const caseworkerUser = await getSystemUser();
+      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    }
+
     req.session.errors = [];
 
     try {
@@ -34,7 +37,7 @@ export class SwitchToSoleApplicationPostController {
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
     }
 
-    if (req.session.isApplicant2) {
+    if (req.session.isApplicant2 && req.session.errors.length === 0) {
       req.session.userCase = undefined as unknown as CaseWithId;
       req.session.isApplicant2 = false;
     }
