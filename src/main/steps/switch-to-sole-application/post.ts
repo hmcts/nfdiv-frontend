@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getCaseApi } from '../../app/case/CaseApi';
 import { CaseWithId } from '../../app/case/case';
 import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -18,7 +17,6 @@ export class SwitchToSoleApplicationPostController {
       return res.redirect(req.session.userCase.state === State.AwaitingPayment ? PAY_AND_SUBMIT : HOME_URL);
     }
 
-    req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     req.session.errors = [];
 
     try {
