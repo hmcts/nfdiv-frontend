@@ -56,20 +56,20 @@
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingClarification'),
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingPronouncement'),
     active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('ConditionalOrderPronounced'),
-    active: userCase.state == 'AwaitingPronouncement'
+    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderPending'),
+    active:  progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingFinalOrder') and
+      progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('FinalOrderComplete')
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingFinalOrder'),
-    active: userCase.state == 'AwaitingFinalOrder'
+    complete: userCase.state == 'FinalOrderComplete'
   }] %}
 {% endif %}
 

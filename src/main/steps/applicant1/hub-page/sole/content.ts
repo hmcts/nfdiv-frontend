@@ -4,7 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { HOW_YOU_CAN_PROCEED } from '../../../urls';
+import { HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -125,7 +125,34 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
-      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
+      'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+  },
+  awaitingClarification: {
+    line1: `The court has reviewed your application for a conditional order and needs some more information before
+    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    courtsFeedback: 'The court’s feedback',
+    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+    buttonText: 'Respond to the court',
+    buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for a final order',
+    buttonLink: '/finalising-your-application',
   },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
@@ -146,22 +173,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
-  awaitingClarification: {
-    line1: `The court has reviewed your application for a conditional order and needs some more information before
-    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
-    courtsFeedback: 'The court’s feedback',
-    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
-    next: 'What you need to do next',
-    line4: 'You need to respond to the court’s feedback before your application can proceed.',
-    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
-  },
 });
 
 // @TODO translations
@@ -189,9 +200,13 @@ export const generateContent: TranslationFn = content => {
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingClarification,
+    State.ClarificationSubmitted,
     State.AwaitingPronouncement,
     State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,
+    State.FinalOrderOverdue,
+    State.FinalOrderRequested,
+    State.FinalOrderPending,
     State.FinalOrderComplete,
   ];
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
