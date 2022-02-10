@@ -85,7 +85,7 @@ Feature: Sole hub page
     Then the page should include "You can now apply for a ‘conditional order’."
     Then the page should include "Apply for conditional order"
 
-  Scenario: Hub AwaitingPronouncement and Update Court Case Hearing event
+  Scenario: Sole hub AwaitingPronouncement and Update Court Case Hearing event
     Given I set the case state to "AwaitingPronouncement"
     And a case worker updates court case hearing
     When I click "Sign out"
@@ -100,15 +100,17 @@ Feature: Sole hub page
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
-  Scenario: Hub Awaiting clarification state
+  Scenario: Sole hub Awaiting clarification state
     Given I set the case state to "AwaitingClarification"
     And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
+    Given I click 'Respond to the court'
+    Then the page URL should be '/provide-information-to-the-court'
 
-  Scenario: Hub AosOverdue state
+  Scenario: Sole hub AosOverdue state
     Given I set the case state to "AosOverdue"
     When I click "Sign out"
     And I login with applicant "1"
@@ -124,3 +126,31 @@ Feature: Sole hub page
     And the page should include "I've tried every possible way of delivering the application"
     When I click "Review your contact details"
     Then the page URL should be "/check-contact-details"
+
+  Scenario: Sole hub AwaitingFinalOrder or FinalOrderOverdue state
+    Given I set the case state to "AwaitingFinalOrder"
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You can now apply for a 'final order'."
+    Given I click "Apply for a final order"
+    Then the page URL should be "/finalising-your-application"
+    Given I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Your wife can now apply for a 'final order'."
+
+    Given I set the case state to "FinalOrderOverdue"
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You can now apply for a 'final order'."
+    Given I click "Apply for a final order"
+    Then the page URL should be "/finalising-your-application"
+    Given I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Your wife can now apply for a 'final order'."
+
+    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-05-05"
+    When I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Your wife has still not applied for a 'final order'"
+    Given I click "Apply for a final order"
+    Then the page URL should be '/respondent/finalising-your-application'
