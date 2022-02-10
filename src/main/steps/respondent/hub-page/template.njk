@@ -16,6 +16,9 @@
   {% elif userCase.state == 'Holding' %}
     {% include "./latest-update-content/holding.njk" %}
 
+  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+    {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
+
   {% elif progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
     {% include "./latest-update-content/awaiting-aos.njk" %}
 
