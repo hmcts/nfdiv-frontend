@@ -6,13 +6,6 @@
       {% include "common/form/fields.njk" %}
     {% endblock %}
 
-    {% if userCase.state == 'AwaitingClarification' %}
-      {{ govukButton({
-        text: 'Respond to the court',
-        href: '/provide-information-to-the-court',
-        preventDoubleClick: true
-      }) }}
-    {% else %}
     {{ govukButton({
       text: applyForConditionalOrder,
       classes: form.submit.classes,
@@ -21,5 +14,4 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-    {% endif %}
  </form>
