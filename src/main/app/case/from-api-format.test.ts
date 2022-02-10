@@ -336,6 +336,8 @@ describe('from-api-format', () => {
       applicant2SolicitorAddress:
         'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
       expected: {
+        applicant2SolicitorAddress:
+          'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
         applicant2SolicitorAddress1: 'testLine1',
         applicant2SolicitorAddress2: 'testLine2',
         applicant2SolicitorAddress3: 'testLine3',
@@ -348,6 +350,7 @@ describe('from-api-format', () => {
     {
       applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
       expected: {
+        applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
         applicant2SolicitorAddress1: '',
         applicant2SolicitorAddress2: '',
         applicant2SolicitorAddress3: '',

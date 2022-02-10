@@ -134,6 +134,7 @@ const fields: FromApiConverters = {
   applicant2SolicitorAddress: data => {
     const address = data.applicant2SolicitorAddress?.split('\n');
     return {
+      applicant2SolicitorAddress: data.applicant2SolicitorAddress,
       applicant2SolicitorAddress1: address?.[0],
       applicant2SolicitorAddress2: address?.[1],
       applicant2SolicitorAddress3: address?.[2],
