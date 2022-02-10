@@ -102,6 +102,9 @@ const fields: FromApiConverters = {
   dateFinalOrderEligibleFrom: data => ({
     dateFinalOrderEligibleFrom: dayjs(data.dateFinalOrderEligibleFrom).format('D MMMM YYYY'),
   }),
+  dateFinalOrderEligibleToRespondent: data => ({
+    dateFinalOrderEligibleToRespondent: dayjs(data.dateFinalOrderEligibleToRespondent).format('D MMMM YYYY'),
+  }),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),

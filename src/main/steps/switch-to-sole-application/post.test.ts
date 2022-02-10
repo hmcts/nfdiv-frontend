@@ -132,7 +132,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const body = {};
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, isApplicant2: true });
     (getCaseApiMock as jest.Mock).mockReturnValue({
       triggerEvent: jest.fn(() => {
         throw Error;
