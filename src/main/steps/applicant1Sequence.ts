@@ -31,6 +31,7 @@ import {
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   EQUALITY,
+  FINALISING_YOUR_APPLICATION,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -441,6 +442,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: FINALISING_YOUR_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   {
