@@ -323,8 +323,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: DO_YOU_HAVE_ADDRESS,
-    getNextStep: data =>
-      data.applicant1KnowsApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (
+        data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
+        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+      ) {
+        return NEED_TO_GET_ADDRESS;
+      } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
+        return OTHER_COURT_CASES;
+      } else {
+        return ENTER_THEIR_ADDRESS;
+      }
+    },
   },
   {
     url: NEED_TO_GET_ADDRESS,
