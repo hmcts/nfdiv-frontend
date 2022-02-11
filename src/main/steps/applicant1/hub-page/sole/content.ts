@@ -4,7 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
+import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -152,7 +152,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
     buttonText: 'Apply for a final order',
-    buttonLink: '/finalising-your-application',
+    buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${

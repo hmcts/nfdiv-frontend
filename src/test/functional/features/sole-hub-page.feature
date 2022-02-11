@@ -133,7 +133,7 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
     Given I click "Apply for a final order"
-    Then the page URL should be "/finalising-your-application"
+    And the page should include "Do you want to finalise your divorce?"
     Given I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife can now apply for a 'final order'."
