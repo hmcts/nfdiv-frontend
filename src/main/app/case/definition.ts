@@ -1235,7 +1235,7 @@ export const enum AlternativeServiceType {
 
 export const enum Applicant2Represented {
   YES = 'Yes',
-  No = 'No',
+  NO = 'No',
   NOT_SURE = 'notSure',
 }
 
