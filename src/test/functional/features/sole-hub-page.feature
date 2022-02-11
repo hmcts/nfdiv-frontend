@@ -100,15 +100,23 @@ Feature: Sole hub page
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
-  Scenario: Sole hub Awaiting clarification state
+  Scenario: Hub AwaitingClarification state to ClarificationSubmitted state without documents
     Given I set the case state to "AwaitingClarification"
     And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
+
     Given I click 'Respond to the court'
     Then the page URL should be '/provide-information-to-the-court'
+    And the page should include "Respond to the court"
+    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
+    And I type "test details"
+    And I select "I cannot upload some or all of my documents"
+    Then the page should include "You can post your documents to the court if you cannot upload them"
+    When I click "Continue"
+    Then the page should include "You or your husband need to post the documents requested by the court"
 
   Scenario: Sole hub AosOverdue state
     Given I set the case state to "AosOverdue"
@@ -133,7 +141,7 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
     Given I click "Apply for a final order"
-    Then the page URL should be "/finalising-your-application"
+    And the page should include "Do you want to finalise your divorce?"
     Given I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife can now apply for a 'final order'."

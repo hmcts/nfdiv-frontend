@@ -4,7 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
+import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -128,23 +128,22 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
       'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
-  awaitingClarification: {
-    line1: `The court has reviewed your application for a conditional order and needs some more information before
-    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
-    courtsFeedback: 'The court’s feedback',
-    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
-    next: 'What you need to do next',
-    line4: 'You need to respond to the court’s feedback before your application can proceed.',
-    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
-    buttonText: 'Respond to the court',
-    buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2:
+        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
     line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
@@ -152,7 +151,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
     buttonText: 'Apply for a final order',
-    buttonLink: '/finalising-your-application',
+    buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
@@ -173,6 +172,24 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  awaitingClarification: {
+    line1: `The court has reviewed your application for a conditional order and needs some more information before
+    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    courtsFeedback: 'The court’s feedback',
+    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+    buttonText: 'Respond to the court',
+    buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
+  },
 });
 
 // @TODO translations
@@ -201,6 +218,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingLegalAdvisorReferral,
     State.AwaitingClarification,
     State.ClarificationSubmitted,
+    State.AwaitingAmendedApplication,
     State.AwaitingPronouncement,
     State.ConditionalOrderPronounced,
     State.AwaitingFinalOrder,
@@ -218,11 +236,13 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
     progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
+    isClarificationDocumentsUploaded,
   };
 };

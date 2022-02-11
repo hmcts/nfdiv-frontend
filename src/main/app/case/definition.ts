@@ -361,6 +361,7 @@ export interface Bailiff {
 
 export interface CaseData {
   applicationType: ApplicationType;
+  applicant1IsApplicant2Represented: Applicant2Represented;
   divorceOrDissolution: DivorceOrDissolution;
   labelContentApplicant2: string;
   labelContentTheApplicant2: string;
@@ -1216,6 +1217,12 @@ export const enum Applicant2Represented {
 export const enum ApplicationType {
   SOLE_APPLICATION = 'soleApplication',
   JOINT_APPLICATION = 'jointApplication',
+}
+
+export const enum Applicant2Represented {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_SURE = 'notSure',
 }
 
 export const enum ChangedNameHow {

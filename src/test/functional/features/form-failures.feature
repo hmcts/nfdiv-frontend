@@ -215,6 +215,10 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
 
+    Given I go to "/do-they-have-a-solicitor"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. Select an answer before continuing."
+
     Given I go to "/enter-solicitor-details"
     And I select "Solicitor email address (optional)"
     And I type "test"

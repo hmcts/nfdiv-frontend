@@ -12,6 +12,7 @@ export class AppInsights {
         .setAutoCollectExceptions(true)
         .start();
 
+      appInsights.defaultClient.addTelemetryProcessor((env, ctx) => ctx['http.ServerResponse']?.statusCode !== 404);
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'nfdiv-frontend';
       appInsights.defaultClient.trackTrace({ message: 'App insights activated' });
     }

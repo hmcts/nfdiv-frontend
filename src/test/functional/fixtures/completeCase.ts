@@ -1,5 +1,6 @@
 import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
 import {
+  Applicant2Represented,
   ApplicationType,
   DivorceOrDissolution,
   DocumentType,
@@ -64,4 +65,5 @@ export const completeCase: Partial<BrowserCase> = {
   applicant1ScreenHasUnionBroken: YesOrNo.YES,
   applicant1UploadedFiles: [],
   connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
+  applicant1IsApplicant2Represented: Applicant2Represented.NO,
 };

@@ -47,9 +47,11 @@ export const form: FormContent = {
       classes: 'govuk-input--width-40',
       label: l => l.response,
       validator: (value, formData) => {
-        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+        const hasUploadedFiles =
+          (formData.coClarificationUploadedFiles as unknown as string[])?.length &&
+          (formData.coClarificationUploadedFiles as unknown as string) !== '[]';
         const selectedCannotUploadDocuments = !!formData.coCannotUploadClarificationDocuments?.length;
-        const hasEnteredResponse = !isEmpty(formData.coClarificationResponses);
+        const hasEnteredResponse = !isEmpty(value);
         if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredResponse) {
           return 'required';
         }

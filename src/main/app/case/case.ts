@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  Applicant2Represented,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -107,9 +108,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
+  applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
+  dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
   applicant2SolicitorName: 'applicant2SolicitorName',
   applicant2SolicitorEmail: 'applicant2SolicitorEmail',
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
@@ -264,12 +267,15 @@ export interface Case {
   coApplicant1SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
+  applicant1IsApplicant2Represented: Applicant2Represented;
   coRefusalClarificationAdditionalInfo?: string;
   dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
+  doesApplicant1WantToApplyForFinalOrder?: Checkbox;
+  dateFinalOrderNoLongerEligible?: DateAsString;
   applicant2SolicitorName: string;
   applicant2SolicitorEmail: string;
   applicant2SolicitorFirmName: string;
