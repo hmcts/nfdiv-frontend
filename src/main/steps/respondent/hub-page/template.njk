@@ -4,6 +4,9 @@
   {% if userCase.state == 'ConditionalOrderPronounced' %}
     {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
+  {% elif userCase.state == 'ClarificationSubmitted' %}
+    {% include "./latest-update-content/clarification-submitted.njk" %}
+
   {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
     {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
 
