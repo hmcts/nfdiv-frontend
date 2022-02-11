@@ -107,11 +107,10 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
+
     Given I click 'Respond to the court'
     Then the page URL should be '/provide-information-to-the-court'
-
-    When I click "Respond to the court"
-    Then the page should include "Respond to the court"
+    And the page should include "Respond to the court"
     Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
     And I type "test details"
     And I select "I cannot upload some or all of my documents"
