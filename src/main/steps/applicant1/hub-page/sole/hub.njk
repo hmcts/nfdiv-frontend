@@ -37,6 +37,9 @@
 {% elif userCase.state == 'AwaitingClarification' %}
   {% include "./latest-update-content/awaiting-clarification.njk" %}
 
+{% elif userCase.state == 'ClarificationSubmitted' %}
+  {% include "./latest-update-content/clarification-submitted.njk" %}
+
 {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
   {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
 
