@@ -297,7 +297,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line4: `${
         isJointApplication
           ? ''
-          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
+          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
       }`,
       line5: `${userCase.applicant2EmailAddress}`,
       line6: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,

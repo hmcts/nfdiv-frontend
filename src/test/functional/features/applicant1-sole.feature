@@ -342,9 +342,7 @@ Feature: Applicant 1 sole application
     Given I select "Yes"
 
     When I click "Continue"
-    Then the page URL should be "/enter-solicitor-details"
-
-    Given I go to "/their-email-address"
+    Then the page URL should be "/their-email-address"
     Then the page should include "Enter your husband's email address"
     Given I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
