@@ -43,7 +43,7 @@ describe('to-api-format', () => {
     applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
     applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
     jurisdictionResidualEligible: Checkbox.Checked,
-    doesApplicantWantToApplyForFinalOrder: Checkbox.Checked,
+    doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
     applicant2AgreeToReceiveEmails: Checkbox.Checked,
     applicant1UploadedFiles: [],
     applicant2UploadedFiles: [],

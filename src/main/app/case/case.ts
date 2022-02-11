@@ -269,7 +269,7 @@ export interface Case {
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
-  doesApplicantWantToApplyForFinalOrder?: Checkbox;
+  doesApplicant1WantToApplyForFinalOrder?: Checkbox;
   dateFinalOrderNoLongerEligible?: DateAsString;
 }
 

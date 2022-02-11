@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   },
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'}`,
   errors: {
-    doesApplicantWantToApplyForFinalOrder: {
+    doesApplicant1WantToApplyForFinalOrder: {
       required:
         'You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out.',
     },
@@ -35,13 +35,13 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    doesApplicantWantToApplyForFinalOrder: {
+    doesApplicant1WantToApplyForFinalOrder: {
       type: 'checkboxes',
       label: l => l.confirmBeforeSubmit,
       labelSize: 'm',
       values: [
         {
-          name: 'doesApplicantWantToApplyForFinalOrder',
+          name: 'doesApplicant1WantToApplyForFinalOrder',
           label: l => l.checkboxLine,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
