@@ -105,6 +105,22 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
   },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2: 'address',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
   awaitingPronouncement: {
     line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
