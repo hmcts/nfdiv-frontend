@@ -28,6 +28,7 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
+  DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
   ENTER_THEIR_ADDRESS,
@@ -289,7 +290,11 @@ export const applicant1Sequence: Step[] = [
         ? ADDRESS_PRIVATE
         : data.applicationType === ApplicationType.JOINT_APPLICATION
         ? OTHER_COURT_CASES
-        : THEIR_EMAIL_ADDRESS,
+        : DO_THEY_HAVE_A_SOLICITOR,
+  },
+  {
+    url: DO_THEY_HAVE_A_SOLICITOR,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,

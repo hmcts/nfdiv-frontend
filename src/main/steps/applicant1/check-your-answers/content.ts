@@ -2,7 +2,14 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, ChangedNameHow, FinancialOrderFor, Gender, YesOrNo } from '../../../app/case/definition';
+import {
+  Applicant2Represented,
+  ApplicationType,
+  ChangedNameHow,
+  FinancialOrderFor,
+  Gender,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -127,9 +134,10 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line1: `Your ${partner}'s first name(s)`,
       line2: `Your ${partner}'s middle name(s)`,
       line3: `Your ${partner}'s last name(s)`,
-      line4: `Your ${partner}'s email address`,
-      line5: `Do you have your ${partner}'s postal address?`,
-      line6: `Your ${partner}'s postal address`,
+      line4: `Does your ${partner} have a solicitor representing them?`,
+      line5: `Your ${partner}'s email address`,
+      line6: `Do you have your ${partner}'s postal address?`,
+      line7: `Your ${partner}'s postal address`,
     },
     otherCourtCases: {
       line1: `Are there, or have there ever been, any other court cases relating to this ${
@@ -286,9 +294,14 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
       line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
       line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2EmailAddress}`,
-      line5: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
-      line6: `${
+      line4: `${
+        isJointApplication
+          ? ''
+          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
+      }`,
+      line5: `${userCase.applicant2EmailAddress}`,
+      line6: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
+      line7: `${
         isJointApplication
           ? ''
           : [
@@ -397,9 +410,10 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line1: urls.THEIR_NAME,
       line2: urls.THEIR_NAME,
       line3: urls.THEIR_NAME,
-      line4: urls.THEIR_EMAIL_ADDRESS,
-      line5: urls.DO_YOU_HAVE_ADDRESS,
-      line6: urls.ENTER_THEIR_ADDRESS,
+      line4: urls.DO_THEY_HAVE_A_SOLICITOR,
+      line5: urls.THEIR_EMAIL_ADDRESS,
+      line6: urls.DO_YOU_HAVE_ADDRESS,
+      line7: urls.ENTER_THEIR_ADDRESS,
     },
     otherCourtCases: {
       line1: urls.OTHER_COURT_CASES,
@@ -545,9 +559,10 @@ const cy: typeof en = ({
       line1: `Your ${partner}'s first name(s)`,
       line2: `Your ${partner}'s middle name(s)`,
       line3: `Your ${partner}'s last name(s)`,
-      line4: `Your ${partner}'s email address`,
-      line5: `A oes gennych gyfeiriad post eich ${partner}?`,
-      line6: `Your ${partner}'s postal address`,
+      line4: `Does your ${partner} have a solicitor representing them?`,
+      line5: `Your ${partner}'s email address`,
+      line6: `A oes gennych gyfeiriad post eich ${partner}?`,
+      line7: `Your ${partner}'s postal address`,
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
@@ -704,9 +719,14 @@ const cy: typeof en = ({
       line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
       line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
       line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2EmailAddress}`,
-      line5: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
-      line6: `${
+      line4: `${
+        isJointApplication
+          ? ''
+          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
+      }`,
+      line5: `${userCase.applicant2EmailAddress}`,
+      line6: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
+      line7: `${
         isJointApplication
           ? ''
           : [
