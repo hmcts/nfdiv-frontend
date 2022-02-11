@@ -113,6 +113,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
+  dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -271,6 +272,8 @@ export interface Case {
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
+  doesApplicant1WantToApplyForFinalOrder?: Checkbox;
+  dateFinalOrderNoLongerEligible?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
@@ -33,6 +35,7 @@ import {
   ENTER_YOUR_ADDRESS,
   EQUALITY,
   FINALISING_YOUR_APPLICATION,
+  FINAL_ORDER_LATE,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -451,7 +454,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: data => (dayjs(data.dateFinalOrderNoLongerEligible).diff(dayjs()) < 0 ? FINAL_ORDER_LATE : HUB_PAGE),
   },
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,
