@@ -68,10 +68,6 @@ Feature: Sole conditional order
     Then the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
     Then I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    And I select "I cannot upload some or all of my documents"
-    Then the page should include "You can post your documents to the court"
 
     When I click "Continue"
     Then the page URL should be "/hub-page"
