@@ -9,6 +9,7 @@ import {
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
+import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -154,7 +155,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
     line3: 'If you apply then you may both have to come to court.',
     buttonText: 'Apply for a final order',
-    buttonLink: '/respondent/finalising-your-application',
+    buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
 });
 

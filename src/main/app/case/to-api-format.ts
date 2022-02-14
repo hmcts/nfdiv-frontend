@@ -57,6 +57,9 @@ const fields: ToApiConverters = {
   jurisdictionResidualEligible: data => ({
     jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
   }),
+  doesApplicant1WantToApplyForFinalOrder: data => ({
+    doesApplicantWantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
+  }),
   applicant1HelpWithFeesRefNo: data => ({
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
       ? data.applicant1HelpWithFeesRefNo
@@ -239,6 +242,17 @@ const fields: ToApiConverters = {
           },
         ]
       : [],
+  }),
+  applicant2SolicitorAddress1: data => ({
+    applicant2SolicitorAddress: [
+      data.applicant2SolicitorAddress1,
+      data.applicant2SolicitorAddress2,
+      data.applicant2SolicitorAddress3,
+      data.applicant2SolicitorAddressTown,
+      data.applicant2SolicitorAddressCounty,
+      data.applicant2SolicitorAddressPostcode,
+      data.applicant2SolicitorAddressCountry,
+    ].join('\n'),
   }),
 };
 

@@ -57,7 +57,7 @@ export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
-export const DO_THEY_HAVE_A_SOLICITOR = '/do-they-have-a-solicitor';
+export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
 export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
@@ -123,3 +123,4 @@ export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-condit
 export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-to-the-court';
 
 export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-application';
+export const FINAL_ORDER_LATE: PageLink = '/final-order-late';
