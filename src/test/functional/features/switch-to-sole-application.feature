@@ -7,7 +7,7 @@ Feature: Switch To Sole Application
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
 
-  Scenario: Switching to Sole application by Applicant 1
+  Scenario: Switching to Sole application by Applicant one
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
@@ -48,7 +48,7 @@ Feature: Switch To Sole Application
     Then the page URL should be "/check-your-answers"
 
 
-  Scenario: Switching to Sole application by Applicant 2
+  Scenario: Switching to Sole application by Applicant two
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
