@@ -134,6 +134,19 @@ const fields: FromApiConverters = {
   coClarificationResponses: data => ({
     coClarificationResponses: data.coClarificationResponses?.length ? data.coClarificationResponses?.[0].value : '',
   }),
+  applicant2SolicitorAddress: data => {
+    const address = data.applicant2SolicitorAddress?.split('\n');
+    return {
+      applicant2SolicitorAddress: data.applicant2SolicitorAddress,
+      applicant2SolicitorAddress1: address?.[0],
+      applicant2SolicitorAddress2: address?.[1],
+      applicant2SolicitorAddress3: address?.[2],
+      applicant2SolicitorAddressTown: address?.[3],
+      applicant2SolicitorAddressCounty: address?.[4],
+      applicant2SolicitorAddressPostcode: address?.[5],
+      applicant2SolicitorAddressCountry: address?.[6],
+    };
+  },
 };
 
 const fromApiDate = date => {
