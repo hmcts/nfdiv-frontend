@@ -97,15 +97,6 @@ Feature: Sole hub page
     Then the page should include "Refusal reason test"
     And the page should include "What you need to do now"
 
-    Given I set the case state to "ConditionalOrderPronounced"
-    When I go to "/"
-    Then the page should include "You have been granted a 'conditional order' by the court."
-    And the page should include "You can read and download your certificate of entitlement"
-    Given I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You have been granted a 'conditional order' by the court."
-    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
-
     Given I click 'Respond to the court'
     Then the page URL should be '/provide-information-to-the-court'
     And the page should include "Respond to the court"
@@ -115,6 +106,16 @@ Feature: Sole hub page
     Then the page should include "You can post your documents to the court if you cannot upload them"
     When I click "Continue"
     Then the page should include "You or your husband need to post the documents requested by the court"
+
+    Given I set the case state to "ConditionalOrderPronounced"
+    When I go to "/"
+    Then the page URL should be "/applicant2/hub-page"
+    Then the page should include "You have been granted a 'conditional order' by the court."
+    And the page should include "You can read and download your certificate of entitlement"
+    Given I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You have been granted a 'conditional order' by the court."
+    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
     Given I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
