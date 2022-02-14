@@ -342,6 +342,11 @@ Feature: Applicant 1 sole application
     Given I select "Yes"
 
     When I click "Continue"
+    Then the page should include "Enter their solicitor’s details"
+    Given I select "Solicitor email address (optional)"
+    And I type "simulate-delivered@notifications.service.gov.uk"
+
+    When I click "Continue"
     Then the page URL should be "/their-email-address"
     Then the page should include "Enter your husband's email address"
     Given I select "Your husband's email address"
