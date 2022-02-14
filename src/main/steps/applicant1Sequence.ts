@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
@@ -26,11 +28,15 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
+  DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
+  ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   EQUALITY,
+  FINALISING_YOUR_APPLICATION,
+  FINAL_ORDER_LATE,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -285,7 +291,15 @@ export const applicant1Sequence: Step[] = [
         ? ADDRESS_PRIVATE
         : data.applicationType === ApplicationType.JOINT_APPLICATION
         ? OTHER_COURT_CASES
-        : THEIR_EMAIL_ADDRESS,
+        : DO_THEY_HAVE_A_SOLICITOR,
+  },
+  {
+    url: DO_THEY_HAVE_A_SOLICITOR,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
+  },
+  {
+    url: ENTER_SOLICITOR_DETAILS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -442,6 +456,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: FINALISING_YOUR_APPLICATION,
+    getNextStep: data => (dayjs(data.dateFinalOrderNoLongerEligible).diff(dayjs()) < 0 ? FINAL_ORDER_LATE : HUB_PAGE),
   },
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,

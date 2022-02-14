@@ -9,6 +9,7 @@ import {
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
+import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -104,6 +105,22 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
   },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2: 'address',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
   awaitingPronouncement: {
     line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
@@ -119,12 +136,26 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       .subtract(7, 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .add(43, 'day')
-      .format('D MMMM YYYY')}. This is the final step in the ${
-      isDivorce ? 'divorce ' : ''
-    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+      userCase.dateFinalOrderEligibleFrom
+    )}. This is the final step in the ${isDivorce ? 'divorce ' : ''}process and will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
+     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
+     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `If they do not apply by ${userCase.dateFinalOrderEligibleToRespondent}
+     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
+    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
+    line3: 'If you apply then you may both have to come to court.',
+    buttonText: 'Apply for a final order',
+    buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
 });
 
@@ -139,7 +170,10 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
+  const isRespondentAbleToApplyForFinalOrder =
+    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   return {
+    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
     ...languages[content.language](content),
   };

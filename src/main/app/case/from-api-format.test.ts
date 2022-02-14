@@ -33,10 +33,12 @@ describe('from-api-format', () => {
     applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
     dateFinalOrderEligibleFrom: '2021-07-26',
+    dateFinalOrderEligibleToRespondent: '2021-07-26',
     howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     coApplicant1StatementOfTruth: YesOrNo.YES,
     coApplicant2StatementOfTruth: YesOrNo.YES,
     jurisdictionResidualEligible: YesOrNo.YES,
+    doesApplicantWantToApplyForFinalOrder: YesOrNo.YES,
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
@@ -77,10 +79,12 @@ describe('from-api-format', () => {
       applicant2IConfirmPrayer: Checkbox.Checked,
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
+      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
       jurisdictionResidualEligible: Checkbox.Checked,
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
@@ -136,10 +140,12 @@ describe('from-api-format', () => {
       dateSubmitted: '1 January 2021',
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
+      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
       jurisdictionResidualEligible: Checkbox.Checked,
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
@@ -174,10 +180,12 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
+      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: null,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
       jurisdictionResidualEligible: Checkbox.Checked,
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
@@ -212,10 +220,12 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       dueDate: '26 July 2021',
       dateFinalOrderEligibleFrom: '26 July 2021',
+      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.NO,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
       jurisdictionResidualEligible: Checkbox.Checked,
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
@@ -324,5 +334,38 @@ describe('from-api-format', () => {
     expect(nfdivFormat).toMatchObject({
       coClarificationResponses: '',
     });
+  });
+
+  test.each([
+    {
+      applicant2SolicitorAddress:
+        'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+      expected: {
+        applicant2SolicitorAddress:
+          'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+        applicant2SolicitorAddress1: 'testLine1',
+        applicant2SolicitorAddress2: 'testLine2',
+        applicant2SolicitorAddress3: 'testLine3',
+        applicant2SolicitorAddressTown: 'testLineTown',
+        applicant2SolicitorAddressCounty: 'testLineCounty',
+        applicant2SolicitorAddressPostcode: 'testLinePostcode',
+        applicant2SolicitorAddressCountry: 'testLineCountry',
+      },
+    },
+    {
+      applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+      expected: {
+        applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+        applicant2SolicitorAddress1: '',
+        applicant2SolicitorAddress2: '',
+        applicant2SolicitorAddress3: '',
+        applicant2SolicitorAddressTown: '',
+        applicant2SolicitorAddressCounty: '',
+        applicant2SolicitorAddressPostcode: 'testLinePostcode',
+        applicant2SolicitorAddressCountry: '',
+      },
+    },
+  ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
+    expect(fromApiFormat(formData as unknown as CaseData)).toMatchObject(expected);
   });
 });
