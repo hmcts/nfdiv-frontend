@@ -78,15 +78,6 @@ Feature: Sole hub page
     Then the page should include "You have applied for a ‘conditional order’. The court will check your application and send it to a judge."
     And the page should include "After your conditional order is pronounced, you then have to apply for a ‘final order’."
 
-  Scenario: Sole hub AwaitingConditionalOrder state
-    Given I set the case state to "AwaitingConditionalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
-    When I go to "/"
-    Then the page should include "You can now apply for a ‘conditional order’."
-    Then the page should include "Apply for conditional order"
-
-  Scenario: Sole hub AwaitingPronouncement and Update Court Case Hearing event
     Given I set the case state to "AwaitingPronouncement"
     And a case worker updates court case hearing
     When I click "Sign out"
@@ -99,7 +90,6 @@ Feature: Sole hub page
     And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
-  Scenario: Hub AwaitingClarification state to ClarificationSubmitted state without documents
     Given I set the case state to "AwaitingClarification"
     And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
@@ -126,24 +116,6 @@ Feature: Sole hub page
     When I click "Continue"
     Then the page should include "You or your husband need to post the documents requested by the court"
 
-  Scenario: Sole hub AosOverdue state
-    Given I set the case state to "AosOverdue"
-    When I click "Sign out"
-    And I login with applicant "1"
-    When I go to "/"
-    Then the page should include "Your husband should have responded to your divorce application"
-    Given I go to "/how-you-can-proceed"
-    Then the page should include "How to proceed with your divorce"
-    And the page should include "I have another email address or postal address for my husband"
-    And the page should include "I have their email address but not their postal address"
-    And the page should include "I need to search government records for my husband's postal address"
-    And the page should include "I think my husband is receiving the application but is choosing not to respond"
-    And the page should include "I have evidence that my husband has received the application, but will not or cannot respond"
-    And the page should include "I've tried every possible way of delivering the application"
-    When I click "Review your contact details"
-    Then the page URL should be "/check-contact-details"
-
-  Scenario: Sole hub AwaitingFinalOrder or FinalOrderOverdue state
     Given I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
