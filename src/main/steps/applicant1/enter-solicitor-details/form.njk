@@ -1,0 +1,13 @@
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'applicant2SolicitorAddress1' %}
+      <br>
+      <p class="govuk-body">{{ solicitorAddress }}</p>
+      <p class="govuk-hint">{{ solicitorAddressHint }}</p>
+    {% endif %}
+
+    {% include "common/form/fields/" + field.type + ".njk" %}
+  {% endfor %}
+{% endblock %}
