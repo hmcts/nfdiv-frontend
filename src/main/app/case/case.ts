@@ -87,7 +87,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
-  applicant2SolicitorAddress: 'applicant2SolicitorAddress',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
@@ -114,6 +113,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
   dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
+  applicant2SolicitorName: 'applicant2SolicitorName',
+  applicant2SolicitorEmail: 'applicant2SolicitorEmail',
+  applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -274,6 +276,16 @@ export interface Case {
   coClarificationUploadedFiles?: UploadedFile[];
   doesApplicant1WantToApplyForFinalOrder?: Checkbox;
   dateFinalOrderNoLongerEligible?: DateAsString;
+  applicant2SolicitorName: string;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorFirmName: string;
+  applicant2SolicitorAddress1?: string;
+  applicant2SolicitorAddress2?: string;
+  applicant2SolicitorAddress3?: string;
+  applicant2SolicitorAddressTown?: string;
+  applicant2SolicitorAddressCounty?: string;
+  applicant2SolicitorAddressPostcode?: string;
+  applicant2SolicitorAddressCountry?: string;
 }
 
 export interface CaseWithId extends Case {

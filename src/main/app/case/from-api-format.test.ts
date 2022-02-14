@@ -335,4 +335,37 @@ describe('from-api-format', () => {
       coClarificationResponses: '',
     });
   });
+
+  test.each([
+    {
+      applicant2SolicitorAddress:
+        'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+      expected: {
+        applicant2SolicitorAddress:
+          'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+        applicant2SolicitorAddress1: 'testLine1',
+        applicant2SolicitorAddress2: 'testLine2',
+        applicant2SolicitorAddress3: 'testLine3',
+        applicant2SolicitorAddressTown: 'testLineTown',
+        applicant2SolicitorAddressCounty: 'testLineCounty',
+        applicant2SolicitorAddressPostcode: 'testLinePostcode',
+        applicant2SolicitorAddressCountry: 'testLineCountry',
+      },
+    },
+    {
+      applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+      expected: {
+        applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+        applicant2SolicitorAddress1: '',
+        applicant2SolicitorAddress2: '',
+        applicant2SolicitorAddress3: '',
+        applicant2SolicitorAddressTown: '',
+        applicant2SolicitorAddressCounty: '',
+        applicant2SolicitorAddressPostcode: 'testLinePostcode',
+        applicant2SolicitorAddressCountry: '',
+      },
+    },
+  ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
+    expect(fromApiFormat(formData as unknown as CaseData)).toMatchObject(expected);
+  });
 });
