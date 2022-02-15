@@ -139,7 +139,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
         .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
     withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line1: 'You need to post the documents requested by the court:',
       line2:
         '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'You will receive an update when your documents have been received and checked.',
