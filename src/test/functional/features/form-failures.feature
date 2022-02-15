@@ -249,6 +249,15 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
 
+    Given I go to "/finalising-your-application"
+    When I click "Continue"
+    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
+
+    Given I go to "/explain-the-delay"
+    When I click "Continue"
+    Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
+    And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
+
     Given I've already completed the form using the fixture "completeCase"
     And I go to "/check-your-answers"
     When I click "Continue"

@@ -1,7 +1,11 @@
-import dayjs from 'dayjs';
-
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
+import {
+  Applicant2Represented,
+  ApplicationType,
+  JurisdictionConnections,
+  State,
+  YesOrNo,
+} from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -35,8 +39,8 @@ import {
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   EQUALITY,
+  EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
-  FINAL_ORDER_LATE,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -295,7 +299,10 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: data =>
+      data.applicant1IsApplicant2Represented === Applicant2Represented.YES
+        ? ENTER_SOLICITOR_DETAILS
+        : THEIR_EMAIL_ADDRESS,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,
@@ -317,8 +324,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: DO_YOU_HAVE_ADDRESS,
-    getNextStep: data =>
-      data.applicant1KnowsApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (
+        data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
+        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+      ) {
+        return NEED_TO_GET_ADDRESS;
+      } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
+        return OTHER_COURT_CASES;
+      } else {
+        return ENTER_THEIR_ADDRESS;
+      }
+    },
   },
   {
     url: NEED_TO_GET_ADDRESS,
@@ -459,7 +476,11 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data => (dayjs(data.dateFinalOrderNoLongerEligible).diff(dayjs()) < 0 ? FINAL_ORDER_LATE : HUB_PAGE),
+    getNextStep: data => (data.state === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+  },
+  {
+    url: EXPLAIN_THE_DELAY,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,

@@ -3,14 +3,18 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ partner, isDivorce, isJointApplication }) => ({
+const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,
   line1: `It’s important you provide ${
     isJointApplication
       ? `your ${partner}'s email address so they can join and review your joint application before it’s submitted to the court.`
-      : `their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
+      : `their email address ${
+          hasEnteredSolicitorDetails ? 'because the court may need to' : 'so the court can'
+        } ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
           isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
-        } will be served (delivered) by post. The emails will also contain information and updates relating to ${
+        } ${
+          hasEnteredSolicitorDetails ? 'may' : 'will'
+        } be served (delivered) by post. The emails will also contain information and updates relating to ${
           isDivorce ? 'the divorce' : 'ending your civil partnership'
         }.`
   }`,
@@ -88,7 +92,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const { userCase, language } = content;
+  const hasEnteredSolicitorDetails = userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
+  const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
   return {
     ...translations,
     form,
