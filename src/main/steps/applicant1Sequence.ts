@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import { CaseWithId, Checkbox } from '../app/case/case';
 import {
   Applicant2Represented,
@@ -478,7 +476,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data => (dayjs(data.dateFinalOrderNoLongerEligible).diff(dayjs()) < 0 ? EXPLAIN_THE_DELAY : HUB_PAGE),
+    getNextStep: data => (data.state === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,

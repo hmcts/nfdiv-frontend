@@ -9,7 +9,7 @@ const en = {
     'You are making this application for a final order over one year from when the conditional order was made. ' +
     'Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application.',
   finalOrderStatementOfTruth: 'I believe that the facts stated in this application are true',
-  confirmApplicationIsTrueHint:
+  confirmApplicationIsTrueMoreInformation:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. ' +
     'It’s known as your ‘statement of truth’.',
   errors: {

@@ -9,13 +9,11 @@ import FinalisingYourApplicationPostController from './post';
 describe('FinalisingYourApplicationPostController', () => {
   it('triggers CITIZEN_FINAL_ORDER_REQUESTED', async () => {
     const body = {
-      applicant1FinalOrderLateExplanation: 'Test FO late explanation',
-      applicant1FinalOrderStatementOfTruth: Checkbox.Checked,
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
     };
     const mockFormContent = {
       fields: {
-        applicant1FinalOrderLateExplanation: {},
-        applicant1FinalOrderStatementOfTruth: {},
+        doesApplicant1WantToApplyForFinalOrder: {},
       },
     } as unknown as FormContent;
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
