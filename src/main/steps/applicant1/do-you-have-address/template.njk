@@ -5,6 +5,8 @@
   <p class="govuk-body">{{ line1 | safe }}</p>
   <div class="govuk-inset-text">
     <p class="govuk-body">{{ line2 }}</p>
-    <p class="govuk-body">{{ line3 }}</p>
+    {% if line3 %}
+      <p class="govuk-body">{{ line3 }}</p>
+    {% endif %}
   </div>
 {% endblock %}
