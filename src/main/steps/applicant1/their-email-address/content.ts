@@ -18,7 +18,8 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
           isDivorce ? 'the divorce' : 'ending your civil partnership'
         }.`
   }`,
-  line2: 'If you use their work email address, you should ask their permission first.',
+  line2:
+    'Enter the email address which they actively use for personal emails. You should avoid using their work email address because it may not be private.',
   applicant2EmailAddress: `Your ${partner}'s email address`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
