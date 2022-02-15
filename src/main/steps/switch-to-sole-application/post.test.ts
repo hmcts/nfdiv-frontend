@@ -1,13 +1,10 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as caseApi from '../../app/case/CaseApi';
-import { ApplicationType, DivorceOrDissolution, SWITCH_TO_SOLE, State } from '../../app/case/definition';
+import { ApplicationType, SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { HOME_URL, PAY_AND_SUBMIT, SWITCH_TO_SOLE_APPLICATION, YOUR_DETAILS_URL } from '../urls';
 
 import { SwitchToSoleApplicationPostController } from './post';
-
-const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('SwitchToSoleApplicationPostController', () => {
   const mockFormContent = {
@@ -25,29 +22,11 @@ describe('SwitchToSoleApplicationPostController', () => {
     const req = mockRequest({ body });
     req.originalUrl = SWITCH_TO_SOLE_APPLICATION;
 
-    (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(),
-      getOrCreateCase: jest.fn(() => {
-        return {
-          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          applicant1FirstName: 'test',
-          applicant1LastName: 'user',
-          applicant1Email: 'test_user@email.com',
-        };
-      }),
-    });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      {
-        divorceOrDissolution: 'divorce',
-        id: '1234',
-      },
-      SWITCH_TO_SOLE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -63,17 +42,6 @@ describe('SwitchToSoleApplicationPostController', () => {
     const req = mockRequest({ body, isApplicant2: true });
     req.originalUrl = SWITCH_TO_SOLE_APPLICATION;
 
-    (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(),
-      getOrCreateCase: jest.fn(() => {
-        return {
-          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          applicant1FirstName: 'test',
-          applicant1LastName: 'user',
-          applicant1Email: 'test_user@email.com',
-        };
-      }),
-    });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
@@ -117,12 +85,6 @@ describe('SwitchToSoleApplicationPostController', () => {
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, isApplicant2: true });
-    (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(() => {
-        throw Error;
-      }),
-      getOrCreateCase: jest.fn(),
-    });
     const res = mockResponse();
     await controller.post(req, res);
 
