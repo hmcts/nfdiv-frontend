@@ -66,6 +66,9 @@ const fields: FromApiConverters = {
     applicant1DoesNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
+  applicant1FinalOrderStatementOfTruth: data => ({
+    applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
+  }),
   applicant1ContactDetailsType: ({ applicant1ContactDetailsType }) => ({
     applicant1AddressPrivate: applicant1ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),

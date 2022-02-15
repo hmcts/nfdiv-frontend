@@ -748,6 +748,8 @@ export interface CaseData {
   nocAreTheyDigital: YesOrNo;
   bulkScanEnvelopes: ListValue<BulkScanEnvelope>[];
   bulkScanCaseReference: string;
+  applicant1FinalOrderLateExplanation: string;
+  applicant1FinalOrderStatementOfTruth: YesOrNo;
 }
 
 export interface CaseInvite {
@@ -853,6 +855,8 @@ export interface FinalOrder {
   granted: Granted[];
   grantedDate: DateAsString;
   doesApplicantWantToApplyForFinalOrder: YesOrNo;
+  applicant1FinalOrderLateExplanation: string;
+  applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderEligibleToRespondent: DateAsString;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
@@ -1857,11 +1861,13 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_FINAL_ORDER_REQUESTED = 'citizen-final-order-requested';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const UPDATE_AOS = 'update-aos';
