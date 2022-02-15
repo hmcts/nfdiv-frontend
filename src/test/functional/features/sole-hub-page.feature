@@ -135,30 +135,4 @@ Feature: Sole hub page
     When I click "Review your contact details"
     Then the page URL should be "/check-contact-details"
 
-  Scenario: Sole hub AwaitingFinalOrder or FinalOrderOverdue state
-    Given I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
-    Given I click "Apply for a final order"
-    And the page should include "Do you want to finalise your divorce?"
-    Given I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife can now apply for a 'final order'."
 
-    Given I set the case state to "FinalOrderOverdue"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
-    Given I click "Apply for a final order"
-    Then the page URL should be "/finalising-your-application"
-    Given I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife can now apply for a 'final order'."
-
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-05-05"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife has still not applied for a 'final order'"
-    Given I click "Apply for a final order"
-    Then the page URL should be '/respondent/finalising-your-application'
