@@ -1,8 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getSystemUser } from '../../app/auth/user/oidc';
-import { getCaseApi } from '../../app/case/CaseApi';
 import { CaseWithId } from '../../app/case/case';
 import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -19,19 +17,10 @@ export class SwitchToSoleApplicationPostController {
       return res.redirect(req.session.userCase.state === State.AwaitingPayment ? PAY_AND_SUBMIT : HOME_URL);
     }
 
-    if (req.session.isApplicant2) {
-      const caseworkerUser = await getSystemUser();
-      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-    }
-
     req.session.errors = [];
 
     try {
-      req.session.userCase = await req.locals.api.triggerEvent(
-        req.session.userCase.id,
-        req.session.userCase,
-        SWITCH_TO_SOLE
-      );
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE);
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
