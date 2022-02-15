@@ -90,7 +90,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
-  disputeApplication: 'disputeApplication',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
