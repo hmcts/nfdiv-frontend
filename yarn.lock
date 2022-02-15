@@ -2211,14 +2211,14 @@
     "@uppy/utils" "^4.0.4"
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.1.4.tgz#168ce748bf545312b54c75125a87d05f702f3c98"
-  integrity sha512-tVC44D66BbISD3gJaqH3xUrVEP5Pah0cDQV98sI3N6W6yMSOW4m3xuhqhcWvEd4DolKCp0vyvc/pW6rsQbMVRA==
+"@uppy/core@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.1.5.tgz#29464c0cc37bf1f931d2d3747a6a145c438a0d9a"
+  integrity sha512-rLLZpShV66LbeRhg64pKf4N4ZU2xBqXNebekXgvaiuADW046SlmxhgCl955pyj057Lqp562TIUMIfF0lC9iusw==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^2.0.3"
-    "@uppy/utils" "^4.0.4"
+    "@uppy/utils" "^4.0.5"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
@@ -2253,7 +2253,7 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-2.0.3.tgz#47ad4fc4816d21955ff37d6bb5096a93278c29e2"
   integrity sha512-2BGlN1sW0cFv4rOqTK8dfSg579S984N1HxCJxLFqeW9nWD6zd/O8Omyd85tbxGQ+FLZLTmLOm/feD0YeCBMahg==
 
-"@uppy/utils@^4.0.3", "@uppy/utils@^4.0.4":
+"@uppy/utils@^4.0.3", "@uppy/utils@^4.0.4", "@uppy/utils@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.5.tgz#0feda6e03d13af2fec969b146d7410462a8d2d48"
   integrity sha512-uRv921A69UMjuWCLSC5tKXuIVoMOROVpFstIAQv5CoiCOCXyofcWpvAqELT7qlQJ5VRWha3uF5d/Z94SNnwxew==
@@ -8824,12 +8824,7 @@ nan@^2.13.2:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.15.0.tgz#3f34a473ff18e15c1b5626b62903b5ad6e665fee"
   integrity sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==
 
-nanoid@^3.1.25:
-  version "3.1.32"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.32.tgz#8f96069e6239cc0a9ae8c0d3b41a3b4933a88c0a"
-  integrity sha512-F8mf7R3iT9bvThBoW4tGXhXFHCctyCiUUPrWF8WaTqa3h96d9QybkSeba43XVOOE3oiLfkVDe4bT8MeGmkrTxw==
-
-nanoid@^3.2.0:
+nanoid@^3.1.25, nanoid@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
   integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
