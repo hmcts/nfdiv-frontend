@@ -46,14 +46,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      {
-        divorceOrDissolution: 'divorce',
-        id: '1234',
-      },
-      SWITCH_TO_SOLE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.isApplicant2).toEqual(false);
@@ -85,6 +78,11 @@ describe('SwitchToSoleApplicationPostController', () => {
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, isApplicant2: true });
+    (req.locals.api.triggerEvent as jest.Mock).mockImplementation(
+      jest.fn(() => {
+        throw Error;
+      })
+    );
     const res = mockResponse();
     await controller.post(req, res);
 
