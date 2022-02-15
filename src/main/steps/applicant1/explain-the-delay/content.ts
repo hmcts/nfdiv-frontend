@@ -5,10 +5,10 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = {
   title: 'Explain the delay',
-  applicant1FinalOrderLateExplanation:
+  finalOrderLateExplanation:
     'You are making this application for a final order over one year from when the conditional order was made. ' +
     'Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application.',
-  applicant1FinalOrderStatementOfTruth: 'I believe that the facts stated in this application are true',
+  finalOrderStatementOfTruth: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. ' +
     'It’s known as your ‘statement of truth’.',
@@ -32,7 +32,7 @@ export const form: FormContent = {
     applicant1FinalOrderLateExplanation: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.applicant1FinalOrderLateExplanation,
+      label: l => l.finalOrderLateExplanation,
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
@@ -41,7 +41,7 @@ export const form: FormContent = {
       values: [
         {
           name: 'applicant1FinalOrderStatementOfTruth',
-          label: l => l.applicant1FinalOrderStatementOfTruth,
+          label: l => l.finalOrderStatementOfTruth,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
         },

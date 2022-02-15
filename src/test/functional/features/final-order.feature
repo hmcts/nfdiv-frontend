@@ -13,7 +13,7 @@ Feature: Final order
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
 
-  Scenario: Applicant sole final order within after a year
+  Scenario: Applicant sole final order journey within a year
     Given a superuser updates "dateFinalOrderNoLongerEligible" with "2025-05-05"
     When I click "Sign out"
     And I login with applicant "1"
