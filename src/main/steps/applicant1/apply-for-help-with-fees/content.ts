@@ -3,7 +3,7 @@ import { HELP_WITH_YOUR_FEE_URL } from '../../urls';
 
 const en = ({ isDivorce }) => ({
   title: `You need to apply for help with your ${isDivorce ? 'divorce' : ''} fees`,
-  line1: `Your need to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a> before you continue with this ${
+  line1: `You need to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a> before you continue with this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
   } application. `,
   line2:

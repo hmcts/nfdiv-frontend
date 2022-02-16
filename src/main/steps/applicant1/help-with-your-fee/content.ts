@@ -7,7 +7,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ isDivorce, required, partner }) => ({
   title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
-  line1: `This ${isDivorce ? 'divorce application' : 'application'} costs ${config.get(
+  line1: `This ${isDivorce ? 'divorce ' : ''}application costs ${config.get(
     'fees.applicationFee'
   )}. You may be able to get help paying the fee if you (one or more of the following):`,
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
