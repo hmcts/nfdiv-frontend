@@ -115,3 +115,13 @@ Feature: Sole hub page
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+
+    Given I set the case state to "FinalOrderRequested"
+    Given I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+    And the page should include "You should receive an email within 2 working days,"
+    Given I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
+    And the page should include "You should receive an email within 2 working days,"

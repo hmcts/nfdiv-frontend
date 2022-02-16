@@ -19,7 +19,10 @@
   </p>
 {% endset %}
 
-{% if userCase.state == 'ConditionalOrderPronounced' %}
+{% if userCase.state == 'FinalOrderRequested' %}
+  {% include "./latest-update-content/final-order-requested.njk" %}
+
+{% elif userCase.state == 'ConditionalOrderPronounced' %}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}

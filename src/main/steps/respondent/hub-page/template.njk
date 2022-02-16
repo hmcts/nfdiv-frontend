@@ -1,7 +1,10 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if userCase.state == 'ConditionalOrderPronounced' %}
+  {% if userCase.state == 'FinalOrderRequested' %}
+    {% include "../../applicant1/hub-page/sole/latest-update-content/final-order-requested.njk" %}
+
+  {% elif userCase.state == 'ConditionalOrderPronounced' %}
     {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
   {% elif userCase.state == 'ClarificationSubmitted' %}
