@@ -105,7 +105,7 @@ Feature: Sole hub page
     And I select "I cannot upload some or all of my documents"
     Then the page should include "You can post your documents to the court if you cannot upload them"
     When I click "Continue"
-    Then the page should include "You or your husband need to post the documents requested by the court"
+    Then the page should include "You need to post the documents requested by the court"
 
     Given I set the case state to "ConditionalOrderPronounced"
     When I go to "/"
