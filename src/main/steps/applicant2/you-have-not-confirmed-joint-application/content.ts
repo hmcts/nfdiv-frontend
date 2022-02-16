@@ -4,7 +4,7 @@ const en = ({ isDivorce, partner }) => ({
   title: 'You have not confirmed your joint application',
   line1: `You have stated that your ${
     isDivorce ? 'marriage' : 'civil partnership'
-  } has not irretrievably broken down. Therefore you cannot make a joint application ${
+  } has not broken down irretrievably. Therefore you cannot make a joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }.`,
   line2: `Your ${partner} has been notified by email.`,

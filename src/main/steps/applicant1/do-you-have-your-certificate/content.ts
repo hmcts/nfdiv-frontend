@@ -16,8 +16,8 @@ const en = ({ isDivorce, required }) => ({
   } in England or Wales.`,
   line3:
     'If the original certificate is not in English, you’ll need to provide a <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">certified translation</a>.',
-  yes: `Yes, I have my ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
-  no: `No, I do not have ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
+  yes: `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
+  no: `No, I do not have ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
   errors: {
     hasCertificate: { required },
   },

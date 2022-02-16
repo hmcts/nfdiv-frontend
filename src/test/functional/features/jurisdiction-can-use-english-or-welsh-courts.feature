@@ -608,4 +608,4 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
     When I click "Back"
-    Then the page should include "Check if you can get a divorce in England and Wales"
+    Then the page should include "Check if you can get a divorce in England or Wales"

@@ -7,7 +7,9 @@ const en = ({ partner, userCase }: CommonContent) => ({
   line1: `Your ${partner} needs to confirm your joint application. They have been sent an email inviting them to review your combined answers and confirm the application. They should do this by `,
   reviewDate: userCase.dueDate,
   line2: `When they have confirmed${
-    userCase.applicant1HelpPayingNeeded === YesOrNo.YES ? '' : ' and paid'
+    userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES
+      ? ''
+      : ' and paid'
   }, then the application will be submitted.`,
 });
 
