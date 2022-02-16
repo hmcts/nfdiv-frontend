@@ -197,7 +197,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     } will be legally ended.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? 'You will receive an email by [date plus 14 days]'
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },

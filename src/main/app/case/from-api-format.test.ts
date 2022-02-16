@@ -115,6 +115,7 @@ describe('from-api-format', () => {
       ...results,
       marriageDate: '2000-09-02',
       dateSubmitted: '2021-01-01',
+      dateFinalOrderSubmitted: '2022-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -154,6 +155,7 @@ describe('from-api-format', () => {
       coApplicant1SubmittedDate: '31 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
+      dateFinalOrderSubmitted: '1 January 2022',
     });
   });
 
