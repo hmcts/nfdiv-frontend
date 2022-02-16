@@ -44,7 +44,7 @@ Feature: Applicant 1 joint application
     Given I select "Yes"
 
     When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England and Wales"
+    Then the page should include "Check if you can get a divorce in England or Wales"
 
     When I click "Continue"
     Then the page should include "Where your lives are based"
@@ -236,7 +236,7 @@ Feature: Applicant 1 joint application
     And I type "London"
 
     When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England and Wales"
+    Then the page should include "Check if you can get a divorce in England or Wales"
 
     When I click "Continue"
     Then the page should include "Where your lives are based"
