@@ -196,7 +196,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'marriage' : 'civil partnership'
     } will be legally ended.`,
     line3: `${
-      dayjs().isAfter(dayjs(userCase.coGrantedDate).add(1, 'year'))
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? 'You will receive an email by [date plus 14 days]'
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
