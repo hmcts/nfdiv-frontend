@@ -67,7 +67,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/irretrievable-breakdown');
-  iClick('Yes, my marriage has irretrievably broken down');
+  iClick('I confirm my marriage has broken down irretrievably');
   iClick('Continue');
 
   I.waitInUrl('/date-from-certificate');

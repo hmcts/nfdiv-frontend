@@ -93,7 +93,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
-  line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
+  line7: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   heading12: 'Financial order application',
   applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
     ?.sort()

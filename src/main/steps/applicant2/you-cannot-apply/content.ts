@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 
 const en = ({ isDivorce, partner }) => ({
   title: isDivorce ? 'You cannot apply to get a divorce' : 'You cannot apply to end your civil partnership',
-  line1: `Your ${isDivorce ? 'marriage' : 'relationship'} must have irretrievably broken down
+  line1: `Your ${isDivorce ? 'marriage' : 'relationship'} must have broken down irretrievably
       for you to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}. This is the law in England and Wales.`,
   line2: `If you end this joint application then your ${partner} will be notified by email. If they still want to ${
     isDivorce ? 'get a divorce' : 'end your civil partnership'
