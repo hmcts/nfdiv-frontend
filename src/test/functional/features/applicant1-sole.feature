@@ -350,6 +350,10 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page URL should be "/their-email-address"
+    Given I go to "/do-they-have-a-solicitor"
+    And I select "No"
+
+    When I click "Continue"
     Then the page should include "Enter your husband's email address"
     Given I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"

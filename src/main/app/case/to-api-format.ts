@@ -2,6 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
+  Applicant2Represented,
   CaseData,
   ChangedNameHow,
   ContactDetailsType,
@@ -168,6 +169,17 @@ const fields: ToApiConverters = {
     applicant2HWFNeedHelp: data.applicant2HelpPayingNeeded,
     ...(data.applicant2HelpPayingNeeded === YesOrNo.NO
       ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      : {}),
+  }),
+  applicant1IsApplicant2Represented: data => ({
+    applicant1IsApplicant2Represented: data.applicant1IsApplicant2Represented,
+    ...(data.applicant1IsApplicant2Represented !== Applicant2Represented.YES
+      ? setUnreachableAnswersToNull([
+          'applicant2SolicitorName',
+          'applicant2SolicitorEmail',
+          'applicant2SolicitorFirmName',
+          'applicant2SolicitorAddress',
+        ])
       : {}),
   }),
   applicant1KnowsApplicant2Address: data => ({
