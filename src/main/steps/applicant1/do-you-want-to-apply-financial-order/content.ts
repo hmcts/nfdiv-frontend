@@ -20,8 +20,8 @@ const en = ({ partner, required }: CommonContent) => ({
     'fees.financialOrder'
   )}. The court needs to know now if you want to apply for either.`,
   selectYes: 'If you select yes:',
-  yesPoint1: 'you do not have to proceed with the application',
-  yesPoint2: `you can proceed with the application at any time, so long as your ${partner} is still alive`,
+  yesPoint1: 'you do not have to proceed with the application for a financial order',
+  yesPoint2: `you can proceed with the application for a financial order at any time, so long as your ${partner} is still alive`,
   selectNo: 'If you select no:',
   noPoint1:
     'you’ll only be able to apply until you remarry or form a new civil partnership (this does not apply to pension sharing or pension compensation orders, which can be applied at any time)',
