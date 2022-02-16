@@ -75,7 +75,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Who are you applying to divorce' : 'Are you male or female'}?`,
-      line2: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} irretrievably broken down (it cannot be saved)?`,
+      line2: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} broken down irretrievably (it cannot be saved)?`,
       line3: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
       line4: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
       line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
@@ -161,16 +161,16 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line2: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
-            ? `Yes, my ${isDivorce ? 'marriage' : 'civil partnership'} has irretrievably broken down`
-            : `No, my ${isDivorce ? 'marriage' : 'civil partnership'} has not irretrievably broken down`
+            ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
+            : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
       line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
       line4: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
-            ? `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
-            : `No I do not have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+            ? `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
+            : `No I do not have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
           : ''
       }`,
       line5: `${
@@ -447,7 +447,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   change: 'Change',
   continueApplication: 'Continue application',
   confirm: `Confirm before ${userCase.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
-  jointApplicantReview: `Your answers will be sent to your ${partner} to review. Once they have reviewed and provided some of their own information then the application will be ready to submit.`,
+  jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
     <li>${isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'}

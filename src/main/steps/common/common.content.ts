@@ -72,7 +72,7 @@ const en = {
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 working days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
