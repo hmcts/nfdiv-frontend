@@ -56,6 +56,7 @@ const getOtherCourtCasesMoreDetailsContent = () => {
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
+  line1: 'This is the information you provided. Check it to make sure it’s correct.',
   sectionTitles: {
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -445,7 +446,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     },
   },
   change: 'Change',
-  continueApplication: 'Continue application',
+  continueApplication: 'Continue',
   confirm: `Confirm before ${userCase.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
   jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',

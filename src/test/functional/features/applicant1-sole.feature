@@ -384,13 +384,6 @@ Feature: Applicant 1 sole application
     And I select "No, I do not have their address"
 
     When I click "Continue"
-    Then the page should include "You need to get their address"
-    Given I select "I want to apply to have the divorce papers ‘served’ (delivered) to them another way."
-
-    When I click "Continue"
-    Then the page should include "How to apply to serve (deliver) the papers another way"
-
-    When I click "Continue"
     And the page should include "Other court cases relating to this marriage"
     Given I select "Yes"
 

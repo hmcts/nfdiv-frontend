@@ -7,8 +7,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
+import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
@@ -44,7 +44,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
   jurisdictionsMoreDetails:
-    `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+    `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
@@ -145,9 +145,6 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   }`,
   subHeading10: "Applicant 2's email address",
   line20: `${userCase.applicant2EmailAddress}`,
-  subHeading11: 'Statement of truth',
-  applicant1Name: `<em>${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}</em>`,
-  applicant2Name: `<em>${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}</em>`,
   confirm: `Confirm before  ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'

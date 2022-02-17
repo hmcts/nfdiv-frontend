@@ -51,7 +51,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections ? connectionBulletPointsTextForRespondent(userCase.connections) : [],
   whatThisMeans: 'What this means',
-  whatThisMeansInfo3: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
