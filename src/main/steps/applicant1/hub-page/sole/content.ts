@@ -190,6 +190,17 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     buttonText: 'Respond to the court',
     buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
   },
+  finalOrderRequested: {
+    line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
+    line2: `If there are no other applications that need to be completed then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+    line3: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
+  },
 });
 
 // @TODO translations

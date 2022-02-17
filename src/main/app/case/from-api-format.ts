@@ -150,6 +150,9 @@ const fields: FromApiConverters = {
       applicant2SolicitorAddressCountry: address?.[6],
     };
   },
+  dateFinalOrderSubmitted: data => ({
+    dateFinalOrderSubmitted: dayjs(data.dateFinalOrderSubmitted).format('D MMMM YYYY'),
+  }),
 };
 
 const fromApiDate = date => {

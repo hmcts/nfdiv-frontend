@@ -288,6 +288,7 @@ export interface Case {
   applicant2SolicitorAddressCountry?: string;
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
+  dateFinalOrderSubmitted?: DateAsString;
 }
 
 export interface CaseWithId extends Case {
