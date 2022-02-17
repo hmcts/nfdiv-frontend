@@ -350,6 +350,10 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page URL should be "/their-email-address"
+    Given I go to "/do-they-have-a-solicitor"
+    And I select "No"
+
+    When I click "Continue"
     Then the page should include "Enter your husband's email address"
     Given I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
@@ -382,6 +386,13 @@ Feature: Applicant 1 sole application
     Given I go to "/do-you-have-address"
     And I clear the form
     And I select "No, I do not have their address"
+
+    When I click "Continue"
+    Then the page should include "You need to get their address"
+    Given I select "I want to apply to have the divorce papers ‘served’ (delivered) to them another way."
+
+    When I click "Continue"
+    Then the page should include "How to apply to serve (deliver) the papers another way"
 
     When I click "Continue"
     And the page should include "Other court cases relating to this marriage"
