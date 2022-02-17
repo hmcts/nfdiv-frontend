@@ -153,6 +153,10 @@ Given("I've completed all happy path questions correctly", async () => {
   await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
   iClick('Continue');
 
+  I.waitInUrl('/do-they-have-a-solicitor');
+  iClick('No');
+  iClick('Continue');
+
   I.waitInUrl('/their-email-address');
   iClearTheForm();
   iClick("Your husband's email address");
