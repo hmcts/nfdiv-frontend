@@ -30,7 +30,7 @@ export const form: FormContent = {
   fields: {
     applicant2Confirmation: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.detailsCorrect,
       hint: l => l.detailsCorrectHint,
       values: [
