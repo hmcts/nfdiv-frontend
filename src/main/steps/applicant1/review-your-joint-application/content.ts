@@ -52,7 +52,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     ? connectionBulletPointsTextForJointApplications(userCase.connections)
     : [],
   whatThisMeans: 'What this means',
-  whatThisMeansInfo1: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  whatThisMeansInfo1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
