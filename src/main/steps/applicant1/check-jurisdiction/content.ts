@@ -4,7 +4,7 @@ import { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce }: CommonContent) => ({
   title: `Check if you can ${isDivorce ? 'get a divorce' : 'end your civil partnership'} in England or Wales`,
-  line1: `You must have some connection to England or Wales for the courts to have the jurisdiction (the legal power) to grant you a ${
+  line1: `You must have some connection to England or Wales for the courts to have the legal power (jurisdiction) to grant you a ${
     isDivorce ? 'divorce' : 'civil partnership'
   }.`,
   line2: 'The following questions will find out what connections you have to England or Wales.',
