@@ -14,8 +14,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const moreDetailsComponent: (text: string, title: string) => string = (text: string, title: string) => {
   return `

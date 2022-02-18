@@ -1,60 +1,31 @@
-import { JurisdictionConnections } from '../../../app/case/definition';
+import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import type { CommonContent } from '../../common/common.content';
 
 const en = (
-  {
-    isDivorce,
-    partner,
-    applyForDivorce,
-    applyForDissolution,
-    habitualResidentHelpText1,
-    habitualResidentHelpText2,
-  }: CommonContent,
+  { isDivorce, partner, applyForDivorce, applyForDissolution }: CommonContent,
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
-  const enHabitualResident = {
-    helpText1:
-      "If your life is mainly based in England or Wales then you’re what is legally known as 'habitually resident'.",
-    helpText2: habitualResidentHelpText1,
-    helpText3: habitualResidentHelpText2,
-  };
   const enApp1App2Resident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'habitually resident'.`,
-    readMore: 'Read more about habitual residence',
-    ...enHabitualResident,
+    line1: `you and your ${partner} are habitually resident in England and Wales`,
   };
   const enApp1App2LastResident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because both of you were last 'habitually resident' and one of you still lives here.`,
-    readMore: 'Read more about habitual residence',
-    ...enHabitualResident,
+    line1: `you and your ${partner} were last habitually resident in England and Wales and one of you continues to reside there.`,
   };
   const enApp2Resident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because your ${partner} is 'habitually resident'.`,
-    readMore: 'Read more about habitual residence',
-    ...enHabitualResident,
-  };
-  const enApp1ResidentTwelveMonths = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'habitually resident' and have lived here for at least 12 months.`,
-    readMore: 'Read more about habitual residence',
-    ...enHabitualResident,
-  };
-  const enApp1App2Domiciled = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because both of you are 'domiciled' in England or Wales.`,
-    readMore: 'Read more about domicile',
-    helpText1:
-      'When you’re born, you acquire a <strong>domicile of origin</strong>.  This is usually: <ul class="govuk-list govuk-list--bullet"> <li>the country your father was domiciled in if your parents were married</li> <li>the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born</li> </ul>',
-    helpText2:
-      'If you leave your domicile of origin and settle in another country as an adult, the new country may become your <strong>domicile of choice</strong>.',
-    helpText3: 'You should select Yes if you have either type of domicile in England or Wales.',
-    helpText4: 'If you’re not sure about your domicile you should get legal advice.',
+    line1: `your ${partner} is habitually resident in England and Wales.`,
   };
   const enApp1Resident = {
-    line1: `Your answers indicate that you can ${apply} in England and Wales because you are 'habitually resident'.`,
-    readMore: 'Read more about habitual residence',
-    ...enHabitualResident,
+    line1: 'you are habitually resident in England and Wales.',
+  };
+  const enApp1ResidentTwelveMonths = {
+    line1:
+      'you are habitually resident and have resided there for at least one year immediately before making this application.',
+  };
+  const enApp1App2Domiciled = {
+    line1: `you and your ${partner} are domiciled in England and Wales`,
   };
   const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident>> = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident,
@@ -65,8 +36,44 @@ const en = (
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: enApp1Resident,
   };
 
+  const connectionCheckboxes = {
+    APP_1_APP_2_RESIDENT: `My ${partner} and I are habitually resident in England and Wales`,
+    APP_1_APP_2_LAST_RESIDENT: `My ${partner} and I were last habitually resident in England and Wales and ones of us continues to reside there`,
+    APP_2_RESIDENT: `My ${partner} is habitually resident in England and Wales`,
+    APP_1_RESIDENT_TWELVE_MONTHS:
+      'I am habitually resident in England and Wales and have resided there for at least one year immediately before making this application',
+    APP_1_RESIDENT_SIX_MONTHS:
+      'I am domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application',
+    APP_1_APP_2_DOMICILED: `My ${partner} and I are domiciled in England and Wales`,
+    APP_1_DOMICILED: 'Only I am domiciled in England and Wales',
+    APP_2_DOMICILED: `Only my ${partner} is domiciled in England and Wales`,
+    RESIDUAL_JURISDICTION: `My ${partner} and I ${
+      isDivorce ? 'married each other' : 'registered our civil partnership'
+    } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
+    APP_1_RESIDENT_JOINT: 'I am habitually resident in England and Wales',
+  };
+
   return {
-    title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : applyForDissolution}`,
+    title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
+    line1Prefix: `Your answers indicate that you can ${apply} in England and Wales because `,
+    line2:
+      'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case',
+    habitualResidence: 'Habitual Residence',
+    habitualResidenceText:
+      'Your habitual residence is the place in which your life is mainly based. You must be settled there and intend to stay settled there. ' +
+      'Some of the following may apply: you work there, own property, have your children in school there, and your main family life takes place there.',
+    domicile: 'Domicile',
+    domicileText: `Your domicile is the place of your permanent home in which you live, or to which you intend to return.<br><br>
+      When you were born you will have acquired your parents' domicile (for example, your father's if they were married, or your mother's if they weren’t married or if your father died before you were born).
+      If you have since moved to another country and made that your permanent home then your domicile may have moved there.<br><br>
+      If you were born in England and Wales, lived your entire life here, and intend to stay here, then it is very likely that you’ll be both habitually resident and domiciled here.`,
+    disputesAboutJurisdiction: 'Disputes about jurisdiction',
+    disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
+      If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
+    readMore: `Read more about ${
+      connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED ? 'domicile' : 'habitual residence'
+    } and the other possible legal connections`,
+    ...connectionCheckboxes,
     ...enConnections[connections[0]],
   };
 };
@@ -141,12 +148,66 @@ const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConn
 };
 
 export const form: FormContent = {
-  fields: {
-    connections: {
-      type: 'hidden',
-      label: l => l.title,
-      labelHidden: true,
-    },
+  fields: userCase => {
+    return {
+      connections: {
+        type: 'checkboxes',
+        labelSize: 'm',
+        values: [
+          {
+            name: 'connections',
+            label: l => l.APP_1_APP_2_RESIDENT,
+            value: JurisdictionConnections.APP_1_APP_2_RESIDENT,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_1_APP_2_LAST_RESIDENT,
+            value: JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_2_RESIDENT,
+            value: JurisdictionConnections.APP_2_RESIDENT,
+          },
+          {
+            name: 'connections',
+            hidden: userCase.applicationType === ApplicationType.SOLE_APPLICATION,
+            label: l => l.APP_1_RESIDENT_JOINT,
+            value: JurisdictionConnections.APP_1_RESIDENT_JOINT,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_1_RESIDENT_TWELVE_MONTHS,
+            value: JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_1_RESIDENT_SIX_MONTHS,
+            value: JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_1_APP_2_DOMICILED,
+            value: JurisdictionConnections.APP_1_APP_2_DOMICILED,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_1_DOMICILED,
+            value: JurisdictionConnections.APP_1_DOMICILED,
+          },
+          {
+            name: 'connections',
+            label: l => l.APP_2_DOMICILED,
+            value: JurisdictionConnections.APP_2_DOMICILED,
+          },
+          {
+            name: 'connections',
+            label: l => l.RESIDUAL_JURISDICTION,
+            value: JurisdictionConnections.RESIDUAL_JURISDICTION,
+          },
+        ],
+      },
+    };
   },
   submit: {
     text: l => l.continue,
@@ -163,6 +224,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content, content.userCase.connections);
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
