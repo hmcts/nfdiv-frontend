@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_FINAL_ORDER_REQUESTED } from '../../../app/case/definition';
+import { FINAL_ORDER_REQUESTED } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
 import FinalisingYourApplicationPostController from './post';
@@ -22,6 +22,6 @@ describe('FinalisingYourApplicationPostController', () => {
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_FINAL_ORDER_REQUESTED);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, FINAL_ORDER_REQUESTED);
   });
 });
