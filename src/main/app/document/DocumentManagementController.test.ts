@@ -45,6 +45,14 @@ describe('DocumentManagerController', () => {
           field2: 'coClarificationUploadedFiles',
         },
       },
+      {
+        isApplicant2: true,
+        state: State.AwaitingClarification,
+        uploadFields: {
+          field1: 'coClarificationUploadDocuments',
+          field2: 'coClarificationUploadedFiles',
+        },
+      },
     ])('handles file uploads - %o', async ({ isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
@@ -137,6 +145,15 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
+      {
+        isApplicant2: true,
+        state: State.AwaitingClarification,
+        uploadFields: {
+          field1: 'coClarificationUploadDocuments',
+          field2: 'coClarificationUploadedFiles',
+        },
+        redirectUrl: `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
       async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
@@ -198,7 +215,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in AwaitingApplicant2Response state'
+        'Cannot upload new documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
       );
     });
 
@@ -516,7 +533,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete documents as case is not in AwaitingApplicant2Response state'
+        'Cannot delete documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
       );
     });
   });
