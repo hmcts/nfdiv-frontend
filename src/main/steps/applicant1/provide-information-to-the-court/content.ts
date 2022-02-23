@@ -9,7 +9,7 @@ const en = ({ partner, applicant1Content, referenceNumber, userCase }) => ({
   title: 'Respond to the court',
   line1: `You should agree your response with your ${partner} before submitting it to the court.`,
   line2: 'The court has made the following comments on your application:',
-  coAdditionalInfo: userCase.coRefusalClarificationAdditionalInfo,
+  coAdditionalInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
   subheading1: 'Enter your response',
   response:
     'If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information.',
