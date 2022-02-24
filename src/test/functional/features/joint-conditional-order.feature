@@ -37,6 +37,7 @@ Feature: Joint conditional order
     Given I select "I believe that the facts stated in this application are true"
     When I click "Continue"
     Then the page URL should be "/hub-page"
+    And I pause the test
     When I click "Sign out"
     And I login with applicant "2"
     Then the page URL should be "/applicant2/hub-page"
