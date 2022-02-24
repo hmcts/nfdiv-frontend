@@ -59,10 +59,7 @@ const fields: ToApiConverters = {
     jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
-    doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
-  }),
-  doesApplicant2WantToApplyForFinalOrder: data => ({
-    doesApplicant2WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant2WantToApplyForFinalOrder),
+    doesApplicantWantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),
   applicant1FinalOrderStatementOfTruth: data => ({
     applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
