@@ -101,7 +101,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
