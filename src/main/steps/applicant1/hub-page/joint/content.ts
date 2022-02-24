@@ -45,6 +45,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       line1: `Your ${partner} has still not applied for a conditional order.
       They have to apply before your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}
       can progress. This is because you are doing a joint application.`,
+      subHeading: 'What you can do',
       line2: `You should contact your ${partner} and ask them to apply. Only contact them if it’s safe to do so.`,
       line3: 'If you do not think they will apply then you can ',
       link: 'change your application to a sole application.',
