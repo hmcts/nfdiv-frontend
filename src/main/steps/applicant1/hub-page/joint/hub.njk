@@ -13,10 +13,12 @@
 {% elif userCase.state == 'ConditionalOrderPending' %}
   {% include "./latest-update-content/conditional-order-pending.njk" %}
 
-{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
-  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and not
-  hasApplicantAppliedForConditionalOrder %}
-    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
+{% elif userCase.state == 'AwaitingLegalAdvisorReferral' %}
+  {% include "./latest-update-content/awaiting-legal-advisor-referral.njk" %}
+
+{% elif states.get(userCase.state).isAfter('Holding') and states.get(userCase.state).isBefore('AwaitingLegalAdvisorReferral')
+  and not hasApplicantAppliedForConditionalOrder %}
+  <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
 {% endif %}
 {% block form %}
   {% include "./form.njk" %}

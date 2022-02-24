@@ -1,5 +1,3 @@
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-
 {% if hasApplicantAppliedForConditionalOrder  %}
   {% if partnerSubmissionOverdue %}
   <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line1 }}</p>

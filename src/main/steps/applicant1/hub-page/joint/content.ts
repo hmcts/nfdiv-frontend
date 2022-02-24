@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { CaseStates } from '../../../../app/case/CaseStates';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
@@ -52,6 +53,14 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     },
   },
   applyForConditionalOrder: 'Apply for conditional order',
+  awaitingLegalAdvisorReferral: {
+    line1: `You and your ${partner} have applied for a 'conditional order'.`,
+    line2: `The court will check your application and send it to a judge.
+    If the judge agrees that you should ${isDivorce ? 'get a divorce' : 'end your civil partnership'},
+    then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
+    You will receive an email by ${userCase.dueDate} after your application has been checked.
+    This will have the time, date and court your conditional order will be pronounced.`,
+  },
 });
 
 // @TODO translations
@@ -63,7 +72,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const progressionIndex = [
+  const states = new CaseStates([
     State.Holding,
     State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
@@ -74,7 +83,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingFinalOrder,
     State.FinalOrderRequested,
     State.FinalOrderComplete,
-  ];
+  ]);
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
@@ -85,7 +94,7 @@ export const generateContent: TranslationFn = content => {
   const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language](content),
-    progressionIndex,
+    states,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
     partnerSubmissionOverdue,
