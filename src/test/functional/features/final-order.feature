@@ -35,9 +35,3 @@ Feature: Final order
     Then the page should include "Your wife has still not applied for a 'final order'"
     Given I click "Apply for a final order"
     Then the page URL should be '/respondent/finalising-your-application'
-
-    Given I select "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
-    And I type "I want to apply myself"
-    When I click "Submit"
-    Then the page URL should be '/respondent/hub-page'
