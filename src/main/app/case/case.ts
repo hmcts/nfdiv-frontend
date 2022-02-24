@@ -116,6 +116,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorEmail: 'applicant2SolicitorEmail',
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
   applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
+  applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -275,6 +276,8 @@ export interface Case {
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
   doesApplicant1WantToApplyForFinalOrder?: Checkbox;
+  doesApplicant2WantToApplyForFinalOrder?: Checkbox;
+  applicant2FinalOrderExplanation?: string;
   dateFinalOrderNoLongerEligible?: DateAsString;
   applicant2SolicitorName: string;
   applicant2SolicitorEmail: string;
