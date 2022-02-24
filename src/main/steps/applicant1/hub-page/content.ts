@@ -21,10 +21,8 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
-  line1:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
-  line2:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
+  line1: 'Find out about dividing money and property',
+  line2: 'Find out more about conditional orders',
   whatHappensNext: 'What happens next',
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${

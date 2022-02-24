@@ -31,9 +31,14 @@
         {% endif %}
 
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
-        <p class="govuk-body">{{ line1 | safe }}</p>
-        {% if userCase.state == 'ConditionalOrderDrafted' %}
-          <p class="govuk-body">{{ line2 | safe }}</p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line1 }}
+          </a>
+        </p>
+        {% if userCase.state === 'ConditionalOrderDrafted' or userCase.state === 'ConditionalOrderPending' %}
+          <p class="govuk-body">
+            <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line2 }}</a>
+          </p>
         {% endif %}
       </div>
     </div>
