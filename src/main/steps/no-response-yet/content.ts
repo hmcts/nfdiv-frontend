@@ -7,7 +7,11 @@ const en = ({ partner }) => ({
   readMore: 'If you do not think they will respond',
   line2: `If you think that your ${partner} will not respond then you can create a new ‘sole application’.`,
   line3: `This means that you will submit the application on your own, and your ${partner} will respond to it after it has been submitted and checked by the court.`,
-  line4: `You can <a href="${SWITCH_TO_SOLE_APPLICATION}" class="govuk-link">create a new application here.</a>`,
+  switchToSoleLink: {
+    part1: 'You can',
+    part2: 'create a new application here.',
+    link: SWITCH_TO_SOLE_APPLICATION,
+  },
 });
 
 const cy: typeof en = en;
