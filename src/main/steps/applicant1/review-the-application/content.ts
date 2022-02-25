@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -134,14 +134,26 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
   }`,
   subHeading10: "Respondent's email address",
   line22: `${userCase.applicant2EmailAddress}`,
-  subHeading11: 'Statement of truth',
+  subHeading11: "Respondent's solicitor details",
+  noDetailsProvided: 'No details provided',
+  solName: `Solicitor name: ${userCase.applicant2SolicitorName ? userCase.applicant2SolicitorName : 'not given'}`,
+  solEmail: `Solicitor email address: ${
+    userCase.applicant2SolicitorEmail ? userCase.applicant2SolicitorEmail : 'not given'
+  }`,
+  solFirmName: `Solicitor firm name: ${
+    userCase.applicant2SolicitorFirmName ? userCase.applicant2SolicitorFirmName : 'not given'
+  }`,
+  solAddress: `Solicitor address: ${
+    userCase.applicant2SolicitorAddress ? userCase.applicant2SolicitorAddress : 'not given'
+  }`,
+  subHeading12: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
   applicantName: `<em>${
     isApplicant2
       ? userCase.applicant2FirstNames + ' ' + userCase.applicant2LastNames
       : userCase.applicant1FirstNames + ' ' + userCase.applicant1LastNames
   }</em>`,
-  subHeading12: 'Your acknowledgement',
+  subHeading13: 'Your acknowledgement',
   confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
   errors: {
     confirmReadPetition: {
@@ -180,15 +192,24 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
-  const isApplicantAddressNotPrivate = content.userCase.applicant1AddressPrivate !== YesOrNo.YES;
-  const isRespondentAddressNotPrivate = content.userCase.applicant2AddressPrivate !== YesOrNo.YES;
-  const isFinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
+  const { language, userCase } = content;
+  const translations = languages[language](content);
+  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate !== YesOrNo.NO;
+  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate !== YesOrNo.NO;
+  const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
+  const isApplicant2Represented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
+  const solInfoEntered =
+    userCase.applicant2SolicitorName ||
+    userCase.applicant2SolicitorEmail ||
+    userCase.applicant2SolicitorFirmName ||
+    userCase.applicant2SolicitorAddress?.trim();
   return {
     ...translations,
     form,
-    isApplicantAddressNotPrivate,
-    isRespondentAddressNotPrivate,
+    isApplicantAddressPrivate,
+    isRespondentAddressPrivate,
     isFinancialOrderYes,
+    isApplicant2Represented,
+    solInfoEntered,
   };
 };
