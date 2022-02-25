@@ -48,13 +48,13 @@
     summaryText: whatThisMeans,
     html: financialOrderMoreDetails
   }) }}
-  {% if isApplicantAddressNotPrivate %}
+  {% if isApplicantAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
     <p class="govuk-body">{{ applicantAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
     <p class="govuk-body">{{ line21 }}</p>
   {% endif %}
-  {% if isRespondentAddressNotPrivate %}
+  {% if isRespondentAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
@@ -62,13 +62,13 @@
   {% endif %}
   {% if isApplicant2Represented %}
     <h3 class="govuk-heading-m">{{ subHeading11 }}</h3>
-    {% if not solInfoEntered %}
-      <p class="govuk-body">{{ noDetailsProvided }}</p>
-    {% else %}
+    {% if solInfoEntered %}
       <p class="govuk-body">{{ solName }}</p>
       <p class="govuk-body">{{ solEmail }}</p>
       <p class="govuk-body">{{ solFirmName }}</p>
       <p class="govuk-body">{{ solAddress }}</p>
+    {% else %}
+      <p class="govuk-body">{{ noDetailsProvided }}</p>
     {% endif %}
   {% endif %}
   <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>

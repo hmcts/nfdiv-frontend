@@ -194,8 +194,8 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { language, userCase } = content;
   const translations = languages[language](content);
-  const isApplicantAddressNotPrivate = userCase.applicant1AddressPrivate !== YesOrNo.YES;
-  const isRespondentAddressNotPrivate = userCase.applicant2AddressPrivate !== YesOrNo.YES;
+  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate !== YesOrNo.NO;
+  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate !== YesOrNo.NO;
   const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   const isApplicant2Represented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const solInfoEntered =
@@ -206,8 +206,8 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    isApplicantAddressNotPrivate,
-    isRespondentAddressNotPrivate,
+    isApplicantAddressPrivate,
+    isRespondentAddressPrivate,
     isFinancialOrderYes,
     isApplicant2Represented,
     solInfoEntered,
