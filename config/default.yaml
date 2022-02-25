@@ -13,6 +13,7 @@ fees:
   searchForAddress: £50
   d8bFormSubmission: £245
   updateApplication: £95
+  finalOrderApplicationFee: £167
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
