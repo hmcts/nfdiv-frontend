@@ -1,8 +1,8 @@
-import { CaseStates } from './CaseStates';
+import { StateSequence } from './StateSequence';
 import { State } from './definition';
 
-describe('CaseStates', () => {
-  const states = new CaseStates([
+describe('StateSequence', () => {
+  const states = new StateSequence([
     State.Holding,
     State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
@@ -16,16 +16,14 @@ describe('CaseStates', () => {
   ]);
 
   test('Should ensure state is before test state', () => {
-    expect(states.get(State.ConditionalOrderPending).isBefore('AwaitingLegalAdvisorReferral')).toBeTrue();
+    expect(states.at(State.ConditionalOrderPending).isBefore('AwaitingLegalAdvisorReferral')).toBeTrue();
   });
 
   test('Should ensure state is after test state', () => {
-    expect(states.get(State.AwaitingPronouncement).isAfter('ConditionalOrderDrafted')).toBeTrue();
+    expect(states.at(State.AwaitingPronouncement).isAfter('ConditionalOrderDrafted')).toBeTrue();
   });
 
   test('Should ensure state is between test states', () => {
-    expect(
-      states.get(State.AwaitingPronouncement).isBetween('AwaitingConditionalOrder', 'FinalOrderRequested')
-    ).toBeTrue();
+    expect(states.at(State.AwaitingPronouncement).isAtOrAfter('AwaitingPronouncement')).toBeTrue();
   });
 });

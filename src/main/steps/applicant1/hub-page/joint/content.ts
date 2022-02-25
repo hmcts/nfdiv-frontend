@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CaseStates } from '../../../../app/case/CaseStates';
+import { StateSequence } from '../../../../app/case/StateSequence';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
@@ -72,7 +72,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const states = new CaseStates([
+  const states = new StateSequence([
     State.Holding,
     State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
@@ -84,6 +84,7 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderRequested,
     State.FinalOrderComplete,
   ]);
+  const currentState = content.userCase.state ? states.at(content.userCase.state.toString()) : undefined;
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
@@ -94,7 +95,7 @@ export const generateContent: TranslationFn = content => {
   const isApplicant2 = content.isApplicant2;
   return {
     ...languages[content.language](content),
-    states,
+    currentState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
     partnerSubmissionOverdue,

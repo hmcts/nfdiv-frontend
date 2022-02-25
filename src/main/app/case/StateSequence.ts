@@ -1,16 +1,16 @@
-export class CaseStates {
+export class StateSequence {
   states: string[];
 
   constructor(readonly stateList: string[]) {
     this.states = stateList;
   }
 
-  public get(currentState: string): CaseState {
-    return new CaseState(this.states, currentState);
+  public at(currentState: string): SequenceStage {
+    return new SequenceStage(this.states, currentState);
   }
 }
 
-export class CaseState {
+export class SequenceStage {
   currentState: string;
   states: string[];
 
@@ -24,14 +24,10 @@ export class CaseState {
   }
 
   public isSameOrAfter(state: string): boolean {
-    return this.states.indexOf(this.currentState) > this.states.indexOf(state);
+    return this.states.indexOf(this.currentState) >= this.states.indexOf(state);
   }
 
   public isBefore(state: string): boolean {
     return this.states.indexOf(this.currentState) < this.states.indexOf(state);
-  }
-
-  public isBetween(startState: string, endState: string): boolean {
-    return this.isSameOrAfter(startState) && this.isBefore(endState);
   }
 }

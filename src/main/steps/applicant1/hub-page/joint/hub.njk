@@ -16,7 +16,7 @@
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' %}
   {% include "./latest-update-content/awaiting-legal-advisor-referral.njk" %}
 
-{% elif states.get(userCase.state).isAfter('Holding') and states.get(userCase.state).isBefore('AwaitingLegalAdvisorReferral')
+{% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral')
   and not hasApplicantAppliedForConditionalOrder %}
   <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
 {% endif %}
