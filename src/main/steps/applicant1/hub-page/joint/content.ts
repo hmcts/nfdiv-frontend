@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 
-import { StateSequence } from '../../../../app/case/StateSequence';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
+import { StateSequence } from '../../../state-sequence';
 
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {

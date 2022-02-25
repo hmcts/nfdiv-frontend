@@ -1,5 +1,6 @@
-import { StateSequence } from './StateSequence';
-import { State } from './definition';
+import { State } from '../app/case/definition';
+
+import { StateSequence } from './state-sequence';
 
 describe('StateSequence', () => {
   const states = new StateSequence([
@@ -16,14 +17,14 @@ describe('StateSequence', () => {
   ]);
 
   test('Should ensure state is before test state', () => {
-    expect(states.at(State.ConditionalOrderPending).isBefore('AwaitingLegalAdvisorReferral')).toBeTrue();
+    expect(states.at(State.ConditionalOrderPending).isBefore('AwaitingLegalAdvisorReferral')).toBeTruthy();
   });
 
   test('Should ensure state is after test state', () => {
-    expect(states.at(State.AwaitingPronouncement).isAfter('ConditionalOrderDrafted')).toBeTrue();
+    expect(states.at(State.AwaitingPronouncement).isAfter('ConditionalOrderDrafted')).toBeTruthy();
   });
 
   test('Should ensure state is between test states', () => {
-    expect(states.at(State.AwaitingPronouncement).isAtOrAfter('AwaitingPronouncement')).toBeTrue();
+    expect(states.at(State.AwaitingPronouncement).isAtOrAfter('AwaitingPronouncement')).toBeTruthy();
   });
 });
