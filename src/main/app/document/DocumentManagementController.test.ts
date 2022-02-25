@@ -188,7 +188,7 @@ describe('DocumentManagerController', () => {
       }
     );
 
-    it("uploading throws an error if the case isn't in a Draft or AwaitingApplicant1Response or AwaitingClarification state as applicant 1", async () => {
+    it("uploading throws an error if the case isn't in a the correct state as applicant 1", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Submitted,
@@ -199,7 +199,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response or AwaitingClarification state'
+        'Cannot upload new documents as case is not in the correct state'
       );
     });
 
@@ -215,7 +215,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
+        'Cannot upload new documents as case is not in the correct state'
       );
     });
 
@@ -500,7 +500,7 @@ describe('DocumentManagerController', () => {
       expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
     });
 
-    it("deleting throws an error if the case isn't in a Draft, AwaitingApplicant1Response or AwaitingClarification state", async () => {
+    it("deleting throws an error if the case isn't in a the correct state", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Submitted,
@@ -514,7 +514,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete documents as case is not in Draft, AwaitingApplicant1Response or AwaitingClarification state'
+        'Cannot delete documents as case is not in the correct state'
       );
     });
 
@@ -533,7 +533,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
+        'Cannot delete documents as case is not in the correct state'
       );
     });
   });

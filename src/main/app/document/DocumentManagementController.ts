@@ -20,20 +20,14 @@ export class DocumentManagerController {
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     if (
-      !isApplicant2 &&
-      ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(req.session.userCase.state)
+      (!isApplicant2 &&
+        ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
+          req.session.userCase.state
+        )) ||
+      (isApplicant2 &&
+        ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state))
     ) {
-      throw new Error(
-        'Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response or AwaitingClarification state'
-      );
-    }
-    if (
-      isApplicant2 &&
-      ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state)
-    ) {
-      throw new Error(
-        'Cannot upload new documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
-      );
+      throw new Error('Cannot upload new documents as case is not in the correct state');
     }
 
     if (!req.files?.length) {
@@ -107,20 +101,14 @@ export class DocumentManagerController {
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
     if (
-      !isApplicant2 &&
-      ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(req.session.userCase.state)
+      (!isApplicant2 &&
+        ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
+          req.session.userCase.state
+        )) ||
+      (isApplicant2 &&
+        ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state))
     ) {
-      throw new Error(
-        'Cannot delete documents as case is not in Draft, AwaitingApplicant1Response or AwaitingClarification state'
-      );
-    }
-    if (
-      isApplicant2 &&
-      ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state)
-    ) {
-      throw new Error(
-        'Cannot delete documents as case is not in AwaitingApplicant2Response or AwaitingClarification state'
-      );
+      throw new Error('Cannot delete documents as case is not in the correct state');
     }
 
     const documentIndexToDelete = parseInt(req.params.index, 10);
