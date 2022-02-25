@@ -22,9 +22,10 @@ export class SessionStorage {
         saveUninitialized: false,
         secret: config.get('session.secret'),
         cookie: {
-          httpOnly: app.locals.developmentMode,
+          httpOnly: true,
           maxAge: cookieMaxAge,
           sameSite: 'lax', // required for the oauth2 redirect
+          secure: !app.locals.developmentMode,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
