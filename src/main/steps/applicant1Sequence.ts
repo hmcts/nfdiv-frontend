@@ -64,7 +64,6 @@ import {
   MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
-  NO_RESPONSE_YET,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -423,10 +422,6 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: HUB_PAGE,
-    getNextStep: () => HOME_URL,
-  },
-  {
-    url: NO_RESPONSE_YET,
     getNextStep: () => HOME_URL,
   },
   {
