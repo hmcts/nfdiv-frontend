@@ -4,7 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, PROVIDE_INFORMATION_TO_THE_COURT } from '../../../urls';
+import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -172,24 +172,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
-  awaitingClarification: {
-    line1: `The court has reviewed your application for a conditional order and needs some more information before
-    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
-    courtsFeedback: 'The court’s feedback',
-    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
-    next: 'What you need to do next',
-    line4: 'You need to respond to the court’s feedback before your application can proceed.',
-    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
-    buttonText: 'Respond to the court',
-    buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
-  },
   finalOrderRequested: {
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
