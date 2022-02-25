@@ -15,9 +15,7 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
-    progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and not
-    hasApplicantAppliedForConditionalOrder %}
+  {% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
     {{ govukButton({
       text: "Apply for conditional order",
       classes: form.submit.classes,
