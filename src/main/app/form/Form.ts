@@ -118,7 +118,7 @@ type LanguageLookup = (lang: Record<string, never>) => string;
 
 type Parser = (value: Record<string, unknown> | string[]) => void;
 
-type Label = string | LanguageLookup;
+export type Label = string | LanguageLookup;
 
 type Warning = Label;
 
