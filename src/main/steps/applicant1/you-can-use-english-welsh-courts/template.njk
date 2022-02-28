@@ -11,7 +11,18 @@
       {% endblock %}
 
       <h1 class="govuk-heading-l">{{ title }}</h1>
-      <p class="govuk-body">{{ line1Prefix }}{{ line1 }}</p>
+      <p class="govuk-body">{{ line1Prefix }}
+        {% if connections.length > 1 %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for index in connections %}
+              <li>{{ enConnections[[index]].line1 }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          {{ enConnections[[0]].line1 }}
+        {% endif %}
+      </p>
+
       <p class="govuk-body">{{ line2 }}</p>
 
       <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
@@ -25,7 +36,6 @@
           <h3 class="govuk-heading-s">{{ disputesAboutJurisdiction }}</h3>
           <p class="govuk-body">{{ disputesAboutJurisdictionText | safe }}</p>
 
-          {% include "./form.njk"%}
           <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
           {% include "../../common/form/fields.njk" %}

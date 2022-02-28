@@ -24,16 +24,35 @@ const en = (
     line1:
       'you are habitually resident and have resided there for at least one year immediately before making this application.',
   };
+  const enApp1ResidentSixMonths = {
+    line1:
+      'You are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application',
+  };
   const enApp1App2Domiciled = {
     line1: `you and your ${partner} are domiciled in England and Wales`,
   };
+  const enApp1Domiciled = {
+    line1: 'Only you are domiciled in England and Wales',
+  };
+  const enApp2Domiciled = {
+    line1: `Only your ${partner} is domiciled in England and Wales`,
+  };
+  const enResidualJurisdiction = {
+    line1: `you and your ${partner} ${
+      isDivorce ? 'married each other' : 'registered your civil partnership'
+    } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
+  };
   const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident,
-    [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths,
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled,
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: enApp1Resident,
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident, // A
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident, // B
+    [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident, // C
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths, // D
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: enApp1ResidentSixMonths, // E
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled, // F
+    [JurisdictionConnections.APP_1_DOMICILED]: enApp1Domiciled, // G
+    [JurisdictionConnections.APP_2_DOMICILED]: enApp2Domiciled, // H
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction, // I
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: enApp1Resident, // J
   };
 
   const connectionCheckboxes = {
@@ -71,9 +90,15 @@ const en = (
     disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
       If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
     readMore: `Read more about ${
-      connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED ? 'domicile' : 'habitual residence'
+      connections.length > 1 || connections[0] === JurisdictionConnections.RESIDUAL_JURISDICTION
+        ? 'jurisdiction'
+        : connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED
+        ? 'domicile'
+        : 'habitual residence'
     } and the other possible legal connections`,
     ...connectionCheckboxes,
+    connections,
+    enConnections,
     ...enConnections[connections[0]],
   };
 };
