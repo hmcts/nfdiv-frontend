@@ -7,6 +7,9 @@
 {% elif userCase.state == 'ConditionalOrderPronounced'%}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
+{% elif userCase.state == 'AwaitingClarification' %}
+  {% include "./latest-update-content/awaiting-clarification.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and
   hasApplicantNotYetAppliedForConditionalOrder %}
