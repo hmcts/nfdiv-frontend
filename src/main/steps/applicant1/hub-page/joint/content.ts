@@ -88,11 +88,15 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
-  const hasApplicantAppliedForConditionalOrder = !(content.isApplicant2
-    ? content.userCase.applicant2ApplyForConditionalOrderStarted !== YesOrNo.YES
-    : content.userCase.applicant1ApplyForConditionalOrderStarted !== YesOrNo.YES);
+  const hasApplicantAppliedForConditionalOrder = content.isApplicant2
+    ? content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
+    : content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
   const partnerSubmissionOverdue = dayjs(content.userCase.dueDate).isBefore(dayjs());
   const isApplicant2 = content.isApplicant2;
+  const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
+  const applicantApplyForConditionalOrderStarted = isApplicant2
+    ? 'applicant2ApplyForConditionalOrderStarted'
+    : 'applicant1ApplyForConditionalOrderStarted';
   return {
     ...languages[content.language](content),
     currentState,
@@ -100,5 +104,7 @@ export const generateContent: TranslationFn = content => {
     hasApplicantAppliedForConditionalOrder,
     partnerSubmissionOverdue,
     isApplicant2,
+    applicantConfirmReceipt,
+    applicantApplyForConditionalOrderStarted,
   };
 };
