@@ -18,6 +18,7 @@ import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
+import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
@@ -33,6 +34,7 @@ import {
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
   HOME_URL,
+  NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   RESPONDENT,
@@ -96,6 +98,8 @@ export class Routes {
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
     );
+
+    app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
 
     app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(
