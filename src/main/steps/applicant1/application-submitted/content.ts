@@ -73,7 +73,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     .add(2, 'weeks')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
-  line6Solicitor: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond. If they do not confirm then you will be contacted by the court.`,
+  line6Solicitor: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line7: `If you want the application to be served (sent) to your ${partner} by post instead of email, then phone 0300 303 0642.`,
   subHeading5: 'Dividing your money and property',
   line8: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/mediation">Get help agreeing.</a>`,
