@@ -7,8 +7,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
+import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent, respondentsAddress: string) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
