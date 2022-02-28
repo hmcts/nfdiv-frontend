@@ -10,7 +10,7 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent, respondentsAddress: string) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -118,20 +118,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
   subHeading8: "Applicant's email address",
   line21: `${userEmail}`,
   subHeading9: "Respondent's correspondence address",
-  respondentAddressCountry: `${
-    userCase.applicant2SolicitorAddress ||
-    [
-      userCase.applicant2Address1,
-      userCase.applicant2Address2,
-      userCase.applicant2Address3,
-      userCase.applicant2AddressTown,
-      userCase.applicant2AddressCounty,
-      userCase.applicant2AddressPostcode,
-      userCase.applicant2AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  respondentAddressCountry: respondentsAddress,
   subHeading10: "Respondent's email address",
   line22: `${userCase.applicant2EmailAddress}`,
   subHeading11: "Respondent's solicitor details",
@@ -144,7 +131,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
     userCase.applicant2SolicitorFirmName ? userCase.applicant2SolicitorFirmName : 'not given'
   }`,
   solAddress: `Solicitor address: ${
-    userCase.applicant2SolicitorAddress ? userCase.applicant2SolicitorAddress : 'not given'
+    userCase.applicant2SolicitorAddress?.trim() ? userCase.applicant2SolicitorAddress : 'not given'
   }`,
   subHeading12: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
@@ -191,9 +178,32 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
+export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
-  const translations = languages[language](content);
+  const respondentsAddress = (
+    userCase.applicant2SolicitorAddress?.trim()
+      ? [
+          userCase.applicant2SolicitorAddress1,
+          userCase.applicant2SolicitorAddress2,
+          userCase.applicant2SolicitorAddress3,
+          userCase.applicant2SolicitorAddressTown,
+          userCase.applicant2SolicitorAddressCounty,
+          userCase.applicant2SolicitorAddressPostcode,
+          userCase.applicant2SolicitorAddressCountry,
+        ]
+      : [
+          userCase.applicant2Address1,
+          userCase.applicant2Address2,
+          userCase.applicant2Address3,
+          userCase.applicant2AddressTown,
+          userCase.applicant2AddressCounty,
+          userCase.applicant2AddressPostcode,
+          userCase.applicant2AddressCountry,
+        ]
+  )
+    .filter(Boolean)
+    .join('<br>');
+  const translations = languages[language](content, respondentsAddress);
   const isApplicantAddressPrivate = userCase.applicant1AddressPrivate !== YesOrNo.NO;
   const isRespondentAddressPrivate = userCase.applicant2AddressPrivate !== YesOrNo.NO;
   const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
