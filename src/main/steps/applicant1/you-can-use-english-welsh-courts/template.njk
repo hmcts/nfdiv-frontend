@@ -15,11 +15,11 @@
         {% if connections.length > 1 %}
           <ul class="govuk-list govuk-list--bullet">
             {% for index in connections %}
-              <li>{{ enConnections[[index]].line1 }}</li>
+              <li>{{ connectionText[index] }}</li>
             {% endfor %}
           </ul>
         {% else %}
-          {{ enConnections[[0]].line1 }}
+          {{ connectionText[0] }}
         {% endif %}
       </p>
 

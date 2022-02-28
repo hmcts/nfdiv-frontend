@@ -8,51 +8,32 @@ const en = (
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
-  const enApp1App2Resident = {
-    line1: `you and your ${partner} are habitually resident in England and Wales`,
-  };
-  const enApp1App2LastResident = {
-    line1: `you and your ${partner} were last habitually resident in England and Wales and one of you continues to reside there.`,
-  };
-  const enApp2Resident = {
-    line1: `your ${partner} is habitually resident in England and Wales.`,
-  };
-  const enApp1Resident = {
-    line1: 'you are habitually resident in England and Wales.',
-  };
-  const enApp1ResidentTwelveMonths = {
-    line1:
-      'you are habitually resident and have resided there for at least one year immediately before making this application.',
-  };
-  const enApp1ResidentSixMonths = {
-    line1:
-      'You are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application',
-  };
-  const enApp1App2Domiciled = {
-    line1: `you and your ${partner} are domiciled in England and Wales`,
-  };
-  const enApp1Domiciled = {
-    line1: 'Only you are domiciled in England and Wales',
-  };
-  const enApp2Domiciled = {
-    line1: `Only your ${partner} is domiciled in England and Wales`,
-  };
-  const enResidualJurisdiction = {
-    line1: `you and your ${partner} ${
-      isDivorce ? 'married each other' : 'registered your civil partnership'
-    } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
-  };
-  const enConnections: Partial<Record<JurisdictionConnections, typeof enApp1App2Resident>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: enApp1App2Resident, // A
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: enApp1App2LastResident, // B
-    [JurisdictionConnections.APP_2_RESIDENT]: enApp2Resident, // C
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: enApp1ResidentTwelveMonths, // D
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: enApp1ResidentSixMonths, // E
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: enApp1App2Domiciled, // F
-    [JurisdictionConnections.APP_1_DOMICILED]: enApp1Domiciled, // G
-    [JurisdictionConnections.APP_2_DOMICILED]: enApp2Domiciled, // H
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]: enResidualJurisdiction, // I
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: enApp1Resident, // J
+  const app1App2Resident = `you and your ${partner} are habitually resident in England and Wales`;
+  const app1App2LastResident = `you and your ${partner} were last habitually resident in England and Wales and one of you continues to reside there.`;
+  const app2Resident = `your ${partner} is habitually resident in England and Wales.`;
+  const app1Resident = 'you are habitually resident in England and Wales.';
+  const app1ResidentTwelveMonths =
+    'you are habitually resident and have resided there for at least one year immediately before making this application.';
+  const app1ResidentSixMonths =
+    'You are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application';
+  const app1App2Domiciled = `you and your ${partner} are domiciled in England and Wales`;
+  const app1Domiciled = 'Only you are domiciled in England and Wales';
+  const app2Domiciled = `Only your ${partner} is domiciled in England and Wales`;
+  const residualJurisdiction = `you and your ${partner} ${
+    isDivorce ? 'married each other' : 'registered your civil partnership'
+  } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`;
+
+  const connectionText: Partial<Record<JurisdictionConnections, typeof app1App2Resident>> = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: app1App2Resident, // A
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: app1App2LastResident, // B
+    [JurisdictionConnections.APP_2_RESIDENT]: app2Resident, // C
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: app1ResidentTwelveMonths, // D
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: app1ResidentSixMonths, // E
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: app1App2Domiciled, // F
+    [JurisdictionConnections.APP_1_DOMICILED]: app1Domiciled, // G
+    [JurisdictionConnections.APP_2_DOMICILED]: app2Domiciled, // H
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: residualJurisdiction, // I
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: app1Resident, // J
   };
 
   const connectionCheckboxes = {
@@ -98,79 +79,12 @@ const en = (
     } and the other possible legal connections`,
     ...connectionCheckboxes,
     connections,
-    enConnections,
-    ...enConnections[connections[0]],
+    connectionText,
   };
 };
 
-const cy = ({ isDivorce, partner }: CommonContent, connections: JurisdictionConnections[]) => {
-  const apply = isDivorce ? 'cais am ysgariad' : 'cais';
-  const cyApp1App2Resident = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol.`,
-    readMore: 'Darllenwch fwy am breswylio’n arferol',
-    helpText1:
-      'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.',
-    helpText2:
-      'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
-    helpText3:
-      'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
-  };
-  const cyApp1App2LastResident = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod ill dau yn preswylio yno’n arferol a bod un ohonoch yn dal i fyw yno.`,
-    readMore: 'Darllenwch fwy am breswylio’n arferol',
-    helpText1:
-      'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.',
-    helpText2:
-      'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
-    helpText3:
-      'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
-  };
-  const cyApp2Resident = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am fod eich ${partner} yn preswylio’n arferol yno.`,
-    readMore: 'Darllenwch fwy am breswylio’n arferol',
-    helpText1:
-      'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn preswylio’n arferol yno yn ôl y gyfraith.',
-    helpText2:
-      'Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.',
-    helpText3:
-      'Nid yw’r enghreifftiau uchod yn rhestr gynhwysfawr o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yng Nghymru neu Loegr. Os nad ydych yn siwr , dylech ofyn am gyngor cyfreithiol.',
-  };
-  const cyApp1ResidentTwelveMonths = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am eich bod yn preswylio yno’n arferol a’ch bod wedi byw yma am o leiaf 12 mis.`,
-    readMore: 'Darllenwch fwy am breswylio’n arferol',
-    helpText1:
-      'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru a Lloegr, rydych yn preswylio’n arferol yno yn ôl y gyfraith.',
-    helpText2:
-      'Mae’n bosib i hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Lloegr.',
-    helpText3:
-      'Nid yw’r enghreifftiau uchod yn rhestr ddihysbydd o amgylchiadau sy’n enghreifftio preswylfa arferol, ac er y gallai rhai ohonynt fod yn berthnasol ichi, nid yw hynny o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siwr, dylech ofyn am gyngor cyfreithiol.',
-  };
-  const cyApp1App2Domiciled = {
-    line1: `Mae eich atebion yn dangos y gallwch wneud ${apply} yng Nghymru a Lloegr am mai yng Nghymru a Lloegr y mae domisil y ddau ohonoch.`,
-    readMore: 'Darllenwch fwy am beth yw domisil',
-    helpText1:
-      'Pan rydych yn cael eich geni, rydych yn cael <strong>mamwlad</strong>.Fel arfer, hwn yw: <ul class="govuk-list govuk-list--bullet"> <li>y wlad yr oedd eich tad â’i ddomisil ynddi os oedd eich rhieni yn briod</li> <li>y wlad yr oedd eich mam â’i domisil ynddi os nad oedd eich rhieni yn briod, neu os oedd eich tad wedi marw cyn ichi gael eich geni</li> </ul>',
-    helpText2:
-      'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymsefydlu mewn gwlad arall fel oedolyn, efallai y daw’r wlad honno yn <strong>ddomisil drwy ddewis</strong> ichi.',
-    helpText3: 'Dylech ddewis Ydy os oes gennych un o’r ddau fath o ddomisil yng Nghymru neu Loegr.',
-    helpText4: 'Os nad ydych chi’n siwr am eich domisil, dylech ofyn am gyngor cyfreithiol.',
-  };
-
-  const cyConnections: Partial<Record<JurisdictionConnections, typeof cyApp1App2Resident | undefined>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: cyApp1App2Resident,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: cyApp1App2LastResident,
-    [JurisdictionConnections.APP_2_RESIDENT]: cyApp2Resident,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: cyApp1ResidentTwelveMonths,
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: cyApp1App2Domiciled,
-  };
-
-  return {
-    title: `Gallwch ddefnyddio llys yng Nghymru neu Loegr ${
-      isDivorce ? 'i gael ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    }`,
-    ...cyConnections[connections[0]],
-  };
-};
+// @TODO translations
+const cy = en;
 
 export const form: FormContent = {
   fields: userCase => {
