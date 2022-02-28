@@ -22,7 +22,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
-  line2: 'Find out more about conditional orders',
   whatHappensNext: 'What happens next',
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
