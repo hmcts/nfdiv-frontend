@@ -39,7 +39,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
       because this is a joint application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.
       They have been sent an email to remind them.`,
-      line2: `If they do not apply by ${userCase.dueDate || dayjs().format('D MMMM YYYY')}
+      line2: `If they do not apply by ${userCase.dueDate}
       then you will be sent an email telling you how you can progress the application.`,
     },
     afterDueDate: {
