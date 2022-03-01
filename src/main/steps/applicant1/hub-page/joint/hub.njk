@@ -10,6 +10,9 @@
 {% elif userCase.state == 'AwaitingClarification' %}
   {% include "./latest-update-content/awaiting-clarification.njk" %}
 
+{% elif userCase.state == 'ClarificationSubmitted'%}
+  {% include "./latest-update-content/clarification-submitted.njk" %}
+
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('Holding') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingLegalAdvisorReferral') and
   hasApplicantNotYetAppliedForConditionalOrder %}
