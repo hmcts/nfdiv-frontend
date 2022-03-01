@@ -53,6 +53,8 @@ const getOtherCourtCasesMoreDetailsContent = () => {
   return moreDetailsComponent(text, title);
 };
 
+const stripTags = value => (typeof value === 'string' ? value.replace(/(<([^>]+)>)/gi, '') : value);
+
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
@@ -205,23 +207,23 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
         userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes <br> ${userCase.applicant1HelpWithFeesRefNo}`
+          ? `Yes <br> ${stripTags(userCase.applicant1HelpWithFeesRefNo)}`
           : ''
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${userCase.inTheUk}`,
-      line2: `${userCase.certificateInEnglish}`,
-      line3: `${userCase.certifiedTranslation}`,
-      line4: `${userCase.ceremonyCountry}`,
-      line5: `${userCase.ceremonyPlace}`,
-      line6: `${userCase.applicant1LifeBasedInEnglandAndWales}`,
-      line7: `${userCase.applicant2LifeBasedInEnglandAndWales}`,
-      line8: `${userCase.applicant1DomicileInEnglandWales}`,
-      line9: `${userCase.applicant1LivingInEnglandWalesTwelveMonths}`,
-      line10: `${userCase.applicant1LivingInEnglandWalesSixMonths}`,
-      line11: `${userCase.applicant2DomicileInEnglandWales}`,
-      line12: `${userCase.bothLastHabituallyResident}`,
+      line1: `${stripTags(userCase.inTheUk)}`,
+      line2: `${stripTags(userCase.certificateInEnglish)}`,
+      line3: `${stripTags(userCase.certifiedTranslation)}`,
+      line4: `${stripTags(userCase.ceremonyCountry)}`,
+      line5: `${stripTags(userCase.ceremonyPlace)}`,
+      line6: `${stripTags(userCase.applicant1LifeBasedInEnglandAndWales)}`,
+      line7: `${stripTags(userCase.applicant2LifeBasedInEnglandAndWales)}`,
+      line8: `${stripTags(userCase.applicant1DomicileInEnglandWales)}`,
+      line9: `${stripTags(userCase.applicant1LivingInEnglandWalesTwelveMonths)}`,
+      line10: `${stripTags(userCase.applicant1LivingInEnglandWalesSixMonths)}`,
+      line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
+      line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
       line13: `${
         userCase.connections && userCase.connections?.length
           ? `${connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)}
@@ -233,10 +235,10 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
     },
     aboutPartners: {
-      line1: `${userCase.applicant1FullNameOnCertificate}`,
-      line2: `${userCase.applicant2FullNameOnCertificate}`,
-      line3: `${userCase.applicant1LastNameChangedWhenRelationshipFormed}`,
-      line4: `${userCase.applicant1NameChangedSinceRelationshipFormed}`,
+      line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
+      line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
+      line3: `${stripTags(userCase.applicant1LastNameChangedWhenRelationshipFormed)}`,
+      line4: `${stripTags(userCase.applicant1NameChangedSinceRelationshipFormed)}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length
           ? userCase.applicant1NameChangedHow
@@ -251,9 +253,9 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
     },
     contactYou: {
-      line1: `${userCase.applicant1FirstNames}`,
-      line2: `${userCase.applicant1MiddleNames}`,
-      line3: `${userCase.applicant1LastNames}`,
+      line1: `${stripTags(userCase.applicant1FirstNames)}`,
+      line2: `${stripTags(userCase.applicant1MiddleNames)}`,
+      line3: `${stripTags(userCase.applicant1LastNames)}`,
       line4: `${
         userCase.applicant1AgreeToReceiveEmails
           ? `I agree that the ${
@@ -262,7 +264,9 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
           : ''
       }`,
       line5: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2 ? '' : userCase.applicant1PhoneNumber
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
+          ? ''
+          : stripTags(userCase.applicant1PhoneNumber)
       }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
@@ -280,54 +284,54 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
-              userCase.applicant1Address1,
-              userCase.applicant1Address2,
-              userCase.applicant1Address3,
-              userCase.applicant1AddressTown,
-              userCase.applicant1AddressCounty,
-              userCase.applicant1AddressPostcode,
-              userCase.applicant1AddressCountry,
+              stripTags(userCase.applicant1Address1),
+              stripTags(userCase.applicant1Address2),
+              stripTags(userCase.applicant1Address3),
+              stripTags(userCase.applicant1AddressTown),
+              stripTags(userCase.applicant1AddressCounty),
+              stripTags(userCase.applicant1AddressPostcode),
+              stripTags(userCase.applicant1AddressCountry),
             ]
               .filter(Boolean)
               .join('<br>')
       }`,
     },
     contactThem: {
-      line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
-      line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
-      line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
+      line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
+      line2: `${isJointApplication ? '' : stripTags(userCase.applicant2MiddleNames)}`,
+      line3: `${isJointApplication ? '' : stripTags(userCase.applicant2LastNames)}`,
       line4: `${
         isJointApplication
           ? ''
           : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
       }`,
       line5: `${[
-        userCase.applicant2SolicitorName,
-        userCase.applicant2SolicitorEmail,
-        userCase.applicant2SolicitorFirmName,
-        userCase.applicant2SolicitorAddress1,
-        userCase.applicant2SolicitorAddress2,
-        userCase.applicant2SolicitorAddress3,
-        userCase.applicant2SolicitorAddressTown,
-        userCase.applicant2SolicitorAddressCounty,
-        userCase.applicant2SolicitorAddressPostcode,
-        userCase.applicant2SolicitorAddressCountry,
+        stripTags(userCase.applicant2SolicitorName),
+        stripTags(userCase.applicant2SolicitorEmail),
+        stripTags(userCase.applicant2SolicitorFirmName),
+        stripTags(userCase.applicant2SolicitorAddress1),
+        stripTags(userCase.applicant2SolicitorAddress2),
+        stripTags(userCase.applicant2SolicitorAddress3),
+        stripTags(userCase.applicant2SolicitorAddressTown),
+        stripTags(userCase.applicant2SolicitorAddressCounty),
+        stripTags(userCase.applicant2SolicitorAddressPostcode),
+        stripTags(userCase.applicant2SolicitorAddressCountry),
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      line6: `${userCase.applicant2EmailAddress}`,
-      line7: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
+      line6: `${stripTags(userCase.applicant2EmailAddress)}`,
+      line7: `${isJointApplication ? '' : stripTags(userCase.applicant1KnowsApplicant2Address)}`,
       line8: `${
         isJointApplication
           ? ''
           : [
-              userCase.applicant2Address1,
-              userCase.applicant2Address2,
-              userCase.applicant2Address3,
-              userCase.applicant2AddressTown,
-              userCase.applicant2AddressCounty,
-              userCase.applicant2AddressPostcode,
-              userCase.applicant2AddressCountry,
+              stripTags(userCase.applicant2Address1),
+              stripTags(userCase.applicant2Address2),
+              stripTags(userCase.applicant2Address3),
+              stripTags(userCase.applicant2AddressTown),
+              stripTags(userCase.applicant2AddressCounty),
+              stripTags(userCase.applicant2AddressPostcode),
+              stripTags(userCase.applicant2AddressCountry),
             ]
               .filter(Boolean)
               .join('<br>')
@@ -447,7 +451,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   },
   change: 'Change',
   continueApplication: 'Continue',
-  confirm: `Confirm before ${userCase.applicant1HelpWithFeesRefNo ? 'submitting' : 'continuing'}`,
+  confirm: `Confirm before ${stripTags(userCase.applicant1HelpWithFeesRefNo) ? 'submitting' : 'continuing'}`,
   jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
   confirmPrayer: 'I confirm that I’m applying to the court to:',
   confirmPrayerHint: `<ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
@@ -466,7 +470,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: isJointApplication
     ? 'Send for review'
-    : userCase.applicant1HelpWithFeesRefNo
+    : stripTags(userCase.applicant1HelpWithFeesRefNo)
     ? 'Submit application'
     : 'Continue to payment',
   errors: isJointApplication
@@ -654,8 +658,8 @@ const cy: typeof en = ({
       line1: `${userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line2: `${userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line3: `${userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line4: `${userCase.ceremonyCountry}`,
-      line5: `${userCase.ceremonyPlace}`,
+      line4: `${stripTags(userCase.ceremonyCountry)}`,
+      line5: `${stripTags(userCase.ceremonyPlace)}`,
       line6: `${userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line7: `${userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line8: `${userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
@@ -674,10 +678,10 @@ const cy: typeof en = ({
       }`,
     },
     aboutPartners: {
-      line1: `${userCase.applicant1FullNameOnCertificate}`,
-      line2: `${userCase.applicant2FullNameOnCertificate}`,
-      line3: `${userCase.applicant1LastNameChangedWhenRelationshipFormed}`,
-      line4: `${userCase.applicant1NameChangedSinceRelationshipFormed}`,
+      line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
+      line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
+      line3: `${stripTags(userCase.applicant1LastNameChangedWhenRelationshipFormed)}`,
+      line4: `${stripTags(userCase.applicant1NameChangedSinceRelationshipFormed)}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length
           ? userCase.applicant1NameChangedHow
@@ -692,9 +696,9 @@ const cy: typeof en = ({
       }`,
     },
     contactYou: {
-      line1: `${userCase.applicant1FirstNames}`,
-      line2: `${userCase.applicant1MiddleNames}`,
-      line3: `${userCase.applicant1LastNames}`,
+      line1: `${stripTags(userCase.applicant1FirstNames)}`,
+      line2: `${stripTags(userCase.applicant1MiddleNames)}`,
+      line3: `${stripTags(userCase.applicant1LastNames)}`,
       line4: `${
         userCase.applicant1AgreeToReceiveEmails
           ? `Rwy'n cytuno y gall y ${
@@ -703,7 +707,9 @@ const cy: typeof en = ({
           : ''
       }`,
       line5: `${
-        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2 ? '' : userCase.applicant1PhoneNumber
+        userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
+          ? ''
+          : stripTags(userCase.applicant1PhoneNumber)
       }`,
       line6: `${
         userCase.applicant1EnglishOrWelsh
@@ -721,54 +727,54 @@ const cy: typeof en = ({
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
-              userCase.applicant1Address1,
-              userCase.applicant1Address2,
-              userCase.applicant1Address3,
-              userCase.applicant1AddressTown,
-              userCase.applicant1AddressCounty,
-              userCase.applicant1AddressPostcode,
-              userCase.applicant1AddressCountry,
+              stripTags(userCase.applicant1Address1),
+              stripTags(userCase.applicant1Address2),
+              stripTags(userCase.applicant1Address3),
+              stripTags(userCase.applicant1AddressTown),
+              stripTags(userCase.applicant1AddressCounty),
+              stripTags(userCase.applicant1AddressPostcode),
+              stripTags(userCase.applicant1AddressCountry),
             ]
               .filter(Boolean)
               .join('<br>')
       }`,
     },
     contactThem: {
-      line1: `${isJointApplication ? '' : userCase.applicant2FirstNames}`,
-      line2: `${isJointApplication ? '' : userCase.applicant2MiddleNames}`,
-      line3: `${isJointApplication ? '' : userCase.applicant2LastNames}`,
+      line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
+      line2: `${isJointApplication ? '' : stripTags(userCase.applicant2MiddleNames)}`,
+      line3: `${isJointApplication ? '' : stripTags(userCase.applicant2LastNames)}`,
       line4: `${
         isJointApplication
           ? ''
           : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, "I'm not sure")
       }`,
       line5: `${[
-        userCase.applicant2SolicitorName,
-        userCase.applicant2SolicitorEmail,
-        userCase.applicant2SolicitorFirmName,
-        userCase.applicant2SolicitorAddress1,
-        userCase.applicant2SolicitorAddress2,
-        userCase.applicant2SolicitorAddress3,
-        userCase.applicant2SolicitorAddressTown,
-        userCase.applicant2SolicitorAddressCounty,
-        userCase.applicant2SolicitorAddressPostcode,
-        userCase.applicant2SolicitorAddressCountry,
+        stripTags(userCase.applicant2SolicitorName),
+        stripTags(userCase.applicant2SolicitorEmail),
+        stripTags(userCase.applicant2SolicitorFirmName),
+        stripTags(userCase.applicant2SolicitorAddress1),
+        stripTags(userCase.applicant2SolicitorAddress2),
+        stripTags(userCase.applicant2SolicitorAddress3),
+        stripTags(userCase.applicant2SolicitorAddressTown),
+        stripTags(userCase.applicant2SolicitorAddressCounty),
+        stripTags(userCase.applicant2SolicitorAddressPostcode),
+        stripTags(userCase.applicant2SolicitorAddressCountry),
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      line6: `${userCase.applicant2EmailAddress}`,
+      line6: `${stripTags(userCase.applicant2EmailAddress)}`,
       line7: `${isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address}`,
       line8: `${
         isJointApplication
           ? ''
           : [
-              userCase.applicant2Address1,
-              userCase.applicant2Address2,
-              userCase.applicant2Address3,
-              userCase.applicant2AddressTown,
-              userCase.applicant2AddressCounty,
-              userCase.applicant2AddressPostcode,
-              userCase.applicant2AddressCountry,
+              stripTags(userCase.applicant2Address1),
+              stripTags(userCase.applicant2Address2),
+              stripTags(userCase.applicant2Address3),
+              stripTags(userCase.applicant2AddressTown),
+              stripTags(userCase.applicant2AddressCounty),
+              stripTags(userCase.applicant2AddressPostcode),
+              stripTags(userCase.applicant2AddressCountry),
             ]
               .filter(Boolean)
               .join('<br>')
@@ -781,7 +787,9 @@ const cy: typeof en = ({
        ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
           : ''
       }`,
-      line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
+      line2: `${
+        userCase.applicant1LegalProceedings === YesOrNo.YES ? stripTags(userCase.applicant1LegalProceedingsDetails) : ''
+      }`,
     },
     dividingAssets: {
       line1: `${
