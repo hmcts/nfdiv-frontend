@@ -1,7 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import config from 'config';
 
-import { StatusResponse } from '../../main/steps/applicant1/equality/get';
 import { config as testConfig } from '../config';
 
 jest.retryTimes(20); // 20 retries at 1 second intervals
@@ -13,7 +12,15 @@ const servicesToCheck = [
   { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'CCD Data Store', url: config.get('services.case.url') },
+  { name: 'Payment API', url: config.get('services.payments.url') },
 ];
+
+const checkService = async (url: string) => {
+  const response = await axios.get(url);
+  if (response.status !== 200 || response.data?.status !== 'UP') {
+    throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+  }
+};
 
 describe('Smoke Test', () => {
   describe('Health Check', () => {
@@ -21,25 +28,7 @@ describe('Smoke Test', () => {
       const parsedUrl = new URL('/health', url as string).toString();
 
       test(`${name}: ${parsedUrl}`, async () => {
-        const checkService = async () => {
-          try {
-            const response: AxiosResponse<StatusResponse> = await axios.get(parsedUrl, {
-              headers: {
-                'Accept-Encoding': 'gzip',
-                accept: 'application/json',
-              },
-            });
-            if (response.status !== 200 || response.data?.status !== 'UP') {
-              throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
-            }
-          } catch (e) {
-            await new Promise((resolve, reject) =>
-              setTimeout(() => reject(`'${name}' endpoint is not up: '${parsedUrl}': ${e}`), 1000)
-            );
-          }
-        };
-
-        await expect(checkService()).resolves.not.toThrow();
+        await expect(checkService(parsedUrl)).resolves.not.toThrow();
       });
     });
   });
