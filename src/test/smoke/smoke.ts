@@ -1,46 +1,41 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import config from 'config';
 
-import { StatusResponse } from '../../main/steps/applicant1/equality/get';
-import { config as testConfig } from '../config';
-
-jest.retryTimes(20); // 20 retries at 1 second intervals
-jest.setTimeout(15000);
+jest.retryTimes(20);
+jest.setTimeout(5000);
 
 const servicesToCheck = [
-  { name: 'No Fault Divorce Web', url: testConfig.TEST_URL },
+  { name: 'No Fault Divorce Web', url: process.env.TEST_URL },
   { name: 'IDAM Web', url: config.get('services.idam.authorizationURL') },
   { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'CCD Data Store', url: config.get('services.case.url') },
+  { name: 'Payment API', url: config.get('services.payments.url') },
 ];
 
-describe('Smoke Test', () => {
-  describe('Health Check', () => {
-    describe.each(servicesToCheck)('Required services should return 200 status UP', ({ name, url }) => {
-      const parsedUrl = new URL('/health', url as string).toString();
+const checkService = async (url: string) => {
+  const response = await axios.get(url);
+  if (response.status !== 200 || response.data?.status !== 'UP') {
+    throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+  }
+};
 
-      test(`${name}: ${parsedUrl}`, async () => {
-        const checkService = async () => {
-          try {
-            const response: AxiosResponse<StatusResponse> = await axios.get(parsedUrl, {
-              headers: {
-                'Accept-Encoding': 'gzip',
-                accept: 'application/json',
-              },
-            });
-            if (response.status !== 200 || response.data?.status !== 'UP') {
-              throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
-            }
-          } catch (e) {
-            await new Promise((resolve, reject) =>
-              setTimeout(() => reject(`'${name}' endpoint is not up: '${parsedUrl}': ${e}`), 1000)
-            );
-          }
-        };
+describe.each(servicesToCheck)('Required services should return 200 status UP', ({ name, url }) => {
+  const parsedUrl = new URL('/health', url as string).toString();
 
-        await expect(checkService()).resolves.not.toThrow();
-      });
-    });
+  test(`${name}: ${parsedUrl}`, async () => {
+    await expect(checkService(parsedUrl)).resolves.not.toThrow();
+  });
+});
+
+describe('Homepage should redirect to IDAM', () => {
+  test('Homepage', async () => {
+    const checkHomepage = async () => {
+      const response = await axios.get(process.env.TEST_URL!);
+      if (response.status !== 200 || !response.data.includes('password')) {
+        throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+      }
+    };
+    await expect(checkHomepage()).resolves.not.toThrow();
   });
 });
