@@ -50,6 +50,9 @@
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
 
+{% elif userCase.state == 'AwaitingServicePayment' %}
+  {% include "./latest-update-content/awaiting-service-payment.njk" %}
+
 {% else %}
   {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
 {% endif %}
