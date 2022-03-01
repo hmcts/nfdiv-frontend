@@ -1,22 +1,15 @@
 export class StateSequence {
   states: string[];
+  stateIndex: number;
 
   constructor(readonly stateList: string[]) {
     this.states = stateList;
+    this.stateIndex = 0;
   }
 
-  public at(currentState: string): SequenceStage {
-    return new SequenceStage(this.states, this.states.indexOf(currentState));
-  }
-}
-
-export class SequenceStage {
-  stateIndex: number;
-  states: string[];
-
-  constructor(readonly stateList: string[], readonly index: number) {
-    this.stateIndex = index;
-    this.states = stateList;
+  public at(currentState: string): StateSequence {
+    this.stateIndex = this.states.indexOf(currentState);
+    return this;
   }
 
   public isAfter(state: string): boolean {
