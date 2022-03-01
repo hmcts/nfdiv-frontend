@@ -72,7 +72,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const states = new StateSequence([
+  const currentState = new StateSequence([
     State.Holding,
     State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
@@ -83,8 +83,7 @@ export const generateContent: TranslationFn = content => {
     State.AwaitingFinalOrder,
     State.FinalOrderRequested,
     State.FinalOrderComplete,
-  ]);
-  const currentState = content.userCase.state ? states.at(content.userCase.state.toString()) : undefined;
+  ]).at(content.userCase.state as State);
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
