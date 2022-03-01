@@ -33,6 +33,10 @@ export default class PaymentCallbackGetController {
     const lastPaymentAttempt = payments.lastPayment;
     const payment = await paymentClient.get(lastPaymentAttempt.reference);
 
+    if (!payment) {
+      throw new Error('Could not retrieve payment status from payment service');
+    }
+
     if (payment?.status === 'Initiated') {
       return res.redirect(lastPaymentAttempt.channel);
     }
