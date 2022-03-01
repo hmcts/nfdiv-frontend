@@ -124,6 +124,40 @@ describe('PaymentCallbackGetController', () => {
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });
 
+    it('throws an error if the payment API is down', async () => {
+      const userCase = {
+        state: State.AwaitingPayment,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+        payments: [
+          {
+            id: 'mock payment id',
+            value: {
+              amount: 55000,
+              channel: 'mock payment provider',
+              created: '1999-12-31T20:01:00.123',
+              feeCode: 'FEE0002',
+              reference: 'mock ref',
+              status: PaymentStatus.IN_PROGRESS,
+              transactionId: 'mock payment id',
+            },
+          },
+        ],
+      };
+      const req = mockRequest({
+        userCase,
+      });
+      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
+      const res = mockResponse();
+
+      (mockGet as jest.Mock).mockReturnValueOnce(undefined);
+
+      await expect(paymentController.get(req, res)).rejects.toThrow(
+        new Error('Could not retrieve payment status from payment service')
+      );
+
+      expect(mockGet).toHaveBeenCalledWith('mock ref');
+    });
+
     it('saves and redirects to the pay and submit page if last payment was unsuccessful and is joint application', async () => {
       const userCase = {
         state: State.AwaitingPayment,
