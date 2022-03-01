@@ -23,19 +23,19 @@
       label: {
         text: partnerResponse
       },
-      complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingApplicant2Response'),
+      complete: currentState.isAfter('AwaitingApplicant2Response'),
       active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
         text: conditionalOrderGranted
       },
-      complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingLegalAdvisorReferral'),
+      complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
       active: userCase.state == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
         text: applicationEnded
       },
-      complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('FinalOrderComplete'),
+      complete: currentState.isAtOrAfter('FinalOrderComplete'),
       active: userCase.state == 'FinalOrderComplete'
     }]
   }) }}

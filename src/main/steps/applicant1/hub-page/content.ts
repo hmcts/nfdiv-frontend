@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { StateSequence } from '../../state-sequence';
 import { PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -118,10 +119,37 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const currentState = new StateSequence([
+    State.AwaitingAos,
+    State.AosDrafted,
+    State.AosOverdue,
+    State.AwaitingServicePayment,
+    State.AwaitingServiceConsideration,
+    State.AwaitingBailiffReferral,
+    State.AwaitingBailiffService,
+    State.IssuedToBailiff,
+    State.Holding,
+    State.AwaitingConditionalOrder,
+    State.AwaitingGeneralConsideration,
+    State.ConditionalOrderDrafted,
+    State.ConditionalOrderPending,
+    State.AwaitingLegalAdvisorReferral,
+    State.AwaitingClarification,
+    State.ClarificationSubmitted,
+    State.AwaitingAmendedApplication,
+    State.AwaitingPronouncement,
+    State.ConditionalOrderPronounced,
+    State.AwaitingFinalOrder,
+    State.FinalOrderOverdue,
+    State.FinalOrderRequested,
+    State.FinalOrderPending,
+    State.FinalOrderComplete,
+  ]).at(userCase.state as State);
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    currentState,
     isCoFieldsSet,
   };
 };
