@@ -1,6 +1,7 @@
 import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
+import { addConnection } from '../../../app/jurisdiction/connections';
 import type { CommonContent } from '../../common/common.content';
 
 const jurisdictionConnectionList = [
@@ -17,7 +18,7 @@ const jurisdictionConnectionList = [
 ];
 
 const en = (
-  { isDivorce, partner, applyForDivorce, applyForDissolution }: CommonContent,
+  { isDivorce, partner, applyForDivorce, applyForDissolution, userCase }: CommonContent,
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
@@ -64,6 +65,8 @@ const en = (
     'I am habitually resident in England and Wales',
   ];
 
+  const preMadeConnections = addConnection(userCase);
+
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
     line1Prefix: `Your answers indicate that you can ${apply} in England and Wales because `,
@@ -89,7 +92,7 @@ const en = (
         : 'habitual residence'
     } and the other possible legal connections`,
     connectionCheckboxes,
-    connections,
+    preMadeConnections,
     connectionText,
   };
 };
@@ -100,9 +103,10 @@ const cy = en;
 export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
+    const preMadeConnections = addConnection(userCase);
     for (const index in jurisdictionConnectionList) {
       if (
-        !userCase.connections?.includes(jurisdictionConnectionList[index]) &&
+        !preMadeConnections?.includes(jurisdictionConnectionList[index]) &&
         !(
           jurisdictionConnectionList[index] === JurisdictionConnections.APP_1_RESIDENT_JOINT &&
           userCase.applicationType === ApplicationType.SOLE_APPLICATION

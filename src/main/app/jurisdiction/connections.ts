@@ -1,3 +1,4 @@
+import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls';
 import { CaseWithId, Checkbox } from '../case/case';
 import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
@@ -90,6 +91,18 @@ const hasResidualJurisdiction = (data, connections) => {
   return (
     allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === Checkbox.Checked
   );
+};
+
+export const addConnectionWithUrl = (reqUrl: string, data: Partial<CaseWithId>): JurisdictionConnections[] => {
+  const connections = addConnection(data);
+
+  if (reqUrl === JURISDICTION_INTERSTITIAL_URL) {
+    for (const connection in data.connections) {
+      connections.push(data.connections[connection]);
+    }
+  }
+
+  return connections;
 };
 
 export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {

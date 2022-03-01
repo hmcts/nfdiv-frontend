@@ -12,14 +12,14 @@
 
       <h1 class="govuk-heading-l">{{ title }}</h1>
       <p class="govuk-body">{{ line1Prefix }}
-        {% if connections.length > 1 %}
+        {% if preMadeConnections.length > 1 %}
           <ul class="govuk-list govuk-list--bullet">
-            {% for index in connections %}
+            {% for index in preMadeConnections %}
               <li>{{ connectionText[index] }}</li>
             {% endfor %}
           </ul>
         {% else %}
-          {{ connectionText[connections[0]] }}
+          {{ connectionText[preMadeConnections[0]] }}
         {% endif %}
       </p>
 
