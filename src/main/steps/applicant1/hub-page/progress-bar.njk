@@ -11,19 +11,19 @@
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingLegalAdvisorReferral'),
+    complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('ConditionalOrderPronounced'),
+    complete: currentState.isAtOrAfter('ConditionalOrderPronounced'),
     active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
+    complete: currentState.isAfter('FinalOrderRequested'),
     active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
@@ -43,28 +43,26 @@
     label: {
       text: response
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('IssuedToBailiff'),
-    active: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingAos') and
-      progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding')
+    complete: currentState.isAfter('IssuedToBailiff'),
+    active: currentState.isAtOrAfter('AwaitingAos') and currentState.isBefore('Holding')
   }, {
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingGeneralConsideration'),
+    complete: currentState.isAfter('AwaitingGeneralConsideration'),
     active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingPronouncement'),
+    complete: currentState.isAfter('AwaitingPronouncement'),
     active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderPending'),
-    active:  progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingFinalOrder') and
-      progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('FinalOrderComplete')
+    complete: currentState.isAfter('FinalOrderPending'),
+    active:  currentState.isAtOrAfter('AwaitingFinalOrder') and currentState.isBefore('FinalOrderComplete')
   }, {
     label: {
       text: applicationEnded
