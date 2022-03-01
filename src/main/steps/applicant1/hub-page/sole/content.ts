@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { StateSequence } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 dayjs.extend(advancedFormat);
@@ -195,32 +194,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const currentState = new StateSequence([
-    State.AwaitingAos,
-    State.AosDrafted,
-    State.AosOverdue,
-    State.AwaitingServicePayment,
-    State.AwaitingServiceConsideration,
-    State.AwaitingBailiffReferral,
-    State.AwaitingBailiffService,
-    State.IssuedToBailiff,
-    State.Holding,
-    State.AwaitingConditionalOrder,
-    State.AwaitingGeneralConsideration,
-    State.ConditionalOrderDrafted,
-    State.ConditionalOrderPending,
-    State.AwaitingLegalAdvisorReferral,
-    State.AwaitingClarification,
-    State.ClarificationSubmitted,
-    State.AwaitingAmendedApplication,
-    State.AwaitingPronouncement,
-    State.ConditionalOrderPronounced,
-    State.AwaitingFinalOrder,
-    State.FinalOrderOverdue,
-    State.FinalOrderRequested,
-    State.FinalOrderPending,
-    State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
@@ -233,7 +206,6 @@ export const generateContent: TranslationFn = content => {
   const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
-    currentState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
