@@ -1,6 +1,7 @@
 import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { addConnection } from '../../../app/jurisdiction/connections';
 import type { CommonContent } from '../../common/common.content';
 
@@ -22,33 +23,7 @@ const en = (
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
-  const app1App2Resident = `you and your ${partner} are habitually resident in England and Wales`;
-  const app1App2LastResident = `you and your ${partner} were last habitually resident in England and Wales and one of you continues to reside there.`;
-  const app2Resident = `your ${partner} is habitually resident in England and Wales.`;
-  const app1Resident = 'you are habitually resident in England and Wales.';
-  const app1ResidentTwelveMonths =
-    'you are habitually resident and have resided there for at least one year immediately before making this application.';
-  const app1ResidentSixMonths =
-    'you are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application';
-  const app1App2Domiciled = `you and your ${partner} are domiciled in England and Wales`;
-  const app1Domiciled = 'only you are domiciled in England and Wales';
-  const app2Domiciled = `only your ${partner} is domiciled in England and Wales`;
-  const residualJurisdiction = `you and your ${partner} ${
-    isDivorce ? 'married each other' : 'registered your civil partnership'
-  } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`;
-
-  const connectionText: Partial<Record<JurisdictionConnections, typeof app1App2Resident>> = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: app1App2Resident, // A
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: app1App2LastResident, // B
-    [JurisdictionConnections.APP_2_RESIDENT]: app2Resident, // C
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: app1ResidentTwelveMonths, // D
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: app1ResidentSixMonths, // E
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: app1App2Domiciled, // F
-    [JurisdictionConnections.APP_1_DOMICILED]: app1Domiciled, // G
-    [JurisdictionConnections.APP_2_DOMICILED]: app2Domiciled, // H
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]: residualJurisdiction, // I
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: app1Resident, // J
-  };
+  const connectionText = connectionBulletPointsUserReads(partner, isDivorce);
 
   const connectionCheckboxes = [
     `My ${partner} and I are habitually resident in England and Wales`,

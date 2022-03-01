@@ -2,18 +2,20 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsTextSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, required, userCase }: CommonContent) => {
+const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
   return {
     title: 'The legal power (jurisdiction) of the courts',
     line1: `Your ${partner} was asked some questions to find out whether the courts of England and Wales have the legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
-    connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+    connectionBulletPoints: userCase
+      ? connectionBulletPointsTextSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+      : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,

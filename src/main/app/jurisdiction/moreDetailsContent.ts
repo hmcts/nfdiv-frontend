@@ -87,10 +87,7 @@ export const jurisdictionMoreDetailsContent = (
 };
 
 /* TODO: Notes for jurisdiction ticket:
-  1. Combine connection-summary page with you-can-use-english-and-welsh-courts (bullet point content for multiple connections, one line for one)
   2. Finish cleaning up this more details content
   3. Clean up the bulletedPointsContent file
-  4. Remove checkboxes on you-can-use-english-and-welsh-courts for connections that have already been made
-  5. Connection needs to already be made by the you-can-use-english-and-welsh-courts in order for the above, so might need GetController on the page rather than the current postController
   6. common.content clean up?
 */

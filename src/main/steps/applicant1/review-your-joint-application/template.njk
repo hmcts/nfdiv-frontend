@@ -64,11 +64,7 @@
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    {% for line in connectionBulletPoints %}
-      <li>{{ line | safe }}</li>
-    {% endfor %}
-  </ul>
+  <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
 
   {{ govukDetails({
       summaryText: whatThisMeans,

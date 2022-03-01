@@ -6,11 +6,11 @@ import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsTextSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your original application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -49,7 +49,9 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase.connections ? connectionBulletPointsTextForRespondent(userCase.connections) : [],
+  connectionBulletPoints: userCase.connections
+    ? connectionBulletPointsTextSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+    : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'

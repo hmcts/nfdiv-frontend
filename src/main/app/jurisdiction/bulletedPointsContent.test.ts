@@ -1,9 +1,9 @@
 import { JurisdictionConnections } from '../case/definition';
 
 import {
-  connectionBulletPointsTextForJointApplications,
-  connectionBulletPointsTextForRespondent,
   connectionBulletPointsTextForSoleAndJoint,
+  connectionBulletPointsTextSummarisedForAllUsers,
+  connectionBulletPointsTextUserReads,
 } from './bulletedPointsContent';
 
 describe('connectionBulletPointsTextForSoleAndJoint', () => {
@@ -33,13 +33,13 @@ describe('connectionBulletPointsTextForSoleAndJoint', () => {
     const expected = [
       'the applicant and respondent were last habitually resident in England and Wales and one of them still resides there',
     ];
-    const result = connectionBulletPointsTextForRespondent([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]);
+    const result = connectionBulletPointsTextSummarisedForAllUsers([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]);
     expect(result).toEqual(expected);
   });
 
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A for joint applications', async () => {
     const expected = ['either one or both applicants are habitually resident in England and Wales'];
-    const result = connectionBulletPointsTextForJointApplications([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
+    const result = connectionBulletPointsTextUserReads([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
     expect(result).toEqual(expected);
   });
 });

@@ -6,7 +6,7 @@ import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsTextSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 
@@ -14,7 +14,7 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
-const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -42,7 +42,9 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   line14: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase
+    ? connectionBulletPointsTextSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+    : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
