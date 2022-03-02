@@ -7,6 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
@@ -57,25 +58,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceLine1:
-    'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.',
-  habitualResidenceLine2:
-    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-  habitualResidenceLine3:
-    'The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, ' +
-    'that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  habitualResidenceText: enHabitualResident,
   heading8: 'Domicile',
-  domicileLine1:
-    'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
-  domicileLine2:
-    'However, domicile can be more complex. For example, if you or your parents have moved countries in the past.',
-  domicileLine3: 'When you’re born, you acquire the ‘domicile of origin’. This is usually:',
-  domicileListItem1: 'the country your father was domiciled in if your parents were married',
-  domicileListItem2:
-    'the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born',
-  domicileLine4:
-    'If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’.',
-  domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
+  domicileText: enDomicile,
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'

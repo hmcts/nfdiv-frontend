@@ -1,10 +1,10 @@
 import { JurisdictionConnections } from '../case/definition';
 
-const enHabitualResident = `If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.<br><br>
+export const enHabitualResident = `If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.<br><br>
   This may include working, owning property, having children in school, and your main family life taking place in England or Wales.<br><br>
   The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.`;
 
-const enDomicile = `Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.<br><br>
+export const enDomicile = `Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.<br><br>
   However, domicile can be more complex, for example, if you or your parents have moved countries in the past.<br><br>
   When you’re born, you acquire a 'domicile of origin'. This is usually:
   <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">the country your father was domiciled in if your parents were married</li>
@@ -24,8 +24,8 @@ const enResidual = (isDivorce: boolean): string => {
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
-  isDivorce: boolean
-  // showAllResidences = false
+  isDivorce: boolean,
+  showAllResidences = false
 ): { connectedToEnglandWales: string; readMore: string } => {
   const infoContent = {
     habitualResidence: enHabitualResident,
@@ -68,13 +68,13 @@ export const jurisdictionMoreDetailsContent = (
 
   const whichTexts: string[] = [];
 
-  if (connections && connections.some(r => habitualResidentConnections.includes(r))) {
+  if ((connections && connections.some(r => habitualResidentConnections.includes(r))) || showAllResidences) {
     whichTexts.push('habitualResidence');
   }
-  if (connections && connections.some(r => domicileConnections.includes(r))) {
+  if ((connections && connections.some(r => domicileConnections.includes(r))) || showAllResidences) {
     whichTexts.push('domicile');
   }
-  if (connections && connections.some(r => residualConnections.includes(r))) {
+  if ((connections && connections.some(r => residualConnections.includes(r))) || showAllResidences) {
     whichTexts.push('residual');
   }
 
@@ -84,6 +84,6 @@ export const jurisdictionMoreDetailsContent = (
     for (const str of whichTexts) {
       totalTextParagraph += infoSubheader[str] + infoContent[str] + '<br><br>';
     }
-    return { connectedToEnglandWales: totalTextParagraph, readMore: infoTitle[4] };
+    return { connectedToEnglandWales: totalTextParagraph.slice(0, -8), readMore: infoTitle[4] };
   }
 };
