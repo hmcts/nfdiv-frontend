@@ -45,6 +45,14 @@ describe('DocumentManagerController', () => {
           field2: 'coClarificationUploadedFiles',
         },
       },
+      {
+        isApplicant2: true,
+        state: State.AwaitingClarification,
+        uploadFields: {
+          field1: 'coClarificationUploadDocuments',
+          field2: 'coClarificationUploadedFiles',
+        },
+      },
     ])('handles file uploads - %o', async ({ isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
@@ -137,6 +145,15 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
+      {
+        isApplicant2: true,
+        state: State.AwaitingClarification,
+        uploadFields: {
+          field1: 'coClarificationUploadDocuments',
+          field2: 'coClarificationUploadedFiles',
+        },
+        redirectUrl: `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
       async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
@@ -171,7 +188,7 @@ describe('DocumentManagerController', () => {
       }
     );
 
-    it("uploading throws an error if the case isn't in a Draft or AwaitingApplicant1Response or AwaitingClarification state as applicant 1", async () => {
+    it("uploading throws an error if the case isn't in a the correct state as applicant 1", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Submitted,
@@ -182,7 +199,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in Draft or AwaitingApplicant1Response or AwaitingClarification state'
+        'Cannot upload new documents as case is not in the correct state'
       );
     });
 
@@ -198,7 +215,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
       await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Cannot upload new documents as case is not in AwaitingApplicant2Response state'
+        'Cannot upload new documents as case is not in the correct state'
       );
     });
 
@@ -483,7 +500,7 @@ describe('DocumentManagerController', () => {
       expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
     });
 
-    it("deleting throws an error if the case isn't in a Draft, AwaitingApplicant1Response or AwaitingClarification state", async () => {
+    it("deleting throws an error if the case isn't in a the correct state", async () => {
       const req = mockRequest({
         userCase: {
           state: State.Submitted,
@@ -497,7 +514,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete documents as case is not in Draft, AwaitingApplicant1Response or AwaitingClarification state'
+        'Cannot delete documents as case is not in the correct state'
       );
     });
 
@@ -516,7 +533,7 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       await expect(() => documentManagerController.delete(req, res)).rejects.toThrow(
-        'Cannot delete documents as case is not in AwaitingApplicant2Response state'
+        'Cannot delete documents as case is not in the correct state'
       );
     });
   });
