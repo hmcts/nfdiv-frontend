@@ -28,7 +28,7 @@ export const jurisdictionMoreDetailsContent = (
   showAllResidences = false
 ): { connectedToEnglandWales: string; readMore: string } => {
   const whichConnectionIsIt = {
-    'habitual residence': [
+    'Habitual residence': [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
       JurisdictionConnections.APP_2_RESIDENT,
       JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
@@ -36,24 +36,18 @@ export const jurisdictionMoreDetailsContent = (
       JurisdictionConnections.APP_1_RESIDENT_JOINT,
       JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS,
     ],
-    domicile: [
+    Domicile: [
       JurisdictionConnections.APP_1_APP_2_DOMICILED,
       JurisdictionConnections.APP_1_DOMICILED,
       JurisdictionConnections.APP_2_DOMICILED,
     ],
-    'residual jurisdiction': [JurisdictionConnections.RESIDUAL_JURISDICTION],
+    'Residual jurisdiction': [JurisdictionConnections.RESIDUAL_JURISDICTION],
   };
 
   const infoContent = {
-    'habitual residence': enHabitualResident,
-    domicile: enDomicile,
-    'residual jurisdiction': enResidual(isDivorce),
-  };
-
-  const infoSubheader = {
-    'habitual residence': '<strong>Habitual residence</strong><br><br>',
-    domicile: '<strong>Domicile</strong><br><br>',
-    'residual jurisdiction': '<strong>Residual</strong><br><br>',
+    'Habitual residence': enHabitualResident,
+    Domicile: enDomicile,
+    'Residual jurisdiction': enResidual(isDivorce),
   };
 
   let totalTextParagraph = '';
@@ -67,10 +61,13 @@ export const jurisdictionMoreDetailsContent = (
   }
 
   if (whichTexts.length === 1) {
-    return { connectedToEnglandWales: infoContent[whichTexts[0]], readMore: 'Read more about ' + whichTexts[0] };
+    return {
+      connectedToEnglandWales: infoContent[whichTexts[0]],
+      readMore: 'Read more about ' + whichTexts[0].toLowerCase(),
+    };
   } else {
     for (const str of whichTexts) {
-      totalTextParagraph += infoSubheader[str] + infoContent[str] + '<br><br>';
+      totalTextParagraph += '<strong>' + str + '</strong><br><br>' + infoContent[str] + '<br><br>';
     }
     return { connectedToEnglandWales: totalTextParagraph.slice(0, -8), readMore: 'Read more about your connections' };
   }
