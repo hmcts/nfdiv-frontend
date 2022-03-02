@@ -22,6 +22,9 @@
 {% if userCase.state == 'FinalOrderRequested' %}
   {% include "./latest-update-content/final-order-requested.njk" %}
 
+{% elif userCase.state == 'AwaitingServicePayment' %}
+  {% include "./latest-update-content/awaiting-service-payment.njk" %}
+
 {% elif userCase.state == 'ConditionalOrderPronounced' %}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
@@ -49,9 +52,6 @@
 {% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
   progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
-
-{% elif userCase.state == 'AwaitingServicePayment' %}
-  {% include "./latest-update-content/awaiting-service-payment.njk" %}
 
 {% else %}
   {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
