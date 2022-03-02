@@ -12,7 +12,7 @@ export const enDomicile = `Your domicile is usually the place in which you were 
   If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.<br><br>
   If you’re not sure about your domicile, you should get legal advice.`;
 
-const enResidual = (isDivorce: boolean): string => {
+export const enResidual = (isDivorce: boolean): string => {
   return `If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:
     <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
       isDivorce ? 'married' : 'formed your civil partnership'
@@ -67,7 +67,7 @@ export const jurisdictionMoreDetailsContent = (
     };
   } else {
     for (const str of whichTexts) {
-      totalTextParagraph += '<strong>' + str + '</strong><br><br>' + infoContent[str] + '<br><br>';
+      totalTextParagraph += '<strong>' + str + '</strong><br>' + infoContent[str] + '<br><br>';
     }
     return { text: totalTextParagraph.slice(0, -8), title: 'Read more about your connections' };
   }
