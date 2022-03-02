@@ -4,7 +4,6 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { StateSequence } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 dayjs.extend(advancedFormat);
@@ -195,7 +194,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const currentState = new StateSequence([
+  const progressionIndex = [
     State.AwaitingAos,
     State.AosDrafted,
     State.AosOverdue,
@@ -220,7 +219,7 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderRequested,
     State.FinalOrderPending,
     State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
+  ];
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
@@ -233,7 +232,7 @@ export const generateContent: TranslationFn = content => {
   const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
-    currentState,
+    progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
