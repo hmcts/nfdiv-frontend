@@ -26,8 +26,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true)
-      .connectedToEnglandWales,
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true).text,
     errors: {
       jurisdictionAgree: {
         required,

@@ -26,7 +26,7 @@ export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean,
   showAllResidences = false
-): { connectedToEnglandWales: string; readMore: string } => {
+): { text: string; title: string } => {
   const whichConnectionIsIt = {
     'Habitual residence': [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
@@ -62,13 +62,13 @@ export const jurisdictionMoreDetailsContent = (
 
   if (whichTexts.length === 1) {
     return {
-      connectedToEnglandWales: infoContent[whichTexts[0]],
-      readMore: 'Read more about ' + whichTexts[0].toLowerCase(),
+      text: infoContent[whichTexts[0]],
+      title: 'Read more about ' + whichTexts[0].toLowerCase(),
     };
   } else {
     for (const str of whichTexts) {
       totalTextParagraph += '<strong>' + str + '</strong><br><br>' + infoContent[str] + '<br><br>';
     }
-    return { connectedToEnglandWales: totalTextParagraph.slice(0, -8), readMore: 'Read more about your connections' };
+    return { text: totalTextParagraph.slice(0, -8), title: 'Read more about your connections' };
   }
 };
