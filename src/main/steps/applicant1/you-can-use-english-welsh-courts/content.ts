@@ -1,7 +1,7 @@
 import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
-import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { addConnection } from '../../../app/jurisdiction/connections';
 import type { CommonContent } from '../../common/common.content';
 
@@ -23,7 +23,7 @@ const en = (
   connections: JurisdictionConnections[]
 ) => {
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
-  const connectionText = connectionBulletPointsUserReads(partner, isDivorce);
+  const connectionText = enConnectionUserReads(partner, isDivorce);
 
   const connectionCheckboxes = [
     `My ${partner} and I are habitually resident in England and Wales`,

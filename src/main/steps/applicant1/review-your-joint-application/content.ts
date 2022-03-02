@@ -6,7 +6,7 @@ import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
@@ -49,7 +49,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
-    ? connectionBulletPointsTextUserReads(userCase.connections, partner, isDivorce)
+    ? enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)
     : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${

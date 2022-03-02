@@ -1,6 +1,6 @@
 import { JurisdictionConnections } from '../case/definition';
 
-export const connectionBulletPointsTextSummarisedForAllUsers = (
+export const enConnectionBulletPointsSummarisedForAllUsers = (
   connections: JurisdictionConnections[],
   isDivorce: boolean,
   isJointApplication: boolean
@@ -38,7 +38,7 @@ export const connectionBulletPointsTextSummarisedForAllUsers = (
   return connections.map(connection => connectionBulletPoints[connection]);
 };
 
-export const connectionBulletPointsUserReads = (partner: string, isDivorce: boolean): Record<string, string> => {
+export const enConnectionUserReads = (partner: string, isDivorce: boolean): Record<string, string> => {
   return {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `you and your ${partner} are habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `you and your ${partner} were last habitually resident in England and Wales and one of you continues to reside there`,
@@ -57,7 +57,7 @@ export const connectionBulletPointsUserReads = (partner: string, isDivorce: bool
   };
 };
 
-export const connectionBulletPointsTextUserReads = (
+export const enConnectionBulletPointsUserReads = (
   connections: JurisdictionConnections[],
   partner: string,
   isDivorce: boolean
@@ -65,7 +65,7 @@ export const connectionBulletPointsTextUserReads = (
   let bulletPointText = '<ul class="govuk-list govuk-list--bullet">';
 
   for (const index in connections) {
-    bulletPointText += '<li>' + connectionBulletPointsUserReads(partner, isDivorce)[connections[index]] + '</li>';
+    bulletPointText += '<li>' + enConnectionUserReads(partner, isDivorce)[connections[index]] + '</li>';
   }
 
   return bulletPointText + '</ul>';

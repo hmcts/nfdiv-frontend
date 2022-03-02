@@ -12,23 +12,25 @@ const enDomicile = `Your domicile is usually the place in which you were born, r
   If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.<br><br>
   If you’re not sure about your domicile, you should get legal advice.`;
 
+const enResidual = (isDivorce: boolean): string => {
+  return `If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:
+    <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
+      isDivorce ? 'married' : 'formed your civil partnership'
+    } in England or Wales and </li>
+    <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
+      isDivorce ? 'divorce' : 'civil partnerships to be ended'
+    } between same-sex couples</li></ul>`;
+};
+
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean
   // showAllResidences = false
 ): { connectedToEnglandWales: string; readMore: string } => {
-  const enResidual = `If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:
-    <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
-      isDivorce ? 'married' : 'formed your civil partnership'
-    } in England or Wales and</li>
-    <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
-      isDivorce ? 'divorce' : 'civil partnerships to be ended'
-    } between same-sex couples</li></ul>`;
-
   const infoContent = {
     habitualResidence: enHabitualResident,
     domicile: enDomicile,
-    residual: enResidual,
+    residual: enResidual(isDivorce),
   };
 
   const infoTitle = {
@@ -85,9 +87,3 @@ export const jurisdictionMoreDetailsContent = (
     return { connectedToEnglandWales: totalTextParagraph, readMore: infoTitle[4] };
   }
 };
-
-/* TODO: Notes for jurisdiction ticket:
-  2. Finish cleaning up this more details content
-  3. Clean up the bulletedPointsContent file
-  6. common.content clean up?
-*/

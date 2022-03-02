@@ -13,7 +13,7 @@ import {
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
@@ -224,7 +224,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line12: `${userCase.bothLastHabituallyResident}`,
       line13: `Your answers indicate that you can apply in England and Wales because:${
         userCase.connections && userCase.connections?.length
-          ? `${connectionBulletPointsTextUserReads(userCase.connections, partner, isDivorce)}
+          ? `${enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)}
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
@@ -665,7 +665,7 @@ const cy: typeof en = ({
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? `${connectionBulletPointsTextUserReads(userCase.connections, partner, isDivorce)}
+          ? `${enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)}
       ${moreDetailsComponent(
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
         jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
