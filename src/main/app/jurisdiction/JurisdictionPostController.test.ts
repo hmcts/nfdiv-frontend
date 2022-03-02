@@ -4,14 +4,14 @@ import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo 
 import { FormContent } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
-import { addConnectionsBasedOnQuestions } from './connections';
+import { addConnections } from './connections';
 
 jest.mock('./connections');
-const addConnectionMock = addConnectionsBasedOnQuestions as jest.Mock<JurisdictionConnections[]>;
+const addConnectionsMock = addConnections as jest.Mock<JurisdictionConnections[]>;
 
 describe('JurisdictionPostController', () => {
   test('Should add connections field and call trigger PATCH and set unreachable fields as null', async () => {
-    addConnectionMock.mockReturnValue([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
+    addConnectionsMock.mockReturnValue([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
 
     const body = {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
@@ -50,7 +50,7 @@ describe('JurisdictionPostController', () => {
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
-    expect(addConnectionMock).toBeCalled();
+    expect(addConnectionsMock).toBeCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', bodyWithConnection, CITIZEN_UPDATE);
     expect(req.session.errors).toStrictEqual([]);
