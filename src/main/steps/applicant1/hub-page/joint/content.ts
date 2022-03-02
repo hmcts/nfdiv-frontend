@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { YesOrNo } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
@@ -60,6 +60,31 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     You will receive an email by ${userCase.dueDate} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
+  subHeading1:
+    [State.ClarificationSubmitted, State.Holding].includes(userCase.state as State) &&
+    userCase.coClarificationUploadDocuments
+      ? 'Latest information'
+      : 'What you need to do',
+  clarificationSubmitted: {
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+      line2: 'This was the court’s feedback, explaining the information which was needed:',
+      line3: userCase.coRefusalClarificationAdditionalInfo,
+    },
+    withoutDocuments: {
+      subHeading1: userCase.state === 'ClarificationSubmitted' ? 'What you need to do' : 'What you need to do',
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2:
+        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
+      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
+      line4: userCase.coRefusalClarificationAdditionalInfo,
+      line5: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
 });
 
 // @TODO translations
@@ -83,6 +108,7 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
+  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
     hasApplicantConfirmedReceipt,
@@ -91,5 +117,6 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
+    isClarificationDocumentsUploaded,
   };
 };
