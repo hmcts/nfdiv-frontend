@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForJointApplications } from '../../../app/jurisdiction/bulletedPointsContent';
@@ -113,10 +114,10 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     'This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. ' +
     'This is known as a ‘contested financial order’.',
   financialOrderMoreInfoLine3: `To formally start legal proceedings, the applicants will need to complete another form and pay a fee.
-  Applying for a ‘contested financial order’ costs ${config.get(
-    'fees.financialOrder'
+  Applying for a ‘contested financial order’ costs ${getFee(
+    config.get('fees.financialOrder')
   )}. Applying for a ‘financial order by consent’ costs
-  ${config.get('fees.consentOrder')}. You can get a solicitor to draft these for you. `,
+  ${getFee(config.get('fees.consentOrder'))}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Applicant 1’s correspondence address',
   applicant1Address: `${
