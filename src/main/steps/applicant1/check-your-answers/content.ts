@@ -17,16 +17,18 @@ import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bul
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (text: string, title: string) => string = (text: string, title: string) => {
+const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
+  textAndTitleObject: Record<string, string>
+) => {
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
-        ${title || 'Find out more '}
+        ${textAndTitleObject.title || 'Find out more '}
       </span>
     </summary>
     <div class="govuk-details__text">
-      ${text}
+      ${textAndTitleObject.text}
     </div>
   </details>`;
 };
@@ -42,7 +44,7 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent(text, title);
+  return moreDetailsComponent({ text, title });
 };
 
 const getOtherCourtCasesMoreDetailsContent = () => {
@@ -50,7 +52,7 @@ const getOtherCourtCasesMoreDetailsContent = () => {
   const text =
     'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
     'It does not need to know about other court proceedings.';
-  return moreDetailsComponent(text, title);
+  return moreDetailsComponent({ text, title });
 };
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }) => ({
@@ -222,13 +224,12 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line10: `${userCase.applicant1LivingInEnglandWalesSixMonths}`,
       line11: `${userCase.applicant2DomicileInEnglandWales}`,
       line12: `${userCase.bothLastHabituallyResident}`,
-      line13: `Your answers indicate that you can apply in England and Wales because:${
+      line13: `${
         userCase.connections && userCase.connections?.length
-          ? `${enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)}
-      ${moreDetailsComponent(
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`
+          ? `Your answers indicate that you can apply in England and Wales because: ${
+              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+            }`
           : ''
       }`,
     },
@@ -665,11 +666,10 @@ const cy: typeof en = ({
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? `${enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)}
-      ${moreDetailsComponent(
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`
+          ? `Your answers indicate that you can apply in England and Wales because: ${
+              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+            }`
           : ''
       }`,
     },
