@@ -5,7 +5,7 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ol>
-  {% if progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingConditionalOrder') %}
+  {% if currentState.isBefore('AwaitingConditionalOrder') %}
     <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
   {% endif %}
 {% endset %}
@@ -49,8 +49,7 @@
 {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
   {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
 
-{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
-  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
+{% elif currentState.isAfter('AosDrafted') and currentState.isBefore('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
 
 {% else %}
