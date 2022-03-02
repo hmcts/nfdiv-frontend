@@ -11,6 +11,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
@@ -33,9 +34,9 @@ const moreDetailsComponent: (text: string, title: string) => string = (text: str
 
 const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
-  const text = `This ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } costs ${config.get('fees.applicationFee')}.
+  const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
+    config.get('fees.applicationFee')
+  )}.
   You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
     applicant1HelpPayingNeeded === YesOrNo.YES
       ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'

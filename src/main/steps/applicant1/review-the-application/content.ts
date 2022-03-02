@@ -4,6 +4,7 @@ import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
@@ -97,7 +98,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
    <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee.
    Applying for a ‘contested financial order’ costs ${config.get(
      'fees.financialOrder'
-   )}. Applying for a ‘financial order by consent’ costs ${config.get('fees.consentOrder')}.
+   )}. Applying for a ‘financial order by consent’ costs ${getFee(config.get('fees.consentOrder'))}.
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",

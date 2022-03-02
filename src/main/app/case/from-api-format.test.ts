@@ -257,7 +257,7 @@ describe('from-api-format', () => {
     test('converts to UK format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        applicant1HomeAddress: {
+        applicant1Address: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           PostTown: 'Town',
@@ -278,7 +278,7 @@ describe('from-api-format', () => {
     test('converts to UK format for applicant2', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        applicant2HomeAddress: {
+        applicant2Address: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           PostTown: 'Town',
@@ -299,7 +299,7 @@ describe('from-api-format', () => {
     test('converts to an international format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
-        applicant1HomeAddress: {
+        applicant1Address: {
           AddressLine1: 'Line 1',
           AddressLine2: 'Line 2',
           AddressLine3: 'Line 3',
