@@ -27,63 +27,51 @@ export const jurisdictionMoreDetailsContent = (
   isDivorce: boolean,
   showAllResidences = false
 ): { connectedToEnglandWales: string; readMore: string } => {
-  const infoContent = {
-    habitualResidence: enHabitualResident,
-    domicile: enDomicile,
-    residual: enResidual(isDivorce),
+  const whichConnectionIsIt = {
+    'habitual residence': [
+      JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
+      JurisdictionConnections.APP_2_RESIDENT,
+      JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
+      JurisdictionConnections.APP_1_APP_2_RESIDENT,
+      JurisdictionConnections.APP_1_RESIDENT_JOINT,
+      JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS,
+    ],
+    domicile: [
+      JurisdictionConnections.APP_1_APP_2_DOMICILED,
+      JurisdictionConnections.APP_1_DOMICILED,
+      JurisdictionConnections.APP_2_DOMICILED,
+    ],
+    'residual jurisdiction': [JurisdictionConnections.RESIDUAL_JURISDICTION],
   };
 
-  const infoTitle = {
-    habitualResidence: 'Read more about habitual residence',
-    domicile: 'Read more about domicile',
-    residual: 'Read more about residual jurisdiction',
-    multiple: 'Read more about your connections',
+  const infoContent = {
+    'habitual residence': enHabitualResident,
+    domicile: enDomicile,
+    'residual jurisdiction': enResidual(isDivorce),
   };
 
   const infoSubheader = {
-    habitualResidence: '<strong>Habitual residence</strong><br><br>',
+    'habitual residence': '<strong>Habitual residence</strong><br><br>',
     domicile: '<strong>Domicile</strong><br><br>',
-    residual: '<strong>Residual</strong><br><br>',
+    'residual jurisdiction': '<strong>Residual</strong><br><br>',
   };
 
   let totalTextParagraph = '';
 
-  const habitualResidentConnections = [
-    JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
-    JurisdictionConnections.APP_2_RESIDENT,
-    JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
-    JurisdictionConnections.APP_1_APP_2_RESIDENT,
-    JurisdictionConnections.APP_1_RESIDENT_JOINT,
-    JurisdictionConnections.RESIDUAL_JURISDICTION,
-    JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS,
-  ];
-
-  const domicileConnections = [
-    JurisdictionConnections.APP_1_APP_2_DOMICILED,
-    JurisdictionConnections.APP_1_DOMICILED,
-    JurisdictionConnections.APP_2_DOMICILED,
-  ];
-
-  const residualConnections = [JurisdictionConnections.RESIDUAL_JURISDICTION];
-
   const whichTexts: string[] = [];
 
-  if ((connections && connections.some(r => habitualResidentConnections.includes(r))) || showAllResidences) {
-    whichTexts.push('habitualResidence');
-  }
-  if ((connections && connections.some(r => domicileConnections.includes(r))) || showAllResidences) {
-    whichTexts.push('domicile');
-  }
-  if ((connections && connections.some(r => residualConnections.includes(r))) || showAllResidences) {
-    whichTexts.push('residual');
+  for (const [key, value] of Object.entries(whichConnectionIsIt)) {
+    if ((connections && connections.some(r => value.includes(r))) || showAllResidences) {
+      whichTexts.push(key);
+    }
   }
 
   if (whichTexts.length === 1) {
-    return { connectedToEnglandWales: infoContent[whichTexts[0]], readMore: infoTitle[whichTexts[0]] };
+    return { connectedToEnglandWales: infoContent[whichTexts[0]], readMore: 'Read more about ' + whichTexts[0] };
   } else {
     for (const str of whichTexts) {
       totalTextParagraph += infoSubheader[str] + infoContent[str] + '<br><br>';
     }
-    return { connectedToEnglandWales: totalTextParagraph.slice(0, -8), readMore: infoTitle[4] };
+    return { connectedToEnglandWales: totalTextParagraph.slice(0, -8), readMore: 'Read more about your connections' };
   }
 };
