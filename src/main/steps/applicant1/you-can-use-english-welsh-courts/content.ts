@@ -2,7 +2,8 @@ import { ApplicationType, JurisdictionConnections } from '../../../app/case/defi
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
 import { enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
-import { addConnection } from '../../../app/jurisdiction/connections';
+import { addConnectionsBasedOnQuestions } from '../../../app/jurisdiction/connections';
+import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 
 const jurisdictionConnectionList = [
@@ -40,7 +41,7 @@ const en = (
     'I am habitually resident in England and Wales',
   ];
 
-  const preMadeConnections = addConnection(userCase);
+  const connectionsMadeBasedOnQuestions = addConnectionsBasedOnQuestions(userCase);
 
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
@@ -48,14 +49,9 @@ const en = (
     line2:
       'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case',
     habitualResidence: 'Habitual Residence',
-    habitualResidenceText:
-      'Your habitual residence is the place in which your life is mainly based. You must be settled there and intend to stay settled there. ' +
-      'Some of the following may apply: you work there, own property, have your children in school there, and your main family life takes place there.',
+    habitualResidenceText: enHabitualResident,
     domicile: 'Domicile',
-    domicileText: `Your domicile is the place of your permanent home in which you live, or to which you intend to return.<br><br>
-      When you were born you will have acquired your parents' domicile (for example, your father's if they were married, or your mother's if they weren’t married or if your father died before you were born).
-      If you have since moved to another country and made that your permanent home then your domicile may have moved there.<br><br>
-      If you were born in England and Wales, lived your entire life here, and intend to stay here, then it is very likely that you’ll be both habitually resident and domiciled here.`,
+    domicileText: enDomicile,
     disputesAboutJurisdiction: 'Disputes about jurisdiction',
     disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
       If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
@@ -67,7 +63,7 @@ const en = (
         : 'habitual residence'
     } and the other possible legal connections`,
     connectionCheckboxes,
-    preMadeConnections,
+    preMadeConnections: connectionsMadeBasedOnQuestions,
     connectionText,
   };
 };
@@ -78,7 +74,7 @@ const cy = en;
 export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
-    const preMadeConnections = addConnection(userCase);
+    const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
     for (const index in jurisdictionConnectionList) {
       if (
         !preMadeConnections?.includes(jurisdictionConnectionList[index]) &&

@@ -2,7 +2,7 @@ import { Checkbox } from '../case/case';
 import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 import {
-  addConnection,
+  addConnectionsBasedOnQuestions,
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
 } from './connections';
@@ -24,14 +24,14 @@ describe('connections', () => {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
     };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
   });
 
   test('Given applicant 1 and applicant 2 are both last habitually resident, should find connection B', async () => {
     const body = { bothLastHabituallyResident: YesOrNo.YES };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]);
   });
 
@@ -41,7 +41,7 @@ describe('connections', () => {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
     };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_2_RESIDENT]);
   });
 
@@ -52,7 +52,7 @@ describe('connections', () => {
       applicant1LivingInEnglandWalesTwelveMonths: YesOrNo.YES,
     };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]);
   });
 
@@ -68,7 +68,7 @@ describe('connections', () => {
         applicant2DomicileInEnglandWales: YesOrNo.NO,
       };
 
-      const connectionAdded = addConnection(body);
+      const connectionAdded = addConnectionsBasedOnQuestions(body);
       expect(connectionAdded).toEqual([
         JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
         JurisdictionConnections.APP_1_DOMICILED,
@@ -79,7 +79,7 @@ describe('connections', () => {
   test('Given both applicant 1 and applicant 2 are both domiciled, should find connection F', async () => {
     const body = { applicant1DomicileInEnglandWales: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_APP_2_DOMICILED]);
   });
 
@@ -102,28 +102,28 @@ describe('connections', () => {
       bothLastHabituallyResident: YesOrNo.NO,
     },
   ])('Given there is residual jurisdiction, should find connection G', async body => {
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.RESIDUAL_JURISDICTION]);
   });
 
   test('Given applicant 1 is domiciled, should find connection H', async () => {
     const body = { applicant1DomicileInEnglandWales: YesOrNo.YES };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_DOMICILED]);
   });
 
   test('Given applicant 2 is domiciled, should find connection I', async () => {
     const body = { applicant2DomicileInEnglandWales: YesOrNo.YES };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_2_DOMICILED]);
   });
 
   test('Given both were last habitually resident in England or Wales and applicant 2 is domiciled, should find connection B and I', async () => {
     const body = { bothLastHabituallyResident: YesOrNo.YES, applicant2DomicileInEnglandWales: YesOrNo.YES };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
       JurisdictionConnections.APP_2_DOMICILED,
@@ -137,7 +137,7 @@ describe('connections', () => {
       applicationType: ApplicationType.JOINT_APPLICATION,
     };
 
-    const connectionAdded = addConnection(body);
+    const connectionAdded = addConnectionsBasedOnQuestions(body);
     expect(connectionAdded).toEqual([JurisdictionConnections.APP_1_RESIDENT_JOINT]);
   });
 

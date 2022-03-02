@@ -93,8 +93,8 @@ const hasResidualJurisdiction = (data, connections) => {
   );
 };
 
-export const addConnectionWithUrl = (reqUrl: string, data: Partial<CaseWithId>): JurisdictionConnections[] => {
-  const connections = addConnection(data);
+export const addConnections = (reqUrl: string, data: Partial<CaseWithId>): JurisdictionConnections[] => {
+  const connections = addConnectionsBasedOnQuestions(data);
 
   if (reqUrl === JURISDICTION_INTERSTITIAL_URL) {
     for (const connection in data.connections) {
@@ -105,7 +105,7 @@ export const addConnectionWithUrl = (reqUrl: string, data: Partial<CaseWithId>):
   return connections;
 };
 
-export const addConnection = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
+export const addConnectionsBasedOnQuestions = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
   const connections: JurisdictionConnections[] = [];
   if (areBothHabituallyResident(data)) {
     connections.push(JurisdictionConnections.APP_1_APP_2_RESIDENT);

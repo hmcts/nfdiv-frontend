@@ -8,7 +8,7 @@ import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
-import { addConnectionWithUrl } from './connections';
+import { addConnections } from './connections';
 
 @autobind
 export class JurisdictionPostController extends PostController<AnyObject> {
@@ -20,7 +20,7 @@ export class JurisdictionPostController extends PostController<AnyObject> {
     const form = new Form(<FormFields>this.fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    req.body.connections = addConnectionWithUrl(req.url, { ...req.session.userCase, ...formData });
+    req.body.connections = addConnections(req.url, { ...req.session.userCase, ...formData });
 
     await super.post(req, res);
   }

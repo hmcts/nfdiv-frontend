@@ -4,10 +4,10 @@ import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo 
 import { FormContent } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
-import { addConnection } from './connections';
+import { addConnectionsBasedOnQuestions } from './connections';
 
 jest.mock('./connections');
-const addConnectionMock = addConnection as jest.Mock<JurisdictionConnections[]>;
+const addConnectionMock = addConnectionsBasedOnQuestions as jest.Mock<JurisdictionConnections[]>;
 
 describe('JurisdictionPostController', () => {
   test('Should add connections field and call trigger PATCH and set unreachable fields as null', async () => {

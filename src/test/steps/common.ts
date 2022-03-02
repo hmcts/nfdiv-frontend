@@ -16,7 +16,7 @@ import {
 } from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
-import { addConnection } from '../../main/app/jurisdiction/connections';
+import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import {
   APPLICANT_2,
   LEGAL_JURISDICTION_OF_THE_COURTS,
@@ -314,7 +314,7 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
 
   data.applicant2MiddleNames = data.state || userCase.state;
 
-  const connections = addConnection(data);
+  const connections = addConnectionsBasedOnQuestions(data);
 
   // don't set as applicant 2 as they don't have permission
   data.connections = connections.length > 0 ? connections : undefined;
