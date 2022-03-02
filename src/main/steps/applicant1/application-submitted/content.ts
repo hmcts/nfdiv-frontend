@@ -4,6 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
+import { StateSequence } from '../../state-sequence';
 
 dayjs.extend(advancedFormat);
 
@@ -113,12 +114,12 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
-  const progressionIndex = [
+  const currentState = new StateSequence([
     State.Submitted,
     State.AwaitingApplicant2Response,
     State.AwaitingLegalAdvisorReferral,
     State.FinalOrderComplete,
-  ];
+  ]).at(content.userCase.state as State);
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
@@ -130,7 +131,7 @@ export const generateContent: TranslationFn = content => {
     !hasASolicitorContactForPartner;
   return {
     ...languages[language]({ ...content, referenceNumber }),
-    progressionIndex,
+    currentState,
     hasASolicitorContactForPartner,
     applicationServedAnotherWay,
   };

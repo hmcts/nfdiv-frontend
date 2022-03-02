@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { StateSequence } from '../../state-sequence';
 import { PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -21,10 +22,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
-  line1:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
-  line2:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
+  line1: 'Find out about dividing money and property',
   whatHappensNext: 'What happens next',
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
@@ -121,10 +119,37 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const currentState = new StateSequence([
+    State.AwaitingAos,
+    State.AosDrafted,
+    State.AosOverdue,
+    State.AwaitingServicePayment,
+    State.AwaitingServiceConsideration,
+    State.AwaitingBailiffReferral,
+    State.AwaitingBailiffService,
+    State.IssuedToBailiff,
+    State.Holding,
+    State.AwaitingConditionalOrder,
+    State.AwaitingGeneralConsideration,
+    State.ConditionalOrderDrafted,
+    State.ConditionalOrderPending,
+    State.AwaitingLegalAdvisorReferral,
+    State.AwaitingClarification,
+    State.ClarificationSubmitted,
+    State.AwaitingAmendedApplication,
+    State.AwaitingPronouncement,
+    State.ConditionalOrderPronounced,
+    State.AwaitingFinalOrder,
+    State.FinalOrderOverdue,
+    State.FinalOrderRequested,
+    State.FinalOrderPending,
+    State.FinalOrderComplete,
+  ]).at(userCase.state as State);
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    currentState,
     isCoFieldsSet,
   };
 };

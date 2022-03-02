@@ -3,16 +3,16 @@ security:
 port: 3001
 timeout: 30000
 fees:
-  applicationFee: £593
-  alternativeService: £50
-  consentOrder: £50
-  financialOrder: £255
-  courtBailiffService: £110
-  deemedService: £50
-  dispensedService: £50
-  searchForAddress: £50
-  d8bFormSubmission: £245
-  updateApplication: £95
+  applicationFee: DivorceCivPart
+  financialOrder: FinancialOrderOnNotice
+  courtBailiffService: BailiffServeDoc
+  alternativeService: GeneralAppWithoutNotice
+  consentOrder: GeneralAppWithoutNotice
+  deemedService: GeneralAppWithoutNotice
+  dispensedService: GeneralAppWithoutNotice
+  searchForAddress: GeneralAppWithoutNotice
+  d8bFormSubmission: AppnPrivateOther
+  updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: £167
 services:
   authProvider:
@@ -36,6 +36,11 @@ services:
     url: http://dm-store-aat.service.core-compute-aat.internal
   payments:
     url: http://payment-api-aat.service.core-compute-aat.internal
+  fees:
+    url: http://fees-register-api-aat.service.core-compute-aat.internal
+    channel: default
+    jurisdiction1: family
+    jurisdiction2: family court
   equalityAndDiversity:
     name: 'Equality and Diversity Service'
     url: 'https://pcq.aat.platform.hmcts.net'

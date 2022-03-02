@@ -58,7 +58,7 @@ const fields: FromApiConverters = {
         ? data.applicant2LanguagePreferenceWelsh
         : LanguagePreference.English,
   }),
-  applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
+  applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
@@ -81,7 +81,7 @@ const fields: FromApiConverters = {
   applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
-  applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
+  applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
   applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,

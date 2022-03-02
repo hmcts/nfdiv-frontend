@@ -144,7 +144,7 @@ describe('to-api-format', () => {
       applicant2NameChangedHow: [ChangedNameHow.OTHER],
       applicant1NameChangedHowOtherDetails: 'Test',
       applicant2NameChangedHowOtherDetails: 'Test',
-      applicant2HomeAddress: {
+      applicant2Address: {
         AddressLine1: null,
         AddressLine2: null,
         AddressLine3: null,
@@ -275,7 +275,7 @@ describe('to-api-format', () => {
     } as unknown as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      applicant1HomeAddress: {
+      applicant1Address: {
         AddressLine1: 'Line 1',
         AddressLine2: 'Line 2',
         AddressLine3: '',
@@ -345,7 +345,7 @@ describe('to-api-format', () => {
       applicant1KnowsApplicant2Address: YesOrNo.NO,
       expected: {
         applicant1KnowsApplicant2Address: YesOrNo.NO,
-        applicant2HomeAddress: {
+        applicant2Address: {
           AddressLine1: null,
           AddressLine2: null,
           AddressLine3: null,
