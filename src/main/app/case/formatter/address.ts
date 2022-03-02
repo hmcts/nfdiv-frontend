@@ -3,7 +3,7 @@ import { AddressGlobalUK, CaseData } from '../definition';
 
 export const fromApi = (data: Partial<CaseData>, address: 'applicant1' | 'applicant2'): Partial<Case> => {
   const isApplicant1Address = address === 'applicant1';
-  const fullAddress = isApplicant1Address ? data.applicant1HomeAddress : data.applicant2HomeAddress;
+  const fullAddress = isApplicant1Address ? data.applicant1Address : data.applicant2Address;
 
   return {
     [`${address}Address1`]: fullAddress?.AddressLine1 || '',
@@ -27,9 +27,9 @@ const toApiAddress = (data: Partial<Case>, address: 'applicant1' | 'applicant2')
 });
 
 export const applicant1AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicant1HomeAddress: toApiAddress(data, 'applicant1'),
+  applicant1Address: toApiAddress(data, 'applicant1'),
 });
 
 export const applicant2AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicant2HomeAddress: toApiAddress(data, 'applicant2'),
+  applicant2Address: toApiAddress(data, 'applicant2'),
 });
