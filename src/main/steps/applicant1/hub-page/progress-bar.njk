@@ -11,26 +11,26 @@
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 5,
+    complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 5,
-    active: progressionIndex == 6
+    complete: currentState.isAtOrAfter('ConditionalOrderPronounced'),
+    active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 8,
-    active: progressionIndex == 7
+    complete: currentState.isAfter('FinalOrderRequested'),
+    active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex > 8,
-    active: progressionIndex == 9
+    complete: userCase.state == 'FinalOrderComplete',
+    active: userCase.state == 'FinalOrderRequested'
   }] %}
 {% else %}
   {% set items = [{
@@ -43,32 +43,31 @@
     label: {
       text: response
     },
-    complete: progressionIndex > 7,
-    active: progressionIndex >= 0 and progressionIndex < 8
+    complete: currentState.isAfter('IssuedToBailiff'),
+    active: currentState.isAtOrAfter('AwaitingAos') and currentState.isBefore('Holding')
   }, {
     label: {
       text: conditionalOrderApplication
     },
-    complete: progressionIndex > 10,
-    active: progressionIndex == 9 or hasApplicantConfirmedReceipt
+    complete: currentState.isAfter('AwaitingGeneralConsideration'),
+    active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
       text: conditionalOrderGranted
     },
-    complete: progressionIndex > 11,
-    active: progressionIndex == 11
+    complete: currentState.isAfter('AwaitingPronouncement'),
+    active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
       text: finalOrderApplication
     },
-    complete: progressionIndex > 12,
-    active: progressionIndex == 12
+    complete: currentState.isAfter('FinalOrderPending'),
+    active:  currentState.isAtOrAfter('AwaitingFinalOrder') and currentState.isBefore('FinalOrderComplete')
   }, {
     label: {
       text: applicationEnded
     },
-    complete: progressionIndex >= 13,
-    active: progressionIndex == 13
+    complete: userCase.state == 'FinalOrderComplete'
   }] %}
 {% endif %}
 

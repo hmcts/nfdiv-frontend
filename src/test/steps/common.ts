@@ -6,7 +6,14 @@ import { Logger, transports } from 'winston';
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../main/app/case/definition';
+import {
+  CASEWORKER_ISSUE_APPLICATION,
+  CITIZEN_UPDATE_CASE_STATE_AAT,
+  ConditionalOrderCourt,
+  DivorceOrDissolution,
+  SYSTEM_UPDATE_CASE_COURT_HEARING,
+  State,
+} from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnection } from '../../main/app/jurisdiction/connections';
@@ -23,7 +30,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(1);
+  test.retries(2);
 });
 
 After(async () => {
@@ -216,6 +223,26 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 When('a case worker issues the application', async () => {
+  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
+});
+
+When('a case worker updates court case hearing', async () => {
+  await triggerAnEvent(SYSTEM_UPDATE_CASE_COURT_HEARING, {
+    coDateAndTimeOfHearing: '2013-09-29T15:30',
+    coCourt: ConditionalOrderCourt.BIRMINGHAM,
+    coDecisionDate: '2021-05-10',
+  });
+});
+
+When('a superuser updates {string} with {string}', async (field: string, value: string) => {
+  const data = {};
+  data[field] = value;
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, data);
+});
+
+When('I pause the test', () => pause());
+
+const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   I.amOnPage('/applicant2/enter-your-access-code');
   await iClearTheForm();
 
@@ -232,8 +259,8 @@ When('a case worker issues the application', async () => {
   const cwUser = await testConfig.GetOrCreateCaseWorker();
   const caseWorker = await iGetTheTestUser(cwUser);
   const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, { ceremonyPlace: 'Somewhere' }, 'caseworker-issue-application');
-});
+  await cwCaseApi.triggerEvent(caseReference, userData, eventName);
+};
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
   const id: string = sysConfig.get('services.idam.clientID');

@@ -40,6 +40,9 @@ const fields: FromApiConverters = {
   jurisdictionResidualEligible: data => ({
     jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
   }),
+  doesApplicantWantToApplyForFinalOrder: data => ({
+    doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicantWantToApplyForFinalOrder),
+  }),
   applicant1LanguagePreferenceWelsh: data => ({
     applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
@@ -52,7 +55,7 @@ const fields: FromApiConverters = {
         ? data.applicant2LanguagePreferenceWelsh
         : LanguagePreference.English,
   }),
-  applicant1HomeAddress: data => formatAddress(data, 'applicant1'),
+  applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
@@ -63,6 +66,9 @@ const fields: FromApiConverters = {
     applicant1DoesNotKnowApplicant2EmailAddress:
       data.applicant1KnowsApplicant2EmailAddress === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
   }),
+  applicant1FinalOrderStatementOfTruth: data => ({
+    applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
+  }),
   applicant1ContactDetailsType: ({ applicant1ContactDetailsType }) => ({
     applicant1AddressPrivate: applicant1ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
@@ -72,7 +78,7 @@ const fields: FromApiConverters = {
   applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
-  applicant2HomeAddress: data => formatAddress(data, 'applicant2'),
+  applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
   applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
@@ -82,8 +88,10 @@ const fields: FromApiConverters = {
       ? Checkbox.Checked
       : Checkbox.Unchecked,
   }),
-  applicant2PrayerHasBeenGiven: data => ({
-    applicant2IConfirmPrayer: checkboxConverter(data.applicant2PrayerHasBeenGiven),
+  applicant2PrayerHasBeenGivenCheckbox: data => ({
+    applicant2IConfirmPrayer: data.applicant2PrayerHasBeenGivenCheckbox?.includes(ThePrayer.I_CONFIRM)
+      ? Checkbox.Checked
+      : Checkbox.Unchecked,
   }),
   applicant1StatementOfTruth: data => ({
     applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
@@ -92,10 +100,16 @@ const fields: FromApiConverters = {
     applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
   }),
   dateSubmitted: data => ({
-    dateSubmitted: new Date(data.dateSubmitted as string),
+    dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),
   }),
   dueDate: data => ({
     dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
+  }),
+  dateFinalOrderEligibleFrom: data => ({
+    dateFinalOrderEligibleFrom: dayjs(data.dateFinalOrderEligibleFrom).format('D MMMM YYYY'),
+  }),
+  dateFinalOrderEligibleToRespondent: data => ({
+    dateFinalOrderEligibleToRespondent: dayjs(data.dateFinalOrderEligibleToRespondent).format('D MMMM YYYY'),
   }),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
@@ -111,8 +125,33 @@ const fields: FromApiConverters = {
   coApplicant1StatementOfTruth: data => ({
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
   }),
+  coApplicant2StatementOfTruth: data => ({
+    coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
+  }),
   coApplicant1SubmittedDate: data => ({
-    coApplicant1SubmittedDate: new Date(data.coApplicant1SubmittedDate as string),
+    coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
+  }),
+  coCannotUploadClarificationDocuments: data => ({
+    coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
+  }),
+  coClarificationResponses: data => ({
+    coClarificationResponses: data.coClarificationResponses?.length ? data.coClarificationResponses?.[0].value : '',
+  }),
+  applicant2SolicitorAddress: data => {
+    const address = data.applicant2SolicitorAddress?.split('\n');
+    return {
+      applicant2SolicitorAddress: data.applicant2SolicitorAddress,
+      applicant2SolicitorAddress1: address?.[0],
+      applicant2SolicitorAddress2: address?.[1],
+      applicant2SolicitorAddress3: address?.[2],
+      applicant2SolicitorAddressTown: address?.[3],
+      applicant2SolicitorAddressCounty: address?.[4],
+      applicant2SolicitorAddressPostcode: address?.[5],
+      applicant2SolicitorAddressCountry: address?.[6],
+    };
+  },
+  dateFinalOrderSubmitted: data => ({
+    dateFinalOrderSubmitted: dayjs(data.dateFinalOrderSubmitted).format('D MMMM YYYY'),
   }),
 };
 

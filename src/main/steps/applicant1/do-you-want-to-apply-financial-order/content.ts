@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, required }: CommonContent) => ({
@@ -20,8 +20,8 @@ const en = ({ partner, required }: CommonContent) => ({
     'fees.financialOrder'
   )}. The court needs to know now if you want to apply for either.`,
   selectYes: 'If you select yes:',
-  yesPoint1: 'you do not have to proceed with the application',
-  yesPoint2: `you can proceed with the application at any time, so long as your ${partner} is still alive`,
+  yesPoint1: 'you do not have to proceed with the application for a financial order',
+  yesPoint2: `you can proceed with the application for a financial order at any time, so long as your ${partner} is still alive`,
   selectNo: 'If you select no:',
   noPoint1:
     'you’ll only be able to apply until you remarry or form a new civil partnership (this does not apply to pension sharing or pension compensation orders, which can be applied at any time)',
@@ -29,8 +29,15 @@ const en = ({ partner, required }: CommonContent) => ({
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
   yes: 'Yes, I want to apply for a financial order',
   no: 'No, I do not want to apply for a financial order',
+  subField: 'Who is the financial order for?',
+  subFieldHint: 'Select all that apply',
+  me: 'Myself',
+  children: 'The children',
   errors: {
-    applyForFinancialOrder: {
+    applicant1ApplyForFinancialOrder: {
+      required,
+    },
+    applicant1WhoIsFinancialOrderFor: {
       required,
     },
   },
@@ -41,7 +48,7 @@ const cy = en;
 
 export const form: FormContent = {
   fields: {
-    applyForFinancialOrder: {
+    applicant1ApplyForFinancialOrder: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouWantToApplyForFinancialOrder,
@@ -50,6 +57,26 @@ export const form: FormContent = {
         {
           label: l => l.yes,
           value: YesOrNo.YES,
+          subFields: {
+            applicant1WhoIsFinancialOrderFor: {
+              type: 'checkboxes',
+              label: l => l.subField,
+              hint: l => l.subFieldHint,
+              validator: atLeastOneFieldIsChecked,
+              values: [
+                {
+                  name: 'applicant1WhoIsFinancialOrderFor',
+                  label: l => l.me,
+                  value: FinancialOrderFor.APPLICANT,
+                },
+                {
+                  name: 'applicant1WhoIsFinancialOrderFor',
+                  label: l => l.children,
+                  value: FinancialOrderFor.CHILDREN,
+                },
+              ],
+            },
+          },
         },
         { label: l => l.no, value: YesOrNo.NO },
       ],

@@ -10,7 +10,6 @@ export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 
-export const APPLICANT_1: PageLink = '/applicant1';
 export const APPLICANT_2: PageLink = '/applicant2';
 export const RESPONDENT: PageLink = '/respondent';
 
@@ -58,6 +57,8 @@ export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
+export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
+export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
@@ -116,5 +117,10 @@ export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
 
 export const CONTINUE_WITH_YOUR_APPLICATION: PageLink = '/continue-with-your-application';
 export const REVIEW_YOUR_APPLICATION: PageLink = '/review-your-application';
+export const REVIEW_YOUR_JOINT_APPLICATION: PageLink = '/review-your-joint-application';
 export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-application';
 export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-conditional-order-answers';
+export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-to-the-court';
+
+export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-application';
+export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';

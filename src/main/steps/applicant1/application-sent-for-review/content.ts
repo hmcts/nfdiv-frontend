@@ -9,10 +9,10 @@ dayjs.extend(advancedFormat);
 const en = ({ partner, userCase }: CommonContent) => ({
   title: `Your answers have been sent to your ${partner} to review`,
   sentTo: `Your answers have been sent to your ${partner} at the following email address:`,
-  theyShouldReviewBy: 'They should review them and provide some of their own information by',
+  theyShouldReviewBy: 'They should review them and provide some further information by:',
   reviewDate: userCase.dueDate || dayjs().add(2, 'weeks').format('MMMM Do YYYY'),
   line3:
-    'You will receive a notification when they have reviewed. If they do not review then you will be told what you can do to progress the application.',
+    'You will receive an email notification to confirm when they have reviewed. If they do not review then you will be told what you can do to progress the application.',
 });
 
 const cy = ({ partner, userCase }: CommonContent) => ({

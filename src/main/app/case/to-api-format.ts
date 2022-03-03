@@ -2,6 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
+  Applicant2Represented,
   CaseData,
   ChangedNameHow,
   ContactDetailsType,
@@ -56,6 +57,12 @@ const fields: ToApiConverters = {
   }),
   jurisdictionResidualEligible: data => ({
     jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
+  }),
+  doesApplicant1WantToApplyForFinalOrder: data => ({
+    doesApplicantWantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
+  }),
+  applicant1FinalOrderStatementOfTruth: data => ({
+    applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
   }),
   applicant1HelpWithFeesRefNo: data => ({
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
@@ -124,7 +131,7 @@ const fields: ToApiConverters = {
     applicant1PrayerHasBeenGivenCheckbox: data.applicant1IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
   }),
   applicant2IConfirmPrayer: data => ({
-    applicant2PrayerHasBeenGiven: checkboxConverter(data.applicant2IConfirmPrayer),
+    applicant2PrayerHasBeenGivenCheckbox: data.applicant2IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
   }),
   applicant1IBelieveApplicationIsTrue: data => ({
     applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
@@ -133,6 +140,7 @@ const fields: ToApiConverters = {
     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
   }),
   applicant1UploadedFiles: () => ({}),
+  coClarificationUploadedFiles: () => ({}),
   applicant2UploadedFiles: () => ({}),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
@@ -161,6 +169,17 @@ const fields: ToApiConverters = {
     applicant2HWFNeedHelp: data.applicant2HelpPayingNeeded,
     ...(data.applicant2HelpPayingNeeded === YesOrNo.NO
       ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      : {}),
+  }),
+  applicant1IsApplicant2Represented: data => ({
+    applicant1IsApplicant2Represented: data.applicant1IsApplicant2Represented,
+    ...(data.applicant1IsApplicant2Represented !== Applicant2Represented.YES
+      ? setUnreachableAnswersToNull([
+          'applicant2SolicitorName',
+          'applicant2SolicitorEmail',
+          'applicant2SolicitorFirmName',
+          'applicant2SolicitorAddress',
+        ])
       : {}),
   }),
   applicant1KnowsApplicant2Address: data => ({
@@ -214,6 +233,41 @@ const fields: ToApiConverters = {
   }),
   coApplicant1StatementOfTruth: data => ({
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
+  }),
+  coApplicant2StatementOfTruth: data => ({
+    coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
+  }),
+  applicant1WhoIsFinancialOrderFor: data => ({
+    applicant1FinancialOrdersFor:
+      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? data.applicant1WhoIsFinancialOrderFor : [],
+  }),
+  applicant2WhoIsFinancialOrderFor: data => ({
+    applicant2FinancialOrdersFor:
+      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? data.applicant2WhoIsFinancialOrderFor : [],
+  }),
+  coCannotUploadClarificationDocuments: data => ({
+    coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
+  }),
+  coClarificationResponses: data => ({
+    coClarificationResponses: data.coClarificationResponses
+      ? [
+          {
+            id: '1',
+            value: data.coClarificationResponses,
+          },
+        ]
+      : [],
+  }),
+  applicant2SolicitorAddress1: data => ({
+    applicant2SolicitorAddress: [
+      data.applicant2SolicitorAddress1,
+      data.applicant2SolicitorAddress2,
+      data.applicant2SolicitorAddress3,
+      data.applicant2SolicitorAddressTown,
+      data.applicant2SolicitorAddressCounty,
+      data.applicant2SolicitorAddressPostcode,
+      data.applicant2SolicitorAddressCountry,
+    ].join('\n'),
   }),
 };
 

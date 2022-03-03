@@ -30,7 +30,7 @@ export const jurisdictionMoreDetailsContent = (
   const connectionText = [
     'Read more about habitual residence',
     'Read more about domicile',
-    'Read more about residual',
+    'Read more about residual jurisdiction',
     'Read more about your connections',
   ];
   const totalText = [
@@ -110,7 +110,7 @@ const enDomicile = {
 
 const enResidual = (isDivorce: boolean) => {
   return {
-    helpText12: 'Residual',
+    helpText12: 'Residual jurisdiction',
     helpText13:
       'If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if: ',
     helpText14: `<ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${

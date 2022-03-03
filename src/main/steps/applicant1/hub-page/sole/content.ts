@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { HOW_YOU_CAN_PROCEED } from '../../../urls';
+import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -125,7 +125,33 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
-      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+      'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
+      'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
+  },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: 'You need to post the documents requested by the court:',
+      line2:
+        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for a final order',
+    buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Read more about the next steps',
   readMoreSummary: `You have to complete 2 more steps before ${
@@ -146,6 +172,21 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  finalOrderRequested: {
+    line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
+    line2: `If there are no other applications that need to be completed then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+    line3: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
+  },
+  awaitingServicePayment: {
+    line1:
+      'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
+  },
 });
 
 // @TODO translations
@@ -157,22 +198,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const progressionIndex = [
-    State.AwaitingAos,
-    State.AosDrafted,
-    State.AosOverdue,
-    State.AwaitingServicePayment,
-    State.AwaitingServiceConsideration,
-    State.AwaitingBailiffReferral,
-    State.AwaitingBailiffService,
-    State.IssuedToBailiff,
-    State.Holding,
-    State.AwaitingConditionalOrder,
-    State.AwaitingGeneralConsideration,
-    State.AwaitingLegalAdvisorReferral,
-    State.AwaitingPronouncement,
-    State.FinalOrderComplete,
-  ].indexOf(content.userCase.state as State);
   const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
@@ -182,11 +207,12 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
   return {
     ...languages[content.language](content),
-    progressionIndex,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
+    isClarificationDocumentsUploaded,
   };
 };

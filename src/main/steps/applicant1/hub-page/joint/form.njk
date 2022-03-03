@@ -6,21 +6,21 @@
     {% include "common/form/fields.njk" %}
   {% endblock %}
 
-  {% if progressionIndex == 0 and not hasApplicantConfirmedReceipt %}
+  {% if userCase.state == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
       text: confirmReceipt,
       classes: form.submit.classes,
       type: "submit",
-      name: "applicant1ConfirmReceipt",
+      name: applicantConfirmReceipt,
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif progressionIndex > 0 and progressionIndex < 4 %}
+  {% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
     {{ govukButton({
       text: "Apply for conditional order",
       classes: form.submit.classes,
       type: "submit",
-      name: "applicant1ApplyForConditionalOrderStarted",
+      name: applicantApplyForConditionalOrderStarted,
       value: "Yes",
       preventDoubleClick: true
     }) }}

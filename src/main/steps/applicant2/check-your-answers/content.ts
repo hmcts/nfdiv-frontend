@@ -1,4 +1,4 @@
-import { ChangedNameHow, YesOrNo } from '../../../app/case/definition';
+import { ChangedNameHow, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
@@ -9,8 +9,8 @@ const en = ({ isDivorce, userCase }) => ({
       line2: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
-            ? `Yes, my ${isDivorce ? 'marriage' : 'civil partnership'} has irretrievably broken down`
-            : `No, my ${isDivorce ? 'marriage' : 'civil partnership'} has not irretrievably broken down`
+            ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
+            : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
     },
@@ -18,8 +18,8 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${
         userCase.applicant2HelpPayingNeeded
           ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
-            ? 'I need help paying the fee'
-            : 'I do not need help paying the fee'
+            ? 'I need help with fees'
+            : 'I do not need help with fees'
           : ''
       }`,
       line2: `${
@@ -92,6 +92,14 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant2WhoIsFinancialOrderFor
+          ? userCase.applicant2WhoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },
@@ -204,6 +212,14 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           ? userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
             ? 'Yes, I want to apply for a financial order'
             : 'No, I do not want to apply for a financial order'
+          : ''
+      }`,
+      line2: `${
+        userCase.applicant2WhoIsFinancialOrderFor
+          ? userCase.applicant2WhoIsFinancialOrderFor
+              ?.join(' / ')
+              .replace(FinancialOrderFor.APPLICANT, 'Myself')
+              .replace(FinancialOrderFor.CHILDREN, 'The children')
           : ''
       }`,
     },

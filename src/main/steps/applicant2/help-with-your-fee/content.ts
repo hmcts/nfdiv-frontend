@@ -13,8 +13,8 @@ const en = ({ isDivorce, required, partner }) => ({
   line2: `Your ${partner} has said they need help paying the fee. They can only use Help With Fees on this application if you claim and are eligible for Help With Fees too.`,
   line3: 'You can claim Help With Fees if you: (one or more of the following):',
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
-  yes: 'I need help paying the fee',
-  no: 'I do not need help paying the fee',
+  yes: 'I need help with fees',
+  no: 'I do not need help with fees',
   subHeading1: 'Do you need help paying the fee?',
   line4: `Your ${partner} can only use help with fees, if you apply and are eligible for Help With Fees too. You will not be asked to pay the fee by this service, no matter which answer you select.`,
   errors: {

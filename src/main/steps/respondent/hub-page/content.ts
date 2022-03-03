@@ -2,13 +2,14 @@ import config from 'config';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
-import { State, YesOrNo } from '../../../app/case/definition';
+import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
+import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
 
 dayjs.extend(advancedFormat);
 
@@ -76,11 +77,94 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
+  conditionalOrderPronounced: {
+    line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
+    (read out) by a judge at ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
+    Your ${partner} has also been notified.`,
+    line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
+    Your ${partner} still has to apply for a final order which will end the ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    They can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line3: `If they do not apply for a final order by ${userCase.dateFinalOrderEligibleFrom} then you can apply for a final order.`,
+    line4: {
+      part1: 'You can ',
+      part2: 'read and download your certificate of entitlement.',
+      downloadReference: 'Certificate-of-Entitlement',
+      link: '/downloads/certificate-of-entitlement',
+    },
+  },
   legalAdvisorReferral: {
     line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
+  },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(16, 'days')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2: 'address',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
+  awaitingPronouncement: {
+    line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} at ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    ).format('h:mmA')}.`,
+    line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    )
+      .subtract(7, 'day')
+      .format('D MMMM YYYY')} if you want to attend.`,
+    line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
+      userCase.dateFinalOrderEligibleFrom
+    )}. This is the final step in the ${isDivorce ? 'divorce ' : ''}process and will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
+     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
+     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `If they do not apply by ${userCase.dateFinalOrderEligibleToRespondent}
+     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
+    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
+    line3: 'If you apply then you may both have to come to court.',
+    buttonText: 'Apply for a final order',
+    buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
+  },
+  finalOrderRequested: {
+    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
+    line2: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
   },
 });
 
@@ -95,7 +179,10 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
+  const isRespondentAbleToApplyForFinalOrder =
+    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   return {
+    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
     ...languages[content.language](content),
   };

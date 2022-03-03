@@ -2,13 +2,16 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  Applicant2Represented,
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ConditionalOrderCourt,
   DateAsString,
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
+  FinancialOrderFor,
   Gender,
   JurisdictionConnections,
   ListValue,
@@ -71,8 +74,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
-  applyForFinancialOrder: 'applicant1FinancialOrder',
+  applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
+  applicant1WhoIsFinancialOrderFor: 'applicant1FinancialOrdersFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
+  applicant2WhoIsFinancialOrderFor: 'applicant2FinancialOrdersFor',
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   documentsGenerated: 'documentsGenerated',
@@ -82,11 +87,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
-  applicant2SolicitorAddress: 'applicant2SolicitorAddress',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
-  disputeApplication: 'disputeApplication',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
@@ -95,10 +98,24 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ApplyForConditionalOrderStarted: 'coApplicant1ApplyForConditionalOrderStarted',
   applicant2ApplyForConditionalOrderStarted: 'coApplicant2ApplyForConditionalOrderStarted',
   applicant1ApplyForConditionalOrder: 'coApplicant1ApplyForConditionalOrder',
+  applicant2ApplyForConditionalOrder: 'coApplicant2ApplyForConditionalOrder',
   applicant1ConfirmInformationStillCorrect: 'coApplicant1ConfirmInformationStillCorrect',
   applicant1ReasonInformationNotCorrect: 'coApplicant1ReasonInformationNotCorrect',
   applicant2ConfirmInformationStillCorrect: 'coApplicant2ConfirmInformationStillCorrect',
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
+  coCourt: 'coCourt',
+  coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
+  coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
+  coDecisionDate: 'coDecisionDate',
+  applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
+  coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
+  coClarificationUploadDocuments: 'coClarificationUploadDocuments',
+  dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
+  dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
+  applicant2SolicitorName: 'applicant2SolicitorName',
+  applicant2SolicitorEmail: 'applicant2SolicitorEmail',
+  applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
+  applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -202,8 +219,10 @@ export interface Case {
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
-  applyForFinancialOrder?: YesOrNo;
+  applicant1ApplyForFinancialOrder?: YesOrNo;
+  applicant1WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
+  applicant2WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
   documentsGenerated: ListValue<DivorceDocument>[];
@@ -221,7 +240,7 @@ export interface Case {
   applicant2IBelieveApplicationIsTrue?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
-  dateSubmitted?: Date;
+  dateSubmitted?: DateAsString;
   payments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
@@ -235,12 +254,41 @@ export interface Case {
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   applicant1ApplyForConditionalOrder?: YesOrNo;
+  applicant2ApplyForConditionalOrder?: YesOrNo;
   applicant1ConfirmInformationStillCorrect?: YesOrNo;
   applicant1ReasonInformationNotCorrect?: string;
   applicant2ConfirmInformationStillCorrect?: YesOrNo;
   applicant2ReasonInformationNotCorrect?: string;
   coApplicant1StatementOfTruth?: Checkbox;
-  coApplicant1SubmittedDate?: Date;
+  coApplicant2StatementOfTruth?: Checkbox;
+  coCourt: ConditionalOrderCourt;
+  dateFinalOrderEligibleFrom: DateAsString;
+  coCertificateOfEntitlementDocument: DivorceDocument;
+  coApplicant1SubmittedDate?: DateAsString;
+  coDateAndTimeOfHearing: DateAsString;
+  coDecisionDate: DateAsString;
+  applicant1IsApplicant2Represented: Applicant2Represented;
+  coRefusalClarificationAdditionalInfo?: string;
+  dateFinalOrderEligibleToRespondent?: DateAsString;
+  coClarificationResponses?: string;
+  coCannotUploadClarificationDocuments?: Checkbox;
+  coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
+  coClarificationUploadedFiles?: UploadedFile[];
+  doesApplicant1WantToApplyForFinalOrder?: Checkbox;
+  dateFinalOrderNoLongerEligible?: DateAsString;
+  applicant2SolicitorName: string;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorFirmName: string;
+  applicant2SolicitorAddress1?: string;
+  applicant2SolicitorAddress2?: string;
+  applicant2SolicitorAddress3?: string;
+  applicant2SolicitorAddressTown?: string;
+  applicant2SolicitorAddressCounty?: string;
+  applicant2SolicitorAddressPostcode?: string;
+  applicant2SolicitorAddressCountry?: string;
+  applicant1FinalOrderLateExplanation?: string;
+  applicant1FinalOrderStatementOfTruth?: Checkbox;
+  dateFinalOrderSubmitted?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

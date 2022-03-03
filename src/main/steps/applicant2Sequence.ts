@@ -1,5 +1,5 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -9,10 +9,12 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_JOINT_APPLICATION,
   CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
@@ -27,8 +29,12 @@ import {
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
+  PROVIDE_INFORMATION_TO_THE_COURT,
   RELATIONSHIP_NOT_BROKEN_URL,
+  REVIEW_YOUR_APPLICATION,
+  REVIEW_YOUR_JOINT_APPLICATION,
   UPLOAD_YOUR_DOCUMENTS,
+  WITHDRAWING_YOUR_APPLICATION,
   YOUR_COMMENTS_SENT,
   YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -162,12 +168,37 @@ const sequences: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: CONTINUE_WITH_YOUR_APPLICATION,
+    getNextStep: data =>
+      data.applicant2ApplyForConditionalOrder === YesOrNo.YES
+        ? data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? REVIEW_YOUR_JOINT_APPLICATION
+          : REVIEW_YOUR_APPLICATION
+        : WITHDRAWING_YOUR_APPLICATION,
+  },
+  {
+    url: REVIEW_YOUR_JOINT_APPLICATION,
+    getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  },
+  {
+    url: WITHDRAWING_YOUR_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
   },
   {
     url: CHECK_PHONE_NUMBER,
     getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: PROVIDE_INFORMATION_TO_THE_COURT,
+    getNextStep: () => HUB_PAGE,
   },
 ];
 

@@ -25,6 +25,15 @@ describe('uploadedFilesFromApiApplicant1', () => {
 
     expect(result.applicant1CannotUpload).toBe(Checkbox.Checked);
   });
+
+  it('converts co clarification documents', async () => {
+    const result = fromApiApplicant1({
+      coClarificationUploadDocuments: [{ id: '1', value: { documentFileName: 'filename' } as DivorceDocument }],
+    });
+
+    expect(result.coClarificationUploadedFiles?.length).toBe(1);
+    expect(result.coClarificationUploadedFiles?.[0].id).toBe('1');
+  });
 });
 
 describe('uploadedFilesFromApiApplicant2', () => {

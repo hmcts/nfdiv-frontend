@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
 
 export const respondentCompleteCase: Partial<BrowserCase> = {
+  confirmReadPetition: Checkbox.Checked,
   disputeApplication: YesOrNo.NO,
   jurisdictionAgree: YesOrNo.YES,
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',

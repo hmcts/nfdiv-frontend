@@ -158,6 +158,23 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
+  test('redirects to hub page for applicant 2 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to hub page for applicant 2 users in ConditionalOrderDrafted state if not applicant2ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {
@@ -230,6 +247,24 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
   });
 
+  test('redirects to Check conditional order answers for applicant 2 in ConditionalOrderPending state if applicant2ApplyForConditionalOrder', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant2ApplyForConditionalOrder: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`);
+  });
+
   test('redirects to hub page for applicant 1 users in ConditionalOrderDrafted state if not applicant1ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {
@@ -264,6 +299,22 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CONTINUE_WITH_YOUR_APPLICATION);
   });
 
+  test('redirects to hub page for applicant 1 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
   test('redirects to Read the response page for sole application in ConditionalOrderDrafted state if first question not answered', () => {
     const req = mockRequest({
       session: {
@@ -280,6 +331,25 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(READ_THE_RESPONSE);
+  });
+
+  test('redirects to Check conditional order answers page for joint application in ConditionalOrderDrafted state if first question answered', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant1ApplyForConditionalOrder: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.ConditionalOrderDrafted,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(CHECK_CONDITIONAL_ORDER_ANSWERS_URL);
   });
 
   test('redirects to CO CYA page for sole application in ConditionalOrderDrafted state if first question answered', () => {
@@ -487,7 +557,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
   });
 
-  test('redirects to the hub page for applicant 1 users in holding state', () => {
+  test('redirects to the hub page for applicant 1 users in Holding state', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -501,6 +571,74 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the hub page for applicant 1 users in ConditionalOrderPronounced state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPronounced,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the hub page for applicant 1 users in AwaitingPronouncement state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingPronouncement,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to the hub page for respondent users in AwaitingPronouncement state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.AwaitingPronouncement,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+  });
+
+  test('redirects to the hub page for applicant 2 users in AwaitingPronouncement state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.AwaitingPronouncement,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
   test('redirects to the check your answers page for respondent users in AosDrafted state', () => {

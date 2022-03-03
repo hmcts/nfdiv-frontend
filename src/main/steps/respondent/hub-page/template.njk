@@ -1,38 +1,29 @@
-{% from "govuk/components/button/macro.njk" import govukButton %}
-
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if progressionIndex == 11 %}
-    <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
-    <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
-  {% elif progressionIndex == 10 %}
-    <p class="govuk-body">{{ d8Submitted.line1 }}</p>
-    <p class="govuk-body">{{ d8Submitted.line2 }}</p>
-    <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-    <p class="govuk-body">{{ d8Submitted.line3 }}</p>
-    <p class="govuk-body">{{ d8Submitted.line4 }}</p>
-  {% elif progressionIndex == 8 and isDisputedApplication %}
-    <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line4 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
-    <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
-  {% elif progressionIndex == 8 %}
-    <p class="govuk-body">{{ holding.line1 }}</p>
-    <p class="govuk-body">{{ holding.line2 }}</p>
-    <p class="govuk-body">{{ holding.line3 }}</p>
-    <p class="govuk-body">{{ holding.line4 }}</p>
-    <p class="govuk-body">{{ holding.line5 | safe }}</p>
-  {% elif progressionIndex < 8 %}
-    {% for property, line in awaitingAos %}
-      <p class="govuk-body">{{ line }}</p>
-      {{ govukButton({
-        text: 'Respond to the application',
-        href: '/respondent/review-the-application',
-        preventDoubleClick: true
-      }) }}
-    {% endfor %}
+  {% if userCase.state == 'FinalOrderRequested' %}
+    {% include "../../applicant1/hub-page/sole/latest-update-content/final-order-requested.njk" %}
+
+  {% elif userCase.state == 'ConditionalOrderPronounced' %}
+    {% include "./latest-update-content/conditional-order-pronounced.njk" %}
+
+  {% elif userCase.state == 'ClarificationSubmitted' %}
+    {% include "./latest-update-content/clarification-submitted.njk" %}
+
+  {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
+    {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
+
+  {% elif userCase.state == 'AwaitingGeneralConsideration' %}
+    {% include "./latest-update-content/awaiting-general-consideration.njk" %}
+
+  {% elif userCase.state == 'Holding' %}
+    {% include "./latest-update-content/holding.njk" %}
+
+  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+    {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
+
+  {% elif currentState.isBefore('Holding') %}
+    {% include "./latest-update-content/awaiting-aos.njk" %}
+
   {% endif %}
 {% endblock %}

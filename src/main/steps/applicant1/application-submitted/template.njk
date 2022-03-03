@@ -23,26 +23,26 @@
       label: {
         text: partnerResponse
       },
-      complete: progressionIndex > 1,
-      active: progressionIndex == 1
+      complete: currentState.isAfter('AwaitingApplicant2Response'),
+      active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
         text: conditionalOrderGranted
       },
-      complete: progressionIndex > 2,
-      active: progressionIndex == 2
+      complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
+      active: userCase.state == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
         text: applicationEnded
       },
-      complete: progressionIndex >= 3,
-      active: progressionIndex == 3
+      complete: currentState.isAtOrAfter('FinalOrderComplete'),
+      active: userCase.state == 'FinalOrderComplete'
     }]
   }) }}
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
-    {% if userCase.applicant1CannotUpload or userCase.applican2CannotUpload %}
+    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
@@ -89,13 +89,23 @@
   {% endif %}
   <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
   <p class="govuk-body">{{ line5 }}</p>
+  {% if not isJointApplication %}
+    {% if hasASolicitorContactForPartner %}
+      <p class="govuk-body">{{ line6Solicitor }}</p>
+    {% else %}
+      <p class="govuk-body">{{ line6 }}</p>
+    {% endif %}
+    {% if applicationServedAnotherWay %}
+      <p class="govuk-body">{{ line7 }}</p>
+    {% endif %}
+  {% endif %}
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
-  <p class="govuk-body">{{ line6 | safe }}</p>
-  <p class="govuk-body">{{ line7 | safe }}</p>
   <p class="govuk-body">{{ line8 | safe }}</p>
   <p class="govuk-body">{{ line9 | safe }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line10 | safe }}</p>
+  <p class="govuk-body">{{ line11 | safe }}</p>
+  <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
+  <p class="govuk-body">{{ line12 | safe }}</p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
   <p class="govuk-body">{{ webChatDetails }}</p>
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>

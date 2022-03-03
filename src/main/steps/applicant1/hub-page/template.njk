@@ -29,12 +29,11 @@
             {% include "./sole/hub.njk" %}
           {% endblock %}
         {% endif %}
-
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
-        <p class="govuk-body">{{ line1 | safe }}</p>
-        {% if progressionIndex == 11 %}
-          <p class="govuk-body">{{ line2 | safe }}</p>
-        {% endif %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line1 }}
+          </a>
+        </p>
       </div>
     </div>
 

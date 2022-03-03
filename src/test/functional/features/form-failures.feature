@@ -3,22 +3,24 @@ Feature: Form failures
   Background:
     Given I create a new user and login
 
-    @nightly
-    Scenario: They fail to fill out the applicant 1 forms
+  @nightly
+  Scenario: They fail to fill out the applicant 1 forms
     Given I go to "/your-details"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/irretrievable-breakdown"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/date-from-certificate"
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "You have not entered a date. Enter a date to continue."
     Given I select "Day"
     And I type "!"
-    Given I select "Month"
+    And I select "Month"
     And I type "1"
-    Given I select "Year"
+    And I select "Year"
     And I type "abc"
     When I click "Continue"
     Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
@@ -30,12 +32,15 @@ Feature: Form failures
     And I enter a date 6 months ago
     When I click "Continue"
     Then the page should include "You have not been married long enough to apply for a divorce"
+
     Given I go to "/do-you-have-your-certificate"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/help-with-your-fee"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/have-you-applied-for-help-with-fees"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -46,9 +51,11 @@ Feature: Form failures
     And I type "invalid"
     When I click "Continue"
     Then the page should include "You have entered an invalid Help With Fees reference number. Check the number and enter it again."
+
     Given I go to "/how-do-you-want-to-apply"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/their-email-address"
     And I clear the form
     When I click "Continue"
@@ -63,17 +70,21 @@ Feature: Form failures
     And I select "I do not know their email address"
     When I click "Continue"
     Then the page should include "You have entered an email address and indicated that you do not know their email address. You can only do one before continuing."
+
     Given I go to "/do-you-have-address"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/other-court-cases"
     And I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"
+
     Given I go to "/details-other-proceedings"
     And I clear the form
     And I click "Continue"
     Then the page should include "There was a problem"
+
     Given I go to "/enter-their-address"
     When I click "Find address"
     Then the page should include "You have not entered your partner’s postcode. Enter their postcode before continuing."
@@ -96,22 +107,28 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered your partner’s building and street address. Enter their building and street address before continuing."
     And the page should include "You have not entered your partner’s country. Enter their country before continuing."
+
     Given I go to "/in-the-uk"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/certificate-in-english"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/certified-translation"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/country-and-place"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to enter the country."
     And the page should include "You have not answered the question. You need to enter the place."
+
     Given I go to "/where-your-lives-are-based"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/enter-your-name"
     And I clear the form
     When I click "Continue"
@@ -124,6 +141,7 @@ Feature: Form failures
     And I type "My last-name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
+
     Given I go to "/enter-their-name"
     And I clear the form
     When I click "Continue"
@@ -136,6 +154,7 @@ Feature: Form failures
     And I type "Their last-name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
+
     Given I go to "/your-names-on-certificate"
     When I click "Continue"
     Then the page should include "You have not entered anything. Enter your full name as it appears on your marriage certificate."
@@ -146,15 +165,18 @@ Feature: Form failures
     And I type "Husbands name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
+
     Given I go to "/changes-to-your-name"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/how-did-you-change-your-name"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
     Given I select "Another way"
     When I click "Continue"
     Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+
     Given I go to "/how-the-court-will-contact-you"
     And I click "Continue"
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
@@ -164,12 +186,15 @@ Feature: Form failures
     And I type "12345"
     And I click "Continue"
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
+
     Given I go to "/english-or-welsh"
     When I select "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/address-private"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/enter-your-address"
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
@@ -189,27 +214,56 @@ Feature: Form failures
     Given I wait for the postcode lookup to return results
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
+
+    Given I go to "/do-they-have-a-solicitor"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. Select an answer before continuing."
+
+    Given I go to "/enter-solicitor-details"
+    And I select "Solicitor email address (optional)"
+    And I type "test"
+    When I click "Continue"
+    Then the page should include "You have entered the email address in the wrong format. Check it and enter it again."
+
     Given I go to "/details-other-proceedings"
     When I click "Continue"
     Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
+
     Given I go to "/do-you-want-to-apply-financial-order"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes, I want to apply for a financial order"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/upload-your-documents"
     When I click "Continue"
     Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
+
     Given I go to "/how-do-you-want-to-apply"
     And I select "I want to apply jointly, with my partner"
     When I click "Continue"
     Then the page URL should be "/their-email-address"
+
     Given I go to "/their-email-address"
     When I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+
+    Given I go to "/finalising-your-application"
+    When I click "Continue"
+    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
+
+    Given I go to "/explain-the-delay"
+    When I click "Continue"
+    Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
+    And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
+
     Given I've already completed the form using the fixture "completeCase"
     And I go to "/check-your-answers"
     When I click "Continue"
     Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
     And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+
 
   @nightly
   Scenario: They fail to fill out the applicant 1 joint application forms
@@ -232,56 +286,68 @@ Feature: Form failures
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
+
     When I click "Respond to the application"
     Then the page URL should be "/respondent/review-the-application"
     And the page should include "Review the divorce application"
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "You need to confirm that you have read the application before you continue."
     Given I select "I have read the application for divorce"
-    And I click "Continue"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I clear the form
     When I click "Continue"
     Then the page should include "You need to select how you want to respond before continuing."
-    When I go to "/respondent/disputing-the-application"
+
+    Given I go to "/respondent/disputing-the-application"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    When I go to "/respondent/legal-jurisdiction-of-the-courts"
+
+    Given I go to "/respondent/legal-jurisdiction-of-the-courts"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
-    When I select "No, I do not agree the courts have jurisdiction"
-    And I click "Continue"
+    Given I select "No, I do not agree the courts have jurisdiction"
+    When I click "Continue"
     Then the page should include "You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to grant your divorce"
     And the page should include "You need to tell us which country your life is mainly based"
-    When I go to "/respondent/other-court-cases"
+
+    Given I go to "/respondent/other-court-cases"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
-    When I go to "/respondent/details-other-proceedings"
+
+    Given I go to "/respondent/details-other-proceedings"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
-    When I go to "/respondent/how-the-court-will-contact-you"
+
+    Given I go to "/respondent/how-the-court-will-contact-you"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
-    When I go to "/respondent/english-or-welsh"
+
+    Given I go to "/respondent/english-or-welsh"
     And I clear the form
-    And I click "Continue"
+    When I click "Continue"
     Then the page should include "There was a problem"
+
     Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
-    When I go to "/respondent/legal-jurisdiction-of-the-courts"
-    And I click "Continue"
+    And I go to "/respondent/legal-jurisdiction-of-the-courts"
+    When I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
-    When I go to "/respondent/how-the-court-will-contact-you"
-    And I click "Continue"
+
+    Given I go to "/respondent/how-the-court-will-contact-you"
+    When I click "Continue"
     Then the page should include "What language do you want to receive emails and documents in?"
-    When I go to "/"
-    And I click "Submit"
+
+    Given I go to "/"
+    When I click "Submit"
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
+
 
   @nightly
   Scenario: They fail to fill out the applicant 2 forms
@@ -291,15 +357,18 @@ Feature: Form failures
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
+
     When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
     Given I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/help-with-your-fee"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/have-you-applied-for-help-with-fees"
     And I clear the form
     When I click "Continue"
@@ -307,6 +376,7 @@ Feature: Form failures
     Given I select "Yes"
     When I click "Continue"
     Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
+
     Given I go to "/applicant2/enter-your-name"
     And I clear the form
     When I click "Continue"
@@ -318,10 +388,12 @@ Feature: Form failures
     And I type "My last-name1"
     When I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
+
     Given I go to "/applicant2/changes-to-your-name"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/how-did-you-change-your-name"
     And I clear the form
     When I click "Continue"
@@ -329,6 +401,7 @@ Feature: Form failures
     Given I select "Another way"
     When I click "Continue"
     Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+
     Given I go to "/applicant2/how-the-court-will-contact-you"
     And I clear the form
     And I select "Enter your phone number (optional)"
@@ -336,18 +409,22 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
     And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
+
     Given I go to "/applicant2/english-or-welsh"
     And I clear the form
     When I select "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/address-private"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/enter-your-address"
     And I clear the form
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
+
     Given I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
@@ -364,27 +441,33 @@ Feature: Form failures
     Given I wait for the postcode lookup to return results
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
+
     Given I go to "/applicant2/other-court-cases"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/details-other-proceedings"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
+
     Given I go to "/applicant2/do-you-want-to-apply-financial-order"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/applicant2/how-to-apply-financial-order"
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
+
     Given I go to "/applicant2/upload-your-documents"
     And I clear the form
     And I select "I cannot upload some or all of my documents"
     When I click "Continue"
     Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
     And the page should include "Select which file you could not upload before continuing."
+
     Given I go to "/applicant2/check-your-joint-application"
     And I clear the form
     When I click "Continue"
@@ -392,12 +475,116 @@ Feature: Form failures
     Given I select "No"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
     And I go to "/applicant2/upload-your-documents"
     When I click "Continue"
     Then the page should include "Select which file you could not upload before continuing."
+
     Given I go to "/applicant2/confirm-your-joint-application"
     And I clear the form
     When I click "Submit"
     Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
     And the page should include "You need to confirm the facts stated in this application are true"
+
+
+  @nightly
+  Scenario: They fail to fill out joint conditional order questions
+    Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
+    When I go to "/"
+    And I click "Send for review"
+    Then the page URL should be "/application-sent-for-review"
+    When I enter my valid case reference and valid access code
+    Then the page should include "You need to review your joint application"
+    Given I set the case state to "AwaitingConditionalOrder"
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-your-application"
+
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "I want to continue with my divorce application"
+
+    When I click "Continue"
+    Then the page URL should be "/review-your-joint-application"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "No"
+    When I click "Continue"
+    Then the page should include "You need to say what information is incorrect before continuing."
+    Given I select "Yes"
+
+    When I click "Continue"
+    Then the page URL should be "/check-your-conditional-order-answers"
+    When I click "Continue"
+    Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+    Given I select "I believe that the facts stated in this application are true"
+
+    When I click "Continue"
+    Then the page URL should be "/hub-page"
+    When I click "Sign out"
+    And I login with applicant "2"
+    And I set the case state to "ConditionalOrderPending"
+    When I go to "/"
+    Then the page URL should be "/applicant2/hub-page"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/applicant2/continue-with-your-application"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
+
+  @nightly
+  Scenario: Jurisdiction form failures
+    Given I go to "/where-your-lives-are-based"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/your-domicile"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-twelve-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-six-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/habitually-resident-england-wales"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+    Given I go to "/living-england-wales-twelve-months"
+    When I click "Continue"
+    Then the page should include "There was a problem"
+
+  @nightly
+  Scenario: Enter your access code form failures
+    Given I go to "/applicant2/enter-your-access-code"
+    And I clear the form
+    And I select "Your reference number"
+    And I type "1234123412341234"
+    And I select "Your access code"
+    And I type "QWERTY45"
+    When I click "Continue"
+    Then the page should include "You have entered the wrong reference number"
+
+    Given I clear the form
+    And I select "Your access code"
+    And I type "QWERTY45"
+    When I click "Continue"
+    Then the page should include "You have not entered a reference number"
+
+    Given I clear the form
+    And I select "Your reference number"
+    And I type "1234123412341234"
+    When I click "Continue"
+    Then the page should include "You have not entered an access code"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not entered"

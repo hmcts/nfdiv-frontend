@@ -72,7 +72,7 @@ const en = {
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 working days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
@@ -201,6 +201,7 @@ export const generatePageContent = ({
   const isAmendableStates =
     userCase &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
+  const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -215,6 +216,7 @@ export const generatePageContent = ({
     contactEmail,
     isJointApplication,
     isAmendableStates,
+    isClarificationAmendableState,
   };
 
   if (pageContent) {
@@ -263,6 +265,7 @@ export type CommonContent = typeof en & {
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;
+  isClarificationAmendableState: boolean;
 };
 
 export type Language = 'en' | 'cy';

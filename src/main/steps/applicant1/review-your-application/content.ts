@@ -1,5 +1,8 @@
+import config from 'config';
+import dayjs from 'dayjs';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -18,8 +21,11 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
     isDivorce ? 'for a final order of divorce from' : 'for the dissolution of the civil partnership with'
   } ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
   listItem2: 'to make a financial order',
-  caseReference: `<strong>Case reference number:</strong> ${userCase.id}`,
-  issuedDate: `<strong>Issued:</strong> ${userCase.issueDate}`,
+  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
+    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
+    '$1-$2-$3-$4'
+  )}`,
+  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
   applicantHeading: 'Applicant',
   applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   respondentHeading: 'Respondent',
@@ -29,20 +35,23 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   }.`,
   whatThisMeansInfo2: `The respondent is their ${partner}.`,
   heading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line2:
-    'These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English. The names on the certificate are the names the applicant and respondent used before the marriage.',
-  heading3: 'Who the marriage is between',
+  line2: `These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English.
+  The names on the certificate are the names the applicant and respondent used before the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }.`,
+  heading3: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
   line3: `${userCase.applicant1FullNameOnCertificate} and ${
     userCase.applicant2FullNameOnCertificate
   } (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  heading4: 'Where the marriage took place',
+  heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
+  ceremonyPlace: `${userCase.ceremonyPlace}`,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase.connections ? connectionBulletPointsTextForRespondent(userCase.connections) : [],
   whatThisMeans: 'What this means',
-  whatThisMeansInfo3: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
@@ -65,8 +74,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
     'If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’.',
   domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
   heading9: 'Residual jurisdiction',
-  residualJurisdictionLine1:
-    'Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).',
+  residualJurisdictionLine1: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).`,
   residualJurisdictionLine2:
     'In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if: (all the following apply):',
   residualJurisdictionListItem1: 'you married each other in the UK',
@@ -77,26 +85,36 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   residualJurisdictionLine3:
     'However, residual jurisdiction can be complex. If you’re not sure whether this applies to you then you should get legal advice',
   heading10: 'Other court cases',
-  otherCourtCasesLine1:
-    'The court needs to know about any other court cases relating to the marriage, which might affect the legal power (jurisdiction) of the court.',
+  otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  },
+  which might affect the legal power (jurisdiction) of the court.`,
   otherCourtCasesLine2: `The applicant has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
+  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
   noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
-  line5: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
+  line5: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   heading12: 'Financial order application',
-  financialOrderLine1: 'The applicant is applying to the court for financial orders.',
+  financialOrderLine1: `The applicant is applying to the court for financial orders ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' and ')
+    .replace(FinancialOrderFor.APPLICANT, 'for the applicant')
+    .replace(FinancialOrderFor.CHILDREN, 'for the children of the applicant and the respondent')}.`,
   noFinancialOrder: 'The applicant is not applying to the court for financial orders.',
   financialOrderMoreInfoLine1: `${
-    isApplicant2 ? 'You were' : `Your ${partner} was`
-  } asked if they want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your husband and any children that you may have.`,
+    isApplicant2 ? 'You were asked if you' : `Your ${partner} was asked if they`
+  } want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
   financialOrderMoreInfoLine2:
     'A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. This is known as a ‘contested financial order’.',
-  financialOrderMoreInfoLine3:
-    'To formally start legal proceedings, your husband will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs £255. Applying for a ‘financial order by consent’ costs £50. A solicitor can draft these for you.',
+  financialOrderMoreInfoLine3: `To formally start legal proceedings, your ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
+    'fees.financialOrder'
+  )}. Applying for a ‘financial order by consent’ costs ${config.get(
+    'fees.consentOrder'
+  )}. A solicitor can draft these for you.`,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
@@ -109,7 +127,9 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
     <br>
     <p class="govuk-body"><strong>Changing any other information</strong>
     <br>
-    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a £95 fee. This is because the application will need to be updated and may need to be sent to your ${partner} again.`,
+    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${config.get(
+      'fees.updateApplication'
+    )} fee. This is because the application will need to be updated and may need to be sent to your ${partner} again.`,
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',
   errors: {

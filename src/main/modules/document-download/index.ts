@@ -63,6 +63,22 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForCertificateOfEntitlementPdf = {
+      endpoints: ['/downloads/certificate-of-entitlement'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.coCertificateOfEntitlementDocument.documentLink.document_binary_url;
+      },
+    };
+
+    const dmStoreProxyForConditionalOrderRefusalPdf = {
+      endpoints: ['/downloads/conditional-order-refusal'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_REFUSAL
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     app.use(
       dmStoreProxyForApplicationPdf.endpoints,
       proxy(documentManagementTarget, {
@@ -107,6 +123,26 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForDispenseWithServicePdf.endpoints,
       proxy(documentManagementTarget, {
         proxyReqPathResolver: dmStoreProxyForDispenseWithServicePdf.path,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForCertificateOfEntitlementPdf.endpoints,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForCertificateOfEntitlementPdf.path,
+        proxyReqOptDecorator: addHeaders,
+        secure: false,
+        changeOrigin: true,
+      })
+    );
+
+    app.use(
+      dmStoreProxyForConditionalOrderRefusalPdf.endpoints,
+      proxy(documentManagementTarget, {
+        proxyReqPathResolver: dmStoreProxyForConditionalOrderRefusalPdf.path,
         proxyReqOptDecorator: addHeaders,
         secure: false,
         changeOrigin: true,

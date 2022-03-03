@@ -1,9 +1,11 @@
 import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
 import {
+  Applicant2Represented,
   ApplicationType,
   DivorceOrDissolution,
   DocumentType,
   Gender,
+  JurisdictionConnections,
   YesOrNo,
 } from '../../../main/app/case/definition';
 import { BrowserCase } from '../../steps/common';
@@ -43,7 +45,8 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   applicant2MiddleNames: '',
   applicationType: ApplicationType.SOLE_APPLICATION,
-  applyForFinancialOrder: YesOrNo.NO,
+  applicant1ApplyForFinancialOrder: YesOrNo.NO,
+  applicant1WhoIsFinancialOrderFor: [],
   applicant1CannotUpload: Checkbox.Checked,
   applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -61,4 +64,6 @@ export const completeCase: Partial<BrowserCase> = {
   sameSex: Checkbox.Unchecked,
   applicant1ScreenHasUnionBroken: YesOrNo.YES,
   applicant1UploadedFiles: [],
+  connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
+  applicant1IsApplicant2Represented: Applicant2Represented.NO,
 };

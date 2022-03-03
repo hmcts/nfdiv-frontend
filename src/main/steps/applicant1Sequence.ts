@@ -1,5 +1,11 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, JurisdictionConnections, State, YesOrNo } from '../app/case/definition';
+import {
+  Applicant2Represented,
+  ApplicationType,
+  JurisdictionConnections,
+  State,
+  YesOrNo,
+} from '../app/case/definition';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -26,11 +32,15 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
+  DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
   ENGLISH_OR_WELSH,
+  ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   EQUALITY,
+  EXPLAIN_THE_DELAY,
+  FINALISING_YOUR_APPLICATION,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -54,11 +64,11 @@ import {
   MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
-  NO_RESPONSE_YET,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  PROVIDE_INFORMATION_TO_THE_COURT,
   PageLink,
   READ_THE_RESPONSE,
   RELATIONSHIP_DATE_URL,
@@ -67,6 +77,7 @@ import {
   RESIDUAL_JURISDICTION,
   REVIEW_THE_APPLICATION,
   REVIEW_YOUR_APPLICATION,
+  REVIEW_YOUR_JOINT_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
@@ -283,7 +294,18 @@ export const applicant1Sequence: Step[] = [
         ? ADDRESS_PRIVATE
         : data.applicationType === ApplicationType.JOINT_APPLICATION
         ? OTHER_COURT_CASES
+        : DO_THEY_HAVE_A_SOLICITOR,
+  },
+  {
+    url: DO_THEY_HAVE_A_SOLICITOR,
+    getNextStep: data =>
+      data.applicant1IsApplicant2Represented === Applicant2Represented.YES
+        ? ENTER_SOLICITOR_DETAILS
         : THEIR_EMAIL_ADDRESS,
+  },
+  {
+    url: ENTER_SOLICITOR_DETAILS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -301,8 +323,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: DO_YOU_HAVE_ADDRESS,
-    getNextStep: data =>
-      data.applicant1KnowsApplicant2Address === YesOrNo.NO ? NEED_TO_GET_ADDRESS : ENTER_THEIR_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (
+        data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
+        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+      ) {
+        return NEED_TO_GET_ADDRESS;
+      } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
+        return OTHER_COURT_CASES;
+      } else {
+        return ENTER_THEIR_ADDRESS;
+      }
+    },
   },
   {
     url: NEED_TO_GET_ADDRESS,
@@ -333,7 +365,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: APPLY_FINANCIAL_ORDER,
     getNextStep: data =>
-      data.applyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
+      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
@@ -393,10 +425,6 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: NO_RESPONSE_YET,
-    getNextStep: () => HOME_URL,
-  },
-  {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOME_URL,
   },
@@ -419,10 +447,18 @@ export const applicant1Sequence: Step[] = [
   {
     url: CONTINUE_WITH_YOUR_APPLICATION,
     getNextStep: data =>
-      data.applicant1ApplyForConditionalOrder === YesOrNo.YES ? REVIEW_YOUR_APPLICATION : WITHDRAWING_YOUR_APPLICATION,
+      data.applicant1ApplyForConditionalOrder === YesOrNo.YES
+        ? data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? REVIEW_YOUR_JOINT_APPLICATION
+          : REVIEW_YOUR_APPLICATION
+        : WITHDRAWING_YOUR_APPLICATION,
   },
   {
     url: REVIEW_YOUR_APPLICATION,
+    getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  },
+  {
+    url: REVIEW_YOUR_JOINT_APPLICATION,
     getNextStep: () => CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   },
   {
@@ -431,6 +467,18 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: FINALISING_YOUR_APPLICATION,
+    getNextStep: data => (data.state === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+  },
+  {
+    url: EXPLAIN_THE_DELAY,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: PROVIDE_INFORMATION_TO_THE_COURT,
     getNextStep: () => HUB_PAGE,
   },
 ];
