@@ -22,7 +22,7 @@ export class JurisdictionPostController extends PostController<AnyObject> {
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (req.url === JURISDICTION_INTERSTITIAL_URL && formData.connections) {
+    if (req.url.includes(JURISDICTION_INTERSTITIAL_URL) && formData.connections) {
       req.body.connections = addConnectionsBasedOnQuestions({ ...req.session.userCase, ...formData }).concat(
         formData.connections
       );
