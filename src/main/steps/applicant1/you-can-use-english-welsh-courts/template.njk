@@ -11,17 +11,19 @@
       {% endblock %}
 
       <h1 class="govuk-heading-l">{{ title }}</h1>
-      <p class="govuk-body">{{ line1Prefix }}
-        {% if preMadeConnections.length > 1 %}
+      {% if preMadeConnections.length > 1 %}
+        <p class="govuk-body">{{ line1Prefix }}:
           <ul class="govuk-list govuk-list--bullet">
             {% for index in preMadeConnections %}
               <li>{{ connectionText[index] }}</li>
             {% endfor %}
           </ul>
-        {% else %}
+        </p>
+      {% else %}
+        <p class="govuk-body">{{ line1Prefix }}
           {{ connectionText[preMadeConnections[0]] }}.
-        {% endif %}
-      </p>
+        </p>
+      {% endif %}
 
       <p class="govuk-body">{{ line2 }}</p>
 

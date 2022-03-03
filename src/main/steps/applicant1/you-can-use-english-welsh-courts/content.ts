@@ -45,7 +45,7 @@ const en = (
 
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
-    line1Prefix: `Your answers indicate that you can ${apply} in England and Wales because `,
+    line1Prefix: `Your answers indicate that you can ${apply} in England and Wales because`,
     line2:
       'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case.',
     habitualResidence: 'Habitual Residence',
