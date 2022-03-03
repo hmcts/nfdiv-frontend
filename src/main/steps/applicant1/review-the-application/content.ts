@@ -11,7 +11,7 @@ import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdicti
 import { CommonContent } from '../../common/common.content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
-const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent, respondentsAddress: string) => ({
+const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -102,7 +102,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
-  applicantAddressCountry: `${
+  applicantAddress: `${
     userCase.applicant1SolicitorAddress ||
     [
       userCase.applicant1Address1,
@@ -117,11 +117,32 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading8: "Applicant's email address",
-  line21: `${userEmail}`,
+  line21: userCase.applicant1Email,
   subHeading9: "Respondent's correspondence address",
-  respondentAddressCountry: respondentsAddress,
+  respondentAddress: (userCase.applicant2SolicitorAddress?.trim()
+    ? [
+        userCase.applicant2SolicitorAddress1,
+        userCase.applicant2SolicitorAddress2,
+        userCase.applicant2SolicitorAddress3,
+        userCase.applicant2SolicitorAddressTown,
+        userCase.applicant2SolicitorAddressCounty,
+        userCase.applicant2SolicitorAddressPostcode,
+        userCase.applicant2SolicitorAddressCountry,
+      ]
+    : [
+        userCase.applicant2Address1,
+        userCase.applicant2Address2,
+        userCase.applicant2Address3,
+        userCase.applicant2AddressTown,
+        userCase.applicant2AddressCounty,
+        userCase.applicant2AddressPostcode,
+        userCase.applicant2AddressCountry,
+      ]
+  )
+    .filter(Boolean)
+    .join('<br>'),
   subHeading10: "Respondent's email address",
-  line22: `${userCase.applicant2EmailAddress}`,
+  line22: userCase.applicant2EmailAddress,
   subHeading11: "Respondent's solicitor details",
   noDetailsProvided: 'No details provided',
   solName: `Solicitor name: ${userCase.applicant2SolicitorName ? userCase.applicant2SolicitorName : 'not given'}`,
@@ -181,32 +202,9 @@ const languages = {
 
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
-  const respondentsAddress = (
-    userCase.applicant2SolicitorAddress?.trim()
-      ? [
-          userCase.applicant2SolicitorAddress1,
-          userCase.applicant2SolicitorAddress2,
-          userCase.applicant2SolicitorAddress3,
-          userCase.applicant2SolicitorAddressTown,
-          userCase.applicant2SolicitorAddressCounty,
-          userCase.applicant2SolicitorAddressPostcode,
-          userCase.applicant2SolicitorAddressCountry,
-        ]
-      : [
-          userCase.applicant2Address1,
-          userCase.applicant2Address2,
-          userCase.applicant2Address3,
-          userCase.applicant2AddressTown,
-          userCase.applicant2AddressCounty,
-          userCase.applicant2AddressPostcode,
-          userCase.applicant2AddressCountry,
-        ]
-  )
-    .filter(Boolean)
-    .join('<br>');
-  const translations = languages[language](content, respondentsAddress);
-  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate !== YesOrNo.NO;
-  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate !== YesOrNo.NO;
+  const translations = languages[language](content);
+  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   const isApplicant2Represented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const solInfoEntered =
@@ -214,6 +212,8 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     userCase.applicant2SolicitorEmail ||
     userCase.applicant2SolicitorFirmName ||
     userCase.applicant2SolicitorAddress?.trim();
+  const hasApplicant1SolicitorsAddress = !!userCase.applicant1SolicitorAddress?.trim();
+  const hasApplicant2SolicitorsAddress = !!userCase.applicant2SolicitorAddress?.trim();
   return {
     ...translations,
     form,
@@ -222,5 +222,7 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     isFinancialOrderYes,
     isApplicant2Represented,
     solInfoEntered,
+    hasApplicant1SolicitorsAddress,
+    hasApplicant2SolicitorsAddress,
   };
 };

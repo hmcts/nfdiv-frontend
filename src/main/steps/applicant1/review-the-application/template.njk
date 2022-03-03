@@ -48,15 +48,19 @@
     summaryText: whatThisMeans,
     html: financialOrderMoreDetails
   }) }}
-  {% if isApplicantAddressPrivate %}
+  {% if not isApplicantAddressPrivate or hasApplicant1SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
-    <p class="govuk-body">{{ applicantAddressCountry | safe }}</p>
+    <p class="govuk-body">{{ applicantAddress | safe }}</p>
+  {% endif %}
+  {% if not isApplicantAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
     <p class="govuk-body">{{ line21 }}</p>
   {% endif %}
-  {% if isRespondentAddressPrivate %}
+  {% if not isRespondentAddressPrivate or hasApplicant2SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
-    <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>
+    <p class="govuk-body">{{ respondentAddress | safe }}</p>
+  {% endif %}
+  {% if not isRespondentAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
     <p class="govuk-body">{{ line22 }}</p>
   {% endif %}
