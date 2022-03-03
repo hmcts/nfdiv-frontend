@@ -22,7 +22,7 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedText = enDomicile;
     const expectedTitle = 'Read more about domicile';
 
-    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], true);
+    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], false);
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
