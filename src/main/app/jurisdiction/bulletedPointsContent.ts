@@ -27,12 +27,12 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
     [JurisdictionConnections.APP_2_DOMICILED]: `only ${
       isJointApplication ? 'applicant 2' : 'the respondent'
     } is domiciled in England and Wales`,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION]: `The parties ${
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: `the parties ${
       isDivorce
         ? 'registered as civil partners of each other in England or Wales'
         : 'married each other under the law of England and Wales'
     } and it would be in the interest of justice for the court to assume jurisdiction in this case.`,
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'Applicant 1 is habitually resident in England and Wales',
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'applicant 1 is habitually resident in England and Wales',
   };
 
   return connections.map(connection => connectionBulletPoints[connection]);
@@ -53,7 +53,7 @@ export const enConnectionUserReads = (partner: string, isDivorce: boolean): Reco
     [JurisdictionConnections.RESIDUAL_JURISDICTION]: `you and your ${partner} ${
       isDivorce ? 'married each other' : 'registered your civil partnership'
     } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'You are habitually resident in England and Wales',
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'you are habitually resident in England and Wales',
   };
 };
 

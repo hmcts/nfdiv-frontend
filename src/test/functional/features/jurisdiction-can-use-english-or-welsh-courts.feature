@@ -104,7 +104,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page URL should be '/are-you-eligible-for-residual-jurisdiction'
-    And I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
+    Given I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
     When I click "Continue"
     Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
 
