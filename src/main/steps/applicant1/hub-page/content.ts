@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -11,8 +12,12 @@ import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
+const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2') => {
+  return [userCase[app + 'FirstName'], userCase[app + 'MiddleName'], userCase[app + 'LastName']].join(' ');
+};
+
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication }: CommonContent) => ({
-  title: `${userCase.applicant1FullNameOnCertificate} & ${userCase.applicant2FullNameOnCertificate}`,
+  title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
   response: 'Response',
