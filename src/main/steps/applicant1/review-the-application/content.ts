@@ -1,7 +1,7 @@
 import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -10,6 +10,21 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
 import { CommonContent } from '../../common/common.content';
 import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
+
+const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase: Partial<CaseWithId>) => {
+  const isSolicitorsAddress = `${applicant}${userCase.applicant2SolicitorAddress?.trim() ? 'Solicitor' : ''}`;
+  return [
+    userCase[`${isSolicitorsAddress}Address1`],
+    userCase[`${isSolicitorsAddress}Address2`],
+    userCase[`${isSolicitorsAddress}Address3`],
+    userCase[`${isSolicitorsAddress}AddressTown`],
+    userCase[`${isSolicitorsAddress}AddressCounty`],
+    userCase[`${isSolicitorsAddress}AddressPostcode`],
+    userCase[`${isSolicitorsAddress}AddressCountry`],
+  ]
+    .filter(Boolean)
+    .join('<br>');
+};
 
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -119,28 +134,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading8: "Applicant's email address",
   line21: userCase.applicant1Email,
   subHeading9: "Respondent's correspondence address",
-  respondentAddress: (userCase.applicant2SolicitorAddress?.trim()
-    ? [
-        userCase.applicant2SolicitorAddress1,
-        userCase.applicant2SolicitorAddress2,
-        userCase.applicant2SolicitorAddress3,
-        userCase.applicant2SolicitorAddressTown,
-        userCase.applicant2SolicitorAddressCounty,
-        userCase.applicant2SolicitorAddressPostcode,
-        userCase.applicant2SolicitorAddressCountry,
-      ]
-    : [
-        userCase.applicant2Address1,
-        userCase.applicant2Address2,
-        userCase.applicant2Address3,
-        userCase.applicant2AddressTown,
-        userCase.applicant2AddressCounty,
-        userCase.applicant2AddressPostcode,
-        userCase.applicant2AddressCountry,
-      ]
-  )
-    .filter(Boolean)
-    .join('<br>'),
+  respondentAddress: displayCorrectAddress('applicant2', userCase),
   subHeading10: "Respondent's email address",
   line22: userCase.applicant2EmailAddress,
   subHeading11: "Respondent's solicitor details",
