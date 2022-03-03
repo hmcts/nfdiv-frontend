@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
@@ -61,8 +61,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   subHeading1:
-    [State.ClarificationSubmitted, State.Holding].includes(userCase.state as State) &&
-    userCase.coClarificationUploadDocuments
+    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
       : 'What you need to do',
   clarificationSubmitted: {
@@ -76,7 +75,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       line3: userCase.coRefusalClarificationAdditionalInfo,
     },
     withoutDocuments: {
-      subHeading1: userCase.state === 'ClarificationSubmitted' ? 'What you need to do' : 'What you need to do',
+      subHeading1: 'What you need to do',
       line1: `You or your ${partner} need to post the documents requested by the court:`,
       line2:
         '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
@@ -109,6 +108,7 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
   const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
+  const isClarificationResponses = content.userCase.coClarificationResponses?.length;
   return {
     ...languages[content.language](content),
     hasApplicantConfirmedReceipt,
@@ -118,5 +118,6 @@ export const generateContent: TranslationFn = content => {
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
     isClarificationDocumentsUploaded,
+    isClarificationResponses,
   };
 };

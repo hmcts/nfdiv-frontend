@@ -1,4 +1,4 @@
-{% if isClarificationDocumentsUploaded %}
+{% if isClarificationDocumentsUploaded or isClarificationResponses %}
 
   <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line2 }}</p>

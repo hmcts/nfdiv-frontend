@@ -78,11 +78,6 @@ Feature: Joint hub page
     And I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
     And I type "test details"
 
-    Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
-    When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains image "larry-the-cat.jpg"
-
     When I click "Continue"
     Then the page URL should be "/hub-page"
     And the page should include "You have provided the information requested by the court."
