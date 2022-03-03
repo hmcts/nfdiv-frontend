@@ -1,9 +1,7 @@
-import { JURISDICTION_INTERSTITIAL_URL, WHERE_YOUR_LIVES_ARE_BASED_URL } from '../../steps/urls';
 import { Checkbox } from '../case/case';
 import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
 
 import {
-  addConnections,
   addConnectionsBasedOnQuestions,
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
@@ -181,22 +179,5 @@ describe('connections', () => {
     };
     const connections = [];
     expect(previousConnectionMadeUptoLastHabituallyResident(body, connections)).toEqual(false);
-  });
-
-  test('Should add connections regardless of questions asked if req url is JURISDICTION_INTERSTITIAL_URL', async () => {
-    const body = {
-      connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT, JurisdictionConnections.APP_1_APP_2_DOMICILED],
-    };
-    expect(addConnections(JURISDICTION_INTERSTITIAL_URL, body)).toEqual([
-      JurisdictionConnections.APP_1_APP_2_RESIDENT,
-      JurisdictionConnections.APP_1_APP_2_DOMICILED,
-    ]);
-  });
-
-  test('Should not add connections regardless of questions asked if req url is WHERE_YOUR_LIVES_ARE_BASED_URL', async () => {
-    const body = {
-      connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT, JurisdictionConnections.APP_1_APP_2_DOMICILED],
-    };
-    expect(addConnections(WHERE_YOUR_LIVES_ARE_BASED_URL, body)).toEqual([]);
   });
 });
