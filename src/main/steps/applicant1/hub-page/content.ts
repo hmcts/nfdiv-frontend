@@ -13,7 +13,7 @@ import { generateContent as columnGenerateContent } from './right-column/content
 import { generateContent as soleGenerateContent } from './sole/content';
 
 const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2') => {
-  return [userCase[app + 'FirstName'], userCase[app + 'MiddleName'], userCase[app + 'LastName']].join(' ');
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
 };
 
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication }: CommonContent) => ({
