@@ -2,6 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
@@ -21,11 +22,11 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, userCase }: Common
   anotherEmailAddress: `I have another email address or postal address for my ${partner}`,
   emailButNotPostal: 'I have their email address but not their postal address',
   needToSearchForAddress: `I need to search government records for my ${partner}'s postal address`,
-  alternativeService: `${config.get('fees.alternativeService')}`,
-  searchForAddress: `${config.get('fees.searchForAddress')}`,
-  courtBailiffService: `${config.get('fees.courtBailiffService')}`,
-  deemedService: `${config.get('fees.deemedService')}`,
-  dispensedService: `${config.get('fees.dispensedService')}`,
+  alternativeService: `${getFee(config.get('fees.alternativeService'))}`,
+  searchForAddress: `${getFee(config.get('fees.searchForAddress'))}`,
+  courtBailiffService: `${getFee(config.get('fees.courtBailiffService'))}`,
+  deemedService: `${getFee(config.get('fees.deemedService'))}`,
+  dispensedService: `${getFee(config.get('fees.dispensedService'))}`,
   thinkPartnerChoosingNotToRespond: `I think my ${partner} is receiving the application but is choosing not to respond`,
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",

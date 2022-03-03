@@ -30,7 +30,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(1);
+  test.retries(2);
 });
 
 After(async () => {
@@ -239,6 +239,8 @@ When('a superuser updates {string} with {string}', async (field: string, value: 
   data[field] = value;
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, data);
 });
+
+When('I pause the test', () => pause());
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   I.amOnPage('/applicant2/enter-your-access-code');
