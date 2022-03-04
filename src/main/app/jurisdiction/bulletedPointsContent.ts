@@ -33,6 +33,10 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
         : 'married each other under the law of England and Wales'
     } and it would be in the interest of justice for the court to assume jurisdiction in this case.`,
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'applicant 1 is habitually resident in England and Wales',
+    [JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS]:
+      'applicant 2 is habitually resident in England and Wales and has resided there for at least one year immediately before the application was made.',
+    [JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS]:
+      'applicant 2 is domiciled and habitually resident in England and Wales and has resided there for at least six months immediately before the application was made.',
   };
 
   return connections.map(connection => connectionBulletPoints[connection]);
@@ -54,6 +58,8 @@ export const enConnectionUserReads = (partner: string, isDivorce: boolean): Reco
       isDivorce ? 'married each other' : 'registered your civil partnership'
     } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'you are habitually resident in England and Wales',
+    [JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS]: `your ${partner} is habitually resident in England and Wales and has resided there for at least one year immediately before making this application`,
+    [JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS]: `your ${partner} is domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application`,
   };
 };
 
