@@ -163,7 +163,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   },
   stepAnswers: {
     aboutPartnership: {
-      line1: `${isDivorce ? `My ${partner}` : userCase.Gender === Gender.MALE ? 'Male' : 'Female'}`,
+      line1: `${isDivorce ? `My ${partner}` : userCase.gender === Gender.MALE ? 'Male' : 'Female'}`,
       line2: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
