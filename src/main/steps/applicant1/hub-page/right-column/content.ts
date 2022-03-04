@@ -49,8 +49,8 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   telephone: '<strong>Phone</strong></br> 0300 303 0642</br> (Monday to Friday, 8am to 8PM, Saturday 8AM to 2PM)',
   email: `<strong>Email</strong><br>
     <a class="govuk-link" href="mailto:${
-      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+      isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
+    }">${isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   post: `
     <strong>Post</strong></br>
     Courts and Tribunals Service Centre</br>

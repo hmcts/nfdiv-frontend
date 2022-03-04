@@ -43,8 +43,8 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step3: 'Attach it to an email',
     step4: `Include your reference number in the subject line: ${referenceNumber}`,
     step5: `Email the documents to: <a class="govuk-link" href="mailto:${
-      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+      isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
+    }">${isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -91,8 +91,8 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
   email: `<a class="govuk-link" href="mailto:${
-    isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-  }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+    isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
+  }">${isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
   telephone: 'Telephone',
   telephoneNumber: 'Telephone: 0300 303 0642',
   telephoneDetails: 'Monday to Friday 8am to 5pm',

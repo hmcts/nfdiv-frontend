@@ -192,7 +192,7 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
-  const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
+  const contactEmail = isDivorce ? 'divorcecase@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
