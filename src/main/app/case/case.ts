@@ -267,6 +267,7 @@ export interface Case {
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
+  coApplicant2SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;

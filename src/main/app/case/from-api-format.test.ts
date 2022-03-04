@@ -43,6 +43,7 @@ describe('from-api-format', () => {
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
     coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
+    coApplicant2SubmittedDate: '2022-03-28T00:00:00Z',
     coClarificationResponses: [{ id: '1', value: 'test' }],
     coCannotUploadClarificationDocuments: YesOrNo.YES,
   };
@@ -90,6 +91,7 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
@@ -153,6 +155,7 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       dateFinalOrderSubmitted: '1 January 2022',
@@ -195,6 +198,7 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
@@ -236,6 +240,7 @@ describe('from-api-format', () => {
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
       coApplicant1SubmittedDate: '31 March 2022',
+      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
