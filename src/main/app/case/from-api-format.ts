@@ -134,6 +134,9 @@ const fields: FromApiConverters = {
   coApplicant1SubmittedDate: data => ({
     coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
   }),
+  coApplicant2SubmittedDate: data => ({
+    coApplicant2SubmittedDate: dayjs(data.coApplicant2SubmittedDate).format('D MMMM YYYY'),
+  }),
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
   }),

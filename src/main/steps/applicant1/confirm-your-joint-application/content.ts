@@ -6,15 +6,15 @@ import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
-const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -42,7 +42,9 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   line14: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase
+    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+    : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
@@ -50,7 +52,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
      Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).connectedToEnglandWales,
+    jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
@@ -127,7 +129,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line19: `${userEmail}`,
+  line19: `${userCase.applicant1Email}`,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -144,7 +146,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line20: `${userCase.applicant2EmailAddress}`,
+  line20: `${userCase.applicant2Email}`,
   confirm: `Confirm before  ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
