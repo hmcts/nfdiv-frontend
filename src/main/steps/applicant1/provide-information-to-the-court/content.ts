@@ -20,7 +20,7 @@ const en = ({ partner, applicant1Content, referenceNumber, userCase }) => ({
   cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">You can post your documents to the court if you cannot upload them, or you think uploading them will not help. You must send the original documents or certified copies. Make sure you include a covering letter with your case number: <strong>${referenceNumber}</strong></br></br>
     <strong>Courts and Tribunals Service Centre</strong></br>
     Digital Divorce</br>
-    PO Box 12706</br>
+    PO Box 13226</br>
     Harlow</br>
     CM20 9QT</p>`,
   errors: {

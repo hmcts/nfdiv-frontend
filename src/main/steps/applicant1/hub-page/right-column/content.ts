@@ -55,7 +55,7 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
     <strong>Post</strong></br>
     Courts and Tribunals Service Centre</br>
     Digital Divorce</br>
-    PO Box 12706</br>
+    PO Box 13226</br>
     Harlow</br>
     CM20 9QT`,
   whatHappensNext: 'What happens next',

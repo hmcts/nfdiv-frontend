@@ -54,7 +54,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   address: `
     Courts and Tribunals Service Centre<br>
     HMCTS Divorce and Dissolution service<br>
-    PO Box 12706<br>
+    PO Box 13226<br>
     Harlow<br>
     CM20 9QT
   `,

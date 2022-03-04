@@ -57,7 +57,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line4: `<div class="govuk-body">Or post it to:</div>
       Courts and Tribunals Service centre<br>
       HMCTS ${isDivorce ? 'Divorce Service' : 'Ending Civil Partnerships'}<br>
-      PO Box 12706<br>
+      PO Box 13226<br>
       Harlow<br>
       CM20 9QT`,
     line5: `You’ll have to pay a ${config.get(
