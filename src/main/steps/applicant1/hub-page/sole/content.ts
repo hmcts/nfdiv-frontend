@@ -243,6 +243,7 @@ export const generateContent: TranslationFn = content => {
   const isClarificationDocumentsUploaded = userCase.coClarificationUploadDocuments?.length;
   const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
     .alternativeServiceType as AlternativeServiceType;
+  const isAlternativeService = !!alternativeServiceType;
   return {
     ...languages[language](content, alternativeServiceType),
     isDisputedApplication,
@@ -250,5 +251,6 @@ export const generateContent: TranslationFn = content => {
     isDeemedOrDispensedApplication,
     isClarificationDocumentsUploaded,
     isServiceApplicationGranted,
+    isAlternativeService,
   };
 };

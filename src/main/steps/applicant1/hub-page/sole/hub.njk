@@ -55,7 +55,7 @@
 {% elif userCase.state == 'AwaitingAos' and isServiceApplicationGranted and not isSuccessfullyServedByBailiff %}
   {% include "./latest-update-content/bailiff-service-unsuccessful.njk" %}
 
-{% elif userCase.state == 'AwaitingAos' and not isServiceApplicationGranted %}
+{% elif userCase.state == 'AwaitingAos' and isAlternativeService and not isServiceApplicationGranted %}
   {% include "./latest-update-content/service-application-rejected.njk" %}
 
 {% else %}
