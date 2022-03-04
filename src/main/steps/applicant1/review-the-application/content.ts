@@ -7,9 +7,9 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
 const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase: Partial<CaseWithId>) => {
   const isSolicitorsAddress = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
@@ -26,7 +26,7 @@ const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase:
     .join('<br>');
 };
 
-const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -70,7 +70,9 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   line16: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase
+    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+    : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
@@ -78,7 +80,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+    jurisdictionMoreDetailsContent(userCase.connections, isDivorce).text,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${

@@ -55,7 +55,6 @@ import {
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
-  JURISDICTION_CONNECTION_SUMMARY,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -211,10 +210,9 @@ export const applicant1Sequence: Step[] = [
       if (allowedToAnswerResidualJurisdiction(data, data.connections as JurisdictionConnections[])) {
         return RESIDUAL_JURISDICTION;
       } else if (
-        previousConnectionMadeUptoLastHabituallyResident(data, data.connections as JurisdictionConnections[])
+        previousConnectionMadeUptoLastHabituallyResident(data, data.connections as JurisdictionConnections[]) ||
+        data.bothLastHabituallyResident === YesOrNo.YES
       ) {
-        return JURISDICTION_CONNECTION_SUMMARY;
-      } else if (data.bothLastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;
       } else {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
@@ -236,7 +234,7 @@ export const applicant1Sequence: Step[] = [
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
       data.jurisdictionResidualEligible === Checkbox.Checked
-        ? JURISDICTION_CONNECTION_SUMMARY
+        ? JURISDICTION_INTERSTITIAL_URL
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
   {
@@ -403,10 +401,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: PAY_AND_SUBMIT,
     getNextStep: () => PAYMENT_CALLBACK_URL,
-  },
-  {
-    url: JURISDICTION_CONNECTION_SUMMARY,
-    getNextStep: () => YOUR_NAME,
   },
   {
     url: PAYMENT_CALLBACK_URL,
