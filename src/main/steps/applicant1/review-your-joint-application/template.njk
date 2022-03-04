@@ -5,20 +5,10 @@
   <p class="govuk-body">{{ whatThisMeansInfo1 }}</p>
 
   <h3 class="govuk-heading-m">{{ heading7 }}</h3>
-  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
+  <p class="govuk-body">{{ habitualResidenceText | safe }}</p>
 
   <h3 class="govuk-heading-m">{{ heading8 }}</h3>
-  <p class="govuk-body">{{ domicileLine1 }}</p>
-  <p class="govuk-body">{{ domicileLine2 }}</p>
-  <p class="govuk-body">{{ domicileLine3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ domicileListItem1 }}</li>
-    <li>{{ domicileListItem2 }}</li>
-  </ul>
-  <p class="govuk-body">{{ domicileLine4 }}</p>
-  <p class="govuk-body">{{ domicileLine5 }}</p>
+  <p class="govuk-body">{{ domicileText | safe }}</p>
 
 {% endset %}
 
@@ -64,11 +54,7 @@
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    {% for line in connectionBulletPoints %}
-      <li>{{ line | safe }}</li>
-    {% endfor %}
-  </ul>
+  <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
 
   {{ govukDetails({
       summaryText: whatThisMeans,

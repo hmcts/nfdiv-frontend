@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
-import { StateSequence } from '../../../state-sequence';
 
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
@@ -77,18 +76,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const currentState = new StateSequence([
-    State.Holding,
-    State.AwaitingConditionalOrder,
-    State.ConditionalOrderDrafted,
-    State.ConditionalOrderPending,
-    State.AwaitingLegalAdvisorReferral,
-    State.AwaitingPronouncement,
-    State.ConditionalOrderPronounced,
-    State.AwaitingFinalOrder,
-    State.FinalOrderRequested,
-    State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
@@ -103,7 +90,6 @@ export const generateContent: TranslationFn = content => {
     : 'applicant1ApplyForConditionalOrderStarted';
   return {
     ...languages[content.language](content),
-    currentState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
     partnerSubmissionOverdue,
