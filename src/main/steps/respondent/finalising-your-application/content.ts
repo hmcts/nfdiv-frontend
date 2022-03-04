@@ -2,6 +2,7 @@ import config from 'config';
 
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -13,8 +14,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'finalise the divorce' : 'end the civil partnership'
   }, then you can apply instead. You will need to apply for permission because you are the ‘respondent’ in the ${
     isDivorce ? 'divorce process' : 'process to end the civil partnership'
-  }. You will also need to pay an application fee of ${config.get(
-    'fees.finalOrderApplicationFee'
+  }. You will also need to pay an application fee of ${getFee(
+    config.get('fees.finalOrderApplicationFee')
   )}, unless you are eligible for Help With Fees. Your application for a final order will then be reviewed by a judge. You may have to come to a court hearing.`,
   line3: `If you have not finished negotiations about your money, property or other assets then you should seek legal advice before applying to finalise ${
     isDivorce ? 'your divorce' : 'ending your civil partnership'

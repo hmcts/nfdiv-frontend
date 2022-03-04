@@ -11,6 +11,7 @@ const fees = {
   BailiffServeDoc: { amount: 0, service: 'other', event: 'enforcement' },
   FinancialOrderOnNotice: { amount: 0, service: 'other', event: 'miscellaneous' },
   GeneralAppWithoutNotice: { amount: 0, service: 'other', event: 'general application' },
+  GAOnNotice: { amount: 0, service: 'other', event: 'general application' },
 };
 
 type FeeKeyword = keyof typeof fees;
