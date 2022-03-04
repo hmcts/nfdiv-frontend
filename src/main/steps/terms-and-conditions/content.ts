@@ -43,7 +43,7 @@ const en = {
     'You’ll agree to any changes if you continue to use this service after the terms and conditions have been updated.',
   contactUs: 'Contact Us',
   address:
-    'CTSC (Courts and Tribunal Service Centre)<br>C/o HMCTS Digital Divorce Services<br>PO Box 13226<br>Harlow<br>CM20 9QT<br>',
+    'CTSC (Courts and Tribunal Service Centre)<br>C/o HMCTS Digital Divorce Services<br>PO Box 13226<br>Harlow<br>CM20 9UG<br>',
 };
 
 const cy: typeof en = {

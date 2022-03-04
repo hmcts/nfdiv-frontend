@@ -22,7 +22,7 @@ const en = ({ partner, applicant1Content, referenceNumber, userCase }) => ({
     Digital Divorce</br>
     PO Box 13226</br>
     Harlow</br>
-    CM20 9QT</p>`,
+    CM20 9UG</p>`,
   errors: {
     coClarificationResponses: {
       required:

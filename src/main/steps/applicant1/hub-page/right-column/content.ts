@@ -57,7 +57,7 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
     Digital Divorce</br>
     PO Box 13226</br>
     Harlow</br>
-    CM20 9QT`,
+    CM20 9UG`,
   whatHappensNext: 'What happens next',
 });
 

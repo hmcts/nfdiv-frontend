@@ -56,7 +56,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     HMCTS Divorce and Dissolution service<br>
     PO Box 13226<br>
     Harlow<br>
-    CM20 9QT
+    CM20 9UG
   `,
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',

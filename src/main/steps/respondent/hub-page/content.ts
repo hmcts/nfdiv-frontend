@@ -59,7 +59,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       HMCTS ${isDivorce ? 'Divorce Service' : 'Ending Civil Partnerships'}<br>
       PO Box 13226<br>
       Harlow<br>
-      CM20 9QT`,
+      CM20 9UG`,
     line5: `You’ll have to pay a ${config.get(
       'fees.d8bFormSubmission'
     )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
