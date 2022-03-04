@@ -14,7 +14,7 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
-const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, isApplicant2 }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -127,7 +127,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line19: `${userEmail}`,
+  line19: `${userCase.applicant1Email}`,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -144,7 +144,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line20: `${userCase.applicant2EmailAddress}`,
+  line20: `${userCase.applicant2Email}`,
   confirm: `Confirm before  ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
