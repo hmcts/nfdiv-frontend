@@ -11,8 +11,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you are 'habitually resident'"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are habitually resident in England and Wales"
 
   Scenario: B Applicant1 and Applicant2 were last habitually resident in England and Wales, neither habitually resident
     Given I select "No" for "Is your life mainly based in England or Wales?"
@@ -26,8 +25,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you were last 'habitually resident' and one of you still lives here"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: B Applicant1 and Applicant2 were last habitually resident in England and Wales, Applicant1 habitually resident
@@ -44,16 +42,14 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you were last 'habitually resident' and one of you still lives here"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   Scenario: C The Applicant2 habitually resides in England and Wales (mixed sex marriage)
     Given I select "No" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because your husband is 'habitually resident'"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because your husband is habitually resident in England and Wales"
 
   Scenario: D Applicant1 is habitually resident in England and Wales and has been for 12 months
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
@@ -62,8 +58,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are 'habitually resident' and have lived here for at least 12 months"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales and have resided there for at least one year immediately before making this application"
 
   Scenario: F Applicant1 and Applicant2 are both domiciled in England and Wales, Applicant1 habitually resident (mixed sex marriage)
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
@@ -75,7 +70,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you are 'domiciled' in England or Wales."
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
     And the page should include "Read more about domicile"
 
   @nightly
@@ -87,7 +82,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes" for "Is your husband’s domicile in England or Wales?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because both of you are 'domiciled' in England or Wales."
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
     And the page should include "Read more about domicile"
 
   Scenario: G residual jurisdiction applies (Applicant1 resident, same sex couple)
@@ -109,10 +104,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page URL should be '/are-you-eligible-for-residual-jurisdiction'
-    And I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
+    Given I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "the courts of England and Wales have jurisdiction on a residual basis"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
 
   @nightly
   Scenario: G residual jurisdiction applies (Applicant1 not resident, same sex couple)
@@ -132,10 +126,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page URL should be "/are-you-eligible-for-residual-jurisdiction"
-    And I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
+    Given I select "Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, in the case of a same sex couple, married each other under the law of England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case."
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "the courts of England and Wales have jurisdiction on a residual basis"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
 
   @nightly
   Scenario: F Applicant1 and Applicant2 domiciled (Applicant1 resident, same sex couple)
@@ -156,9 +149,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I click "Continue"
     And I select "No"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
 
   @nightly
   Scenario: F Applicant1 and Applicant2 domiciled (Applicant1 not resident, same sex couple)
@@ -177,9 +168,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I click "Continue"
     And I select "No"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
 
   @nightly
   Scenario: F, B Applicant1 and Applicant2 domiciled and both last habitually resident (Applicant1 resident, same sex couple)
@@ -200,10 +189,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I click "Continue"
     And I select "Yes"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
+    And the page should include "you and your husband are domiciled in England and Wales"
 
   @nightly
   Scenario: F, B Applicant1 and Applicant2 domiciled and both last habitually resident (Applicant1 not resident, same sex couple)
@@ -223,9 +211,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
+    And the page should include "you and your husband are domiciled in England and Wales"
 
   @nightly
   Scenario: F, C Applicant1 and Applicant2 domiciled and Applicant2 habitually resident (same sex couple)
@@ -245,9 +232,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "your husband is habitually resident"
-    And the page should include "Read more about your connections"
+    And the page should include "your husband is habitually resident in England and Wales"
+    And the page should include "you and your husband are domiciled in England and Wales"
 
   @nightly
   Scenario: F, C, B Applicant1 and Applicant2 domiciled, Applicant2 habitually resident and both last habitually resident (same sex couple)
@@ -267,10 +253,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "both you and your husband are domiciled"
-    And the page should include "your husband is habitually resident"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "you and your husband are domiciled in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   Scenario: H, E, B Applicant1 domiciled, Applicant1 habitually resident for 6 months and both last habitually resident
     Given I go to '/your-details'
@@ -294,10 +279,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "you’re domiciled and habitually resident and have lived here for at least 6 months"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "you are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: H, E Applicant1 domiciled and Applicant1 habitually resident for 6 months
@@ -320,9 +304,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "you’re domiciled and habitually resident and have lived here for at least 6 months"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "you are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application"
 
   @nightly
   Scenario: H, B Applicant1 domiciled and both last habitually resident
@@ -346,9 +329,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: H Applicant1 domiciled (Applicant1 resident)
@@ -371,8 +353,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only you are domiciled in England and Wales"
 
   Scenario: I Applicant2 domiciled (Applicant1 resident)
     Given I go to '/your-details'
@@ -392,9 +373,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Then the page URL should be "/habitually-resident-england-wales"
     And I select "No"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only your husband is domiciled in England and Wales"
 
   @nightly
   Scenario: I Applicant2 domiciled (Applicant1 not resident)
@@ -412,9 +391,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     When I click "Continue"
     And I select "No"
     When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "Read more about your connections"
+    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only your husband is domiciled in England and Wales"
 
   @nightly
   Scenario: I, B Applicant2 domiciled and both last habitually resident (Applicant1 resident)
@@ -435,9 +412,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only your husband is domiciled in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: I, B Applicant2 domiciled and both last habitually resident (Applicant1 not resident)
@@ -456,9 +432,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only your husband is domiciled in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: I, C Applicant2 domiciled and Applicant2 habitually resident (same sex couple)
@@ -478,9 +453,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "your husband is habitually resident"
-    And the page should include "Read more about your connections"
+    And the page should include "only your husband is domiciled in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
 
   @nightly
   Scenario: I, B, C Applicant2 domiciled, Applicant2 habitually resident and both last habitually resident (same sex couple)
@@ -500,10 +474,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is domiciled in England or Wales"
-    And the page should include "your husband is habitually resident"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only your husband is domiciled in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: B, H Applicant1 domiciled and both last habitually resident
@@ -523,9 +496,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: B, H, C Applicant1 domiciled, both last habitually resident and Applicant2 habitually resident (same sex couple)
@@ -545,10 +517,9 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "Yes"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "your husband is habitually resident"
-    And the page should include "you and your husband were both last habitually resident and one of you still lives here"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
+    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
 
   @nightly
   Scenario: H Applicant1 domiciled (Applicant1 not resident)
@@ -568,8 +539,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
 
   @nightly
   Scenario: H, C Applicant1 domiciled and Applicant2 habitually resident (same sex couple)
@@ -589,9 +559,8 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you are domiciled in England or Wales"
-    And the page should include "your husband is habitually resident"
-    And the page should include "Read more about your connections"
+    And the page should include "only you are domiciled in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
 
   Scenario: J Applicant1 habitually resides in England and Wales (joint application)
     Given I've said I'm applying as a joint application
@@ -600,8 +569,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"
     When I click "Continue"
     Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are 'habitually resident'"
-    And the page should include "Read more about habitual residence"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales"
 
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
@@ -609,3 +577,18 @@ Feature: Jurisdiction - can use English or Welsh courts
     And I click "Continue"
     When I click "Back"
     Then the page should include "Check if you can get a divorce in England or Wales"
+
+  Scenario: Checking additional connections on you-can-use-english-or-welsh-courts page
+    Given I select "Yes" for "Is your life mainly based in England or Wales?"
+    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
+    When I click "Continue"
+    Then the page should include "You can use English or Welsh courts to get a divorce"
+    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are habitually resident in England and Wales"
+    When I click for more details
+    Then the page should not include 'My husband and I are habitually resident in England and Wales'
+    Given I select "My husband is habitually resident in England and Wales"
+    When I click "Continue"
+    Then the page should include "Enter your name"
+    When I go to "/"
+    Then the page should include "you and your husband are habitually resident in England and Wales"
+    And the page should include "your husband is habitually resident in England and Wales"
