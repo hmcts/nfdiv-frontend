@@ -58,7 +58,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     line2: `The court will check your application and send it to a judge.
     If the judge agrees that you should ${isDivorce ? 'get a divorce' : 'end your civil partnership'},
     then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
-    You will receive an email by${
+    You will receive an email by ${
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
         ? dayjs(userCase.coApplicant1SubmittedDate).add(3, 'week').format('D MMMM YYYY')
         : dayjs(userCase.coApplicant2SubmittedDate).add(3, 'week').format('D MMMM YYYY')
