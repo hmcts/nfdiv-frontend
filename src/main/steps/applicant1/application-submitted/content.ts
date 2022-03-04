@@ -69,7 +69,10 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   } papers another way</a>`,
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
-    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? ' and Help With Fees reference number' : ''
+    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+      ? ' and Help With Fees reference number'
+      : ''
   } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
     .add(2, 'weeks')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
