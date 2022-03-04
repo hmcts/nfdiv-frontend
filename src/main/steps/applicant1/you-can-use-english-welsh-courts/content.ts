@@ -17,6 +17,8 @@ const jurisdictionConnectionList = [
   JurisdictionConnections.APP_2_DOMICILED,
   JurisdictionConnections.RESIDUAL_JURISDICTION,
   JurisdictionConnections.APP_1_RESIDENT_JOINT,
+  JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
+  JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
 ];
 
 const en = (
@@ -39,9 +41,9 @@ const en = (
       isDivorce ? 'married each other' : 'registered our civil partnership'
     } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
     'I am habitually resident in England and Wales',
+    `My ${partner} is habitually resident in England and Wales and has resided there for at least one year immediately before making this application`,
+    `My ${partner} is domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application`,
   ];
-
-  const connectionsMadeBasedOnQuestions = addConnectionsBasedOnQuestions(userCase);
 
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
@@ -63,7 +65,7 @@ const en = (
         : 'habitual residence'
     } and the other possible legal connections`,
     connectionCheckboxes,
-    preMadeConnections: connectionsMadeBasedOnQuestions,
+    preMadeConnections: addConnectionsBasedOnQuestions(userCase),
     connectionText,
   };
 };
@@ -81,6 +83,12 @@ export const form: FormContent = {
         !(
           jurisdictionConnectionList[index] === JurisdictionConnections.APP_1_RESIDENT_JOINT &&
           userCase.applicationType === ApplicationType.SOLE_APPLICATION
+        ) &&
+        !(
+          [
+            JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
+            JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
+          ].includes(jurisdictionConnectionList[index]) && userCase.applicationType === ApplicationType.SOLE_APPLICATION
         )
       ) {
         checkboxes.push({
