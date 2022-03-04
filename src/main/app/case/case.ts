@@ -66,6 +66,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2NameChangedHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
+  applicant1Email: 'applicant1Email',
   applicant2Email: 'applicant2Email',
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant2PhoneNumber: 'applicant2PhoneNumber',
@@ -210,6 +211,7 @@ export interface Case {
   applicant2NameChangedHow?: ChangedNameHow[];
   applicant1ChangedNameHowAnotherWay?: string;
   applicant2ChangedNameHowAnotherWay?: string;
+  applicant1Email?: string;
   applicant2Email?: string;
   applicant2EmailAddress?: string;
   applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
@@ -265,6 +267,7 @@ export interface Case {
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
+  coApplicant2SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
