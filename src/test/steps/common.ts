@@ -7,7 +7,6 @@ import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
 import {
-  CASEWORKER_ISSUE_APPLICATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
   DivorceOrDissolution,
@@ -228,7 +227,7 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 When('a case worker issues the application', async () => {
-  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
+  await triggerAnEvent('caseworker-issue-application', { ceremonyPlace: 'Somewhere' });
 });
 
 When('a case worker updates court case hearing', async () => {
