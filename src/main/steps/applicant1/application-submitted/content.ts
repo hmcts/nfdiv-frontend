@@ -8,7 +8,7 @@ import { StateSequence } from '../../state-sequence';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication, contactEmail }: CommonContent) => ({
   title: 'Application submitted',
   referenceNumber: `Your reference number is:
     <div class="govuk-panel__body">
@@ -42,9 +42,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step2: 'Check the image shows the whole document and all the text is readable',
     step3: 'Attach it to an email',
     step4: `Include your reference number in the subject line: ${referenceNumber}`,
-    step5: `Email the documents to: <a class="govuk-link" href="mailto:${
-      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+    step5: `Email the documents to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -54,9 +52,9 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   address: `
     Courts and Tribunals Service Centre<br>
     HMCTS Divorce and Dissolution service<br>
-    PO Box 12706<br>
+    PO Box 13226<br>
     Harlow<br>
-    CM20 9QT
+    CM20 9UG
   `,
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
@@ -93,9 +91,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
-  email: `<a class="govuk-link" href="mailto:${
-    isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-  }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+  email: `<a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
   telephone: 'Telephone',
   telephoneNumber: 'Telephone: 0300 303 0642',
   telephoneDetails: 'Monday to Friday 8am to 5pm',
