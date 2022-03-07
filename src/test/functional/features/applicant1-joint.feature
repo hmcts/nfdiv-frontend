@@ -298,7 +298,7 @@ Feature: Applicant 1 joint application
     And I select "Postal code, zip code or area code (optional)"
     And I type "SW1H 9AJ"
     And I select "Country"
-    And I type "England"
+    And I type "UK"
 
     When I click "Continue"
     And the page should include "Other court cases relating to this marriage"
