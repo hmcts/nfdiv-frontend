@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { Case } from '../../app/case/case';
+import { Case, Checkbox } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
@@ -84,7 +84,8 @@ const applicant1RedirectPageSwitch = (caseState: State, userCase: Partial<Case>,
       if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
-        return userCase.applicationType === ApplicationType.SOLE_APPLICATION
+        return userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+          userCase.applicant2IBelieveApplicationIsTrue === Checkbox.Checked
           ? READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION;
       } else {
