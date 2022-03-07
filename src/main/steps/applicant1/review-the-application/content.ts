@@ -12,15 +12,15 @@ import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDe
 import { CommonContent } from '../../common/common.content';
 
 const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase: Partial<CaseWithId>) => {
-  const isSolicitorsAddress = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
+  const solicitorsAddress = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
   return [
-    userCase[`${isSolicitorsAddress}Address1`],
-    userCase[`${isSolicitorsAddress}Address2`],
-    userCase[`${isSolicitorsAddress}Address3`],
-    userCase[`${isSolicitorsAddress}AddressTown`],
-    userCase[`${isSolicitorsAddress}AddressCounty`],
-    userCase[`${isSolicitorsAddress}AddressPostcode`],
-    userCase[`${isSolicitorsAddress}AddressCountry`],
+    userCase[`${solicitorsAddress}Address1`],
+    userCase[`${solicitorsAddress}Address2`],
+    userCase[`${solicitorsAddress}Address3`],
+    userCase[`${solicitorsAddress}AddressTown`],
+    userCase[`${solicitorsAddress}AddressCounty`],
+    userCase[`${solicitorsAddress}AddressPostcode`],
+    userCase[`${solicitorsAddress}AddressCountry`],
   ]
     .filter(Boolean)
     .join('<br>');
