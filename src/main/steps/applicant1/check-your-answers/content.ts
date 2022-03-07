@@ -165,7 +165,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `My ${partner}` : userCase.gender === Gender.MALE ? 'Male' : 'Female'}`,
-      line2: `We were ${userCase.sameSex === Checkbox.Checked ? 'not ' : ''}a same-sex couple when we formed our ${
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
         isDivorce ? 'marriage' : 'civil partnership'
       }`,
       line3: `${
@@ -384,10 +384,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepLinks: {
     aboutPartnership: {
       line1: urls.YOUR_DETAILS_URL,
-      line2: urls.HAS_RELATIONSHIP_BROKEN_URL,
-      line3: urls.RELATIONSHIP_DATE_URL,
-      line4: urls.CERTIFICATE_URL,
-      line5: urls.HOW_DO_YOU_WANT_TO_APPLY,
+      line2: urls.YOUR_DETAILS_URL,
+      line3: urls.HAS_RELATIONSHIP_BROKEN_URL,
+      line4: urls.RELATIONSHIP_DATE_URL,
+      line5: urls.CERTIFICATE_URL,
+      line6: urls.HOW_DO_YOU_WANT_TO_APPLY,
     },
     helpWithFees: {
       line1: urls.HELP_WITH_YOUR_FEE_URL,
@@ -611,7 +612,7 @@ const cy: typeof en = ({
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
-      line2: `We were ${userCase.sameSex === Checkbox.Checked ? 'not ' : ''}a same-sex couple when we formed our ${
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
         isDivorce ? 'marriage' : 'civil partnership'
       }`,
       line3: `${
