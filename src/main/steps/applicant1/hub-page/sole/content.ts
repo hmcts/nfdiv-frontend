@@ -102,7 +102,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1: `The court has seen evidence that the court documents have been successfully ‘served’ (delivered) to your ${partner}. You can`,
     line2: `You will not see a response from your ${partner} when you apply for the conditional order.`,
   },
-  applyForConditionalOrder: 'Apply for conditional order',
   conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.
   This is because they did not respond to your application.
   You applied to the court to ${
