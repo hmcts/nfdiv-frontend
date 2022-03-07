@@ -6,7 +6,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { StateSequence } from '../../state-sequence';
-import { PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
+import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as columnGenerateContent } from './right-column/content';
@@ -16,7 +16,7 @@ const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'
   return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
 };
 
-const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
@@ -100,7 +100,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
     line4: 'You need to respond to the court’s feedback before your application can proceed.',
     line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
     buttonText: 'Respond to the court',
-    buttonLink: PROVIDE_INFORMATION_TO_THE_COURT,
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
   },
 });
 
