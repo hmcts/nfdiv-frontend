@@ -585,7 +585,9 @@ export interface CaseData {
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
   grantedDate: DateAsString;
-  doesApplicantWantToApplyForFinalOrder: YesOrNo;
+  doesApplicant1WantToApplyForFinalOrder: YesOrNo;
+  doesApplicant2WantToApplyForFinalOrder: YesOrNo;
+  applicant2FinalOrderExplanation: string;
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
@@ -857,7 +859,9 @@ export interface FinalOrder {
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
   grantedDate: DateAsString;
-  doesApplicantWantToApplyForFinalOrder: YesOrNo;
+  doesApplicant1WantToApplyForFinalOrder: YesOrNo;
+  doesApplicant2WantToApplyForFinalOrder: YesOrNo;
+  applicant2FinalOrderExplanation: string;
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
