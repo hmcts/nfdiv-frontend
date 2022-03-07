@@ -47,7 +47,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
-    line2: `You have until ${dayjs(userCase.issueDate).add(37, 'day').format('D MMMM YYYY')}
+    line2: `You have until ${dayjs(userCase.dateAosSubmitted).add(37, 'day').format('D MMMM YYYY')}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
     }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,

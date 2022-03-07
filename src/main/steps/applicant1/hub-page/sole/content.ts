@@ -71,9 +71,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have to submit an ‘answer’ to the court by ${
-      userCase.dueDate
-    }. This is a form which explains their reasons for defending the ${
+    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.dateAosSubmitted)
+      .add(37, 'day')
+      .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
     line3: `If they submit the ‘answer’ then a judge will decide how to proceed. If they do not submit the form in time, then you will be able to proceed with the ${
