@@ -13,6 +13,7 @@ fees:
   searchForAddress: GeneralAppWithoutNotice
   d8bFormSubmission: AppnPrivateOther
   updateApplication: DivorceAmendPetition
+  finalOrderApplicationFee: GAOnNotice
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
