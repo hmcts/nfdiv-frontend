@@ -29,6 +29,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
   whatHappensNext: 'What happens next',
+  applyForConditionalOrder: 'Apply for conditional order',
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'

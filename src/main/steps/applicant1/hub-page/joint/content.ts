@@ -52,7 +52,6 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       link: 'change your application to a sole application.',
     },
   },
-  applyForConditionalOrder: 'Apply for conditional order',
   awaitingLegalAdvisorReferral: {
     line1: `You and your ${partner} have applied for a 'conditional order'.`,
     line2: `The court will check your application and send it to a judge.
