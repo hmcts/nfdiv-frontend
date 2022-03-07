@@ -81,10 +81,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Who are you applying to divorce' : 'Are you male or female'}?`,
-      line2: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} broken down irretrievably (it cannot be saved)?`,
-      line3: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
-      line4: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
-      line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
+      line2: 'Same sex couples?',
+      line3: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} broken down irretrievably (it cannot be saved)?`,
+      line4: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
+      line5: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
+      line6: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
     },
     helpWithFees: {
       line1: `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
@@ -164,22 +165,25 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `My ${partner}` : userCase.gender === Gender.MALE ? 'Male' : 'Female'}`,
-      line2: `${
+      line2: `We were ${userCase.sameSex === Checkbox.Checked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }`,
+      line3: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
             ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
             : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
-      line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
-      line4: `${
+      line4: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
             ? `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
             : `No I do not have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicationType
           ? isJointApplication
             ? `I want to apply jointly, with my ${partner}`
@@ -518,10 +522,11 @@ const cy: typeof en = ({
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru' : "Ydych chi'n wryw ynteu'n fenyw"}?`,
-      line2: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
-      line3: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line4: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
-      line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
+      line2: 'Same sex couples?',
+      line3: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
+      line4: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line5: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
+      line6: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
     },
     helpWithFees: {
       line1: `A oes angen help arnoch i dalu'r ffi am ${
@@ -606,22 +611,25 @@ const cy: typeof en = ({
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
-      line2: `${
+      line2: `We were ${userCase.sameSex === Checkbox.Checked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }`,
+      line3: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
             ? `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
             : `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
           : ''
       }`,
-      line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
-      line4: `${
+      line4: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
             ? `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
             : `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicationType
           ? isJointApplication
             ? `I want to apply jointly, with my ${partner}`
