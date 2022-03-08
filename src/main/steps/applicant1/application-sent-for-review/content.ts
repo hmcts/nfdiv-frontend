@@ -1,10 +1,5 @@
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
-
-dayjs.extend(advancedFormat);
 
 const en = ({ partner, userCase }: CommonContent) => ({
   title: `Your answers have been sent to your ${partner} to review`,
