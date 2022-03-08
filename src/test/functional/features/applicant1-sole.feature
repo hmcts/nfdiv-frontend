@@ -333,9 +333,9 @@ Feature: Applicant 1 sole application
     And I select "County, district, state or province"
     And I type "Their county"
     And I select "Postal code, zip code or area code (optional)"
-    And I type "Their code"
+    And I type "SW1A 1AA"
     And I select "Country"
-    And I type "Their country"
+    And I type "UK"
 
     When I click "Continue"
     Then the page should include "Does your husband have a solicitor representing them?"
@@ -346,7 +346,7 @@ Feature: Applicant 1 sole application
     And I select "Solicitor email address (optional)"
     And I type "simulate-delivered@notifications.service.gov.uk"
     And I select "Postal code, zip code or area code (optional)"
-    And I type "Their code"
+    And I type "SW1A 1AA"
 
     When I click "Continue"
     Then the page URL should be "/their-email-address"
@@ -379,9 +379,10 @@ Feature: Applicant 1 sole application
     And I select "Postal code, zip code or area code"
     And I type "Their code"
     And I select "Country"
-    And I type "Their country"
+    And I type "France"
     And I click "Continue"
-    Then the page URL should be "/other-court-cases"
+    Then the page URL should be "/you-need-to-serve"
+    And the page should include "Divorcing someone who lives outside of England and Wales"
 
     Given I go to "/do-you-have-address"
     And I clear the form
