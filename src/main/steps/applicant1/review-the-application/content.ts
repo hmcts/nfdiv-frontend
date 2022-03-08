@@ -113,8 +113,8 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
    This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
    This is known as a ‘contested financial order’.
    <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee.
-   Applying for a ‘contested financial order’ costs ${config.get(
-     'fees.financialOrder'
+   Applying for a ‘contested financial order’ costs ${getFee(
+     config.get('fees.financialOrder')
    )}. Applying for a ‘financial order by consent’ costs ${getFee(config.get('fees.consentOrder'))}.
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,

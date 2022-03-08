@@ -136,8 +136,8 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     <br>
     <p class="govuk-body"><strong>Changing any other information</strong>
     <br>
-    If you want to change any other information then you should provide details below. You may need to pay a ${config.get(
-      'fees.updateApplication'
+    If you want to change any other information then you should provide details below. You may need to pay a ${getFee(
+      config.get('fees.updateApplication')
     )} fee. This is because the application will need to be updated and sent to your ${partner} again.`,
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',

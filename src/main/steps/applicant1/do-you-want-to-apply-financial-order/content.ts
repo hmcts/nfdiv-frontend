@@ -2,6 +2,7 @@ import config from 'config';
 
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -14,10 +15,10 @@ const en = ({ partner, required }: CommonContent) => ({
   point2:
     'disagree on dividing your money and property and want the court to decide (this is known as a contested financial order)',
   point3: 'have nothing to split but want to make your financial separation final',
-  line2: `Applying to the court for a ‘financial order by consent’ costs an additional ${config.get(
-    'fees.consentOrder'
-  )}. Asking the court to decide for you and make a ‘contested financial order’ costs an additional ${config.get(
-    'fees.financialOrder'
+  line2: `Applying to the court for a ‘financial order by consent’ costs an additional ${getFee(
+    config.get('fees.consentOrder')
+  )}. Asking the court to decide for you and make a ‘contested financial order’ costs an additional ${getFee(
+    config.get('fees.financialOrder')
   )}. The court needs to know now if you want to apply for either.`,
   selectYes: 'If you select yes:',
   yesPoint1: 'you do not have to proceed with the application for a financial order',
