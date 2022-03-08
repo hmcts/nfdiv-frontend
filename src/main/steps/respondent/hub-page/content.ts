@@ -4,6 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -47,7 +48,9 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
-    line2: `You have until ${dayjs(userCase.dateAosSubmitted).add(37, 'day').format('D MMMM YYYY')}
+    line2: `You have until ${dayjs(userCase.dateAosSubmitted)
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
     }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
@@ -58,12 +61,14 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       PO Box 13226<br>
       Harlow<br>
       CM20 9UG`,
-    line5: `You’ll have to pay a ${config.get(
-      'fees.d8bFormSubmission'
+    line5: `You’ll have to pay a ${getFee(
+      config.get('fees.d8bFormSubmission')
     )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
-    line6: `If you do not submit your answer before ${
-      userCase.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
-    } then your ${partner} can continue ${isDivorce ? 'the divorce' : 'ending your civil partnership'}.`,
+    line6: `If you do not submit your answer before ${dayjs(userCase.dateAosSubmitted)
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')} then your ${partner} can continue ${
+      isDivorce ? 'the divorce' : 'ending your civil partnership'
+    }.`,
   },
   d8Submitted: {
     line1: `You have responded to the ${
