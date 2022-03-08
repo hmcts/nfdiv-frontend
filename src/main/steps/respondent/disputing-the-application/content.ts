@@ -19,7 +19,7 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
   helpPayingWhen: ['is on certain benefits', 'has a little or no savings', 'has low income'],
   line2: `You will have until ${dayjs(userCase.dateAosSubmitted)
-    .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+    .add(config.get('dates.disputeDueDateOffsetDays'), 'days')
     .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
