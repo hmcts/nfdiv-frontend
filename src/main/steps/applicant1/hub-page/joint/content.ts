@@ -76,17 +76,15 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
         .add(16, 'days')
         .format('D MMMM YYYY')} after the court has reviewed it.`,
       line2: 'This was the court’s feedback, explaining the information which was needed:',
-      line3: userCase.coRefusalClarificationAdditionalInfo,
     },
     withoutDocuments: {
-      subHeading1: 'What you need to do',
       line1: `You or your ${partner} need to post the documents requested by the court:`,
       line2:
         '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'This is the feedback the court gave, which explains what documents you need to send:',
-      line4: userCase.coRefusalClarificationAdditionalInfo,
-      line5: 'You will receive an update when your documents have been received and checked.',
+      line4: 'You will receive an update when your documents have been received and checked.',
     },
+    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
   },
 });
 
@@ -111,8 +109,9 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
-  const isClarificationResponses = content.userCase.coClarificationResponses?.length;
+  const isClarificationResponsesOrDocumentsUploaded =
+    content.userCase.coClarificationUploadDocuments?.length || content.userCase.coClarificationResponses?.length;
+  const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
   return {
     ...languages[content.language](content),
     hasApplicantConfirmedReceipt,
@@ -121,7 +120,7 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
-    isClarificationDocumentsUploaded,
-    isClarificationResponses,
+    isClarificationResponsesOrDocumentsUploaded,
+    cannotUploadDocuments,
   };
 };
