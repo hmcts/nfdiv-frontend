@@ -3,12 +3,13 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { StateSequence } from '../../state-sequence';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication, contactEmail }: CommonContent) => ({
   title: 'Application submitted',
   referenceNumber: `Your reference number is:
     <div class="govuk-panel__body">
@@ -42,9 +43,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step2: 'Check the image shows the whole document and all the text is readable',
     step3: 'Attach it to an email',
     step4: `Include your reference number in the subject line: ${referenceNumber}`,
-    step5: `Email the documents to: <a class="govuk-link" href="mailto:${
-      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+    step5: `Email the documents to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -54,9 +53,9 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   address: `
     Courts and Tribunals Service Centre<br>
     HMCTS Divorce and Dissolution service<br>
-    PO Box 12706<br>
+    PO Box 13226<br>
     Harlow<br>
-    CM20 9QT
+    CM20 9UG
   `,
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
@@ -69,7 +68,10 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   } papers another way</a>`,
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
-    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? ' and Help With Fees reference number' : ''
+    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+      ? ' and Help With Fees reference number'
+      : ''
   } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
     .add(2, 'weeks')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
@@ -90,9 +92,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
-  email: `<a class="govuk-link" href="mailto:${
-    isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-  }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+  email: `<a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
   telephone: 'Telephone',
   telephoneNumber: 'Telephone: 0300 303 0642',
   telephoneDetails: 'Monday to Friday 8am to 5pm',
@@ -126,7 +126,7 @@ export const generateContent: TranslationFn = content => {
   const applicationServedAnotherWay =
     !isJointApplication &&
     userCase.applicant2Email &&
-    userCase.applicant2AddressCountry === 'UK' &&
+    isCountryUk(userCase.applicant2AddressCountry) &&
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
   return {

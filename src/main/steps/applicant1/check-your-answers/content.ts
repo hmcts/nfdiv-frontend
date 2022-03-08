@@ -14,20 +14,22 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForSoleAndJoint } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
-import { jurisdictionMoreDetailsContent } from '../connection-summary/content';
 
-const moreDetailsComponent: (text: string, title: string) => string = (text: string, title: string) => {
+const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
+  textAndTitleObject: Record<string, string>
+) => {
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
-        ${title || 'Find out more '}
+        ${textAndTitleObject.title || 'Find out more '}
       </span>
     </summary>
     <div class="govuk-details__text">
-      ${text}
+      ${textAndTitleObject.text}
     </div>
   </details>`;
 };
@@ -43,7 +45,7 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent(text, title);
+  return moreDetailsComponent({ text, title });
 };
 
 const getOtherCourtCasesMoreDetailsContent = () => {
@@ -51,7 +53,7 @@ const getOtherCourtCasesMoreDetailsContent = () => {
   const text =
     'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
     'It does not need to know about other court proceedings.';
-  return moreDetailsComponent(text, title);
+  return moreDetailsComponent({ text, title });
 };
 
 const stripTags = value => (typeof value === 'string' ? value.replace(/(<([^>]+)>)/gi, '') : value);
@@ -79,10 +81,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Who are you applying to divorce' : 'Are you male or female'}?`,
-      line2: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} broken down irretrievably (it cannot be saved)?`,
-      line3: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
-      line4: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
-      line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
+      line2: 'Same sex couples?',
+      line3: `Has your ${isDivorce ? 'marriage' : 'civil partnership'} broken down irretrievably (it cannot be saved)?`,
+      line4: `When did you ${isDivorce ? 'get married' : 'form your civil partnership'}?`,
+      line5: `Do you have your ${isDivorce ? 'marriage' : 'civil partnership'} certificate with you?`,
+      line6: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
     },
     helpWithFees: {
       line1: `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
@@ -162,22 +165,25 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `My ${partner}` : userCase.gender === Gender.MALE ? 'Male' : 'Female'}`,
-      line2: `${
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }`,
+      line3: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
             ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
             : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
-      line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
-      line4: `${
+      line4: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
             ? `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
             : `No I do not have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicationType
           ? isJointApplication
             ? `I want to apply jointly, with my ${partner}`
@@ -227,11 +233,10 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? `${connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)}
-      ${moreDetailsComponent(
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`
+          ? `Your answers indicate that you can apply in England and Wales because: ${
+              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+            }`
           : ''
       }`,
     },
@@ -379,10 +384,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
   stepLinks: {
     aboutPartnership: {
       line1: urls.YOUR_DETAILS_URL,
-      line2: urls.HAS_RELATIONSHIP_BROKEN_URL,
-      line3: urls.RELATIONSHIP_DATE_URL,
-      line4: urls.CERTIFICATE_URL,
-      line5: urls.HOW_DO_YOU_WANT_TO_APPLY,
+      line2: urls.YOUR_DETAILS_URL,
+      line3: urls.HAS_RELATIONSHIP_BROKEN_URL,
+      line4: urls.RELATIONSHIP_DATE_URL,
+      line5: urls.CERTIFICATE_URL,
+      line6: urls.HOW_DO_YOU_WANT_TO_APPLY,
     },
     helpWithFees: {
       line1: urls.HELP_WITH_YOUR_FEE_URL,
@@ -517,10 +523,11 @@ const cy: typeof en = ({
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru' : "Ydych chi'n wryw ynteu'n fenyw"}?`,
-      line2: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
-      line3: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line4: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
-      line5: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
+      line2: 'Same sex couples?',
+      line3: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
+      line4: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line5: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
+      line6: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
     },
     helpWithFees: {
       line1: `A oes angen help arnoch i dalu'r ffi am ${
@@ -605,22 +612,25 @@ const cy: typeof en = ({
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
-      line2: `${
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }`,
+      line3: `${
         userCase.applicant1ScreenHasUnionBroken
           ? userCase.applicant1ScreenHasUnionBroken === YesOrNo.YES
             ? `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
             : `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
           : ''
       }`,
-      line3: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
-      line4: `${
+      line4: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
             ? `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
             : `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicationType
           ? isJointApplication
             ? `I want to apply jointly, with my ${partner}`
@@ -670,11 +680,10 @@ const cy: typeof en = ({
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${
         userCase.connections && userCase.connections?.length
-          ? `${connectionBulletPointsTextForSoleAndJoint(userCase.connections, partner, isDivorce)}
-      ${moreDetailsComponent(
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
-        jurisdictionMoreDetailsContent(userCase.connections, isDivorce).readMore
-      )}`
+          ? `Your answers indicate that you can apply in England and Wales because: ${
+              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+            }`
           : ''
       }`,
     },

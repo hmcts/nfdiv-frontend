@@ -7,11 +7,11 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
+import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -55,7 +55,9 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
   line16: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
+  connectionBulletPoints: userCase
+    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+    : [],
   jurisdictionsMoreDetails:
     `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
@@ -63,7 +65,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce).connectedToEnglandWales,
+    jurisdictionMoreDetailsContent(userCase.connections, isDivorce).text,
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
@@ -96,8 +98,8 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2 }: CommonCon
    This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
    This is known as a ‘contested financial order’.
    <br><br>To formally start legal proceedings, ${partner} will need to complete another form and pay a fee.
-   Applying for a ‘contested financial order’ costs ${config.get(
-     'fees.financialOrder'
+   Applying for a ‘contested financial order’ costs ${getFee(
+     config.get('fees.financialOrder')
    )}. Applying for a ‘financial order by consent’ costs ${getFee(config.get('fees.consentOrder'))}.
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,

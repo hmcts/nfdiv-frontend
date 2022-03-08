@@ -4,6 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -13,7 +14,7 @@ import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
 
 dayjs.extend(advancedFormat);
 
-const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   subHeading1:
     [State.AwaitingGeneralConsideration, State.Holding].includes(userCase.state as State) &&
     userCase.disputeApplication === YesOrNo.YES
@@ -47,22 +48,19 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
-    line2: `You have until ${
-      userCase.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')
-    } to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
+    line2: `You have until ${dayjs(userCase.issueDate).add(37, 'day').format('D MMMM YYYY')}
+      to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
     }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
-    line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${
-      isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'
-    }">${isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk'}</a>`,
+    line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: `<div class="govuk-body">Or post it to:</div>
       Courts and Tribunals Service centre<br>
       HMCTS ${isDivorce ? 'Divorce Service' : 'Ending Civil Partnerships'}<br>
-      PO Box 12706<br>
+      PO Box 13226<br>
       Harlow<br>
-      CM20 9QT`,
-    line5: `You’ll have to pay a ${config.get(
-      'fees.d8bFormSubmission'
+      CM20 9UG`,
+    line5: `You’ll have to pay a ${getFee(
+      config.get('fees.d8bFormSubmission')
     )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
     line6: `If you do not submit your answer before ${
       userCase.dueDate || dayjs().add(37, 'day').format('D MMMM YYYY')

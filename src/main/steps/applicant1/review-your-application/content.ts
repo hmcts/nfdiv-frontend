@@ -4,13 +4,15 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your original application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -49,30 +51,17 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase.connections ? connectionBulletPointsTextForRespondent(userCase.connections) : [],
+  connectionBulletPoints: userCase.connections
+    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+    : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceLine1:
-    'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.',
-  habitualResidenceLine2:
-    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-  habitualResidenceLine3:
-    'The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  habitualResidenceText: enHabitualResident,
   heading8: 'Domicile',
-  domicileLine1:
-    'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
-  domicileLine2:
-    'However, domicile can be more complex. For example, if you or your parents have moved countries in the past.',
-  domicileLine3: 'When you’re born, you acquire the ‘domicile of origin’. This is usually:',
-  domicileListItem1: 'the country your father was domiciled in if your parents were married',
-  domicileListItem2:
-    'the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born',
-  domicileLine4:
-    'If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’.',
-  domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
+  domicileText: enDomicile,
   heading9: 'Residual jurisdiction',
   residualJurisdictionLine1: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).`,
   residualJurisdictionLine2:
@@ -110,10 +99,10 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
   } want the court to decide how your money, property, pensions and other assets will be split. These decisions are called ‘financial orders’. Financial orders can be made between you and your ${partner} and any children that you may have.`,
   financialOrderMoreInfoLine2:
     'A financial order can be made if you agree about dividing money and property, and you want to make the decision legally binding. This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. This is known as a ‘contested financial order’.',
-  financialOrderMoreInfoLine3: `To formally start legal proceedings, your ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${config.get(
-    'fees.financialOrder'
-  )}. Applying for a ‘financial order by consent’ costs ${config.get(
-    'fees.consentOrder'
+  financialOrderMoreInfoLine3: `To formally start legal proceedings, your ${partner} will need to complete another form and pay a fee. Applying for a ‘contested financial order’ costs ${getFee(
+    config.get('fees.financialOrder')
+  )}. Applying for a ‘financial order by consent’ costs ${getFee(
+    config.get('fees.consentOrder')
   )}. A solicitor can draft these for you.`,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Statement of truth',
@@ -127,8 +116,8 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required }: CommonCont
     <br>
     <p class="govuk-body"><strong>Changing any other information</strong>
     <br>
-    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${config.get(
-      'fees.updateApplication'
+    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${getFee(
+      config.get('fees.updateApplication')
     )} fee. This is because the application will need to be updated and may need to be sent to your ${partner} again.`,
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',

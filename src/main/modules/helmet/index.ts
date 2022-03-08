@@ -7,6 +7,9 @@ export interface HelmetConfig {
 }
 
 const googleAnalyticsDomain = '*.google-analytics.com';
+const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
+const azureBlob = '*.blob.core.windows.net';
+const doubleclick = 'stats.g.doubleclick.net';
 const self = "'self'";
 
 /**
@@ -33,13 +36,21 @@ export class Helmet {
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
-          connectSrc: [self],
+          connectSrc: [self, googleAnalyticsDomain, doubleclick],
           defaultSrc: ["'none'"],
-          fontSrc: [self, 'data:'],
-          imgSrc: [self, googleAnalyticsDomain],
+          fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
+          imgSrc: [
+            self,
+            azureBlob,
+            ...tagManager,
+            googleAnalyticsDomain,
+            'data:',
+            'https://ssl.gstatic.com',
+            'https://www.gstatic.com',
+          ],
           objectSrc: [self],
-          scriptSrc,
-          styleSrc: [self],
+          scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
+          styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
         },
       }) as RequestHandler
     );

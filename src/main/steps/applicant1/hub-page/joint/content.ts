@@ -38,8 +38,9 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
       because this is a joint application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.
       They have been sent an email to remind them.`,
-      line2: `If they do not apply by ${userCase.dueDate}
-      then you will be sent an email telling you how you can progress the application.`,
+      line2: `If they do not apply by ${dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
+        .add(14, 'day')
+        .format('D MMMM YYYY')} then you will be sent an email telling you how you can progress the application.`,
     },
     afterDueDate: {
       line1: `Your ${partner} has still not applied for a conditional order.
@@ -51,13 +52,16 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       link: 'change your application to a sole application.',
     },
   },
-  applyForConditionalOrder: 'Apply for conditional order',
   awaitingLegalAdvisorReferral: {
     line1: `You and your ${partner} have applied for a 'conditional order'.`,
     line2: `The court will check your application and send it to a judge.
     If the judge agrees that you should ${isDivorce ? 'get a divorce' : 'end your civil partnership'},
     then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
-    You will receive an email by ${userCase.dueDate} after your application has been checked.
+    You will receive an email by ${
+      dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
+        ? dayjs(userCase.coApplicant1SubmittedDate).add(3, 'week').format('D MMMM YYYY')
+        : dayjs(userCase.coApplicant2SubmittedDate).add(3, 'week').format('D MMMM YYYY')
+    } after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   subHeading1:

@@ -55,7 +55,6 @@ import {
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
-  JURISDICTION_CONNECTION_SUMMARY,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -88,6 +87,7 @@ import {
   YOUR_NAME,
   YOU_CANNOT_APPLY,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
+  YOU_NEED_TO_SERVE,
 } from './urls';
 
 export interface Step {
@@ -211,10 +211,9 @@ export const applicant1Sequence: Step[] = [
       if (allowedToAnswerResidualJurisdiction(data, data.connections as JurisdictionConnections[])) {
         return RESIDUAL_JURISDICTION;
       } else if (
-        previousConnectionMadeUptoLastHabituallyResident(data, data.connections as JurisdictionConnections[])
+        previousConnectionMadeUptoLastHabituallyResident(data, data.connections as JurisdictionConnections[]) ||
+        data.bothLastHabituallyResident === YesOrNo.YES
       ) {
-        return JURISDICTION_CONNECTION_SUMMARY;
-      } else if (data.bothLastHabituallyResident === YesOrNo.YES) {
         return JURISDICTION_INTERSTITIAL_URL;
       } else {
         return JURISDICTION_MAY_NOT_BE_ABLE_TO;
@@ -236,7 +235,7 @@ export const applicant1Sequence: Step[] = [
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
       data.jurisdictionResidualEligible === Checkbox.Checked
-        ? JURISDICTION_CONNECTION_SUMMARY
+        ? JURISDICTION_INTERSTITIAL_URL
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
   {
@@ -344,7 +343,7 @@ export const applicant1Sequence: Step[] = [
   },
   {
     url: ENTER_THEIR_ADDRESS,
-    getNextStep: () => OTHER_COURT_CASES,
+    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
@@ -353,6 +352,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: OTHER_COURT_CASES,
     getNextStep: data => (data.applicant1LegalProceedings === YesOrNo.YES ? DETAILS_OTHER_PROCEEDINGS : MONEY_PROPERTY),
+  },
+  {
+    url: YOU_NEED_TO_SERVE,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: DETAILS_OTHER_PROCEEDINGS,
@@ -403,10 +406,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: PAY_AND_SUBMIT,
     getNextStep: () => PAYMENT_CALLBACK_URL,
-  },
-  {
-    url: JURISDICTION_CONNECTION_SUMMARY,
-    getNextStep: () => YOUR_NAME,
   },
   {
     url: PAYMENT_CALLBACK_URL,
@@ -487,3 +486,9 @@ const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant1IConfirmPrayer === Checkbox.Checked &&
   data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
+
+export const isCountryUk = (value: string | undefined): boolean => {
+  const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];
+  const country = value || '';
+  return ukTerms.includes(country.replace(' ', '').toLowerCase());
+};
