@@ -1,6 +1,7 @@
 import config from 'config';
 
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
@@ -8,8 +9,8 @@ const en = ({ isDivorce, divorce, endingCivilPartnership, userCase }: CommonCont
   title: 'How to apply to serve (deliver) the papers another way',
   line1: `You have to make a separate application to serve the ${
     isDivorce ? divorce : endingCivilPartnership
-  } papers another way. You will be given a link to the form after you have submitted this application. It will be reviewed by a judge and costs an additional ${config.get(
-    'fees.alternativeService'
+  } papers another way. You will be given a link to the form after you have submitted this application. It will be reviewed by a judge and costs an additional ${getFee(
+    config.get('fees.alternativeService')
   )}.`,
   line3: `For example, you could apply to have the papers served (delivered) by ${
     userCase.applicant2EmailAddress ? 'the email address you entered earlier' : 'email, text message or social media'
@@ -21,8 +22,8 @@ const cy: typeof en = ({ isDivorce, userCase }: CommonContent) => ({
   title: 'Sut i wneud cais i gyflwyno (danfon) y papurau drwy ddull arall',
   line1: `Rydych wedi gwneud cais ar wahân i gyflwyno'r ${
     isDivorce ? 'papurau ysgaru' : 'papurau diweddu eich partneriaeth sifil'
-  } drwy ddull arall. Fe gewch ddolen i'r ffurfen ar ôl ichi gyflwyno'r cais hwn. Bydd yn cael ei adolygu gan farnwr ac mae cost ychwanegol o ${config.get(
-    'fees.alternativeService'
+  } drwy ddull arall. Fe gewch ddolen i'r ffurfen ar ôl ichi gyflwyno'r cais hwn. Bydd yn cael ei adolygu gan farnwr ac mae cost ychwanegol o ${getFee(
+    config.get('fees.alternativeService')
   )}.`,
   line3: `Er enghraifft, gallwch wneud cais i'r papurau gael eu cyflwyno (danfon) ${
     userCase.applicant2EmailAddress

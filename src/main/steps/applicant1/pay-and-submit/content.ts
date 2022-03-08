@@ -1,14 +1,15 @@
 import config from 'config';
 
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Pay and submit',
-  line1: `Your joint application has been agreed by you and your ${partner}. You need to pay the application fee of ${config.get(
-    'fees.applicationFee'
+  line1: `Your joint application has been agreed by you and your ${partner}. You need to pay the application fee of ${getFee(
+    config.get('fees.applicationFee')
   )} before it can be submitted. The payment system does not allow you to split the payment.`,
   line2: `You cannot use help with fees to pay because your ${partner} did not apply for help with fees. Both of you need to apply and be eligible in a joint application.`,
   detailsHeading: 'If you cannot pay',

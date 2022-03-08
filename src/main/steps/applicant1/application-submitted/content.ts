@@ -3,6 +3,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { StateSequence } from '../../state-sequence';
 
@@ -125,7 +126,7 @@ export const generateContent: TranslationFn = content => {
   const applicationServedAnotherWay =
     !isJointApplication &&
     userCase.applicant2Email &&
-    userCase.applicant2AddressCountry === 'UK' &&
+    isCountryUk(userCase.applicant2AddressCountry) &&
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
   return {

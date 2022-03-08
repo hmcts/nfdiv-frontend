@@ -67,6 +67,7 @@ export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-add
 
 export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
+export const YOU_NEED_TO_SERVE: PageLink = '/you-need-to-serve';
 export const DETAILS_OTHER_PROCEEDINGS: PageLink = '/details-other-proceedings';
 export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
 export const APPLY_FINANCIAL_ORDER: PageLink = '/do-you-want-to-apply-financial-order';

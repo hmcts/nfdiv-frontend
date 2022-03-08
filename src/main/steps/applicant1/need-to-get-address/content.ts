@@ -2,6 +2,7 @@ import config from 'config';
 
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import type { CommonContent } from '../../common/common.content';
 
@@ -17,8 +18,8 @@ const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
     bullet3: 'last-known employer',
     bullet4: 'trade union or professional organisation',
     cannotGetAddressTitle: 'If you cannot get their address',
-    cannotGetAddressLine1: `If you know you cannot get their address then you can apply to have the ${dissolution} papers ‘served’ (delivered) to them another way. For example by email, text message or social media. This is a separate application which will be reviewed by a judge and costs an additional ${config.get(
-      'fees.alternativeService'
+    cannotGetAddressLine1: `If you know you cannot get their address then you can apply to have the ${dissolution} papers ‘served’ (delivered) to them another way. For example by email, text message or social media. This is a separate application which will be reviewed by a judge and costs an additional ${getFee(
+      config.get('fees.alternativeService')
     )}.`,
     iWantToHavePapersServedAnotherWay: `I want to apply to have the ${dissolution} papers ‘served’ (delivered) to them another way.`,
   };
@@ -36,8 +37,8 @@ const cy: typeof en = ({ isDivorce, divorce, endingCivilPartnership }: CommonCon
     bullet3: 'cyflogwr hysbys diwethaf',
     bullet4: 'undeb llafur neu sefydliad proffesiynol',
     cannotGetAddressTitle: "Os na allwch ddod o hyd i'w gyfeiriad/chyfeiriad",
-    cannotGetAddressLine1: `Os ydych chi'n gwybod na allwch ddod o hyd i'w gyfeiriad/chyfeiriad, yna gallwch wneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall. Er enghraifft drwy e-bost, neges testun neu gyfryngau cymdeithasol. Bydd hwn yn gais ar wahân a fydd yn cael ei adolygu gan farnwr a bydd yn costio ${config.get(
-      'fees.alternativeService'
+    cannotGetAddressLine1: `Os ydych chi'n gwybod na allwch ddod o hyd i'w gyfeiriad/chyfeiriad, yna gallwch wneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall. Er enghraifft drwy e-bost, neges testun neu gyfryngau cymdeithasol. Bydd hwn yn gais ar wahân a fydd yn cael ei adolygu gan farnwr a bydd yn costio ${getFee(
+      config.get('fees.alternativeService')
     )} yn ychwanegol.`,
     iWantToHavePapersServedAnotherWay: `Rwyf eisiau gwneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall.`,
   };
