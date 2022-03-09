@@ -49,8 +49,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     } was issued. You will receive an email to remind you.`,
   },
   holdingAndDeemedOrDispensedAccepted: `Your application ${
-    alternativeServiceType === AlternativeServiceType.DISPENSED ? 'to dispense with service' : 'for deemed service'
-  } was granted. You can`,
+    alternativeServiceType === AlternativeServiceType.DISPENSED ? 'to dispense with' : 'for deemed'
+  } service was granted. You can`,
   deemedOrDispensedAccepted: {
     line1: `download the court order granting your application for ${
       alternativeServiceType === AlternativeServiceType.DISPENSED ? 'dispensed' : 'deemed'
@@ -105,8 +105,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.
   This is because they did not respond to your application.
   You applied to the court to ${
-    alternativeServiceType === AlternativeServiceType.DISPENSED ? "'dispense with service'" : "for 'deemed service'"
-  }, which was granted. You can `,
+    alternativeServiceType === AlternativeServiceType.DISPENSED ? "'dispense with" : "for 'deemed"
+  }service', which was granted. You can `,
   legalAdvisorReferral: {
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
@@ -184,11 +184,11 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1: {
       part1: `The court has refused your application ${
         alternativeServiceType === AlternativeServiceType.BAILIFF
-          ? 'for bailiff service'
+          ? 'for bailiff'
           : alternativeServiceType === AlternativeServiceType.DEEMED
-          ? 'for deemed service'
-          : 'to dispense with service'
-      }. You can read the reasons on the court’s `,
+          ? 'for deemed'
+          : 'to dispense with'
+      }service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
       link: `/downloads/${
