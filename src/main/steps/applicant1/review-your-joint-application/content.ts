@@ -12,7 +12,7 @@ import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDe
 import { CommonContent } from '../../common/common.content';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent, respondentsAddress: string) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -120,20 +120,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
       .join('<br>')
   }`,
   heading14: 'Applicant 2’s correspondence address',
-  applicant2Address: `${
-    userCase.applicant2SolicitorAddress ||
-    [
-      userCase.applicant2Address1,
-      userCase.applicant2Address2,
-      userCase.applicant2Address3,
-      userCase.applicant2AddressTown,
-      userCase.applicant2AddressCounty,
-      userCase.applicant2AddressPostcode,
-      userCase.applicant2AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  applicant2Address: respondentsAddress,
   heading15: 'Applicant 1’s email address',
   applicant1EmailAddress: `${userEmail}`,
   heading16: "Applicant 2's email address",
@@ -207,11 +194,33 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
-  const isApplicant1AndApplicant2AddressPrivate =
-    !content.isApplicant2 && content.userCase.applicant2AddressPrivate === YesOrNo.YES;
-  const isApplicant2AndApplicant1AddressPrivate =
-    content.isApplicant2 && content.userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const { language, userCase, isApplicant2 } = content;
+  const respondentsAddress = (
+    userCase.applicant2SolicitorAddress?.trim()
+      ? [
+          userCase.applicant2SolicitorAddress1,
+          userCase.applicant2SolicitorAddress2,
+          userCase.applicant2SolicitorAddress3,
+          userCase.applicant2SolicitorAddressTown,
+          userCase.applicant2SolicitorAddressCounty,
+          userCase.applicant2SolicitorAddressPostcode,
+          userCase.applicant2SolicitorAddressCountry,
+        ]
+      : [
+          userCase.applicant2Address1,
+          userCase.applicant2Address2,
+          userCase.applicant2Address3,
+          userCase.applicant2AddressTown,
+          userCase.applicant2AddressCounty,
+          userCase.applicant2AddressPostcode,
+          userCase.applicant2AddressCountry,
+        ]
+  )
+    .filter(Boolean)
+    .join('<br>');
+  const translations = languages[language](content, respondentsAddress);
+  const isApplicant1AndApplicant2AddressPrivate = !isApplicant2 && userCase.applicant2AddressPrivate === YesOrNo.YES;
+  const isApplicant2AndApplicant1AddressPrivate = isApplicant2 && userCase.applicant1AddressPrivate === YesOrNo.YES;
   return {
     isApplicant1AndApplicant2AddressPrivate,
     isApplicant2AndApplicant1AddressPrivate,

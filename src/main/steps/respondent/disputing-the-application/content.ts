@@ -1,7 +1,9 @@
+import config from 'config';
 import dayjs from 'dayjs';
 
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -12,12 +14,12 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
     isDivorce ? 'application for divorce' : 'application to end your civil partnership'
   }
   then you’ll have to submit another form (known as ‘the answer’) with your reason for disputing.
-  This will cost you £245, unless you are eligible for Help With Fees.`,
+  This will cost you ${getFee(config.get('fees.d8bFormSubmission'))}, unless you are eligible for Help With Fees.`,
   readMore: 'Find out more about Help With Fees',
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
   helpPayingWhen: ['is on certain benefits', 'has a little or no savings', 'has low income'],
-  line2: `You will have until ${dayjs(userCase.issueDate)
-    .add(37, 'day')
+  line2: `You will have until ${dayjs(userCase.dateAosSubmitted)
+    .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
     .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'

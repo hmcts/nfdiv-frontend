@@ -1,7 +1,7 @@
 import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -11,7 +11,22 @@ import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/juri
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2, isJointApplication }: CommonContent) => ({
+const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase: Partial<CaseWithId>) => {
+  const solicitorsAddress = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
+  return [
+    userCase[`${solicitorsAddress}Address1`],
+    userCase[`${solicitorsAddress}Address2`],
+    userCase[`${solicitorsAddress}Address3`],
+    userCase[`${solicitorsAddress}AddressTown`],
+    userCase[`${solicitorsAddress}AddressCounty`],
+    userCase[`${solicitorsAddress}AddressPostcode`],
+    userCase[`${solicitorsAddress}AddressCountry`],
+  ]
+    .filter(Boolean)
+    .join('<br>');
+};
+
+const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -104,39 +119,13 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2, isJointAppl
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
-  applicantAddressCountry: `${
-    userCase.applicant1SolicitorAddress ||
-    [
-      userCase.applicant1Address1,
-      userCase.applicant1Address2,
-      userCase.applicant1Address3,
-      userCase.applicant1AddressTown,
-      userCase.applicant1AddressCounty,
-      userCase.applicant1AddressPostcode,
-      userCase.applicant1AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  applicantAddress: displayCorrectAddress('applicant1', userCase),
   subHeading8: "Applicant's email address",
-  line21: `${userEmail}`,
+  line21: userCase.applicant1Email,
   subHeading9: "Respondent's correspondence address",
-  respondentAddressCountry: `${
-    userCase.applicant2SolicitorAddress ||
-    [
-      userCase.applicant2Address1,
-      userCase.applicant2Address2,
-      userCase.applicant2Address3,
-      userCase.applicant2AddressTown,
-      userCase.applicant2AddressCounty,
-      userCase.applicant2AddressPostcode,
-      userCase.applicant2AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  respondentAddress: displayCorrectAddress('applicant2', userCase),
   subHeading10: "Respondent's email address",
-  line22: `${userCase.applicant2EmailAddress}`,
+  line22: userCase.applicant2EmailAddress,
   subHeading11: "Respondent's solicitor details",
   noDetailsProvided: 'No details provided',
   solName: `Solicitor name: ${userCase.applicant2SolicitorName ? userCase.applicant2SolicitorName : 'not given'}`,
@@ -147,7 +136,7 @@ const en = ({ isDivorce, userCase, partner, userEmail, isApplicant2, isJointAppl
     userCase.applicant2SolicitorFirmName ? userCase.applicant2SolicitorFirmName : 'not given'
   }`,
   solAddress: `Solicitor address: ${
-    userCase.applicant2SolicitorAddress ? userCase.applicant2SolicitorAddress : 'not given'
+    userCase.applicant2SolicitorAddress?.trim() ? userCase.applicant2SolicitorAddress : 'not given'
   }`,
   subHeading12: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
@@ -194,11 +183,11 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
+export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
   const translations = languages[language](content);
-  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate !== YesOrNo.NO;
-  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate !== YesOrNo.NO;
+  const isApplicantAddressPrivate = userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const isRespondentAddressPrivate = userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   const isApplicant2Represented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const solInfoEntered =
@@ -206,6 +195,8 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant2SolicitorEmail ||
     userCase.applicant2SolicitorFirmName ||
     userCase.applicant2SolicitorAddress?.trim();
+  const hasApplicant1SolicitorsAddress = !!userCase.applicant1SolicitorAddress?.trim();
+  const hasApplicant2SolicitorsAddress = !!userCase.applicant2SolicitorAddress?.trim();
   return {
     ...translations,
     form,
@@ -214,5 +205,7 @@ export const generateContent: TranslationFn = content => {
     isFinancialOrderYes,
     isApplicant2Represented,
     solInfoEntered,
+    hasApplicant1SolicitorsAddress,
+    hasApplicant2SolicitorsAddress,
   };
 };
