@@ -27,7 +27,7 @@ export class Helmet {
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
-    const scriptSrc = [self, googleAnalyticsDomain, "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"];
+    const scriptSrc = [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'"];
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -49,7 +49,7 @@ export class Helmet {
             'https://www.gstatic.com',
           ],
           objectSrc: [self],
-          scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
+          scriptSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
         },
       }) as RequestHandler
