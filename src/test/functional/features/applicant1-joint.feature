@@ -295,6 +295,8 @@ Feature: Applicant 1 joint application
     Given I click "I cannot enter a UK postcode"
     And I select "Address line 1"
     And I type "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102 PETTY FRANCE"
+    And I select "Town or city"
+    And I type "London"
     And I select "Postal code, zip code or area code (optional)"
     And I type "SW1H 9AJ"
     And I select "Country"
