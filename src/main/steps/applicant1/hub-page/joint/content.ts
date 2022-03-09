@@ -70,11 +70,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       : 'What you need to do',
   clarificationSubmitted: {
     withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.dateSubmitted
-      )
-        .add(16, 'days')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
+      line1: `You have provided the information requested by the court. You'll receive an email by ${userCase.dueDate} after the court has reviewed it.`,
       line2: 'This was the court’s feedback, explaining the information which was needed:',
     },
     withoutDocuments: {
@@ -109,8 +105,6 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const isClarificationResponsesOrDocumentsUploaded =
-    content.userCase.coClarificationUploadDocuments?.length || content.userCase.coClarificationResponses?.length;
   const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
   return {
     ...languages[content.language](content),
@@ -120,7 +114,6 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
-    isClarificationResponsesOrDocumentsUploaded,
     cannotUploadDocuments,
   };
 };
