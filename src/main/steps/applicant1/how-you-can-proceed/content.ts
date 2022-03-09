@@ -31,7 +31,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, userCase }: Common
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",
   dueDate: `${dayjs(userCase.issueDate)
-    .add(config.get('dates.arrangeProcessServiceDays'), 'days')
+    .add(config.get('dates.arrangeProcessServiceDays'), 'day')
     .format('D MMMM YYYY')}`,
 });
 

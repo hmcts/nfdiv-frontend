@@ -43,12 +43,12 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'days')
+      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .add(config.get('dates.applyForFoDays'), 'days')
+      .add(config.get('dates.applyForFoDays'), 'day')
       .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,

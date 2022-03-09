@@ -40,7 +40,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       because this is a joint application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.
       They have been sent an email to remind them.`,
       line2: `If they do not apply by ${dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
-        .add(config.get('dates.jointConditionalOrderResponseDays'), 'days')
+        .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
         .format('D MMMM YYYY')} then you will be sent an email telling you how you can progress the application.`,
     },
     afterDueDate: {
@@ -61,10 +61,10 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     You will receive an email by ${
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
         ? dayjs(userCase.coApplicant1SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'days')
+            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
             .format('D MMMM YYYY')
         : dayjs(userCase.coApplicant2SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'days')
+            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
             .format('D MMMM YYYY')
     } after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,

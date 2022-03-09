@@ -70,7 +70,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
     line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.dateAosSubmitted)
-      .add(config.get('dates.disputeDueDateOffsetDays'), 'days')
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
@@ -117,7 +117,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
       userCase.coApplicant1SubmittedDate
     )
-      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'days')
+      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
       .format(
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
@@ -132,7 +132,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
         userCase.dateSubmitted
       )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'days')
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
         .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -177,7 +177,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
-            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'days')
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
             .format('D MMMM YYYY')}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,

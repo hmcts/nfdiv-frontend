@@ -46,7 +46,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
     line2: `You have until ${dayjs(userCase.dateAosSubmitted)
-      .add(config.get('dates.disputeDueDateOffsetDays'), 'days')
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
@@ -62,7 +62,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       config.get('fees.d8bFormSubmission')
     )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
     line6: `If you do not submit your answer before ${dayjs(userCase.dateAosSubmitted)
-      .add(config.get('dates.disputeDueDateOffsetDays'), 'days')
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')} then your ${partner} can continue ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
     }.`,
@@ -111,7 +111,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${dayjs(
         userCase.dateSubmitted
       )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'days')
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
         .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -132,7 +132,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'days')
+      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, your ${partner} will then be able to apply for a 'final order' on ${dayjs(
       userCase.dateFinalOrderEligibleFrom
@@ -163,7 +163,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line2: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
-            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'days')
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
             .format('D MMMM YYYY')}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
