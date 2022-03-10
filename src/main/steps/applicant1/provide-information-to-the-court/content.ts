@@ -96,13 +96,18 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const applicant1Content = uploadDocumentGenerateContent(content);
   const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
-  const clarificationDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item =>
-    getFilename(item.value)
-  );
+  const uploadedDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item => getFilename(item.value));
+  const amendable = content.isClarificationAmendableState;
+  const uploadContentScript = {
+    isClarificationAmendableState: content.isClarificationAmendableState,
+    delete: content.delete,
+  };
   return {
     ...applicant1Content,
     ...languages[content.language]({ applicant1Content, ...content, referenceNumber }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    clarificationDocsFilenames,
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
   };
 };

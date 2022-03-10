@@ -238,10 +238,17 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const app1UploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
+  const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
+  const amendable = content.isAmendableStates;
+  const uploadContentScript = {
+    isAmendableStates: content.isAmendableStates,
+    delete: content.delete,
+  };
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    app1UploadedDocsFilenames,
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
   };
 };
