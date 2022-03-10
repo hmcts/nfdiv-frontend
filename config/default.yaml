@@ -61,3 +61,7 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey:
+webchat:
+  avayaUrl: 'webchat.training.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
+  avayaService: 'Testing'

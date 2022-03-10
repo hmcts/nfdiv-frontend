@@ -98,6 +98,28 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  helpTitle: 'Contact us for help',
+  helpHeading1: 'Telephone',
+  helpHeading2: 'Email',
+  helpHeading3: 'Webchat',
+  helpEmailLabel:
+    'Email us at <a href=\'mailto:{contactEmailAddress}\' class="govuk-link" tabindex="-1">{contactEmailAddress}</a>.',
+  helpEmail: 'contactprobate@justice.gov.uk',
+  helpTelephoneNumber: '0300 303 0648',
+  helpTelephoneOpeningHours: 'Monday to Friday, 8:00am to 6:00pm. Saturday, 8:00am to 2:00pm.',
+  helpTelephoneOpeningHoursTitle: 'Opening times (webchat and telephone)',
+  helpTelephoneOpeningHours1: 'Monday, Wednesday and Friday, 8am to 6pm',
+  helpTelephoneOpeningHours2: 'Tuesday and Thursday, 8am to 8pm',
+  helpTelephoneOpeningHours3: 'Saturday, 8am to 2pm',
+  helpTelephoneOpeningHours4: 'Closed Sundays and bank holidays',
+  helpChatDown: 'The web chat service is temporarily unavailable, please try again later.',
+  helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
+  helpNoAgentsAvailable: 'All our advisors are busy. Try again in a few minutes.',
+  helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
+  helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
+  helpChatAlreadyOpen: 'A web chat window is already open.',
+  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.',
+  helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
 };
 
 const cy: typeof en = {
