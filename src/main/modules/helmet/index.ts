@@ -54,13 +54,15 @@ export class Helmet {
       self,
       ...tagManager,
       googleAnalyticsDomain,
-      "'unsafe-inline'",
       'webchat.ctsc.hmcts.net',
       'webchat.training.ctsc.hmcts.net',
       'webchat.pp.ctsc.hmcts.net',
       'webchat-client.pp.ctsc.hmcts.net',
       'webchat-client.ctsc.hmcts.net',
       'webchat-client.training.ctsc.hmcts.net',
+      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+      "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
+      "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
     ];
 
     if (app.locals.developmentMode) {
