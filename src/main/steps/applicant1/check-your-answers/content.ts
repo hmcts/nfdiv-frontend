@@ -10,6 +10,7 @@ import {
   Gender,
   YesOrNo,
 } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -371,7 +372,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
     documents: {
       line1: `${
         userCase.applicant1DocumentsUploaded?.length
-          ? userCase.applicant1DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant1DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${
@@ -821,7 +822,7 @@ const cy: typeof en = ({
     documents: {
       line1: `${
         userCase.applicant1DocumentsUploaded?.length
-          ? userCase.applicant1DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant1DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${

@@ -7,6 +7,7 @@ import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { Classification, DocumentManagementClient } from './DocumentManagementClient';
@@ -78,7 +79,7 @@ export class DocumentManagerController {
 
     req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads.map(file => ({ id: file.id, name: file.value?.documentFileName })));
+        res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else if (req.session.userCase.state === State.AwaitingClarification) {
         return res.redirect(
           isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT

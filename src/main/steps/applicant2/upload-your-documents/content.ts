@@ -2,6 +2,7 @@ import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
 import { DocumentType } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -94,9 +95,11 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+  const app2UploadedDocsFilenames = content.userCase.applicant2DocumentsUploaded?.map(item => getFilename(item.value));
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    app2UploadedDocsFilenames,
   };
 };
