@@ -24,8 +24,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'finalise my divorce' : 'end my civil partnership'
   }`,
   explainWhy: 'Explain why you need to apply for the final order',
-  line4:
-    'If permission to apply for a final order is granted, then your application for a final order will also be considered. If the final order is made, then your marriage will be legally ended.',
+  line4: `If permission to apply for a final order is granted, then your application for a final order will also be considered. If the final order is made, then your ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  } will be legally ended.`,
   continue: 'Submit',
   errors: {
     doesApplicant2WantToApplyForFinalOrder: {
