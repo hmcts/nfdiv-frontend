@@ -10,7 +10,7 @@
     popupWin.focus();
   }
 
-  const avayaWebchat = document.querySelector('#avayaWebchatMetric') as HTMLDetailsElement;
+  const avayaWebchat = document.querySelector('#avayaWebchatMetric') as HTMLElement;
   const avayaAgentBusy = document.querySelector('#webchat-agent-busy') as HTMLElement;
   const avayaWebchatOpen = document.querySelector('#avaya-webchat-open') as HTMLElement;
   const avayaWebchatClose = document.querySelector('#avaya-webchat-close') as HTMLElement;
@@ -34,8 +34,8 @@
 
   if (avayaWebchat) {
     avayaWebchat.hidden = true;
-    avayaWebchat.addEventListener('metrics', function (metrics: HTMLElementEvent) {
-      const metricsDetail = metrics.detail;
+    avayaWebchat.addEventListener('metrics', function (metrics) {
+      const metricsDetail = (<CustomEvent>metrics).detail;
       const ewt = metricsDetail.ewt;
       const ccState = metricsDetail.contactCenterState;
       const availableAgents = metricsDetail.availableAgents;
