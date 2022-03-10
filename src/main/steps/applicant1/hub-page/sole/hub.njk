@@ -52,6 +52,12 @@
 {% elif currentState.isAfter('AosDrafted') and currentState.isBefore('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
 
+{% elif userCase.state == 'AwaitingAos' and isServiceApplicationGranted and not isSuccessfullyServedByBailiff %}
+  {% include "./latest-update-content/bailiff-service-unsuccessful.njk" %}
+
+{% elif userCase.state == 'AwaitingAos' and isAlternativeService and not isServiceApplicationGranted %}
+  {% include "./latest-update-content/service-application-rejected.njk" %}
+
 {% else %}
   {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
 {% endif %}
