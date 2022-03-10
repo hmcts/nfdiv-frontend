@@ -39,7 +39,4 @@ module.exports = {
     publicPath: '',
     filename,
   },
-  devServer: {
-    watchContentBase: true,
-  },
 };
