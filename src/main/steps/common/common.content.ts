@@ -39,7 +39,7 @@ const en = {
   endingCivilPartnership: 'ending a civil partnership',
   husband: 'husband',
   wife: 'wife',
-  partner: 'partner',
+  partner: 'spouse',
   civilPartner: 'civil partner',
   checkTheirAnswersPartner: 'partner for check their answers',
   withHim: 'with him',
@@ -135,7 +135,7 @@ const cy: typeof en = {
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
-  partner: 'partner',
+  partner: 'priod',
   civilPartner: 'partner sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
@@ -202,7 +202,6 @@ export const generatePageContent = ({
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
-    selectedGender,
     partner,
     language,
     isDivorce,
@@ -227,14 +226,20 @@ const getServiceName = (translations: typeof en, isDivorce: boolean): string => 
   return capitalize(serviceName);
 };
 
-const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
+const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender | undefined => {
   if (isApplicant2 && userCase?.sameSex === Checkbox.Unchecked) {
-    return userCase?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
+    if (userCase?.gender === Gender.MALE) {
+      return Gender.FEMALE;
+    } else if (userCase?.gender === Gender.FEMALE) {
+      return Gender.MALE;
+    } else {
+      return undefined;
+    }
   }
-  return userCase?.gender as Gender;
+  return userCase?.gender;
 };
 
-const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
+const getPartnerContent = (translations: typeof en, selectedGender: Gender | undefined, isDivorce: boolean): string => {
   if (!isDivorce) {
     return translations.civilPartner;
   }
@@ -257,7 +262,6 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   contactEmail?: string;
-  selectedGender: Gender;
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;

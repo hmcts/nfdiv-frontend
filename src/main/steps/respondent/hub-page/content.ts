@@ -45,7 +45,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } and said that you want to dispute it.`,
-    line2: `You have until ${dayjs(userCase.dateAosSubmitted)
+    line2: `You have until ${dayjs(userCase.issueDate)
       .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
@@ -61,7 +61,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line5: `You’ll have to pay a ${getFee(
       config.get('fees.d8bFormSubmission')
     )} fee when you submit the form. If you have little or no savings, are on certain benefits or have low income you may be able to get <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help paying the fee</a>.`,
-    line6: `If you do not submit your answer before ${dayjs(userCase.dateAosSubmitted)
+    line6: `If you do not submit your answer before ${dayjs(userCase.issueDate)
       .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')} then your ${partner} can continue ${
       isDivorce ? 'the divorce' : 'ending your civil partnership'
