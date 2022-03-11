@@ -1,4 +1,5 @@
-import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
+import { Checkbox } from '../../../app/case/case';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
 import { enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
@@ -89,6 +90,11 @@ export const form: FormContent = {
             JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
             JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
           ].includes(jurisdictionConnectionList[index]) && userCase.applicationType === ApplicationType.SOLE_APPLICATION
+        ) &&
+        !(
+          jurisdictionConnectionList[index] === JurisdictionConnections.RESIDUAL_JURISDICTION &&
+          userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE &&
+          userCase.sameSex !== Checkbox.Checked
         )
       ) {
         checkboxes.push({
