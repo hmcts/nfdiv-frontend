@@ -4,6 +4,14 @@ port: 3001
 timeout: 30000
 dates:
   disputeDueDateOffsetDays: 37
+  awaitingLegalAdvisorReferralOffsetDays: 21
+  clarificationSubmittedOffsetDays: 16
+  finalOrderSubmittedOffsetDays: 14
+  jointConditionalOrderResponseDays: 14
+  contactCourtBeforeHearingDays: 7
+  applyForFoDays: 43
+  applicationSubmittedOffsetDays: 14
+  arrangeProcessServiceDays: 28
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
