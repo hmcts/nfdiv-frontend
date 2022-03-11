@@ -2,7 +2,7 @@ import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
-import { getCaseApi } from '../../app/case/CaseApi';
+import { InProgressDivorceCase, getCaseApi } from '../../app/case/CaseApi';
 import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
@@ -69,8 +69,17 @@ export class OidcMiddleware {
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
           if (!req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
-            req.session.userCase =
+            try {
               req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
+            } catch (e) {
+              if (e instanceof InProgressDivorceCase) {
+                const token = encodeURIComponent(req.session.user.accessToken);
+                return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+              } else {
+                throw e;
+              }
+            }
+
             req.session.isApplicant2 =
               req.session.isApplicant2 ??
               (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
@@ -82,14 +91,14 @@ export class OidcMiddleware {
             req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
             req.session.isApplicant2
           ) {
-            res.redirect(HOME_URL);
+            return res.redirect(HOME_URL);
           }
 
           return next();
         } else if ([APPLICANT_2, RESPONDENT].includes(req.url as PageLink)) {
-          res.redirect(APPLICANT_2_SIGN_IN_URL);
+          return res.redirect(APPLICANT_2_SIGN_IN_URL);
         } else {
-          res.redirect(SIGN_IN_URL);
+          return res.redirect(SIGN_IN_URL);
         }
       })
     );

@@ -22,6 +22,10 @@ import {
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
+export class InProgressDivorceCase implements Error {
+  constructor(public readonly message: string, public readonly name = 'DivCase') {}
+}
+
 export class CaseApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -36,9 +40,13 @@ export class CaseApi {
   }
 
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
-    const cases = await this.getCases();
+    const [nfdCases, divCases] = await Promise.all([this.getCases(CASE_TYPE), this.getCases('DIVORCE')]);
 
-    const serviceCases = cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
+    if (this.hasInProgressDivorceCase(divCases)) {
+      throw new InProgressDivorceCase('User has in progress divorce case');
+    }
+
+    const serviceCases = nfdCases.filter(c => c.case_data.divorceOrDissolution === serviceType);
     switch (serviceCases.length) {
       case 0: {
         return false;
@@ -54,10 +62,10 @@ export class CaseApi {
     }
   }
 
-  private async getCases(): Promise<CcdV1Response[]> {
+  private async getCases(caseType: string): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get<CcdV1Response[]>(
-        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
+        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${caseType}/cases`
       );
 
       return response.data;
@@ -154,6 +162,24 @@ export class CaseApi {
     } else {
       this.logger.error('API Error', error.message);
     }
+  }
+
+  private hasInProgressDivorceCase(divCases: CcdV1Response[]): boolean {
+    const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
+    const states = [
+      'AwaitingPayment',
+      'AwaitingAmendCase',
+      'ServiceApplicationNotApproved',
+      'AwaitingAlternativeService',
+      'AwaitingProcessServerService',
+      'AwaitingDWPResponse',
+      'AosDrafted',
+      'AwaitingBailiffService',
+      'IssuedToBailiff',
+      'AwaitingServicePayment',
+    ];
+
+    return courtId === 'serviceCentre' && !states.includes(divCases[0].state);
   }
 }
 
