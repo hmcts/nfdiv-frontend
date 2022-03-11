@@ -37,9 +37,6 @@ export class Helmet {
       'https://webchat-client.ctsc.hmcts.net',
       'wss://webchat.ctsc.hmcts.net',
       'wss://webchat.training.ctsc.hmcts.net',
-      'wss://webchat.pp.ctsc.hmcts.net',
-      'https://webchat.pp.ctsc.hmcts.net',
-      'https://webchat-client.pp.ctsc.hmcts.net',
     ];
     const imgSrc = [
       self,
@@ -56,8 +53,6 @@ export class Helmet {
       googleAnalyticsDomain,
       'webchat.ctsc.hmcts.net',
       'webchat.training.ctsc.hmcts.net',
-      'webchat.pp.ctsc.hmcts.net',
-      'webchat-client.pp.ctsc.hmcts.net',
       'webchat-client.ctsc.hmcts.net',
       'webchat-client.training.ctsc.hmcts.net',
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
