@@ -7,7 +7,9 @@ import { Form, FormFields } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
 import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
 import { getNextIncompleteStepUrl } from '../index';
+import { form as respondentCYAForm } from '../respondent/check-your-answers/content';
 import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
+import { form as reviewApplicationQuestionForm } from '../respondent/review-the-application/content';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -23,6 +25,7 @@ import {
   PAY_YOUR_FEE,
   READ_THE_RESPONSE,
   RESPONDENT,
+  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -43,7 +46,18 @@ export class HomeGetController {
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
     if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+      const checkYourAnswersForm = new Form(<FormFields>respondentCYAForm.fields);
+      const isLastQuestionComplete = checkYourAnswersForm.getErrors(req.session.userCase).length === 0;
+      const reviewedApplicationForm = new Form(<FormFields>reviewApplicationQuestionForm.fields);
+      const hasReviewTheApplication = reviewedApplicationForm.getErrors(req.session.userCase).length === 0;
+      res.redirect(
+        respondentRedirectPageSwitch(
+          req.session.userCase.state,
+          isFirstQuestionComplete,
+          isLastQuestionComplete,
+          hasReviewTheApplication
+        )
+      );
     } else if (req.session.isApplicant2) {
       const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
       res.redirect(
@@ -139,8 +153,35 @@ const applicant2RedirectPageSwitch = (
   }
 };
 
-const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
+const respondentRedirectPageSwitch = (
+  caseState: State,
+  isFirstQuestionComplete: boolean,
+  isLastQuestionComplete: boolean,
+  hasReviewTheApplication: boolean
+) => {
   switch (caseState) {
+    case State.Holding:
+    case State.AwaitingConditionalOrder:
+    case State.IssuedToBailiff:
+    case State.AwaitingBailiffService:
+    case State.AwaitingBailiffReferral:
+    case State.AwaitingServiceConsideration:
+    case State.AwaitingServicePayment:
+    case State.AwaitingAlternativeService:
+    case State.AwaitingDwpResponse:
+    case State.AwaitingJudgeClarification:
+    case State.GeneralConsiderationComplete:
+    case State.AwaitingGeneralReferralPayment:
+    case State.AwaitingGeneralConsideration:
+    case State.GeneralApplicationReceived: {
+      if (isLastQuestionComplete) {
+        return `${RESPONDENT}${HUB_PAGE}`;
+      } else if (isFirstQuestionComplete && hasReviewTheApplication) {
+        return `${RESPONDENT}${CHECK_ANSWERS_URL}`;
+      } else {
+        return `${RESPONDENT}${REVIEW_THE_APPLICATION}`;
+      }
+    }
     case State.AosDrafted:
     case State.AosOverdue: {
       return isFirstQuestionComplete

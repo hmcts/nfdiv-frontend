@@ -2,6 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
+import { Checkbox } from '../../../app/case/case';
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -182,11 +183,13 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
-  const isRespondentAbleToApplyForFinalOrder =
-    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const { userCase, language } = content;
+  const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const hasReviewedTheApplication = userCase.confirmReadPetition === Checkbox.Checked;
   return {
-    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
-    ...languages[content.language](content),
+    ...languages[language](content),
+    isRespondentAbleToApplyForFinalOrder,
+    hasReviewedTheApplication,
   };
 };

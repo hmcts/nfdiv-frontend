@@ -1608,6 +1608,7 @@ export const enum State {
   AwaitingDwpResponse = 'AwaitingDwpResponse',
   AwaitingFinalOrder = 'AwaitingFinalOrder',
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
+  GeneralApplicationReceived = 'GeneralApplicationReceived',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   ConditionalOrderPending = 'ConditionalOrderPending',
