@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
@@ -16,8 +15,6 @@ import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
   fromApiApplicant2 as uploadedFilesFromApiApplicant2,
 } from './formatter/uploaded-files';
-
-dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
