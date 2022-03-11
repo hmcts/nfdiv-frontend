@@ -68,7 +68,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.dateAosSubmitted)
+    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.issueDate)
       .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
