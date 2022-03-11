@@ -70,7 +70,9 @@ export class OidcMiddleware {
 
           if (!req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
             try {
-              req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
+              req.session.userCase =
+                req.session.userCase ||
+                (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
             } catch (e) {
               if (e instanceof InProgressDivorceCase) {
                 const token = encodeURIComponent(req.session.user.accessToken);
