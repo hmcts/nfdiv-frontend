@@ -1,15 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { AlternativeServiceType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
-dayjs.extend(advancedFormat);
-
-const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceType: AlternativeServiceType) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -22,7 +19,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${userCase.dueDate || dayjs().add(2, 'weeks').format('D MMMM YYYY')}.`,
+    } by ${userCase.dueDate}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
@@ -30,7 +27,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } by ${
-      userCase.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
+      userCase.dueDate
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -43,25 +40,21 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
-      .add(141, 'day')
-      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${dayjs(
+      userCase.dueDate
+    )}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
   holdingAndDeemedOrDispensedAccepted: `Your application ${
-    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-      ? 'to dispense with service'
-      : 'for deemed service'
-  } was granted. You can`,
+    alternativeServiceType === AlternativeServiceType.DISPENSED ? 'to dispense with' : 'for deemed'
+  } service was granted. You can`,
   deemedOrDispensedAccepted: {
     line1: `download the court order granting your application for ${
-      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'dispensed'
-        : 'deemed'
+      alternativeServiceType === AlternativeServiceType.DISPENSED ? 'dispensed' : 'deemed'
     } service`,
     downloadReference: `/downloads/${
-      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+      alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'certificate-of-dispense-with-service'
         : 'certificate-of-deemed-as-service'
     }`,
@@ -72,7 +65,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.dateAosSubmitted)
+    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.issueDate)
       .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
@@ -110,17 +103,15 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.
   This is because they did not respond to your application.
   You applied to the court to ${
-    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-      ? "'dispense with service'"
-      : "for 'deemed service'"
-  }, which was granted. You can `,
+    alternativeServiceType === AlternativeServiceType.DISPENSED ? "'dispense with" : "for 'deemed"
+  }service', which was granted. You can `,
   legalAdvisorReferral: {
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
       userCase.coApplicant1SubmittedDate
     )
-      .add(21, 'day')
+      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
       .format(
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
@@ -135,7 +126,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
         userCase.dateSubmitted
       )
-        .add(16, 'days')
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
         .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -179,13 +170,52 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     } will be legally ended.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+            .format('D MMMM YYYY')}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
   awaitingServicePayment: {
     line1:
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
+  },
+  serviceApplicationRejected: {
+    line1: {
+      part1: `The court has refused your application ${
+        alternativeServiceType === AlternativeServiceType.BAILIFF
+          ? 'for bailiff'
+          : alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'for deemed'
+          : 'to dispense with'
+      }service. You can read the reasons on the court’s `,
+      part2: 'Refusal Order (PDF)',
+      downloadReference: 'Refusal-Order',
+      link: `/downloads/${
+        alternativeServiceType === AlternativeServiceType.BAILIFF
+          ? 'bailiff-service-refused'
+          : alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'dispense-with-service-refused'
+      }`,
+    },
+    line2: {
+      part1: 'Find out about the ',
+      part2: `other ways you can progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}.`,
+      link: HOW_YOU_CAN_PROCEED,
+    },
+  },
+  bailiffServiceUnsuccessful: {
+    line1: `The court bailiff tried to ‘serve’ the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } at the address you provided. Unfortunately the bailiff was unsuccessful and so your ${partner} has still not been served.`,
+    line2: {
+      part1: 'Read the ',
+      part2: 'bailiff service certificate',
+      part3: ', to see what you can do next.',
+      downloadReference: 'Bailiff-certificate',
+      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    },
   },
 });
 
@@ -198,21 +228,28 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const isDisputedApplication = content.userCase.disputeApplication === YesOrNo.YES;
-  const isSuccessfullyServedByBailiff = content.userCase.alternativeServiceOutcomes?.find(
-    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
-  );
-  const isDeemedOrDispensedApplication = content.userCase.alternativeServiceOutcomes?.find(
+  const { userCase, language } = content;
+  const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
+  const isSuccessfullyServedByBailiff =
+    userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
+  const isServiceApplicationGranted =
+    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
+  const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
-  const isClarificationDocumentsUploaded = content.userCase.coClarificationUploadDocuments?.length;
+  const isClarificationDocumentsUploaded = userCase.coClarificationUploadDocuments?.length;
+  const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
+    .alternativeServiceType as AlternativeServiceType;
+  const isAlternativeService = !!alternativeServiceType;
   return {
-    ...languages[content.language](content),
+    ...languages[language](content, alternativeServiceType),
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
     isClarificationDocumentsUploaded,
+    isServiceApplicationGranted,
+    isAlternativeService,
   };
 };

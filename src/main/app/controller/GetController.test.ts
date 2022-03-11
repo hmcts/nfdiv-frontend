@@ -150,7 +150,6 @@ describe('GetController', () => {
       },
       text: 'english',
       userEmail,
-      selectedGender: Gender.FEMALE,
     });
   });
 
@@ -171,7 +170,7 @@ describe('GetController', () => {
         language: 'en',
         isDivorce: true,
         userCase: req.session.userCase,
-        partner: 'partner',
+        partner: 'spouse',
         userEmail,
       });
       expect(res.render).toBeCalledWith('page', {

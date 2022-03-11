@@ -79,74 +79,68 @@ export class DocumentDownloadMiddleware {
       },
     };
 
-    app.use(
-      dmStoreProxyForApplicationPdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForApplicationPdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    const dmStoreProxyForDeemedServiceRefusedPdf = {
+      endpoints: ['/downloads/deemed-service-refused'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.DEEMED_SERVICE_REFUSED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
 
-    app.use(
-      dmStoreProxyForRespondentAnswersPdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForRespondentAnswersPdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    const dmStoreProxyForDispenseWithServiceRefusedPdf = {
+      endpoints: ['/downloads/dispense-with-service-refused'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_REFUSED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
 
-    app.use(
-      dmStoreProxyForCertificateOfServicePdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForCertificateOfServicePdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    const dmStoreProxyForBailiffServiceRefusedPdf = {
+      endpoints: ['/downloads/bailiff-service-refused'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE_REFUSED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
 
-    app.use(
-      dmStoreProxyForDeemedAsServicePdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForDeemedAsServicePdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    const dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf = {
+      endpoints: ['/downloads/bailiff-unsuccessful-certificate-of-service'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.alternativeServiceOutcomes.find(
+          doc =>
+            doc.value.successfulServedByBailiff === YesOrNo.NO &&
+            doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
+        )?.value.certificateOfServiceDocument.documentLink.document_binary_url;
+      },
+    };
 
-    app.use(
-      dmStoreProxyForDispenseWithServicePdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForDispenseWithServicePdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    const dmStoreProxies = [
+      dmStoreProxyForApplicationPdf,
+      dmStoreProxyForRespondentAnswersPdf,
+      dmStoreProxyForCertificateOfServicePdf,
+      dmStoreProxyForDeemedAsServicePdf,
+      dmStoreProxyForDispenseWithServicePdf,
+      dmStoreProxyForCertificateOfEntitlementPdf,
+      dmStoreProxyForConditionalOrderRefusalPdf,
+      dmStoreProxyForDeemedServiceRefusedPdf,
+      dmStoreProxyForDispenseWithServiceRefusedPdf,
+      dmStoreProxyForBailiffServiceRefusedPdf,
+      dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf,
+    ];
 
-    app.use(
-      dmStoreProxyForCertificateOfEntitlementPdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForCertificateOfEntitlementPdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
-
-    app.use(
-      dmStoreProxyForConditionalOrderRefusalPdf.endpoints,
-      proxy(documentManagementTarget, {
-        proxyReqPathResolver: dmStoreProxyForConditionalOrderRefusalPdf.path,
-        proxyReqOptDecorator: addHeaders,
-        secure: false,
-        changeOrigin: true,
-      })
-    );
+    for (const dmStoreProxy of dmStoreProxies) {
+      app.use(
+        dmStoreProxy.endpoints,
+        proxy(documentManagementTarget, {
+          proxyReqPathResolver: dmStoreProxy.path,
+          proxyReqOptDecorator: addHeaders,
+          secure: false,
+          changeOrigin: true,
+        })
+      );
+    }
   }
 }
