@@ -97,10 +97,10 @@ export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
   const uploadedDocsFilenames = content.userCase.applicant2DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isApplicant2;
-  const uploadContentScript = {
-    isAmendableStates: content.isAmendableStates,
-    delete: content.delete,
-  };
+  const uploadContentScript = `{
+    "isAmendableStates": ${content.isAmendableStates},
+    "delete": "${content.delete}"
+  }`;
   return {
     ...applicant1Content,
     ...labels(applicant1Content),

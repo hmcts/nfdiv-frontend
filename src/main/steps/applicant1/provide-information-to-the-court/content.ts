@@ -98,10 +98,10 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const uploadedDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item => getFilename(item.value));
   const amendable = content.isClarificationAmendableState;
-  const uploadContentScript = {
-    isClarificationAmendableState: content.isClarificationAmendableState,
-    delete: content.delete,
-  };
+  const uploadContentScript = `{
+    "isClarificationAmendableState": ${content.isClarificationAmendableState},
+    "delete": "${content.delete}",
+  }`;
   return {
     ...applicant1Content,
     ...languages[content.language]({ applicant1Content, ...content, referenceNumber }),

@@ -23,7 +23,7 @@
 <p class="govuk-body">{{ minRequirements }}</p>
 
 <script id="uploadContent" type="application/json">
-{{ uploadContentScript }}
+  {{ uploadContentScript | safe }}
 </script>
 
 <div id="uploadGroup" tabindex="0" class="uploadGroup">

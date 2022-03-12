@@ -240,10 +240,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const uploadContentScript = {
-    isAmendableStates: content.isAmendableStates,
-    delete: content.delete,
-  };
+  const uploadContentScript = `{
+    "isAmendableStates": ${content.isAmendableStates},
+    "delete": "${content.delete}"
+  }`;
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
