@@ -1,13 +1,11 @@
+import config from 'config';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { StateSequence } from '../../state-sequence';
-
-dayjs.extend(advancedFormat);
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication, contactEmail }: CommonContent) => ({
   title: 'Application submitted',
@@ -73,7 +71,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
       ? ' and Help With Fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
-    .add(2, 'weeks')
+    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line6Solicitor: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
