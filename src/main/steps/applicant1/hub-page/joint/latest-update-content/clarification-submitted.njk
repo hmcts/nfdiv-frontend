@@ -1,0 +1,11 @@
+{% if cannotUploadDocuments %}
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line2 | safe }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.clarificationAddInfo }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line4 }}</p>
+{% else %}
+  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line2 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.clarificationAddInfo }}</p>
+{% endif %}
