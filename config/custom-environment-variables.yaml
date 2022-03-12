@@ -18,6 +18,8 @@ services:
   equalityAndDiversity:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
+  decreeNisi:
+    url: DECREE_NISI_URL
 port: PORT
 session:
   redis:
