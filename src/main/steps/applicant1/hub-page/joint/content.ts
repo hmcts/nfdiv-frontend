@@ -69,6 +69,24 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     } after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
+  subHeading1:
+    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
+      ? 'Latest information'
+      : 'What you need to do',
+  clarificationSubmitted: {
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${userCase.dueDate} after the court has reviewed it.`,
+      line2: 'This was the court’s feedback, explaining the information which was needed:',
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2:
+        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
+      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
+      line4: 'You will receive an update when your documents have been received and checked.',
+    },
+    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+  },
 });
 
 // @TODO translations
@@ -92,6 +110,7 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
+  const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
   return {
     ...languages[content.language](content),
     hasApplicantConfirmedReceipt,
@@ -100,5 +119,6 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
+    cannotUploadDocuments,
   };
 };
