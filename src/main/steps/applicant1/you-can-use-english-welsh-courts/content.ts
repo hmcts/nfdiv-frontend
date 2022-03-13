@@ -1,4 +1,5 @@
-import { ApplicationType, JurisdictionConnections } from '../../../app/case/definition';
+import { Checkbox } from '../../../app/case/case';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
 import { enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
@@ -75,29 +76,41 @@ const cy = en;
 
 export const form: FormContent = {
   fields: userCase => {
+    // Create map of connections to labels:
+    const connectionsLabelMap = new Map<JurisdictionConnections, Label>();
+    jurisdictionConnectionList.forEach((key: JurisdictionConnections, i: number) =>
+      connectionsLabelMap.set(key, l => l.connectionCheckboxes[i])
+    );
+
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
     const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
-    for (const index in jurisdictionConnectionList) {
-      if (
-        !preMadeConnections?.includes(jurisdictionConnectionList[index]) &&
-        !(
-          jurisdictionConnectionList[index] === JurisdictionConnections.APP_1_RESIDENT_JOINT &&
-          userCase.applicationType === ApplicationType.SOLE_APPLICATION
-        ) &&
-        !(
-          [
-            JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
-            JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
-          ].includes(jurisdictionConnectionList[index]) && userCase.applicationType === ApplicationType.SOLE_APPLICATION
-        )
-      ) {
-        checkboxes.push({
-          name: 'connections',
-          label: l => l.connectionCheckboxes[index],
-          value: jurisdictionConnectionList[index],
-        });
-      }
+    const removePreMadeConditions = c => !preMadeConnections.includes(c);
+    const removeConnectionJ = c => c !== JurisdictionConnections.APP_1_RESIDENT_JOINT;
+    const removeConnectionK = c => c !== JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS;
+    const removeConnectionL = c => c !== JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS;
+    const removeConnectionIIfOppositeSexDivorce = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
+
+    const filters = [removePreMadeConditions];
+
+    if (userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
+      filters.push(removeConnectionJ);
+      filters.push(removeConnectionK);
+      filters.push(removeConnectionL);
     }
+
+    if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked) {
+      filters.push(removeConnectionIIfOppositeSexDivorce);
+    }
+
+    const remainingConnections = filters.reduce((list, f) => list.filter(f), jurisdictionConnectionList);
+
+    remainingConnections.forEach(connection => {
+      checkboxes.push({
+        name: 'connections',
+        label: connectionsLabelMap.get(connection) as Label,
+        value: connection,
+      });
+    });
     return {
       connections: {
         type: 'checkboxes',
