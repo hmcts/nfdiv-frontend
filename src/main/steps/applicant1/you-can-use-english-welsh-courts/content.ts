@@ -88,7 +88,7 @@ export const form: FormContent = {
     const removeConnectionJ = c => c !== JurisdictionConnections.APP_1_RESIDENT_JOINT;
     const removeConnectionK = c => c !== JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS;
     const removeConnectionL = c => c !== JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS;
-    const removeConnectionIIfOppositeSexDivorce = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
+    const removeConnectionI = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
 
     const filters = [removePreMadeConditions];
 
@@ -99,7 +99,7 @@ export const form: FormContent = {
     }
 
     if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked) {
-      filters.push(removeConnectionIIfOppositeSexDivorce);
+      filters.push(removeConnectionI);
     }
 
     const remainingConnections = filters.reduce((list, f) => list.filter(f), jurisdictionConnectionList);
