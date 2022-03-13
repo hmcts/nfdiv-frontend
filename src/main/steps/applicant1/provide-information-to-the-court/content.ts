@@ -100,7 +100,7 @@ export const generateContent: TranslationFn = content => {
   const amendable = content.isClarificationAmendableState;
   const uploadContentScript = `{
     "isClarificationAmendableState": ${content.isClarificationAmendableState},
-    "delete": "${content.delete}",
+    "delete": "${content.delete}"
   }`;
   return {
     ...applicant1Content,

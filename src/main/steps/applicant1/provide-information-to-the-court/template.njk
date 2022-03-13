@@ -62,7 +62,11 @@
           {{ textArea | safe }}
           <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
           <p class="govuk-body">{{ line5 }}</p>
+
+          {% set documentUpload %}
           {% include "../upload-your-documents/document-upload.njk" %}
+          {% endset %}
+          {{ documentUpload | safe }}
 
           {% set hiddenUpload %}
             {% set fieldName = 'coClarificationUploadedFiles' %}
