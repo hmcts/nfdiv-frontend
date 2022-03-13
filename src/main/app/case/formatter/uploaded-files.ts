@@ -30,8 +30,5 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {
-  if (document) {
-    return document.documentFileName || document.documentLink?.document_filename;
-  }
-  return undefined;
+  return document?.documentFileName || document?.documentLink?.document_filename;
 };
