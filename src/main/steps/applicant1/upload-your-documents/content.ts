@@ -2,6 +2,7 @@ import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
 import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -237,8 +238,17 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
+  const amendable = content.isAmendableStates;
+  const uploadContentScript = `{
+    "isAmendableStates": ${content.isAmendableStates},
+    "delete": "${content.delete}"
+  }`;
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
   };
 };

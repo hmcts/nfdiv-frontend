@@ -1,4 +1,5 @@
 import { ChangedNameHow, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
@@ -106,7 +107,7 @@ const en = ({ isDivorce, userCase }) => ({
     documents: {
       line1: `${
         userCase.applicant2DocumentsUploaded?.length
-          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${
@@ -226,7 +227,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     documents: {
       line1: `${
         userCase.applicant2DocumentsUploaded?.length
-          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${
