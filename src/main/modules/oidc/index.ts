@@ -78,7 +78,7 @@ export class OidcMiddleware {
                 const token = encodeURIComponent(req.session.user.accessToken);
                 return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
               } else {
-                throw e;
+                return res.redirect(SIGN_OUT_URL);
               }
             }
 
