@@ -22,7 +22,7 @@
 {% if userCase.state == 'FinalOrderRequested' %}
   {% include "./latest-update-content/final-order-requested.njk" %}
 
-{% elif userCase.state == 'awaitingServiceConsideration' or userCase.state == 'awaitingBailiffReferral' %}
+{% elif userCase.state == 'AwaitingServiceConsideration' or userCase.state == 'AwaitingBailiffReferral' %}
   {% include "./latest-update-content/awaiting-service-consideration-or-awaiting-bailiff-referral.njk" %}
 
 {% elif userCase.state == 'ConditionalOrderPronounced' %}
