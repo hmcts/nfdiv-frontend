@@ -84,12 +84,12 @@ export const form: FormContent = {
 
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
     const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
-    const removePreMadeConditions = c => !preMadeConnections.includes(c);
     const connectionsJKL = [
       JurisdictionConnections.APP_1_RESIDENT_JOINT,
       JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
       JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
     ];
+    const removePreMadeConditions = c => !preMadeConnections.includes(c);
     const removeConnectionsJKL = c => !connectionsJKL.includes(c);
     const removeConnectionI = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
 
