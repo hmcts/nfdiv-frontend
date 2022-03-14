@@ -78,24 +78,25 @@ export const form: FormContent = {
   fields: userCase => {
     // Create map of connections to labels:
     const connectionsLabelMap = new Map<JurisdictionConnections, Label>();
-    jurisdictionConnectionList.forEach((key: JurisdictionConnections, i: number) =>
-      connectionsLabelMap.set(key, l => l.connectionCheckboxes[i])
+    jurisdictionConnectionList.forEach((key: JurisdictionConnections, index: number) =>
+      connectionsLabelMap.set(key, l => l.connectionCheckboxes[index])
     );
 
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
     const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
     const removePreMadeConditions = c => !preMadeConnections.includes(c);
-    const removeConnectionJ = c => c !== JurisdictionConnections.APP_1_RESIDENT_JOINT;
-    const removeConnectionK = c => c !== JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS;
-    const removeConnectionL = c => c !== JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS;
+    const connectionsJKL = [
+      JurisdictionConnections.APP_1_RESIDENT_JOINT,
+      JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
+      JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
+    ];
+    const removeConnectionsJKL = c => !connectionsJKL.includes(c);
     const removeConnectionI = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
 
     const filters = [removePreMadeConditions];
 
     if (userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      filters.push(removeConnectionJ);
-      filters.push(removeConnectionK);
-      filters.push(removeConnectionL);
+      filters.push(removeConnectionsJKL);
     }
 
     if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked) {
