@@ -29,22 +29,24 @@ const en = (
   const apply = isDivorce ? applyForDivorce : applyForDissolution;
   const connectionText = enConnectionUserReads(partner, isDivorce);
 
-  const connectionCheckboxes = [
-    `My ${partner} and I are habitually resident in England and Wales`,
-    `My ${partner} and I were last habitually resident in England and Wales and ones of us continues to reside there`,
-    `My ${partner} is habitually resident in England and Wales`,
-    'I am habitually resident in England and Wales and have resided there for at least one year immediately before making this application',
-    'I am domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application',
-    `My ${partner} and I are domiciled in England and Wales`,
-    'Only I am domiciled in England and Wales',
-    `Only my ${partner} is domiciled in England and Wales`,
-    `My ${partner} and I ${
+  const connectionCheckboxes = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `My ${partner} and I are habitually resident in England and Wales`,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `My ${partner} and I were last habitually resident in England and Wales and ones of us continues to reside there`,
+    [JurisdictionConnections.APP_2_RESIDENT]: `My ${partner} is habitually resident in England and Wales`,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
+      'I am habitually resident in England and Wales and have resided there for at least one year immediately before making this application',
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
+      'I am domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application',
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `My ${partner} and I are domiciled in England and Wales`,
+    [JurisdictionConnections.APP_1_DOMICILED]: 'Only I am domiciled in England and Wales',
+    [JurisdictionConnections.APP_2_DOMICILED]: `Only my ${partner} is domiciled in England and Wales`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION]: `My ${partner} and I ${
       isDivorce ? 'married each other' : 'registered our civil partnership'
     } in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case`,
-    'I am habitually resident in England and Wales',
-    `My ${partner} is habitually resident in England and Wales and has resided there for at least one year immediately before making this application`,
-    `My ${partner} is domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application`,
-  ];
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'I am habitually resident in England and Wales',
+    [JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS]: `My ${partner} is habitually resident in England and Wales and has resided there for at least one year immediately before making this application`,
+    [JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS]: `My ${partner} is domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application`,
+  };
 
   return {
     title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
@@ -76,24 +78,19 @@ const cy = en;
 
 export const form: FormContent = {
   fields: userCase => {
-    // Create map of connections to labels:
-    const connectionsLabelMap = new Map<JurisdictionConnections, Label>();
-    jurisdictionConnectionList.forEach((key: JurisdictionConnections, index: number) =>
-      connectionsLabelMap.set(key, l => l.connectionCheckboxes[index])
-    );
-
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
     const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
+
     const connectionsJKL = [
       JurisdictionConnections.APP_1_RESIDENT_JOINT,
       JurisdictionConnections.APP_2_RESIDENT_TWELVE_MONTHS,
       JurisdictionConnections.APP_2_RESIDENT_SIX_MONTHS,
     ];
-    const removePreMadeConditions = c => !preMadeConnections.includes(c);
+    const removePreMadeConnections = c => !preMadeConnections.includes(c);
     const removeConnectionsJKL = c => !connectionsJKL.includes(c);
     const removeConnectionI = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION;
 
-    const filters = [removePreMadeConditions];
+    const filters = [removePreMadeConnections];
 
     if (userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
       filters.push(removeConnectionsJKL);
@@ -108,7 +105,7 @@ export const form: FormContent = {
     remainingConnections.forEach(connection => {
       checkboxes.push({
         name: 'connections',
-        label: connectionsLabelMap.get(connection) as Label,
+        label: l => l.connectionCheckboxes[connection],
         value: connection,
       });
     });
