@@ -4,7 +4,7 @@ import { LoggerInstance } from 'winston';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { CaseApi, getCaseApi } from './CaseApi';
+import { CaseApi, InProgressDivorceCase, getCaseApi } from './CaseApi';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
@@ -92,6 +92,9 @@ describe('CaseApi', () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: [],
     });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [],
+    });
     const results = {
       data: {
         id: '1234',
@@ -117,6 +120,9 @@ describe('CaseApi', () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: [],
     });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [],
+    });
     mockedAxios.get.mockResolvedValueOnce({ data: { token: '123' } });
     mockedAxios.post.mockRejectedValue({
       config: { method: 'POST', url: 'https://example.com' },
@@ -136,6 +142,79 @@ describe('CaseApi', () => {
     });
 
     await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Too many cases assigned to user.');
+  });
+
+  test('Should throw an error if in progress divorce case is found', async () => {
+    const mockCase = { case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' };
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [],
+    });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [mockCase],
+    });
+
+    try {
+      await api.getOrCreateCase(serviceType, userDetails);
+    } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(e instanceof InProgressDivorceCase).toBeTruthy();
+
+      return;
+    }
+    expect(false).toBeTruthy();
+  });
+
+  test('Should ignore incomplete divorce cases', async () => {
+    const mockCase = { case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingPayment' };
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [
+        {
+          id: '1',
+          state: State.Draft,
+          case_data: {
+            divorceOrDissolution: serviceType,
+          },
+        },
+      ],
+    });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [mockCase],
+    });
+
+    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should divorce cases not assigned to the service center', async () => {
+    const mockCase = { case_data: { D8DivorceUnit: 'BuryStEdmunds' }, state: 'AwaitingDecreeNisi' };
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [
+        {
+          id: '1',
+          state: State.Draft,
+          case_data: {
+            divorceOrDissolution: serviceType,
+          },
+        },
+      ],
+    });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: [mockCase],
+    });
+
+    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
   });
 
   test('Should retrieve the first case if two cases found', async () => {
