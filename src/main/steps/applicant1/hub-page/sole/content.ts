@@ -176,7 +176,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
-  awaitingServicePayment: {
+  awaitingServiceConsiderationOrBailiffReferral: {
     line1:
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
   },

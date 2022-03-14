@@ -132,8 +132,13 @@ Feature: Sole hub page
     Given I click "Sign out"
     When I login with applicant "2"
     And the page should include "You will receive an email by"
+    
+    Given I set the case state to "AwaitingServiceConsideration"
+    And I click "Sign out"
+    When I login with applicant "1"
+    Then the page should include "Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful."
 
-    Given I set the case state to "AwaitingServicePayment"
+    Given I set the case state to "AwaitingBailiffReferral"
     And I click "Sign out"
     When I login with applicant "1"
     Then the page should include "Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful."
