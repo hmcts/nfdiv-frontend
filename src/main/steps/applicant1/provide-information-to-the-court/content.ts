@@ -1,6 +1,7 @@
 import { isEmpty, isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
@@ -95,9 +96,18 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const applicant1Content = uploadDocumentGenerateContent(content);
   const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const uploadedDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item => getFilename(item.value));
+  const amendable = content.isClarificationAmendableState;
+  const uploadContentScript = `{
+    "isClarificationAmendableState": ${content.isClarificationAmendableState},
+    "delete": "${content.delete}"
+  }`;
   return {
     ...applicant1Content,
     ...languages[content.language]({ applicant1Content, ...content, referenceNumber }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
   };
 };

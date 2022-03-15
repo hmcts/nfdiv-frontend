@@ -1,13 +1,10 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import { AlternativeServiceType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
-
-dayjs.extend(advancedFormat);
 
 const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceType: AlternativeServiceType) => ({
   aosAwaitingOrDrafted: {
@@ -22,7 +19,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${userCase.dueDate || dayjs().add(2, 'weeks').format('D MMMM YYYY')}.`,
+    } by ${userCase.dueDate}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
@@ -30,7 +27,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } by ${
-      userCase.dueDate || dayjs().add(17, 'day').format('D MMMM YYYY')
+      userCase.dueDate
     }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -43,9 +40,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
-      .add(141, 'day')
-      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${dayjs(
+      userCase.dueDate
+    )}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
@@ -68,7 +65,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.dateAosSubmitted)
+    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.issueDate)
       .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
       .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
@@ -114,7 +111,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
       userCase.coApplicant1SubmittedDate
     )
-      .add(21, 'day')
+      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
       .format(
         'D MMMM YYYY'
       )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
@@ -129,7 +126,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
         userCase.dateSubmitted
       )
-        .add(16, 'days')
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
         .format('D MMMM YYYY')} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -173,11 +170,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     } will be legally ended.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted).add(14, 'day').format('D MMMM YYYY')}`
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+            .format('D MMMM YYYY')}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
-  awaitingServicePayment: {
+  awaitingServiceConsiderationOrBailiffReferral: {
     line1:
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
   },

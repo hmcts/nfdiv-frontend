@@ -22,8 +22,8 @@
 {% if userCase.state == 'FinalOrderRequested' %}
   {% include "./latest-update-content/final-order-requested.njk" %}
 
-{% elif userCase.state == 'AwaitingServicePayment' %}
-  {% include "./latest-update-content/awaiting-service-payment.njk" %}
+{% elif userCase.state == 'AwaitingServiceConsideration' or userCase.state == 'AwaitingBailiffReferral' %}
+  {% include "./latest-update-content/awaiting-service-consideration-or-awaiting-bailiff-referral.njk" %}
 
 {% elif userCase.state == 'ConditionalOrderPronounced' %}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}

@@ -1,3 +1,4 @@
+import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
@@ -42,12 +43,12 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .subtract(7, 'day')
+      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .add(43, 'day')
+      .add(config.get('dates.applyForFoDays'), 'day')
       .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
