@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { stepsWithContentApplicant1 } from '../../steps';
+import { stepsWithContentPreSubmissionApplicant1 } from '../../steps';
 import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls';
 import { getAllPossibleAnswersForPath } from '../case/answers/possibleAnswers';
 import { Case, CaseWithId } from '../case/case';
@@ -54,7 +54,7 @@ const getJurisdictionUnreachableAnswersAsNull = (userCase: Partial<Case>) => {
     'jurisdictionResidualEligible',
   ];
 
-  const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
+  const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentPreSubmissionApplicant1);
   for (const field of jurisdictionFields) {
     if (!possibleAnswers.includes(field)) {
       userCase[field] = null;

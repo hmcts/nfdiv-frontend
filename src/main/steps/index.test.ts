@@ -3,7 +3,7 @@ import { Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { applicant1Sequence } from './applicant1Sequence';
+import { applicant1PreSubmissionSequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
   CONTINUE_WITH_YOUR_APPLICATION,
@@ -76,7 +76,7 @@ describe('Steps', () => {
     });
 
     it('goes back one page if the step is incomplete & excluded from continue application', () => {
-      applicant1Sequence[1].excludeFromContinueApplication = true;
+      applicant1PreSubmissionSequence[1].excludeFromContinueApplication = true;
 
       mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
       mockReq.session.userCase.gender = Gender.MALE;

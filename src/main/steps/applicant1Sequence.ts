@@ -96,7 +96,7 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
-export const applicant1Sequence: Step[] = [
+export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -415,6 +415,9 @@ export const applicant1Sequence: Step[] = [
     url: APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
   },
+];
+
+export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: APPLICATION_ENDED,
     getNextStep: () => HOME_URL,

@@ -1,6 +1,6 @@
 import { ApplicationType } from '../app/case/definition';
 
-import { Step, applicant1Sequence, isCountryUk } from './applicant1Sequence';
+import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
 import { ENTER_THEIR_ADDRESS, OTHER_COURT_CASES, YOU_NEED_TO_SERVE } from './urls';
 
 describe('Applicant 1 Sequence test', () => {
@@ -11,19 +11,19 @@ describe('Applicant 1 Sequence test', () => {
     };
 
     test('Applicant 2 Country - United Kingdom', () => {
-      const step = applicant1Sequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
+      const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(OTHER_COURT_CASES);
     });
 
     test('Applicant 2 Country - u.k', () => {
       caseData.applicant2AddressCountry = 'u.k';
-      const step = applicant1Sequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
+      const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(OTHER_COURT_CASES);
     });
 
     test('Applicant 2 Country - France', () => {
       caseData.applicant2AddressCountry = 'France';
-      const step = applicant1Sequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
+      const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(YOU_NEED_TO_SERVE);
     });
   });

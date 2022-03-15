@@ -5,6 +5,7 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
+import { State } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -13,6 +14,7 @@ import { cookieMaxAge } from './modules/session';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
+import { applicant1PostSubmissionSequence } from './steps/applicant1Sequence';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { CookiesGetController } from './steps/cookies/get';
@@ -21,6 +23,7 @@ import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { currentStateFn } from './steps/state-sequence';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
 import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post';
@@ -74,6 +77,15 @@ export class Routes {
       }
       next();
     };
+
+    const isPreOrPostSubmissionPage = (req: AppRequest, res: Response, next: NextFunction): void => {
+      const stateSequence = currentStateFn(req.session.userCase);
+      if (stateSequence.isAfter(State.Holding) && !applicant1PostSubmissionSequence.find(r => r.url === req.url)) {
+        return res.redirect('/error');
+      }
+      next();
+    };
+
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
@@ -82,6 +94,7 @@ export class Routes {
       app.get(
         step.url,
         isRouteForUser as RequestHandler,
+        isPreOrPostSubmissionPage as RequestHandler,
         errorHandler(new getController(step.view, step.generateContent).get)
       );
 
