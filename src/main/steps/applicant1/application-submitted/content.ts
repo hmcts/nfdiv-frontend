@@ -1,7 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
@@ -21,7 +21,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
   conditionalOrderGranted: 'Conditional order granted',
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: 'What you need to do now',
-  line1: 'You need to do the following in order to progress your application:',
+  line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
   line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
@@ -74,18 +74,24 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
     .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
-  line6Solicitor: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
-  line7: `If you want the application to be served (sent) to your ${partner} by post instead of email, then phone 0300 303 0642.`,
-  subHeading5: 'Dividing your money and property',
-  line8: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/mediation">Get help agreeing.</a>`,
+  line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone 0300 303 0642 to request it. Otherwise the court will do it.`,
   line9:
+    'If you want the court to serve (send) the application to be served by post instead of by email, then phone 0300 303 0642.',
+  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+    isDivorce ? 'the divorce' : 'ending the civil partnership'
+  }.`,
+  line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
+  subHeading5: 'Dividing your money and property',
+  line12: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/mediation">Get help agreeing.</a>`,
+  line13:
     'If you do agree then you can make the agreement legally binding. This is known as asking the court to make a <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order">‘consent order’</a>.',
-  line10:
+  line14:
     'If you disagree then you can ask the court to decide for you. This is known as applying for a <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide">‘financial order’</a>.',
-  line11:
+  line15:
     'Read the guidance on <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends">money and property when you divorce or separate</a>.',
   subHeading6: 'If you need help',
-  line12:
+  line16:
     'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a <a class="govuk-link" href="https://www.gov.uk/find-a-legal-adviser">solicitor or legal adviser</a>.',
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
@@ -119,18 +125,22 @@ export const generateContent: TranslationFn = content => {
     State.FinalOrderComplete,
   ]).at(content.userCase.state as State);
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
+  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
     !isJointApplication &&
     userCase.applicant2Email &&
-    isCountryUk(userCase.applicant2AddressCountry) &&
+    !isRespondentOverseas &&
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
   return {
     ...languages[language]({ ...content, referenceNumber }),
     currentState,
+    isRespondentRepresented,
     hasASolicitorContactForPartner,
+    isRespondentOverseas,
     applicationServedAnotherWay,
   };
 };
