@@ -72,6 +72,6 @@ e2e:
 appInsights:
   instrumentationKey:
 webchat:
-  avayaUrl: 'webchat.training.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
+  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Testing'
