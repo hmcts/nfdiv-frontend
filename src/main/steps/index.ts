@@ -8,7 +8,7 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
-import { applicant2Sequence } from './applicant2Sequence';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
@@ -16,19 +16,21 @@ import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
 const stepForms: Record<string, Form> = {};
 const ext = extname(__filename);
 
-[applicant1PreSubmissionSequence, applicant2Sequence, respondentSequence].forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + (i === 0 ? '/applicant1' : '');
-  for (const step of sequence) {
-    const stepContentFile = `${dir}${step.url}/content${ext}`;
-    if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
+[applicant1PreSubmissionSequence, applicant2PreSubmissionSequence, respondentSequence].forEach(
+  (sequence: Step[], i: number) => {
+    const dir = __dirname + (i === 0 ? '/applicant1' : '');
+    for (const step of sequence) {
+      const stepContentFile = `${dir}${step.url}/content${ext}`;
+      if (fs.existsSync(stepContentFile)) {
+        const content = require(stepContentFile);
 
-      if (content.form) {
-        stepForms[step.url] = new Form(content.form.fields);
+        if (content.form) {
+          stepForms[step.url] = new Form(content.form.fields);
+        }
       }
     }
   }
-});
+);
 
 const getNextIncompleteStep = (
   data: CaseWithId,
@@ -79,7 +81,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
   const nextStep = [
     ...applicant1PreSubmissionSequence,
     ...applicant1PostSubmissionSequence,
-    ...applicant2Sequence,
+    ...applicant2PreSubmissionSequence,
+    ...applicant2PostSubmissionSequence,
     ...respondentSequence,
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
@@ -88,12 +91,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 };
 
 const getUserSequence = (req: AppRequest) => {
+  const stateSequence = currentStateFn(req.session.userCase);
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
     return respondentSequence;
   } else if (req.session.isApplicant2) {
-    return applicant2Sequence;
+    return stateSequence.isAfter(State.Holding) ? applicant2PreSubmissionSequence : applicant2PostSubmissionSequence;
   } else {
-    const stateSequence = currentStateFn(req.session.userCase);
     return stateSequence.isAfter(State.Holding) ? applicant1PostSubmissionSequence : applicant1PreSubmissionSequence;
   }
 };
@@ -134,11 +137,13 @@ const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithCo
 
 export const stepsWithContentPreSubmissionApplicant1 = getStepsWithContent(applicant1PreSubmissionSequence, true);
 export const stepsWithContentPostSubmissionApplicant1 = getStepsWithContent(applicant1PostSubmissionSequence, true);
-export const stepsWithContentApplicant2 = getStepsWithContent(applicant2Sequence);
+export const stepsWithContentPreSubmissionApplicant2 = getStepsWithContent(applicant2PreSubmissionSequence);
+export const stepsWithContentPostSubmissionApplicant2 = getStepsWithContent(applicant2PostSubmissionSequence);
 export const stepsWithContentRespondent = getStepsWithContent(respondentSequence);
 export const stepsWithContent = [
   ...stepsWithContentPreSubmissionApplicant1,
   ...stepsWithContentPostSubmissionApplicant1,
-  ...stepsWithContentApplicant2,
+  ...stepsWithContentPreSubmissionApplicant2,
+  ...stepsWithContentPostSubmissionApplicant2,
   ...stepsWithContentRespondent,
 ];

@@ -42,7 +42,7 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
-const sequences: Step[] = [
+const preSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -163,6 +163,9 @@ const sequences: Step[] = [
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
   },
+];
+
+const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
@@ -202,8 +205,16 @@ const sequences: Step[] = [
   },
 ];
 
-export const applicant2Sequence = ((): Step[] => {
-  return sequences.map(sequence => ({
+export const applicant2PreSubmissionSequence = ((): Step[] => {
+  return preSubmissionSequence.map(sequence => ({
+    ...sequence,
+    url: `${APPLICANT_2}${sequence.url}`,
+    getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
+  }));
+})();
+
+export const applicant2PostSubmissionSequence = ((): Step[] => {
+  return postSubmissionSequence.map(sequence => ({
     ...sequence,
     url: `${APPLICANT_2}${sequence.url}`,
     getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,

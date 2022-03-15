@@ -17,6 +17,7 @@ import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup
 import { applicant1PostSubmissionSequence } from './steps/applicant1Sequence';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { applicant2PostSubmissionSequence } from './steps/applicant2Sequence';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
@@ -80,7 +81,12 @@ export class Routes {
 
     const isPreOrPostSubmissionPage = (req: AppRequest, res: Response, next: NextFunction): void => {
       const stateSequence = currentStateFn(req.session.userCase);
-      if (stateSequence.isAfter(State.Holding) && !applicant1PostSubmissionSequence.find(r => r.url === req.url)) {
+      if (
+        stateSequence.isAfter(State.Holding) &&
+        ((!req.session.isApplicant2 && !applicant1PostSubmissionSequence.find(r => r.url === req.url)) ||
+          (req.session.isApplicant2 && !applicant2PostSubmissionSequence.find(r => r.url === req.url)))
+      ) {
+        console.log('here111999191');
         return res.redirect('/error');
       }
       next();
