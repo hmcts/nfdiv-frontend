@@ -188,7 +188,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
           : alternativeServiceType === AlternativeServiceType.DEEMED
           ? 'for deemed'
           : 'to dispense with'
-      }service. You can read the reasons on the court’s `,
+      } service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
       link: `/downloads/${
