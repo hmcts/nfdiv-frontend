@@ -5,7 +5,7 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
-import { State } from './app/case/definition';
+import { ApplicationType, State } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -23,6 +23,7 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { respondentPostSubmissionSequence } from './steps/respondentSequence';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { currentStateFn } from './steps/state-sequence';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
@@ -84,7 +85,11 @@ export class Routes {
       if (
         stateSequence.isAfter(State.Holding) &&
         ((!req.session.isApplicant2 && !applicant1PostSubmissionSequence.find(r => r.url === req.url)) ||
-          (req.session.isApplicant2 && !applicant2PostSubmissionSequence.find(r => r.url === req.url)))
+          (req.session.isApplicant2 &&
+            req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
+            !applicant2PostSubmissionSequence.find(r => r.url === req.url)) ||
+          (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+            !respondentPostSubmissionSequence.find(r => r.url === req.url)))
       ) {
         console.log('here111999191');
         return res.redirect('/error');
