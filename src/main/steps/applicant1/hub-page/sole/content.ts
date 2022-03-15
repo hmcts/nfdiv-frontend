@@ -223,8 +223,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     } at the address you provided. You will receive another notification when the bailiffs have attempted to serve the papers.`,
     line2: {
       part1: 'Download and read your ',
-      part2: "'bailiff service application approval'",
-      part3: '.',
+      part2: "'bailiff service application approval'.",
       downloadReference: 'Bailiff-service-application-approval',
       link: '/downloads/bailiff-service',
     },
