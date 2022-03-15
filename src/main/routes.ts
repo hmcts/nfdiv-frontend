@@ -80,17 +80,25 @@ export class Routes {
       next();
     };
 
+    const whichSequence = (req: AppRequest): boolean => {
+      // combine this with getUserSequence on index.ts
+      let theSequence;
+      if (req.session.isApplicant2) {
+        if (req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
+          theSequence = applicant2PostSubmissionSequence;
+        } else {
+          theSequence = respondentPostSubmissionSequence;
+        }
+      } else {
+        theSequence = applicant1PostSubmissionSequence;
+      }
+
+      return theSequence.find(r => r.url === req.url);
+    };
+
     const isPreOrPostSubmissionPage = (req: AppRequest, res: Response, next: NextFunction): void => {
       const stateSequence = currentStateFn(req.session.userCase);
-      if (
-        stateSequence.isAfter(State.Holding) &&
-        ((!req.session.isApplicant2 && !applicant1PostSubmissionSequence.find(r => r.url === req.url)) ||
-          (req.session.isApplicant2 &&
-            req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
-            !applicant2PostSubmissionSequence.find(r => r.url === req.url)) ||
-          (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-            !respondentPostSubmissionSequence.find(r => r.url === req.url)))
-      ) {
+      if (stateSequence.isAfter(State.Holding) && !whichSequence(req)) {
         console.log('here111999191');
         return res.redirect('/error');
       }
