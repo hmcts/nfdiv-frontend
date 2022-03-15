@@ -117,5 +117,6 @@ config.helpers = {
     timeout: 15000,
     waitForNavigation: 'networkidle0',
     ignoreHTTPSErrors: true,
+    fullyParallel: true,
   },
 };
