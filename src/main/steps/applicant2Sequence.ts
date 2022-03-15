@@ -205,21 +205,16 @@ const postSubmissionSequence: Step[] = [
   },
 ];
 
-export const applicant2PreSubmissionSequence = ((): Step[] => {
-  return preSubmissionSequence.map(sequence => ({
+const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
+  return theSequence.map(sequence => ({
     ...sequence,
     url: `${APPLICANT_2}${sequence.url}`,
     getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
   }));
-})();
+};
 
-export const applicant2PostSubmissionSequence = ((): Step[] => {
-  return postSubmissionSequence.map(sequence => ({
-    ...sequence,
-    url: `${APPLICANT_2}${sequence.url}`,
-    getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
-  }));
-})();
+export const applicant2PreSubmissionSequence = addApplicant2Prefix(preSubmissionSequence);
+export const applicant2PostSubmissionSequence = addApplicant2Prefix(postSubmissionSequence);
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&

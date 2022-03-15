@@ -90,18 +90,13 @@ const postSubmissionSequence: Step[] = [
   },
 ];
 
-export const respondentPreSubmissionSequence = ((): Step[] => {
-  return preSubmissionSequence.map(sequence => ({
+const addRespondentPrefix = (theSequence: Step[]): Step[] => {
+  return theSequence.map(sequence => ({
     ...sequence,
     url: `${RESPONDENT}${sequence.url}`,
     getNextStep: data => `${RESPONDENT}${sequence.getNextStep(data)}`,
   }));
-})();
+};
 
-export const respondentPostSubmissionSequence = ((): Step[] => {
-  return postSubmissionSequence.map(sequence => ({
-    ...sequence,
-    url: `${RESPONDENT}${sequence.url}`,
-    getNextStep: data => `${RESPONDENT}${sequence.getNextStep(data)}`,
-  }));
-})();
+export const respondentPreSubmissionSequence = addRespondentPrefix(preSubmissionSequence);
+export const respondentPostSubmissionSequence = addRespondentPrefix(postSubmissionSequence);

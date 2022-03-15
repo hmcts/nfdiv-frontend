@@ -16,14 +16,16 @@ import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
 const stepForms: Record<string, Form> = {};
 const ext = extname(__filename);
 
-[
+const allSequences = [
   applicant1PreSubmissionSequence,
   applicant1PostSubmissionSequence,
   applicant2PreSubmissionSequence,
   applicant2PostSubmissionSequence,
   respondentPreSubmissionSequence,
   respondentPostSubmissionSequence,
-].forEach((sequence: Step[], i: number) => {
+];
+
+allSequences.forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
@@ -129,7 +131,8 @@ export type StepWithContent = Step & {
   view: string;
 };
 
-const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithContent[] => {
+const getStepsWithContent = (sequence: Step[]): StepWithContent[] => {
+  const isApplicant1 = [applicant1PreSubmissionSequence, applicant1PostSubmissionSequence].includes(sequence);
   const dir = __dirname + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
@@ -141,17 +144,8 @@ const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithCo
   return results;
 };
 
-export const stepsWithContentPreSubmissionApplicant1 = getStepsWithContent(applicant1PreSubmissionSequence, true);
-export const stepsWithContentPostSubmissionApplicant1 = getStepsWithContent(applicant1PostSubmissionSequence, true);
-export const stepsWithContentPreSubmissionApplicant2 = getStepsWithContent(applicant2PreSubmissionSequence);
-export const stepsWithContentPostSubmissionApplicant2 = getStepsWithContent(applicant2PostSubmissionSequence);
-export const stepsWithContentPreSubmissionRespondent = getStepsWithContent(respondentPreSubmissionSequence);
-export const stepsWithContentPostSubmissionRespondent = getStepsWithContent(respondentPostSubmissionSequence);
-export const stepsWithContent = [
-  ...stepsWithContentPreSubmissionApplicant1,
-  ...stepsWithContentPostSubmissionApplicant1,
-  ...stepsWithContentPreSubmissionApplicant2,
-  ...stepsWithContentPostSubmissionApplicant2,
-  ...stepsWithContentPreSubmissionRespondent,
-  ...stepsWithContentPostSubmissionRespondent,
-];
+export const stepsWithContent: StepWithContent[] = allSequences.reduce<StepWithContent[]>(
+  (list, sequence) => list.concat(...getStepsWithContent(sequence)),
+  []
+);
+export const stepsWithContentPreSubmissionApplicant1 = getStepsWithContent(applicant1PreSubmissionSequence);
