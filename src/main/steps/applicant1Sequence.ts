@@ -483,6 +483,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: PROVIDE_INFORMATION_TO_THE_COURT,
     getNextStep: () => HUB_PAGE,
   },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
