@@ -27,7 +27,42 @@ export class Helmet {
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
-    const scriptSrc = [self, googleAnalyticsDomain, "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='"];
+    const webchatURLs = [
+      'https://webchat.training.ctsc.hmcts.net',
+      'https://webchat.ctsc.hmcts.net',
+      'https://webchat-client.training.ctsc.hmcts.net',
+      'https://webchat-client.ctsc.hmcts.net',
+      'https://webchat.pp.ctsc.hmcts.net',
+      'https://webchat-client.pp.ctsc.hmcts.net',
+    ];
+
+    const connectSrc = [
+      self,
+      googleAnalyticsDomain,
+      doubleclick,
+      ...webchatURLs,
+      'wss://webchat.ctsc.hmcts.net',
+      'wss://webchat.training.ctsc.hmcts.net',
+      'wss://webchat.pp.ctsc.hmcts.net',
+    ];
+    const imgSrc = [
+      self,
+      azureBlob,
+      ...tagManager,
+      googleAnalyticsDomain,
+      'data:',
+      'https://ssl.gstatic.com',
+      'https://www.gstatic.com',
+    ];
+    const scriptSrc = [
+      self,
+      ...tagManager,
+      googleAnalyticsDomain,
+      ...webchatURLs,
+      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+      "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
+      "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
+    ];
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -36,20 +71,12 @@ export class Helmet {
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
-          connectSrc: [self, googleAnalyticsDomain, doubleclick],
+          connectSrc,
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
-          imgSrc: [
-            self,
-            azureBlob,
-            ...tagManager,
-            googleAnalyticsDomain,
-            'data:',
-            'https://ssl.gstatic.com',
-            'https://www.gstatic.com',
-          ],
+          imgSrc,
           objectSrc: [self],
-          scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
+          scriptSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
         },
       }) as RequestHandler

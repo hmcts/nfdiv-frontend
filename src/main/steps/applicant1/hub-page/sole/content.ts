@@ -217,6 +217,17 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingBailiffService: {
+    line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } at the address you provided. You will receive another notification when the bailiffs have attempted to serve the papers.`,
+    line2: {
+      part1: 'Download and read your ',
+      part2: "'bailiff service application approval'.",
+      downloadReference: 'Bailiff-service-application-approval',
+      link: '/downloads/bailiff-service',
+    },
+  },
 });
 
 // @TODO translations
