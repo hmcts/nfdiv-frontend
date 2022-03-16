@@ -1,5 +1,4 @@
-import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, ChangedNameHow, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -103,11 +102,11 @@ const preSubmissionSequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
-    getNextStep: data => (hasApp2Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: data => (hasApp2Confirmed(data) ? ADDRESS_PRIVATE : OTHER_COURT_CASES),
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: OTHER_COURT_CASES,
@@ -200,6 +199,14 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
     url: PROVIDE_INFORMATION_TO_THE_COURT,
     getNextStep: () => HUB_PAGE,
   },
@@ -215,8 +222,3 @@ const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
 
 export const applicant2PreSubmissionSequence = addApplicant2Prefix(preSubmissionSequence);
 export const applicant2PostSubmissionSequence = addApplicant2Prefix(postSubmissionSequence);
-
-const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
-  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
-  data.applicant2IConfirmPrayer === Checkbox.Checked &&
-  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
