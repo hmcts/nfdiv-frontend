@@ -146,4 +146,4 @@ Feature: Sole hub page
     Given I set the case state to "AwaitingBailiffService"
     And I click "Sign out"
     When I login with applicant "1"
-    Then the page should include "Your application for bailiff service was successful. The court bailiff will attempt to serve the papers to end your civil partnership at the address you provided. You will receive another notification when the bailiffs have attempted to serve the papers."
+    Then the page should include "Your application for bailiff service was successful."
