@@ -15,12 +15,15 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
     [JurisdictionConnections.APP_2_RESIDENT]: `${
       isJointApplication ? 'applicant 2' : 'the respondent'
     } is habitually resident in England and Wales`,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
-      'the applicant is habitually resident in England and Wales and has resided there for at least a year immediately prior to the presentation of the application',
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
-      'the applicant is domiciled and habitually resident in England and Wales and has resided there for at least six months immediately prior to the application',
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]:
-      'the applicant and respondent are both domiciled in England and Wales',
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
+      isJointApplication ? 'applicant 1' : 'the applicant'
+    } is habitually resident in England and Wales and has resided there for at least a year immediately prior to the presentation of the application`,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `${
+      isJointApplication ? 'applicant 1' : 'the applicant'
+    } is domiciled and habitually resident in England and Wales and has resided there for at least six months immediately prior to the application`,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `${isJointApplication ? 'applicant 1' : 'the applicant'} and ${
+      isJointApplication ? 'applicant 2' : 'the respondent'
+    } are both domiciled in England and Wales`,
     [JurisdictionConnections.APP_1_DOMICILED]: `only ${
       isJointApplication ? 'applicant 1' : 'the applicant'
     } is domiciled in England and Wales`,
