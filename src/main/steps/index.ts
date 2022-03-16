@@ -7,22 +7,9 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
-import {
-  Step,
-  applicant1PostSubmissionSequence,
-  applicant1PreSubmissionSequence,
-  applicant1Sequence,
-} from './applicant1Sequence';
-import {
-  applicant2PostSubmissionSequence,
-  applicant2PreSubmissionSequence,
-  applicant2Sequence,
-} from './applicant2Sequence';
-import {
-  respondentPostSubmissionSequence,
-  respondentPreSubmissionSequence,
-  respondentSequence,
-} from './respondentSequence';
+import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { respondentPostSubmissionSequence, respondentPreSubmissionSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
 
@@ -108,11 +95,11 @@ export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase);
 
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return respondentSequence(stateSequence.isBefore(State.Holding));
+    return stateSequence.isBefore(State.Holding) ? respondentPreSubmissionSequence : respondentPostSubmissionSequence;
   } else if (req.session.isApplicant2) {
-    return applicant2Sequence(stateSequence.isBefore(State.Holding));
+    return stateSequence.isBefore(State.Holding) ? applicant2PreSubmissionSequence : applicant2PostSubmissionSequence;
   } else {
-    return applicant1Sequence(stateSequence.isBefore(State.Holding));
+    return stateSequence.isBefore(State.Holding) ? applicant1PreSubmissionSequence : applicant1PostSubmissionSequence;
   }
 };
 

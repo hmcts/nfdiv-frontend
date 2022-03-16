@@ -21,7 +21,7 @@ import {
   REVIEW_THE_APPLICATION,
 } from './urls';
 
-export const respondentPreSubmissionSequence: Step[] = [
+const preSubmissionSequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
@@ -63,7 +63,7 @@ export const respondentPreSubmissionSequence: Step[] = [
   },
 ];
 
-export const respondentPostSubmissionSequence: Step[] = [
+const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
@@ -98,8 +98,5 @@ const addRespondentPrefix = (theSequence: Step[]): Step[] => {
   }));
 };
 
-export const respondentSequence = (isPreSubmission?: boolean): Step[] => {
-  return isPreSubmission
-    ? addRespondentPrefix(respondentPreSubmissionSequence)
-    : addRespondentPrefix(respondentPostSubmissionSequence);
-};
+export const respondentPreSubmissionSequence = addRespondentPrefix(preSubmissionSequence);
+export const respondentPostSubmissionSequence = addRespondentPrefix(postSubmissionSequence);

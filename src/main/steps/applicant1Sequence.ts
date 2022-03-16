@@ -485,10 +485,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
 ];
 
-export const applicant1Sequence = (isPreSubmission?: boolean): Step[] => {
-  return isPreSubmission ? applicant1PreSubmissionSequence : applicant1PostSubmissionSequence;
-};
-
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant1IConfirmPrayer === Checkbox.Checked &&
