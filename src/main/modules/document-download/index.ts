@@ -117,6 +117,15 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForBailiffServicePdf = {
+      endpoints: ['/downloads/bailiff-service'],
+      path: (req: AppRequest) => {
+        return req.session.userCase.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     const dmStoreProxies = [
       dmStoreProxyForApplicationPdf,
       dmStoreProxyForRespondentAnswersPdf,
@@ -129,6 +138,7 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForDispenseWithServiceRefusedPdf,
       dmStoreProxyForBailiffServiceRefusedPdf,
       dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf,
+      dmStoreProxyForBailiffServicePdf,
     ];
 
     for (const dmStoreProxy of dmStoreProxies) {
