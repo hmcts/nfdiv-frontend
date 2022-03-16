@@ -98,14 +98,14 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => {
+export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase);
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
     return stateSequence.isBefore(State.Holding) ? respondentPreSubmissionSequence : respondentPostSubmissionSequence;
   } else if (req.session.isApplicant2) {
     return stateSequence.isBefore(State.Holding) ? applicant2PreSubmissionSequence : applicant2PostSubmissionSequence;
   } else {
-    return stateSequence.isBefore(State.Holding) ? applicant1PostSubmissionSequence : applicant1PreSubmissionSequence;
+    return stateSequence.isBefore(State.Holding) ? applicant1PreSubmissionSequence : applicant1PostSubmissionSequence;
   }
 };
 

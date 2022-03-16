@@ -5,27 +5,22 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
-import { ApplicationType, State } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { cookieMaxAge } from './modules/session';
-import { stepsWithContent } from './steps';
+import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
-import { applicant1PostSubmissionSequence } from './steps/applicant1Sequence';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
-import { applicant2PostSubmissionSequence } from './steps/applicant2Sequence';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { respondentPostSubmissionSequence } from './steps/respondentSequence';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
-import { currentStateFn } from './steps/state-sequence';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
 import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post';
@@ -74,32 +69,11 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
-        return res.redirect('/error');
-      }
-      next();
-    };
-
-    const whichSequence = (req: AppRequest): boolean => {
-      // combine this with getUserSequence on index.ts
-      let theSequence;
-      if (req.session.isApplicant2) {
-        if (req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
-          theSequence = applicant2PostSubmissionSequence;
-        } else {
-          theSequence = respondentPostSubmissionSequence;
-        }
-      } else {
-        theSequence = applicant1PostSubmissionSequence;
-      }
-
-      return theSequence.find(r => r.url === req.url);
-    };
-
-    const isPreOrPostSubmissionPage = (req: AppRequest, res: Response, next: NextFunction): void => {
-      const stateSequence = currentStateFn(req.session.userCase);
-      if (stateSequence.isAfter(State.Holding) && !whichSequence(req)) {
-        console.log('here111999191');
+      if (
+        (isApp2Route && !req.session.isApplicant2) ||
+        (!isApp2Route && req.session.isApplicant2) ||
+        !getUserSequence(req).find(r => r.url === req.url)
+      ) {
         return res.redirect('/error');
       }
       next();
@@ -113,7 +87,7 @@ export class Routes {
       app.get(
         step.url,
         isRouteForUser as RequestHandler,
-        isPreOrPostSubmissionPage as RequestHandler,
+        // isPreOrPostSubmissionPage as RequestHandler,
         errorHandler(new getController(step.view, step.generateContent).get)
       );
 
