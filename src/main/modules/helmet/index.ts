@@ -27,16 +27,20 @@ export class Helmet {
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
-    const connectSrc = [
-      self,
-      googleAnalyticsDomain,
-      doubleclick,
+    const webchatURLs = [
       'https://webchat.training.ctsc.hmcts.net',
       'https://webchat.ctsc.hmcts.net',
       'https://webchat-client.training.ctsc.hmcts.net',
       'https://webchat-client.ctsc.hmcts.net',
       'https://webchat.pp.ctsc.hmcts.net',
       'https://webchat-client.pp.ctsc.hmcts.net',
+    ];
+
+    const connectSrc = [
+      self,
+      googleAnalyticsDomain,
+      doubleclick,
+      ...webchatURLs,
       'wss://webchat.ctsc.hmcts.net',
       'wss://webchat.training.ctsc.hmcts.net',
       'wss://webchat.pp.ctsc.hmcts.net',
@@ -54,12 +58,7 @@ export class Helmet {
       self,
       ...tagManager,
       googleAnalyticsDomain,
-      'webchat.ctsc.hmcts.net',
-      'webchat.training.ctsc.hmcts.net',
-      'webchat-client.ctsc.hmcts.net',
-      'webchat-client.training.ctsc.hmcts.net',
-      'webchat.pp.ctsc.hmcts.net',
-      'webchat-client.pp.ctsc.hmcts.net',
+      ...webchatURLs,
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
