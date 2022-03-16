@@ -66,7 +66,12 @@ const getNextIncompleteStep = (
     }
   }
 
-  // if the page has no form then ask it where to go
+  const nextStepUrl = step.getNextStep(data);
+  const nextStep = sequence.find(s => s.url === nextStepUrl);
+
+  if (nextStep) {
+    return getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step));
+  }
   return step.getNextStep(data);
 };
 

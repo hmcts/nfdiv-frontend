@@ -7,6 +7,7 @@
 {% set isApplicationReadyToSubmit =
         '/check-your-answers' in nextIncompleteStep or
         nextIncompleteStep === '/' or
+        nextIncompleteStep === '/?lng=en' or
         nextIncompleteStep === '/applicant2/confirm-your-joint-application' or
         nextIncompleteStep.startsWith('/pay') or
         nextIncompleteStep.startsWith('/application-submitted')
