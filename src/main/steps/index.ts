@@ -65,13 +65,7 @@ const getNextIncompleteStep = (
         : CHECK_ANSWERS_URL;
     }
   }
-
-  const nextStepUrl = step.getNextStep(data);
-  const nextStep = sequence.find(s => s.url === nextStepUrl);
-
-  if (nextStep) {
-    return getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step));
-  }
+  // to be updated
   return step.getNextStep(data);
 };
 

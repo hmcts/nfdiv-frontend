@@ -439,6 +439,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: ADDRESS_PRIVATE,
+    getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
+  },
+  {
     url: CHECK_PHONE_NUMBER,
     getNextStep: () => ADDRESS_PRIVATE,
   },
