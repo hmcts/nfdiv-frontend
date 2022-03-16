@@ -61,6 +61,10 @@ const preSubmissionSequence: Step[] = [
     url: CHECK_ANSWERS_URL,
     getNextStep: () => HUB_PAGE,
   },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 const postSubmissionSequence: Step[] = [

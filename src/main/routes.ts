@@ -72,7 +72,7 @@ export class Routes {
       if (
         (isApp2Route && !req.session.isApplicant2) ||
         (!isApp2Route && req.session.isApplicant2) ||
-        !getUserSequence(req).find(r => r.url === req.url)
+        !getUserSequence(req).find(r => req.path.includes(r.url))
       ) {
         return res.redirect('/error');
       }
