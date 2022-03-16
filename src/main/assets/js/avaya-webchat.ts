@@ -1,4 +1,4 @@
-(function () {
+function initAvayaWebchat() {
   let popupWin;
   function windowOpener(url, name, args) {
     if (typeof popupWin !== 'object' || popupWin.closed) {
@@ -66,4 +66,5 @@
       );
     });
   }
-}.call(this));
+}
+initAvayaWebchat();
