@@ -79,9 +79,9 @@ export class Nunjucks {
 
     const globals = {
       webchat: {
-        avayaUrl: config.webchat.avayaUrl,
-        avayaClientUrl: config.webchat.avayaClientUrl,
-        avayaService: config.webchat.avayaService,
+        avayaUrl: config.get('webchat.avayaClientUrl'),
+        avayaClientUrl: config.get('webchat.avayaClientUrl'),
+        avayaService: config.get('webchat.avayaService'),
       },
     };
 
