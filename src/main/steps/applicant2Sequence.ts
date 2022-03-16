@@ -42,7 +42,7 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
-const preSubmissionSequence: Step[] = [
+export const applicant2PreSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -165,7 +165,7 @@ const preSubmissionSequence: Step[] = [
   },
 ];
 
-const postSubmissionSequence: Step[] = [
+export const applicant2PostSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
@@ -213,8 +213,11 @@ const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
   }));
 };
 
-export const applicant2PreSubmissionSequence = addApplicant2Prefix(preSubmissionSequence);
-export const applicant2PostSubmissionSequence = addApplicant2Prefix(postSubmissionSequence);
+export const applicant2Sequence = (isPreSubmission?: boolean): Step[] => {
+  return isPreSubmission
+    ? addApplicant2Prefix(applicant2PreSubmissionSequence)
+    : addApplicant2Prefix(applicant2PostSubmissionSequence);
+};
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&

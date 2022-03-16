@@ -87,7 +87,6 @@ export class Routes {
       app.get(
         step.url,
         isRouteForUser as RequestHandler,
-        // isPreOrPostSubmissionPage as RequestHandler,
         errorHandler(new getController(step.view, step.generateContent).get)
       );
 

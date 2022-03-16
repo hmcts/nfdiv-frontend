@@ -7,9 +7,22 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
-import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { respondentPostSubmissionSequence, respondentPreSubmissionSequence } from './respondentSequence';
+import {
+  Step,
+  applicant1PostSubmissionSequence,
+  applicant1PreSubmissionSequence,
+  applicant1Sequence,
+} from './applicant1Sequence';
+import {
+  applicant2PostSubmissionSequence,
+  applicant2PreSubmissionSequence,
+  applicant2Sequence,
+} from './applicant2Sequence';
+import {
+  respondentPostSubmissionSequence,
+  respondentPreSubmissionSequence,
+  respondentSequence,
+} from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
 
@@ -85,14 +98,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [
-    ...applicant1PreSubmissionSequence,
-    ...applicant1PostSubmissionSequence,
-    ...applicant2PreSubmissionSequence,
-    ...applicant2PostSubmissionSequence,
-    ...respondentPreSubmissionSequence,
-    ...respondentPostSubmissionSequence,
-  ].find(s => s.url === path);
+  const nextStep = allSequences.reduce((list, sequence) => list.concat(...sequence), []).find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
@@ -100,12 +106,13 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 
 export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase);
+
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return stateSequence.isBefore(State.Holding) ? respondentPreSubmissionSequence : respondentPostSubmissionSequence;
+    return respondentSequence(stateSequence.isBefore(State.Holding));
   } else if (req.session.isApplicant2) {
-    return stateSequence.isBefore(State.Holding) ? applicant2PreSubmissionSequence : applicant2PostSubmissionSequence;
+    return applicant2Sequence(stateSequence.isBefore(State.Holding));
   } else {
-    return stateSequence.isBefore(State.Holding) ? applicant1PreSubmissionSequence : applicant1PostSubmissionSequence;
+    return applicant1Sequence(stateSequence.isBefore(State.Holding));
   }
 };
 
