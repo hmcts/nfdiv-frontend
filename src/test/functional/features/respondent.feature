@@ -9,9 +9,9 @@ Feature: Respondent
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
+    Given a case worker issues the application
 
   Scenario: They fill out a happy path respondent journey
-    Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Respond to the application"
@@ -54,7 +54,6 @@ Feature: Respondent
 
   @nightly
   Scenario: They fill out an unhappy path respondent journey
-    Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Respond to the application"
@@ -128,10 +127,9 @@ Feature: Respondent
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
     When I click "Sign out"
-
-    Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
+
     When I click "Respond to the application"
     Then the page URL should be "/respondent/review-the-application"
     And the page should include "Review the divorce application"
