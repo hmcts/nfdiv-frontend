@@ -7,7 +7,7 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { StateSequence } from '../../state-sequence';
 
-const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication, contactEmail }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
   referenceNumber: `Your reference number is:
     <div class="govuk-panel__body">
@@ -41,7 +41,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
     step2: 'Check the image shows the whole document and all the text is readable',
     step3: 'Attach it to an email',
     step4: `Include your reference number in the subject line: ${referenceNumber}`,
-    step5: `Email the documents to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
+    step5: 'Email the documents to:',
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -61,9 +61,10 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
   line3: `You need to apply to serve the ${
     isDivorce ? 'divorce' : 'ending your civil partnership'
   } papers to your ${partner} another way. For example, by email, text message or social media. This is because you did not provide their address in the application.`,
-  line4: `<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d11-application-notice">Apply to serve the ${
-    isDivorce ? 'divorce' : 'civil partnership'
-  } papers another way</a>`,
+  line4: {
+    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+    link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+  },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
@@ -83,29 +84,52 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication,
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
   subHeading5: 'Dividing your money and property',
-  line12: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/mediation">Get help agreeing.</a>`,
-  line13:
-    'If you do agree then you can make the agreement legally binding. This is known as asking the court to make a <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order">‘consent order’</a>.',
-  line14:
-    'If you disagree then you can ask the court to decide for you. This is known as applying for a <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide">‘financial order’</a>.',
-  line15:
-    'Read the guidance on <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends">money and property when you divorce or separate</a>.',
+  line12: {
+    part1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property.`,
+    part2: 'Get help agreeing.',
+    link: 'https://www.gov.uk/money-property-when-relationship-ends/mediation',
+  },
+  line13: {
+    part1:
+      'If you do agree then you can make the agreement legally binding. This is known as asking the court to make a ',
+    part2: '‘consent order’',
+    link: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order',
+  },
+  line14: {
+    part1: 'If you disagree then you can ask the court to decide for you. This is known as applying for a ',
+    part2: '‘financial order’',
+    link: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide',
+  },
+  line15: {
+    part1: 'Read the guidance on ',
+    part2: 'money and property when you divorce or separate',
+    link: 'https://www.gov.uk/money-property-when-relationship-ends',
+  },
   subHeading6: 'If you need help',
   line16:
     'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a <a class="govuk-link" href="https://www.gov.uk/find-a-legal-adviser">solicitor or legal adviser</a>.',
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
-  email: `<a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
   telephone: 'Telephone',
   telephoneNumber: 'Telephone: 0300 303 0642',
   telephoneDetails: 'Monday to Friday 8am to 5pm',
-  telephoneCharges: '<a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>',
-  domesticAbuse:
-    'If you are experiencing domestic abuse or feel unsafe, then <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">support is available</a>',
+  telephoneCharges: {
+    part1: 'Find out about call charges',
+    link: 'https://www.gov.uk/call-charges',
+  },
+  domesticAbuse: {
+    part1: 'If you are experiencing domestic abuse or feel unsafe, then ',
+    part2: 'support is available',
+    link: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
+  },
   feedback: 'Help improve this service',
-  feedbackDetails:
-    'This is a new service. <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done">Your feedback</a> helps to improve it for others.',
+  feedbackDetails: {
+    part1: 'This is a new service. ',
+    part2: 'Your feedback',
+    part3: ' helps to improve it for others.',
+    link: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done',
+  },
 });
 
 // @TODO translations

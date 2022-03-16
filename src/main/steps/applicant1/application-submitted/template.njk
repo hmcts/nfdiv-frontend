@@ -55,7 +55,7 @@
         <ol class="govuk-list govuk-list--number">
           {% for property, step in documentsByEmailSteps %}
             {% if loop.last %}
-              <li>{{ step | safe }}</li>
+              <li>step <a class="govuk-link" href="mailto:${contactEmail}">{{ contactEmail }}</a></li>
             {% else %}
               <li>{{ step }}</li>
             {% endif %}
@@ -84,7 +84,7 @@
     {% if userCase.iWantToHavePapersServedAnotherWay %}
       <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
       <p class="govuk-body">{{ line3 }}</p>
-      <p class="govuk-body">{{ line4 | safe }}</p>
+      <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
     {% endif %}
   {% else %}
     <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
@@ -108,24 +108,24 @@
     {% endif %}
   {% endif %}
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
-  <p class="govuk-body">{{ line12 | safe }}</p>
-  <p class="govuk-body">{{ line13 | safe }}</p>
-  <p class="govuk-body">{{ line14 | safe }}</p>
-  <p class="govuk-body">{{ line15 | safe }}</p>
+  <p class="govuk-body">{{ line12.part1 }}<a class="govuk-link" href={{ line12.link }}>{{ line12.part2 }}</a></p>
+  <p class="govuk-body">{{ line13.part1 }}<a class="govuk-link" href={{ line13.link }}>{{ line13.part2 }}</a></p>
+  <p class="govuk-body">{{ line14.part1 }}<a class="govuk-link" href={{ line14.link }}>{{ line14.part2 }}</a></p>
+  <p class="govuk-body">{{ line15.part1 }}<a class="govuk-link" href={{ line15.link }}>{{ line15.part2 }}</a></p>
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16 | safe }}</p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
   <p class="govuk-body">{{ webChatDetails }}</p>
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
-  <p class="govuk-body">{{ email | safe }}</p>
+  <p class="govuk-body"><a class="govuk-link" href="mailto:${contactEmail}">{{ contactEmail }}</a></p>
   <h3 class="govuk-heading-m">{{ telephone }}</h3>
   <p class="govuk-body">{{ telephoneNumber }}</p>
   <p class="govuk-body">{{ telephoneDetails }}</p>
-  <p class="govuk-body">{{ telephoneCharges | safe }}</p>
-  <p class="govuk-body">{{ domesticAbuse | safe }}</p>
+  <p class="govuk-body"><a class="govuk-link" href={{ telephoneCharges.link }}>{{ telephoneCharges.part1 }}</a></p>
+  <p class="govuk-body">{{ domesticAbuse.part1 }}<a class="govuk-link" href={{ domesticAbuse.link }}>{{ domesticAbuse.part2 }}</a></p>
 
   <h3 class="govuk-heading-m">{{ feedback }}</h3>
-  <p class="govuk-body">{{ feedbackDetails | safe }}</p>
+  <p class="govuk-body">{{ feedbackDetails.part1 }}<a class="govuk-link" href={{ feedbackDetails.link }}>{{ feedbackDetails.part2 }}</a>{{ feedbackDetails.part3 }}</p>
 {% endblock %}
 
 {% block contact_us %}{% endblock %}
