@@ -70,6 +70,9 @@ export class CaseApi {
 
       return response.data;
     } catch (err) {
+      if (err.response?.status === 404) {
+        return [];
+      }
       this.logError(err);
       throw new Error('Case could not be retrieved.');
     }
