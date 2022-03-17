@@ -9,7 +9,10 @@
   <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">{{ title }}</h1>
     <div class="govuk-body">
-      {{ referenceNumber | safe }}
+      {{ yourReferenceNumber }}
+      <div class="govuk-panel__body">
+        <strong>{{ referenceNumber }}</strong>
+      </div>
     </div>
     <p><strong>{{ confirmationEmail }}</strong></p>
   </div>
@@ -73,7 +76,13 @@
             <li>{{ step }}</li>
           {% endfor %}
         </ol>
-        <p class="govuk-body"><strong>{{ address | safe }}</strong></p>
+        <p class="govuk-body"><strong>
+            {{ address.line1 }}<br>
+            {{ address.line2 }}<br>
+            {{ address.poBox }}<br>
+            {{ address.town }}<br>
+            {{ address.postcode }}
+          </strong></p>
         <p class="govuk-body">{{ documentsByPostMoreDetails }}</p>
       {% endset %}
       {{ govukDetails({
@@ -83,7 +92,8 @@
     {% endif %}
     {% if userCase.iWantToHavePapersServedAnotherWay %}
       <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-      <p class="govuk-body">{{ line3 }}</p>
+      <p class="govuk-body">{{ line3.p1 }}</p>
+      <p class="govuk-body">{{ line3.p2 }}</p>
       <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
     {% endif %}
   {% else %}
@@ -113,7 +123,7 @@
   <p class="govuk-body">{{ line14.part1 }}<a class="govuk-link" href={{ line14.link }}>{{ line14.part2 }}</a></p>
   <p class="govuk-body">{{ line15.part1 }}<a class="govuk-link" href={{ line15.link }}>{{ line15.part2 }}</a></p>
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
-  <p class="govuk-body">{{ line16 | safe }}</p>
+  <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
   <p class="govuk-body">{{ webChatDetails }}</p>
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>

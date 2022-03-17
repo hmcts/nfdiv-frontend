@@ -9,11 +9,7 @@ import { StateSequence } from '../../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
-  referenceNumber: `Your reference number is:
-    <div class="govuk-panel__body">
-      <strong>${referenceNumber}</strong>
-    </div>
-  `,
+  yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
@@ -48,22 +44,25 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
   },
-  address: `
-    Courts and Tribunals Service Centre<br>
-    HMCTS Divorce and Dissolution service<br>
-    PO Box 13226<br>
-    Harlow<br>
-    CM20 9UG
-  `,
+  address: {
+    line1: `${config.get('serviceAddress.line1')}`,
+    line2: `${config.get('serviceAddress.line2')}`,
+    poBox: `${config.get('serviceAddress.poBox')}`,
+    town: `${config.get('serviceAddress.town')}`,
+    postcode: `${config.get('serviceAddress.postcode')}`,
+  },
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-  line3: `You need to apply to serve the ${
-    isDivorce ? 'divorce' : 'ending your civil partnership'
-  } papers to your ${partner} another way. For example, by email, text message or social media. This is because you did not provide their address in the application.`,
+  line3: {
+    p1: `You need to apply to serve the ${
+      isDivorce ? 'divorce' : 'ending your civil partnership'
+    } papers to your ${partner} another way. This is because you did not provide their email and postal address in the application. You could apply to serve them by email only, text message or social media.`,
+    p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
+  },
   line4: {
     part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-    link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+    link: `${config.get('govukUrls.d11Form')}`,
   },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
@@ -71,14 +70,17 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and Help With Fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
+  } will be checked by court staff. You will receive an email notification by${dayjs(userCase.dateSubmitted)
     .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
-  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone 0300 303 0642 to request it. Otherwise the court will do it.`,
-  line9:
-    'If you want the court to serve (send) the application to be served by post instead of by email, then phone 0300 303 0642.',
+  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${config.get(
+    'servicePhoneNo'
+  )} to request it. Otherwise the court will do it.`,
+  line9: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${config.get(
+    'servicePhoneNo'
+  )}.`,
   line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
@@ -87,48 +89,52 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   line12: {
     part1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property.`,
     part2: 'Get help agreeing.',
-    link: 'https://www.gov.uk/money-property-when-relationship-ends/mediation',
+    link: `${config.get('govukUrls.mediation')}`,
   },
   line13: {
     part1:
       'If you do agree then you can make the agreement legally binding. This is known as asking the court to make a ',
     part2: '‘consent order’',
-    link: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order',
+    link: `${config.get('govukUrls.consentOrder')}`,
   },
   line14: {
     part1: 'If you disagree then you can ask the court to decide for you. This is known as applying for a ',
     part2: '‘financial order’',
-    link: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide',
+    link: `${config.get('govukUrls.financialOrder')}`,
   },
   line15: {
     part1: 'Read the guidance on ',
     part2: 'money and property when you divorce or separate',
-    link: 'https://www.gov.uk/money-property-when-relationship-ends',
+    link: `${config.get('govukUrls.moneyAndProperty')}`,
   },
   subHeading6: 'If you need help',
-  line16:
-    'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a <a class="govuk-link" href="https://www.gov.uk/find-a-legal-adviser">solicitor or legal adviser</a>.',
+  line16: {
+    part1:
+      'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a ',
+    linkText: 'solicitor or legal adviser',
+    link: `${config.get('govukUrls.legalAdvisor')}`,
+  },
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
-  telephoneNumber: 'Telephone: 0300 303 0642',
+  telephoneNumber: `Telephone: ${config.get('servicePhoneNo')}`,
   telephoneDetails: 'Monday to Friday 8am to 5pm',
   telephoneCharges: {
     part1: 'Find out about call charges',
-    link: 'https://www.gov.uk/call-charges',
+    link: `${config.get('govukUrls.callCharges')}`,
   },
   domesticAbuse: {
     part1: 'If you are experiencing domestic abuse or feel unsafe, then ',
     part2: 'support is available',
-    link: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
+    link: `${config.get('govukUrls.domesticAbuse')}`,
   },
   feedback: 'Help improve this service',
   feedbackDetails: {
     part1: 'This is a new service. ',
     part2: 'Your feedback',
     part3: ' helps to improve it for others.',
-    link: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done',
+    link: `${config.get('govukUrls.feedbackSurvey')}`,
   },
 });
 
@@ -166,5 +172,6 @@ export const generateContent: TranslationFn = content => {
     hasASolicitorContactForPartner,
     isRespondentOverseas,
     applicationServedAnotherWay,
+    referenceNumber,
   };
 };
