@@ -15,6 +15,10 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
+const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2') => {
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
+};
+
 const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
@@ -27,9 +31,9 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   }`,
   line3: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
   line4: '<strong> Applicant 1 </strong>',
-  line5: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
+  line5: `${getName(userCase, 'applicant1')}`,
   line6: '<strong> Applicant 2 </strong>',
-  line7: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  line7: `${getName(userCase, 'applicant2')}`,
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line8: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
