@@ -40,7 +40,7 @@ export class CaseApi {
   }
 
   private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
-    const [nfdCases, divCases] = await Promise.all([this.getCases(CASE_TYPE), this.getCases('DIVORCE')]);
+    const [nfdCases, divCases] = await Promise.all([this.getCases(CASE_TYPE), this.getCases('NFD')]);
 
     if (this.hasInProgressDivorceCase(divCases)) {
       throw new InProgressDivorceCase('User has in progress divorce case');
