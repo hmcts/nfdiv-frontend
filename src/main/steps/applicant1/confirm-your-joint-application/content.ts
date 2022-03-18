@@ -10,14 +10,11 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
+import { getName } from '../hub-page/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
-
-const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2') => {
-  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
-};
 
 const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
