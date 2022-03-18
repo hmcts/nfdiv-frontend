@@ -13,7 +13,7 @@ import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
-const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2') => {
+export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
   return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
 };
 
