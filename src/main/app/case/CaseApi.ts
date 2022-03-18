@@ -13,7 +13,6 @@ import {
   CITIZEN_CREATE,
   CaseData,
   DivorceOrDissolution,
-  JURISDICTION,
   ListValue,
   Payment,
   State,
@@ -27,11 +26,7 @@ export class InProgressDivorceCase implements Error {
 }
 
 export class CaseApi {
-  constructor(
-    private readonly axios: AxiosInstance,
-    private readonly userDetails: UserDetails,
-    private readonly logger: LoggerInstance
-  ) {}
+  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
@@ -64,11 +59,10 @@ export class CaseApi {
 
   private async getCases(caseType: string): Promise<CcdV1Response[]> {
     try {
-      const response = await this.axios.get<CcdV1Response[]>(
-        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${caseType}/cases`
-      );
+      const query = { query: { match_all: {} } };
+      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
 
-      return response.data;
+      return response.data.cases;
     } catch (err) {
       if (err.response?.status === 404) {
         return [];
@@ -198,10 +192,14 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
         'Content-Type': 'application/json',
       },
     }),
-    userDetails,
     logger
   );
 };
+
+interface ES<T> {
+  cases: T[];
+  total: number;
+}
 
 interface CcdV1Response {
   id: string;
