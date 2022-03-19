@@ -1,11 +1,12 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
+import { setJurisdictionFieldsToNull } from '../applicant1/your-details/post';
 import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../urls';
 
 @autobind
@@ -39,5 +40,11 @@ export class SwitchToSoleApplicationPostController {
       }
       res.redirect(nextUrl);
     });
+  }
+
+  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    formData = setJurisdictionFieldsToNull(formData);
+
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 }

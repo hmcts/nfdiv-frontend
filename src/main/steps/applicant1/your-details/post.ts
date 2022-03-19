@@ -13,11 +13,7 @@ export default class YourDetailsPostController extends PostController<AnyObject>
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    // Remove jurisdiction content if same-sex field is changed:
-    const newSameSexValue = formData.sameSex ? formData.sameSex : undefined;
-    const existingSameSexValue = req.session.userCase.sameSex ? req.session.userCase.sameSex : undefined;
-
-    if (newSameSexValue !== existingSameSexValue) {
+    if (isFormFieldDifferentToSessionField(formData, req.session.userCase, 'sameSex')) {
       req.body['removeJurisdictionFields'] = 'true';
     }
 
@@ -26,31 +22,42 @@ export default class YourDetailsPostController extends PostController<AnyObject>
 
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     if (req.body.removeJurisdictionFields) {
-      formData = this.setJurisdictionFieldsToNull(formData);
+      formData = setJurisdictionFieldsToNull(formData);
     }
 
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
-
-  private setJurisdictionFieldsToNull(formData: Partial<Case>) {
-    const jurisdictionFields = [
-      'applicant1DomicileInEnglandWales',
-      'applicant2DomicileInEnglandWales',
-      'bothLastHabituallyResident',
-      'applicant1LivingInEnglandWalesTwelveMonths',
-      'applicant1LivingInEnglandWalesSixMonths',
-      'jurisdictionResidualEligible',
-      'connections',
-      'applicant1LifeBasedInEnglandAndWales',
-      'applicant2LifeBasedInEnglandAndWales',
-    ];
-
-    const nullJurisdictionDict = {};
-
-    jurisdictionFields.forEach(key => {
-      nullJurisdictionDict[key] = null;
-    });
-
-    return { ...formData, ...nullJurisdictionDict };
-  }
 }
+
+export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Case> => {
+  const jurisdictionFields = [
+    'applicant1DomicileInEnglandWales',
+    'applicant2DomicileInEnglandWales',
+    'bothLastHabituallyResident',
+    'applicant1LivingInEnglandWalesTwelveMonths',
+    'applicant1LivingInEnglandWalesSixMonths',
+    'jurisdictionResidualEligible',
+    'connections',
+    'applicant1LifeBasedInEnglandAndWales',
+    'applicant2LifeBasedInEnglandAndWales',
+  ];
+
+  const nullJurisdictionDict = {};
+
+  jurisdictionFields.forEach(key => {
+    nullJurisdictionDict[key] = null;
+  });
+
+  return { ...formData, ...nullJurisdictionDict };
+};
+
+export const isFormFieldDifferentToSessionField = (
+  formData: Partial<Case>,
+  sessionData: Partial<Case>,
+  field: string
+): boolean => {
+  const newSameSexValue = formData[field] ? formData[field] : undefined;
+  const existingSameSexValue = sessionData[field] ? sessionData[field] : undefined;
+
+  return newSameSexValue !== existingSameSexValue;
+};
