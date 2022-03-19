@@ -2,7 +2,7 @@ import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
-import { getPartnerContent, getSelectedGender, getServiceName } from './content.utils';
+import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
 export const en = {
   phase: 'Beta',
@@ -196,7 +196,7 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
-  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
+  const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =

@@ -23,11 +23,7 @@ export const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: b
   return userCase?.gender;
 };
 
-export const getPartnerContent = (
-  translations: typeof en,
-  selectedGender: Gender | undefined,
-  isDivorce: boolean
-): string => {
+export const getPartner = (translations: typeof en, selectedGender: Gender | undefined, isDivorce: boolean): string => {
   if (!isDivorce) {
     return translations.civilPartner;
   }
