@@ -6,7 +6,7 @@ import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import { setJurisdictionFieldsToNull } from '../applicant1/your-details/post';
+import { setJurisdictionFieldsToNull } from '../../app/jurisdiction/jurisdictionRemovalHelper';
 import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../urls';
 
 @autobind

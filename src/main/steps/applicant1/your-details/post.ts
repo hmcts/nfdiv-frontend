@@ -5,6 +5,10 @@ import { Case, CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
+import {
+  isFormFieldDifferentToSessionField,
+  setJurisdictionFieldsToNull,
+} from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 
 @autobind
 export default class YourDetailsPostController extends PostController<AnyObject> {
@@ -28,36 +32,3 @@ export default class YourDetailsPostController extends PostController<AnyObject>
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 }
-
-export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Case> => {
-  const jurisdictionFields = [
-    'applicant1DomicileInEnglandWales',
-    'applicant2DomicileInEnglandWales',
-    'bothLastHabituallyResident',
-    'applicant1LivingInEnglandWalesTwelveMonths',
-    'applicant1LivingInEnglandWalesSixMonths',
-    'jurisdictionResidualEligible',
-    'connections',
-    'applicant1LifeBasedInEnglandAndWales',
-    'applicant2LifeBasedInEnglandAndWales',
-  ];
-
-  const nullJurisdictionDict = {};
-
-  jurisdictionFields.forEach(key => {
-    nullJurisdictionDict[key] = null;
-  });
-
-  return { ...formData, ...nullJurisdictionDict };
-};
-
-export const isFormFieldDifferentToSessionField = (
-  formData: Partial<Case>,
-  sessionData: Partial<Case>,
-  field: string
-): boolean => {
-  const newSameSexValue = formData[field] ? formData[field] : undefined;
-  const existingSameSexValue = sessionData[field] ? sessionData[field] : undefined;
-
-  return newSameSexValue !== existingSameSexValue;
-};

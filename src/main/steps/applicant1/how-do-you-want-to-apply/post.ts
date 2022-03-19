@@ -6,8 +6,11 @@ import { ApplicationType, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
+import {
+  isFormFieldDifferentToSessionField,
+  setJurisdictionFieldsToNull,
+} from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
-import { isFormFieldDifferentToSessionField, setJurisdictionFieldsToNull } from '../your-details/post';
 
 @autobind
 export default class ApplicationTypePostController extends PostController<AnyObject> {
