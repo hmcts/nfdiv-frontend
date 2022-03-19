@@ -41,15 +41,7 @@ export const getAppSolAddressFields = (
   userCase: Partial<CaseWithId>
 ): string[] => {
   const addressPrefix = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
-  return [
-    userCase[`${addressPrefix}Address1`],
-    userCase[`${addressPrefix}Address2`],
-    userCase[`${addressPrefix}Address3`],
-    userCase[`${addressPrefix}AddressTown`],
-    userCase[`${addressPrefix}AddressCounty`],
-    userCase[`${addressPrefix}AddressPostcode`],
-    userCase[`${addressPrefix}AddressCountry`],
-  ].filter(Boolean);
+  return getAddressFields(addressPrefix, userCase);
 };
 
 export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWithId>): string[] => {
