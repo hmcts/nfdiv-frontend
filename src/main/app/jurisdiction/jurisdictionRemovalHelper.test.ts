@@ -1,7 +1,7 @@
 import { Checkbox } from '../case/case';
 import { Gender } from '../case/definition';
 
-import { isFormFieldDifferentToSessionField, setJurisdictionFieldsToNull } from './jurisdictionRemovalHelper';
+import { isFormDataDifferentToSessionData, setJurisdictionFieldsToNull } from './jurisdictionRemovalHelper';
 
 describe('jurisdictionRemovalHelper', () => {
   describe('setJurisdictionFieldsToNull', () => {
@@ -31,46 +31,46 @@ describe('jurisdictionRemovalHelper', () => {
     });
   });
 
-  describe('isFormFieldDifferentToSessionField', () => {
+  describe('isFormDataDifferentToSessionData', () => {
     test('When values equal should return false', () => {
       const newField = { sameSex: Checkbox.Checked };
       const existingField = { sameSex: Checkbox.Checked };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'sameSex');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'sameSex');
       expect(answer).toBe(false);
     });
 
     test('When values not equal should return true', () => {
       const newField = { sameSex: Checkbox.Unchecked };
       const existingField = { sameSex: Checkbox.Checked };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'sameSex');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'sameSex');
       expect(answer).toBe(true);
     });
 
     test('When existing value is undefined should return false', () => {
       const newField = { sameSex: Checkbox.Unchecked };
       const existingField = { sameSex: undefined };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'sameSex');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'sameSex');
       expect(answer).toBe(false);
     });
 
     test('When new value is undefined and existing value is unchecked should return false', () => {
       const newField = { sameSex: undefined };
       const existingField = { sameSex: Checkbox.Unchecked };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'sameSex');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'sameSex');
       expect(answer).toBe(false);
     });
 
     test('When new value is undefined and existing value is checked should return true', () => {
       const newField = { sameSex: undefined };
       const existingField = { sameSex: Checkbox.Checked };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'sameSex');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'sameSex');
       expect(answer).toBe(true);
     });
 
     test('When invalid field name passed into the method then return false', () => {
       const newField = { sameSex: Checkbox.Unchecked };
       const existingField = { sameSex: Checkbox.Checked };
-      const answer = isFormFieldDifferentToSessionField(newField, existingField, 'invalidFieldName');
+      const answer = isFormDataDifferentToSessionData(newField, existingField, 'invalidFieldName');
       expect(answer).toBe(false);
     });
   });

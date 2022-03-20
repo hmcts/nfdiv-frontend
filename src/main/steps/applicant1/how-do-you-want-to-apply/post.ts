@@ -7,7 +7,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
 import {
-  isFormFieldDifferentToSessionField,
+  isFormDataDifferentToSessionData,
   setJurisdictionFieldsToNull,
 } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
@@ -25,7 +25,7 @@ export default class ApplicationTypePostController extends PostController<AnyObj
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (isFormFieldDifferentToSessionField(formData, req.session.userCase, 'applicationType')) {
+    if (isFormDataDifferentToSessionData(formData, req.session.userCase, 'applicationType')) {
       req.body['removeJurisdictionFields'] = 'true';
     }
 

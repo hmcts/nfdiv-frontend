@@ -22,7 +22,7 @@ export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Ca
   return { ...formData, ...nullJurisdictionDict };
 };
 
-export const isFormFieldDifferentToSessionField = (
+export const isFormDataDifferentToSessionData = (
   formData: Partial<Case>,
   sessionData: Partial<Case>,
   field: string

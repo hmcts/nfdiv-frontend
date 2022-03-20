@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
 import {
-  isFormFieldDifferentToSessionField,
+  isFormDataDifferentToSessionData,
   setJurisdictionFieldsToNull,
 } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 
@@ -17,7 +17,7 @@ export default class YourDetailsPostController extends PostController<AnyObject>
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (isFormFieldDifferentToSessionField(formData, req.session.userCase, 'sameSex')) {
+    if (isFormDataDifferentToSessionData(formData, req.session.userCase, 'sameSex')) {
       req.body['removeJurisdictionFields'] = 'true';
     }
 
