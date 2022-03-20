@@ -10,9 +10,10 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
+import { getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent, respondentsAddress: string) => ({
+const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -105,22 +106,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   ${getFee(config.get('fees.consentOrder'))}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Applicant 1’s correspondence address',
-  applicant1Address: `${
-    userCase.applicant1SolicitorAddress ||
-    [
-      userCase.applicant1Address1,
-      userCase.applicant1Address2,
-      userCase.applicant1Address3,
-      userCase.applicant1AddressTown,
-      userCase.applicant1AddressCounty,
-      userCase.applicant1AddressPostcode,
-      userCase.applicant1AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  applicant1Address: getAppSolAddressFields('applicant1', userCase),
   heading14: 'Applicant 2’s correspondence address',
-  applicant2Address: respondentsAddress,
+  applicant2Address: getAppSolAddressFields('applicant2', userCase),
   heading15: 'Applicant 1’s email address',
   applicant1EmailAddress: `${userEmail}`,
   heading16: "Applicant 2's email address",
@@ -195,30 +183,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { language, userCase, isApplicant2 } = content;
-  const respondentsAddress = (
-    userCase.applicant2SolicitorAddress?.trim()
-      ? [
-          userCase.applicant2SolicitorAddress1,
-          userCase.applicant2SolicitorAddress2,
-          userCase.applicant2SolicitorAddress3,
-          userCase.applicant2SolicitorAddressTown,
-          userCase.applicant2SolicitorAddressCounty,
-          userCase.applicant2SolicitorAddressPostcode,
-          userCase.applicant2SolicitorAddressCountry,
-        ]
-      : [
-          userCase.applicant2Address1,
-          userCase.applicant2Address2,
-          userCase.applicant2Address3,
-          userCase.applicant2AddressTown,
-          userCase.applicant2AddressCounty,
-          userCase.applicant2AddressPostcode,
-          userCase.applicant2AddressCountry,
-        ]
-  )
-    .filter(Boolean)
-    .join('<br>');
-  const translations = languages[language](content, respondentsAddress);
+  const translations = languages[language](content);
   const isApplicant1AndApplicant2AddressPrivate = !isApplicant2 && userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isApplicant2AndApplicant1AddressPrivate = isApplicant2 && userCase.applicant1AddressPrivate === YesOrNo.YES;
   return {
