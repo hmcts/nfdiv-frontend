@@ -2,6 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { ApplicationType, SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
+import { getJurisdictionNullDictionary } from '../../app/jurisdiction/jurisdictionRemovalHelper';
 import { HOME_URL, PAY_AND_SUBMIT, SWITCH_TO_SOLE_APPLICATION, YOUR_DETAILS_URL } from '../urls';
 
 import { SwitchToSoleApplicationPostController } from './post';
@@ -26,7 +27,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', getJurisdictionNullDictionary(), SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -46,7 +47,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', getJurisdictionNullDictionary(), SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.isApplicant2).toEqual(false);
@@ -93,5 +94,17 @@ describe('SwitchToSoleApplicationPostController', () => {
         propertyName: '*',
       },
     ]);
+  });
+
+  test('Should set jurisdiction data to null', async () => {
+    const body = {};
+
+    const applicationTypeController = new SwitchToSoleApplicationPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await applicationTypeController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', getJurisdictionNullDictionary(), SWITCH_TO_SOLE);
   });
 });

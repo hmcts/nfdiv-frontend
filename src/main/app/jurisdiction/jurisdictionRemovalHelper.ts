@@ -1,6 +1,25 @@
 import { Case } from '../case/case';
 
 export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Case> => {
+  return Object.assign(formData, getJurisdictionNullDictionary());
+};
+
+export const isFormDataDifferentToSessionData = (
+  formData: Partial<Case>,
+  sessionData: Partial<Case>,
+  field: string
+): boolean => {
+  if (sessionData[field] === undefined) {
+    return false;
+  }
+
+  const newValue = formData[field] ? formData[field] : undefined;
+  const existingValue = sessionData[field] ? sessionData[field] : undefined;
+
+  return newValue !== existingValue;
+};
+
+export const getJurisdictionNullDictionary = (): Partial<Case> => {
   const jurisdictionFields = [
     'applicant1DomicileInEnglandWales',
     'applicant2DomicileInEnglandWales',
@@ -19,20 +38,5 @@ export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Ca
     nullJurisdictionDict[key] = null;
   });
 
-  return { ...formData, ...nullJurisdictionDict };
-};
-
-export const isFormDataDifferentToSessionData = (
-  formData: Partial<Case>,
-  sessionData: Partial<Case>,
-  field: string
-): boolean => {
-  if (sessionData[field] === undefined) {
-    return false;
-  }
-
-  const newValue = formData[field] ? formData[field] : undefined;
-  const existingValue = sessionData[field] ? sessionData[field] : undefined;
-
-  return newValue !== existingValue;
+  return nullJurisdictionDict;
 };
