@@ -1,3 +1,4 @@
+import { Checkbox } from '../../../app/case/case';
 import { ChangedNameHow, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -7,12 +8,8 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 const en = ({ isDivorce, userCase }) => ({
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
-        userCase.applicant2ScreenHasUnionBroken
-          ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
-            ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
-            : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
-          : ''
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
       }`,
     },
     helpWithFees: {
@@ -124,12 +121,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   ...en({ isDivorce, userCase }),
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
-        userCase.applicant2ScreenHasUnionBroken
-          ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
-            ? `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
-            : `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
-          : ''
+      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
+        isDivorce ? 'marriage' : 'civil partnership'
       }`,
     },
     helpWithFees: {
