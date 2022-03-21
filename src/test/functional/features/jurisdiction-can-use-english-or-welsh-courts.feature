@@ -592,3 +592,17 @@ Feature: Jurisdiction - can use English or Welsh courts
     When I go to "/"
     Then the page should include "you and your husband are habitually resident in England and Wales"
     And the page should include "your husband is habitually resident in England and Wales"
+
+    Scenario: The user changes their answer to same-sex or application type
+      Given I select "Yes" for "Is your life mainly based in England or Wales?"
+      And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
+      When I click "Continue"
+      Then the page should include "You can use English or Welsh courts to get a divorce"
+      Given I go to "/your-details"
+      And I select "We were a same-sex couple when we got married"
+      When I click "Continue"
+      Then the page URL should be "/irretrievable-breakdown"
+      Given I go to "/"
+      When I click "Continue"
+      Then the page URL should be "/check-jurisdiction"
+
