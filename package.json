@@ -36,7 +36,7 @@
     "cichecks": "yarn && run-p build lint test"
   },
   "dependencies": {
-    "@hmcts/cookie-manager": "^0.0.4",
+    "@hmcts/cookie-manager": "^0.0.5",
     "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^3.0.4",
