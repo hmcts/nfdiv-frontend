@@ -37,11 +37,6 @@ Feature: Applicant 2
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
-
-    When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
     And the page should include "Do you need your contact details kept private from your wife?"
     Given I select "I do not need my contact details kept private"
@@ -190,11 +185,6 @@ Feature: Applicant 2
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I select "Enter your phone number (optional)"
     And I type "123456789"
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"

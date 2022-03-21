@@ -71,3 +71,24 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey:
+webchat:
+  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
+  avayaService: 'Testing'
+serviceAddress:
+  line1: 'Courts and Tribunals Service Centre'
+  line2: 'HMCTS Divorce and Dissolution service'
+  poBox: 'PO Box 13226'
+  town: 'Harlow'
+  postcode: 'CM20 9UG'
+servicePhoneNo: '0300 303 0642'
+govukUrls:
+  d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
+  mediation: 'https://www.gov.uk/money-property-when-relationship-ends/mediation'
+  consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
+  financialOrder: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide'
+  moneyAndProperty: 'https://www.gov.uk/money-property-when-relationship-ends'
+  legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
+  callCharges: 'https://www.gov.uk/call-charges'
+  domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
+  feedbackSurvey: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done'

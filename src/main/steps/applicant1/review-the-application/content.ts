@@ -1,7 +1,7 @@
 import config from 'config';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId, Checkbox } from '../../../app/case/case';
+import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -10,21 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-
-const displayCorrectAddress = (applicant: 'applicant1' | 'applicant2', userCase: Partial<CaseWithId>) => {
-  const solicitorsAddress = `${applicant}${userCase[`${applicant}SolicitorAddress`]?.trim() ? 'Solicitor' : ''}`;
-  return [
-    userCase[`${solicitorsAddress}Address1`],
-    userCase[`${solicitorsAddress}Address2`],
-    userCase[`${solicitorsAddress}Address3`],
-    userCase[`${solicitorsAddress}AddressTown`],
-    userCase[`${solicitorsAddress}AddressCounty`],
-    userCase[`${solicitorsAddress}AddressPostcode`],
-    userCase[`${solicitorsAddress}AddressCountry`],
-  ]
-    .filter(Boolean)
-    .join('<br>');
-};
+import { getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -119,11 +105,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
    You can get a solicitor to draft these and apply for you.
    <br><br>If you are not sure what to do then you should seek legal advice.`,
   subHeading7: "Applicant's correspondence address",
-  applicantAddress: displayCorrectAddress('applicant1', userCase),
+  applicantAddress: getAppSolAddressFields('applicant1', userCase),
   subHeading8: "Applicant's email address",
   line21: userCase.applicant1Email,
   subHeading9: "Respondent's correspondence address",
-  respondentAddress: displayCorrectAddress('applicant2', userCase),
+  respondentAddress: getAppSolAddressFields('applicant2', userCase),
   subHeading10: "Respondent's email address",
   line22: userCase.applicant2EmailAddress,
   subHeading11: "Respondent's solicitor details",
@@ -135,9 +121,9 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   solFirmName: `Solicitor firm name: ${
     userCase.applicant2SolicitorFirmName ? userCase.applicant2SolicitorFirmName : 'not given'
   }`,
-  solAddress: `Solicitor address: ${
-    userCase.applicant2SolicitorAddress?.trim() ? userCase.applicant2SolicitorAddress : 'not given'
-  }`,
+  solAddressLabel: 'Solicitor address: ',
+  solAddress: userCase.applicant2SolicitorAddress?.trim() ? getAddressFields('applicant2Solicitor', userCase) : [],
+  solAddressEmpty: 'not given',
   subHeading12: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
   applicantName: `<em>${

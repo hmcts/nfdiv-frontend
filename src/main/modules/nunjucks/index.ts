@@ -6,6 +6,8 @@ import nunjucks from 'nunjucks';
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { Form, FormInput } from '../../app/form/Form';
 
+const config = require('config');
+
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
@@ -74,6 +76,16 @@ export class Nunjucks {
         })(),
       }));
     });
+
+    const globals = {
+      webchat: {
+        avayaUrl: config.get('webchat.avayaUrl'),
+        avayaClientUrl: config.get('webchat.avayaClientUrl'),
+        avayaService: config.get('webchat.avayaService'),
+      },
+    };
+
+    env.addGlobal('globals', globals);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {

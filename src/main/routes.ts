@@ -43,7 +43,9 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
+  WEBCHAT_URL,
 } from './steps/urls';
+import { WebChatGetController } from './steps/webchat/get';
 
 const handleUploads = multer();
 const ext = extname(__filename);
@@ -62,6 +64,7 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
+    app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));

@@ -1,10 +1,10 @@
-import { capitalize } from 'lodash';
-
-import { CaseWithId, Checkbox } from '../../app/case/case';
-import { ApplicationType, Gender, State } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+import { getPartner, getSelectedGender, getServiceName } from './content.utils';
+
+export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
@@ -98,6 +98,11 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
+  helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
+  helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
+  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.',
+  helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
 };
 
 const cy: typeof en = {
@@ -191,7 +196,7 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
-  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
+  const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
@@ -219,37 +224,6 @@ export const generatePageContent = ({
   }
 
   return content;
-};
-
-const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
-  const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
-  return capitalize(serviceName);
-};
-
-const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender | undefined => {
-  if (isApplicant2 && userCase?.sameSex === Checkbox.Unchecked) {
-    if (userCase?.gender === Gender.MALE) {
-      return Gender.FEMALE;
-    } else if (userCase?.gender === Gender.FEMALE) {
-      return Gender.MALE;
-    } else {
-      return undefined;
-    }
-  }
-  return userCase?.gender;
-};
-
-const getPartnerContent = (translations: typeof en, selectedGender: Gender | undefined, isDivorce: boolean): string => {
-  if (!isDivorce) {
-    return translations.civilPartner;
-  }
-  if (selectedGender === Gender.MALE) {
-    return translations.husband;
-  }
-  if (selectedGender === Gender.FEMALE) {
-    return translations.wife;
-  }
-  return translations.partner;
 };
 
 export type CommonContent = typeof en & {
