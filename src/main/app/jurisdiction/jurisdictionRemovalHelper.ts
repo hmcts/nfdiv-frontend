@@ -1,42 +1,28 @@
+import { stepsWithContentApplicant1 } from '../../steps';
+import { getAllPossibleAnswersForPath } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 
-export const setJurisdictionFieldsToNull = (formData: Partial<Case>): Partial<Case> => {
-  return Object.assign(formData, getJurisdictionNullDictionary());
-};
-
-export const isFormDataDifferentToSessionData = (
-  formData: Partial<Case>,
-  sessionData: Partial<Case>,
-  field: string
-): boolean => {
-  if (sessionData[field] === undefined) {
-    return false;
-  }
-
-  const newValue = formData[field] ? formData[field] : undefined;
-  const existingValue = sessionData[field] ? sessionData[field] : undefined;
-
-  return newValue !== existingValue;
-};
-
-export const getJurisdictionNullDictionary = (): Partial<Case> => {
-  const jurisdictionFields = [
+export const getJurisdictionFieldsAsNull = (
+  userCase: Partial<Case>,
+  getUnreachableAnswersAsNull?: boolean
+): Partial<Case> => {
+  let jurisdictionFields = [
+    'connections',
+    'applicant1LifeBasedInEnglandAndWales',
+    'applicant2LifeBasedInEnglandAndWales',
     'applicant1DomicileInEnglandWales',
     'applicant2DomicileInEnglandWales',
     'bothLastHabituallyResident',
     'applicant1LivingInEnglandWalesTwelveMonths',
     'applicant1LivingInEnglandWalesSixMonths',
     'jurisdictionResidualEligible',
-    'connections',
-    'applicant1LifeBasedInEnglandAndWales',
-    'applicant2LifeBasedInEnglandAndWales',
   ];
 
-  const nullJurisdictionDict = {};
+  if (getUnreachableAnswersAsNull) {
+    const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
+    jurisdictionFields = jurisdictionFields.filter(field => !possibleAnswers.includes(field));
+  }
+  jurisdictionFields.forEach(field => (userCase[field] = null));
 
-  jurisdictionFields.forEach(key => {
-    nullJurisdictionDict[key] = null;
-  });
-
-  return nullJurisdictionDict;
+  return userCase;
 };
