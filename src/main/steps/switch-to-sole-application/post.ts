@@ -6,7 +6,6 @@ import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import { getJurisdictionNullDictionary } from '../../app/jurisdiction/jurisdictionRemovalHelper';
 import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../urls';
 
 @autobind
@@ -20,10 +19,8 @@ export class SwitchToSoleApplicationPostController {
 
     req.session.errors = [];
 
-    const dataToSave = getJurisdictionNullDictionary();
-
     try {
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, SWITCH_TO_SOLE);
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE);
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
