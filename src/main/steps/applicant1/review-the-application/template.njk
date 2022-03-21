@@ -50,7 +50,9 @@
   }) }}
   {% if not isApplicantAddressPrivate or hasApplicant1SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
-    <p class="govuk-body">{{ applicantAddress | safe }}</p>
+    <p class="govuk-body">
+      {% for line in applicantAddress %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
   {% if not isApplicantAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
@@ -58,7 +60,9 @@
   {% endif %}
   {% if not isRespondentAddressPrivate or hasApplicant2SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
-    <p class="govuk-body">{{ respondentAddress | safe }}</p>
+    <p class="govuk-body">
+      {% for line in respondentAddress %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
   {% if not isRespondentAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
@@ -70,7 +74,15 @@
       <p class="govuk-body">{{ solName }}</p>
       <p class="govuk-body">{{ solEmail }}</p>
       <p class="govuk-body">{{ solFirmName }}</p>
-      <p class="govuk-body">{{ solAddress }}</p>
+      <p class="govuk-body">
+        {{ solAddressLabel }}
+        {% for line in solAddress %}
+          {% if loop.first %}<br>{% endif %}
+          {{ line }}<br>
+        {% else %}
+          {{ solAddressEmpty }}
+        {% endfor %}
+      </p>
     {% else %}
       <p class="govuk-body">{{ noDetailsProvided }}</p>
     {% endif %}
