@@ -2240,12 +2240,12 @@
     nanoid "^3.1.25"
     preact "^10.5.13"
 
-"@uppy/drop-target@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.1.1.tgz#9bfbcb7b284ef605d01fc24823f857cbad51377a"
-  integrity sha512-2MxNGEkI2vt1D6MEa0PNqR+VTMbuUzmiytHyy57phZNCNes8K4BdnneBwla2nG3LI0D1TURK7MKxaSjv93d3Vg==
+"@uppy/drop-target@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.1.2.tgz#a78cc1c1947e55be4e16de71efdbacf9dfb7effd"
+  integrity sha512-iyLckwpxDqZr7ysH94cWwgta9P9SFus0sayXb9Lr/Kd0lk+tK/bcrJmsJHp4HYDFW7C8RphYdUu78C8NNXL09w==
   dependencies:
-    "@uppy/utils" "^4.0.3"
+    "@uppy/utils" "^4.0.5"
 
 "@uppy/file-input@^2.0.5":
   version "2.0.5"
