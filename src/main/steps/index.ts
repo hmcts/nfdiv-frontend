@@ -11,7 +11,15 @@ import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
 import { respondentPostSubmissionSequence, respondentPreSubmissionSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
-import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
+import {
+  APPLICANT_2,
+  APPLICATION_SUBMITTED,
+  CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  CONFIRM_JOINT_APPLICATION,
+  HOME_URL,
+  READ_THE_RESPONSE,
+} from './urls';
 
 const stepForms: Record<string, Form> = {};
 const ext = extname(__filename);
@@ -26,7 +34,7 @@ const allSequences = [
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + (i === 0 ? '/applicant1' : '');
+  const dir = __dirname + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
@@ -80,6 +88,24 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
 
   return `${url}${queryString}`;
+};
+
+export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
+  const finalUrls = [HOME_URL, CHECK_ANSWERS_URL, `${APPLICANT_2 + CONFIRM_JOINT_APPLICATION}`];
+  const startsWithUrls = ['/pay', APPLICATION_SUBMITTED];
+
+  return (
+    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || startsWithUrls.some(url => nextStepUrl.startsWith(url))
+  );
+};
+
+export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
+  const finalUrls = [HOME_URL, CHECK_ANSWERS_URL, `${APPLICANT_2 + HOME_URL}`];
+  const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
+
+  return (
+    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
+  );
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
