@@ -7,7 +7,7 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 const en = ({ isDivorce, userCase }) => ({
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
+      line3: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
             ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
@@ -124,7 +124,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   ...en({ isDivorce, userCase }),
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
+      line3: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
             ? `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
