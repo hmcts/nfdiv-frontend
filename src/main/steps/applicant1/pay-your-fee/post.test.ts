@@ -1,5 +1,3 @@
-import 'jest-extended';
-
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
