@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
-import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 
 @autobind
 export default class YourDetailsPostController extends PostController<AnyObject> {
@@ -15,7 +15,7 @@ export default class YourDetailsPostController extends PostController<AnyObject>
     let formData = originalFormData;
 
     if ((req.session.userCase.sameSex || undefined) !== originalFormData.sameSex) {
-      formData = getJurisdictionFieldsAsNull(originalFormData);
+      formData = setJurisdictionFieldsAsNull(originalFormData);
     }
 
     if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {

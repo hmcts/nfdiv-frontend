@@ -2,7 +2,7 @@ import { stepsWithContentApplicant1 } from '../../steps';
 import { getAllPossibleAnswersForPath } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 
-export const getJurisdictionFieldsAsNull = (
+export const setJurisdictionFieldsAsNull = (
   userCase: Partial<Case>,
   getUnreachableAnswersAsNull?: boolean
 ): Partial<Case> => {

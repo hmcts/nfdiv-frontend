@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { CITIZEN_UPDATE, Gender } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 
 import YourDetailsPostController from './post';
 
@@ -29,7 +29,7 @@ describe('YourDetailsPostController', () => {
     const expectedFormData = {
       sameSex: Checkbox.Checked,
       gender: Gender.FEMALE,
-      ...getJurisdictionFieldsAsNull({ sameSex: Checkbox.Checked }),
+      ...setJurisdictionFieldsAsNull({ sameSex: Checkbox.Checked }),
     };
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedFormData, CITIZEN_UPDATE);

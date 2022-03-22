@@ -5,7 +5,7 @@ import { ApplicationType, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
-import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 @autobind
@@ -23,7 +23,7 @@ export default class ApplicationTypePostController extends PostController<AnyObj
     let formData = originalFormData;
 
     if (req.session.userCase.applicationType !== originalFormData.applicationType) {
-      formData = getJurisdictionFieldsAsNull(originalFormData);
+      formData = setJurisdictionFieldsAsNull(originalFormData);
     }
 
     if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {

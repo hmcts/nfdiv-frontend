@@ -1,7 +1,7 @@
 import { Case } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
-import { getJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
 
 describe('JurisdictionRemovalHelper', () => {
   test('Should set unreachable fields as null', async () => {
@@ -31,7 +31,7 @@ describe('JurisdictionRemovalHelper', () => {
       jurisdictionResidualEligible: null,
     };
 
-    const newUserCase = getJurisdictionFieldsAsNull(bodyWithConnection, true);
+    const newUserCase = setJurisdictionFieldsAsNull(bodyWithConnection, true);
 
     expect(newUserCase).toEqual(expectedUserCase);
   });
@@ -63,7 +63,7 @@ describe('JurisdictionRemovalHelper', () => {
       jurisdictionResidualEligible: null,
     };
 
-    const newUserCase = getJurisdictionFieldsAsNull(bodyWithConnection);
+    const newUserCase = setJurisdictionFieldsAsNull(bodyWithConnection);
 
     expect(newUserCase).toEqual(expectedUserCase);
   });

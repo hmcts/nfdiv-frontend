@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { ApplicationType, CITIZEN_UPDATE, State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 import ApplicationTypePostController from './post';
@@ -45,7 +45,7 @@ describe('ApplicationTypePostController', () => {
 
     const expectedFormData = {
       applicationType: 'soleApplication',
-      ...getJurisdictionFieldsAsNull({ applicationType: ApplicationType.SOLE_APPLICATION }),
+      ...setJurisdictionFieldsAsNull({ applicationType: ApplicationType.SOLE_APPLICATION }),
     };
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedFormData, CITIZEN_UPDATE);
