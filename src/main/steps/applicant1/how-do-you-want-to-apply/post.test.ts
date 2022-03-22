@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { ApplicationType, CITIZEN_UPDATE, State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { getJurisdictionNullDictionary } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 import ApplicationTypePostController from './post';
@@ -27,26 +27,7 @@ describe('ApplicationTypePostController', () => {
     expect(res.redirect).toBeCalledWith(SWITCH_TO_SOLE_APPLICATION);
   });
 
-  test('Should post if user is not already linked', async () => {
-    const body = {
-      applicationType: ApplicationType.SOLE_APPLICATION,
-    };
-    const mockFormContent = {
-      fields: {
-        applicationType: {},
-      },
-    } as unknown as FormContent;
-
-    const applicationTypeController = new ApplicationTypePostController(mockFormContent.fields);
-
-    const req = mockRequest({ body });
-    const res = mockResponse();
-    await applicationTypeController.post(req, res);
-
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE);
-  });
-
-  test('When isFormDataDifferentToSessionData is true then nullify jurisdiction data', async () => {
+  test('Should post when applicant 2 is not linked and nullify jurisdiction data', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
@@ -64,13 +45,13 @@ describe('ApplicationTypePostController', () => {
 
     const expectedFormData = {
       applicationType: 'soleApplication',
-      ...getJurisdictionNullDictionary(),
+      ...getJurisdictionFieldsAsNull({ applicationType: ApplicationType.SOLE_APPLICATION }),
     };
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedFormData, CITIZEN_UPDATE);
   });
 
-  test('When isFormDataDifferentToSessionData is false then dont nullify jurisdiction data', async () => {
+  test('When applicationType is not changed then jurisdiction data is not nullified', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
     };

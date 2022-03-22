@@ -1,15 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, CaseWithId } from '../../../app/case/case';
 import { ApplicationType, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
-import {
-  isFormDataDifferentToSessionData,
-  setJurisdictionFieldsToNull,
-} from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import { getJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 @autobind
@@ -23,20 +19,17 @@ export default class ApplicationTypePostController extends PostController<AnyObj
     }
 
     const form = new Form(<FormFields>this.fields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...originalFormData } = form.getParsedBody(req.body);
+    let formData = originalFormData;
 
-    if (isFormDataDifferentToSessionData(formData, req.session.userCase, 'applicationType')) {
-      req.body['removeJurisdictionFields'] = 'true';
+    if (req.session.userCase.applicationType !== originalFormData.applicationType) {
+      formData = getJurisdictionFieldsAsNull(originalFormData);
     }
 
-    await super.post(req, res);
-  }
-
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (req.body.removeJurisdictionFields) {
-      formData = setJurisdictionFieldsToNull(formData);
+    if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
+      await this.saveAndSignOut(req, res, formData);
+    } else {
+      await this.saveAndContinue(req, res, form, formData);
     }
-
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 }
