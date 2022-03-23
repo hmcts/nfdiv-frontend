@@ -48,7 +48,8 @@ Feature: Final order
 
   Scenario: Respondent sole final order journey
     Given I set the case state to "FinalOrderOverdue"
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2022-01-01"
+    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-01-01"
+    And a superuser updates "dateFinalOrderNoLongerEligible" with "2021-10-01"
     When I click "Sign out"
     And I login with applicant "2"
 

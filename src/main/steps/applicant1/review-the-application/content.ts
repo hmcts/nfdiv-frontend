@@ -18,41 +18,41 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   } and confirm you have read it.`,
   subHeading1: `Sole ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
-  line2: `${userCase.applicant1FirstNames + ' ' + userCase.applicant1LastNames} is applying to the court
-    <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
-    <li>for ${isDivorce ? 'a final order of divorce from' : 'the dissolution of the civil partnership with'}
-    ${userCase.applicant2FirstNames + ' ' + userCase.applicant2LastNames}</li>
-    <li>to make a financial order</li></ul>`,
-  line3: `<strong>Issued: </strong>${userCase.issueDate}`,
-  line4: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
-  line5: '<strong>Applicant</strong>',
-  line6: `${
-    userCase.applicant1FirstNames +
-    ' ' +
-    (userCase.applicant1MiddleNames ? userCase.applicant1MiddleNames + ' ' : '') +
-    userCase.applicant1LastNames
-  }`,
-  line7: '<strong>Respondent</strong>',
-  line8: `${
-    userCase.applicant2FirstNames +
-    ' ' +
-    (userCase.applicant2MiddleNames ? userCase.applicant2MiddleNames + ' ' : '') +
-    userCase.applicant2LastNames
-  }`,
-  line9: `The applicant is the person who has applied ${
-    isDivorce ? 'for the divorce' : 'to end their civil partnership'
-  }.
-    <br>The respondent is their ${partner}.`,
+  line2: {
+    heading: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} is applying to the court`,
+    item1: `for ${isDivorce ? 'a final order of divorce from' : 'the dissolution of the civil partnership with'}
+    ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
+    item2: 'to make a financial order',
+  },
+  line3: 'Issued: ',
+  line4: {
+    key: 'Case number: ',
+    value: userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4'),
+  },
+  line5: 'Applicant',
+  line6: `${userCase.applicant1FirstNames} ${
+    userCase.applicant1MiddleNames ? userCase.applicant1MiddleNames + ' ' : ''
+  }${userCase.applicant1LastNames}`,
+  line7: 'Respondent',
+  line8: `${userCase.applicant2FirstNames} ${
+    userCase.applicant2MiddleNames ? userCase.applicant2MiddleNames + ' ' : ''
+  }${userCase.applicant2LastNames}`,
+  line9: {
+    p1: `The applicant is the person who has applied ${
+      isDivorce ? 'for the divorce' : 'to end their civil partnership'
+    }`,
+    p2: `The respondent is their ${partner}.`,
+  },
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line10: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-  line11: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
+  line11: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
   line12: `${userCase.applicant1FullNameOnCertificate + ' and ' + userCase.applicant2FullNameOnCertificate}
   (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  line13: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
+  line13: ` Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line14: `${userCase.ceremonyPlace}`,
-  line15: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
+  line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line16: `${getFormattedDate(userCase.relationshipDate)}`,
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
@@ -107,11 +107,9 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   subHeading7: "Applicant's correspondence address",
   applicantAddress: getAppSolAddressFields('applicant1', userCase),
   subHeading8: "Applicant's email address",
-  line21: userCase.applicant1Email,
   subHeading9: "Respondent's correspondence address",
   respondentAddress: getAppSolAddressFields('applicant2', userCase),
   subHeading10: "Respondent's email address",
-  line22: userCase.applicant2EmailAddress,
   subHeading11: "Respondent's solicitor details",
   noDetailsProvided: 'No details provided',
   solName: `Solicitor name: ${userCase.applicant2SolicitorName ? userCase.applicant2SolicitorName : 'not given'}`,
@@ -126,11 +124,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   solAddressEmpty: 'not given',
   subHeading12: 'Statement of truth',
   line23: 'I believe that the facts stated in this application are true.',
-  applicantName: `<em>${
-    isApplicant2
-      ? userCase.applicant2FirstNames + ' ' + userCase.applicant2LastNames
-      : userCase.applicant1FirstNames + ' ' + userCase.applicant1LastNames
-  }</em>`,
+  applicantName: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}`,
   subHeading13: 'Your acknowledgement',
   confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
   errors: {
