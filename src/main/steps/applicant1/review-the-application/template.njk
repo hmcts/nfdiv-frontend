@@ -6,21 +6,29 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
   <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
-  <p class="govuk-body">{{ line2 | safe }}</p>
-  <p class="govuk-body">{{ line3 | safe }}</p>
-  <p class="govuk-body">{{ line4 | safe }}</p>
-  <p class="govuk-body">{{ line5 | safe }}</p>
+  <p class="govuk-body">{{ line2.heading }}
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
+      <li>{{ line2.item1 }}</li>
+      <li>{{ line2.item2 }}</li>
+    </ul>
+  </p>
+  <p class="govuk-body"><strong>{{ line3 }}</strong>{{ userCase.issueDate }}</p>
+  <p class="govuk-body"><strong>{{ line4.key }}</strong>{{ line4.value }}</p>
+  <p class="govuk-body"><strong>{{ line5 }}</strong></p>
   <p class="govuk-body">{{ line6 }}</p>
-  <p class="govuk-body">{{ line7 | safe }}</p>
+  <p class="govuk-body"><strong>{{ line7 }}</strong></p>
   <p class="govuk-body">{{ line8 }}</p>
-  <p class="govuk-body">{{ line9 | safe }}</p>
+  <p class="govuk-body">
+    {{ line9.p1 }}<br>
+    {{ line9.p2 }}
+  </p>
   <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
   <p class="govuk-body">{{ line10 }}</p>
-  <p class="govuk-body">{{ line11 | safe }}</p>
+  <p class="govuk-body"><strong>{{ line11 }}</strong></p>
   <p class="govuk-body">{{ line12 }}</p>
-  <p class="govuk-body">{{ line13 | safe }}</p>
+  <p class="govuk-body"><strong>{{ line13 }}</strong></p>
   <p class="govuk-body">{{ line14 }}</p>
-  <p class="govuk-body">{{ line15 | safe }}</p>
+  <p class="govuk-body"><strong>{{ line15 }}</strong></p>
   <p class="govuk-body">{{ line16 }}</p>
   <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
   <p class="govuk-body">{{ line17 }}</p>
@@ -56,7 +64,7 @@
   {% endif %}
   {% if not isApplicantAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
-    <p class="govuk-body">{{ line21 }}</p>
+    <p class="govuk-body">{{ userCase.applicant1Email }}</p>
   {% endif %}
   {% if not isRespondentAddressPrivate or hasApplicant2SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
@@ -66,7 +74,7 @@
   {% endif %}
   {% if not isRespondentAddressPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading10 }}</h3>
-    <p class="govuk-body">{{ line22 }}</p>
+    <p class="govuk-body">{{ userCase.applicant2Email }}</p>
   {% endif %}
   {% if isApplicant2Represented %}
     <h3 class="govuk-heading-m">{{ subHeading11 }}</h3>
@@ -88,8 +96,8 @@
     {% endif %}
   {% endif %}
   <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
-  <p class="govuk-body">{{ line23 | safe }}</p>
-  <p class="govuk-body">{{ applicantName | safe }}</p>
+  <p class="govuk-body">{{ line23 }}</p>
+  <p class="govuk-body"><em>{{ applicantName }}</em></p>
   <h3 class="govuk-heading-m">{{ subHeading13 }}</h3>
 
 {% endblock %}
