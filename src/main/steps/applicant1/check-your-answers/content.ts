@@ -6,6 +6,7 @@ import {
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
+  DocumentType,
   FinancialOrderFor,
   Gender,
   YesOrNo,
@@ -57,9 +58,35 @@ const getOtherCourtCasesMoreDetailsContent = () => {
   return moreDetailsComponent({ text, title });
 };
 
+const cannotUploadDocumentList = (
+  isDivorce: boolean,
+  marriage: string,
+  civilPartnership: string,
+  { inTheUk, applicant1CannotUploadDocuments }: { inTheUk: YesOrNo; applicant1CannotUploadDocuments: [] }
+): string => {
+  const union = isDivorce ? marriage : civilPartnership;
+  const documentText = {
+    [DocumentType.MARRIAGE_CERTIFICATE]:
+      inTheUk === YesOrNo.NO ? `My original foreign ${union} certificate` : `My original ${union} certificate`,
+    [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of my foreign ${union} certificate`,
+    [DocumentType.NAME_CHANGE_EVIDENCE]: 'Proof that I changed my name',
+  };
+
+  return applicant1CannotUploadDocuments.map(document => documentText[document]).join('<br>');
+};
+
 const stripTags = value => (typeof value === 'string' ? value.replace(/(<([^>]+)>)/gi, '') : value);
 
-const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }) => ({
+const en = ({
+  isDivorce,
+  partner,
+  userCase,
+  isJointApplication,
+  isApplicant2,
+  checkTheirAnswersPartner,
+  marriage,
+  civilPartnership,
+}) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   line1: 'This is the information you provided. Check it to make sure it’s correct.',
@@ -377,7 +404,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2, ch
       }`,
       line2: `${
         userCase.applicant1CannotUploadDocuments && userCase.applicant1CannotUploadDocuments.length
-          ? 'I cannot upload some or all of my documents'
+          ? cannotUploadDocumentList(isDivorce, marriage, civilPartnership, userCase)
           : ''
       }`,
     },
@@ -503,8 +530,19 @@ const cy: typeof en = ({
   isJointApplication,
   isApplicant2,
   checkTheirAnswersPartner,
+  marriage,
+  civilPartnership,
 }) => ({
-  ...en({ isDivorce, partner, userCase, isJointApplication, isApplicant2, checkTheirAnswersPartner }),
+  ...en({
+    isDivorce,
+    partner,
+    userCase,
+    isJointApplication,
+    isApplicant2,
+    checkTheirAnswersPartner,
+    marriage,
+    civilPartnership,
+  }),
   sectionTitles: {
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'

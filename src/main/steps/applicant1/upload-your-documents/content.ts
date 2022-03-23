@@ -30,7 +30,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
       'You should upload at least one clear image which shows the whole document. If you think it will help court staff read the details you can upload more images. If your document has more than one page then you should upload at least one image of each page.',
     uploadFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
-    chooseFilePhoto: 'Choose a file or take a photo',
+    chooseFilePhoto: 'Choose a file',
     orStr: 'or',
     dragDropHere: 'Drag and drop files here',
     acceptedFileFormats: 'Accepted file formats:',
@@ -191,6 +191,7 @@ export const form: FormContent = {
                   name: 'applicant1CannotUpload',
                   label: l => l.cannotUploadDocuments,
                   value: Checkbox.Checked,
+                  conditionalText: l => l.cannotUploadYouCanPost,
                   subFields: {
                     applicant1CannotUploadDocuments: {
                       type: 'checkboxes',
@@ -200,7 +201,6 @@ export const form: FormContent = {
                         name: 'applicant1CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
-                        conditionalText: l => l.cannotUploadYouCanPost,
                       })),
                     },
                   },
