@@ -73,7 +73,8 @@ const getNextIncompleteStep = (
         : CHECK_ANSWERS_URL;
     }
   }
-  // to be updated
+
+  // if the page has no form then ask it where to go
   return step.getNextStep(data);
 };
 
