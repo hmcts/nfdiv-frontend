@@ -1,4 +1,4 @@
-import { AlternativeServiceType, ApplicationType, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType, DocumentType, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -68,7 +68,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const aosSubmitted = !content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue;
+  const aosSubmitted =
+    (!content.isJointApplication && content.userCase.applicant2IBelieveApplicationIsTrue) ||
+    content.userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS);
   const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
