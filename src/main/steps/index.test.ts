@@ -6,16 +6,23 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { applicant1PreSubmissionSequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
+  HOME_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
   YOUR_DETAILS_URL,
 } from './urls';
 
-import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
+import {
+  getNextIncompleteStepUrl,
+  getNextStepUrl,
+  isApplicationReadyToSubmit,
+  isConditionalOrderReadyToSubmit,
+} from './index';
 
 describe('Steps', () => {
   describe('getNextStep()', () => {
@@ -109,6 +116,42 @@ describe('Steps', () => {
       mockReq.session.userCase.state = State.ConditionalOrderDrafted;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
+    });
+  });
+
+  describe('isApplicationReadyToSubmit()', () => {
+    it('returns false if nextStepUrl is /irretrievable-breakdown', () => {
+      const isApplicationReadyToSubmitBoolean = isApplicationReadyToSubmit(HAS_RELATIONSHIP_BROKEN_URL);
+      expect(isApplicationReadyToSubmitBoolean).toBeFalsy();
+    });
+
+    it('returns true if nextStepUrl is /', () => {
+      const isApplicationReadyToSubmitBoolean = isApplicationReadyToSubmit(HOME_URL);
+      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    });
+
+    it('returns true if nextStepUrl starts with /pay', () => {
+      const isApplicationReadyToSubmitBoolean = isApplicationReadyToSubmit('/pay/?lng=eng');
+      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    });
+  });
+
+  describe('isConditionalOrderReadyToSubmit()', () => {
+    it('returns false if nextStepUrl is /continue-with-your-application', () => {
+      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(CONTINUE_WITH_YOUR_APPLICATION);
+      expect(isApplicationReadyToSubmitBoolean).toBeFalsy();
+    });
+
+    it('returns true if nextStepUrl is /', () => {
+      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(HOME_URL);
+      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    });
+
+    it('returns true if nextStepUrl contains /check-your-conditional-order-answers', () => {
+      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
+        `${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}?lng=eng`
+      );
+      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
     });
   });
 });
