@@ -8,7 +8,7 @@ import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { addConnectionsBasedOnQuestions } from './connections';
-import { setJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
+import { setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
 
 @autobind
 export class JurisdictionPostController extends PostController<AnyObject> {
@@ -33,7 +33,7 @@ export class JurisdictionPostController extends PostController<AnyObject> {
   }
 
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    const unreachableAnswersAsNull = setJurisdictionFieldsAsNull(req.session.userCase, true);
+    const unreachableAnswersAsNull = setUnreachableJurisdictionFieldsAsNull(req.session.userCase);
     const dataToSave = {
       ...unreachableAnswersAsNull,
       ...formData,
