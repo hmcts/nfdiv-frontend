@@ -112,7 +112,7 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'I cannot upload some or all of my documents'
+          ? 'Proof that I changed my name'
           : ''
       }`,
     },
@@ -232,7 +232,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau'
+          ? 'Prawf fy mod i wedi newid fy enw'
           : ''
       }`,
     },
