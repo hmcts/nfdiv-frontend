@@ -3,22 +3,19 @@ Feature: Final order
   Background: Logged in for hub page
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
-    And I go to '/'
+    And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
-    Then the page URL should be "/respondent/hub-page"
 
   Scenario: Applicant sole final order journey within a year
     Given I set the case state to "AwaitingFinalOrder"
     And a superuser updates "dateFinalOrderNoLongerEligible" with "2025-05-05"
-    When I click "Sign out"
+    When I click "Sign out"src/test/functional/features/applicant1-sole.feature
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
 

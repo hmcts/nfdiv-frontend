@@ -152,7 +152,7 @@ Feature: Applicant 1 sole application
     When I click "Continue to payment"
     Then the page should include "Pay your divorce fee"
     Given I pay and submit the application
-    Then the page should include "What you need to do now"
+    Then the page should include "Application submitted"
 
 
   @nightly
