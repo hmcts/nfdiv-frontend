@@ -153,13 +153,13 @@ const preSubmissionSequence: Step[] = [
     url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
+];
+
+const postSubmissionSequence: Step[] = [
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
   },
-];
-
-const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,

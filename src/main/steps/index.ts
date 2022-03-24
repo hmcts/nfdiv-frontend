@@ -121,15 +121,13 @@ export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase);
 
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return stateSequence.isAtOrBefore(State.Holding)
-      ? respondentPreSubmissionSequence
-      : respondentPostSubmissionSequence;
+    return stateSequence.isBefore(State.Holding) ? respondentPreSubmissionSequence : respondentPostSubmissionSequence;
   } else if (req.session.isApplicant2) {
-    return stateSequence.isAtOrBefore(State.Submitted)
+    return stateSequence.isBefore(State.Applicant2Approved)
       ? applicant2PreSubmissionSequence
       : applicant2PostSubmissionSequence;
   } else {
-    return stateSequence.isAtOrBefore(State.Submitted)
+    return stateSequence.isBefore(State.AwaitingHWFDecision)
       ? applicant1PreSubmissionSequence
       : applicant1PostSubmissionSequence;
   }

@@ -402,6 +402,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
   },
+];
+
+export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
@@ -410,9 +413,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: APPLICATION_ENDED,
     getNextStep: () => HOME_URL,
   },
-];
-
-export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
