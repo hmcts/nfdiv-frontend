@@ -390,6 +390,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => PAY_AND_SUBMIT,
   },
+];
+
+export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: PAY_YOUR_FEE,
     getNextStep: () => PAYMENT_CALLBACK_URL,
@@ -402,9 +405,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
   },
-];
-
-export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
