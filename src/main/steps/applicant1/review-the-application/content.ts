@@ -177,14 +177,8 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     userCase.applicant2SolicitorAddress?.trim();
   const hasApplicant1SolicitorsAddress = !!userCase.applicant1SolicitorAddress?.trim();
   const hasApplicant2SolicitorsAddress = !!userCase.applicant2SolicitorAddress?.trim();
-  const whatThisMeansJurisdictionsMoreDetails = accessibleDetailsSpan(
-    translations['whatThisMeans'],
-    translations['subHeading3']
-  );
-  const whatThisMeansFinancialOrderMoreDetails = accessibleDetailsSpan(
-    translations['whatThisMeans'],
-    translations['subHeading6']
-  );
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   return {
     ...translations,
     form,
@@ -195,7 +189,7 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     solInfoEntered,
     hasApplicant1SolicitorsAddress,
     hasApplicant2SolicitorsAddress,
-    whatThisMeansJurisdictionsMoreDetails,
-    whatThisMeansFinancialOrderMoreDetails,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
   };
 };
