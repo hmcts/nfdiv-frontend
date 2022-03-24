@@ -31,11 +31,11 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
       isJointApplication ? 'applicant 2' : 'the respondent'
     } is domiciled in England and Wales`,
     [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
-      'The parties registered as civil partners of each other in ' +
-      'England or Wales and it would be in the interest of justice for the court to assume jurisdiction in this case.',
+      'the parties registered as civil partners of each other in ' +
+      'England or Wales and it would be in the interest of justice for the court to assume jurisdiction in this case',
     [JurisdictionConnections.RESIDUAL_JURISDICTION_D]:
-      'The parties married each other under the law of England and ' +
-      'Wales and it would be in the interests of justice for the court to assume jurisdiction in this case.',
+      'the parties married each other under the law of England and ' +
+      'Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'applicant 1 is habitually resident in England and Wales',
   };
 
@@ -65,8 +65,8 @@ export const enConnectionUserReads = (
     [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
       'you and your civil partner registered your civil partnership in ' +
       'England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `You and your ${partner} and married each other in England and Wales
-    and it would be in the interests of justice for the court to assume jurisdiction in this case.`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `you and your ${partner} and married each other in England and Wales
+    and it would be in the interests of justice for the court to assume jurisdiction in this case`,
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'you are habitually resident in England and Wales',
   };
 };
