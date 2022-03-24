@@ -59,3 +59,7 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
   }
   return addressFields;
 };
+
+export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
+  return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
+};

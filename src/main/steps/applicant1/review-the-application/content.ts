@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -67,6 +67,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
       Each legal statement includes some or all of the following legal connections to England or Wales.` +
     '<br><br>' +
     jurisdictionMoreDetailsContent(userCase.connections, isDivorce).text,
+  whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line18: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
@@ -176,8 +177,14 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     userCase.applicant2SolicitorAddress?.trim();
   const hasApplicant1SolicitorsAddress = !!userCase.applicant1SolicitorAddress?.trim();
   const hasApplicant2SolicitorsAddress = !!userCase.applicant2SolicitorAddress?.trim();
-  const whatThisMeansJurisdictionsMoreDetails = whatThisMeansAccessibleSpan(translations['subHeading3']);
-  const whatThisMeansFinancialOrderMoreDetails = whatThisMeansAccessibleSpan(translations['subHeading6']);
+  const whatThisMeansJurisdictionsMoreDetails = accessibleDetailsSpan(
+    translations['whatThisMeans'],
+    translations['subHeading3']
+  );
+  const whatThisMeansFinancialOrderMoreDetails = accessibleDetailsSpan(
+    translations['whatThisMeans'],
+    translations['subHeading6']
+  );
   return {
     ...translations,
     form,
@@ -191,8 +198,4 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     whatThisMeansJurisdictionsMoreDetails,
     whatThisMeansFinancialOrderMoreDetails,
   };
-};
-
-export const whatThisMeansAccessibleSpan = (detail: string): string => {
-  return 'What this means' + '</span><span class="govuk-visually-hidden"> &nbsp - ' + detail;
 };
