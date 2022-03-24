@@ -26,10 +26,6 @@ export class StateSequence {
   public isBefore(state: string): boolean {
     return this.stateIndex < this.states.indexOf(state);
   }
-
-  public isAtOrBefore(state: string): boolean {
-    return this.stateIndex <= this.states.indexOf(state);
-  }
 }
 
 export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => {

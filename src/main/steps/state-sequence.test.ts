@@ -17,9 +17,4 @@ describe('StateSequence', () => {
     const mockUserCase = { state: State.AwaitingPronouncement };
     expect(currentStateFn(mockUserCase).isAtOrAfter('AwaitingPronouncement')).toBeTruthy();
   });
-
-  test('Should ensure state is before or at test states', () => {
-    const mockUserCase = { state: State.AwaitingPronouncement };
-    expect(currentStateFn(mockUserCase).isAtOrBefore('AwaitingPronouncement')).toBeTruthy();
-  });
 });
