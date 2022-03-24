@@ -30,7 +30,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(5);
+  test.retries(10);
 });
 
 After(async () => {
