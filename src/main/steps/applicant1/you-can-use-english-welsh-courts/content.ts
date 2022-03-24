@@ -112,13 +112,10 @@ export const form: FormContent = {
     } else {
       filters.push(removeConnectionC);
     }
-    if (userCase.divorceOrDissolution !== DivorceOrDissolution.DISSOLUTION) {
+    if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE) {
       filters.push(removeConnectionI);
     }
-    if (
-      userCase === DivorceOrDissolution.DISSOLUTION ||
-      (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked)
-    ) {
+    if (userCase === DivorceOrDissolution.DISSOLUTION || userCase.sameSex !== Checkbox.Checked) {
       filters.push(removeConnectionI2);
     }
 
