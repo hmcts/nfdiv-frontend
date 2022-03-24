@@ -13,7 +13,7 @@ import { CommonContent } from '../../common/common.content';
 import { getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplication }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -52,7 +52,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
-    ? enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)
+    ? enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication)
     : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
