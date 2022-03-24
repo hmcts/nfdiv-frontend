@@ -1,6 +1,6 @@
 Feature: Final order
 
-  Background:
+  Background: Logged in for hub page
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
