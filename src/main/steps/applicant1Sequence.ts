@@ -233,7 +233,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
-      data.jurisdictionResidualEligible === Checkbox.Checked
+      data.jurisdictionResidualEligible === YesOrNo.YES
         ? JURISDICTION_INTERSTITIAL_URL
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
