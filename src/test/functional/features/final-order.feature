@@ -15,7 +15,7 @@ Feature: Final order
   Scenario: Applicant sole final order journey within a year
     Given I set the case state to "AwaitingFinalOrder"
     And a superuser updates "dateFinalOrderNoLongerEligible" with "2025-05-05"
-    When I click "Sign out"src/test/functional/features/applicant1-sole.feature
+    When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
 
