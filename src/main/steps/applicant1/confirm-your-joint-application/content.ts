@@ -11,6 +11,7 @@ import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/juri
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
+import { formattedCaseId } from '../../common/content.utils';
 import { getName } from '../hub-page/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
@@ -28,7 +29,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
   caseReferenceHeading: 'Case reference number',
-  caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
+  caseReferenceValue: formattedCaseId(userCase.id),
   line4: 'Applicant 1',
   line5: getName(userCase, 'applicant1'),
   line6: 'Applicant 2',
@@ -41,7 +42,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  line12: `${userCase.ceremonyPlace}`,
+  line12: userCase.ceremonyPlace,
   line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line14: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',

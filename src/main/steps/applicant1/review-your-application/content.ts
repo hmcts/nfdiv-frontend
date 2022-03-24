@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
@@ -25,7 +25,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   } ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
   listItem2: 'to make a financial order',
   caseReferenceHeading: 'Case reference number',
-  caseReferenceValue: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
+  caseReferenceValue: formattedCaseId(userCase.id),
   issuedDateHeading: 'Issued',
   issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
   applicantHeading: 'Applicant',

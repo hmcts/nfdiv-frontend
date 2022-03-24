@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId, getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -27,7 +27,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   line3: 'Issued',
   line4: {
     key: 'Case reference number',
-    value: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
+    value: formattedCaseId(userCase.id),
   },
   line5: 'Applicant',
   line6: `${userCase.applicant1FirstNames} ${

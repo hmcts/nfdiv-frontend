@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
@@ -30,7 +30,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   issuedDateHeading: 'Issued',
   issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
   caseReferenceHeading: 'Case reference number',
-  caseReferenceValue: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
+  caseReferenceValue: formattedCaseId(userCase.id),
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',

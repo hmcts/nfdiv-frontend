@@ -60,6 +60,10 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
   return addressFields;
 };
 
+export const formattedCaseId = (caseId: string | undefined): string | undefined => {
+  return caseId?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+};
+
 export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
   return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
 };
