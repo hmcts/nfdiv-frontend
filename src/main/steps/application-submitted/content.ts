@@ -1,11 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { isCountryUk } from '../../applicant1Sequence';
-import type { CommonContent } from '../../common/common.content';
-import { StateSequence } from '../../state-sequence';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
+import { TranslationFn } from '../../app/controller/GetController';
+import { isCountryUk } from '../applicant1Sequence';
+import type { CommonContent } from '../common/common.content';
+import { StateSequence } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
@@ -165,6 +165,10 @@ export const generateContent: TranslationFn = content => {
     !isRespondentOverseas &&
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
+  const cannotUploadDocuments = new Set([
+    ...(userCase.applicant1CannotUploadDocuments as []),
+    ...(userCase.applicant2CannotUploadDocuments as []),
+  ]);
   return {
     ...languages[language]({ ...content, referenceNumber }),
     currentState,
@@ -173,5 +177,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentOverseas,
     applicationServedAnotherWay,
     referenceNumber,
+    cannotUploadDocuments,
   };
 };
