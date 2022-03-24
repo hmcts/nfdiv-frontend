@@ -104,9 +104,6 @@ Given("I've completed all happy path questions correctly", async () => {
   checkOptionFor('Yes', 'Is your husband’s life mainly based in England or Wales?');
   iClick('Continue');
 
-  I.waitInUrl('/you-can-use-english-welsh-courts');
-  iClick('Continue');
-
   I.waitInUrl('/enter-your-name');
   iClearTheForm();
   iClick('first name');
