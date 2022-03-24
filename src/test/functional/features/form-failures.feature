@@ -187,10 +187,6 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/english-or-welsh"
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/address-private"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -330,11 +326,6 @@ Feature: Form failures
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-    Given I go to "/respondent/english-or-welsh"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-
     Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
@@ -416,11 +407,6 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
     And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
-
-    Given I go to "/applicant2/english-or-welsh"
-    And I clear the form
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
     Given I go to "/applicant2/address-private"
     And I clear the form
