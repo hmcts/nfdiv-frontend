@@ -22,6 +22,10 @@ import {
 
 const preSubmissionSequence: Step[] = [
   {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
