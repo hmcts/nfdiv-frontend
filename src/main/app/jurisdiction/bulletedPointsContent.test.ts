@@ -51,7 +51,7 @@ describe('jurisdictionBulletPointContent', () => {
 
   test('Given only residual jurisdiction connection, should find connection C for user reads for civil partnership', async () => {
     const expected =
-      'you and your husband registered your civil partnership in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case';
+      'you and your civil partner registered your civil partnership in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case';
     const result = enConnectionUserReads('husband', false, false)[JurisdictionConnections.RESIDUAL_JURISDICTION_CP];
     expect(result).toEqual(expected);
   });

@@ -94,27 +94,31 @@ export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { name: string; label: Label; value: JurisdictionConnections }[] = [];
     const preMadeConnections = addConnectionsBasedOnQuestions(userCase);
+    const jointConnectionsOnly = [
+      JurisdictionConnections.APP_1_RESIDENT_JOINT,
+      JurisdictionConnections.APP_2_RESIDENT_JOINT,
+    ];
 
     const removePreMadeConnections = c => !preMadeConnections.includes(c);
-    const removeConnectionJ = c => c !== JurisdictionConnections.APP_1_RESIDENT_JOINT;
+    const removeConnectionsJC2 = c => !jointConnectionsOnly.includes(c);
     const removeConnectionC = c => c !== JurisdictionConnections.APP_2_RESIDENT_SOLE;
-    const removeConnectionC2 = c => c !== JurisdictionConnections.APP_2_RESIDENT_JOINT;
     const removeConnectionI = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION_CP;
     const removeConnectionI2 = c => c !== JurisdictionConnections.RESIDUAL_JURISDICTION_D;
 
     const filters = [removePreMadeConnections];
 
     if (userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      filters.push(removeConnectionJ);
-      filters.push(removeConnectionC2);
-    }
-    if (userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
+      filters.push(removeConnectionsJC2);
+    } else {
       filters.push(removeConnectionC);
     }
     if (userCase.divorceOrDissolution !== DivorceOrDissolution.DISSOLUTION) {
       filters.push(removeConnectionI);
     }
-    if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked) {
+    if (
+      userCase === DivorceOrDissolution.DISSOLUTION ||
+      (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE && userCase.sameSex !== Checkbox.Checked)
+    ) {
       filters.push(removeConnectionI2);
     }
 
