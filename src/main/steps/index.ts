@@ -101,7 +101,7 @@ export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
 };
 
 export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
-  const finalUrls = [HOME_URL, CHECK_ANSWERS_URL, `${APPLICANT_2 + HOME_URL}`];
+  const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
   const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
 
   return (
