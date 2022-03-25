@@ -208,10 +208,10 @@ const postSubmissionSequence: Step[] = [
 ];
 
 const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
-  return theSequence.map(sequence => ({
-    ...sequence,
-    url: `${APPLICANT_2}${sequence.url}`,
-    getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
+  return theSequence.map(step => ({
+    ...step,
+    url: `${APPLICANT_2}${step.url}`,
+    getNextStep: data => `${APPLICANT_2}${step.getNextStep(data)}`,
   }));
 };
 

@@ -22,10 +22,6 @@ import {
 
 const preSubmissionSequence: Step[] = [
   {
-    url: HUB_PAGE,
-    getNextStep: () => HOME_URL,
-  },
-  {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
@@ -60,6 +56,10 @@ const preSubmissionSequence: Step[] = [
     url: CHECK_ANSWERS_URL,
     getNextStep: () => HUB_PAGE,
   },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 const postSubmissionSequence: Step[] = [
@@ -90,10 +90,10 @@ const postSubmissionSequence: Step[] = [
 ];
 
 const addRespondentPrefix = (theSequence: Step[]): Step[] => {
-  return theSequence.map(sequence => ({
-    ...sequence,
-    url: `${RESPONDENT}${sequence.url}`,
-    getNextStep: data => `${RESPONDENT}${sequence.getNextStep(data)}`,
+  return theSequence.map(step => ({
+    ...step,
+    url: `${RESPONDENT}${step.url}`,
+    getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
 };
 
