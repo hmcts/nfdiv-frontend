@@ -68,3 +68,6 @@ if (upload) {
   upload.classList.remove(hidden);
   initUploadManager();
 }
+
+const fileInput = qs('.uppy-FileInput-input');
+fileInput?.setAttribute('tabindex', '-1');
