@@ -49,7 +49,7 @@
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
-        {% for document in userCase.applicant1CannotUploadDocuments %}
+        {% for document in cannotUploadDocuments %}
           <li>{{ documents[document] }}</li>
         {% endfor %}
       </ul>
