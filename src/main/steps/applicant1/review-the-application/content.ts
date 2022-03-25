@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, getAddressFields, getAppSolAddressFields } from '../../common/content.utils';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -177,6 +177,8 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     userCase.applicant2SolicitorAddress?.trim();
   const hasApplicant1SolicitorsAddress = !!userCase.applicant1SolicitorAddress?.trim();
   const hasApplicant2SolicitorsAddress = !!userCase.applicant2SolicitorAddress?.trim();
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   return {
     ...translations,
     form,
@@ -187,5 +189,7 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     solInfoEntered,
     hasApplicant1SolicitorsAddress,
     hasApplicant2SolicitorsAddress,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
   };
 };
