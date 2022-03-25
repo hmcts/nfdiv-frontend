@@ -1,0 +1,41 @@
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="applicant1ConfirmInformationStillCorrect-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">{{ confirmInformationStillCorrect }}</legend>
+      <div class="govuk-radios govuk-radios" data-module="govuk-radios">
+        <div class="govuk-radios__item">
+          <input type="radio"  class="govuk-radios__input"
+            {{ 'checked' if userCase.applicant1ConfirmInformationStillCorrect === 'Yes'}}
+                 id="applicant1ConfirmInformationStillCorrectYes" name="applicant1ConfirmInformationStillCorrect" value="Yes">
+          <label class="govuk-label govuk-radios__label" for="applicant1ConfirmInformationStillCorrectYes">{{ yes }}</label>
+        </div>
+        <div class="govuk-radios__item">
+          <input type="radio" class="govuk-radios__input"
+                 id="applicant1ConfirmInformationStillCorrectNo" name="applicant1ConfirmInformationStillCorrect" value="No"
+            {{ 'checked' if userCase.applicant1ConfirmInformationStillCorrect === 'No'}}
+                 aria-controls="conditional-applicant1ConfirmInformationStillCorrectNo" aria-expanded="true">
+          <label class="govuk-label govuk-radios__label" for="applicant1ConfirmInformationStillCorrectNo">{{ no }}</label>
+        </div>
+        <div class="govuk-radios__conditional" id="conditional-applicant1ConfirmInformationStillCorrectNo">
+          <div class="govuk-form-group">
+            <label class="govuk-label hidden" for="applicant1ReasonInformationNotCorrect">{{ title }}</label>
+            <div id="applicant1ReasonInformationNotCorrect-hint" class="govuk-hint">
+              <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ reasonInformationNotCorrect.heading1 }}</h3>
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                {{ reasonInformationNotCorrect.part1 }} <a class="govuk-link" href="{{ reasonInformationNotCorrect.link }}">{{ reasonInformationNotCorrect.linkText }}</a>{{ reasonInformationNotCorrect.part2 }}
+              </p>
+              <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ reasonInformationNotCorrect.heading2 }}</h3>
+              <p class="govuk-body">{{ reasonInformationNotCorrect.part3 }}</p>
+              {{ reasonInformationNotCorrectHint }}
+            </div>
+            <textarea class="govuk-textarea" rows="5" aria-describedby="applicant1ReasonInformationNotCorrect-hint"
+                      id="applicant1ReasonInformationNotCorrect" name="applicant1ReasonInformationNotCorrect"
+            >{{ userCase.applicant1ReasonInformationNotCorrect }}</textarea>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+{% endblock %}

@@ -108,17 +108,17 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   heading13: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
-  reasonInformationNotCorrect: `<strong>Changing your contact details</strong>
-    <br>
-    You can update your address and phone number in the <a class="govuk-link" href="${CHECK_CONTACT_DETAILS}">‘contact details’ section of your ${
-    isDivorce ? 'divorce' : ''
-  } account.</a> There is no cost for this.</p>
-    <br>
-    <p class="govuk-body"><strong>Changing any other information</strong>
-    <br>
-    If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${getFee(
+  reasonInformationNotCorrect: {
+    heading1: 'Changing your contact details',
+    part1: 'You can update your address and phone number in the',
+    link: CHECK_CONTACT_DETAILS,
+    linkText: `'contact details' section of your ${isDivorce ? 'divorce' : ''} account.`,
+    part2: 'There is no cost for this.',
+    heading2: 'Changing any other information',
+    part3: `If you want to change any other information then you should provide details below. The court will review it and you may need to pay a ${getFee(
       config.get('fees.updateApplication')
     )} fee. This is because the application will need to be updated and may need to be sent to your ${partner} again.`,
+  },
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',
   errors: {
@@ -138,9 +138,7 @@ const cy = en;
 export const form: FormContent = {
   fields: {
     applicant1ConfirmInformationStillCorrect: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.confirmInformationStillCorrect,
+      type: 'hidden',
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         {
@@ -148,14 +146,8 @@ export const form: FormContent = {
           value: YesOrNo.NO,
           subFields: {
             applicant1ReasonInformationNotCorrect: {
-              type: 'textarea',
+              type: 'hidden',
               label: l => l.title,
-              labelHidden: true,
-              hint: l => `
-                <p class="govuk-body">
-                  ${l.reasonInformationNotCorrect}
-                </p>
-                ${l.reasonInformationNotCorrectHint}`,
               validator: value => isFieldFilledIn(value),
             },
           },
