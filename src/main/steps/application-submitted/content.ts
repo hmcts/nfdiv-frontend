@@ -166,8 +166,8 @@ export const generateContent: TranslationFn = content => {
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
   const cannotUploadDocuments = new Set([
-    ...(userCase.applicant1CannotUploadDocuments as []),
-    ...(userCase.applicant2CannotUploadDocuments as []),
+    ...(userCase.applicant1CannotUploadDocuments || []),
+    ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   return {
     ...languages[language]({ ...content, referenceNumber }),

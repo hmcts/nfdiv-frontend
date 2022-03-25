@@ -13,6 +13,8 @@ describe('ApplicationSubmittedGetController', () => {
 
   test('Should render the application submitted page with divorce content', async () => {
     const req = mockRequest();
+    req.session.userCase.applicant1CannotUploadDocuments = [];
+    req.session.userCase.applicant2CannotUploadDocuments = [];
     const res = mockResponse();
     await controller.get(req, res);
     const isDivorce = true;
@@ -32,6 +34,7 @@ describe('ApplicationSubmittedGetController', () => {
 
   test('Should render the application submitted page with civil content', async () => {
     const req = mockRequest();
+    req.session.userCase.applicant1CannotUploadDocuments = [];
     const res = mockResponse();
     res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
     await controller.get(req, res);
