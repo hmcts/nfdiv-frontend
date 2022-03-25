@@ -1,22 +1,24 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { ApplicationType, CITIZEN_UPDATE, State } from '../../../app/case/definition';
+import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../../../app/case/definition';
+import { PostController } from '../../../app/controller/PostController';
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
-import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
+import { SAVE_AND_SIGN_OUT, SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
 import ApplicationTypePostController from './post';
 
 describe('ApplicationTypePostController', () => {
+  const mockFormContent = {
+    fields: {
+      applicationType: {},
+    },
+  } as unknown as FormContent;
+
   test('Should redirect to switch to sole page', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
-    const mockFormContent = {
-      fields: {
-        applicationType: {},
-      },
-    } as unknown as FormContent;
 
     const applicationTypeController = new ApplicationTypePostController(mockFormContent.fields);
 
@@ -31,11 +33,6 @@ describe('ApplicationTypePostController', () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
-    const mockFormContent = {
-      fields: {
-        applicationType: {},
-      },
-    } as unknown as FormContent;
 
     const applicationTypeController = new ApplicationTypePostController(mockFormContent.fields);
 
@@ -55,11 +52,6 @@ describe('ApplicationTypePostController', () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
-    const mockFormContent = {
-      fields: {
-        applicationType: {},
-      },
-    } as unknown as FormContent;
 
     const applicationTypeController = new ApplicationTypePostController(mockFormContent.fields);
 
@@ -72,5 +64,22 @@ describe('ApplicationTypePostController', () => {
     };
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedFormData, CITIZEN_UPDATE);
+  });
+
+  it('calls save and sign out when saveAndSignOut true', async () => {
+    const body = { applicationType: ApplicationType.SOLE_APPLICATION, saveAndSignOut: true };
+    const controller = new PostController(mockFormContent.fields);
+
+    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { applicationType: 'soleApplication' },
+      CITIZEN_SAVE_AND_CLOSE
+    );
+
+    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 });
