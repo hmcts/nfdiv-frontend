@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 
 const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
   return {
@@ -90,8 +91,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const readMoreJurisdiction = accessibleDetailsSpan(translations['readMore'], translations['title']);
   return {
     ...translations,
+    readMoreJurisdiction,
     form,
   };
 };
