@@ -55,7 +55,7 @@
   <p class="govuk-body">{{ respondentNames }}</p>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansApplicantRespondent,
       html: whatThisMeansContent1
   }) }}
 
@@ -80,7 +80,7 @@
   </ul>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansJurisdiction,
       html: whatThisMeansContent2
   }) }}
 
@@ -104,7 +104,7 @@
   {% endif %}
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansFinancialOrder,
       html: whatThisMeansContent3
   }) }}
 
