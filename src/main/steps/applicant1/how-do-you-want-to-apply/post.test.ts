@@ -1,7 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../../../app/case/definition';
-import { PostController } from '../../../app/controller/PostController';
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SAVE_AND_SIGN_OUT, SWITCH_TO_SOLE_APPLICATION } from '../../urls';
@@ -68,11 +67,11 @@ describe('ApplicationTypePostController', () => {
 
   it('calls save and sign out when saveAndSignOut true', async () => {
     const body = { applicationType: ApplicationType.SOLE_APPLICATION, saveAndSignOut: true };
-    const controller = new PostController(mockFormContent.fields);
+    const applicationTypeController = new ApplicationTypePostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({ body, userCase: { applicationType: ApplicationType.SOLE_APPLICATION } });
     const res = mockResponse();
-    await controller.post(req, res);
+    await applicationTypeController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
