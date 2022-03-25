@@ -390,6 +390,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => PAY_AND_SUBMIT,
   },
+  {
+    url: APPLICATION_ENDED,
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 export const applicant1PostSubmissionSequence: Step[] = [
@@ -407,10 +411,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
-  },
-  {
-    url: APPLICATION_ENDED,
     getNextStep: () => HOME_URL,
   },
   {
