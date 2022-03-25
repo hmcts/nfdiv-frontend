@@ -275,7 +275,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -284,7 +284,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ENTER_YOUR_ADDRESS,
     getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? OTHER_COURT_CASES : DO_THEY_HAVE_A_SOLICITOR,
+      hasApp1Confirmed(data)
+        ? ADDRESS_PRIVATE
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? OTHER_COURT_CASES
+        : DO_THEY_HAVE_A_SOLICITOR,
   },
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
@@ -487,6 +491,11 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
 ];
+
+const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
+  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
+  data.applicant1IConfirmPrayer === Checkbox.Checked &&
+  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
 
 export const isCountryUk = (value: string | undefined): boolean => {
   const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];
