@@ -65,7 +65,7 @@ export const enConnectionUserReads = (
     [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
       'you and your civil partner registered your civil partnership in ' +
       'England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `you and your ${partner} and married each other in England and Wales
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `you and your ${partner} married each other in England and Wales
     and it would be in the interests of justice for the court to assume jurisdiction in this case`,
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'you are habitually resident in England and Wales',
   };
