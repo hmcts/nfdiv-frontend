@@ -92,11 +92,13 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 };
 
 export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
-  const finalUrls = [HOME_URL, CHECK_ANSWERS_URL, `${APPLICANT_2 + CONFIRM_JOINT_APPLICATION}`];
+  const finalUrls = [HOME_URL, `${APPLICANT_2 + CONFIRM_JOINT_APPLICATION}`];
   const startsWithUrls = ['/pay', APPLICATION_SUBMITTED];
 
   return (
-    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || startsWithUrls.some(url => nextStepUrl.startsWith(url))
+    nextStepUrl.includes(CHECK_ANSWERS_URL) ||
+    finalUrls.some(url => url === nextStepUrl.split('?')[0]) ||
+    startsWithUrls.some(url => nextStepUrl.startsWith(url))
   );
 };
 

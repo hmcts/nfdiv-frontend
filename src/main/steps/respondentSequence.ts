@@ -60,6 +60,22 @@ const preSubmissionSequence: Step[] = [
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
+  {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
+  },
 ];
 
 const postSubmissionSequence: Step[] = [
