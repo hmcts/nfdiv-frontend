@@ -19,29 +19,30 @@
   {{ hmctsProgressBar({
     items: [{
       label: {
-        text: title
+        html: applicationSubmitted
       },
       complete: true
     }, {
       label: {
-        text: partnerResponse
+        html: partnerResponse
       },
       complete: currentState.isAfter('AwaitingApplicant2Response'),
       active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
-        text: conditionalOrderGranted
+        html: conditionalOrderGranted
       },
       complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
       active: userCase.state == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
-        text: applicationEnded
+        html: applicationEnded
       },
       complete: currentState.isAtOrAfter('FinalOrderComplete'),
       active: userCase.state == 'FinalOrderComplete'
     }]
   }) }}
+
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
@@ -117,6 +118,7 @@
       {% endif %}
     {% endif %}
   {% endif %}
+
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
   <p class="govuk-body">{{ line12.part1 }}<a class="govuk-link" href={{ line12.link }}>{{ line12.part2 }}</a></p>
   <p class="govuk-body">{{ line13.part1 }}<a class="govuk-link" href={{ line13.link }}>{{ line13.part2 }}</a></p>

@@ -1,11 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
+import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
-import { StateSequence } from '../state-sequence';
+import { accessibleProgressBarSpan } from '../common/content.utils';
+import { currentStateFn } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
@@ -13,9 +14,19 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
-  partnerResponse: `Your ${partner} responds`,
-  conditionalOrderGranted: 'Conditional order granted',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
+  applicationSubmitted: accessibleProgressBarSpan('Application submitted', true),
+  partnerResponse: accessibleProgressBarSpan(
+    `Your ${partner} responds`,
+    currentStateFn(userCase).isAfter('AwaitingApplicant2Response')
+  ),
+  conditionalOrderGranted: accessibleProgressBarSpan(
+    'Conditional order granted',
+    currentStateFn(userCase).isAfter('AwaitingLegalAdvisorReferral')
+  ),
+  applicationEnded: accessibleProgressBarSpan(
+    isDivorce ? 'Divorced' : 'Civil partnership ended',
+    currentStateFn(userCase).isAfter('FinalOrderComplete')
+  ),
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
@@ -148,12 +159,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
-  const currentState = new StateSequence([
-    State.Submitted,
-    State.AwaitingApplicant2Response,
-    State.AwaitingLegalAdvisorReferral,
-    State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
+  const currentState = currentStateFn(userCase);
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =

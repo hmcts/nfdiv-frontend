@@ -63,3 +63,7 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
 export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
   return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
 };
+
+export const accessibleProgressBarSpan = (progressBarLabel: string, isComplete: boolean): string => {
+  return progressBarLabel + `<span class="govuk-visually-hidden"> &nbsp; (${isComplete ? '' : 'not '}completed)`;
+};
