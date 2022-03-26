@@ -3,31 +3,31 @@
 {% if isJointApplication %}
   {% set items = [{
     label: {
-      text: applicationSubmitted
+      html: applicationSubmitted
     },
     complete: true,
     active: false
   }, {
     label: {
-      text: conditionalOrderApplication
+      html: conditionalOrderApplication
     },
     complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
-      text: conditionalOrderGranted
+      html: conditionalOrderGranted
     },
     complete: currentState.isAtOrAfter('ConditionalOrderPronounced'),
     active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
-      text: finalOrderApplication
+      html: finalOrderApplication
     },
     complete: currentState.isAfter('FinalOrderRequested'),
     active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
-      text: applicationEnded
+      html: applicationEnded
     },
     complete: userCase.state == 'FinalOrderComplete',
     active: userCase.state == 'FinalOrderRequested'
@@ -35,37 +35,37 @@
 {% else %}
   {% set items = [{
     label: {
-      text: applicationSubmitted
+      html: applicationSubmitted
     },
     complete: true,
     active: false
   }, {
     label: {
-      text: response
+      html: response
     },
     complete: currentState.isAfter('IssuedToBailiff'),
     active: currentState.isAtOrAfter('AwaitingAos') and currentState.isBefore('Holding')
   }, {
     label: {
-      text: conditionalOrderApplication
+      html: conditionalOrderApplication
     },
     complete: currentState.isAfter('AwaitingGeneralConsideration'),
     active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
-      text: conditionalOrderGranted
+      html: conditionalOrderGranted
     },
     complete: currentState.isAfter('AwaitingPronouncement'),
     active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
-      text: finalOrderApplication
+      html: finalOrderApplication
     },
     complete: currentState.isAfter('FinalOrderPending'),
     active:  currentState.isAtOrAfter('AwaitingFinalOrder') and currentState.isBefore('FinalOrderComplete')
   }, {
     label: {
-      text: applicationEnded
+      html: applicationEnded
     },
     complete: userCase.state == 'FinalOrderComplete'
   }] %}
