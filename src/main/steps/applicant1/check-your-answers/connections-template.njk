@@ -1,0 +1,27 @@
+{% set answerLine13 = stepAnswers.connectionsToEnglandWales.line13 %}
+{% set jurisdictioneDetails = answerLine13.jurisdictionMoreDetailsContent %}
+{% if userCase.connections and userCase.connections.length %}
+{{ answerLine13.heading }}
+  <ul class="govuk-list govuk-list--bullet">
+    {% for connectionBullet in answerLine13.connectionBullets %}
+      <li>{{ connectionBullet }}</li>
+    {% endfor %}
+  </ul>
+  <details class="govuk-details summary" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            {{ jurisdictioneDetails.title or jurisdictioneDetails.defaultLink }}
+          </span>
+    </summary>
+    <div class="govuk-details__text">
+      {% if jurisdictioneDetails.text.length == 1 %}
+        {{ jurisdictioneDetails.text[0] | safe }}
+      {% else %}
+        {% for jurisdictionItem in jurisdictioneDetails.text %}
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+          <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </details>
+{% endif %}

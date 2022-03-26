@@ -16,8 +16,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { enConnectionBulletPointsUserReadsArray } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContentArray } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
 const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
@@ -259,14 +259,12 @@ const en = ({
       line10: `${stripTags(userCase.applicant1LivingInEnglandWalesSixMonths)}`,
       line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
       line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
-      line13: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line13: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReadsArray(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContentArray(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -717,14 +715,12 @@ const cy: typeof en = ({
       line10: `${userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line13: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line13: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReadsArray(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContentArray(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,

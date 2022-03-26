@@ -23,10 +23,14 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class='govuk-body'>{{ line1 }}</p>
 
+  {% set connectionsTemplate %}
+    {% include "./connections-template.njk" %}
+  {% endset %}
+
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
       {% for line, text in stepAnswers[section] %}
-        {% if text and text != 'undefined' and text != 'null' %}
+        {% if text and text != 'undefined' and text != 'null' and not (section == 'connectionsToEnglandWales' and line == 'line13') %}
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
@@ -34,6 +38,25 @@
             },
             value: {
               text: text | safe
+            },
+            actions: {
+              items: [
+                {
+                  href: applicant2Url + stepLinks[section][line],
+                  text: change,
+                  visuallyHiddenText: stepQuestions[section][line]
+                }
+              ]
+            }
+          }), answerRows) %}
+        {% elseif section == 'connectionsToEnglandWales' and line == 'line13' %}
+          {% set answerRows = (answerRows.push({
+            key: {
+              html: stepQuestions[section][line],
+              classes: 'govuk-!-width-two-thirds'
+            },
+            value: {
+              text: connectionsTemplate | safe
             },
             actions: {
               items: [

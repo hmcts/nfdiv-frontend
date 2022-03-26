@@ -79,3 +79,11 @@ export const enConnectionBulletPointsUserReads = (
 
   return bulletPointText + '</ul>';
 };
+
+export const enConnectionBulletPointsUserReadsArray = (
+  connections: JurisdictionConnections[],
+  partner: string,
+  isDivorce: boolean
+): string[] => {
+  return connections.map(connection => enConnectionUserReads(partner, isDivorce)[connection]);
+};
