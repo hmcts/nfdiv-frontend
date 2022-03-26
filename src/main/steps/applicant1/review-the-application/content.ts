@@ -24,9 +24,9 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
     ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
     item2: 'to make a financial order',
   },
-  line3: 'Issued',
+  line3: 'Issued: ',
   line4: {
-    key: 'Case number',
+    key: 'Case number: ',
     value: userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4'),
   },
   line5: 'Applicant',
