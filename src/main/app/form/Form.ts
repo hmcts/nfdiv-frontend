@@ -145,6 +145,7 @@ export interface FormOptions {
   label?: Label;
   labelHidden?: boolean;
   labelSize?: string | null;
+  labelAttributes?: Record<string, string>;
   hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;

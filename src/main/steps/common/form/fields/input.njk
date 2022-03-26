@@ -7,7 +7,8 @@
   classes: field.classes,
   label: {
     text: getContent(field.label) if not field.labelHidden else "",
-    classes: labelClasses
+    classes: labelClasses,
+    attributes: field.labelAttributes
   },
   hint: {
     html: getContent(field.hint)
