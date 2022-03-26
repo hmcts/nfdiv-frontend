@@ -248,7 +248,7 @@ Feature: Applicant 1 joint application
     Then the page should include "Enter your name"
     Given I select "Your first name"
     And I type "Sarah"
-    And I select "Your middle name"
+    And I select "Your middle name(s) (if you have one)"
     And I type "Middle"
     And I select "Your last name"
     And I type "Smith"

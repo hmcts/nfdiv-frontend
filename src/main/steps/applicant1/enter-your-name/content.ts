@@ -8,7 +8,7 @@ const en = () => {
     title: 'Enter your name',
     line1: 'The court needs to know your full name.',
     firstNames: 'Your first name(s)',
-    middleNames: 'Your middle name(s)',
+    middleNames: 'Your middle name(s) (if you have one)',
     lastNames: 'Your last name(s)',
     errors: {
       applicant1FirstNames: {

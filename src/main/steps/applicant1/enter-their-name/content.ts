@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => {
     title: `Enter your ${partner}’s name`,
     line1: `The court needs to know your ${partner}’s full name.`,
     firstNames: `Your ${partner}’s first name(s)`,
-    middleNames: `Your ${partner}’s middle name(s)`,
+    middleNames: `Your ${partner}’s middle name(s) (if they have one)`,
     lastNames: `Your ${partner}’s last name(s)`,
     errors: {
       applicant2FirstNames: {
