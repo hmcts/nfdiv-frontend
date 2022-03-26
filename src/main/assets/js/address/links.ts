@@ -11,11 +11,16 @@ const hideSelectAddress = () => (getById('selectAddress') as HTMLElement).classL
 const updateLabels = (type: 'uk' | 'international') => {
   const labels = JSON.parse(getById('addressFieldLabels')?.textContent || '{}');
   (qs('.govuk-form-group.address1 label') as HTMLLabelElement).textContent = labels[type].line1;
-  (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.add('govuk-visually-hidden');
   (qs('.govuk-form-group.address2 label') as HTMLLabelElement).textContent = labels[type].line2;
   (qs('.govuk-form-group.addressTown label') as HTMLLabelElement).textContent = labels[type].town;
   (qs('.govuk-form-group.addressCounty label') as HTMLLabelElement).textContent = labels[type].county;
   (qs('.govuk-form-group.addressPostcode label') as HTMLLabelElement).textContent = labels[type].postcode;
+
+  if (type === 'uk') {
+    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.add('govuk-visually-hidden');
+  } else {
+    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.remove('govuk-visually-hidden');
+  }
 };
 
 const toggleInternationalAddressFields = (toggle: string) => {
