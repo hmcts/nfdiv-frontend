@@ -20,22 +20,6 @@ import { enConnectionBulletPointsUserReadsArray } from '../../../app/jurisdictio
 import { jurisdictionMoreDetailsContentArray } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
-  textAndTitleObject: Record<string, string>
-) => {
-  return `
-  <details class="govuk-details summary" data-module="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        ${textAndTitleObject.title || 'Find out more '}
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-      ${textAndTitleObject.text}
-    </div>
-  </details>`;
-};
-
 const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
@@ -50,12 +34,12 @@ const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswers
   return { text, title };
 };
 
-const getOtherCourtCasesMoreDetailsContent = () => {
+const otherCasesMoreDetails = () => {
   const title = 'Find out more about other court proceedings';
   const text =
     'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
     'It does not need to know about other court proceedings.';
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
 const cannotUploadDocumentList = (
@@ -358,11 +342,11 @@ const en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings} ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings,
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
@@ -802,12 +786,11 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
-       ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1LegalProceedings === YesOrNo.YES ? stripTags(userCase.applicant1LegalProceedingsDetails) : ''
       }`,
