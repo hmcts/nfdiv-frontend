@@ -36,7 +36,7 @@ const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => stri
   </details>`;
 };
 
-const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
+const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
     config.get('fees.applicationFee')
@@ -47,7 +47,7 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
 const getOtherCourtCasesMoreDetailsContent = () => {
@@ -220,24 +220,12 @@ const en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? 'I need help paying the fee'
-                : 'I do not need help paying the fee'
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: 'I need help paying the fee',
+        noHelpNeeded: 'I do not need help paying the fee',
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
@@ -676,24 +664,12 @@ const cy: typeof en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? "Mae angen help arnaf i dalu'r ffi"
-                : "Nid oes angen help arnaf i dalu'r ffi"
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: "Mae angen help arnaf i dalu'r ffi",
+        noHelpNeeded: "Nid oes angen help arnaf i dalu'r ffi",
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1AlreadyAppliedForHelpPaying
           ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES

@@ -27,36 +27,39 @@
     {% include "./connections-template.njk" %}
   {% endset %}
 
+  {% set hwfTemplate %}
+    {% if userCase.applicant1HelpPayingNeeded %}
+      {% set hwfAnswerLn1 = stepAnswers.helpWithFees.line1 %}
+      {{ hwfAnswerLn1.needHelp if userCase.applicant1HelpPayingNeeded === 'Yes' else hwfAnswerLn1.noHelpNeeded }}
+      {% if isApplicant2 %}
+        <details class="govuk-details summary" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">{{ hwfAnswerLn1.hwfMoreDetails.title or hwfAnswerLn1.defaultLink }}</span>
+          </summary>
+          <div class="govuk-details__text">{{ hwfAnswerLn1.hwfMoreDetails.text }}</div>
+        </details>
+      {% endif %}
+    {% endif %}
+  {% endset %}
+
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
       {% for line, text in stepAnswers[section] %}
-        {% if text and text != 'undefined' and text != 'null' and not (section == 'connectionsToEnglandWales' and line == 'line13') %}
+        {% if text and text != 'undefined' and text != 'null' %}
+          {% if section == 'connectionsToEnglandWales' and line == 'line13' %}
+            {% set textValue = connectionsTemplate %}
+          {% elseif section == 'helpWithFees' and line == 'line1' %}
+            {% set textValue = hwfTemplate %}
+          {% else %}
+            {% set textValue = text %}
+          {% endif %}
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
               classes: 'govuk-!-width-two-thirds'
             },
             value: {
-              text: text | safe
-            },
-            actions: {
-              items: [
-                {
-                  href: applicant2Url + stepLinks[section][line],
-                  text: change,
-                  visuallyHiddenText: stepQuestions[section][line]
-                }
-              ]
-            }
-          }), answerRows) %}
-        {% elseif section == 'connectionsToEnglandWales' and line == 'line13' %}
-          {% set answerRows = (answerRows.push({
-            key: {
-              html: stepQuestions[section][line],
-              classes: 'govuk-!-width-two-thirds'
-            },
-            value: {
-              text: connectionsTemplate | safe
+              text: textValue | safe
             },
             actions: {
               items: [
