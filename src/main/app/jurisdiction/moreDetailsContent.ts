@@ -26,58 +26,6 @@ export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean,
   showAllConnectionTypes = false
-): { text: string; title: string } => {
-  const connectionTypes = {
-    'Habitual residence': [
-      JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
-      JurisdictionConnections.APP_2_RESIDENT,
-      JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
-      JurisdictionConnections.APP_1_APP_2_RESIDENT,
-      JurisdictionConnections.APP_1_RESIDENT_JOINT,
-      JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS,
-    ],
-    Domicile: [
-      JurisdictionConnections.APP_1_APP_2_DOMICILED,
-      JurisdictionConnections.APP_1_DOMICILED,
-      JurisdictionConnections.APP_2_DOMICILED,
-    ],
-    'Residual jurisdiction': [JurisdictionConnections.RESIDUAL_JURISDICTION],
-  };
-
-  const connectionText = {
-    'Habitual residence': enHabitualResident,
-    Domicile: enDomicile,
-    'Residual jurisdiction': enResidual(isDivorce),
-  };
-
-  const connectionTypesMade: string[] = [];
-
-  for (const [key, value] of Object.entries(connectionTypes)) {
-    if ((connections && connections.some(c => value.includes(c))) || showAllConnectionTypes) {
-      connectionTypesMade.push(key);
-    }
-  }
-
-  let totalConnectionText = '';
-
-  if (connectionTypesMade.length === 1) {
-    return {
-      text: connectionText[connectionTypesMade[0]],
-      title: 'Read more about ' + connectionTypesMade[0].toLowerCase(),
-    };
-  } else {
-    for (const connectionType of connectionTypesMade) {
-      totalConnectionText +=
-        '<strong>' + connectionType + '</strong><br>' + connectionText[connectionType] + '<br><br>';
-    }
-    return { text: totalConnectionText.slice(0, -8), title: 'Read more about your connections' };
-  }
-};
-
-export const jurisdictionMoreDetailsContentArray = (
-  connections: JurisdictionConnections[] | undefined,
-  isDivorce: boolean,
-  showAllConnectionTypes = false
 ): { text: (string | { heading: string; body: string })[]; title: string } => {
   const connectionTypes = {
     'Habitual residence': [

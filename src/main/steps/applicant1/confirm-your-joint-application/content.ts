@@ -50,14 +50,14 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   connectionBulletPoints: userCase
     ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
     : [],
-  jurisdictionsMoreDetails:
-    `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
+  jurisdictionsMoreDetails: {
+    part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
-     Each legal statement includes some or all of the following legal connections to England or Wales.` +
-    '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+     Each legal statement includes some or all of the following legal connections to England or Wales.`,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+  },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${

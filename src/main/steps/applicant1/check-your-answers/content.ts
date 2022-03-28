@@ -17,7 +17,7 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReadsArray } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContentArray } from '../../../app/jurisdiction/moreDetailsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
 const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
@@ -234,7 +234,7 @@ const en = ({
       line13: {
         heading: 'Your answers indicate that you can apply in England and Wales because:',
         connectionBullets: enConnectionBulletPointsUserReadsArray(userCase.connections, partner, isDivorce),
-        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContentArray(userCase.connections, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
         defaultLink: 'Find out more',
       },
     },
@@ -678,7 +678,7 @@ const cy: typeof en = ({
       line13: {
         heading: 'Your answers indicate that you can apply in England and Wales because:',
         connectionBullets: enConnectionBulletPointsUserReadsArray(userCase.connections, partner, isDivorce),
-        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContentArray(userCase.connections, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
         defaultLink: 'Find out more',
       },
     },
