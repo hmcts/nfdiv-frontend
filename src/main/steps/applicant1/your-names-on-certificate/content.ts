@@ -58,6 +58,7 @@ export const form: FormContent = {
     applicant1FullNameOnCertificate: {
       type: 'text',
       classes: 'govuk-input--width-20',
+      autocomplete: 'full-name',
       label: l => l.applicant1FullNameOnCertificate,
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
@@ -65,6 +66,7 @@ export const form: FormContent = {
     applicant2FullNameOnCertificate: {
       type: 'text',
       classes: 'govuk-input--width-20',
+      autocomplete: 'full-name',
       label: l => l.applicant2FullNameOnCertificate,
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),

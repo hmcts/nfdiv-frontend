@@ -92,9 +92,7 @@ export const previousConnectionMadeUptoLastHabituallyResident = (
 };
 
 const hasResidualJurisdiction = (data, connections) => {
-  return (
-    allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === Checkbox.Checked
-  );
+  return allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === YesOrNo.YES;
 };
 
 export const addConnectionsBasedOnQuestions = (data: Partial<CaseWithId>): JurisdictionConnections[] => {

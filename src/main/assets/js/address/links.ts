@@ -15,6 +15,12 @@ const updateLabels = (type: 'uk' | 'international') => {
   (qs('.govuk-form-group.addressTown label') as HTMLLabelElement).textContent = labels[type].town;
   (qs('.govuk-form-group.addressCounty label') as HTMLLabelElement).textContent = labels[type].county;
   (qs('.govuk-form-group.addressPostcode label') as HTMLLabelElement).textContent = labels[type].postcode;
+
+  if (type === 'uk') {
+    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.add('govuk-visually-hidden');
+  } else {
+    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.remove('govuk-visually-hidden');
+  }
 };
 
 const toggleInternationalAddressFields = (toggle: string) => {
