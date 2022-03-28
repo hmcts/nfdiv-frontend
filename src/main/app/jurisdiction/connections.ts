@@ -71,8 +71,9 @@ export const allowedToAnswerResidualJurisdiction = (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.bothLastHabituallyResident === YesOrNo.NO &&
     (!previousConnectionMadeUptoLastHabituallyResident(data, connections) ||
-      (connections.length === 1 && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_CP)) ||
-      connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_D))
+      (connections.length === 1 &&
+        (connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_CP) ||
+          connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_D))))
   );
 };
 
