@@ -10,7 +10,7 @@ import {
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
-import Applicant2CheckYourAnswersPostController from './post';
+import Applicant2PrayerPostController from './post';
 
 describe('CheckYourAnswersPostController', () => {
   const mockFormContent = {
@@ -29,7 +29,7 @@ describe('CheckYourAnswersPostController', () => {
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
     };
-    const checkYourAnswerPostController = new Applicant2CheckYourAnswersPostController(mockFormContent.fields);
+    const checkYourAnswerPostController = new Applicant2PrayerPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     req.session.userCase.applicant2WhoIsFinancialOrderFor = [FinancialOrderFor.APPLICANT];
