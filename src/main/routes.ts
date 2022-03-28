@@ -15,6 +15,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
@@ -29,6 +30,7 @@ import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
+  APPLICATION_SUBMITTED,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
@@ -103,6 +105,7 @@ export class Routes {
     );
 
     app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
+    app.get(APPLICATION_SUBMITTED, errorHandler(new ApplicationSubmittedGetController().get));
 
     app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(
