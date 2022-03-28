@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplication }: CommonContent) => ({
@@ -186,9 +186,13 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[language](content);
   const isApplicant1AndApplicant2AddressPrivate = !isApplicant2 && userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isApplicant2AndApplicant1AddressPrivate = isApplicant2 && userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading6']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading12']);
   return {
     isApplicant1AndApplicant2AddressPrivate,
     isApplicant2AndApplicant1AddressPrivate,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
     ...translations,
     form,
   };

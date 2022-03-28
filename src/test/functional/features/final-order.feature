@@ -2,7 +2,9 @@ Feature: Final order
 
   Background: Logged in for hub page
     Given I create a new user and login
-    And I've already completed the form using the fixture "completeCase"
+
+  Scenario: Applicant sole final order journey within a year
+    Given I've already completed the form using the fixture "finalOrderCompleteCase"
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
@@ -11,10 +13,7 @@ Feature: Final order
     Then the page should include "Application submitted"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
-
-  Scenario: Applicant sole final order journey within a year
-    Given I set the case state to "AwaitingFinalOrder"
-    And a superuser updates "dateFinalOrderNoLongerEligible" with "2025-05-05"
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
@@ -27,8 +26,16 @@ Feature: Final order
     Then the page URL should be "/hub-page"
 
   Scenario: Applicant sole final order journey overdue
-    Given I set the case state to "FinalOrderOverdue"
-    And a superuser updates "dateFinalOrderNoLongerEligible" with "2022-01-01"
+    Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application submitted"
+    Given a case worker issues the application
+    And I enter my valid case reference and valid access code
+    And I set the case state to "FinalOrderOverdue"
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
@@ -47,9 +54,16 @@ Feature: Final order
 
 
   Scenario: Respondent sole final order journey
-    Given I set the case state to "FinalOrderOverdue"
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2021-01-01"
-    And a superuser updates "dateFinalOrderNoLongerEligible" with "2021-10-01"
+    Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application submitted"
+    Given a case worker issues the application
+    And I enter my valid case reference and valid access code
+    And I set the case state to "FinalOrderOverdue"
     When I click "Sign out"
     And I login with applicant "2"
 

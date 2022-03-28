@@ -57,7 +57,7 @@
   <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansJurisdiction,
       html: whatThisMeansContent1
   }) }}
 
@@ -92,7 +92,7 @@
   {% endif %}
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansFinancialOrder,
       html: whatThisMeansContent3
   }) }}
 

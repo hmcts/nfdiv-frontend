@@ -102,6 +102,9 @@ Feature: Applicant 2
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
     Then the page should include "Application submitted"
+    Given I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Application submitted"
 
 
   @nightly

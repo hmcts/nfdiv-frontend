@@ -407,10 +407,6 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => APPLICATION_SUBMITTED,
   },
   {
-    url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
-  },
-  {
     url: APPLICATION_ENDED,
     getNextStep: () => HOME_URL,
   },
