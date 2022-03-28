@@ -104,6 +104,9 @@ Given("I've completed all happy path questions correctly", async () => {
   checkOptionFor('Yes', 'Is your husband’s life mainly based in England or Wales?');
   iClick('Continue');
 
+  I.waitInUrl('/you-can-use-english-welsh-courts');
+  iClick('Continue');
+
   I.waitInUrl('/enter-your-name');
   iClearTheForm();
   iClick('first name');
@@ -136,10 +139,6 @@ Given("I've completed all happy path questions correctly", async () => {
   I.waitInUrl('/how-the-court-will-contact-you');
   iClearTheForm();
   iClick('I agree that the divorce service can send me notifications');
-  iClick('Continue');
-
-  I.waitInUrl('/english-or-welsh');
-  iClick('English');
   iClick('Continue');
 
   I.waitInUrl('/address-private');
@@ -183,9 +182,6 @@ Given("I've completed all happy path questions correctly", async () => {
   iClearTheForm();
   iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
-
-  I.waitForText('Equality and diversity questions');
-  iClick("I don't want to answer these questions");
 
   I.waitInUrl('/check-your-answers');
   iClearTheForm();

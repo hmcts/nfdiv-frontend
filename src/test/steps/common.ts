@@ -67,6 +67,10 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iWait = (time: number): void => {
+  I.wait(time);
+};
+
 export const iClickMoreDetailsComponent = (): void => {
   I.click("span[class='govuk-details__summary-text']");
 };
@@ -74,6 +78,7 @@ export const iClickMoreDetailsComponent = (): void => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 When('I click for more details', iClickMoreDetailsComponent);
+When('I wait {string} seconds', iWait);
 
 export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);

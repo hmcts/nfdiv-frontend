@@ -16,9 +16,16 @@ import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  CHECK_JURISDICTION,
   CONFIRM_JOINT_APPLICATION,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
   HOME_URL,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
   READ_THE_RESPONSE,
+  RESIDUAL_JURISDICTION,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
 
 const stepForms: Record<string, Form> = {};
@@ -87,6 +94,19 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
       ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
       : 0;
   const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
+
+  const jurisdictionUrls = [
+    WHERE_YOUR_LIVES_ARE_BASED_URL,
+    JURISDICTION_DOMICILE,
+    JURISDICTION_LAST_TWELVE_MONTHS,
+    HABITUALLY_RESIDENT_ENGLAND_WALES,
+    LIVING_ENGLAND_WALES_SIX_MONTHS,
+    RESIDUAL_JURISDICTION,
+  ];
+
+  if (jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))) {
+    return `${CHECK_JURISDICTION}${queryString}`;
+  }
 
   return `${url}${queryString}`;
 };
