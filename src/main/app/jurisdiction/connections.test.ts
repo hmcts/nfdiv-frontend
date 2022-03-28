@@ -8,9 +8,9 @@ import {
 } from './connections';
 
 describe('connections', () => {
-  test('Should be allowed to answer residual jurisdiction if residual jurisdiction connection is already made', async () => {
+  test('Should be allowed to answer residual jurisdiction if residual jurisdiction for dissolution connection is already made', async () => {
     const body = {
-      sameSex: Checkbox.Checked,
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       bothLastHabituallyResident: YesOrNo.NO,
     };
     const connections = [JurisdictionConnections.RESIDUAL_JURISDICTION_CP];
@@ -18,6 +18,19 @@ describe('connections', () => {
     const isAllowedToAnswerResidualJurisdiction = allowedToAnswerResidualJurisdiction(body, connections);
     expect(isAllowedToAnswerResidualJurisdiction).toBeTruthy();
   });
+
+  test('Should be allowed to answer residual jurisdiction if residual jurisdiction for divorce connection is already made', async () => {
+    const body = {
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      sameSex: Checkbox.Checked,
+      bothLastHabituallyResident: YesOrNo.NO,
+    };
+    const connections = [JurisdictionConnections.RESIDUAL_JURISDICTION_D];
+
+    const isAllowedToAnswerResidualJurisdiction = allowedToAnswerResidualJurisdiction(body, connections);
+    expect(isAllowedToAnswerResidualJurisdiction).toBeTruthy();
+  });
+
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A', async () => {
     const body = {
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
