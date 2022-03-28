@@ -11,15 +11,15 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
     } are habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `both parties to the ${
       isDivorce ? 'marriage' : 'civil partnership'
-    } were last habitually resident in England and Wales and one of them continues to reside there.`,
+    } were last habitually resident in England and Wales and one of them continues to reside there`,
     [JurisdictionConnections.APP_2_RESIDENT_SOLE]: 'the respondent is habitually resident in England and Wales',
-    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'applicant 2 is habitually resident in England and Wales.',
+    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'applicant 2 is habitually resident in England and Wales',
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
       'the applicant is habitually resident in England and Wales ' +
-      'and has resided there for at least one year immediately before the application was made.',
+      'and has resided there for at least one year immediately before the application was made',
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
       'The applicant is domiciled and habitually resident in England ' +
-      'and Wales and has resided there for at least six months immediately before the application was made.',
+      'and Wales and has resided there for at least six months immediately before the application was made',
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both parties to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }
