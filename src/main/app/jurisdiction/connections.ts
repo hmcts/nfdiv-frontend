@@ -72,8 +72,11 @@ export const allowedToAnswerResidualJurisdiction = (
     data.bothLastHabituallyResident === YesOrNo.NO &&
     (!previousConnectionMadeUptoLastHabituallyResident(data, connections) ||
       (connections.length === 1 &&
-        (connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_CP) ||
-          connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION_D))))
+        connections.some(c =>
+          [JurisdictionConnections.RESIDUAL_JURISDICTION_CP, JurisdictionConnections.RESIDUAL_JURISDICTION_D].includes(
+            c
+          )
+        )))
   );
 };
 
