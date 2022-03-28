@@ -115,7 +115,7 @@ export const form: FormContent = {
     if (userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE) {
       filters.push(removeConnectionI);
     }
-    if (userCase === DivorceOrDissolution.DISSOLUTION || userCase.sameSex !== Checkbox.Checked) {
+    if (userCase.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION || userCase.sameSex !== Checkbox.Checked) {
       filters.push(removeConnectionI2);
     }
 
