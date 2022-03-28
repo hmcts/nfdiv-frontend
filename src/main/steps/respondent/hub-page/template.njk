@@ -4,6 +4,9 @@
   {% if userCase.state == 'FinalOrderRequested' %}
     {% include "../../applicant1/hub-page/sole/latest-update-content/final-order-requested.njk" %}
 
+  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+    {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
+
   {% elif userCase.state == 'ConditionalOrderPronounced' %}
     {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
@@ -21,9 +24,6 @@
 
   {% elif userCase.state == 'Holding' %}
     {% include "./latest-update-content/holding.njk" %}
-
-  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
-    {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
 
   {% endif %}
 {% endblock %}

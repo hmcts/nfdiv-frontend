@@ -37,6 +37,20 @@ Feature: Sole hub page
     When I click "Review your contact details"
     Then the page URL should be "/check-contact-details"
 
+    When I click "Sign out"
+    And I login with applicant "2"
+    And I go to "/respondent/review-the-application"
+    Then the page should include "Review the divorce application"
+    Given I select "I have read the application for divorce"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/how-do-you-want-to-respond"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
+    And I go to '/respondent/check-your-answers'
+    And I select "I confirm that:"
+
+    When I click "Submit"
+    Then the page URL should be "/respondent/hub-page"
     Given I set the case state to "Holding"
     When I go to "/"
     Then the page should include "You have responded to the divorce application. You do not have to do anything further."

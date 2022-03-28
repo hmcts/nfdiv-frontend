@@ -116,7 +116,6 @@ Feature: Respondent
 
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
-    When I click "Sign out"
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
 
