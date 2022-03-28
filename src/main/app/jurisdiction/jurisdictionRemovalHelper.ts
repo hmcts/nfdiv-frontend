@@ -1,4 +1,4 @@
-import { stepsWithContentApplicant1 } from '../../steps';
+import { stepsWithContentPreSubmissionApplicant1 } from '../../steps';
 import { getAllPossibleAnswersForPath } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 
@@ -15,7 +15,7 @@ const jurisdictionFields = [
 ];
 
 export const setUnreachableJurisdictionFieldsAsNull = (userCase: Partial<Case>): Partial<Case> => {
-  const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentApplicant1);
+  const possibleAnswers = getAllPossibleAnswersForPath(userCase, stepsWithContentPreSubmissionApplicant1);
   jurisdictionFields.filter(field => !possibleAnswers.includes(field)).forEach(field => (userCase[field] = null));
 
   return userCase;
