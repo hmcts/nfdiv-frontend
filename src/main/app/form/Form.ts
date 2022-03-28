@@ -159,6 +159,7 @@ export interface FormInput {
   label: Label;
   hint?: Label;
   classes?: string;
+  autocomplete?: string;
   hidden?: boolean;
   selected?: boolean;
   value?: string | number;

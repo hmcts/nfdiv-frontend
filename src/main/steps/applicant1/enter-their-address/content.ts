@@ -139,6 +139,7 @@ export const form: FormContent = {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
+      autocomplete: 'postal-code',
       label: l => l.postcode,
       labelSize: null,
       attributes: {
