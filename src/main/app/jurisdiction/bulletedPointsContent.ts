@@ -18,7 +18,7 @@ export const enConnectionBulletPointsSummarisedForAllUsers = (
       'the applicant is habitually resident in England and Wales ' +
       'and has resided there for at least one year immediately before the application was made',
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
-      'The applicant is domiciled and habitually resident in England ' +
+      'the applicant is domiciled and habitually resident in England ' +
       'and Wales and has resided there for at least six months immediately before the application was made',
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both parties to the ${
       isDivorce ? 'marriage' : 'civil partnership'
