@@ -36,7 +36,7 @@
     {% endfor %}
   </ul>
   {{ govukDetails({
-    summaryText: whatThisMeans,
+    summaryHtml: whatThisMeansJurisdiction,
     html: jurisdictionsMoreDetails
   }) }}
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
@@ -55,7 +55,7 @@
     <p class="govuk-body">{{ financialOrderNo }}</p>
   {% endif %}
   {{ govukDetails({
-    summaryText: whatThisMeans,
+    summaryHtml: whatThisMeansFinancialOrder,
     html: financialOrderMoreDetails
   }) }}
   {% if isApplicant1AddressNotPrivate %}

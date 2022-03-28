@@ -16,6 +16,6 @@
   attributes: field.attributes,
   errorMessage: null if field.hideError else getError(fieldName),
   formGroup: {
-    classes: "hidden " + field.id if field.hidden else field.id
+    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
   }
 }) }}

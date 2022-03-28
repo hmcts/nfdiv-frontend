@@ -10,6 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
@@ -176,8 +177,17 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const whatThisMeansApplicantRespondent = accessibleDetailsSpan(
+    translations['whatThisMeans'],
+    'The terms applicant and respondent'
+  );
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading6']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading12']);
   return {
     ...translations,
     form,
+    whatThisMeansApplicantRespondent,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
   };
 };
