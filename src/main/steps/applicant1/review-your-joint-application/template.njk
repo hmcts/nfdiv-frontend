@@ -100,27 +100,27 @@
   }) }}
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
-  <h2 class="govuk-heading-m">{{ heading13 }}</h2>
-  <p class="govuk-body">
-    {% for line in applicant1Address %}{{ line }}<br>{% endfor %}
-  </p>
+    <h2 class="govuk-heading-m">{{ heading13 }}</h2>
+    <p class="govuk-body">
+      {% for line in applicant1Address %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
 
   {% if not isApplicant1AndApplicant2AddressPrivate %}
-  <h2 class="govuk-heading-m">{{ heading14 }}</h2>
-  <p class="govuk-body">
-    {% for line in applicant2Address %}{{ line }}<br>{% endfor %}
-  </p>
+    <h2 class="govuk-heading-m">{{ heading14 }}</h2>
+    <p class="govuk-body">
+      {% for line in applicant2Address %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
-  <h2 class="govuk-heading-m">{{ heading15 }}</h2>
-  <p class="govuk-body">{{ applicant1EmailAddress }}</p>
+    <h2 class="govuk-heading-m">{{ heading15 }}</h2>
+    <p class="govuk-body">{{ applicant1EmailAddress }}</p>
   {% endif %}
 
   {% if not isApplicant1AndApplicant2AddressPrivate %}
-  <h2 class="govuk-heading-m">{{ heading16 }}</h2>
-  <p class="govuk-body">{{ applicant2EmailAddress }}</p>
+    <h2 class="govuk-heading-m">{{ heading16 }}</h2>
+    <p class="govuk-body">{{ applicant2EmailAddress }}</p>
   {% endif %}
 
   <h2 class="govuk-heading-m">{{ heading17 }}</h2>
