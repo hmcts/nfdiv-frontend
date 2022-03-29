@@ -1,11 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
+import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
-import { StateSequence } from '../state-sequence';
+import { currentStateFn } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
@@ -148,12 +148,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
-  const currentState = new StateSequence([
-    State.Submitted,
-    State.AwaitingApplicant2Response,
-    State.AwaitingLegalAdvisorReferral,
-    State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
+  const currentState = currentStateFn(userCase);
   const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
