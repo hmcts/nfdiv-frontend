@@ -683,7 +683,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
   });
 
-  test('redirects to the review the application for respondent users in holding state and aos is not completed', () => {
+  test('redirects to the review the application for respondent users in holding state and aos is not started', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -701,7 +701,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
   });
 
-  test('redirects to the CYA for respondent users in holding state and aos is not completed but the first question is complete', () => {
+  test('redirects to the CYA for respondent users in holding state and aos is started but the first question is complete', () => {
     const req = mockRequest({
       session: {
         userCase: {

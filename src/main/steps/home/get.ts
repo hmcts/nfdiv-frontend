@@ -49,13 +49,13 @@ export class HomeGetController {
       const checkYourAnswersForm = new Form(<FormFields>respondentCYAForm.fields);
       const isLastQuestionComplete = checkYourAnswersForm.getErrors(req.session.userCase).length === 0;
       const reviewedApplicationForm = new Form(<FormFields>reviewApplicationQuestionForm.fields);
-      const hasReviewTheApplication = reviewedApplicationForm.getErrors(req.session.userCase).length === 0;
+      const hasReviewedTheApplication = reviewedApplicationForm.getErrors(req.session.userCase).length === 0;
       res.redirect(
         respondentRedirectPageSwitch(
           req.session.userCase.state,
           isFirstQuestionComplete,
           isLastQuestionComplete,
-          hasReviewTheApplication
+          hasReviewedTheApplication
         )
       );
     } else if (req.session.isApplicant2) {
@@ -157,7 +157,7 @@ const respondentRedirectPageSwitch = (
   caseState: State,
   isFirstQuestionComplete: boolean,
   isLastQuestionComplete: boolean,
-  hasReviewTheApplication: boolean
+  hasReviewedTheApplication: boolean
 ) => {
   switch (caseState) {
     case State.Holding:
@@ -176,7 +176,7 @@ const respondentRedirectPageSwitch = (
     case State.GeneralApplicationReceived: {
       if (isLastQuestionComplete) {
         return `${RESPONDENT}${HUB_PAGE}`;
-      } else if (isFirstQuestionComplete && hasReviewTheApplication) {
+      } else if (isFirstQuestionComplete && hasReviewedTheApplication) {
         return `${RESPONDENT}${CHECK_ANSWERS_URL}`;
       } else {
         return `${RESPONDENT}${REVIEW_THE_APPLICATION}`;
