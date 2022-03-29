@@ -6,11 +6,15 @@ import {
   CaseData,
   ChangedNameHow,
   ContactDetailsType,
+  DissolveDivorce,
   DivorceOrDissolution,
+  EndCivilPartnership,
+  FinancialOrderFor,
+  FinancialOrdersChild,
+  FinancialOrdersThemselves,
   Gender,
   HowToRespondApplication,
   MarriageFormation,
-  ThePrayer,
   YesOrNo,
 } from './definition';
 import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
@@ -25,6 +29,31 @@ const checkboxConverter = (value: string | undefined) => {
   }
 
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+};
+
+const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
+  return data => {
+    const isDivorce = data.divorceOrDissolution === DivorceOrDissolution.DIVORCE;
+    const confirmPrayer = data[`${applicant}IConfirmPrayer`];
+    const orderFor = data[`${applicant}WhoIsFinancialOrderFor`];
+    const dissolveDivorce = confirmPrayer && isDivorce ? [DissolveDivorce.DISSOLVE_DIVORCE] : [];
+    const endCivil = confirmPrayer && !isDivorce ? [EndCivilPartnership.END_CIVIL_PARTNERSHIP] : [];
+    const orderForThemselves =
+      confirmPrayer && orderFor?.includes(FinancialOrderFor.APPLICANT)
+        ? [FinancialOrdersThemselves.FINANCIAL_ORDERS_THEMSELVES]
+        : [];
+    const orderForChild =
+      confirmPrayer && orderFor?.includes(FinancialOrderFor.CHILDREN)
+        ? [FinancialOrdersChild.FINANCIAL_ORDERS_CHILD]
+        : [];
+
+    return {
+      [`${applicant}PrayerDissolveDivorce`]: dissolveDivorce,
+      [`${applicant}PrayerEndCivilPartnership`]: endCivil,
+      [`${applicant}PrayerFinancialOrdersThemselves`]: orderForThemselves,
+      [`${applicant}PrayerFinancialOrdersChild`]: orderForChild,
+    };
+  };
 };
 
 const fields: ToApiConverters = {
@@ -127,12 +156,8 @@ const fields: ToApiConverters = {
         : data.applicant2CannotUploadDocuments
       : [],
   }),
-  applicant1IConfirmPrayer: data => ({
-    applicant1PrayerHasBeenGivenCheckbox: data.applicant1IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
-  }),
-  applicant2IConfirmPrayer: data => ({
-    applicant2PrayerHasBeenGivenCheckbox: data.applicant2IConfirmPrayer ? [ThePrayer.I_CONFIRM] : [],
-  }),
+  applicant1IConfirmPrayer: prayerConverter('applicant1'),
+  applicant2IConfirmPrayer: prayerConverter('applicant2'),
   applicant1IBelieveApplicationIsTrue: data => ({
     applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
   }),
