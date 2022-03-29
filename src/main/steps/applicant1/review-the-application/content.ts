@@ -26,7 +26,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   },
   line3: 'Issued',
   line4: {
-    key: 'Case number',
+    key: 'Case reference number',
     value: userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4'),
   },
   line5: 'Applicant',

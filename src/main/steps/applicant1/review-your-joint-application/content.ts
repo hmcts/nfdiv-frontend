@@ -29,7 +29,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
   issuedDateHeading: 'Issued',
   issuedDateValue: `${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
-  caseReferenceHeading: 'Case reference',
+  caseReferenceHeading: 'Case reference number',
   caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,

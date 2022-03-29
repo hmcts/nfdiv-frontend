@@ -27,7 +27,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   } are applying to the court for ${
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
-  caseReferenceHeading: 'Case reference',
+  caseReferenceHeading: 'Case reference number',
   caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
   line4: 'Applicant 1',
   line5: `${getName(userCase, 'applicant1')}`,
