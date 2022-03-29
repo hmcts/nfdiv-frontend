@@ -1,13 +1,47 @@
 {% extends "common/form/form.njk"%}
 
+{% set coCannotUploadClarificationDocuments %}
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-visually-hidden">{{ cannotUploadDocuments }}</legend>
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input type="checkbox"  class="govuk-checkboxes__input"
+                 id="coCannotUploadClarificationDocuments" name="coCannotUploadClarificationDocuments"
+                 aria-controls="conditional-coCannotUploadClarificationDocuments">
+          <label class="govuk-label govuk-checkboxes__label" for="coCannotUploadClarificationDocuments">{{ cannotUploadDocuments }}</label>
+        </div>
+        <div class="govuk-checkboxes__conditional" id="conditional-coCannotUploadClarificationDocuments">
+          <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
+          <ul class="govuk-list">
+            <li>{{ serviceAddress.line2 }}</li>
+            <li>{{ serviceAddress.poBox }}</li>
+            <li>{{ serviceAddress.town }}</li>
+            <li>{{ serviceAddress.postcode }}</li>
+          </ul>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+{% endset %}
+
 {% block form_content %}
+
   {% for fieldName, field in form.fields %}
-    {% include "common/form/fields/" + field.type + ".njk" %}
-    {% if fieldName == 'coClarificationResponses' %}
-      <br>
-      <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
-      <p class="govuk-body">{{ line5 }}</p>
-      {% include "../upload-your-documents/document-upload.njk" %}
+    {% if fieldName == 'coCannotUploadClarificationDocuments' %}
+      {{ coCannotUploadClarificationDocuments | safe }}
+    {% else %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+
+      {% if fieldName == 'coClarificationResponses' %}
+        <br>
+        <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
+        <p class="govuk-body">{{ line5 }}</p>
+        {% include "../upload-your-documents/document-upload.njk" %}
+      {% endif %}
+
     {% endif %}
   {% endfor %}
+
 {% endblock %}
