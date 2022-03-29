@@ -9,7 +9,7 @@ import {
 describe('jurisdictionBulletPointContent', () => {
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for divorce', async () => {
     const expected = [
-      'both parties to the marriage were last habitually resident in England and Wales and one of them continues to reside there.',
+      'both parties to the marriage were last habitually resident in England and Wales and one of them continues to reside there',
     ];
     const result = enConnectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
@@ -21,7 +21,7 @@ describe('jurisdictionBulletPointContent', () => {
 
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for civil partnership', async () => {
     const expected = [
-      'both parties to the civil partnership were last habitually resident in England and Wales and one of them continues to reside there.',
+      'both parties to the civil partnership were last habitually resident in England and Wales and one of them continues to reside there',
     ];
     const result = enConnectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
