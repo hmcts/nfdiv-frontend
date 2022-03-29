@@ -1,8 +1,5 @@
 {% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
-
-{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
-  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
-{% endmacro %}
+{% from "common/macros/textWithVisuallyHiddenSpan.njk" import textWithVisuallyHiddenSpan %}
 
 {% if isJointApplication %}
   {% set items = [{
