@@ -5,6 +5,10 @@
 
 {% block backLink %}{% endblock %}
 
+{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
+  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
+{% endmacro %}
+
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">{{ title }}</h1>
@@ -19,24 +23,24 @@
   {{ hmctsProgressBar({
     items: [{
       label: {
-        text: title
+        html: textWithVisuallyHiddenSpan(title, true)
       },
       complete: true
     }, {
       label: {
-        text: partnerResponse
+        html: textWithVisuallyHiddenSpan(partnerResponse, currentState.isAfter('AwaitingApplicant2Response'))
       },
       complete: currentState.isAfter('AwaitingApplicant2Response'),
       active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
-        text: conditionalOrderGranted
+        html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAfter('AwaitingLegalAdvisorReferral'))
       },
       complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
       active: userCase.state == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
-        text: applicationEnded
+        html: textWithVisuallyHiddenSpan(applicationEnded, currentState.isAtOrAfter('FinalOrderComplete'))
       },
       complete: currentState.isAtOrAfter('FinalOrderComplete'),
       active: userCase.state == 'FinalOrderComplete'
