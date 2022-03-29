@@ -1,4 +1,5 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/common.macros.njk" import accessibleDetailsSpan %}
 
 {% extends "common/page.njk" %}
 
@@ -36,7 +37,7 @@
     {% endfor %}
   </ul>
   {{ govukDetails({
-    summaryHtml: whatThisMeansJurisdiction,
+    summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading3),
     html: jurisdictionsMoreDetails
   }) }}
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
@@ -55,7 +56,7 @@
     <p class="govuk-body">{{ financialOrderNo }}</p>
   {% endif %}
   {{ govukDetails({
-    summaryHtml: whatThisMeansFinancialOrder,
+    summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading6),
     html: financialOrderMoreDetails
   }) }}
   {% if isApplicant1AddressNotPrivate %}

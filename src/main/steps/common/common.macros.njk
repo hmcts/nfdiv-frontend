@@ -1,3 +1,7 @@
 {% macro textWithVisuallyHiddenSpan(text, isComplete) %}
   {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
 {% endmacro %}
+
+{% macro accessibleDetailsSpan(spanText, hiddenText) %}
+  {{spanText}}</span><span class="govuk-visually-hidden"> &nbsp - {{hiddenText}}
+{% endmacro %}

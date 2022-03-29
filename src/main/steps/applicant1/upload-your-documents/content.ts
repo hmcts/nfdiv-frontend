@@ -7,7 +7,6 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
 
 const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -245,16 +244,11 @@ export const generateContent: TranslationFn = content => {
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
   }`;
-  const infoTakePhotoAccessibleSpan = accessibleDetailsSpan(
-    translations['infoTakePhoto'],
-    'More information about how ' + translations['infoTakePhoto']
-  );
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
     uploadContentScript,
-    infoTakePhotoAccessibleSpan,
   };
 };

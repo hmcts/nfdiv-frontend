@@ -1,4 +1,5 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/common.macros.njk" import accessibleDetailsSpan %}
 {% extends "common/page.njk" %}
 
 {% set whatThisMeansContent1 %}
@@ -55,7 +56,7 @@
   <p class="govuk-body">{{ respondentNames }}</p>
 
   {{ govukDetails({
-      summaryHtml: whatThisMeansApplicantRespondent,
+      summaryHtml: accessibleDetailsSpan(whatThisMeans, accessibleTextApplicantRespondent),
       html: whatThisMeansContent1
   }) }}
 
@@ -80,7 +81,7 @@
   </ul>
 
   {{ govukDetails({
-      summaryHtml: whatThisMeansJurisdiction,
+      summaryHtml: accessibleDetailsSpan(whatThisMeans, heading6),
       html: whatThisMeansContent2
   }) }}
 
@@ -104,7 +105,7 @@
   {% endif %}
 
   {{ govukDetails({
-      summaryHtml: whatThisMeansFinancialOrder,
+      summaryHtml: accessibleDetailsSpan(whatThisMeans, heading12),
       html: whatThisMeansContent3
   }) }}
 

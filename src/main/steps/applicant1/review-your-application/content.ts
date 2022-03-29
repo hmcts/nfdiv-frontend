@@ -10,7 +10,6 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
@@ -33,6 +32,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   respondentHeading: 'Respondent',
   respondentNames: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  accessibleTextApplicantRespondent: 'The terms applicant and respondent',
   whatThisMeansInfo1: `The applicant is the person who has applied ${
     isDivorce ? 'for the divorce' : 'to end their civil partnership'
   }.`,
@@ -177,17 +177,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const whatThisMeansApplicantRespondent = accessibleDetailsSpan(
-    translations['whatThisMeans'],
-    'The terms applicant and respondent'
-  );
-  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading6']);
-  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading12']);
   return {
     ...translations,
     form,
-    whatThisMeansApplicantRespondent,
-    whatThisMeansJurisdiction,
-    whatThisMeansFinancialOrder,
   };
 };

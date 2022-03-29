@@ -10,7 +10,6 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
 import { getName } from '../hub-page/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
@@ -229,8 +228,6 @@ export const generateContent: TranslationFn = content => {
   const isApplicant1FinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   const isApplicant2FinancialOrderYes = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   const isCeremonyPlace = content.userCase.ceremonyPlace;
-  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
-  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
@@ -238,8 +235,6 @@ export const generateContent: TranslationFn = content => {
     isApplicant1FinancialOrderYes,
     isApplicant2FinancialOrderYes,
     isCeremonyPlace,
-    whatThisMeansJurisdiction,
-    whatThisMeansFinancialOrder,
     form,
   };
 };
