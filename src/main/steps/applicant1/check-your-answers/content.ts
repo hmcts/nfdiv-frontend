@@ -134,7 +134,11 @@ const en = ({
       line10: 'Is your domicile in England or Wales?',
       line11: `Is your ${partner}’s domicile in England or Wales?`,
       line12: 'Were you both last habitually resident in England or Wales and does one of you still live here?',
-      line13: "How you're connected to England and Wales",
+      line13:
+        'Are the applicant and respondent registered as civil partners of each other in England or Wales or, ' +
+        'in the case of a same-sex couple, married to each other under the law of England and Wales and it ' +
+        'would be in the interests of justice for the court to assume jurisdiction in this case?',
+      line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
       line1: `Copy your full name from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
@@ -259,7 +263,8 @@ const en = ({
       line10: `${stripTags(userCase.applicant1LivingInEnglandWalesSixMonths)}`,
       line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
       line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
-      line13: `${
+      line13: `${stripTags(userCase.jurisdictionResidualEligible)}`,
+      line14: `${
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
@@ -435,7 +440,8 @@ const en = ({
       line10: urls.JURISDICTION_DOMICILE,
       line11: urls.JURISDICTION_DOMICILE,
       line12: urls.HABITUALLY_RESIDENT_ENGLAND_WALES,
-      line13: urls.CHECK_JURISDICTION,
+      line13: urls.RESIDUAL_JURISDICTION,
+      line14: urls.CHECK_JURISDICTION,
     },
     aboutPartners: {
       line1: urls.CERTIFICATE_NAME,
@@ -588,7 +594,11 @@ const cy: typeof en = ({
       line11: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
       line12:
         "A oedd y ddau ohonoch yn preswylio'n arferol ddiwethaf yng Nghymru neu Loegr ac a yw un ohonoch yn dal i fyw yma?",
-      line13: "How you're connected to England and Wales",
+      line13:
+        'Are the applicant and respondent registered as civil partners of each other in England or Wales or, ' +
+        'in the case of a same-sex couple, married to each other under the law of England and Wales and it would be in ' +
+        'the interests of justice for the court to assume jurisdiction in this case?',
+      line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
       line1: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${
@@ -717,7 +727,8 @@ const cy: typeof en = ({
       line10: `${userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line13: `${
+      line13: `${userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line14: `${
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +

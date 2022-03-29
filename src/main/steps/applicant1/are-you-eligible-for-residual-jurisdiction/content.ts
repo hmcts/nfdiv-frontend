@@ -2,13 +2,16 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { CommonContent } from '../../common/common.content';
 
-const en = () => ({
-  title: 'Same sex married couples',
+const en = ({ required }: CommonContent) => ({
   line1:
     'Are the Applicant and Respondent registered as civil partners of each other in England or Wales or, ' +
     'in the case of a same sex couple, married each other under the law of England and Wales and it would be in the ' +
     'interests of justice for the court to assume jurisdiction in this case?',
+  errors: {
+    jurisdictionResidualEligible: { required },
+  },
 });
 
 // @TODO translations
@@ -37,7 +40,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
