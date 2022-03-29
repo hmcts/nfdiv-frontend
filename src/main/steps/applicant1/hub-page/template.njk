@@ -4,6 +4,16 @@
 
 {% block backLink %}{% endblock %}
 
+{% set serviceAddressTemplate %}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
+  <ul class="govuk-list">
+    <li>{{ serviceAddress.line2 }}</li>
+    <li>{{ serviceAddress.poBox }}</li>
+    <li>{{ serviceAddress.town }}</li>
+    <li>{{ serviceAddress.postcode }}</li>
+  </ul>
+{% endset %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
