@@ -1383,10 +1383,10 @@
     "@uppy/utils" "^4.0.5"
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^2.1.6":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.1.6.tgz#8e3c6eca12c91118a6340a1aedc777c6b4f2f6f5"
-  integrity sha512-WTGthAAHMfB6uAtISbu+7jYh4opnBWHSf7A0jsPdREwXc4hrhC/z9lbejZfSLkVDXdbNwpWWH38EgOGCNQb5MQ==
+"@uppy/core@^2.1.7":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.1.7.tgz#85debec3a377256f466f62642eae40a667b63bf3"
+  integrity sha512-1xHBPdyxY01bBJkouEkeAU/Inp4MNm23cJn0/4sCl69hHao/Yhh70rBmMnpsTLXyS0zGoOd2hSr2m9vVoi2SyA==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/store-default" "^2.0.3"
