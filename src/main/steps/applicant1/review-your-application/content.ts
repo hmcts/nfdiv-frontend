@@ -24,11 +24,10 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
     isDivorce ? 'for a final order of divorce from' : 'for the dissolution of the civil partnership with'
   } ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
   listItem2: 'to make a financial order',
-  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
-  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
+  caseReferenceHeading: 'Case number',
+  caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
+  issuedDateHeading: 'Issued',
+  issuedDateValue: `${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
   applicantHeading: 'Applicant',
   applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   respondentHeading: 'Respondent',
