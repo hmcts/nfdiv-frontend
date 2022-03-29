@@ -89,7 +89,7 @@ describe('connections', () => {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
       applicant1DomicileInEnglandWales: YesOrNo.NO,
       applicant2DomicileInEnglandWales: YesOrNo.NO,
-      jurisdictionResidualEligible: Checkbox.Checked,
+      jurisdictionResidualEligible: YesOrNo.YES,
       bothLastHabituallyResident: YesOrNo.NO,
     },
     {
@@ -98,7 +98,7 @@ describe('connections', () => {
       applicant2LifeBasedInEnglandAndWales: YesOrNo.NO,
       applicant1DomicileInEnglandWales: YesOrNo.NO,
       applicant2DomicileInEnglandWales: YesOrNo.NO,
-      jurisdictionResidualEligible: Checkbox.Checked,
+      jurisdictionResidualEligible: YesOrNo.YES,
       bothLastHabituallyResident: YesOrNo.NO,
     },
   ])('Given there is residual jurisdiction, should find connection G', async body => {

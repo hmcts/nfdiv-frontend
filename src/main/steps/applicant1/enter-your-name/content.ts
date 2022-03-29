@@ -36,6 +36,7 @@ export const form: FormContent = {
       label: l => l.firstNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'given-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     applicant1MiddleNames: {
@@ -43,6 +44,7 @@ export const form: FormContent = {
       label: l => l.middleNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'middle-name',
       validator: isFieldLetters,
     },
     applicant1LastNames: {
@@ -50,6 +52,7 @@ export const form: FormContent = {
       label: l => l.lastNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'last-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
   },
