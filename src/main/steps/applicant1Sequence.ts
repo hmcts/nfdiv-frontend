@@ -414,10 +414,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => APPLICATION_SUBMITTED,
   },
   {
-    url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
-  },
-  {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
