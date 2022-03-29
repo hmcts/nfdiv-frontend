@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 
 import { APPLICANT_2_APPROVE } from '../../../app/case/definition';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
+import Applicant2PrayerPostController from '../check-your-answers/post';
 
 @autobind
-export default class ConfirmYourJointApplicationPostController extends PostController<AnyObject> {
+export default class ConfirmYourJointApplicationPostController extends Applicant2PrayerPostController {
   protected getEventName(): string {
     return APPLICANT_2_APPROVE;
   }

@@ -2,10 +2,10 @@ import { Checkbox, LanguagePreference } from './case';
 import {
   CaseData,
   ContactDetailsType,
+  DissolveDivorce,
   DivorceOrDissolution,
   Gender,
   HowToRespondApplication,
-  ListValue,
   MarriageFormation,
   ThePrayer,
   YesOrNo,
@@ -13,7 +13,7 @@ import {
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
-  const results: Partial<Record<keyof CaseData, string | ThePrayer[] | ListValue<string>[] | null>> = {
+  const results: Partial<CaseData> = {
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     marriageFormationType: MarriageFormation.SAME_SEX_COUPLE,
     applicant2Gender: Gender.MALE,
@@ -23,12 +23,12 @@ describe('from-api-format', () => {
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
-    applicant1WantsToHavePapersServedAnotherWay: null,
+    applicant1WantsToHavePapersServedAnotherWay: undefined,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
-    applicant1PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
-    applicant2PrayerHasBeenGivenCheckbox: [ThePrayer.I_CONFIRM],
+    applicant1PrayerDissolveDivorce: [DissolveDivorce.DISSOLVE_DIVORCE],
+    applicant2PrayerDissolveDivorce: [DissolveDivorce.DISSOLVE_DIVORCE],
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
@@ -55,8 +55,8 @@ describe('from-api-format', () => {
     applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
     applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
-    applicant1PrayerHasBeenGivenCheckbox: [],
-    applicant2PrayerHasBeenGivenCheckbox: [],
+    applicant1PrayerDissolveDivorce: [],
+    applicant2PrayerDissolveDivorce: [],
   };
 
   test('Should convert results from api to nfdiv fe format', async () => {
