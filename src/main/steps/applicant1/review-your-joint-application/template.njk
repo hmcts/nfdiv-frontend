@@ -23,106 +23,131 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ subtitle }}</p>
 
-  <h2 class="govuk-heading-m">{{ heading1 }}</h2>
-  <p class="govuk-body">{{ line1 }}</p>
-  {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
-    <p class="govuk-body">{{ line2 }}</p>
-  {% endif %}
-  {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
-    <p class="govuk-body">{{ line3 }}</p>
-  {% endif %}
-  <p class="govuk-body">{{ issuedDate | safe }}</p>
-  <p class="govuk-body">{{ caseReference | safe }}</p>
-
-  <h3 class="govuk-heading-s">{{ applicant1Heading }}</h3>
-  <p class="govuk-body">{{ applicant1Names }}</p>
-
-  <h3 class="govuk-heading-s">{{ applicant2Heading }}</h3>
-  <p class="govuk-body">{{ applicant2Names }}</p>
-
-  <h2 class="govuk-heading-m">{{ heading2 }}</h2>
-  <p class="govuk-body">{{ line4 }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading3 }}</h3>
-  <p class="govuk-body">{{ line5 }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading4 }}</h3>
-  <p class="govuk-body">{{ ceremonyPlace }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading5 }}</h3>
-  <p class="govuk-body">{{ relationshipDate }}</p>
-
-  <h2 class="govuk-heading-m">{{ heading6 }}</h2>
-  <p class="govuk-body">{{ line6 }}</p>
-  <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
-
-  {{ govukDetails({
-      summaryHtml: whatThisMeansJurisdiction,
-      html: whatThisMeansContent1
-  }) }}
-
-  <h3 class="govuk-heading-m">{{ heading10 }}</h3>
-  <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
-  {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
-    {% if userCase.applicant1LegalProceedings === 'Yes' %}
-      <p class="govuk-body">{{ applicant1OtherCourtCases }}</p>
-      <p class="govuk-body">{{ applicant1LegalProceedingsDetails }}</p>
-    {% endif %}
-    {% if userCase.applicant2LegalProceedings === 'Yes' %}
-      <p class="govuk-body">{{ applicant2OtherCourtCases }}</p>
-      <p class="govuk-body">{{ applicant2LegalProceedingsDetails }}</p>
-    {% endif %}
-  {% else %}
-    <p class="govuk-body">{{ noOtherCourtCases }}</p>
-  {% endif %}
-
-  <h2 class="govuk-heading-m">{{ heading11 }}</h2>
-  <p class="govuk-body">{{ line7 }}</p>
-
-  <h2 class="govuk-heading-m">{{ heading12 }}</h2>
-  {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+  <div>
+    <h2 class="govuk-heading-m">{{ heading1 }}</h2>
+    <p class="govuk-body">{{ line1 }}</p>
     {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
-      <p class="govuk-body">{{ applicant1FinancialOrder }}</p>
+      <p class="govuk-body">{{ line2 }}</p>
     {% endif %}
     {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
-      <p class="govuk-body">{{ applicant2ApplyForFinancialOrder }}</p>
+      <p class="govuk-body">{{ line3 }}</p>
     {% endif %}
-  {% else %}
-    <p class="govuk-body">{{ noFinancialOrder }}</p>
-  {% endif %}
 
-  {{ govukDetails({
-      summaryHtml: whatThisMeansFinancialOrder,
-      html: whatThisMeansContent3
-  }) }}
+    <dl>
+      <dt class="govuk-heading-s">{{ issuedDateHeading }}</dt>
+      <dd class="govuk-body">{{ issuedDateValue }}</dd>
+      <dt class="govuk-heading-s">{{ caseReferenceHeading }}</dt>
+      <dd class="govuk-body">{{ caseReferenceValue }}</dd>
+      <dt class="govuk-heading-s">{{ applicant1Heading }}</dt>
+      <dd class="govuk-body">{{ applicant1Names }}</dd>
+      <dt class="govuk-heading-s">{{ applicant2Heading }}</dt>
+      <dd class="govuk-body">{{ applicant2Names }}</dd>
+    </dl>
+  </div>
+
+  <div>
+    <h2 class="govuk-heading-m">{{ heading2 }}</h2>
+    <p class="govuk-body">{{ line4 }}</p>
+
+    <dl>
+      <dt class="govuk-heading-s">{{ heading3 }}</dt>
+      <dd class="govuk-body">{{ line5 }}</dd>
+      <dt class="govuk-heading-s">{{ heading4 }}</dt>
+      <dd class="govuk-body">{{ ceremonyPlace }}</dd>
+      <dt class="govuk-heading-s">{{ heading5 }}</dt>
+      <dd class="govuk-body">{{ relationshipDate }}</dd>
+    </dl>
+  </div>
+
+  <div>
+    <h2 class="govuk-heading-m">{{ heading6 }}</h2>
+    <p class="govuk-body">{{ line6 }}</p>
+    <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
+
+    {{ govukDetails({
+        summaryHtml: whatThisMeansJurisdiction,
+        html: whatThisMeansContent1
+    }) }}
+  </div>
+
+  <div>
+    <h2 class="govuk-heading-m">{{ heading10 }}</h2>
+    <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
+    {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
+      {% if userCase.applicant1LegalProceedings === 'Yes' %}
+        <p class="govuk-body">{{ applicant1OtherCourtCases }}</p>
+        <p class="govuk-body">{{ applicant1LegalProceedingsDetails }}</p>
+      {% endif %}
+      {% if userCase.applicant2LegalProceedings === 'Yes' %}
+        <p class="govuk-body">{{ applicant2OtherCourtCases }}</p>
+        <p class="govuk-body">{{ applicant2LegalProceedingsDetails }}</p>
+      {% endif %}
+    {% else %}
+      <p class="govuk-body">{{ noOtherCourtCases }}</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <h2 class="govuk-heading-m">{{ heading11 }}</h2>
+    <p class="govuk-body">{{ line7 }}</p>
+  </div>
+
+  <div>
+    <h2 class="govuk-heading-m">{{ heading12 }}</h2>
+    {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' or userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+      {% if userCase.applicant1ApplyForFinancialOrder === 'Yes' %}
+        <p class="govuk-body">{{ applicant1FinancialOrder }}</p>
+      {% endif %}
+      {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
+        <p class="govuk-body">{{ applicant2ApplyForFinancialOrder }}</p>
+      {% endif %}
+    {% else %}
+      <p class="govuk-body">{{ noFinancialOrder }}</p>
+    {% endif %}
+
+    {{ govukDetails({
+        summaryHtml: whatThisMeansFinancialOrder,
+        html: whatThisMeansContent3
+    }) }}
+  </div>
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
+  <div>
     <h2 class="govuk-heading-m">{{ heading13 }}</h2>
     <p class="govuk-body">
       {% for line in applicant1Address %}{{ line }}<br>{% endfor %}
     </p>
+  </div>
   {% endif %}
 
   {% if not isApplicant1AndApplicant2AddressPrivate %}
+  <div>
     <h2 class="govuk-heading-m">{{ heading14 }}</h2>
     <p class="govuk-body">
       {% for line in applicant2Address %}{{ line }}<br>{% endfor %}
     </p>
+  </div>
   {% endif %}
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
+  <div>
     <h2 class="govuk-heading-m">{{ heading15 }}</h2>
     <p class="govuk-body">{{ applicant1EmailAddress }}</p>
+  </div>
   {% endif %}
 
   {% if not isApplicant1AndApplicant2AddressPrivate %}
+  <div>
     <h2 class="govuk-heading-m">{{ heading16 }}</h2>
     <p class="govuk-body">{{ applicant2EmailAddress }}</p>
+  </div>
   {% endif %}
 
-  <h2 class="govuk-heading-m">{{ heading17 }}</h2>
-  <p class="govuk-body">{{ factsTrue }}</p>
-  <p class="govuk-body"><i>{{ userCase.applicant1FirstNames }} {{ userCase.applicant1LastNames }}</i></p>
+  <div>
+    <h2 class="govuk-heading-m">{{ heading17 }}</h2>
+    <p class="govuk-body">{{ factsTrue }}</p>
+    <p class="govuk-body"><i>{{ userCase.applicant1FirstNames }} {{ userCase.applicant1LastNames }}</i></p>
+  </div>
   <br>
   <br>
 
