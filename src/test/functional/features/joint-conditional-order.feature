@@ -138,10 +138,3 @@ Feature: Joint conditional order
 
     When I click "Continue"
     Then the page URL should be "/applicant2/hub-page"
-# TODO implement when hub page is merged
-#    And the page should include "You have provided the information requested by the court."
-#
-#    Given I click "Sign out"
-#    And I login with applicant "1"
-#    Then the page should include "Your husband has provided the information requested by the court."
-#    And the page should include "This was the court’s feedback, explaining the information which was needed"

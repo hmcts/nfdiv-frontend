@@ -529,6 +529,23 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    And I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
+    When I go to "/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    When I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/applicant2/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    When I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
 
   @nightly
   Scenario: Jurisdiction form failures
