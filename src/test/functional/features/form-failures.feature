@@ -89,11 +89,13 @@ Feature: Form failures
     When I click "Find address"
     Then the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "not a postcode!"
     When I click "Find address"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
     And I click "Find address"
@@ -194,7 +196,8 @@ Feature: Form failures
     Given I go to "/enter-your-address"
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
@@ -415,7 +418,8 @@ Feature: Form failures
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
