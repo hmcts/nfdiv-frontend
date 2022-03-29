@@ -1,13 +1,10 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
+{% from "common/macros/textWithVisuallyHiddenSpan.njk" import textWithVisuallyHiddenSpan %}
 
 {% extends "common/page.njk" %}
 
 {% block backLink %}{% endblock %}
-
-{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
-  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
-{% endmacro %}
 
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
