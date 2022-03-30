@@ -5,6 +5,7 @@ import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/def
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
+import { formattedCaseId } from '../common/content.utils';
 import { currentStateFn } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
@@ -149,7 +150,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
   const currentState = currentStateFn(userCase);
-  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = formattedCaseId(userCase.id);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
