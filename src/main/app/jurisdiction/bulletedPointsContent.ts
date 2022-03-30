@@ -71,5 +71,5 @@ export const enConnectionBulletPointsUserReads = (
   partner: string,
   isDivorce: boolean
 ): string[] => {
-  return connections.map(connection => enConnectionUserReads(partner, isDivorce)[connection]);
+  return connections?.map(connection => enConnectionUserReads(partner, isDivorce)[connection]);
 };
