@@ -27,7 +27,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   line3: 'Issued',
   line4: {
     key: 'Case reference number',
-    value: userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4'),
+    value: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
   },
   line5: 'Applicant',
   line6: `${userCase.applicant1FirstNames} ${
@@ -53,7 +53,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   line13: ` Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line14: `${userCase.ceremonyPlace}`,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line16: `${getFormattedDate(userCase.relationshipDate)}`,
+  line16: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase

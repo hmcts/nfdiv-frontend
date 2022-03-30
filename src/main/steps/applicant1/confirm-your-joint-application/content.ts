@@ -30,9 +30,9 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   caseReferenceHeading: 'Case reference number',
   caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
   line4: 'Applicant 1',
-  line5: `${getName(userCase, 'applicant1')}`,
+  line5: getName(userCase, 'applicant1'),
   line6: 'Applicant 2',
-  line7: `${getName(userCase, 'applicant2')}`,
+  line7: getName(userCase, 'applicant2'),
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line8: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
@@ -43,7 +43,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line12: `${userCase.ceremonyPlace}`,
   line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line14: `${getFormattedDate(userCase.relationshipDate)}`,
+  line14: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase
