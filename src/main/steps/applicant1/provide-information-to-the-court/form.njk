@@ -1,29 +1,42 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
 {% extends "common/form/form.njk"%}
 
+{% set conditionalText %}
+  <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
+  <ul class="govuk-list">
+    <li>{{ serviceAddress.line2 }}</li>
+    <li>{{ serviceAddress.poBox }}</li>
+    <li>{{ serviceAddress.town }}</li>
+    <li>{{ serviceAddress.postcode }}</li>
+  </ul>
+{% endset %}
+
 {% set coCannotUploadClarificationDocuments %}
-  <div class="govuk-form-group">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-visually-hidden">{{ cannotUploadDocuments }}</legend>
-      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-        <div class="govuk-checkboxes__item">
-          <input type="checkbox"  class="govuk-checkboxes__input"
-                 id="coCannotUploadClarificationDocuments" name="coCannotUploadClarificationDocuments"
-                 aria-controls="conditional-coCannotUploadClarificationDocuments">
-          <label class="govuk-label govuk-checkboxes__label" for="coCannotUploadClarificationDocuments">{{ cannotUploadDocuments }}</label>
-        </div>
-        <div class="govuk-checkboxes__conditional" id="conditional-coCannotUploadClarificationDocuments">
-          <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
-          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
-          <ul class="govuk-list">
-            <li>{{ serviceAddress.line2 }}</li>
-            <li>{{ serviceAddress.poBox }}</li>
-            <li>{{ serviceAddress.town }}</li>
-            <li>{{ serviceAddress.postcode }}</li>
-          </ul>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  {{ govukCheckboxes({
+    idPrefix: 'coCannotUploadClarificationDocuments',
+    name: 'coCannotUploadClarificationDocuments',
+    fieldset: {
+      legend: {
+        text: cannotUploadDocuments,
+        classes: "govuk-visually-hidden"
+      }
+    },
+    items: [{
+        name: 'coCannotUploadClarificationDocuments',
+        text: cannotUploadDocuments,
+        value: 'checked',
+        checked: userCase.applicant1ConfirmInformationStillCorrect == 'No',
+        conditional: {
+          html: conditionalText
+        }
+    }],
+    errorMessage: getError('coCannotUploadClarificationDocuments'),
+    formGroup: {
+      classes: 'coCannotUploadClarificationDocuments'
+    }
+  }) }}
 {% endset %}
 
 {% block form_content %}
