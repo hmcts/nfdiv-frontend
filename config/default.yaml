@@ -72,9 +72,9 @@ e2e:
 appInsights:
   instrumentationKey:
 webchat:
-  avayaUrl: 'webchat.training.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
-  avayaService: 'Testing'
+  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
+  avayaService: 'Divorce'
 serviceAddress:
   line1: 'Courts and Tribunals Service Centre'
   line2: 'HMCTS Divorce and Dissolution service'
