@@ -27,22 +27,23 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   } are applying to the court for ${
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
-  line3: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
-  line4: '<strong> Applicant 1 </strong>',
-  line5: `${getName(userCase, 'applicant1')}`,
-  line6: '<strong> Applicant 2 </strong>',
-  line7: `${getName(userCase, 'applicant2')}`,
+  caseReferenceHeading: 'Case reference number',
+  caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
+  line4: 'Applicant 1',
+  line5: getName(userCase, 'applicant1'),
+  line6: 'Applicant 2',
+  line7: getName(userCase, 'applicant2'),
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line8: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-  line9: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
+  line9: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
   line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  line11: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
+  line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line12: `${userCase.ceremonyPlace}`,
-  line13: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
-  line14: `${getFormattedDate(userCase.relationshipDate)}`,
+  line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
+  line14: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase
