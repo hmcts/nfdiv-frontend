@@ -1,10 +1,12 @@
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
 {% if isClarificationDocumentsUploaded %}
   <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
 {% else %}
   <p class="govuk-body govuk-!-margin-bottom-1">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>

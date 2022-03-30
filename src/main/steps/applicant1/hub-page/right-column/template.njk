@@ -1,3 +1,5 @@
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
 <h2 class="govuk-heading-s">{{ iWantTo }}</h2>
 
@@ -28,10 +30,4 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ email }}</h3>
 <p class="govuk-body govuk-!-margin-bottom-1"><a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
 <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ post }}</h3>
-<ul class="govuk-list">
-  <li>{{ serviceAddress.line1 }}</li>
-  <li>{{ serviceAddress.line2 }}</li>
-  <li>{{ serviceAddress.poBox }}</li>
-  <li>{{ serviceAddress.town }}</li>
-  <li>{{ serviceAddress.postcode }}</li>
-</ul>
+{{ serviceAddressMacro(serviceAddress) }}

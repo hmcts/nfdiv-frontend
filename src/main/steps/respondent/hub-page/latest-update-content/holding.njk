@@ -1,15 +1,11 @@
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
 {% if isDisputedApplication %}
   <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
   <p class="govuk-body">{{ d8Awaiting.line4 }}</p>
-  <ul class="govuk-list">
-    <li>{{ serviceAddress.line1 }}</li>
-    <li>{{ serviceAddress.line2 }}</li>
-    <li>{{ serviceAddress.poBox }}</li>
-    <li>{{ serviceAddress.town }}</li>
-    <li>{{ serviceAddress.postcode }}</li>
-  </ul>
+  {{ serviceAddressMacro(serviceAddress) }}
   <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
   <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
 {% else %}

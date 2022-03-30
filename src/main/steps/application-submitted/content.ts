@@ -45,13 +45,6 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
   },
-  address: {
-    line1: `${config.get('serviceAddress.line1')}`,
-    line2: `${config.get('serviceAddress.line2')}`,
-    poBox: `${config.get('serviceAddress.poBox')}`,
-    town: `${config.get('serviceAddress.town')}`,
-    postcode: `${config.get('serviceAddress.postcode')}`,
-  },
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,

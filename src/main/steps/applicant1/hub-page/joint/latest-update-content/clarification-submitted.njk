@@ -1,6 +1,8 @@
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
 {% if cannotUploadDocuments %}
   <p class="govuk-body govuk-!-margin-bottom-1">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.clarificationAddInfo }}</p>
   <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line4 }}</p>

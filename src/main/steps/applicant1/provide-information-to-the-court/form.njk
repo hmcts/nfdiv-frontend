@@ -1,16 +1,11 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "common/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/form/form.njk"%}
 
 {% set conditionalText %}
   <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
-  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
-  <ul class="govuk-list">
-    <li>{{ serviceAddress.line2 }}</li>
-    <li>{{ serviceAddress.poBox }}</li>
-    <li>{{ serviceAddress.town }}</li>
-    <li>{{ serviceAddress.postcode }}</li>
-  </ul>
+  {{ serviceAddressMacro(serviceAddress, 'heading')  }}
 {% endset %}
 
 {% set coCannotUploadClarificationDocuments %}

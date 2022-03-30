@@ -1,17 +1,8 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/page.njk" %}
-
-{% set serviceAddressTemplate %}
-  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ serviceAddress.line1 }}</h3>
-  <ul class="govuk-list">
-    <li>{{ serviceAddress.line2 }}</li>
-    <li>{{ serviceAddress.poBox }}</li>
-    <li>{{ serviceAddress.town }}</li>
-    <li>{{ serviceAddress.postcode }}</li>
-  </ul>
-{% endset %}
 
 {% set anotherEmailAddressContent %}
   Provide their new email address or postal address to the court.
@@ -28,7 +19,7 @@
   Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
   Send the form to the Courts and Tribunals Service Centre by email or post <br><br>
   Email: {{ contactEmail }} <br><br>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading')  }}
 {% endset %}
 
 {% set needToSearchForAddressContent %}
@@ -64,7 +55,7 @@
   <li>When the process server has arranged service and you have your ‘certificate of service’ then send it to the court by email or post. Make sure you quote your case number.</li>
   </ol>
   Email: {{ contactEmail }}<br><br>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Serving using the court bailiffs</h3>
   The bailiff service can only be used at addresses in England and Wales where delivery by post has already failed.
   If you have a new address for your {{ partner }}, you’ll have to get it delivered by post to that address, before you can apply for the bailiff service.
@@ -76,7 +67,7 @@
   {% if (isDivorce) %} divorce{% else %} civil partnership{% endif %} application</li></ul>
   Send the completed form and other documents to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }} <br><br>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
   Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ courtBailiffService }}payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.
@@ -92,7 +83,7 @@
   Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
   Send the form and evidence to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }}<br><br>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
   Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ deemedService }} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
@@ -110,7 +101,7 @@
   and <a href="https://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=1112" class="govuk-link">form D13b</a>.
   Send the forms to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }}<br><br>
-  {{ serviceAddressTemplate | safe }}
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
   <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
   Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ dispensedService }} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
