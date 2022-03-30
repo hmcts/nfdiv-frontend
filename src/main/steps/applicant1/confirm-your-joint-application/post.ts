@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 
 import { CITIZEN_SUBMIT } from '../../../app/case/definition';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
+import CheckYourAnswersPostController from '../check-your-answers/post';
 
 @autobind
-export default class ConfirmYourJointApplicationPostController extends PostController<AnyObject> {
+export default class ConfirmYourJointApplicationPostController extends CheckYourAnswersPostController {
   protected getEventName(): string {
     return CITIZEN_SUBMIT;
   }

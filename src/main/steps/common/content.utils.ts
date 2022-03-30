@@ -45,7 +45,7 @@ export const getAppSolAddressFields = (
 };
 
 export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWithId>): string[] => {
-  return [
+  const addressFields = [
     userCase[`${addressPrefix}Address1`],
     userCase[`${addressPrefix}Address2`],
     userCase[`${addressPrefix}Address3`],
@@ -54,4 +54,12 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
     userCase[`${addressPrefix}AddressPostcode`],
     userCase[`${addressPrefix}AddressCountry`],
   ].filter(Boolean);
+  if (addressFields.length === 0 && userCase[`${addressPrefix}Address`]) {
+    return userCase[`${addressPrefix}Address`].split('\n');
+  }
+  return addressFields;
+};
+
+export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
+  return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
 };

@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
@@ -27,11 +27,10 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }`,
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
-  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
-  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  issuedDateHeading: 'Issued',
+  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  caseReferenceHeading: 'Case reference number',
+  caseReferenceValue: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',
@@ -48,7 +47,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   ceremonyPlace: `${userCase.ceremonyPlace}`,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
+  relationshipDate: getFormattedDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
@@ -186,9 +185,13 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[language](content);
   const isApplicant1AndApplicant2AddressPrivate = !isApplicant2 && userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isApplicant2AndApplicant1AddressPrivate = isApplicant2 && userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading6']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading12']);
   return {
     isApplicant1AndApplicant2AddressPrivate,
     isApplicant2AndApplicant1AddressPrivate,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
     ...translations,
     form,
   };

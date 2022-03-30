@@ -1,5 +1,3 @@
-import 'jest-extended';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
@@ -399,7 +397,6 @@ describe('DocumentManagerController', () => {
       );
 
       expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
-      expect(mockDelete).toHaveBeenCalledAfter(mockApiTriggerEvent);
 
       expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
     });

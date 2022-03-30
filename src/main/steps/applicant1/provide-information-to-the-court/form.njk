@@ -1,0 +1,13 @@
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+  {% for fieldName, field in form.fields %}
+    {% include "common/form/fields/" + field.type + ".njk" %}
+    {% if fieldName == 'coClarificationResponses' %}
+      <br>
+      <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
+      <p class="govuk-body">{{ line5 }}</p>
+      {% include "../upload-your-documents/document-upload.njk" %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}

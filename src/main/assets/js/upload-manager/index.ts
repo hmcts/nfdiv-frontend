@@ -20,7 +20,7 @@ const initUploadManager = (): void => {
   const csrfQuery = `?_csrf=${csrfToken}`;
   location.hash = '';
 
-  const chooseFilePhoto = 'Choose a file or take a photo';
+  const chooseFilePhoto = 'Choose a file';
 
   const uppy = new Uppy({
     restrictions: {
@@ -68,3 +68,6 @@ if (upload) {
   upload.classList.remove(hidden);
   initUploadManager();
 }
+
+const fileInput = qs('.uppy-FileInput-input');
+fileInput?.setAttribute('tabindex', '-1');

@@ -233,7 +233,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
-      data.jurisdictionResidualEligible === Checkbox.Checked
+      data.jurisdictionResidualEligible === YesOrNo.YES
         ? JURISDICTION_INTERSTITIAL_URL
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
@@ -405,10 +405,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
-  },
-  {
-    url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
   },
   {
     url: APPLICATION_ENDED,
