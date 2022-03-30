@@ -27,11 +27,10 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }`,
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
-  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
-  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  issuedDateHeading: 'Issued',
+  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  caseReferenceHeading: 'Case reference number',
+  caseReferenceValue: userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4'),
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',
@@ -48,7 +47,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   ceremonyPlace: `${userCase.ceremonyPlace}`,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
+  relationshipDate: getFormattedDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections

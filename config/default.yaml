@@ -38,7 +38,7 @@ services:
     systemPassword: 'dummy_password'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-1348.service.core-compute-preview.internal'
+    #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-1653.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
@@ -74,7 +74,7 @@ appInsights:
 webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
-  avayaService: 'Testing'
+  avayaService: 'Divorce'
 serviceAddress:
   line1: 'Courts and Tribunals Service Centre'
   line2: 'HMCTS Divorce and Dissolution service'
