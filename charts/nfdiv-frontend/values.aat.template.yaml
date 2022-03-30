@@ -8,9 +8,6 @@ nodejs:
     primaryIngressHost: ${SERVICE_FQDN}
   environment:
     OAUTH_CLIENT_REDIRECT: https://${SERVICE_FQDN}/oauth2/callback
-    WEBCHAT_AVAYA_URL: 'webchat.pp.ctsc.hmcts.net'
-    WEBCHAT_AVAYA_CLIENT_URL: 'webchat-client.pp.ctsc.hmcts.net'
-    WEBCHAT_AVAYA_SERVICE: 'Divorce'
 
 idam-pr:
   enabled: false
