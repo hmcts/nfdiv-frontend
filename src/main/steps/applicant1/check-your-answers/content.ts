@@ -119,10 +119,9 @@ const en = ({
       line10: 'Is your domicile in England or Wales?',
       line11: `Is your ${partner}’s domicile in England or Wales?`,
       line12: 'Were you both last habitually resident in England or Wales and does one of you still live here?',
-      line13:
-        'Are the applicant and respondent registered as civil partners of each other in England or Wales or, ' +
-        'in the case of a same-sex couple, married to each other under the law of England and Wales and it ' +
-        'would be in the interests of justice for the court to assume jurisdiction in this case?',
+      line13: `Are the applicant and respondent registered as civil partners of each other in England or Wales or,
+        in the case of a same-sex couple, married to each other under the law of England and Wales and it
+        would be in the interests of justice for the court to assume jurisdiction in this case?`,
       line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
@@ -224,19 +223,19 @@ const en = ({
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${stripTags(userCase.inTheUk)}`,
-      line2: `${stripTags(userCase.certificateInEnglish)}`,
-      line3: `${stripTags(userCase.certifiedTranslation)}`,
-      line4: `${stripTags(userCase.ceremonyCountry)}`,
-      line5: `${stripTags(userCase.ceremonyPlace)}`,
-      line6: `${stripTags(userCase.applicant1LifeBasedInEnglandAndWales)}`,
-      line7: `${stripTags(userCase.applicant2LifeBasedInEnglandAndWales)}`,
-      line8: `${stripTags(userCase.applicant1DomicileInEnglandWales)}`,
-      line9: `${stripTags(userCase.applicant1LivingInEnglandWalesTwelveMonths)}`,
-      line10: `${stripTags(userCase.applicant1LivingInEnglandWalesSixMonths)}`,
-      line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
-      line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
-      line13: `${stripTags(userCase.jurisdictionResidualEligible)}`,
+      line1: stripTags(userCase.inTheUk),
+      line2: stripTags(userCase.certificateInEnglish),
+      line3: stripTags(userCase.certifiedTranslation),
+      line4: stripTags(userCase.ceremonyCountry),
+      line5: stripTags(userCase.ceremonyPlace),
+      line6: stripTags(userCase.applicant1LifeBasedInEnglandAndWales),
+      line7: stripTags(userCase.applicant2LifeBasedInEnglandAndWales),
+      line8: stripTags(userCase.applicant1DomicileInEnglandWales),
+      line9: stripTags(userCase.applicant1LivingInEnglandWalesTwelveMonths),
+      line10: stripTags(userCase.applicant1LivingInEnglandWalesSixMonths),
+      line11: stripTags(userCase.applicant2DomicileInEnglandWales),
+      line12: stripTags(userCase.bothLastHabituallyResident),
+      line13: stripTags(userCase.jurisdictionResidualEligible),
       line14: {
         heading: 'Your answers indicate that you can apply in England and Wales because:',
         connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
@@ -565,10 +564,9 @@ const cy: typeof en = ({
       line11: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
       line12:
         "A oedd y ddau ohonoch yn preswylio'n arferol ddiwethaf yng Nghymru neu Loegr ac a yw un ohonoch yn dal i fyw yma?",
-      line13:
-        'Are the applicant and respondent registered as civil partners of each other in England or Wales or, ' +
-        'in the case of a same-sex couple, married to each other under the law of England and Wales and it would be in ' +
-        'the interests of justice for the court to assume jurisdiction in this case?',
+      line13: `Are the applicant and respondent registered as civil partners of each other in England or Wales or,
+        in the case of a same-sex couple, married to each other under the law of England and Wales and it would be in
+        the interests of justice for the court to assume jurisdiction in this case?`,
       line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
@@ -674,19 +672,19 @@ const cy: typeof en = ({
       }`,
     },
     connectionsToEnglandWales: {
-      line1: `${userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line2: `${userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line3: `${userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line4: `${stripTags(userCase.ceremonyCountry)}`,
-      line5: `${stripTags(userCase.ceremonyPlace)}`,
-      line6: `${userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line7: `${userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line8: `${userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line9: `${userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line10: `${userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line13: `${userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line2: userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line3: userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line4: stripTags(userCase.ceremonyCountry),
+      line5: stripTags(userCase.ceremonyPlace),
+      line6: userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line7: userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line8: userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line10: userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line11: userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line12: userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line13: userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo'),
       line14: {
         heading: 'Your answers indicate that you can apply in England and Wales because:',
         connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
