@@ -80,8 +80,6 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     },
     withoutDocuments: {
       line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line2:
-        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'This is the feedback the court gave, which explains what documents you need to send:',
       line4: 'You will receive an update when your documents have been received and checked.',
     },

@@ -6,6 +6,7 @@ import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../.
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { formattedCaseId } from '../../common/content.utils';
 import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
@@ -123,7 +124,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
-  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
   const currentState = new StateSequence([
