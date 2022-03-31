@@ -1,8 +1,43 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "common/page.njk" %}
 
 {% block page_content %}
+  {{ govukErrorSummary({
+    titleText: errorSummaryHeading,
+    classes: "hidden",
+    attributes: {
+      id: "uploadErrorSummary"
+    },
+    errorList: [
+      {
+        text: errors.coClarificationUploadedFiles.errorUploading,
+        href: "#upload",
+        attributes: {
+        id: "errorGeneric",
+        class: "hidden"
+      }
+      },
+      {
+        text: errors.coClarificationUploadedFiles.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+        id: "errorFileSizeTooBig",
+        class: "hidden"
+      }
+      },
+      {
+        text: errors.coClarificationUploadedFiles.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+        id: "errorFileWrongFormat",
+        class: "hidden"
+      }
+      }
+    ]
+  }) }}
+
   <h1 class="govuk-heading-l">{{ title }}</h1>
   {{ govukInsetText({
     text: line1

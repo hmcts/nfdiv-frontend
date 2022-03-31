@@ -30,9 +30,6 @@ const en = ({ partner, applicant1Content, userCase }) => ({
       fileSizeTooBig: applicant1Content.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1Content.errors.applicant1UploadedFiles.fileWrongFormat,
     },
-    coCannotUploadClarificationDocuments: {
-      required: applicant1Content.errors.applicant1CannotUpload.required,
-    },
   },
 });
 
