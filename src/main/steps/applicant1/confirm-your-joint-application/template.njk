@@ -6,7 +6,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
   <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
-  <p class="govuk-body">{{ line2 | safe }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
   {% if isApplicant1FinancialOrderYes %}
     <p class="govuk-body">{{ applicant1FinancialOrderYes }}</p>
     {% endif %}
@@ -44,9 +44,20 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
+  {% set jurisdictionsMoreDetailsTemplate %}
+    <p class="govuk-body">{{ jurisdictionsMoreDetails.part1 }}</p>
+    {% if jurisdictionsMoreDetails.part2.length == 1 %}
+      {{ jurisdictionsMoreDetails.part2[0] | safe }}
+    {% else %}
+      {% for jurisdictionItem in jurisdictionsMoreDetails.part2 %}
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endset %}
   {{ govukDetails({
     summaryHtml: whatThisMeansJurisdiction,
-    html: jurisdictionsMoreDetails
+    html: jurisdictionsMoreDetailsTemplate
   }) }}
 
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>

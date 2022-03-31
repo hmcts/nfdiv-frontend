@@ -95,7 +95,7 @@ Feature: Applicant 2
 
     Given I click "Sign out"
     And I login with applicant "1"
-    And I go to '/confirm-your-joint-application'
+    Then the page URL should be "/confirm-your-joint-application"
     And I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Continue to payment"

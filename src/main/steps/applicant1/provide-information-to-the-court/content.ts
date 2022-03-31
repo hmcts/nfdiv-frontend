@@ -1,12 +1,12 @@
 import { isEmpty, isObject } from 'lodash';
 
-import { Checkbox } from '../../../app/case/case';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
+import { formattedCaseId } from '../../common/content.utils';
 
-const en = ({ partner, applicant1Content, referenceNumber, userCase }) => ({
+const en = ({ partner, applicant1Content, userCase }) => ({
   title: 'Respond to the court',
   line1: `You should agree your response with your ${partner} before submitting it to the court.`,
   line2: 'The court has made the following comments on your application:',
@@ -18,12 +18,8 @@ const en = ({ partner, applicant1Content, referenceNumber, userCase }) => ({
   line5:
     'If the court has asked you to upload any documents or you want to upload a document to support what you wrote above, then you can upload it here.',
   cannotUploadDocuments: 'I cannot upload some or all of my documents',
-  cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">You can post your documents to the court if you cannot upload them, or you think uploading them will not help. You must send the original documents or certified copies. Make sure you include a covering letter with your case number: <strong>${referenceNumber}</strong></br></br>
-    <strong>Courts and Tribunals Service Centre</strong></br>
-    Digital Divorce</br>
-    PO Box 13226</br>
-    Harlow</br>
-    CM20 9UG</p>`,
+  cannotUploadYouCanPost:
+    'You can post your documents to the court if you cannot upload them, or you think uploading them will not help. You must send the original documents or certified copies. Make sure you include a covering letter with your case number: ',
   errors: {
     coClarificationResponses: {
       required:
@@ -67,17 +63,8 @@ export const form: FormContent = {
       parser: data => JSON.parse((data as Record<string, string>).coClarificationUploadedFiles || '[]'),
     },
     coCannotUploadClarificationDocuments: {
-      type: 'checkboxes',
-      label: l => l.cannotUploadDocuments,
-      labelHidden: true,
-      values: [
-        {
-          name: 'coCannotUploadClarificationDocuments',
-          label: l => l.cannotUploadDocuments,
-          value: Checkbox.Checked,
-          conditionalText: l => l.cannotUploadYouCanPost,
-        },
-      ],
+      type: 'hidden',
+      values: [],
     },
   }),
   submit: {
@@ -92,7 +79,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = uploadDocumentGenerateContent(content);
-  const referenceNumber = content.userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = formattedCaseId(content.userCase.id);
   const uploadedDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item => getFilename(item.value));
   const amendable = content.isClarificationAmendableState;
   const uploadContentScript = `{
@@ -101,10 +88,11 @@ export const generateContent: TranslationFn = content => {
   }`;
   return {
     ...applicant1Content,
-    ...languages[content.language]({ applicant1Content, ...content, referenceNumber }),
+    ...languages[content.language]({ applicant1Content, ...content }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
     uploadContentScript,
+    referenceNumber,
   };
 };

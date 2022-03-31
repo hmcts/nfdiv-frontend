@@ -1,0 +1,60 @@
+{% macro jurisdictionConnectionsDetails(jurisdictionAnswerLine, connections) %}
+
+{% set jurisdictionDetails = jurisdictionAnswerLine.jurisdictionMoreDetailsContent %}
+{% if connections and connections.length %}
+{{ jurisdictionAnswerLine.heading }}
+  <ul class="govuk-list govuk-list--bullet">
+    {% for connectionBullet in jurisdictionAnswerLine.connectionBullets %}
+      <li>{{ connectionBullet }}</li>
+    {% endfor %}
+  </ul>
+  <details class="govuk-details summary" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            {{ jurisdictionDetails.title or jurisdictionDetails.defaultLink }}
+          </span>
+    </summary>
+    <div class="govuk-details__text">
+      {% if jurisdictionDetails.text.length == 1 %}
+        {{ jurisdictionDetails.text[0] | safe }}
+      {% else %}
+        {% for jurisdictionItem in jurisdictionDetails.text %}
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+          <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </details>
+{% endif %}
+
+{% endmacro %}
+
+
+{% macro hwfMoreDetails(hwfAnswerLine, applicant1NeedsHelpPaying) %}
+  {% if applicant1NeedsHelpPaying %}
+    {{ hwfAnswerLine.needHelp if applicant1NeedsHelpPaying === 'Yes' else hwfAnswerLine.noHelpNeeded }}
+    {% if isApplicant2 %}
+      <details class="govuk-details summary" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">{{ hwfAnswerLine.hwfMoreDetails.title or hwfAnswerLine.defaultLink }}</span>
+        </summary>
+        <div class="govuk-details__text">{{ hwfAnswerLine.hwfMoreDetails.text }}</div>
+      </details>
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro otherCourtCasesMoreDetails(courtCasesAnswerLine, applicant1LegalProceedings, isApplicant2) %}
+  {% if applicant1LegalProceedings %}
+    {% set courtCasesAnswerLn1 = stepAnswers.otherCourtCases.line1 %}
+    {{ courtCasesAnswerLine.applicant1LegalProceedings }}
+    {% if isApplicant2 %}
+      <details class="govuk-details summary" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">{{ courtCasesAnswerLine.otherCasesMoreDetails.title or courtCasesAnswerLine.defaultLink }}</span>
+        </summary>
+        <div class="govuk-details__text">{{ courtCasesAnswerLine.otherCasesMoreDetails.text }}</div>
+      </details>
+    {% endif %}
+  {% endif %}
+{% endmacro %}

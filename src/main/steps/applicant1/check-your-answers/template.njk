@@ -1,16 +1,13 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./more-details.njk" import jurisdictionConnectionsDetails %}
+{% from "./more-details.njk" import hwfMoreDetails %}
+{% from "./more-details.njk" import otherCourtCasesMoreDetails %}
 
 {% extends "common/page.njk" %}
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-{% set isApplicationReadyToSubmit =
-        '/check-your-answers' in nextIncompleteStep or
-        nextIncompleteStep === '/' or
-        nextIncompleteStep === '/applicant2/confirm-your-joint-application' or
-        nextIncompleteStep.startsWith('/pay') or
-        nextIncompleteStep.startsWith('/application-submitted')
-%}
+{% set isApplicationReadyToSubmit = isApplicationReadyToSubmit(nextIncompleteStep) %}
 {% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
 
 {% block backLink %}{% endblock %}
@@ -27,13 +24,27 @@
     {% set answerRows = [] %}
       {% for line, text in stepAnswers[section] %}
         {% if text and text != 'undefined' and text != 'null' %}
+
+          {% if section == 'connectionsToEnglandWales' and line == 'line13' %}
+            {% set textValue = jurisdictionConnectionsDetails(stepAnswers.connectionsToEnglandWales.line13, userCase.connections) %}
+
+          {% elseif section == 'helpWithFees' and line == 'line1' %}
+            {% set textValue = hwfMoreDetails(stepAnswers.helpWithFees.line1, userCase.applicant1HelpPayingNeeded) %}
+
+          {% elseif section == 'otherCourtCases' and line == 'line1' %}
+            {% set textValue = otherCourtCasesMoreDetails(stepAnswers.otherCourtCases.line1, userCase.applicant1LegalProceedings, isApplicant2) %}
+
+          {% else %}
+            {% set textValue = text %}
+          {% endif %}
+
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
               classes: 'govuk-!-width-two-thirds'
             },
             value: {
-              text: text | safe
+              text: textValue | safe
             },
             actions: {
               items: [
