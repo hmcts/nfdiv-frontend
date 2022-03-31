@@ -20,23 +20,7 @@ import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bul
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
-  textAndTitleObject: Record<string, string>
-) => {
-  return `
-  <details class="govuk-details summary" data-module="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        ${textAndTitleObject.title || 'Find out more '}
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-      ${textAndTitleObject.text}
-    </div>
-  </details>`;
-};
-
-const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
+const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
     config.get('fees.applicationFee')
@@ -47,15 +31,15 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
-const getOtherCourtCasesMoreDetailsContent = () => {
+const otherCasesMoreDetails = () => {
   const title = 'Find out more about other court proceedings';
   const text =
     'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
     'It does not need to know about other court proceedings.';
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
 const cannotUploadDocumentList = (
@@ -147,7 +131,7 @@ const en = ({
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
       line5: `Have you changed any part of your name since ${
@@ -157,7 +141,7 @@ const en = ({
     },
     contactYou: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: 'By email',
       line5: 'By phone',
@@ -167,7 +151,7 @@ const en = ({
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
-      line2: `Your ${partner}'s middle name(s)`,
+      line2: `Your ${partner}'s middle name(s) (if they have one)`,
       line3: `Your ${partner}'s last name(s)`,
       line4: `Does your ${partner} have a solicitor representing them?`,
       line5: `Your ${partner}'s solicitor's details`,
@@ -220,24 +204,12 @@ const en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? 'I need help paying the fee'
-                : 'I do not need help paying the fee'
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: 'I need help paying the fee',
+        noHelpNeeded: 'I do not need help paying the fee',
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
@@ -259,14 +231,12 @@ const en = ({
       line10: `${stripTags(userCase.applicant1LivingInEnglandWalesSixMonths)}`,
       line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
       line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
-      line13: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line13: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -372,11 +342,11 @@ const en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings} ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings,
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
@@ -605,7 +575,7 @@ const cy: typeof en = ({
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
       line5: `Have you changed any part of your name since ${
@@ -615,7 +585,7 @@ const cy: typeof en = ({
     },
     contactYou: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: 'Trwy e-bost',
       line5: 'Dros y ffôn',
@@ -625,7 +595,7 @@ const cy: typeof en = ({
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
-      line2: `Your ${partner}'s middle name(s)`,
+      line2: `Your ${partner}'s middle name(s) (if they have one)`,
       line3: `Your ${partner}'s last name(s)`,
       line4: `Does your ${partner} have a solicitor representing them?`,
       line5: `Your ${partner}'s solicitor's details`,
@@ -678,24 +648,12 @@ const cy: typeof en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? "Mae angen help arnaf i dalu'r ffi"
-                : "Nid oes angen help arnaf i dalu'r ffi"
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: "Mae angen help arnaf i dalu'r ffi",
+        noHelpNeeded: "Nid oes angen help arnaf i dalu'r ffi",
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1AlreadyAppliedForHelpPaying
           ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
@@ -717,14 +675,12 @@ const cy: typeof en = ({
       line10: `${userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line13: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line13: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -830,12 +786,11 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
-       ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1LegalProceedings === YesOrNo.YES ? stripTags(userCase.applicant1LegalProceedingsDetails) : ''
       }`,

@@ -32,37 +32,44 @@
   {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
     <p class="govuk-body">{{ line3 }}</p>
   {% endif %}
-  <p class="govuk-body">{{ issuedDate | safe }}</p>
-  <p class="govuk-body">{{ caseReference | safe }}</p>
 
-  <h3 class="govuk-heading-s">{{ applicant1Heading }}</h3>
-  <p class="govuk-body">{{ applicant1Names }}</p>
-
-  <h3 class="govuk-heading-s">{{ applicant2Heading }}</h3>
-  <p class="govuk-body">{{ applicant2Names }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ issuedDateHeading }}</dt>
+    <dd class="govuk-body">{{ issuedDateValue }}</dd>
+    <dt class="govuk-heading-s">{{ caseReferenceHeading }}</dt>
+    <dd class="govuk-body">{{ caseReferenceValue }}</dd>
+    <dt class="govuk-heading-s">{{ applicant1Heading }}</dt>
+    <dd class="govuk-body">{{ applicant1Names }}</dd>
+    <dt class="govuk-heading-s">{{ applicant2Heading }}</dt>
+    <dd class="govuk-body">{{ applicant2Names }}</dd>
+  </dl>
 
   <h2 class="govuk-heading-m">{{ heading2 }}</h2>
   <p class="govuk-body">{{ line4 }}</p>
 
-  <h3 class="govuk-heading-s">{{ heading3 }}</h3>
-  <p class="govuk-body">{{ line5 }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading4 }}</h3>
-  <p class="govuk-body">{{ ceremonyPlace }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading5 }}</h3>
-  <p class="govuk-body">{{ relationshipDate }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ heading3 }}</dt>
+    <dd class="govuk-body">{{ line5 }}</dd>
+    <dt class="govuk-heading-s">{{ heading4 }}</dt>
+    <dd class="govuk-body">{{ ceremonyPlace }}</dd>
+    <dt class="govuk-heading-s">{{ heading5 }}</dt>
+    <dd class="govuk-body">{{ relationshipDate }}</dd>
+  </dl>
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
-  <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for connectionBullet in connectionBulletPoints %}
+      <li>{{ connectionBullet }}</li>
+    {% endfor %}
+  </ul>
 
   {{ govukDetails({
       summaryHtml: accessibleDetailsSpan(whatThisMeans, heading6),
       html: whatThisMeansContent1
   }) }}
 
-  <h3 class="govuk-heading-m">{{ heading10 }}</h3>
+  <h2 class="govuk-heading-m">{{ heading10 }}</h2>
   <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
   {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
     {% if userCase.applicant1LegalProceedings === 'Yes' %}
@@ -127,4 +134,8 @@
   <br>
   <br>
 
+{% endblock %}
+
+{% block form %}
+  {% include "../review-your-application/form.njk" %}
 {% endblock %}

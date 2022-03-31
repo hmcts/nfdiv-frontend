@@ -7,28 +7,37 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
   <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
-  <p class="govuk-body">{{ line2 | safe }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
   {% if isApplicant1FinancialOrderYes %}
     <p class="govuk-body">{{ applicant1FinancialOrderYes }}</p>
     {% endif %}
   {% if isApplicant2FinancialOrderYes %}
     <p class="govuk-body">{{ applicant2FinancialOrderYes }}</p>
   {% endif %}
-  <p class="govuk-body">{{ line3 | safe }}</p>
-  <p class="govuk-body">{{ line4 | safe }}</p>
-  <p class="govuk-body">{{ line5 }}</p>
-  <p class="govuk-body">{{ line6 | safe }}</p>
-  <p class="govuk-body">{{ line7 }}</p>
+
+  <dl>
+    <dt class="govuk-heading-s">{{ caseReferenceHeading }}</dt>
+    <dd class="govuk-body">{{ caseReferenceValue }}</dd>
+    <dt class="govuk-heading-s">{{ line4 }}</dt>
+    <dd class="govuk-body">{{ line5 }}</dd>
+    <dt class="govuk-heading-s">{{ line6 }}</dt>
+    <dd class="govuk-body">{{ line7 }}</dd>
+  </dl>
+
   <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
   <p class="govuk-body">{{ line8 }}</p>
-  <p class="govuk-body">{{ line9 | safe }}</p>
-  <p class="govuk-body">{{ line10 }}</p>
-  {% if isCeremonyPlace %}
-    <p class="govuk-body">{{ line11 | safe }}</p>
-    <p class="govuk-body">{{ line12 }}</p>
-  {% endif %}
-  <p class="govuk-body">{{ line13 | safe }}</p>
-  <p class="govuk-body">{{ line14 }}</p>
+
+  <dl>
+    <dt class="govuk-heading-s">{{ line9 }}</dt>
+    <dd class="govuk-body">{{ line10 }}</dd>
+    {% if isCeremonyPlace %}
+      <dt class="govuk-heading-s">{{ line11 }}</dt>
+      <dd class="govuk-body">{{ line12 }}</dd>
+    {% endif %}
+    <dt class="govuk-heading-s">{{ line13 }}</dt>
+    <dd class="govuk-body">{{ line14 }}</dd>
+  </dl>
+
   <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
   <p class="govuk-body">{{ line15 }}</p>
   <ul class="govuk-list govuk-list--bullet">
@@ -36,15 +45,29 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
+  {% set jurisdictionsMoreDetailsTemplate %}
+    <p class="govuk-body">{{ jurisdictionsMoreDetails.part1 }}</p>
+    {% if jurisdictionsMoreDetails.part2.length == 1 %}
+      {{ jurisdictionsMoreDetails.part2[0] | safe }}
+    {% else %}
+      {% for jurisdictionItem in jurisdictionsMoreDetails.part2 %}
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endset %}
   {{ govukDetails({
     summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading3),
-    html: jurisdictionsMoreDetails
+    html: jurisdictionsMoreDetailsTemplate
   }) }}
+
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
   <p class="govuk-body">{{ line16 }}</p>
   <p class="govuk-body">{{ line17 | safe }}</p>
+
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
   <p class="govuk-body">{{ line18 }}</p>
+
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   {% if isApplicant1FinancialOrderYes %}
     <p class="govuk-body">{{ applicant1FinancialOrderYes }}</p>
@@ -59,12 +82,14 @@
     summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading6),
     html: financialOrderMoreDetails
   }) }}
+
   {% if isApplicant1AddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
     <p class="govuk-body">{{ applicantAddressCountry | safe }}</p>
     <h3 class="govuk-heading-m">{{ subHeading8 }}</h3>
     <p class="govuk-body">{{ line19 }}</p>
   {% endif %}
+
   {% if isApplicant2AddressNotPrivate %}
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">{{ respondentAddressCountry | safe }}</p>

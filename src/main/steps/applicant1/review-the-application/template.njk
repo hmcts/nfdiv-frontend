@@ -6,6 +6,7 @@
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
+
   <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
   <p class="govuk-body">{{ line2.heading }}
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
@@ -13,24 +14,32 @@
       <li>{{ line2.item2 }}</li>
     </ul>
   </p>
-  <p class="govuk-body"><strong>{{ line3 }}</strong>{{ userCase.issueDate }}</p>
-  <p class="govuk-body"><strong>{{ line4.key }}</strong>{{ line4.value }}</p>
-  <p class="govuk-body"><strong>{{ line5 }}</strong></p>
-  <p class="govuk-body">{{ line6 }}</p>
-  <p class="govuk-body"><strong>{{ line7 }}</strong></p>
-  <p class="govuk-body">{{ line8 }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ line3 }}</dt>
+    <dd class="govuk-body">{{ userCase.issueDate }}</dd>
+    <dt class="govuk-heading-s">{{ line4.key }}</dt>
+    <dd class="govuk-body">{{ line4.value }}</dd>
+    <dt class="govuk-heading-s">{{ line5 }}</dt>
+    <dd class="govuk-body">{{ line6 }}</dd>
+    <dt class="govuk-heading-s">{{ line7 }}</dt>
+    <dd class="govuk-body">{{ line8 }}</dd>
+  </dl>
   <p class="govuk-body">
     {{ line9.p1 }}<br>
     {{ line9.p2 }}
   </p>
+
   <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
   <p class="govuk-body">{{ line10 }}</p>
-  <p class="govuk-body"><strong>{{ line11 }}</strong></p>
-  <p class="govuk-body">{{ line12 }}</p>
-  <p class="govuk-body"><strong>{{ line13 }}</strong></p>
-  <p class="govuk-body">{{ line14 }}</p>
-  <p class="govuk-body"><strong>{{ line15 }}</strong></p>
-  <p class="govuk-body">{{ line16 }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ line11 }}</dt>
+    <dd class="govuk-body">{{ line12 }}</dd>
+    <dt class="govuk-heading-s">{{ line13 }}</dt>
+    <dd class="govuk-body">{{ line14 }}</dd>
+    <dt class="govuk-heading-s">{{ line15 }}</dt>
+    <dd class="govuk-body">{{ line16 }}</dd>
+  </dl>
+
   <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
   <p class="govuk-body">{{ line17 }}</p>
   <ul class="govuk-list govuk-list--bullet">
@@ -38,15 +47,29 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
+  {% set jurisdictionsMoreDetailsTemplate %}
+    <p class="govuk-body">{{ jurisdictionsMoreDetails.part1 }}</p>
+    {% if jurisdictionsMoreDetails.part2.length == 1 %}
+      {{ jurisdictionsMoreDetails.part2[0] | safe }}
+    {% else %}
+      {% for jurisdictionItem in jurisdictionsMoreDetails.part2 %}
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endset %}
   {{ govukDetails({
     summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading3),
-    html: jurisdictionsMoreDetails
+    html: jurisdictionsMoreDetailsTemplate
   }) }}
+
   <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
   <p class="govuk-body">{{ line18 }}</p>
   <p class="govuk-body">{{ line19 | safe }}</p>
+
   <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
   <p class="govuk-body">{{ line20 }}</p>
+
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   {% if isFinancialOrderYes %}
     <p class="govuk-body">{{ financialOrderYes }}</p>
@@ -57,6 +80,7 @@
     summaryHtml: accessibleDetailsSpan(whatThisMeans, subHeading6),
     html: financialOrderMoreDetails
   }) }}
+
   {% if not isApplicantAddressPrivate or hasApplicant1SolicitorsAddress %}
     <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
     <p class="govuk-body">
@@ -99,6 +123,7 @@
   <h3 class="govuk-heading-m">{{ subHeading12 }}</h3>
   <p class="govuk-body">{{ line23 }}</p>
   <p class="govuk-body"><em>{{ applicantName }}</em></p>
+
   <h3 class="govuk-heading-m">{{ subHeading13 }}</h3>
 
 {% endblock %}
