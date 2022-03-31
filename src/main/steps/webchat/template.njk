@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="govuk-details__text">
-        <p class="govuk-heading-s govuk-!-margin-bottom-1" id="antenna-web-chat-header">{{ webChatTitle | safe }}</p>
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1" id="antenna-web-chat-header">{{ webChatTitle | safe }}</h3>
         <p id="metrics"></p>
         <web-chat
                 id="avayaWebchat"
@@ -29,4 +29,7 @@
     </div>
 {% endblock %}
 
-{% block footer %} {% endblock %}
+{% block footer %}
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es5.js" nomodule defer crossorigin="anonymous"></script>
+{% endblock %}

@@ -2,7 +2,13 @@ import { CaseWithId, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 
 import { en } from './common.content';
-import { getAppSolAddressFields, getPartner, getSelectedGender, getServiceName } from './content.utils';
+import {
+  formattedCaseId,
+  getAppSolAddressFields,
+  getPartner,
+  getSelectedGender,
+  getServiceName,
+} from './content.utils';
 
 describe('content.utils', () => {
   test.each([
@@ -79,5 +85,13 @@ describe('content.utils', () => {
 
     expect(addressFields).toContain(userCase[`${applicant}${solPrefix}Address1`]);
     expect(addressFields).toContain(userCase[`${applicant}${solPrefix}AddressPostcode`]);
+  });
+
+  test('should format caseId', () => {
+    const caseId = '1111222233334444';
+
+    const actual = formattedCaseId(caseId);
+
+    expect(actual).toEqual('1111-2222-3333-4444');
   });
 });

@@ -4,11 +4,7 @@
 {% extends "common/page.njk" %}
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-{% set isConditionalOrderAnswersComplete =
-        '/check-your-conditional-order-answers' in nextIncompleteStep or
-        nextIncompleteStep === '/applicant2/' or
-        nextIncompleteStep === '/'
-%}
+{% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep) %}
 {% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
 
 {% block content %}
