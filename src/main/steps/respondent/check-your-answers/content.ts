@@ -50,53 +50,44 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
     },
     aboutApplication: {
-      line1: `${
-        userCase.disputeApplication
-          ? userCase.disputeApplication === YesOrNo.YES
-            ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-            : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-          : ''
-      }`,
-      line2: `${
-        userCase.jurisdictionAgree
-          ? userCase.jurisdictionAgree === YesOrNo.YES
-            ? 'Yes, I agree the courts have jurisdiction'
-            : 'No, I do not agree the courts have jurisdiction'
-          : ''
-      }`,
-      line3: `${
+      line1: userCase.disputeApplication
+        ? userCase.disputeApplication === YesOrNo.YES
+          ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
+          : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
+        : '',
+      line2: userCase.jurisdictionAgree
+        ? userCase.jurisdictionAgree === YesOrNo.YES
+          ? 'Yes, I agree the courts have jurisdiction'
+          : 'No, I do not agree the courts have jurisdiction'
+        : '',
+      line3:
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
         userCase.jurisdictionAgree === YesOrNo.NO
           ? userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction
-          : ''
-      }`,
-      line4: `${
+          : '',
+      line4:
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
         userCase.jurisdictionAgree === YesOrNo.NO
           ? userCase.inWhichCountryIsYourLifeMainlyBased
-          : ''
-      }`,
+          : '',
     },
     contactYou: {
-      line1: `${
+      line1:
         userCase.applicant2AgreeToReceiveEmails && userCase.applicant2AgreeToReceiveEmails === Checkbox.Checked
           ? `I agree that the ${
               isDivorce ? 'divorce service' : 'ending a civil partnership service'
             } can send me notifications and serve (deliver) court documents to me by email.`
-          : ''
-      }`,
-      line2: `${userCase.applicant2PhoneNumber}`,
-      line3: `${
-        userCase.applicant2EnglishOrWelsh
-          ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
-          : ''
-      }`,
+          : '',
+      line2: userCase.applicant2PhoneNumber,
+      line3: userCase.applicant2EnglishOrWelsh
+        ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
+        : '',
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
   },
   stepLinks: {
@@ -179,60 +170,49 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   },
   stepAnswers: {
     readApplication: {
-      line1: `${
-        userCase.confirmReadPetition
-          ? `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`
-          : ''
-      }`,
+      line1: userCase.confirmReadPetition
+        ? `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`
+        : '',
     },
     aboutApplication: {
-      line1: `${
-        userCase.disputeApplication
-          ? userCase.disputeApplication === YesOrNo.YES
-            ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-            : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-          : ''
-      }`,
-      line2: `${
-        userCase.jurisdictionAgree
-          ? userCase.jurisdictionAgree === YesOrNo.YES
-            ? 'Yes, I agree the courts have jurisdiction'
-            : 'No, I do not agree the courts have jurisdiction'
-          : ''
-      }`,
-      line3: `${
+      line1: userCase.disputeApplication
+        ? userCase.disputeApplication === YesOrNo.YES
+          ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
+          : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
+        : '',
+      line2: userCase.jurisdictionAgree
+        ? userCase.jurisdictionAgree === YesOrNo.YES
+          ? 'Yes, I agree the courts have jurisdiction'
+          : 'No, I do not agree the courts have jurisdiction'
+        : '',
+      line3:
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
         userCase.jurisdictionAgree === YesOrNo.NO
           ? userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction
-          : ''
-      }`,
-      line4: `${
+          : '',
+      line4:
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
         userCase.jurisdictionAgree === YesOrNo.NO
           ? userCase.inWhichCountryIsYourLifeMainlyBased
-          : ''
-      }`,
+          : '',
     },
     contactYou: {
-      line1: `${
+      line1:
         userCase.applicant2AgreeToReceiveEmails && userCase.applicant2AgreeToReceiveEmails === Checkbox.Checked
           ? `Rwy'n cytuno y gall y ${
               isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
             } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`
-          : ''
-      }`,
-      line2: `${userCase.applicant2PhoneNumber}`,
-      line3: `${
-        userCase.applicant2EnglishOrWelsh
-          ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
-          : ''
-      }`,
+          : '',
+      line2: userCase.applicant2PhoneNumber,
+      line3: userCase.applicant2EnglishOrWelsh
+        ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
+        : '',
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
   },
 });
