@@ -18,6 +18,7 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
 const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
@@ -878,6 +879,7 @@ export const generateContent: TranslationFn = content => {
   const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
   return {
     ...translations,
+    isApplicationReadyToSubmit,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     applicant2Url,
   };

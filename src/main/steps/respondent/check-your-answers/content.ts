@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
 const en = ({ isDivorce, userCase }) => ({
@@ -268,6 +269,7 @@ export const generateContent: TranslationFn = content => {
   const applicant2Url = urls.RESPONDENT;
   return {
     ...translations,
+    isApplicationReadyToSubmit,
     form,
     applicant2Url,
   };
