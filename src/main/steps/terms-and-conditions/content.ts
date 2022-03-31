@@ -42,8 +42,14 @@ const en = {
   agreeToChanges:
     'You’ll agree to any changes if you continue to use this service after the terms and conditions have been updated.',
   contactUs: 'Contact Us',
-  address:
-    'CTSC (Courts and Tribunal Service Centre)<br>C/o HMCTS Digital Divorce Services<br>PO Box 13226<br>Harlow<br>CM20 9UG<br>',
+  address: {
+    line1: 'CTSC (Courts and Tribunal Service Centre)',
+    line2: 'C/o HMCTS Digital Divorce Services',
+    line3: 'PO Box 13226',
+    town: 'Harlow',
+    county: '',
+    postcode: 'CM20 9UG',
+  },
 };
 
 const cy: typeof en = {
@@ -90,8 +96,14 @@ const cy: typeof en = {
   agreeToChanges:
     'Rydych yn cytuno i unrhyw newidiadau drwy barhau i ddefnyddio’r gwasanaeth hwn ar ôl diweddaru’r telerau a’r amodau hyn.',
   contactUs: 'Cysylltwch â ni',
-  address:
-    'Uned yr Iaith Gymraeg<br>Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF<br>',
+  address: {
+    line1: 'Uned yr Iaith Gymraeg',
+    line2: 'Canolfan Gyfiawnder Caernarfon',
+    line3: 'Ffordd Llanberis',
+    town: 'Caernarfon',
+    county: 'Gwynedd',
+    postcode: 'LL55 2DF',
+  },
 };
 
 const languages = {
