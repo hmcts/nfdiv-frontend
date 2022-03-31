@@ -50,6 +50,7 @@ export class FileUploadEvents {
 
     uploadGroupEl?.classList.add('uploaded');
     uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
+    uploadGroupEl?.focus();
   };
 
   private resetErrorMessages = () => {
