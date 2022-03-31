@@ -5,6 +5,8 @@ import {
   APPLICANT_1_RESUBMIT,
   ApplicationType,
   CITIZEN_SUBMIT,
+  DivorceOrDissolution,
+  FinancialOrderFor,
   INVITE_APPLICANT_2,
   State,
 } from '../../../app/case/definition';
@@ -34,7 +36,11 @@ describe('CheckYourAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_SUBMIT);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      CITIZEN_SUBMIT
+    );
   });
 
   it('triggers INVITE_APPLICANT_2 when joint application', async () => {
@@ -49,7 +55,11 @@ describe('CheckYourAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, INVITE_APPLICANT_2);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      INVITE_APPLICANT_2
+    );
   });
 
   it('triggers APPLICANT_1_RESUBMIT when applicant 1 resubmits', async () => {
@@ -65,6 +75,36 @@ describe('CheckYourAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, APPLICANT_1_RESUBMIT);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      APPLICANT_1_RESUBMIT
+    );
+  });
+
+  it('adds extra form fields for applicant1', async () => {
+    const body = {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+      state: State.AwaitingApplicant1Response,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+    };
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    req.session.userCase.applicant1WhoIsFinancialOrderFor = [FinancialOrderFor.CHILDREN];
+
+    const res = mockResponse();
+    await checkYourAnswerPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        ...body,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.CHILDREN],
+      },
+      APPLICANT_1_RESUBMIT
+    );
   });
 });

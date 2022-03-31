@@ -38,6 +38,9 @@ export const form: FormContent = {
     applicant2PhoneNumber: {
       type: 'tel',
       label: l => l.byPhone,
+      labelAttributes: {
+        for: '',
+      },
       hint: l =>
         `<p class="govuk-body">${l.byPhoneLine1}</p>
         <label class="govuk-label govuk-!-font-weight-bold" for="applicant2PhoneNumber">${l.applicantPhoneNumber}</label>`,
