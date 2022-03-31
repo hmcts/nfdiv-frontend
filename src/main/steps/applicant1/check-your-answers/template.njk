@@ -25,8 +25,8 @@
       {% for line, text in stepAnswers[section] %}
         {% if text and text != 'undefined' and text != 'null' %}
 
-          {% if section == 'connectionsToEnglandWales' and line == 'line13' %}
-            {% set textValue = jurisdictionConnectionsDetails(stepAnswers.connectionsToEnglandWales.line13, userCase.connections) %}
+          {% if section == 'connectionsToEnglandWales' and line == 'line14' %}
+            {% set textValue = jurisdictionConnectionsDetails(stepAnswers.connectionsToEnglandWales.line14, userCase.connections) %}
 
           {% elseif section == 'helpWithFees' and line == 'line1' %}
             {% set textValue = hwfMoreDetails(stepAnswers.helpWithFees.line1, userCase.applicant1HelpPayingNeeded) %}
