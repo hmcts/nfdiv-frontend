@@ -151,7 +151,7 @@ const en = ({
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
       line5: `Have you changed any part of your name since ${
@@ -161,7 +161,7 @@ const en = ({
     },
     contactYou: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: 'By email',
       line5: 'By phone',
@@ -171,7 +171,7 @@ const en = ({
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
-      line2: `Your ${partner}'s middle name(s)`,
+      line2: `Your ${partner}'s middle name(s) (if they have one)`,
       line3: `Your ${partner}'s last name(s)`,
       line4: `Does your ${partner} have a solicitor representing them?`,
       line5: `Your ${partner}'s solicitor's details`,
@@ -615,7 +615,7 @@ const cy: typeof en = ({
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
       line5: `Have you changed any part of your name since ${
@@ -625,7 +625,7 @@ const cy: typeof en = ({
     },
     contactYou: {
       line1: 'Your first name(s)',
-      line2: 'Your middle name(s)',
+      line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: 'Trwy e-bost',
       line5: 'Dros y ffôn',
@@ -635,7 +635,7 @@ const cy: typeof en = ({
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
-      line2: `Your ${partner}'s middle name(s)`,
+      line2: `Your ${partner}'s middle name(s) (if they have one)`,
       line3: `Your ${partner}'s last name(s)`,
       line4: `Does your ${partner} have a solicitor representing them?`,
       line5: `Your ${partner}'s solicitor's details`,
