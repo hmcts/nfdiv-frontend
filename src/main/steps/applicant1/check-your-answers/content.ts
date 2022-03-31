@@ -245,13 +245,11 @@ const en = ({
       line2: stripTags(userCase.applicant2FullNameOnCertificate),
       line3: stripTags(userCase.applicant1LastNameChangedWhenRelationshipFormed),
       line4: stripTags(userCase.applicant1NameChangedSinceRelationshipFormed),
-      line5: userCase.applicant1NameChangedHow?.length
-        ? userCase.applicant1NameChangedHow
-            .join(' / ')
-            .replace(ChangedNameHow.OTHER, 'Another way')
-            .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-            .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`)
-        : '',
+      line5: userCase.applicant1NameChangedHow
+        ?.join(' / ')
+        .replace(ChangedNameHow.OTHER, 'Another way')
+        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`),
     },
     contactYou: {
       line1: stripTags(userCase.applicant1FirstNames),
@@ -344,11 +342,9 @@ const en = ({
           : 'No, I do not want to apply for a financial order'
         : '',
       line2: userCase.applicant1WhoIsFinancialOrderFor
-        ? userCase.applicant1WhoIsFinancialOrderFor
-            ?.join(' and ')
-            .replace(FinancialOrderFor.APPLICANT, 'Myself')
-            .replace(FinancialOrderFor.CHILDREN, 'The children')
-        : '',
+        ?.join(' and ')
+        .replace(FinancialOrderFor.APPLICANT, 'Myself')
+        .replace(FinancialOrderFor.CHILDREN, 'The children'),
     },
     documents: {
       line1: userCase.applicant1DocumentsUploaded?.length
@@ -669,13 +665,11 @@ const cy: typeof en = ({
       line2: stripTags(userCase.applicant2FullNameOnCertificate),
       line3: stripTags(userCase.applicant1LastNameChangedWhenRelationshipFormed),
       line4: stripTags(userCase.applicant1NameChangedSinceRelationshipFormed),
-      line5: userCase.applicant1NameChangedHow?.length
-        ? userCase.applicant1NameChangedHow
-            .join(' / ')
-            .replace(ChangedNameHow.OTHER, 'Ffordd arall')
-            .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
-            .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`)
-        : '',
+      line5: userCase.applicant1NameChangedHow
+        ?.join(' / ')
+        .replace(ChangedNameHow.OTHER, 'Ffordd arall')
+        .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+        .replace(ChangedNameHow.MARRIAGE_CERTIFICATE, `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`),
     },
     contactYou: {
       line1: stripTags(userCase.applicant1FirstNames),
@@ -772,11 +766,9 @@ const cy: typeof en = ({
           : 'No, I do not want to apply for a financial order'
         : '',
       line2: userCase.applicant1WhoIsFinancialOrderFor
-        ? userCase.applicant1WhoIsFinancialOrderFor
-            ?.join(' / ')
-            .replace(FinancialOrderFor.APPLICANT, 'Myself')
-            .replace(FinancialOrderFor.CHILDREN, 'The children')
-        : '',
+        ?.join(' / ')
+        .replace(FinancialOrderFor.APPLICANT, 'Myself')
+        .replace(FinancialOrderFor.CHILDREN, 'The children'),
     },
     documents: {
       line1: userCase.applicant1DocumentsUploaded?.length
