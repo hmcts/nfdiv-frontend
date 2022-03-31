@@ -342,10 +342,7 @@ Feature: Form failures
     When I click "Submit"
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
 
-    Given I set the case state to "AwaitingFinalOrder"
-    And I click "Sign out"
-    And I login with applicant "2"
-    And I go to "/respondent/finalising-your-application"
+    Given I go to "/respondent/finalising-your-application"
     When I click "Submit"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
     Then the page should include "You need to explain why you are applying for the final order before continuing."

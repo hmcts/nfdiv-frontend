@@ -9,7 +9,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { respondentPostSubmissionSequence, respondentPreSubmissionSequence } from './respondentSequence';
+import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import {
   APPLICANT_2,
@@ -36,8 +36,7 @@ const allSequences = [
   applicant1PostSubmissionSequence,
   applicant2PreSubmissionSequence,
   applicant2PostSubmissionSequence,
-  respondentPreSubmissionSequence,
-  respondentPostSubmissionSequence,
+  respondentSequence,
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
@@ -143,7 +142,7 @@ export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase);
 
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return stateSequence.isBefore(State.Holding) ? respondentPreSubmissionSequence : respondentPostSubmissionSequence;
+    return respondentSequence;
   } else if (req.session.isApplicant2) {
     return stateSequence.isBefore(State.Applicant2Approved)
       ? applicant2PreSubmissionSequence
