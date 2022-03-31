@@ -16,7 +16,7 @@
   {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
     {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
 
-  {% elif currentState.isBefore('Holding') or not hasReviewedTheApplication %}
+  {% elif currentState.isBefore('Holding') and not hasSubmittedAos %}
     {% include "./latest-update-content/awaiting-aos.njk" %}
 
   {% elif userCase.state == 'AwaitingGeneralConsideration' %}
