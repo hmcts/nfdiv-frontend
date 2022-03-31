@@ -1,5 +1,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
+{% from "common/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/page.njk" %}
 
@@ -80,13 +81,7 @@
             <li>{{ step }}</li>
           {% endfor %}
         </ol>
-        <p class="govuk-body"><strong>
-            {{ address.line1 }}<br>
-            {{ address.line2 }}<br>
-            {{ address.poBox }}<br>
-            {{ address.town }}<br>
-            {{ address.postcode }}
-          </strong></p>
+        {{ serviceAddressMacro(serviceAddress) }}
         <p class="govuk-body">{{ documentsByPostMoreDetails }}</p>
       {% endset %}
       {{ govukDetails({

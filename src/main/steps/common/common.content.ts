@@ -103,6 +103,14 @@ export const en = {
   helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
   helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  serviceAddress: {
+    line1: 'Courts and Tribunals Service Centre',
+    line2: 'HMCTS Divorce and Dissolution service',
+    poBox: 'PO Box 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
+  },
+  servicePhoneNo: '0300 303 0642',
 };
 
 const cy: typeof en = {

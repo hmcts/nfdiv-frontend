@@ -5,6 +5,7 @@ import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/def
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
+import { formattedCaseId } from '../common/content.utils';
 import { currentStateFn } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
@@ -43,13 +44,6 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   documentsByPostSteps: {
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
-  },
-  address: {
-    line1: `${config.get('serviceAddress.line1')}`,
-    line2: `${config.get('serviceAddress.line2')}`,
-    poBox: `${config.get('serviceAddress.poBox')}`,
-    town: `${config.get('serviceAddress.town')}`,
-    postcode: `${config.get('serviceAddress.postcode')}`,
   },
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
@@ -149,7 +143,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
   const currentState = currentStateFn(userCase);
-  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = formattedCaseId(userCase.id);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;

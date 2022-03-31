@@ -1,0 +1,14 @@
+{% macro serviceAddressMacro(addressFields, hasHeading) %}
+  {% if hasHeading %}
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ addressFields.line1 }}</h3>
+    <ul class="govuk-list">
+  {% else %}
+    <ul class="govuk-list">
+      <li>{{ addressFields.line1 }}</li>
+  {% endif %}
+      <li>{{ addressFields.line2 }}</li>
+      <li>{{ addressFields.poBox }}</li>
+      <li>{{ addressFields.town }}</li>
+      <li>{{ addressFields.postcode }}</li>
+    </ul>
+{% endmacro %}

@@ -10,7 +10,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { cookieMaxAge } from './modules/session';
-import { stepsWithContent } from './steps';
+import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
@@ -74,11 +74,12 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
+      if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
         return res.redirect('/error');
       }
       next();
     };
+
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default

@@ -18,25 +18,10 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
-  textAndTitleObject: Record<string, string>
-) => {
-  return `
-  <details class="govuk-details summary" data-module="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        ${textAndTitleObject.title || 'Find out more '}
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-      ${textAndTitleObject.text}
-    </div>
-  </details>`;
-};
-
-const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
+const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
   const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
     config.get('fees.applicationFee')
@@ -47,15 +32,15 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
       : 'They have said that they do not need help paying the fee.'
   }`;
 
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
-const getOtherCourtCasesMoreDetailsContent = () => {
+const otherCasesMoreDetails = () => {
   const title = 'Find out more about other court proceedings';
   const text =
     'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
     'It does not need to know about other court proceedings.';
-  return moreDetailsComponent({ text, title });
+  return { text, title };
 };
 
 const cannotUploadDocumentList = (
@@ -224,24 +209,12 @@ const en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? 'I need help paying the fee'
-                : 'I do not need help paying the fee'
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: 'I need help paying the fee',
+        noHelpNeeded: 'I do not need help paying the fee',
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
@@ -264,14 +237,12 @@ const en = ({
       line11: `${stripTags(userCase.applicant2DomicileInEnglandWales)}`,
       line12: `${stripTags(userCase.bothLastHabituallyResident)}`,
       line13: `${stripTags(userCase.jurisdictionResidualEligible)}`,
-      line14: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line14: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -377,11 +348,11 @@ const en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings} ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings,
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
     },
     dividingAssets: {
@@ -688,24 +659,12 @@ const cy: typeof en = ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant1HelpPayingNeeded
-          ? `${
-              userCase.applicant1HelpPayingNeeded === YesOrNo.YES
-                ? "Mae angen help arnaf i dalu'r ffi"
-                : "Nid oes angen help arnaf i dalu'r ffi"
-            }
-            ${
-              isApplicant2
-                ? getHelpWithFeesMoreDetailsContent(
-                    userCase.applicant1HelpPayingNeeded,
-                    isDivorce,
-                    checkTheirAnswersPartner
-                  )
-                : ''
-            }`
-          : ''
-      }`,
+      line1: {
+        needHelp: "Mae angen help arnaf i dalu'r ffi",
+        noHelpNeeded: "Nid oes angen help arnaf i dalu'r ffi",
+        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1AlreadyAppliedForHelpPaying
           ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
@@ -728,14 +687,12 @@ const cy: typeof en = ({
       line11: `${userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line12: `${userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line13: `${userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo')}`,
-      line14: `${
-        userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
-            }`
-          : ''
-      }`,
+      line14: {
+        heading: 'Your answers indicate that you can apply in England and Wales because:',
+        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+        defaultLink: 'Find out more',
+      },
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -841,12 +798,11 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: `${
-        userCase.applicant1LegalProceedings
-          ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
-       ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
-          : ''
-      }`,
+      line1: {
+        applicant1LegalProceedings: userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
+        otherCasesMoreDetails: otherCasesMoreDetails(),
+        defaultLink: 'Find out more ',
+      },
       line2: `${
         userCase.applicant1LegalProceedings === YesOrNo.YES ? stripTags(userCase.applicant1LegalProceedingsDetails) : ''
       }`,
@@ -934,6 +890,7 @@ export const generateContent: TranslationFn = content => {
   const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
   return {
     ...translations,
+    isApplicationReadyToSubmit,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     applicant2Url,
   };
