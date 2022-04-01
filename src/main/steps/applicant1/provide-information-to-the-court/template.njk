@@ -1,106 +1,52 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "common/page.njk" %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% block error_summary %}
-        {% include "common/error/summary.njk" %}
-        {{ govukErrorSummary({
-          titleText: errorSummaryHeading,
-          classes: "hidden",
-          attributes: {
-            id: "uploadErrorSummary"
-          },
-          errorList: [
-            {
-              text: errors.coClarificationUploadedFiles.errorUploading,
-              href: "#upload",
-              attributes: {
-              id: "errorGeneric",
-              class: "hidden"
-            }
-            },
-            {
-              text: errors.coClarificationUploadedFiles.fileSizeTooBig,
-              href: "#upload",
-              attributes: {
-              id: "errorFileSizeTooBig",
-              class: "hidden"
-            }
-            },
-            {
-              text: errors.coClarificationUploadedFiles.fileWrongFormat,
-              href: "#upload",
-              attributes: {
-              id: "errorFileWrongFormat",
-              class: "hidden"
-            }
-            }
-          ]
-        }) }}
-      {% endblock %}
+{% block page_content %}
+  {{ govukErrorSummary({
+    titleText: errorSummaryHeading,
+    classes: "hidden",
+    attributes: {
+      id: "uploadErrorSummary"
+    },
+    errorList: [
+      {
+        text: errors.coClarificationUploadedFiles.errorUploading,
+        href: "#upload",
+        attributes: {
+        id: "errorGeneric",
+        class: "hidden"
+      }
+      },
+      {
+        text: errors.coClarificationUploadedFiles.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+        id: "errorFileSizeTooBig",
+        class: "hidden"
+      }
+      },
+      {
+        text: errors.coClarificationUploadedFiles.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+        id: "errorFileWrongFormat",
+        class: "hidden"
+      }
+      }
+    ]
+  }) }}
 
-      <h1 class="govuk-heading-l">{{ title }}</h1>
-      {{ govukInsetText({
-        text: line1
-      }) }}
-      <p class="govuk-body">{{ line2 }}</p>
-      <p class="govuk-body">{{ coAdditionalInfo }}</p>
-      <h4 class="govuk-heading-s">{{ subheading1 }}</h4>
-      {% block form %}
-        <form class="form" id="main-form" method="post" action="" novalidate="novalidate">
-          <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-          {% set textArea %}
-            {% set fieldName = 'coClarificationResponses' %}
-            {% set field = form.fields[fieldName] %}
-            {% include "common/form/fields/" + field.type + ".njk" %}
-          {% endset %}
-          {{ textArea | safe }}
-          <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
-          <p class="govuk-body">{{ line5 }}</p>
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {{ govukInsetText({
+    text: line1
+  }) }}
+  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ coAdditionalInfo }}</p>
+  <h4 class="govuk-heading-s">{{ subheading1 }}</h4>
+{% endblock %}
 
-          {% set documentUpload %}
-          {% include "../upload-your-documents/document-upload.njk" %}
-          {% endset %}
-          {{ documentUpload | safe }}
-
-          {% set hiddenUpload %}
-            {% set fieldName = 'coClarificationUploadedFiles' %}
-            {% set field = form.fields[fieldName] %}
-            {% include "common/form/fields/" + field.type + ".njk" %}
-          {% endset %}
-          {{ hiddenUpload | safe }}
-
-          {% set checkbox %}
-            {% set fieldName = 'coCannotUploadClarificationDocuments' %}
-            {% set field = form.fields[fieldName] %}
-            {% include "common/form/fields/" + field.type + ".njk" %}
-          {% endset %}
-          {{ checkbox | safe }}
-
-          <div class="govuk-form-group">
-            {{ govukButton({
-              text: getContent(form.submit.text),
-              classes: form.submit.classes,
-              type: "submit",
-              preventDoubleClick: true,
-              attributes: {
-                id: 'main-form-submit'
-              }
-            }) }}
-
-            <p class="govuk-body">
-              <button class="hmcts-button-link" type="submit" name="saveAndSignOut" value="true" data-prevent-double-click="true" data-module="govuk-button" />
-              {{ saveAndSignOut }}
-              </button>
-            </p>
-          </div>
-        </form>
-      {% endblock %}
-    </div>
-  </div>
+{% block form %}
+  {% include "./form.njk" %}
 {% endblock %}

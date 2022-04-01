@@ -76,13 +76,6 @@ export const enConnectionBulletPointsUserReads = (
   partner: string,
   isDivorce: boolean,
   isJointApplication: boolean
-): string => {
-  let bulletPointText = '<ul class="govuk-list govuk-list--bullet">';
-
-  for (const index in connections) {
-    bulletPointText +=
-      '<li>' + enConnectionUserReads(partner, isDivorce, isJointApplication)[connections[index]] + '</li>';
-  }
-
-  return bulletPointText + '</ul>';
+): string[] => {
+  return connections?.map(connection => enConnectionUserReads(partner, isDivorce, isJointApplication)[connection]);
 };

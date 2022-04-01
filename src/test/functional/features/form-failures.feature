@@ -248,7 +248,14 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
 
-    Given I go to "/finalising-your-application"
+    Given I've already completed the form using the fixture "completeCase"
+    And I go to "/check-your-answers"
+    When I click "Continue"
+    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
+    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+
+    Given I set the case state to "AwaitingFinalOrder"
+    And I go to "/finalising-your-application"
     When I click "Continue"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
 
@@ -256,12 +263,6 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
     And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
-
-    Given I've already completed the form using the fixture "completeCase"
-    And I go to "/check-your-answers"
-    When I click "Continue"
-    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
 
 
   @nightly
@@ -529,6 +530,23 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    Given I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
+    When I go to "/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/applicant2/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
 
   @nightly
   Scenario: Jurisdiction form failures

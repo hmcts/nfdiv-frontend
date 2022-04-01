@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { isConditionalOrderReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
 const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonContent) => ({
@@ -79,6 +80,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
   return {
+    isConditionalOrderReadyToSubmit,
     ...translation,
     form,
   };

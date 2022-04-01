@@ -42,5 +42,9 @@
   <p class="govuk-body">{{ agreeToChanges }}</p>
 
   <h2 class="govuk-heading-m">{{ contactUs }}</h2>
-  <p class="govuk-body">{{ address | safe }}</p>
+  <ul class="govuk-list">
+    {% for key, line in address %}
+    <li>{{ line }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}
