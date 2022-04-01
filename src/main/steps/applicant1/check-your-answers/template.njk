@@ -28,10 +28,10 @@
           {% if section == 'connectionsToEnglandWales' and line == 'line14' %}
             {% set textValue = jurisdictionConnectionsDetails(stepAnswers.connectionsToEnglandWales.line14, userCase.connections) %}
 
-          {% elseif section == 'helpWithFees' and line == 'line1' %}
+          {% elif section == 'helpWithFees' and line == 'line1' %}
             {% set textValue = hwfMoreDetails(stepAnswers.helpWithFees.line1, userCase.applicant1HelpPayingNeeded) %}
 
-          {% elseif section == 'otherCourtCases' and line == 'line1' %}
+          {% elif section == 'otherCourtCases' and line == 'line1' %}
             {% set textValue = otherCourtCasesMoreDetails(stepAnswers.otherCourtCases.line1, userCase.applicant1LegalProceedings, isApplicant2) %}
 
           {% else %}

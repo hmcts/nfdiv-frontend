@@ -208,19 +208,20 @@ const en = ({
       }`,
     },
     helpWithFees: {
-      line1: {
-        needHelp: 'I need help paying the fee',
-        noHelpNeeded: 'I do not need help paying the fee',
-        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
-        defaultLink: 'Find out more ',
-      },
-      line2: `${
+      line1: userCase.applicant1HelpPayingNeeded
+        ? {
+            needHelp: 'I need help paying the fee',
+            noHelpNeeded: 'I do not need help paying the fee',
+            hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+            defaultLink: 'Find out more ',
+          }
+        : '',
+      line2:
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
         userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
           ? `Yes <br> ${stripTags(userCase.applicant1HelpWithFeesRefNo)}`
-          : ''
-      }`,
+          : '',
     },
     connectionsToEnglandWales: {
       line1: stripTags(userCase.inTheUk),
@@ -236,12 +237,14 @@ const en = ({
       line11: stripTags(userCase.applicant2DomicileInEnglandWales),
       line12: stripTags(userCase.bothLastHabituallyResident),
       line13: stripTags(userCase.jurisdictionResidualEligible),
-      line14: {
-        heading: 'Your answers indicate that you can apply in England and Wales because:',
-        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
-        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
-        defaultLink: 'Find out more',
-      },
+      line14: userCase.connections
+        ? {
+            heading: 'Your answers indicate that you can apply in England and Wales because:',
+            connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+            jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+            defaultLink: 'Find out more',
+          }
+        : '',
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -347,12 +350,14 @@ const en = ({
       }`,
     },
     otherCourtCases: {
-      line1: {
-        applicant1LegalProceedings: userCase.applicant1LegalProceedings,
-        otherCasesMoreDetails: otherCasesMoreDetails(),
-        defaultLink: 'Find out more ',
-      },
-      line2: `${userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant1LegalProceedings
+        ? {
+            applicant1LegalProceedings: userCase.applicant1LegalProceedings,
+            otherCasesMoreDetails: otherCasesMoreDetails(),
+            defaultLink: 'Find out more ',
+          }
+        : '',
+      line2: userCase.applicant1LegalProceedings === YesOrNo.YES ? userCase.applicant1LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
@@ -657,19 +662,19 @@ const cy: typeof en = ({
       }`,
     },
     helpWithFees: {
-      line1: {
-        needHelp: "Mae angen help arnaf i dalu'r ffi",
-        noHelpNeeded: "Nid oes angen help arnaf i dalu'r ffi",
-        hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
-        defaultLink: 'Find out more ',
-      },
-      line2: `${
-        userCase.applicant1AlreadyAppliedForHelpPaying
-          ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-            ? `Do <br> ${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
-            : ''
+      line1: userCase.applicant1HelpPayingNeeded
+        ? {
+            needHelp: "Mae angen help arnaf i dalu'r ffi",
+            noHelpNeeded: "Nid oes angen help arnaf i dalu'r ffi",
+            hwfMoreDetails: hwfMoreDetails(userCase.applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner),
+            defaultLink: 'Find out more ',
+          }
+        : '',
+      line2: userCase.applicant1AlreadyAppliedForHelpPaying
+        ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
+          ? `Do <br> ${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
           : ''
-      }`,
+        : '',
     },
     connectionsToEnglandWales: {
       line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
@@ -685,12 +690,14 @@ const cy: typeof en = ({
       line11: userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
       line12: userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo'),
       line13: userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line14: {
-        heading: 'Your answers indicate that you can apply in England and Wales because:',
-        connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
-        jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
-        defaultLink: 'Find out more',
-      },
+      line14: userCase.connections
+        ? {
+            heading: 'Your answers indicate that you can apply in England and Wales because:',
+            connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+            jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
+            defaultLink: 'Find out more',
+          }
+        : '',
     },
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
@@ -796,14 +803,19 @@ const cy: typeof en = ({
       }`,
     },
     otherCourtCases: {
-      line1: {
-        applicant1LegalProceedings: userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
-        otherCasesMoreDetails: otherCasesMoreDetails(),
-        defaultLink: 'Find out more ',
-      },
-      line2: `${
-        userCase.applicant1LegalProceedings === YesOrNo.YES ? stripTags(userCase.applicant1LegalProceedingsDetails) : ''
-      }`,
+      line1: userCase.applicant1LegalProceedings
+        ? {
+            applicant1LegalProceedings: userCase.applicant1LegalProceedings
+              ?.replace('Yes', 'Do')
+              .replace('No', 'Naddo'),
+            otherCasesMoreDetails: otherCasesMoreDetails(),
+            defaultLink: 'Find out more ',
+          }
+        : '',
+      line2:
+        userCase.applicant1LegalProceedings === YesOrNo.YES
+          ? stripTags(userCase.applicant1LegalProceedingsDetails)
+          : '',
     },
     dividingAssets: {
       line1: `${
