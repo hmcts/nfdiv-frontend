@@ -22,7 +22,7 @@
   {% elif userCase.state == 'AwaitingGeneralConsideration' %}
     {% include "./latest-update-content/awaiting-general-consideration.njk" %}
 
-  {% elif userCase.state == 'Holding' or hasSubmittedAos %}
+  {% elif userCase.state == 'Holding' %}
     {% include "./latest-update-content/holding.njk" %}
 
   {% endif %}
