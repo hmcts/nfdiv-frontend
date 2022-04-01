@@ -9,21 +9,27 @@ import { Application } from 'express';
  */
 export class HealthCheck {
   public enableFor(app: Application): void {
-    // const redis = app.locals.redisClient
-    //   ? healthcheck.raw(() => (app.locals.redisClient.get('live') ? healthcheck.up() : healthcheck.down()))
-    //   : undefined;
+    const redis = app.locals.redisClient
+      ? healthcheck.raw(() => (app.locals.redisClient.ping() ? healthcheck.up() : healthcheck.down()))
+      : null;
 
     const idamUrl = config.get('services.idam.tokenURL') as string;
 
     healthcheck.addTo(app, {
       checks: {
-        // redis,
+        ...(redis ? { redis } : {}),
         'authProvider-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
         'case-api': healthcheck.web(new URL('/health', config.get('services.case.url'))),
       },
       readinessChecks: {
-        // redis,
+        ...(redis
+          ? {
+              readinessChecks: {
+                redis,
+              },
+            }
+          : {}),
       },
       buildInfo: {
         name: 'nfdiv-frontend',
