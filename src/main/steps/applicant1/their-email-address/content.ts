@@ -3,18 +3,23 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ partner, isDivorce, isJointApplication }) => ({
+const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,
   line1: `It’s important you provide ${
     isJointApplication
       ? `your ${partner}'s email address so they can join and review your joint application before it’s submitted to the court.`
-      : `their email address so the court can ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
+      : `their email address ${
+          hasEnteredSolicitorDetails ? 'because the court may need to' : 'so the court can'
+        } ‘serve’ (deliver) documents to them online. If you do not provide an email address, the ${
           isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
-        } will be served (delivered) by post. The emails will also contain information and updates relating to ${
+        } ${
+          hasEnteredSolicitorDetails ? 'may' : 'will'
+        } be served (delivered) by post. The emails will also contain information and updates relating to ${
           isDivorce ? 'the divorce' : 'ending your civil partnership'
         }.`
   }`,
-  line2: 'If you use their work email address, you should ask their permission first.',
+  line2:
+    'Enter the email address which they actively use for personal emails. You should avoid using their work email address because it may not be private.',
   applicant2EmailAddress: `Your ${partner}'s email address`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
@@ -58,6 +63,7 @@ export const form: FormContent = {
     applicant2EmailAddress: {
       type: 'text',
       label: l => l.applicant2EmailAddress,
+      labelSize: null,
       validator: (value, formData) => {
         if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isEmailValid(value);
@@ -88,7 +94,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const { userCase, language } = content;
+  const hasEnteredSolicitorDetails = userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
+  const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
   return {
     ...translations,
     form,

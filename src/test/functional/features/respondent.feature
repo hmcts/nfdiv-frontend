@@ -39,11 +39,6 @@ Feature: Respondent
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
 
     When I click "Continue"
-    Then the page URL should be "/respondent/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in?"
-    Given I select "English"
-
-    When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
     Given I select "I confirm that:"
@@ -105,16 +100,11 @@ Feature: Respondent
     And I type "0123456789"
 
     When I click "Continue"
-    Then the page URL should be "/respondent/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in?"
-    Given I select "English"
-
-    When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
     Given I select "I confirm that:"
 
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
-    And the page should include "First name Last name & Husbands name"
+    And the page should include "Test your name Test your last name & FunctionalTest LastNameTest"
 

@@ -7,13 +7,13 @@ const en = ({ isDivorce, required }) => {
   const relationship = isDivorce ? 'marriage' : 'civil partnership';
   const endRelationship = isDivorce ? 'get a divorce' : 'end it';
   return {
-    title: `Has your ${relationship} irretrievably broken down (it cannot be saved)?`,
-    line1: `Your ${relationship} must have irretrievably broken down for you to
+    title: `Has your ${relationship} broken down irretrievably (it cannot be saved)?`,
+    line1: `Your ${relationship} must have broken down irretrievably for you to
       ${endRelationship}. This means it cannot be saved.`,
-    yes: `Yes, my ${relationship} has irretrievably broken down`,
-    no: `No, my ${relationship} has not irretrievably broken down`,
+    yes: `I confirm my ${relationship} has broken down irretrievably`,
+    no: `My ${relationship} has not broken down irretrievably`,
     notBrokenDownSelected: `Your ${relationship}
-      must have irretrievably broken down for you to ${endRelationship}.
+      must have broken down irretrievably for you to ${endRelationship}.
       This is the law in England and Wales.`,
     errors: {
       applicant1ScreenHasUnionBroken: {

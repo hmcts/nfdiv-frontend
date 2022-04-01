@@ -1,16 +1,25 @@
+import config from 'config';
 import dayjs from 'dayjs';
 
+import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { formattedCaseId } from '../../common/content.utils';
+import { currentStateFn } from '../../state-sequence';
+import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
-const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication }: CommonContent) => ({
-  title: `${userCase.applicant1FullNameOnCertificate} & ${userCase.applicant2FullNameOnCertificate}`,
+export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
+};
+
+const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
+  title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
   response: 'Response',
@@ -20,11 +29,9 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
-  line1:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>',
-  line2:
-    '<a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out more about conditional orders</a>',
+  line1: 'Find out about dividing money and property',
   whatHappensNext: 'What happens next',
+  applyForConditionalOrder: 'Apply for conditional order',
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
@@ -37,12 +44,12 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
     line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .subtract(7, 'day')
+      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
       .format('D MMMM YYYY')} if you want to attend.`,
     line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
       userCase.coDateAndTimeOfHearing
     )
-      .add(43, 'day')
+      .add(config.get('dates.applyForFoDays'), 'day')
       .format('D MMMM YYYY')}. This is the final step in the ${
       isDivorce ? 'divorce ' : ''
     }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
@@ -79,6 +86,25 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication 
       link: '/downloads/certificate-of-entitlement',
     },
   },
+  awaitingClarification: {
+    line1: `The court has reviewed your application for a conditional order and needs some more information before
+    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
+    courtsFeedback: 'The court’s feedback',
+    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+    buttonText: 'Respond to the court',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+  },
 });
 
 // @TODO translations
@@ -98,13 +124,15 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
-  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const currentState = currentStateFn(userCase);
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    currentState,
     isCoFieldsSet,
   };
 };

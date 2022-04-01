@@ -9,8 +9,8 @@ Feature: Applicant 1 sole application
   Scenario: They fill out a happy path applicant 1 sole journey
     Given I select "My husband"
     And I click "Continue"
-    Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
-    Given I select "Yes, my marriage has irretrievably broken down"
+    Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
+    Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
     Then the page should include "When did you get married?"
@@ -23,7 +23,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Do you have your marriage certificate with you?"
-    Given I select "Yes, I have my marriage certificate"
+    Given I select "Yes, I have my marriage certificate with me"
 
     When I click "Continue"
     Then the page should include "Do you need help paying the fee for your divorce?"
@@ -38,7 +38,7 @@ Feature: Applicant 1 sole application
     Given I select "Yes"
 
     When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England and Wales"
+    Then the page should include "Check if you can get a divorce in England or Wales"
 
     When I click "Continue"
     Then the page should include "Where your lives are based"
@@ -81,10 +81,6 @@ Feature: Applicant 1 sole application
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
 
     When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
-
-    When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "I do not need my contact details kept private"
 
@@ -98,6 +94,11 @@ Feature: Applicant 1 sole application
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
 
     When I click "Continue"
+    Then the page should include "Does your husband have a solicitor representing them?"
+    Given I select "No"
+
+    When I click "Continue"
+    Then the page should include "Enter your husband's email address"
     Then I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
 
@@ -141,7 +142,7 @@ Feature: Applicant 1 sole application
     And I go to "/"
     Then the page should include "Check your answers"
     And the page should include "When did you get married?	1 January 2000"
-    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
+    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate with me"
     And the page should include "Help with fees"
     And the page should include "I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
@@ -160,15 +161,15 @@ Feature: Applicant 1 sole application
     And I select "We were a same-sex couple when we got married"
 
     When I click "Continue"
-    Then the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
-    Given I select "No, my marriage has not irretrievably broken down"
-    Then the page should include "Your marriage must have irretrievably broken down for you to get a divorce. This is the law in England and Wales."
+    Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
+    Given I select "My marriage has not broken down irretrievably"
+    Then the page should include "Your marriage must have broken down irretrievably for you to get a divorce. This is the law in England and Wales."
 
     When I click "Continue"
     Then the page should include "You cannot apply to get a divorce"
     Given I click "Back"
     Then the page URL should be "/irretrievable-breakdown"
-    Given I select "Yes, my marriage has irretrievably broken down"
+    Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
     Then the page should include "When did you get married?"
@@ -181,13 +182,13 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Do you have your marriage certificate with you?"
-    Given I select "No, I do not have marriage certificate"
+    Given I select "No, I do not have marriage certificate with me"
 
     When I click "Continue"
     Then the page should include "You need your marriage certificate"
     Given I click "Back"
     Then the page URL should be "/do-you-have-your-certificate"
-    Given I select "Yes, I have my marriage certificate"
+    Given I select "Yes, I have my marriage certificate with me"
 
     When I click "Continue"
     Then the page should include "Do you need help paying the fee for your divorce?"
@@ -252,7 +253,7 @@ Feature: Applicant 1 sole application
     And I type "London"
 
     When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England and Wales"
+    Then the page should include "Check if you can get a divorce in England or Wales"
 
     When I click "Continue"
     Then the page should include "Where your lives are based"
@@ -264,9 +265,10 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Enter your name"
-    Given I select "Your first name"
+    Given I clear the form
+    And I select "Your first name"
     And I type "Sarah"
-    And I select "Your middle name"
+    And I select "Your middle name(s) (if you have one)"
     And I type "Middle"
     And I select "Your last name"
     And I type "Smith"
@@ -306,10 +308,6 @@ Feature: Applicant 1 sole application
     And I type "123456789"
 
     When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
-
-    When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "Keep my contact details private"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
@@ -328,13 +326,30 @@ Feature: Applicant 1 sole application
     And I select "County, district, state or province"
     And I type "Their county"
     And I select "Postal code, zip code or area code (optional)"
-    And I type "Their code"
+    And I type "SW1A 1AA"
     And I select "Country"
-    And I type "Their country"
+    And I type "UK"
+
+    When I click "Continue"
+    Then the page should include "Does your husband have a solicitor representing them?"
+    Given I select "Yes"
+
+    When I click "Continue"
+    Then the page URL should be "/enter-solicitor-details"
+    And I select "Solicitor email address (optional)"
+    And I type "simulate-delivered@notifications.service.gov.uk"
+    And I select "Postal code, zip code or area code (optional)"
+    And I type "SW1A 1AA"
 
     When I click "Continue"
     Then the page URL should be "/their-email-address"
-    Given I select "I do not know their email address"
+    Given I go to "/do-they-have-a-solicitor"
+    And I select "No"
+
+    When I click "Continue"
+    Then the page should include "Enter your husband's email address"
+    Given I select "Your husband's email address"
+    And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
     Then the page should include "Do you have your husband's postal address?"
@@ -357,9 +372,10 @@ Feature: Applicant 1 sole application
     And I select "Postal code, zip code or area code"
     And I type "Their code"
     And I select "Country"
-    And I type "Their country"
+    And I type "France"
     And I click "Continue"
-    Then the page URL should be "/other-court-cases"
+    Then the page URL should be "/you-need-to-serve"
+    And the page should include "Divorcing someone who lives outside of England and Wales"
 
     Given I go to "/do-you-have-address"
     And I clear the form
@@ -402,9 +418,9 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     And I go to "/"
     Then the page URL should be "/check-your-answers"
-    Then the page should include "Yes, my marriage has irretrievably broken down"
+    Then the page should include "I confirm my marriage has broken down irretrievably"
     And the page should include "When did you get married?	1 January 2000"
-    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
+    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate with me"
     And the page should include "Help with fees"
     And the page should include "I need help paying the fee"
     And the page should include "Have you already applied for help with your divorce fee?	Yes"

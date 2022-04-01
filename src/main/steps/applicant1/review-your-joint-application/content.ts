@@ -4,10 +4,13 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForJointApplications } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent) => ({
@@ -24,11 +27,10 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   }`,
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
-  issuedDate: `<strong>Issued:</strong> ${dayjs(userCase.issueDate).format('D MMMM YYYY')}`,
-  caseReference: `<strong>Case number: </strong>${userCase.id?.replace(
-    /(\\d{4})(\\d{4})(\\d{4})(\\d{4})/,
-    '$1-$2-$3-$4'
-  )}`,
+  issuedDateHeading: 'Issued',
+  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  caseReferenceHeading: 'Case reference number',
+  caseReferenceValue: formattedCaseId(userCase.id),
   applicant1Heading: 'Applicant 1',
   applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   applicant2Heading: 'Applicant 2',
@@ -45,37 +47,21 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   ceremonyPlace: `${userCase.ceremonyPlace}`,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  relationshipDate: `${getFormattedDate(userCase.relationshipDate)}`,
+  relationshipDate: getFormattedDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
-    ? connectionBulletPointsTextForJointApplications(userCase.connections)
+    ? enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce)
     : [],
   whatThisMeans: 'What this means',
-  whatThisMeansInfo1: `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  whatThisMeansInfo1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceLine1:
-    'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.',
-  habitualResidenceLine2:
-    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-  habitualResidenceLine3:
-    'The examples above are not a complete list of what makes up habitual residence. Just because some of them apply to you, ' +
-    'that does not mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  habitualResidenceText: enHabitualResident,
   heading8: 'Domicile',
-  domicileLine1:
-    'Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.',
-  domicileLine2:
-    'However, domicile can be more complex. For example, if you or your parents have moved countries in the past.',
-  domicileLine3: 'When you’re born, you acquire the ‘domicile of origin’. This is usually:',
-  domicileListItem1: 'the country your father was domiciled in if your parents were married',
-  domicileListItem2:
-    'the country your mother was domiciled in if your parents were unmarried, or your father had died before you were born',
-  domicileLine4:
-    'If you leave your domicile of origin and settle in another country as an adult, the new country may become your ‘domicile of choice’.',
-  domicileLine5: 'If you’re not sure about your domicile, you should get legal advice.',
+  domicileText: enDomicile,
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
@@ -93,7 +79,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
   heading11: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
-  line7: `The ${isDivorce ? 'marriage' : 'relationship'} has irretrievably broken down (it cannot be saved).`,
+  line7: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   heading12: 'Financial order application',
   applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
     ?.sort()
@@ -113,41 +99,15 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
     'This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide for you. ' +
     'This is known as a ‘contested financial order’.',
   financialOrderMoreInfoLine3: `To formally start legal proceedings, the applicants will need to complete another form and pay a fee.
-  Applying for a ‘contested financial order’ costs ${config.get(
-    'fees.financialOrder'
+  Applying for a ‘contested financial order’ costs ${getFee(
+    config.get('fees.financialOrder')
   )}. Applying for a ‘financial order by consent’ costs
-  ${config.get('fees.consentOrder')}. You can get a solicitor to draft these for you. `,
+  ${getFee(config.get('fees.consentOrder'))}. You can get a solicitor to draft these for you. `,
   financialOrderMoreInfoLine4: 'If you are not sure what to do then you should seek legal advice.',
   heading13: 'Applicant 1’s correspondence address',
-  applicant1Address: `${
-    userCase.applicant1SolicitorAddress ||
-    [
-      userCase.applicant1Address1,
-      userCase.applicant1Address2,
-      userCase.applicant1Address3,
-      userCase.applicant1AddressTown,
-      userCase.applicant1AddressCounty,
-      userCase.applicant1AddressPostcode,
-      userCase.applicant1AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  applicant1Address: getAppSolAddressFields('applicant1', userCase),
   heading14: 'Applicant 2’s correspondence address',
-  applicant2Address: `${
-    userCase.applicant2SolicitorAddress ||
-    [
-      userCase.applicant2Address1,
-      userCase.applicant2Address2,
-      userCase.applicant2Address3,
-      userCase.applicant2AddressTown,
-      userCase.applicant2AddressCounty,
-      userCase.applicant2AddressPostcode,
-      userCase.applicant2AddressCountry,
-    ]
-      .filter(Boolean)
-      .join('<br>')
-  }`,
+  applicant2Address: getAppSolAddressFields('applicant2', userCase),
   heading15: 'Applicant 1’s email address',
   applicant1EmailAddress: `${userEmail}`,
   heading16: "Applicant 2's email address",
@@ -155,17 +115,17 @@ const en = ({ isDivorce, userCase, partner, required, userEmail }: CommonContent
   heading17: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
-  reasonInformationNotCorrect: `<strong>Changing your contact details</strong>
-    <br>
-    You can update your email address, phone number and postal address in the <a class="govuk-link" href="${CHECK_CONTACT_DETAILS}">‘contact details’ section of your ${
-    isDivorce ? 'divorce' : ''
-  } account.</a> There is no cost for this.</p>
-    <br>
-    <p class="govuk-body"><strong>Changing any other information</strong>
-    <br>
-    If you want to change any other information then you should provide details below. You may need to pay a ${config.get(
-      'fees.updateApplication'
+  reasonInformationNotCorrect: {
+    heading1: 'Changing your contact details',
+    part1: 'You can update your email address, phone number and postal address in the ',
+    link: CHECK_CONTACT_DETAILS,
+    linkText: `'contact details' section of your ${isDivorce ? 'divorce' : ''} account.`,
+    part2: 'There is no cost for this.',
+    heading2: 'Changing any other information',
+    part3: `If you want to change any other information then you should provide details below. You may need to pay a ${getFee(
+      config.get('fees.updateApplication')
     )} fee. This is because the application will need to be updated and sent to your ${partner} again.`,
+  },
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',
   errors: {
@@ -184,9 +144,7 @@ const cy = en;
 export const form: FormContent = {
   fields: {
     applicant1ConfirmInformationStillCorrect: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.confirmInformationStillCorrect,
+      type: 'hidden',
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         {
@@ -194,14 +152,8 @@ export const form: FormContent = {
           value: YesOrNo.NO,
           subFields: {
             applicant1ReasonInformationNotCorrect: {
-              type: 'textarea',
+              type: 'hidden',
               label: l => l.title,
-              labelHidden: true,
-              hint: l => `
-                <p class="govuk-body">
-                  ${l.reasonInformationNotCorrect}
-                </p>
-                ${l.reasonInformationNotCorrectHint}`,
               validator: value => isFieldFilledIn(value),
             },
           },
@@ -221,14 +173,17 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
-  const isApplicant1AndApplicant2AddressPrivate =
-    !content.isApplicant2 && content.userCase.applicant2AddressPrivate === YesOrNo.YES;
-  const isApplicant2AndApplicant1AddressPrivate =
-    content.isApplicant2 && content.userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const { language, userCase, isApplicant2 } = content;
+  const translations = languages[language](content);
+  const isApplicant1AndApplicant2AddressPrivate = !isApplicant2 && userCase.applicant2AddressPrivate === YesOrNo.YES;
+  const isApplicant2AndApplicant1AddressPrivate = isApplicant2 && userCase.applicant1AddressPrivate === YesOrNo.YES;
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading6']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['heading12']);
   return {
     isApplicant1AndApplicant2AddressPrivate,
     isApplicant2AndApplicant1AddressPrivate,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
     ...translations,
     form,
   };

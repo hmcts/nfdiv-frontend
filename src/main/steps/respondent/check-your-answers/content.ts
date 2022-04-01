@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
 const en = ({ isDivorce, userCase }) => ({
@@ -26,6 +27,7 @@ const en = ({ isDivorce, userCase }) => ({
       line3: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
         isDivorce ? 'grant your divorce' : 'end your civil partnership'
       }.`,
+      line4: 'Which country is your life mainly based?',
     },
     contactYou: {
       line1: 'By email',
@@ -69,6 +71,13 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction
           : ''
       }`,
+      line4: `${
+        userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
+        userCase.jurisdictionAgree &&
+        userCase.jurisdictionAgree === YesOrNo.NO
+          ? userCase.inWhichCountryIsYourLifeMainlyBased
+          : ''
+      }`,
     },
     contactYou: {
       line1: `${
@@ -98,6 +107,7 @@ const en = ({ isDivorce, userCase }) => ({
       line1: urls.HOW_DO_YOU_WANT_TO_RESPOND,
       line2: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
       line3: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
+      line4: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
     },
     contactYou: {
       line1: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -153,6 +163,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line3: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
         isDivorce ? 'grant your divorce' : 'end your civil partnership'
       }.`,
+      line4: 'Which country is your life mainly based?',
     },
     contactYou: {
       line1: 'Trwy e-bost',
@@ -194,6 +205,13 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         userCase.jurisdictionAgree &&
         userCase.jurisdictionAgree === YesOrNo.NO
           ? userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction
+          : ''
+      }`,
+      line4: `${
+        userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
+        userCase.jurisdictionAgree &&
+        userCase.jurisdictionAgree === YesOrNo.NO
+          ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
     },
@@ -251,6 +269,7 @@ export const generateContent: TranslationFn = content => {
   const applicant2Url = urls.RESPONDENT;
   return {
     ...translations,
+    isApplicationReadyToSubmit,
     form,
     applicant2Url,
   };

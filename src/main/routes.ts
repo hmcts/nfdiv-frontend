@@ -10,14 +10,16 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { cookieMaxAge } from './modules/session';
-import { stepsWithContent } from './steps';
+import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
+import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
@@ -28,11 +30,13 @@ import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
+  APPLICATION_SUBMITTED,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
   HOME_URL,
+  NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   RESPONDENT,
@@ -41,7 +45,9 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
+  WEBCHAT_URL,
 } from './steps/urls';
+import { WebChatGetController } from './steps/webchat/get';
 
 const handleUploads = multer();
 const ext = extname(__filename);
@@ -60,6 +66,7 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
+    app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
@@ -67,11 +74,12 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
+      if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
         return res.redirect('/error');
       }
       next();
     };
+
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
@@ -96,6 +104,9 @@ export class Routes {
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
     );
+
+    app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
+    app.get(APPLICATION_SUBMITTED, errorHandler(new ApplicationSubmittedGetController().get));
 
     app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(

@@ -1,11 +1,14 @@
 {% set readMoreContent %}
   <p class="govuk-body">{{ readMoreSummary }}</p>
   <ol class="govuk-list govuk-list--number">
-    {% for property, line in readMoreSteps %}
-      <li>{{ line | safe }}</li>
+    {% for stepName, stepText in readMoreSteps %}
+      <li>
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ stepText.heading }}</h3>
+        <p class="govuk-body">{{ stepText.body }}</p>
+      </li>
     {% endfor %}
   </ol>
-  {% if progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('AwaitingConditionalOrder') %}
+  {% if currentState.isBefore('AwaitingConditionalOrder') %}
     <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
   {% endif %}
 {% endset %}
@@ -19,7 +22,13 @@
   </p>
 {% endset %}
 
-{% if userCase.state == 'ConditionalOrderPronounced' %}
+{% if userCase.state == 'FinalOrderRequested' %}
+  {% include "./latest-update-content/final-order-requested.njk" %}
+
+{% elif userCase.state == 'AwaitingServiceConsideration' or userCase.state == 'AwaitingBailiffReferral' %}
+  {% include "./latest-update-content/awaiting-service-consideration-or-awaiting-bailiff-referral.njk" %}
+
+{% elif userCase.state == 'ConditionalOrderPronounced' %}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
 {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
@@ -37,9 +46,23 @@
 {% elif userCase.state == 'AwaitingClarification' %}
   {% include "./latest-update-content/awaiting-clarification.njk" %}
 
-{% elif progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AosDrafted') and
-  progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
+{% elif userCase.state == 'ClarificationSubmitted' %}
+  {% include "./latest-update-content/clarification-submitted.njk" %}
+
+{% elif userCase.state == 'AwaitingBailiffService' %}
+  {% include "./latest-update-content/awaiting-bailiff-service.njk" %}
+
+{% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+  {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
+
+{% elif currentState.isAfter('AosDrafted') and currentState.isBefore('Holding') %}
   {% include "./latest-update-content/aos-due.njk" %}
+
+{% elif userCase.state == 'AwaitingAos' and isServiceApplicationGranted and not isSuccessfullyServedByBailiff %}
+  {% include "./latest-update-content/bailiff-service-unsuccessful.njk" %}
+
+{% elif userCase.state == 'AwaitingAos' and isAlternativeService and not isServiceApplicationGranted %}
+  {% include "./latest-update-content/service-application-rejected.njk" %}
 
 {% else %}
   {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}

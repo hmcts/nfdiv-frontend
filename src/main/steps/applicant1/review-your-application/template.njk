@@ -10,20 +10,10 @@
   <p class="govuk-body">{{ whatThisMeansInfo3 }}</p>
 
   <h3 class="govuk-heading-m">{{ heading7 }}</h3>
-  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
+  <p class="govuk-body">{{ habitualResidenceText }}</p>
 
   <h3 class="govuk-heading-m">{{ heading8 }}</h3>
-  <p class="govuk-body">{{ domicileLine1 }}</p>
-  <p class="govuk-body">{{ domicileLine2 }}</p>
-  <p class="govuk-body">{{ domicileLine3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ domicileListItem1 }}</li>
-    <li>{{ domicileListItem2 }}</li>
-  </ul>
-  <p class="govuk-body">{{ domicileLine4 }}</p>
-  <p class="govuk-body">{{ domicileLine5 }}</p>
+  <p class="govuk-body">{{ domicileText }}</p>
 
   <h3 class="govuk-heading-m">{{ heading9 }}</h3>
   <p class="govuk-body">{{ residualJurisdictionLine1 }}</p>
@@ -55,31 +45,33 @@
       <li>{{ listItem2 }}</li>
     {% endif %}
   </ul>
-  <p class="govuk-body">{{ caseReference | safe }}</p>
-  <p class="govuk-body">{{ issuedDate | safe }}</p>
-
-  <h3 class="govuk-heading-s">{{ applicantHeading }}</h3>
-  <p class="govuk-body">{{ applicantNames }}</p>
-
-  <h3 class="govuk-heading-s">{{ respondentHeading }}</h3>
-  <p class="govuk-body">{{ respondentNames }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ caseReferenceHeading }}</dt>
+    <dd class="govuk-body">{{ caseReferenceValue }}</dd>
+    <dt class="govuk-heading-s">{{ issuedDateHeading }}</dt>
+    <dd class="govuk-body">{{ issuedDateValue }}</dd>
+    <dt class="govuk-heading-s">{{ applicantHeading }}</dt>
+    <dd class="govuk-body">{{ applicantNames }}</dd>
+    <dt class="govuk-heading-s">{{ respondentHeading }}</dt>
+    <dd class="govuk-body">{{ respondentNames }}</dd>
+  </dl>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansApplicantRespondent,
       html: whatThisMeansContent1
   }) }}
 
   <h2 class="govuk-heading-m">{{ heading2 }}</h2>
   <p class="govuk-body">{{ line2 }}</p>
 
-  <h3 class="govuk-heading-s">{{ heading3 }}</h3>
-  <p class="govuk-body">{{ line3 }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading4 }}</h3>
-  <p class="govuk-body">{{ ceremonyPlace }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading5 }}</h3>
-  <p class="govuk-body">{{ relationshipDate }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ heading3 }}</dt>
+    <dd class="govuk-body">{{ line3 }}</dd>
+    <dt class="govuk-heading-s">{{ heading4 }}</dt>
+    <dd class="govuk-body">{{ ceremonyPlace }}</dd>
+    <dt class="govuk-heading-s">{{ heading5 }}</dt>
+    <dd class="govuk-body">{{ relationshipDate }}</dd>
+  </dl>
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line4 }}</p>
@@ -90,11 +82,11 @@
   </ul>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansJurisdiction,
       html: whatThisMeansContent2
   }) }}
 
-  <h3 class="govuk-heading-m">{{ heading10 }}</h3>
+  <h2 class="govuk-heading-m">{{ heading10 }}</h2>
   <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
   {% if userCase.applicant1LegalProceedings === 'Yes' %}
     <p class="govuk-body">{{ otherCourtCasesLine2 }}</p>
@@ -114,7 +106,7 @@
   {% endif %}
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansFinancialOrder,
       html: whatThisMeansContent3
   }) }}
 
@@ -124,4 +116,8 @@
   <br>
   <br>
 
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
 {% endblock %}

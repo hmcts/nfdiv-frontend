@@ -1,8 +1,14 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if userCase.state == 'ConditionalOrderPronounced' %}
+  {% if userCase.state == 'FinalOrderRequested' %}
+    {% include "../../applicant1/hub-page/sole/latest-update-content/final-order-requested.njk" %}
+
+  {% elif userCase.state == 'ConditionalOrderPronounced' %}
     {% include "./latest-update-content/conditional-order-pronounced.njk" %}
+
+  {% elif userCase.state == 'ClarificationSubmitted' %}
+    {% include "./latest-update-content/clarification-submitted.njk" %}
 
   {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
     {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
@@ -13,7 +19,10 @@
   {% elif userCase.state == 'Holding' %}
     {% include "./latest-update-content/holding.njk" %}
 
-  {% elif progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding') %}
+  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+    {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
+
+  {% elif currentState.isBefore('Holding') %}
     {% include "./latest-update-content/awaiting-aos.njk" %}
 
   {% endif %}

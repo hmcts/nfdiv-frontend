@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { APPLICANT_2_APPROVE, ApplicationType } from '../../../app/case/definition';
+import { APPLICANT_2_APPROVE, ApplicationType, DivorceOrDissolution } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
 import ConfirmYourJointApplicationPostController from './post';
@@ -30,6 +30,10 @@ describe('ConfirmYourJointApplicationPostController', () => {
     const res = mockResponse();
     await confirmYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, APPLICANT_2_APPROVE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      APPLICANT_2_APPROVE
+    );
   });
 });

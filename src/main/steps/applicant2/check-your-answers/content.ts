@@ -1,4 +1,5 @@
 import { ChangedNameHow, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
@@ -6,11 +7,11 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 const en = ({ isDivorce, userCase }) => ({
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
+      line3: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
-            ? `Yes, my ${isDivorce ? 'marriage' : 'civil partnership'} has irretrievably broken down`
-            : `No, my ${isDivorce ? 'marriage' : 'civil partnership'} has not irretrievably broken down`
+            ? `I confirm my ${isDivorce ? 'marriage' : 'civil partnership'} has broken down irretrievably`
+            : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
     },
@@ -18,8 +19,8 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${
         userCase.applicant2HelpPayingNeeded
           ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
-            ? 'I need help paying the fee'
-            : 'I do not need help paying the fee'
+            ? 'I need help with fees'
+            : 'I do not need help with fees'
           : ''
       }`,
       line2: `${
@@ -106,12 +107,12 @@ const en = ({ isDivorce, userCase }) => ({
     documents: {
       line1: `${
         userCase.applicant2DocumentsUploaded?.length
-          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'I cannot upload some or all of my documents'
+          ? 'Proof that I changed my name'
           : ''
       }`,
     },
@@ -123,7 +124,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   ...en({ isDivorce, userCase }),
   stepAnswers: {
     aboutPartnership: {
-      line2: `${
+      line3: `${
         userCase.applicant2ScreenHasUnionBroken
           ? userCase.applicant2ScreenHasUnionBroken === YesOrNo.YES
             ? `Ydy, mae fy ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
@@ -226,12 +227,12 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     documents: {
       line1: `${
         userCase.applicant2DocumentsUploaded?.length
-          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${curr.value?.documentFileName}\n`, '')
+          ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau'
+          ? 'Prawf fy mod i wedi newid fy enw'
           : ''
       }`,
     },

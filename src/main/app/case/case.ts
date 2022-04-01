@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  Applicant2Represented,
   ApplicationType,
   CaseData,
   ChangedNameHow,
@@ -45,8 +46,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   bothLastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   applicant1LivingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
   applicant1LivingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
-  applicant1PhoneNumber: 'applicant1PhoneNumber',
   connections: 'jurisdictionConnections',
+  jurisdictionResidualEligible: 'jurisdictionResidualEligible',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1FirstNames: 'applicant1FirstName',
   applicant1MiddleNames: 'applicant1MiddleName',
   applicant1LastNames: 'applicant1LastName',
@@ -65,6 +67,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
   applicant2NameChangedHow: 'applicant2NameChangedHow',
   applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
+  applicant1Email: 'applicant1Email',
   applicant2Email: 'applicant2Email',
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
   applicant2PhoneNumber: 'applicant2PhoneNumber',
@@ -86,11 +89,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
-  applicant2SolicitorAddress: 'applicant2SolicitorAddress',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
-  disputeApplication: 'disputeApplication',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
@@ -108,8 +109,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
+  applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
+  dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
+  dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
+  applicant2SolicitorName: 'applicant2SolicitorName',
+  applicant2SolicitorEmail: 'applicant2SolicitorEmail',
+  applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
+  applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
+  applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -160,7 +169,7 @@ export interface Case {
   bothLastHabituallyResident?: YesOrNo;
   applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
-  jurisdictionResidualEligible?: Checkbox;
+  jurisdictionResidualEligible?: YesOrNo;
   applicant1EnglishOrWelsh?: LanguagePreference;
   applicant2EnglishOrWelsh?: LanguagePreference;
   applicant1FirstNames?: string;
@@ -204,6 +213,7 @@ export interface Case {
   applicant2NameChangedHow?: ChangedNameHow[];
   applicant1ChangedNameHowAnotherWay?: string;
   applicant2ChangedNameHowAnotherWay?: string;
+  applicant1Email?: string;
   applicant2Email?: string;
   applicant2EmailAddress?: string;
   applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
@@ -259,13 +269,33 @@ export interface Case {
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
+  coApplicant2SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
+  applicant1IsApplicant2Represented: Applicant2Represented;
   coRefusalClarificationAdditionalInfo?: string;
+  dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
+  doesApplicant1WantToApplyForFinalOrder?: Checkbox;
+  doesApplicant2WantToApplyForFinalOrder?: Checkbox;
+  applicant2FinalOrderExplanation?: string;
+  dateFinalOrderNoLongerEligible?: DateAsString;
+  applicant2SolicitorName: string;
+  applicant2SolicitorEmail: string;
+  applicant2SolicitorFirmName: string;
+  applicant2SolicitorAddress1?: string;
+  applicant2SolicitorAddress2?: string;
+  applicant2SolicitorAddress3?: string;
+  applicant2SolicitorAddressTown?: string;
+  applicant2SolicitorAddressCounty?: string;
+  applicant2SolicitorAddressPostcode?: string;
+  applicant2SolicitorAddressCountry?: string;
+  applicant1FinalOrderLateExplanation?: string;
+  applicant1FinalOrderStatementOfTruth?: Checkbox;
+  dateFinalOrderSubmitted?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

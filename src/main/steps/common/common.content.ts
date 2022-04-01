@@ -1,10 +1,10 @@
-import { capitalize } from 'lodash';
-
-import { CaseWithId, Checkbox } from '../../app/case/case';
-import { ApplicationType, Gender, State } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+import { getPartner, getSelectedGender, getServiceName } from './content.utils';
+
+export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
@@ -39,7 +39,7 @@ const en = {
   endingCivilPartnership: 'ending a civil partnership',
   husband: 'husband',
   wife: 'wife',
-  partner: 'partner',
+  partner: 'spouse',
   civilPartner: 'civil partner',
   checkTheirAnswersPartner: 'partner for check their answers',
   withHim: 'with him',
@@ -72,14 +72,10 @@ const en = {
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
+  sendUsAMessageDetails: 'We aim to get back to you within 5 working days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
-  habitualResidentHelpText1:
-    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
-  habitualResidentHelpText2:
-    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:
@@ -102,6 +98,19 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
+  helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
+  helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
+  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.',
+  helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  serviceAddress: {
+    line1: 'Courts and Tribunals Service Centre',
+    line2: 'HMCTS Divorce and Dissolution service',
+    poBox: 'PO Box 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
+  },
+  servicePhoneNo: '0300 303 0642',
 };
 
 const cy: typeof en = {
@@ -139,7 +148,7 @@ const cy: typeof en = {
   civilPartnership: 'partneriaeth sifil',
   husband: 'gŵr',
   wife: 'gwraig',
-  partner: 'partner',
+  partner: 'priod',
   civilPartner: 'partner sifil',
   withHim: 'gydag ef',
   withHer: 'gyda hi',
@@ -195,8 +204,8 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
-  const partner = getPartnerContent(commonTranslations, selectedGender, isDivorce);
-  const contactEmail = isDivorce ? 'contactdivorce@justice.gov.uk' : 'civilpartnership.case@justice.gov.uk';
+  const partner = getPartner(commonTranslations, selectedGender, isDivorce);
+  const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
@@ -206,7 +215,6 @@ export const generatePageContent = ({
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
-    selectedGender,
     partner,
     language,
     isDivorce,
@@ -226,31 +234,6 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
-  const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
-  return capitalize(serviceName);
-};
-
-const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender => {
-  if (isApplicant2 && userCase?.sameSex === Checkbox.Unchecked) {
-    return userCase?.gender === Gender.MALE ? (Gender.FEMALE as Gender) : (Gender.MALE as Gender);
-  }
-  return userCase?.gender as Gender;
-};
-
-const getPartnerContent = (translations: typeof en, selectedGender: Gender, isDivorce: boolean): string => {
-  if (!isDivorce) {
-    return translations.civilPartner;
-  }
-  if (selectedGender === Gender.MALE) {
-    return translations.husband;
-  }
-  if (selectedGender === Gender.FEMALE) {
-    return translations.wife;
-  }
-  return translations.partner;
-};
-
 export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
@@ -261,7 +244,6 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   contactEmail?: string;
-  selectedGender: Gender;
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;

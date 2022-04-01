@@ -2,10 +2,12 @@ import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
 import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 
 const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -29,7 +31,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
       'You should upload at least one clear image which shows the whole document. If you think it will help court staff read the details you can upload more images. If your document has more than one page then you should upload at least one image of each page.',
     uploadFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
-    chooseFilePhoto: 'Choose a file or take a photo',
+    chooseFilePhoto: 'Choose a file',
     orStr: 'or',
     dragDropHere: 'Drag and drop files here',
     acceptedFileFormats: 'Accepted file formats:',
@@ -190,6 +192,7 @@ export const form: FormContent = {
                   name: 'applicant1CannotUpload',
                   label: l => l.cannotUploadDocuments,
                   value: Checkbox.Checked,
+                  conditionalText: l => l.cannotUploadYouCanPost,
                   subFields: {
                     applicant1CannotUploadDocuments: {
                       type: 'checkboxes',
@@ -199,7 +202,6 @@ export const form: FormContent = {
                         name: 'applicant1CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
-                        conditionalText: l => l.cannotUploadYouCanPost,
                       })),
                     },
                   },
@@ -237,8 +239,22 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
+  const amendable = content.isAmendableStates;
+  const uploadContentScript = `{
+    "isAmendableStates": ${content.isAmendableStates},
+    "delete": "${content.delete}"
+  }`;
+  const infoTakePhotoAccessibleSpan = accessibleDetailsSpan(
+    translations['infoTakePhoto'],
+    'More information about how ' + translations['infoTakePhoto']
+  );
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
+    infoTakePhotoAccessibleSpan,
   };
 };

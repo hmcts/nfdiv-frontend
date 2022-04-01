@@ -16,7 +16,6 @@ import {
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
-  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
@@ -29,6 +28,7 @@ import {
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
+  PROVIDE_INFORMATION_TO_THE_COURT,
   RELATIONSHIP_NOT_BROKEN_URL,
   REVIEW_YOUR_APPLICATION,
   REVIEW_YOUR_JOINT_APPLICATION,
@@ -41,7 +41,7 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
-const sequences: Step[] = [
+const preSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -94,10 +94,6 @@ const sequences: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
-    getNextStep: () => ENGLISH_OR_WELSH,
-  },
-  {
-    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -158,6 +154,9 @@ const sequences: Step[] = [
     url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   },
+];
+
+const postSubmissionSequence: Step[] = [
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
@@ -195,17 +194,32 @@ const sequences: Step[] = [
     url: CHECK_PHONE_NUMBER,
     getNextStep: () => ADDRESS_PRIVATE,
   },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: PROVIDE_INFORMATION_TO_THE_COURT,
+    getNextStep: () => HUB_PAGE,
+  },
 ];
-
-export const applicant2Sequence = ((): Step[] => {
-  return sequences.map(sequence => ({
-    ...sequence,
-    url: `${APPLICANT_2}${sequence.url}`,
-    getNextStep: data => `${APPLICANT_2}${sequence.getNextStep(data)}`,
-  }));
-})();
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant2IConfirmPrayer === Checkbox.Checked &&
   data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
+
+const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
+  return theSequence.map(step => ({
+    ...step,
+    url: `${APPLICANT_2}${step.url}`,
+    getNextStep: data => `${APPLICANT_2}${step.getNextStep(data)}`,
+  }));
+};
+
+export const applicant2PreSubmissionSequence = addApplicant2Prefix(preSubmissionSequence);
+export const applicant2PostSubmissionSequence = addApplicant2Prefix(postSubmissionSequence);

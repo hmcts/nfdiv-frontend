@@ -12,13 +12,13 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   byEmail: 'By email',
   byEmailLine1: `You have to agree to receive emails to use the online ${
     isDivorce ? 'divorce service' : 'service to end your civil partnership'
-  }. Your email address will not be shared with your ${partner}.`,
+  }. You can choose to keep your email address private from your ${partner} later in this application.`,
   byEmailLine2: 'Emails will be sent to:',
   applicantAgreeToReceiveEmails: `I agree that the ${
     isDivorce ? 'divorce service' : 'ending a civil partnership service'
   } can send me notifications and serve (deliver) court documents to me by email.`,
   byPhone: 'By phone',
-  byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. Your phone number will not be shared with your ${partner}.`,
+  byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. You can choose to keep your phone number private from your ${partner} later in this application.`,
   applicantPhoneNumber: 'Enter your phone number (optional)',
   errors: {
     applicant1AgreeToReceiveEmails: {
@@ -77,6 +77,9 @@ export const form: FormContent = {
     applicant1PhoneNumber: {
       type: 'tel',
       label: l => l.byPhone,
+      labelAttributes: {
+        for: '',
+      },
       hint: l =>
         `<p class="govuk-body">${l.byPhoneLine1}</p>
         <label class="govuk-label govuk-!-font-weight-bold" for="applicant1PhoneNumber">${l.applicantPhoneNumber}</label>`,

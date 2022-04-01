@@ -13,8 +13,8 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
-    And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
-    Given I select "Yes, my marriage has irretrievably broken down"
+    And the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
+    Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
@@ -35,11 +35,6 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
@@ -73,9 +68,9 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
-    And the page should include "Yes, my marriage has irretrievably broken down"
+    And the page should include "I confirm my marriage has broken down irretrievably"
     And the page should include "When did you get married?	31 December 1999"
-    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate"
+    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate with me"
     And the page should include "Help paying the divorce fee	I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
     Given I select "Yes" for "Is the information your wife provided correct?"
@@ -100,12 +95,15 @@ Feature: Applicant 2
 
     Given I click "Sign out"
     And I login with applicant "1"
-    And I go to '/confirm-your-joint-application'
+    Then the page URL should be "/confirm-your-joint-application"
     And I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
+    Then the page should include "Application submitted"
+    Given I click "Sign out"
+    And I login with applicant "2"
     Then the page should include "Application submitted"
 
 
@@ -130,18 +128,18 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
-    And the page should include "Has your marriage irretrievably broken down (it cannot be saved)?"
-    Given I select "Yes, my marriage has irretrievably broken down"
+    And the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
+    Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/help-with-your-fee"
     And the page should include "Help with the divorce fee"
-    Given I select "I do not need help paying the fee"
+    Given I select "I do not need help with fees"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     Given I go to "/applicant2/help-with-your-fee"
-    And I select "I need help paying the fee"
+    And I select "I need help with fees"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
@@ -153,7 +151,7 @@ Feature: Applicant 2
     And the page should include "You need to apply for help with your divorce fees"
     Given I click "enter it here"
     Then the page URL should be "/applicant2/help-with-your-fee"
-    Given I select "I need help paying the fee"
+    Given I select "I need help with fees"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
@@ -190,11 +188,6 @@ Feature: Applicant 2
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I select "Enter your phone number (optional)"
     And I type "123456789"
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/address-private"
@@ -272,8 +265,8 @@ Feature: Applicant 2
     Then the page should include "You need to review your joint application"
     When I click "Continue"
     Then the page URL should be "/applicant2/irretrievable-breakdown"
-    Given I select "No, my marriage has not irretrievably broken down"
-    Then the page should include "Your marriage must have irretrievably broken down for you to get a divorce."
+    Given I select "My marriage has not broken down irretrievably"
+    Then the page should include "Your marriage must have broken down irretrievably for you to get a divorce."
     When I click "Continue"
     Then the page URL should be "/applicant2/you-cannot-apply"
     And the page should include "You cannot apply to get a divorce"

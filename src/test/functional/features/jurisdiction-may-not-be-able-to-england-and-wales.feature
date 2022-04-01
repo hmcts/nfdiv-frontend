@@ -22,6 +22,7 @@ Feature: Jurisdiction - may not be able to get a divorce in England and Wales
   @nightly
   Scenario: Not eligible for residual jurisdiction
     Given I go to "/are-you-eligible-for-residual-jurisdiction"
+    And I select "No"
     When I click "Continue"
     Then the page should include "You may not be able to get a divorce in England and Wales"
     When I click "Check how you’re legally connected to England or Wales again"

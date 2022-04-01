@@ -8,7 +8,7 @@
     <ul class="govuk-list contact-us">
       <li>
         <h4 class="govuk-heading-s">{{ webChat }}</h4>
-        <p class="govuk-body">{{ webChatDetails }}</p>
+        {% include "./webchat.html" %}
       </li>
 
       <li>
@@ -25,3 +25,6 @@
     </ul>
   </div>
 </details>
+
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es5.js" nomodule defer crossorigin="anonymous"></script>

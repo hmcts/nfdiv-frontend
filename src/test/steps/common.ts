@@ -16,7 +16,7 @@ import {
 } from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
-import { addConnection } from '../../main/app/jurisdiction/connections';
+import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import {
   APPLICANT_2,
   LEGAL_JURISDICTION_OF_THE_COURTS,
@@ -30,7 +30,7 @@ const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(1);
+  test.retries(3);
 });
 
 After(async () => {
@@ -67,8 +67,18 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iWait = (time: number): void => {
+  I.wait(time);
+};
+
+export const iClickMoreDetailsComponent = (): void => {
+  I.click("span[class='govuk-details__summary-text']");
+};
+
 When('I click {string}', iClick);
 When('I select {string}', iClick);
+When('I click for more details', iClickMoreDetailsComponent);
+When('I wait {string} seconds', iWait);
 
 export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
@@ -240,6 +250,8 @@ When('a superuser updates {string} with {string}', async (field: string, value: 
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, data);
 });
 
+When('I pause the test', () => pause());
+
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   I.amOnPage('/applicant2/enter-your-access-code');
   await iClearTheForm();
@@ -314,7 +326,7 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
 
   data.applicant2MiddleNames = data.state || userCase.state;
 
-  const connections = addConnection(data);
+  const connections = addConnectionsBasedOnQuestions(data);
 
   // don't set as applicant 2 as they don't have permission
   data.connections = connections.length > 0 ? connections : undefined;

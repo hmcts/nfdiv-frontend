@@ -1,6 +1,7 @@
 import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { Checkbox } from '../../app/case/case';
 import { ApplicationType, DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
 import {
   APPLICANT_2,
@@ -321,6 +322,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderDrafted,
@@ -411,6 +413,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
+          applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderPending,

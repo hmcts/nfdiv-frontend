@@ -1,0 +1,35 @@
+{% extends "common/page.njk" %}
+
+{% block header %} {% endblock %}
+
+{% block beforeContent %} {% endblock %}
+
+{% block content %}
+    <div class="govuk-details__text">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1" id="antenna-web-chat-header">{{ webChatTitle | safe }}</h3>
+        <p id="metrics"></p>
+        <web-chat
+                id="avayaWebchat"
+                chat-title="Ask No Fault Divorce Web Chat"
+                chat-icon-url="img/icon.png"
+                url="{{ globals.webchat.avayaUrl }}"
+                secure-connections="true"
+                api-version="1.0"
+                metrics-polling-interval="20"
+                locale-url="/assets/locales/avaya-webchat"
+                route-point-identifier="Default"
+                work-flow-type=""
+                lease-time="24"
+                priority="5"
+                language="English"
+                service="{{ globals.webchat.avayaService }}"
+                page-name="Apply for No Fault Divorce"
+                User="Chat"
+        </web-chat>
+    </div>
+{% endblock %}
+
+{% block footer %}
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/2/app-es5.js" nomodule defer crossorigin="anonymous"></script>
+{% endblock %}

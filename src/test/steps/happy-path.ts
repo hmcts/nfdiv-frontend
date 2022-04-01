@@ -67,7 +67,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/irretrievable-breakdown');
-  iClick('Yes, my marriage has irretrievably broken down');
+  iClick('I confirm my marriage has broken down irretrievably');
   iClick('Continue');
 
   I.waitInUrl('/date-from-certificate');
@@ -141,16 +141,16 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('I agree that the divorce service can send me notifications');
   iClick('Continue');
 
-  I.waitInUrl('/english-or-welsh');
-  iClick('English');
-  iClick('Continue');
-
   I.waitInUrl('/address-private');
   iClick('I do not need my contact details kept private');
   iClick('Continue');
 
   iAmOnPage('/enter-your-address');
   await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
+  iClick('Continue');
+
+  I.waitInUrl('/do-they-have-a-solicitor');
+  iClick('No');
   iClick('Continue');
 
   I.waitInUrl('/their-email-address');

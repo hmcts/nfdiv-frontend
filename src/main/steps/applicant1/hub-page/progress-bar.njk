@@ -1,33 +1,37 @@
 {% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
 
+{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
+  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
+{% endmacro %}
+
 {% if isJointApplication %}
   {% set items = [{
     label: {
-      text: applicationSubmitted
+      html: textWithVisuallyHiddenSpan(applicationSubmitted, true)
     },
     complete: true,
     active: false
   }, {
     label: {
-      text: conditionalOrderApplication
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, currentState.isAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingLegalAdvisorReferral'),
+    complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
-      text: conditionalOrderGranted
+      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAtOrAfter('ConditionalOrderPronounced'))
     },
-    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('ConditionalOrderPronounced'),
+    complete: currentState.isAtOrAfter('ConditionalOrderPronounced'),
     active: userCase.state == 'AwaitingPronouncement'
   }, {
     label: {
-      text: finalOrderApplication
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, currentState.isAfter('FinalOrderRequested'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('FinalOrderRequested'),
+    complete: currentState.isAfter('FinalOrderRequested'),
     active: userCase.state == 'AwaitingFinalOrder'
   }, {
     label: {
-      text: applicationEnded
+      html: textWithVisuallyHiddenSpan(applicationEnded, userCase.state == 'FinalOrderComplete')
     },
     complete: userCase.state == 'FinalOrderComplete',
     active: userCase.state == 'FinalOrderRequested'
@@ -35,41 +39,39 @@
 {% else %}
   {% set items = [{
     label: {
-      text: applicationSubmitted
+      html: textWithVisuallyHiddenSpan(applicationSubmitted, true)
     },
     complete: true,
     active: false
   }, {
     label: {
-      text: response
+      html: textWithVisuallyHiddenSpan(response, currentState.isAfter('IssuedToBailiff'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('IssuedToBailiff'),
-    active: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingAos') and
-      progressionIndex.indexOf(userCase.state) < progressionIndex.indexOf('Holding')
+    complete: currentState.isAfter('IssuedToBailiff'),
+    active: currentState.isAtOrAfter('AwaitingAos') and currentState.isBefore('Holding')
   }, {
     label: {
-      text: conditionalOrderApplication
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, currentState.isAfter('AwaitingGeneralConsideration'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingGeneralConsideration'),
+    complete: currentState.isAfter('AwaitingGeneralConsideration'),
     active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
-      text: conditionalOrderGranted
+      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAfter('AwaitingPronouncement'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('AwaitingClarification'),
+    complete: currentState.isAfter('AwaitingPronouncement'),
     active: userCase.state == 'ConditionalOrderDrafted'
   }, {
     label: {
-      text: finalOrderApplication
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, currentState.isAfter('FinalOrderPending'))
     },
-    complete: progressionIndex.indexOf(userCase.state) > progressionIndex.indexOf('ConditionalOrderPronounced'),
-    active: userCase.state == 'AwaitingPronouncement'
+    complete: currentState.isAfter('FinalOrderPending'),
+    active:  currentState.isAtOrAfter('AwaitingFinalOrder') and currentState.isBefore('FinalOrderComplete')
   }, {
     label: {
-      text: applicationEnded
+      html: textWithVisuallyHiddenSpan(applicationEnded, userCase.state == 'FinalOrderComplete')
     },
-    complete: progressionIndex.indexOf(userCase.state) >= progressionIndex.indexOf('AwaitingFinalOrder'),
-    active: userCase.state == 'AwaitingFinalOrder'
+    complete: userCase.state == 'FinalOrderComplete'
   }] %}
 {% endif %}
 

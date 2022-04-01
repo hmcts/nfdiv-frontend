@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => {
     title: `Enter your ${partner}’s name`,
     line1: `The court needs to know your ${partner}’s full name.`,
     firstNames: `Your ${partner}’s first name(s)`,
-    middleNames: `Your ${partner}’s middle name(s)`,
+    middleNames: `Your ${partner}’s middle name(s) (if they have one)`,
     lastNames: `Your ${partner}’s last name(s)`,
     errors: {
       applicant2FirstNames: {
@@ -37,6 +37,7 @@ export const form: FormContent = {
       label: l => l.firstNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'given-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     applicant2MiddleNames: {
@@ -44,6 +45,7 @@ export const form: FormContent = {
       label: l => l.middleNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'middle-name',
       validator: isFieldLetters,
     },
     applicant2LastNames: {
@@ -51,6 +53,7 @@ export const form: FormContent = {
       label: l => l.lastNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'last-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
   },

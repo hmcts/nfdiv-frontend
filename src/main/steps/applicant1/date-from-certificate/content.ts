@@ -6,7 +6,7 @@ import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../.
 
 const en = ({ isDivorce }) => ({
   title: isDivorce ? 'When did you get married?' : 'When did you form your civil partnership?',
-  line1: `Enter the date from your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
+  line1: `Enter the exact date from your ${isDivorce ? 'marriage certificate' : 'civil partnership certificate'}`,
   hint: 'For example, 31 3 2002',
   errors: {
     relationshipDate: {

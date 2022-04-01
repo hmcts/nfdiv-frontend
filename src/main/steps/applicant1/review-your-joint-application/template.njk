@@ -5,20 +5,10 @@
   <p class="govuk-body">{{ whatThisMeansInfo1 }}</p>
 
   <h3 class="govuk-heading-m">{{ heading7 }}</h3>
-  <p class="govuk-body">{{ habitualResidenceLine1 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine2 }}</p>
-  <p class="govuk-body">{{ habitualResidenceLine3 }}</p>
+  <p class="govuk-body">{{ habitualResidenceText | safe }}</p>
 
   <h3 class="govuk-heading-m">{{ heading8 }}</h3>
-  <p class="govuk-body">{{ domicileLine1 }}</p>
-  <p class="govuk-body">{{ domicileLine2 }}</p>
-  <p class="govuk-body">{{ domicileLine3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ domicileListItem1 }}</li>
-    <li>{{ domicileListItem2 }}</li>
-  </ul>
-  <p class="govuk-body">{{ domicileLine4 }}</p>
-  <p class="govuk-body">{{ domicileLine5 }}</p>
+  <p class="govuk-body">{{ domicileText | safe }}</p>
 
 {% endset %}
 
@@ -41,41 +31,44 @@
   {% if userCase.applicant2ApplyForFinancialOrder === 'Yes' %}
     <p class="govuk-body">{{ line3 }}</p>
   {% endif %}
-  <p class="govuk-body">{{ issuedDate | safe }}</p>
-  <p class="govuk-body">{{ caseReference | safe }}</p>
 
-  <h3 class="govuk-heading-s">{{ applicant1Heading }}</h3>
-  <p class="govuk-body">{{ applicant1Names }}</p>
-
-  <h3 class="govuk-heading-s">{{ applicant2Heading }}</h3>
-  <p class="govuk-body">{{ applicant2Names }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ issuedDateHeading }}</dt>
+    <dd class="govuk-body">{{ issuedDateValue }}</dd>
+    <dt class="govuk-heading-s">{{ caseReferenceHeading }}</dt>
+    <dd class="govuk-body">{{ caseReferenceValue }}</dd>
+    <dt class="govuk-heading-s">{{ applicant1Heading }}</dt>
+    <dd class="govuk-body">{{ applicant1Names }}</dd>
+    <dt class="govuk-heading-s">{{ applicant2Heading }}</dt>
+    <dd class="govuk-body">{{ applicant2Names }}</dd>
+  </dl>
 
   <h2 class="govuk-heading-m">{{ heading2 }}</h2>
   <p class="govuk-body">{{ line4 }}</p>
 
-  <h3 class="govuk-heading-s">{{ heading3 }}</h3>
-  <p class="govuk-body">{{ line5 }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading4 }}</h3>
-  <p class="govuk-body">{{ ceremonyPlace }}</p>
-
-  <h3 class="govuk-heading-s">{{ heading5 }}</h3>
-  <p class="govuk-body">{{ relationshipDate }}</p>
+  <dl>
+    <dt class="govuk-heading-s">{{ heading3 }}</dt>
+    <dd class="govuk-body">{{ line5 }}</dd>
+    <dt class="govuk-heading-s">{{ heading4 }}</dt>
+    <dd class="govuk-body">{{ ceremonyPlace }}</dd>
+    <dt class="govuk-heading-s">{{ heading5 }}</dt>
+    <dd class="govuk-body">{{ relationshipDate }}</dd>
+  </dl>
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% for line in connectionBulletPoints %}
-      <li>{{ line | safe }}</li>
+    {% for connectionBullet in connectionBulletPoints %}
+      <li>{{ connectionBullet }}</li>
     {% endfor %}
   </ul>
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansJurisdiction,
       html: whatThisMeansContent1
   }) }}
 
-  <h3 class="govuk-heading-m">{{ heading10 }}</h3>
+  <h2 class="govuk-heading-m">{{ heading10 }}</h2>
   <p class="govuk-body">{{ otherCourtCasesLine1 }}</p>
   {% if userCase.applicant1LegalProceedings === 'Yes' or userCase.applicant2LegalProceedings === 'Yes' %}
     {% if userCase.applicant1LegalProceedings === 'Yes' %}
@@ -106,18 +99,22 @@
   {% endif %}
 
   {{ govukDetails({
-      summaryText: whatThisMeans,
+      summaryHtml: whatThisMeansFinancialOrder,
       html: whatThisMeansContent3
   }) }}
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
     <h2 class="govuk-heading-m">{{ heading13 }}</h2>
-    <p class="govuk-body">{{ applicant1Address | safe }}</p>
+    <p class="govuk-body">
+      {% for line in applicant1Address %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
 
   {% if not isApplicant1AndApplicant2AddressPrivate %}
     <h2 class="govuk-heading-m">{{ heading14 }}</h2>
-    <p class="govuk-body">{{ applicant2Address | safe }}</p>
+    <p class="govuk-body">
+      {% for line in applicant2Address %}{{ line }}<br>{% endfor %}
+    </p>
   {% endif %}
 
   {% if not isApplicant2AndApplicant1AddressPrivate %}
@@ -136,4 +133,8 @@
   <br>
   <br>
 
+{% endblock %}
+
+{% block form %}
+  {% include "../review-your-application/form.njk" %}
 {% endblock %}

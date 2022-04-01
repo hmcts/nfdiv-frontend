@@ -4,17 +4,20 @@ import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsTextForRespondent } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../steps/applicant1/connection-summary/content';
+import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
+import { getName } from '../hub-page/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
-const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
   subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -24,33 +27,36 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
   } are applying to the court for ${
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
-  line3: `<strong>Case number: </strong>${userCase.id?.replace(/(\\d{4})(\\d{4})(\\d{4})(\\d{4})/, '$1-$2-$3-$4')}`,
-  line4: '<strong> Applicant 1 </strong>',
-  line5: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
-  line6: '<strong> Applicant 2 </strong>',
-  line7: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  caseReferenceHeading: 'Case reference number',
+  caseReferenceValue: formattedCaseId(userCase.id),
+  line4: 'Applicant 1',
+  line5: getName(userCase, 'applicant1'),
+  line6: 'Applicant 2',
+  line7: getName(userCase, 'applicant2'),
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line8: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
-  line9: `<strong>Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between</strong>`,
+  line9: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
   line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  line11: `<strong> Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place</strong>`,
-  line12: `${userCase.ceremonyPlace}`,
-  line13: `<strong>Date of ${isDivorce ? 'marriage' : 'civil partnership'}</strong>`,
-  line14: `${getFormattedDate(userCase.relationshipDate)}`,
+  line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
+  line12: userCase.ceremonyPlace,
+  line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
+  line14: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase ? connectionBulletPointsTextForRespondent(userCase.connections!) : [],
-  jurisdictionsMoreDetails:
-    `The courts of England or Wales must have the jurisdiction (the legal power) to be able to ${
+  connectionBulletPoints: userCase
+    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
+    : [],
+  jurisdictionsMoreDetails: {
+    part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
-     Each legal statement includes some or all of the following legal connections to England or Wales.` +
-    '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).connectedToEnglandWales,
+     Each legal statement includes some or all of the following legal connections to England or Wales.`,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+  },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
@@ -105,10 +111,10 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
    This is known as a ‘financial order by consent’. Or they can be made if you disagree about dividing money and property and want the court to decide.
     This is known as a ‘contested financial order’.
   <br><br>To formally start legal proceedings, the applicants will need to complete another form and pay a fee.
-   Applying for a ‘contested financial order’ costs ${config.get(
-     'fees.financialOrder'
-   )}. Applying for a ‘financial order by consent’ costs ${config.get(
-    'fees.consentOrder'
+   Applying for a ‘contested financial order’ costs ${getFee(
+     config.get('fees.financialOrder')
+   )}. Applying for a ‘financial order by consent’ costs ${getFee(
+    config.get('fees.consentOrder')
   )}. You can get a solicitor to draft these for you.
   <br><br>If you are not sure what to do then you should seek legal advice. `,
   subHeading7: "Applicant 1's correspondence address",
@@ -127,7 +133,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line19: `${userEmail}`,
+  line19: `${userCase.applicant1Email}`,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -144,10 +150,7 @@ const en = ({ isDivorce, partner, userCase, userEmail, isApplicant2 }: CommonCon
       .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line20: `${userCase.applicant2EmailAddress}`,
-  subHeading11: 'Statement of truth',
-  applicant1Name: `<em>${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}</em>`,
-  applicant2Name: `<em>${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}</em>`,
+  line20: `${userCase.applicant2Email}`,
   confirm: `Confirm before  ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
@@ -227,6 +230,8 @@ export const generateContent: TranslationFn = content => {
   const isApplicant1FinancialOrderYes = content.userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
   const isApplicant2FinancialOrderYes = content.userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES;
   const isCeremonyPlace = content.userCase.ceremonyPlace;
+  const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
+  const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
@@ -234,6 +239,8 @@ export const generateContent: TranslationFn = content => {
     isApplicant1FinancialOrderYes,
     isApplicant2FinancialOrderYes,
     isCeremonyPlace,
+    whatThisMeansJurisdiction,
+    whatThisMeansFinancialOrder,
     form,
   };
 };

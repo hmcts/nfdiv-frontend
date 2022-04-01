@@ -60,12 +60,12 @@ Feature: Form failures
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not entered their email address or said you do not know it. You have to do one or the other before continuing."
-    Given I select "Your partner's email address"
+    Given I select "Your spouse's email address"
     And I type "test.com"
     When I click "Continue"
     Then the page should include "You have entered an invalid email address. Check it and enter it again before continuing."
     Given I clear the form
-    And I select "Your partner's email address"
+    And I select "Your spouse's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
     And I select "I do not know their email address"
     When I click "Continue"
@@ -87,26 +87,28 @@ Feature: Form failures
 
     Given I go to "/enter-their-address"
     When I click "Find address"
-    Then the page should include "You have not entered your partner’s postcode. Enter their postcode before continuing."
+    Then the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "not a postcode!"
     When I click "Find address"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
     And I click "Continue"
-    Then the page should include "You have not entered your partner’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your partner’s town or city. Enter their town or city before continuing."
-    And the page should include "You have not entered your partner’s postcode. Enter their postcode before continuing."
+    Then the page should include "You have not entered your spouse’s building and street address. Enter their building and street address before continuing."
+    And the page should include "You have not entered your spouse’s town or city. Enter their town or city before continuing."
+    And the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"
     When I click "Continue"
-    Then the page should include "You have not entered your partner’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your partner’s country. Enter their country before continuing."
+    Then the page should include "You have not entered your spouse’s building and street address. Enter their building and street address before continuing."
+    And the page should include "You have not entered your spouse’s country. Enter their country before continuing."
 
     Given I go to "/in-the-uk"
     When I click "Continue"
@@ -148,9 +150,9 @@ Feature: Form failures
     Then the page should include "You have not entered their first name. Enter it before continuing."
     And the page should include "You have not entered their last name. Enter it before continuing."
     Given I clear the form
-    When I select "Your partner’s first name(s)"
+    When I select "Your spouse’s first name(s)"
     And I type "Their first name!"
-    And I select "Your partner’s last name(s)"
+    And I select "Your spouse’s last name(s)"
     And I type "Their last-name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
@@ -161,7 +163,7 @@ Feature: Form failures
     And the page should include "You have not entered anything. Enter their full name as it appears on your marriage certificate."
     Given I select "Copy your full name from the marriage certificate"
     And I type "Firstname Lastname1"
-    And I select "Copy your partner's full name from the marriage certificate"
+    And I select "Copy your spouse's full name from the marriage certificate"
     And I type "Husbands name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
@@ -187,10 +189,6 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/english-or-welsh"
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/address-private"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -198,7 +196,8 @@ Feature: Form failures
     Given I go to "/enter-your-address"
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
@@ -214,6 +213,16 @@ Feature: Form failures
     Given I wait for the postcode lookup to return results
     And I click "Continue"
     Then the page should include "You have not selected your address. Select your address from the list before continuing."
+
+    Given I go to "/do-they-have-a-solicitor"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. Select an answer before continuing."
+
+    Given I go to "/enter-solicitor-details"
+    And I select "Solicitor email address (optional)"
+    And I type "test"
+    When I click "Continue"
+    Then the page should include "You have entered the email address in the wrong format. Check it and enter it again."
 
     Given I go to "/details-other-proceedings"
     When I click "Continue"
@@ -231,13 +240,22 @@ Feature: Form failures
     Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
 
     Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my partner"
+    And I select "I want to apply jointly, with my spouse"
     When I click "Continue"
     Then the page URL should be "/their-email-address"
 
     Given I go to "/their-email-address"
     When I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+
+    Given I go to "/finalising-your-application"
+    When I click "Continue"
+    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
+
+    Given I go to "/explain-the-delay"
+    When I click "Continue"
+    Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
+    And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
 
     Given I've already completed the form using the fixture "completeCase"
     And I go to "/check-your-answers"
@@ -249,7 +267,7 @@ Feature: Form failures
   @nightly
   Scenario: They fail to fill out the applicant 1 joint application forms
     Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my partner"
+    And I select "I want to apply jointly, with my spouse"
     When I click "Continue"
     Then the page URL should be "/their-email-address"
     Given I click "Continue"
@@ -311,11 +329,6 @@ Feature: Form failures
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-    Given I go to "/respondent/english-or-welsh"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-
     Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
@@ -329,6 +342,10 @@ Feature: Form failures
     When I click "Submit"
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
 
+    Given I go to "/respondent/finalising-your-application"
+    When I click "Submit"
+    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
+    Then the page should include "You need to explain why you are applying for the final order before continuing."
 
   @nightly
   Scenario: They fail to fill out the applicant 2 forms
@@ -391,11 +408,6 @@ Feature: Form failures
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
     And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/applicant2/english-or-welsh"
-    And I clear the form
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/applicant2/address-private"
     And I clear the form
     When I click "Continue"
@@ -406,7 +418,8 @@ Feature: Form failures
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
@@ -516,6 +529,23 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    And I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
+    When I go to "/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    When I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/applicant2/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    When I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
 
   @nightly
   Scenario: Jurisdiction form failures

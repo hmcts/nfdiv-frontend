@@ -41,7 +41,7 @@ export const form: FormContent = {
           label: l => l.detailsPrivate,
           value: YesOrNo.YES,
           conditionalText: l =>
-            `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
+            `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
         },
         { label: l => l.detailsNotPrivate, value: YesOrNo.NO },
       ],

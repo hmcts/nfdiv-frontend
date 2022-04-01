@@ -7,16 +7,40 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
-import { Step, applicant1Sequence } from './applicant1Sequence';
-import { applicant2Sequence } from './applicant2Sequence';
+import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
 import { respondentSequence } from './respondentSequence';
-import { CHECK_ANSWERS_URL, READ_THE_RESPONSE } from './urls';
+import { currentStateFn } from './state-sequence';
+import {
+  APPLICANT_2,
+  APPLICATION_SUBMITTED,
+  CHECK_ANSWERS_URL,
+  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+  CHECK_JURISDICTION,
+  CONFIRM_JOINT_APPLICATION,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
+  HOME_URL,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
+  READ_THE_RESPONSE,
+  RESIDUAL_JURISDICTION,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+} from './urls';
 
 const stepForms: Record<string, Form> = {};
 const ext = extname(__filename);
 
-[applicant1Sequence, applicant2Sequence, respondentSequence].forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + (i === 0 ? '/applicant1' : '');
+const allSequences = [
+  applicant1PreSubmissionSequence,
+  applicant1PostSubmissionSequence,
+  applicant2PreSubmissionSequence,
+  applicant2PostSubmissionSequence,
+  respondentSequence,
+];
+
+allSequences.forEach((sequence: Step[], i: number) => {
+  const dir = __dirname + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
@@ -70,24 +94,63 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
       : 0;
   const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
 
+  const jurisdictionUrls = [
+    WHERE_YOUR_LIVES_ARE_BASED_URL,
+    JURISDICTION_DOMICILE,
+    JURISDICTION_LAST_TWELVE_MONTHS,
+    HABITUALLY_RESIDENT_ENGLAND_WALES,
+    LIVING_ENGLAND_WALES_SIX_MONTHS,
+    RESIDUAL_JURISDICTION,
+  ];
+
+  if (jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))) {
+    return `${CHECK_JURISDICTION}${queryString}`;
+  }
+
   return `${url}${queryString}`;
+};
+
+export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
+  const finalUrls = [HOME_URL, `${APPLICANT_2 + CONFIRM_JOINT_APPLICATION}`];
+  const startsWithUrls = ['/pay', APPLICATION_SUBMITTED];
+
+  return (
+    nextStepUrl.includes(CHECK_ANSWERS_URL) ||
+    finalUrls.some(url => url === nextStepUrl.split('?')[0]) ||
+    startsWithUrls.some(url => nextStepUrl.startsWith(url))
+  );
+};
+
+export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
+  const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
+  const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
+
+  return (
+    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
+  );
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...applicant1Sequence, ...applicant2Sequence, ...respondentSequence].find(s => s.url === path);
+  const nextStep = allSequences.reduce((list, sequence) => list.concat(...sequence), []).find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
 
   return `${url}${queryString}`;
 };
 
-const getUserSequence = (req: AppRequest) => {
+export const getUserSequence = (req: AppRequest): Step[] => {
+  const stateSequence = currentStateFn(req.session.userCase);
+
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
     return respondentSequence;
   } else if (req.session.isApplicant2) {
-    return applicant2Sequence;
+    return stateSequence.isBefore(State.Applicant2Approved)
+      ? applicant2PreSubmissionSequence
+      : applicant2PostSubmissionSequence;
   } else {
-    return applicant1Sequence;
+    return stateSequence.isBefore(State.AwaitingHWFDecision)
+      ? applicant1PreSubmissionSequence
+      : applicant1PostSubmissionSequence;
   }
 };
 
@@ -113,7 +176,8 @@ export type StepWithContent = Step & {
   view: string;
 };
 
-const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithContent[] => {
+const getStepsWithContent = (sequence: Step[]): StepWithContent[] => {
+  const isApplicant1 = [applicant1PreSubmissionSequence, applicant1PostSubmissionSequence].includes(sequence);
   const dir = __dirname + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
@@ -125,11 +189,8 @@ const getStepsWithContent = (sequence: Step[], isApplicant1 = false): StepWithCo
   return results;
 };
 
-export const stepsWithContentApplicant1 = getStepsWithContent(applicant1Sequence, true);
-export const stepsWithContentApplicant2 = getStepsWithContent(applicant2Sequence);
-export const stepsWithContentRespondent = getStepsWithContent(respondentSequence);
-export const stepsWithContent = [
-  ...stepsWithContentApplicant1,
-  ...stepsWithContentApplicant2,
-  ...stepsWithContentRespondent,
-];
+export const stepsWithContent: StepWithContent[] = allSequences.reduce<StepWithContent[]>(
+  (list, sequence) => list.concat(...getStepsWithContent(sequence)),
+  []
+);
+export const stepsWithContentPreSubmissionApplicant1 = getStepsWithContent(applicant1PreSubmissionSequence);
