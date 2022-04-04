@@ -84,8 +84,8 @@ const en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
@@ -200,8 +200,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
