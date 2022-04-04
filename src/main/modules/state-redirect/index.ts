@@ -28,7 +28,6 @@ export class StateRedirectMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        console.log('burger');
         if (
           this.hasPartnerNotResponded(req.session.userCase, req.session.isApplicant2) &&
           ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
