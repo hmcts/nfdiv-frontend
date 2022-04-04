@@ -240,7 +240,12 @@ const en = ({
       line14: userCase.connections
         ? {
             heading: 'Your answers indicate that you can apply in England and Wales because:',
-            connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+            connectionBullets: enConnectionBulletPointsUserReads(
+              userCase.connections,
+              partner,
+              isDivorce,
+              isJointApplication
+            ),
             jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
             defaultLink: 'Find out more',
           }
@@ -693,7 +698,12 @@ const cy: typeof en = ({
       line14: userCase.connections
         ? {
             heading: 'Your answers indicate that you can apply in England and Wales because:',
-            connectionBullets: enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce),
+            connectionBullets: enConnectionBulletPointsUserReads(
+              userCase.connections,
+              partner,
+              isDivorce,
+              isJointApplication
+            ),
             jurisdictionMoreDetailsContent: jurisdictionMoreDetailsContent(userCase.connections, isDivorce),
             defaultLink: 'Find out more',
           }
