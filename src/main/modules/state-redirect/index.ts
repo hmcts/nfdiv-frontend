@@ -15,6 +15,7 @@ import {
   PageLink,
   SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
+  WEBCHAT_URL,
 } from '../../steps/urls';
 
 /**
@@ -44,7 +45,9 @@ export class StateRedirectMiddleware {
 
         if (
           req.session.userCase?.state !== State.AwaitingPayment ||
-          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
+          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT, WEBCHAT_URL].includes(
+            req.path as PageLink
+          )
         ) {
           return next();
         }
