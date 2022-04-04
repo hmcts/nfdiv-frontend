@@ -35,11 +35,12 @@ const hwfMoreDetails = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswers
   return { text, title };
 };
 
-const otherCasesMoreDetails = () => {
+const otherCasesMoreDetails = (isDivorce: boolean) => {
   const title = 'Find out more about other court proceedings';
-  const text =
-    'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
-    'It does not need to know about other court proceedings.';
+  const text = `The court only needs to know about court proceedings relating to your ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  },
+   property or children. It does not need to know about other court proceedings.`;
   return { text, title };
 };
 
@@ -358,7 +359,7 @@ const en = ({
       line1: userCase.applicant1LegalProceedings
         ? {
             applicant1LegalProceedings: userCase.applicant1LegalProceedings,
-            otherCasesMoreDetails: otherCasesMoreDetails(),
+            otherCasesMoreDetails: otherCasesMoreDetails(isDivorce),
             defaultLink: 'Find out more ',
           }
         : '',
@@ -818,7 +819,7 @@ const cy: typeof en = ({
             applicant1LegalProceedings: userCase.applicant1LegalProceedings
               ?.replace('Yes', 'Do')
               .replace('No', 'Naddo'),
-            otherCasesMoreDetails: otherCasesMoreDetails(),
+            otherCasesMoreDetails: otherCasesMoreDetails(isDivorce),
             defaultLink: 'Find out more ',
           }
         : '',
