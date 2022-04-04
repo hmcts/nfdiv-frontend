@@ -13,6 +13,7 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PageLink,
+  SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
 
@@ -26,6 +27,7 @@ export class StateRedirectMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
+        console.log('burger');
         if (
           this.hasPartnerNotResponded(req.session.userCase, req.session.isApplicant2) &&
           ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
@@ -42,7 +44,7 @@ export class StateRedirectMiddleware {
 
         if (
           req.session.userCase?.state !== State.AwaitingPayment ||
-          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL].includes(req.path as PageLink)
+          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
         ) {
           return next();
         }
