@@ -9,6 +9,7 @@ export default class Applicant2PrayerPostController extends PostController<AnyOb
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     formData.divorceOrDissolution = req.session.userCase.divorceOrDissolution;
     formData.applicant2WhoIsFinancialOrderFor = req.session.userCase.applicant2WhoIsFinancialOrderFor;
+    formData.applicant2ApplyForFinancialOrder = req.session.userCase.applicant2ApplyForFinancialOrder;
 
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
