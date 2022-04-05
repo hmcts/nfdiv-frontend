@@ -51,11 +51,11 @@ const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce
   return moreDetailsComponent({ text, title });
 };
 
-const getOtherCourtCasesMoreDetailsContent = () => {
+const getOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
   const title = 'Find out more about other court proceedings';
-  const text =
-    'The court only needs to know about court proceedings relating to your marriage, property or children. ' +
-    'It does not need to know about other court proceedings.';
+  const text = `The court only needs to know about court proceedings relating to your ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }, property or children. It does not need to know about other court proceedings.`;
   return moreDetailsComponent({ text, title });
 };
 
@@ -374,7 +374,9 @@ const en = ({
     },
     otherCourtCases: {
       line1: userCase.applicant1LegalProceedings
-        ? `${userCase.applicant1LegalProceedings} ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
+        ? `${userCase.applicant1LegalProceedings} ${
+            isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''
+          }`
         : '',
       line2:
         userCase.applicant1LegalProceedings === YesOrNo.YES
@@ -836,7 +838,7 @@ const cy: typeof en = ({
     otherCourtCases: {
       line1: userCase.applicant1LegalProceedings
         ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
-        ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent() : ''}`
+        ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''}`
         : '',
       line2:
         userCase.applicant1LegalProceedings === YesOrNo.YES
