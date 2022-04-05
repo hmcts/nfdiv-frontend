@@ -36,14 +36,16 @@ function initAvayaWebchat() {
     avayaWebchat.hidden = true;
     avayaWebchat.addEventListener('metrics', function (metrics) {
       const metricsDetail = (<CustomEvent>metrics).detail;
+      const ewt = metricsDetail.ewt;
       const ccState = metricsDetail.contactCenterState;
+      const availableAgents = metricsDetail.availableAgents;
 
       avayaWebchatOpen.hidden = true;
       avayaAgentBusy.hidden = true;
       avayaWebchatClose.hidden = true;
       avayaWebchatMaintenance.hidden = true;
       if (ccState === 'Open') {
-        if (ccState) {
+        if (availableAgents > 0 && ewt <= 300) {
           avayaWebchatOpen.hidden = false;
         } else {
           avayaAgentBusy.hidden = false;
