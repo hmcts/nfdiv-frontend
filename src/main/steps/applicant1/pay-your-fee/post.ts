@@ -12,9 +12,10 @@ import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
 @autobind
 export default class PaymentPostController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (req.body.saveAndSignOut) {
+    if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
+
     if (req.session.userCase.state !== State.AwaitingPayment) {
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, CITIZEN_SUBMIT);
     }
