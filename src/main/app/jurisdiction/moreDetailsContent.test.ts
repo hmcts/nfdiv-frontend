@@ -4,16 +4,18 @@ import { enDomicile, enHabitualResident, enResidual, jurisdictionMoreDetailsCont
 
 describe('jurisdictionMoreDetailsContent', () => {
   test('Given showAllResidences is true should return all 3 connection content', async () => {
-    const expectedHabitualText = { heading: 'Habitual residence', body: enHabitualResident };
-    const expectedDomicileText = { heading: 'Domicile', body: enDomicile };
-    const expectedResidualText = { heading: 'Residual jurisdiction', body: enResidual(true) };
+    const expectedText =
+      '<strong>Habitual residence</strong><br>' +
+      enHabitualResident +
+      '<br><br><strong>Domicile</strong><br>' +
+      enDomicile +
+      '<br><br><strong>Residual jurisdiction</strong><br>' +
+      enResidual(true);
 
     const expectedTitle = 'Read more about your connections';
 
     const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT], true, true);
-    expect(result.text).toContainEqual(expectedHabitualText);
-    expect(result.text).toContainEqual(expectedDomicileText);
-    expect(result.text).toContainEqual(expectedResidualText);
+    expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
 
@@ -22,7 +24,7 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedTitle = 'Read more about domicile';
 
     const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], false);
-    expect(result.text).toContainEqual(expectedText);
+    expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
 });

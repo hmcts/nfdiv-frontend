@@ -32,14 +32,15 @@ describe('jurisdictionBulletPointContent', () => {
   });
 
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A for bullet point user reads', async () => {
-    const expected = 'you and your husband are habitually resident in England and Wales';
+    const expected =
+      '<ul class="govuk-list govuk-list--bullet"><li>you and your husband are habitually resident in England and Wales</li></ul>';
     const result = enConnectionBulletPointsUserReads(
       [JurisdictionConnections.APP_1_APP_2_RESIDENT],
       'husband',
       true,
       true
     );
-    expect(result).toContainEqual(expected);
+    expect(result).toEqual(expected);
   });
 
   test('Given only applicant 2 are both habitually resident, should find connection C for user reads for marriage', async () => {

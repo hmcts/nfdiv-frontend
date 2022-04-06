@@ -26,7 +26,7 @@ export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean,
   showAllConnectionTypes = false
-): { text: (string | { heading: string; body: string })[]; title: string } => {
+): { text: string; title: string } => {
   const connectionTypes = {
     'Habitual residence': [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
@@ -62,18 +62,18 @@ export const jurisdictionMoreDetailsContent = (
     }
   }
 
+  let totalConnectionText = '';
+
   if (connectionTypesMade.length === 1) {
     return {
-      text: [connectionText[connectionTypesMade[0]]],
+      text: connectionText[connectionTypesMade[0]],
       title: 'Read more about ' + connectionTypesMade[0].toLowerCase(),
     };
   } else {
-    return {
-      text: connectionTypesMade.map(connectionType => ({
-        heading: connectionType,
-        body: connectionText[connectionType],
-      })),
-      title: 'Read more about your connections',
-    };
+    for (const connectionType of connectionTypesMade) {
+      totalConnectionText +=
+        '<strong>' + connectionType + '</strong><br>' + connectionText[connectionType] + '<br><br>';
+    }
+    return { text: totalConnectionText.slice(0, -8), title: 'Read more about your connections' };
   }
 };
