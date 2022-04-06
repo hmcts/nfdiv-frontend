@@ -7,6 +7,7 @@ import {
   DivorceOrDissolution,
   FinancialOrderFor,
   State,
+  YesOrNo,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
@@ -33,6 +34,7 @@ describe('CheckYourAnswersPostController', () => {
 
     const req = mockRequest({ body });
     req.session.userCase.applicant2WhoIsFinancialOrderFor = [FinancialOrderFor.APPLICANT];
+    req.session.userCase.applicant2ApplyForFinancialOrder = YesOrNo.YES;
 
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
@@ -42,6 +44,7 @@ describe('CheckYourAnswersPostController', () => {
       {
         ...body,
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicant2ApplyForFinancialOrder: YesOrNo.YES,
         applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT],
       },
       CITIZEN_UPDATE

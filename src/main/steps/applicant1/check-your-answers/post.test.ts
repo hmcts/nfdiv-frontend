@@ -9,6 +9,7 @@ import {
   FinancialOrderFor,
   INVITE_APPLICANT_2,
   State,
+  YesOrNo,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
@@ -92,6 +93,7 @@ describe('CheckYourAnswersPostController', () => {
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
+    req.session.userCase.applicant1ApplyForFinancialOrder = YesOrNo.YES;
     req.session.userCase.applicant1WhoIsFinancialOrderFor = [FinancialOrderFor.CHILDREN];
 
     const res = mockResponse();
@@ -102,6 +104,7 @@ describe('CheckYourAnswersPostController', () => {
       {
         ...body,
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicant1ApplyForFinancialOrder: YesOrNo.YES,
         applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.CHILDREN],
       },
       APPLICANT_1_RESUBMIT

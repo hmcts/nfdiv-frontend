@@ -18,6 +18,7 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
    */
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     formData.divorceOrDissolution = req.session.userCase.divorceOrDissolution;
+    formData.applicant1ApplyForFinancialOrder = req.session.userCase.applicant1ApplyForFinancialOrder;
     formData.applicant1WhoIsFinancialOrderFor = req.session.userCase.applicant1WhoIsFinancialOrderFor;
 
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
