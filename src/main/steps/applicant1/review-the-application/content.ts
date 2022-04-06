@@ -61,9 +61,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   line16: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase
-    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
-    : [],
+  connectionBulletPoints:
+    userCase && userCase.connections
+      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      : [],
   jurisdictionsMoreDetails: {
     part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'

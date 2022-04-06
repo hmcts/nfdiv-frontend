@@ -1,8 +1,5 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "./more-details.njk" import jurisdictionConnectionsDetails %}
-{% from "./more-details.njk" import hwfMoreDetails %}
-{% from "./more-details.njk" import otherCourtCasesMoreDetails %}
 
 {% extends "common/page.njk" %}
 
@@ -25,26 +22,13 @@
       {% for line, text in stepAnswers[section] %}
         {% if text and text != 'undefined' and text != 'null' %}
 
-          {% if section == 'connectionsToEnglandWales' and line == 'line14' %}
-            {% set textValue = jurisdictionConnectionsDetails(stepAnswers.connectionsToEnglandWales.line14, userCase.connections) %}
-
-          {% elseif section == 'helpWithFees' and line == 'line1' %}
-            {% set textValue = hwfMoreDetails(stepAnswers.helpWithFees.line1, userCase.applicant1HelpPayingNeeded) %}
-
-          {% elseif section == 'otherCourtCases' and line == 'line1' %}
-            {% set textValue = otherCourtCasesMoreDetails(stepAnswers.otherCourtCases.line1, userCase.applicant1LegalProceedings, isApplicant2) %}
-
-          {% else %}
-            {% set textValue = text %}
-          {% endif %}
-
           {% set answerRows = (answerRows.push({
             key: {
               html: stepQuestions[section][line],
               classes: 'govuk-!-width-two-thirds'
             },
             value: {
-              text: textValue | safe
+              text: text | safe
             },
             actions: {
               items: [

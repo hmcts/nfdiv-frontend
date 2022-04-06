@@ -1435,16 +1435,16 @@ export const enum JudgeCostsClaimGranted {
  * Values:
  * - `A` - APP_1_APP_2_RESIDENT
  * - `B` - APP_1_APP_2_LAST_RESIDENT
- * - `C` - APP_2_RESIDENT
+ * - `C` - APP_2_RESIDENT_SOLE
+ * - `C2` - APP_2_RESIDENT_JOINT
  * - `D` - APP_1_RESIDENT_TWELVE_MONTHS
  * - `E` - APP_1_RESIDENT_SIX_MONTHS
  * - `F` - APP_1_APP_2_DOMICILED
  * - `G` - APP_1_DOMICILED
  * - `H` - APP_2_DOMICILED
- * - `I` - RESIDUAL_JURISDICTION
+ * - `I` - RESIDUAL_JURISDICTION_CP
+ * - `I2` - RESIDUAL_JURISDICTION_D
  * - `J` - APP_1_RESIDENT_JOINT
- * - `K` - APP_2_RESIDENT_TWELVE_MONTHS
- * - `L` - APP_2_RESIDENT_SIX_MONTHS
  */
 export const enum JurisdictionConnections {
   /**
@@ -1456,9 +1456,13 @@ export const enum JurisdictionConnections {
    */
   APP_1_APP_2_LAST_RESIDENT = 'B',
   /**
-   * APP_2_RESIDENT
+   * APP_2_RESIDENT_SOLE
    */
-  APP_2_RESIDENT = 'C',
+  APP_2_RESIDENT_SOLE = 'C',
+  /**
+   * APP_2_RESIDENT_JOINT
+   */
+  APP_2_RESIDENT_JOINT = 'C2',
   /**
    * APP_1_RESIDENT_TWELVE_MONTHS
    */
@@ -1480,21 +1484,17 @@ export const enum JurisdictionConnections {
    */
   APP_2_DOMICILED = 'H',
   /**
-   * RESIDUAL_JURISDICTION
+   * RESIDUAL_JURISDICTION_CP
    */
-  RESIDUAL_JURISDICTION = 'I',
+  RESIDUAL_JURISDICTION_CP = 'I',
+  /**
+   * RESIDUAL_JURISDICTION_D
+   */
+  RESIDUAL_JURISDICTION_D = 'I2',
   /**
    * APP_1_RESIDENT_JOINT
    */
   APP_1_RESIDENT_JOINT = 'J',
-  /**
-   * APP_2_RESIDENT_TWELVE_MONTHS
-   */
-  APP_2_RESIDENT_TWELVE_MONTHS = 'K',
-  /**
-   * APP_2_RESIDENT_SIX_MONTHS
-   */
-  APP_2_RESIDENT_SIX_MONTHS = 'L',
 }
 
 export const enum LanguagePreference {
