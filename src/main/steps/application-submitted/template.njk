@@ -31,8 +31,8 @@
       label: {
         html: textWithVisuallyHiddenSpan(partnerResponse, currentState.isAfter('AwaitingApplicant2Response'))
       },
-      complete: (userCase.applicationType == 'jointApplication' and currentState.isAtOrAfter('Applicant2Approved'))
-        or (userCase.applicationType == 'soleApplication' and currentState.isAtOrAfter('Holding')),
+      complete: userCase.applicationType == 'jointApplication' and currentState.isAtOrAfter('Applicant2Approved')
+        or userCase.applicationType == 'soleApplication' and currentState.isAtOrAfter('Holding'),
       active: userCase.state == 'AwaitingApplicant2Response'
     }, {
       label: {
