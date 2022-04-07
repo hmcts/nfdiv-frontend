@@ -96,7 +96,13 @@ export class OidcMiddleware {
             return res.redirect(HOME_URL);
           }
 
-          return next();
+          req.session.save(err => {
+            if (err) {
+              res.redirect(SIGN_OUT_URL);
+            } else {
+              next();
+            }
+          });
         } else if ([APPLICANT_2, RESPONDENT].includes(req.url as PageLink)) {
           return res.redirect(APPLICANT_2_SIGN_IN_URL);
         } else {
