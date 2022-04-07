@@ -30,7 +30,8 @@ export const jurisdictionMoreDetailsContent = (
   const connectionTypes = {
     'Habitual residence': [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
-      JurisdictionConnections.APP_2_RESIDENT,
+      JurisdictionConnections.APP_2_RESIDENT_SOLE,
+      JurisdictionConnections.APP_2_RESIDENT_JOINT,
       JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS,
       JurisdictionConnections.APP_1_APP_2_RESIDENT,
       JurisdictionConnections.APP_1_RESIDENT_JOINT,
@@ -41,7 +42,10 @@ export const jurisdictionMoreDetailsContent = (
       JurisdictionConnections.APP_1_DOMICILED,
       JurisdictionConnections.APP_2_DOMICILED,
     ],
-    'Residual jurisdiction': [JurisdictionConnections.RESIDUAL_JURISDICTION],
+    'Residual jurisdiction': [
+      JurisdictionConnections.RESIDUAL_JURISDICTION_CP,
+      JurisdictionConnections.RESIDUAL_JURISDICTION_D,
+    ],
   };
 
   const connectionText = {

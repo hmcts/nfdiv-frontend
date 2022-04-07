@@ -1,0 +1,64 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% extends "common/form/form.njk"%}
+
+{% set hintTemplate %}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ reasonInformationNotCorrect.heading1 }}</h3>
+  <p class="govuk-body govuk-!-margin-bottom-2">
+    {{ reasonInformationNotCorrect.part1 }} <a class="govuk-link" href="{{ reasonInformationNotCorrect.link }}">{{ reasonInformationNotCorrect.linkText }}</a>{{ reasonInformationNotCorrect.part2 }}
+  </p>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ reasonInformationNotCorrect.heading2 }}</h3>
+  <p class="govuk-body">{{ reasonInformationNotCorrect.part3 }}</p>
+  {{ reasonInformationNotCorrectHint }}
+{% endset %}
+
+{% set textArea %}
+  {% set fieldName = 'applicant2ReasonInformationNotCorrect' if isApplicant2 else 'applicant1ReasonInformationNotCorrect'  %}
+  {{ govukTextarea({
+        id: fieldName,
+        name: fieldName,
+        label: {
+          text: title,
+          classes: "govuk-visually-hidden"
+        },
+        hint: {
+          html: hintTemplate
+        },
+        value: userCase[fieldName],
+        formGroup: {
+          classes: fieldName
+        }
+     })
+  }}
+{% endset %}
+
+{% block form_content %}
+  {% set fieldName = 'applicant2ConfirmInformationStillCorrect' if isApplicant2 else 'applicant1ConfirmInformationStillCorrect' %}
+  {{ govukRadios({
+        classes: 'govuk-radios',
+        idPrefix: fieldName,
+        name: fieldName,
+        fieldset: {
+          legend: {
+            text: confirmInformationStillCorrect,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          { text: yes, value: 'Yes', checked: userCase[fieldName] == 'Yes' },
+          {
+            text: no,
+            value: 'No',
+            checked: userCase[fieldName] == 'No',
+            conditional: {
+              html: textArea
+            }
+          }
+        ],
+        errorMessage: getError(fieldName),
+        formGroup: {
+          classes: fieldName
+        }
+  }) }}
+{% endblock %}

@@ -1,5 +1,6 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/page.njk" %}
 
@@ -14,21 +15,20 @@
 {% set emailButNotPostalContent %}
   If you have their email address but not their postal address, then you can apply to the court to only send the application to their email address.
   This application costs an additional {{ alternativeService }}, unless you are eligible for Help With Fees.<br><br>
-  <strong>How to apply:</strong> Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to apply:</h3>
+  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
   Send the form to the Courts and Tribunals Service Centre by email or post <br><br>
   Email: {{ contactEmail }} <br><br>
-  <strong>Courts and Tribunals Service Centre</strong><br>
-  HMCTS Divorce and Dissolution service<br>
-  PO Box 13226<br>
-  Harlow<br>
-  CM20 9UG
+  {{ serviceAddressMacro(serviceAddress, 'heading')  }}
 {% endset %}
 
 {% set needToSearchForAddressContent %}
   You can apply to search government records for your {{ partner }}'s address, for example the electoral register.
   They must live in England or Wales. The application costs an additional {{ searchForAddress }}, unless you are eligible for Help With Fees.<br><br>
-  <strong>How to apply:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 and ask for the form to be sent to you.<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the {{ searchForAddress }} payment by card (between 8.30am and 5pm).
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to apply:</h3>
+  Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} and ask for the form to be sent to you.<br><br>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
+  Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ searchForAddress }} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.
 {% endset %}
@@ -43,7 +43,7 @@
   to continue {% if (isDivorce) %} your divorce{% else %} ending your civil partnership{% endif %} without their response.<br><br>
   You can either hire a professional to ‘serve’ (deliver) the documents, or apply to use the court bailiffs.
   Using a privately-hired professional is usually quicker.<br><br>
-  <strong>Serving using a privately-hired professional</strong><br>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Serving using a privately-hired professional</h3>
   You can pay a professional to serve (deliver) the court documents to your {{ partner }}. These professionals are known as ‘process servers’.
   If the process server successfully delivers the documents then they will provide you with a document as evidence, called a ‘certificate of service’.
   You can use this certificate to continue with {% if (isDivorce) %} your divorce{% else %} ending your civil partnership{% endif %}.<br><br>
@@ -55,27 +55,21 @@
   <li>When the process server has arranged service and you have your ‘certificate of service’ then send it to the court by email or post. Make sure you quote your case number.</li>
   </ol>
   Email: {{ contactEmail }}<br><br>
-  <strong>Courts and Tribunals Service Centre</strong><br>
-  HMCTS Divorce and Dissolution service<br>
-  PO Box 13226<br>
-  Harlow<br>
-  CM20 9UG<br><br>
-  <strong>Serving using the court bailiffs</strong><br>
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Serving using the court bailiffs</h3>
   The bailiff service can only be used at addresses in England and Wales where delivery by post has already failed.
   If you have a new address for your {{ partner }}, you’ll have to get it delivered by post to that address, before you can apply for the bailiff service.
   Using the court bailiff service costs an additional {{ courtBailiffService }}, unless you’re eligible for Help With Fees.<br><br>
-  <strong>How to apply:</strong> Download and complete <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff" class="govuk-link">form D89</a>.
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to apply:</h3>
+  Download and complete <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff" class="govuk-link">form D89</a>.
   You'll also need to send:
   <ul><li>a photo of your {{ partner }}</li><li>a copy of your
   {% if (isDivorce) %} divorce{% else %} civil partnership{% endif %} application</li></ul>
   Send the completed form and other documents to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }} <br><br>
-  <strong>Courts and Tribunals Service Centre</strong><br>
-  HMCTS Divorce and Dissolution service<br>
-  PO Box 13226<br>
-  Harlow<br>
-  CM20 9UG<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the {{ courtBailiffService }}payment by card (between 8.30am and 5pm).
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
+  Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ courtBailiffService }}payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.
 {% endset %}
 
@@ -85,15 +79,13 @@
   This application costs an additional {{ deemedService }}, unless you are eligible for Help With Fees.<br><br>
   You will need to be able to prove that your {{ partner }} received the application.
   For example, you have a text message from your {{ partner }} saying they have received it.<br><br>
-  <strong>How to apply:</strong>  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to apply:</h3>
+  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>.
   Send the form and evidence to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }}<br><br>
-  <strong>Courts and Tribunals Service Centre</strong><br>
-  HMCTS Divorce and Dissolution service<br>
-  PO Box 13226<br>
-  Harlow<br>
-  CM20 9UG<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the {{ deemedService }} payment by card (between 8.30am and 5pm).
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
+  Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ deemedService }} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.
 {% endset %}
@@ -104,16 +96,14 @@
   You will have to show that you have done everything you can to find your {{ partner }} and ‘serve’ (deliver) the application to them.
   For example by contacting their relatives, friends and last-known employer and searching government databases for their address.
   This application costs an additional {{ dispensedService }}, unless you are eligible for Help With Fees.<br><br>
-  <strong>How to apply:</strong>  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to apply:</h3>
+  Download and complete <a href="http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=98" class="govuk-link">form D11</a>
   and <a href="https://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=1112" class="govuk-link">form D13b</a>.
   Send the forms to the Courts and Tribunals Service Centre by email or post:<br><br>
   Email: {{ contactEmail }}<br><br>
-  <strong>Courts and Tribunals Service Centre</strong><br>
-  HMCTS Divorce and Dissolution service<br>
-  PO Box 13226<br>
-  Harlow<br>
-  CM20 9UG<br><br>
-  <strong>How to pay:</strong> Call the Courts and Tribunals Service Centre on 0300 303 0642 to make the {{ dispensedService }} payment by card (between 8.30am and 5pm).
+  {{ serviceAddressMacro(serviceAddress, 'heading') }}
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-1">How to pay:</h3>
+  Call the Courts and Tribunals Service Centre on {{ servicePhoneNo }} to make the {{ dispensedService }} payment by card (between 8.30am and 5pm).
   If you're eligible for Help With Fees then you'll need to apply again and
   <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link">get a new reference number</a>.
 {% endset %}

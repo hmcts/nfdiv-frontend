@@ -84,8 +84,8 @@ const en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
@@ -133,20 +133,16 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant2HelpPayingNeeded
-          ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
-            ? "Mae angen help arnaf i dalu'r ffi"
-            : "Nid oes angen help arnaf i dalu'r ffi"
+      line1: userCase.applicant2HelpPayingNeeded
+        ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
+          ? "Mae angen help arnaf i dalu'r ffi"
+          : "Nid oes angen help arnaf i dalu'r ffi"
+        : '',
+      line2: userCase.applicant2AlreadyAppliedForHelpPaying
+        ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+          ? `Do <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
           : ''
-      }`,
-      line2: `${
-        userCase.applicant2AlreadyAppliedForHelpPaying
-          ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-            ? `Do <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
-            : ''
-          : ''
-      }`,
+        : '',
     },
     aboutYouForApplicant2: {
       line1: `${userCase.applicant2FirstNames}`,
@@ -204,8 +200,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${

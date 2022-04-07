@@ -82,7 +82,6 @@ Feature: Joint hub page
     Then the page URL should be "/hub-page"
     And the page should include "You have provided the information requested by the court."
 
-    Given I set the case state to "ClarificationSubmitted"
     When I click "Sign out"
     And I login with applicant "1"
     And the page should include "You have provided the information requested by the court."
@@ -99,7 +98,6 @@ Feature: Joint hub page
     When I click "Continue"
     Then the page should include "You will receive an update when your documents have been received and checked."
 
-    Given I set the case state to "ClarificationSubmitted"
     When I click "Sign out"
     And I login with applicant "1"
     And the page should include "You will receive an update when your documents have been received and checked."

@@ -10,7 +10,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
 import { getName } from '../hub-page/content';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
     isDivorce ? 'a final order of divorce' : 'the dissolution of their civil partnership'
   }`,
   caseReferenceHeading: 'Case reference number',
-  caseReferenceValue: `${userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}`,
+  caseReferenceValue: formattedCaseId(userCase.id),
   line4: 'Applicant 1',
   line5: getName(userCase, 'applicant1'),
   line6: 'Applicant 2',
@@ -41,22 +41,23 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  line12: `${userCase.ceremonyPlace}`,
+  line12: userCase.ceremonyPlace,
   line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line14: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase
-    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
-    : [],
-  jurisdictionsMoreDetails:
-    `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
+  connectionBulletPoints:
+    userCase && userCase.connections
+      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      : [],
+  jurisdictionsMoreDetails: {
+    part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
-     Each legal statement includes some or all of the following legal connections to England or Wales.` +
-    '<br><br>' +
-    jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+     Each legal statement includes some or all of the following legal connections to England or Wales.`,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+  },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${

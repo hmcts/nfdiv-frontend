@@ -57,7 +57,11 @@
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
-  <p class="govuk-body">{{ connectionBulletPoints | safe}}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for connectionBullet in connectionBulletPoints %}
+      <li>{{ connectionBullet }}</li>
+    {% endfor %}
+  </ul>
 
   {{ govukDetails({
       summaryHtml: whatThisMeansJurisdiction,
@@ -129,4 +133,8 @@
   <br>
   <br>
 
+{% endblock %}
+
+{% block form %}
+  {% include "../review-your-application/form.njk" %}
 {% endblock %}

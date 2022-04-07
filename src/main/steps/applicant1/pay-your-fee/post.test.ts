@@ -118,7 +118,17 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
 
-      expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+      expect(res.redirect).toHaveBeenLastCalledWith(SAVE_AND_SIGN_OUT);
+    });
+
+    it('saves and signs out on timeout', async () => {
+      const req = mockRequest();
+      req.body['saveBeforeSessionTimeout'] = true;
+      const res = mockResponse();
+
+      await paymentController.post(req, res);
+
+      expect(res.redirect).toHaveBeenLastCalledWith(SAVE_AND_SIGN_OUT);
     });
   });
 });

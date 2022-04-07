@@ -11,9 +11,19 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
+  {% set jurisdictionsMoreDetailsTemplate %}
+    {% if jurisdictionsMoreDetails.length == 1 %}
+      {{ jurisdictionsMoreDetails[0] | safe }}
+    {% else %}
+      {% for jurisdictionItem in jurisdictionsMoreDetails %}
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endset %}
   {{ govukDetails({
     summaryHtml: readMoreJurisdiction,
-    html: jurisdictionsMoreDetails
+    html: jurisdictionsMoreDetailsTemplate
   }) }}
 {% endblock %}
 

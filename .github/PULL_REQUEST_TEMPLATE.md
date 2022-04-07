@@ -1,23 +1,21 @@
-**Before creating a pull request make sure that:**
-
-- [ ] commit messages are meaningful and follow good commit message guidelines
-- [ ] README and other documentation has been updated / added (if needed)
-- [ ] tests have been updated / new tests has been added (if needed)
-
-Please remove this line and everything above and fill the following sections:
-
-
-### JIRA link ###
-
-
-
 ### Change description ###
 
+Enter a description.
 
+### JIRA link (if applicable) ###
 
-**Does this PR introduce a breaking change?** (check one with "x")
+https://tools.hmcts.net/jira/browse/NFDIV-
 
-```
-[ ] Yes
-[ ] No
-```
+**Before merging a pull request make sure that:**
+
+- [ ] tests have been updated / new tests has been added (if needed)
+- [ ] README and other documentation has been updated / added (if needed)
+
+**If this ticket will have any visible impact on users and is not behind a feature toggle, make sure that:**
+- [ ] this ticket been reviewed by QA
+- [ ] the user story been signed off by the PO
+
+Note that bug fixes, dependency updates and technical tasks do not directly impact the user experience and can be merged without QA and PO review.
+
+### If this user story cannot be immediately merged find a way to put it behind a feature toggle and get it merged.
+
