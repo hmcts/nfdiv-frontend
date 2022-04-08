@@ -64,7 +64,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and Help With Fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by${dayjs(userCase.dateSubmitted)
+  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
     .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
