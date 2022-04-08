@@ -1,7 +1,7 @@
 import type { TranslationFn } from '../../app/controller/GetController';
-import type { CommonContent } from '../../steps/common/common.content';
+import type { CommonContent } from '../common/common.content';
 
-const en = ({ isDivorce, telephoneNumber, telephoneDetails }: CommonContent) => ({
+const en = ({ isDivorce, telephoneNumber }: CommonContent) => ({
   title: `Accessibility Statement for the ${isDivorce ? 'Apply for a divorce' : 'End a civil partnership'} service`,
   line1: {
     part1: 'This accessibility statement applies to the website available at ',
@@ -55,7 +55,7 @@ const en = ({ isDivorce, telephoneNumber, telephoneDetails }: CommonContent) => 
   line15:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email: 'Email:',
-  call: `Call: ${telephoneNumber} (${telephoneDetails})`,
+  call: `Call: ${telephoneNumber} (Monday to Friday 8am to 8pm, Saturday 8am to 2pm)`,
   line16: 'We’ll consider your request and get back to you within 10 working days.',
   subHeading4: 'Reporting accessibility problems with this website',
   line17:
@@ -66,7 +66,8 @@ const en = ({ isDivorce, telephoneNumber, telephoneDetails }: CommonContent) => 
     part2: 'Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018',
     part3: ' (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint contact the ',
     part4: 'Equality Advisory and Support Service (EASS).',
-    link: 'https://www.equalityadvisoryservice.com',
+    link1: 'https://www.legislation.gov.uk/uksi/2018/852/contents/made',
+    link2: 'https://www.equalityadvisoryservice.com',
   },
   subHeading6: 'Contacting us by phone or visiting us in person',
   line19: 'We provide a text relay service for people who are deaf, hearing impaired or have a speech impediment.',
