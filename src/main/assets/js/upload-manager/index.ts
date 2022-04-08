@@ -3,7 +3,6 @@ import DropTarget from '@uppy/drop-target';
 import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
-import config from 'config';
 
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
@@ -53,7 +52,7 @@ const initUploadManager = (): void => {
       endpoint: `${url}${csrfQuery}`,
       bundle: true,
       headers: { accept: 'application/json' },
-      timeout: config.get<number>('uploadTimeout'),
+      timeout: 60000,
     })
     .on('files-added', async () => {
       document.body.style.cursor = 'wait';
