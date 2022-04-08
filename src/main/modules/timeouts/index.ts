@@ -4,10 +4,11 @@ import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController, HTTPError } from '../../steps/error/error.controller';
+import { DOCUMENT_MANAGER, PageLink } from '../../steps/urls';
 
 export class LoadTimeouts {
   public enableFor(app: Application): void {
-    const timeoutMs = config.get<number>('timeout');
+    let timeoutMs = config.get<number>('timeout');
 
     app.use((req, res, next) => {
       const errorController = new ErrorController();
@@ -17,6 +18,10 @@ export class LoadTimeouts {
         const err = new HTTPError('Request Timeout', StatusCodes.REQUEST_TIMEOUT);
         errorController.internalServerError(err, req as AppRequest, res);
       });
+
+      if ((req.path as PageLink).includes(DOCUMENT_MANAGER)) {
+        timeoutMs = config.get<number>('uploadTimeout');
+      }
 
       // Set the server response timeout for all HTTP requests
       res.setTimeout(timeoutMs, () => {

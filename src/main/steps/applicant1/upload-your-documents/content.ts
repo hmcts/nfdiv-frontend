@@ -37,7 +37,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     acceptedFileFormats: 'Accepted file formats:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Maximum file size:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'I cannot upload some or all of my documents',
     cannotUploadWhich: 'Which document can you not upload?',
     checkAllThatApply: 'Select all that apply',
@@ -55,7 +55,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
           'Your file was not uploaded because the service is experiencing technical issues. Try uploading your file again.',
-        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
+        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 25MB and try uploading it again.',
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },

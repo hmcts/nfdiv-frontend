@@ -3,6 +3,7 @@ import DropTarget from '@uppy/drop-target';
 import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
+import config from 'config';
 
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
@@ -24,7 +25,7 @@ const initUploadManager = (): void => {
 
   const uppy = new Uppy({
     restrictions: {
-      maxFileSize: 10485760,
+      maxFileSize: 26214400,
       maxNumberOfFiles: 5,
       allowedFileTypes: ['image/jpeg', 'image/tiff', 'image/png', 'application/pdf'],
     },
@@ -48,7 +49,12 @@ const initUploadManager = (): void => {
       target: '#uploadProgressBar',
       hideAfterFinish: true,
     })
-    .use(XHRUpload, { endpoint: `${url}${csrfQuery}`, bundle: true, headers: { accept: 'application/json' } })
+    .use(XHRUpload, {
+      endpoint: `${url}${csrfQuery}`,
+      bundle: true,
+      headers: { accept: 'application/json' },
+      timeout: config.get<number>('uploadTimeout'),
+    })
     .on('files-added', async () => {
       document.body.style.cursor = 'wait';
       try {
