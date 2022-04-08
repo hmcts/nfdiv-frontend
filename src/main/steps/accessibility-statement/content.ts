@@ -1,150 +1,107 @@
 import type { TranslationFn } from '../../app/controller/GetController';
 import type { CommonContent } from '../../steps/common/common.content';
 
-const en = ({ isDivorce, applyForDivorce, applyForDissolution }: CommonContent) => ({
-  title: 'Accessibility Statement',
-  statement: `Accessibility statement for the ${isDivorce ? applyForDivorce : applyForDissolution} service`,
-  websiteRanBy: 'This website is run by HM Courts & Tribunals Service',
-  asManyAsPossible:
-    'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
-  asManyAsPossibleColours: 'change colours, contrast levels and fonts',
-  asManyAsPossibleZoom: 'zoom in up to 300% without the text spilling off the screen',
-  asManyAsPossibleKeyboard: 'navigate most of the website using just a keyboard',
-  asManyAsPossibleSpeech: 'navigate most of the website using speech recognition software',
-  asManyAsPossibleListen:
+const en = ({ isDivorce, telephoneNumber, telephoneDetails }: CommonContent) => ({
+  title: `Accessibility Statement for the ${isDivorce ? 'Apply for a divorce' : 'End a civil partnership'} service`,
+  line1: {
+    part1: 'This accessibility statement applies to the website available at ',
+    link: isDivorce ? 'https://www.apply-divorce.service.gov.uk' : 'https://www.end-civil-partnership.service.gov.uk',
+  },
+  line2: `This service allows you to ${isDivorce ? 'apply for a divorce' : 'end a civil partnership'}.`,
+  line3:
+    'This website is run by HM Courts & Tribunals Service (HMCTS). We want as many people as possible to be able to use it, so we’ve designed it to be accessible. For example you should be able to:',
+  point1: 'change colours, contrast levels and fonts',
+  point2: 'zoom in up to 300% without the text spilling off the screen',
+  point3: 'navigate most of the website using just a keyboard',
+  point4: 'navigate most of the website using speech recognition software',
+  point5:
     'listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)',
-  abilityNet:
-    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for AbilityNet">AbilityNet</a> has advice on making your device easier to use if you have a disability.',
-  howAccessible: 'How accessible this website is',
-  somePartsNot: 'We know some parts of this website aren’t fully accessible, for example:',
-  somePartsNotPDF: 'many PDF documents aren’t fully accessible to screen reader software',
-  somePartsNotColour: 'colour contrast makes it hard to read text in some parts of the website',
-  somePartsNotTextToSpeech: 'text to speech software cannot read all the text on every page',
-  somePartsNotEveryLink: 'not every link describes the purpose or destination',
-  somePartsNotTextForHyperlinks:
-    'the text used for hyperlinks doesn’t always describe the destination and purpose of the link',
-  whatToDoIfYouCanAccessParts: 'What to do if you can’t access parts of this website',
-  needMoreInformation:
+  line4: 'We’ve also made the website text as simple as possible to understand.',
+  line5: {
+    part1: 'AbilityNet',
+    part2: ' has advice on making your device easier to use if you have a disability.',
+    ariaLabel: 'This link will open in a new tab for AbilityNet',
+    link: 'https://mcmw.abilitynet.org.uk',
+  },
+  subheading1: 'How accessible this website is',
+  line6:
+    'We know some parts of this website are not fully accessible. The following issues have been identified in some parts of the website:',
+  line7:
+    'Error skip links on the page have an href attribute that does not reference a valid ID. Users that click the error links will find that the link opens a new page and does not move the user to the error location.',
+  line8:
+    'Each of the text elements for ‘Create an account or sign in’ have an autocomplete attribute that has the value set to off. This value disables the autocomplete. Autocomplete helps cognitive users understand the purpose of the element.',
+  line9:
+    'After a screen reader user accepts the cookies information, a button is provided with the label ‘Hide this message’. The label may not provide an obvious purpose to screen reader users navigating forms list as there is no text relating to the cookies content.',
+  line10: 'In some instances where the focus indicator is on a white background, it only has a contrast of 1.6:1.',
+  line11: {
+    part1: 'Some pages do not contain the text ‘',
+    part2: '’ within the page title. Including ',
+    part3: ' within the page title allows screen reader users to quickly identify that it is a government site.',
+    govUk: 'GOV.UK',
+    link: 'http://gov.uk',
+  },
+  line12:
+    'Error summaries include the text ‘Information is missing or invalid’ and not ‘There is a problem’. Additionally, the error messages do not match, and keyboard focus is not taken to the error summary. Clicking an error that is part of a text input also does not position keyboard focus in the text input element. Some error summaries do not have a role=alert attribute.',
+  line13: {
+    part1: 'GOV.UK',
+    part2:
+      ' services should include the word ‘Error:’ within the title of the page if error handling is present. This helps screen reader users identify that an error is present.',
+    link: 'http://gov.uk',
+  },
+  subHeading2: 'PDFs and other documents',
+  line14:
+    'PDFs are used to download and keep legal documents but they may not be structured so they’re accessible to a screen reader.',
+  subHeading3: 'Feedback and contact information',
+  line15:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
-  email:
-    'email <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>',
-  phone: 'call 0300 303 0642 (Monday to Friday, 8.30am to 5pm)',
-  considerYourRequest: 'We’ll consider your request and get back to you as soon as possible.',
-  reportingAccessibility: 'Reporting accessibility problems with this website',
-  improveAccessibility:
-    'We’re always looking to improve the accessibility of this website. If you find any problems that aren’t listed on this page or think we’re not meeting the requirements of the accessibility regulations contact: <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>.',
-  enforcementProcedure: 'Enforcement procedure',
-  humanRightsCommission:
-    'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the <a href="http://www.legislation.gov.uk/uksi/2018/852/contents/made" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Public Sector Bodies">Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018</a> (the ‘accessibility regulations’).',
-  notHappy:
-    'If you’re not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">contact the Equality Advisory and Support Service (EASS)</a>.',
-  technicalInfo: 'Technical information about this website’s accessibility',
-  hmctsIsCommitted:
+  email: 'Email:',
+  call: `Call: ${telephoneNumber} (${telephoneDetails})`,
+  line16: 'We’ll consider your request and get back to you within 10 working days.',
+  subHeading4: 'Reporting accessibility problems with this website',
+  line17:
+    'We’re always looking to improve the accessibility of this website. If you find any problems that aren’t listed on this page or think we’re not meeting the requirements of the accessibility regulations contact:',
+  subHeading5: 'Enforcement procedure',
+  line18: {
+    part1: 'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the ',
+    part2: 'Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018',
+    part3: ' (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint contact the ',
+    part4: 'Equality Advisory and Support Service (EASS).',
+    link: 'https://www.equalityadvisoryservice.com',
+  },
+  subHeading6: 'Contacting us by phone or visiting us in person',
+  line19: 'We provide a text relay service for people who are deaf, hearing impaired or have a speech impediment.',
+  line20:
+    'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
+  line21: 'Find out how to contact us using the contact details above.',
+  subHeading7: 'Technical information about this website’s accessibility',
+  line22:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
-  websiteIsPartiallyCompliant:
-    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Web Content Accessibility Guidelines">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.',
-  nonAccessibleContent: 'Non accessible content',
-  contentListedBelow: 'The content listed below is non-accessible for the following reasons.',
-  accessibilityRegulations: 'Non compliance with the accessibility regulations',
-  issuesWithLinks: 'Issues with links',
-  issuesWithLinksDescription:
-    'On some pages, text used for links doesn’t clearly state where the link goes or what its for. This doesn’t meet WCAG 2.1 success criterion 2.4.4 (Link Purpose, In Context).',
-  issuesWithHeadings: 'Issues with headings',
-  issuesWithHeadingsDescription:
-    'On some pages, the order of heading tags is wrong or don’t nest properly. This doesn’t meet WCAG 2.1 success criterion 1.3.1 (Information and Relationships).',
-  issuesWithPDF: 'Issues with PDFs and other documents',
-  issuesWithPDFDescription:
-    'PDFs are used to download and keep legal documents but may not be structured so they’re accessible to a screen reader. This doesn’t meet WCAG 2.1 success criterion 4.1.2 (Name, role value).',
-  issuesWithColour: 'Colour contrast',
-  issuesWithColourDescription:
-    'On some pages the colour of the text and the colour of the background are not in sufficient contrast to each other. This doesn’t meet WCAG 2.1 success criterion 1.4.3 (Contrast, Minimum).',
-  issuesWithLanguage: 'Issues with language',
-  issuesWithLanguageDescription:
-    'On some pages the language has not been set in the code. This doesn’t meet WCAG 2.1 success criterion 3.1.2 (Language of Page).',
-  issuesWithOther: 'Other known issues',
-  issuesWithOtherDescription1: 'On some pages, we have forms containing empty labels.',
-  issuesWithOtherDescription2:
-    'Some page elements do not have clear ARIA tags which can effect how screen readers, and ARIA tags that cannot be read by screen readers.',
-  issuesWithOtherDescription3: 'Some of the items in the navigation can not be read out using Voice Over.',
-  issuesWithOtherDescription4:
-    'On some pages, we show progress bars that indicate how far into the service you are. The structure of the progress bars cannot be read clearly by screen readers.',
-  improvingAccessibility: 'What we’re doing to improve accessibility',
-  planning: 'We are planning an external accessibility audit and will update our statement before our website is live.',
-  statementPrepared: 'This statement was prepared on 19 September 2019.',
+  subHeading8: 'Compliance status',
+  line23:
+    'This website is partially compliant with the Web Content Accessibility Guidelines version 2.1 AA standard, due to the non-compliances listed below.',
+  subHeading9: 'Non-accessible content',
+  line24: 'The content listed below is non-accessible for the following reasons.',
+  line25:
+    'Error skip links on the page have a href attribute that does not reference a valid ID. Users that click the error links will find that the link opens a new page and does not move the user to the error location. 4.1.2 Name, Role, Value (Level A)',
+  line26:
+    'Some of the colour combinations found on the site are low contrast and are likely to be difficult for people with low vision to read.  This fails on WCAG 2.1 Reference 1.4.11 Non-text Contrast.',
+  subHeading10: 'PDFs and other documents',
+  line27:
+    'PDFs are used to download and keep legal documents but they may not be structured so they’re accessible to a screen reader.',
+  subHeading11: 'What we’re doing to improve accessibility',
+  line28:
+    'This website is continually tested by HMCTS using automated tests and with accessibility software. Any new features which are introduced are also tested. This helps us to resolve issues before we launch new pages or features.',
+  subHeading12: 'Preparation of this accessibility statement',
+  line29: 'This statement was prepared on 29 March 2022.  It was last reviewed on 5 April 2022.',
+  line30:
+    'This website was last tested on 28 February. The test was carried out by the Digital Accessibility Centre (DAC) against WCAG 2.1 AA Standards.',
+  line31: 'To give a more accurate review of the service the DAC team employed two differing testing processes:',
+  point6: 'a manual technical audit using automated tools',
+  point7:
+    'a dedicated team of users with differing disabilities testing the service using a range of adaptive technologies.',
 });
 
-const cy: typeof en = ({ isDivorce }) => ({
-  title: 'Datganiad Hygyrchedd',
-  statement: `Datganiad hygyrchedd ar gyfer y gwasanaeth gwneud cais ${
-    isDivorce ? 'am ysgariad' : 'i ddod â phartneriaeth sifil i ben'
-  }`,
-  websiteRanBy: 'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon',
-  asManyAsPossible: 'Rydym am i gymaint o bobl â phosibl allu defnyddio’r wefan hon. Golyga hyn y dylech allu:',
-  asManyAsPossibleColours: 'newid y lliwiau, y lefelau cyferbyniad a’r ffontiau',
-  asManyAsPossibleZoom: 'gwneud y testun hyd at 300% yn fwy heb iddo ddiflannu oddi ar y sgrin',
-  asManyAsPossibleKeyboard: 'defnyddio’r rhan fwyaf o’r wefan gan ddefnyddio bysellfwrdd yn unig',
-  asManyAsPossibleSpeech: 'defnyddio’r rhan fwyaf o’r wefan gan ddefnyddio meddalwedd adnabod llais',
-  asManyAsPossibleListen:
-    'gwrando ar y rhan fwyaf o’r wefan gan ddefnyddio darllenydd sgrin (yn cynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)',
-  abilityNet:
-    'Mae gan <a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer AbilityNet">AbilityNet</a> gyngor ar sut i wneud eich dyfais yn haws i’w ddefnyddio os oes gennych anabledd.',
-  howAccessible: 'Pa mor hygyrch yw’r wefan hon?',
-  somePartsNot: 'Rydym yn gwybod nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch, er enghraifft:',
-  somePartsNotPDF: 'ni ellir darllen rhai dogfennau PDF â meddalwedd darllen sgrin',
-  somePartsNotColour: 'mae’r lliwiau’n golygu ei bod yn anodd darllen y testun mewn rhai rhannau o’r wefan',
-  somePartsNotTextToSpeech: 'ni all meddalwedd adnabod llais ddarllen yr holl destun ar bob tudalen',
-  somePartsNotEveryLink: 'nid yw pob dolen yn cynnwys eglurhad o’i phwrpas nac yn dweud i ble mae’n arwain',
-  somePartsNotTextForHyperlinks:
-    'nid yw’r testun a ddefnyddir ar gyfer hyperddolenni wastad yn egluro eu pwrpas nac yn dweud i ble y maent yn arwain',
-  whatToDoIfYouCanAccessParts: 'Beth i’w wneud os na allwch ddefnyddio rhan o’r wefan hon',
-  needMoreInformation:
-    'Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat arall e.e. PDF hygyrch, print bras, fformat hawdd ei ddarllen, recordiad sain neu braille:',
-  email:
-    'anfonwch neges e-bost i <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor neges e-bost newydd i HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>',
-  phone: 'ffoniwch 0300 303 5171 (dydd Llun i ddydd Gwener, 8.30am - 5pm)',
-  considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb cyn gynted â phosibl.',
-  reportingAccessibility: 'Rhoi gwybod am broblemau hygyrchedd gyda’r wefan hon',
-  improveAccessibility:
-    'Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt wedi’u rhestru ar y dudalen hon, neu’n credu nad ydym yn bodloni rheoliadau hygyrchedd, cysylltwch â: <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor neges e-bost newydd i HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>.',
-  enforcementProcedure: 'Y Weithdrefn Orfodi',
-  humanRightsCommission:
-    'Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi <a href="http://www.legislation.gov.uk/uksi/2018/852/contents/made" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn ffenestr newydd ar gyfer Cyrff y Sector Gyhoeddus">Rheoliadau Hygyrchedd Cyrff y Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018</a> (y \'rheoliadau hygyrchedd\').',
-  notHappy:
-    'Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn ffenestr newydd ar gyfer y Gwasanaeth Cynghori a Chymorth Cydraddoldeb">cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)</a>.',
-  technicalInfo: 'Gwybodaeth dechnegol am hygyrchedd y wefan hon',
-  hmctsIsCommitted:
-    'Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018.',
-  websiteIsPartiallyCompliant:
-    'Mae’r wefan hon yn cydymffurfio’n rhannol â <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn ffenestr newydd ar gyfer y Canllawiau Hygyrchedd Cynnwys Gwe">Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1</a> safon AA, a hynny oherwydd y materion o beidio â chydymffurfio a restrir isod.',
-  nonAccessibleContent: 'Cynnwys anhygyrch',
-  contentListedBelow: 'Mae’r cynnwys isod yn anhygyrch am y rhesymau canlynol.',
-  accessibilityRegulations: 'Nid yw’n cydymffurfio â’r rheoliadau hygyrchedd',
-  issuesWithLinks: 'Problemau gyda dolenni',
-  issuesWithLinksDescription:
-    'Ar rai tudalennau, nid yw’r testun a ddefnyddir ar gyfer rhai dolenni yn egluro pwrpas y ddolen nac yn dweud i ble mae’n arwain. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 2.4.4 (Pwrpas y Ddolen, Ystyried y Cyd-destun).',
-  issuesWithHeadings: 'Problemau gyda phenawdau',
-  issuesWithHeadingsDescription:
-    'Ar rai tudalennau, mae trefn tagiau penawdau neu eu gosodiad yn anghywir. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 1.3.1 (Gwybodaeth a Pherthnasau).',
-  issuesWithPDF: 'Problemau gyda dogfennau PDF a dogfennau eraill',
-  issuesWithPDFDescription:
-    'Defnyddir dogfennau PDF i lwytho dogfennau cyfreithiol a’u cadw ond mae’n bosib nad ydynt wedi’u strwythuro’n briodol fel eu bod yn hygyrch i ddarllenydd sgrin. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 4.1.2 (Enw, Rôl, Gwerth).',
-  issuesWithColour: 'Cyferbyniad lliwiau',
-  issuesWithColourDescription:
-    'Ar rai tudalennau, nid yw lliw y testun a lliw y cefndir yn ddigon gwahanol i’w gilydd. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 1.4.3 (Cyferbyniad isaf).',
-  issuesWithLanguage: 'Problemau ieithyddol',
-  issuesWithLanguageDescription:
-    'Ar rai tudalennau, nid yw’r iaith wedi’i rhoi mewn cod. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 3.1.2 (Iaith tudalen).',
-  issuesWithOther: 'Problemau hysbys eraill',
-  issuesWithOtherDescription1: 'Ar rai tudalennau, mae gennym ffurflenni sy’n cynnwys labeli gwag.',
-  issuesWithOtherDescription2:
-    'Nid yw rhai tudalennau’n cynnwys tagiau ARIA clir sy’n golygu na all darllenwyr sgrin na thagiau ARIA ddarllen y tudalennau.',
-  issuesWithOtherDescription3: 'Ni ellir defnyddio Voice Over i ddisgrifio cynnwys rhai tudalennau.',
-  issuesWithOtherDescription4:
-    'Ar rai tudalennau, rydym yn defnyddio bar cynnydd i ddangos faint o gamau sydd gennych ar ôl. Ni all darllenwyr sgrin ddarllen strwythur y barrau cynnydd yn glir.',
-  improvingAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
-  planning: 'Byddwn yn cynnal awdit hygyrchedd allanol a byddwn yn diweddaru ein datganiad cyn bydd ein gwefan yn fyw.',
-  statementPrepared: 'Paratowyd y datganiad hwn ar 19 Medi 2019.',
-});
+const cy: typeof en = en;
 
 const languages = {
   en,
