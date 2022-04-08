@@ -95,7 +95,7 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     acceptedFileFormats: 'Fformatau ffeil a dderbynnir:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Uchafswm maint ffeil:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
     cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
     checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
