@@ -25,7 +25,7 @@ describe('CaseApi', () => {
     info: jest.fn().mockImplementation((message: string) => message),
   } as unknown as LoggerInstance;
 
-  let api = new CaseApi(mockedAxios, mockLogger);
+  let api: CaseApi;
   beforeEach(() => {
     mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
@@ -287,6 +287,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw error when case could not be updated', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { token: 'event-token' } });
     mockedAxios.post.mockRejectedValue({
       config: { method: 'POST', url: 'https://example.com' },
       response: { status: 500, data: 'mock error' },
@@ -297,6 +298,49 @@ describe('CaseApi', () => {
     ).rejects.toThrow('Case could not be updated.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
+    expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
+  });
+
+  test.each([409, 422])('Should not throw an error if %s is returned once', async statusCode => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post
+      .mockResolvedValue({
+        data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
+      })
+      .mockRejectedValueOnce({
+        config: { method: 'POST', url: 'https://example.com' },
+        response: { status: statusCode, data: 'mock error' },
+      });
+    const payments = new PaymentModel([]);
+
+    await api.addPayment('1234', payments.list);
+
+    const expectedRequest = {
+      data: { applicationPayments: payments.list },
+      event: { id: CITIZEN_ADD_PAYMENT },
+      event_token: '123',
+    };
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+    expect(mockLogger.error).not.toHaveBeenCalled();
+  });
+
+  test('Should throw an error if 409 is returned more than maxRetries', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      response: { status: 409, data: 'mock error' },
+    });
+    const payments = new PaymentModel([]);
+
+    await expect(api.addPayment('1234', payments.list)).rejects.toThrow('Case could not be updated.');
+
+    const expectedRequest = {
+      data: { applicationPayments: payments.list },
+      event: { id: CITIZEN_ADD_PAYMENT },
+      event_token: '123',
+    };
+    expect(mockedAxios.post).toHaveBeenNthCalledWith(4, '/cases/1234/events', expectedRequest);
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 409');
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
 
