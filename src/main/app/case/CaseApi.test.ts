@@ -339,7 +339,7 @@ describe('CaseApi', () => {
       event: { id: CITIZEN_ADD_PAYMENT },
       event_token: '123',
     };
-    expect(mockedAxios.post).toHaveBeenNthCalledWith(4, '/cases/1234/events', expectedRequest);
+    expect(mockedAxios.post).toHaveBeenCalledWith('/cases/1234/events', expectedRequest);
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 409');
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
