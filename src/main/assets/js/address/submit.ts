@@ -42,6 +42,7 @@ if (postcodeLookupForm && findAddressButton && selectAddress) {
       });
 
       const addresses = await response.json();
+      selectAddress.length = 1;
 
       (getById('userPostcode') as HTMLElement).textContent = postcode;
 
