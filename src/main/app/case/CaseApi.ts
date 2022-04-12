@@ -148,6 +148,7 @@ export class CaseApi {
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       if (retries < this.maxRetries && (err?.response.status === 409 || err?.response.status === 422)) {
+        this.logger.info(`retrying send event due to 409/422. this is retry no (${++retries})`);
         return this.sendEvent(caseId, data, eventName, ++retries);
       }
       this.logError(err);

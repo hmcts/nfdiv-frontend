@@ -334,12 +334,7 @@ describe('CaseApi', () => {
 
     await expect(api.addPayment('1234', payments.list)).rejects.toThrow('Case could not be updated.');
 
-    const expectedRequest = {
-      data: { applicationPayments: payments.list },
-      event: { id: CITIZEN_ADD_PAYMENT },
-      event_token: '123',
-    };
-    expect(mockedAxios.post).toHaveBeenCalledWith('/cases/1234/events', expectedRequest);
+    expect(mockLogger.info).toHaveBeenCalledWith('retrying send event due to 409/422. this is retry no (3)');
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 409');
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
