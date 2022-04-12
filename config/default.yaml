@@ -3,6 +3,7 @@ security:
 port: 3001
 timeout: 30000
 dates:
+  issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
   awaitingLegalAdvisorReferralOffsetDays: 21
   clarificationSubmittedOffsetDays: 16
