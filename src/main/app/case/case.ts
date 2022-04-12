@@ -119,6 +119,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
   applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
   applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
+  applicant1CannotUpload: 'applicant1CannotUpload',
+  applicant2CannotUpload: 'applicant2CannotUpload',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
