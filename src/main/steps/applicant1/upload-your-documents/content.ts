@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { ChangedNameHow, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
@@ -149,8 +149,12 @@ export const form: FormContent = {
     }
 
     if (
-      userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      (userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+        userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES) &&
+      !(
+        userCase.applicant1NameChangedHow?.length === 1 &&
+        userCase.applicant1NameChangedHow[0] === ChangedNameHow.MARRIAGE_CERTIFICATE
+      )
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
@@ -241,6 +245,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
+  const applicant1HasChangedName =
+    content.userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+    content.userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -256,5 +263,6 @@ export const generateContent: TranslationFn = content => {
     amendable,
     uploadContentScript,
     infoTakePhotoAccessibleSpan,
+    applicant1HasChangedName,
   };
 };
