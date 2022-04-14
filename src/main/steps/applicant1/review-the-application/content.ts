@@ -15,6 +15,7 @@ import {
   formattedCaseId,
   getAddressFields,
   getAppSolAddressFields,
+  getApplicant1PartnerContent,
 } from '../../common/content.utils';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
@@ -162,14 +163,6 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-};
-
-const getApplicant1PartnerContent = (content: CommonContent): string => {
-  if (content.userCase?.sameSex !== Checkbox.Checked && content.partner !== content.civilPartner) {
-    return content.partner === content.husband ? content.wife : content.husband;
-  } else {
-    return content.partner;
-  }
 };
 
 const languages = {
