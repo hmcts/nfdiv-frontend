@@ -324,18 +324,22 @@ describe('CaseApi', () => {
     expect(mockLogger.error).not.toHaveBeenCalled();
   });
 
-  test('Should throw an error if 409 is returned more than maxRetries', async () => {
+  test.each([409, 422])('Should throw an error if %s is returned more than maxRetries', async statusCode => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
     mockedAxios.post.mockRejectedValue({
       config: { method: 'POST', url: 'https://example.com' },
-      response: { status: 409, data: 'mock error' },
+      response: { status: statusCode, data: 'mock error' },
     });
     const payments = new PaymentModel([]);
 
     await expect(api.addPayment('1234', payments.list)).rejects.toThrow('Case could not be updated.');
 
-    expect(mockLogger.info).toHaveBeenCalledWith('retrying send event due to 409/422. this is retry no (3)');
-    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 409');
+    [1, 2, 3].forEach(retry =>
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        `retrying send event due to ${statusCode}. this is retry no (${retry})`
+      )
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith(`API Error POST https://example.com ${statusCode}`);
     expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
   });
 
