@@ -205,6 +205,7 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
+  const applicant1Partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
@@ -216,6 +217,7 @@ export const generatePageContent = ({
     ...commonTranslations,
     serviceName,
     partner,
+    applicant1Partner,
     language,
     isDivorce,
     isApplicant2,
@@ -242,6 +244,7 @@ export type CommonContent = typeof en & {
   isApplicant2: boolean;
   userCase: Partial<CaseWithId>;
   partner: string;
+  applicant1Partner: string;
   userEmail?: string;
   contactEmail?: string;
   isJointApplication: boolean;
