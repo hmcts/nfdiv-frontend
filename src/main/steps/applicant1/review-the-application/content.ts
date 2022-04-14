@@ -173,7 +173,6 @@ const languages = {
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
   content.applicant1Partner = getApplicant1PartnerContent(content);
-  content.partner = getApplicant1PartnerContent(content);
   const translations = languages[language](content);
   const isApplicantAddressPrivate = userCase.applicant1AddressPrivate === YesOrNo.YES;
   const isRespondentAddressPrivate = userCase.applicant2AddressPrivate === YesOrNo.YES;
