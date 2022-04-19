@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { StatusCodes } from 'http-status-codes';
-import { LoggerInstance } from 'winston';
+import { Logger } from 'winston';
 
 export type Address = {
   fullAddress: string;
@@ -12,7 +12,7 @@ export type Address = {
   postcode: string;
 };
 
-export const getAddressesFromPostcode = async (postcode: string, logger: LoggerInstance): Promise<Address[]> => {
+export const getAddressesFromPostcode = async (postcode: string, logger: Logger): Promise<Address[]> => {
   try {
     const response: AxiosResponse<PostcodeResponse> = await axios.get('postcode', {
       baseURL: config.get('services.postcodeLookup.url'),

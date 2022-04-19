@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { Session } from 'express-session';
-import type { LoggerInstance } from 'winston';
+import type { Logger } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -11,7 +11,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
   locals: {
     env: string;
     lang: string;
-    logger: LoggerInstance;
+    logger: Logger;
     api: CaseApi;
   };
   body: T;

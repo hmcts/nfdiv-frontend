@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoggerInstance } from 'winston';
+import { Logger } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
@@ -23,14 +23,14 @@ describe('CaseApi', () => {
   let mockLogger = {
     error: jest.fn().mockImplementation((message: string) => message),
     info: jest.fn().mockImplementation((message: string) => message),
-  } as unknown as LoggerInstance;
+  } as unknown as Logger;
 
   let api: CaseApi;
   beforeEach(() => {
     mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
       info: jest.fn().mockImplementation((message: string) => message),
-    } as unknown as LoggerInstance;
+    } as unknown as Logger;
 
     api = new CaseApi(mockedAxios, mockLogger);
   });
