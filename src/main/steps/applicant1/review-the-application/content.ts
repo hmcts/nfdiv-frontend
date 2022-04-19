@@ -18,7 +18,7 @@ import {
   getApplicant1PartnerContent,
 } from '../../common/content.utils';
 
-const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
