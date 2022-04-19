@@ -1,3 +1,4 @@
+import { completeCase } from '../../test/functional/fixtures/completeCase';
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
@@ -6,6 +7,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { applicant1PreSubmissionSequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
+  CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
@@ -14,6 +16,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
+  UPLOAD_YOUR_DOCUMENTS,
   YOUR_DETAILS_URL,
 } from './urls';
 
@@ -90,6 +93,26 @@ describe('Steps', () => {
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(YOUR_DETAILS_URL);
+    });
+
+    it('returns the upload-your-documents step if user has not completed the form', () => {
+      mockReq.session.userCase = {
+        ...mockReq.session.userCase,
+        ...completeCase,
+        applicant1CannotUpload: Checkbox.Unchecked,
+        applicant1CannotUploadDocuments: [],
+      };
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(UPLOAD_YOUR_DOCUMENTS);
+    });
+
+    it('returns the check-your-answers step if user has completed the form', () => {
+      mockReq.session.userCase = {
+        ...mockReq.session.userCase,
+        ...completeCase,
+      };
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(CHECK_ANSWERS_URL);
     });
 
     it("uses applicant 2's sequence if they are logged in as applicant 2", () => {
