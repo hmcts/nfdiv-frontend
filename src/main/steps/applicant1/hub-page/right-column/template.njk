@@ -1,3 +1,5 @@
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
 <h2 class="govuk-heading-s">{{ iWantTo }}</h2>
 
@@ -22,7 +24,10 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-<h3 class="govuk-heading-s">{{ gettingHelp }}</h3>
-<p class="govuk-body">{{ telephone | safe }}</p>
-<p class="govuk-body">{{ email | safe }}</p>
-<p class="govuk-body">{{ post | safe}}</p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-2">{{ gettingHelp }}</h3>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ telephone.heading }}</h3>
+<p class="govuk-body govuk-!-margin-bottom-0">{{ servicePhoneNo }}<br>{{ telephone.openingTimes }}</p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ email }}</h3>
+<p class="govuk-body govuk-!-margin-bottom-1"><a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ post }}</h3>
+{{ serviceAddressMacro(serviceAddress) }}

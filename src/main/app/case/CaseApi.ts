@@ -13,7 +13,6 @@ import {
   CITIZEN_CREATE,
   CaseData,
   DivorceOrDissolution,
-  JURISDICTION,
   ListValue,
   Payment,
   State,
@@ -27,11 +26,9 @@ export class InProgressDivorceCase implements Error {
 }
 
 export class CaseApi {
-  constructor(
-    private readonly axios: AxiosInstance,
-    private readonly userDetails: UserDetails,
-    private readonly logger: LoggerInstance
-  ) {}
+  readonly maxRetries: number = 3;
+
+  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
@@ -64,11 +61,13 @@ export class CaseApi {
 
   private async getCases(caseType: string): Promise<CcdV1Response[]> {
     try {
-      const response = await this.axios.get<CcdV1Response[]>(
-        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${caseType}/cases`
-      );
+      const query = {
+        query: { match_all: {} },
+        sort: [{ id: { order: 'asc' } }],
+      };
+      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
 
-      return response.data;
+      return response.data.cases;
     } catch (err) {
       if (err.response?.status === 404) {
         return [];
@@ -130,7 +129,12 @@ export class CaseApi {
     return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
   }
 
-  private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
+  private async sendEvent(
+    caseId: string,
+    data: Partial<CaseData>,
+    eventName: string,
+    retries = 0
+  ): Promise<CaseWithId> {
     try {
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
@@ -143,6 +147,11 @@ export class CaseApi {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
+      if (retries < this.maxRetries && (err?.response.status === 409 || err?.response.status === 422)) {
+        ++retries;
+        this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
+        return this.sendEvent(caseId, data, eventName, retries);
+      }
       this.logError(err);
       throw new Error('Case could not be updated.');
     }
@@ -198,10 +207,14 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
         'Content-Type': 'application/json',
       },
     }),
-    userDetails,
     logger
   );
 };
+
+interface ES<T> {
+  cases: T[];
+  total: number;
+}
 
 interface CcdV1Response {
   id: string;

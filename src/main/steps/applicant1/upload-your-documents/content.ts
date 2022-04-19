@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { ChangedNameHow, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
@@ -37,7 +37,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     acceptedFileFormats: 'Accepted file formats:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Maximum file size:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'I cannot upload some or all of my documents',
     cannotUploadWhich: 'Which document can you not upload?',
     checkAllThatApply: 'Select all that apply',
@@ -55,7 +55,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
           'Your file was not uploaded because the service is experiencing technical issues. Try uploading your file again.',
-        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
+        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 25MB and try uploading it again.',
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },
@@ -95,7 +95,7 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     acceptedFileFormats: 'Fformatau ffeil a dderbynnir:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Uchafswm maint ffeil:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
     cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
     checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
@@ -149,8 +149,12 @@ export const form: FormContent = {
     }
 
     if (
-      userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      (userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+        userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES) &&
+      !(
+        userCase.applicant1NameChangedHow?.length === 1 &&
+        userCase.applicant1NameChangedHow[0] === ChangedNameHow.MARRIAGE_CERTIFICATE
+      )
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
@@ -241,6 +245,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
+  const applicant1HasChangedName =
+    content.userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+    content.userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -256,5 +263,6 @@ export const generateContent: TranslationFn = content => {
     amendable,
     uploadContentScript,
     infoTakePhotoAccessibleSpan,
+    applicant1HasChangedName,
   };
 };

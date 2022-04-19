@@ -14,9 +14,10 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
-    connectionBulletPoints: userCase
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
-      : [],
+    connectionBulletPoints:
+      userCase && userCase.connections
+        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,

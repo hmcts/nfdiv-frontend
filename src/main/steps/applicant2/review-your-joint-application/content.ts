@@ -21,24 +21,15 @@ const labels = ({ required }: CommonContent) => {
 export const form: FormContent = {
   fields: {
     applicant2ConfirmInformationStillCorrect: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.confirmInformationStillCorrect,
+      type: 'hidden',
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
         {
           label: l => l.no,
-          value: YesOrNo.NO,
           subFields: {
             applicant2ReasonInformationNotCorrect: {
-              type: 'textarea',
+              type: 'hidden',
               label: l => l.title,
-              labelHidden: true,
-              hint: l => `
-                <p class="govuk-body">
-                  ${l.reasonInformationNotCorrect}
-                </p>
-                ${l.reasonInformationNotCorrectHint}`,
               validator: value => isFieldFilledIn(value),
             },
           },

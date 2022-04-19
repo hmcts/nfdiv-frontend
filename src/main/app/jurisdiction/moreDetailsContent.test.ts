@@ -11,6 +11,7 @@ describe('jurisdictionMoreDetailsContent', () => {
       enDomicile +
       '<br><br><strong>Residual jurisdiction</strong><br>' +
       enResidual(true);
+
     const expectedTitle = 'Read more about your connections';
 
     const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT], true, true);

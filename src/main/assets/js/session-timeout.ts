@@ -12,14 +12,13 @@ const saveBeforeSessionTimeout = async () => {
     const formData = new FormData(form as HTMLFormElement);
     formData.append('saveBeforeSessionTimeout', 'true');
     const url = window.location.pathname;
-    const body = Object.fromEntries(formData);
+    const csrf = formData.get('_csrf') as string;
     await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json',
-        'csrf-token': body._csrf as string,
+        'csrf-token': csrf,
       },
-      body: JSON.stringify(body),
+      body: new URLSearchParams(formData as unknown as Record<string, string>),
     });
   }
   window.location.href = `${TIMED_OUT_URL}?lng=${document.documentElement.lang}`;
