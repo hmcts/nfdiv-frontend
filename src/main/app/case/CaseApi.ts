@@ -26,6 +26,8 @@ export class InProgressDivorceCase implements Error {
 }
 
 export class CaseApi {
+  readonly maxRetries: number = 3;
+
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
@@ -127,7 +129,12 @@ export class CaseApi {
     return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
   }
 
-  private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
+  private async sendEvent(
+    caseId: string,
+    data: Partial<CaseData>,
+    eventName: string,
+    retries = 0
+  ): Promise<CaseWithId> {
     try {
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
@@ -140,6 +147,11 @@ export class CaseApi {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
+      if (retries < this.maxRetries && (err?.response.status === 409 || err?.response.status === 422)) {
+        ++retries;
+        this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
+        return this.sendEvent(caseId, data, eventName, retries);
+      }
       this.logError(err);
       throw new Error('Case could not be updated.');
     }
