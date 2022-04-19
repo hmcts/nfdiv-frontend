@@ -1,5 +1,5 @@
 import { Application, NextFunction, Request, Response } from 'express';
-import { Logger } from 'winston';
+import { LoggerInstance } from 'winston';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController } from '../../steps/error/error.controller';
@@ -19,7 +19,7 @@ const setupErrorHandler =
 const errorController = new ErrorController();
 
 export class ErrorHandler {
-  public enableFor(app: Application, logger: Logger): void {
+  public enableFor(app: Application, logger: LoggerInstance): void {
     app.use((req, res, next) => {
       req['locals'] = req['locals'] || {};
       req['locals'].logger = logger;
