@@ -62,7 +62,7 @@ const getNextIncompleteStep = (
 ): string => {
   const stepField = stepFields[step.url];
   // if this step has a form
-  if (stepField !== undefined) {
+  if (stepField) {
     // and that form has errors
     const fields = typeof stepField === 'function' ? stepField(data) : stepField;
     const stepForm = new Form(fields);
