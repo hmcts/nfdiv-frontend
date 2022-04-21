@@ -57,7 +57,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line12: `${userCase.applicant1FullNameOnCertificate + ' and ' + userCase.applicant2FullNameOnCertificate}
   (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line13: ` Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  line14: `${userCase.ceremonyPlace}`,
+  line14: userCase.ceremonyPlace,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line16: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
