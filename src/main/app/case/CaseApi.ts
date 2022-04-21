@@ -1,6 +1,6 @@
 import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
-import { Logger } from 'winston';
+import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
@@ -28,7 +28,7 @@ export class InProgressDivorceCase implements Error {
 export class CaseApi {
   readonly maxRetries: number = 3;
 
-  constructor(private readonly axios: AxiosInstance, private readonly logger: Logger) {}
+  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const userCase = await this.getCase(serviceType);
@@ -195,7 +195,7 @@ export class CaseApi {
   }
 }
 
-export const getCaseApi = (userDetails: UserDetails, logger: Logger): CaseApi => {
+export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),
