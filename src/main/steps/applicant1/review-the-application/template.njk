@@ -10,7 +10,9 @@
   <p class="govuk-body">{{ line2.heading }}
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
       <li>{{ line2.item1 }}</li>
-      <li>{{ line2.item2 }}</li>
+      {% if isFinancialOrderYes %}
+        <li>{{ line2.item2 }}</li>
+      {% endif %}
     </ul>
   </p>
   <dl>
