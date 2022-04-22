@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Logger } from 'winston';
+import { LoggerInstance } from 'winston';
 
 import {
   emptyPostcode200Response,
@@ -15,12 +15,12 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('Postcode Lookup', () => {
-  let mockLogger: Logger;
+  let mockLogger: LoggerInstance;
 
   beforeEach(() => {
     mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
-    } as unknown as Logger;
+    } as unknown as LoggerInstance;
   });
 
   it('correctly returns an array of a addresses from a given postcode', async () => {

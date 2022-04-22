@@ -1,8 +1,7 @@
 import Axios, { AxiosResponse } from 'axios';
 import sysConfig from 'config';
 import jwt_decode from 'jwt-decode';
-import { transports } from 'winston';
-import * as winston from 'winston';
+import { Logger, transports } from 'winston';
 
 import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
@@ -301,7 +300,7 @@ export const iGetTheTestUser = async (user: { username: string; password: string
 };
 
 export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
-  const logger = winston.createLogger({
+  const logger = new Logger({
     transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
   });
 

@@ -42,6 +42,7 @@ export const en = {
   partner: 'spouse',
   civilPartner: 'civil partner',
   checkTheirAnswersPartner: 'partner for check their answers',
+  applicant1Partner: 'applicant 1 partner',
   withHim: 'with him',
   withHer: 'with her',
   months: [

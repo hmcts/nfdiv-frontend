@@ -5,6 +5,7 @@ import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
+import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
@@ -27,7 +28,7 @@ import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('server');
+const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
@@ -51,7 +52,7 @@ new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
-new CSRFToken().enableFor(app, logger);
+new CSRFToken().enableFor(app);
 new DocumentDownloadMiddleware().enableFor(app);
 new LanguageToggle().enableFor(app);
 new AuthProvider().enable();
