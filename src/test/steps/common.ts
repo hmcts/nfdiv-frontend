@@ -17,6 +17,7 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
+import { setJurisdictionFieldsAsNull } from '../../main/app/jurisdiction/jurisdictionRemovalHelper';
 import { HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
@@ -131,6 +132,13 @@ export const iClearTheForm = async (): Promise<void> => {
   await I.grabCurrentUrl();
 };
 Given('I clear the form', iClearTheForm);
+
+Given("I've said I'm applying as a joint application", async () => {
+  I.amOnPage('/how-do-you-want-to-apply');
+  await iClearTheForm();
+  I.checkOption('I want to apply jointly');
+  I.click('Continue');
+});
 
 Given("I've said I do not have my husband's email address", async () => {
   I.amOnPage('/their-email-address');
@@ -265,6 +273,11 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj);
+
+Given('I reset the jurisdiction connections', async () => {
+  const userCaseObj = setJurisdictionFieldsAsNull({});
+  await iSetTheUsersCaseTo(userCaseObj);
+});
 
 const executeUserCaseScript = async data => {
   await I.grabCurrentUrl();
