@@ -1,10 +1,11 @@
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 
-import { en } from './common.content';
+import { CommonContent, en } from './common.content';
 import {
   formattedCaseId,
   getAppSolAddressFields,
+  getApplicant1PartnerContent,
   getPartner,
   getSelectedGender,
   getServiceName,
@@ -57,6 +58,26 @@ describe('content.utils', () => {
     const partner = getPartner(translations, selectedGender, isDivorce);
 
     expect(partner).toBe(expected);
+  });
+
+  test.each([
+    [Checkbox.Checked, 'husband', 'husband'],
+    [Checkbox.Unchecked, 'wife', 'husband'],
+    [Checkbox.Unchecked, 'civil partner', 'civil partner'],
+    [Checkbox.Checked, 'civil partner', 'civil partner'],
+  ])('should return partner', (sameSex, partner, expected) => {
+    const content = {
+      husband: 'husband',
+      wife: 'wife',
+      civilPartner: 'civil partner',
+      userCase: {},
+    } as CommonContent;
+
+    content.userCase.sameSex = sameSex;
+    content.partner = partner;
+
+    const applicant1Partner = getApplicant1PartnerContent(content);
+    expect(applicant1Partner).toBe(expected);
   });
 
   test.each([
