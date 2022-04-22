@@ -15,9 +15,10 @@ import {
   formattedCaseId,
   getAddressFields,
   getAppSolAddressFields,
+  getApplicant1PartnerContent,
 } from '../../common/content.utils';
 
-const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -46,7 +47,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
     p1: `The applicant is the person who has applied ${
       isDivorce ? 'for the divorce' : 'to end their civil partnership'
     }`,
-    p2: `The respondent is their ${partner}.`,
+    p2: `The respondent is their ${applicant1Partner}.`,
   },
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line10: `These details are copied directly from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate,
@@ -56,14 +57,15 @@ const en = ({ isDivorce, userCase, partner, isApplicant2, isJointApplication }: 
   line12: `${userCase.applicant1FullNameOnCertificate + ' and ' + userCase.applicant2FullNameOnCertificate}
   (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line13: ` Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  line14: `${userCase.ceremonyPlace}`,
+  line14: userCase.ceremonyPlace,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line16: getFormattedDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
-  connectionBulletPoints: userCase
-    ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
-    : [],
+  connectionBulletPoints:
+    userCase && userCase.connections
+      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      : [],
   jurisdictionsMoreDetails: {
     part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
@@ -170,6 +172,7 @@ const languages = {
 
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
+  content.applicant1Partner = getApplicant1PartnerContent(content);
   const translations = languages[language](content);
   const isApplicantAddressPrivate = userCase.applicant1AddressPrivate === YesOrNo.YES;
   const isRespondentAddressPrivate = userCase.applicant2AddressPrivate === YesOrNo.YES;
