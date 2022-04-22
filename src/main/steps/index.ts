@@ -5,7 +5,7 @@ import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
-import { Form, FormContent } from '../app/form/Form';
+import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
@@ -28,7 +28,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
 
-const stepForms: Record<string, Form> = {};
+const stepFields: Record<string, FormFields | FormFieldsFn> = {};
 const ext = extname(__filename);
 
 const allSequences = [
@@ -47,7 +47,7 @@ allSequences.forEach((sequence: Step[], i: number) => {
       const content = require(stepContentFile);
 
       if (content.form) {
-        stepForms[step.url] = new Form(content.form.fields);
+        stepFields[step.url] = content.form.fields;
       }
     }
   }
@@ -60,10 +60,12 @@ const getNextIncompleteStep = (
   removeExcluded = false,
   checkedSteps: Step[] = []
 ): string => {
-  const stepForm = stepForms[step.url];
+  const stepField = stepFields[step.url];
   // if this step has a form
-  if (stepForm !== undefined) {
+  if (stepField) {
     // and that form has errors
+    const fields = typeof stepField === 'function' ? stepField(data) : stepField;
+    const stepForm = new Form(fields);
     if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
       // go to that step
       return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication

@@ -3,7 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 
-import { en } from './common.content';
+import { CommonContent, en } from './common.content';
 
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
@@ -34,6 +34,14 @@ export const getPartner = (translations: typeof en, selectedGender: Gender | und
     return translations.wife;
   }
   return translations.partner;
+};
+
+export const getApplicant1PartnerContent = (content: CommonContent): string => {
+  if (content.userCase?.sameSex !== Checkbox.Checked && content.partner !== content.civilPartner) {
+    return content.partner === content.husband ? content.wife : content.husband;
+  } else {
+    return content.partner;
+  }
 };
 
 export const getAppSolAddressFields = (
