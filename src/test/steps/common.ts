@@ -132,6 +132,13 @@ export const iClearTheForm = async (): Promise<void> => {
 };
 Given('I clear the form', iClearTheForm);
 
+Given("I've said I'm applying as a joint application", async () => {
+  I.amOnPage('/how-do-you-want-to-apply');
+  await iClearTheForm();
+  I.checkOption('I want to apply jointly');
+  I.click('Continue');
+});
+
 Given("I've said I do not have my husband's email address", async () => {
   I.amOnPage('/their-email-address');
   await iClearTheForm();
