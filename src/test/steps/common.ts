@@ -18,7 +18,7 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { setJurisdictionFieldsAsNull } from '../../main/app/jurisdiction/jurisdictionRemovalHelper';
-import { HOME_URL } from '../../main/steps/urls';
+import { CHECK_JURISDICTION, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -277,6 +277,8 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
 Given('I reset the jurisdiction connections', async () => {
   const userCaseObj = setJurisdictionFieldsAsNull({});
   await iSetTheUsersCaseTo(userCaseObj);
+  I.amOnPage(CHECK_JURISDICTION);
+  I.click('Continue');
 });
 
 const executeUserCaseScript = async data => {
