@@ -17,8 +17,10 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
+import { setJurisdictionFieldsAsNull } from '../../main/app/jurisdiction/jurisdictionRemovalHelper';
 import {
   APPLICANT_2,
+  CHECK_JURISDICTION,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
@@ -234,6 +236,13 @@ When('I enter my valid case reference and valid access code', async () => {
 
 When('a case worker issues the application', async () => {
   await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
+});
+
+When('I reset the jurisdiction connections', async () => {
+  const userCaseObj = setJurisdictionFieldsAsNull({});
+  await executeUserCaseScript(userCaseObj, CHECK_JURISDICTION);
+  I.amOnPage(CHECK_JURISDICTION);
+  I.click('Continue');
 });
 
 When('a case worker updates court case hearing', async () => {
