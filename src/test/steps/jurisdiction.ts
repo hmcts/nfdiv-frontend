@@ -1,6 +1,5 @@
 import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
-import { setJurisdictionFieldsAsNull } from '../../main/app/jurisdiction/jurisdictionRemovalHelper';
 import { CHECK_JURISDICTION } from '../../main/steps/urls';
 
 import { iSetTheUsersCaseTo } from './common';
@@ -8,7 +7,17 @@ import { iSetTheUsersCaseTo } from './common';
 const { I } = inject();
 
 Given('I reset the jurisdiction connections', async () => {
-  const userCaseObj = setJurisdictionFieldsAsNull({});
+  const userCaseObj = {
+    connections: null,
+    applicant1LifeBasedInEnglandAndWales: null,
+    applicant2LifeBasedInEnglandAndWales: null,
+    applicant1DomicileInEnglandWales: null,
+    applicant2DomicileInEnglandWales: null,
+    bothLastHabituallyResident: null,
+    applicant1LivingInEnglandWalesTwelveMonths: null,
+    applicant1LivingInEnglandWalesSixMonths: null,
+    jurisdictionResidualEligible: null,
+  };
   await iSetTheUsersCaseTo(userCaseObj);
   I.amOnPage(CHECK_JURISDICTION);
   I.click('Continue');
