@@ -17,7 +17,6 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { setJurisdictionFieldsAsNull } from '../../main/app/jurisdiction/jurisdictionRemovalHelper';
 import {
   APPLICANT_2,
   CHECK_JURISDICTION,
@@ -239,7 +238,17 @@ When('a case worker issues the application', async () => {
 });
 
 When('I reset the jurisdiction connections', async () => {
-  const userCaseObj = setJurisdictionFieldsAsNull({});
+  const userCaseObj = {
+    connections: null,
+    applicant1LifeBasedInEnglandAndWales: null,
+    applicant2LifeBasedInEnglandAndWales: null,
+    applicant1DomicileInEnglandWales: null,
+    applicant2DomicileInEnglandWales: null,
+    bothLastHabituallyResident: null,
+    applicant1LivingInEnglandWalesTwelveMonths: null,
+    applicant1LivingInEnglandWalesSixMonths: null,
+    jurisdictionResidualEligible: null,
+  };
   await executeUserCaseScript(userCaseObj, CHECK_JURISDICTION);
   I.amOnPage(CHECK_JURISDICTION);
   I.click('Continue');
