@@ -6,23 +6,6 @@ import { iSetTheUsersCaseTo } from './common';
 
 const { I } = inject();
 
-Given('I reset the jurisdiction connections', async () => {
-  const userCaseObj = {
-    connections: null,
-    applicant1LifeBasedInEnglandAndWales: null,
-    applicant2LifeBasedInEnglandAndWales: null,
-    applicant1DomicileInEnglandWales: null,
-    applicant2DomicileInEnglandWales: null,
-    bothLastHabituallyResident: null,
-    applicant1LivingInEnglandWalesTwelveMonths: null,
-    applicant1LivingInEnglandWalesSixMonths: null,
-    jurisdictionResidualEligible: null,
-  };
-  await iSetTheUsersCaseTo(userCaseObj);
-  I.amOnPage(CHECK_JURISDICTION);
-  I.click('Continue');
-});
-
 Given("I've completed all questions correctly to get to the jurisdiction section", async () => {
   await iSetTheUsersCaseTo({
     applicationType: ApplicationType.SOLE_APPLICATION,
