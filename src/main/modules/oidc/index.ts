@@ -96,6 +96,10 @@ export class OidcMiddleware {
             return res.redirect(HOME_URL);
           }
 
+          if (req.path.endsWith(RESPONDENT)) {
+            return res.redirect(APPLICANT_2_SIGN_IN_URL);
+          }
+
           req.session.save(err => {
             if (err) {
               res.redirect(SIGN_OUT_URL);
