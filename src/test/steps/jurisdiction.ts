@@ -30,4 +30,6 @@ Given("I've completed all questions correctly to get to the jurisdiction section
     applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
     applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   });
+  I.amOnPage(CHECK_JURISDICTION);
+  I.click('Continue');
 });
