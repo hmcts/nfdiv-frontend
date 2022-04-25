@@ -19,7 +19,6 @@ import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import {
   APPLICANT_2,
-  CHECK_JURISDICTION,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
@@ -235,23 +234,6 @@ When('I enter my valid case reference and valid access code', async () => {
 
 When('a case worker issues the application', async () => {
   await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
-});
-
-When('I reset the jurisdiction connections', async () => {
-  const userCaseObj = {
-    connections: null,
-    applicant1LifeBasedInEnglandAndWales: null,
-    applicant2LifeBasedInEnglandAndWales: null,
-    applicant1DomicileInEnglandWales: null,
-    applicant2DomicileInEnglandWales: null,
-    bothLastHabituallyResident: null,
-    applicant1LivingInEnglandWalesTwelveMonths: null,
-    applicant1LivingInEnglandWalesSixMonths: null,
-    jurisdictionResidualEligible: null,
-  };
-  await executeUserCaseScript(userCaseObj, CHECK_JURISDICTION);
-  I.amOnPage(CHECK_JURISDICTION);
-  I.click('Continue');
 });
 
 When('a case worker updates court case hearing', async () => {
