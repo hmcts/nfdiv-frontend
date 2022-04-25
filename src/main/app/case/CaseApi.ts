@@ -63,7 +63,7 @@ export class CaseApi {
     try {
       const query = {
         query: { match_all: {} },
-        sort: [{ id: { order: 'asc' } }],
+        sort: [{ id: { order: 'desc' } }],
       };
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
 
