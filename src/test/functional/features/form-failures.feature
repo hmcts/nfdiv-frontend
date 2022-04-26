@@ -330,7 +330,7 @@ Feature: Form failures
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
+    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
@@ -471,7 +471,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to "/applicant2/upload-your-documents"
     When I click "Continue"
     Then the page should include "Select which file you could not upload before continuing."

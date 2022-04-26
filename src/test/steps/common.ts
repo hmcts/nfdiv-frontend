@@ -17,13 +17,7 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import {
-  APPLICANT_2,
-  LEGAL_JURISDICTION_OF_THE_COURTS,
-  RESPONDENT,
-  WHERE_YOUR_LIVES_ARE_BASED_URL,
-  YOUR_NAME,
-} from '../../main/steps/urls';
+import { HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -98,10 +92,6 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
-Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 15);
-});
-
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });
@@ -116,14 +106,6 @@ Then("I wait until the page doesn't contain {string}", (text: string) => {
 
 Then('the form input {string} should be {string}', (formInput: string, value: string) => {
   I.seeInField(formInput, value);
-});
-
-Then('{string} should be ticked', (text: string) => {
-  I.seeCheckboxIsChecked(text);
-});
-
-Then('I cannot go back to the previous page', () => {
-  I.dontSeeElement('a.govuk-back-link');
 });
 
 Then('I type {string}', (text: string) => {
@@ -150,24 +132,10 @@ export const iClearTheForm = async (): Promise<void> => {
 };
 Given('I clear the form', iClearTheForm);
 
-Given("I've said I'm applying as a sole application", async () => {
-  I.amOnPage('/how-do-you-want-to-apply');
-  await iClearTheForm();
-  I.checkOption('I want to apply on my own, as a sole applicant');
-  I.click('Continue');
-});
-
 Given("I've said I'm applying as a joint application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
   await iClearTheForm();
   I.checkOption('I want to apply jointly');
-  I.click('Continue');
-});
-
-Given("I've said I'm divorcing my husband", async () => {
-  I.amOnPage('/your-details');
-  await iClearTheForm();
-  I.checkOption('My husband');
   I.click('Continue');
 });
 
@@ -201,7 +169,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage('/applicant2/enter-your-access-code');
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -218,12 +186,7 @@ When('I enter my valid case reference and valid access code', async () => {
   }
 
   iClick('Sign out');
-  await login('citizenSingleton');
-
-  await I.grabCurrentUrl();
-
-  I.amOnPage('/applicant2/enter-your-access-code');
-  await iClearTheForm();
+  await login('citizenApplicant2');
 
   iClick('Your reference number');
   I.type(caseReference);
@@ -308,15 +271,9 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL);
+  executeUserCaseScript(userCaseObj);
 
-export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, APPLICANT_2 + YOUR_NAME);
-
-export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS);
-
-const executeUserCaseScript = async (data, redirectPageLink: string) => {
+const executeUserCaseScript = async data => {
   await I.grabCurrentUrl();
 
   const user = testConfig.GetCurrentUser();
@@ -341,11 +298,6 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
     console.error(toApiFormat(data));
     process.exit(-1);
   }
-
-  I.amOnPage('/logout');
-  await autoLogin.login(I, user.username);
-
-  I.amOnPage(redirectPageLink);
 };
 
 export interface BrowserCase extends Case {
