@@ -6,6 +6,7 @@ const en = ({ isDivorce, telephoneNumber }: CommonContent) => ({
   line1: {
     part1: 'This accessibility statement applies to the website available at ',
     link: isDivorce ? 'https://www.apply-divorce.service.gov.uk' : 'https://www.end-civil-partnership.service.gov.uk',
+    part2: '.',
   },
   line2: `This service allows you to ${isDivorce ? 'apply for a divorce' : 'end a civil partnership'}.`,
   line3:
