@@ -114,26 +114,26 @@ const applicant2RedirectPageSwitch = (
     case State.AwaitingClarification:
     case State.ClarificationSubmitted:
     case State.Holding: {
-      return `${APPLICANT_2}${HUB_PAGE}`;
+      return APPLICANT_2 + HUB_PAGE;
     }
     case State.Applicant2Approved: {
-      return `${APPLICANT_2}${YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION}`;
+      return APPLICANT_2 + YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION;
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       return userCase.applicant2ApplyForConditionalOrder
-        ? `${APPLICANT_2}${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`
+        ? APPLICANT_2 + CHECK_CONDITIONAL_ORDER_ANSWERS_URL
         : userCase.applicant2ApplyForConditionalOrderStarted
-        ? `${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`
-        : `${APPLICANT_2}${HUB_PAGE}`;
+        ? APPLICANT_2 + CONTINUE_WITH_YOUR_APPLICATION
+        : APPLICANT_2 + HUB_PAGE;
     }
     default: {
       if (isLastQuestionComplete) {
-        return `${APPLICANT_2}${CHECK_JOINT_APPLICATION}`;
+        return APPLICANT_2 + CHECK_JOINT_APPLICATION;
       } else if (isFirstQuestionComplete) {
-        return `${APPLICANT_2}${CHECK_ANSWERS_URL}`;
+        return APPLICANT_2 + CHECK_ANSWERS_URL;
       } else {
-        return `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+        return APPLICANT_2 + YOU_NEED_TO_REVIEW_YOUR_APPLICATION;
       }
     }
   }
@@ -143,12 +143,10 @@ const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete:
   switch (caseState) {
     case State.AosDrafted:
     case State.AosOverdue: {
-      return isFirstQuestionComplete
-        ? `${RESPONDENT}${CHECK_ANSWERS_URL}`
-        : `${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`;
+      return isFirstQuestionComplete ? RESPONDENT + CHECK_ANSWERS_URL : RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND;
     }
     default: {
-      return `${RESPONDENT}${HUB_PAGE}`;
+      return RESPONDENT + HUB_PAGE;
     }
   }
 };
