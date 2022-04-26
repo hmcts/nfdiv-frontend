@@ -21,3 +21,5 @@ Feature: Jurisdiction - may not be able to get a divorce in England and Wales
     And I select "No"
     When I click "Continue"
     Then the page should include "You may not be able to get a divorce in England and Wales"
+    When I click "Check how you’re legally connected to England or Wales again"
+    Then the page URL should be "/check-jurisdiction"
