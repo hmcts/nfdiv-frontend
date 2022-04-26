@@ -35,32 +35,25 @@ export class HomeGetController {
       throw new Error('Invalid case type');
     }
 
-    const firstQuestionFormFields = req.session.isApplicant2
-      ? getApplicant2FirstQuestionFormFields(req.session.userCase.applicationType!)
-      : applicant1FirstQuestionForm.fields;
+    const firstQuestionFormContent = req.session.isApplicant2
+      ? getApplicant2FirstQuestionFormContent(req.session.userCase.applicationType!)
+      : applicant1FirstQuestionForm;
 
-    const firstQuestionForm = new Form(<FormFields>firstQuestionFormFields);
+    const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
     const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
 
-    if (req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
-    } else if (req.session.isApplicant2) {
-      const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
-      res.redirect(
-        APPLICANT_2 +
-          applicant2RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete, isLastQuestionComplete)
-      );
-    } else {
+    if (!req.session.isApplicant2) {
       res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
+    } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
+      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+    } else {
+      res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
     }
   }
 }
 
-const getApplicant2FirstQuestionFormFields = (applicationType: ApplicationType) => {
-  return applicationType === ApplicationType.SOLE_APPLICATION
-    ? respondentFirstQuestionForm.fields
-    : applicant2FirstQuestionForm.fields;
-};
+const getApplicant2FirstQuestionFormContent = (applicationType: ApplicationType) =>
+  applicationType === ApplicationType.SOLE_APPLICATION ? respondentFirstQuestionForm : applicant2FirstQuestionForm;
 
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   switch (userCase.state) {
@@ -101,12 +94,9 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
   }
 };
 
-const applicant2RedirectPageSwitch = (
-  userCase: Partial<CaseWithId>,
-  isFirstQuestionComplete: boolean,
-  isLastQuestionComplete: boolean
-) => {
-  switch (userCase.state) {
+const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
+  const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
+  switch (req.session.userCase.state) {
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
     case State.ConditionalOrderPronounced:
@@ -120,9 +110,9 @@ const applicant2RedirectPageSwitch = (
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      return userCase.applicant2ApplyForConditionalOrder
+      return req.session.userCase.applicant2ApplyForConditionalOrder
         ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
-        : userCase.applicant2ApplyForConditionalOrderStarted
+        : req.session.userCase.applicant2ApplyForConditionalOrderStarted
         ? CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
     }
