@@ -10,7 +10,7 @@ Feature: Switch To Sole Application
   Scenario: [1] Switching to Sole application by Applicant 1
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
 
@@ -51,7 +51,7 @@ Feature: Switch To Sole Application
   Scenario: [3] Switching to Sole application by Applicant 2
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
 
@@ -78,7 +78,7 @@ Feature: Switch To Sole Application
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
 
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to '/applicant2/check-your-joint-application'
     And I select "No" for "Is the information your wife provided correct?"
     And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."

@@ -284,7 +284,7 @@ Feature: Applicant 2
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     When I go to "/applicant2/upload-your-documents"
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
