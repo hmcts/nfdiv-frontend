@@ -167,7 +167,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "You cannot apply to get a divorce"
-    Given I click "Back"
+    When I click "Back"
     Then the page URL should be "/irretrievable-breakdown"
     Given I select "I confirm my marriage has broken down irretrievably"
 

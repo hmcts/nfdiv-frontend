@@ -52,7 +52,6 @@ Feature: Final order
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
-
   Scenario: Respondent sole final order journey
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
     And I go to '/check-your-answers'
