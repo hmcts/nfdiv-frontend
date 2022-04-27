@@ -36,7 +36,7 @@ export class HomeGetController {
     }
 
     const firstQuestionFormContent = req.session.isApplicant2
-      ? getApplicant2FirstQuestionFormContent(req.session.userCase.applicationType!)
+      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
       : applicant1FirstQuestionForm;
 
     const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
@@ -52,7 +52,7 @@ export class HomeGetController {
   }
 }
 
-const getApplicant2FirstQuestionFormContent = (applicationType: ApplicationType) =>
+const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
   applicationType === ApplicationType.SOLE_APPLICATION ? respondentFirstQuestionForm : applicant2FirstQuestionForm;
 
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
