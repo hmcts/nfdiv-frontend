@@ -332,6 +332,8 @@ export interface Application {
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
   app2ContactMethodIsDigital: YesOrNo;
+  applicant1CannotUpload: YesOrNo;
+  applicant2CannotUpload: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
@@ -539,6 +541,8 @@ export interface CaseData {
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
   app2ContactMethodIsDigital: YesOrNo;
+  applicant1CannotUpload: YesOrNo;
+  applicant2CannotUpload: YesOrNo;
   applicant1CannotUploadSupportingDocument: DocumentType[];
   applicant2CannotUploadSupportingDocument: DocumentType[];
   documentUploadComplete: YesOrNo;
