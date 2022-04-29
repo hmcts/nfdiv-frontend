@@ -1369,12 +1369,12 @@
     nanoid "^3.1.25"
     preact "^10.5.13"
 
-"@uppy/drop-target@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.1.2.tgz#a78cc1c1947e55be4e16de71efdbacf9dfb7effd"
-  integrity sha512-iyLckwpxDqZr7ysH94cWwgta9P9SFus0sayXb9Lr/Kd0lk+tK/bcrJmsJHp4HYDFW7C8RphYdUu78C8NNXL09w==
+"@uppy/drop-target@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.1.3.tgz#cb8eb4ff3c6f6e3733c57ad46f9422186c024e56"
+  integrity sha512-Cd+L3mdVovS6G0Yv0Hah18Utz3czQ75YrGJ65MlHFzfJccOQJczvxn18FVssKyO6Zc0ce1y0mGKGjUClTM5dMA==
   dependencies:
-    "@uppy/utils" "^4.0.5"
+    "@uppy/utils" "^4.0.7"
 
 "@uppy/file-input@^2.0.6":
   version "2.0.6"
@@ -1397,7 +1397,7 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-2.0.3.tgz#47ad4fc4816d21955ff37d6bb5096a93278c29e2"
   integrity sha512-2BGlN1sW0cFv4rOqTK8dfSg579S984N1HxCJxLFqeW9nWD6zd/O8Omyd85tbxGQ+FLZLTmLOm/feD0YeCBMahg==
 
-"@uppy/utils@^4.0.3", "@uppy/utils@^4.0.4", "@uppy/utils@^4.0.5", "@uppy/utils@^4.0.6", "@uppy/utils@^4.0.7":
+"@uppy/utils@^4.0.3", "@uppy/utils@^4.0.4", "@uppy/utils@^4.0.6", "@uppy/utils@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-4.0.7.tgz#1f0928ca646655c34ca32b5a9061f354a8fe64cf"
   integrity sha512-nKViMT8XchKy+NWpb3DtVKuzZBmW7au26LrMq89EsvTwIOT6UR9+7bmz/+zr3+lc7UC7vMgNChIC6G+/Ya9wWQ==
