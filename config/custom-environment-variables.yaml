@@ -9,6 +9,7 @@ services:
     clientSecret: IDAM_SECRET
   case:
     url: CCD_URL
+    checkDivCases: SKIP_DIV_CASE_CHECK
   payments:
     url: PAYMENTS_API_URL
   fees:
