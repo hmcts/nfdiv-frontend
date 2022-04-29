@@ -56,6 +56,7 @@ export class CaseApi {
         return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
       default: {
+        this.logger.error('Too many cases assigned to user.');
         throw new Error('Too many cases assigned to user.');
       }
     }
