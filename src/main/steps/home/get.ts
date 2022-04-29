@@ -31,6 +31,7 @@ import {
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
+    console.log('At home');
     if (req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
       throw new Error('Invalid case type');
     }
