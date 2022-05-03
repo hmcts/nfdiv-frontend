@@ -47,7 +47,7 @@ new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
-new Helmet(config.get('security')).enableFor(app);
+new Helmet().enableFor(app);
 new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new TooBusy().enableFor(app);

@@ -19,6 +19,7 @@ describe('AccessCodePostController', () => {
       email: 'user@caseworker.com',
       givenName: 'case',
       familyName: 'worker',
+      roles: ['caseworker'],
     });
   });
 
