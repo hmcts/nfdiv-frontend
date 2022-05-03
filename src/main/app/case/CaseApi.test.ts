@@ -15,6 +15,7 @@ const userDetails: UserDetails = {
   givenName: 'billy',
   familyName: 'bob',
   id: 'something',
+  roles: ['something'],
 };
 
 describe('CaseApi', () => {
