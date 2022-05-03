@@ -5,6 +5,11 @@ Feature: Form failures
 
   @nightly
   Scenario: They fail to fill out the applicant 1 forms
+    # Applicant 1 attempts to access the wrong page
+    When I go to '/applicant2/other-court-cases'
+    Then the page URL should be "/error"
+    
+    # Form failures
     Given I go to "/your-details"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -300,6 +305,10 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You need to select how you want to respond before continuing."
 
+    # Respondent attempts to access the wrong page
+    When I go to '/other-court-cases'
+    Then the page URL should be "/error"
+    
     Given I go to "/respondent/disputing-the-application"
     And I clear the form
     When I click "Continue"
@@ -362,7 +371,11 @@ Feature: Form failures
     Given I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
+       
+    # Applicant 2 attempts to access the wrong page
+    When I go to '/other-court-cases'
+    Then the page URL should be "/error"
+    
     Given I go to "/applicant2/help-with-your-fee"
     And I clear the form
     When I click "Continue"

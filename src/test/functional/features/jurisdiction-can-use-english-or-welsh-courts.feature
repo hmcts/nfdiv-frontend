@@ -141,10 +141,6 @@ Feature: Jurisdiction - can use English or Welsh courts
     Then the page should include "You can use English or Welsh courts to get a divorce"
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales"
 
-  Scenario: Clicking Back takes them to the start of the jurisdiction flow
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click "Continue"
     When I click "Back"
     Then the page should include "Check if you can get a divorce in England or Wales"
 
