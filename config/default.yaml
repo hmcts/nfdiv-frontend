@@ -1,5 +1,3 @@
-security:
-  referrerPolicy: 'origin'
 port: 3001
 timeout: 30000
 uploadTimeout: 60000
@@ -41,6 +39,7 @@ services:
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-1653.service.core-compute-preview.internal'
+    checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
