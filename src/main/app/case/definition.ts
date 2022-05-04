@@ -1940,6 +1940,7 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
+export const CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2 = 'citizen-update-contact-details-applicant2';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';

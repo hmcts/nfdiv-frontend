@@ -4,6 +4,7 @@ import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
   CITIZEN_UPDATE_CONTACT_DETAILS,
+  CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2,
   State,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -17,7 +18,7 @@ export default class CitizenUpdateContactDetailsPostController extends PostContr
     } else if (req.session.userCase.state === State.AwaitingApplicant2Response) {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
-      return CITIZEN_UPDATE_CONTACT_DETAILS;
+      return req.session.isApplicant2 ? CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2 : CITIZEN_UPDATE_CONTACT_DETAILS;
     }
   }
 }
