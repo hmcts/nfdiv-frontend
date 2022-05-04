@@ -5,14 +5,6 @@
   <p>{{ cookiesLine2 }}</p>
 {% endset %}
 
-{% set acceptHtml %}
-  <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
-{% endset %}
-
-{% set rejectHtml %}
-  <p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
-{% endset %}
-
 {{ govukCookieBanner({
   classes: 'cookie-banner',
   ariaLabel: cookiesHeading + " " + serviceName,
@@ -40,7 +32,7 @@
       ]
     },
     {
-      html: acceptHtml,
+      html: acceptCookiesHtml,
       role: "alert",
       classes: 'cookie-banner-accept-message',
       hidden: true,
@@ -53,7 +45,7 @@
     },
     {
       classes: 'cookie-banner-reject-message',
-      html: rejectHtml,
+      html: rejectCookiesHtml,
       role: "alert",
       hidden: true,
       actions: [

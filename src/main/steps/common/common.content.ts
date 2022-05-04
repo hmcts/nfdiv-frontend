@@ -80,7 +80,11 @@ export const en = {
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:
-    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+    'We’d like to set additional cookies so we can remember your settings, understand how people use the service and to improve government services.',
+  acceptCookiesHtml:
+    'You’ve accepted additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  rejectCookiesHtml:
+    '<p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
   acceptAnalyticsCookies: 'Accept analytics cookies',
   rejectAnalyticsCookies: 'Reject analytics cookies',
   viewCookies: 'View cookies',

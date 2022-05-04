@@ -1,7 +1,5 @@
 import cookieManager from '@hmcts/cookie-manager';
 
-import { qs } from './selectors';
-
 cookieManager.on('UserPreferencesLoaded', preferences => {
   const dataLayer = window.dataLayer || [];
   dataLayer.push({ event: 'Cookie Preferences', cookiePreferences: preferences });
@@ -22,13 +20,6 @@ cookieManager.on('UserPreferencesSaved', preferences => {
       dtrum.disableSessionReplay();
     }
   }
-});
-
-cookieManager.on('PreferenceFormSubmitted', () => {
-  const message = qs('.cookie-preference-success') as HTMLInputElement;
-  message.style.display = 'block';
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 });
 
 cookieManager.init({
