@@ -20,7 +20,7 @@ import {
   REVIEW_THE_APPLICATION,
 } from './urls';
 
-const sequences: Step[] = [
+const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
@@ -77,15 +77,31 @@ const sequences: Step[] = [
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
+  },
+  {
     url: FINALISING_YOUR_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
 ];
 
 export const respondentSequence = ((): Step[] => {
-  return sequences.map(sequence => ({
-    ...sequence,
-    url: `${RESPONDENT}${sequence.url}`,
-    getNextStep: data => `${RESPONDENT}${sequence.getNextStep(data)}`,
+  return sequence.map(step => ({
+    ...step,
+    url: `${RESPONDENT}${step.url}`,
+    getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
 })();

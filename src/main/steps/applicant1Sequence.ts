@@ -95,7 +95,7 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
-export const applicant1Sequence: Step[] = [
+export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -233,7 +233,7 @@ export const applicant1Sequence: Step[] = [
   {
     url: RESIDUAL_JURISDICTION,
     getNextStep: data =>
-      data.jurisdictionResidualEligible === Checkbox.Checked
+      data.jurisdictionResidualEligible === YesOrNo.YES
         ? JURISDICTION_INTERSTITIAL_URL
         : JURISDICTION_MAY_NOT_BE_ABLE_TO,
   },
@@ -395,6 +395,13 @@ export const applicant1Sequence: Step[] = [
     getNextStep: () => PAY_AND_SUBMIT,
   },
   {
+    url: APPLICATION_ENDED,
+    getNextStep: () => HOME_URL,
+  },
+];
+
+export const applicant1PostSubmissionSequence: Step[] = [
+  {
     url: PAY_YOUR_FEE,
     getNextStep: () => PAYMENT_CALLBACK_URL,
   },
@@ -405,14 +412,6 @@ export const applicant1Sequence: Step[] = [
   {
     url: PAYMENT_CALLBACK_URL,
     getNextStep: () => APPLICATION_SUBMITTED,
-  },
-  {
-    url: APPLICATION_SUBMITTED,
-    getNextStep: () => HOME_URL,
-  },
-  {
-    url: APPLICATION_ENDED,
-    getNextStep: () => HOME_URL,
   },
   {
     url: HUB_PAGE,
@@ -429,6 +428,14 @@ export const applicant1Sequence: Step[] = [
   {
     url: CHECK_CONTACT_DETAILS,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: CHECK_PHONE_NUMBER,
@@ -474,6 +481,10 @@ export const applicant1Sequence: Step[] = [
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
   },
 ];
 

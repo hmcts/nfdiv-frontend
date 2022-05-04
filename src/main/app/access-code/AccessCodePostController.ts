@@ -16,7 +16,7 @@ export class AccessCodePostController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(<FormFields>this.fields);
 
-    if (req.body.saveAndSignOut) {
+    if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
       return res.redirect(SIGN_OUT_URL);
     }
 

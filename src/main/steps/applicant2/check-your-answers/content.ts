@@ -84,8 +84,8 @@ const en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
@@ -112,7 +112,7 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'I cannot upload some or all of my documents'
+          ? 'Proof that I changed my name'
           : ''
       }`,
     },
@@ -133,20 +133,16 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
     },
     helpWithFees: {
-      line1: `${
-        userCase.applicant2HelpPayingNeeded
-          ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
-            ? "Mae angen help arnaf i dalu'r ffi"
-            : "Nid oes angen help arnaf i dalu'r ffi"
+      line1: userCase.applicant2HelpPayingNeeded
+        ? userCase.applicant2HelpPayingNeeded === YesOrNo.YES
+          ? "Mae angen help arnaf i dalu'r ffi"
+          : "Nid oes angen help arnaf i dalu'r ffi"
+        : '',
+      line2: userCase.applicant2AlreadyAppliedForHelpPaying
+        ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+          ? `Do <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
           : ''
-      }`,
-      line2: `${
-        userCase.applicant2AlreadyAppliedForHelpPaying
-          ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-            ? `Do <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
-            : ''
-          : ''
-      }`,
+        : '',
     },
     aboutYouForApplicant2: {
       line1: `${userCase.applicant2FirstNames}`,
@@ -204,8 +200,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
-      line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line1: userCase.applicant2LegalProceedings,
+      line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
@@ -232,7 +228,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau'
+          ? 'Prawf fy mod i wedi newid fy enw'
           : ''
       }`,
     },

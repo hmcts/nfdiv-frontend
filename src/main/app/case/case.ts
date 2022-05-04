@@ -46,8 +46,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   bothLastHabituallyResident: 'jurisdictionBothLastHabituallyResident',
   applicant1LivingInEnglandWalesTwelveMonths: 'jurisdictionApp1HabituallyResLastTwelveMonths',
   applicant1LivingInEnglandWalesSixMonths: 'jurisdictionApp1HabituallyResLastSixMonths',
-  applicant1PhoneNumber: 'applicant1PhoneNumber',
   connections: 'jurisdictionConnections',
+  jurisdictionResidualEligible: 'jurisdictionResidualEligible',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1FirstNames: 'applicant1FirstName',
   applicant1MiddleNames: 'applicant1MiddleName',
   applicant1LastNames: 'applicant1LastName',
@@ -118,6 +119,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
   applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
   applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
+  applicant1CannotUpload: 'applicant1CannotUpload',
+  applicant2CannotUpload: 'applicant2CannotUpload',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -168,7 +171,7 @@ export interface Case {
   bothLastHabituallyResident?: YesOrNo;
   applicant1LivingInEnglandWalesTwelveMonths?: YesOrNo;
   applicant1LivingInEnglandWalesSixMonths?: YesOrNo;
-  jurisdictionResidualEligible?: Checkbox;
+  jurisdictionResidualEligible?: YesOrNo;
   applicant1EnglishOrWelsh?: LanguagePreference;
   applicant2EnglishOrWelsh?: LanguagePreference;
   applicant1FirstNames?: string;

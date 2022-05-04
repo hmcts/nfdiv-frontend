@@ -2,10 +2,6 @@ import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet = require('helmet');
 
-export interface HelmetConfig {
-  referrerPolicy: string;
-}
-
 const googleAnalyticsDomain = '*.google-analytics.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const azureBlob = '*.blob.core.windows.net';
@@ -16,14 +12,12 @@ const self = "'self'";
  * Module that enables helmet in the application
  */
 export class Helmet {
-  constructor(public config: HelmetConfig) {}
-
   public enableFor(app: Express): void {
     // include default helmet functions
     app.use(helmet() as RequestHandler);
 
     this.setContentSecurityPolicy(app);
-    this.setReferrerPolicy(app, this.config.referrerPolicy);
+    this.setReferrerPolicy(app, 'origin');
   }
 
   private setContentSecurityPolicy(app: express.Express): void {

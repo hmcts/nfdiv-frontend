@@ -34,6 +34,7 @@ export const getUserDetails = async (
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: jwt.roles,
   };
 };
 
@@ -46,8 +47,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const systemPassword: string = config.get('services.idam.systemPassword');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}
-                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
@@ -58,6 +58,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: jwt.roles,
   };
 };
 

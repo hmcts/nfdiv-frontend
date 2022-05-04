@@ -7,7 +7,7 @@ if (!process.env.TEST_PASSWORD) {
 
 import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import { YOUR_DETAILS_URL } from '../main/steps/urls';
+import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
@@ -25,7 +25,7 @@ const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenUR
 
 export const autoLogin = {
   login: (I: CodeceptJS.I, username = TestUser, password = TestPass): void => {
-    I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
+    I.amOnPage(HOME_URL);
     I.waitForText('Sign in or create an account');
     I.fillField('username', username);
     I.fillField('password', password);
@@ -34,6 +34,25 @@ export const autoLogin = {
   },
   check: (I: CodeceptJS.I): void => {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
+    I.waitForText('Apply for a divorce');
+  },
+  restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
+    I.amOnPage('/info');
+    I.setCookie(cookies);
+  },
+};
+
+export const autoLoginForApplicant2 = {
+  login: (I: CodeceptJS.I, username = TestUser, password = TestPass): void => {
+    I.amOnPage(APPLICANT_2);
+    I.waitForText('Sign in or create an account');
+    I.fillField('username', username);
+    I.fillField('password', password);
+    I.click('Sign in');
+    I.waitForText('Apply for a divorce', 30);
+  },
+  check: (I: CodeceptJS.I): void => {
+    I.amOnPage(`${APPLICANT_2 + ENTER_YOUR_ACCESS_CODE}?lng=en`);
     I.waitForText('Apply for a divorce');
   },
   restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
@@ -102,6 +121,20 @@ export const config = {
           // don't restore existing login
         },
       },
+      citizenApplicant2: {
+        login: async (I: CodeceptJS.I): Promise<void> => {
+          const username = generateTestUsername();
+          await idamUserManager.createUser(username, TestPass);
+          autoLoginForApplicant2.login(I, username, TestPass);
+        },
+        check: autoLoginForApplicant2.check,
+        fetch: (): void => {
+          // don't fetch existing login
+        },
+        restore: (): void => {
+          // don't restore existing login
+        },
+      },
     },
   },
 };
@@ -112,7 +145,7 @@ config.helpers = {
     show: !config.TestHeadlessBrowser,
     browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
-    waitForAction: 250,
+    waitForAction: 350,
     timeout: config.WaitForTimeout,
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,

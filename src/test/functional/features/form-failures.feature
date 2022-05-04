@@ -89,11 +89,13 @@ Feature: Form failures
     When I click "Find address"
     Then the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "not a postcode!"
     When I click "Find address"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
     Given I reset the postcode lookup form
+    And I wait "1" seconds
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
     And I click "Find address"
@@ -187,10 +189,6 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/english-or-welsh"
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/address-private"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -198,7 +196,8 @@ Feature: Form failures
     Given I go to "/enter-your-address"
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
@@ -249,7 +248,14 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
 
-    Given I go to "/finalising-your-application"
+    Given I've already completed the form using the fixture "completeCase"
+    And I go to "/check-your-answers"
+    When I click "Continue"
+    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
+    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+
+    Given I set the case state to "AwaitingFinalOrder"
+    And I go to "/finalising-your-application"
     When I click "Continue"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
 
@@ -257,12 +263,6 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
     And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
-
-    Given I've already completed the form using the fixture "completeCase"
-    And I go to "/check-your-answers"
-    When I click "Continue"
-    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
 
 
   @nightly
@@ -330,12 +330,7 @@ Feature: Form failures
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-    Given I go to "/respondent/english-or-welsh"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-
-    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
+    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
@@ -414,11 +409,6 @@ Feature: Form failures
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
     And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/applicant2/english-or-welsh"
-    And I clear the form
-    When I select "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/applicant2/address-private"
     And I clear the form
     When I click "Continue"
@@ -429,7 +419,8 @@ Feature: Form failures
     When I click "Find address"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
-    Given I select "Enter a UK postcode"
+    Given I wait "1" seconds
+    And I select "Enter a UK postcode"
     And I type "ZZ00 0ZZ"
     And I click "Find address"
     And I click "I cannot find the address in the list"
@@ -480,7 +471,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to "/applicant2/upload-your-documents"
     When I click "Continue"
     Then the page should include "Select which file you could not upload before continuing."
@@ -539,6 +530,23 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    Given I set the case state to "AwaitingClarification"
+    When I click "Sign out"
+    And I login with applicant "1"
+    When I go to "/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
+    When I click "Sign out"
+    And I login with applicant "2"
+    When I go to "/applicant2/provide-information-to-the-court"
+    Then the page should include "Upload any documents"
+
+    Given I clear the form
+    When I click "Continue"
+    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
 
   @nightly
   Scenario: Jurisdiction form failures

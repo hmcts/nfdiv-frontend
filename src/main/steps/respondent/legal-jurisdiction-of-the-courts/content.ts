@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 
 const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
   return {
@@ -13,9 +14,10 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }.`,
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
-    connectionBulletPoints: userCase
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections!, isDivorce, isJointApplication)
-      : [],
+    connectionBulletPoints:
+      userCase && userCase.connections
+        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
     }?`,
@@ -90,8 +92,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const readMoreJurisdiction = accessibleDetailsSpan(translations['readMore'], translations['title']);
   return {
     ...translations,
+    readMoreJurisdiction,
     form,
   };
 };

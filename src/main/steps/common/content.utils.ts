@@ -3,7 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 
-import { en } from './common.content';
+import { CommonContent, en } from './common.content';
 
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
@@ -36,6 +36,14 @@ export const getPartner = (translations: typeof en, selectedGender: Gender | und
   return translations.partner;
 };
 
+export const getApplicant1PartnerContent = (content: CommonContent): string => {
+  if (content.userCase?.sameSex !== Checkbox.Checked && content.partner !== content.civilPartner) {
+    return content.partner === content.husband ? content.wife : content.husband;
+  } else {
+    return content.partner;
+  }
+};
+
 export const getAppSolAddressFields = (
   applicant: 'applicant1' | 'applicant2',
   userCase: Partial<CaseWithId>
@@ -45,7 +53,7 @@ export const getAppSolAddressFields = (
 };
 
 export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWithId>): string[] => {
-  return [
+  const addressFields = [
     userCase[`${addressPrefix}Address1`],
     userCase[`${addressPrefix}Address2`],
     userCase[`${addressPrefix}Address3`],
@@ -54,4 +62,16 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
     userCase[`${addressPrefix}AddressPostcode`],
     userCase[`${addressPrefix}AddressCountry`],
   ].filter(Boolean);
+  if (addressFields.length === 0 && userCase[`${addressPrefix}Address`]) {
+    return userCase[`${addressPrefix}Address`].split('\n');
+  }
+  return addressFields;
+};
+
+export const formattedCaseId = (caseId: string | undefined): string | undefined => {
+  return caseId?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+};
+
+export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
+  return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
 };

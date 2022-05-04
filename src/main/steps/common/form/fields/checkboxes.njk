@@ -13,15 +13,15 @@
   fieldset: {
     legend: {
       text: getContent(field.label),
-      classes: legendClasses
+      classes: "govuk-visually-hidden" if field.labelHidden else legendClasses
     }
-  } if not field.labelHidden,
+  },
   hint: {
     html: getContent(field.hint)
   } if field.hint,
   items: formItems(field.values, userCase),
   errorMessage: getError(fieldName),
   formGroup: {
-    classes: "hidden " + field.id if field.hidden else field.id
+    classes: "govuk-visually-hidden " + field.id if field.hidden else field.id
   }
 }) }}

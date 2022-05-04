@@ -2,14 +2,7 @@ import dayjs from 'dayjs';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import {
-  CaseData,
-  ContactDetailsType,
-  HowToRespondApplication,
-  MarriageFormation,
-  ThePrayer,
-  YesOrNo,
-} from './definition';
+import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
@@ -26,6 +19,18 @@ const checkboxConverter = (value: string | undefined) => {
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
 };
 
+const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
+  return data => ({
+    [`${applicant}IConfirmPrayer`]:
+      data[`${applicant}PrayerDissolveDivorce`]?.length > 0 ||
+      data[`${applicant}PrayerEndCivilPartnership`]?.length > 0 ||
+      data[`${applicant}PrayerFinancialOrdersThemselves`]?.length > 0 ||
+      data[`${applicant}PrayerFinancialOrdersChild`]?.length > 0
+        ? Checkbox.Checked
+        : Checkbox.Unchecked,
+  });
+};
+
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   marriageFormationType: ({ marriageFormationType }) => ({
@@ -33,9 +38,6 @@ const fields: FromApiConverters = {
   }),
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
-  }),
-  jurisdictionResidualEligible: data => ({
-    jurisdictionResidualEligible: checkboxConverter(data.jurisdictionResidualEligible),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
@@ -83,16 +85,14 @@ const fields: FromApiConverters = {
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
   applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
   applicant2CannotUploadSupportingDocument: uploadedFilesFromApiApplicant2,
-  applicant1PrayerHasBeenGivenCheckbox: data => ({
-    applicant1IConfirmPrayer: data.applicant1PrayerHasBeenGivenCheckbox?.includes(ThePrayer.I_CONFIRM)
-      ? Checkbox.Checked
-      : Checkbox.Unchecked,
-  }),
-  applicant2PrayerHasBeenGivenCheckbox: data => ({
-    applicant2IConfirmPrayer: data.applicant2PrayerHasBeenGivenCheckbox?.includes(ThePrayer.I_CONFIRM)
-      ? Checkbox.Checked
-      : Checkbox.Unchecked,
-  }),
+  applicant1PrayerDissolveDivorce: prayerConverter('applicant1'),
+  applicant1PrayerEndCivilPartnership: prayerConverter('applicant1'),
+  applicant1PrayerFinancialOrdersThemselves: prayerConverter('applicant1'),
+  applicant1PrayerFinancialOrdersChild: prayerConverter('applicant1'),
+  applicant2PrayerDissolveDivorce: prayerConverter('applicant2'),
+  applicant2PrayerEndCivilPartnership: prayerConverter('applicant2'),
+  applicant2PrayerFinancialOrdersThemselves: prayerConverter('applicant2'),
+  applicant2PrayerFinancialOrdersChild: prayerConverter('applicant2'),
   applicant1StatementOfTruth: data => ({
     applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
   }),

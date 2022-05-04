@@ -40,9 +40,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${dayjs(
-      userCase.dueDate
-    )}. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
+      .add(config.get('dates.issueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
@@ -131,8 +131,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     },
     withoutDocuments: {
       line1: 'You need to post the documents requested by the court:',
-      line2:
-        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'You will receive an update when your documents have been received and checked.',
     },
   },
@@ -149,16 +147,18 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     isDivorce ? 'you are legally divorced' : 'your civil partnership is legally ended'
   }:`,
   readMoreSteps: {
-    step1: `
-        <strong>Apply for a conditional order</strong><br>
-        This shows that the court agrees that you’re entitled to ${
-          isDivorce ? 'get a divorce' : 'end your civil partnership'
-        }.`,
-    step2: `
-        <strong>Apply for a final order</strong><br>
-        This legally ends the ${
-          isDivorce ? 'marriage' : 'civil partnership'
-        }. You cannot apply for a final order until 6 weeks after the conditional order.`,
+    step1: {
+      heading: 'Apply for a conditional order',
+      body: `This shows that the court agrees that you’re entitled to ${
+        isDivorce ? 'get a divorce' : 'end your civil partnership'
+      }.`,
+    },
+    step2: {
+      heading: 'Apply for a final order',
+      body: `This legally ends the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }. You cannot apply for a final order until 6 weeks after the conditional order.`,
+    },
   },
   moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'

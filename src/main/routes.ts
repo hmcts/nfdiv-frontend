@@ -10,11 +10,12 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { cookieMaxAge } from './modules/session';
-import { stepsWithContent } from './steps';
+import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
@@ -29,6 +30,7 @@ import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
+  APPLICATION_SUBMITTED,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
@@ -56,7 +58,7 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
-    app.get([HOME_URL, APPLICANT_2], errorHandler(new HomeGetController().get));
+    app.get([HOME_URL, APPLICANT_2, RESPONDENT], errorHandler(new HomeGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
@@ -72,11 +74,12 @@ export class Routes {
 
     const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
       const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if ((isApp2Route && !req.session.isApplicant2) || (!isApp2Route && req.session.isApplicant2)) {
+      if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
         return res.redirect('/error');
       }
       next();
     };
+
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
@@ -103,6 +106,7 @@ export class Routes {
     );
 
     app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
+    app.get(APPLICATION_SUBMITTED, errorHandler(new ApplicationSubmittedGetController().get));
 
     app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(

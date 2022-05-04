@@ -248,7 +248,7 @@ Feature: Applicant 1 joint application
     Then the page should include "Enter your name"
     Given I select "Your first name"
     And I type "Sarah"
-    And I select "Your middle name"
+    And I select "Your middle name(s) (if you have one)"
     And I type "Middle"
     And I select "Your last name"
     And I type "Smith"
@@ -278,10 +278,6 @@ Feature: Applicant 1 joint application
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I select "Enter your phone number (optional)"
     And I type "123456789"
-
-    When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
 
     When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"

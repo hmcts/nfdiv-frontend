@@ -17,20 +17,14 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import {
-  APPLICANT_2,
-  LEGAL_JURISDICTION_OF_THE_COURTS,
-  RESPONDENT,
-  WHERE_YOUR_LIVES_ARE_BASED_URL,
-  YOUR_NAME,
-} from '../../main/steps/urls';
+import { CHECK_JURISDICTION, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
 
 Before(test => {
   // Retry failed scenarios x times
-  test.retries(2);
+  test.retries(3);
 });
 
 After(async () => {
@@ -67,6 +61,10 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iWait = (time: number): void => {
+  I.wait(time);
+};
+
 export const iClickMoreDetailsComponent = (): void => {
   I.click("span[class='govuk-details__summary-text']");
 };
@@ -74,6 +72,7 @@ export const iClickMoreDetailsComponent = (): void => {
 When('I click {string}', iClick);
 When('I select {string}', iClick);
 When('I click for more details', iClickMoreDetailsComponent);
+When('I wait {string} seconds', iWait);
 
 export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
@@ -93,10 +92,6 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
-Then('I wait until the page contains {string}', (text: string) => {
-  I.waitForText(text, 15);
-});
-
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });
@@ -111,14 +106,6 @@ Then("I wait until the page doesn't contain {string}", (text: string) => {
 
 Then('the form input {string} should be {string}', (formInput: string, value: string) => {
   I.seeInField(formInput, value);
-});
-
-Then('{string} should be ticked', (text: string) => {
-  I.seeCheckboxIsChecked(text);
-});
-
-Then('I cannot go back to the previous page', () => {
-  I.dontSeeElement('a.govuk-back-link');
 });
 
 Then('I type {string}', (text: string) => {
@@ -145,24 +132,10 @@ export const iClearTheForm = async (): Promise<void> => {
 };
 Given('I clear the form', iClearTheForm);
 
-Given("I've said I'm applying as a sole application", async () => {
-  I.amOnPage('/how-do-you-want-to-apply');
-  await iClearTheForm();
-  I.checkOption('I want to apply on my own, as a sole applicant');
-  I.click('Continue');
-});
-
 Given("I've said I'm applying as a joint application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
   await iClearTheForm();
   I.checkOption('I want to apply jointly');
-  I.click('Continue');
-});
-
-Given("I've said I'm divorcing my husband", async () => {
-  I.amOnPage('/your-details');
-  await iClearTheForm();
-  I.checkOption('My husband');
   I.click('Continue');
 });
 
@@ -196,7 +169,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage('/applicant2/enter-your-access-code');
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -213,12 +186,7 @@ When('I enter my valid case reference and valid access code', async () => {
   }
 
   iClick('Sign out');
-  await login('citizenSingleton');
-
-  await I.grabCurrentUrl();
-
-  I.amOnPage('/applicant2/enter-your-access-code');
-  await iClearTheForm();
+  await login('citizenApplicant2');
 
   iClick('Your reference number');
   I.type(caseReference);
@@ -246,6 +214,23 @@ When('a superuser updates {string} with {string}', async (field: string, value: 
 });
 
 When('I pause the test', () => pause());
+
+When('I reset the jurisdiction connections', async () => {
+  const userCaseObj = {
+    connections: null,
+    applicant1LifeBasedInEnglandAndWales: null,
+    applicant2LifeBasedInEnglandAndWales: null,
+    applicant1DomicileInEnglandWales: null,
+    applicant2DomicileInEnglandWales: null,
+    bothLastHabituallyResident: null,
+    applicant1LivingInEnglandWalesTwelveMonths: null,
+    applicant1LivingInEnglandWalesSixMonths: null,
+    jurisdictionResidualEligible: null,
+  };
+  await executeUserCaseScript(userCaseObj);
+  I.amOnPage(CHECK_JURISDICTION);
+  I.click('Continue');
+});
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   I.amOnPage('/applicant2/enter-your-access-code');
@@ -291,6 +276,7 @@ export const iGetTheTestUser = async (user: { username: string; password: string
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
+    roles: jwt.roles,
   };
 };
 
@@ -303,20 +289,17 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, WHERE_YOUR_LIVES_ARE_BASED_URL);
+  executeUserCaseScript(userCaseObj);
 
-export const iSetApp2UsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, APPLICANT_2 + YOUR_NAME);
-
-export const iSetRespondentUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj, RESPONDENT + LEGAL_JURISDICTION_OF_THE_COURTS);
-
-const executeUserCaseScript = async (data, redirectPageLink: string) => {
+const executeUserCaseScript = async data => {
   await I.grabCurrentUrl();
 
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const api = iGetTheCaseApi(testUser);
+
+  // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
+  await new Promise(resolve => setTimeout(resolve, 5000));
   const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
 
   data.applicant2MiddleNames = data.state || userCase.state;
@@ -333,11 +316,6 @@ const executeUserCaseScript = async (data, redirectPageLink: string) => {
     console.error(toApiFormat(data));
     process.exit(-1);
   }
-
-  I.amOnPage('/logout');
-  await autoLogin.login(I, user.username);
-
-  I.amOnPage(redirectPageLink);
 };
 
 export interface BrowserCase extends Case {

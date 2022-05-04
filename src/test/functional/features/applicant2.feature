@@ -95,12 +95,15 @@ Feature: Applicant 2
 
     Given I click "Sign out"
     And I login with applicant "1"
-    And I go to '/confirm-your-joint-application'
+    Then the page URL should be "/confirm-your-joint-application"
     And I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
+    Then the page should include "Application submitted"
+    Given I click "Sign out"
+    And I login with applicant "2"
     Then the page should include "Application submitted"
 
 
@@ -281,7 +284,7 @@ Feature: Applicant 2
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     When I go to "/applicant2/upload-your-documents"
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files

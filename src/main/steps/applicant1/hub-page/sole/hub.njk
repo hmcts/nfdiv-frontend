@@ -1,8 +1,11 @@
 {% set readMoreContent %}
   <p class="govuk-body">{{ readMoreSummary }}</p>
   <ol class="govuk-list govuk-list--number">
-    {% for property, line in readMoreSteps %}
-      <li>{{ line | safe }}</li>
+    {% for stepName, stepText in readMoreSteps %}
+      <li>
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ stepText.heading }}</h3>
+        <p class="govuk-body">{{ stepText.body }}</p>
+      </li>
     {% endfor %}
   </ol>
   {% if currentState.isBefore('AwaitingConditionalOrder') %}

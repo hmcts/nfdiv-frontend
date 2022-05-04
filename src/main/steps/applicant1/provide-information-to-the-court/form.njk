@@ -1,0 +1,55 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "common/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/form/form.njk"%}
+
+{% set conditionalText %}
+  <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
+  {{ serviceAddressMacro(serviceAddress, 'heading')  }}
+{% endset %}
+
+{% set coCannotUploadClarificationDocuments %}
+  {{ govukCheckboxes({
+    idPrefix: 'coCannotUploadClarificationDocuments',
+    name: 'coCannotUploadClarificationDocuments',
+    fieldset: {
+      legend: {
+        text: cannotUploadDocuments,
+        classes: "govuk-visually-hidden"
+      }
+    },
+    items: [{
+        name: 'coCannotUploadClarificationDocuments',
+        text: cannotUploadDocuments,
+        value: 'checked',
+        checked: userCase.applicant1ConfirmInformationStillCorrect == 'No',
+        conditional: {
+          html: conditionalText
+        }
+    }],
+    errorMessage: getError('coCannotUploadClarificationDocuments'),
+    formGroup: {
+      classes: 'coCannotUploadClarificationDocuments'
+    }
+  }) }}
+{% endset %}
+
+{% block form_content %}
+
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'coCannotUploadClarificationDocuments' %}
+      {{ coCannotUploadClarificationDocuments | safe }}
+    {% else %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+
+      {% if fieldName == 'coClarificationResponses' %}
+        <br>
+        <h4 class="govuk-heading-s">{{ uploadTitle }}</h4>
+        <p class="govuk-body">{{ line5 }}</p>
+        {% include "../upload-your-documents/document-upload.njk" %}
+      {% endif %}
+
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}

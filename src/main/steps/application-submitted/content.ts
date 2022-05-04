@@ -1,11 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { isCountryUk } from '../../applicant1Sequence';
-import type { CommonContent } from '../../common/common.content';
-import { StateSequence } from '../../state-sequence';
+import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/definition';
+import { TranslationFn } from '../../app/controller/GetController';
+import { isCountryUk } from '../applicant1Sequence';
+import type { CommonContent } from '../common/common.content';
+import { formattedCaseId } from '../common/content.utils';
+import { currentStateFn } from '../state-sequence';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
   title: 'Application submitted',
@@ -44,13 +45,6 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
   },
-  address: {
-    line1: `${config.get('serviceAddress.line1')}`,
-    line2: `${config.get('serviceAddress.line2')}`,
-    poBox: `${config.get('serviceAddress.poBox')}`,
-    town: `${config.get('serviceAddress.town')}`,
-    postcode: `${config.get('serviceAddress.postcode')}`,
-  },
   documentsByPostMoreDetails:
     'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
@@ -70,7 +64,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and Help With Fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by${dayjs(userCase.dateSubmitted)
+  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
     .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
@@ -148,13 +142,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
-  const currentState = new StateSequence([
-    State.Submitted,
-    State.AwaitingApplicant2Response,
-    State.AwaitingLegalAdvisorReferral,
-    State.FinalOrderComplete,
-  ]).at(content.userCase.state as State);
-  const referenceNumber = userCase.id?.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+  const currentState = currentStateFn(userCase);
+  const referenceNumber = formattedCaseId(userCase.id);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
@@ -165,6 +154,10 @@ export const generateContent: TranslationFn = content => {
     !isRespondentOverseas &&
     !userCase.iWantToHavePapersServedAnotherWay &&
     !hasASolicitorContactForPartner;
+  const cannotUploadDocuments = new Set([
+    ...(userCase.applicant1CannotUploadDocuments || []),
+    ...(userCase.applicant2CannotUploadDocuments || []),
+  ]);
   return {
     ...languages[language]({ ...content, referenceNumber }),
     currentState,
@@ -173,5 +166,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentOverseas,
     applicationServedAnotherWay,
     referenceNumber,
+    cannotUploadDocuments,
   };
 };

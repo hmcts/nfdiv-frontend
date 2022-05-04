@@ -1,63 +1,44 @@
 import { State } from '../../main/app/case/definition';
-import {
-  APPLICANT_2,
-  APPLY_FINANCIAL_ORDER,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOW_DO_YOU_WANT_TO_RESPOND,
-  RESPONDENT,
-} from '../../main/steps/urls';
+import { ADDRESS_PRIVATE, HOME_URL } from '../../main/steps/urls';
+import { autoLogin, config as testConfig } from '../config';
 
-import {
-  checkOptionFor,
-  iAmOnPage,
-  iClearTheForm,
-  iClick,
-  iSetApp2UsersCaseTo,
-  iSetRespondentUsersCaseTo,
-  iSetTheUsersCaseTo,
-} from './common';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo } from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
+  I.amOnPage(HOME_URL);
   const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
 
   await iSetTheUsersCaseTo(fixtureJson);
 
-  const url = await I.grabCurrentUrl();
-  I.amOnPage(APPLY_FINANCIAL_ORDER);
-  iClick('Continue');
-  I.amOnPage(url);
+  I.amOnPage(ADDRESS_PRIVATE);
+  I.click('I do not need my contact details kept private');
+  I.click('Continue');
 });
 
+Given(
+  "I've already completed the form using the fixture {string} for {string}",
+  async (fixture: string, applicant: string) => {
+    const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+    await iSetTheUsersCaseTo(fixtureJson);
+
+    I.amOnPage(`/${applicant}` + ADDRESS_PRIVATE);
+    I.click('I do not need my contact details kept private');
+    I.click('Continue');
+  }
+);
+
 Given('I set the case state to {string}', async (state: State) => {
+  const user = testConfig.GetCurrentUser();
   await iSetTheUsersCaseTo({
     state,
   });
   await I.grabCurrentUrl();
-});
-
-Given("I've already completed the form using the fixture {string} for applicant 2", async (fixture: string) => {
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
-
-  await iSetApp2UsersCaseTo(fixtureJson);
-
-  const url = await I.grabCurrentUrl();
-  I.amOnPage(APPLICANT_2 + HAS_RELATIONSHIP_BROKEN_URL);
-  iClick('Continue');
-  I.amOnPage(url);
-});
-
-Given("I've already completed the form using the fixture {string} for respondent", async (fixture: string) => {
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
-
-  await iSetRespondentUsersCaseTo(fixtureJson);
-
-  const url = await I.grabCurrentUrl();
-  I.amOnPage(RESPONDENT + HOW_DO_YOU_WANT_TO_RESPOND);
-  iClick('Continue');
-  I.amOnPage(url);
+  I.amOnPage('/logout');
+  await autoLogin.login(I, user.username);
 });
 
 Given("I've completed all happy path questions correctly", async () => {
@@ -139,10 +120,6 @@ Given("I've completed all happy path questions correctly", async () => {
   I.waitInUrl('/how-the-court-will-contact-you');
   iClearTheForm();
   iClick('I agree that the divorce service can send me notifications');
-  iClick('Continue');
-
-  I.waitInUrl('/english-or-welsh');
-  iClick('English');
   iClick('Continue');
 
   I.waitInUrl('/address-private');

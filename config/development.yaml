@@ -1,0 +1,3 @@
+services:
+  case:
+    checkDivCases: false

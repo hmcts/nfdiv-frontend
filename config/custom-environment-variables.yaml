@@ -9,6 +9,7 @@ services:
     clientSecret: IDAM_SECRET
   case:
     url: CCD_URL
+    checkDivCases: SKIP_DIV_CASE_CHECK
   payments:
     url: PAYMENTS_API_URL
   fees:
@@ -28,3 +29,7 @@ e2e:
   userTestPassword: TEST_PASSWORD
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
+webchat:
+  avayaUrl: WEBCHAT_AVAYA_URL
+  avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
+  avayaService: WEBCHAT_AVAYA_SERVICE

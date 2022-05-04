@@ -1,12 +1,13 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { ChangedNameHow, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 
 const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -30,13 +31,13 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
       'You should upload at least one clear image which shows the whole document. If you think it will help court staff read the details you can upload more images. If your document has more than one page then you should upload at least one image of each page.',
     uploadFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
-    chooseFilePhoto: 'Choose a file or take a photo',
+    chooseFilePhoto: 'Choose a file',
     orStr: 'or',
     dragDropHere: 'Drag and drop files here',
     acceptedFileFormats: 'Accepted file formats:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Maximum file size:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'I cannot upload some or all of my documents',
     cannotUploadWhich: 'Which document can you not upload?',
     checkAllThatApply: 'Select all that apply',
@@ -54,7 +55,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
           'You have not uploaded anything. Either upload your document or select that you cannot upload your documents.',
         errorUploading:
           'Your file was not uploaded because the service is experiencing technical issues. Try uploading your file again.',
-        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 10MB and try uploading it again.',
+        fileSizeTooBig: 'The file you have uploaded is too large. Reduce it to under 25MB and try uploading it again.',
         fileWrongFormat:
           'You cannot upload that format of file. Save the file as one of the accepted formats and try uploading it again.',
       },
@@ -94,7 +95,7 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     acceptedFileFormats: 'Fformatau ffeil a dderbynnir:',
     fileFormats: 'JPEG, TIFF, PNG, PDF',
     maximumFileSize: 'Uchafswm maint ffeil:',
-    fileSize: '10 MB',
+    fileSize: '25 MB',
     cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
     cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
     checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
@@ -148,8 +149,12 @@ export const form: FormContent = {
     }
 
     if (
-      userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      (userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+        userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES) &&
+      !(
+        userCase.applicant1NameChangedHow?.length === 1 &&
+        userCase.applicant1NameChangedHow[0] === ChangedNameHow.MARRIAGE_CERTIFICATE
+      )
     ) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
@@ -191,6 +196,7 @@ export const form: FormContent = {
                   name: 'applicant1CannotUpload',
                   label: l => l.cannotUploadDocuments,
                   value: Checkbox.Checked,
+                  conditionalText: l => l.cannotUploadYouCanPost,
                   subFields: {
                     applicant1CannotUploadDocuments: {
                       type: 'checkboxes',
@@ -200,7 +206,6 @@ export const form: FormContent = {
                         name: 'applicant1CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
-                        conditionalText: l => l.cannotUploadYouCanPost,
                       })),
                     },
                   },
@@ -240,15 +245,24 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
+  const applicant1HasChangedName =
+    content.userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
+    content.userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
   }`;
+  const infoTakePhotoAccessibleSpan = accessibleDetailsSpan(
+    translations['infoTakePhoto'],
+    'More information about how ' + translations['infoTakePhoto']
+  );
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
     uploadContentScript,
+    infoTakePhotoAccessibleSpan,
+    applicant1HasChangedName,
   };
 };

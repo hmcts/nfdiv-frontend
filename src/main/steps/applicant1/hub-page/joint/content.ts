@@ -24,10 +24,11 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
      A conditional order is a document that says the court does not see any reason why you cannot ${
        isDivorce ? 'get a divorce' : 'end your civil partnership'
      }.`,
-    line3: `You can apply for a conditional order on ${userCase.dueDate}.
-     This is because you have to wait until 20 weeks from when the ${
-       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-     } was issued.
+    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
+      .add(config.get('dates.issueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } was issued.
       You will receive an email to remind you.`,
   },
   confirmReceipt: 'Confirm receipt',
@@ -75,13 +76,15 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       : 'What you need to do',
   clarificationSubmitted: {
     withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${userCase.dueDate} after the court has reviewed it.`,
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.issueDate
+      )
+        .add(config.get('dates.issueDateOffsetDays'), 'day')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
       line2: 'This was the court’s feedback, explaining the information which was needed:',
     },
     withoutDocuments: {
       line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line2:
-        '<strong>HMCTS Divorce and Dissolution Service</strong><br>' + 'PO Box 13226<br>' + 'HARLOW<br>' + 'CM20 9UG',
       line3: 'This is the feedback the court gave, which explains what documents you need to send:',
       line4: 'You will receive an update when your documents have been received and checked.',
     },

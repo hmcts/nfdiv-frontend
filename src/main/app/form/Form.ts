@@ -145,6 +145,7 @@ export interface FormOptions {
   label?: Label;
   labelHidden?: boolean;
   labelSize?: string | null;
+  labelAttributes?: Record<string, string>;
   hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
@@ -158,6 +159,7 @@ export interface FormInput {
   label: Label;
   hint?: Label;
   classes?: string;
+  autocomplete?: string;
   hidden?: boolean;
   selected?: boolean;
   value?: string | number;

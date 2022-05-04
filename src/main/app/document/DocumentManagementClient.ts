@@ -1,4 +1,5 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import config from 'config';
 import FormData from 'form-data';
 
 import type { UserDetails } from '../controller/AppRequest';
@@ -31,7 +32,13 @@ export class DocumentManagementClient {
     }
 
     const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
-      headers: { ...formData.getHeaders(), 'user-id': this.user.id },
+      headers: {
+        ...formData.getHeaders(),
+        'user-id': this.user.id,
+      },
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
+      timeout: config.get<number>('uploadTimeout'),
     });
     return response.data?._embedded?.documents || [];
   }

@@ -8,7 +8,7 @@ const en = () => {
     title: 'Enter your name',
     line1: 'The court needs to know your full name.',
     firstNames: 'Your first name(s)',
-    middleNames: 'Your middle name(s)',
+    middleNames: 'Your middle name(s) (if you have one)',
     lastNames: 'Your last name(s)',
     errors: {
       applicant1FirstNames: {
@@ -36,6 +36,7 @@ export const form: FormContent = {
       label: l => l.firstNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'given-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     applicant1MiddleNames: {
@@ -43,6 +44,7 @@ export const form: FormContent = {
       label: l => l.middleNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'middle-name',
       validator: isFieldLetters,
     },
     applicant1LastNames: {
@@ -50,6 +52,7 @@ export const form: FormContent = {
       label: l => l.lastNames,
       labelSize: 'normal',
       classes: 'govuk-input--width-20',
+      autocomplete: 'last-name',
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
   },

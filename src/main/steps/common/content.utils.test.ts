@@ -1,8 +1,15 @@
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { Gender } from '../../app/case/definition';
 
-import { en } from './common.content';
-import { getAppSolAddressFields, getPartner, getSelectedGender, getServiceName } from './content.utils';
+import { CommonContent, en } from './common.content';
+import {
+  formattedCaseId,
+  getAppSolAddressFields,
+  getApplicant1PartnerContent,
+  getPartner,
+  getSelectedGender,
+  getServiceName,
+} from './content.utils';
 
 describe('content.utils', () => {
   test.each([
@@ -54,6 +61,26 @@ describe('content.utils', () => {
   });
 
   test.each([
+    [Checkbox.Checked, 'husband', 'husband'],
+    [Checkbox.Unchecked, 'wife', 'husband'],
+    [Checkbox.Unchecked, 'civil partner', 'civil partner'],
+    [Checkbox.Checked, 'civil partner', 'civil partner'],
+  ])('should return partner', (sameSex, partner, expected) => {
+    const content = {
+      husband: 'husband',
+      wife: 'wife',
+      civilPartner: 'civil partner',
+      userCase: {},
+    } as CommonContent;
+
+    content.userCase.sameSex = sameSex;
+    content.partner = partner;
+
+    const applicant1Partner = getApplicant1PartnerContent(content);
+    expect(applicant1Partner).toBe(expected);
+  });
+
+  test.each([
     ['applicant1' as const, '', { applicant1Address1: 'Buckingham Palace', applicant1AddressPostcode: 'SW1A 1AA' }],
     [
       'applicant1' as const,
@@ -79,5 +106,13 @@ describe('content.utils', () => {
 
     expect(addressFields).toContain(userCase[`${applicant}${solPrefix}Address1`]);
     expect(addressFields).toContain(userCase[`${applicant}${solPrefix}AddressPostcode`]);
+  });
+
+  test('should format caseId', () => {
+    const caseId = '1111222233334444';
+
+    const actual = formattedCaseId(caseId);
+
+    expect(actual).toEqual('1111-2222-3333-4444');
   });
 });

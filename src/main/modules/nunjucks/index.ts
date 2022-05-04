@@ -59,16 +59,17 @@ export class Nunjucks {
                 warning: this.ctx.warning,
               }),
             };
+          } else if (i.subFields) {
+            return {
+              html:
+                env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                  ...this.ctx,
+                  form: { fields: i.subFields },
+                }) + (i.conditionalText ? this.env.globals.getContent.call(this, i.conditionalText) : ''),
+            };
           } else if (i.conditionalText) {
             return {
               html: this.env.globals.getContent.call(this, i.conditionalText),
-            };
-          } else if (i.subFields) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                ...this.ctx,
-                form: { fields: i.subFields },
-              }),
             };
           } else {
             return undefined;

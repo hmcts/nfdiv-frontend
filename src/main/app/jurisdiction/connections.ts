@@ -71,7 +71,12 @@ export const allowedToAnswerResidualJurisdiction = (
     (data.sameSex === Checkbox.Checked || data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) &&
     data.bothLastHabituallyResident === YesOrNo.NO &&
     (!previousConnectionMadeUptoLastHabituallyResident(data, connections) ||
-      (connections.length === 1 && connections.includes(JurisdictionConnections.RESIDUAL_JURISDICTION)))
+      (connections.length === 1 &&
+        connections.some(c =>
+          [JurisdictionConnections.RESIDUAL_JURISDICTION_CP, JurisdictionConnections.RESIDUAL_JURISDICTION_D].includes(
+            c
+          )
+        )))
   );
 };
 
@@ -87,9 +92,7 @@ export const previousConnectionMadeUptoLastHabituallyResident = (
 };
 
 const hasResidualJurisdiction = (data, connections) => {
-  return (
-    allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === Checkbox.Checked
-  );
+  return allowedToAnswerResidualJurisdiction(data, connections) && data.jurisdictionResidualEligible === YesOrNo.YES;
 };
 
 export const addConnectionsBasedOnQuestions = (data: Partial<CaseWithId>): JurisdictionConnections[] => {
@@ -101,7 +104,11 @@ export const addConnectionsBasedOnQuestions = (data: Partial<CaseWithId>): Juris
     connections.push(JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT);
   }
   if (onlyApplicant2HabituallyResident(data)) {
-    connections.push(JurisdictionConnections.APP_2_RESIDENT);
+    if (data.applicationType === ApplicationType.SOLE_APPLICATION) {
+      connections.push(JurisdictionConnections.APP_2_RESIDENT_SOLE);
+    } else {
+      connections.push(JurisdictionConnections.APP_2_RESIDENT_JOINT);
+    }
   }
   if (onlyApplicant1HabituallyResidentInJointApplication(data)) {
     connections.push(JurisdictionConnections.APP_1_RESIDENT_JOINT);
@@ -120,7 +127,11 @@ export const addConnectionsBasedOnQuestions = (data: Partial<CaseWithId>): Juris
     connections.push(JurisdictionConnections.APP_1_APP_2_DOMICILED);
   }
   if (hasResidualJurisdiction(data, connections)) {
-    connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION);
+    if (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) {
+      connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION_CP);
+    } else {
+      connections.push(JurisdictionConnections.RESIDUAL_JURISDICTION_D);
+    }
   }
   if (isOnlyApplicant1Domiciled(data)) {
     connections.push(JurisdictionConnections.APP_1_DOMICILED);

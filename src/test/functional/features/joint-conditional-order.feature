@@ -8,7 +8,7 @@ Feature: Joint conditional order
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant 2
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to "/applicant2/confirm-your-joint-application"
     Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
@@ -138,10 +138,3 @@ Feature: Joint conditional order
 
     When I click "Continue"
     Then the page URL should be "/applicant2/hub-page"
-# TODO implement when hub page is merged
-#    And the page should include "You have provided the information requested by the court."
-#
-#    Given I click "Sign out"
-#    And I login with applicant "1"
-#    Then the page should include "Your husband has provided the information requested by the court."
-#    And the page should include "This was the court’s feedback, explaining the information which was needed"

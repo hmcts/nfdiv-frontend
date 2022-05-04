@@ -1,3 +1,4 @@
 services:
   case:
     url: 'http://localhost:4452'
+    checkDivCases: false

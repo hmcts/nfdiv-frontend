@@ -42,6 +42,7 @@ export const en = {
   partner: 'spouse',
   civilPartner: 'civil partner',
   checkTheirAnswersPartner: 'partner for check their answers',
+  applicant1Partner: 'applicant 1 partner',
   withHim: 'with him',
   withHer: 'with her',
   months: [
@@ -101,8 +102,16 @@ export const en = {
   helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
   helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
-  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.',
+  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 4:00pm.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  serviceAddress: {
+    line1: 'Courts and Tribunals Service Centre',
+    line2: 'HMCTS Divorce and Dissolution service',
+    poBox: 'PO Box 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
+  },
+  servicePhoneNo: '0300 303 0642',
 };
 
 const cy: typeof en = {
