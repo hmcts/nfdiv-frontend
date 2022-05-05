@@ -2,9 +2,9 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import {
   CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
   CITIZEN_UPDATE,
   CITIZEN_UPDATE_CONTACT_DETAILS,
-  CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2,
   State,
   YesOrNo,
 } from '../../../app/case/definition';
@@ -88,7 +88,7 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE_CONTACT_DETAILS);
   });
 
-  it('triggers CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2 for Applicant 2 and cases not in Draft, AwaitingApplicant1Response or AwaitingApplicant2Response state', async () => {
+  it('triggers CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS for Applicant 2 and cases not in Draft, AwaitingApplicant1Response or AwaitingApplicant2Response state', async () => {
     const body = {
       applicant2PhoneNumber: YesOrNo.YES,
     };
@@ -100,6 +100,6 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     const res = mockResponse();
     await citizenUpdateContactDetailsPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE_CONTACT_DETAILS_APPLICANT2);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS);
   });
 });
