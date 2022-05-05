@@ -22,6 +22,13 @@ cookieManager.on('UserPreferencesSaved', preferences => {
   }
 });
 
+cookieManager.on('PreferenceFormSubmitted', () => {
+  const message = document.querySelector('.cookie-preference-success') as HTMLElement;
+  message.style.display = 'block';
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+});
+
 cookieManager.init({
   userPreferences: {
     cookieName: 'nfdiv-cookie-preferences',
