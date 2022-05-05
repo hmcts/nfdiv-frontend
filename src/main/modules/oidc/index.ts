@@ -17,8 +17,9 @@ import {
   SIGN_IN_URL,
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
-  noSignInRequiredUrls,
 } from '../../steps/urls';
+
+import { noSignInRequiredUrls } from './noSignInRequiredUrls';
 
 /**
  * Adds the oidc middleware to add oauth authentication

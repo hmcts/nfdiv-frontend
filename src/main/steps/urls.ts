@@ -125,11 +125,3 @@ export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-
 
 export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-application';
 export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
-
-export const noSignInRequiredUrls = [
-  ACCESSIBILITY_STATEMENT_URL,
-  WEBCHAT_URL,
-  PRIVACY_POLICY_URL,
-  TERMS_AND_CONDITIONS_URL,
-  COOKIES_URL,
-];
