@@ -33,9 +33,6 @@ cookieManager.init({
   userPreferences: {
     cookieName: 'nfdiv-cookie-preferences',
   },
-  preferencesForm: {
-    class: 'cookie-preferences-form',
-  },
   cookieManifest: [
     {
       categoryName: 'essential',
@@ -51,28 +48,6 @@ cookieManager.init({
       cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'dtValidationCookie', 'dtDisabled', 'rxVisitor', 'rxvt'],
     },
   ],
-  cookieBanner: {
-    class: 'cookie-banner',
-    showWithPreferencesForm: false,
-    actions: [
-      {
-        name: 'accept',
-        buttonClass: 'cookie-banner-accept-button',
-        confirmationClass: 'cookie-banner-accept-message',
-        consent: true,
-      },
-      {
-        name: 'reject',
-        buttonClass: 'cookie-banner-reject-button',
-        confirmationClass: 'cookie-banner-reject-message',
-        consent: false,
-      },
-      {
-        name: 'hide',
-        buttonClass: 'cookie-banner-hide-button',
-      },
-    ],
-  },
 });
 
 declare global {
