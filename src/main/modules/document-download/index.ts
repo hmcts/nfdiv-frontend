@@ -28,9 +28,10 @@ export class DocumentDownloadMiddleware {
     const dmStoreProxyForRespondentAnswersPdf = {
       endpoints: ['/downloads/respondent-answers'],
       path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
-        )?.value.documentLink.document_binary_url;
+        return req.session.userCase.documentsGenerated
+          .concat(req.session.userCase.documentsUploaded)
+          .find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)?.value.documentLink
+          .document_binary_url;
       },
     };
 
