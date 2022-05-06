@@ -3,8 +3,9 @@ import ConnectRedis from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
-import * as redis from 'redis';
 import FileStoreFactory from 'session-file-store';
+
+const { createClient } = require('redis');
 
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
@@ -29,24 +30,26 @@ export class SessionStorage {
           secure: !app.locals.developmentMode,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
-        store: this.getStore(app),
+        store: SessionStorage.getStore(app),
       })
     );
   }
 
-  private getStore(app: Application) {
+  private static getStore(app: Application) {
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
-      const client = redis.createClient({
-        host: redisHost as string,
+      const redisClient = createClient({
+        socket: {
+          host: redisHost as string,
+          port: 6380,
+          tls: true,
+          connectTimeout: 15000,
+        },
         password: config.get('session.redis.key') as string,
-        port: 6380,
-        tls: true,
-        connect_timeout: 15000,
       });
 
-      app.locals.redisClient = client;
-      return new RedisStore({ client });
+      app.locals.redisClient = redisClient;
+      return new RedisStore({ client: redisClient });
     }
 
     return new FileStore({ path: '/tmp' });
