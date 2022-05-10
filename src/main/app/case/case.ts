@@ -83,6 +83,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
   applicant2DocumentsUploaded: 'applicant2DocumentsUploaded',
   documentsGenerated: 'documentsGenerated',
+  documentsUploaded: 'documentsUploaded',
   respondentUserId: 'applicant2UserId',
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
@@ -232,6 +233,7 @@ export interface Case {
   applicant1UploadedFiles?: UploadedFile[];
   applicant2UploadedFiles?: UploadedFile[];
   documentsGenerated: ListValue<DivorceDocument>[];
+  documentsUploaded: ListValue<DivorceDocument>[];
   applicant1DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2DocumentsUploaded?: ListValue<Partial<DivorceDocument> | null>[];
   applicant1CannotUpload?: Checkbox;
