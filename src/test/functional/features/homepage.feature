@@ -8,7 +8,7 @@ Feature: Homepage
 
   Scenario: Load divorce homepage with footer links then save and sign out
     When I click "Accessibility statement"
-    Then the page should include "We want as many people as possible to be able to use this website"
+    Then the page should include "This accessibility statement applies to the website available at"
     Given I go to "/your-details"
     When I click "Privacy policy"
     Then the page should include "This privacy policy explains why we collect your personal data"
@@ -18,9 +18,6 @@ Feature: Homepage
     Given I go to "/your-details"
     When I click "Cookies"
     Then the page should include "A cookie is a small piece of data that’s stored on your computer"
-    Given I go to "/your-details"
-    When I click "Accessibility statement"
-    Then the page should include "We want as many people as possible to be able to use this website"
 
     Given I go to "your-details"
     And I click "Save and sign out"

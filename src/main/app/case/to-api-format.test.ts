@@ -1,6 +1,7 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
   Applicant2Represented,
+  ApplicationType,
   ChangedNameHow,
   ContactDetailsType,
   DivorceOrDissolution,
@@ -17,6 +18,7 @@ import { OrNull, toApiFormat } from './to-api-format';
 describe('to-api-format', () => {
   const results: OrNull<Partial<Case>> = {
     gender: Gender.MALE,
+    applicationType: ApplicationType.SOLE_APPLICATION,
     sameSex: Checkbox.Checked,
     relationshipDate: { year: '1900', month: '1', day: '4' },
     applicant1HelpPayingNeeded: YesOrNo.YES,
@@ -113,6 +115,7 @@ describe('to-api-format', () => {
       marriageFormationType: MarriageFormation.SAME_SEX_COUPLE,
       applicant2Gender: Gender.MALE,
       applicant1Gender: Gender.MALE,
+      applicationType: ApplicationType.SOLE_APPLICATION,
       marriageDate: '1900-01-04',
       applicant1HWFNeedHelp: YesOrNo.YES,
       applicant1HWFAppliedForFees: YesOrNo.YES,
@@ -134,7 +137,9 @@ describe('to-api-format', () => {
       applicant2LanguagePreferenceWelsh: 'No',
       applicant2ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1CannotUploadSupportingDocument: [],
+      applicant1CannotUpload: 'No',
       applicant2CannotUploadSupportingDocument: [],
+      applicant2CannotUpload: 'No',
       applicant1PrayerDissolveDivorce: [],
       applicant1PrayerEndCivilPartnership: [EndCivilPartnership.END_CIVIL_PARTNERSHIP],
       applicant1PrayerFinancialOrdersChild: [],
@@ -206,7 +211,9 @@ describe('to-api-format', () => {
       applicant1NameChangedHow: [],
       applicant2NameChangedHow: [],
       applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
+      applicant1CannotUpload: YesOrNo.YES,
       applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
+      applicant2CannotUpload: YesOrNo.YES,
       applicant1FinancialOrder: YesOrNo.YES,
       applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2FinancialOrder: YesOrNo.NO,
@@ -349,6 +356,17 @@ describe('to-api-format', () => {
       expected: {
         applicant1KnowsApplicant2Address: YesOrNo.YES,
         applicant1WantsToHavePapersServedAnotherWay: null,
+      },
+    },
+    {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+      expected: {
+        applicationType: ApplicationType.JOINT_APPLICATION,
+        applicant1IsApplicant2Represented: null,
+        applicant2SolicitorName: null,
+        applicant2SolicitorEmail: null,
+        applicant2SolicitorFirmName: null,
+        applicant2SolicitorAddress: null,
       },
     },
     {

@@ -3,6 +3,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
   Applicant2Represented,
+  ApplicationType,
   CaseData,
   ChangedNameHow,
   ContactDetailsType,
@@ -81,6 +82,18 @@ const fields: ToApiConverters = {
 
     return { applicant1Gender, applicant2Gender };
   },
+  applicationType: data => ({
+    applicationType: data.applicationType,
+    ...(data.applicationType === ApplicationType.JOINT_APPLICATION
+      ? setUnreachableAnswersToNull([
+          'applicant1IsApplicant2Represented',
+          'applicant2SolicitorName',
+          'applicant2SolicitorEmail',
+          'applicant2SolicitorFirmName',
+          'applicant2SolicitorAddress',
+        ])
+      : {}),
+  }),
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
   }),
@@ -148,6 +161,7 @@ const fields: ToApiConverters = {
         ? [data.applicant1CannotUploadDocuments]
         : data.applicant1CannotUploadDocuments
       : [],
+    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant2CannotUploadDocuments: data => ({
     applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments
@@ -155,6 +169,7 @@ const fields: ToApiConverters = {
         ? [data.applicant2CannotUploadDocuments]
         : data.applicant2CannotUploadDocuments
       : [],
+    applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),

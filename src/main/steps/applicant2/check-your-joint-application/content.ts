@@ -1,10 +1,9 @@
-import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
-import { CommonContent } from '../../common/common.content';
+import { getApplicant1PartnerContent } from '../../common/content.utils';
 
 const en = ({ checkTheirAnswersPartner, required }) => ({
   title: `Check your ${checkTheirAnswersPartner}'s answers`,
@@ -54,14 +53,6 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-};
-
-const getApplicant1PartnerContent = (content: CommonContent): string => {
-  if (content.userCase?.sameSex !== Checkbox.Checked && content.partner !== content.civilPartner) {
-    return content.partner === content.husband ? content.wife : content.husband;
-  } else {
-    return content.partner;
-  }
 };
 
 const languages = {

@@ -16,7 +16,7 @@ export class AccessCodePostController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(<FormFields>this.fields);
 
-    if (req.body.saveAndSignOut) {
+    if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
       return res.redirect(SIGN_OUT_URL);
     }
 
@@ -26,14 +26,17 @@ export class AccessCodePostController {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
-    formData.applicant2FirstNames = req.session.user.givenName;
-    formData.applicant2LastNames = req.session.user.familyName;
     formData.applicant2Email = req.session.user.email;
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
     try {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
+
+      if (caseData.applicationType === ApplicationType.JOINT_APPLICATION) {
+        formData.applicant2FirstNames = req.session.user.givenName;
+        formData.applicant2LastNames = req.session.user.familyName;
+      }
 
       if (caseData.accessCode !== formData.accessCode) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
