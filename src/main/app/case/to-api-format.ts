@@ -87,6 +87,7 @@ const fields: ToApiConverters = {
     ...(data.applicationType === ApplicationType.JOINT_APPLICATION
       ? setUnreachableAnswersToNull([
           'applicant1IsApplicant2Represented',
+          'applicant2SolicitorRepresented',
           'applicant2SolicitorName',
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
@@ -213,6 +214,8 @@ const fields: ToApiConverters = {
   }),
   applicant1IsApplicant2Represented: data => ({
     applicant1IsApplicant2Represented: data.applicant1IsApplicant2Represented,
+    applicant2SolicitorRepresented:
+      data.applicant1IsApplicant2Represented === Applicant2Represented.YES ? YesOrNo.YES : YesOrNo.NO,
     ...(data.applicant1IsApplicant2Represented !== Applicant2Represented.YES
       ? setUnreachableAnswersToNull([
           'applicant2SolicitorName',
@@ -222,6 +225,7 @@ const fields: ToApiConverters = {
         ])
       : {}),
   }),
+
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO

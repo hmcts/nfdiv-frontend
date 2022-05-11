@@ -275,6 +275,7 @@ export interface Case {
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
+  applicant2SolicitorRepresented?: YesOrNo;
   coRefusalClarificationAdditionalInfo?: string;
   dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
