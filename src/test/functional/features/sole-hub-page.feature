@@ -45,7 +45,7 @@ Feature: Sole hub page
 
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
-    Given I've already completed the form using the fixture "respondentCompleteCase" for respondent
+    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to '/respondent/check-your-answers'
     And I select "I confirm that:"
 

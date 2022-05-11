@@ -23,6 +23,7 @@ import {
   PAY_YOUR_FEE,
   READ_THE_RESPONSE,
   RESPONDENT,
+  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -45,7 +46,7 @@ export class HomeGetController {
     if (!req.session.isApplicant2) {
       res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
     } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req, isFirstQuestionComplete));
     } else {
       res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
     }
@@ -128,8 +129,33 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   }
 };
 
-const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
-  switch (caseState) {
+const respondentRedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
+  const nextIncompleteStepUrl = getNextIncompleteStepUrl(req);
+  const hasReviewedTheApplication = !nextIncompleteStepUrl.endsWith(REVIEW_THE_APPLICATION);
+  const isLastQuestionComplete = nextIncompleteStepUrl.endsWith(CHECK_ANSWERS_URL);
+  switch (req.session.userCase.state) {
+    case State.Holding:
+    case State.AwaitingConditionalOrder:
+    case State.IssuedToBailiff:
+    case State.AwaitingBailiffService:
+    case State.AwaitingBailiffReferral:
+    case State.AwaitingServiceConsideration:
+    case State.AwaitingServicePayment:
+    case State.AwaitingAlternativeService:
+    case State.AwaitingDwpResponse:
+    case State.AwaitingJudgeClarification:
+    case State.GeneralConsiderationComplete:
+    case State.AwaitingGeneralReferralPayment:
+    case State.AwaitingGeneralConsideration:
+    case State.GeneralApplicationReceived: {
+      if (isLastQuestionComplete) {
+        return HUB_PAGE;
+      } else if (hasReviewedTheApplication) {
+        return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
+      } else {
+        return REVIEW_THE_APPLICATION;
+      }
+    }
     case State.AosDrafted:
     case State.AosOverdue: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
