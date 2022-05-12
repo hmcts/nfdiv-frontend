@@ -33,7 +33,7 @@ export class GetController {
       isDivorce,
       isApplicant2,
       userCase,
-      userEmail: req.session?.user.email,
+      userEmail: req.session?.user?.email,
     });
 
     const sessionErrors = req.session?.errors || [];
