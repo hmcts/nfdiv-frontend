@@ -729,6 +729,25 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
   });
 
+  test('redirects to the how do you want to respond page for respondent users in holding state and aos is started but the first question not complete', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.Holding,
+          confirmReadPetition: Checkbox.Checked,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`);
+  });
+
   test('redirects to the how do you want to respond page for respondent users if first question not complete', () => {
     const req = mockRequest({
       session: {
