@@ -1,7 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, YesOrNo } from '../../app/case/definition';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
@@ -143,6 +143,9 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
   const currentState = currentStateFn(userCase);
+  const displayState = currentState.at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
   const referenceNumber = formattedCaseId(userCase.id);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
@@ -161,6 +164,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...languages[language]({ ...content, referenceNumber }),
     currentState,
+    displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
     isRespondentOverseas,

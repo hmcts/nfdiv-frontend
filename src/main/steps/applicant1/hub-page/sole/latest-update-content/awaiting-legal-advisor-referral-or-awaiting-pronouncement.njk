@@ -1,6 +1,6 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
-{% if userCase.state == 'AwaitingPronouncement' and isCoFieldsSet %}
+{% if displayState.state() == 'AwaitingPronouncement' and isCoFieldsSet %}
   <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
   {{ govukInsetText({
@@ -9,7 +9,7 @@
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
   {{ certificateOfEntitlementLineHtml | safe }}
 
-{% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' and not isCoFieldsSet %}
+{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
 {% endif %}

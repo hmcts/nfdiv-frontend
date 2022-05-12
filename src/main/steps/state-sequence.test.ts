@@ -22,4 +22,16 @@ describe('StateSequence', () => {
     const mockUserCase = { state: State.AwaitingPronouncement };
     expect(currentStateFn(mockUserCase).isAtOrBefore('AwaitingPronouncement')).toBeTruthy();
   });
+
+  test('Should return sequence with index pointing to current state', () => {
+    const mockUserCase = { state: State.AwaitingPronouncement };
+    expect(currentStateFn(mockUserCase).stateIndex).toEqual(
+      currentStateFn(mockUserCase).states.indexOf(State.AwaitingPronouncement)
+    );
+  });
+
+  test('Should return current state', () => {
+    const mockUserCase = { state: State.AwaitingPronouncement };
+    expect(currentStateFn(mockUserCase).state()).toEqual(State.AwaitingPronouncement);
+  });
 });

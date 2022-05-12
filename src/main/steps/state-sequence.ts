@@ -2,29 +2,34 @@ import { CaseWithId } from '../app/case/case';
 import { State } from '../app/case/definition';
 
 export class StateSequence {
-  states: string[];
+  states: State[];
   stateIndex: number;
 
-  constructor(readonly stateList: string[]) {
+  constructor(readonly stateList: State[]) {
     this.states = stateList;
     this.stateIndex = 0;
   }
 
-  public at(currentState: string): StateSequence {
-    this.stateIndex = this.states.indexOf(currentState);
-    return this;
+  public at(currentState: State): StateSequence {
+    const currentStateSequence: StateSequence = new StateSequence(this.states);
+    currentStateSequence.stateIndex = this.states.indexOf(currentState);
+    return currentStateSequence;
+  }
+
+  public state(): State {
+    return this.states[this.stateIndex];
   }
 
   public isAfter(state: string): boolean {
-    return this.stateIndex > this.states.indexOf(state);
+    return this.stateIndex > this.states.indexOf(state as State);
   }
 
   public isAtOrAfter(state: string): boolean {
-    return this.stateIndex >= this.states.indexOf(state);
+    return this.stateIndex >= this.states.indexOf(state as State);
   }
 
   public isBefore(state: string): boolean {
-    return this.stateIndex < this.states.indexOf(state);
+    return this.stateIndex < this.states.indexOf(state as State);
   }
 
   public isAtOrBefore(state: string): boolean {

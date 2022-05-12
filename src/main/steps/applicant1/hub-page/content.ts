@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -128,11 +128,15 @@ export const generateContent: TranslationFn = content => {
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
   const currentState = currentStateFn(userCase);
+  const displayState = currentState.at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
     currentState,
+    displayState,
     isCoFieldsSet,
   };
 };
