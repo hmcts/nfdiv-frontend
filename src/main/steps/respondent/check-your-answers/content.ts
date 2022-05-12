@@ -253,6 +253,12 @@ export const form: FormContent = {
         },
       ],
     },
+    statementOfTruth: {
+      type: 'hidden',
+      label: l => l.confirmBeforeSubmit,
+      labelHidden: true,
+      value: YesOrNo.YES,
+    },
   },
   submit: {
     text: l => l.continue,
