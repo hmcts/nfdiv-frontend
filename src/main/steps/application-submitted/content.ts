@@ -142,8 +142,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language, isJointApplication } = content;
-  const currentState = currentStateFn(userCase);
-  const displayState = currentState.at(
+  const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const referenceNumber = formattedCaseId(userCase.id);
@@ -163,7 +162,6 @@ export const generateContent: TranslationFn = content => {
   ]);
   return {
     ...languages[language]({ ...content, referenceNumber }),
-    currentState,
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,

@@ -127,15 +127,13 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
-  const currentState = currentStateFn(userCase);
-  const displayState = currentState.at(
+  const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
-    currentState,
     displayState,
     isCoFieldsSet,
   };
