@@ -112,7 +112,7 @@ Feature: Respondent
 
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
-    And the page should include "Test your name Test your last name & FunctionalTest LastNameTest"
+    And the page should include "Test your name Test your last name & Test their name Test their last name"
 
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
