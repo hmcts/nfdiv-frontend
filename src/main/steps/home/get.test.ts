@@ -18,7 +18,6 @@ import {
   PAY_YOUR_FEE,
   READ_THE_RESPONSE,
   RESPONDENT,
-  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -691,7 +690,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
   });
 
-  test('redirects to the review the application for respondent users in holding state and aos is not started', () => {
+  test('redirects to the hub page for respondent users in holding state and aos is not started', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -706,7 +705,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
   });
 
   test('redirects to the CYA for respondent users in holding state and aos is started but the first question is complete', () => {
@@ -729,7 +728,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
   });
 
-  test('redirects to the how do you want to respond page for respondent users in holding state and aos is started but the first question not complete', () => {
+  test('redirects to the how do you want to respond page for respondent users in holding state and aos is started but the first question is not complete', () => {
     const req = mockRequest({
       session: {
         userCase: {
