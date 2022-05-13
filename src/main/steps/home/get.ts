@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { isEmpty } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
@@ -23,7 +24,6 @@ import {
   PAY_YOUR_FEE,
   READ_THE_RESPONSE,
   RESPONDENT,
-  REVIEW_THE_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -46,7 +46,7 @@ export class HomeGetController {
     if (!req.session.isApplicant2) {
       res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
     } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req, isFirstQuestionComplete));
+      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
     } else {
       res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
     }
@@ -129,11 +129,10 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   }
 };
 
-const respondentRedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
-  const nextIncompleteStepUrl = getNextIncompleteStepUrl(req);
-  const hasReviewedTheApplication = !nextIncompleteStepUrl.endsWith(REVIEW_THE_APPLICATION);
-  const isLastQuestionComplete = nextIncompleteStepUrl.endsWith(CHECK_ANSWERS_URL);
-  switch (req.session.userCase.state) {
+const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
+  const hasReviewedTheApplication = !isEmpty(userCase.confirmReadPetition);
+  const isLastQuestionComplete = !isEmpty(userCase.applicant2IBelieveApplicationIsTrue);
+  switch (userCase.state) {
     case State.Holding:
     case State.AwaitingConditionalOrder:
     case State.IssuedToBailiff:
@@ -148,12 +147,10 @@ const respondentRedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingGeneralReferralPayment:
     case State.AwaitingGeneralConsideration:
     case State.GeneralApplicationReceived: {
-      if (isLastQuestionComplete) {
-        return HUB_PAGE;
-      } else if (hasReviewedTheApplication) {
+      if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
       } else {
-        return REVIEW_THE_APPLICATION;
+        return HUB_PAGE;
       }
     }
     case State.AosDrafted:
