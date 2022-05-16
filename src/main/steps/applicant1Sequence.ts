@@ -320,7 +320,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (
         data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
-        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+        !(
+          data.applicant2SolicitorEmail ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorFirmName) ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorAddress1)
+        )
       ) {
         return NEED_TO_GET_ADDRESS;
       } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {

@@ -307,7 +307,9 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddressCounty,
       data.applicant2SolicitorAddressPostcode,
       data.applicant2SolicitorAddressCountry,
-    ].join('\n'),
+    ]
+      .filter(Boolean)
+      .join('\n'),
   }),
 };
 
