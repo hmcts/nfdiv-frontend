@@ -39,6 +39,7 @@ export class SessionStorage {
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
       const redisClient = createClient({
+        legacyMode: true,
         socket: {
           host: redisHost as string,
           port: 6380,
