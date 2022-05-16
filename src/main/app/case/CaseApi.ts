@@ -132,6 +132,14 @@ export class CaseApi {
     return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
   }
 
+  public async isApplicant2AlreadyLinked(serviceType: DivorceOrDissolution, userId: string): Promise<boolean> {
+    const userCase = await this.getCase(serviceType);
+    if (userCase) {
+      return this.isApplicant2(userCase.id, userId);
+    }
+    return false;
+  }
+
   private async sendEvent(
     caseId: string,
     data: Partial<CaseData>,

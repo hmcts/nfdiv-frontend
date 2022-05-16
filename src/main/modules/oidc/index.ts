@@ -19,6 +19,8 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
 
+import { noSignInRequiredUrls } from './noSignInRequiredUrls';
+
 /**
  * Adds the oidc middleware to add oauth authentication
  */
@@ -75,7 +77,15 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (!req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
+          if (req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
+            const isApplicant2AlreadyLinked = await req.locals.api.isApplicant2AlreadyLinked(
+              res.locals.serviceType,
+              req.session.user.id
+            );
+            if (isApplicant2AlreadyLinked) {
+              res.redirect(HOME_URL);
+            }
+          } else {
             try {
               req.session.userCase =
                 req.session.userCase ||
@@ -112,6 +122,8 @@ export class OidcMiddleware {
           });
         } else if ([APPLICANT_2, RESPONDENT].includes(req.url as PageLink)) {
           return res.redirect(APPLICANT_2_SIGN_IN_URL);
+        } else if (noSignInRequiredUrls.includes(req.url as PageLink)) {
+          next();
         } else {
           return res.redirect(SIGN_IN_URL);
         }
