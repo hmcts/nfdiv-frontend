@@ -49,8 +49,10 @@ export class SessionStorage {
         password: config.get('session.redis.key') as string,
       });
 
-      app.locals.redisClient = redisClient;
-      return new RedisStore({ client: redisClient });
+      redisClient.connect().then(() => {
+        app.locals.redisClient = redisClient;
+        return new RedisStore({ client: redisClient });
+      });
     }
 
     return new FileStore({ path: '/tmp' });
