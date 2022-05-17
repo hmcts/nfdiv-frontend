@@ -57,11 +57,7 @@
 
   <h2 class="govuk-heading-m">{{ heading6 }}</h2>
   <p class="govuk-body">{{ line6 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    {% for connectionBullet in connectionBulletPoints %}
-      <li>{{ connectionBullet }}</li>
-    {% endfor %}
-  </ul>
+  <p class='govuk-body'>{{ connectionBulletPoints | safe }}</p>
 
   {{ govukDetails({
       summaryHtml: whatThisMeansJurisdiction,
@@ -130,6 +126,7 @@
   <h2 class="govuk-heading-m">{{ heading17 }}</h2>
   <p class="govuk-body">{{ factsTrue }}</p>
   <p class="govuk-body"><i>{{ userCase.applicant1FirstNames }} {{ userCase.applicant1LastNames }}</i></p>
+  <p class="govuk-body"><i>{{ userCase.applicant2FirstNames }} {{ userCase.applicant2LastNames }}</i></p>
   <br>
   <br>
 
