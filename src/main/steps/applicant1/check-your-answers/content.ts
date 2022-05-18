@@ -520,7 +520,7 @@ const en = ({
           required:
             'You have not confirmed what you are applying to the court to do. You need to confirm before continuing.',
         },
-        applicant1IBelieveApplicationIsTrue: {
+        applicant1StatementOfTruth: {
           required:
             'You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing.',
         },
@@ -899,12 +899,12 @@ export const form: FormContent = {
               },
             ],
           },
-          applicant1IBelieveApplicationIsTrue: {
+          applicant1StatementOfTruth: {
             type: 'checkboxes',
             labelHidden: true,
             values: [
               {
-                name: 'applicant1IBelieveApplicationIsTrue',
+                name: 'applicant1StatementOfTruth',
                 label: l => l.confirmApplicationIsTrue,
                 hint: l => l.confirmApplicationIsTrueHint,
                 value: Checkbox.Checked,
