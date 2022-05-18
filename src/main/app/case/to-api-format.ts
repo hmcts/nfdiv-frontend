@@ -173,8 +173,8 @@ const fields: ToApiConverters = {
   }),
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
-  applicant1IBelieveApplicationIsTrue: data => ({
-    applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
+  applicant1StatementOfTruth: data => ({
+    applicant1StatementOfTruth: checkboxConverter(data.applicant1StatementOfTruth),
   }),
   applicant2IBelieveApplicationIsTrue: data => ({
     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),

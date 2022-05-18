@@ -11,7 +11,7 @@ const labels = content => {
         ...content.errors.applicant1IConfirmPrayer,
       },
       applicant2IBelieveApplicationIsTrue: {
-        ...content.errors.applicant1IBelieveApplicationIsTrue,
+        ...content.errors.applicant1StatementOfTruth,
       },
     },
   };

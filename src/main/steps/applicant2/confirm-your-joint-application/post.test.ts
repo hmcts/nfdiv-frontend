@@ -10,7 +10,7 @@ describe('ConfirmYourJointApplicationPostController', () => {
   it('triggers APPLICANT_2_APPROVED', async () => {
     const body = {
       applicant1IConfirmPrayer: '',
-      applicant1IBelieveApplicationIsTrue: '',
+      applicant1StatementOfTruth: '',
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
@@ -21,7 +21,7 @@ describe('ConfirmYourJointApplicationPostController', () => {
         applicant2IBelieveApplicationIsTrue: {},
         applicationType: {},
         applicant1IConfirmPrayer: {},
-        applicant1IBelieveApplicationIsTrue: {},
+        applicant1StatementOfTruth: {},
       },
     } as unknown as FormContent;
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockFormContent.fields);
