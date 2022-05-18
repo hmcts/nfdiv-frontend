@@ -135,7 +135,7 @@ const en = ({ isDivorce, userCase }) => ({
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continue: 'Submit',
   errors: {
-    applicant2StatementOfTruth: {
+    aosStatementOfTruth: {
       required:
         'You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing.',
     },
