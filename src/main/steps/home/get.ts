@@ -78,7 +78,8 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
         return userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-          userCase.applicant2StatementOfTruth === Checkbox.Checked
+          (userCase.applicant2StatementOfTruth === Checkbox.Checked ||
+            userCase.aosStatementOfTruth === Checkbox.Checked)
           ? READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION;
       } else {
