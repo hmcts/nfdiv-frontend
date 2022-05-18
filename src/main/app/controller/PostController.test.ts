@@ -31,7 +31,7 @@ describe('PostController', () => {
         values: [{ name: 'sameSex', value: Checkbox.Checked }],
       },
       gender: {},
-      applicant1IBelieveApplicationIsTrue: {},
+      applicant1StatementOfTruth: {},
       applicant1IConfirmPrayer: {},
       day: {},
       month: {},
@@ -96,7 +96,7 @@ describe('PostController', () => {
 
   test('Saves the users prayer and statement of truth', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { applicant1IConfirmPrayer: Checkbox.Checked, applicant1IBelieveApplicationIsTrue: Checkbox.Checked };
+    const body = { applicant1IConfirmPrayer: Checkbox.Checked, applicant1StatementOfTruth: Checkbox.Checked };
 
     const controller = new PostController(mockFormContent.fields);
 
