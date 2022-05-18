@@ -239,25 +239,19 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant2IBelieveApplicationIsTrue: {
+    aosStatementOfTruth: {
       type: 'checkboxes',
       label: l => l.confirmBeforeSubmit,
       labelSize: 'm',
       values: [
         {
-          name: 'applicant2IBelieveApplicationIsTrue',
+          name: 'aosStatementOfTruth',
           label: l => l.iConfirm,
           hint: l => l.confirmSotHint,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
         },
       ],
-    },
-    statementOfTruth: {
-      type: 'hidden',
-      label: l => l.confirmBeforeSubmit,
-      labelHidden: true,
-      value: YesOrNo.YES,
     },
   },
   submit: {
