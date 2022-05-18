@@ -41,9 +41,9 @@ export class SessionStorage {
       const redisClient = createClient({
         socket: {
           host: redisHost as string,
-          port: 6380,
-          tls: true,
-          connectTimeout: 15000,
+          port: config.get('session.redis.port'),
+          tls: config.get('session.redis.tls'),
+          connectTimeout: config.get('session.redis.connectionTimeout'),
         },
         password: config.get('session.redis.key') as string,
       });
