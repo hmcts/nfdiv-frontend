@@ -245,7 +245,7 @@ export interface Case {
   applicant1IConfirmPrayer?: Checkbox;
   applicant2IConfirmPrayer?: Checkbox;
   applicant1StatementOfTruth?: Checkbox;
-  applicant2IBelieveApplicationIsTrue?: Checkbox;
+  applicant2StatementOfTruth?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
   dateSubmitted?: DateAsString;

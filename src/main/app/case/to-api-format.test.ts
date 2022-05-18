@@ -55,7 +55,7 @@ describe('to-api-format', () => {
     applicant1IConfirmPrayer: Checkbox.Checked,
     applicant2IConfirmPrayer: Checkbox.Checked,
     applicant1StatementOfTruth: Checkbox.Checked,
-    applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+    applicant2StatementOfTruth: Checkbox.Checked,
     applicant1FinalOrderStatementOfTruth: Checkbox.Checked,
     doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
     doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,

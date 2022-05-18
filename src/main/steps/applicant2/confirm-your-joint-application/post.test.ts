@@ -13,12 +13,12 @@ describe('ConfirmYourJointApplicationPostController', () => {
       applicant1StatementOfTruth: '',
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant2IConfirmPrayer: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
     };
     const mockFormContent = {
       fields: {
         applicant2IConfirmPrayer: {},
-        applicant2IBelieveApplicationIsTrue: {},
+        applicant2StatementOfTruth: {},
         applicationType: {},
         applicant1IConfirmPrayer: {},
         applicant1StatementOfTruth: {},
