@@ -62,6 +62,7 @@ Feature: Joint conditional order
     And the page should include "You and your wife have applied for a 'conditional order'"
 
 
+  @nightly
   Scenario: Applicant 2 is first in time applicant for conditional order journey and responds with additional information
     Given I set the case state to "AwaitingConditionalOrder"
     And I go to "/"
