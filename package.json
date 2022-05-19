@@ -101,7 +101,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.24.0",
     "@wdio/sauce-service": "^7.19.7",
     "allure-commandline": "^2.17.2",
