@@ -10,8 +10,8 @@ const labels = content => {
       applicant2IConfirmPrayer: {
         ...content.errors.applicant1IConfirmPrayer,
       },
-      applicant2IBelieveApplicationIsTrue: {
-        ...content.errors.applicant1IBelieveApplicationIsTrue,
+      applicant2StatementOfTruth: {
+        ...content.errors.applicant1StatementOfTruth,
       },
     },
   };
@@ -32,12 +32,12 @@ export const form: FormContent = {
         },
       ],
     },
-    applicant2IBelieveApplicationIsTrue: {
+    applicant2StatementOfTruth: {
       type: 'checkboxes',
       labelHidden: true,
       values: [
         {
-          name: 'applicant2IBelieveApplicationIsTrue',
+          name: 'applicant2StatementOfTruth',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,
           value: Checkbox.Checked,
