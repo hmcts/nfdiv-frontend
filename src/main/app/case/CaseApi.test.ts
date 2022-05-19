@@ -4,7 +4,7 @@ import { LoggerInstance } from 'winston';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { CaseApi, InProgressDivorceCase, getCaseApi } from './CaseApi';
+import { CaseApi, InProgressDivorceCase, getCaseApi } from './case-api';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');

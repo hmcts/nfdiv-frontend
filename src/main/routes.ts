@@ -72,14 +72,6 @@ export class Routes {
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
-    const isRouteForUser = (req: AppRequest, res: Response, next: NextFunction): void => {
-      const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-      if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
-        return res.redirect('/error');
-      }
-      next();
-    };
-
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
@@ -87,7 +79,7 @@ export class Routes {
 
       app.get(
         step.url,
-        isRouteForUser as RequestHandler,
+        this.isRouteForUser as RequestHandler,
         errorHandler(new getController(step.view, step.generateContent).get)
       );
 
@@ -132,5 +124,13 @@ export class Routes {
     );
 
     app.use(errorController.notFound as unknown as RequestHandler);
+  }
+
+  private isRouteForUser(req: AppRequest, res: Response, next: NextFunction): void {
+    const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
+    if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
+      return res.redirect('/error');
+    }
+    next();
   }
 }

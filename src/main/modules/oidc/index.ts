@@ -2,7 +2,7 @@ import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
-import { InProgressDivorceCase, getCaseApi } from '../../app/case/CaseApi';
+import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
 import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
@@ -25,51 +25,25 @@ import { noSignInRequiredUrls } from './noSignInRequiredUrls';
  * Adds the oidc middleware to add oauth authentication
  */
 export class OidcMiddleware {
+  private protocol = '';
+  private port = '';
+
   public enableFor(app: Application): void {
-    const protocol = app.locals.developmentMode ? 'http://' : 'https://';
-    const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
+    this.protocol = app.locals.developmentMode ? 'http://' : 'https://';
+    this.port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
 
     app.get(SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
+      res.redirect(getRedirectUrl(`${this.protocol}${res.locals.host}${this.port}`, CALLBACK_URL))
     );
     app.get(APPLICANT_2_SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, APPLICANT_2_CALLBACK_URL))
+      res.redirect(getRedirectUrl(`${this.protocol}${res.locals.host}${this.port}`, APPLICANT_2_CALLBACK_URL))
     );
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
-    app.get(
-      CALLBACK_URL,
-      errorHandler(async (req, res) => {
-        if (typeof req.query.code === 'string') {
-          req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
 
-          const url = req.session.user.roles.includes('caseworker') ? 'https://manage-case.platform.hmcts.net/' : '/';
-          req.session.save(() => res.redirect(url));
-        } else {
-          res.redirect(SIGN_IN_URL);
-        }
-      })
-    );
-    app.get(
-      APPLICANT_2_CALLBACK_URL,
-      errorHandler(async (req, res) => {
-        if (typeof req.query.code === 'string') {
-          req.session.user = await getUserDetails(
-            `${protocol}${res.locals.host}${port}`,
-            req.query.code,
-            APPLICANT_2_CALLBACK_URL
-          );
+    app.get(CALLBACK_URL, errorHandler(this.callbackHandler(this.protocol)));
 
-          const url = req.session.user.roles.includes('caseworker')
-            ? 'https://manage-case.platform.hmcts.net/'
-            : `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
-
-          req.session.save(() => res.redirect(url));
-        } else {
-          res.redirect(APPLICANT_2_SIGN_IN_URL);
-        }
-      })
-    );
+    app.get(APPLICANT_2_CALLBACK_URL, errorHandler(this.applicant2CallbackHandler(this.protocol, this.port)));
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
@@ -80,7 +54,8 @@ export class OidcMiddleware {
           if (req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
             const isApplicant2AlreadyLinked = await req.locals.api.isApplicant2AlreadyLinked(
               res.locals.serviceType,
-              req.session.user.id
+              req.session.user.id,
+              req.session.user.email
             );
             if (isApplicant2AlreadyLinked) {
               res.redirect(HOME_URL);
@@ -97,6 +72,9 @@ export class OidcMiddleware {
               } else {
                 return res.redirect(SIGN_OUT_URL);
               }
+            }
+            if (await req.locals.api.isNotLinkedToCase(req.session.userCase, req.session.user)) {
+              return res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
             }
 
             req.session.isApplicant2 =
@@ -129,5 +107,42 @@ export class OidcMiddleware {
         }
       })
     );
+  }
+
+  private callbackHandler(protocol: string) {
+    return async (req, res) => {
+      if (typeof req.query.code === 'string') {
+        req.session.user = await getUserDetails(
+          `${protocol}${res.locals.host}${this.port}`,
+          req.query.code,
+          CALLBACK_URL
+        );
+
+        const url = req.session.user.roles.includes('caseworker') ? 'https://manage-case.platform.hmcts.net/' : '/';
+        req.session.save(() => res.redirect(url));
+      } else {
+        res.redirect(SIGN_IN_URL);
+      }
+    };
+  }
+
+  private applicant2CallbackHandler(protocol: string, port: string) {
+    return async (req, res) => {
+      if (typeof req.query.code === 'string') {
+        req.session.user = await getUserDetails(
+          `${protocol}${res.locals.host}${port}`,
+          req.query.code,
+          APPLICANT_2_CALLBACK_URL
+        );
+
+        const url = req.session.user.roles.includes('caseworker')
+          ? 'https://manage-case.platform.hmcts.net/'
+          : `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+
+        req.session.save(() => res.redirect(url));
+      } else {
+        res.redirect(APPLICANT_2_SIGN_IN_URL);
+      }
+    };
   }
 }
