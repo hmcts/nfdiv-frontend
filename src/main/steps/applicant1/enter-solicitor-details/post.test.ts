@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CITIZEN_UPDATE, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
-import { EnterSolicitorDetailsPostController } from './post';
+import EnterSolicitorDetailsPostController from './post';
 
 describe('EnterSolicitorDetailsPostController', () => {
   const mockFormContent = {
