@@ -22,7 +22,7 @@ export const config: CodeceptJS.Config = {
     retryFailedStep: {
       enabled: true,
     },
-    retryTo: {
+    tryTo: {
       enabled: true,
     },
     screenshotOnFail: {
