@@ -6,6 +6,7 @@ Feature: Homepage
     Then the page should include "Apply for a divorce"
     And the page should include "Who are you applying to divorce?"
 
+  @nightly
   Scenario: Load divorce homepage with footer links then save and sign out
     When I click "Accessibility statement"
     Then the page should include "This accessibility statement applies to the website available at"
