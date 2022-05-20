@@ -495,7 +495,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant1IConfirmPrayer === Checkbox.Checked &&
-  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
+  data.applicant1StatementOfTruth === Checkbox.Checked;
 
 export const isCountryUk = (value: string | undefined): boolean => {
   const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];

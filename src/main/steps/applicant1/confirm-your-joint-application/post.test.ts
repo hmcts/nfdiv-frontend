@@ -10,12 +10,12 @@ describe('ConfirmYourAnswersPostController', () => {
   it('triggers CITIZEN_SUBMIT', async () => {
     const body = {
       applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
     };
     const mockFormContent = {
       fields: {
         applicant1IConfirmPrayer: {},
-        applicant1IBelieveApplicationIsTrue: {},
+        applicant1StatementOfTruth: {},
       },
     } as unknown as FormContent;
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockFormContent.fields);

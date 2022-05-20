@@ -94,10 +94,10 @@ const fields: FromApiConverters = {
   applicant2PrayerFinancialOrdersThemselves: prayerConverter('applicant2'),
   applicant2PrayerFinancialOrdersChild: prayerConverter('applicant2'),
   applicant1StatementOfTruth: data => ({
-    applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
+    applicant1StatementOfTruth: checkboxConverter(data.applicant1StatementOfTruth),
   }),
   applicant2StatementOfTruth: data => ({
-    applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
+    applicant2StatementOfTruth: checkboxConverter(data.applicant2StatementOfTruth),
   }),
   dateSubmitted: data => ({
     dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),

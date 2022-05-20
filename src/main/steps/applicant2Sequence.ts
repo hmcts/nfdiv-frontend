@@ -211,7 +211,7 @@ const postSubmissionSequence: Step[] = [
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant2IConfirmPrayer === Checkbox.Checked &&
-  data.applicant2IBelieveApplicationIsTrue === Checkbox.Checked;
+  data.applicant2StatementOfTruth === Checkbox.Checked;
 
 const addApplicant2Prefix = (theSequence: Step[]): Step[] => {
   return theSequence.map(step => ({
