@@ -125,10 +125,9 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   },
   feedback: 'Help improve this service',
   feedbackDetails: {
-    part1: 'This is a new service. ',
-    part2: 'Your feedback',
-    part3: ' helps to improve it for others.',
-    link: `${config.get('govukUrls.feedbackSurvey')}`,
+    part1: 'This is a new service. Help improve it for others by ',
+    part2: 'giving your feedback',
+    link: `${config.get(isJointApplication ? 'govukUrls.jointFeedbackSurvey' : 'govukUrls.soleFeedbackSurvey')}`,
   },
 });
 
