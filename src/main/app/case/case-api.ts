@@ -1,21 +1,13 @@
 import config from 'config';
+import dayjs from 'dayjs';
 import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { CaseApiClient, getCaseApiClient } from './case-api-client';
-import {
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  CaseData,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  State,
-  UserRole,
-} from './definition';
+import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
+import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -29,57 +21,57 @@ export class CaseApi {
   constructor(private readonly apiClient: CaseApiClient, private readonly logger: LoggerInstance) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const userCase = await this.searchCases(serviceType, userDetails.email);
+    const userCase = await this.searchCases(serviceType, userDetails);
 
     return userCase || this.apiClient.createCase(serviceType, userDetails);
   }
 
-  private async searchCases(serviceType: DivorceOrDissolution, email: string): Promise<CaseWithId | false> {
-    const apiClient = getCaseApiClient(await getSystemUser(), this.logger);
-    const [nfdCases, divCases] = config.get('services.case.checkDivCases')
-      ? await Promise.all([apiClient.findCaseByEmail(CASE_TYPE, email), apiClient.findCaseByEmail('DIVORCE', email)])
-      : await Promise.all([apiClient.findCaseByEmail(CASE_TYPE, email), []]);
+  private async searchCases(serviceType: DivorceOrDissolution, user: UserDetails): Promise<CaseWithId | false> {
+    const systemUser = await getSystemUser();
 
-    if (this.hasInProgressDivorceCase(divCases)) {
+    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase(systemUser, user.email))) {
       throw new InProgressDivorceCase('User has in progress divorce case');
     }
 
-    const serviceCases = nfdCases.filter(c => c.case_data.divorceOrDissolution === serviceType);
-    switch (serviceCases.length) {
-      case 0: {
-        return false;
+    const apiClient = getCaseApiClient(systemUser, this.logger);
+    const nfdCases = await apiClient.findCaseByEmail(CASE_TYPE, user.email);
+
+    const latestCase = nfdCases
+      .filter(c => c.case_data.divorceOrDissolution === serviceType)
+      .filter(this.filterUnlinkedCases(user))
+      .reduce((nfdCaseA, nfdCaseB) =>
+        dayjs(nfdCaseA.created_date).isAfter(dayjs(nfdCaseB.created_date)) ? nfdCaseA : nfdCaseB
+      );
+
+    return latestCase
+      ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
+      : false;
+  }
+
+  private filterUnlinkedCases(user: UserDetails) {
+    return async (nfdCase: CcdV1Response): Promise<boolean> => {
+      if (user.email === nfdCase.case_data.applicant1Email || user.email === nfdCase.case_data.applicant2Email) {
+        return this.isLinkedToCase(nfdCase.id, user);
       }
-      case 1:
-      case 2: {
-        const { id, state, case_data: caseData } = serviceCases[0];
-        return { ...fromApiFormat(caseData), id: id.toString(), state };
-      }
-      default: {
-        this.logger.error('Too many cases assigned to user.');
-        throw new Error('Too many cases assigned to user.');
-      }
-    }
+      return true;
+    };
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
   }
 
-  public async isApplicant2AlreadyLinked(
-    serviceType: DivorceOrDissolution,
-    userId: string,
-    email: string
-  ): Promise<boolean> {
-    const userCase = await this.searchCases(serviceType, email);
+  public async isApplicant2AlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
+    const userCase = await this.searchCases(serviceType, user);
     if (userCase) {
-      return this.isApplicant2(userCase.id, userId);
+      return this.isApplicant2(userCase.id, user.id);
     }
     return false;
   }
 
-  public async isNotLinkedToCase(caseData: CaseWithId, user: UserDetails): Promise<boolean> {
-    const userRoles = await this.apiClient.getCaseUserRoles(caseData.id, user.id);
-    return ![UserRole.CREATOR, UserRole.CITIZEN, UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+  public async isLinkedToCase(caseId: string, user: UserDetails): Promise<boolean> {
+    const userRoles = await this.apiClient.getCaseUserRoles(caseId, user.id);
+    return [UserRole.CREATOR, UserRole.CITIZEN, UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -95,7 +87,9 @@ export class CaseApi {
     return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
   }
 
-  private hasInProgressDivorceCase(divCases: CcdV1Response[]): boolean {
+  private async hasInProgressDivorceCase(systemUser: UserDetails, email: string): Promise<boolean> {
+    const apiClient = getCaseApiClient(systemUser, this.logger);
+    const divCases = await apiClient.findCaseByEmail('DIVORCE', email);
     const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
     const states = [
       'AwaitingPayment',
@@ -117,9 +111,3 @@ export class CaseApi {
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(getCaseApiClient(userDetails, logger), logger);
 };
-
-interface CcdV1Response {
-  id: string;
-  state: State;
-  case_data: CaseData;
-}

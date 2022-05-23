@@ -144,9 +144,10 @@ interface ES<T> {
   total: number;
 }
 
-interface CcdV1Response {
+export interface CcdV1Response {
   id: string;
   state: State;
+  created_date: string;
   case_data: CaseData;
 }
 

@@ -54,8 +54,7 @@ export class OidcMiddleware {
           if (req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
             const isApplicant2AlreadyLinked = await req.locals.api.isApplicant2AlreadyLinked(
               res.locals.serviceType,
-              req.session.user.id,
-              req.session.user.email
+              req.session.user
             );
             if (isApplicant2AlreadyLinked) {
               res.redirect(HOME_URL);
@@ -73,7 +72,7 @@ export class OidcMiddleware {
                 return res.redirect(SIGN_OUT_URL);
               }
             }
-            if (await req.locals.api.isNotLinkedToCase(req.session.userCase, req.session.user)) {
+            if (!(await req.locals.api.isLinkedToCase(req.session.userCase.id, req.session.user))) {
               return res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
             }
 
