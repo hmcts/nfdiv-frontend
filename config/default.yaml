@@ -68,6 +68,9 @@ session:
   redis:
     host:
     key:
+    port: 6380
+    tls: true
+    connectionTimeout: 15000
 e2e:
   userTestPassword: ''
 appInsights:
