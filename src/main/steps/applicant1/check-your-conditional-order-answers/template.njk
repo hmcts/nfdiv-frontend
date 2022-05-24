@@ -4,7 +4,8 @@
 {% extends "common/page.njk" %}
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-{% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep) %}
+{% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep,
+  userCase.applicant1ApplyForConditionalOrderStarted) %}
 {% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
 
 {% block content %}

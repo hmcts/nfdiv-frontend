@@ -123,13 +123,22 @@ export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
   );
 };
 
-export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
+export const isConditionalOrderReadyToSubmit = (
+  nextStepUrl: string,
+  applyForConditionalOrderStarted: string
+): boolean => {
   const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
   const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
 
-  return (
-    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
-  );
+  if (applyForConditionalOrderStarted === 'Yes') {
+    console.log('we are running No');
+    return false;
+  } else {
+    console.log('we are running Yes');
+    return (
+      finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
+    );
+  }
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {

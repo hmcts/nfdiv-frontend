@@ -24,6 +24,7 @@ Feature: Joint conditional order
     When I click "Apply for conditional order"
     Then the page URL should be "/continue-with-your-application"
     And the page should include "This is a joint application so your husband will also have to apply. They have been sent an email to tell them."
+    And I click "stop"
 
     Given I select "I want to continue with my divorce application"
     When I click "Continue"
