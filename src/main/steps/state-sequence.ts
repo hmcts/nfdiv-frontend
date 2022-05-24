@@ -33,7 +33,7 @@ export class StateSequence {
   }
 
   public isAtOrBefore(state: string): boolean {
-    return this.stateIndex <= this.states.indexOf(state);
+    return this.stateIndex <= this.states.indexOf(state as State);
   }
 }
 
