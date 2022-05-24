@@ -9,11 +9,11 @@ import CheckYourAnswersPostController from './post';
 describe('CheckYourAnswersPostController', () => {
   it('triggers CITIZEN_SUBMIT', async () => {
     const body = {
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
     };
     const mockFormContent = {
       fields: {
-        applicant2IBelieveApplicationIsTrue: {},
+        applicant2StatementOfTruth: {},
       },
     } as unknown as FormContent;
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
