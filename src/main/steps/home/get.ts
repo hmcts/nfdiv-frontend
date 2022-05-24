@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { isEmpty } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
@@ -45,7 +46,7 @@ export class HomeGetController {
     if (!req.session.isApplicant2) {
       res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
     } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase.state, isFirstQuestionComplete));
+      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
     } else {
       res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
     }
@@ -129,8 +130,30 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   }
 };
 
-const respondentRedirectPageSwitch = (caseState: State, isFirstQuestionComplete: boolean) => {
-  switch (caseState) {
+const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
+  const hasReviewedTheApplication = !isEmpty(userCase.confirmReadPetition);
+  const isLastQuestionComplete = !isEmpty(userCase.applicant2StatementOfTruth);
+  switch (userCase.state) {
+    case State.Holding:
+    case State.AwaitingConditionalOrder:
+    case State.IssuedToBailiff:
+    case State.AwaitingBailiffService:
+    case State.AwaitingBailiffReferral:
+    case State.AwaitingServiceConsideration:
+    case State.AwaitingServicePayment:
+    case State.AwaitingAlternativeService:
+    case State.AwaitingDwpResponse:
+    case State.AwaitingJudgeClarification:
+    case State.GeneralConsiderationComplete:
+    case State.AwaitingGeneralReferralPayment:
+    case State.AwaitingGeneralConsideration:
+    case State.GeneralApplicationReceived: {
+      if (hasReviewedTheApplication && !isLastQuestionComplete) {
+        return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
+      } else {
+        return HUB_PAGE;
+      }
+    }
     case State.AosDrafted:
     case State.AosOverdue: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;

@@ -300,6 +300,7 @@ export interface Case {
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   dateFinalOrderSubmitted?: DateAsString;
+  dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
 }
 

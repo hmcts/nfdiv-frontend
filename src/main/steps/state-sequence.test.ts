@@ -13,8 +13,13 @@ describe('StateSequence', () => {
     expect(currentStateFn(mockUserCase).isAfter('ConditionalOrderDrafted')).toBeTruthy();
   });
 
-  test('Should ensure state is between test states', () => {
+  test('Should ensure state is at or after test states', () => {
     const mockUserCase = { state: State.AwaitingPronouncement };
     expect(currentStateFn(mockUserCase).isAtOrAfter('AwaitingPronouncement')).toBeTruthy();
+  });
+
+  test('Should ensure state is at or before test states', () => {
+    const mockUserCase = { state: State.AwaitingPronouncement };
+    expect(currentStateFn(mockUserCase).isAtOrBefore('AwaitingPronouncement')).toBeTruthy();
   });
 });
