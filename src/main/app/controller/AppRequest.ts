@@ -21,6 +21,7 @@ export interface AppSession extends Session {
   user: UserDetails;
   userCase: CaseWithId;
   isApplicant2: boolean;
+  isLinkedToCase: boolean;
   lang: string | undefined;
   errors: FormError[] | undefined;
 }

@@ -26,7 +26,7 @@ export class CaseApiClient {
             operator: 'and',
           },
         },
-        sort: [{ id: { order: 'asc' } }],
+        sort: [{ created_date: { order: 'desc' } }],
       };
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
 
