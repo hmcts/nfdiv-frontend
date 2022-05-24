@@ -26,6 +26,10 @@ export class StateSequence {
   public isBefore(state: string): boolean {
     return this.stateIndex < this.states.indexOf(state);
   }
+
+  public isAtOrBefore(state: string): boolean {
+    return this.stateIndex <= this.states.indexOf(state);
+  }
 }
 
 export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => {
@@ -48,14 +52,15 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.AwaitingBailiffReferral,
     State.AwaitingBailiffService,
     State.IssuedToBailiff,
-    State.Holding,
-    State.AwaitingConditionalOrder,
-    State.AwaitingAlternativeService,
-    State.AwaitingGeneralConsideration,
+    State.GeneralApplicationReceived,
     State.AwaitingGeneralReferralPayment,
+    State.AwaitingGeneralConsideration,
     State.GeneralConsiderationComplete,
     State.AwaitingJudgeClarification,
     State.AwaitingDwpResponse,
+    State.AwaitingAlternativeService,
+    State.Holding,
+    State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,
