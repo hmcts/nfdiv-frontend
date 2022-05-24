@@ -301,8 +301,8 @@ export interface Case {
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   dateFinalOrderSubmitted?: DateAsString;
   dateAosSubmitted?: DateAsString;
-  previousState: State;
   aosStatementOfTruth: Checkbox;
+  previousState: State;
 }
 
 export interface CaseWithId extends Case {
