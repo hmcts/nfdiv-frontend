@@ -156,6 +156,10 @@ const fields: FromApiConverters = {
   dateFinalOrderSubmitted: data => ({
     dateFinalOrderSubmitted: dayjs(data.dateFinalOrderSubmitted).format('D MMMM YYYY'),
   }),
+  dateAosSubmitted: data => ({
+    dateAosSubmitted: dayjs(data.dateAosSubmitted).format('D MMMM YYYY'),
+  }),
+  previousState: 'previousState',
 };
 
 const fromApiDate = date => {
