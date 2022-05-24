@@ -29,23 +29,23 @@
       complete: true
     }, {
       label: {
-        html: textWithVisuallyHiddenSpan(partnerResponse, currentState.isAfter('AwaitingApplicant2Response'))
+        html: textWithVisuallyHiddenSpan(partnerResponse, displayState.isAfter('AwaitingApplicant2Response'))
       },
-      complete: userCase.applicationType == 'jointApplication' and currentState.isAtOrAfter('Applicant2Approved')
-        or userCase.applicationType == 'soleApplication' and currentState.isAtOrAfter('Holding'),
-      active: userCase.state == 'AwaitingApplicant2Response'
+      complete: userCase.applicationType == 'jointApplication' and displayState.isAtOrAfter('Applicant2Approved')
+        or userCase.applicationType == 'soleApplication' and displayState.isAtOrAfter('Holding'),
+      active: displayState.state() == 'AwaitingApplicant2Response'
     }, {
       label: {
-        html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAfter('AwaitingLegalAdvisorReferral'))
+        html: textWithVisuallyHiddenSpan(conditionalOrderGranted, displayState.isAfter('AwaitingLegalAdvisorReferral'))
       },
-      complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
-      active: userCase.state == 'AwaitingLegalAdvisorReferral'
+      complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
+      active: displayState.state() == 'AwaitingLegalAdvisorReferral'
     }, {
       label: {
-        html: textWithVisuallyHiddenSpan(applicationEnded, currentState.isAtOrAfter('FinalOrderComplete'))
+        html: textWithVisuallyHiddenSpan(applicationEnded, displayState.isAtOrAfter('FinalOrderComplete'))
       },
-      complete: currentState.isAtOrAfter('FinalOrderComplete'),
-      active: userCase.state == 'FinalOrderComplete'
+      complete: displayState.isAtOrAfter('FinalOrderComplete'),
+      active: displayState.state() == 'FinalOrderComplete'
     }]
   }) }}
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
