@@ -679,7 +679,7 @@ describe('HomeGetController', () => {
           applicant2LegalProceedings: YesOrNo.NO,
           applicant2AgreeToReceiveEmails: Checkbox.Checked,
           applicant2PhoneNumber: '',
-          applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+          applicant2StatementOfTruth: Checkbox.Checked,
         },
         isApplicant2: true,
       },

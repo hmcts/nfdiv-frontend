@@ -131,7 +131,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
 
 const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   const hasReviewedTheApplication = !isEmpty(userCase.confirmReadPetition);
-  const isLastQuestionComplete = !isEmpty(userCase.applicant2IBelieveApplicationIsTrue);
+  const isLastQuestionComplete = !isEmpty(userCase.applicant2StatementOfTruth);
   switch (userCase.state) {
     case State.Holding:
     case State.AwaitingConditionalOrder:
