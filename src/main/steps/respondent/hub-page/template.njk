@@ -1,28 +1,28 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% if userCase.state == 'FinalOrderRequested' %}
+  {% if displayState.state() == 'FinalOrderRequested' %}
     {% include "../../applicant1/hub-page/sole/latest-update-content/final-order-requested.njk" %}
 
-  {% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
+  {% elif displayState.state() == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
     {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
 
-  {% elif userCase.state == 'ConditionalOrderPronounced' %}
+  {% elif displayState.state() == 'ConditionalOrderPronounced' %}
     {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
-  {% elif userCase.state == 'ClarificationSubmitted' %}
+  {% elif displayState.state() == 'ClarificationSubmitted' %}
     {% include "./latest-update-content/clarification-submitted.njk" %}
 
-  {% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
+  {% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' %}
     {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
 
-  {% elif currentState.isAtOrBefore('AwaitingConditionalOrder') and not hasSubmittedAos %}
+  {% elif displayState.isAtOrBefore('AwaitingConditionalOrder') and not hasSubmittedAos %}
     {% include "./latest-update-content/awaiting-aos.njk" %}
 
-  {% elif userCase.state == 'AwaitingGeneralConsideration' %}
+  {% elif displayState.state() == 'AwaitingGeneralConsideration' %}
     {% include "./latest-update-content/awaiting-general-consideration.njk" %}
 
-  {% elif userCase.state == 'Holding' %}
+  {% elif displayState.state() == 'Holding' %}
     {% include "./latest-update-content/holding.njk" %}
 
   {% endif %}
