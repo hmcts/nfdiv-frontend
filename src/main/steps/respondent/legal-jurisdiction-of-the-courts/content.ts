@@ -7,7 +7,7 @@ import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDe
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
 
-const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
+const en = ({ isDivorce, partner, required, userCase, isJointApplication, language }: CommonContent) => {
   return {
     title: 'The legal power (jurisdiction) of the courts',
     line1: `Your ${partner} was asked some questions to find out whether the courts of England and Wales have the legal power (jurisdiction) to ${
@@ -16,7 +16,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, language, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'

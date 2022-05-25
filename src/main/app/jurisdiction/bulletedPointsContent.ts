@@ -1,43 +1,77 @@
+import { Language } from '../../steps/common/common.content';
 import { JurisdictionConnections } from '../case/definition';
+
+const enConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolean) => ({
+  [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `both parties to the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  } are habitually resident in England and Wales`,
+  [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `both parties to the ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  } were last habitually resident in England and Wales and one of them continues to reside there`,
+  [JurisdictionConnections.APP_2_RESIDENT_SOLE]: 'the respondent is habitually resident in England and Wales',
+  [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'applicant 2 is habitually resident in England and Wales',
+  [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
+    'the applicant is habitually resident in England and Wales ' +
+    'and has resided there for at least one year immediately before the application was made',
+  [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
+    'the applicant is domiciled and habitually resident in England ' +
+    'and Wales and has resided there for at least six months immediately before the application was made',
+  [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both parties to the ${isDivorce ? 'marriage' : 'civil partnership'}
+     are domiciled in England and Wales.`,
+  [JurisdictionConnections.APP_1_DOMICILED]: `only ${
+    isJointApplication ? 'applicant 1' : 'the applicant'
+  } is domiciled in England and Wales`,
+  [JurisdictionConnections.APP_2_DOMICILED]: `only ${
+    isJointApplication ? 'applicant 2' : 'the respondent'
+  } is domiciled in England and Wales`,
+  [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
+    'the parties registered as civil partners of each other in ' +
+    'England or Wales and it would be in the interest of justice for the court to assume jurisdiction in this case',
+  [JurisdictionConnections.RESIDUAL_JURISDICTION_D]:
+    'the parties married each other under the law of England and ' +
+    'Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
+  [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'applicant 1 is habitually resident in England and Wales',
+});
+
+const cyConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolean) => ({
+  [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `mae’r ddau barti i’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  } yn preswylio’n arferol yng Nghymru a Lloegr`,
+  [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `roedd y ddau barti i’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  } yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno`,
+  [JurisdictionConnections.APP_2_RESIDENT_SOLE]: 'mae’r atebydd yn preswylio’n arferol yng Nghymru a Lloegr',
+  [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'mae Ceisydd 2 yn preswylio’n arferol yng Nghymru a Lloegr',
+  [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
+    'mae’r ceisydd yn preswylio’n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais',
+  [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
+    'mae domisil y ceisydd yng Nghymru a Lloegr, mae’n preswylio’n arferol yno ac mae wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais',
+  [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `mae domisil y ddau barti i’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  } yng Nghymru a Lloegr`,
+  [JurisdictionConnections.APP_1_DOMICILED]: `dim ond domisil ${
+    isJointApplication ? 'ceisydd 1' : 'y ceisydd'
+  } sydd yng Nghymru a Lloegr`,
+  [JurisdictionConnections.APP_2_DOMICILED]: `dim ond domisil ${
+    isJointApplication ? 'ceisydd 2' : 'yr atebydd'
+  } sydd  yng Nghymru a Lloegr`,
+  [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
+    'mi wnaeth y partïon gofrestru fel partneriaid sifil i’w gilydd yng Nghymru neu Loegr a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
+  [JurisdictionConnections.RESIDUAL_JURISDICTION_D]:
+    'mi wnaeth y partïon briodi ei gilydd o dan gyfraith Cymru a Lloegr a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
+  [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'mae Ceisydd 1 yn preswylio’n arferol yng Nghymru a Lloegr',
+});
 
 export const enConnectionBulletPointsSummarisedForAllUsers = (
   connections: JurisdictionConnections[],
+  language: Language,
   isDivorce: boolean,
   isJointApplication: boolean
 ): string[] => {
-  const connectionBulletPoints = {
-    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `both parties to the ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } are habitually resident in England and Wales`,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `both parties to the ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } were last habitually resident in England and Wales and one of them continues to reside there`,
-    [JurisdictionConnections.APP_2_RESIDENT_SOLE]: 'the respondent is habitually resident in England and Wales',
-    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'applicant 2 is habitually resident in England and Wales',
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]:
-      'the applicant is habitually resident in England and Wales ' +
-      'and has resided there for at least one year immediately before the application was made',
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]:
-      'the applicant is domiciled and habitually resident in England ' +
-      'and Wales and has resided there for at least six months immediately before the application was made',
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `both parties to the ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }
-     are domiciled in England and Wales.`,
-    [JurisdictionConnections.APP_1_DOMICILED]: `only ${
-      isJointApplication ? 'applicant 1' : 'the applicant'
-    } is domiciled in England and Wales`,
-    [JurisdictionConnections.APP_2_DOMICILED]: `only ${
-      isJointApplication ? 'applicant 2' : 'the respondent'
-    } is domiciled in England and Wales`,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
-      'the parties registered as civil partners of each other in ' +
-      'England or Wales and it would be in the interest of justice for the court to assume jurisdiction in this case',
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]:
-      'the parties married each other under the law of England and ' +
-      'Wales and it would be in the interests of justice for the court to assume jurisdiction in this case',
-    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'applicant 1 is habitually resident in England and Wales',
-  };
+  const connectionBulletPoints =
+    language === 'cy'
+      ? cyConnectionBulletPoints(isDivorce, isJointApplication)
+      : enConnectionBulletPoints(isDivorce, isJointApplication);
 
   return connections.map(connection => connectionBulletPoints[connection]);
 };

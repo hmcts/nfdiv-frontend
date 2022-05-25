@@ -18,7 +18,7 @@ import {
   getApplicant1PartnerContent,
 } from '../../common/content.utils';
 
-const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }) => ({
+const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication, language }) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   line1: `Review this application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -64,7 +64,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, language, isDivorce, isJointApplication)
       : [],
   jurisdictionsMoreDetails: {
     part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
