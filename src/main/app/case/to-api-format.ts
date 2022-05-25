@@ -299,7 +299,7 @@ const fields: ToApiConverters = {
       : [],
   }),
   applicant2SolicitorAddress1: data => ({
-    applicant2SolicitorAddress: [
+    applicant2SolicitorAddress: addressConverter([
       data.applicant2SolicitorAddress1,
       data.applicant2SolicitorAddress2,
       data.applicant2SolicitorAddress3,
@@ -307,7 +307,7 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddressCounty,
       data.applicant2SolicitorAddressPostcode,
       data.applicant2SolicitorAddressCountry,
-    ].join('\n'),
+    ]),
   }),
 };
 
@@ -324,6 +324,8 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
   }
   return value === LanguagePreference.Welsh ? YesOrNo.YES : YesOrNo.NO;
 };
+
+const addressConverter = (address: (string | undefined)[]) => (address.some(Boolean) ? address.join('\n') : '');
 
 const setUnreachableAnswersToNull = (properties: string[]): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
