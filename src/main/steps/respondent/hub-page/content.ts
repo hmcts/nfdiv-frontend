@@ -1,5 +1,6 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -176,11 +177,13 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
-  const isRespondentAbleToApplyForFinalOrder =
-    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const { userCase, language } = content;
+  const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const hasSubmittedAos = !isEmpty(userCase.dateAosSubmitted);
   return {
-    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
-    ...languages[content.language](content),
+    ...languages[language](content),
+    isRespondentAbleToApplyForFinalOrder,
+    hasSubmittedAos,
   };
 };

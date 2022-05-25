@@ -6,7 +6,7 @@
     {% include "common/form/fields.njk" %}
   {% endblock %}
 
-  {% if userCase.state == 'Holding' and not hasApplicantConfirmedReceipt %}
+  {% if displayState.state() == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
       text: confirmReceipt,
       classes: form.submit.classes,
@@ -15,7 +15,7 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
+  {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
     {{ govukButton({
       text: "Apply for conditional order",
       classes: form.submit.classes,

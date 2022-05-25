@@ -1,25 +1,25 @@
-{% if userCase.state == 'AwaitingPronouncement' %}
+{% if displayState.state() == 'AwaitingPronouncement' %}
   {% include "./latest-update-content/awaiting-pronouncement.njk" %}
 
-{% elif userCase.state == 'Holding'%}
+{% elif displayState.state() == 'Holding'%}
   {% include "./latest-update-content/holding.njk" %}
 
-{% elif userCase.state == 'ConditionalOrderPronounced'%}
+{% elif displayState.state() == 'ConditionalOrderPronounced'%}
   {% include "./latest-update-content/conditional-order-pronounced.njk" %}
 
-{% elif userCase.state == 'AwaitingClarification' %}
+{% elif displayState.state() == 'AwaitingClarification' %}
   {% include "./latest-update-content/awaiting-clarification.njk" %}
 
-{% elif userCase.state == 'ClarificationSubmitted' %}
+{% elif displayState.state() == 'ClarificationSubmitted' %}
   {% include "./latest-update-content/clarification-submitted.njk" %}
 
-{% elif userCase.state == 'ConditionalOrderPending' %}
+{% elif displayState.state() == 'ConditionalOrderPending' %}
   {% include "./latest-update-content/conditional-order-pending.njk" %}
 
-{% elif userCase.state == 'AwaitingLegalAdvisorReferral' %}
+{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' %}
   {% include "./latest-update-content/awaiting-legal-advisor-referral.njk" %}
 
-{% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral')
+{% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral')
   and not hasApplicantAppliedForConditionalOrder %}
   <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
 {% endif %}
