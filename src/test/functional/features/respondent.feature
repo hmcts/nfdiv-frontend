@@ -10,13 +10,14 @@ Feature: Respondent
     And I pay and submit the application
     Then the page should include "Application submitted"
     Given a case worker issues the application
+
+  Scenario: They fill out a happy path respondent journey
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
     When I click "Respond to the application"
     Then the page URL should be "/respondent/review-the-application"
     And the page should include "Review the divorce application"
 
-  Scenario: They fill out a happy path respondent journey
     Given I select "I have read the application for divorce"
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
@@ -46,9 +47,14 @@ Feature: Respondent
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
 
-
   @nightly
   Scenario: They fill out an unhappy path respondent journey
+    And I enter my valid case reference and valid access code
+    Then the page URL should be "/respondent/hub-page"
+    When I click "Respond to the application"
+    Then the page URL should be "/respondent/review-the-application"
+    And the page should include "Review the divorce application"
+
     Given I select "I have read the application for divorce"
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
@@ -108,3 +114,21 @@ Feature: Respondent
     Then the page URL should be "/respondent/hub-page"
     And the page should include "Test your name Test your last name & Test their name Test their last name"
 
+  Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
+    Given I set the case state to "AwaitingConditionalOrder"
+    And I enter my valid case reference and valid access code
+    Then the page URL should be "/respondent/hub-page"
+
+    When I click "Respond to the application"
+    Then the page URL should be "/respondent/review-the-application"
+    And the page should include "Review the divorce application"
+    Given I select "I have read the application for divorce"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/how-do-you-want-to-respond"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
+    And I go to '/respondent/check-your-answers'
+    And I select "I confirm that:"
+
+    When I click "Submit"
+    Then the page URL should be "/respondent/hub-page"
