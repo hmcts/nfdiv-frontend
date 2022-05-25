@@ -5,20 +5,15 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
-  ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
   APPLICANT_2_CALLBACK_URL,
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
-  COOKIES_URL,
   ENTER_YOUR_ACCESS_CODE,
-  PRIVACY_POLICY_URL,
   PageLink,
   RESPONDENT,
   SIGN_IN_URL,
   SIGN_OUT_URL,
-  TERMS_AND_CONDITIONS_URL,
-  WEBCHAT_URL,
 } from '../../steps/urls';
 
 import { noSignInRequiredUrls } from './noSignInRequiredUrls';
@@ -50,6 +45,14 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
+          if (
+            req.path.endsWith(APPLICANT_2) ||
+            req.path.endsWith(RESPONDENT) ||
+            req.path.endsWith(ENTER_YOUR_ACCESS_CODE)
+          ) {
+            return next();
+          }
+
           try {
             req.session.userCase =
               req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
@@ -60,12 +63,6 @@ export class OidcMiddleware {
             } else {
               return res.redirect(SIGN_OUT_URL);
             }
-          }
-          req.session.isLinkedToCase =
-            req.session.isLinkedToCase ||
-            (await req.locals.api.isLinkedToCase(req.session.userCase.id, req.session.user));
-          if (!req.session.isLinkedToCase && !req.path.endsWith(ENTER_YOUR_ACCESS_CODE)) {
-            return res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
           }
 
           req.session.isApplicant2 =
@@ -79,24 +76,13 @@ export class OidcMiddleware {
               next();
             }
           });
-        } else if (noSignInRequiredUrls.includes(req.url as PageLink)) {
-          next();
         } else {
-          switch (req.url as PageLink) {
-            case ACCESSIBILITY_STATEMENT_URL:
-            case WEBCHAT_URL:
-            case PRIVACY_POLICY_URL:
-            case TERMS_AND_CONDITIONS_URL:
-            case COOKIES_URL:
-              next();
-              break;
-            case APPLICANT_2:
-            case RESPONDENT:
-              res.redirect(APPLICANT_2_SIGN_IN_URL);
-              break;
-            default:
-              res.redirect(SIGN_IN_URL);
-              break;
+          if (noSignInRequiredUrls.includes(req.url as PageLink)) {
+            next();
+          } else if (req.url.startsWith(APPLICANT_2) || req.url.startsWith(RESPONDENT)) {
+            res.redirect(APPLICANT_2_SIGN_IN_URL);
+          } else {
+            res.redirect(SIGN_IN_URL);
           }
         }
       })

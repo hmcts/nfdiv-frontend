@@ -15,17 +15,10 @@ export class CaseApiClient {
 
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async findCaseByEmail(caseType: string, email: string): Promise<CcdV1Response[]> {
+  public async findUserCases(caseType: string): Promise<CcdV1Response[]> {
     try {
       const query = {
-        query: {
-          multi_match: {
-            query: email,
-            fields: ['data.applicant1Email', 'data.applicant2Email', 'data.applicant2InviteEmailAddress'],
-            type: 'cross_fields',
-            operator: 'and',
-          },
-        },
+        query: { match_all: {} },
         sort: [{ created_date: { order: 'desc' } }],
       };
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));

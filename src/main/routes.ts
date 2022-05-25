@@ -60,7 +60,6 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
-    app.get([APPLICANT_2, RESPONDENT], errorHandler(new Applicant2AccessCodeGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
@@ -93,7 +92,10 @@ export class Routes {
       }
     }
 
-    app.get(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`, errorHandler(new Applicant2AccessCodeGetController().get));
+    app.get(
+      [APPLICANT_2, RESPONDENT, `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
+      errorHandler(new Applicant2AccessCodeGetController().get)
+    );
     app.post(
       `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`,
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
