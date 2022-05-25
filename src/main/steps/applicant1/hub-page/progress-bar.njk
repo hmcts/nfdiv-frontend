@@ -13,28 +13,28 @@
     active: false
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, currentState.isAfter('AwaitingLegalAdvisorReferral'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: currentState.isAfter('AwaitingLegalAdvisorReferral'),
+    complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAtOrAfter('ConditionalOrderPronounced'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, displayState.isAtOrAfter('ConditionalOrderPronounced'))
     },
-    complete: currentState.isAtOrAfter('ConditionalOrderPronounced'),
-    active: userCase.state == 'AwaitingPronouncement'
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced'),
+    active: displayState.state() == 'AwaitingPronouncement'
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(finalOrderApplication, currentState.isAfter('FinalOrderRequested'))
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAfter('FinalOrderRequested'))
     },
-    complete: currentState.isAfter('FinalOrderRequested'),
-    active: userCase.state == 'AwaitingFinalOrder'
+    complete: displayState.isAfter('FinalOrderRequested'),
+    active: displayState.state() == 'AwaitingFinalOrder'
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(applicationEnded, userCase.state == 'FinalOrderComplete')
+      html: textWithVisuallyHiddenSpan(applicationEnded, displayState.state() == 'FinalOrderComplete')
     },
-    complete: userCase.state == 'FinalOrderComplete',
-    active: userCase.state == 'FinalOrderRequested'
+    complete: displayState.state() == 'FinalOrderComplete',
+    active: displayState.state() == 'FinalOrderRequested'
   }] %}
 {% else %}
   {% set items = [{
@@ -45,33 +45,33 @@
     active: false
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(response, currentState.isAfter('IssuedToBailiff'))
+      html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
     },
-    complete: currentState.isAfter('IssuedToBailiff'),
-    active: currentState.isAtOrAfter('AwaitingAos') and currentState.isBefore('Holding')
+    complete: displayState.isAfter('IssuedToBailiff'),
+    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding')
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, currentState.isAfter('AwaitingGeneralConsideration'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingGeneralConsideration'))
     },
-    complete: currentState.isAfter('AwaitingGeneralConsideration'),
-    active: userCase.state == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
+    complete: displayState.isAfter('AwaitingGeneralConsideration'),
+    active: displayState.state() == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, currentState.isAfter('AwaitingPronouncement'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderGranted, displayState.isAfter('AwaitingPronouncement'))
     },
-    complete: currentState.isAfter('AwaitingPronouncement'),
-    active: userCase.state == 'ConditionalOrderDrafted'
+    complete: displayState.isAfter('AwaitingPronouncement'),
+    active: displayState.state() == 'ConditionalOrderDrafted'
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(finalOrderApplication, currentState.isAfter('FinalOrderPending'))
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAfter('FinalOrderPending'))
     },
-    complete: currentState.isAfter('FinalOrderPending'),
-    active:  currentState.isAtOrAfter('AwaitingFinalOrder') and currentState.isBefore('FinalOrderComplete')
+    complete: displayState.isAfter('FinalOrderPending'),
+    active:  displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(applicationEnded, userCase.state == 'FinalOrderComplete')
+      html: textWithVisuallyHiddenSpan(applicationEnded, displayState.state() == 'FinalOrderComplete')
     },
-    complete: userCase.state == 'FinalOrderComplete'
+    complete: displayState.state() == 'FinalOrderComplete'
   }] %}
 {% endif %}
 
