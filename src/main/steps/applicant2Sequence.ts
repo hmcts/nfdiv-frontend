@@ -180,7 +180,7 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: WITHDRAWING_YOUR_APPLICATION,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => CONTINUE_WITH_YOUR_APPLICATION,
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
