@@ -13,7 +13,7 @@ import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -45,7 +45,7 @@ const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplicat
     userCase.applicant2FullNameOnCertificate
   } (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  ceremonyPlace: `${userCase.ceremonyPlace}`,
+  ceremonyPlace: userCase.ceremonyPlace,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   relationshipDate: getFormattedDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
@@ -70,11 +70,11 @@ const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplicat
   applicant1OtherCourtCases: `Applicant 1 has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicant1LegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicant1LegalProceedingsDetails: userCase.applicant1LegalProceedingsDetails,
   applicant2OtherCourtCases: `Applicant 2 has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicant2LegalProceedingsDetails: `${userCase.applicant2LegalProceedingsDetails}`,
+  applicant2LegalProceedingsDetails: userCase.applicant2LegalProceedingsDetails,
   noOtherCourtCases: `The applicants has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
@@ -109,9 +109,9 @@ const en = ({ isDivorce, userCase, partner, required, userEmail, isJointApplicat
   heading14: 'Applicant 2’s correspondence address',
   applicant2Address: getAppSolAddressFields('applicant2', userCase),
   heading15: 'Applicant 1’s email address',
-  applicant1EmailAddress: `${userEmail}`,
+  applicant1EmailAddress: userCase.applicant1Email,
   heading16: "Applicant 2's email address",
-  applicant2EmailAddress: `${userCase.applicant2EmailAddress}`,
+  applicant2EmailAddress: userCase.applicant2EmailAddress,
   heading17: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
