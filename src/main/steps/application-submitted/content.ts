@@ -8,7 +8,15 @@ import type { CommonContent } from '../common/common.content';
 import { formattedCaseId } from '../common/content.utils';
 import { currentStateFn } from '../state-sequence';
 
-const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+const en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  webChatNotAvailable,
+}: CommonContent) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
@@ -51,7 +59,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   line3: {
     p1: `You need to apply to serve the ${
       isDivorce ? 'divorce' : 'ending your civil partnership'
-    } papers to your ${partner} another way. This is because you did not provide their email and postal address in the application. You could apply to serve them by email only, text message or social media.`,
+    } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
     p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
   },
   line4: {
@@ -108,8 +116,8 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     linkText: 'solicitor or legal adviser',
     link: config.get('govukUrls.legalAdvisor'),
   },
-  webChat: 'Web chat',
-  webChatDetails: 'No agents are available, please try again later.',
+  webChat,
+  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: `Telephone: ${config.get('cyServicePhoneNo')}`,
@@ -132,15 +140,23 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+const cy: typeof en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  webChatNotAvailable,
+}: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
-  partnerResponse: `Your ${partner} responds`, //todo this line
+  partnerResponse: `Bydd eich ${partner} yn ymateb`,
   conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
-  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo this line
+  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo this line - NFDIV-1557
   subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',
@@ -174,8 +190,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber, isJointA
   subHeading3: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
   line3: {
     p1: `Mae angen i chi wneud cais i gyflwyno papurau’r ${
-      isDivorce ? 'ysgariad' : 'bartneriaeth sifil' // todo english line below
-    } ar eich ${partner} mewn ffordd arall. This is because you did not provide their email and postal address in the application. Gallwch wneud cais i’w cyflwyno arnynt drwy e-bost yn unig, drwy neges testun neu gyfryngau cymdeithasol.`,
+      isDivorce ? 'ysgariad' : 'bartneriaeth sifil'
+    } ar eich ${partner} mewn ffordd arall. Y rheswm dros hyn yw oherwydd ni wnaethoch ddarparu eu cyfeiriad e-bost neu gyfeiriad post. Gallwch wneud cais i’w cyflwyno arnynt drwy e-bost yn unig, drwy neges testun neu gyfryngau cymdeithasol.`,
     p2: 'Bydd angen i chi lenwi ffurflen bapur D11 a’i hanfon i’r llys. Gallwch ddefnyddio’r ffurflen i wneud ceisiadau gwahanol, felly dim ond yr adrannau perthnasol sydd angen i chi eu llenwi.',
   },
   line4: {
@@ -231,11 +247,11 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber, isJointA
     linkText: 'chyfreithiwr neu gynghorydd cyfreithiol',
     link: config.get('govukUrls.legalAdvisor'),
   },
-  webChat: 'Web chat', //todo line missing
-  webChatDetails: 'No agents are available, please try again later.', //todo line missing
+  webChat,
+  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
-  telephoneNumber: `Rhif ffôn: ${config.get('servicePhoneNo')}`, //todo this phone number is different
+  telephoneNumber: `Rhif ffôn: ${config.get('cyServicePhoneNo')}`,
   telephoneDetails: 'Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm',
   telephoneCharges: {
     part1: 'Gwybodaeth am brisiau galwadau',
