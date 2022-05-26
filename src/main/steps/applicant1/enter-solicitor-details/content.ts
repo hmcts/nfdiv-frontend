@@ -32,8 +32,37 @@ const en = ({ partner, isDivorce }) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ partner, isDivorce }) => ({
+  title: 'Nodwch fanylion ei gyfreithiwr',
+  line1: `Bydd y llys yn cysylltu â’r cyfreithiwr isod i gadarnhau eu bod yn cynrychioli eich ${partner}. Yna bydd y ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } yn cael ei ‘gyflwyno’ (ei anfon) atynt. `,
+  line2: `Os oes arnoch angen cael manylion ei gyfreithiwr, yna gallwch gadw’r cais hwn, allgofnodi a dychwelyd i’r cais pan fydd y manylion gennych.
+  Mae’n bwysig yn enwedig eich bod yn cael eu manylion os yw eich ${partner} wedi gofyn i chi eu darparu i’r llys.`,
+  line3:
+    'Os yw’n rhy anodd neu os nad yw’n ddiogel i gael manylion eu cyfreithiwr, yna gallwch barhau heb eu darparu. ',
+  solicitorName: 'Enw’r cyfreithiwr (optional)', // todo nfdiv-1799 commented on
+  solicitorNameHint: 'Enw’r cyfreithiwr unigol a fydd yn delio â’r achos ',
+  solicitorEmailAddress: 'Cyfeiriad e-bost y cyfreithiwr (optional)',
+  solicitorEmailAddressHint: 'Y cyfeiriad e-bost y bydd y cais yn cael ei ‘gyflwyno’ (ei anfon) iddo ',
+  solicitorFirmName: 'Enw cwmni’r cyfreithiwr (optional)',
+  solicitorFirmNameHint: 'Enw’r sefydliad neu gwmni',
+  solicitorAddress: 'Cyfeiriad y cyfreithiwr',
+  solicitorAddressHint: 'Cyfeiriad post cwmni’r cyfreithiwr',
+  line1Optional: 'Address line 1 (optional)',
+  line2Optional: 'Address line 2 (optional)',
+  line3Optional: 'Address line 3 (optional)',
+  townOptional: 'Tref neu ddinas (optional)',
+  countyOptional: 'County, district, state or province (optional)',
+  postcodeOptional: 'Postal code, zip code or area code (optional)',
+  countryOptional: 'Country (optional)',
+  errors: {
+    applicant2SolicitorEmail: {
+      invalid:
+        'Rydych wedi nodi’r cyfeiriad e-bost yn y fformat anghywir. Gwiriwch y cyfeiriad e-bost a theipiwch ef eto.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
