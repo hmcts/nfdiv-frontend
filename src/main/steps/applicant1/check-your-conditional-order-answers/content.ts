@@ -15,6 +15,7 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }?`,
     isInformationCorrect: 'Is the information in this application still correct?',
+    changeDetails: 'Details that need updating:',
   },
   stepAnswers: {
     continueApplication: `${
@@ -25,10 +26,16 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
         ? userCase.applicant2ConfirmInformationStillCorrect
         : userCase.applicant1ConfirmInformationStillCorrect
     }`,
+    changeDetails: `${
+      isApplicant2 ? userCase.applicant2ReasonInformationNotCorrect : userCase.applicant1ReasonInformationNotCorrect
+    }`,
   },
   stepLinks: {
     continueApplication: `${isApplicant2 ? '/applicant2' : ''}${urls.CONTINUE_WITH_YOUR_APPLICATION}`,
     isInformationCorrect: `${isApplicant2 ? '/applicant2' : ''}${
+      isJointApplication ? urls.REVIEW_YOUR_JOINT_APPLICATION : urls.REVIEW_YOUR_APPLICATION
+    }`,
+    changeDetails: `${isApplicant2 ? '/applicant2' : ''}${
       isJointApplication ? urls.REVIEW_YOUR_JOINT_APPLICATION : urls.REVIEW_YOUR_APPLICATION
     }`,
   },

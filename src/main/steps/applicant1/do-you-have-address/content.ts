@@ -86,7 +86,8 @@ export const generateContent: TranslationFn = content => {
   const hasAContactForPartner =
     userCase.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked ||
     userCase.applicant2SolicitorEmail ||
-    userCase.applicant2SolicitorAddressPostcode;
+    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
+    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
   const translations = languages[language]({ ...content, hasAContactForPartner });
   return {
     ...translations,
