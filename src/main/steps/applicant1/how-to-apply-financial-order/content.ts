@@ -11,8 +11,14 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   line3: `Continue with your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
+  title: 'Sut i wneud cais am orchymyn ariannol',
+  line1: `Bydd arnoch angen llenwi ffurflen arall (Ffurflen A neu Ffurflen A1) a thalu ffi. Gallwch wneud cais unrhyw bryd, cyn belled bod eich ${partner} dal yn fyw.`,
+  line2: `Fe gewch ddolen i’r ffurflenni perthnasol a mwy o arweiniad ar ôl i chi gyflwyno’r cais hwn ${
+    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+  }. Gallwch geisio cyngor cyfreithiol neu ofyn i gyfreithiwr ddrafftio gorchymyn ariannol ar eich cyfer.`,
+  line3: `Parhau gyda’ch ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+}); // todo nfdiv-1547
 
 export const form: FormContent = {
   fields: {},
