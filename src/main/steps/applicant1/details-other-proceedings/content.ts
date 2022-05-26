@@ -69,7 +69,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
