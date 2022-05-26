@@ -56,7 +56,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   },
   line4: {
     part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-    link: `${config.get('govukUrls.d11Form')}`,
+    link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
@@ -83,57 +83,177 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
   line12: {
     part1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property.`,
     part2: 'Get help agreeing.',
-    link: `${config.get('govukUrls.mediation')}`,
+    link: config.get('govukUrls.mediation'),
   },
   line13: {
     part1:
       'If you do agree then you can make the agreement legally binding. This is known as asking the court to make a ',
     part2: '‘consent order’',
-    link: `${config.get('govukUrls.consentOrder')}`,
+    link: config.get('govukUrls.consentOrder'),
   },
   line14: {
     part1: 'If you disagree then you can ask the court to decide for you. This is known as applying for a ',
     part2: '‘financial order’',
-    link: `${config.get('govukUrls.financialOrder')}`,
+    link: config.get('govukUrls.financialOrder'),
   },
   line15: {
     part1: 'Read the guidance on ',
     part2: 'money and property when you divorce or separate',
-    link: `${config.get('govukUrls.moneyAndProperty')}`,
+    link: config.get('govukUrls.moneyAndProperty'),
   },
   subHeading6: 'If you need help',
   line16: {
     part1:
       'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a ',
     linkText: 'solicitor or legal adviser',
-    link: `${config.get('govukUrls.legalAdvisor')}`,
+    link: config.get('govukUrls.legalAdvisor'),
   },
   webChat: 'Web chat',
   webChatDetails: 'No agents are available, please try again later.',
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
-  telephoneNumber: `Telephone: ${config.get('servicePhoneNo')}`,
+  telephoneNumber: `Telephone: ${config.get('cyServicePhoneNo')}`,
   telephoneDetails: 'Monday to Friday 8am to 5pm',
   telephoneCharges: {
     part1: 'Find out about call charges',
-    link: `${config.get('govukUrls.callCharges')}`,
+    link: config.get('govukUrls.callCharges'),
   },
   domesticAbuse: {
     part1: 'If you are experiencing domestic abuse or feel unsafe, then ',
     part2: 'support is available',
-    link: `${config.get('govukUrls.domesticAbuse')}`,
+    link: config.get('govukUrls.domesticAbuse'),
   },
   feedback: 'Help improve this service',
   feedbackDetails: {
     part1: 'This is a new service. ',
     part2: 'Your feedback',
     part3: ' helps to improve it for others.',
-    link: `${config.get('govukUrls.feedbackSurvey')}`,
+    link: config.get('govukUrls.feedbackSurvey'),
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+  title: 'Cyflwynwyd y cais',
+  yourReferenceNumber: 'Eich cyfeirnod yw:',
+  confirmationEmail: `Mae cadarnhad${
+    userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
+  } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
+  partnerResponse: `Your ${partner} responds`, //todo this line
+  conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
+  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo this line
+  subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
+  line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
+  subHeading2: 'Anfon eich dogfennau i’r llys',
+  line2: 'Mae angen i chi anfon y dogfennau canlynol i’r llys gan na wnaethoch eu llwytho yn gynharach:',
+  documents: {
+    [DocumentType.MARRIAGE_CERTIFICATE]:
+      userCase.inTheUk === YesOrNo.NO
+        ? `Eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} dramor wreiddiol`
+        : `Eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} wreiddiol neu gopi ardystiedig ohoni`,
+    [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } dramor`,
+    [DocumentType.NAME_CHANGE_EVIDENCE]:
+      'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+  },
+  documentsByEmail: 'Anfon dogfennau trwy e-bost',
+  documentsByEmailSteps: {
+    step1: 'Cymerwch lun neu sganiwch y ddogfen ',
+    step2: 'Gwnewch yn siŵr bod y ddelwedd yn dangos y ddogfen gyfan a bod modd darllen yr holl destun',
+    step3: 'Atodwch y ddelwedd i neges e-bost ',
+    step4: `Dylech gynnwys eich cyfeirnod yn y llinell pwnc: ${referenceNumber}`,
+    step5: 'Anfonwch y dogfennau i:',
+  },
+  documentsByPost: 'Anfon eich dogfennau drwy’r post',
+  documentsByPostSteps: {
+    step1: `Ysgrifennwch eich cyfeirnod ar bob dogfen: ${referenceNumber}`,
+    step2: 'Postiwch y dogfennau gwreiddiol i:',
+  },
+  documentsByPostMoreDetails:
+    'Rhaid i chi bostio’r dogfennau gwreiddiol neu gopïau ardystiedig. Bydd eich tystysgrif priodas yn cael ei dychwelyd i chi, os ydych yn ei phostio. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
+  subHeading3: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
+  line3: {
+    p1: `Mae angen i chi wneud cais i gyflwyno papurau’r ${
+      isDivorce ? 'ysgariad' : 'bartneriaeth sifil' // todo english line below
+    } ar eich ${partner} mewn ffordd arall. This is because you did not provide their email and postal address in the application. Gallwch wneud cais i’w cyflwyno arnynt drwy e-bost yn unig, drwy neges testun neu gyfryngau cymdeithasol.`,
+    p2: 'Bydd angen i chi lenwi ffurflen bapur D11 a’i hanfon i’r llys. Gallwch ddefnyddio’r ffurflen i wneud ceisiadau gwahanol, felly dim ond yr adrannau perthnasol sydd angen i chi eu llenwi.',
+  },
+  line4: {
+    part1: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
+    link: config.get('govukUrls.d11Form'),
+  },
+  subHeading4: 'Beth fydd yn digwydd nesaf',
+  line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
+    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+      ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+      : ''
+  }. Fe gewch neges e-bost erbyn ${dayjs(userCase.dateSubmitted)
+    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+    .format('D MMMM YYYY')} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
+  line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
+  line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${config.get(
+    'cyServicePhoneNo'
+  )}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+  line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${config.get(
+    'cyServicePhoneNo'
+  )}.`,
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+    isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
+  }.`,
+  line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
+  subHeading5: 'Rhannu eich arian a’ch eiddo',
+  line12: {
+    part1: `Fel arfer, mae’n symlach ac yn costio llai os ydych yn cytuno gyda’ch ${partner} ynghylch sut i rannu eich arian a’ch eiddo.`,
+    part2: 'Cael cymorth i gytuno ar faterion.',
+    link: config.get('govukUrls.mediation'),
+  },
+  line13: {
+    part1:
+      'Os ydych yn cytuno, yna gallwch wneud y cytundeb yn rhwymol gyfreithiol. Gelwir hyn yn gais i’r llys wneud ',
+    part2: '‘gorchymyn cydsynio’',
+    link: config.get('govukUrls.consentOrder'),
+  },
+  line14: {
+    part1: 'Os ydych yn anghytuno, yna gallwch ofyn i’r llys benderfynu ar eich rhan. Gelwir hyn yn gais am ',
+    part2: '‘orchymyn ariannol’',
+    link: config.get('govukUrls.financialOrder'),
+  },
+  line15: {
+    part1: 'Darllenwch y cyfarwyddyd ar ',
+    part2: 'arian ac eiddo pan fyddwch yn ysgaru neu’n gwahanu',
+    link: config.get('govukUrls.moneyAndProperty'),
+  },
+  subHeading6: 'Os oes arnoch angen cymorth',
+  line16: {
+    part1: 'Gall staff y llys eich helpu gyda’ch cais. Ni allant roi cyngor cyfreithiol i chi. Dylech siarad â ',
+    linkText: 'chyfreithiwr neu gynghorydd cyfreithiol',
+    link: config.get('govukUrls.legalAdvisor'),
+  },
+  webChat: 'Web chat', //todo line missing
+  webChatDetails: 'No agents are available, please try again later.', //todo line missing
+  sendUsAMessage: 'Anfonwch neges atom ',
+  telephone: 'Ffoniwch',
+  telephoneNumber: `Rhif ffôn: ${config.get('servicePhoneNo')}`, //todo this phone number is different
+  telephoneDetails: 'Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm',
+  telephoneCharges: {
+    part1: 'Gwybodaeth am brisiau galwadau',
+    link: config.get('govukUrls.callCharges'),
+  },
+  domesticAbuse: {
+    part1: 'Os ydych yn profi camdriniaeth ddomestig neu yn teimlo’n anniogel, yna ',
+    part2: 'mae cefnogaeth ar gael',
+    link: config.get('govukUrls.domesticAbuse'),
+  },
+  feedback: "Helpwch ni i wella'r gwasanaeth hwn",
+  feedbackDetails: {
+    part1: 'Mae hwn yn wasanaeth newydd.',
+    part2: 'Mae eich adborth',
+    part3: ' yn ein helpu i wella’r gwasanaeth i eraill.',
+    link: config.get('govukUrls.feedbackSurvey'),
+  },
+});
 
 const languages = {
   en,
