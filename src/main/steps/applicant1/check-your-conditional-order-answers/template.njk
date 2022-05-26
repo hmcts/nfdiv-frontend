@@ -8,10 +8,10 @@
   applyForConditionalOrderStarted) %}
 {% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
 
-{% if applyForConditionalOrderStarted === 'Yes' and isApplicant2 %}
+{% if isApplicant2 %}
 {% set nextIncompleteStep = "/applicant2/continue-with-your-application" %}
-{% else  %}
-  {% set nextIncompleteStep = "/continue-with-your-application" %}
+{% elif applyForConditionalOrderStarted === 'No' %}
+{% set nextIncompleteStep = "/continue-with-your-application" %}
 {% endif %}
 
 
