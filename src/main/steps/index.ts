@@ -125,12 +125,12 @@ export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
 
 export const isConditionalOrderReadyToSubmit = (
   nextStepUrl: string,
-  applyForConditionalOrderStarted: string
+  applicantApplyForConditionalOrder: string
 ): boolean => {
   const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
   const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
 
-  if (applyForConditionalOrderStarted === 'Yes') {
+  if (applicantApplyForConditionalOrder === 'No') {
     return false;
   } else {
     return (
