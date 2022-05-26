@@ -27,17 +27,11 @@ export class OidcMiddleware {
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
 
-    app.get(SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
-    );
-    app.get(APPLICANT_2_SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, APPLICANT_2_CALLBACK_URL))
+    app.get([SIGN_IN_URL, APPLICANT_2_SIGN_IN_URL], (req, res) =>
+      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
-
-    app.get(CALLBACK_URL, errorHandler(this.callbackHandler(protocol, port)));
-
-    app.get(APPLICANT_2_CALLBACK_URL, errorHandler(this.applicant2CallbackHandler(protocol, port)));
+    app.get([CALLBACK_URL, APPLICANT_2_CALLBACK_URL], errorHandler(this.callbackHandler(protocol, port)));
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
@@ -91,33 +85,23 @@ export class OidcMiddleware {
 
   private callbackHandler(protocol: string, port: string) {
     return async (req, res) => {
-      if (typeof req.query.code === 'string') {
-        req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-
-        const url = req.session.user.roles.includes('caseworker') ? 'https://manage-case.platform.hmcts.net/' : '/';
-        req.session.save(() => res.redirect(url));
-      } else {
-        res.redirect(SIGN_IN_URL);
-      }
-    };
-  }
-
-  private applicant2CallbackHandler(protocol: string, port: string) {
-    return async (req, res) => {
+      const isApplicant2 = req.path === APPLICANT_2_CALLBACK_URL;
       if (typeof req.query.code === 'string') {
         req.session.user = await getUserDetails(
           `${protocol}${res.locals.host}${port}`,
           req.query.code,
-          APPLICANT_2_CALLBACK_URL
+          isApplicant2 ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
         );
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
-          : `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+          : isApplicant2
+          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
+          : '/';
 
         req.session.save(() => res.redirect(url));
       } else {
-        res.redirect(APPLICANT_2_SIGN_IN_URL);
+        res.redirect(isApplicant2 ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
       }
     };
   }
