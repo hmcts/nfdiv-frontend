@@ -141,6 +141,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Then the page should include "You can use English or Welsh courts to get a divorce"
     And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales"
 
+  @nightly
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
@@ -148,6 +149,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     When I click "Back"
     Then the page should include "Check if you can get a divorce in England or Wales"
 
+  @nightly
   Scenario: Checking additional connections on you-can-use-english-or-welsh-courts page
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
@@ -163,6 +165,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Then the page should include "you and your husband are habitually resident in England and Wales"
     And the page should include "your husband is habitually resident in England and Wales"
 
+  @nightly
   Scenario: The user changes their answer to same-sex or application type
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
@@ -196,7 +199,7 @@ Feature: Jurisdiction - can use English or Welsh courts
 
 
   @nightly
-  Scenario: Nightly jurisdiction tests
+  Scenario: Jurisdiction unhappy paths
     # B Applicant1 and Applicant2 were last habitually resident in England and Wales, Applicant1 habitually resident
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "No" for "Is your husband’s life mainly based in England or Wales?"

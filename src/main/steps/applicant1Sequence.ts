@@ -320,7 +320,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (
         data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
-        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+        !(
+          data.applicant2SolicitorEmail ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorFirmName) ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorAddress1)
+        )
       ) {
         return NEED_TO_GET_ADDRESS;
       } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
@@ -491,7 +495,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
   ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
   data.applicant1IConfirmPrayer === Checkbox.Checked &&
-  data.applicant1IBelieveApplicationIsTrue === Checkbox.Checked;
+  data.applicant1StatementOfTruth === Checkbox.Checked;
 
 export const isCountryUk = (value: string | undefined): boolean => {
   const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];

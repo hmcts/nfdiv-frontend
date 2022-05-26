@@ -19,7 +19,7 @@ describe('CheckYourAnswersPostController', () => {
       applicationType: {},
       state: {},
       applicant2IConfirmPrayer: {},
-      applicant2IBelieveApplicationIsTrue: {},
+      applicant2StatementOfTruth: {},
     },
   } as unknown as FormContent;
 
@@ -28,7 +28,7 @@ describe('CheckYourAnswersPostController', () => {
       applicationType: ApplicationType.JOINT_APPLICATION,
       state: State.AwaitingApplicant1Response,
       applicant2IConfirmPrayer: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
     };
     const checkYourAnswerPostController = new Applicant2PrayerPostController(mockFormContent.fields);
 

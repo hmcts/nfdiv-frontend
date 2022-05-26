@@ -2,29 +2,38 @@ import { CaseWithId } from '../app/case/case';
 import { State } from '../app/case/definition';
 
 export class StateSequence {
-  states: string[];
+  states: State[];
   stateIndex: number;
 
-  constructor(readonly stateList: string[]) {
+  constructor(readonly stateList: State[]) {
     this.states = stateList;
     this.stateIndex = 0;
   }
 
-  public at(currentState: string): StateSequence {
-    this.stateIndex = this.states.indexOf(currentState);
-    return this;
+  public at(currentState: State): StateSequence {
+    const currentStateSequence: StateSequence = new StateSequence(this.states);
+    currentStateSequence.stateIndex = this.states.indexOf(currentState);
+    return currentStateSequence;
+  }
+
+  public state(): State {
+    return this.states[this.stateIndex];
   }
 
   public isAfter(state: string): boolean {
-    return this.stateIndex > this.states.indexOf(state);
+    return this.stateIndex > this.states.indexOf(state as State);
   }
 
   public isAtOrAfter(state: string): boolean {
-    return this.stateIndex >= this.states.indexOf(state);
+    return this.stateIndex >= this.states.indexOf(state as State);
   }
 
   public isBefore(state: string): boolean {
-    return this.stateIndex < this.states.indexOf(state);
+    return this.stateIndex < this.states.indexOf(state as State);
+  }
+
+  public isAtOrBefore(state: string): boolean {
+    return this.stateIndex <= this.states.indexOf(state as State);
   }
 }
 
@@ -48,14 +57,15 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.AwaitingBailiffReferral,
     State.AwaitingBailiffService,
     State.IssuedToBailiff,
-    State.Holding,
-    State.AwaitingConditionalOrder,
-    State.AwaitingAlternativeService,
-    State.AwaitingGeneralConsideration,
+    State.GeneralApplicationReceived,
     State.AwaitingGeneralReferralPayment,
+    State.AwaitingGeneralConsideration,
     State.GeneralConsiderationComplete,
     State.AwaitingJudgeClarification,
     State.AwaitingDwpResponse,
+    State.AwaitingAlternativeService,
+    State.Holding,
+    State.AwaitingConditionalOrder,
     State.ConditionalOrderDrafted,
     State.ConditionalOrderPending,
     State.AwaitingLegalAdvisorReferral,

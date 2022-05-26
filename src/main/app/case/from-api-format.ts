@@ -94,10 +94,10 @@ const fields: FromApiConverters = {
   applicant2PrayerFinancialOrdersThemselves: prayerConverter('applicant2'),
   applicant2PrayerFinancialOrdersChild: prayerConverter('applicant2'),
   applicant1StatementOfTruth: data => ({
-    applicant1IBelieveApplicationIsTrue: checkboxConverter(data.applicant1StatementOfTruth),
+    applicant1StatementOfTruth: checkboxConverter(data.applicant1StatementOfTruth),
   }),
   applicant2StatementOfTruth: data => ({
-    applicant2IBelieveApplicationIsTrue: checkboxConverter(data.applicant2StatementOfTruth),
+    applicant2StatementOfTruth: checkboxConverter(data.applicant2StatementOfTruth),
   }),
   dateSubmitted: data => ({
     dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),
@@ -141,7 +141,7 @@ const fields: FromApiConverters = {
     coClarificationResponses: data.coClarificationResponses?.length ? data.coClarificationResponses?.[0].value : '',
   }),
   applicant2SolicitorAddress: data => {
-    const address = data.applicant2SolicitorAddress?.split('\n');
+    const address = data.applicant2SolicitorAddress ? data.applicant2SolicitorAddress?.split('\n') : Array(7).fill('');
     return {
       applicant2SolicitorAddress: data.applicant2SolicitorAddress,
       applicant2SolicitorAddress1: address?.[0],
@@ -156,6 +156,10 @@ const fields: FromApiConverters = {
   dateFinalOrderSubmitted: data => ({
     dateFinalOrderSubmitted: dayjs(data.dateFinalOrderSubmitted).format('D MMMM YYYY'),
   }),
+  dateAosSubmitted: data => ({
+    dateAosSubmitted: dayjs(data.dateAosSubmitted).format('D MMMM YYYY'),
+  }),
+  previousState: 'previousState',
 };
 
 const fromApiDate = date => {

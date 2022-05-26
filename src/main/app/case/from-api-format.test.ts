@@ -75,8 +75,8 @@ describe('from-api-format', () => {
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
       applicant2EnglishOrWelsh: LanguagePreference.Welsh,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       dueDate: '26 July 2021',
@@ -118,6 +118,7 @@ describe('from-api-format', () => {
       marriageDate: '2000-09-02',
       dateSubmitted: '2021-01-01',
       dateFinalOrderSubmitted: '2022-01-01',
+      dateAosSubmitted: '2022-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -130,8 +131,8 @@ describe('from-api-format', () => {
         month: '9',
         year: '2000',
       },
-      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
@@ -159,6 +160,7 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       dateFinalOrderSubmitted: '1 January 2022',
+      dateAosSubmitted: '1 January 2022',
     });
   });
 
@@ -174,9 +176,9 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
       applicant2EnglishOrWelsh: null,
@@ -216,9 +218,9 @@ describe('from-api-format', () => {
       gender: Gender.MALE,
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
-      applicant1IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+      applicant2StatementOfTruth: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
       applicant2EnglishOrWelsh: LanguagePreference.English,

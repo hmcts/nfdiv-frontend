@@ -176,7 +176,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
         isDivorce ? 'dissolve your marriage (get a divorce)' : 'end your civil partnership'
       }.`,
     },
-    applicant1IBelieveApplicationIsTrue: {
+    applicant1StatementOfTruth: {
       required: 'You need to confirm the facts stated in this application are true',
     },
   },
@@ -200,12 +200,12 @@ export const form: FormContent = {
         },
       ],
     },
-    applicant1IBelieveApplicationIsTrue: {
+    applicant1StatementOfTruth: {
       type: 'checkboxes',
       labelHidden: true,
       values: [
         {
-          name: 'applicant1IBelieveApplicationIsTrue',
+          name: 'applicant1StatementOfTruth',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,
           value: Checkbox.Checked,

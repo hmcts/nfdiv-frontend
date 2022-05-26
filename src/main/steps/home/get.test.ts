@@ -322,7 +322,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
-          applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+          applicant2StatementOfTruth: Checkbox.Checked,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderDrafted,
@@ -413,7 +413,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
-          applicant2IBelieveApplicationIsTrue: Checkbox.Checked,
+          applicant2StatementOfTruth: Checkbox.Checked,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderPending,
@@ -663,7 +663,34 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
   });
 
-  test('redirects to the hub page for respondent users in holding state', () => {
+  test('redirects to the hub page for respondent users in holding state and aos is completed', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.Holding,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          jurisdictionAgree: YesOrNo.YES,
+          reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
+          inWhichCountryIsYourLifeMainlyBased: '',
+          applicant2LegalProceedings: YesOrNo.NO,
+          applicant2AgreeToReceiveEmails: Checkbox.Checked,
+          applicant2PhoneNumber: '',
+          applicant2StatementOfTruth: Checkbox.Checked,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+  });
+
+  test('redirects to the hub page for respondent users in holding state and aos is not started', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -679,6 +706,45 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+  });
+
+  test('redirects to the CYA for respondent users in holding state and aos is started but the first question is complete', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.Holding,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
+  });
+
+  test('redirects to the how do you want to respond page for respondent users in holding state and aos is started but the first question is not complete', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          state: State.Holding,
+          confirmReadPetition: Checkbox.Checked,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`);
   });
 
   test('redirects to the how do you want to respond page for respondent users if first question not complete', () => {
