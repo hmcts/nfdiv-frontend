@@ -4,7 +4,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = {
   title: 'Details of the other legal proceedings',
-  line1: `The court needs to know the details of the other legal proceedings. Provide 
+  line1: `The court needs to know the details of the other legal proceedings. Provide
   as much information as possible, such as:`,
   point1: 'the names of the people involved',
   point2: 'the case number(s)',
@@ -22,8 +22,26 @@ const en = {
   },
 };
 
-//TODO Translation
-const cy = en;
+const cy: typeof en = {
+  title: 'Manylion yr achosion cyfreithiol eraill',
+  line1: `The court needs to know the details of the other legal proceedings. Provide
+  as much information as possible, such as:`, // todo nfdiv-1548
+  point1: 'enwau’r bobl sydd ynghlwm â’r achos',
+  point2: 'Rhif(au) yr achos(ion)',
+  point3: 'os yw’r achosion yn mynd rhagddynt neu os ydynt wedi gorffen',
+  point4: 'beth yw diben yr achosion',
+  point5: 'enw a chyfeiriad y llys, gan gynnwys y wlad',
+  point6: 'y dyddiad y dechreuodd yr achosion',
+  point7: "dyddiadau unrhyw wrandawiadau sydd wedi'u trefnu ",
+  point8: 'manylion unrhyw orchmynion sydd wedi’u gwneud',
+  applicant1LegalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
+  errors: {
+    applicant1LegalProceedingsDetails: {
+      required:
+        'Nid ydych wedi darparu unrhyw wybodaeth. Mae angen i chi nodi manylion yr achosion cyfreithiol eraill.',
+    },
+  },
+};
 
 export const form: FormContent = {
   fields: {
