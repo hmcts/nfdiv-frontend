@@ -51,9 +51,9 @@
     active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding')
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingGeneralConsideration'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAfter('AwaitingGeneralConsideration'),
+    complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
     active: displayState.state() == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
