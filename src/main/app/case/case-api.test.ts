@@ -138,24 +138,14 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com');
   });
 
-  test('Should throw an error if too many cases are found', async () => {
-    const mockCase = { case_data: { divorceOrDissolution: serviceType } };
-
-    mockedAxios.post.mockResolvedValue({
-      data: { cases: [mockCase, mockCase, mockCase] },
-    });
-
-    await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Too many cases assigned to user.');
-  });
-
   test('Should throw an error if in progress divorce case is found', async () => {
     const mockCase = { case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' };
 
     mockedAxios.post.mockResolvedValueOnce({
-      data: { cases: [] },
+      data: { cases: [mockCase] },
     });
     mockedAxios.post.mockResolvedValueOnce({
-      data: { cases: [mockCase] },
+      data: { cases: [] },
     });
 
     try {
@@ -171,22 +161,22 @@ describe('CaseApi', () => {
 
   test('Should ignore incomplete divorce cases', async () => {
     const mockCase = { case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingPayment' };
-
-    mockedAxios.post.mockResolvedValueOnce({
-      data: {
-        cases: [
-          {
-            id: '1',
-            state: State.Draft,
-            case_data: {
-              divorceOrDissolution: serviceType,
-            },
+    mockedAxios.post.mockImplementation(async url => {
+      if (url.endsWith('DIVORCE')) {
+        return Promise.resolve({ data: { cases: [mockCase] } });
+      } else {
+        return Promise.resolve({
+          data: {
+            cases: [
+              {
+                id: '1',
+                state: State.Draft,
+                case_data: { divorceOrDissolution: serviceType },
+              },
+            ],
           },
-        ],
-      },
-    });
-    mockedAxios.post.mockResolvedValueOnce({
-      data: { cases: [mockCase] },
+        });
+      }
     });
 
     const userCase = await api.getOrCreateCase(serviceType, userDetails);
@@ -197,9 +187,11 @@ describe('CaseApi', () => {
     });
   });
 
-  test('Should divorce cases not assigned to the service center', async () => {
+  test('Should ignore divorce cases not assigned to the service center', async () => {
     const mockCase = { case_data: { D8DivorceUnit: 'BuryStEdmunds' }, state: 'AwaitingDecreeNisi' };
-
+    mockedAxios.post.mockResolvedValueOnce({
+      data: { cases: [mockCase] },
+    });
     mockedAxios.post.mockResolvedValueOnce({
       data: {
         cases: [
@@ -212,9 +204,6 @@ describe('CaseApi', () => {
           },
         ],
       },
-    });
-    mockedAxios.post.mockResolvedValueOnce({
-      data: { cases: [mockCase] },
     });
 
     const userCase = await api.getOrCreateCase(serviceType, userDetails);
@@ -371,14 +360,14 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
   });
 
-  test('isApplicant2() returns true if the case role contains applicant 2', async () => {
+  test('isApplicant2() should return true if the case role contains applicant 2', async () => {
     mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.APPLICANT_2 }] } });
 
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
   });
 
-  test('isApplicant2AlreadyLinked() returns true if the case role contains applicant 2', async () => {
+  test('isAlreadyLinked() should return true if the case role contains applicant 2', async () => {
     const mockCase = {
       id: '1',
       state: State.Draft,
@@ -396,7 +385,7 @@ describe('CaseApi', () => {
     expect(isApplicant2AlreadyLinked).toBe(true);
   });
 
-  test('isApplicant2AlreadyLinked() returns false if the case role does not contain applicant 2', async () => {
+  test('isAlreadyLinked() should return false if the case role does not contain applicant 2', async () => {
     const mockCase = {
       id: '1',
       state: State.Draft,
@@ -405,14 +394,14 @@ describe('CaseApi', () => {
       },
     };
 
+    mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.CASE_WORKER }] } });
     mockedAxios.post.mockResolvedValue({ data: { cases: [mockCase] } });
-    mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.CREATOR }] } });
 
-    const isApplicant2AlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(false);
+    const isAlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
+    expect(isAlreadyLinked).toBe(false);
   });
 
-  test('isApplicant2AlreadyLinked() returns false if case is not found', async () => {
+  test('isAlreadyLinked() returns false if case is not found', async () => {
     mockedAxios.post.mockResolvedValue({ data: { cases: [] } });
 
     const isApplicant2AlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
