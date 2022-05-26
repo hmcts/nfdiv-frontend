@@ -26,8 +26,29 @@ const en = () => {
   };
 };
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = () => {
+  const invalid = 'Rydych wedi teipio nod annilys, fel rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.';
+  return {
+    title: 'Nodwch eich enw',
+    line1: 'Mae’r llys angen gwybod eich enw llawn.',
+    firstNames: 'Eich enw(au) cyntaf',
+    middleNames: 'Eich enw(au) canol (if you have one)', //todo nfdiv-1811
+    lastNames: 'Eich cyfenw(au)',
+    errors: {
+      applicant1FirstNames: {
+        required: 'Nid ydych wedi nodi’ch enw cyntaf. Nodwch ef cyn parhau.',
+        invalid,
+      },
+      applicant1MiddleNames: {
+        invalid,
+      },
+      applicant1LastNames: {
+        required: 'Nid ydych wedi nodi’ch cyfenw. Nodwch ef cyn parhau.',
+        invalid,
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: {
