@@ -120,7 +120,7 @@ const en = ({
   webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
-  telephoneNumber: `Telephone: ${config.get('cyServicePhoneNo')}`,
+  telephoneNumber: `Telephone: ${config.get('servicePhoneNo')}`,
   telephoneDetails: 'Monday to Friday 8am to 5pm',
   telephoneCharges: {
     part1: 'Find out about call charges',

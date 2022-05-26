@@ -52,7 +52,7 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-} as FormContent;
+};
 
 const languages = {
   en,
