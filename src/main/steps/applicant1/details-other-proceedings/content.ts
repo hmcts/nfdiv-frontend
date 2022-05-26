@@ -1,11 +1,14 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { CommonContent } from '../../common/common.content';
 
-const en = {
+const en = ({ isDivorce }: CommonContent) => ({
   title: 'Details of the other legal proceedings',
-  line1: `The court needs to know the details of the other legal proceedings. Provide
-  as much information as possible, such as:`,
+  line1: `The court needs to know the details of the other legal proceedings relating to your ${
+    isDivorce ? 'marriage' : 'civil partnership'
+  }.
+  Provide as much information as possible, such as:`,
   point1: 'the names of the people involved',
   point2: 'the case number(s)',
   point3: "if the proceedings are ongoing of if they've finished",
@@ -20,12 +23,14 @@ const en = {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
     },
   },
-};
+});
 
-const cy: typeof en = {
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   title: 'Manylion yr achosion cyfreithiol eraill',
-  line1: `The court needs to know the details of the other legal proceedings. Provide
-  as much information as possible, such as:`, // todo nfdiv-1548
+  line1: `Mae angen i'r llys wybod manylion yr achosion cyfreithiol eraill sy'n ymwneud â'ch ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  }.
+  Darparwch cymaint o wybodaeth â phosibl, megis: `,
   point1: 'enwau’r bobl sydd ynghlwm â’r achos',
   point2: 'Rhif(au) yr achos(ion)',
   point3: 'os yw’r achosion yn mynd rhagddynt neu os ydynt wedi gorffen',
@@ -41,7 +46,7 @@ const cy: typeof en = {
         'Nid ydych wedi darparu unrhyw wybodaeth. Mae angen i chi nodi manylion yr achosion cyfreithiol eraill.',
     },
   },
-};
+});
 
 export const form: FormContent = {
   fields: {
