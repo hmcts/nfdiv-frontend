@@ -4,10 +4,10 @@
 {% extends "common/page.njk" %}
 
 {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+
+
 {% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep,
-userCase.applicant1ApplyForConditionalOrderStarted) %}
-{% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep,
-  userCase.applicant2ApplyForConditionalOrderStarted) %}
+  applyForConditionalOrderStarted) %}
 {% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
 
 {% block content %}
