@@ -7,7 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
@@ -17,7 +17,7 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean
   isApplicant2 ||
   (userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES);
 
-const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication, language }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
   line1: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
   subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
@@ -47,7 +47,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication, la
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, language, isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'en', isDivorce, isJointApplication)
       : [],
   whatThisMeans: 'What this means',
   jurisdictionsMoreDetails: {
@@ -56,7 +56,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication, la
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
      Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce, true).text,
   },
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
@@ -181,14 +181,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication, la
   },
 });
 
-const cy: typeof en = ({
-  isDivorce,
-  partner,
-  userCase,
-  isApplicant2,
-  isJointApplication,
-  language,
-}: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Cadarnhau eich cais ar y cyd',
   line1: `Dyma’r wybodaeth rydych chi a’ch ${partner} wedi’i darparu ar gyfer eich cais ar y cyd. Cadarnhewch yr wybodaeth cyn parhau.`,
   subHeading1: `Cais ar y cyd ${isDivorce ? 'am ysgariad' : 'i ddod â phartneriaeth sifil i ben'}`,
@@ -218,7 +211,7 @@ const cy: typeof en = ({
   line15: 'Mae gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) i wrando’r achos hwn oherwydd:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, language, isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'cy', isDivorce, isJointApplication)
       : [],
   whatThisMeans: 'Beth mae hyn yn ei olygu',
   jurisdictionsMoreDetails: {
@@ -226,7 +219,7 @@ const cy: typeof en = ({
       isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
     }.
     Cadarnhaodd y ceiswyr bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai un o’r ceiswyr neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Lloegr, neu bob un ohonynt.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, 'cy', isDivorce, true).text,
   },
   subHeading4: 'Achosion llys eraill',
   line16: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${

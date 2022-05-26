@@ -62,7 +62,7 @@ const cyConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolea
   [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'mae Ceisydd 1 yn preswylio’n arferol yng Nghymru a Lloegr',
 });
 
-export const enConnectionBulletPointsSummarisedForAllUsers = (
+export const connectionBulletPointsSummarisedForAllUsers = (
   connections: JurisdictionConnections[],
   language: Language,
   isDivorce: boolean,

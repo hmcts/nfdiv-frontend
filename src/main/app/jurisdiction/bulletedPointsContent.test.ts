@@ -1,7 +1,7 @@
 import { JurisdictionConnections } from '../case/definition';
 
 import {
-  enConnectionBulletPointsSummarisedForAllUsers,
+  connectionBulletPointsSummarisedForAllUsers,
   enConnectionBulletPointsUserReads,
   enConnectionUserReads,
 } from './bulletedPointsContent';
@@ -11,8 +11,9 @@ describe('jurisdictionBulletPointContent', () => {
     const expected = [
       'both parties to the marriage were last habitually resident in England and Wales and one of them continues to reside there',
     ];
-    const result = enConnectionBulletPointsSummarisedForAllUsers(
+    const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      'en',
       true,
       true
     );
@@ -23,8 +24,9 @@ describe('jurisdictionBulletPointContent', () => {
     const expected = [
       'both parties to the civil partnership were last habitually resident in England and Wales and one of them continues to reside there',
     ];
-    const result = enConnectionBulletPointsSummarisedForAllUsers(
+    const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      'en',
       false,
       false
     );
