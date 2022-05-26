@@ -95,7 +95,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
-  const hasEnteredSolicitorDetails = userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
+  const hasEnteredSolicitorDetails =
+    userCase.applicant2SolicitorEmail ||
+    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
+    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
   const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
   return {
     ...translations,
