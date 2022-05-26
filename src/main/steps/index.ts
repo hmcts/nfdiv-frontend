@@ -131,10 +131,8 @@ export const isConditionalOrderReadyToSubmit = (
   const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
 
   if (applyForConditionalOrderStarted === 'Yes') {
-    console.log('we are running Yes for applyForConditionalOrderStarted');
     return false;
   } else {
-    console.log('we are running else');
     return (
       finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
     );
