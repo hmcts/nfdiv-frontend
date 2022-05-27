@@ -13,7 +13,16 @@ const en = ({ isDivorce, partner, civilPartner }) => ({
 });
 
 // @TODO translations
-const cy = en;
+const cy = ({ isDivorce, partner, civilPartner }) => ({
+  title: 'Mae arnoch angen adolygu eich cais ar y cyd',
+  line1: `Mae eich ${isDivorce ? partner : civilPartner} wedi creu ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }. Maen nhw wedi mynegi eu bod eisiau cyflwyno’r cais ar y cyd gyda chi. Cais ar y cyd yw pan fyddwch yn adolygu a chyflwyno’r cais gyda’ch gilydd.`,
+  line2: `Mae arnoch angen adolygu’r wybodaeth maen nhw wedi’i darparu. Os byddwch yn cadarnhau ei bod yn gywir ac yn cadarnhau y gellir gwneud y cais ${
+    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+  }, yna gellir ei gyflwyno. Os na fyddwch yn cadarnhau, fe gewch wybod beth gallwch chi ei wneud nesaf.`,
+  line3: 'Byddwch hefyd wedi cael eich gofyn i ddarparu rhywfaint o wybodaeth.',
+});
 
 export const form: FormContent = {
   fields: {},
