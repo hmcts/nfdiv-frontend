@@ -36,7 +36,7 @@ const en = (
     [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `My ${partner} is habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
       isJointApplication
-        ? `Me or my ${partner} are habitually resident in England and Wales and has resided there
+        ? `Me or my ${partner} are habitually resident in England and Wales and have resided there
       for at least one year immediately before making this application`
         : 'I am habitually resident in England and Wales and have resided there for at least one year immediately ' +
           'before making this application'
@@ -101,7 +101,7 @@ const cy: typeof en = (
     [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `Mae fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
       isJointApplication
-        ? `Me or my ${partner} are habitually resident in England and Wales and has resided there
+        ? `Me or my ${partner} are habitually resident in England and Wales and have resided there
       for at least one year immediately before making this application` // todo these in english are slightly different - me or my partner
         : 'Rwyf yn preswylio’n arferol yng Nghymru a Lloegr, ac rwyf wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn'
     }`,

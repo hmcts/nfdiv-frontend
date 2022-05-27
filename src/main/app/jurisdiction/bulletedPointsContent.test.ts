@@ -38,6 +38,7 @@ describe('jurisdictionBulletPointContent', () => {
       [JurisdictionConnections.APP_1_APP_2_RESIDENT],
       'husband',
       true,
+      true,
       true
     );
     expect(result).toEqual(expected);
