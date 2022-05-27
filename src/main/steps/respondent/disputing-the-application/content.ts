@@ -47,8 +47,48 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy = ({ isDivorce, partner, userCase }: CommonContent) => ({
+  title: `Herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}`,
+  line1: `Os ydych eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
+  yna bydd yn rhaid i chi gyflwyno ffurflen arall (a elwir yn ‘yr ateb’) gyda’ch rheswm dros herio.
+  Bydd hyn yn costio ${getFee(
+    config.get('fees.d8bFormSubmission')
+  )}, oni bai eich bod yn gymwys i gael Help i dalu Ffioedd.`,
+  readMore: 'Darganfyddwch fwy am Help i dalu Ffioedd.',
+  helpText: 'Efallai y gallwch gael help i dalu ffioedd os ydych chi (os yw un neu fwy o’r canlynol yn berthnasol):',
+  helpPayingWhen: ['yn cael rhai budd-daliadau', 'gydag ychydig o gynilion neu ddim cynilion o gwbl', 'ar incwm isel'],
+  line2: `Mae gennych tan ${dayjs(userCase.issueDate)
+    .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+    .format('D MMMM YYYY')} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad cau,
+    yna bydd eich ${partner} fel arfer yn gallu parhau â’r ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }.`,
+  line3: `Yr unig resymau dilys dros herio’r ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil'
+  } yw oherwydd (os yw un neu fwy o’r canlynol yn berthnasol):`,
+  point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
+  ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
+  point2: `nid ydych yn credu bod eich ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } yn ddilys yn gyfreithiol. Er enghraifft,
+  os oedd un ohonoch eisoes yn briod neu mewn partneriaeth sifil pan wnaethoch chi ${
+    isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
+  }`,
+  point3: `mae’r ${isDivorce ? 'briodas' : 'partneriaeth sifil'} hon eisoes wedi dod i ben yn gyfreithiol`,
+  line4: 'Ydych chi’n siŵr eich bod eisiau herio’r cais?',
+  disputedSelected: `<strong>Rydych ar fin cadarnhau eich bod eisiau herio’r ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }.</strong>`,
+  yes: `Rwy’n cadarnhau fy mod eisiau herio’r ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'
+  }`,
+  no: `Nid wyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
+  errors: {
+    confirmDisputeApplication: {
+      required: 'Mae angen ichi ymateb cyn y gallwch barhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
