@@ -6,6 +6,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  CivilPartnershipBroken,
   ContactDetailsType,
   DissolveDivorce,
   DivorceOrDissolution,
@@ -15,6 +16,7 @@ import {
   FinancialOrdersThemselves,
   Gender,
   HowToRespondApplication,
+  MarriageBroken,
   MarriageFormation,
   YesOrNo,
 } from './definition';
@@ -171,6 +173,19 @@ const fields: ToApiConverters = {
       : [],
     applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
   }),
+  applicant1ScreenHasUnionBroken: data => {
+    if (data.divorceOrDissolution === DivorceOrDissolution.DIVORCE) {
+      return {
+        applicant1HasMarriageBroken:
+          data.applicant1ScreenHasUnionBroken === YesOrNo.YES ? [MarriageBroken.MARRIAGE_BROKEN] : [],
+      };
+    } else {
+      return {
+        applicant1HasCivilPartnershipBroken:
+          data.applicant1ScreenHasUnionBroken === YesOrNo.YES ? [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] : [],
+      };
+    }
+  },
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
   applicant1StatementOfTruth: data => ({

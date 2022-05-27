@@ -2,7 +2,16 @@ import dayjs from 'dayjs';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';
+import {
+  CaseData,
+  CivilPartnershipBroken,
+  ContactDetailsType,
+  DivorceOrDissolution,
+  HowToRespondApplication,
+  MarriageBroken,
+  MarriageFormation,
+  YesOrNo,
+} from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
@@ -17,6 +26,32 @@ const checkboxConverter = (value: string | undefined) => {
   }
 
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+};
+
+const marriageBrokenConverter = data => {
+  if (data.divorceOrDissolution === DivorceOrDissolution.DIVORCE) {
+    return {
+      applicant1ScreenHasUnionBroken: data.applicant1HasMarriageBroken?.includes(MarriageBroken.MARRIAGE_BROKEN)
+        ? YesOrNo.YES
+        : YesOrNo.NO,
+    };
+  } else {
+    return {};
+  }
+};
+
+const civilPartnershipBrokenConverter = data => {
+  if (data.divorceOrDissolution === DivorceOrDissolution.DISSOLUTION) {
+    return {
+      applicant1ScreenHasUnionBroken: data.applicant1HasCivilPartnershipBroken?.includes(
+        CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN
+      )
+        ? YesOrNo.YES
+        : YesOrNo.NO,
+    };
+  } else {
+    return {};
+  }
 };
 
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
@@ -39,6 +74,8 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  applicant1HasMarriageBroken: data => marriageBrokenConverter(data),
+  applicant1HasCivilPartnershipBroken: data => civilPartnershipBrokenConverter(data),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),

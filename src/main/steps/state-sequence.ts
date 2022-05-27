@@ -46,7 +46,6 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.AwaitingService,
     State.AosDrafted,
     State.AosOverdue,
-    State.Disputed,
     State.AwaitingServicePayment,
     State.AwaitingServiceConsideration,
     State.AwaitingBailiffReferral,

@@ -25,7 +25,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicationType: 'applicationType',
   divorceOrDissolution: 'divorceOrDissolution',
   gender: 'applicant2Gender',
-  applicant1ScreenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
   applicant1HelpPayingNeeded: 'applicant1HWFNeedHelp',
