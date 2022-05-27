@@ -12,7 +12,7 @@ const en = ({ isDivorce, partner, civilPartner }) => ({
   line3: 'You will also be asked to provide some of your own information.',
 });
 
-const cy = ({ isDivorce, partner, civilPartner }) => ({
+const cy: typeof en = ({ isDivorce, partner, civilPartner }) => ({
   title: 'Mae arnoch angen adolygu eich cais ar y cyd',
   line1: `Mae eich ${isDivorce ? partner : civilPartner} wedi creu ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
