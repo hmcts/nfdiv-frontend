@@ -13,8 +13,16 @@ const en = ({ partner, userCase }: CommonContent) => ({
   }, then the application will be submitted.`,
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy = ({ partner, userCase }: CommonContent) => ({
+  title: `Mae eich ${partner} angen cadarnhau eich cais ar y cyd`,
+  line1: `Mae eich ${partner} angen cadarnhau eich cais ar y cyd. Maent wedi cael neges e-bost yn eu gwahodd i adolygu’ch atebion cyfun a chadarnhau’r cais. Dylent wneud hyn erbyn `,
+  reviewDate: userCase.dueDate,
+  line2: `Pan fyddant wedi cadarnhau’r cais${
+    userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES
+      ? ''
+      : ' a thalu'
+  }, yna bydd y cais yn cael ei gyflwyno.`,
+});
 
 const languages = {
   en,
