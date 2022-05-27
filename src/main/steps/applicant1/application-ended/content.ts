@@ -10,7 +10,7 @@ const en = {
   exitLink: 'Exit service',
 };
 
-const cy = {
+const cy: typeof en = {
   title: 'Mae’r cais ar y cyd hwn wedi dod i ben',
   line1:
     'Ni allwch gael mynediad at y cais ar y cyd hwn oherwydd mae wedi cael ei ddiweddu un ai gennych chi neu’r ceisydd arall. ' +
