@@ -47,7 +47,7 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   },
 });
 
-const cy = ({ isDivorce, partner, userCase }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   title: `Herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}`,
   line1: `Os ydych eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
   yna bydd yn rhaid i chi gyflwyno ffurflen arall (a elwir yn ‘yr ateb’) gyda’ch rheswm dros herio.
