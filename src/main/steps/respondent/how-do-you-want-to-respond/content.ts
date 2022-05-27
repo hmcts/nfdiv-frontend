@@ -23,7 +23,7 @@ const en = ({ isDivorce }: CommonContent) => ({
   },
 });
 
-const cy = ({ isDivorce }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   title: 'Sut rydych chi eisiau ymateb i’r cais?',
   line1: 'Gallwch ond herio’r cais os: (yw un neu fwy o’r canlynol yn berthnasol)',
   point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
