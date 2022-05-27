@@ -260,11 +260,6 @@ describe('to-api-format', () => {
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
-      applicant1ScreenHasUnionBroken: YesOrNo.YES,
-      expected: { applicant1HasCivilPartnershipBroken: [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] },
-    },
-    {
-      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
       gender: Gender.FEMALE,
       sameSex: Checkbox.Unchecked,
       expected: { applicant1: Gender.FEMALE, applicant2: Gender.MALE },
@@ -458,6 +453,16 @@ describe('to-api-format', () => {
     expect(apiFormat).toMatchObject({
       coClarificationResponses: [],
     });
+  });
+
+  test.each([
+    {
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
+      expected: { applicant1HasCivilPartnershipBroken: [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] },
+    },
+  ])('sets applicant1ScreenHasUnionBroken when civil partnership broken set', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 
   test.each([
