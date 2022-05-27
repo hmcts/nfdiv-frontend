@@ -552,22 +552,22 @@ const cy: typeof en = ({
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }`,
-    aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
-    helpWithFees: 'Help with fees',
-    connectionsToEnglandWales: 'Your connections to England and Wales',
+    aboutPartnership: `Ynghylch eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
+    helpWithFees: 'Help i dalu ffioedd',
+    connectionsToEnglandWales: 'Eich cysylltiad â Chymru a Lloegr',
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
-    aboutPartners: `About you and your ${partner}`,
+    aboutPartners: `Amdanoch chi a’ch ${partner}`,
     aboutYouForApplicant2: 'About you',
     contactYou: 'Sut bydd y llys yn cysylltu â chi',
     contactThem: `How the court will contact your ${partner}`,
-    otherCourtCases: 'Other court cases',
+    otherCourtCases: 'Achosion llys eraill',
     dividingAssets: 'Dividing your money and property',
     documents: 'Your documents',
   },
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru' : "Ydych chi'n wryw ynteu'n fenyw"}?`,
-      line2: 'Same sex couples?',
+      line2: 'Cyplau o’r un rhyw?',
       line3: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
       line4: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line5: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
@@ -605,10 +605,10 @@ const cy: typeof en = ({
       line2: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }`,
-      line3: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line4: `Have you changed any part of your name since ${
-        isDivorce ? 'getting married' : 'forming your civil partnership'
+      line3: `Wnaethoch chi newid eich cyfenw pan wnaethoch chi ${
+        isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
+      line4: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line5: 'Sut wnaethoch chi newid eich enw?',
     },
     aboutYouForApplicant2: {
@@ -659,8 +659,10 @@ const cy: typeof en = ({
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
-      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
-        isDivorce ? 'marriage' : 'civil partnership'
+      line2: `${
+        userCase.sameSex === Checkbox.Unchecked
+          ? `Doedden ni ddim yn gwpl o’r un rhyw pan ${isDivorce ? 'briodi' : 'ffurfio ein partneriaeth sifil'} ni.`
+          : `Roeddem yn gwpl o’r un rhyw pan wnaethom ni ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}`
       }`,
       line3: `${
         userCase.applicant1ScreenHasUnionBroken
@@ -712,18 +714,18 @@ const cy: typeof en = ({
     },
     connectionsToEnglandWales: {
       line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line2: userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line3: userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line2: userCase.certificateInEnglish?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line3: userCase.certifiedTranslation?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line4: stripTags(userCase.ceremonyCountry),
       line5: stripTags(userCase.ceremonyPlace),
-      line6: userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line7: userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line8: userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line10: userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line11: userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line12: userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line13: userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line6: userCase.applicant1LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line7: userCase.applicant2LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line8: userCase.applicant1DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line10: userCase.applicant1LivingInEnglandWalesSixMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line11: userCase.applicant2DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line12: userCase.bothLastHabituallyResident?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line13: userCase.jurisdictionResidualEligible?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
