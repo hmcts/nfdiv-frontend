@@ -12,7 +12,6 @@ const en = ({ isDivorce, partner, civilPartner }) => ({
   line3: 'You will also be asked to provide some of your own information.',
 });
 
-// @TODO translations
 const cy = ({ isDivorce, partner, civilPartner }) => ({
   title: 'Mae arnoch angen adolygu eich cais ar y cyd',
   line1: `Mae eich ${isDivorce ? partner : civilPartner} wedi creu ${
