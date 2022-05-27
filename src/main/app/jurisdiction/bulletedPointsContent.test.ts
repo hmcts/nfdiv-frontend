@@ -33,6 +33,32 @@ describe('jurisdictionBulletPointContent', () => {
     expect(result).toEqual(expected);
   });
 
+  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for divorce and in welsh', async () => {
+    const expected = [
+      'roedd y ddau barti i’r briodas yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno',
+    ];
+    const result = connectionBulletPointsSummarisedForAllUsers(
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      'cy',
+      true,
+      true
+    );
+    expect(result).toEqual(expected);
+  });
+
+  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for civil partnership in welsh', async () => {
+    const expected = [
+      'roedd y ddau barti i’r bartneriaeth sifil yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno',
+    ];
+    const result = connectionBulletPointsSummarisedForAllUsers(
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      'cy',
+      false,
+      false
+    );
+    expect(result).toEqual(expected);
+  });
+
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A for bullet point user reads', async () => {
     const expected =
       '<ul class="govuk-list govuk-list--bullet"><li>you and your husband are habitually resident in England and Wales</li></ul>';

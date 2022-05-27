@@ -106,7 +106,6 @@ export const jurisdictionMoreDetailsContent = (
   }
 
   let totalConnectionText = '';
-
   if (connectionTypesMade.length === 1) {
     return {
       text: connectionText[connectionTypesMade[0]],
