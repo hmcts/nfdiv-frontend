@@ -1,8 +1,8 @@
 import { JurisdictionConnections } from '../case/definition';
 
 import {
+  connectionBulletPointsUserReads,
   enConnectionBulletPointsSummarisedForAllUsers,
-  enConnectionBulletPointsUserReads,
   enConnectionUserReads,
 } from './bulletedPointsContent';
 
@@ -34,7 +34,7 @@ describe('jurisdictionBulletPointContent', () => {
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection A for bullet point user reads', async () => {
     const expected =
       '<ul class="govuk-list govuk-list--bullet"><li>you and your husband are habitually resident in England and Wales</li></ul>';
-    const result = enConnectionBulletPointsUserReads(
+    const result = connectionBulletPointsUserReads(
       [JurisdictionConnections.APP_1_APP_2_RESIDENT],
       'husband',
       true,
