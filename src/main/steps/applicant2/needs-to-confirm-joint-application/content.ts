@@ -13,7 +13,7 @@ const en = ({ partner, userCase }: CommonContent) => ({
   }, then the application will be submitted.`,
 });
 
-const cy = ({ partner, userCase }: CommonContent) => ({
+const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
   title: `Mae eich ${partner} angen cadarnhau eich cais ar y cyd`,
   line1: `Mae eich ${partner} angen cadarnhau eich cais ar y cyd. Maent wedi cael neges e-bost yn eu gwahodd i adolygu’ch atebion cyfun a chadarnhau’r cais. Dylent wneud hyn erbyn `,
   reviewDate: userCase.dueDate,
