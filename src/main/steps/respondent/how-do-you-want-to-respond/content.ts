@@ -16,7 +16,6 @@ const en = ({ isDivorce }: CommonContent) => ({
   point3: `this ${isDivorce ? 'marriage' : 'civil partnership'} has already been legally ended`,
   no: `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
   yes: `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
-  continue: 'Continue',
   errors: {
     disputeApplication: {
       required: 'You need to select how you want to respond before continuing.',
@@ -36,7 +35,6 @@ const cy = ({ isDivorce }: CommonContent) => ({
   point3: `mae'r ${isDivorce ? 'briodas' : 'partneriaeth sifil'} hon eisoes wedi dod i ben yn gyfreithiol`,
   no: `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
   yes: `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
-  continue: 'Parhau',
   errors: {
     disputeApplication: {
       required: 'Mae angen i chi ddewis sut rydych chi eisiau ymateb cyn parhau.',
