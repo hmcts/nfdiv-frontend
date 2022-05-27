@@ -3,6 +3,7 @@ import {
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
+  CivilPartnershipBroken,
   ContactDetailsType,
   DivorceOrDissolution,
   DocumentType,
@@ -256,6 +257,11 @@ describe('to-api-format', () => {
       gender: Gender.MALE,
       sameSex: Checkbox.Unchecked,
       expected: { applicant1: Gender.MALE, applicant2: Gender.FEMALE },
+    },
+    {
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
+      expected: { applicant1HasCivilPartnershipBroken: [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] },
     },
     {
       divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,

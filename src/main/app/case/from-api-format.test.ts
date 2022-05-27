@@ -1,6 +1,7 @@
 import { Checkbox, LanguagePreference } from './case';
 import {
   CaseData,
+  CivilPartnershipBroken,
   ContactDetailsType,
   DissolveDivorce,
   DivorceOrDissolution,
@@ -20,6 +21,7 @@ describe('from-api-format', () => {
     applicant2Gender: Gender.MALE,
     applicant1Gender: Gender.MALE,
     applicant1HasMarriageBroken: [MarriageBroken.MARRIAGE_BROKEN],
+    applicant1HasCivilPartnershipBroken: [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN],
     applicant1HWFReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
@@ -59,6 +61,20 @@ describe('from-api-format', () => {
     applicant1PrayerDissolveDivorce: [],
     applicant2PrayerDissolveDivorce: [],
   };
+
+  const resultsWithDissolution: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
+    divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+    applicant1HasCivilPartnershipBroken: CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN,
+  };
+
+  test('Should convert results from api to nfdiv fe format with dissolution values', async () => {
+    const nfdivFormat = fromApiFormat(resultsWithDissolution as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
+    });
+  });
 
   test('Should convert results from api to nfdiv fe format', async () => {
     const nfdivFormat = fromApiFormat(results as unknown as CaseData);
