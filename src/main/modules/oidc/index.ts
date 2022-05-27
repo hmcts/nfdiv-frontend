@@ -85,23 +85,23 @@ export class OidcMiddleware {
 
   private callbackHandler(protocol: string, port: string) {
     return async (req, res) => {
-      const isApplicant2 = req.path === APPLICANT_2_CALLBACK_URL;
+      const isApp2Callback = req.path === APPLICANT_2_CALLBACK_URL;
       if (typeof req.query.code === 'string') {
         req.session.user = await getUserDetails(
           `${protocol}${res.locals.host}${port}`,
           req.query.code,
-          isApplicant2 ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
+          isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
         );
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
-          : isApplicant2
+          : isApp2Callback
           ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
           : '/';
 
         req.session.save(() => res.redirect(url));
       } else {
-        res.redirect(isApplicant2 ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
+        res.redirect(isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
       }
     };
   }
