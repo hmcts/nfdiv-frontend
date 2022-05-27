@@ -11,12 +11,12 @@ const en = ({ partner, userCase }: CommonContent) => ({
 });
 
 const cy = ({ partner, userCase }: CommonContent) => ({
-  title: `Mae eich atebion wedi'u hanfon at eich ${partner} i'w hadolygu`,
-  sentTo: `Mae eich atebion wedi'u hanfon at eich ${partner} i'r cyfeiriad e-bost canlynol:`,
-  theyShouldReviewBy: 'Dylent eu hadolygu a darparu eu gwybodaeth eu hunain erbyn',
+  title: `Mae eich atebion wedi cael eu hanfon at eich ${partner} i’w hadolygu`,
+  sentTo: `Mae eich atebion wedi cael eu hanfon at eich ${partner} gan ddefnyddio’r cyfeiriad e-bost canlynol:`,
+  theyShouldReviewBy: 'Dylent eu hadolygu a darparu gwybodaeth bellach erbyn',
   reviewDate: userCase.dueDate,
   line3:
-    "Fe gewch hysbysiad i'w gadarnhau. Os na fyddant yn adolygu'r atebion yna ddywedir wrthych beth y gallwch ei wneud i symud y cais yn ei flaen.",
+    'Byddwch yn cael hysbysiad pan fyddant wedi adolygu’ch atebion. Os na fyddant yn eu hadolygu, rhoddir wybod i chi beth allwch ei wneud i symud y cais yn ei flaen.',
 });
 
 const languages = {
