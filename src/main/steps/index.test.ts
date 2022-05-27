@@ -179,7 +179,7 @@ describe('Steps', () => {
     it('returns true if nextStepUrl contains /check-your-conditional-order-answers', () => {
       const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
         `${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}?lng=eng`,
-        `${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}`
+        'Yes'
       );
       expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
     });
