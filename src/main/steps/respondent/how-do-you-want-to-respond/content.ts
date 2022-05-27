@@ -16,6 +16,7 @@ const en = ({ isDivorce }: CommonContent) => ({
   point3: `this ${isDivorce ? 'marriage' : 'civil partnership'} has already been legally ended`,
   no: `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
   yes: `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
+  continue: 'Continue',
   errors: {
     disputeApplication: {
       required: 'You need to select how you want to respond before continuing.',
@@ -23,8 +24,25 @@ const en = ({ isDivorce }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy = ({ isDivorce }: CommonContent) => ({
+  title: 'Sut rydych chi eisiau ymateb i’r cais?',
+  line1: 'Gallwch ond herio’r cais os: (yw un neu fwy o’r canlynol yn berthnasol)',
+  point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
+   ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
+  point2: `nid ydych yn credu bod eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} yn ddilys yn gyfreithiol.
+  Er enghraifft, os oedd un ohonoch eisoes yn briod neu mewn partneriaeth sifil pan wnaethoch chi ${
+    isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
+  }`,
+  point3: `mae'r ${isDivorce ? 'briodas' : 'partneriaeth sifil'} hon eisoes wedi dod i ben yn gyfreithiol`,
+  no: `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
+  yes: `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
+  continue: 'Parhau',
+  errors: {
+    disputeApplication: {
+      required: 'Mae angen i chi ddewis sut rydych chi eisiau ymateb cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
