@@ -161,18 +161,12 @@ describe('Steps', () => {
 
   describe('isConditionalOrderReadyToSubmit()', () => {
     it('returns false if nextStepUrl is /continue-with-your-application', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
-        CONTINUE_WITH_YOUR_APPLICATION,
-        HOME_URL
-      );
+      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(CONTINUE_WITH_YOUR_APPLICATION, 'No');
       expect(isApplicationReadyToSubmitBoolean).toBeFalsy();
     });
 
     it('returns true if nextStepUrl is /', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
-        HOME_URL,
-        CHECK_CONDITIONAL_ORDER_ANSWERS_URL
-      );
+      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(HOME_URL, 'Yes');
       expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
     });
 
