@@ -548,21 +548,22 @@ const cy: typeof en = ({
     marriage,
     civilPartnership,
   }),
+  titleSoFar: 'Gwiriwch eich atebion hyd yma',
   sectionTitles: {
     readApplication: `Confirm that you have read the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }`,
-    aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
-    helpWithFees: 'Help with fees',
-    connectionsToEnglandWales: 'Your connections to England and Wales',
+    aboutPartnership: `Ynghylch eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
+    helpWithFees: 'Help i dalu ffioedd',
+    connectionsToEnglandWales: 'Eich cysylltiadau â Chymru a Lloegr',
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
-    aboutPartners: `About you and your ${partner}`,
+    aboutPartners: `Amdanoch chi a’ch ${partner}`,
     aboutYouForApplicant2: 'About you',
     contactYou: 'Sut bydd y llys yn cysylltu â chi',
-    contactThem: `How the court will contact your ${partner}`,
-    otherCourtCases: 'Other court cases',
-    dividingAssets: 'Dividing your money and property',
-    documents: 'Your documents',
+    contactThem: `Sut fydd y llys yn cysylltu â’ch ${partner}`,
+    otherCourtCases: 'Achosion llys eraill',
+    dividingAssets: 'Rhannu eich arian a’ch eiddo',
+    documents: 'Eich dogfennau',
   },
   stepQuestions: {
     aboutPartnership: {
@@ -878,6 +879,7 @@ const cy: typeof en = ({
     },
   },
   change: 'Newid',
+  continueApplication: 'Parhau gyda’r cais',
 });
 
 export const form: FormContent = {
