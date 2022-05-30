@@ -8,6 +8,14 @@ Feature: Homepage
     Then the page should include "A cookie is a small piece of data that’s stored on your computer"
     When I click "Privacy policy"
     Then the page should include "This privacy policy explains why we collect your personal data"
+
+  Scenario: Load divorce homepage with footer links then save and sign out
+    Then I expect the page title to be "Apply for a divorce - Who are you applying to divorce? - GOV.UK"
+    When I click "Cymraeg"
+    Then the page should include "Mae hwn yn wasanaeth newydd"
+    When I click "English"
+    Then the page should include "This is a new service"
+
     When I click "Accessibility statement"
     Then the page should include "This accessibility statement applies to the website available at"
     When I click "Terms and conditions"
