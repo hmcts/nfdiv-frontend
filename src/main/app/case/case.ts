@@ -302,7 +302,6 @@ export interface Case {
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   dateFinalOrderSubmitted?: DateAsString;
-  applicant2SolicitorRepresented: YesOrNo;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
