@@ -226,7 +226,6 @@ const fields: ToApiConverters = {
         ])
       : {}),
   }),
-
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
