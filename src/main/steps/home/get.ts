@@ -132,7 +132,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
 
 const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   const hasReviewedTheApplication = !isEmpty(userCase.confirmReadPetition);
-  const isLastQuestionComplete = !isEmpty(userCase.applicant2StatementOfTruth);
+  const isLastQuestionComplete =
+    !isEmpty(userCase.aosStatementOfTruth) || !isEmpty(userCase.applicant2StatementOfTruth); // todo - remove applicant2StatementOfTruth check after NFDIV-2321 is complete
   switch (userCase.state) {
     case State.Holding:
     case State.AwaitingConditionalOrder:
