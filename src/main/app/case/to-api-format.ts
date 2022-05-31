@@ -217,8 +217,6 @@ const fields: ToApiConverters = {
   }),
   applicant1IsApplicant2Represented: data => ({
     applicant1IsApplicant2Represented: data.applicant1IsApplicant2Represented,
-    applicant2SolicitorRepresented:
-      data.applicant1IsApplicant2Represented === Applicant2Represented.YES ? YesOrNo.YES : YesOrNo.NO,
     ...(data.applicant1IsApplicant2Represented !== Applicant2Represented.YES
       ? setUnreachableAnswersToNull([
           'applicant2SolicitorName',
