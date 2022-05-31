@@ -15,11 +15,18 @@ const en = ({ isDivorce, partner }) => ({
 });
 
 const cy: typeof en = ({ isDivorce, partner }) => ({
-  ...en({ isDivorce, partner }),
-  title: `Ni allwch wneud cais i ${isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'}`,
-  line1: `Rhaid bod eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl i chi allu ${
-    isDivorce ? 'cael ysgariad' : "dod â'ch partneriaeth sifil i ben"
-  }. Dyma yw'r gyfraith yng Nghymru a Lloegr.`,
+  title: isDivorce
+    ? 'Ni allwch wneud cais am ysgariad'
+    : 'Ni allwch wneud cais am i ddod â’ch partneriaeth sifil i ben',
+  line1: `Rhaid bod eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu’n gyfan gwbl i chi allu
+       ${isDivorce ? 'cael ysgariad ' : 'dod â’r bartneriaeth sifil i ben'}. Dyma’r gyfraith yng Nghymru a Lloegr.`,
+  line2: `Os byddwch yn dod â’r cais ar y cyd hwn i ben, bydd eich ${partner} yn cael eu hysbysu drwy e-bost. Os ydynt dal eisiau ${
+    isDivorce ? 'cael ysgariad' : 'dod â’r bartneriaeth sifil i ben'
+  } yna gallant gychwyn cais unigol newydd. Os ydynt yn gwneud hynny, yna gofynnir ichi ymateb iddo. ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  }. You can also launch a sole application, if you want.`,
+  line3: 'Os ydych yn ansicr am beth i wneud, yna gallwch gadw’r cais ac allgofnodi a cheisio cyngor cyfreithiol.',
+  continue: 'Dod â chais ar y cyd i ben',
 });
 
 export const form: FormContent = {
