@@ -4,6 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APPLICANT_2_CALLBACK_URL,
@@ -15,8 +16,6 @@ import {
   SIGN_IN_URL,
   SIGN_OUT_URL,
 } from '../../steps/urls';
-
-import { noSignInRequiredUrls } from './noSignInRequiredUrls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -39,44 +38,39 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (
-            req.path.endsWith(APPLICANT_2) ||
-            req.path.endsWith(RESPONDENT) ||
-            req.path.endsWith(ENTER_YOUR_ACCESS_CODE)
-          ) {
-            return next();
-          }
-
-          try {
-            req.session.userCase =
-              req.session.userCase || (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
-          } catch (e) {
-            if (e instanceof InProgressDivorceCase) {
-              const token = encodeURIComponent(req.session.user.accessToken);
-              return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
-            } else {
-              return res.redirect(SIGN_OUT_URL);
+          if (!isLinkingUrl(req.path)) {
+            try {
+              req.session.userCase =
+                req.session.userCase ||
+                (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
+            } catch (e) {
+              if (e instanceof InProgressDivorceCase) {
+                const token = encodeURIComponent(req.session.user.accessToken);
+                return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+              } else {
+                return res.redirect(SIGN_OUT_URL);
+              }
             }
-          }
 
-          req.session.isApplicant2 =
-            req.session.isApplicant2 ??
-            (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+            req.session.isApplicant2 =
+              req.session.isApplicant2 ??
+              (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          }
 
           req.session.save(err => {
             if (err) {
-              res.redirect(SIGN_OUT_URL);
+              return res.redirect(SIGN_OUT_URL);
             } else {
-              next();
+              return next();
             }
           });
         } else {
-          if (noSignInRequiredUrls.includes(req.url as PageLink)) {
-            next();
-          } else if (req.url.startsWith(APPLICANT_2) || req.url.startsWith(RESPONDENT)) {
-            res.redirect(APPLICANT_2_SIGN_IN_URL);
+          if (signInNotRequired(req.path)) {
+            return next();
+          } else if ([APPLICANT_2, RESPONDENT].includes(req.path as PageLink)) {
+            return res.redirect(APPLICANT_2_SIGN_IN_URL);
           } else {
-            res.redirect(SIGN_IN_URL);
+            return res.redirect(SIGN_IN_URL);
           }
         }
       })
@@ -99,9 +93,9 @@ export class OidcMiddleware {
           ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
           : '/';
 
-        req.session.save(() => res.redirect(url));
+        return req.session.save(() => res.redirect(url));
       } else {
-        res.redirect(isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
+        return res.redirect(isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
       }
     };
   }
