@@ -25,6 +25,7 @@ Feature: Final order
     When I click "Continue"
     Then the page URL should be "/hub-page"
 
+  @nightly
   Scenario: Applicant sole final order journey overdue
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
     And I go to '/check-your-answers'
