@@ -32,7 +32,7 @@ const cy: typeof en = () => {
     title: 'Nodwch eich enw',
     line1: 'Mae’r llys angen gwybod eich enw llawn.',
     firstNames: 'Eich enw(au) cyntaf',
-    middleNames: 'Eich enw(au) canol (if you have one)', //todo nfdiv-1811
+    middleNames: 'Eich enw(au) canol (os oes gennych un)',
     lastNames: 'Eich cyfenw(au)',
     errors: {
       applicant1FirstNames: {
