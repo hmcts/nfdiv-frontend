@@ -33,6 +33,29 @@ export class CaseApiClient {
     }
   }
 
+  public async findUserCasesByEmail(caseType: string, email: string): Promise<CcdV1Response[]> {
+    try {
+      const query = {
+        query: {
+          multi_match: {
+            query: email,
+            fields: ['data.applicant1Email', 'data.applicant2InviteEmailAddress'],
+          },
+        },
+        sort: [{ created_date: { order: 'asc' } }],
+      };
+      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
+
+      return response.data.cases;
+    } catch (err) {
+      if (err.response?.status === 404) {
+        return [];
+      }
+      this.logError(err);
+      throw new Error('Case could not be retrieved.');
+    }
+  }
+
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);

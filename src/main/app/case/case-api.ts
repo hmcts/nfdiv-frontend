@@ -1,6 +1,7 @@
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
@@ -42,8 +43,13 @@ export class CaseApi {
     return this.apiClient.getCaseById(caseId);
   }
 
-  public async isAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.searchCases(serviceType);
+  public async isAlreadyLinked(
+    serviceType: DivorceOrDissolution,
+    logger: LoggerInstance,
+    user: UserDetails
+  ): Promise<boolean> {
+    const apiClient = getCaseApiClient(await getSystemUser(), logger);
+    const userCase = (await apiClient.findUserCasesByEmail(serviceType, user.email))[0];
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
       return [UserRole.CREATOR, UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);

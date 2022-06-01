@@ -14,7 +14,7 @@ export class Applicant2AccessCodeGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (await req.locals.api.isAlreadyLinked(res.locals.serviceType, req.session.user)) {
+    if (await req.locals.api.isAlreadyLinked(res.locals.serviceType, req.locals.logger, req.session.user)) {
       return res.redirect(HOME_URL);
     }
 
