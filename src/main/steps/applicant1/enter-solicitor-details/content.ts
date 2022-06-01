@@ -49,13 +49,13 @@ const cy: typeof en = ({ partner, isDivorce }) => ({
   solicitorFirmNameHint: 'Enw’r sefydliad neu gwmni',
   solicitorAddress: 'Cyfeiriad y cyfreithiwr',
   solicitorAddressHint: 'Cyfeiriad post cwmni’r cyfreithiwr',
-  addressLine1: 'Address line 1',
-  addressLine2: 'Address line 2',
-  addressLine3: 'Address line 3',
+  addressLine1: 'Llinell cyfeiriad 1',
+  addressLine2: 'Llinell cyfeiriad 2',
+  addressLine3: 'Llinell cyfeiriad 3',
   town: 'Tref neu ddinas',
-  county: 'County, district, state or province',
-  postcode: 'Postal code, zip code or area code',
-  country: 'Country',
+  county: 'Sir, rhanbarth,  gwladwriaeth neu dalaith',
+  postcode: 'Cod post, cod zip neu god rhanbarth',
+  country: 'Gwlad',
   errors: {
     applicant2SolicitorEmail: {
       invalid:
