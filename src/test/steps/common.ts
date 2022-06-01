@@ -233,7 +233,7 @@ When('I reset the jurisdiction connections', async () => {
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
-  I.amOnPage('/applicant2/enter-your-access-code');
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
