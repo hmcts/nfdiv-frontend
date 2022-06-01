@@ -550,15 +550,15 @@ const cy: typeof en = ({
   }),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   sectionTitles: {
-    readApplication: `Confirm that you have read the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    readApplication: `Cadarnhewch eich bod wedi cael y ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod a’ch partneriaeth sifil i ben'
     }`,
     aboutPartnership: `Ynghylch eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
     helpWithFees: 'Help i dalu ffioedd',
     connectionsToEnglandWales: 'Eich cysylltiadau â Chymru a Lloegr',
-    aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
+    aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,
     aboutPartners: `Amdanoch chi a’ch ${partner}`,
-    aboutYouForApplicant2: 'Amdanat ti',
+    aboutYouForApplicant2: 'Amdanoch Chi',
     contactYou: 'Sut bydd y llys yn cysylltu â chi',
     contactThem: `Sut fydd y llys yn cysylltu â’ch ${partner}`,
     otherCourtCases: 'Achosion llys eraill',
@@ -614,7 +614,7 @@ const cy: typeof en = ({
     },
     aboutYouForApplicant2: {
       line1: 'Eich enw(au) cyntaf',
-      line2: 'Eich enw(au) canol (if you have one)',
+      line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
       line4: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
         isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
@@ -624,7 +624,7 @@ const cy: typeof en = ({
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',
-      line2: 'Eich enw(au) canol (if you have one)',
+      line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
       line4: 'Trwy e-bost',
       line5: 'Dros y ffôn',
@@ -633,14 +633,14 @@ const cy: typeof en = ({
       line8: 'Eich cyfeiriad post',
     },
     contactThem: {
-      line1: `Eich ${partner}'s enw(au) cyntaf`,
-      line2: `Eich ${partner}'s enw(au) canol (if they have one)`,
-      line3: `Eich ${partner}'s cyfenw(au)`,
-      line4: `Does your ${partner} have a solicitor representing them?`,
-      line5: `Your ${partner}'s solicitor's details`,
-      line6: `Your ${partner}'s email address`,
+      line1: `Enw(au) cyntaf eich ${partner}`,
+      line2: `Enw(au) canol eich ${partner} (if they have one)`,
+      line3: `Cyfenw(au) eich ${partner}`,
+      line4: `A oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli?`,
+      line5: `Manylion cyfreithiwr eich ${partner}`,
+      line6: `Cyfeiriad e-bost eich ${partner}`,
       line7: `A oes gennych gyfeiriad post eich ${partner}?`,
-      line8: `Your ${partner}'s postal address`,
+      line8: `Cyfeiriad post eich ${partner}`,
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
