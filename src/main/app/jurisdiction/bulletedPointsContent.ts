@@ -125,13 +125,11 @@ export const cyConnectionUserReads = (
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `roeddech chi a’ch ${partner} yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr, ac mae un ohonoch yn parhau i breswylio yno`,
     [JurisdictionConnections.APP_2_RESIDENT_SOLE]: `mae eich ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `mae eich ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
-    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `you ${isJointApplication ? `or your ${partner} ` : ''}are
-    habitually resident in England and Wales and have resided there for at least one year
-    immediately before making this application`, // todo this is you or your but just you in the google dox
-    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `you ${
-      isJointApplication ? `or your ${partner} ` : ''
-    }are domiciled
-    and habitually resident in England and Wales and have resided there for at least six months immediately before making this application`, // todo same as above
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `Rydych ${isJointApplication ? `chi neu'ch ${partner}` : ''}
+    yn preswylio'n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn`,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `Rydych ${
+      isJointApplication ? `chi neu'ch ${partner}` : ''
+    } â'ch domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`, // todo same as above
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `mae eich domisil chi a domisil eich ${partner} yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_DOMICILED]: 'dim ond eich domisil chi sydd yng Nghymru a Lloegr',
     [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil eich ${partner} sydd yng Nghymru a Lloegr`,
