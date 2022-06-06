@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
-import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
+import { CaseApi } from '../case/case-api';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -21,6 +21,7 @@ export interface AppSession extends Session {
   user: UserDetails;
   userCase: CaseWithId;
   isApplicant2: boolean;
+  isLinkedToCase: boolean;
   lang: string | undefined;
   errors: FormError[] | undefined;
 }
