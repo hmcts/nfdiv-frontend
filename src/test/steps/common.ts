@@ -4,8 +4,8 @@ import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
 import { OidcResponse } from '../../main/app/auth/user/oidc';
-import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
+import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
@@ -228,7 +228,7 @@ When('I reset the jurisdiction connections', async () => {
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
-  I.amOnPage('/applicant2/enter-your-access-code');
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
