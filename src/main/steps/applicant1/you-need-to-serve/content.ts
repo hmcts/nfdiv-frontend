@@ -12,8 +12,15 @@ const en = ({ partner, isDivorce }: CommonContent) => {
   };
 };
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ partner, isDivorce }: CommonContent) => {
+  const partnership = isDivorce ? 'yr ysgariad' : 'terfynu’r bartneriaeth sifil';
+  const separatingFrom = isDivorce ? 'Ysgaru' : 'Dod â’ch partneriaeth sifil i ben gyda';
+  return {
+    title: `${separatingFrom} rhywun sy’n byw y tu allan i Gymru a Lloegr`,
+    line1: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${partnership}.`,
+    line2: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} ar ôl i chi gyflwyno’r cais hwn.`,
+  };
+};
 
 export const form: FormContent = {
   fields: {},
