@@ -1,6 +1,7 @@
 import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { CaseApi } from '../../../app/case/case-api';
 import { DivorceOrDissolution } from '../../../app/case/definition';
 import { generatePageContent } from '../../common/common.content';
 
@@ -13,6 +14,9 @@ describe('AccessCodeGetController', () => {
 
   test('Should render the enter your access code page with divorce content', async () => {
     const req = mockRequest();
+    req.locals.api = {
+      isAlreadyLinked: jest.fn().mockResolvedValue(false),
+    } as unknown as CaseApi;
     const res = mockResponse();
     await controller.get(req, res);
     const isDivorce = true;
@@ -32,6 +36,9 @@ describe('AccessCodeGetController', () => {
 
   test('Should render the enter your access code page with civil content', async () => {
     const req = mockRequest();
+    req.locals.api = {
+      isAlreadyLinked: jest.fn().mockResolvedValue(false),
+    } as unknown as CaseApi;
     const res = mockResponse();
     res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
     await controller.get(req, res);
