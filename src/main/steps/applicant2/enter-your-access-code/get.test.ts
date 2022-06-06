@@ -15,7 +15,7 @@ describe('AccessCodeGetController', () => {
   test('Should render the enter your access code page with divorce content', async () => {
     const req = mockRequest();
     req.locals.api = {
-      isAlreadyLinked: jest.fn().mockResolvedValue(false),
+      isApplicantAlreadyLinked: jest.fn().mockResolvedValue(false),
     } as unknown as CaseApi;
     const res = mockResponse();
     await controller.get(req, res);
@@ -37,7 +37,7 @@ describe('AccessCodeGetController', () => {
   test('Should render the enter your access code page with civil content', async () => {
     const req = mockRequest();
     req.locals.api = {
-      isAlreadyLinked: jest.fn().mockResolvedValue(false),
+      isApplicantAlreadyLinked: jest.fn().mockResolvedValue(false),
     } as unknown as CaseApi;
     const res = mockResponse();
     res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;

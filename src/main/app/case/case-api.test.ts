@@ -367,7 +367,7 @@ describe('CaseApi', () => {
     expect(isApplicant2).toBe(true);
   });
 
-  test('isAlreadyLinked() should return true if the case role contains applicant 2', async () => {
+  test('isApplicantAlreadyLinked() should return true if the case role contains applicant 2', async () => {
     const mockCase = {
       id: '1',
       state: State.Draft,
@@ -381,11 +381,29 @@ describe('CaseApi', () => {
     });
     mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.APPLICANT_2 }] } });
 
-    const isApplicant2AlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
+    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
     expect(isApplicant2AlreadyLinked).toBe(true);
   });
 
-  test('isAlreadyLinked() should return false if the case role does not contain applicant 2', async () => {
+  test('isApplicantAlreadyLinked() should return false if the case role contains creator', async () => {
+    const mockCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: serviceType,
+      },
+    };
+
+    mockedAxios.post.mockResolvedValue({
+      data: { cases: [mockCase] },
+    });
+    mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.CREATOR }] } });
+
+    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
+    expect(isApplicant2AlreadyLinked).toBe(false);
+  });
+
+  test('isApplicantAlreadyLinked() should return false if the case role does not contain applicant 2', async () => {
     const mockCase = {
       id: '1',
       state: State.Draft,
@@ -397,14 +415,14 @@ describe('CaseApi', () => {
     mockedAxios.get.mockResolvedValue({ data: { case_users: [{ case_role: UserRole.CASE_WORKER }] } });
     mockedAxios.post.mockResolvedValue({ data: { cases: [mockCase] } });
 
-    const isAlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
-    expect(isAlreadyLinked).toBe(false);
+    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
+    expect(isApplicantAlreadyLinked).toBe(false);
   });
 
-  test('isAlreadyLinked() returns false if case is not found', async () => {
+  test('isApplicantAlreadyLinked() returns false if case is not found', async () => {
     mockedAxios.post.mockResolvedValue({ data: { cases: [] } });
 
-    const isApplicant2AlreadyLinked = await api.isAlreadyLinked(serviceType, userDetails);
+    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
     expect(isApplicant2AlreadyLinked).toBe(false);
   });
 

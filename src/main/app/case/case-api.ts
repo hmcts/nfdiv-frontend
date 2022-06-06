@@ -42,11 +42,11 @@ export class CaseApi {
     return this.apiClient.getCaseById(caseId);
   }
 
-  public async isAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
+  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      return [UserRole.CREATOR, UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+      return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
     }
     return false;
   }

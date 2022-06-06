@@ -10,11 +10,11 @@ import { generateContent } from './content';
 @autobind
 export class Applicant2AccessCodeGetController extends GetController {
   constructor() {
-    super(__dirname + '/../../common/template.njk', generateContent);
+    super(__dirname + '/template.njk', generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (await req.locals.api.isAlreadyLinked(res.locals.serviceType, req.session.user)) {
+    if (await req.locals.api.isApplicantAlreadyLinked(res.locals.serviceType, req.session.user)) {
       return res.redirect(HOME_URL);
     }
 
