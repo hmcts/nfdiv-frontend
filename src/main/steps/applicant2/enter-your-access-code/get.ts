@@ -10,7 +10,7 @@ import { generateContent } from './content';
 @autobind
 export class Applicant2AccessCodeGetController extends GetController {
   constructor() {
-    super(__dirname + '/../../common/template.njk', generateContent);
+    super(__dirname + '/template.njk', generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
