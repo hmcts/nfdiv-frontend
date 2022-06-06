@@ -34,15 +34,14 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
         required,
       },
       reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
-        required: `You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
-          isDivorce ? 'grant your divorce' : 'end your civil partnership'
-        }`,
+        required:
+          'You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction)',
       },
       inWhichCountryIsYourLifeMainlyBased: {
-        required: 'You need to tell us which country your life is mainly based',
+        required: 'You need to enter which country your life is mainly based.',
       },
     },
-    moredetailsJurisdiction: {
+    whatThisMeansJurisdiction: {
       heading1: 'Habitual residence',
       line1:
         'If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually ' +
@@ -114,15 +113,14 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
         required,
       },
       reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
-        required: `You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
-          isDivorce ? 'grant your divorce' : 'end your civil partnership'
-        }`,
+        required:
+          'Mae arnoch angen esbonio pam eich bod yn meddwl nad oes gan llysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth)',
       },
       inWhichCountryIsYourLifeMainlyBased: {
-        required: 'You need to tell us which country your life is mainly based',
+        required: 'Mae arnoch angen nodi ym mha wlad rydych yn treulio’r rhan fwyaf o’ch hamser.',
       },
     },
-    moredetailsJurisdiction: {
+    whatThisMeansJurisdiction: {
       heading1: 'Preswylfa arferol',
       line1:
         'Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith',
