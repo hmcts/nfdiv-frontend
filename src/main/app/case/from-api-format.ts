@@ -136,6 +136,9 @@ const fields: FromApiConverters = {
   applicant2StatementOfTruth: data => ({
     applicant2StatementOfTruth: checkboxConverter(data.applicant2StatementOfTruth),
   }),
+  statementOfTruth: data => ({
+    aosStatementOfTruth: checkboxConverter(data.statementOfTruth),
+  }),
   dateSubmitted: data => ({
     dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),
   }),
