@@ -178,11 +178,13 @@ const fields: ToApiConverters = {
       return {
         applicant1HasMarriageBroken:
           data.applicant1ScreenHasUnionBroken === YesOrNo.YES ? [MarriageBroken.MARRIAGE_BROKEN] : [],
+        applicant1HasCivilPartnershipBroken: [],
       };
     } else {
       return {
         applicant1HasCivilPartnershipBroken:
           data.applicant1ScreenHasUnionBroken === YesOrNo.YES ? [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] : [],
+        applicant1HasMarriageBroken: [],
       };
     }
   },
