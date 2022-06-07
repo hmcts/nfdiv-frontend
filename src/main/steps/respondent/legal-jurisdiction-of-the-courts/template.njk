@@ -11,47 +11,26 @@
       <li>{{ line | safe }}</li>
     {% endfor %}
   </ul>
-  {% set jurisdictionsMoreDetailsTemplate %}
-    {% if jurisdictionsMoreDetails.length == 1 %}
-      {{ jurisdictionsMoreDetails[0] | safe }}
-    {% else %}
-      {% for jurisdictionItem in jurisdictionsMoreDetails %}
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
-        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
-      {% endfor %}
-    {% endif %}
-  {% endset %}
+  {% set whatThisMeansContent2 %}
+    <h3 class="govuk-heading-m">{{ heading1 }}</h3>
+    <p class="govuk-body">{{ habitualResidenceText | safe }}</p>
 
-  {% set jurisdictionTemplate %}
-    <h1 class="govuk-heading-s">{{ whatThisMeansJurisdiction.heading1 }}</h1>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line1 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line2 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line3 }}</p>
+    <h3 class="govuk-heading-m">{{ heading2 }}</h3>
+    <p class="govuk-body">{{ domicileText | safe }}</p>
 
-    <h1 class="govuk-heading-s">{{ whatThisMeansJurisdiction.heading2 }}</h1>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line4 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line5 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line6 }}</p>
+    <h3 class="govuk-heading-m">{{ heading3 }}</h3>
+    <p class="govuk-body">{{ residualJurisdictionLine1 }}</p>
+    <p class="govuk-body">{{ residualJurisdictionLine2 }}</p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>{{ whatThisMeansJurisdiction.bulletPoint1 }}</li>
-      <li>{{ whatThisMeansJurisdiction.bulletPoint2 }}</li>
+      <li>{{ residualJurisdictionListItem1 }}</li>
+      <li>{{ residualJurisdictionListItem2 }}</li>
+      <li>{{ residualJurisdictionListItem3 }}</li>
     </ul>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line7 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line8 }}</p>
-
-    <h1 class="govuk-heading-s">{{ whatThisMeansJurisdiction.heading3 }}</h1>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line9 }}</p>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line10 }}</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>{{ whatThisMeansJurisdiction.bulletPoint3 }}</li>
-      <li>{{ whatThisMeansJurisdiction.bulletPoint4 }}</li>
-      <li>{{ whatThisMeansJurisdiction.bulletPoint5 }}</li>
-    </ul>
-    <p class="govuk-body">{{ whatThisMeansJurisdiction.line11 }}</p>
+    <p class="govuk-body">{{ residualJurisdictionLine3 }}</p>
   {% endset %}
   {{ govukDetails({
-    summaryHtml: readMoreJurisdiction,
-    html: jurisdictionTemplate
+    summaryHtml: whatThisMeansJurisdiction,
+    html: whatThisMeansContent2
   }) }}
 {% endblock %}
 
