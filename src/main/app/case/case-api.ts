@@ -5,7 +5,16 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import {
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  DivorceOrDissolution,
+  ListValue,
+  Payment,
+  SYSTEM_UNLINK_APPLICANT,
+  State,
+  UserRole,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -46,6 +55,10 @@ export class CaseApi {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
+      if (userCase.state === State.Draft && [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)) {
+        await this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
+      }
+
       return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
     }
     return false;
