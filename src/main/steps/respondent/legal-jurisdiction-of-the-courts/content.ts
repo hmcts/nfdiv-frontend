@@ -4,10 +4,10 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import {
+  cyDomicile,
+  cyHabitualResident,
   enDomicile,
-  enDomicileCy,
   enHabitualResident,
-  enHabitualResidentCy,
 } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
@@ -86,9 +86,9 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     no: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
     whatThisMeans: 'Beth mae hyn yn ei olygu',
     heading1: 'Preswylfa arferol',
-    habitualResidenceText: enHabitualResidentCy,
+    habitualResidenceText: cyHabitualResident,
     heading2: 'Domisil',
-    domicileText: enDomicileCy,
+    domicileText: cyDomicile,
     heading3: 'Awdurdodaeth weddillol',
     residualJurisdictionLine1: `Fel arfer, i fod yn gymwys ar gyfer awdurdodaeth weddillol, mae’n rhaid i’ch domisil chi neu ddomisil eich ${partner} fod yng Nghymru neu Loegr. Ni all y naill na’r llall ohonoch fod yn ddinesydd gwlad arall yn yr UE (ac eithrio Denmarc) na phreswylio’n arferol mewn gwlad arall yn yr UE (ac eithrio Denmarc).`,
     residualJurisdictionLine2:
