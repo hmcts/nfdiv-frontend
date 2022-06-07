@@ -4,8 +4,8 @@ import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
 import { OidcResponse } from '../../main/app/auth/user/oidc';
+import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
-import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CASEWORKER_ISSUE_APPLICATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,

@@ -2,13 +2,13 @@ import Axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
 
-import { APPLICANT_2_CALLBACK_URL, CALLBACK_URL, PageLink, SIGN_IN_URL } from '../../../steps/urls';
+import { PageLink } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
 
-export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
+export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');
-  const callbackUrl = encodeURI(serviceUrl + (requestPath === SIGN_IN_URL ? CALLBACK_URL : APPLICANT_2_CALLBACK_URL));
+  const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
 
   return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
 };

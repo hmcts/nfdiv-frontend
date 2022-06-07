@@ -16,7 +16,9 @@ export class SwitchToSoleApplicationPostController {
     if (req.body.cancel) {
       return res.redirect(req.session.userCase.state === State.AwaitingPayment ? PAY_AND_SUBMIT : HOME_URL);
     }
+
     req.session.errors = [];
+
     try {
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE);
     } catch (err) {

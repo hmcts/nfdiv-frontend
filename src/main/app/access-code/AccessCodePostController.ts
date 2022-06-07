@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
-import { getCaseApi } from '../case/case-api';
+import { getCaseApi } from '../case/CaseApi';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
