@@ -59,6 +59,8 @@ export class AccessCodePostController {
       }
     }
 
+    await req.locals.api.removePreviousCaseIfCreatorAndDraft(res.locals.serviceType, req.session.user);
+
     const nextStep =
       req.session.errors.length > 0
         ? req.url

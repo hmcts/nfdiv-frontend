@@ -55,13 +55,26 @@ export class CaseApi {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      if (userCase.state === State.Draft && [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)) {
-        await this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
-      }
-
       return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
     }
     return false;
+  }
+
+  public async removePreviousCaseIfCreatorAndDraft(
+    serviceType: DivorceOrDissolution,
+    user: UserDetails
+  ): Promise<CaseWithId | undefined> {
+    const userCase = await this.searchCases(serviceType); // the most recently made case
+    if (userCase) {
+      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
+      if (
+        userCase &&
+        userCase.state === State.Draft &&
+        [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)
+      ) {
+        return this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
+      }
+    }
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
