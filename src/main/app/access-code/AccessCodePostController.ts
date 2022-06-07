@@ -59,7 +59,7 @@ export class AccessCodePostController {
       }
     }
 
-    const previousCaseId = res.locals.api.hasCreatedDraftCase(res.locals.serviceType, req.session.user);
+    const previousCaseId = await req.locals.api.hasCreatedDraftCase(res.locals.serviceType, req.session.user);
     if (previousCaseId) {
       await req.locals.api.unlinkApplicantFromCase(previousCaseId);
     }

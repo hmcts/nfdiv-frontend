@@ -60,7 +60,7 @@ export class CaseApi {
     return false;
   }
 
-  public async hasCreatedDraftCase(serviceType: DivorceOrDissolution, user: UserDetails): Promise<string | false> {
+  public async hasCreatedDraftCase(serviceType: DivorceOrDissolution, user: UserDetails): Promise<string | undefined> {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
@@ -72,10 +72,9 @@ export class CaseApi {
         return userCase.id;
       }
     }
-    return false;
   }
 
-  public async unlinkApplicantFromCase(caseId: string): Promise<CaseWithId | undefined> {
+  public async unlinkApplicantFromCase(caseId: string): Promise<CaseWithId> {
     return this.apiClient.sendEvent(caseId, {}, SYSTEM_UNLINK_APPLICANT);
   }
 
