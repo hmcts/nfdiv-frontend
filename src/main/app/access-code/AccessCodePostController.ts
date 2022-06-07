@@ -59,7 +59,10 @@ export class AccessCodePostController {
       }
     }
 
-    await req.locals.api.removePreviousCaseIfCreatorAndDraft(res.locals.serviceType, req.session.user);
+    const previousCaseId = res.locals.api.hasCreatedDraftCase(res.locals.serviceType, req.session.user);
+    if (previousCaseId) {
+      await req.locals.api.unlinkApplicantFromCase(previousCaseId);
+    }
 
     const nextStep =
       req.session.errors.length > 0
