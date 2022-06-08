@@ -179,6 +179,9 @@ const fields: ToApiConverters = {
   applicant2StatementOfTruth: data => ({
     applicant2StatementOfTruth: checkboxConverter(data.applicant2StatementOfTruth),
   }),
+  aosStatementOfTruth: data => ({
+    statementOfTruth: checkboxConverter(data.aosStatementOfTruth),
+  }),
   applicant1UploadedFiles: () => ({}),
   coClarificationUploadedFiles: () => ({}),
   applicant2UploadedFiles: () => ({}),
