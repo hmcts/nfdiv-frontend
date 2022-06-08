@@ -28,11 +28,14 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {% set feedbackHTML %}
+    {{ feedback.part1 }}<a class="govuk-link" aria-label={{ feedback.ariaLabel }} href="{{ feedback.link + pageUrl }}" target="_blank">{{ feedback.part2 }}</a> {{ feedback.part3 }}
+  {% endset %}
   {{ govukPhaseBanner({
     tag: {
       text: phase
     },
-    html: feedback
+    html: feedbackHTML
   }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>

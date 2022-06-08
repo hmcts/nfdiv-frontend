@@ -25,6 +25,7 @@ describe('NoResponseYetApplicationGetController', () => {
         isDivorce,
         userEmail: 'test@example.com',
         userCase: req.session.userCase,
+        pageUrl: '/request',
       }),
       userCase: req.session.userCase,
     });
@@ -45,6 +46,7 @@ describe('NoResponseYetApplicationGetController', () => {
         isDivorce,
         userEmail: 'test@example.com',
         userCase: req.session.userCase,
+        pageUrl: '/request',
       }),
       userCase: req.session.userCase,
     });

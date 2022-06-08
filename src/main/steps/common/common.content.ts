@@ -8,8 +8,14 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
-  feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">feedback</a> will help us to improve it.',
+  feedback: {
+    part1: 'This is a new service – your ',
+    part2: 'feedback',
+    part3: 'will help us to improve it.',
+    ariaLabel:
+      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   back: 'Back',
@@ -117,8 +123,14 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
-  feedback:
-    'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
+  feedback: {
+    part1: 'Mae hwn yn wasanaeth newydd - ',
+    part2: 'bydd eich sylwadau',
+    part3: 'yn ein helpu i wella’r gwasanaeth.',
+    ariaLabel:
+      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
@@ -192,6 +204,7 @@ export const generatePageContent = ({
   isDivorce = true,
   isApplicant2 = false,
   userEmail,
+  pageUrl,
 }: {
   language: Language;
   userCase: Partial<CaseWithId>;
@@ -199,6 +212,7 @@ export const generatePageContent = ({
   isDivorce?: boolean;
   isApplicant2?: boolean;
   userEmail?: string;
+  pageUrl: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
@@ -224,6 +238,7 @@ export const generatePageContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
+    pageUrl,
   };
 
   if (pageContent) {
@@ -247,6 +262,7 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
+  pageUrl: string;
 };
 
 export type Language = 'en' | 'cy';

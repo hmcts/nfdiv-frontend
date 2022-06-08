@@ -61,6 +61,7 @@ export class ErrorController {
       language,
       userEmail: req.session?.user?.email,
       userCase: {},
+      pageUrl: req.path,
     });
     res.locals.isError = true;
 

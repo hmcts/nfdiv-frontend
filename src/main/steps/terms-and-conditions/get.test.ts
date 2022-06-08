@@ -23,6 +23,7 @@ describe('TermsAndConditionsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
+          pageUrl: '/request',
         }),
         ...defaultViewArgs,
       })
