@@ -1,14 +1,14 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
+import { Applicant2Represented, DivorceOrDissolution, DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
 import { formattedCaseId } from '../common/content.utils';
 import { currentStateFn } from '../state-sequence';
 
-const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
@@ -123,12 +123,13 @@ const en = ({ isDivorce, userCase, partner, referenceNumber, isJointApplication 
     part2: 'support is available',
     link: `${config.get('govukUrls.domesticAbuse')}`,
   },
-  feedback: 'Help improve this service',
+  feedbackTitle: 'Help improve this service',
   feedbackDetails: {
-    part1: 'This is a new service. ',
-    part2: 'Your feedback',
-    part3: ' helps to improve it for others.',
-    link: `${config.get('govukUrls.feedbackSurvey')}`,
+    part1: 'This is a new service. Help improve it for others by ',
+    part2: 'giving your feedback',
+    link: `${config.get('govukUrls.feedbackSurvey')}/?service=${
+      isDivorce ? DivorceOrDissolution.DIVORCE : DivorceOrDissolution.DISSOLUTION
+    }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`,
   },
 });
 
