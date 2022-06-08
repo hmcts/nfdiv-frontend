@@ -4,7 +4,12 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
 import { cyConnectionUserReads, enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { addConnectionsBasedOnQuestions } from '../../../app/jurisdiction/connections';
-import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
+import {
+  cyDomicile,
+  cyHabitualResident,
+  enDomicile,
+  enHabitualResident,
+} from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 
 const jurisdictionConnectionList = [
@@ -120,27 +125,29 @@ const cy: typeof en = (
   };
 
   return {
-    title: `You can use English or Welsh courts to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
-    line1Prefix: `Your answers indicate that you can ${apply} in England and Wales because`,
+    title: `Gallwch ddefnyddio’r llysoedd yng Nghymru neu Loegr i ${
+      isDivorce ? 'gael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
+    }`,
+    line1Prefix: `Mae eich atebion yn dangos y gallwch ${apply} yng Nghymru a Lloegr oherwydd`,
     line2:
-      'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case.',
-    habitualResidence: 'Habitual Residence',
-    habitualResidenceText: enHabitualResident,
-    domicile: 'Domicile',
-    domicileText: enDomicile,
-    disputesAboutJurisdiction: 'Disputes about jurisdiction',
-    disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
-      If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
-    readMore: `Read more about ${
+      'Mae ffyrdd eraill o fod â chysylltiad cyfreithiol â Chymru a Lloegr. Gall y rhain fod yn bwysig os oes anghydfod o ran p’un a oes gan y llysoedd awdurdodaeth dros eich achos ai peidio.',
+    habitualResidence: 'Preswylio’n arferol',
+    habitualResidenceText: cyHabitualResident,
+    domicile: 'Domisil',
+    domicileText: cyDomicile,
+    disputesAboutJurisdiction: 'Anghydfodau ynghylch awdurdodaeth',
+    disputesAboutJurisdictionText: `Os ydych yn meddwl gall fod anghydfod ynghylch p’un a oes gan y llysoedd yng Nghymru a Lloegr awdurdodaeth dros eich achos neu beidio, neu os ydych yn ansicr p’un a oes gan y llysoedd awdurdodaeth, yna dylech gael cyngor cyfreithiol cyn cyflwyno’r cais hwn.<br><br>
+      Os ydych yn meddwl bod yna ffyrdd ychwanegol y gallwch fod â chysylltiad â Chymru a Lloegr, gallwch eu hychwanegu isod`,
+    readMore: `Darllenwch am ${
       connections.length > 1 ||
       [JurisdictionConnections.RESIDUAL_JURISDICTION_CP, JurisdictionConnections.RESIDUAL_JURISDICTION_D].includes(
         connections[0]
       )
-        ? 'jurisdiction'
+        ? 'awdurdodaeth'
         : connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED
-        ? 'domicile'
-        : 'habitual residence'
-    } and the other possible legal connections`,
+        ? 'domisil'
+        : 'preswylio’n arferol'
+    } a chysylltiadau cyfreithiol eraill posib`,
     connectionCheckboxes,
     preMadeConnections: addConnectionsBasedOnQuestions(userCase),
     connectionText,
