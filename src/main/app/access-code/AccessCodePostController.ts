@@ -20,8 +20,7 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    req.locals.api = getCaseApi(await getSystemUser(), req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
@@ -52,6 +51,7 @@ export class AccessCodePostController {
           formData,
           SYSTEM_LINK_APPLICANT_2
         );
+
         req.session.isApplicant2 = true;
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2/respondent to joint application', err);
@@ -59,9 +59,8 @@ export class AccessCodePostController {
       }
     }
 
-    const previousCaseId = await req.locals.api.hasCreatedDraftCase(res.locals.serviceType, req.session.user);
-    if (previousCaseId) {
-      await req.locals.api.unlinkApplicantFromCase(previousCaseId);
+    if (req.session.errors.length === 0) {
+      await req.locals.api.unlinkStaleDraftCaseIfFound(res.locals.serviceType, req.session.user);
     }
 
     const nextStep =

@@ -6,6 +6,7 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, getCaseApiClient } from './case-api-client';
 import {
+  ApplicationType,
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
   DivorceOrDissolution,
@@ -55,27 +56,27 @@ export class CaseApi {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+      const linkedRoles =
+        userCase.applicationType && userCase.applicationType.includes(ApplicationType.SOLE_APPLICATION)
+          ? [UserRole.APPLICANT_2]
+          : [UserRole.CREATOR, UserRole.APPLICANT_2];
+      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
     }
     return false;
   }
 
-  public async hasCreatedDraftCase(serviceType: DivorceOrDissolution, user: UserDetails): Promise<string | undefined> {
+  public async unlinkStaleDraftCaseIfFound(
+    serviceType: DivorceOrDissolution,
+    user: UserDetails
+  ): Promise<CaseWithId | undefined> {
     const userCase = await this.searchCases(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      if (
-        userCase &&
-        userCase.state === State.Draft &&
-        [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)
-      ) {
-        return userCase.id;
+
+      if (userCase.state === State.Draft && [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)) {
+        return this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
       }
     }
-  }
-
-  public async unlinkApplicantFromCase(caseId: string): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, {}, SYSTEM_UNLINK_APPLICANT);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
