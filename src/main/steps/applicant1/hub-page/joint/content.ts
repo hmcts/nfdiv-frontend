@@ -93,7 +93,99 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
 });
 
 // @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+  applicationSubmittedLatestUpdate: {
+    line1: `Mae eich cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    } wedi'i gyflwyno a'i wirio gan staff y llys. Fe'i anfonwyd atoch chi a'ch ${partner} ${
+      userCase.applicant1AgreeToReceiveEmails ? 'drwy e-bost' : 'drwy’r post'
+    }.`,
+    line2: `Dylech gadarnhau eich bod wedi cael eich cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
+  applicantConfirmedReceiptLatestUpdate: {
+    line1: `Rydych wedi cadarnhau eich bod wedi cael y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }.
+     Dylai eich ${partner} hefyd gadarnhau eu bod wedi’i gael, os nad ydynt eisoes wedi gwneud hynny.`,
+    line2: `Y cam nesaf yw gwneud cais am 'orchymyn amodol'.
+     Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+       isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+     }.`,
+    line3: `Gallwch wneud cais am orchymyn amodol ar ${dayjs(userCase.issueDate)
+      .add(config.get('dates.issueDateOffsetDays'), 'day')
+      .format(
+        'D MMMM YYYY'
+      )}. Y rheswm dros hyn yw oherwydd bod rhaid i chi aros hyd nes i 20 wythnos fynd heibio o'r adeg y cyhoeddwyd y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. Byddwch yn cael e-bost i'ch atgoffa.`,
+  },
+  confirmReceipt: 'Cadarnhau eich bod wedi cael eich cais',
+  applicantNotYetAppliedForConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'.
+   Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+     isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+   }`,
+  conditionalOrderPending: {
+    beforeDueDate: {
+      line1: `Rydych wedi gwneud cais am orchymyn amodol. Mae angen i'ch ${partner} awneud cais hefyd oherwydd bod hwn yn gais ar y cyd ${
+        isDivorce ? 'am ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+      }.
+      Anfonwyd e-bost ato/ati i'w (h)atgoffa.`,
+      line2: `Os nad yw’n gwneud cais erbyn ${dayjs(
+        userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate
+      )
+        .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
+        .format('D MMMM YYYY')} yna fe anfonir e-bost atoch yn dweud wrthych sut y gallwch fwrw ymlaen â'r cais.`,
+    },
+    afterDueDate: {
+      line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn amodol o hyd.
+       Mae'n rhaid iddynt wneud cais cyn y gall eich ${
+         isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+       }
+      symud ymlaen. Mae hyn oherwydd eich bod yn gwneud cais ar y cyd.`,
+      subHeading: 'Beth allwch chi ei wneud',
+      line2: `Dylech gysylltu â'ch ${partner} a gofyn iddynt wneud cais. Cysylltwch â nhw dim ond os yw'n ddiogel i chi wneud hynny.`,
+      line3: 'Os nad ydych yn credu y byddant yn gwneud cais yna gallwch ',
+      link: 'newid eich cais i fod yn gais unigol.',
+    },
+  },
+  awaitingLegalAdvisorReferral: {
+    line1: `Rydych chi a'ch ${partner} wedi gwneud cais am 'orchymyn amodol'.`,
+    line2: `Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr.
+     Os bydd y barnwr yn cytuno y dylech ${isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"},
+    yna bydd yn  caniatáu i chi gael gorchymyn amodol ac yna'n ei ‘gyhoeddi’ yn y llys. Byddwch yn cael e-bost erbyn ${
+      dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
+        ? dayjs(userCase.coApplicant1SubmittedDate)
+            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
+            .format('D MMMM YYYY')
+        : dayjs(userCase.coApplicant2SubmittedDate)
+            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
+            .format('D MMMM YYYY')
+    } ar ôl i'ch cais gael ei wirio. 
+    Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
+  },
+  subHeading1:
+    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
+      ? 'Latest information'
+      : 'What you need to do',
+  clarificationSubmitted: {
+    withDocuments: {
+      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.issueDate
+      )
+        .add(config.get('dates.issueDateOffsetDays'), 'day')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+      line2: 'This was the court’s feedback, explaining the information which was needed:',
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
+      line4: 'You will receive an update when your documents have been received and checked.',
+    },
+    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+  },
+});
 
 const languages = {
   en,
