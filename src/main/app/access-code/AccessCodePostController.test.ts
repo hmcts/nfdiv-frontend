@@ -58,7 +58,7 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      hasCreatedDraftCase: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
     });
@@ -106,7 +106,7 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      hasCreatedDraftCase: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
     });
@@ -143,7 +143,7 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      hasCreatedDraftCase: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
     });
@@ -169,7 +169,7 @@ describe('AccessCodePostController', () => {
       getCaseById: jest.fn(() => {
         throw Error;
       }),
-      hasCreatedDraftCase: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
     });
@@ -201,7 +201,7 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      hasCreatedDraftCase: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
     });

@@ -6,7 +6,14 @@ import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, InProgressDivorceCase, getCaseApi } from './case-api';
 import { CaseApiClient } from './case-api-client';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
+import {
+  ApplicationType,
+  CITIZEN_ADD_PAYMENT,
+  CITIZEN_UPDATE,
+  DivorceOrDissolution,
+  State,
+  UserRole,
+} from './definition';
 
 jest.mock('axios');
 
@@ -391,6 +398,7 @@ describe('CaseApi', () => {
       state: State.Draft,
       case_data: {
         divorceOrDissolution: serviceType,
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
     };
 
