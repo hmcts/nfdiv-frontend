@@ -3,6 +3,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
+import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -11,10 +12,12 @@ import {
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
   PageLink,
   RESPONDENT,
   SIGN_IN_URL,
   SIGN_OUT_URL,
+  SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -55,6 +58,15 @@ export class OidcMiddleware {
             req.session.isApplicant2 =
               req.session.isApplicant2 ??
               (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          }
+
+          if (
+            req.path.endsWith(SWITCH_TO_SOLE_APPLICATION) &&
+            req.session.userCase.state !== State.Applicant2Approved &&
+            req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
+            req.session.isApplicant2
+          ) {
+            return res.redirect(HOME_URL);
           }
 
           req.session.save(err => {
