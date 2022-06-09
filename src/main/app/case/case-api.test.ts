@@ -11,6 +11,7 @@ import {
   CITIZEN_ADD_PAYMENT,
   CITIZEN_UPDATE,
   DivorceOrDissolution,
+  SYSTEM_UNLINK_APPLICANT,
   State,
   UserRole,
 } from './definition';
@@ -442,6 +443,31 @@ describe('CaseApi', () => {
     await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'Error');
+  });
+
+  test('should unlink stale draft cases', async () => {
+    const mockCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: serviceType,
+      },
+    };
+    const caseUsers = { case_users: [{ case_role: UserRole.CREATOR }] };
+
+    const mockApiClient = {
+      findUserCases: jest.fn().mockImplementation((caseType: string) => {
+        return Promise.resolve(caseType.includes('DIVORCE') ? [] : [mockCase]);
+      }),
+      getCaseUserRoles: jest.fn().mockImplementation(async () => Promise.resolve(caseUsers)),
+      sendEvent: jest.fn().mockImplementation(async () => Promise.resolve(mockCase)),
+    } as unknown as CaseApiClient;
+
+    const caseApi = new CaseApi(mockApiClient);
+
+    await caseApi.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
+
+    expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1', {}, SYSTEM_UNLINK_APPLICANT);
   });
 });
 
