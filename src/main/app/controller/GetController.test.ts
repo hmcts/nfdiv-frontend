@@ -61,13 +61,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({
-          language,
-          pageContent: generateContent,
-          userEmail,
-          userCase: req.session.userCase,
-          pageUrl: '/request',
-        }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -87,13 +81,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({
-          language,
-          pageContent: generateContent,
-          userEmail,
-          userCase: req.session.userCase,
-          pageUrl: '/request',
-        }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -113,13 +101,7 @@ describe('GetController', () => {
 
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({
-          language,
-          pageContent: generateContent,
-          userEmail,
-          userCase: req.session.userCase,
-          pageUrl: '/request',
-        }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -180,12 +162,7 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      const commonContent = generatePageContent({
-        language: 'en',
-        userEmail,
-        userCase: req.session.userCase,
-        pageUrl: '/request',
-      });
+      const commonContent = generatePageContent({ language: 'en', userEmail, userCase: req.session.userCase });
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
@@ -226,7 +203,6 @@ describe('GetController', () => {
             isDivorce,
             userCase: { gender },
             userEmail,
-            pageUrl: '/request',
           });
 
           expect(getContentMock).toHaveBeenCalledTimes(2);

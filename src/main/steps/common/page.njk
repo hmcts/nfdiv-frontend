@@ -29,7 +29,7 @@
 
 {% block beforeContent %}
   {% set feedbackHTML %}
-    {{ feedback.part1 }}<a class="govuk-link" aria-label={{ feedback.ariaLabel }} href="{{ feedback.link + pageUrl }}" target="_blank">{{ feedback.part2 }}</a> {{ feedback.part3 }}
+    {{ feedback.part1 }}<a class="govuk-link" aria-label={{ feedback.ariaLabel }} href="{{ feedback.link + pagePath }}" target="_blank">{{ feedback.part2 }}</a> {{ feedback.part3 }}
   {% endset %}
   {{ govukPhaseBanner({
     tag: {

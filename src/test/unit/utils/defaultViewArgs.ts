@@ -1,12 +1,7 @@
 import { generatePageContent } from '../../../main/steps/common/common.content';
 
 export const defaultViewArgs = {
-  ...generatePageContent({
-    language: 'en',
-    userEmail: 'test@example.com',
-    userCase: expect.any(Object),
-    pageUrl: expect.any(String),
-  }),
+  ...generatePageContent({ language: 'en', userEmail: 'test@example.com', userCase: expect.any(Object) }),
   serviceName: expect.any(String),
   sessionErrors: expect.any(Array),
   getNextIncompleteStepUrl: expect.any(Function),

@@ -25,7 +25,6 @@ describe('TimedOutGetController', () => {
         isDivorce,
         userCase,
         userEmail: 'test@example.com',
-        pageUrl: '/request',
       }),
       ...defaultViewArgs,
     });
