@@ -5,7 +5,6 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
-import { ApplicationType, State } from './app/case/definition';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -104,18 +103,6 @@ export class Routes {
     app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
     app.get(APPLICATION_SUBMITTED, errorHandler(new ApplicationSubmittedGetController().get));
 
-    app.use(
-      SWITCH_TO_SOLE_APPLICATION,
-      errorHandler((req: AppRequest, res: Response) => {
-        if (
-          req.session.userCase.state !== State.Applicant2Approved &&
-          req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
-          req.session.isApplicant2
-        ) {
-          return res.redirect(HOME_URL);
-        }
-      })
-    );
     app.get(SWITCH_TO_SOLE_APPLICATION, errorHandler(new SwitchToSoleApplicationGetController().get));
     app.post(
       SWITCH_TO_SOLE_APPLICATION,
