@@ -156,7 +156,7 @@ const cy: typeof en = ({
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
   partnerResponse: `Bydd eich ${partner} yn ymateb`,
   conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
-  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo progress bar to be updated as per - NFDIV-2334
+  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo progress bar to be updated as per - NFDIV-2371
   subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',
