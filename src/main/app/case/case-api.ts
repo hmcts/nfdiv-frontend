@@ -57,9 +57,9 @@ export class CaseApi {
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
       const linkedRoles =
-        userCase.applicationType && userCase.applicationType.includes(ApplicationType.SOLE_APPLICATION)
-          ? [UserRole.APPLICANT_2]
-          : [UserRole.CREATOR, UserRole.APPLICANT_2];
+        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
+          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
+          : [UserRole.APPLICANT_2];
       return linkedRoles.includes(userRoles.case_users[0]?.case_role);
     }
     return false;
