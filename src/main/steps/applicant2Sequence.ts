@@ -121,16 +121,14 @@ export const preSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
-        : data.applicant2NameChangedHow?.includes(ChangedNameHow.DEED_POLL) ||
-          data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
+        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      data.applicant2NameChangedHow?.includes(ChangedNameHow.DEED_POLL) ||
-      data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
+      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
