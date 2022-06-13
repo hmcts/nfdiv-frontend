@@ -53,14 +53,31 @@ describe('Applicant 2 Sequence test', () => {
   });
 
   describe('APPLY_FINANCIAL_ORDER_DETAILS', () => {
-    test('applicant2ApplyForFinancialOrder - YES', () => {
+    test('applicant2NameChangedHow - deed poll', () => {
       const caseData = {
-        applicant2ApplyForFinancialOrder: YesOrNo.YES,
+        applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
+      };
+
+      const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+    });
+
+    test('applicant2NameChangedHow - other', () => {
+      const caseData = {
         applicant2NameChangedHow: [ChangedNameHow.OTHER],
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
-      expect(step.getNextStep(caseData)).toBe(APPLY_FINANCIAL_ORDER_DETAILS);
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+    });
+
+    test('applicant2NameChangedHow - marriage certificate', () => {
+      const caseData = {
+        applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      };
+
+      const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
+      expect(step.getNextStep(caseData)).toBe(CHECK_JOINT_APPLICATION);
     });
   });
 });
