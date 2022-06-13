@@ -41,7 +41,7 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
-const preSubmissionSequence: Step[] = [
+export const preSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
