@@ -91,7 +91,7 @@ describe('jurisdictionBulletPointContent', () => {
 
   test('Given only residual jurisdiction connection, should find connection C for user reads for civil partnership in Welsh', async () => {
     const expected =
-      "Mi wnaethoch chi a’ch partner sifil gofrestru eich partneriaeth sifil yng Nghymru a Lloegr, a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn";
+      "mi wnaethoch chi a’ch partner sifil gofrestru eich partneriaeth sifil yng Nghymru a Lloegr, a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn";
     const result = cyConnectionUserReads('gŵr', false, false)[JurisdictionConnections.RESIDUAL_JURISDICTION_CP];
     expect(result).toEqual(expected);
   });
