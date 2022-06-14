@@ -129,14 +129,13 @@ export const cyConnectionUserReads = (
     yn preswylio'n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn`,
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `Rydych ${
       isJointApplication ? `chi neu'ch ${partner}` : ''
-    } â'ch domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`, // todo same as above
+    } â'ch domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`,
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `mae eich domisil chi a domisil eich ${partner} yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_DOMICILED]: 'dim ond eich domisil chi sydd yng Nghymru a Lloegr',
     [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil eich ${partner} sydd yng Nghymru a Lloegr`,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]: `Mi wnaethoch chi a’ch partner sifil gofrestru eich partneriaeth sifil yng Nghymru a Lloegr,
-    a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
-    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `Mi wnaethoch chi a’ch ${partner} briodi eich gilydd yng
-      Nghymru a Lloegr, a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
+      "Mi wnaethoch chi a’ch partner sifil gofrestru eich partneriaeth sifil yng Nghymru a Lloegr, a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn",
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `Mi wnaethoch chi a’ch ${partner} briodi eich gilydd yng Nghymru a Lloegr, a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
     [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'rydych yn preswylio’n arferol yng Nghymru a Lloegr',
   };
 };
