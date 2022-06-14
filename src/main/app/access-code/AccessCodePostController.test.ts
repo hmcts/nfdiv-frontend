@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/CaseApi';
+import * as caseApi from '../case/case-api';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { FormContent, FormFields } from '../form/Form';
 
