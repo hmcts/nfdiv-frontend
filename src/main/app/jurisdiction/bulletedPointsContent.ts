@@ -128,8 +128,8 @@ export const cyConnectionUserReads = (
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `Rydych ${isJointApplication ? `chi neu'ch ${partner}` : ''}
     yn preswylio'n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn`,
     [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `Rydych ${
-      isJointApplication ? `chi neu'ch ${partner}` : ''
-    } â'ch domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`,
+      isJointApplication ? `chi neu'ch ${partner} ` : ''
+    }â'ch domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`,
     [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `mae eich domisil chi a domisil eich ${partner} yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_DOMICILED]: 'dim ond eich domisil chi sydd yng Nghymru a Lloegr',
     [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil eich ${partner} sydd yng Nghymru a Lloegr`,
