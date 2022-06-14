@@ -215,7 +215,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       : [],
   whatThisMeans: 'Beth mae hyn yn ei olygu',
   jurisdictionsMoreDetails: {
-    part1: `Rhaid bod gan lysoedd Cymru a Lloegr awdurdodaeth (y pŵer cyfreithiol) i allu ${
+    part1: `Rhaid bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i allu ${
       isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
     }.
     Cadarnhaodd y ceiswyr bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai un o’r ceiswyr neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Lloegr, neu bob un ohonynt.`,
