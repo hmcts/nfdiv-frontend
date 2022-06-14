@@ -19,8 +19,20 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-//TODO Translation
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+  title: `A oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli?`,
+  line1: `Mae’r llys ond angen gwybod a oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli ar gyfer
+  ${isDivorce ? 'yr ysgariad' : "y broses i ddod â'ch partneriaeth sifil i ben"}.
+  Nid oes angen i chi ddweud wrth y llys am gyfreithiwr y maent yn ei ddefnyddio at ddibenion eraill.`,
+  yes: "Oes, mae ganddynt gyfreithiwr sy'n eu cynrychioli",
+  no: 'Na, nid oes ganddynt gyfreithiwr yn eu cynrychioli',
+  notSure: 'Dw i ddim yn siŵr',
+  errors: {
+    applicant1IsApplicant2Represented: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Dewiswch ateb cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
