@@ -17,7 +17,7 @@
     }) }}
   {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
     {{ govukButton({
-      text: "Apply for conditional order",
+      text: applyForConditionalOrder,
       classes: form.submit.classes,
       type: "submit",
       name: applicantApplyForConditionalOrderStarted,

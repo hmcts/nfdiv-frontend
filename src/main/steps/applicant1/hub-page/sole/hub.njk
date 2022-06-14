@@ -9,7 +9,9 @@
     {% endfor %}
   </ol>
   {% if displayState.isBefore('AwaitingConditionalOrder') %}
-    <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
+    <p class="govuk-body">{{ moneyAndProperty.part1 }}
+      <a class="govuk-link" href={{ moneyAndProperty.link }} target="_blank">{{ moneyAndProperty.part2 }}</a>
+    </p>
   {% endif %}
 {% endset %}
 
