@@ -70,6 +70,7 @@ export const en = {
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
+  webChatNotAvailable: 'No agents are available, please try again later.',
   webChatDetails:
     'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
