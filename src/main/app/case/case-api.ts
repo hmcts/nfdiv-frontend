@@ -16,7 +16,6 @@ import {
   State,
   UserRole,
 } from './definition';
-import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
 export class InProgressDivorceCase implements Error {
@@ -38,14 +37,7 @@ export class CaseApi {
     if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
       throw new InProgressDivorceCase('User has in progress divorce case');
     }
-
-    const latestCase = (await this.apiClient.findUserCases(CASE_TYPE)).filter(
-      c => c.case_data.divorceOrDissolution === serviceType
-    )[0];
-
-    return latestCase
-      ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
-      : false;
+    return this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
@@ -53,7 +45,7 @@ export class CaseApi {
   }
 
   public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.searchCases(serviceType);
+    const userCase = await this.apiClient.getLatestCaseOrInvite(CASE_TYPE, serviceType, user.email);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
       const linkedRoles =
@@ -69,7 +61,7 @@ export class CaseApi {
     serviceType: DivorceOrDissolution,
     user: UserDetails
   ): Promise<CaseWithId | undefined> {
-    const userCase = await this.searchCases(serviceType);
+    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
 
@@ -93,7 +85,7 @@ export class CaseApi {
   }
 
   private async hasInProgressDivorceCase(): Promise<boolean> {
-    const divCases = await this.apiClient.findUserCases('DIVORCE');
+    const divCases = await this.apiClient.getLatestLinkedCase('DIVORCE', 'DIVORCE');
     const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
     const states = [
       'AwaitingPayment',
