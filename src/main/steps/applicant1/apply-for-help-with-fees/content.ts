@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { HELP_WITH_YOUR_FEE_URL } from '../../urls';
 
-const en = ({ isDivorce, partner }) => ({
+const en = ({ isDivorce }) => ({
   title: `You need to apply for help with your ${isDivorce ? 'divorce fees' : 'fees to end your civil partnership'}`,
   line1: `You need to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a> before you continue with this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
@@ -10,11 +10,11 @@ const en = ({ isDivorce, partner }) => ({
     'Enter the court form number ‘D8’ when asked. This will be one of the first questions when you <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a>.',
   line3: `After you have applied then you will receive a Help With Fees reference number. You should enter the reference number when you return to this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
-  } application. Your ${partner} will also need to apply for Help With Fees separately and enter their own reference number later in the application.`,
+  } application.`,
   line4: `If you have a Help With Fees reference number then you can <a class="govuk-link" href="${HELP_WITH_YOUR_FEE_URL}">enter it here.</a>`,
 });
 
-const cy: typeof en = ({ isDivorce, partner }) => ({
+const cy: typeof en = ({ isDivorce }) => ({
   title: `Mae arnoch angen gwneud am help i dalu eich ${
     isDivorce ? 'ffioedd ysgaru' : 'ffioedd i ddod â’ch partneriaeth sifil i ben'
   }`,
@@ -25,7 +25,7 @@ const cy: typeof en = ({ isDivorce, partner }) => ({
     'Nodwch y rhif ffurflen llys ‘D8’ pan ofynnir amdano. Dyma fydd un o’r cwestiynau cyntaf pan fyddwch yn <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">gwneud cais am help i dalu ffioedd (yn agor mewn tab newydd)</a>.',
   line3: `Ar ôl ichi wneud cais byddwch yn cael cyfeirnod Help i Dalu Ffioedd. Dylech nodi’r cyfeirnod pan fyddwch yn dychwelyd i’r cais hwn ${
     isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
-  }. Bydd eich ${partner} hefyd angen gwneud cais ar wahân am Help i Dalu Ffioedd a nodi eu cyfeirnod nhw yn nes ymlaen yn y cais.`,
+  }.`,
   line4: `Os oes gennych gyfeirnod Help i Dalu Ffioedd, yna gallwch <a class="govuk-link" href="${HELP_WITH_YOUR_FEE_URL}">ei nodi yma.</a>`,
 });
 
@@ -35,5 +35,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  return languages[content.language](content);
+  const jointApplication = content.isJointApplication;
+  return { ...languages[content.language](content), jointApplication };
 };
