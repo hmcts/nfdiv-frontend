@@ -1,28 +1,5 @@
-{% if displayState.state() == 'AwaitingPronouncement' %}
-  {% include "./latest-update-content/awaiting-pronouncement.njk" %}
+{% include "./latest-update-content" + theLatestUpdateTemplate %}
 
-{% elif displayState.state() == 'Holding'%}
-  {% include "./latest-update-content/holding.njk" %}
-
-{% elif displayState.state() == 'ConditionalOrderPronounced'%}
-  {% include "./latest-update-content/conditional-order-pronounced.njk" %}
-
-{% elif displayState.state() == 'AwaitingClarification' %}
-  {% include "./latest-update-content/awaiting-clarification.njk" %}
-
-{% elif displayState.state() == 'ClarificationSubmitted' %}
-  {% include "./latest-update-content/clarification-submitted.njk" %}
-
-{% elif displayState.state() == 'ConditionalOrderPending' %}
-  {% include "./latest-update-content/conditional-order-pending.njk" %}
-
-{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' %}
-  {% include "./latest-update-content/awaiting-legal-advisor-referral.njk" %}
-
-{% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral')
-  and not hasApplicantAppliedForConditionalOrder %}
-  <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
-{% endif %}
 {% block form %}
   {% include "./form.njk" %}
 {% endblock %}

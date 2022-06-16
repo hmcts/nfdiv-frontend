@@ -6,6 +6,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 
+import { getJointHubTemplate } from './jointTemplateSelector';
+
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
@@ -120,6 +122,7 @@ export const generateContent: TranslationFn = content => {
       ? content.userCase.previousState
       : content.userCase.state) as State
   );
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
     displayState,
@@ -130,5 +133,6 @@ export const generateContent: TranslationFn = content => {
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
     cannotUploadDocuments,
+    theLatestUpdateTemplate,
   };
 };
