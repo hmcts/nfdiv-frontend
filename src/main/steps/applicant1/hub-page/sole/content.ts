@@ -6,6 +6,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
+import { getSoleHubTemplate } from './soleTemplateChooser';
+
 const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceType: AlternativeServiceType) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
@@ -262,5 +264,6 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isServiceApplicationGranted,
     isAlternativeService,
+    getSoleHubTemplate,
   };
 };
