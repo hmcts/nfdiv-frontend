@@ -1,9 +1,9 @@
 import { DivorceOrDissolution, State } from '../../../../app/case/definition';
 import { currentStateFn } from '../../../state-sequence';
 
-import { getSoleHubTemplate } from './soleTemplateChooser';
+import { getSoleHubTemplate } from './soleTemplateSelector';
 
-describe('SoleTemplateChooser test', () => {
+describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
