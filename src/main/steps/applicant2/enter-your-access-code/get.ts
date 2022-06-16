@@ -20,7 +20,6 @@ export class Applicant2AccessCodeGetController extends GetController {
     if (await api.isApplicantAlreadyLinked(res.locals.serviceType, req.session.user)) {
       return res.redirect(HOME_URL);
     }
-
     await super.get(req, res);
   }
 }

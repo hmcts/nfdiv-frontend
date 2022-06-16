@@ -56,7 +56,7 @@ export class CaseApiClient {
     return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
   }
 
-  public async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
+  private async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
     try {
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
 

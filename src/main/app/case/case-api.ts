@@ -28,16 +28,12 @@ export class CaseApi {
   constructor(private readonly apiClient: CaseApiClient) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const userCase = await this.searchCases(serviceType);
-
-    return userCase || this.apiClient.createCase(serviceType, userDetails);
-  }
-
-  private async searchCases(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
     if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
       throw new InProgressDivorceCase('User has in progress divorce case');
     }
-    return this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
+    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
+
+    return userCase || this.apiClient.createCase(serviceType, userDetails);
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
@@ -85,8 +81,8 @@ export class CaseApi {
   }
 
   private async hasInProgressDivorceCase(): Promise<boolean> {
-    const divCases = await this.apiClient.getLatestLinkedCase('DIVORCE', 'DIVORCE');
-    const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
+    const divCase = await this.apiClient.getLatestLinkedCase('DIVORCE', 'DIVORCE');
+    const courtId = divCase && (divCase as unknown as Record<string, string>).D8DivorceUnit;
     const states = [
       'AwaitingPayment',
       'AwaitingAmendCase',
@@ -100,7 +96,7 @@ export class CaseApi {
       'AwaitingServicePayment',
     ];
 
-    return courtId === 'serviceCentre' && !states.includes(divCases[0].state);
+    return divCase && courtId === 'serviceCentre' && !states.includes(divCase.state);
   }
 }
 
