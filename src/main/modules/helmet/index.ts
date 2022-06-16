@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
-import helmet = require('helmet');
+import helmet from 'helmet';
 
 const googleAnalyticsDomain = '*.google-analytics.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
