@@ -1,9 +1,10 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { AlternativeServiceType, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
+import { currentStateFn } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
@@ -256,14 +257,24 @@ export const generateContent: TranslationFn = content => {
   const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
     .alternativeServiceType as AlternativeServiceType;
   const isAlternativeService = !!alternativeServiceType;
+  const displayState = currentStateFn(userCase).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
+  const theLatestUpdateTemplate = getSoleHubTemplate(
+    displayState,
+    isServiceApplicationGranted,
+    isSuccessfullyServedByBailiff,
+    isAlternativeService
+  );
   return {
     ...languages[language](content, alternativeServiceType),
+    displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
     isClarificationDocumentsUploaded,
     isServiceApplicationGranted,
     isAlternativeService,
-    getSoleHubTemplate,
+    theLatestUpdateTemplate,
   };
 };
