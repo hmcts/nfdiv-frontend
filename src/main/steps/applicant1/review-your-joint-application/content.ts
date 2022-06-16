@@ -7,7 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
@@ -51,7 +51,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
-    ? enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication)
+    ? connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true)
     : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
