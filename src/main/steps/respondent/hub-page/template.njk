@@ -1,5 +1,7 @@
 {% extends "../../applicant1/hub-page/template.njk" %}
 
 {% block soleLatestUpdate %}
-  {% include "./latest-update-content" + theLatestUpdateTemplate if theLatestUpdateTemplate%}
+  {% if theLatestUpdateTemplate %}
+    {% include "./latest-update-content" + theLatestUpdateTemplate %}
+  {% endif %}
 {% endblock %}
