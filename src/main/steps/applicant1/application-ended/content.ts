@@ -10,8 +10,14 @@ const en = {
   exitLink: 'Exit service',
 };
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = {
+  title: 'Mae’r cais ar y cyd hwn wedi dod i ben',
+  line1:
+    'Ni allwch gael mynediad at y cais ar y cyd hwn oherwydd mae wedi cael ei ddiweddu un ai gennych chi neu’r ceisydd arall. ' +
+    'Gallwch gysylltu â nhw a gofyn pam, os yw’n ddiogel i chi wneud hynny.',
+  line2: 'Gall y ddau ohonoch gyflwyno cais newydd, os ydych yn dymuno gwneud hynny.',
+  exitLink: 'Gadael y gwasanaeth',
+};
 
 export const form: FormContent = {
   fields: {},
