@@ -65,8 +65,8 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe('/holding.njk');
   });
 
-  test('should show /awaiting-aos.njk for states before Holding AwaitingConditionalOrder and not hasSubmittedAos', () => {
-    const theState = displayState.at(State.Holding);
+  test('should show /awaiting-aos.njk for states at or before AwaitingConditionalOrder and not hasSubmittedAos', () => {
+    const theState = displayState.at(State.AwaitingConditionalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, false);
     expect(respondentTemplate).toBe('/awaiting-aos.njk');
   });

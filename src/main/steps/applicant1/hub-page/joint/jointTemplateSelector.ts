@@ -4,7 +4,7 @@ import { StateSequence } from '../../../state-sequence';
 export const getJointHubTemplate = (
   displayState: StateSequence,
   hasApplicantAppliedForConditionalOrder: boolean
-): string => {
+): string | undefined => {
   switch (displayState.state()) {
     case State.AwaitingPronouncement: {
       return '/awaiting-pronouncement.njk';

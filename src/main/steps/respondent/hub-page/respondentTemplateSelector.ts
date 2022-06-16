@@ -1,7 +1,7 @@
 import { State } from '../../../app/case/definition';
 import { StateSequence } from '../../state-sequence';
 
-export const getRespondentHubTemplate = (displayState: StateSequence, hasSubmittedAos: boolean): string => {
+export const getRespondentHubTemplate = (displayState: StateSequence, hasSubmittedAos: boolean): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
       return '/final-order-requested.njk';

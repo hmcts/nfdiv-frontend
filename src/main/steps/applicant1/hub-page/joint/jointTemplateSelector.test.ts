@@ -54,7 +54,7 @@ describe('JointTemplateSelector test', () => {
   });
 
   test('should show /applicant-not-yet-applied-for-conditional-order.njk for states after Holding and before AwaitingLegalAdvisorReferral and not hasApplicantAppliedForConditionalOrder', () => {
-    const theState = displayState.at(State.Holding);
+    const theState = displayState.at(State.AwaitingConditionalOrder);
     const jointTemplate = getJointHubTemplate(theState, false);
     expect(jointTemplate).toBe('/applicant-not-yet-applied-for-conditional-order.njk');
   });
