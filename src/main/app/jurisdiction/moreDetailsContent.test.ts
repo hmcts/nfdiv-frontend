@@ -24,7 +24,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'en',
+      true,
       true,
       true
     );
@@ -36,7 +36,7 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedText = enDomicile;
     const expectedTitle = 'Read more about domicile';
 
-    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], 'en', false);
+    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], true, false);
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
@@ -52,7 +52,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'cy',
+      false,
       true,
       true
     );

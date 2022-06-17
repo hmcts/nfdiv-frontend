@@ -1,4 +1,3 @@
-import { Language } from '../../steps/common/common.content';
 import { JurisdictionConnections } from '../case/definition';
 
 export const enHabitualResident = `If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.<br><br>
@@ -47,7 +46,7 @@ export const cyResidual = (isDivorce: boolean): string => {
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
-  language: Language,
+  isEnglish: boolean,
   isDivorce: boolean,
   showAllConnectionTypes = false
 ): { text: string; title: string } => {
@@ -72,30 +71,28 @@ export const jurisdictionMoreDetailsContent = (
     ],
   };
 
-  const connectionText =
-    language === 'cy'
-      ? {
-          habitualResidence: cyHabitualResident,
-          domicile: cyDomicile,
-          residualJurisdiction: cyResidual(isDivorce),
-        }
-      : {
-          habitualResidence: enHabitualResident,
-          domicile: enDomicile,
-          residualJurisdiction: enResidual(isDivorce),
-        };
-  const connectionTitle =
-    language === 'cy'
-      ? {
-          habitualResidence: 'Preswylio’n arferol',
-          domicile: 'Domisil',
-          residualJurisdiction: 'Awdurdodaeth weddillol',
-        }
-      : {
-          habitualResidence: 'Habitual residence',
-          domicile: 'Domicile',
-          residualJurisdiction: 'Residual jurisdiction',
-        };
+  const connectionText = isEnglish
+    ? {
+        habitualResidence: enHabitualResident,
+        domicile: enDomicile,
+        residualJurisdiction: enResidual(isDivorce),
+      }
+    : {
+        habitualResidence: cyHabitualResident,
+        domicile: cyDomicile,
+        residualJurisdiction: cyResidual(isDivorce),
+      };
+  const connectionTitle = isEnglish
+    ? {
+        habitualResidence: 'Habitual residence',
+        domicile: 'Domicile',
+        residualJurisdiction: 'Residual jurisdiction',
+      }
+    : {
+        habitualResidence: 'Preswylio’n arferol',
+        domicile: 'Domisil',
+        residualJurisdiction: 'Awdurdodaeth weddillol',
+      };
 
   const connectionTypesMade: string[] = [];
 

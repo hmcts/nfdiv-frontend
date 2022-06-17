@@ -265,7 +265,7 @@ const en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce))
             }`
           : '',
     },
@@ -731,7 +731,7 @@ const cy: typeof en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, 'cy', isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce))
             }`
           : '',
     },

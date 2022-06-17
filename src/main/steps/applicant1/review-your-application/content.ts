@@ -52,7 +52,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
-    ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'en', isDivorce, isJointApplication)
+    ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
     : [],
   whatThisMeans: 'What this means',
   whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${

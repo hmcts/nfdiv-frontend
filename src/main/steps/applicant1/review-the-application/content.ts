@@ -64,7 +64,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'en', isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
       : [],
   jurisdictionsMoreDetails: {
     part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
@@ -72,7 +72,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     }.
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce).text,
   },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',

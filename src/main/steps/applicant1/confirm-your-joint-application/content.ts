@@ -47,7 +47,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'en', isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
       : [],
   whatThisMeans: 'What this means',
   jurisdictionsMoreDetails: {
@@ -56,7 +56,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
      Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, true).text,
   },
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
@@ -211,7 +211,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
   line15: 'Mae gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) i wrando’r achos hwn oherwydd:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'cy', isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
       : [],
   whatThisMeans: 'Beth mae hyn yn ei olygu',
   jurisdictionsMoreDetails: {
@@ -219,7 +219,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
     }.
     Cadarnhaodd y ceiswyr bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai un o’r ceiswyr neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Lloegr, neu bob un ohonynt.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, 'cy', isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, true).text,
   },
   subHeading4: 'Achosion llys eraill',
   line16: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${

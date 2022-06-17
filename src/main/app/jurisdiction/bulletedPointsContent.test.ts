@@ -14,7 +14,7 @@ describe('jurisdictionBulletPointContent', () => {
     ];
     const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'en',
+      true,
       true,
       true
     );
@@ -27,7 +27,7 @@ describe('jurisdictionBulletPointContent', () => {
     ];
     const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'en',
+      true,
       false,
       false
     );
@@ -40,7 +40,7 @@ describe('jurisdictionBulletPointContent', () => {
     ];
     const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'cy',
+      false,
       true,
       true
     );
@@ -53,7 +53,7 @@ describe('jurisdictionBulletPointContent', () => {
     ];
     const result = connectionBulletPointsSummarisedForAllUsers(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'cy',
+      false,
       false,
       false
     );

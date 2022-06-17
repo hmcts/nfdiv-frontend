@@ -16,7 +16,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, 'en', isDivorce, isJointApplication)
+        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, 'en', isDivorce, true).text,
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, true, isDivorce, true).text,
     errors: {
       jurisdictionAgree: {
         required,

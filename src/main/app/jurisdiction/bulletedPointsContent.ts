@@ -1,4 +1,3 @@
-import { Language } from '../../steps/common/common.content';
 import { JurisdictionConnections } from '../case/definition';
 
 const enConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolean) => ({
@@ -71,14 +70,13 @@ const cyConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolea
 
 export const connectionBulletPointsSummarisedForAllUsers = (
   connections: JurisdictionConnections[],
-  language: Language,
+  isEnglish: boolean,
   isDivorce: boolean,
   isJointApplication: boolean
 ): string[] => {
-  const connectionBulletPoints =
-    language === 'cy'
-      ? cyConnectionBulletPoints(isDivorce, isJointApplication)
-      : enConnectionBulletPoints(isDivorce, isJointApplication);
+  const connectionBulletPoints = isEnglish
+    ? enConnectionBulletPoints(isDivorce, isJointApplication)
+    : cyConnectionBulletPoints(isDivorce, isJointApplication);
 
   return connections.map(connection => connectionBulletPoints[connection]);
 };
