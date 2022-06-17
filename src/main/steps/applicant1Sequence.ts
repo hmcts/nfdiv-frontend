@@ -84,7 +84,6 @@ import {
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
   YOUR_NAME,
-  YOU_CANNOT_APPLY,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
@@ -276,10 +275,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ADDRESS_PRIVATE,
     getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
-  },
-  {
-    url: YOU_CANNOT_APPLY,
-    getNextStep: () => CHECK_JURISDICTION,
   },
   {
     url: ENTER_YOUR_ADDRESS,
