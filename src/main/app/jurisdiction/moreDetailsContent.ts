@@ -4,10 +4,6 @@ export const enHabitualResident = `If your lives are mainly based in England or 
   This may include working, owning property, having children in school, and your main family life taking place in England or Wales.<br><br>
   The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.`;
 
-export const cyHabitualResident = `Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.<br><br>
-  Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.<br><br>
-  Nid yw’r enghreifftiau uchod yn rhestr gyflawn o’r amgylchiadau sy’n diffinio preswylfa arferol. Nid yw’r ffaith bod rhai ohonynt yn berthnasol i chi o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siŵr, dylech gael cyngor cyfreithiol.`;
-
 export const enDomicile = `Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.<br><br>
   However, domicile can be more complex, for example, if you or your parents have moved countries in the past.<br><br>
   When you’re born, you acquire a 'domicile of origin'. This is usually:
@@ -16,11 +12,15 @@ export const enDomicile = `Your domicile is usually the place in which you were 
   If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.<br><br>
   If you’re not sure about your domicile, you should get legal advice.`;
 
+export const cyHabitualResident = `Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.<br><br>
+  Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.<br><br>
+  Nid yw’r enghreifftiau uchod yn rhestr gyflawn o’r amgylchiadau sy’n diffinio preswylfa arferol. Nid yw’r ffaith bod rhai ohonynt yn berthnasol i chi o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siŵr, dylech gael cyngor cyfreithiol.`;
+
 export const cyDomicile = `Fel rheol, eich domisil yw’r lle y cawsoch eich geni, lle’r ydych yn meddwl amdano fel eich cartref parhaol a’r lle mae eich teulu a’ch ffrindiau agosaf yn byw.<br><br>
   Fodd bynnag, gall domisil fod yn fwy cymhleth. Er enghraifft, os ydych chi neu eich rhieni wedi symud o un wlad i’r llall yn y gorffennol.<br><br>
   Pan gewch eich geni, rydych yn cael ‘mamwlad’. Fel arfer, hon yw:
   <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">mamwlad eich tad os oedd eich rhieni wedi priodi</li>
-  <li class="govuk-list govuk-list--bullet">mamwlad eich mam os nad oedd eich rhieni wedi priodi, neu os oedd eich tad wedi marw cyn i chi gael eich geni </li></ul>
+  <li class="govuk-list govuk-list--bullet">mamwlad eich mam os nad oedd eich rhieni wedi priodi, neu os oedd eich tad wedi marw cyn i chi gael eich geni</li></ul>
   Os ydych yn gadael eich mamwlad ac yn setlo mewn gwlad arall fel oedolyn, yna efallai bydd y wlad newydd yn dod yn ‘ddomisil o’ch dewis chi’.<br><br>
   Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.`;
 

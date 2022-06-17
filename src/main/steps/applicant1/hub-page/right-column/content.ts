@@ -67,6 +67,7 @@ export const generateContent: TranslationFn = content => {
   const aosSubmitted =
     !content.isJointApplication &&
     (content.userCase.applicant2StatementOfTruth ||
+      content.userCase.aosStatementOfTruth ||
       content.userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
   const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES

@@ -13,9 +13,9 @@
     active: false
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingLegalAdvisorReferral'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
+    complete: displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'),
     active: hasApplicantConfirmedReceipt
   }, {
     label: {
@@ -25,9 +25,9 @@
     active: displayState.state() == 'AwaitingPronouncement'
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAfter('FinalOrderRequested'))
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAtOrAfter('FinalOrderRequested'))
     },
-    complete: displayState.isAfter('FinalOrderRequested'),
+    complete: displayState.isAtOrAfter('FinalOrderRequested'),
     active: displayState.state() == 'AwaitingFinalOrder'
   }, {
     label: {
@@ -51,9 +51,9 @@
     active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding')
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAfter('AwaitingLegalAdvisorReferral'))
+      html: textWithVisuallyHiddenSpan(conditionalOrderApplication, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
+    complete: displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'),
     active: displayState.state() == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
   }, {
     label: {
@@ -63,9 +63,9 @@
     active: displayState.state() == 'ConditionalOrderDrafted'
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAfter('FinalOrderPending'))
+      html: textWithVisuallyHiddenSpan(finalOrderApplication, displayState.isAtOrAfter('FinalOrderPending'))
     },
-    complete: displayState.isAfter('FinalOrderPending'),
+    complete: displayState.isAtOrAfter('FinalOrderPending'),
     active:  displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')
   }, {
     label: {
