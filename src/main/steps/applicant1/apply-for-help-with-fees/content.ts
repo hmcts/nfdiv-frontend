@@ -5,7 +5,7 @@ const en = ({ isDivorce }) => ({
   title: `You need to apply for help with your ${isDivorce ? 'divorce fees' : 'fees to end your civil partnership'}`,
   line1: `You need to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a> before you continue with this ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
-  } application. `,
+  } application.`,
   line2:
     'Enter the court form number ‘D8’ when asked. This will be one of the first questions when you <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">apply for help with your fees (opens in new tab)</a>.',
   line3: `After you have applied then you will receive a Help With Fees reference number. You should enter the reference number when you return to this ${
