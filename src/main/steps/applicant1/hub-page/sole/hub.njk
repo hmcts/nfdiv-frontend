@@ -22,48 +22,4 @@
   </p>
 {% endset %}
 
-{% if displayState.state() == 'FinalOrderRequested' %}
-  {% include "./latest-update-content/final-order-requested.njk" %}
-
-{% elif displayState.state() == 'AwaitingServiceConsideration' or displayState.state() == 'AwaitingBailiffReferral' %}
-  {% include "./latest-update-content/awaiting-service-consideration-or-awaiting-bailiff-referral.njk" %}
-
-{% elif displayState.state() == 'ConditionalOrderPronounced' %}
-  {% include "./latest-update-content/conditional-order-pronounced.njk" %}
-
-{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' %}
-  {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
-
-{% elif displayState.state() == 'AwaitingGeneralConsideration' %}
-  {% include "./latest-update-content/awaiting-general-consideration.njk" %}
-
-{% elif displayState.state() == 'AwaitingConditionalOrder' %}
-  {% include "./latest-update-content/awaiting-conditional-order.njk" %}
-
-{% elif displayState.state() == 'Holding' %}
-  {% include "./latest-update-content/holding.njk" %}
-
-{% elif displayState.state() == 'AwaitingClarification' %}
-  {% include "./latest-update-content/awaiting-clarification.njk" %}
-
-{% elif displayState.state() == 'ClarificationSubmitted' %}
-  {% include "./latest-update-content/clarification-submitted.njk" %}
-
-{% elif displayState.state() == 'AwaitingBailiffService' %}
-  {% include "./latest-update-content/awaiting-bailiff-service.njk" %}
-
-{% elif displayState.state() == 'AwaitingFinalOrder' or displayState.state() == 'FinalOrderOverdue' %}
-  {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
-
-{% elif displayState.isAfter('AosDrafted') and displayState.isBefore('Holding') %}
-  {% include "./latest-update-content/aos-due.njk" %}
-
-{% elif displayState.state() == 'AwaitingAos' and isServiceApplicationGranted and not isSuccessfullyServedByBailiff %}
-  {% include "./latest-update-content/bailiff-service-unsuccessful.njk" %}
-
-{% elif displayState.state() == 'AwaitingAos' and isAlternativeService and not isServiceApplicationGranted %}
-  {% include "./latest-update-content/service-application-rejected.njk" %}
-
-{% else %}
-  {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
-{% endif %}
+{% include "./latest-update-content" + theLatestUpdateTemplate %}
