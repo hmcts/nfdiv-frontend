@@ -336,9 +336,9 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page URL should be "/enter-solicitor-details"
-    And I select "Solicitor email address (optional)"
+    And I select "Solicitor email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
-    And I select "Postal code, zip code or area code (optional)"
+    And I select "Postal code, zip code or area code"
     And I type "SW1A 1AA"
 
     When I click "Continue"
