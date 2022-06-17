@@ -35,6 +35,5 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const jointApplication = content.isJointApplication;
-  return { ...languages[content.language](content), jointApplication };
+  return languages[content.language](content);
 };
