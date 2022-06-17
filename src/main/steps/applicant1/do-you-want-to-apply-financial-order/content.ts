@@ -44,8 +44,42 @@ const en = ({ partner, required }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ partner, required }: CommonContent) => ({
+  title: 'Gwneud cais am orchymyn ariannol',
+  line1: 'Bydd angen i chi wneud cais am orchymyn ariannol:',
+  point1:
+    'os ydych yn cytuno ar rannu eich arian a’ch eiddo ac eisiau gwneud eich cytundeb yn rwymol yn gyfreithiol (gelwir hyn yn orchymyn ariannol drwy gydsyniad)',
+  point2:
+    'os ydych yn anghytuno ar rannu eich arian a’ch eiddo ac eisiau i’r llys benderfynu (gelwir hyn yn orchymyn ariannol a wrthwynebir)',
+  point3: 'os nad oes gennych ddim i’w rannu ond eich bod eisiau gwahanu’n ariannol yn derfynol',
+  line2: `Mae gwneud cais i’r llys am ‘orchymyn ariannol drwy gydsyniad’ yn costio ${getFee(
+    config.get('fees.consentOrder')
+  )} ychwanegol. Mae gofyn i’r llys benderfynu ar eich rhan a gwneud ‘gorchymyn ariannol a wrthwynebir' yn costio ${getFee(
+    config.get('fees.financialOrder')
+  )} yn ychwanegol. Mae angen i'r llys wybod nawr os ydych am wneud cais am y naill neu'r llall.`,
+  selectYes: "Os byddwch yn dewis ‘ydw':",
+  yesPoint1: "nid oes rhaid i chi fwrw ymlaen â'r cais am orchymyn ariannol",
+  yesPoint2: `gallwch fwrw ymlaen â’r cais am orchymyn ariannol ar unrhyw adeg, cyhyd â bod eich ${partner} yn dal yn fyw`,
+  selectNo: 'Os byddwch yn dewis ‘nac ydw’:',
+  noPoint1:
+    'dim ond nes i chi ailbriodi neu ffurfio partneriaeth sifil newydd y byddwch yn gallu gwneud cais (nid yw hyn yn berthnasol i orchmynion rhannu pensiwn neu iawndal pensiwn, y gellir eu cymhwyso ar unrhyw adeg)',
+  hint: 'Os ydych am wneud cais am naill ai ‘orchymyn ariannol drwy gydsyniad’ neu ‘orchymyn ariannol a wrthwynebir’ yna dewiswch ‘ydw’.',
+  doYouWantToApplyForFinancialOrder: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
+  yes: 'Ydw, rwyf am wneud cais am orchymyn ariannol',
+  no: 'Na, nid wyf am wneud cais am orchymyn ariannol',
+  subField: 'Ar gyfer pwy mae’r gorchymyn ariannol?',
+  subFieldHint: 'Dewiswch bob un sy’n berthnaso',
+  me: 'Fi fy hun',
+  children: 'Fy mhlant',
+  errors: {
+    applicant1ApplyForFinancialOrder: {
+      required,
+    },
+    applicant1WhoIsFinancialOrderFor: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

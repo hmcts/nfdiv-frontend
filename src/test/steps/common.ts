@@ -4,8 +4,8 @@ import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
 import { OidcResponse } from '../../main/app/auth/user/oidc';
-import { CaseApi, getCaseApi } from '../../main/app/case/CaseApi';
 import { Case } from '../../main/app/case/case';
+import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CASEWORKER_ISSUE_APPLICATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
@@ -50,6 +50,10 @@ Given('I login', async () => {
 
 Given('I create a new user and login', async () => {
   await login('citizenSingleton');
+});
+
+Given('I create a new user and login as applicant 2', async () => {
+  await login('citizenApplicant2');
 });
 
 Given('I login with applicant {string}', async (applicant: string) => {
