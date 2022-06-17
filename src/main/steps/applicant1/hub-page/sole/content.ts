@@ -246,8 +246,6 @@ export const generateContent: TranslationFn = content => {
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
-  const isServiceApplicationGranted =
-    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
   const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
@@ -262,7 +260,7 @@ export const generateContent: TranslationFn = content => {
   );
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
-    isServiceApplicationGranted,
+    userCase,
     isSuccessfullyServedByBailiff,
     isAlternativeService
   );
@@ -273,7 +271,6 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
     isClarificationDocumentsUploaded,
-    isServiceApplicationGranted,
     isAlternativeService,
     theLatestUpdateTemplate,
   };
