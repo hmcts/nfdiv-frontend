@@ -40,32 +40,29 @@ const cyConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolea
   } yn preswylio’n arferol yng Nghymru a Lloegr`,
   [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `roedd y ddau barti i’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
-  } yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr, ac mae un ohonynt yn parhau i fyw yno`,
+  } yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno`,
   [JurisdictionConnections.APP_2_RESIDENT_SOLE]: 'mae’r atebydd yn preswylio’n arferol yng Nghymru a Lloegr',
-  [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'mae’r 2il geisydd yn preswylio’n arferol yng Nghymru Lloegr',
+  [JurisdictionConnections.APP_2_RESIDENT_JOINT]: 'mae Ceisydd 2 yn preswylio’n arferol yng Nghymru a Lloegr.',
   [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
-    isJointApplication ? 'ceisydd 1af' : 'mae’r ceisydd'
-  } yn preswylio’n arferol yng Nghymru a Lloegr,
-      ac mae wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais`,
+    isJointApplication ? 'mae ceisydd 1' : 'mae’r ceisydd '
+  } yn preswylio’n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais`,
   [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `mae domisil ${
-    isJointApplication ? 'y ceisydd 1af' : 'y ceisydd'
-  } yng Nghymru a Lloegr, mae’n preswylio’n arferol yno,
-      ac mae wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais`,
+    isJointApplication ? 'ceisydd 1' : 'y ceisydd'
+  } yng Nghymru a Lloegr, mae’n preswylio’n arferol yno ac mae wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais`,
   [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `mae domisil y ddau barti i’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
-  }
-     yng Nghymru a Lloegr`,
+  } yng Nghymru a Lloegr`,
   [JurisdictionConnections.APP_1_DOMICILED]: `dim ond domisil ${
-    isJointApplication ? 'ceisydd 1af' : 'y ceisydd'
+    isJointApplication ? 'ceisydd 1' : 'y ceisydd'
   } sydd yng Nghymru a Lloegr`,
   [JurisdictionConnections.APP_2_DOMICILED]: `dim ond domisil ${
-    isJointApplication ? 'yr 2il geisydd' : 'atebydd'
+    isJointApplication ? 'ceisydd 2' : 'yr atebydd'
   } sydd yng Nghymru a Lloegr`,
   [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]:
-    'mi wnaeth y partïon gofrestru fel partneriaid sifil i’w gilydd yng Nghymru neu Loegr, a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
+    'mi wnaeth y partïon gofrestru fel partneriaid sifil i’w gilydd yng Nghymru neu Loegr a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
   [JurisdictionConnections.RESIDUAL_JURISDICTION_D]:
-    'mi wnaeth y partïon briodi ei gilydd o dan gyfraith Cymru a Lloegr, a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
-  [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'mae’r ceisydd 1af yn preswylio’n arferol yng Nghymru a Lloegr',
+    'mi wnaeth y partïon briodi ei gilydd o dan gyfraith Cymru a Lloegr a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn',
+  [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'mae Ceisydd 1 yn preswylio’n arferol yng Nghymru a Lloegr',
 });
 
 export const connectionBulletPointsSummarisedForAllUsers = (

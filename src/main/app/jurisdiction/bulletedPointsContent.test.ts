@@ -34,7 +34,7 @@ describe('jurisdictionBulletPointContent', () => {
     expect(result).toEqual(expected);
   });
 
-  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for divorce and in welsh', async () => {
+  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for divorce in Welsh', async () => {
     const expected = [
       'roedd y ddau barti i’r briodas yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno',
     ];
@@ -47,7 +47,7 @@ describe('jurisdictionBulletPointContent', () => {
     expect(result).toEqual(expected);
   });
 
-  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for civil partnership in welsh', async () => {
+  test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for civil partnership in Welsh', async () => {
     const expected = [
       'roedd y ddau barti i’r bartneriaeth sifil yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr ac mae un ohonynt yn parhau i breswylio yno',
     ];
