@@ -34,10 +34,8 @@ export class CaseApiClient {
           should: [
             {
               bool: {
-                must: [
-                  { match: { 'data.applicant2InviteEmailAddress': email } },
-                  { match: { state: 'AwaitingApplicant2Response' } },
-                ],
+                must: [{ match: { 'data.applicant2InviteEmailAddress': email } }],
+                must_not: [{ match: { state: 'Draft' } }],
               },
             },
             {
