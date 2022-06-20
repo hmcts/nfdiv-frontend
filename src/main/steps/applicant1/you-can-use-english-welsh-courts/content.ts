@@ -2,9 +2,14 @@ import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, DivorceOrDissolution, JurisdictionConnections } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
-import { enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { cyConnectionUserReads, enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { addConnectionsBasedOnQuestions } from '../../../app/jurisdiction/connections';
-import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
+import {
+  cyDomicile,
+  cyHabitualResident,
+  enDomicile,
+  enHabitualResident,
+} from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 
 const jurisdictionConnectionList = [
@@ -36,7 +41,7 @@ const en = (
     [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `My ${partner} is habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
       isJointApplication
-        ? `Me or my ${partner} are habitually resident in England and Wales and has resided there
+        ? `Me or my ${partner} are habitually resident in England and Wales and have resided there
       for at least one year immediately before making this application`
         : 'I am habitually resident in England and Wales and have resided there for at least one year immediately ' +
           'before making this application'
@@ -87,8 +92,67 @@ const en = (
   };
 };
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = (
+  { isDivorce, partner, applyForDivorce, applyForDissolution, userCase, isJointApplication }: CommonContent,
+  connections: JurisdictionConnections[]
+) => {
+  const apply = isDivorce ? applyForDivorce : applyForDissolution;
+  const connectionText = cyConnectionUserReads(partner, isDivorce, isJointApplication);
+
+  const connectionCheckboxes = {
+    [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `Rwyf i a fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `Roeddwn i a fy ${partner} yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr, ac mae un ohonom yn parhau i breswylio yno`,
+    [JurisdictionConnections.APP_2_RESIDENT_SOLE]: `Mae fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `Mae fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
+      isJointApplication
+        ? `Rwyf i neu fy ${partner} yn preswylio'n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn`
+        : 'Rwyf yn preswylio’n arferol yng Nghymru a Lloegr, ac rwyf wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn'
+    }`,
+    [JurisdictionConnections.APP_1_RESIDENT_SIX_MONTHS]: `${
+      isJointApplication
+        ? `Rwyf i neu fy ${partner} â'n domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`
+        : 'Mae fy nomisil yng Nghymru a Lloegr, rwy’n preswylio’n arferol yno, ac rwyf wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn'
+    }`,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `Mae fy nomisil i, a domisil fy ${partner} yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_1_DOMICILED]: 'Dim ond fy nomisil i sydd yng Nghymru a Lloegr',
+    [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil fy ${partner} sydd yng Nghymru a Lloegr`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]: `Mi wnes i a fy mhartner sifil gofrestru ein partneriaeth sifil yng Nghymru a Lloegr,
+      a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
+    [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `Mi wnes i a fy ${partner} briodi ein gilydd yng Nghymru a
+      Lloegr, a byddai er budd cyfiawnder i’r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
+    [JurisdictionConnections.APP_1_RESIDENT_JOINT]: 'Rwyf yn preswylio’n arferol yng Nghymru a Lloegr',
+  };
+
+  return {
+    title: `Gallwch ddefnyddio’r llysoedd yng Nghymru neu Loegr i ${
+      isDivorce ? 'gael ysgariad' : 'dod â’ch partneriaeth sifil i ben'
+    }`,
+    line1Prefix: `Mae eich atebion yn dangos y gallwch ${apply} yng Nghymru a Lloegr oherwydd`,
+    line2:
+      'Mae ffyrdd eraill o fod â chysylltiad cyfreithiol â Chymru a Lloegr. Gall y rhain fod yn bwysig os oes anghydfod o ran p’un a oes gan y llysoedd awdurdodaeth dros eich achos ai peidio.',
+    habitualResidence: 'Preswylio’n arferol',
+    habitualResidenceText: cyHabitualResident,
+    domicile: 'Domisil',
+    domicileText: cyDomicile,
+    disputesAboutJurisdiction: 'Anghydfodau ynghylch awdurdodaeth',
+    disputesAboutJurisdictionText: `Os ydych yn meddwl gall fod anghydfod ynghylch p’un a oes gan y llysoedd yng Nghymru a Lloegr awdurdodaeth dros eich achos neu beidio, neu os ydych yn ansicr p’un a oes gan y llysoedd awdurdodaeth, yna dylech gael cyngor cyfreithiol cyn cyflwyno’r cais hwn.<br><br>
+      Os ydych yn meddwl bod yna ffyrdd ychwanegol y gallwch fod â chysylltiad â Chymru a Lloegr, gallwch eu hychwanegu isod`,
+    readMore: `Darllenwch am ${
+      connections.length > 1 ||
+      [JurisdictionConnections.RESIDUAL_JURISDICTION_CP, JurisdictionConnections.RESIDUAL_JURISDICTION_D].includes(
+        connections[0]
+      )
+        ? 'awdurdodaeth'
+        : connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED
+        ? 'domisil'
+        : 'preswylio’n arferol'
+    } a chysylltiadau cyfreithiol eraill posib`,
+    connectionCheckboxes,
+    preMadeConnections: addConnectionsBasedOnQuestions(userCase),
+    connectionText,
+  };
+};
 
 export const form: FormContent = {
   fields: userCase => {
