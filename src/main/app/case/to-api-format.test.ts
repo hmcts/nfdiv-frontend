@@ -365,6 +365,7 @@ describe('to-api-format', () => {
       expected: {
         applicationType: ApplicationType.JOINT_APPLICATION,
         applicant1IsApplicant2Represented: null,
+        applicant2SolicitorRepresented: null,
         applicant2SolicitorName: null,
         applicant2SolicitorEmail: null,
         applicant2SolicitorFirmName: null,
