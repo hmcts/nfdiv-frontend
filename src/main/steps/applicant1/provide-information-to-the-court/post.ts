@@ -28,7 +28,7 @@ export default class ProvideInformationToTheCourtPostController extends PostCont
     const newId: string =
       oldCoClarificationResponses === undefined || oldCoClarificationResponses.length === 0
         ? '1'
-        : String(Number(oldCoClarificationResponses?.[oldCoClarificationResponses.length - 1].id) + 1);
+        : String(oldCoClarificationResponses.length + 1);
     const newData: ListValue<string>[] = [
       {
         id: newId,
