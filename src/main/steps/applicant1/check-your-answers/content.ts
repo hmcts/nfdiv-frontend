@@ -53,23 +53,31 @@ const getEnHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivor
 
 const getCyHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Darganfyddwch fwy am help i dalu ffioedd';
-  const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
+  const text = `Mae'r cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"} yn costio ${getFee(
     config.get('fees.applicationFee')
   )}.
-  You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
+  Ni ofynnir i chi dalu'r ffi. Gofynnir i'ch ${checkTheirAnswersPartner} dalu. ${
     applicant1HelpPayingNeeded === YesOrNo.YES
-      ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
-      : 'They have said that they do not need help paying the fee.'
+      ? "Maent wedi dweud bod angen help arnynt i dalu'r ffi. Gallant ond gael help i dalu ffioedd os byddwch chi yn gwneud cais hefyd. Dyna pam y gofynnwyd ichi a oedd angen help arnoch i dalu'r ffi."
+      : "Maent wedi dweud nad oes angen help arnynt i dalu'r ffi."
   }`;
 
   return moreDetailsComponent({ text, title });
 };
 
-const getOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
+const getEnOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
   const title = 'Find out more about other court proceedings';
   const text = `The court only needs to know about court proceedings relating to your ${
     isDivorce ? 'marriage' : 'civil partnership'
   }, property or children. It does not need to know about other court proceedings.`;
+  return moreDetailsComponent({ text, title });
+};
+
+const getCyOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
+  const title = 'Rhagor o wybodaeth am achosion llys eraill';
+  const text = `Nid oes ond angen i'r llys wybod am achosion llys sy'n ymwneud â'ch ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } eiddo neu blant. Nid oes angen iddo wybod am achosion llys eraill.`;
   return moreDetailsComponent({ text, title });
 };
 
@@ -399,7 +407,7 @@ const en = ({
     otherCourtCases: {
       line1: userCase.applicant1LegalProceedings
         ? `${userCase.applicant1LegalProceedings} ${
-            isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''
+            isApplicant2 ? getEnOtherCourtCasesMoreDetailsContent(isDivorce) : ''
           }`
         : '',
       line2:
@@ -623,7 +631,7 @@ const cy: typeof en = ({
       line13: `A yw’r ceisydd a’r atebydd wedi’u cofrestru fel partneriaid sifil i’w gilydd yng Nghymru neu Loegr neu,
         yn achos cwpl o’r un rhyw, yn briod â’i gilydd o dan gyfraith Cymru a Lloegr a byddai er budd cyfiawnder i’r
         llys gymryd awdurdodaeth yn yr achos hwn?`,
-      line14: "How you're connected to England and Wales",
+      line14: "Sut rydych wedi'ch cysylltu â Chymru a Lloegr",
     },
     aboutPartners: {
       line1: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${
@@ -755,8 +763,8 @@ const cy: typeof en = ({
       line13: userCase.jurisdictionResidualEligible?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line14:
         userCase.connections && userCase.connections?.length
-          ? `Your answers indicate that you can apply in England and Wales because: ${
-              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
+          ? `Mae eich atebion yn dangos y gallwch wneud cais yng Nghymru a Lloegr oherwydd: ${
+              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, false) +
               moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
             }`
           : '',
@@ -873,7 +881,7 @@ const cy: typeof en = ({
     otherCourtCases: {
       line1: userCase.applicant1LegalProceedings
         ? `${userCase.applicant1LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo')}
-        ${isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''}`
+        ${isApplicant2 ? getCyOtherCourtCasesMoreDetailsContent(isDivorce) : ''}`
         : '',
       line2:
         userCase.applicant1LegalProceedings === YesOrNo.YES
@@ -930,7 +938,7 @@ const cy: typeof en = ({
   confirmApplicationIsTrueHint:
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">Mae hyn yn cadarnhau bod yr wybodaeth rydych yn ei chyflwyno yn wir ac yn gywir hyd at eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.</p>',
   confirmApplicationIsTrueWarning:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    "Gellir dwyn achos am ddirmyg llys yn erbyn unrhyw un sy'n gwneud, neu'n achosi i ddatganiad ffug gael ei wneud, wedi'i ddilysu gan ddatganiad o wirionedd heb gred onest ei fod yn wir.",
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
