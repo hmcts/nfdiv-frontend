@@ -16,7 +16,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
@@ -264,7 +264,7 @@ const en = ({
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication) +
+              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
               moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
             }`
           : '',
@@ -731,7 +731,7 @@ const cy: typeof en = ({
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication) +
+              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
               moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
             }`
           : '',
