@@ -83,7 +83,7 @@ const getCyOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
 
 const cannotUploadDocumentList = (
   isDivorce: boolean,
-  isWelsh: boolean,
+  isEnglish: boolean,
   marriage: string,
   civilPartnership: string,
   { inTheUk, applicant1CannotUploadDocuments }: { inTheUk: YesOrNo; applicant1CannotUploadDocuments: [] }
@@ -103,7 +103,7 @@ const cannotUploadDocumentList = (
     [DocumentType.NAME_CHANGE_EVIDENCE]: 'Prawf fy mod i wedi newid fy enw',
   };
 
-  const documentText = isWelsh ? cyDocumentText : enDocumentText;
+  const documentText = isEnglish ? enDocumentText : cyDocumentText;
 
   return applicant1CannotUploadDocuments.map(document => documentText[document]).join('<br>');
 };
@@ -440,7 +440,7 @@ const en = ({
       }`,
       line2: `${
         userCase.applicant1CannotUploadDocuments && userCase.applicant1CannotUploadDocuments.length
-          ? cannotUploadDocumentList(isDivorce, false, marriage, civilPartnership, userCase)
+          ? cannotUploadDocumentList(isDivorce, true, marriage, civilPartnership, userCase)
           : ''
       }`,
     },
@@ -914,7 +914,7 @@ const cy: typeof en = ({
       line2: `${
         userCase.applicant1CannotUploadDocuments
           ? userCase.applicant1CannotUploadDocuments.length
-            ? cannotUploadDocumentList(isDivorce, true, marriage, civilPartnership, userCase)
+            ? cannotUploadDocumentList(isDivorce, false, marriage, civilPartnership, userCase)
             : ''
           : ''
       }`,
