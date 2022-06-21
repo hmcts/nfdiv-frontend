@@ -137,7 +137,7 @@ const cy: typeof en = ({
       userCase.coDateAndTimeOfHearing
     )
       .add(config.get('dates.applyForFoDays'), 'day')
-      .format('D MMMM YYYY')}. Dyma'r cam olaf yn y broses ${isDivorce ? 'ysgaru ' : ''}a bydd yn dod â'ch  ${
+      .format('D MMMM YYYY')}. Dyma'r cam olaf yn y broses ${isDivorce ? 'ysgaru ' : ''}a bydd yn dod â'ch ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } i ben yn gyfreithiol.`,
   },
