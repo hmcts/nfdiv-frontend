@@ -140,9 +140,6 @@ const fields: FromApiConverters = {
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
   }),
-  coClarificationResponses: data => ({
-    coClarificationResponses: data.coClarificationResponses?.length ? data.coClarificationResponses?.[0].value : '',
-  }),
   applicant2SolicitorAddress: data => {
     const address = data.applicant2SolicitorAddress ? data.applicant2SolicitorAddress?.split('\n') : Array(7).fill('');
     return {

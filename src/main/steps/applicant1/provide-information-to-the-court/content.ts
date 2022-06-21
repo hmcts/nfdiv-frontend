@@ -1,4 +1,4 @@
-import { isEmpty, isObject } from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -36,7 +36,7 @@ const en = ({ partner, applicant1Content, userCase }) => ({
 const cy = en;
 
 export const form: FormContent = {
-  fields: userCase => ({
+  fields: () => ({
     coClarificationResponses: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
@@ -56,10 +56,7 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
-      value:
-        (isObject(userCase.coClarificationUploadedFiles)
-          ? JSON.stringify(userCase.coClarificationUploadedFiles)
-          : userCase.coClarificationUploadedFiles) || '[]',
+      value: '[]',
       parser: data => JSON.parse((data as Record<string, string>).coClarificationUploadedFiles || '[]'),
     },
     coCannotUploadClarificationDocuments: {

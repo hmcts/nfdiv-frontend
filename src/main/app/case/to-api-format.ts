@@ -292,16 +292,6 @@ const fields: ToApiConverters = {
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
   }),
-  coClarificationResponses: data => ({
-    coClarificationResponses: data.coClarificationResponses
-      ? [
-          {
-            id: '1',
-            value: data.coClarificationResponses,
-          },
-        ]
-      : [],
-  }),
   applicant2SolicitorAddress1: data => ({
     applicant2SolicitorAddress: addressConverter([
       data.applicant2SolicitorAddress1,
