@@ -26,9 +26,9 @@ const moreDetailsComponent = (textAndTitleObject: {
   title: string;
 }): string => {
   let detailsText = '';
-  for (const obj of textAndTitleObject.text) {
-    detailsText += obj.heading ? `<h3 class="govuk-heading-s govuk-!-margin-bottom-1">${obj.heading}</h3>` : '';
-    detailsText += obj.body ? `<p class="govuk-body govuk-!-margin-bottom-2">${obj.body}</p>` : '';
+  for (const section of textAndTitleObject.text) {
+    detailsText += section.heading ? `<h3 class="govuk-heading-s govuk-!-margin-bottom-1">${section.heading}</h3>` : '';
+    detailsText += section.body ? `<p class="govuk-body govuk-!-margin-bottom-2">${section.body}</p>` : '';
   }
   return `
   <details class="govuk-details summary" data-module="govuk-details">
@@ -247,7 +247,7 @@ const en = ({
               : 'I do not need help paying the fee'
           }
             ${
-              !isApplicant2
+              isApplicant2
                 ? getHelpWithFeesMoreDetailsContent(
                     userCase.applicant1HelpPayingNeeded,
                     isDivorce,
@@ -391,7 +391,7 @@ const en = ({
     otherCourtCases: {
       line1: userCase.applicant1LegalProceedings
         ? `${userCase.applicant1LegalProceedings} ${
-            !isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''
+            isApplicant2 ? getOtherCourtCasesMoreDetailsContent(isDivorce) : ''
           }`
         : '',
       line2:
