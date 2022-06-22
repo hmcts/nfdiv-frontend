@@ -8,7 +8,7 @@
       </li>
     {% endfor %}
   </ol>
-  {% if currentState.isBefore('AwaitingConditionalOrder') %}
+  {% if displayState.isBefore('AwaitingConditionalOrder') %}
     <p class="govuk-body">{{ moneyAndProperty | safe }}</p>
   {% endif %}
 {% endset %}
@@ -22,48 +22,4 @@
   </p>
 {% endset %}
 
-{% if userCase.state == 'FinalOrderRequested' %}
-  {% include "./latest-update-content/final-order-requested.njk" %}
-
-{% elif userCase.state == 'AwaitingServiceConsideration' or userCase.state == 'AwaitingBailiffReferral' %}
-  {% include "./latest-update-content/awaiting-service-consideration-or-awaiting-bailiff-referral.njk" %}
-
-{% elif userCase.state == 'ConditionalOrderPronounced' %}
-  {% include "./latest-update-content/conditional-order-pronounced.njk" %}
-
-{% elif userCase.state == 'AwaitingLegalAdvisorReferral' or userCase.state == 'AwaitingPronouncement' %}
-  {% include "./latest-update-content/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk" %}
-
-{% elif userCase.state == 'AwaitingGeneralConsideration' %}
-  {% include "./latest-update-content/awaiting-general-consideration.njk" %}
-
-{% elif userCase.state == 'AwaitingConditionalOrder' %}
-  {% include "./latest-update-content/awaiting-conditional-order.njk" %}
-
-{% elif userCase.state == 'Holding' %}
-  {% include "./latest-update-content/holding.njk" %}
-
-{% elif userCase.state == 'AwaitingClarification' %}
-  {% include "./latest-update-content/awaiting-clarification.njk" %}
-
-{% elif userCase.state == 'ClarificationSubmitted' %}
-  {% include "./latest-update-content/clarification-submitted.njk" %}
-
-{% elif userCase.state == 'AwaitingBailiffService' %}
-  {% include "./latest-update-content/awaiting-bailiff-service.njk" %}
-
-{% elif userCase.state == 'AwaitingFinalOrder' or userCase.state == 'FinalOrderOverdue' %}
-  {% include "./latest-update-content/awaiting-final-order-or-final-order-overdue.njk" %}
-
-{% elif currentState.isAfter('AosDrafted') and currentState.isBefore('Holding') %}
-  {% include "./latest-update-content/aos-due.njk" %}
-
-{% elif userCase.state == 'AwaitingAos' and isServiceApplicationGranted and not isSuccessfullyServedByBailiff %}
-  {% include "./latest-update-content/bailiff-service-unsuccessful.njk" %}
-
-{% elif userCase.state == 'AwaitingAos' and isAlternativeService and not isServiceApplicationGranted %}
-  {% include "./latest-update-content/service-application-rejected.njk" %}
-
-{% else %}
-  {% include "./latest-update-content/aos-awaiting-or-drafted.njk" %}
-{% endif %}
+{% include "./latest-update-content" + theLatestUpdateTemplate %}

@@ -7,6 +7,7 @@ Feature: Joint hub page
     When I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
+    And a superuser updates "issueDate" with "2020-01-01"
 
   Scenario: Joint hub applicant 1 and applicant 2 pages
     Given I set the case state to "Holding"

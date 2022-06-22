@@ -1,28 +1,7 @@
-{% if userCase.state == 'AwaitingPronouncement' %}
-  {% include "./latest-update-content/awaiting-pronouncement.njk" %}
-
-{% elif userCase.state == 'Holding'%}
-  {% include "./latest-update-content/holding.njk" %}
-
-{% elif userCase.state == 'ConditionalOrderPronounced'%}
-  {% include "./latest-update-content/conditional-order-pronounced.njk" %}
-
-{% elif userCase.state == 'AwaitingClarification' %}
-  {% include "./latest-update-content/awaiting-clarification.njk" %}
-
-{% elif userCase.state == 'ClarificationSubmitted' %}
-  {% include "./latest-update-content/clarification-submitted.njk" %}
-
-{% elif userCase.state == 'ConditionalOrderPending' %}
-  {% include "./latest-update-content/conditional-order-pending.njk" %}
-
-{% elif userCase.state == 'AwaitingLegalAdvisorReferral' %}
-  {% include "./latest-update-content/awaiting-legal-advisor-referral.njk" %}
-
-{% elif currentState.isAfter('Holding') and currentState.isBefore('AwaitingLegalAdvisorReferral')
-  and not hasApplicantAppliedForConditionalOrder %}
-  <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
+{% if theLatestUpdateTemplate %}
+  {% include "./latest-update-content" + theLatestUpdateTemplate %}
 {% endif %}
+
 {% block form %}
   {% include "./form.njk" %}
 {% endblock %}

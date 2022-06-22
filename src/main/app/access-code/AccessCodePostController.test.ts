@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/CaseApi';
+import * as caseApi from '../case/case-api';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { FormContent, FormFields } from '../form/Form';
 
@@ -58,6 +58,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
@@ -103,6 +106,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
@@ -137,6 +143,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     const res = mockResponse();
     await controller.post(req, res);
@@ -159,6 +168,9 @@ describe('AccessCodePostController', () => {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => {
         throw Error;
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();
@@ -188,6 +200,9 @@ describe('AccessCodePostController', () => {
           caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();

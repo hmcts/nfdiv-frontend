@@ -122,6 +122,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
   applicant1CannotUpload: 'applicant1CannotUpload',
   applicant2CannotUpload: 'applicant2CannotUpload',
+  applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -299,7 +300,11 @@ export interface Case {
   applicant2SolicitorAddressCountry?: string;
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
+  applicant2SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
+  dateAosSubmitted?: DateAsString;
+  aosStatementOfTruth: Checkbox;
+  previousState: State;
 }
 
 export interface CaseWithId extends Case {

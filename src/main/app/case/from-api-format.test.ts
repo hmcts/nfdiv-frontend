@@ -31,6 +31,7 @@ describe('from-api-format', () => {
     applicant2PrayerDissolveDivorce: [DissolveDivorce.DISSOLVE_DIVORCE],
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
+    statementOfTruth: YesOrNo.YES,
     dueDate: '2021-07-26',
     dateFinalOrderEligibleFrom: '2021-07-26',
     dateFinalOrderEligibleToRespondent: '2021-07-26',
@@ -77,6 +78,7 @@ describe('from-api-format', () => {
       applicant2EnglishOrWelsh: LanguagePreference.Welsh,
       applicant1StatementOfTruth: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
+      aosStatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       dueDate: '26 July 2021',
@@ -118,6 +120,7 @@ describe('from-api-format', () => {
       marriageDate: '2000-09-02',
       dateSubmitted: '2021-01-01',
       dateFinalOrderSubmitted: '2022-01-01',
+      dateAosSubmitted: '2022-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -132,6 +135,7 @@ describe('from-api-format', () => {
       },
       applicant1StatementOfTruth: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
+      aosStatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
@@ -159,6 +163,7 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       dateFinalOrderSubmitted: '1 January 2022',
+      dateAosSubmitted: '1 January 2022',
     });
   });
 
@@ -175,6 +180,7 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
       applicant1StatementOfTruth: Checkbox.Checked,
+      aosStatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
@@ -217,6 +223,7 @@ describe('from-api-format', () => {
       sameSex: Checkbox.Checked,
       applicant1ScreenHasUnionBroken: YesOrNo.YES,
       applicant1StatementOfTruth: Checkbox.Checked,
+      aosStatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,

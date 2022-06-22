@@ -1,5 +1,6 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -9,7 +10,10 @@ import {
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
+import { currentStateFn } from '../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
+
+import { getRespondentHubTemplate } from './respondentTemplateSelector';
 
 const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   subHeading1:
@@ -176,11 +180,19 @@ const languages = {
 export const form = applicant1Form;
 
 export const generateContent: TranslationFn = content => {
-  const isRespondentAbleToApplyForFinalOrder =
-    dayjs(content.userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const { userCase, language } = content;
+  const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
+  const hasSubmittedAos = !isEmpty(userCase.dateAosSubmitted);
+  const displayState = currentStateFn(userCase).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
+  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, hasSubmittedAos);
   return {
-    isRespondentAbleToApplyForFinalOrder,
     ...applicant1GenerateContent(content),
-    ...languages[content.language](content),
+    ...languages[language](content),
+    displayState,
+    theLatestUpdateTemplate,
+    isRespondentAbleToApplyForFinalOrder,
+    hasSubmittedAos,
   };
 };

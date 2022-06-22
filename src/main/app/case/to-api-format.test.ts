@@ -56,6 +56,7 @@ describe('to-api-format', () => {
     applicant2IConfirmPrayer: Checkbox.Checked,
     applicant1StatementOfTruth: Checkbox.Checked,
     applicant2StatementOfTruth: Checkbox.Checked,
+    aosStatementOfTruth: Checkbox.Checked,
     applicant1FinalOrderStatementOfTruth: Checkbox.Checked,
     doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
     doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
@@ -150,6 +151,7 @@ describe('to-api-format', () => {
       applicant2PrayerFinancialOrdersThemselves: [],
       applicant1StatementOfTruth: 'Yes',
       applicant2StatementOfTruth: 'Yes',
+      statementOfTruth: 'Yes',
       applicant1NameChangedHow: [ChangedNameHow.OTHER],
       applicant2NameChangedHow: [ChangedNameHow.OTHER],
       applicant1NameChangedHowOtherDetails: 'Test',
@@ -363,6 +365,7 @@ describe('to-api-format', () => {
       expected: {
         applicationType: ApplicationType.JOINT_APPLICATION,
         applicant1IsApplicant2Represented: null,
+        applicant2SolicitorRepresented: null,
         applicant2SolicitorName: null,
         applicant2SolicitorEmail: null,
         applicant2SolicitorFirmName: null,

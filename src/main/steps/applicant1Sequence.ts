@@ -84,7 +84,6 @@ import {
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
   YOUR_NAME,
-  YOU_CANNOT_APPLY,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
@@ -278,10 +277,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
-    url: YOU_CANNOT_APPLY,
-    getNextStep: () => CHECK_JURISDICTION,
-  },
-  {
     url: ENTER_YOUR_ADDRESS,
     getNextStep: data =>
       hasApp1Confirmed(data)
@@ -320,7 +315,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (
         data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
-        !(data.applicant2SolicitorEmail || data.applicant2SolicitorAddressPostcode)
+        !(
+          data.applicant2SolicitorEmail ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorFirmName) ||
+          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorAddress1)
+        )
       ) {
         return NEED_TO_GET_ADDRESS;
       } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {

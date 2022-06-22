@@ -1,6 +1,6 @@
 import Axios, { AxiosStatic } from 'axios';
 
-import { CALLBACK_URL } from '../../../steps/urls';
+import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
 
 import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
@@ -13,8 +13,14 @@ const token =
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
-    expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
+    expect(getRedirectUrl('http://localhost', SIGN_IN_URL)).toBe(
       'https://idam-web-public.aat.platform.hmcts.net/login?client_id=divorce&response_type=code&redirect_uri=http://localhost/oauth2/callback'
+    );
+  });
+
+  test('should create a valid URL to redirect to applicant2 login screen', () => {
+    expect(getRedirectUrl('http://localhost', APPLICANT_2_SIGN_IN_URL)).toBe(
+      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=divorce&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2'
     );
   });
 });

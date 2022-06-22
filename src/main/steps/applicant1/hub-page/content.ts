@@ -7,7 +7,6 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
-import { currentStateFn } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -127,12 +126,10 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
-  const currentState = currentStateFn(userCase);
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
-    currentState,
     isCoFieldsSet,
   };
 };
