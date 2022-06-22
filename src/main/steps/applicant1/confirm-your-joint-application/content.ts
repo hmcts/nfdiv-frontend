@@ -176,7 +176,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
       }.`,
     },
     applicant1StatementOfTruth: {
-      required: 'You need to confirm the facts stated in this application are true',
+      required: 'You need to confirm the facts stated in this application are true.',
     },
   },
 });
@@ -334,12 +334,12 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   errors: {
     applicant1IConfirmPrayer: {
-      required: `You need to confirm you are applying to the court to ${
-        isDivorce ? 'dissolve your marriage (get a divorce)' : 'end your civil partnership'
-      }.`,
+      required: `Mae angen i chi gadarnhau eich bod yn gwneud cais i'r llys i ${
+        isDivorce ? 'ddiddymu eich priodas (cael ysgariad)' : "dod â'ch partneriaeth sifil i ben"
+      } cyn parhau.`,
     },
     applicant1StatementOfTruth: {
-      required: 'You need to confirm the facts stated in this application are true',
+      required: 'Mae angen i chi gadarnhau bod y ffeithiau a nodir yn y cais hwn yn wir cyn parhau.',
     },
   },
 });
