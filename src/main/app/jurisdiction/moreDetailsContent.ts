@@ -85,6 +85,7 @@ export const jurisdictionMoreDetailsContent = (
     for (const connectionType of connectionTypesMade) {
       totalConnectionArray.push({ heading: connectionType, body: connectionText[connectionType] });
     }
+    console.log(totalConnectionArray);
     return { text: totalConnectionArray, title: 'Read more about your connections' };
   }
 };
