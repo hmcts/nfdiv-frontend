@@ -13,7 +13,7 @@ const en = ({ isDivorce, partner, isJointApplication, userCase }) => ({
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   } can be made, then it can be submitted. If you do not confirm then you will be told what you can do next.`,
   line3:
-    'You will also be asked to provide some of your own information.' +
+    'You will also be asked to provide some information.' +
     (isJointApplication && userCase.applicant1SolicitorRepresented === YesOrNo.YES
       ? ` You will see that some answers have already been selected. This is because your ${partner}’s solicitor has already provided some information on your behalf. You can change the answers if you do not agree with them.`
       : ''),
