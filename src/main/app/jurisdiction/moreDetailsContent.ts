@@ -74,7 +74,7 @@ export const jurisdictionMoreDetailsContent = (
     }
   }
 
-  const totalConnectionArr: { heading: string; body: string }[] = [];
+  const totalConnectionArray: { heading: string; body: string }[] = [];
 
   if (connectionTypesMade.length === 1) {
     return {
@@ -83,8 +83,8 @@ export const jurisdictionMoreDetailsContent = (
     };
   } else {
     for (const connectionType of connectionTypesMade) {
-      totalConnectionArr.push({ heading: connectionType, body: connectionText[connectionType] });
+      totalConnectionArray.push({ heading: connectionType, body: connectionText[connectionType] });
     }
-    return { text: totalConnectionArr, title: 'Read more about your connections' };
+    return { text: totalConnectionArray, title: 'Read more about your connections' };
   }
 };
