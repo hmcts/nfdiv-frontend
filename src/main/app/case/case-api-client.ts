@@ -23,30 +23,11 @@ export class CaseApiClient {
     return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
   }
 
-  public async getLatestCaseOrInvite(
-    caseType: string,
-    serviceType: string,
-    email: string
-  ): Promise<CaseWithId | false> {
+  public async getLatestInviteCase(caseType: string, serviceType: string, email: string): Promise<CaseWithId | false> {
     const query = {
       query: {
         bool: {
-          should: [
-            {
-              bool: {
-                must: [{ match: { 'data.applicant2InviteEmailAddress': email } }],
-                must_not: [{ match: { state: 'Draft' } }],
-              },
-            },
-            {
-              multi_match: {
-                query: email,
-                fields: ['data.applicant1Email', 'data.applicant2Email'],
-                type: 'cross_fields',
-                operator: 'and',
-              },
-            },
-          ],
+          must: [{ match: { 'data.applicant2InviteEmailAddress': email } }, { exists: { field: 'data.accessCode' } }],
         },
       },
       sort: [{ created_date: { order: 'desc' } }],

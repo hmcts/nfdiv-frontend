@@ -62,7 +62,7 @@ describe('CaseApi', () => {
       };
       mockApiClient.getLatestLinkedCase.mockResolvedValue(expectedCase);
 
-      const userCase = await api.getOrCreateCase(caseType, userDetails);
+      const userCase = await api.createCase(caseType, userDetails);
 
       expect(userCase).toStrictEqual(expectedCase);
     }
@@ -71,7 +71,7 @@ describe('CaseApi', () => {
   test('Should throw error when case could not be retrieved', async () => {
     mockApiClient.getLatestLinkedCase.mockRejectedValue(new Error('Case could not be retrieved.'));
 
-    await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Case could not be retrieved.');
+    await expect(api.createCase(serviceType, userDetails)).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('Should create a case if one is not found', async () => {
@@ -80,7 +80,7 @@ describe('CaseApi', () => {
     const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: 'divorce' };
     mockApiClient.createCase.mockResolvedValue(createdCase);
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    const userCase = await api.createCase(serviceType, userDetails);
 
     expect(userCase).toStrictEqual(createdCase);
   });
@@ -90,7 +90,7 @@ describe('CaseApi', () => {
     mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
     mockApiClient.createCase.mockRejectedValue(new Error('Case could not be created.'));
 
-    await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
+    await expect(api.createCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
   });
 
   test('Should throw an error if in progress divorce case is found', async () => {
@@ -98,7 +98,7 @@ describe('CaseApi', () => {
     mockApiClient.getLatestLinkedCase.mockResolvedValue(mockCase);
 
     try {
-      await api.getOrCreateCase(serviceType, userDetails);
+      await api.createCase(serviceType, userDetails);
     } catch (err) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(err instanceof InProgressDivorceCase).toBeTruthy();
@@ -115,7 +115,7 @@ describe('CaseApi', () => {
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    const userCase = await api.createCase(serviceType, userDetails);
 
     expect(userCase).toStrictEqual(mockCase);
   });
@@ -127,7 +127,7 @@ describe('CaseApi', () => {
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    const userCase = await api.createCase(serviceType, userDetails);
 
     expect(userCase).toStrictEqual(mockCase);
   });

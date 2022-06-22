@@ -27,21 +27,23 @@ export class CaseApi {
 
   constructor(private readonly apiClient: CaseApiClient) {}
 
-  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
-      throw new InProgressDivorceCase('User has in progress divorce case');
-    }
-    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
-
-    return userCase || this.apiClient.createCase(serviceType, userDetails);
+  public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+    return this.apiClient.createCase(serviceType, userDetails);
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
   }
 
+  public async getLatestLinkedCase(serviceType: string): Promise<CaseWithId | false> {
+    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
+      throw new InProgressDivorceCase('User has in progress divorce case');
+    }
+    return this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
+  }
+
   public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.apiClient.getLatestCaseOrInvite(CASE_TYPE, serviceType, user.email);
+    const userCase = await this.apiClient.getLatestInviteCase(CASE_TYPE, serviceType, user.email);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
       const linkedRoles =

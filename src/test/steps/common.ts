@@ -179,7 +179,7 @@ When('I enter my valid case reference and valid access code', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const userCase = await caseApi.createCase(DivorceOrDissolution.DIVORCE, testUser);
   const fetchedCase = await caseApi.getCaseById(userCase.id);
 
   const caseReference = userCase.id;
@@ -243,7 +243,7 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const userCase = await caseApi.createCase(DivorceOrDissolution.DIVORCE, testUser);
   const caseReference = userCase.id;
 
   if (!caseReference) {
@@ -304,7 +304,7 @@ const executeUserCaseScript = async data => {
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
   await new Promise(resolve => setTimeout(resolve, 5000));
-  const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const userCase = await api.createCase(DivorceOrDissolution.DIVORCE, testUser);
 
   data.applicant2MiddleNames = data.state || userCase.state;
 
