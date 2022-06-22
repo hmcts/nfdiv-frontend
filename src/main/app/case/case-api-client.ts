@@ -15,18 +15,60 @@ export class CaseApiClient {
 
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async findUserCases(caseType: string): Promise<CcdV1Response[]> {
-    try {
-      const query = {
-        query: { match_all: {} },
-        sort: [{ created_date: { order: 'desc' } }],
-      };
-      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
+  public async getLatestLinkedCase(caseType: string, serviceType: string): Promise<CaseWithId | false> {
+    const query = {
+      query: { match_all: {} },
+      sort: [{ created_date: { order: 'desc' } }],
+    };
+    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+  }
 
-      return response.data.cases;
+  public async getLatestCaseOrInvite(
+    caseType: string,
+    serviceType: string,
+    email: string
+  ): Promise<CaseWithId | false> {
+    const query = {
+      query: {
+        bool: {
+          should: [
+            {
+              bool: {
+                must: [{ match: { 'data.applicant2InviteEmailAddress': email } }],
+                must_not: [{ match: { state: 'Draft' } }],
+              },
+            },
+            {
+              multi_match: {
+                query: email,
+                fields: ['data.applicant1Email', 'data.applicant2Email'],
+                type: 'cross_fields',
+                operator: 'and',
+              },
+            },
+          ],
+        },
+      },
+      sort: [{ created_date: { order: 'desc' } }],
+    };
+    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+  }
+
+  private async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
+    try {
+      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
+
+      const latestCase =
+        caseType === 'DIVORCE'
+          ? response.data.cases[0]
+          : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType)[0];
+
+      return latestCase
+        ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
+        : false;
     } catch (err) {
       if (err.response?.status === 404) {
-        return [];
+        return false;
       }
       this.logError(err);
       throw new Error('Case could not be retrieved.');
