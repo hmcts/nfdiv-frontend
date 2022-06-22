@@ -10,7 +10,10 @@ import {
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/hub-page/content';
 import { CommonContent } from '../../common/common.content';
+import { currentStateFn } from '../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
+
+import { getRespondentHubTemplate } from './respondentTemplateSelector';
 
 const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   subHeading1:
@@ -180,9 +183,15 @@ export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   const hasSubmittedAos = !isEmpty(userCase.dateAosSubmitted);
+  const displayState = currentStateFn(userCase).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
+  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, hasSubmittedAos);
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
+    displayState,
+    theLatestUpdateTemplate,
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
   };
