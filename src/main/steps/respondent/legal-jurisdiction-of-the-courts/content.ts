@@ -45,7 +45,42 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
   };
 };
 
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
+  return {
+    title: 'Pŵer cyfreithiol (awdurdodaeth) y llysoedd',
+    line1: `Gofynnwyd cwestiynau i’ch ${partner} i ganfod p’un a oes gan y llysoedd yng Nghymru a Lloegr bŵer cyfreithiol (awdurdodaeth) i ${
+      isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+    }.`,
+    line2: 'Dengys eu hatebion mai’r rheswm pam bod gan y llysoedd awdurdodaeth yw oherwydd:',
+    connectionBulletPoints:
+      userCase && userCase.connections
+        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        : [],
+    jurisdictionAgree: `Ydych chi’n cytuno bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
+      isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+    }?`,
+    reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: `Eglurwch pam ydych chi’n credu nad oes gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
+      isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch priodas sifil i ben'
+    }.`,
+    inWhichCountryIsYourLifeMainlyBased: 'Ym mha wlad ydych chi’n byw yn bennaf?',
+    yes: 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth',
+    no: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
+    readMore: 'What this means',
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true).text,
+    errors: {
+      jurisdictionAgree: {
+        required,
+      },
+      reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
+        required:
+          'Mae arnoch angen esbonio pam eich bod yn meddwl nad oes gan llysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth)',
+      },
+      inWhichCountryIsYourLifeMainlyBased: {
+        required: 'Mae arnoch angen nodi ym mha wlad rydych yn treulio’r rhan fwyaf o’ch hamser.',
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: {
