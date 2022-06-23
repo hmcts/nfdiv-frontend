@@ -97,6 +97,12 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({"language": "en", "event": "Site language"})
+
+    const nfdivCookie = document.cookie.match(new RegExp('(^| )' + 'nfdiv-cookie-preferences' + '=([^;]+)'));
+    if(nfdivCookie) {
+      const cookiePreferences = JSON.parse(decodeURIComponent(nfdivCookie[2]));
+      dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookiePreferences});
+    }
   </script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
