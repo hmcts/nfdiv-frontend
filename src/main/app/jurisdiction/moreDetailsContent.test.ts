@@ -64,7 +64,7 @@ describe('jurisdictionMoreDetailsContent', () => {
         body: cyHabitualResident.body,
       },
     ];
-    const expectedTitle = 'Read more about preswylfa arferol';
+    const expectedTitle = 'Darllenwch fwy am preswylfa arferol';
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
