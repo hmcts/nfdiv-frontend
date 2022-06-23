@@ -92,7 +92,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
           isDivorce ? 'marriage' : 'civil partnership'
         }`
   }.`,
-  subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
+  subHeading5: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line18: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
   applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
