@@ -7,21 +7,26 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedText = [
       {
         heading: 'Habitual residence',
-        body: enHabitualResident,
+        body: enHabitualResident.body,
       },
       {
         heading: 'Domicile',
-        body: enDomicile,
+        body: enDomicile.body,
       },
       {
         heading: 'Residual jurisdiction',
-        body: enResidual(true),
+        body: enResidual(true, 'husband').body,
       },
     ];
 
     const expectedTitle = 'Read more about your connections';
-
-    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT], true, true);
+    const result = jurisdictionMoreDetailsContent(
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      true,
+      true,
+      'husband',
+      true
+    );
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
@@ -30,12 +35,18 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedText = [
       {
         heading: '',
-        body: enDomicile,
+        body: enDomicile.body,
       },
     ];
     const expectedTitle = 'Read more about domicile';
 
-    const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], false);
+    const result = jurisdictionMoreDetailsContent(
+      [JurisdictionConnections.APP_1_APP_2_DOMICILED],
+      true,
+      true,
+      'wife',
+      false
+    );
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
   });
