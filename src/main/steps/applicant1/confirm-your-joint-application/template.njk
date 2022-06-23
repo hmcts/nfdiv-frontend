@@ -47,7 +47,7 @@
   {% set jurisdictionsMoreDetailsTemplate %}
     <p class="govuk-body">{{ jurisdictionsMoreDetails.part1 }}</p>
     {% if jurisdictionsMoreDetails.part2.length == 1 %}
-      {{ jurisdictionsMoreDetails.part2[0] | safe }}
+      {{ jurisdictionsMoreDetails.part2[0].body | safe }}
     {% else %}
       {% for jurisdictionItem in jurisdictionsMoreDetails.part2 %}
         <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
