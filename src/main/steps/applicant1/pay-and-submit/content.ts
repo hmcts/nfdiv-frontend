@@ -25,7 +25,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Talu a chyflwyno',
   line1: `Mae eich cais ar y cyd wedi'i gytuno gennych chi a'ch ${partner}. Mae angen i chi dalu’r ffi am wneud cais, sef ${getFee(
     config.get('fees.applicationFee')
-  )} cyn y gellir ei gyflwyno. Nid yw’r system dalu yn caniatáu i chi rannu’r taliad. `,
+  )} cyn y gellir ei gyflwyno. Nid yw’r system dalu yn caniatáu i chi rannu’r taliad.`,
   line2: `Ni allwch ddefnyddio Help i Dalu Ffioedd i dalu oherwydd nad oedd eich ${partner} wedi gwneud cais am Help i Dalu Ffioedd. Mewn cais ar y cyd mae angen i'r ddau ohonoch wneud cais a bod yn gymwys.`,
   detailsHeading: 'Os na allwch dalu',
   line3: `Dim ond chi fydd yn gallu talu drwy’r system daliadau, ond gallwch siarad gyda’ch ${partner} a gofyn a fydd yn fodlon anfon rhywfaint o arian atoch.`,
