@@ -96,17 +96,11 @@ export const jurisdictionMoreDetailsContent = (
     ],
   };
 
-  const connectionText = isEnglish
-    ? {
-        [HABITUAL_RESIDENCE]: enHabitualResident,
-        [DOMICILE]: enDomicile,
-        [RESIDUAL_JURISDICTION]: enResidual(isDivorce, partner),
-      }
-    : {
-        [HABITUAL_RESIDENCE]: cyHabitualResident,
-        [DOMICILE]: cyDomicile,
-        [RESIDUAL_JURISDICTION]: cyResidual(isDivorce, partner),
-      };
+  const connectionText = {
+    [HABITUAL_RESIDENCE]: isEnglish ? enHabitualResident : cyHabitualResident,
+    [DOMICILE]: isEnglish ? enDomicile : cyDomicile,
+    [RESIDUAL_JURISDICTION]: isEnglish ? enResidual(isDivorce, partner) : cyResidual(isDivorce, partner),
+  };
 
   const connectionTypesMade: string[] = [];
 
