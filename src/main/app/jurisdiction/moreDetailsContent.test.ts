@@ -4,13 +4,20 @@ import { enDomicile, enHabitualResident, enResidual, jurisdictionMoreDetailsCont
 
 describe('jurisdictionMoreDetailsContent', () => {
   test('Given showAllResidences is true should return all 3 connection content', async () => {
-    const expectedText =
-      '<strong>Habitual residence</strong><br>' +
-      enHabitualResident +
-      '<br><br><strong>Domicile</strong><br>' +
-      enDomicile +
-      '<br><br><strong>Residual jurisdiction</strong><br>' +
-      enResidual(true);
+    const expectedText = [
+      {
+        heading: 'Habitual residence',
+        body: enHabitualResident,
+      },
+      {
+        heading: 'Domicile',
+        body: enDomicile,
+      },
+      {
+        heading: 'Residual jurisdiction',
+        body: enResidual(true),
+      },
+    ];
 
     const expectedTitle = 'Read more about your connections';
 
@@ -20,7 +27,12 @@ describe('jurisdictionMoreDetailsContent', () => {
   });
 
   test('Given only domicile connection made should only return domicile text', async () => {
-    const expectedText = enDomicile;
+    const expectedText = [
+      {
+        heading: '',
+        body: enDomicile,
+      },
+    ];
     const expectedTitle = 'Read more about domicile';
 
     const result = jurisdictionMoreDetailsContent([JurisdictionConnections.APP_1_APP_2_DOMICILED], false);
