@@ -121,8 +121,10 @@ export const jurisdictionMoreDetailsContent = (
   if (connectionTypesMade.length === 1) {
     return {
       text: [{ heading: '', body: connectionText[connectionTypesMade[0]].body }],
-      title: 'Read more about ' + connectionTypesMade[0].toLowerCase(),
-    };
+      title:
+        (isEnglish ? 'Read more about ' : 'Read more about ') +
+        connectionText[connectionTypesMade[0]].heading.toLowerCase(),
+    }; // todo
   } else {
     for (const connectionType of connectionTypesMade) {
       totalConnectionArray.push({
@@ -130,6 +132,9 @@ export const jurisdictionMoreDetailsContent = (
         body: connectionText[connectionType].body,
       });
     }
-    return { text: totalConnectionArray, title: 'Read more about your connections' };
+    return {
+      text: totalConnectionArray,
+      title: isEnglish ? 'Read more about your connections' : 'Read more about your connections',
+    }; // todo
   }
 };
