@@ -6,7 +6,6 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, getCaseApiClient } from './case-api-client';
 import {
-  ApplicationType,
   CASE_TYPE,
   CITIZEN_ADD_PAYMENT,
   DivorceOrDissolution,
@@ -40,19 +39,6 @@ export class CaseApi {
       throw new InProgressDivorceCase('User has in progress divorce case');
     }
     return this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
-  }
-
-  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.apiClient.getLatestInviteCase(CASE_TYPE, serviceType, user.email);
-    if (userCase) {
-      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      const linkedRoles =
-        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
-          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
-          : [UserRole.APPLICANT_2];
-      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
-    }
-    return false;
   }
 
   public async unlinkStaleDraftCaseIfFound(

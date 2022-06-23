@@ -13,7 +13,7 @@ import {
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
-  EXISTING_OR_NEW,
+  EXISTING_APPLICATION,
   HOME_URL,
   PageLink,
   RESPONDENT,
@@ -81,7 +81,7 @@ export class OidcMiddleware {
       const latestLinkedCase = await req.locals.api.getLatestLinkedCase(res.locals.serviceType);
 
       if (latestInviteCase && latestLinkedCase) {
-        res.redirect(EXISTING_OR_NEW);
+        res.redirect(EXISTING_APPLICATION);
       } else if (latestInviteCase) {
         if (!isLinkingUrl(req.path)) {
           res.redirect(ENTER_YOUR_ACCESS_CODE);

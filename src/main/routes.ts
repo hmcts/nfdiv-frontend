@@ -18,6 +18,7 @@ import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your
 import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
+import { ExistingApplicationGetController } from './steps/existing-application/get';
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
@@ -35,6 +36,7 @@ import {
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
+  EXISTING_APPLICATION,
   HOME_URL,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
@@ -58,6 +60,7 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
+    app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));

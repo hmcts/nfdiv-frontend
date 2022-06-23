@@ -84,7 +84,7 @@ export const SENT_TO_APPLICANT2_FOR_REVIEW: PageLink = '/application-sent-for-re
 export const PAY_YOUR_FEE: PageLink = '/pay-your-fee';
 export const PAY_AND_SUBMIT: PageLink = '/pay-and-submit';
 
-export const EXISTING_OR_NEW: PageLink = '/existing-or-new-application';
+export const EXISTING_APPLICATION: PageLink = '/existing-application';
 export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
 
 export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = '/you-need-to-review-your-application';
