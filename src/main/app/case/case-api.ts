@@ -5,8 +5,17 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
-import { fromApiFormat } from './from-api-format';
+import {
+  ApplicationType,
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  DivorceOrDissolution,
+  ListValue,
+  Payment,
+  SYSTEM_UNLINK_APPLICANT,
+  State,
+  UserRole,
+} from './definition';
 import { toApiFormat } from './to-api-format';
 
 export class InProgressDivorceCase implements Error {
@@ -19,36 +28,43 @@ export class CaseApi {
   constructor(private readonly apiClient: CaseApiClient) {}
 
   public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const userCase = await this.searchCases(serviceType);
-
-    return userCase || this.apiClient.createCase(serviceType, userDetails);
-  }
-
-  private async searchCases(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
     if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
       throw new InProgressDivorceCase('User has in progress divorce case');
     }
+    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
 
-    const latestCase = (await this.apiClient.findUserCases(CASE_TYPE)).filter(
-      c => c.case_data.divorceOrDissolution === serviceType
-    )[0];
-
-    return latestCase
-      ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
-      : false;
+    return userCase || this.apiClient.createCase(serviceType, userDetails);
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
   }
 
-  public async isAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.searchCases(serviceType);
+  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
+    const userCase = await this.apiClient.getLatestCaseOrInvite(CASE_TYPE, serviceType, user.email);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      return [UserRole.CREATOR, UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+      const linkedRoles =
+        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
+          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
+          : [UserRole.APPLICANT_2];
+      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
     }
     return false;
+  }
+
+  public async unlinkStaleDraftCaseIfFound(
+    serviceType: DivorceOrDissolution,
+    user: UserDetails
+  ): Promise<CaseWithId | undefined> {
+    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
+    if (userCase) {
+      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
+
+      if (userCase.state === State.Draft && [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)) {
+        return this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
+      }
+    }
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -65,8 +81,8 @@ export class CaseApi {
   }
 
   private async hasInProgressDivorceCase(): Promise<boolean> {
-    const divCases = await this.apiClient.findUserCases('DIVORCE');
-    const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
+    const divCase = await this.apiClient.getLatestLinkedCase('DIVORCE', 'DIVORCE');
+    const courtId = divCase && (divCase as unknown as Record<string, string>).D8DivorceUnit;
     const states = [
       'AwaitingPayment',
       'AwaitingAmendCase',
@@ -80,7 +96,7 @@ export class CaseApi {
       'AwaitingServicePayment',
     ];
 
-    return courtId === 'serviceCentre' && !states.includes(divCases[0].state);
+    return divCase && courtId === 'serviceCentre' && !states.includes(divCase.state);
   }
 }
 

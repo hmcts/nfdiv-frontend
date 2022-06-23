@@ -1951,6 +1951,7 @@ export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reaso
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
 export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const SUBMIT_AOS = 'submit-aos';

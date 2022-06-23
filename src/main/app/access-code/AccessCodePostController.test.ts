@@ -58,6 +58,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
@@ -103,6 +106,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
@@ -137,6 +143,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     const res = mockResponse();
     await controller.post(req, res);
@@ -159,6 +168,9 @@ describe('AccessCodePostController', () => {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => {
         throw Error;
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();
@@ -188,6 +200,9 @@ describe('AccessCodePostController', () => {
           caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();
