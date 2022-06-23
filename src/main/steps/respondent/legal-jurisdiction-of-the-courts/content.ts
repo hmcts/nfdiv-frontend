@@ -28,7 +28,8 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true).text,
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, true, isDivorce, partner, true)
+      .text,
     errors: {
       jurisdictionAgree: {
         required,
@@ -66,7 +67,8 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     yes: 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth',
     no: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true).text,
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, false, isDivorce, partner, true)
+      .text,
     errors: {
       jurisdictionAgree: {
         required,

@@ -24,19 +24,22 @@ export const cyDomicile = `Fel rheol, eich domisil yw’r lle y cawsoch eich gen
   Os ydych yn gadael eich mamwlad ac yn setlo mewn gwlad arall fel oedolyn, yna efallai bydd y wlad newydd yn dod yn ‘ddomisil o’ch dewis chi’.<br><br>
   Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.`;
 
-export const enResidual = (isDivorce: boolean): string => {
-  return `If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:
-    <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
-      isDivorce ? 'married' : 'formed your civil partnership'
-    } in England or Wales and </li>
-    <li class="govuk-list govuk-list--bullet">it would be in the interests of justice for the court to consider the application. For example, your home country does not allow ${
-      isDivorce ? 'divorce' : 'civil partnerships to be ended'
-    } between same-sex couples</li></ul>`;
+export const enResidual = (isDivorce: boolean, partner: string): string => {
+  return `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).<br><br>
+   In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if all the following apply:
+   <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you married each other in the UK</li>
+   <li class="govuk-list govuk-list--bullet">neither of you are nationals of, or habitually resident in, another country in the EU (except Denmark)</li>
+   <li class="govuk-list govuk-list--bullet">it would be in the interests of natural justice for the court to consider this application (this may apply if, for example, your home country does not allow ${
+     isDivorce ? 'divorce' : 'ending of a civil partnership'
+   } between same-sex couples)</li></ul>
+   However, residual jurisdiction can be complex. If you’re not sure whether this applies to you then you should get legal advice.`;
 };
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
+  isEnglish: boolean,
   isDivorce: boolean,
+  partner: string,
   showAllConnectionTypes = false
 ): { text: { heading: string; body: string }[]; title: string } => {
   const connectionTypes = {
@@ -60,11 +63,17 @@ export const jurisdictionMoreDetailsContent = (
     ],
   };
 
-  const connectionText = {
-    'Habitual residence': enHabitualResident,
-    Domicile: enDomicile,
-    'Residual jurisdiction': enResidual(isDivorce),
-  };
+  const connectionText = isEnglish
+    ? {
+        'Habitual residence': enHabitualResident,
+        Domicile: enDomicile,
+        'Residual jurisdiction': enResidual(isDivorce, partner),
+      }
+    : {
+        'Habitual residence': cyHabitualResident,
+        Domicile: cyDomicile,
+        'Residual jurisdiction': enResidual(isDivorce, partner), // todo
+      };
 
   const connectionTypesMade: string[] = [];
 
