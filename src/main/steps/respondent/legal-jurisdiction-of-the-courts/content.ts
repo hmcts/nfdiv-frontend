@@ -2,7 +2,10 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import {
+  cyConnectionBulletPointsSummarisedForAllUsers,
+  enConnectionBulletPointsSummarisedForAllUsers,
+} from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
@@ -55,7 +58,7 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     line2: 'Dengys eu hatebion mai’r rheswm pam bod gan y llysoedd awdurdodaeth yw oherwydd:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? cyConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Ydych chi’n cytuno bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
       isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
@@ -66,7 +69,7 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     inWhichCountryIsYourLifeMainlyBased: 'Ym mha wlad ydych chi’n byw yn bennaf?',
     yes: 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth',
     no: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
-    readMore: 'What this means',
+    readMore: 'Beth mae hyn yn ei olygu',
     jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, false, isDivorce, partner, true)
       .text,
     errors: {
