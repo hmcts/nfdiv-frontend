@@ -46,7 +46,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line9: {
     p1: `The applicant is the person who has applied ${
       isDivorce ? 'for the divorce' : 'to end their civil partnership'
-    }`,
+    }.`,
     p2: `The respondent is their ${applicant1Partner}.`,
   },
   subHeading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
@@ -56,7 +56,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line11: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
   line12: `${userCase.applicant1FullNameOnCertificate + ' and ' + userCase.applicant2FullNameOnCertificate}
   (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
-  line13: ` Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
+  line13: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line14: userCase.ceremonyPlace,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line16: getFormattedDate(userCase.relationshipDate),
@@ -90,7 +90,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
           isDivorce ? 'marriage' : 'civil partnership'
         }`
   }.`,
-  subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
+  subHeading5: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line20: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
   financialOrderYes: `The applicant intends to apply to the court for financial orders ${userCase.applicant1WhoIsFinancialOrderFor
