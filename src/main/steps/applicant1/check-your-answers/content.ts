@@ -471,6 +471,7 @@ const en = ({
       line3: urls.YOUR_NAME,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
+      line6: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
     contactYou: {
       line1: urls.YOUR_NAME,
