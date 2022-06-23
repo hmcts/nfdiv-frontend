@@ -124,7 +124,7 @@ export const jurisdictionMoreDetailsContent = (
       title:
         (isEnglish ? 'Read more about ' : 'Darllenwch fwy am ') +
         connectionText[connectionTypesMade[0]].heading.toLowerCase(),
-    }; // todo
+    };
   } else {
     for (const connectionType of connectionTypesMade) {
       totalConnectionArray.push({
@@ -135,6 +135,6 @@ export const jurisdictionMoreDetailsContent = (
     return {
       text: totalConnectionArray,
       title: isEnglish ? 'Read more about your connections' : 'Darllenwch fwy am eich cysylltiadau',
-    }; // todo
+    };
   }
 };
