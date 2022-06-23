@@ -122,7 +122,7 @@ export const jurisdictionMoreDetailsContent = (
     return {
       text: [{ heading: '', body: connectionText[connectionTypesMade[0]].body }],
       title:
-        (isEnglish ? 'Read more about ' : 'Read more about ') +
+        (isEnglish ? 'Read more about ' : 'Darllenwch fwy am ') +
         connectionText[connectionTypesMade[0]].heading.toLowerCase(),
     }; // todo
   } else {
@@ -134,7 +134,7 @@ export const jurisdictionMoreDetailsContent = (
     }
     return {
       text: totalConnectionArray,
-      title: isEnglish ? 'Read more about your connections' : 'Read more about your connections',
+      title: isEnglish ? 'Read more about your connections' : 'Darllenwch fwy am eich cysylltiadau',
     }; // todo
   }
 };
