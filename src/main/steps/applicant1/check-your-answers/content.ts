@@ -16,14 +16,20 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
-  textAndTitleObject: Record<string, string>
-) => {
+const moreDetailsComponent = (textAndTitleObject: {
+  text: { heading: string; body: string }[];
+  title: string;
+}): string => {
+  let detailsText = '';
+  for (const section of textAndTitleObject.text) {
+    detailsText += section.heading ? `<h3 class="govuk-heading-s govuk-!-margin-bottom-1">${section.heading}</h3>` : '';
+    detailsText += section.body ? `<p class="govuk-body govuk-!-margin-bottom-2">${section.body}</p>` : '';
+  }
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
@@ -32,30 +38,40 @@ const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => stri
       </span>
     </summary>
     <div class="govuk-details__text">
-      ${textAndTitleObject.text}
+      ${detailsText}
     </div>
   </details>`;
 };
 
 const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
-  const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
-    config.get('fees.applicationFee')
-  )}.
+  const text = [
+    {
+      heading: '',
+      body: `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
+        config.get('fees.applicationFee')
+      )}.
   You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
-    applicant1HelpPayingNeeded === YesOrNo.YES
-      ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
-      : 'They have said that they do not need help paying the fee.'
-  }`;
+        applicant1HelpPayingNeeded === YesOrNo.YES
+          ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
+          : 'They have said that they do not need help paying the fee.'
+      }`,
+    },
+  ];
 
   return moreDetailsComponent({ text, title });
 };
 
 const getOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
   const title = 'Find out more about other court proceedings';
-  const text = `The court only needs to know about court proceedings relating to your ${
-    isDivorce ? 'marriage' : 'civil partnership'
-  }, property or children. It does not need to know about other court proceedings.`;
+  const text = [
+    {
+      heading: '',
+      body: `The court only needs to know about court proceedings relating to your ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }, property or children. It does not need to know about other court proceedings.`,
+    },
+  ];
   return moreDetailsComponent({ text, title });
 };
 
@@ -264,7 +280,7 @@ const en = ({
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication) +
+              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
               moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
             }`
           : '',
@@ -548,30 +564,31 @@ const cy: typeof en = ({
     marriage,
     civilPartnership,
   }),
+  titleSoFar: 'Gwiriwch eich atebion hyd yma',
   sectionTitles: {
-    readApplication: `Confirm that you have read the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    readApplication: `Cadarnhewch eich bod wedi cael y ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod a’ch partneriaeth sifil i ben'
     }`,
-    aboutPartnership: `About your ${isDivorce ? 'marriage' : 'civil partnership'}`,
-    helpWithFees: 'Help with fees',
-    connectionsToEnglandWales: 'Your connections to England and Wales',
-    aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
-    aboutPartners: `About you and your ${partner}`,
-    aboutYouForApplicant2: 'About you',
+    aboutPartnership: `Ynghylch eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
+    helpWithFees: 'Help i dalu ffioedd',
+    connectionsToEnglandWales: 'Eich cysylltiadau â Chymru a Lloegr',
+    aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,
+    aboutPartners: `Amdanoch chi a’ch ${partner}`,
+    aboutYouForApplicant2: 'Amdanoch Chi',
     contactYou: 'Sut bydd y llys yn cysylltu â chi',
-    contactThem: `How the court will contact your ${partner}`,
-    otherCourtCases: 'Other court cases',
-    dividingAssets: 'Dividing your money and property',
-    documents: 'Your documents',
+    contactThem: `Sut fydd y llys yn cysylltu â’ch ${partner}`,
+    otherCourtCases: 'Achosion llys eraill',
+    dividingAssets: 'Rhannu eich arian a’ch eiddo',
+    documents: 'Eich dogfennau',
   },
   stepQuestions: {
     aboutPartnership: {
       line1: `${isDivorce ? 'Pwy ydych chi eisiau ei (h)ysgaru' : "Ydych chi'n wryw ynteu'n fenyw"}?`,
-      line2: 'Same sex couples?',
+      line2: 'Cyplau o’r un rhyw?',
       line3: `A yw eich ${isDivorce ? 'priodas' : 'perthynas'} wedi chwalu'n gyfan gwbl (ni ellir ei hachub)?`,
       line4: `Pryd wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line5: `A yw eich ${isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'} gennych yn awr?`,
-      line6: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
+      line6: `Sut ydych chi eisiau gwneud cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"}?`,
     },
     helpWithFees: {
       line1: `A oes angen help arnoch i dalu'r ffi am ${
@@ -605,51 +622,51 @@ const cy: typeof en = ({
       line2: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }`,
-      line3: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line4: `Have you changed any part of your name since ${
-        isDivorce ? 'getting married' : 'forming your civil partnership'
+      line3: `Wnaethoch chi newid eich cyfenw pan wnaethoch chi ${
+        isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
+      line4: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line5: 'Sut wnaethoch chi newid eich enw?',
     },
     aboutYouForApplicant2: {
-      line1: 'Your first name(s)',
-      line2: 'Your middle name(s) (if you have one)',
-      line3: 'Your last name(s)',
-      line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line5: `Have you changed any part of your name since ${
-        isDivorce ? 'getting married' : 'forming your civil partnership'
+      line1: 'Eich enw(au) cyntaf',
+      line2: 'Eich enw(au) canol (os oes gennych un)',
+      line3: 'Eich cyfenw(au)',
+      line4: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
+        isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
+      line5: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line6: 'Sut wnaethoch chi newid eich enw?',
     },
     contactYou: {
-      line1: 'Your first name(s)',
-      line2: 'Your middle name(s) (if you have one)',
-      line3: 'Your last name(s)',
+      line1: 'Eich enw(au) cyntaf',
+      line2: 'Eich enw(au) canol (os oes gennych un)',
+      line3: 'Eich cyfenw(au)',
       line4: 'Trwy e-bost',
       line5: 'Dros y ffôn',
       line6: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line7: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line8: 'Your postal address',
+      line8: 'Eich cyfeiriad post',
     },
     contactThem: {
-      line1: `Your ${partner}'s first name(s)`,
-      line2: `Your ${partner}'s middle name(s) (if they have one)`,
-      line3: `Your ${partner}'s last name(s)`,
-      line4: `Does your ${partner} have a solicitor representing them?`,
-      line5: `Your ${partner}'s solicitor's details`,
-      line6: `Your ${partner}'s email address`,
+      line1: `Enw(au) cyntaf eich ${partner}`,
+      line2: `Enw(au) canol eich ${partner} (if they have one)`,
+      line3: `Cyfenw(au) eich ${partner}`,
+      line4: `A oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli?`,
+      line5: `Manylion cyfreithiwr eich ${partner}`,
+      line6: `Cyfeiriad e-bost eich ${partner}`,
       line7: `A oes gennych gyfeiriad post eich ${partner}?`,
-      line8: `Your ${partner}'s postal address`,
+      line8: `Cyfeiriad post eich ${partner}`,
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }, eich eiddo, neu'ch plant?`,
-      line2: 'Provide details about the other legal proceedings.',
+      line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
     },
     dividingAssets: {
-      line1: 'Do you want to apply for a financial order?',
-      line2: 'Who is the financial order for?',
+      line1: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
+      line2: 'Ar gyfer pwy mae’r gorchymyn ariannol?',
     },
     documents: {
       line1: "Ffeiliau wedi'u huwchlwytho",
@@ -659,8 +676,10 @@ const cy: typeof en = ({
   stepAnswers: {
     aboutPartnership: {
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
-      line2: `We were ${userCase.sameSex === Checkbox.Unchecked ? 'not ' : ''}a same-sex couple when we formed our ${
-        isDivorce ? 'marriage' : 'civil partnership'
+      line2: `${
+        userCase.sameSex === Checkbox.Unchecked
+          ? `Doedden ni ddim yn gwpl o’r un rhyw pan ${isDivorce ? 'briodi' : 'ffurfio ein partneriaeth sifil'} ni.`
+          : `Roeddem yn gwpl o’r un rhyw pan wnaethom ni ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}`
       }`,
       line3: `${
         userCase.applicant1ScreenHasUnionBroken
@@ -680,8 +699,8 @@ const cy: typeof en = ({
       line6: `${
         userCase.applicationType
           ? isJointApplication
-            ? `I want to apply jointly, with my ${partner}`
-            : 'I want to apply on my own, as a sole applicant'
+            ? `Rwyf eisiau gwneud cais ar y cyd, gyda fy ${partner}`
+            : 'Rwyf eisiau gwneud cais ar fy mhen fy hun, fel unig ymgeisydd'
           : ''
       }`,
     },
@@ -712,22 +731,22 @@ const cy: typeof en = ({
     },
     connectionsToEnglandWales: {
       line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line2: userCase.certificateInEnglish.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line3: userCase.certifiedTranslation.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line2: userCase.certificateInEnglish?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line3: userCase.certifiedTranslation?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line4: stripTags(userCase.ceremonyCountry),
       line5: stripTags(userCase.ceremonyPlace),
-      line6: userCase.applicant1LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line7: userCase.applicant2LifeBasedInEnglandAndWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line8: userCase.applicant1DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line10: userCase.applicant1LivingInEnglandWalesSixMonths.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line11: userCase.applicant2DomicileInEnglandWales.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line12: userCase.bothLastHabituallyResident.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line13: userCase.jurisdictionResidualEligible.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line6: userCase.applicant1LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line7: userCase.applicant2LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line8: userCase.applicant1DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line10: userCase.applicant1LivingInEnglandWalesSixMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line11: userCase.applicant2DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line12: userCase.bothLastHabituallyResident?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line13: userCase.jurisdictionResidualEligible?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
-              enConnectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication) +
+              connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
               moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
             }`
           : '',
@@ -742,10 +761,10 @@ const cy: typeof en = ({
           ? userCase.applicant1NameChangedHow
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Ffordd arall')
-              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')
               .replace(
                 ChangedNameHow.MARRIAGE_CERTIFICATE,
-                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+                `Tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`
               )
           : ''
       }`,
@@ -849,16 +868,16 @@ const cy: typeof en = ({
       line1: `${
         userCase.applicant1ApplyForFinancialOrder
           ? userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES
-            ? 'Yes, I want to apply for a financial order'
-            : 'No, I do not want to apply for a financial order'
+            ? 'Ydw, rwyf am wneud cais am orchymyn ariannol'
+            : 'Na, nid wyf am wneud cais am orchymyn ariannol'
           : ''
       }`,
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor
               ?.join(' / ')
-              .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'The children')
+              .replace(FinancialOrderFor.APPLICANT, 'Fi fy hun')
+              .replace(FinancialOrderFor.CHILDREN, 'Fy mhlant')
           : ''
       }`,
     },
@@ -878,6 +897,7 @@ const cy: typeof en = ({
     },
   },
   change: 'Newid',
+  continueApplication: 'Parhau gyda’r cais',
 });
 
 export const form: FormContent = {

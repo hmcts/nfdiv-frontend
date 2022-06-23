@@ -12,6 +12,18 @@ export const enDomicile = `Your domicile is usually the place in which you were 
   If you leave your domicile of origin and settle in another country as an adult, the new country may become your 'domicile of choice'.<br><br>
   If you’re not sure about your domicile, you should get legal advice.`;
 
+export const cyHabitualResident = `Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.<br><br>
+  Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.<br><br>
+  Nid yw’r enghreifftiau uchod yn rhestr gyflawn o’r amgylchiadau sy’n diffinio preswylfa arferol. Nid yw’r ffaith bod rhai ohonynt yn berthnasol i chi o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siŵr, dylech gael cyngor cyfreithiol.`;
+
+export const cyDomicile = `Fel rheol, eich domisil yw’r lle y cawsoch eich geni, lle’r ydych yn meddwl amdano fel eich cartref parhaol a’r lle mae eich teulu a’ch ffrindiau agosaf yn byw.<br><br>
+  Fodd bynnag, gall domisil fod yn fwy cymhleth. Er enghraifft, os ydych chi neu eich rhieni wedi symud o un wlad i’r llall yn y gorffennol.<br><br>
+  Pan gewch eich geni, rydych yn cael ‘mamwlad’. Fel arfer, hon yw:
+  <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">mamwlad eich tad os oedd eich rhieni wedi priodi</li>
+  <li class="govuk-list govuk-list--bullet">mamwlad eich mam os nad oedd eich rhieni wedi priodi, neu os oedd eich tad wedi marw cyn i chi gael eich geni</li></ul>
+  Os ydych yn gadael eich mamwlad ac yn setlo mewn gwlad arall fel oedolyn, yna efallai bydd y wlad newydd yn dod yn ‘ddomisil o’ch dewis chi’.<br><br>
+  Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.`;
+
 export const enResidual = (isDivorce: boolean): string => {
   return `If you’re in a same-sex couple and if none of the other connections apply, the court may still have jurisdiction if:
     <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you ${
@@ -26,7 +38,7 @@ export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
   isDivorce: boolean,
   showAllConnectionTypes = false
-): { text: string; title: string } => {
+): { text: { heading: string; body: string }[]; title: string } => {
   const connectionTypes = {
     'Habitual residence': [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
@@ -62,18 +74,17 @@ export const jurisdictionMoreDetailsContent = (
     }
   }
 
-  let totalConnectionText = '';
+  const totalConnectionArray: { heading: string; body: string }[] = [];
 
   if (connectionTypesMade.length === 1) {
     return {
-      text: connectionText[connectionTypesMade[0]],
+      text: [{ heading: '', body: connectionText[connectionTypesMade[0]] }],
       title: 'Read more about ' + connectionTypesMade[0].toLowerCase(),
     };
   } else {
     for (const connectionType of connectionTypesMade) {
-      totalConnectionText +=
-        '<strong>' + connectionType + '</strong><br>' + connectionText[connectionType] + '<br><br>';
+      totalConnectionArray.push({ heading: connectionType, body: connectionText[connectionType] });
     }
-    return { text: totalConnectionText.slice(0, -8), title: 'Read more about your connections' };
+    return { text: totalConnectionArray, title: 'Read more about your connections' };
   }
 };

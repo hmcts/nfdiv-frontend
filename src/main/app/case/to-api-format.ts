@@ -87,6 +87,7 @@ const fields: ToApiConverters = {
     ...(data.applicationType === ApplicationType.JOINT_APPLICATION
       ? setUnreachableAnswersToNull([
           'applicant1IsApplicant2Represented',
+          'applicant2SolicitorRepresented',
           'applicant2SolicitorName',
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
@@ -178,6 +179,9 @@ const fields: ToApiConverters = {
   }),
   applicant2StatementOfTruth: data => ({
     applicant2StatementOfTruth: checkboxConverter(data.applicant2StatementOfTruth),
+  }),
+  aosStatementOfTruth: data => ({
+    statementOfTruth: checkboxConverter(data.aosStatementOfTruth),
   }),
   applicant1UploadedFiles: () => ({}),
   coClarificationUploadedFiles: () => ({}),

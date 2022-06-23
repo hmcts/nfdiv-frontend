@@ -7,46 +7,35 @@ import { generatePageContent } from '../../common/common.content';
 import { generateContent } from './content';
 import { Applicant2AccessCodeGetController } from './get';
 
+jest.mock('../../../app/auth/user/oidc');
+jest.mock('../../../app/case/case-api', () => ({
+  getCaseApi: () => ({ isApplicantAlreadyLinked: jest.fn() }),
+}));
+
 describe('AccessCodeGetController', () => {
   const controller = new Applicant2AccessCodeGetController();
   const language = 'en';
 
-  test('Should render the enter your access code page with divorce content', async () => {
-    const req = mockRequest();
-    const res = mockResponse();
-    await controller.get(req, res);
-    const isDivorce = true;
+  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+    'Should render the enter your access code page with %s content',
+    async serviceType => {
+      const req = mockRequest();
+      const res = mockResponse();
+      res.locals.serviceType = serviceType;
+      await controller.get(req, res);
+      const isDivorce = serviceType === DivorceOrDissolution.DIVORCE;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
-      ...generatePageContent({
-        language,
-        pageContent: generateContent,
-        isDivorce,
-        userEmail: 'test@example.com',
+      expect(res.render).toBeCalledWith(expect.anything(), {
+        ...defaultViewArgs,
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          isDivorce,
+          userEmail: 'test@example.com',
+          userCase: req.session.userCase,
+        }),
         userCase: req.session.userCase,
-      }),
-      userCase: req.session.userCase,
-    });
-  });
-
-  test('Should render the enter your access code page with civil content', async () => {
-    const req = mockRequest();
-    const res = mockResponse();
-    res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
-    await controller.get(req, res);
-    const isDivorce = false;
-
-    expect(res.render).toBeCalledWith(expect.anything(), {
-      ...defaultViewArgs,
-      ...generatePageContent({
-        language,
-        pageContent: generateContent,
-        isDivorce,
-        userEmail: 'test@example.com',
-        userCase: req.session.userCase,
-      }),
-      userCase: req.session.userCase,
-    });
-  });
+      });
+    }
+  );
 });
