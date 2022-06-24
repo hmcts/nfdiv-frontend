@@ -13,7 +13,7 @@
   </ul>
   {% set jurisdictionsMoreDetailsTemplate %}
     {% if jurisdictionsMoreDetails.length == 1 %}
-      {{ jurisdictionsMoreDetails[0] | safe }}
+      {{ jurisdictionsMoreDetails[0].body | safe }}
     {% else %}
       {% for jurisdictionItem in jurisdictionsMoreDetails %}
         <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
