@@ -49,7 +49,7 @@ export const jurisdictionMoreDetailsContent = (
   isEnglish: boolean,
   isDivorce: boolean,
   showAllConnectionTypes = false
-): { text: string; title: string } => {
+): { text: { heading: string; body: string }[]; title: string } => {
   const connectionTypes = {
     habitualResidence: [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
@@ -102,17 +102,17 @@ export const jurisdictionMoreDetailsContent = (
     }
   }
 
-  let totalConnectionText = '';
+  const totalConnectionArray: { heading: string; body: string }[] = [];
+
   if (connectionTypesMade.length === 1) {
     return {
-      text: connectionText[connectionTypesMade[0]],
+      text: [{ heading: '', body: connectionText[connectionTypesMade[0]] }],
       title: 'Read more about ' + connectionTitle[connectionTypesMade[0]].toLowerCase(),
     };
   } else {
     for (const connectionType of connectionTypesMade) {
-      totalConnectionText +=
-        '<strong>' + connectionTitle[connectionType] + '</strong><br>' + connectionText[connectionType] + '<br><br>';
+      totalConnectionArray.push({ heading: connectionTitle[connectionType], body: connectionText[connectionType] });
     }
-    return { text: totalConnectionText.slice(0, -8), title: 'Read more about your connections' };
+    return { text: totalConnectionArray, title: 'Read more about your connections' };
   }
 };

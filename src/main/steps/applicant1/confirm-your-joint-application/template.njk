@@ -46,7 +46,14 @@
   </ul>
   {% set jurisdictionsMoreDetailsTemplate %}
     <p class="govuk-body">{{ jurisdictionsMoreDetails.part1 }}</p>
-    <p class="govuk-body">{{ jurisdictionsMoreDetails.part2 | safe }}</p>
+    {% if jurisdictionsMoreDetails.part2.length == 1 %}
+      {{ jurisdictionsMoreDetails.part2[0].body | safe }}
+    {% else %}
+      {% for jurisdictionItem in jurisdictionsMoreDetails.part2 %}
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ jurisdictionItem.heading }}</h3>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ jurisdictionItem.body | safe }}</p>
+      {% endfor %}
+    {% endif %}
   {% endset %}
   {{ govukDetails({
     summaryHtml: whatThisMeansJurisdiction,
