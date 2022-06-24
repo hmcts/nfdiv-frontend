@@ -20,6 +20,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 export interface AppSession extends Session {
   user: UserDetails;
   userCase: CaseWithId;
+  inviteCase: CaseWithId;
   isApplicant2: boolean;
   isLinkedToCase: boolean;
   lang: string | undefined;

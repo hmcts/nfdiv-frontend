@@ -184,9 +184,10 @@ export type FormError = {
   errorType: string;
 };
 
-interface CaseWithFormData extends CaseWithId {
+export interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
+  existingOrNew?: string;
 }
