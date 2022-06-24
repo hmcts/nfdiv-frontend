@@ -54,13 +54,22 @@ describe('jurisdictionMoreDetailsContent', () => {
   });
 
   test('Given showAllResidences is true and language is welsh should return all 3 connection content', async () => {
-    const expectedText =
-      '<strong>Preswylio’n arferol</strong><br>' +
-      cyHabitualResident +
-      '<br><br><strong>Domisil</strong><br>' +
-      cyDomicile +
-      '<br><br><strong>Awdurdodaeth weddillol</strong><br>' +
-      cyResidual(true);
+    const expectedText = [
+      {
+        heading: 'Preswylio’n arferol',
+        body: cyHabitualResident,
+      },
+      {
+        heading: 'Domisil',
+        body: cyDomicile,
+      },
+      {
+        heading: 'Awdurdodaeth weddillol',
+        body: cyResidual(true),
+      },
+    ];
+
+    const expectedTitle = 'Read more about your connections';
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
@@ -69,5 +78,6 @@ describe('jurisdictionMoreDetailsContent', () => {
       true
     );
     expect(result.text).toEqual(expectedText);
+    expect(result.title).toEqual(expectedTitle);
   });
 });
