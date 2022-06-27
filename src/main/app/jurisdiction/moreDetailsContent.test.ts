@@ -3,15 +3,10 @@ import { JurisdictionConnections } from '../case/definition';
 import {
   cyDomicile,
   cyHabitualResident,
-  cyHabitualResident,
   cyResidual,
   enDomicile,
-  enDomicile,
-  enHabitualResident,
   enHabitualResident,
   enResidual,
-  enResidual,
-  jurisdictionMoreDetailsContent,
   jurisdictionMoreDetailsContent,
 } from './moreDetailsContent';
 
@@ -71,11 +66,11 @@ describe('jurisdictionMoreDetailsContent', () => {
         body: cyHabitualResident.body,
       },
     ];
-    const expectedTitle = 'Darllenwch fwy am preswylfa arferol';
+    const expectedTitle = 'Darllenwch fwy am preswylio’n arferol';
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'cy',
+      false,
       true,
       'wife',
       false
@@ -120,7 +115,7 @@ describe('jurisdictionMoreDetailsContent', () => {
       },
     ];
 
-    const expectedTitle = 'Read more about your connections';
+    const expectedTitle = 'Darllenwch fwy am eich cysylltiadau';
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],

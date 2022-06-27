@@ -37,7 +37,7 @@ export const enResidual = (isDivorce: boolean, partner: string): Record<string, 
 };
 
 export const cyHabitualResident = {
-  heading: 'Preswylfa arferol',
+  heading: 'Preswylio’n arferol',
   body: `Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.<br><br>
   Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.<br><br>
   Nid yw’r enghreifftiau uchod yn rhestr gyflawn o’r amgylchiadau sy’n diffinio preswylfa arferol. Nid yw’r ffaith bod rhai ohonynt yn berthnasol i chi o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siŵr, dylech gael cyngor cyfreithiol.`,

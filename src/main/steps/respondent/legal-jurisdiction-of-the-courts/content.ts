@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, 'en', isDivorce, partner, true)
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, true, isDivorce, partner, true)
       .text,
     errors: {
       jurisdictionAgree: {
@@ -55,7 +55,7 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     line2: 'Dengys eu hatebion mai’r rheswm pam bod gan y llysoedd awdurdodaeth yw oherwydd:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? cyConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Ydych chi’n cytuno bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
       isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
@@ -67,7 +67,7 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     yes: 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth',
     no: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
     readMore: 'Beth mae hyn yn ei olygu',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, 'cy', isDivorce, partner, true)
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, false, isDivorce, partner, true)
       .text,
     errors: {
       jurisdictionAgree: {
