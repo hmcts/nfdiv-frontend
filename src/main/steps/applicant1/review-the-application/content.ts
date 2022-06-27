@@ -72,7 +72,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     }.
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, partner).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce, partner).text,
   },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',

@@ -1,3 +1,4 @@
+import { Language } from '../../steps/common/common.content';
 import { JurisdictionConnections } from '../case/definition';
 
 const HABITUAL_RESIDENCE = 'Habitual residence';
@@ -70,11 +71,12 @@ export const cyResidual = (isDivorce: boolean, partner: string): Record<string, 
 
 export const jurisdictionMoreDetailsContent = (
   connections: JurisdictionConnections[] | undefined,
-  isEnglish: boolean,
+  language: Language,
   isDivorce: boolean,
   partner: string,
   showAllConnectionTypes = false
 ): { text: { heading: string; body: string }[]; title: string } => {
+  const isEnglish: boolean = language === 'en';
   const connectionTypes = {
     [HABITUAL_RESIDENCE]: [
       JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT,
