@@ -323,7 +323,7 @@ const en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce, partner))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, partner))
             }`
           : '',
     },
@@ -792,7 +792,7 @@ const cy: typeof en = ({
         userCase.connections && userCase.connections?.length
           ? `Mae eich atebion yn dangos y gallwch wneud cais yng Nghymru a Lloegr oherwydd: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, false) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, 'cy', isDivorce, partner))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, partner))
             }`
           : '',
     },
