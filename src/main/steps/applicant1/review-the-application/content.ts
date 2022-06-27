@@ -75,7 +75,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     }.
       The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent.
       Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, 'en', isDivorce, partner).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, partner).text,
   },
   whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
@@ -207,7 +207,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     part1: `Rhaid bod gan lysoedd Cymru a Lloegr yr awdurdodaeth (y pŵer cyfreithiol) i allu ${
       isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
     }. Cadarnhaodd y ceisydd bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai y ceisydd neu’r atebydd neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Loegr, neu bob un ohonynt.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, 'cy', isDivorce, partner).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, partner).text,
   },
   whatThisMeans: 'Beth mae hyn yn ei olygu',
   subHeading4: 'Achosion llys eraill',

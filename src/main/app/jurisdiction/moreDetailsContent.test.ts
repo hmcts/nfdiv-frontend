@@ -28,7 +28,7 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedTitle = 'Read more about your connections';
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'en',
+      true,
       true,
       'husband',
       true
@@ -48,7 +48,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_DOMICILED],
-      'en',
+      true,
       true,
       'wife',
       false
@@ -68,7 +68,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'cy',
+      false,
       true,
       'wife',
       false
@@ -88,7 +88,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.RESIDUAL_JURISDICTION_CP],
-      'en',
+      true,
       false,
       'wife',
       false
