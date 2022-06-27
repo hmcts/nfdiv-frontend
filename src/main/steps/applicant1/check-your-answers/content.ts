@@ -64,14 +64,19 @@ const getEnHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivor
 
 const getCyHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Darganfyddwch fwy am help i dalu ffioedd';
-  const text = `Mae'r cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"} yn costio ${getFee(
-    config.get('fees.applicationFee')
-  )}.
+  const text = [
+    {
+      heading: '',
+      body: `Mae'r cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"} yn costio ${getFee(
+        config.get('fees.applicationFee')
+      )}.
   Ni ofynnir i chi dalu'r ffi. Gofynnir i'ch ${checkTheirAnswersPartner} dalu. ${
-    applicant1HelpPayingNeeded === YesOrNo.YES
-      ? "Maent wedi dweud bod angen help arnynt i dalu'r ffi. Gallant ond gael help i dalu ffioedd os byddwch chi yn gwneud cais hefyd. Dyna pam y gofynnwyd ichi a oedd angen help arnoch i dalu'r ffi."
-      : "Maent wedi dweud nad oes angen help arnynt i dalu'r ffi."
-  }`;
+        applicant1HelpPayingNeeded === YesOrNo.YES
+          ? "Maent wedi dweud bod angen help arnynt i dalu'r ffi. Gallant ond gael help i dalu ffioedd os byddwch chi yn gwneud cais hefyd. Dyna pam y gofynnwyd ichi a oedd angen help arnoch i dalu'r ffi."
+          : "Maent wedi dweud nad oes angen help arnynt i dalu'r ffi."
+      }`,
+    },
+  ];
 
   return moreDetailsComponent({ text, title });
 };
@@ -91,9 +96,14 @@ const getEnOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
 
 const getCyOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
   const title = 'Rhagor o wybodaeth am achosion llys eraill';
-  const text = `Nid oes ond angen i'r llys wybod am achosion llys sy'n ymwneud â'ch ${
-    isDivorce ? 'priodas' : 'partneriaeth sifil'
-  } eiddo neu blant. Nid oes angen iddo wybod am achosion llys eraill.`;
+  const text = [
+    {
+      heading: '',
+      body: `Nid oes ond angen i'r llys wybod am achosion llys sy'n ymwneud â'ch ${
+        isDivorce ? 'priodas' : 'partneriaeth sifil'
+      } eiddo neu blant. Nid oes angen iddo wybod am achosion llys eraill.`,
+    },
+  ];
   return moreDetailsComponent({ text, title });
 };
 
