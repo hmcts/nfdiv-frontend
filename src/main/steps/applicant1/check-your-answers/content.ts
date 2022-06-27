@@ -609,7 +609,7 @@ const cy: typeof en = ({
   }),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
-  line1: "Dyma'r wybodaeth a ddarparwyd gennych. Gwiriwch ef i wneud yn siŵr ei fod yn gywir",
+  line1: "Dyma'r wybodaeth a ddarparwyd gennych. Gwiriwch ef i wneud yn siŵr ei fod yn gywir.",
   sectionTitles: {
     readApplication: `Cadarnhewch eich bod wedi cael y ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod a’ch partneriaeth sifil i ben'
