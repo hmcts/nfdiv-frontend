@@ -1,10 +1,17 @@
 import { JurisdictionConnections } from '../case/definition';
 
 import {
+  cyDomicile,
   cyHabitualResident,
+  cyHabitualResident,
+  cyResidual,
+  enDomicile,
   enDomicile,
   enHabitualResident,
+  enHabitualResident,
   enResidual,
+  enResidual,
+  jurisdictionMoreDetailsContent,
   jurisdictionMoreDetailsContent,
 } from './moreDetailsContent';
 
@@ -28,7 +35,7 @@ describe('jurisdictionMoreDetailsContent', () => {
     const expectedTitle = 'Read more about your connections';
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
-      'en',
+      true,
       true,
       'husband',
       true
@@ -48,7 +55,7 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_DOMICILED],
-      'en',
+      true,
       true,
       'wife',
       false
@@ -88,10 +95,39 @@ describe('jurisdictionMoreDetailsContent', () => {
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.RESIDUAL_JURISDICTION_CP],
-      'en',
+      true,
       false,
       'wife',
       false
+    );
+    expect(result.text).toEqual(expectedText);
+    expect(result.title).toEqual(expectedTitle);
+  });
+
+  test('Given showAllResidences is true and language is welsh should return all 3 connection content', async () => {
+    const expectedText = [
+      {
+        heading: 'Preswylio’n arferol',
+        body: cyHabitualResident.body,
+      },
+      {
+        heading: 'Domisil',
+        body: cyDomicile.body,
+      },
+      {
+        heading: 'Awdurdodaeth weddillol',
+        body: cyResidual(true, 'wife').body,
+      },
+    ];
+
+    const expectedTitle = 'Read more about your connections';
+
+    const result = jurisdictionMoreDetailsContent(
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      false,
+      true,
+      'wife',
+      true
     );
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
