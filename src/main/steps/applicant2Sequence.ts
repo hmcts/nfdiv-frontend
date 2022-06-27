@@ -41,7 +41,7 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
 
-const preSubmissionSequence: Step[] = [
+export const preSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
     getNextStep: () => HAS_RELATIONSHIP_BROKEN_URL,
@@ -121,16 +121,14 @@ const preSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
-        : data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-          data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      data.applicant2NameChangedHow?.includes(ChangedNameHow.DEED_POLL) ||
-      data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
+      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },

@@ -7,7 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
@@ -19,9 +19,8 @@ const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean
 
 const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
   title: 'Confirm your joint application',
-  subHeader: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
-  subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
   line1: `This is the information you and your ${partner} have provided for your joint application. Confirm it before continuing.`,
+  subHeading1: `Joint ${isDivorce ? 'divorce application' : 'application to end a civil partnership'}`,
   line2: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} and ${userCase.applicant2FirstNames} ${
     userCase.applicant2LastNames
   } are applying to the court for ${
@@ -38,7 +37,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
      or the translation of the certificate, if it’s not in English. The names on the certificate are the names the
       applicant and respondent used before the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   line9: `Who the ${isDivorce ? 'marriage' : 'civil partnership'} is between`,
-  line10: `${userCase.applicant1FullNameOnCertificate}  and ${userCase.applicant2FullNameOnCertificate}
+  line10: `${userCase.applicant1FullNameOnCertificate} and ${userCase.applicant2FullNameOnCertificate}
       (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line12: userCase.ceremonyPlace,
@@ -48,17 +47,17 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
       : [],
+  whatThisMeans: 'What this means',
   jurisdictionsMoreDetails: {
     part1: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
       isDivorce ? 'grant a divorce' : 'end a civil partnership'
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
      Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, true).text,
   },
-  whatThisMeans: 'What this means',
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
@@ -92,7 +91,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
           isDivorce ? 'marriage' : 'civil partnership'
         }`
   }.`,
-  subHeading5: `Reason for  ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
+  subHeading5: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line18: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
   subHeading6: 'Financial order application',
   applicant1FinancialOrderYes: `Applicant 1 is applying to the court for financial orders for ${userCase.applicant1WhoIsFinancialOrderFor
@@ -152,7 +151,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   }`,
   subHeading10: "Applicant 2's email address",
   line20: `${userCase.applicant2Email}`,
-  confirm: `Confirm before  ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
+  confirm: `Confirm before ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
   } ${
@@ -172,18 +171,178 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
     'verified by a statement of truth without an honest belief in its truth.',
   errors: {
     applicant1IConfirmPrayer: {
-      required: `You need to confirm you are applying to the court to  ${
+      required: `You need to confirm you are applying to the court to ${
         isDivorce ? 'dissolve your marriage (get a divorce)' : 'end your civil partnership'
       }.`,
     },
     applicant1StatementOfTruth: {
-      required: 'You need to confirm the facts stated in this application are true',
+      required: 'You need to confirm the facts stated in this application are true.',
     },
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: CommonContent) => ({
+  title: 'Cadarnhau eich cais ar y cyd',
+  line1: `Dyma’r wybodaeth rydych chi a’ch ${partner} wedi’i darparu ar gyfer eich cais ar y cyd. Cadarnhewch yr wybodaeth cyn parhau.`,
+  subHeading1: `Cais ar y cyd ${isDivorce ? 'am ysgariad' : 'i ddod â phartneriaeth sifil i ben'}`,
+  line2: `Mae ${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} a ${userCase.applicant2FirstNames} ${
+    userCase.applicant2LastNames
+  } yn gwneud cais i’r llys ${isDivorce ? 'am orchymyn ysgaru terfynol' : 'i ddiddymu eu partneriaeth sifil'}`,
+  caseReferenceHeading: 'Cyfeirnod yr achos',
+  caseReferenceValue: formattedCaseId(userCase.id),
+  line4: 'Ceisydd 1',
+  line5: getName(userCase, 'applicant1'),
+  line6: 'Ceisydd 2',
+  line7: getName(userCase, 'applicant2'),
+  subHeading2: `Ynghylch y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  line8: `Mae’r manylion hyn wedi’u copïo yn uniongyrchol o’r dystysgrif ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } neu’r cyfieithiad o’r dystysgrif os nad yw’n Saesneg. Yr enwau ar y dystysgrif yw’r enwau roedd y ceiswyr yn eu defnyddio cyn y ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }.`,
+  line9: `Rhwng pwy y mae’r ${isDivorce ? 'briodas ' : 'bartneriaeth sifil'}`,
+  line10: `${userCase.applicant1FullNameOnCertificate} a ${userCase.applicant2FullNameOnCertificate}
+      (fel y dangosir ar y dystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'})`,
+  line11: `Lle digwyddodd y ${isDivorce ? 'briodas ' : 'bartneriaeth sifil'}`,
+  line12: userCase.ceremonyPlace,
+  line13: `Dyddiad y ${isDivorce ? 'briodas ' : 'bartneriaeth sifil'}`,
+  line14: getFormattedDate(userCase.relationshipDate),
+  subHeading3: 'Pam gall y llys ddelio â’r achos (awdurdodaeth)',
+  line15: 'Mae gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) i wrando’r achos hwn oherwydd:',
+  connectionBulletPoints:
+    userCase && userCase.connections
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
+      : [],
+  whatThisMeans: 'Beth mae hyn yn ei olygu',
+  jurisdictionsMoreDetails: {
+    part1: `Rhaid bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i allu ${
+      isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
+    }.
+    Cadarnhaodd y ceiswyr bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai un o’r ceiswyr neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Lloegr, neu bob un ohonynt.`,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, true).text,
+  },
+  subHeading4: 'Achosion llys eraill',
+  line16: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  } a all effeithio ar bŵer cyfreithiol (awdurdodaeth) y llys.`,
+  line17: `${
+    userCase.applicant1LegalProceedings === YesOrNo.YES && userCase.applicant2LegalProceedings === YesOrNo.YES
+      ? `Mae Ceisydd 1 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
+        }:` +
+        '<br>' +
+        userCase.applicant1LegalProceedingsDetails +
+        '<br><br>' +
+        `Mae Ceisydd 2 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
+        }:` +
+        '<br>' +
+        userCase.applicant2LegalProceedingsDetails
+      : userCase.applicant1LegalProceedings === YesOrNo.YES
+      ? `Mae Ceisydd 1 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
+        }:` +
+        '<br>' +
+        userCase.applicant1LegalProceedingsDetails
+      : userCase.applicant2LegalProceedings === YesOrNo.YES
+      ? `Mae Ceisydd 2 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
+        }:` +
+        '<br>' +
+        userCase.applicant2LegalProceedingsDetails
+      : `Mae’r ceiswyr wedi nodi nad oes unrhyw achosion llys eraill sy’n ymwneud â’r ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
+        }`
+  }.`,
+  subHeading5: `Rheswm dros ${isDivorce ? 'yr ysgariad' : 'ddod â’r bartneriaeth sifil i ben'}`,
+  line18: `Mae’r ${isDivorce ? 'briodas' : 'berthynas'} wedi chwalu’n gyfan gwbl (ni ellir ei hachub).`,
+  subHeading6: 'Cais am orchymyn ariannol',
+  applicant1FinancialOrderYes: `Mae Ceisydd 1 yn gwneud cais i’r llys am orchmynion ariannol ar gyfer ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' a’u ')
+    .replace(FinancialOrderFor.APPLICANT, 'nhw eu hunain')
+    .replace(
+      FinancialOrderFor.CHILDREN,
+      `${userCase.applicant1WhoIsFinancialOrderFor?.length > 1 ? '' : 'eu'} plant`
+    )}.`,
+  applicant2FinancialOrderYes: `Mae Ceisydd 2 yn gwneud cais i’r llys am orchmynion ariannol ar gyfer ${userCase.applicant2WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' a’u ')
+    .replace(FinancialOrderFor.APPLICANT, 'nhw eu hunain')
+    .replace(
+      FinancialOrderFor.CHILDREN,
+      `${userCase.applicant2WhoIsFinancialOrderFor?.length > 1 ? '' : 'eu'} plant`
+    )}.`,
+  financialOrderNo: "Nid yw’r ceiswyr yn gwneud cais i'r llys am orchmynion ariannol.",
+  financialOrderMoreDetails: `Fe ofynnwyd i chi a’ch ${partner} os ydych eisiau i’r llys benderfynu sut y bydd eich arian, eich eiddo, eich pensiynau a’ch asedau eraill yn cael eu rhannu. Fe elwir y penderfyniadau hyn yn ‘gorchmynion ariannol’.
+  <br><br>Gellir gwneud gorchymyn ariannol os ydych yn cytuno ar sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol. Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu. Gelwir hyn yn ‘gorchymyn ariannol sydd wedi’i wrthwynebu’. 
+  <br><br>TBydd angen i’r ceiswyr lenwi ffurflen arall a thalu ffi i gychwyn achos cyfreithiol yn ffurfiol. Mae gwneud cais am ‘gorchymyn ariannol sydd wedi’i wrthwynebu’ yn costio ${getFee(
+    config.get('fees.financialOrder')
+  )}. Mae gwneud cais am ‘gorchymyn ariannol trwy gydsyniad’ yn costio ${getFee(
+    config.get('fees.consentOrder')
+  )}. Gallwch ofyn i gyfreithiwr ddrafftio y rhain ar eich rhan.
+  <br><br>Os nad ydych chi’n siŵr beth i’w wneud, dylech gael cyngor cyfreithiol.`,
+  subHeading7: 'Cyfeiriad gohebu ceisydd 1',
+  applicantAddressCountry: `${
+    userCase.applicant1SolicitorAddress ||
+    [
+      userCase.applicant1Address1,
+      userCase.applicant1Address2,
+      userCase.applicant1Address3,
+      userCase.applicant1AddressTown,
+      userCase.applicant1AddressCounty,
+      userCase.applicant1AddressPostcode,
+      userCase.applicant1AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
+  }`,
+  subHeading8: 'Cyfeiriad e-bost ceisydd 1',
+  line19: `${userCase.applicant1Email}`,
+  subHeading9: 'Cyfeiriad post Ceisydd 2',
+  respondentAddressCountry: `${
+    userCase.applicant2SolicitorAddress ||
+    [
+      userCase.applicant2Address1,
+      userCase.applicant2Address2,
+      userCase.applicant2Address3,
+      userCase.applicant2AddressTown,
+      userCase.applicant2AddressCounty,
+      userCase.applicant2AddressPostcode,
+      userCase.applicant2AddressCountry,
+    ]
+      .filter(Boolean)
+      .join('<br>')
+  }`,
+  subHeading10: 'Cyfeiriad e-bost ceisydd 2',
+  line20: `${userCase.applicant2Email}`,
+  confirm: `Cadarnhewch cyn ${isSubmit(isApplicant2, userCase) ? 'cyflwyno' : 'parhau'}`,
+  confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
+    isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'
+  } ${
+    userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES ||
+    userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
+      ? 'a gwneud gorchmynion ariannol i benderfynu sut i rannu ein harian a’n heiddo.'
+      : ''
+  }`,
+  confirmPrayerHint: 'Mae hyn yn cadarnhau beth rydych yn gofyn i’r llys ei wneud. Gelwir hyn yn ‘y deisyfiad’.',
+  confirmApplicationIsTrue: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
+  confirmApplicationIsTrueHint:
+    'Mae hyn yn cadarnhau bod yr wybodaeth rydych yn ei chyflwyno yn wir ac yn gywir hyd eithaf eich gwybodaeth. Gelwir hwn yn ‘datganiad gwirionedd’.',
+  continue: `${isSubmit(isApplicant2, userCase) ? 'Cyflwyno' : 'Parhau i’r dudalen dalu'}`,
+  confirmApplicationIsTrueWarning:
+    'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  errors: {
+    applicant1IConfirmPrayer: {
+      required: `Mae angen i chi gadarnhau eich bod yn gwneud cais i'r llys i ${
+        isDivorce ? 'ddiddymu eich priodas (cael ysgariad)' : "dod â'ch partneriaeth sifil i ben"
+      } cyn parhau.`,
+    },
+    applicant1StatementOfTruth: {
+      required: 'Mae angen i chi gadarnhau bod y ffeithiau a nodir yn y cais hwn yn wir cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

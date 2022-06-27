@@ -21,9 +21,15 @@ import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDe
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
-const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => string = (
-  textAndTitleObject: Record<string, string>
-) => {
+const moreDetailsComponent = (textAndTitleObject: {
+  text: { heading: string; body: string }[];
+  title: string;
+}): string => {
+  let detailsText = '';
+  for (const section of textAndTitleObject.text) {
+    detailsText += section.heading ? `<h3 class="govuk-heading-s govuk-!-margin-bottom-1">${section.heading}</h3>` : '';
+    detailsText += section.body ? `<p class="govuk-body govuk-!-margin-bottom-2">${section.body}</p>` : '';
+  }
   return `
   <details class="govuk-details summary" data-module="govuk-details">
     <summary class="govuk-details__summary">
@@ -32,30 +38,40 @@ const moreDetailsComponent: (textAndTitleObject: Record<string, string>) => stri
       </span>
     </summary>
     <div class="govuk-details__text">
-      ${textAndTitleObject.text}
+      ${detailsText}
     </div>
   </details>`;
 };
 
 const getHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivorce, checkTheirAnswersPartner) => {
   const title = 'Find out more about help with fees';
-  const text = `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
-    config.get('fees.applicationFee')
-  )}.
+  const text = [
+    {
+      heading: '',
+      body: `This ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} costs ${getFee(
+        config.get('fees.applicationFee')
+      )}.
   You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
-    applicant1HelpPayingNeeded === YesOrNo.YES
-      ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
-      : 'They have said that they do not need help paying the fee.'
-  }`;
+        applicant1HelpPayingNeeded === YesOrNo.YES
+          ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
+          : 'They have said that they do not need help paying the fee.'
+      }`,
+    },
+  ];
 
   return moreDetailsComponent({ text, title });
 };
 
 const getOtherCourtCasesMoreDetailsContent = (isDivorce: boolean) => {
   const title = 'Find out more about other court proceedings';
-  const text = `The court only needs to know about court proceedings relating to your ${
-    isDivorce ? 'marriage' : 'civil partnership'
-  }, property or children. It does not need to know about other court proceedings.`;
+  const text = [
+    {
+      heading: '',
+      body: `The court only needs to know about court proceedings relating to your ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      }, property or children. It does not need to know about other court proceedings.`,
+    },
+  ];
   return moreDetailsComponent({ text, title });
 };
 
@@ -265,7 +281,7 @@ const en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce))
             }`
           : '',
     },
@@ -455,6 +471,7 @@ const en = ({
       line3: urls.YOUR_NAME,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
+      line6: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
     contactYou: {
       line1: urls.YOUR_NAME,
@@ -731,7 +748,7 @@ const cy: typeof en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce))
             }`
           : '',
     },
