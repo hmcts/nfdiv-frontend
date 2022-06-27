@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { enConnectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
@@ -16,7 +16,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
@@ -28,7 +28,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     yes: 'Yes, I agree the courts have jurisdiction',
     no: 'No, I do not agree the courts have jurisdiction',
     readMore: 'What this means',
-    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, isDivorce, true).text,
+    jurisdictionsMoreDetails: jurisdictionMoreDetailsContent(userCase?.connections, true, isDivorce, true).text,
     errors: {
       jurisdictionAgree: {
         required,
