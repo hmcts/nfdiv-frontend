@@ -281,7 +281,7 @@ const en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce))
             }`
           : '',
     },
@@ -471,6 +471,7 @@ const en = ({
       line3: urls.YOUR_NAME,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
+      line6: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
     contactYou: {
       line1: urls.YOUR_NAME,
@@ -747,7 +748,7 @@ const cy: typeof en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce))
             }`
           : '',
     },
