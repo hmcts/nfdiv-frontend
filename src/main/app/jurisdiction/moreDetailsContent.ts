@@ -5,14 +5,14 @@ const DOMICILE = 'Domicile';
 const RESIDUAL_JURISDICTION = 'Residual jurisdiction';
 
 export const enHabitualResident = {
-  heading: 'Habitual residence',
+  heading: HABITUAL_RESIDENCE,
   body: `If your lives are mainly based in England or Wales then you’re what is legally known as ‘habitually resident’.<br><br>
   This may include working, owning property, having children in school, and your main family life taking place in England or Wales.<br><br>
   The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.`,
 };
 
 export const enDomicile = {
-  heading: 'Domicile',
+  heading: DOMICILE,
   body: `Your domicile is usually the place in which you were born, regard as your permanent home and to which you have the closest ties.<br><br>
   However, domicile can be more complex, for example, if you or your parents have moved countries in the past.<br><br>
   When you’re born, you acquire a 'domicile of origin'. This is usually:
@@ -24,7 +24,7 @@ export const enDomicile = {
 
 export const enResidual = (isDivorce: boolean, partner: string): Record<string, string> => {
   return {
-    heading: 'Residual jurisdiction',
+    heading: RESIDUAL_JURISDICTION,
     body: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).<br><br>
    In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if all the following apply:
    <ul class="govuk-list govuk-list--bullet"><li class="govuk-list govuk-list--bullet">you married each other in the UK</li>
@@ -37,7 +37,7 @@ export const enResidual = (isDivorce: boolean, partner: string): Record<string, 
 };
 
 export const cyHabitualResident = {
-  heading: 'Preswylfa arferol',
+  heading: 'Preswylio’n arferol',
   body: `Os ydych chi’n treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr, rydych yn ‘preswylio’n arferol’ yno yn ôl y gyfraith.<br><br>
   Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, a bod eich prif fywyd teuluol yng Nghymru neu Loegr.<br><br>
   Nid yw’r enghreifftiau uchod yn rhestr gyflawn o’r amgylchiadau sy’n diffinio preswylfa arferol. Nid yw’r ffaith bod rhai ohonynt yn berthnasol i chi o reidrwydd yn golygu eich bod yn preswylio’n arferol yn rhywle. Os nad ydych yn siŵr, dylech gael cyngor cyfreithiol.`,

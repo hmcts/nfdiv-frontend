@@ -2,10 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import {
-  cyConnectionBulletPointsSummarisedForAllUsers,
-  enConnectionBulletPointsSummarisedForAllUsers,
-} from '../../../app/jurisdiction/bulletedPointsContent';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
@@ -19,7 +16,7 @@ const en = ({ isDivorce, partner, required, userCase, isJointApplication }: Comm
     line2: 'Their answers indicated that the reason the courts have jurisdiction is because:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? enConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
       isDivorce ? 'grant your divorce' : 'end your civil partnership'
@@ -58,7 +55,7 @@ const cy: typeof en = ({ isDivorce, partner, required, userCase, isJointApplicat
     line2: 'Dengys eu hatebion mai’r rheswm pam bod gan y llysoedd awdurdodaeth yw oherwydd:',
     connectionBulletPoints:
       userCase && userCase.connections
-        ? cyConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+        ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
         : [],
     jurisdictionAgree: `Ydych chi’n cytuno bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
       isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'

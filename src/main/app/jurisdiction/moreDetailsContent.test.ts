@@ -1,7 +1,9 @@
 import { JurisdictionConnections } from '../case/definition';
 
 import {
+  cyDomicile,
   cyHabitualResident,
+  cyResidual,
   enDomicile,
   enHabitualResident,
   enResidual,
@@ -64,7 +66,7 @@ describe('jurisdictionMoreDetailsContent', () => {
         body: cyHabitualResident.body,
       },
     ];
-    const expectedTitle = 'Darllenwch fwy am preswylfa arferol';
+    const expectedTitle = 'Darllenwch fwy am preswylio’n arferol';
 
     const result = jurisdictionMoreDetailsContent(
       [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
@@ -92,6 +94,35 @@ describe('jurisdictionMoreDetailsContent', () => {
       false,
       'wife',
       false
+    );
+    expect(result.text).toEqual(expectedText);
+    expect(result.title).toEqual(expectedTitle);
+  });
+
+  test('Given showAllResidences is true and language is welsh should return all 3 connection content', async () => {
+    const expectedText = [
+      {
+        heading: 'Preswylio’n arferol',
+        body: cyHabitualResident.body,
+      },
+      {
+        heading: 'Domisil',
+        body: cyDomicile.body,
+      },
+      {
+        heading: 'Awdurdodaeth weddillol',
+        body: cyResidual(true, 'wife').body,
+      },
+    ];
+
+    const expectedTitle = 'Darllenwch fwy am eich cysylltiadau';
+
+    const result = jurisdictionMoreDetailsContent(
+      [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT],
+      false,
+      true,
+      'wife',
+      true
     );
     expect(result.text).toEqual(expectedText);
     expect(result.title).toEqual(expectedTitle);
