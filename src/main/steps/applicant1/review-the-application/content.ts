@@ -198,7 +198,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line17: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints:
     userCase && userCase.connections
-      ? cyConnectionBulletPointsSummarisedForAllUsers(userCase.connections, isDivorce, isJointApplication)
+      ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
       : [],
   jurisdictionsMoreDetails: {
     part1: `Rhaid bod gan lysoedd Cymru a Lloegr yr awdurdodaeth (y pŵer cyfreithiol) i allu ${
