@@ -146,7 +146,7 @@ Feature: Applicant 1 sole application
     And the page should include "Help with fees"
     And the page should include "I do not need help paying the fee"
     And the page should include "Did you get married in the UK?	Yes"
-    Given I select "I confirm that I’m applying to the court to:"
+    Given I select "I confirm that I’m applying to the court to"
     And I select "I believe that the facts stated in this application are true"
 
     When I click "Continue to payment"
