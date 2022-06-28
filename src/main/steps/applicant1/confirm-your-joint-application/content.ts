@@ -56,7 +56,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
     }.
     The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
      Each legal statement includes some or all of the following legal connections to England or Wales.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, partner, true).text,
   },
   subHeading4: 'Other court cases',
   line16: `The court needs to know about any other court cases relating to the ${
@@ -219,7 +219,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
     }.
     Cadarnhaodd y ceiswyr bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai un o’r ceiswyr neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Lloegr, neu bob un ohonynt.`,
-    part2: jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, true).text,
+    part2: jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, partner, true).text,
   },
   subHeading4: 'Achosion llys eraill',
   line16: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${
@@ -275,7 +275,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
     )}.`,
   financialOrderNo: "Nid yw’r ceiswyr yn gwneud cais i'r llys am orchmynion ariannol.",
   financialOrderMoreDetails: `Fe ofynnwyd i chi a’ch ${partner} os ydych eisiau i’r llys benderfynu sut y bydd eich arian, eich eiddo, eich pensiynau a’ch asedau eraill yn cael eu rhannu. Fe elwir y penderfyniadau hyn yn ‘gorchmynion ariannol’.
-  <br><br>Gellir gwneud gorchymyn ariannol os ydych yn cytuno ar sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol. Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu. Gelwir hyn yn ‘gorchymyn ariannol sydd wedi’i wrthwynebu’. 
+  <br><br>Gellir gwneud gorchymyn ariannol os ydych yn cytuno ar sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol. Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu. Gelwir hyn yn ‘gorchymyn ariannol sydd wedi’i wrthwynebu’.
   <br><br>TBydd angen i’r ceiswyr lenwi ffurflen arall a thalu ffi i gychwyn achos cyfreithiol yn ffurfiol. Mae gwneud cais am ‘gorchymyn ariannol sydd wedi’i wrthwynebu’ yn costio ${getFee(
     config.get('fees.financialOrder')
   )}. Mae gwneud cais am ‘gorchymyn ariannol trwy gydsyniad’ yn costio ${getFee(
