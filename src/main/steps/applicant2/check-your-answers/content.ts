@@ -119,9 +119,7 @@ const en = ({ isDivorce, userCase }) => ({
   },
 });
 
-// @TODO translations
 const cy: typeof en = ({ isDivorce, userCase }) => ({
-  ...en({ isDivorce, userCase }),
   stepAnswers: {
     aboutPartnership: {
       line3: `${
@@ -148,25 +146,22 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2LastNameChangedWhenRelationshipFormed}`,
-      line5: `${userCase.applicant2NameChangedSinceRelationshipFormed}`,
+      line4: userCase.applicant2LastNameChangedWhenRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line5: userCase.applicant2NameChangedSinceRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
       line6: `${
         userCase.applicant2NameChangedHow?.length
           ? userCase.applicant2NameChangedHow
               .join(' / ')
-              .replace(ChangedNameHow.OTHER, 'Another way')
-              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(ChangedNameHow.OTHER, 'Ffordd arall')
+              .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')
               .replace(
                 ChangedNameHow.MARRIAGE_CERTIFICATE,
-                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+                `Tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`
               )
           : ''
       }`,
     },
     contactYou: {
-      line1: `${userCase.applicant2FirstNames}`,
-      line2: `${userCase.applicant2MiddleNames}`,
-      line3: `${userCase.applicant2LastNames}`,
       line4: `${
         userCase.applicant2AgreeToReceiveEmails
           ? `Rwy'n cytuno y gall y ${
@@ -200,23 +195,23 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: userCase.applicant2LegalProceedings,
+      line1: userCase.applicant2LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
       line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
       line1: `${
         userCase.applicant2ApplyForFinancialOrder
           ? userCase.applicant2ApplyForFinancialOrder === YesOrNo.YES
-            ? 'Yes, I want to apply for a financial order'
-            : 'No, I do not want to apply for a financial order'
+            ? 'Ydw, rwyf am wneud cais am orchymyn ariannol'
+            : 'Na, nid wyf am wneud cais am orchymyn ariannol'
           : ''
       }`,
       line2: `${
         userCase.applicant2WhoIsFinancialOrderFor
           ? userCase.applicant2WhoIsFinancialOrderFor
               ?.join(' / ')
-              .replace(FinancialOrderFor.APPLICANT, 'Myself')
-              .replace(FinancialOrderFor.CHILDREN, 'The children')
+              .replace(FinancialOrderFor.APPLICANT, 'Fi fy hun')
+              .replace(FinancialOrderFor.CHILDREN, 'Fy mhlant')
           : ''
       }`,
     },
