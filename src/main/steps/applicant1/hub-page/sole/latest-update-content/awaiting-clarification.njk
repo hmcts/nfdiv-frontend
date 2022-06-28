@@ -1,8 +1,29 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/anchor-body.njk" import anchorBody %}
 
 <p class="govuk-body">{{ awaitingClarification.line1 }}</p>
-<h4 class="govuk-heading-s">{{ awaitingClarification.courtsFeedback }}</h4>
-<p class="govuk-body">{{ awaitingClarification.line2 }}</p>
+
+{% for reason in awaitingClarification.coRefusalClarificationReasons %}
+  {% if reason != "other" %}
+    {% set heading = reason + "ReasonHeading" %}
+    {% set body = reason + "ReasonBody" %}
+
+    <h4 class="govuk-heading-s">{{ awaitingClarification[heading] }}</h4>
+
+    {% if awaitingClarification[body] is mapping %}
+      {% set anchoredBody = anchorBody(awaitingClarification[body]) %}
+      <p class="govuk-body">{{ anchoredBody }}</p>
+    {% else %}
+      <p class="govuk-body">{{ awaitingClarification[body] }}</p>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if awaitingClarification.coRefusalClarificationAdditionalInfo %}
+  <h4 class="govuk-heading-s">{{ awaitingClarification.courtsComments }}</h4>
+  <p class="govuk-body">{{ awaitingClarification.coRefusalClarificationAdditionalInfo }}</p>
+{% endif %}
+
 <p class="govuk-body">{{ awaitingClarification.line3.part1 }}
   <a class="govuk-link" href={{ awaitingClarification.line3.link }}
   download={{ awaitingClarification.line3.downloadReference }}>
