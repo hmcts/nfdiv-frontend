@@ -4,16 +4,13 @@ import { FormContent } from '../../app/form/Form';
 const en = ({ partner }) => ({
   title: 'Create a new application',
   newApplicationDisclaimer: `Your ${partner} will not be able to access the new application. They will receive an email confirming this.`,
-  subText: 'You will not be able to change to a sole application.',
   create: 'Create a new application',
   cancel: 'Cancel',
 });
 
-// @TODO translations
 const cy: typeof en = ({ partner }) => ({
   title: 'Creu cais newydd',
   newApplicationDisclaimer: `Bydd ${partner} yn colli mynediad i'ch cais ar y cyd. Byddant yn cael e-bost yn cadarnhau hyn.`,
-  subText: 'Ni fyddwch yn gallu newid i gais unigol.',
   create: 'Creu cais newydd',
   cancel: 'Cancel',
 });
