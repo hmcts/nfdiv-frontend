@@ -5,8 +5,8 @@ import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
+import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -17,15 +17,21 @@ export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'appl
   return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
 };
 
-const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
-  applicationSubmitted: 'Application submitted',
+  submitted: 'Submitted',
+  submittedAriaLabel:
+    'A progress bar showing the application has been submitted. The next steps are receiving a response, a conditional order being granted and a final order being granted, which is the last stage in the process. The next steps are not complete yet.',
   response: 'Response',
-  conditionalOrderApplication: 'Conditional order application',
-  conditionalOrderGranted: 'Conditional order granted',
-  finalOrderApplication: 'Final order application',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
+  responseAriaLabel:
+    'A progress bar showing the application has been submitted and the response has been received. The next steps show a conditional order being granted and a final order being granted, which is the last stage in the process. The next steps are not complete yet.',
+  conditionalOrder: 'Conditional order',
+  conditionalOrderAriaLabel:
+    'A progress bar showing the application has been submitted, the response has been received and a conditional order has been granted. The next step shows a final order being granted, which is the final stage in the process. This step is not complete yet.',
+  finalOrder: `Final order (${isDivorce ? 'Divorced' : 'Civil partnership ended'})`,
+  finalOrderAriaLabel:
+    'A progress bar showing the application has been submitted, the response has been received, a conditional order has been granted and a final order has been granted. All steps are now complete.',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
@@ -107,8 +113,13 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
 });
 
 // @TODO translations
-const cy: typeof en = en;
-
+const cy: typeof en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }) => ({
+  ...en({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }),
+  submitted: "Wedi'i gyflwyno",
+  response: 'Ymateb ',
+  conditionalOrder: 'Gorchymyn amodol',
+  finalOrder: `Gorchymyn terfynol (${isDivorce ? 'Wedi ysgaru' : 'Partneriaeth sifil wedi dod i ben'})`,
+});
 export const form: FormContent = {
   fields: {},
   submit: {
@@ -124,12 +135,35 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const referenceNumber = formattedCaseId(userCase.id);
+  const translations = languages[content.language]({ ...content, referenceNumber });
+  const applicationTranslations = content.isJointApplication
+    ? jointGenerateContent(content)
+    : soleGenerateContent(content);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const progressBarAriaLabel = getProgressBarAriaLabel(
+    applicationTranslations.displayState as StateSequence,
+    translations
+  );
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
-    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    ...applicationTranslations,
     isCoFieldsSet,
+    progressBarAriaLabel,
   };
+};
+
+const getProgressBarAriaLabel = (
+  displayState: StateSequence,
+  { submittedAriaLabel, responseAriaLabel, conditionalOrderAriaLabel, finalOrderAriaLabel }
+) => {
+  if (displayState.isAfter('IssuedToBailiff')) {
+    return responseAriaLabel;
+  } else if (displayState.isAfter('ConditionalOrderPronounced')) {
+    return conditionalOrderAriaLabel;
+  } else if (displayState.state() === 'FinalOrderComplete') {
+    return finalOrderAriaLabel;
+  }
+  return submittedAriaLabel;
 };
