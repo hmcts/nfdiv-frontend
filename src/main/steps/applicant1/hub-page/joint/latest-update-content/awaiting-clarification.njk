@@ -4,18 +4,16 @@
 <p class="govuk-body">{{ awaitingClarification.line1 }}</p>
 
 {% for reason in awaitingClarification.coRefusalClarificationReasons %}
-  {% if reason != "other" %}
-    {% set heading = reason + "ReasonHeading" %}
-    {% set body = reason + "ReasonBody" %}
+  {% set heading = reason + "ReasonHeading" %}
+  {% set body = reason + "ReasonBody" %}
 
-    <h4 class="govuk-heading-s">{{ awaitingClarification[heading] }}</h4>
+  <h4 class="govuk-heading-s">{{ awaitingClarification[heading] }}</h4>
 
-    {% if awaitingClarification[body] is mapping %}
-      {% set anchoredBody = anchorBody(awaitingClarification[body]) %}
-      <p class="govuk-body">{{ anchoredBody }}</p>
-    {% else %}
-      <p class="govuk-body">{{ awaitingClarification[body] }}</p>
-    {% endif %}
+  {% if awaitingClarification[body] is mapping %}
+    {% set anchoredBody = anchorBody(awaitingClarification[body]) %}
+    <p class="govuk-body">{{ anchoredBody }}</p>
+  {% else %}
+    <p class="govuk-body">{{ awaitingClarification[body] }}</p>
   {% endif %}
 {% endfor %}
 

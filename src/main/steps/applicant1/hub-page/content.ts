@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ClarificationReason, ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -88,7 +88,9 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
     Read the court’s reason(s) for refusing the application and provide the requested information.`,
-    coRefusalClarificationReasons: userCase.coRefusalClarificationReason,
+    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
+      reason => reason !== ClarificationReason.OTHER
+    ),
     jurisdictionDetailsReasonHeading: 'Jurisdiction',
     jurisdictionDetailsReasonBody: {
       part1:
