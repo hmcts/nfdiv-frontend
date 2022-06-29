@@ -304,21 +304,23 @@ const executeUserCaseScript = async data => {
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
   await new Promise(resolve => setTimeout(resolve, 5000));
-  const userCase = await api.createCase(DivorceOrDissolution.DIVORCE, testUser);
+  const userCase = await api.getLatestLinkedCase(DivorceOrDissolution.DIVORCE);
 
-  data.applicant2MiddleNames = data.state || userCase.state;
+  if (userCase) {
+    data.applicant2MiddleNames = data.state || userCase.state;
 
-  const connections = addConnectionsBasedOnQuestions(data);
+    const connections = addConnectionsBasedOnQuestions(data);
 
-  // don't set as applicant 2 as they don't have permission
-  data.connections = connections.length > 0 ? connections : undefined;
+    // don't set as applicant 2 as they don't have permission
+    data.connections = connections.length > 0 ? connections : undefined;
 
-  try {
-    await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
-  } catch (error) {
-    console.error('Could not set fixture data as ' + user.username);
-    console.error(toApiFormat(data));
-    process.exit(-1);
+    try {
+      await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+    } catch (error) {
+      console.error('Could not set fixture data as ' + user.username);
+      console.error(toApiFormat(data));
+      process.exit(-1);
+    }
   }
 };
 

@@ -1,10 +1,9 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getSystemUser, getUserDetails } from '../../app/auth/user/oidc';
+import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
-import { getCaseApiClient } from '../../app/case/case-api-client';
-import { ApplicationType, CASE_TYPE, State } from '../../app/case/definition';
+import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -43,7 +42,9 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          await this.handleUserCase(req, res);
+          if (!req.session.userCaseFound) {
+            await this.findUserCase(req, res);
+          }
 
           if (
             req.path.endsWith(SWITCH_TO_SOLE_APPLICATION) &&
@@ -74,19 +75,23 @@ export class OidcMiddleware {
     );
   }
 
-  private async handleUserCase(req: AppRequest, res: Response): Promise<void> {
+  private async findUserCase(req: AppRequest, res: Response): Promise<void> {
     try {
-      const api = getCaseApiClient(await getSystemUser(), req.locals.logger);
-      const latestInviteCase = await api.getLatestInviteCase(CASE_TYPE, res.locals.serviceType, req.session.user.email);
+      const latestInviteCase = await req.locals.api.getLatestInviteCase(
+        req.session.user.email,
+        res.locals.serviceType,
+        req.locals.logger
+      );
       const latestLinkedCase = await req.locals.api.getLatestLinkedCase(res.locals.serviceType);
 
       if (latestInviteCase && latestLinkedCase) {
-        res.redirect(EXISTING_APPLICATION);
+        if (!req.path.includes(EXISTING_APPLICATION)) {
+          res.redirect(EXISTING_APPLICATION);
+        }
       } else if (latestInviteCase) {
         if (!isLinkingUrl(req.path)) {
           res.redirect(ENTER_YOUR_ACCESS_CODE);
         }
-        return;
       } else {
         req.session.userCase =
           req.session.userCase ||
@@ -96,6 +101,7 @@ export class OidcMiddleware {
         req.session.isApplicant2 =
           req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
       }
+      req.session.userCaseFound = true;
     } catch (e) {
       if (e instanceof InProgressDivorceCase) {
         const token = encodeURIComponent(req.session.user.accessToken);

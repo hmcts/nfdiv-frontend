@@ -140,7 +140,7 @@ describe('CaseApi', () => {
       },
     });
 
-    const userCase = await api.getLatestInviteCase(CASE_TYPE, DivorceOrDissolution.DIVORCE, 'user.email@gmail.com');
+    const userCase = await api.getLatestInviteCase('user.email@gmail.com', CASE_TYPE, DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
       id: '1234',

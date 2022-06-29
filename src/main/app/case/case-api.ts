@@ -1,6 +1,7 @@
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
@@ -32,6 +33,15 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
+  }
+
+  public async getLatestInviteCase(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<CaseWithId | false> {
+    const api = getCaseApiClient(await getSystemUser(), logger);
+    return api.getLatestInviteCase(email, CASE_TYPE, serviceType);
   }
 
   public async getLatestLinkedCase(serviceType: string): Promise<CaseWithId | false> {

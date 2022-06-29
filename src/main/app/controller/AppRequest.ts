@@ -22,7 +22,7 @@ export interface AppSession extends Session {
   userCase: CaseWithId;
   inviteCase: CaseWithId;
   isApplicant2: boolean;
-  isLinkedToCase: boolean;
+  userCaseFound: boolean;
   lang: string | undefined;
   errors: FormError[] | undefined;
 }

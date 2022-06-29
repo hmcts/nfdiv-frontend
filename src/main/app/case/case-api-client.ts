@@ -23,11 +23,14 @@ export class CaseApiClient {
     return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
   }
 
-  public async getLatestInviteCase(caseType: string, serviceType: string, email: string): Promise<CaseWithId | false> {
+  public async getLatestInviteCase(email: string, caseType: string, serviceType: string): Promise<CaseWithId | false> {
     const query = {
       query: {
         bool: {
-          must: [{ match: { 'data.applicant2InviteEmailAddress': email } }, { exists: { field: 'data.accessCode' } }],
+          must: {
+            match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
+          },
+          filter: { exists: { field: 'data.accessCode' } },
         },
       },
       sort: [{ created_date: { order: 'desc' } }],
