@@ -46,4 +46,9 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  after('functionalTest:preview') {
+  if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+    yarnBuilder.yarn('test:fullfunctional');
+  }
+  }
 }
