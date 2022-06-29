@@ -36,7 +36,7 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
           ? 'not entered a valid email address. Check their email address and enter it again. '
           : 'entered an invalid email address. Check it and enter it again before continuing.'
       }`,
-      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email before continuing.`,
+      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
     },
   },
 });
@@ -55,6 +55,7 @@ const cy = ({ partner }) => ({
       incorrect:
         'Rydych wedi rhoi cyfeiriad e-bost ac wedi nodi nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost. Dim ond un y gallwch ei wneud cyn parhau.',
       invalid: 'Rydych wedi rhoi cyfeiriad e-bost annilys. Gwiriwch ef a nodwch ef eto cyn parhau.',
+      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`, //todo NFDIV-2467
     },
   },
 });
