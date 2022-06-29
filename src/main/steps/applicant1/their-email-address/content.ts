@@ -1,6 +1,6 @@
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
@@ -36,6 +36,7 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
           ? 'not entered a valid email address. Check their email address and enter it again. '
           : 'entered an invalid email address. Check it and enter it again before continuing.'
       }`,
+      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email before continuing.`,
     },
   },
 });
@@ -59,12 +60,15 @@ const cy = ({ partner }) => ({
 });
 
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant2EmailAddress: {
       type: 'text',
       label: l => l.applicant2EmailAddress,
       labelSize: null,
       validator: (value, formData) => {
+        if (value === userCase.applicant1Email) {
+          return 'sameEmail';
+        }
         if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isEmailValid(value);
         } else if (value) {
@@ -82,7 +86,7 @@ export const form: FormContent = {
         },
       ],
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -102,6 +106,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(userCase || {}) },
   };
 };
