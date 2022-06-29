@@ -40,7 +40,6 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
   loadVaultSecrets(secrets)
   syncBranchesWithMaster(branchesToSync)
-  enableCrossBrowserTest()
 
   after('build') {
     yarnBuilder.yarn('build')
