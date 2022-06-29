@@ -12,7 +12,7 @@ const cy: typeof en = ({ partner }) => ({
   title: 'Creu cais newydd',
   newApplicationDisclaimer: `Bydd ${partner} yn colli mynediad i'ch cais ar y cyd. Byddant yn cael e-bost yn cadarnhau hyn.`,
   create: 'Creu cais newydd',
-  cancel: 'Cancel',
+  cancel: 'Canslo',
 });
 
 export const form: FormContent = {
