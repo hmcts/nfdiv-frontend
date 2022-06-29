@@ -116,6 +116,12 @@ Then('I type {string}', (text: string) => {
   I.type(text);
 });
 
+Given('I type my own email address', async () => {
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  I.type(testUser.email);
+});
+
 export const iClearTheForm = async (): Promise<void> => {
   await I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
