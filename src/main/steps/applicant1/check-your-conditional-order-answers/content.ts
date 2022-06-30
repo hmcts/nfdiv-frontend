@@ -86,8 +86,12 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
+  const applicantApplyForConditionalOrder = content.isApplicant2
+    ? content.userCase.applicant2ApplyForConditionalOrder
+    : content.userCase.applicant1ApplyForConditionalOrder;
   return {
     isConditionalOrderReadyToSubmit,
+    applicantApplyForConditionalOrder,
     ...translation,
     form,
   };
