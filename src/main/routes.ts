@@ -18,7 +18,9 @@ import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your
 import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
+import * as existingApplicationContent from './steps/existing-application/content';
 import { ExistingApplicationGetController } from './steps/existing-application/get';
+import { ExistingApplicationPostController } from './steps/existing-application/post';
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
@@ -61,6 +63,10 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
+    app.post(
+      EXISTING_APPLICATION,
+      errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
+    );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));

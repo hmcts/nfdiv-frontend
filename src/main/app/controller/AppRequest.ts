@@ -20,9 +20,9 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 export interface AppSession extends Session {
   user: UserDetails;
   userCase: CaseWithId;
-  inviteCase: CaseWithId;
+  inviteCaseId: string;
+  existingCaseId: string;
   isApplicant2: boolean;
-  userCaseFound: boolean;
   lang: string | undefined;
   errors: FormError[] | undefined;
 }

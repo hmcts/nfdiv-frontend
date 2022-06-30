@@ -102,7 +102,7 @@ describe('CaseApi', () => {
         },
       });
 
-      const userCase = await api.getLatestLinkedCase(CASE_TYPE, serviceType);
+      const userCase = await api.getLatestExistingCase(CASE_TYPE, serviceType);
 
       expect(userCase).toStrictEqual({
         id: '1234',
@@ -161,7 +161,7 @@ describe('CaseApi', () => {
       },
     });
 
-    await expect(api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
+    await expect(api.getLatestExistingCase(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
       'Case could not be retrieved.'
     );
   });
@@ -222,7 +222,7 @@ describe('CaseApi', () => {
       data: { cases: [firstMockCase, secondMockCase] },
     });
 
-    const userCase = await api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE);
+    const userCase = await api.getLatestExistingCase(CASE_TYPE, DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
       id: '1',

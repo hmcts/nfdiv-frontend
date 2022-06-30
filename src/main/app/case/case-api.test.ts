@@ -239,7 +239,7 @@ describe('CaseApi', () => {
     mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
     mockApiClient.sendEvent.mockResolvedValue(mockCase);
 
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
+    await api.unlinkFromOtherCases(serviceType, userDetails);
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1', {}, SYSTEM_UNLINK_APPLICANT);
   });
@@ -249,7 +249,7 @@ describe('CaseApi', () => {
     mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
     mockApiClient.sendEvent.mockResolvedValue({});
 
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
+    await api.unlinkFromOtherCases(serviceType, userDetails);
 
     expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
   });
@@ -262,7 +262,7 @@ describe('CaseApi', () => {
     mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
     mockApiClient.sendEvent.mockResolvedValue(mockCase);
 
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
+    await api.unlinkFromOtherCases(serviceType, userDetails);
 
     expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
   });
@@ -275,7 +275,7 @@ describe('CaseApi', () => {
     mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
     mockApiClient.sendEvent.mockResolvedValue(mockCase);
 
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
+    await api.unlinkFromOtherCases(serviceType, userDetails);
 
     expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
   });

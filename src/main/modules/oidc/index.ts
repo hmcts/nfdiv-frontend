@@ -42,8 +42,8 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (!req.session.userCaseFound) {
-            await this.findUserCase(req, res);
+          if (!req.session.existingCaseId && !req.session.inviteCaseId) {
+            await this.findExistingAndNewUserCases(req, res);
           }
 
           if (
@@ -75,33 +75,38 @@ export class OidcMiddleware {
     );
   }
 
-  private async findUserCase(req: AppRequest, res: Response): Promise<void> {
+  private async findExistingAndNewUserCases(req: AppRequest, res: Response): Promise<void> {
     try {
-      const latestInviteCase = await req.locals.api.getLatestInviteCase(
+      const newUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
         res.locals.serviceType,
         req.locals.logger
       );
-      const latestLinkedCase = await req.locals.api.getLatestLinkedCase(res.locals.serviceType);
 
-      if (latestInviteCase && latestLinkedCase) {
+      const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
+
+      if (newUserCase && existingUserCase) {
+        req.session.inviteCaseId = newUserCase.id;
+        req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
           res.redirect(EXISTING_APPLICATION);
         }
-      } else if (latestInviteCase) {
+      } else if (newUserCase) {
+        req.session.inviteCaseId = newUserCase.id;
         if (!isLinkingUrl(req.path)) {
-          res.redirect(ENTER_YOUR_ACCESS_CODE);
+          res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
         }
       } else {
         req.session.userCase =
           req.session.userCase ||
-          latestLinkedCase ||
+          existingUserCase ||
           (await req.locals.api.createCase(res.locals.serviceType, req.session.user));
+
+        req.session.existingCaseId = req.session.userCase.id;
 
         req.session.isApplicant2 =
           req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
       }
-      req.session.userCaseFound = true;
     } catch (e) {
       if (e instanceof InProgressDivorceCase) {
         const token = encodeURIComponent(req.session.user.accessToken);

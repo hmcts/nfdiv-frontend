@@ -189,5 +189,5 @@ export interface CaseWithFormData extends CaseWithId {
   saveAndSignOut?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
-  existingOrNew?: string;
+  existingOrNewApplication?: string;
 }

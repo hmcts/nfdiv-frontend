@@ -15,15 +15,19 @@ export class CaseApiClient {
 
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async getLatestLinkedCase(caseType: string, serviceType: string): Promise<CaseWithId | false> {
+  public async findExistingUserCases(caseType: string, serviceType: string): Promise<CcdV1Response[] | false> {
     const query = {
       query: { match_all: {} },
       sort: [{ created_date: { order: 'desc' } }],
     };
-    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+    return this.findUserCases(caseType, serviceType, JSON.stringify(query));
   }
 
-  public async getLatestInviteCase(email: string, caseType: string, serviceType: string): Promise<CaseWithId | false> {
+  public async findUserInviteCases(
+    email: string,
+    caseType: string,
+    serviceType: string
+  ): Promise<CcdV1Response[] | false> {
     const query = {
       query: {
         bool: {
@@ -35,21 +39,15 @@ export class CaseApiClient {
       },
       sort: [{ created_date: { order: 'desc' } }],
     };
-    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+    return this.findUserCases(caseType, serviceType, JSON.stringify(query));
   }
 
-  private async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
+  private async findUserCases(caseType: string, serviceType: string, query: string): Promise<CcdV1Response[] | false> {
     try {
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
-
-      const latestCase =
-        caseType === 'DIVORCE'
-          ? response.data.cases[0]
-          : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType)[0];
-
-      return latestCase
-        ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
-        : false;
+      return caseType === 'DIVORCE'
+        ? response.data.cases
+        : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
     } catch (err) {
       if (err.response?.status === 404) {
         return false;
@@ -139,6 +137,10 @@ export class CaseApiClient {
     } else {
       this.logger.error('API Error', error.message);
     }
+  }
+
+  public getLogger(): LoggerInstance {
+    return this.logger;
   }
 }
 

@@ -60,7 +60,7 @@ export class AccessCodePostController {
     }
 
     if (req.session.errors.length === 0) {
-      await req.locals.api.unlinkStaleDraftCaseIfFound(res.locals.serviceType, req.session.user);
+      await req.locals.api.unlinkFromOtherCases(res.locals.serviceType, req.session.user, req.session.userCase.id);
     }
 
     const nextStep =

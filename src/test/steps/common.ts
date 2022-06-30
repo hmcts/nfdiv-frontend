@@ -304,7 +304,7 @@ const executeUserCaseScript = async data => {
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
   await new Promise(resolve => setTimeout(resolve, 5000));
-  const userCase = await api.getLatestLinkedCase(DivorceOrDissolution.DIVORCE);
+  const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
   if (userCase) {
     data.applicant2MiddleNames = data.state || userCase.state;
