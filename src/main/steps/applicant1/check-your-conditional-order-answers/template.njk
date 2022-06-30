@@ -3,9 +3,16 @@
 
 {% extends "common/page.njk" %}
 
-{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-{% set isConditionalOrderAnswersComplete = isConditionalOrderReadyToSubmit(nextIncompleteStep) %}
-{% set title = title if isConditionalOrderAnswersComplete else titleSoFar %}
+
+{% if applicantApplyForConditionalOrder === 'No' %}
+  {% set isConditionalOrderReadyToSubmit = false %}
+  {% set nextIncompleteStep = "/applicant2/continue-with-your-application" if isApplicant2 else "/continue-with-your-application" %}
+{% else %}
+  {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+  {% set isConditionalOrderReadyToSubmit = isConditionalOrderReadyToSubmit(nextIncompleteStep) %}
+{% endif %}
+
+{% set title = title if isConditionalOrderReadyToSubmit else titleSoFar %}
 
 {% block content %}
   {% block error_summary %}
@@ -45,7 +52,7 @@
     }) }}
   {% endif %}
 
-  {% if isConditionalOrderAnswersComplete %}
+  {% if isConditionalOrderReadyToSubmit %}
     {% block form %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
