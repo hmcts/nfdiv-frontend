@@ -22,9 +22,21 @@ const en = ({
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
-  partnerResponse: `Your ${partner} responds`,
-  conditionalOrderGranted: 'Conditional order granted',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
+  submitted: 'Submitted',
+  submittedAriaLabel:
+    'A progress bar showing the application has been submitted. The next steps are receiving a response, a conditional order being granted and a final order being granted, which is the last stage in the process. The next steps are not complete yet.',
+  weeksToResponse: '2 weeks',
+  response: 'Response',
+  responseAriaLabel:
+    'A progress bar showing the application has been submitted and the response has been received. The next steps show a conditional order being granted and a final order being granted, which is the last stage in the process. The next steps are not complete yet.',
+  weeksToConditionalOrder: '20 weeks',
+  conditionalOrder: 'Conditional order',
+  conditionalOrderAriaLabel:
+    'A progress bar showing the application has been submitted, the response has been received and a conditional order has been granted. The next step shows a final order being granted, which is the final stage in the process. This step is not complete yet.',
+  weeksToFinalOrder: '6 weeks',
+  finalOrder: `Final order (${isDivorce ? 'Divorced' : 'Civil partnership ended'})`,
+  finalOrderAriaLabel:
+    'A progress bar showing the application has been submitted, the response has been received, a conditional order has been granted and a final order has been granted. All steps are now complete.',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
@@ -154,9 +166,21 @@ const cy: typeof en = ({
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
-  partnerResponse: `Bydd eich ${partner} yn ymateb`,
-  conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
-  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo progress bar to be updated as per - NFDIV-2371
+  submitted: "Wedi'i gyflwyno",
+  submittedAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno. Y camau nesaf yw cael ymateb, gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',
+  weeksToResponse: '2 weeks',
+  response: 'Ymateb',
+  responseAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno a bod yr ymateb wedi dod i law. Mae’r camau nesaf yn dangos gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf yn y broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',
+  weeksToConditionalOrder: '20 weeks',
+  conditionalOrder: 'Gorchymyn amodol',
+  conditionalOrderAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno, mae’r ymateb wedi dod i law, ac mae gorchymyn amodol wedi’i gymeradwyo.  Mae’r cam nesaf yn dangos y gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw cam hwn wedi’i gwblhau eto.',
+  weeksToFinalOrder: '6 weeks',
+  finalOrder: `Gorchymyn terfynol (${isDivorce ? 'Wedi ysgaru' : 'Partneriaeth sifil wedi dod i ben'})`,
+  finalOrderAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno, mae’r ymateb wedi dod i law, mae gorchymyn amodol wedi’i gymeradwyo ac mae gorchymyn terfynol wedi’i gymeradwyo. Mae’r holl gamau wedi’u cwblhau bellach.',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',

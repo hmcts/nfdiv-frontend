@@ -116,9 +116,17 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
 const cy: typeof en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }) => ({
   ...en({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }),
   submitted: "Wedi'i gyflwyno",
-  response: 'Ymateb ',
+  submittedAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno. Y camau nesaf yw cael ymateb, gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',
+  response: 'Ymateb',
+  responseAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno a bod yr ymateb wedi dod i law. Mae’r camau nesaf yn dangos gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf yn y broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',
   conditionalOrder: 'Gorchymyn amodol',
+  conditionalOrderAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno, mae’r ymateb wedi dod i law, ac mae gorchymyn amodol wedi’i gymeradwyo.  Mae’r cam nesaf yn dangos y gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw cam hwn wedi’i gwblhau eto.',
   finalOrder: `Gorchymyn terfynol (${isDivorce ? 'Wedi ysgaru' : 'Partneriaeth sifil wedi dod i ben'})`,
+  finalOrderAriaLabel:
+    'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno, mae’r ymateb wedi dod i law, mae gorchymyn amodol wedi’i gymeradwyo ac mae gorchymyn terfynol wedi’i gymeradwyo. Mae’r holl gamau wedi’u cwblhau bellach.',
 });
 export const form: FormContent = {
   fields: {},
@@ -146,7 +154,7 @@ export const generateContent: TranslationFn = content => {
     translations
   );
   return {
-    ...languages[content.language]({ ...content, referenceNumber }),
+    ...translations,
     ...columnGenerateContent(content),
     ...applicationTranslations,
     isCoFieldsSet,
