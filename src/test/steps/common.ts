@@ -123,7 +123,7 @@ export const iClearTheForm = async (): Promise<void> => {
       checkedInput.checked = false;
     }
 
-    const clearInputs = (inputs: NodeListOf<HTMLInputElement | HTMLTextAreaElement>) => {
+    const clearInputs = inputs => {
       for (const input of inputs) {
         input.value = '';
       }

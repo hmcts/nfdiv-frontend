@@ -14,6 +14,8 @@ if (process.env.SAUCE === 'true') {
       waitForTimeout: testConfig.WaitForTimeout,
       keepCookies: true,
       capabilities: {
+        browserName: 'MicrosoftEdge',
+        browserVersion: '102',
         platformName: 'Windows 10',
         'sauce:options': {
           idleTimeout: 300,
