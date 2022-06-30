@@ -25,7 +25,28 @@ const en = ({ isDivorce, required, partner }) => ({
   },
 });
 
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, required, partner }) => ({
+  title: `Help gyda’r ${isDivorce ? 'ffi am ysgariad' : 'ffi i ddod â’ch partneriaeth sifil i ben'}`,
+  line1: `Mae’r ${isDivorce ? 'cais hwn am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} yn costio ${getFee(
+    config.get('fees.applicationFee')
+  )}. Ni fydd y gwasanaeth hwn yn gofyn i chi dalu’r ffi. Gofynnir i’ch ${partner} dalu gan mai nhw yw’r ceisydd cyntaf.`,
+  line2: `Mae eich ${partner} wedi dweud bod angen help arno/arni i dalu'r ffi. Dim ond os ydych yn hawlio ac yn gymwys i gael Help i Dalu Ffioedd y gall ddefnyddio’r gwasanaeth Help i Dalu Ffioedd mewn perthynas â’r cais hwn.`,
+  line3: 'Gallwch hawlio Help i Dalu Ffioedd: (os yw un neu fwy o’r canlynol yn berthnasol):',
+  helpPayingWhen: [
+    'os ydych yn cael budd-daliadau penodol',
+    'os oes gennych ychydig o gynilion, os o gwbl',
+    'incwm isel',
+  ],
+  yes: 'Rwyf angen help i dalu ffioedd',
+  no: 'Nid wyf angen help i dalu ffioedd',
+  subHeading1: 'Ydych chi angen Help i Dalu Ffioedd?',
+  line4: `Dim ond os byddwch hefyd yn gwneud cais ac yn gymwys i gael help i dalu ffioedd y gall eich ${partner} gael help i dalu ffioedd hefyd. Ni fydd y gwasanaeth hwn yn gofyn i chi dalu’r ffi, ni waeth pa ateb a ddewiswch.`,
+  errors: {
+    applicant2HelpPayingNeeded: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
