@@ -162,8 +162,7 @@ Given("I've completed all happy path questions correctly", async () => {
   I.waitInUrl('/upload-your-documents');
   iClearTheForm();
   iClick('I cannot upload my original marriage certificate');
-  I.click('#uploadGroup');
-  iClick('Continue');
+  I.doubleClick('Continue');
 
   I.waitForText('Equality and diversity questions');
   iClick("I don't want to answer these questions");
