@@ -219,7 +219,7 @@ Feature: Form failures
     Then the page should include "You have not answered the question. Select an answer before continuing."
 
     Given I go to "/enter-solicitor-details"
-    And I select "Solicitor email address (optional)"
+    And I select "Solicitor email address"
     And I type "test"
     When I click "Continue"
     Then the page should include "You have entered the email address in the wrong format. Check it and enter it again."
@@ -576,7 +576,10 @@ Feature: Form failures
 
   @nightly
   Scenario: Enter your access code form failures
-    Given I go to "/applicant2/enter-your-access-code"
+    Given I go to "/your-details"
+    And I click "Sign out"
+    When I create a new user and login as applicant 2
+    And I go to "/applicant2/enter-your-access-code"
     And I clear the form
     And I select "Your reference number"
     And I type "1234123412341234"

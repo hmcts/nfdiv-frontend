@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
-import { getCaseApi } from '../case/CaseApi';
+import { getCaseApi } from '../case/case-api';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
@@ -20,8 +20,7 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    req.locals.api = getCaseApi(await getSystemUser(), req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
@@ -52,11 +51,16 @@ export class AccessCodePostController {
           formData,
           SYSTEM_LINK_APPLICANT_2
         );
+
         req.session.isApplicant2 = true;
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2/respondent to joint application', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
+    }
+
+    if (req.session.errors.length === 0) {
+      await req.locals.api.unlinkStaleDraftCaseIfFound(res.locals.serviceType, req.session.user);
     }
 
     const nextStep =

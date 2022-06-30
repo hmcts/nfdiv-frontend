@@ -5,75 +5,70 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { Case, CaseWithId } from './case';
+import { CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import {
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  CITIZEN_CREATE,
-  CaseData,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  State,
-  UserRole,
-} from './definition';
+import { CASE_TYPE, CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition';
 import { fromApiFormat } from './from-api-format';
-import { toApiFormat } from './to-api-format';
 
-export class InProgressDivorceCase implements Error {
-  constructor(public readonly message: string, public readonly name = 'DivCase') {}
-}
-
-export class CaseApi {
+export class CaseApiClient {
   readonly maxRetries: number = 3;
 
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const userCase = await this.getCase(serviceType);
-
-    return userCase || this.createCase(serviceType, userDetails);
+  public async getLatestLinkedCase(caseType: string, serviceType: string): Promise<CaseWithId | false> {
+    const query = {
+      query: { match_all: {} },
+      sort: [{ created_date: { order: 'desc' } }],
+    };
+    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
   }
 
-  private async getCase(serviceType: DivorceOrDissolution): Promise<CaseWithId | false> {
-    const [nfdCases, divCases] = config.get('services.case.checkDivCases')
-      ? await Promise.all([this.getCases(CASE_TYPE), this.getCases('DIVORCE')])
-      : await Promise.all([this.getCases(CASE_TYPE), []]);
-
-    if (this.hasInProgressDivorceCase(divCases)) {
-      throw new InProgressDivorceCase('User has in progress divorce case');
-    }
-
-    const serviceCases = nfdCases.filter(c => c.case_data.divorceOrDissolution === serviceType);
-    switch (serviceCases.length) {
-      case 0: {
-        return false;
-      }
-      case 1:
-      case 2: {
-        const { id, state, case_data: caseData } = serviceCases[0];
-        return { ...fromApiFormat(caseData), id: id.toString(), state };
-      }
-      default: {
-        this.logger.error('Too many cases assigned to user.');
-        throw new Error('Too many cases assigned to user.');
-      }
-    }
+  public async getLatestCaseOrInvite(
+    caseType: string,
+    serviceType: string,
+    email: string
+  ): Promise<CaseWithId | false> {
+    const query = {
+      query: {
+        bool: {
+          should: [
+            {
+              bool: {
+                must: [{ match: { 'data.applicant2InviteEmailAddress': email } }],
+                must_not: [{ match: { state: 'Draft' } }],
+              },
+            },
+            {
+              multi_match: {
+                query: email,
+                fields: ['data.applicant1Email', 'data.applicant2Email'],
+                type: 'cross_fields',
+                operator: 'and',
+              },
+            },
+          ],
+        },
+      },
+      sort: [{ created_date: { order: 'desc' } }],
+    };
+    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
   }
 
-  private async getCases(caseType: string): Promise<CcdV1Response[]> {
+  private async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
     try {
-      const query = {
-        query: { match_all: {} },
-        sort: [{ id: { order: 'asc' } }],
-      };
-      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, JSON.stringify(query));
+      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
 
-      return response.data.cases;
+      const latestCase =
+        caseType === 'DIVORCE'
+          ? response.data.cases[0]
+          : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType)[0];
+
+      return latestCase
+        ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
+        : false;
     } catch (err) {
       if (err.response?.status === 404) {
-        return [];
+        return false;
       }
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -91,7 +86,7 @@ export class CaseApi {
     }
   }
 
-  private async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+  public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
     const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
     );
@@ -128,24 +123,7 @@ export class CaseApi {
     }
   }
 
-  public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
-    return (await this.getCaseUserRoles(caseId, userId)).case_users[0].case_role.includes(UserRole.APPLICANT_2);
-  }
-
-  public async isApplicant2AlreadyLinked(serviceType: DivorceOrDissolution, userId: string): Promise<boolean> {
-    const userCase = await this.getCase(serviceType);
-    if (userCase) {
-      return this.isApplicant2(userCase.id, userId);
-    }
-    return false;
-  }
-
-  private async sendEvent(
-    caseId: string,
-    data: Partial<CaseData>,
-    eventName: string,
-    retries = 0
-  ): Promise<CaseWithId> {
+  public async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string, retries = 0): Promise<CaseWithId> {
     try {
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
@@ -168,14 +146,6 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return this.sendEvent(caseId, toApiFormat(userData), eventName);
-  }
-
-  public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
-    return this.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
-  }
-
   private logError(error: AxiosError) {
     if (error.response) {
       this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
@@ -186,28 +156,10 @@ export class CaseApi {
       this.logger.error('API Error', error.message);
     }
   }
-
-  private hasInProgressDivorceCase(divCases: CcdV1Response[]): boolean {
-    const courtId = divCases[0] && (divCases[0].case_data as unknown as Record<string, string>).D8DivorceUnit;
-    const states = [
-      'AwaitingPayment',
-      'AwaitingAmendCase',
-      'ServiceApplicationNotApproved',
-      'AwaitingAlternativeService',
-      'AwaitingProcessServerService',
-      'AwaitingDWPResponse',
-      'AosDrafted',
-      'AwaitingBailiffService',
-      'IssuedToBailiff',
-      'AwaitingServicePayment',
-    ];
-
-    return courtId === 'serviceCentre' && !states.includes(divCases[0].state);
-  }
 }
 
-export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
-  return new CaseApi(
+export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {
+  return new CaseApiClient(
     Axios.create({
       baseURL: config.get('services.case.url'),
       headers: {
@@ -227,9 +179,10 @@ interface ES<T> {
   total: number;
 }
 
-interface CcdV1Response {
+export interface CcdV1Response {
   id: string;
   state: State;
+  created_date: string;
   case_data: CaseData;
 }
 
