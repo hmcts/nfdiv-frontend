@@ -3,15 +3,10 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
-import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
-
-def checkForEnableHelmLabel(branch_name) {
-  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
-}
 
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
@@ -45,9 +40,4 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
-  after('functionalTest:preview') {
-  if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
-    yarnBuilder.yarn('test:fullfunctional');
-  }
-  }
 }
