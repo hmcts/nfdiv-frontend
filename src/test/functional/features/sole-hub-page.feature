@@ -9,7 +9,6 @@ Feature: Sole hub page
     When I click "Continue to payment"
     And I pay and submit the application
     Then the page should include "Application submitted"
-    When I click "Stop here"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
 
