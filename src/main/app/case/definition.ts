@@ -2091,7 +2091,6 @@ export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const UPDATE_AOS = 'update-aos';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
-export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const FINAL_ORDER_REQUESTED = 'final-order-requested';
