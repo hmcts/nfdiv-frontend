@@ -299,8 +299,8 @@ export interface Case {
   applicant2SolicitorAddressCountry?: string;
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
-  dateFinalOrderSubmitted?: DateAsString;
   applicant2SolicitorRepresented: YesOrNo;
+  dateFinalOrderSubmitted?: DateAsString;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;

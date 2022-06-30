@@ -2,8 +2,10 @@ import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest';
+import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApiClient, getCaseApiClient } from './case-api-client';
+import { CASE_TYPE, CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
 
 jest.mock('axios');
 
@@ -70,6 +72,275 @@ describe('CaseApi', () => {
     );
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com/case-users');
+  });
+
+  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+    'Should return %s case data response',
+    async serviceType => {
+      mockedAxios.post.mockResolvedValue({
+        data: {
+          cases: [
+            {
+              id: '1234',
+              state: State.Draft,
+              case_data: {
+                divorceOrDissolution: 'divorce',
+                applicationFeeOrderSummary: [{ test: 'fees' }],
+                applicationPayments: [{ test: 'payment' }],
+              },
+            },
+            {
+              id: '1234',
+              state: State.Draft,
+              case_data: {
+                divorceOrDissolution: 'dissolution',
+                applicationFeeOrderSummary: [{ test: 'fees' }],
+                applicationPayments: [{ test: 'payment' }],
+              },
+            },
+          ],
+        },
+      });
+
+      const userCase = await api.getLatestLinkedCase(CASE_TYPE, serviceType);
+
+      expect(userCase).toStrictEqual({
+        id: '1234',
+        state: State.Draft,
+        divorceOrDissolution: serviceType,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        payments: [{ test: 'payment' }],
+      });
+    }
+  );
+
+  test('Should getLatestCaseOrInvite', async () => {
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        cases: [
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'divorce',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'dissolution',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+        ],
+      },
+    });
+
+    const userCase = await api.getLatestCaseOrInvite(CASE_TYPE, DivorceOrDissolution.DIVORCE, 'user.email@gmail.com');
+
+    expect(userCase).toStrictEqual({
+      id: '1234',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      applicationFeeOrderSummary: [{ test: 'fees' }],
+      payments: [{ test: 'payment' }],
+    });
+  });
+
+  test('Should throw error when case could not be retrieved', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+
+    await expect(api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
+      'Case could not be retrieved.'
+    );
+  });
+
+  test('Should create a case', async () => {
+    const results = {
+      data: {
+        id: '1234',
+        state: State.Draft,
+        data: {
+          divorceOrDissolution: 'divorce',
+        },
+      },
+    };
+    mockedAxios.post.mockResolvedValueOnce(results);
+    mockedAxios.get.mockResolvedValueOnce({ data: { token: '123' } });
+
+    const userCase = await api.createCase(DivorceOrDissolution.DIVORCE, userDetails);
+
+    expect(userCase).toStrictEqual({
+      id: '1234',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should throw error when case could not be created', async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: { token: '123' } });
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      request: 'mock request',
+    });
+
+    await expect(api.createCase(DivorceOrDissolution.DIVORCE, userDetails)).rejects.toThrow(
+      'Case could not be created.'
+    );
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com');
+  });
+
+  test('Should retrieve the first case if two cases found', async () => {
+    const firstMockCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      },
+    };
+    const secondMockCase = {
+      id: '2',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      },
+    };
+
+    mockedAxios.post.mockResolvedValue({
+      data: { cases: [firstMockCase, secondMockCase] },
+    });
+
+    const userCase = await api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.Draft,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should update case', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockResolvedValue({
+      data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
+    });
+    const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
+    await api.sendEvent('1234', caseData, CITIZEN_UPDATE);
+
+    const expectedRequest = {
+      data: caseData,
+      event: { id: CITIZEN_UPDATE },
+      event_token: '123',
+    };
+
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+  });
+
+  test('Should throw error when case could not be updated', async () => {
+    mockedAxios.get.mockResolvedValue({ data: { token: 'event-token' } });
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      response: { status: 500, data: 'mock error' },
+    });
+
+    await expect(
+      api.sendEvent('not found', { divorceOrDissolution: DivorceOrDissolution.DIVORCE }, CITIZEN_UPDATE)
+    ).rejects.toThrow('Case could not be updated.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST https://example.com 500');
+    expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
+  });
+
+  test.each([409, 422])('Should not throw an error if %s is returned once', async statusCode => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post
+      .mockResolvedValue({
+        data: { data: { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE } },
+      })
+      .mockRejectedValueOnce({
+        config: { method: 'POST', url: 'https://example.com' },
+        response: { status: statusCode, data: 'mock error' },
+      });
+    const payments = new PaymentModel([]);
+
+    await api.sendEvent('1234', { applicationPayments: payments.list }, CITIZEN_ADD_PAYMENT);
+
+    const expectedRequest = {
+      data: { applicationPayments: payments.list },
+      event: { id: CITIZEN_ADD_PAYMENT },
+      event_token: '123',
+    };
+    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+    expect(mockLogger.error).not.toHaveBeenCalled();
+  });
+
+  test.each([409, 422])('Should throw an error if %s is returned more than maxRetries', async statusCode => {
+    mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
+    mockedAxios.post.mockRejectedValue({
+      config: { method: 'POST', url: 'https://example.com' },
+      response: { status: statusCode, data: 'mock error' },
+    });
+    const payments = new PaymentModel([]);
+
+    await expect(api.sendEvent('1234', { applicationPayments: payments.list }, CITIZEN_ADD_PAYMENT)).rejects.toThrow(
+      'Case could not be updated.'
+    );
+
+    [1, 2, 3].forEach(retry =>
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        `retrying send event due to ${statusCode}. this is retry no (${retry})`
+      )
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith(`API Error POST https://example.com ${statusCode}`);
+    expect(mockLogger.info).toHaveBeenCalledWith('Response: ', 'mock error');
+  });
+
+  test('Should return case for caseId passed', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: {
+        id: '1234',
+        state: State.Draft,
+        data: {
+          accessCode: 'NFSDCLV3',
+        },
+      },
+    });
+
+    const userCase = await api.getCaseById('1234');
+    expect(userCase).toStrictEqual({ id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' });
+  });
+
+  test('Should throw error when case could not be fetched', async () => {
+    mockedAxios.get.mockRejectedValue({
+      config: { method: 'GET', url: 'https://example.com' },
+      request: 'mock request',
+    });
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
+  });
+
+  test('Should catch all errors', async () => {
+    mockedAxios.get.mockRejectedValue({
+      message: 'Error',
+    });
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'Error');
   });
 });
 

@@ -89,6 +89,7 @@ const fields: ToApiConverters = {
     ...(data.applicationType === ApplicationType.JOINT_APPLICATION
       ? setUnreachableAnswersToNull([
           'applicant1IsApplicant2Represented',
+          'applicant2SolicitorRepresented',
           'applicant2SolicitorName',
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
