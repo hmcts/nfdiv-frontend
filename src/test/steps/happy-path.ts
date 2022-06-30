@@ -163,11 +163,8 @@ Given("I've completed all happy path questions correctly", async () => {
   iClearTheForm();
   iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
-  iWait(3);
-  iClick('Continue');
-
-  I.waitForText('Equality and diversity questions');
-  iClick("I don't want to answer these questions");
+  iWait(5);
+  I.amOnPage(HOME_URL);
 
   I.waitInUrl('/check-your-answers');
   iClearTheForm();
