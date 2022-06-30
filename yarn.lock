@@ -1449,17 +1449,17 @@
   dependencies:
     "@wdio/utils" "7.20.3"
 
-"@wdio/sauce-service@^7.20.5":
-  version "7.20.5"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.20.5.tgz#ced2c806a338925a03816cf40538ffc87cd5ac4e"
-  integrity sha512-p7c4L7pX9e/kmudi0+N2Y3rXLAr/FwK3+k0B+bMNSOgNO/t44eOOXFttqsu/UAfCJAxomleKTxP/M0v9+/omMA==
+"@wdio/sauce-service@^7.20.4":
+  version "7.20.4"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.20.4.tgz#b7d91e522e81c1c69ff5906afd9f9c2e2c04614d"
+  integrity sha512-nIHO36idS8y152a+9krCDv8moeRjwgo1J3uUuBpyxN964zQF/aMoyfFdoAOIKIUY8Khj9npL4il69dhvl9fJjw==
   dependencies:
     "@types/node" "^18.0.0"
     "@wdio/logger" "7.19.0"
     "@wdio/types" "7.20.3"
     "@wdio/utils" "7.20.3"
     saucelabs "^7.1.3"
-    webdriverio "7.20.5"
+    webdriverio "7.20.4"
 
 "@wdio/types@7.20.3":
   version "7.20.3"
@@ -3937,10 +3937,10 @@ eslint-plugin-jest@^26.5.3:
   dependencies:
     "@typescript-eslint/utils" "^5.10.0"
 
-eslint-plugin-prettier@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.0.0.tgz#8b99d1e4b8b24a762472b4567992023619cb98e0"
-  integrity sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==
+eslint-plugin-prettier@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.1.0.tgz#1cd4b3fadf3b3cdb30b1874b55e7f93f85eb43ad"
+  integrity sha512-A3AXIEfTnq3D5qDFjWJdQ9c4BLhw/TqhSR+6+SVaoPJBAWciFEuJiNQh275OnjRrAi7yssZzuWBRw66VG2g6UA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -9858,10 +9858,10 @@ webdriver@7.20.4:
     ky "^0.30.0"
     lodash.merge "^4.6.1"
 
-webdriverio@7.20.5, webdriverio@^7.20.4:
-  version "7.20.5"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.20.5.tgz#55e0b702bacb0214a7cb20c8155924f4a28c3deb"
-  integrity sha512-GcONsT2eOTXnjwMxvilc95uWTUlzWRBpdbxC1M+664uTfzomCFDMHMsa+evPSKG5+pFMSCrEL67nwRtoLXhh9Q==
+webdriverio@7.20.4, webdriverio@^7.20.4:
+  version "7.20.4"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.20.4.tgz#5754a76d1b6a1e45ce82303341ffef3336a45493"
+  integrity sha512-hX6MNRHBaU2KDzQJ0SFWYh/hZi16lorqNrECeMYHsN4kUYNawyOFGktIrhfiuSJOnmreOLHtCGzRu1+kRmMSiw==
   dependencies:
     "@types/aria-query" "^5.0.0"
     "@types/node" "^18.0.0"
