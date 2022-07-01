@@ -34,8 +34,10 @@ export class CaseApiClient {
           should: [
             {
               bool: {
-                must: [{ match: { 'data.applicant2InviteEmailAddress': email } }],
-                must_not: [{ match: { state: 'Draft' } }],
+                must: {
+                  match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
+                },
+                filter: { exists: { field: 'data.accessCode' } },
               },
             },
             {
