@@ -775,7 +775,7 @@ const cy: typeof en = ({
         : '',
     },
     connectionsToEnglandWales: {
-      line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line1: userCase.inTheUk?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line2: userCase.certificateInEnglish?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line3: userCase.certifiedTranslation?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line4: stripTags(userCase.ceremonyCountry),
@@ -869,7 +869,7 @@ const cy: typeof en = ({
       line4: `${
         isJointApplication
           ? ''
-          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
+          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
       }`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
