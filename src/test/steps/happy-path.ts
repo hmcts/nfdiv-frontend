@@ -2,7 +2,7 @@ import { State } from '../../main/app/case/definition';
 import { ADDRESS_PRIVATE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo } from './common';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -163,9 +163,8 @@ Given("I've completed all happy path questions correctly", async () => {
   iClearTheForm();
   iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
-
-  I.waitForText('Equality and diversity questions');
-  iClick("I don't want to answer these questions");
+  iWait(5);
+  I.amOnPage(HOME_URL);
 
   I.waitInUrl('/check-your-answers');
   iClearTheForm();

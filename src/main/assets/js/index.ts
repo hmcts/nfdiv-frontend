@@ -7,5 +7,6 @@ import './enter-address';
 import './upload-manager';
 import './cookie';
 import './avaya-webchat';
+import './data-layer';
 
 initAll();

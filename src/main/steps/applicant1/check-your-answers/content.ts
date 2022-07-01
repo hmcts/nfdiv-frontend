@@ -323,7 +323,7 @@ const en = ({
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, true) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, true, isDivorce, partner))
             }`
           : '',
     },
@@ -792,7 +792,7 @@ const cy: typeof en = ({
         userCase.connections && userCase.connections?.length
           ? `Mae eich atebion yn dangos y gallwch wneud cais yng Nghymru a Lloegr oherwydd: ${
               connectionBulletPointsUserReads(userCase.connections, partner, isDivorce, isJointApplication, false) +
-              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce))
+              moreDetailsComponent(jurisdictionMoreDetailsContent(userCase.connections, false, isDivorce, partner))
             }`
           : '',
     },
@@ -950,7 +950,7 @@ const cy: typeof en = ({
   change: 'Newid',
   continueApplication: 'Parhau gyda’r cais',
   confirm: `Cadarnhau cyn ${stripTags(userCase.applicant1HelpWithFeesRefNo) ? 'cyflwyno' : 'parhau'}`,
-  jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
+  jointApplicantReview: `Bydd eich atebion yn cael eu hanfon at eich ${partner} i’w hadolygu. Pan fyddant wedi eu hadolygu ac wedi darparu rhywfaint o atebion eu hunain, bydd y cais wedi’i gwblhau yn dod yn ôl atoch chi i’w adolygu unwaith eto cyn ei gyflwyno.`,
   confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
     isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'
   }
