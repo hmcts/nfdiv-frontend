@@ -32,6 +32,7 @@
     <a class="govuk-link" href="{{joint.line1.link}}" target="_blank">{{joint.line1.part2}}</a>
     {{ joint.line1.part3 | safe }}
     </p>
+    <p class="govuk-body"><a href="https://www.gov.uk/apply-for-divorce" class="govuk-link">{{ exitLink }}</a></p>
     {% if isApplicantFirstInTimeApplicant %}
       {{ govukDetails({
         summaryText: joint.continueAsSole,
