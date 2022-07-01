@@ -2,7 +2,7 @@
 
 <p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
 
-{% if isDeemedOrDispensedApplication %}
+{% if isDeemedOrDispensedApplication and not userCase.aosStatementOfTruth %}
   <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}
     <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
     download="Certificate-of-Service">
