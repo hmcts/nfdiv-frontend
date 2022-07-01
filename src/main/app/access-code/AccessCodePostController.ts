@@ -20,7 +20,8 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    req.locals.api = getCaseApi(await getSystemUser(), req.locals.logger);
+    const caseworkerUser = await getSystemUser();
+    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
