@@ -85,7 +85,7 @@ export const generateContent: TranslationFn = content => {
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
-  )?.value.documentLink.document_binary_url;
+  );
   return {
     aosSubmitted,
     hasCertificateOfService,
