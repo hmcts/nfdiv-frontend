@@ -31,10 +31,21 @@ export class CaseApiClient {
     const query = {
       query: {
         bool: {
-          must: {
-            match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
-          },
-          filter: { exists: { field: 'data.accessCode' } },
+          should: [
+            {
+              bool: {
+                match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
+              },
+            },
+            {
+              multi_match: {
+                query: email,
+                fields: ['data.applicant1Email', 'data.applicant2Email'],
+                type: 'cross_fields',
+                operator: 'and',
+              },
+            },
+          ],
         },
       },
       sort: [{ created_date: { order: 'desc' } }],
