@@ -36,6 +36,7 @@ export class CaseApiClient {
               bool: {
                 match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
               },
+              filter: { exists: { field: 'data.accessCode' } },
             },
             {
               multi_match: {
