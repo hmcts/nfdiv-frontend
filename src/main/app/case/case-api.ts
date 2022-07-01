@@ -3,20 +3,10 @@ import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
-import { AnyObject } from '../controller/PostController';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import {
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  SYSTEM_CLEAR_INVITES,
-  SYSTEM_UNLINK_APPLICANT,
-  UserRole,
-} from './definition';
+import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -53,24 +43,6 @@ export class CaseApi {
     }
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
     return this.getLatestUserCase(userCases);
-  }
-
-  public async unlinkFromOtherCases(
-    serviceType: DivorceOrDissolution,
-    user: UserDetails,
-    caseId: string
-  ): Promise<void> {
-    const apiClient = getCaseApiClient(await getSystemUser(), this.apiClient.getLogger());
-    const inviteCases = await apiClient.findUserInviteCases(user.email, CASE_TYPE, serviceType);
-    if (inviteCases) {
-      const toBeCleared = inviteCases.map(inviteCase => inviteCase.id).filter(inviteCaseId => inviteCaseId !== caseId);
-      await this.triggerEvent(caseId, { caseIds: toBeCleared } as AnyObject, SYSTEM_CLEAR_INVITES);
-    }
-    const existingCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    if (existingCases) {
-      const toBeUnlinked = existingCases.map(userCase => userCase.id).filter(userCaseId => userCaseId !== caseId);
-      await this.triggerEvent(caseId, { caseIds: toBeUnlinked } as AnyObject, SYSTEM_UNLINK_APPLICANT);
-    }
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {

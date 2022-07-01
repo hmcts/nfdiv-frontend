@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { SYSTEM_CLEAR_INVITES } from '../../app/case/definition';
+import { SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
@@ -22,8 +22,10 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           if (formData.existingOrNewApplication === 'existing') {
-            await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CLEAR_INVITES);
+            await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+
             req.session.userCase = await req.locals.api.getCaseById(req.session.existingCaseId);
+
             req.session.isApplicant2 =
               req.session.isApplicant2 ??
               (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));

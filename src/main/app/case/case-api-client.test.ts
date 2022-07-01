@@ -102,9 +102,9 @@ describe('CaseApi', () => {
         },
       });
 
-      const userCase = await api.getLatestExistingCase(CASE_TYPE, serviceType);
+      const userCases = await api.findExistingUserCases(CASE_TYPE, serviceType);
 
-      expect(userCase).toStrictEqual({
+      expect(userCases[0]).toStrictEqual({
         id: '1234',
         state: State.Draft,
         divorceOrDissolution: serviceType,
@@ -140,9 +140,9 @@ describe('CaseApi', () => {
       },
     });
 
-    const userCase = await api.getLatestInviteCase('user.email@gmail.com', CASE_TYPE, DivorceOrDissolution.DIVORCE);
+    const userCases = await api.findUserInviteCases('user.email@gmail.com', CASE_TYPE, DivorceOrDissolution.DIVORCE);
 
-    expect(userCase).toStrictEqual({
+    expect(userCases[0]).toStrictEqual({
       id: '1234',
       state: State.Draft,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -161,7 +161,7 @@ describe('CaseApi', () => {
       },
     });
 
-    await expect(api.getLatestExistingCase(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
+    await expect(api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
       'Case could not be retrieved.'
     );
   });
@@ -222,9 +222,9 @@ describe('CaseApi', () => {
       data: { cases: [firstMockCase, secondMockCase] },
     });
 
-    const userCase = await api.getLatestExistingCase(CASE_TYPE, DivorceOrDissolution.DIVORCE);
+    const userCases = await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE);
 
-    expect(userCase).toStrictEqual({
+    expect(userCases[0]).toStrictEqual({
       id: '1',
       state: State.Draft,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
