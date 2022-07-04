@@ -96,7 +96,7 @@ export class Routes {
       errorHandler(new Applicant2AccessCodeGetController().get)
     );
     app.post(
-      [`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
+      [APPLICANT_2, RESPONDENT, `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
     );
 
