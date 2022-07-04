@@ -38,7 +38,7 @@ export class AccessCodePostController {
         formData.applicant2LastNames = req.session.user.familyName;
       }
 
-      if (caseData.accessCode !== formData.accessCode?.trim()) {
+      if (caseData.accessCode !== formData.accessCode?.trim().toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         req.locals.logger.error(
           `Invalid access code for case id: "${caseReference}" (form), ${caseData.id} (retrieved), access code: "${formData.accessCode}" (form), ${caseData.accessCode} (retrieved)`
