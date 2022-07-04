@@ -38,10 +38,17 @@ export class AccessCodePostController {
         formData.applicant2LastNames = req.session.user.familyName;
       }
 
+      console.log(
+        `Invalid access code for case id: "${caseReference}" (form), ${caseData.id} (retrieved), access code: "${formData.accessCode}" (form), ${caseData.accessCode} (retrieved)`
+      );
+
       if (caseData.accessCode !== formData.accessCode) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         req.locals.logger.error(
-          `Invalid access code for case id: ${caseReference} (form), ${caseData.id} (retrieved), access code: ${formData.accessCode} (form)`
+          `Invalid access code for case id: ${caseReference} (form), ${caseData.id} (retrieved), access code: ${formData.accessCode} (form), ${caseData.accessCode} (retrieved)`
+        );
+        console.log(
+          `Invalid access code for case id: ${caseReference} (form), ${caseData.id} (retrieved), access code: ${formData.accessCode} (form), ${caseData.accessCode} (retrieved)`
         );
       }
     } catch (err) {
