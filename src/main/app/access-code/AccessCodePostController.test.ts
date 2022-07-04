@@ -130,11 +130,11 @@ describe('AccessCodePostController', () => {
   });
 
   test('Assert access code with whitespaces and lowercase characters is valid', async () => {
-    const body = { accessCode: '  QwerTY78  ', caseReference: '1234123412341234' };
+    const body = { accessCode: '  Qwer TY 78  ', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseData = {
-      accessCode: '  QwerTY78  ',
+      accessCode: '  Qwer TY 78  ',
       caseReference: '1234123412341234',
       applicationType: ApplicationType.SOLE_APPLICATION,
     };
@@ -165,7 +165,7 @@ describe('AccessCodePostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
-        accessCode: '  QwerTY78  ',
+        accessCode: '  Qwer TY 78  ',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
         respondentUserId: '123456',
