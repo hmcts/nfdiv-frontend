@@ -16,7 +16,7 @@
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
     complete: displayState.isAtOrAfter('ConditionalOrderPronounced'),
-    active: hasApplicantConfirmedReceipt
+    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(finalOrder, displayState.state() == 'FinalOrderComplete')
@@ -42,7 +42,7 @@
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
     complete: displayState.isAfter('ConditionalOrderPronounced'),
-    active: displayState.state() == 'AwaitingConditionalOrder' or hasApplicantConfirmedReceipt
+    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(finalOrder, displayState.isAtOrAfter('FinalOrderPending'))
