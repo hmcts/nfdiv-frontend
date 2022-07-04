@@ -129,6 +129,53 @@ describe('AccessCodePostController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
+  test('Assert access code with whitespaces is valid', async () => {
+    const body = { accessCode: '  QWERTY78  ', caseReference: '1234123412341234' };
+    const controller = new AccessCodePostController(mockFormContent.fields);
+
+    const caseData = {
+      accessCode: '  QWERTY78  ',
+      caseReference: '1234123412341234',
+      applicationType: ApplicationType.SOLE_APPLICATION,
+    };
+
+    const req = mockRequest({ body });
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(() => {
+        return {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      getCaseById: jest.fn(() => {
+        return {
+          accessCode: 'QWERTY78',
+          caseReference: '1234123412341234',
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
+    });
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234123412341234',
+      {
+        accessCode: '  QWERTY78  ',
+        caseReference: '1234123412341234',
+        applicant2Email: 'test@example.com',
+        respondentUserId: '123456',
+      },
+      SYSTEM_LINK_APPLICANT_2
+    );
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
   test('Should return error when access code does not match and should redirect to the same page', async () => {
     const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
