@@ -80,6 +80,15 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForConditionalOrderAnswersPdf = {
+      endpoints: ['/downloads/conditional-order-answers'],
+      path: (req: AppRequest) => {
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     const dmStoreProxyForDeemedServiceRefusedPdf = {
       endpoints: ['/downloads/deemed-service-refused'],
       path: (req: AppRequest) => {
@@ -135,6 +144,7 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForDispenseWithServicePdf,
       dmStoreProxyForCertificateOfEntitlementPdf,
       dmStoreProxyForConditionalOrderRefusalPdf,
+      dmStoreProxyForConditionalOrderAnswersPdf,
       dmStoreProxyForDeemedServiceRefusedPdf,
       dmStoreProxyForDispenseWithServiceRefusedPdf,
       dmStoreProxyForBailiffServiceRefusedPdf,
