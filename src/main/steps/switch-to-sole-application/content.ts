@@ -8,8 +8,12 @@ const en = ({ partner }) => ({
   cancel: 'Cancel',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ partner }) => ({
+  title: 'Creu cais newydd',
+  newApplicationDisclaimer: `Bydd ${partner} yn colli mynediad i'ch cais ar y cyd. Byddant yn cael e-bost yn cadarnhau hyn.`,
+  create: 'Creu cais newydd',
+  cancel: 'Canslo',
+});
 
 export const form: FormContent = {
   fields: {},

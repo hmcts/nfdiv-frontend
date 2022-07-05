@@ -775,7 +775,7 @@ const cy: typeof en = ({
         : '',
     },
     connectionsToEnglandWales: {
-      line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line1: userCase.inTheUk?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line2: userCase.certificateInEnglish?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line3: userCase.certifiedTranslation?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line4: stripTags(userCase.ceremonyCountry),
@@ -869,7 +869,7 @@ const cy: typeof en = ({
       line4: `${
         isJointApplication
           ? ''
-          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
+          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
       }`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
@@ -950,7 +950,7 @@ const cy: typeof en = ({
   change: 'Newid',
   continueApplication: 'Parhau gyda’r cais',
   confirm: `Cadarnhau cyn ${stripTags(userCase.applicant1HelpWithFeesRefNo) ? 'cyflwyno' : 'parhau'}`,
-  jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
+  jointApplicantReview: `Bydd eich atebion yn cael eu hanfon at eich ${partner} i’w hadolygu. Pan fyddant wedi eu hadolygu ac wedi darparu rhywfaint o atebion eu hunain, bydd y cais wedi’i gwblhau yn dod yn ôl atoch chi i’w adolygu unwaith eto cyn ei gyflwyno.`,
   confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
     isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'
   }
