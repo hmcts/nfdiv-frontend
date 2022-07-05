@@ -204,6 +204,7 @@ describe('AccessCodePostController', () => {
         propertyName: 'accessCode',
       },
     ]);
+    expect(req.locals.logger.error).toBeCalled();
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
