@@ -1,8 +1,9 @@
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner, isJointApplication, userCase }) => ({
+const en = ({ isDivorce, partner, isJointApplication, userCase }: CommonContent) => ({
   title: 'You need to review your joint application',
   line1: `Your ${partner}${
     isJointApplication && userCase.applicant1SolicitorRepresented === YesOrNo.YES ? "'s solicitor" : ''
@@ -19,7 +20,7 @@ const en = ({ isDivorce, partner, isJointApplication, userCase }) => ({
       : ''),
 });
 
-const cy: typeof en = ({ isDivorce, partner, civilPartner }) => ({
+const cy: typeof en = ({ isDivorce, partner, civilPartner }: CommonContent) => ({
   title: 'Mae arnoch angen adolygu eich cais ar y cyd',
   line1: `Mae eich ${isDivorce ? partner : civilPartner} wedi creu ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
