@@ -57,7 +57,6 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   },
   email: 'Email',
   post: 'Post',
-  whatHappensNext: 'What happens next',
 });
 
 // @TODO translations
