@@ -148,6 +148,8 @@ Then extract it and run:
 npx allure-commandline serve ~/Downloads/archive/functional-output/functional/reports
 ```
 
+If you want to run the nightly tests against your PR's preview instance, you can add a `nightly` label in GitHub. This is configured in Jenkinsfile_CNP.
+
 #### Accessibility tests
 
 Running accessibility tests:
