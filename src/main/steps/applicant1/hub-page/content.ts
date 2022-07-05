@@ -5,7 +5,6 @@ import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
@@ -17,7 +16,7 @@ export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'appl
   return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
 };
 
-const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
@@ -107,7 +106,10 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
 });
 
 // @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }) => ({
+  ...en({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }),
+  applyForConditionalOrder: 'Gwneud cais am orchymyn amodol',
+});
 
 export const form: FormContent = {
   fields: {},
