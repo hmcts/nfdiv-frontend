@@ -6,7 +6,7 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ isDivorce, required, partner }) => ({
+const en = ({ isDivorce, required }) => ({
   title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
   line1: `This ${isDivorce ? 'divorce ' : ''}application costs ${getFee(
     config.get('fees.applicationFee')
@@ -14,11 +14,6 @@ const en = ({ isDivorce, required, partner }) => ({
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
   yes: 'I need help paying the fee',
   no: 'I do not need help paying the fee',
-  line3:
-    'Both of you have to be eligible and apply for help with fees separately, because this is a joint application.',
-  subHeading1: 'Do you need help paying the fee?',
-  line4: `Do not answer this question on behalf of your ${partner}. If you select that you need help paying the fee then they will be asked.`,
-
   errors: {
     applicant1HelpPayingNeeded: {
       required,
@@ -26,8 +21,7 @@ const en = ({ isDivorce, required, partner }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, required, partner }) => ({
-  ...en({ isDivorce, required, partner }),
+const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,

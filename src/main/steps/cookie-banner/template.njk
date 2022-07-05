@@ -19,37 +19,37 @@
   hidden: true,
   messages: [
     {
+      classes: 'cookie-banner-message',
       headingText: cookiesHeading + " " + serviceName,
       html: cookieMessageHTML,
-      classes: 'cookie-banner-message',
       actions: [
-        {
-          classes: 'cookie-banner-accept-button',
-          text: acceptAnalyticsCookies,
-          type: "button"
-        },
-        {
-          classes: 'cookie-banner-reject-button',
-          text: rejectAnalyticsCookies,
-          type: "button"
-        },
-        {
-          text: viewCookies,
-          href: "/cookies"
-        }
-      ]
+      {
+        classes: 'cookie-banner-accept-button',
+        text: acceptAnalyticsCookies,
+        type: "button"
+      },
+      {
+        classes: 'cookie-banner-reject-button',
+        text: rejectAnalyticsCookies,
+        type: "button"
+      },
+      {
+        text: viewCookies,
+        href: "/cookies"
+      }
+    ]
     },
     {
+      classes: 'cookie-banner-accept-message',
       html: acceptHtml,
       role: "alert",
-      classes: 'cookie-banner-accept-message',
       hidden: true,
       actions: [
-        {
-          classes: 'cookie-banner-hide-button',
-          text: hideMessage
-        }
-      ]
+      {
+        classes: 'cookie-banner-hide-button',
+        text: hideMessage
+      }
+    ]
     },
     {
       classes: 'cookie-banner-reject-message',
@@ -57,11 +57,11 @@
       role: "alert",
       hidden: true,
       actions: [
-        {
-          classes: 'cookie-banner-hide-button',
-          text: hideMessage
-        }
-      ]
+      {
+        classes: 'cookie-banner-hide-button',
+        text: hideMessage
+      }
+    ]
     }
   ]
 }) }}

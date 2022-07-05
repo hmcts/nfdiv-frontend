@@ -1,9 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { YesOrNo } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
+import { currentStateFn } from '../../../state-sequence';
+
+import { getJointHubTemplate } from './jointTemplateSelector';
 
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
@@ -206,8 +209,15 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
   const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
+  const displayState = currentStateFn(content.userCase).at(
+    (content.userCase.state === State.OfflineDocumentReceived
+      ? content.userCase.previousState
+      : content.userCase.state) as State
+  );
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
+    displayState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
     partnerSubmissionOverdue,
@@ -215,5 +225,6 @@ export const generateContent: TranslationFn = content => {
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
     cannotUploadDocuments,
+    theLatestUpdateTemplate,
   };
 };

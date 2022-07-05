@@ -2,11 +2,10 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ConditionalOrderCourt, State, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { formattedCaseId } from '../../common/content.utils';
-import { currentStateFn } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -129,14 +128,10 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
-  const displayState = currentStateFn(userCase).at(
-    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
-  );
   return {
     ...languages[content.language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
-    displayState,
     isCoFieldsSet,
   };
 };

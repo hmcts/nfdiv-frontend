@@ -52,6 +52,10 @@ Given('I create a new user and login', async () => {
   await login('citizenSingleton');
 });
 
+Given('I create a new user and login as applicant 2', async () => {
+  await login('citizenApplicant2');
+});
+
 Given('I login with applicant {string}', async (applicant: string) => {
   autoLogin.login(I, testConfig.GetUser(parseInt(applicant)).username);
 });

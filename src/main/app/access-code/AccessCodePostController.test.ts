@@ -58,6 +58,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
@@ -103,6 +106,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
@@ -113,6 +119,53 @@ describe('AccessCodePostController', () => {
       '1234123412341234',
       {
         accessCode: 'QWERTY78',
+        caseReference: '1234123412341234',
+        applicant2Email: 'test@example.com',
+        respondentUserId: '123456',
+      },
+      SYSTEM_LINK_APPLICANT_2
+    );
+    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('Assert access code with whitespaces and lowercase characters is valid', async () => {
+    const body = { accessCode: '  Qwer TY 78  ', caseReference: '1234123412341234' };
+    const controller = new AccessCodePostController(mockFormContent.fields);
+
+    const caseData = {
+      accessCode: '  Qwer TY 78  ',
+      caseReference: '1234123412341234',
+      applicationType: ApplicationType.SOLE_APPLICATION,
+    };
+
+    const req = mockRequest({ body });
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(() => {
+        return {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      getCaseById: jest.fn(() => {
+        return {
+          accessCode: 'QWERTY78',
+          caseReference: '1234123412341234',
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
+    });
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234123412341234',
+      {
+        accessCode: '  Qwer TY 78  ',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
         respondentUserId: '123456',
@@ -137,6 +190,9 @@ describe('AccessCodePostController', () => {
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
     });
     const res = mockResponse();
     await controller.post(req, res);
@@ -148,6 +204,7 @@ describe('AccessCodePostController', () => {
         propertyName: 'accessCode',
       },
     ]);
+    expect(req.locals.logger.error).toBeCalled();
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
@@ -159,6 +216,9 @@ describe('AccessCodePostController', () => {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => {
         throw Error;
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();
@@ -188,6 +248,9 @@ describe('AccessCodePostController', () => {
           caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
       }),
     });
     const res = mockResponse();

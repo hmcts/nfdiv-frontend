@@ -9,17 +9,25 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
   <p class="govuk-body"><a class="govuk-link" href={{respondentAnswersDownload.link}}
    download={{respondentAnswersDownload.reference}}>{{respondentAnswersDownload.text}}</a></p>
 {% endif %}
+
 {% if hasCertificateOfService %}
   <p class="govuk-body"><a class="govuk-link" href={{certificateOfServiceDownload.link}}
    download={{certificateOfServiceDownload.reference}}>{{certificateOfServiceDownload.text}}</a></p>
 {% endif %}
+
 {% if hasCertificateOfDeemedOrDispensedService %}
   <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedDownload.link}}
    download={{deemedOrDispensedDownload.reference}}>{{deemedOrDispensedDownload.text}}</a></p>
 {% endif %}
+
 {% if hasCertificateOfEntitlement %}
   <p class="govuk-body"><a class="govuk-link" href={{certificateOfEntitlementDownload.link}}
    download={{certificateOfEntitlementDownload.reference}}>{{certificateOfEntitlementDownload.text}}</a></p>
+{% endif %}
+
+{% if hasConditionalOrderAnswers %}
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
+   download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>

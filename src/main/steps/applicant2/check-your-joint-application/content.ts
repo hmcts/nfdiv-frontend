@@ -22,8 +22,24 @@ const en = ({ checkTheirAnswersPartner, required }) => ({
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy = ({ partner, required }) => ({
+  title: `Gwiriwch atebion eich ${partner}`,
+  line1: `Dyma’r wybodaeth wnaeth eich ${partner} ddarparu ar gyfer eich cais ar y cyd. Gwiriwch i wneud yn siŵr ei bod yn gywir.`,
+  detailsCorrect: `A yw’r wybodaeth wnaeth eich ${partner} ei darparu yn gywir?`,
+  detailsCorrectHint: `Os ydych yn dewis nac ydy, bydd eich ${partner} yn cael gwybod a gofynnir iddo ei newid.`,
+  explainWhyIncorrect: `Esboniwch beth sy’n anghywir neu sydd angen cael ei newid. Bydd eich ateb yn cael ei anfon at eich ${partner}.`,
+  continue: 'Parhau',
+  yes: 'Ydy',
+  no: 'Nac ydy',
+  errors: {
+    applicant2Confirmation: {
+      required,
+    },
+    applicant2Explanation: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

@@ -38,8 +38,13 @@ export class AccessCodePostController {
         formData.applicant2LastNames = req.session.user.familyName;
       }
 
-      if (caseData.accessCode !== formData.accessCode) {
+      if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        req.locals.logger.error(
+          `Invalid access code for case id: "${caseReference}" (form), ${caseData.id} (retrieved) with ${
+            caseData.accessCode ? '' : 'un'
+          }defined retrieved access code`
+        );
       }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
@@ -52,11 +57,16 @@ export class AccessCodePostController {
           formData,
           SYSTEM_LINK_APPLICANT_2
         );
+
         req.session.isApplicant2 = true;
       } catch (err) {
         req.locals.logger.error('Error linking applicant 2/respondent to joint application', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
+    }
+
+    if (req.session.errors.length === 0) {
+      await req.locals.api.unlinkStaleDraftCaseIfFound(res.locals.serviceType, req.session.user);
     }
 
     const nextStep =

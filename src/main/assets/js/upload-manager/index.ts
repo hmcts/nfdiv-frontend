@@ -18,9 +18,10 @@ const initUploadManager = (): void => {
   const url = DOCUMENT_MANAGER;
   const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value;
   const csrfQuery = `?_csrf=${csrfToken}`;
+  const language = document.documentElement.lang;
   location.hash = '';
 
-  const chooseFilePhoto = 'Choose a file';
+  const chooseFilePhoto = language === 'cy' ? 'Dewiswch ffeil' : 'Choose a file';
 
   const uppy = new Uppy({
     restrictions: {

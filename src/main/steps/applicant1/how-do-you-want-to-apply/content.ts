@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
-  title: `How do you want to apply ${isDivorce ? 'for the divorce?' : 'to end your civil partnership?'}`,
+  title: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
   line1: `You can apply ${
     isDivorce ? 'for the divorce' : 'to end your civil partnership'
   } on your own (as a ‘sole applicant’) or with your ${partner} (in a ‘joint application’).`,
@@ -28,8 +28,29 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-//TODO Translation
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+  title: `Sut ydych chi eisiau gwneud cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"}?`,
+  line1: `Gallwch wneud cais ${
+    isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+  } ar eich pen eich hun (fel 'unig ymgeisydd') neu gyda'ch ${partner} (mewn 'cais ar y cyd').`,
+  subHeading1: 'Gwneud cais fel unig ymgeisydd',
+  line2: `Os ydych yn gwneud cais fel unig ymgeisydd, bydd eich ${partner} yn ymateb i’ch ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  } ar ôl i chi ei gyflwyno. Byddwch yn gwneud cais ar eich pen eich hun.`,
+  subHeading2: `Gwneud cais ar y cyd, gyda’ch ${partner}`,
+  line3: `Os ydych yn gwneud cais ar y cyd, bydd eich ${partner} yn ymuno ac yn adolygu’r cais hwn ar-lein cyn iddo gael ei gyflwyno. Byddwch yn gwneud cais gyda’ch gilydd.`,
+  line4:
+    'Fe ymdrinnir â sut byddwch yn rhannu eich arian a’ch eiddo ar wahân. Ni ddylai effeithio ar eich penderfyniad ynghylch p’un a fyddwch yn gwneud cais unigol neu gais ar y cyd. ',
+  line5: `Rydych wedi gwneud cais am Help i dalu Ffioedd. Os byddwch yn dewis gwneud cais ar y cyd, yna rhaid i’ch ${partner} hefyd wneud cais a bod yn gymwys i gael Help i dalu Ffioedd. Os nad ydynt yn gymwys neu os nad ydynt yn gwneud cais, yna gofynnir i chi dalu'r ffi ymgeisio lawn. Mewn cais unigol, dim ond chi fydd angen gwneud cais.`,
+  soleApplication: 'Rwyf eisiau gwneud cais ar fy mhen fy hun, fel unig ymgeisydd',
+  jointApplication: `Rwyf eisiau gwneud cais ar y cyd, gyda fy ${partner}`,
+  discussWithPartner: `Dylech fod wedi trafod hyn eisoes gyda'ch ${partner}`,
+  errors: {
+    applicationType: {
+      required: 'Nid ydych wedi ateb y cwestiwn. Mae angen ichi ymateb cyn y gallwch barhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
