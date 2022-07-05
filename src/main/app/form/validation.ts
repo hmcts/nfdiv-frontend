@@ -138,7 +138,7 @@ export const isValidCaseReference: Validator = value => {
 };
 
 export const isValidAccessCode: Validator = value => {
-  if ((value as string).trim().length !== 8) {
+  if ((value as string).replace(/\s/g, '').length !== 8) {
     return 'invalid';
   }
 };
