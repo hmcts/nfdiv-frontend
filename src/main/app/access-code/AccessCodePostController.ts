@@ -20,7 +20,8 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    req.locals.api = getCaseApi(await getSystemUser(), req.locals.logger);
+    const caseworkerUser = await getSystemUser();
+    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
@@ -37,8 +38,13 @@ export class AccessCodePostController {
         formData.applicant2LastNames = req.session.user.familyName;
       }
 
-      if (caseData.accessCode !== formData.accessCode) {
+      if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        req.locals.logger.error(
+          `Invalid access code for case id: "${caseReference}" (form), ${caseData.id} (retrieved) with ${
+            caseData.accessCode ? '' : 'un'
+          }defined retrieved access code`
+        );
       }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
