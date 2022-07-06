@@ -245,6 +245,11 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual(undefined);
     });
 
+    test('Should accept valid access code with whitespaces', async () => {
+      const isValid = isValidAccessCode('QW E RTY45 ');
+      expect(isValid).toStrictEqual(undefined);
+    });
+
     test('Should reject invalid access code', async () => {
       const isValid = isValidAccessCode('QWERTY');
       expect(isValid).toStrictEqual('invalid');
