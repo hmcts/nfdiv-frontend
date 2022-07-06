@@ -114,7 +114,9 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
     courtsComments: 'The court’s comments',
-    coRefusalClarificationAdditionalInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+    coRefusalClarificationAdditionalInfo: userCase.coRefusalClarificationAdditionalInfo
+      ? `"${userCase.coRefusalClarificationAdditionalInfo}"`
+      : '',
     bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
     line3: {
       part1: 'You can download a copy of the court’s full ',
