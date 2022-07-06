@@ -17,8 +17,8 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   This will cost you ${getFee(config.get('fees.d8bFormSubmission'))}, unless you are eligible for Help With Fees.`,
   readMore: 'Find out more about Help With Fees',
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
-  helpPayingWhen: ['is on certain benefits', 'has a little or no savings', 'has low income'],
-  line2: `You will have until ${dayjs(userCase.issueDate)
+  helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
+  line2: `You have until ${dayjs(userCase.issueDate)
     .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
     .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
@@ -26,7 +26,7 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   }.`,
   line3: `The only valid reasons for disputing the ${
     isDivorce ? 'divorce' : 'ending of your civil partnership'
-  } are because (one or both of the following):`,
+  } are because (one or more of the following):`,
   point1: `you do not believe the courts of England and Wales have the legal power (jurisdiction) to grant the
   ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   point2: `you do not believe your ${isDivorce ? 'marriage' : 'civil partnership'} is legally valid. For example,
