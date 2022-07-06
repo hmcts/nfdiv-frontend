@@ -3,7 +3,7 @@
 {% for property, line in awaitingAos %}
   <p class="govuk-body">{{ line }}</p>
   {{ govukButton({
-    text: 'Respond to the application',
+    text: respondToTheApplication,
     href: '/respondent/review-the-application',
     preventDoubleClick: true
   }) }}

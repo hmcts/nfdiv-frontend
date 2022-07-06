@@ -9,16 +9,16 @@
 {% else %}
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
-    <a class="govuk-link" href={{deemedOrDispensedAccepted.downloadReference}}
+    <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
       download="Certificate-of-Service">
-      {{deemedOrDispensedAccepted.line1}}</a>
+      {{ deemedOrDispensedAccepted.line1 }}</a>
     </p>
 
   {% elif isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
-      <a class="govuk-link" href={{servedByBailiff.downloadReference}}
+      <a class="govuk-link" href={{ servedByBailiff.downloadReference }}
       download="Certificate-of-Service">
-      {{servedByBailiff.line1}}</a>
+      {{ servedByBailiff.line2 }}</a>
     </p>
 
   {% else %}

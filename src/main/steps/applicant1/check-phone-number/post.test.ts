@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import {
   CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
   CITIZEN_UPDATE,
   CITIZEN_UPDATE_CONTACT_DETAILS,
   State,
@@ -16,6 +17,7 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     fields: {
       applicant1PhoneNumber: {},
       applicant1AddressPrivate: {},
+      applicant2PhoneNumber: {},
       state: {},
     },
   } as unknown as FormContent;
@@ -84,5 +86,20 @@ describe('CitizenUpdateContactDetailsPostController', () => {
     await citizenUpdateContactDetailsPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE_CONTACT_DETAILS);
+  });
+
+  it('triggers CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS for Applicant 2 and cases not in Draft, AwaitingApplicant1Response or AwaitingApplicant2Response state', async () => {
+    const body = {
+      applicant2PhoneNumber: YesOrNo.YES,
+    };
+    const citizenUpdateContactDetailsPostController = new CitizenUpdateContactDetailsPostController(
+      mockFormContent.fields
+    );
+
+    const req = mockRequest({ body, session: { isApplicant2: true } });
+    const res = mockResponse();
+    await citizenUpdateContactDetailsPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS);
   });
 });
