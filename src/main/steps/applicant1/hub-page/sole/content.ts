@@ -163,9 +163,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       }. You cannot apply for a final order until 6 weeks after the conditional order.`,
     },
   },
-  moneyAndProperty: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Find out about dividing money and property</a>`,
+  moneyAndProperty: {
+    part1: `You can use the time to decide how your money and property will be divided. This is dealt with separately to the ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }. `,
+    part2: 'Find out more about dividing money and property',
+    link: config.get('govukUrls.moneyAndProperty'),
+  },
   finalOrderRequested: {
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
@@ -234,7 +238,238 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
 });
 
 // @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = (
+  { isDivorce, partner, userCase }: CommonContent,
+  alternativeServiceType: AlternativeServiceType
+) => ({
+  aosAwaitingOrDrafted: {
+    line1: `Mae eich cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    } wedi'i gyflwyno a'i wirio gan staff y llys. Mae wedi cael ei ‘gyflwyno’ (ei anfon) at eich ${partner}${
+      userCase.applicant2EmailAddress
+        ? ' drwy e-bost'
+        : userCase.applicant1KnowsApplicant2Address === YesOrNo.YES
+        ? " drwy'r post"
+        : ''
+    }.`,
+    line2: `Dylai eich ${partner} ymateb i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
+    } erbyn ${userCase.dueDate}.`,
+    line3:
+      "Byddwch yn cael eich hysbysu drwy e-bost pan fyddant wedi ymateb. Neu cewch wybod beth i’w wneud nesaf os nad ydyn nhw'n ymateb.",
+  },
+  aosDue: {
+    line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
+    } erbyn ${
+      userCase.dueDate
+    }. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
+    line2: `Os nad ydych yn credu y byddant yn ymateb yna gallwch <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">weld yr opsiynau ar gyfer bwrw ymlaen â'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }</a>.`,
+  },
+  holding: {
+    line1: `Mae eich ${partner} wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">lawrlwytho a darllen eu hymateb (PDF)</a>.`,
+    line2: `Y cam nesaf yw i chi wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    line3: `Gallwch wneud cais am orchymyn amodol ar ${dayjs(userCase.issueDate)
+      .add(config.get('dates.issueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}. Y rheswm am hyn yw bod yn rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } Byddwch yn cael e-bost i'ch atgoffa.`,
+  },
+  holdingAndDeemedOrDispensedAccepted: `Your application ${
+    alternativeServiceType === AlternativeServiceType.DISPENSED ? 'to dispense with' : 'for deemed'
+  } service was granted. You can`,
+  deemedOrDispensedAccepted: {
+    line1: `lawrlwytho'r gorchymyn llys sy'n caniatáu eich cais am gyflwyno ${
+      alternativeServiceType === AlternativeServiceType.DISPENSED ? 'hepgor cyflwyno’r cais' : 'tybiedig'
+    }`,
+    downloadReference: `/downloads/${
+      alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
+    }`,
+  },
+  d8Awaiting: {
+    line1: `Mae eich ${partner} wedi ymateb i'ch cais ac wedi dweud eu bod eisiau amddiffyn y ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    }. Mae hyn yn golygu eu bod am geisio atal ${
+      isDivorce ? 'y cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">ddarllen eu hymateb yma</a>.`,
+    line2: `Rhaid iddynt gyflwyno 'ateb' i'r llys erbyn ${dayjs(userCase.issueDate)
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}. Ffurflen yw hon sy'n esbonio eu rhesymau dros amddiffyn y ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    }.`,
+    line3: `Os byddant yn cyflwyno'r 'ateb' yna bydd barnwr yn penderfynu sut i fwrw ymlaen. Os na fyddant yn cyflwyno'r ffurflen mewn pryd, yna byddwch yn gallu bwrw ymlaen â'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
+  d8Submitted: {
+    line1: `Mae eich ${partner} wedi ymateb i'ch cais ac wedi dweud eu bod eisiau amddiffyn y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. Mae hyn yn golygu eu bod eisiau ceisio atal y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">ddarllen eu hymateb yma</a>.`,
+    line2: `Maent wedi cyflwyno eu 'hateb'. Dyma'r ffurflen sy'n esbonio eu rhesymau dros amddiffyn y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    line3: `Bydd barnwr yn penderfynu a oes angen i chi a'ch ${partner} fynychu gwrandawiad. Efallai y cysylltir â chi i gael rhagor o wybodaeth i'w helpu i wneud penderfyniad.`,
+    line4:
+      "Byddwch yn derbyn llythyr yn y post yn dweud wrthych a oes angen i chi ddod i'r gwrandawiad, a ble y bydd hynny yn digwydd.",
+  },
+  servedByBailiff: {
+    line1: `Mae'r llys wedi gweld tystiolaeth bod eich ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } wedi cael ei 'gyflwyno' (ei anfon) yn llwyddiannus at eich ${partner}. Gallwch `,
+    line2: "weld a lawrlwytho eich 'tystysgrif cyflwyno'.",
+    downloadReference: '/downloads/certificate-of-service',
+  },
+  awaitingConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+    isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+  }.`,
+  awaitingConditionalOrderAndServedByBailiff: {
+    line1: `Mae'r llys wedi gweld tystiolaeth bod dogfennau'r llys wedi'u ‘cyflwyno’ (wedi'u danfon) yn llwyddiannus i'ch ${partner}. Gallwch`,
+    line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
+  },
+  conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
+   Mae hyn oherwydd na wnaethant ymateb i'ch cais. Gwnaethoch gais i'r llys am ${
+     alternativeServiceType === AlternativeServiceType.DISPENSED ? 'gyflwyno tybiedig' : 'i hepgor cyflwyno’r cais'
+   }, a gafodd ei gadarnhau. Gallwch `,
+  legalAdvisorReferral: {
+    line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${dayjs(
+      userCase.coApplicant1SubmittedDate
+    )
+      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
+      .format(
+        'D MMMM YYYY'
+      )} ar ôl i'ch cais gael ei wirio. Bydd hyn yn cael yr amser, y dyddiad a'r llys y bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
+    line2:
+      "Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, yna mae'n rhaid i chi  wneud cais am 'orchymyn terfynol'. Bydd hyn yn cadarnhau eich ysgariad. " +
+      "Mae'n rhaid i chi  aros 6 wythnos tan ar ôl eich gorchymyn amodol, i wneud cais am y gorchymyn terfynol.",
+  },
+  clarificationSubmitted: {
+    line1: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} ar ôl i'r llys ei adolygu.`,
+    },
+    withoutDocuments: {
+      line1: "Mae angen i chi bostio'r dogfennau y mae'r llys yn gofyn amdanynt:",
+      line3: "Byddwch yn cael diweddariad pan fydd eich dogfennau wedi dod i law a'u gwirio.",
+    },
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for a final order',
+    buttonLink: FINALISING_YOUR_APPLICATION,
+  },
+  readMore: 'Darllenwch fwy am y camau nesaf',
+  readMoreSummary: `Mae'n rhaid i chi  gwblhau 2 gam arall cyn ${
+    isDivorce ? 'i chi fod wedi ysgaru’n gyfreithiol' : 'fod eich partneriaeth sifil wedi dod i ben yn gyfreithiol'
+  }:`,
+  readMoreSteps: {
+    step1: {
+      heading: 'Gwneud cais am orchymyn amodol',
+      body: `Mae hyn yn dangos bod y llys yn cytuno bod gennych hawl i ${
+        isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+      }.`,
+    },
+    step2: {
+      heading: 'Gwneud cais am orchymyn terfynol',
+      body: `Mae hyn yn dod â’r ${
+        isDivorce ? 'briodas' : 'partneriaeth sifil'
+      } i ben yn gyfreithiol. Ni allwch wneud cais am orchymyn terfynol tan 6 wythnos ar ôl y gorchymyn amodol.`,
+    },
+  },
+  moneyAndProperty: {
+    part1: `Gallwch ddefnyddio'r amser i benderfynu sut y bydd eich arian a'ch eiddo yn cael eu rhannu. Ymdrinnir â hyn ar wahân i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. `,
+    part2: 'Rhagor o wybodaeth am rannu arian ac eiddo',
+    link: config.get('govukUrls.moneyAndProperty'),
+  },
+  finalOrderRequested: {
+    line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
+    line2: `If there are no other applications that need to be completed then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+    line3: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+            .format('D MMMM YYYY')}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
+  },
+  awaitingServiceConsiderationOrBailiffReferral: {
+    line1:
+      'Mae eich cais wedi dod i law a bydd yn cael ei adolygu gan farnwr. Byddwch yn cael e-bost yn dweud wrthych a yw eich cais wedi bod yn llwyddiannus ai peidio.',
+  },
+  serviceApplicationRejected: {
+    line1: {
+      part1: `Mae'r llys wedi gwrthod eich cais i ${
+        alternativeServiceType === AlternativeServiceType.BAILIFF
+          ? 'am wasanaeth beili'
+          : alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'cyflwyno tybiedig'
+          : 'hepgor cyflwyno’r cais'
+      }. Gallwch ddarllen y rhesymau ar `,
+      part2: 'Orchymyn Gwrthod y llys (PDF)',
+      downloadReference: 'Refusal-Order',
+      link: `/downloads/${
+        alternativeServiceType === AlternativeServiceType.BAILIFF
+          ? 'bailiff-service-refused'
+          : alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'dispense-with-service-refused'
+      }`,
+    },
+    line2: {
+      part1: 'Rhagor o wybodaeth am y ',
+      part2: `ffyrdd eraill y gallwch symud ymlaen â'ch ${
+        isDivorce ? 'cais am ysgariad' : "cais ddod â'ch partneriaeth sifil i ben"
+      }.`,
+      link: HOW_YOU_CAN_PROCEED,
+    },
+  },
+  bailiffServiceUnsuccessful: {
+    line1: `Ceisiodd beili'r llys 'gyflwyno' ${
+      isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
+    } yn y cyfeiriad a ddarparwyd gennych. Yn anffodus, ni lwyddodd y beili i wneud hyn ac felly nid yw eich ${partner} wedi cael y papurau.`,
+    line2: {
+      part1: 'Darllenwch ',
+      part2: 'dystysgrif y gwasanaeth beili',
+      part3: ', i weld beth allwch chi ei wneud nesaf.',
+      downloadReference: 'Bailiff-certificate',
+      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    },
+  },
+  awaitingBailiffService: {
+    line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
+      isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
+    } yn y cyfeiriad a ddarparwyd gennych. Byddwch yn cael hysbysiad arall pan fydd y beili wedi ceisio cyflwyno'r papurau.`,
+    line2: {
+      part1: 'Lawrlwythwch a ',
+      part2: "darllenwch eich ‘cais am wasanaeth beili a gymeradwywyd'",
+      downloadReference: 'Bailiff-service-application-approval',
+      link: '/downloads/bailiff-service',
+    },
+  },
+});
 
 const languages = {
   en,
