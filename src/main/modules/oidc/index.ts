@@ -89,12 +89,12 @@ export class OidcMiddleware {
         req.session.inviteCaseId = newUserCase.id;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
-          res.redirect(EXISTING_APPLICATION);
+          return res.redirect(EXISTING_APPLICATION);
         }
       } else if (newUserCase) {
         req.session.inviteCaseId = newUserCase.id;
         if (!isLinkingUrl(req.path)) {
-          res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
+          return res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
         }
       } else {
         req.session.userCase =

@@ -4,6 +4,11 @@ import { isFieldFilledIn } from '../../app/form/validation';
 import { CommonContent } from '../common/common.content';
 import { formattedCaseId } from '../common/content.utils';
 
+export enum existingOrNew {
+  Existing = 'existing',
+  New = 'new',
+}
+
 const en = ({ isDivorce, partner, isJointApplication, required, existingCaseId }) => {
   const respondJoin = `${isJointApplication ? 'respond to' : 'join'}`;
   return {
@@ -35,8 +40,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.newApplication, value: 'new', warning: l => l.newSelected },
-        { label: l => l.existingApplication, value: 'existing', warning: l => l.existingSelected },
+        { label: l => l.newApplication, value: existingOrNew.New, warning: l => l.newSelected },
+        { label: l => l.existingApplication, value: existingOrNew.Existing, warning: l => l.existingSelected },
       ],
       validator: value => isFieldFilledIn(value),
     },

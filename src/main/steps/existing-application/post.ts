@@ -7,6 +7,8 @@ import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
+import { existingOrNew } from './content';
+
 @autobind
 export class ExistingApplicationPostController extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -21,7 +23,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       req.session.errors = form.getErrors(formData);
       if (req.session.errors.length === 0) {
         try {
-          if (formData.existingOrNewApplication === 'existing') {
+          if (formData.existingOrNewApplication === existingOrNew.Existing) {
             await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
             req.session.userCase = await req.locals.api.getCaseById(req.session.existingCaseId);
