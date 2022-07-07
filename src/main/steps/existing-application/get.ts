@@ -4,6 +4,6 @@ import { generateContent } from './content';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {
-    super(`${__dirname}/../common/template`, generateContent);
+    super(__dirname + '/template.njk', generateContent);
   }
 }

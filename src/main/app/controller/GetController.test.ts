@@ -67,6 +67,7 @@ describe('GetController', () => {
         htmlLang: 'cy',
         userCase: req.session.userCase,
         userEmail,
+        existingCaseId: req.session.existingCaseId,
       });
     });
 
@@ -87,6 +88,7 @@ describe('GetController', () => {
         htmlLang: 'cy',
         userCase: req.session.userCase,
         userEmail,
+        existingCaseId: req.session.existingCaseId,
       });
     });
 
@@ -107,6 +109,7 @@ describe('GetController', () => {
         htmlLang: 'cy',
         userCase: req.session.userCase,
         userEmail,
+        existingCaseId: req.session.existingCaseId,
       });
     });
   });
@@ -172,6 +175,7 @@ describe('GetController', () => {
         userCase: req.session.userCase,
         partner: 'spouse',
         userEmail,
+        existingCaseId: req.session.existingCaseId,
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -220,6 +224,7 @@ describe('GetController', () => {
             language,
             pageText: `something in ${language}`,
             userEmail,
+            existingCaseId: req.session.existingCaseId,
           });
         });
       });
