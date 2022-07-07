@@ -1,7 +1,7 @@
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn } from '../../../app/form/validation';
+import { isApplicant2EmailValid, isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,
@@ -71,7 +71,7 @@ export const form: FormContent = {
           return 'sameEmail';
         }
         if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
-          return isFieldFilledIn(value) || isEmailValid(value);
+          return isFieldFilledIn(value) || isApplicant2EmailValid(value as string, userCase.applicant1Email);
         } else if (value) {
           return 'incorrect';
         }
