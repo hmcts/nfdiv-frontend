@@ -18,10 +18,9 @@ const userDetails: UserDetails = {
 
 describe('CaseApi', () => {
   const mockApiClient = {
-    getLatestLinkedCase: jest.fn(),
-    getLatestCaseOrInvite: jest.fn(),
     getCaseById: jest.fn(),
     createCase: jest.fn(),
+    findExistingUserCases: jest.fn(),
     getCaseUserRoles: jest.fn(),
     sendEvent: jest.fn(),
   };
@@ -32,10 +31,9 @@ describe('CaseApi', () => {
   });
 
   afterEach(() => {
-    mockApiClient.getLatestLinkedCase.mockClear();
-    mockApiClient.getLatestCaseOrInvite.mockClear();
     mockApiClient.getCaseById.mockClear();
     mockApiClient.createCase.mockClear();
+    mockApiClient.findExistingUserCases.mockClear();
     mockApiClient.getCaseUserRoles.mockClear();
     mockApiClient.sendEvent.mockClear();
   });
@@ -43,54 +41,77 @@ describe('CaseApi', () => {
   const serviceType = DivorceOrDissolution.DIVORCE;
 
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
-    'Should return %s case data response',
+    'Should create a %s case',
     async caseType => {
-      const expectedCase = {
-        id: '1234',
-        state: State.Draft,
-        divorceOrDissolution: caseType,
-        applicationFeeOrderSummary: [{ test: 'fees' }],
-        payments: [{ test: 'payment' }],
-      };
-      mockApiClient.getLatestLinkedCase.mockResolvedValue(expectedCase);
+      const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: caseType };
+      mockApiClient.createCase.mockResolvedValue(createdCase);
 
       const userCase = await api.createCase(caseType, userDetails);
 
-      expect(userCase).toStrictEqual(expectedCase);
+      expect(userCase).toStrictEqual(createdCase);
     }
   );
 
-  test('Should throw error when case could not be retrieved', async () => {
-    mockApiClient.getLatestLinkedCase.mockRejectedValue(new Error('Case could not be retrieved.'));
-
-    await expect(api.createCase(serviceType, userDetails)).rejects.toThrow('Case could not be retrieved.');
-  });
-
-  test('Should create a case if one is not found', async () => {
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: 'divorce' };
-    mockApiClient.createCase.mockResolvedValue(createdCase);
-
-    const userCase = await api.createCase(serviceType, userDetails);
-
-    expect(userCase).toStrictEqual(createdCase);
-  });
-
   test('Should throw error when case could not be created', async () => {
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
     mockApiClient.createCase.mockRejectedValue(new Error('Case could not be created.'));
 
     await expect(api.createCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
   });
 
+  test('Should return case for caseId passed', async () => {
+    const expectedCase = { id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' };
+    mockApiClient.getCaseById.mockResolvedValue(expectedCase);
+
+    const actualCase = await api.getCaseById('1234');
+    expect(actualCase).toStrictEqual(expectedCase);
+  });
+
+  test('Should throw error when case could not be fetched', async () => {
+    mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+  });
+
+  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+    'Should return %s case data response',
+    async caseType => {
+      const userCase = [
+        {
+          id: '1234',
+          state: State.Draft,
+          case_data: {
+            divorceOrDissolution: caseType,
+            applicationFeeOrderSummary: [{ test: 'fees' }],
+            applicationPayments: [{ test: 'payment' }],
+          },
+        },
+      ];
+      mockApiClient.findExistingUserCases.mockResolvedValue(userCase);
+
+      const results = await api.getExistingUserCase(caseType);
+
+      expect(results).toStrictEqual({
+        id: '1234',
+        state: State.Draft,
+        divorceOrDissolution: caseType,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        payments: [{ test: 'payment' }],
+      });
+    }
+  );
+
+  test('Should throw error when case could not be retrieved', async () => {
+    mockApiClient.findExistingUserCases.mockRejectedValue(new Error('Case could not be retrieved.'));
+
+    await expect(api.getExistingUserCase(serviceType)).rejects.toThrow('Case could not be retrieved.');
+  });
+
   test('Should throw an error if in progress divorce case is found', async () => {
     const mockCase = { D8DivorceUnit: 'serviceCentre', state: 'AwaitingDecreeNisi' };
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(mockCase);
+    mockApiClient.findExistingUserCases.mockResolvedValue(mockCase);
 
     try {
-      await api.createCase(serviceType, userDetails);
+      await api.getExistingUserCase(serviceType);
     } catch (err) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(err instanceof InProgressDivorceCase).toBeTruthy();
@@ -101,27 +122,27 @@ describe('CaseApi', () => {
   });
 
   test('Should ignore incomplete divorce cases', async () => {
-    const mockDivCase = { D8DivorceUnit: 'serviceCentre', state: 'AwaitingPayment' };
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation(async caseType =>
+    const mockDivCase = [{ id: '1', state: 'AwaitingPayment', case_data: { D8DivorceUnit: 'serviceCentre' } }];
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    mockApiClient.findExistingUserCases.mockImplementation(async caseType =>
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.createCase(serviceType, userDetails);
+    const userCase = await api.getExistingUserCase(serviceType);
 
-    expect(userCase).toStrictEqual(mockCase);
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
   test('Should ignore divorce cases not assigned to the service center', async () => {
-    const mockDivCase = { D8DivorceUnit: 'BuryStEdmunds', state: 'AwaitingDecreeNisi' };
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation(async caseType =>
+    const mockDivCase = [{ id: '1', state: 'AwaitingDecreeNisi', case_data: { D8DivorceUnit: 'BuryStEdmunds' } }];
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    mockApiClient.findExistingUserCases.mockImplementation(async caseType =>
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.createCase(serviceType, userDetails);
+    const userCase = await api.getExistingUserCase(serviceType);
 
-    expect(userCase).toStrictEqual(mockCase);
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
   test('Should update case', async () => {
@@ -151,20 +172,6 @@ describe('CaseApi', () => {
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
 
     await expect(api.triggerEvent('not found', caseData, CITIZEN_UPDATE)).rejects.toThrow('Case could not be updated.');
-  });
-
-  test('Should return case for caseId passed', async () => {
-    const expectedCase = { id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' };
-    mockApiClient.getCaseById.mockResolvedValue(expectedCase);
-
-    const actualCase = await api.getCaseById('1234');
-    expect(actualCase).toStrictEqual(expectedCase);
-  });
-
-  test('Should throw error when case could not be fetched', async () => {
-    mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
-
-    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('isApplicant2() should return true if the case role contains applicant 2', async () => {

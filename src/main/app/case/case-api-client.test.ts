@@ -107,9 +107,11 @@ describe('CaseApi', () => {
       expect(userCases[0]).toStrictEqual({
         id: '1234',
         state: State.Draft,
-        divorceOrDissolution: serviceType,
-        applicationFeeOrderSummary: [{ test: 'fees' }],
-        payments: [{ test: 'payment' }],
+        case_data: {
+          divorceOrDissolution: serviceType,
+          applicationFeeOrderSummary: [{ test: 'fees' }],
+          applicationPayments: [{ test: 'payment' }],
+        },
       });
     }
   );
@@ -145,9 +147,11 @@ describe('CaseApi', () => {
     expect(userCases[0]).toStrictEqual({
       id: '1234',
       state: State.Draft,
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-      applicationFeeOrderSummary: [{ test: 'fees' }],
-      payments: [{ test: 'payment' }],
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        applicationPayments: [{ test: 'payment' }],
+      },
     });
   });
 
@@ -227,7 +231,9 @@ describe('CaseApi', () => {
     expect(userCases[0]).toStrictEqual({
       id: '1',
       state: State.Draft,
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      },
     });
   });
 

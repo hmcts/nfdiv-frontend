@@ -184,7 +184,7 @@ export type FormError = {
   errorType: string;
 };
 
-export interface CaseWithFormData extends CaseWithId {
+interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
   saveBeforeSessionTimeout?: string;
