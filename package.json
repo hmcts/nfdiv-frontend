@@ -40,7 +40,7 @@
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/nodejs-healthcheck": "^1.7.1",
-    "@hmcts/nodejs-logging": "^4.0.2",
+    "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^0.0.13",
     "@types/config": "^0.0.41",
     "@types/connect-redis": "^0.0.18",
