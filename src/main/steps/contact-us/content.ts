@@ -4,8 +4,9 @@ const en = () => ({
   title: 'Contact us',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = () => ({
+  title: 'Cysylltwch â ni',
+});
 
 const languages = {
   en,
