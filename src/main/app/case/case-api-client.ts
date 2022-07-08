@@ -138,10 +138,6 @@ export class CaseApiClient {
       this.logger.error('API Error', error.message);
     }
   }
-
-  public getLogger(): LoggerInstance {
-    return this.logger;
-  }
 }
 
 export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {

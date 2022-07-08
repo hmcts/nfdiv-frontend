@@ -116,7 +116,46 @@ describe('CaseApi', () => {
     }
   );
 
-  test('Should getLatestCaseOrInvite', async () => {
+  test('Should return DIVORCE caseType data response', async () => {
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        cases: [
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'divorce',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'dissolution',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+        ],
+      },
+    });
+
+    const userCases = await api.findExistingUserCases('DIVORCE', DivorceOrDissolution.DIVORCE);
+
+    expect(userCases[0]).toStrictEqual({
+      id: '1234',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        applicationPayments: [{ test: 'payment' }],
+      },
+    });
+  });
+
+  test('Should find users invite case', async () => {
     mockedAxios.post.mockResolvedValue({
       data: {
         cases: [
@@ -161,13 +200,26 @@ describe('CaseApi', () => {
         status: 500,
       },
       config: {
-        method: 'GET',
+        method: 'POST',
       },
     });
 
     await expect(api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
       'Case could not be retrieved.'
     );
+  });
+
+  test('Should return false case could not be retrieved and status code is 404', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 404,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    expect(await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).toStrictEqual(false);
   });
 
   test('Should create a case', async () => {

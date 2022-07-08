@@ -1,11 +1,14 @@
+import * as oidc from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, InProgressDivorceCase, getCaseApi } from './case-api';
-import { CaseApiClient } from './case-api-client';
+import * as caseApiClient from './case-api-client';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
+const getCaseApiClientMock = jest.spyOn(caseApiClient, 'getCaseApiClient');
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -20,6 +23,7 @@ describe('CaseApi', () => {
   const mockApiClient = {
     getCaseById: jest.fn(),
     createCase: jest.fn(),
+    findUserInviteCases: jest.fn(),
     findExistingUserCases: jest.fn(),
     getCaseUserRoles: jest.fn(),
     sendEvent: jest.fn(),
@@ -27,12 +31,13 @@ describe('CaseApi', () => {
 
   let api: CaseApi;
   beforeEach(() => {
-    api = new CaseApi(mockApiClient as unknown as CaseApiClient);
+    api = new CaseApi(mockApiClient as unknown as caseApiClient.CaseApiClient);
   });
 
   afterEach(() => {
     mockApiClient.getCaseById.mockClear();
     mockApiClient.createCase.mockClear();
+    mockApiClient.findUserInviteCases.mockClear();
     mockApiClient.findExistingUserCases.mockClear();
     mockApiClient.getCaseUserRoles.mockClear();
     mockApiClient.sendEvent.mockClear();
@@ -70,6 +75,43 @@ describe('CaseApi', () => {
     mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
 
     await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+  });
+
+  test('should return case data for new invite case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => mockCase),
+    });
+    const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
+    getSystemUserMock.mockClear();
+  });
+
+  test('should return false for if there is no invite case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => []),
+    });
+    const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual(false);
+    getSystemUserMock.mockClear();
   });
 
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
