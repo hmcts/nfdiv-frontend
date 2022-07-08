@@ -14,7 +14,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(this.fields as FormFields);
 
-    const { saveAndSignOut, saveBeforeSessionTimeout, ...formData } = form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     if (saveAndSignOut || saveBeforeSessionTimeout) {
       res.redirect(SAVE_AND_SIGN_OUT);
