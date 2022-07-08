@@ -106,7 +106,7 @@ describe('CaseApi', () => {
       roles: ['caseworker'],
     });
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
-      findUserInviteCases: jest.fn(() => []),
+      findUserInviteCases: jest.fn(() => false),
     });
     const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
 
@@ -149,7 +149,7 @@ describe('CaseApi', () => {
   });
 
   test('Should throw an error if in progress divorce case is found', async () => {
-    const mockCase = { D8DivorceUnit: 'serviceCentre', state: 'AwaitingDecreeNisi' };
+    const mockCase = [{ case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' }];
     mockApiClient.findExistingUserCases.mockResolvedValue(mockCase);
 
     try {

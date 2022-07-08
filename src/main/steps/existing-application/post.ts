@@ -27,10 +27,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
             await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
             req.session.userCase = await req.locals.api.getCaseById(req.session.existingCaseId);
+            req.session.isApplicant2 = await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id);
 
-            req.session.isApplicant2 =
-              req.session.isApplicant2 ??
-              (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
             nextUrl = HOME_URL;
           } else {
             nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;

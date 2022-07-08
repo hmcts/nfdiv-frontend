@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL } from '../urls';
+import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
 import { ExistingApplicationPostController } from './post';
@@ -16,6 +16,20 @@ describe('ExistingApplicationPostController', () => {
       },
     },
   } as unknown as FormContent;
+
+  test('Should redirect to the save and sign out page', async () => {
+    const body = {
+      saveAndSignOut: true,
+    };
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
+    await controller.post(req, res);
+
+    expect(res.redirect).toBeCalledWith(SAVE_AND_SIGN_OUT);
+  });
 
   test('Should have no errors and redirect to the access code page', async () => {
     const body = {
@@ -37,15 +51,17 @@ describe('ExistingApplicationPostController', () => {
     const body = {
       existingOrNewApplication: existingOrNew.Existing,
     };
-    const caseData = {
-      applicationType: ApplicationType.JOINT_APPLICATION,
-    };
 
     const req = mockRequest({ body });
     req.originalUrl = EXISTING_APPLICATION;
     req.session.existingCaseId = '1234';
     req.session.inviteCaseId = '5678';
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    const caseData = {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+      id: req.session.existingCaseId,
+    };
+    (req.locals.api.getCaseById as jest.Mock).mockResolvedValueOnce(caseData);
+    (req.locals.api.isApplicant2 as jest.Mock).mockResolvedValueOnce(true);
     const res = mockResponse();
 
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
@@ -53,6 +69,7 @@ describe('ExistingApplicationPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
     expect(req.locals.api.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
+    expect(req.locals.api.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
     expect(res.redirect).toBeCalledWith(HOME_URL);
     expect(req.session.errors).toStrictEqual([]);
   });

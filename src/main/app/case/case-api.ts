@@ -59,23 +59,25 @@ export class CaseApi {
   }
 
   private async hasInProgressDivorceCase(): Promise<boolean> {
-    const userCases = await this.apiClient.findExistingUserCases('DIVORCE', 'DIVORCE');
-    const divCase = this.getLatestUserCase(userCases);
-    const courtId = divCase && (divCase as unknown as Record<string, string>).D8DivorceUnit;
-    const states = [
-      'AwaitingPayment',
-      'AwaitingAmendCase',
-      'ServiceApplicationNotApproved',
-      'AwaitingAlternativeService',
-      'AwaitingProcessServerService',
-      'AwaitingDWPResponse',
-      'AosDrafted',
-      'AwaitingBailiffService',
-      'IssuedToBailiff',
-      'AwaitingServicePayment',
-    ];
+    const userCase = (await this.apiClient.findExistingUserCases('DIVORCE', 'DIVORCE'))[0];
+    if (userCase) {
+      const courtId = (userCase.case_data as unknown as Record<string, string>).D8DivorceUnit;
+      const states = [
+        'AwaitingPayment',
+        'AwaitingAmendCase',
+        'ServiceApplicationNotApproved',
+        'AwaitingAlternativeService',
+        'AwaitingProcessServerService',
+        'AwaitingDWPResponse',
+        'AosDrafted',
+        'AwaitingBailiffService',
+        'IssuedToBailiff',
+        'AwaitingServicePayment',
+      ];
 
-    return divCase && courtId === 'serviceCentre' && !states.includes(divCase.state);
+      return courtId === 'serviceCentre' && !states.includes(userCase.state);
+    }
+    return false;
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {

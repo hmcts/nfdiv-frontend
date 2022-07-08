@@ -18,6 +18,7 @@ export const mockRequest = ({
         triggerEvent: jest.fn(),
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
+        isApplicant2: jest.fn(),
       },
       logger: {
         info: jest.fn(),
