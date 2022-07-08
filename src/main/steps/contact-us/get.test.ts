@@ -6,7 +6,7 @@ import { generatePageContent } from '../common/common.content';
 import { generateContent } from './content';
 import { ContactUsGetController } from './get';
 
-describe('TermsAndConditionsGetController', () => {
+describe('ContactUsGetController', () => {
   const controller = new ContactUsGetController();
 
   test('Should render the contact us page', async () => {
