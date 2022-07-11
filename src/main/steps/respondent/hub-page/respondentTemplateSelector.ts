@@ -1,7 +1,12 @@
+import { CaseWithId } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
 import { StateSequence } from '../../state-sequence';
 
-export const getRespondentHubTemplate = (displayState: StateSequence, hasSubmittedAos: boolean): string | undefined => {
+export const getRespondentHubTemplate = (
+  displayState: StateSequence,
+  userCase: Partial<CaseWithId>,
+  hasSubmittedAos: boolean
+): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
       return '/final-order-requested.njk';
@@ -19,7 +24,11 @@ export const getRespondentHubTemplate = (displayState: StateSequence, hasSubmitt
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
     case State.AwaitingGeneralConsideration:
-      return '/awaiting-general-consideration.njk';
+      if (userCase.aosStatementOfTruth) {
+        return '/awaiting-general-consideration.njk';
+      } else {
+        return '/awaiting-aos.njk';
+      }
     case State.Holding:
       return '/holding.njk';
     default: {
