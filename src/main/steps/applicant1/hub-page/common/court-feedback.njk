@@ -1,3 +1,5 @@
+{% from "common/anchor-body.njk" import anchorBody %}
+
 {% for reason in awaitingClarification.coRefusalClarificationReasons %}
   {% set heading = reason + "ReasonHeading" %}
   {% set body = reason + "ReasonBody" %}

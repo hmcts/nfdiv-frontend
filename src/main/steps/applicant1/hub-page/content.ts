@@ -123,6 +123,21 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     buttonText: 'Respond to the court',
     buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
   },
+  clarificationSubmitted: {
+    withDocuments: {
+      youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      needToPost: `You ${
+        isJointApplication ? `or your ${partner}` : ''
+      } need to post the documents requested by the court:`,
+    },
+    thisWasCourtsFeedback: 'This was the court’s feedback, explaining what was needed:',
+  },
 });
 
 // @TODO translations
@@ -239,6 +254,21 @@ const cy: typeof en = ({
     line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
     buttonText: 'Respond to the court',
     buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+  },
+  clarificationSubmitted: {
+    withDocuments: {
+      youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} ar ôl i'r llys ei adolygu.`,
+    },
+    withoutDocuments: {
+      needToPost: `Mae angen i chi ${
+        isJointApplication ? `neu eich ${partner}` : ''
+      } bostio'r dogfennau y mae'r llys yn gofyn amdanynt:`,
+    },
+    thisWasCourtsFeedback: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
   },
 });
 
