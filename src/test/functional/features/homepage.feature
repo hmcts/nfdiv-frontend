@@ -1,7 +1,7 @@
 Feature: Homepage
 
   @nightly
-  Scenario: Test noSignInRequiredUrls
+  Scenario: Test pages that don't require sign in
     Given I go to "/contact-us"
     Then the page should include "0300 303 0642"
     When I click "Cookies"
