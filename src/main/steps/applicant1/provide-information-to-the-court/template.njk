@@ -39,12 +39,12 @@
   }) }}
 
   <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ courtsReasons }}</p>
   {{ govukInsetText({
-    text: line1
+    text: agreeYourResponse
   }) }}
-  <p class="govuk-body">{{ line2 }}</p>
-  <p class="govuk-body">{{ coAdditionalInfo }}</p>
-  <h4 class="govuk-heading-s">{{ subheading1 }}</h4>
+  {% include "applicant1/hub-page/common/court-feedback.njk" %}
+  <h2 class="govuk-heading-m">{{ subheading1 }}</h4>
 {% endblock %}
 
 {% block form %}

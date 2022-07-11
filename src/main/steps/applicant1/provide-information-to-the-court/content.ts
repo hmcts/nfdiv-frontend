@@ -3,14 +3,14 @@ import { isEmpty, isObject } from 'lodash';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { generateContent as hubPageContent } from '../../applicant1/hub-page/content';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 import { formattedCaseId } from '../../common/content.utils';
 
-const en = ({ partner, applicant1Content, userCase }) => ({
-  title: 'Respond to the court',
-  line1: `You should agree your response with your ${partner} before submitting it to the court.`,
-  line2: 'The court has made the following comments on your application:',
-  coAdditionalInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
+const en = ({ partner, applicant1Content }) => ({
+  title: 'Provide information to the court',
+  courtsReasons: 'Read the court’s reason(s) for refusing the application and provide the requested information.',
+  agreeYourResponse: `You should agree your response with your ${partner} before submitting it to the court.`,
   subheading1: 'Enter your response',
   response:
     'If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information.',
@@ -79,6 +79,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = uploadDocumentGenerateContent(content);
+  const { courtFeedback } = hubPageContent(content);
   const referenceNumber = formattedCaseId(content.userCase.id);
   const uploadedDocsFilenames = content.userCase.coClarificationUploadDocuments?.map(item => getFilename(item.value));
   const amendable = content.isClarificationAmendableState;
@@ -94,5 +95,6 @@ export const generateContent: TranslationFn = content => {
     amendable,
     uploadContentScript,
     referenceNumber,
+    courtFeedback,
   };
 };
