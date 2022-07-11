@@ -1,20 +1,20 @@
 {% from "common/anchor-body.njk" import anchorBody %}
 
-{% for reason in awaitingClarification.coRefusalClarificationReasons %}
+{% for reason in courtFeedback.coRefusalClarificationReasons %}
   {% set heading = reason + "ReasonHeading" %}
   {% set body = reason + "ReasonBody" %}
 
-  <h4 class="govuk-heading-s">{{ awaitingClarification[heading] }}</h4>
+  <h4 class="govuk-heading-s">{{ courtFeedback[heading] }}</h4>
 
-  {% if awaitingClarification[body] is mapping %}
-    {% set anchoredBody = anchorBody(awaitingClarification[body]) %}
+  {% if courtFeedback[body] is mapping %}
+    {% set anchoredBody = anchorBody(courtFeedback[body]) %}
     <p class="govuk-body">{{ anchoredBody }}</p>
   {% else %}
-    <p class="govuk-body">{{ awaitingClarification[body] }}</p>
+    <p class="govuk-body">{{ courtFeedback[body] }}</p>
   {% endif %}
 {% endfor %}
 
-{% if awaitingClarification.coRefusalClarificationAdditionalInfo %}
-  <h4 class="govuk-heading-s">{{ awaitingClarification.courtsComments }}</h4>
-  <p class="govuk-body">{{ awaitingClarification.coRefusalClarificationAdditionalInfo }}</p>
+{% if courtFeedback.coRefusalClarificationAdditionalInfo %}
+  <h4 class="govuk-heading-s">{{ courtFeedback.courtsComments }}</h4>
+  <p class="govuk-body">{{ courtFeedback.coRefusalClarificationAdditionalInfo }}</p>
 {% endif %}
