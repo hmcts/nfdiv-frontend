@@ -33,6 +33,7 @@ export const en = {
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
+  contactUs: 'Contact us',
   marriage: 'marriage',
   divorce: 'divorce',
   civilPartnership: 'civil partnership',
@@ -143,6 +144,7 @@ const cy: typeof en = {
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
+  contactUs: 'Cysylltwch â ni',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -183,9 +185,9 @@ const cy: typeof en = {
   sendUsAMessage: 'Anfonwch neges atom',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
-  openingTimesHeading: 'Opening times (webchat and telephone)',
-  openingTimes: 'Monday to Friday, 8am to 6pm',
-  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
+  openingTimesHeading: 'Opening times (webchat and telephone)', // todo
+  openingTimes: 'Dydd Llun i Ddydd Gwener, 8am - 6pm',
+  closingTimes: 'Closed on Saturdays, Sundays and bank holidays', // todo
 };
 
 export const generatePageContent = ({
