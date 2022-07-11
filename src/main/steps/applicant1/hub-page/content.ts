@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ClarificationReason, ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -77,11 +77,39 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     }.`,
   },
   awaitingClarification: {
-    line1: `The court has reviewed your application for a conditional order and needs some more information before
-    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
+    Read the court’s reason(s) for refusing the application and provide the requested information.`,
+    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
+      reason => reason !== ClarificationReason.OTHER
+    ),
+    jurisdictionDetailsReasonHeading: 'Jurisdiction',
+    jurisdictionDetailsReasonBody: {
+      part1:
+        'The court has judged that your application does not fall within the jurisdiction of England and Wales. You must have at least one legal connection to England and Wales. You can see all the possible legal connections on the ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    marriageCertTranslationReasonHeading: `A translation of your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate`,
+    marriageCertTranslationReasonBody: `The ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate must be translated and certified by a statement of truth or a notary public. You can find a translation service online which provides certification as part of their service. You will need to scan and upload this document or post it to the court.`,
+    marriageCertificateReasonHeading: `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+    marriageCertificateReasonBody: `The image of your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate does not appear to be scanned or show the full original. Provide a digital photo or scan of the original. The image must be of the whole document and include the serial or system number. It must be readable by court staff.`,
+    previousProceedingDetailsReasonHeading: 'Details of other legal proceedings',
+    previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
+    courtsComments: 'The court’s comments',
+    coRefusalClarificationAdditionalInfo: `${
+      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
+    }`,
     bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    courtsFeedback: 'The court’s feedback',
-    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
     line3: {
       part1: 'You can download a copy of the court’s full ',
       part2: 'Refusal Order (PDF)',
@@ -166,11 +194,39 @@ const cy: typeof en = ({
     }.`,
   },
   awaitingClarification: {
-    line1: `The court has reviewed your application for a conditional order and needs some more information before
-    they can progress your application. You need to read the court’s feedback and provide the information requested.`,
+    line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
+    Read the court’s reason(s) for refusing the application and provide the requested information.`,
+    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
+      reason => reason !== ClarificationReason.OTHER
+    ),
+    jurisdictionDetailsReasonHeading: 'Jurisdiction',
+    jurisdictionDetailsReasonBody: {
+      part1:
+        'The court has judged that your application does not fall within the jurisdiction of England and Wales. You must have at least one legal connection to England and Wales. You can see all the possible legal connections on the ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    marriageCertTranslationReasonHeading: `A translation of your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate`,
+    marriageCertTranslationReasonBody: `The ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate must be translated and certified by a statement of truth or a notary public. You can find a translation service online which provides certification as part of their service. You will need to scan and upload this document or post it to the court.`,
+    marriageCertificateReasonHeading: `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+    marriageCertificateReasonBody: `The image of your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate does not appear to be scanned or show the full original. Provide a digital photo or scan of the original. The image must be of the whole document and include the serial or system number. It must be readable by court staff.`,
+    previousProceedingDetailsReasonHeading: 'Details of other legal proceedings',
+    previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
+    courtsComments: 'The court’s comments',
+    coRefusalClarificationAdditionalInfo: `${
+      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
+    }`,
     bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    courtsFeedback: 'The court’s feedback',
-    line2: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
     line3: {
       part1: 'You can download a copy of the court’s full ',
       part2: 'Refusal Order (PDF)',
