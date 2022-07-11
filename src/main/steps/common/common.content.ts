@@ -111,7 +111,6 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
-  servicePhoneNo: '0300 303 0642',
 };
 
 const cy: typeof en = {

@@ -7,7 +7,7 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
-const en = ({ isDivorce, marriage, civilPartnership, partner, userCase }: CommonContent) => ({
+const en = ({ isDivorce, marriage, civilPartnership, partner, userCase, telephoneNumber }: CommonContent) => ({
   title: `How to proceed with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
   line1: `The court usually needs to hear from both parties in a ${
     isDivorce ? marriage : civilPartnership
@@ -33,6 +33,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, userCase }: Common
   dueDate: `${dayjs(userCase.issueDate)
     .add(config.get('dates.arrangeProcessServiceDays'), 'day')
     .format('D MMMM YYYY')}`,
+  telephoneNumber,
 });
 
 // @TODO translations

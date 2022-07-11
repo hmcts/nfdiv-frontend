@@ -1,0 +1,7 @@
+{% macro anchorBody(objectBody) %}
+  <p class="govuk-body">{{ objectBody.part1 }}
+    <a class="govuk-link" href={{ objectBody.link }}
+    download={{ objectBody.downloadReference }}>
+    {{ objectBody.part2 }}</a>{{ objectBody.part3 }}
+  </p>
+{% endmacro %}
