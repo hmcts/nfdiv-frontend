@@ -1,5 +1,14 @@
-<p class="govuk-body">{{ d8Submitted.line1 }}</p>
-<p class="govuk-body">{{ d8Submitted.line2 }}</p>
-<h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-<p class="govuk-body">{{ d8Submitted.line3 }}</p>
-<p class="govuk-body">{{ d8Submitted.line4 }}</p>
+{% if isDisputedApplication %}
+  <p class="govuk-body">{{ d8Submitted.line1 }}</p>
+  <p class="govuk-body">{{ d8Submitted.line2 }}</p>
+  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+  <p class="govuk-body">{{ d8Submitted.line3 }}</p>
+  <p class="govuk-body">{{ d8Submitted.line4 }}</p>
+  <p>here</p>
+{% else %}
+  <p class="govuk-body">{{ holding.line1 }}</p>
+  <p class="govuk-body">{{ holding.line2 }}</p>
+  <p class="govuk-body">{{ holding.line3 }}</p>
+  <p class="govuk-body">{{ holding.line4 }}</p>
+  <p class="govuk-body">{{ holding.line5 | safe }}</p>
+{% endif %}

@@ -342,7 +342,7 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
-  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, hasSubmittedAos);
+  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),

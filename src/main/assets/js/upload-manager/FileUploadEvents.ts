@@ -45,7 +45,7 @@ export class FileUploadEvents {
       return this.onError(uploadInfo.info![0]);
     }
 
-    location.hash = '#uploadGroup';
+    uploadGroupEl?.scrollIntoView({ block: 'center' });
     uploadProcessEl?.classList.remove('govuk-!-margin-top-5');
 
     uploadGroupEl?.classList.add('uploaded');
