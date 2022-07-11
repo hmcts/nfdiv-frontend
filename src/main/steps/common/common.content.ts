@@ -76,7 +76,9 @@ export const en = {
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  openingTimesHeading: 'Opening times (webchat and telephone)',
+  openingTimes: 'Monday to Friday, 8am to 6pm',
+  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:
@@ -101,8 +103,7 @@ export const en = {
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
-  helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
-  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 4:00pm.',
+  helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
@@ -182,7 +183,9 @@ const cy: typeof en = {
   sendUsAMessage: 'Anfonwch neges atom',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
-  telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  openingTimesHeading: 'Opening times (webchat and telephone)',
+  openingTimes: 'Monday to Friday, 8am to 6pm',
+  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
 };
 
 export const generatePageContent = ({
