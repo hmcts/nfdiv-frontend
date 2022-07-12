@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-05-26 11:00:41.
+// Generated using typescript-generator version 2.36.1070 on 2022-07-12 09:20:51.
 
 export interface Address {
   AddressLine1: string;
@@ -303,6 +303,7 @@ export interface Application {
   solServiceSpecifyLocationServed: string;
   solServiceServiceSotName: string;
   solServiceServiceSotFirm: string;
+  solServiceStatementOfTruth: YesOrNo;
   solServiceTruthStatement: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
@@ -514,6 +515,7 @@ export interface CaseData {
   solServiceSpecifyLocationServed: string;
   solServiceServiceSotName: string;
   solServiceServiceSotFirm: string;
+  solServiceStatementOfTruth: YesOrNo;
   solServiceTruthStatement: string;
   applicant1HWFReferenceNumber: string;
   applicant1HWFNeedHelp: YesOrNo;
@@ -630,6 +632,7 @@ export interface CaseData {
   coApplicant2StatementOfTruth: YesOrNo;
   coRespondentAnswersLink: Document;
   coOnlinePetitionLink: Document;
+  coLastAlternativeServiceDocumentLink: Document;
   coGranted: YesOrNo;
   coClaimsGranted: YesOrNo;
   coClaimsCostsOrderInformation: string;
@@ -652,6 +655,9 @@ export interface CaseData {
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coRefusalOrderDocument: Document;
+  coConditionalOrderGrantedDocument: DivorceDocument;
+  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
+  coClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -742,12 +748,13 @@ export interface CaseData {
   scannedDocuments: ListValue<ScannedDocument>[];
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
   scannedDocumentNames: DynamicList;
+  amendedApplications: ListValue<DivorceDocument>[];
   divorceUnit: Court;
   generalOrders: ListValue<DivorceGeneralOrder>[];
   dueDate: DateAsString;
   notes: ListValue<CaseNote>[];
   note: string;
-  bulkListCaseReference: string;
+  bulkListCaseReferenceLink: CaseLink;
   dataVersion: number;
   exampleRetiredField: string;
   previousCaseId: CaseLink;
@@ -757,6 +764,7 @@ export interface CaseData {
   solServiceMethod: ServiceMethod;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   d11Document: DivorceDocument;
+  bulkListCaseReference: string;
   hyphenatedCaseRef: string;
   nocWhichApplicant: WhichApplicant;
   nocAreTheyRepresented: YesOrNo;
@@ -807,12 +815,20 @@ export interface CaseDocuments {
   scannedDocuments: ListValue<ScannedDocument>[];
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
   scannedDocumentNames: DynamicList;
+  amendedApplications: ListValue<DivorceDocument>[];
 }
 
 export interface CaseInvite {
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
+}
+
+export interface ClarificationResponse {
+  clarificationDate: DateAsString;
+  clarificationResponses: ListValue<string>[];
+  clarificationUploadDocuments: ListValue<DivorceDocument>[];
+  cannotUploadClarificationDocuments: YesOrNo;
 }
 
 export interface ConditionalOrder {
@@ -844,6 +860,7 @@ export interface ConditionalOrder {
   Applicant2StatementOfTruth: YesOrNo;
   RespondentAnswersLink: Document;
   OnlinePetitionLink: Document;
+  LastAlternativeServiceDocumentLink: Document;
   Granted: YesOrNo;
   ClaimsGranted: YesOrNo;
   ClaimsCostsOrderInformation: string;
@@ -866,6 +883,9 @@ export interface ConditionalOrder {
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
   RefusalOrderDocument: Document;
+  ConditionalOrderGrantedDocument: DivorceDocument;
+  LegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
+  ClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
 }
 
 export interface ConditionalOrderQuestions {
@@ -1042,6 +1062,17 @@ export interface LabelContent {
   ApplicationType: ApplicationType;
 }
 
+export interface LegalAdvisorDecision {
+  granted: YesOrNo;
+  decisionDate: DateAsString;
+  refusalDecision: RefusalOption;
+  refusalClarificationReason: ClarificationReason[];
+  refusalClarificationAdditionalInfo: string;
+  refusalAdminErrorInfo: string;
+  refusalRejectionReason: RejectionReason[];
+  refusalRejectionAdditionalInfo: string;
+}
+
 export interface MarriageDetails {
   Applicant1Name: string;
   Applicant2Name: string;
@@ -1107,6 +1138,7 @@ export interface RetiredFields {
   solServiceMethod: ServiceMethod;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   d11Document: DivorceDocument;
+  bulkListCaseReference: string;
 }
 
 export interface Solicitor {
@@ -1132,6 +1164,7 @@ export interface SolicitorService {
   SpecifyLocationServed: string;
   ServiceSotName: string;
   ServiceSotFirm: string;
+  StatementOfTruth: YesOrNo;
   TruthStatement: string;
 }
 
@@ -2081,9 +2114,8 @@ export const CITIZEN_UPDATE = 'citizen-update-application';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
-export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
 export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CONFIRM_RECEIPT = 'confirm-receipt';
@@ -2091,6 +2123,7 @@ export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const UPDATE_AOS = 'update-aos';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
+export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const FINAL_ORDER_REQUESTED = 'final-order-requested';
@@ -2113,6 +2146,7 @@ export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_REMIND_APPLICANTS_APPLY_FOR_FINAL_ORDER = 'system-remind-applicants-final-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
+export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
@@ -2127,4 +2161,3 @@ export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
-export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
