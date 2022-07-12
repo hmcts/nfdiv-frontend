@@ -105,10 +105,9 @@ Feature: Sole hub page
     Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
     Given I set the case state to "AwaitingClarification"
-    And a superuser updates "coRefusalClarificationAdditionalInfo" with "Refusal reason test"
     Given I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "Refusal reason test"
+    Then the page should include "You need to provide some information before your application can progress."
     And the page should include "What you need to do now"
 
     Given I click 'Respond to the court'
