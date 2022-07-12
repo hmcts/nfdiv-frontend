@@ -1,6 +1,6 @@
 {% from "common/anchor-body.njk" import anchorBody %}
 
-{% for reason in courtFeedback.coRefusalClarificationReasons %}
+{% for reason in latestRefusalClarificationReasons %}
   {% set heading = reason + "ReasonHeading" %}
   {% set body = reason + "ReasonBody" %}
 
@@ -14,7 +14,7 @@
   {% endif %}
 {% endfor %}
 
-{% if courtFeedback.coRefusalClarificationAdditionalInfo %}
+{% if latestRefusalClarificationAdditionalInfo %}
   <h4 class="govuk-heading-s">{{ courtFeedback.courtsComments }}</h4>
-  <p class="govuk-body">{{ courtFeedback.coRefusalClarificationAdditionalInfo }}</p>
+  <p class="govuk-body">{{ latestRefusalClarificationAdditionalInfo }}</p>
 {% endif %}

@@ -3,7 +3,10 @@ import { isEmpty, isObject } from 'lodash';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { generateContent as hubPageContent } from '../../applicant1/hub-page/content';
+import {
+  generateContent as hubPageContent,
+  latestLegalAdvisorDecisionContent,
+} from '../../applicant1/hub-page/content';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 import { formattedCaseId } from '../../common/content.utils';
 
@@ -78,6 +81,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const { userCase } = content;
   const applicant1Content = uploadDocumentGenerateContent(content);
   const { courtFeedback } = hubPageContent(content);
   const referenceNumber = formattedCaseId(content.userCase.id);
@@ -96,5 +100,6 @@ export const generateContent: TranslationFn = content => {
     uploadContentScript,
     referenceNumber,
     courtFeedback,
+    ...latestLegalAdvisorDecisionContent(userCase),
   };
 };

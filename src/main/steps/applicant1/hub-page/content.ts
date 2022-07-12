@@ -2,7 +2,14 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ClarificationReason, ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import {
+  ClarificationReason,
+  ConditionalOrderCourt,
+  LegalAdvisorDecision,
+  ListValue,
+  birmingham,
+  buryStEdmunds,
+} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -109,9 +116,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     thisWasCourtsFeedback: 'This was the court’s feedback, explaining what was needed:',
   },
   courtFeedback: {
-    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
-      reason => reason !== ClarificationReason.OTHER
-    ),
     jurisdictionDetailsReasonHeading: 'Jurisdiction',
     jurisdictionDetailsReasonBody: {
       part1:
@@ -136,9 +140,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
     courtsComments: 'The court’s comments',
-    coRefusalClarificationAdditionalInfo: `${
-      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
-    }`,
   },
 });
 
@@ -243,9 +244,6 @@ const cy: typeof en = ({
     thisWasCourtsFeedback: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
   },
   courtFeedback: {
-    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
-      reason => reason !== ClarificationReason.OTHER
-    ),
     jurisdictionDetailsReasonHeading: 'Jurisdiction',
     jurisdictionDetailsReasonBody: {
       part1:
@@ -270,9 +268,6 @@ const cy: typeof en = ({
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
     courtsComments: 'The court’s comments',
-    coRefusalClarificationAdditionalInfo: `${
-      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
-    }`,
   },
 });
 
@@ -298,5 +293,21 @@ export const generateContent: TranslationFn = content => {
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
     isCoFieldsSet,
+    ...latestLegalAdvisorDecisionContent(userCase),
   };
+};
+
+export const latestLegalAdvisorDecisionContent = (userCase: Partial<CaseWithId>): Record<string, unknown> => {
+  const pastLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[] | undefined = userCase.coLegalAdvisorDecisions;
+  return pastLegalAdvisorDecisions
+    ? {
+        latestRefusalClarificationAdditionalInfo: `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`,
+        latestRefusalClarificationReasons: pastLegalAdvisorDecisions[0].value.refusalClarificationReason?.filter(
+          reason => reason !== ClarificationReason.OTHER
+        ),
+      }
+    : {
+        latestRefusalClarificationAdditionalInfo: '',
+        latestRefusalClarificationReasons: [],
+      };
 };

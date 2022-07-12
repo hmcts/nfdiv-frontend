@@ -632,6 +632,7 @@ export interface CaseData {
   coRefusalClarificationReason: ClarificationReason[];
   coRefusalClarificationAdditionalInfo: string;
   coClarificationResponses: ListValue<string>[];
+  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationUploadDocuments: ListValue<DivorceDocument>[];
   coCannotUploadClarificationDocuments: YesOrNo;
   coOutcomeCase: YesOrNo;
@@ -1077,6 +1078,17 @@ export interface SolicitorService {
   ServiceSotName: string;
   ServiceSotFirm: string;
   TruthStatement: string;
+}
+
+export interface LegalAdvisorDecision {
+  granted: YesOrNo;
+  decisionDate: DateAsString;
+  refusalDecision: RefusalOption;
+  refusalClarificationReason: ClarificationReason[];
+  refusalClarificationAdditionalInfo: string;
+  refusalAdminErrorInfo: string;
+  refusalRejectionReason: RejectionReason[];
+  refusalRejectionAdditionalInfo: string;
 }
 
 export interface ConfidentialDivorceDocument {
