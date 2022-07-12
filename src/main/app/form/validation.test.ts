@@ -3,6 +3,7 @@ import { CaseDate } from '../case/case';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
+  isApplicant2EmailValid,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -181,6 +182,20 @@ describe('Validation', () => {
     });
   });
 
+  describe('isApplicant2EmailValid()', () => {
+    it.each([
+      { mockEmail: '', expected: 'invalid' },
+      { mockEmail: 'test', expected: 'invalid' },
+      { mockEmail: '12345', expected: 'invalid' },
+      { mockEmail: 'test@test.com', expected: undefined },
+      { mockEmail: 'test_123@test.com', expected: undefined },
+      { mockEmail: 'test_123@test@test.com', expected: 'invalid' },
+      { mockEmail: 'applicant1@email.com', expected: 'sameEmail' },
+    ])('validates an email when %o', ({ mockEmail, expected }) => {
+      expect(isApplicant2EmailValid(mockEmail, 'applicant1@email.com')).toEqual(expected);
+    });
+  });
+
   describe('isFieldLetters()', () => {
     test.each([
       { input: 'Firstname Lastname', expected: undefined },
@@ -242,6 +257,11 @@ describe('Validation', () => {
   describe('isValidAccessCode()', () => {
     test('Should accept valid access code', async () => {
       const isValid = isValidAccessCode('QWERTY45');
+      expect(isValid).toStrictEqual(undefined);
+    });
+
+    test('Should accept valid access code with whitespaces', async () => {
+      const isValid = isValidAccessCode('QW E RTY45 ');
       expect(isValid).toStrictEqual(undefined);
     });
 

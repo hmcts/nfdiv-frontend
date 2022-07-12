@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
@@ -40,6 +40,11 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  conditionalOrderAnswersPdf: {
+    reference: 'Conditional-order-answers',
+    link: '/downloads/conditional-order-answers',
+    text: 'View the conditional order application (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -49,10 +54,10 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   telephone: {
     heading: 'Phone',
     openingTimes: '(Monday to Friday, 8am to 8pm, Saturday 8am to 2pm)',
+    number: telephoneNumber,
   },
   email: 'Email',
   post: 'Post',
-  whatHappensNext: 'What happens next',
 });
 
 // @TODO translations
@@ -78,11 +83,15 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
+  const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
+  );
   return {
     aosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
+    hasConditionalOrderAnswers,
     ...languages[content.language](content),
   };
 };

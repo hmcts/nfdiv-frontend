@@ -26,6 +26,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       isDivorce ? 'for divorce' : 'to end your civil partnership'
     }.`,
   },
+  respondToTheApplication: 'Respond to the application',
   holding: {
     line1: `You have responded to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -170,7 +171,162 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
 });
 
 // @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
+  subHeading1:
+    [State.AwaitingGeneralConsideration, State.Holding].includes(userCase.state as State) &&
+    userCase.disputeApplication === YesOrNo.YES
+      ? 'Beth sydd angen i chi ei wneud nesaf'
+      : 'Diweddariad diweddaraf',
+  awaitingAos: {
+    line1: `Mae eich ${partner} wedi cyflwyno cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
+  respondToTheApplication: "Ymateb i'r cais",
+  holding: {
+    line1: `Rydych wedi ymateb i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. rhaid i chi wneud dim pellach.`,
+    line2: `Y cam nesaf yw i'ch ${partner} wneud cais am 'orchymyn amodol'.  Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    line3: `Gall eich ${partner} wneud cais am orchymyn amodol o ${
+      userCase.dueDate
+    }. Y rheswm am hyn yw bod yn rhaid iddynt aros 20 wythnos o'r adeg y cyhoeddwyd y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. Byddwch yn cael e-bost pan fydd y gorchymyn amodol wedi'i roi.`,
+    line4: `Ar ôl y gorchymyn amodol, mae angen iddynt wneud cais am orchymyn terfynol, sy'n dod â'r ${
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol. Ni ellir gwneud hyn tan 6 wythnos ar ôl y gorchymyn amodol.`,
+    line5: `Gallwch ddefnyddio'r amser hyd nes daw’r cais am orchymyn amodol i benderfynu sut y bydd eich arian a'ch eiddo yn cael eu rhannu. Ymdrinnir â hyn ar wahân i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }. <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">Rhagor o wybodaeth am rannu arian ac eiddo</a>`,
+  },
+  d8Awaiting: {
+    line1: `Rydych wedi ymateb i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } ac wedi dweud eich bod eisiau anghytuno ag ef.`,
+    line2: `Mae gennych tan ${dayjs(userCase.issueDate)
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')}
+      i gyflwyno'r ffurflen ateb i ${
+        isDivorce ? 'gais am ysgariad' : 'diddymiad'
+      }’. Dyma'r ffurflen ar gyfer herio’r cais am ${
+      isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
+    line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
+    line4: 'Neu ei bostio i:',
+    line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
+      config.get('fees.d8bFormSubmission')
+    )} pan fyddwch yn cyflwyno'r ffurflen. Os nad oes gennych fawr ddim cynilion, os o gwbl, eich bod ar fudd-daliadau penodol neu os oes gennych incwm isel, efallai y gallwch gae <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help i dalu ffioedd</a>.`,
+    line6: `Os na fyddwch yn cyflwyno'ch ateb cyn ${dayjs(userCase.issueDate)
+      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+      .format('D MMMM YYYY')} yna gall eich ${partner} symud ymlaen gyda’r cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
+  d8Submitted: {
+    line1: `Rydych wedi ymateb i'r ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } ac wedi dweud eich bod am anghytuno ag ef.`,
+    line2: `YRydych wedi cyflwyno'r ffurflen ateb i gais am ${
+      isDivorce ? 'ysgariad' : 'diddymiad'
+    }’. Dyma'r ffurflen ar gyfer herio’r ${isDivorce ? 'ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"}.`,
+    line3: `Bydd barnwr yn penderfynu a oes angen i chi a'ch ${partner} fynychu gwrandawiad. Efallai y cysylltir â chi i gael rhagor o wybodaeth i'w helpu i wneud penderfyniad.`,
+    line4:
+      "Byddwch yn cael llythyr yn y post yn dweud wrthych a oes angen i chi ddod i'r gwrandawiad ai peidio, a ble y bydd hynny yn digwydd.",
+  },
+  conditionalOrderPronounced: {
+    line1: `Rydych wedi cael 'gorchymyn amodol' gan y llys. Cafodd eich gorchymyn amodol ei gyhoeddi’n ffurfiol (darllen allan) gan farnwr yn ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } ar ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
+    Mae eich ${partner} hefyd wedi cael gwybod.`,
+    line2: `${isDivorce ? 'Nid ydych wedi ysgaru' : 'Nid yw eich partneriaeth sifil wedi dod i ben yn gyfreithiol'} eto.
+    Mae'n rhaid i'ch ${partner} wneud cais o hyd am orchymyn terfynol a fydd yn dod â'r ${
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
+    } i ben.
+    Gallant wneud cais am orchymyn terfynol ar ${userCase.dateFinalOrderEligibleFrom}. Bydd hyn yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil i ben'
+    }.`,
+    line3: `Os nad ydynt yn gwneud cais am orchymyn terfynol erbyn ${userCase.dateFinalOrderEligibleFrom} yna gallwch wneud cais am orchymyn terfynol.`,
+    line4: {
+      part1: 'Gallwch ',
+      part2: 'ddarllen a lawrlwytho eich tystysgrif hawl.',
+      downloadReference: 'Certificate-of-Entitlement',
+      link: '/downloads/certificate-of-entitlement',
+    },
+  },
+  legalAdvisorReferral: {
+    line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }`,
+    line2: 'You will receive an email when the conditional order has been granted by the court.',
+  },
+  clarificationSubmitted: {
+    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line2: userCase.coRefusalClarificationAdditionalInfo,
+    withDocuments: {
+      line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      line1: `You or your ${partner} need to post the documents requested by the court:`,
+      line2: 'address',
+      line3: 'You will receive an update when your documents have been received and checked.',
+    },
+  },
+  awaitingPronouncement: {
+    line1: `Eich ${partner} am 'orchymyn amodol' wedi dod i law. Mae'r llys yn cytuno bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }.`,
+    line2: `Bydd barnwr yn 'cyhoeddi' (darllen allan) eich gorchymyn amodol mewn gwrandawiad. Bydd y gwrandawiad yn cael ei gynnal yn ${
+      userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
+    } ar ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} ar ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    ).format('h:mmA')}.`,
+    line3: `Nid oes angen i chi ddod i'r gwrandawiad, oni bai eich bod eisiau gwrthwynebu. Rhaid i chi gysylltu â'r llys erbyn ${dayjs(
+      userCase.coDateAndTimeOfHearing
+    )
+      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
+      .format('D MMMM YYYY')} os ydych eisiau bod yn bresennol.`,
+    line4: `Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, bydd eich ${partner} wedyn yn gallu gwneud cais am 'orchymyn terfynol' ar ${dayjs(
+      userCase.dateFinalOrderEligibleFrom
+    )}. Dyma'r cam olaf yn y broses ${isDivorce ? 'ysgaru ' : ''}a bydd yn dod â'ch  ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
+     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
+     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `If they do not apply by ${userCase.dateFinalOrderEligibleToRespondent}
+     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+  },
+  awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
+    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
+    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
+    line3: 'If you apply then you may both have to come to court.',
+    buttonText: 'Apply for a final order',
+    buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
+  },
+  finalOrderRequested: {
+    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
+    line2: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
+            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+            .format('D MMMM YYYY')}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
+  },
+});
 
 const languages = {
   en,
@@ -186,7 +342,7 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
-  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, hasSubmittedAos);
+  const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),

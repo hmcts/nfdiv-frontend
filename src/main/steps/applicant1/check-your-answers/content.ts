@@ -313,9 +313,9 @@ const en = ({
       line5: stripTags(userCase.ceremonyPlace),
       line6: stripTags(userCase.applicant1LifeBasedInEnglandAndWales),
       line7: stripTags(userCase.applicant2LifeBasedInEnglandAndWales),
-      line8: stripTags(userCase.applicant1DomicileInEnglandWales),
-      line9: stripTags(userCase.applicant1LivingInEnglandWalesTwelveMonths),
-      line10: stripTags(userCase.applicant1LivingInEnglandWalesSixMonths),
+      line8: stripTags(userCase.applicant1LivingInEnglandWalesTwelveMonths),
+      line9: stripTags(userCase.applicant1LivingInEnglandWalesSixMonths),
+      line10: stripTags(userCase.applicant1DomicileInEnglandWales),
       line11: stripTags(userCase.applicant2DomicileInEnglandWales),
       line12: stripTags(userCase.bothLastHabituallyResident),
       line13: stripTags(userCase.jurisdictionResidualEligible),
@@ -649,8 +649,8 @@ const cy: typeof en = ({
       line5: `Nodwch enw'r lle y gwnaethoch ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}`,
       line6: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
       line7: `A yw bywyd eich ${partner} gan amlaf yng Nghymru neu Loegr?`,
-      line8: 'A ydych wedi bod yn byw yng Nghymru neu Loegr am y 6 mis diwethaf?',
-      line9: 'Ydych chi wedi bod yn byw yng Nghymru neu Loegr am y 12 mis diwethaf?',
+      line8: 'Ydych chi wedi bod yn byw yng Nghymru neu Loegr am y 12 mis diwethaf?',
+      line9: 'A ydych wedi bod yn byw yng Nghymru neu Loegr am y 6 mis diwethaf?',
       line10: 'A yw eich domisil yng Nghymru neu Loegr?',
       line11: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
       line12:
@@ -775,16 +775,16 @@ const cy: typeof en = ({
         : '',
     },
     connectionsToEnglandWales: {
-      line1: userCase.inTheUk.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line1: userCase.inTheUk?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line2: userCase.certificateInEnglish?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line3: userCase.certifiedTranslation?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line4: stripTags(userCase.ceremonyCountry),
       line5: stripTags(userCase.ceremonyPlace),
       line6: userCase.applicant1LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line7: userCase.applicant2LifeBasedInEnglandAndWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line8: userCase.applicant1DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line9: userCase.applicant1LivingInEnglandWalesTwelveMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line10: userCase.applicant1LivingInEnglandWalesSixMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line8: userCase.applicant1LivingInEnglandWalesTwelveMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line9: userCase.applicant1LivingInEnglandWalesSixMonths?.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line10: userCase.applicant1DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line11: userCase.applicant2DomicileInEnglandWales?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line12: userCase.bothLastHabituallyResident?.replace('Yes', 'Do').replace('No', 'Naddo'),
       line13: userCase.jurisdictionResidualEligible?.replace('Yes', 'Do').replace('No', 'Naddo'),
@@ -869,7 +869,7 @@ const cy: typeof en = ({
       line4: `${
         isJointApplication
           ? ''
-          : userCase.applicant1IsApplicant2Represented.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
+          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
       }`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
@@ -950,7 +950,7 @@ const cy: typeof en = ({
   change: 'Newid',
   continueApplication: 'Parhau gyda’r cais',
   confirm: `Cadarnhau cyn ${stripTags(userCase.applicant1HelpWithFeesRefNo) ? 'cyflwyno' : 'parhau'}`,
-  jointApplicantReview: `Your answers will be sent to your ${partner} to review. When they have reviewed and provided some of their own answers, the completed application will come back to you to review one final time before submitting.`,
+  jointApplicantReview: `Bydd eich atebion yn cael eu hanfon at eich ${partner} i’w hadolygu. Pan fyddant wedi eu hadolygu ac wedi darparu rhywfaint o atebion eu hunain, bydd y cais wedi’i gwblhau yn dod yn ôl atoch chi i’w adolygu unwaith eto cyn ei gyflwyno.`,
   confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
     isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'
   }

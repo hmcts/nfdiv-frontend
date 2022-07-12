@@ -8,6 +8,7 @@ dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
+export type EmailValidator = (value: string | undefined, applicant1Email: string | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value || (value as string).trim?.().length === 0) {
@@ -125,6 +126,13 @@ export const isEmailValid: Validator = value => {
   }
 };
 
+export const isApplicant2EmailValid: EmailValidator = (value, applicant1Email) => {
+  if (value === applicant1Email) {
+    return 'sameEmail';
+  }
+  return isEmailValid(value);
+};
+
 export const isFieldLetters: Validator = value => {
   if (!(value as string).match(/^[\p{Script=Latin}'’\-\s]*$/gu)) {
     return 'invalid';
@@ -138,7 +146,7 @@ export const isValidCaseReference: Validator = value => {
 };
 
 export const isValidAccessCode: Validator = value => {
-  if ((value as string).trim().length !== 8) {
+  if ((value as string).replace(/\s/g, '').length !== 8) {
     return 'invalid';
   }
 };

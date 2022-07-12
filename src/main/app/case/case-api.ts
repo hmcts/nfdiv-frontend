@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -17,6 +18,8 @@ import {
   UserRole,
 } from './definition';
 import { toApiFormat } from './to-api-format';
+
+const caseApiLogger = Logger.getLogger('case-api');
 
 export class InProgressDivorceCase implements Error {
   constructor(public readonly message: string, public readonly name = 'DivCase') {}
@@ -42,12 +45,16 @@ export class CaseApi {
 
   public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
     const userCase = await this.apiClient.getLatestCaseOrInvite(CASE_TYPE, serviceType, user.email);
+    caseApiLogger.info(`In isApplicantAlreadyLinked, userCase exists: ${userCase ? 'true' : 'false'}`);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
       const linkedRoles =
         userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
           ? [UserRole.CREATOR, UserRole.APPLICANT_2]
           : [UserRole.APPLICANT_2];
+      caseApiLogger.info(
+        `In isApplicantAlreadyLinked, case ID ${userCase.id}, linkedRoles: ${linkedRoles}, userRoles: ${userRoles.case_users[0]?.case_role}`
+      );
       return linkedRoles.includes(userRoles.case_users[0]?.case_role);
     }
     return false;
