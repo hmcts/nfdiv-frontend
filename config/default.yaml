@@ -82,8 +82,6 @@ serviceAddress:
   poBox: 'PO Box 13226'
   town: 'Harlow'
   postcode: 'CM20 9UG'
-servicePhoneNo: '0300 303 0642'
-cyServicePhoneNo: '0300 303 5171'
 govukUrls:
   d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
   mediation: 'https://www.gov.uk/money-property-when-relationship-ends/mediation'

@@ -36,7 +36,6 @@ export const getSoleHubTemplate = (
       } else {
         return '/aos-awaiting-or-drafted.njk';
       }
-      return '/awaiting-general-consideration.njk';
     case State.AwaitingConditionalOrder:
       return '/awaiting-conditional-order.njk';
     case State.Holding:
