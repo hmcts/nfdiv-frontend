@@ -18,6 +18,17 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   I.click('Continue');
 });
 
+Given("I set applicant 2's email address", async () => {
+  I.amOnPage(HOME_URL);
+  const applicant2EmailAddress = testConfig.GetUser(parseInt('2')).username;
+
+  await iSetTheUsersCaseTo({ applicant2EmailAddress });
+
+  I.amOnPage(ADDRESS_PRIVATE);
+  I.click('I do not need my contact details kept private');
+  I.click('Continue');
+});
+
 Given(
   "I've already completed the form using the fixture {string} for {string}",
   async (fixture: string, applicant: string) => {
