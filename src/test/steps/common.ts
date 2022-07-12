@@ -185,24 +185,30 @@ When('I enter my valid case reference and valid access code', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.createCase(DivorceOrDissolution.DIVORCE, testUser);
-  const fetchedCase = await caseApi.getCaseById(userCase.id);
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
-  const caseReference = userCase.id;
-  const accessCode = fetchedCase.accessCode;
+  if (userCase) {
+    const fetchedCase = await caseApi.getCaseById(userCase.id);
 
-  if (!caseReference || !accessCode) {
-    throw new Error(`No case reference or access code was returned for ${testUser}`);
+    const caseReference = userCase.id;
+    const accessCode = fetchedCase.accessCode;
+
+    if (!caseReference || !accessCode) {
+      throw new Error(`No case reference or access code was returned for ${testUser}`);
+    }
+
+    iClick('Sign out');
+    await login('citizenApplicant2');
+
+    iClick('Your reference number');
+    I.type(caseReference);
+    iClick('Your access code');
+    I.type(accessCode);
+    iClick('Continue');
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
   }
-
-  iClick('Sign out');
-  await login('citizenApplicant2');
-
-  iClick('Your reference number');
-  I.type(caseReference);
-  iClick('Your access code');
-  I.type(accessCode);
-  iClick('Continue');
 });
 
 When('a case worker issues the application', async () => {
@@ -249,17 +255,23 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.createCase(DivorceOrDissolution.DIVORCE, testUser);
-  const caseReference = userCase.id;
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
-  if (!caseReference) {
-    throw new Error(`No case reference or access code was returned for ${testUser}`);
+  if (userCase) {
+    const caseReference = userCase.id;
+
+    if (!caseReference) {
+      throw new Error(`No case reference or access code was returned for ${testUser}`);
+    }
+
+    const cwUser = await testConfig.GetOrCreateCaseWorker();
+    const caseWorker = await iGetTheTestUser(cwUser);
+    const cwCaseApi = iGetTheCaseApi(caseWorker);
+    await cwCaseApi.triggerEvent(caseReference, userData, eventName);
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
   }
-
-  const cwUser = await testConfig.GetOrCreateCaseWorker();
-  const caseWorker = await iGetTheTestUser(cwUser);
-  const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, userData, eventName);
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
