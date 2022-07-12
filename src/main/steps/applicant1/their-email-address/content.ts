@@ -67,9 +67,6 @@ export const form: FormContent = {
       label: l => l.applicant2EmailAddress,
       labelSize: null,
       validator: (value, formData) => {
-        if (value === userCase.applicant1Email) {
-          return 'sameEmail';
-        }
         if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isApplicant2EmailValid(value as string, userCase.applicant1Email);
         } else if (value) {
