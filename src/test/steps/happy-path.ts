@@ -18,7 +18,7 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   I.click('Continue');
 });
 
-Given("I set applicant 2's email address", async () => {
+Given('I set the email address for applicant 2', async () => {
   I.amOnPage(HOME_URL);
   const applicant2EmailAddress = testConfig.GetUser(parseInt('2')).username;
 

@@ -9,17 +9,17 @@ export enum existingOrNew {
   New = 'new',
 }
 
-const en = ({ isDivorce, partner, isJointApplication, required, existingCaseId }) => {
-  const respondJoin = `${isJointApplication ? 'respond to' : 'join'}`;
+const en = ({ isDivorce, partner, isJointApplication, required, existingCaseId }: CommonContent) => {
+  const respondJoin = `${isJointApplication ? 'join' : 'respond to'}`;
   return {
     title: 'You have an existing application',
     line1: `You already have an existing application for ${
       isDivorce ? 'divorce' : 'to end your civil partnership'
-    }. Your existing application number is ${existingCaseId}`,
+    }. Your existing application number is ${formattedCaseId(existingCaseId)}.`,
     line2: `You are now being invited to ${respondJoin} a new application created by your ${partner}.
             If you choose to ${respondJoin} it then you will lose access to your existing application.`,
     newApplication: `I want to ${respondJoin} the new application`,
-    existingApplication: ' I want to continue with my existing application',
+    existingApplication: 'I want to continue with my existing application',
     newSelected: 'You will lose access to your existing application',
     existingSelected: 'You will not ever be able to access the new application',
     errors: {
@@ -57,8 +57,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = (content: CommonContent) => {
-  const existingCaseId = formattedCaseId(content.existingCaseId);
-  const translations = languages[content.language]({ ...content, existingCaseId });
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

@@ -25,6 +25,7 @@ import {
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   READ_THE_RESPONSE,
   RESIDUAL_JURISDICTION,
+  RESPONDENT,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
 
@@ -135,7 +136,8 @@ export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean =>
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = allSequences.reduce((list, sequence) => list.concat(...sequence), []).find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
+  const nextStepUrl = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
+  const url = [HOME_URL, APPLICANT_2 + HOME_URL, RESPONDENT + HOME_URL].includes(nextStepUrl) ? HOME_URL : nextStepUrl;
 
   return `${url}${queryString}`;
 };

@@ -11,7 +11,7 @@ Feature: Existing Application
     Given I click "Sign out"
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I set applicant 2's email address
+    And I set the email address for applicant 2
     And I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
