@@ -1,12 +1,19 @@
-import { State } from '../../../../app/case/definition';
+import dayjs from 'dayjs';
+
+import { CaseWithId } from '../../../../app/case/case';
+import { State, YesOrNo } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
 export const getSoleHubTemplate = (
   displayState: StateSequence,
-  isServiceApplicationGranted: boolean,
+  userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean
 ): string => {
+  const isServiceApplicationGranted =
+    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
+  const isAosOverdue =
+    !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
       return '/final-order-requested.njk';
@@ -22,7 +29,13 @@ export const getSoleHubTemplate = (
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
     case State.AwaitingGeneralConsideration:
-      return '/awaiting-general-consideration.njk';
+      if (userCase.aosStatementOfTruth) {
+        return '/awaiting-general-consideration.njk';
+      } else if (isAosOverdue) {
+        return '/aos-due.njk';
+      } else {
+        return '/aos-awaiting-or-drafted.njk';
+      }
     case State.AwaitingConditionalOrder:
       return '/awaiting-conditional-order.njk';
     case State.Holding:
