@@ -3,8 +3,12 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, userCase }: CommonContent) => ({
-  title: `Your ${partner} needs to confirm your joint application`,
-  line1: `Your ${partner} needs to confirm your joint application. They have been sent an email inviting them to review your combined answers and confirm the application. They should do this by `,
+  title: `Your ${partner}${
+    userCase.applicant1SolicitorRepresented === YesOrNo.YES ? "'s solicitor" : ''
+  } needs to confirm your joint application`,
+  line1: `Your ${partner}${
+    userCase.applicant1SolicitorRepresented === YesOrNo.YES ? "'s solicitor" : ''
+  } needs to confirm your joint application. They have been sent an email inviting them to review your combined answers and confirm the application. They should do this by `,
   reviewDate: userCase.dueDate,
   line2: `When they have confirmed${
     userCase.applicant1HelpPayingNeeded === YesOrNo.YES && userCase.applicant2HelpPayingNeeded === YesOrNo.YES
