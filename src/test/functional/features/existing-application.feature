@@ -22,7 +22,7 @@ Feature: Existing Application
   Scenario: Continuing with existing application
     When I click "I want to continue with my existing application"
     And I click "Continue"
-    Then the page URL should be "/application-sent-for-review"
+    Then the page URL should be "/applicant2/you-need-to-review-your-application"
 
   Scenario: Joining new application
     When I click "I want to respond to the new application"
