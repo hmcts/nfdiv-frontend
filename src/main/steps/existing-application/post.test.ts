@@ -1,5 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import * as oidc from '../../app/auth/user/oidc';
+import * as caseApi from '../../app/case/case-api';
 import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
@@ -7,6 +9,9 @@ import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SA
 
 import { existingOrNew } from './content';
 import { ExistingApplicationPostController } from './post';
+
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
+const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
 describe('ExistingApplicationPostController', () => {
   const mockFormContent = {
@@ -52,16 +57,30 @@ describe('ExistingApplicationPostController', () => {
       existingOrNewApplication: existingOrNew.Existing,
     };
 
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+
     const req = mockRequest({ body });
-    req.originalUrl = EXISTING_APPLICATION;
-    req.session.existingCaseId = '1234';
-    req.session.inviteCaseId = '5678';
+
     const caseData = {
       applicationType: ApplicationType.JOINT_APPLICATION,
-      id: req.session.existingCaseId,
+      id: '1234',
     };
-    (req.locals.api.getCaseById as jest.Mock).mockResolvedValueOnce(caseData);
-    (req.locals.api.isApplicant2 as jest.Mock).mockResolvedValueOnce(true);
+
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(),
+      getCaseById: jest.fn(() => caseData),
+      isApplicant2: jest.fn(() => true),
+    });
+    req.originalUrl = EXISTING_APPLICATION;
+    req.session.existingCaseId = caseData.id;
+    req.session.inviteCaseId = '5678';
     const res = mockResponse();
 
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
@@ -80,13 +99,22 @@ describe('ExistingApplicationPostController', () => {
     };
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
 
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
-    (req.locals.api.triggerEvent as jest.Mock).mockImplementation(
-      jest.fn(() => {
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(() => {
         throw Error;
-      })
-    );
+      }),
+    });
     const res = mockResponse();
     await controller.post(req, res);
 

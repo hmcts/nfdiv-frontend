@@ -1,6 +1,8 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getSystemUser } from '../../app/auth/user/oidc';
+import { getCaseApi } from '../../app/case/case-api';
 import { SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
@@ -24,6 +26,9 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
+            const caseworkerUser = await getSystemUser();
+            req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+
             await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
             req.session.userCase = await req.locals.api.getCaseById(req.session.existingCaseId);
