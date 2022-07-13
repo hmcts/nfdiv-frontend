@@ -137,7 +137,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = allSequences.reduce((list, sequence) => list.concat(...sequence), []).find(s => s.url === path);
   const nextStepUrl = nextStep ? nextStep.getNextStep(data) : CHECK_ANSWERS_URL;
-  const url = [HOME_URL, APPLICANT_2 + HOME_URL, RESPONDENT + HOME_URL].includes(nextStepUrl) ? HOME_URL : nextStepUrl;
+  const url = [APPLICANT_2 + HOME_URL, RESPONDENT + HOME_URL].includes(nextStepUrl) ? HOME_URL : nextStepUrl;
 
   return `${url}${queryString}`;
 };
