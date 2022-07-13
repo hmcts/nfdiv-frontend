@@ -25,6 +25,6 @@ Feature: Existing Application
     Then the page URL should be "/application-sent-for-review"
 
   Scenario: Joining new application
-    When I click "I want to join the new application"
+    When I click "I want to respond to the new application"
     And I click "Continue"
     Then the page URL should be "/applicant2/enter-your-access-code"
