@@ -71,9 +71,6 @@ export const en = {
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
-  webChatNotAvailable: 'No agents are available, please try again later.',
-  webChatDetails:
-    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
@@ -180,8 +177,6 @@ const cy: typeof en = {
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltwch â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
-  webChatDetails:
-    "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
   sendUsAMessage: 'Anfonwch neges atom',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
