@@ -8,6 +8,12 @@ Feature: Existing Application
     Then the page URL should be "/application-sent-for-review"
     Given I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    And I go to "/applicant2/confirm-your-joint-application"
+    Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
+    And I select "I believe that the facts stated in this application are true"
+    When I click "Submit"
+    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
     Given I click "Sign out"
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
@@ -22,7 +28,7 @@ Feature: Existing Application
   Scenario: Continuing with existing application
     When I click "I want to continue with my existing application"
     And I click "Continue"
-    Then the page URL should be "/applicant2/you-need-to-review-your-application"
+    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
 
   Scenario: Joining new application
     When I click "I want to respond to the new application"
