@@ -15,7 +15,6 @@ const en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
   telephoneNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
@@ -114,7 +113,6 @@ const en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: `Telephone: ${telephoneNumber}`,
@@ -144,7 +142,6 @@ const cy: typeof en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
   telephoneNumber,
 }: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
@@ -242,7 +239,6 @@ const cy: typeof en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
   telephoneNumber: `Rhif ffôn: ${telephoneNumber}`,
