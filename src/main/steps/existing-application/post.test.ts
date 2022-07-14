@@ -73,11 +73,13 @@ describe('ExistingApplicationPostController', () => {
       id: '1234',
     };
 
-    (getCaseApiMock as jest.Mock).mockReturnValue({
+    const caseApiMockFn = {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => caseData),
       isApplicant2: jest.fn(() => true),
-    });
+    };
+
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
     req.originalUrl = EXISTING_APPLICATION;
     req.session.existingCaseId = caseData.id;
     req.session.inviteCaseId = '5678';
@@ -86,9 +88,9 @@ describe('ExistingApplicationPostController', () => {
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
-    expect(req.locals.api.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
-    expect(req.locals.api.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+    expect(caseApiMockFn.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
+    expect(caseApiMockFn.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
     expect(res.redirect).toBeCalledWith(HOME_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
