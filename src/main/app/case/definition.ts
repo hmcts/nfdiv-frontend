@@ -659,7 +659,6 @@ export interface CaseData {
   coCertificateOfEntitlementDocument: DivorceDocument;
   coRefusalOrderDocument: Document;
   coConditionalOrderGrantedDocument: DivorceDocument;
-  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
