@@ -25,9 +25,6 @@
 >
 </web-chat>
 
-{% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  {% include "./webpack/js.njk" %}
 <script
   src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es2015.js"
   defer
@@ -40,4 +37,3 @@
   defer
   crossorigin="anonymous"
 ></script>
-{% endblock %}
