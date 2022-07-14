@@ -20,9 +20,6 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
@@ -30,8 +27,10 @@ export class AccessCodePostController {
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
+    const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
+
     try {
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
+      const caseData = await caseworkerUserApi.getCaseById(caseReference as string);
 
       if (caseData.applicationType === ApplicationType.JOINT_APPLICATION) {
         formData.applicant2FirstNames = req.session.user.givenName;
@@ -52,7 +51,7 @@ export class AccessCodePostController {
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase = await caseworkerUserApi.triggerEvent(
           caseReference as string,
           formData,
           SYSTEM_LINK_APPLICANT_2

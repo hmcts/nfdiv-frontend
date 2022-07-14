@@ -26,13 +26,14 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
-            const caseworkerUser = await getSystemUser();
-            req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+            const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
+            await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
-            await req.locals.api.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
-
-            req.session.userCase = await req.locals.api.getCaseById(req.session.existingCaseId);
-            req.session.isApplicant2 = await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id);
+            req.session.userCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+            req.session.isApplicant2 = await caseworkerUserApi.isApplicant2(
+              req.session.userCase.id,
+              req.session.user.id
+            );
 
             nextUrl = HOME_URL;
           } else {
