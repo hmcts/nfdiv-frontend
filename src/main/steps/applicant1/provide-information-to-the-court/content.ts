@@ -3,12 +3,9 @@ import { isEmpty, isObject } from 'lodash';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import {
-  generateContent as hubPageContent,
-  latestLegalAdvisorDecisionContent,
-} from '../../applicant1/hub-page/content';
+import { generateContent as hubPageContent } from '../../applicant1/hub-page/content';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
-import { formattedCaseId } from '../../common/content.utils';
+import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
 
 const en = ({ partner, applicant1Content }) => ({
   title: 'Provide information to the court',

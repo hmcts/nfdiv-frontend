@@ -2,18 +2,11 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import {
-  ClarificationReason,
-  ConditionalOrderCourt,
-  LegalAdvisorDecision,
-  ListValue,
-  birmingham,
-  buryStEdmunds,
-} from '../../../app/case/definition';
+import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
+import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
@@ -295,19 +288,4 @@ export const generateContent: TranslationFn = content => {
     isCoFieldsSet,
     ...latestLegalAdvisorDecisionContent(userCase),
   };
-};
-
-export const latestLegalAdvisorDecisionContent = (userCase: Partial<CaseWithId>): Record<string, unknown> => {
-  const pastLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[] | undefined = userCase.coLegalAdvisorDecisions;
-  return pastLegalAdvisorDecisions
-    ? {
-        latestRefusalClarificationAdditionalInfo: `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`,
-        latestRefusalClarificationReasons: pastLegalAdvisorDecisions[0].value.refusalClarificationReason?.filter(
-          reason => reason !== ClarificationReason.OTHER
-        ),
-      }
-    : {
-        latestRefusalClarificationAdditionalInfo: '',
-        latestRefusalClarificationReasons: [],
-      };
 };
