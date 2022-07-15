@@ -30,7 +30,26 @@ const en = ({ isDivorce, partner, isJointApplication, required, existingCaseId }
   };
 };
 
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner, isJointApplication, required, existingCaseId }: CommonContent) => {
+  const respondJoin = `${isJointApplication ? 'ymateb i gais' : 'ymuno â chais'}`;
+  return {
+    title: 'Mae gennych gais sydd eisoes yn bod',
+    line1: `Mae gennych gais sydd eisoes yn bod ${
+      isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+    }. Eich rhif cais presennol yw ${formattedCaseId(existingCaseId)}.`,
+    line2: `Rydych nawr yn cael eich gwahodd i ${respondJoin} newydd a grëwyd gan eich ${partner}.
+            Os byddwch yn dewis ${respondJoin} yna byddwch yn colli mynediad at eich cais presennol.`,
+    newApplication: `Rwyf eisiau ${respondJoin} cais newydd`,
+    existingApplication: 'Rwyf eisiau parhau â fy nghais presennol',
+    newSelected: 'Byddwch yn colli mynediad at eich cais presennol',
+    existingSelected: 'Ni fyddwch byth yn gallu cael mynediad i’r cais newydd',
+    errors: {
+      existingOrNewApplication: {
+        required,
+      },
+    },
+  };
+};
 
 export const form: FormContent = {
   fields: {
