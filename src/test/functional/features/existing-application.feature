@@ -31,6 +31,6 @@ Feature: Existing Application
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
 
   Scenario: Joining new application
-    When I click "I want to respond to the new application"
+    When I click "I want to join the new application"
     And I click "Continue"
     Then the page URL should be "/applicant2/enter-your-access-code"
