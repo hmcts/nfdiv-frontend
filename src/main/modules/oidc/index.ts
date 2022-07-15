@@ -87,6 +87,7 @@ export class OidcMiddleware {
 
       if (newUserCase && existingUserCase) {
         req.session.inviteCaseId = newUserCase.id;
+        req.session.inviteCaseApplicationType = newUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
           return res.redirect(EXISTING_APPLICATION);

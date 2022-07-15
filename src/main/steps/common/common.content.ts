@@ -190,6 +190,7 @@ export const generatePageContent = ({
   isApplicant2 = false,
   userEmail,
   existingCaseId,
+  inviteCaseApplicationType,
 }: {
   language: Language;
   userCase: Partial<CaseWithId>;
@@ -198,6 +199,7 @@ export const generatePageContent = ({
   isApplicant2?: boolean;
   userEmail?: string;
   existingCaseId?: string;
+  inviteCaseApplicationType?: ApplicationType;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
@@ -224,6 +226,7 @@ export const generatePageContent = ({
     isAmendableStates,
     isClarificationAmendableState,
     existingCaseId,
+    inviteCaseApplicationType,
   };
 
   if (pageContent) {
@@ -248,6 +251,7 @@ export type CommonContent = typeof en & {
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
   existingCaseId?: string;
+  inviteCaseApplicationType?: ApplicationType;
 };
 
 export type Language = 'en' | 'cy';

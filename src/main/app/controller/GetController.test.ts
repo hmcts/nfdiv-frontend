@@ -2,7 +2,7 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Language, generatePageContent } from '../../steps/common/common.content';
-import { DivorceOrDissolution, Gender, State } from '../case/definition';
+import { ApplicationType, DivorceOrDissolution, Gender, State } from '../case/definition';
 
 import { GetController } from './GetController';
 
@@ -162,6 +162,7 @@ describe('GetController', () => {
       const controller = new GetController('page', getContentMock);
 
       const req = mockRequest({ userCase: { state: State.Draft } });
+      req.session.inviteCaseApplicationType = ApplicationType.SOLE_APPLICATION;
       const res = mockResponse();
       await controller.get(req, res);
 
@@ -176,11 +177,13 @@ describe('GetController', () => {
         partner: 'spouse',
         userEmail,
         existingCaseId: req.session.existingCaseId,
+        inviteCaseApplicationType: req.session.inviteCaseApplicationType,
       });
       expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
         isAmendableStates: true,
         userCase: req.session.userCase,
+        inviteCaseApplicationType: req.session.inviteCaseApplicationType,
       });
     });
 

@@ -35,6 +35,7 @@ export class GetController {
       userCase,
       userEmail: req.session?.user?.email,
       existingCaseId: req.session?.existingCaseId,
+      inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
     });
 
     const sessionErrors = req.session?.errors || [];

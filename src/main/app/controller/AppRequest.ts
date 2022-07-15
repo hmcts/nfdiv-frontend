@@ -4,6 +4,7 @@ import type { LoggerInstance } from 'winston';
 
 import { Case, CaseWithId } from '../case/case';
 import { CaseApi } from '../case/case-api';
+import { ApplicationType } from '../case/definition';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -25,6 +26,7 @@ export interface AppSession extends Session {
   isApplicant2: boolean;
   lang: string | undefined;
   errors: FormError[] | undefined;
+  inviteCaseApplicationType?: ApplicationType;
 }
 
 export interface UserDetails {
