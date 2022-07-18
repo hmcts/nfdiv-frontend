@@ -37,7 +37,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   confirmReceipt: 'Confirm receipt',
   applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
   A conditional order is a document that says the court does not see any reason why you cannot
-  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
+  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.`,
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
@@ -165,7 +165,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
         : dayjs(userCase.coApplicant2SubmittedDate)
             .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
             .format('D MMMM YYYY')
-    } ar ôl i'ch cais gael ei wirio. 
+    } ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   subHeading1:
