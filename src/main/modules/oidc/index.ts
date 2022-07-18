@@ -43,7 +43,7 @@ export class OidcMiddleware {
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
           if (!req.session.existingCaseId && !req.session.inviteCaseId) {
-            await this.findExistingAndNewUserCases(req, res);
+            return this.findExistingAndNewUserCases(req, res, next);
           }
 
           if (
@@ -55,13 +55,7 @@ export class OidcMiddleware {
             return res.redirect(HOME_URL);
           }
 
-          req.session.save(err => {
-            if (err) {
-              return res.redirect(SIGN_OUT_URL);
-            } else {
-              return next();
-            }
-          });
+          return next();
         } else {
           if (signInNotRequired(req.path)) {
             return next();
@@ -75,7 +69,7 @@ export class OidcMiddleware {
     );
   }
 
-  private async findExistingAndNewUserCases(req: AppRequest, res: Response): Promise<void> {
+  private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const newUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
@@ -85,17 +79,18 @@ export class OidcMiddleware {
 
       const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
 
+      let redirectUrl;
       if (newUserCase && existingUserCase) {
         req.session.inviteCaseId = newUserCase.id;
         req.session.inviteCaseApplicationType = newUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
-          return res.redirect(EXISTING_APPLICATION);
+          redirectUrl = EXISTING_APPLICATION;
         }
       } else if (newUserCase) {
         req.session.inviteCaseId = newUserCase.id;
         if (!isLinkingUrl(req.path)) {
-          return res.redirect(`${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`);
+          redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {
         req.session.userCase =
@@ -108,6 +103,16 @@ export class OidcMiddleware {
         req.session.isApplicant2 =
           req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
       }
+
+      req.session.save(err => {
+        if (err) {
+          return res.redirect(SIGN_OUT_URL);
+        } else if (redirectUrl) {
+          return res.redirect(redirectUrl);
+        } else {
+          return next();
+        }
+      });
     } catch (e) {
       if (e instanceof InProgressDivorceCase) {
         const token = encodeURIComponent(req.session.user.accessToken);
