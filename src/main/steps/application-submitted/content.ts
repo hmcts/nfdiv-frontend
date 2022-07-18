@@ -15,6 +15,7 @@ const en = ({
   referenceNumber,
   isJointApplication,
   webChat,
+  openingTimes,
   telephoneNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
@@ -116,7 +117,7 @@ const en = ({
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: `Telephone: ${telephoneNumber}`,
-  telephoneDetails: 'Monday to Friday 8am to 5pm',
+  openingTimes,
   telephoneCharges: {
     part1: 'Find out about call charges',
     link: config.get('govukUrls.callCharges'),
@@ -143,6 +144,7 @@ const cy: typeof en = ({
   isJointApplication,
   webChat,
   telephoneNumber,
+  openingTimes,
 }: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
@@ -242,7 +244,7 @@ const cy: typeof en = ({
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
   telephoneNumber: `Rhif ffôn: ${telephoneNumber}`,
-  telephoneDetails: 'Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm',
+  openingTimes,
   telephoneCharges: {
     part1: 'Gwybodaeth am brisiau galwadau',
     link: config.get('govukUrls.callCharges'),

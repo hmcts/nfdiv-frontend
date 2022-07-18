@@ -1,0 +1,25 @@
+<ul class="govuk-list contact-us">
+  <li>
+    <h4 class="govuk-heading-s">{{ webChat }}</h4>
+    {% include "../webchat.html" %}
+  </li>
+
+  <li>
+    <h4 class="govuk-heading-s">{{ sendUsAMessage }}</h4>
+    <a class="govuk-link" href="mailto:{{ contactEmail }}">{{ sendUsAMessage }}</a>
+  </li>
+
+  <li>
+    <h4 class="govuk-heading-s">{{ telephone }}</h4>
+    <p class="govuk-body">{{ telephoneNumber }}</p>
+  </li>
+
+  <li>
+    <h4 class="govuk-heading-s">{{ openingTimesHeading }}</h4>
+    <p class="govuk-body">{{ openingTimes }}</p>
+    <p class="govuk-body">{{ closingTimes }}</p>
+  </li>
+</ul>
+
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>

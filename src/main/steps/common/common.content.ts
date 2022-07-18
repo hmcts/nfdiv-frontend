@@ -33,6 +33,7 @@ export const en = {
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
+  contactUs: 'Contact us',
   marriage: 'marriage',
   divorce: 'divorce',
   civilPartnership: 'civil partnership',
@@ -71,10 +72,11 @@ export const en = {
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
   sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 working days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  openingTimesHeading: 'Opening times (webchat and telephone)',
+  openingTimes: 'Monday to Friday, 8am to 6pm',
+  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:
@@ -99,8 +101,7 @@ export const en = {
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
-  helpChatClosed: 'Our online advice service is currently closed. It reopens at 8am.',
-  helpChatOpeningHours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 4:00pm.',
+  helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
@@ -140,6 +141,7 @@ const cy: typeof en = {
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
+  contactUs: 'Cysylltwch â ni',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -176,10 +178,11 @@ const cy: typeof en = {
   contactUsForHelp: 'Cysylltwch â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   sendUsAMessage: 'Anfonwch neges atom',
-  sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
-  telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  openingTimesHeading: 'Opening times (webchat and telephone)', // todo
+  openingTimes: 'Dydd Llun i Ddydd Gwener, 8am - 6pm',
+  closingTimes: 'Closed on Saturdays, Sundays and bank holidays', // todo
 };
 
 export const generatePageContent = ({
