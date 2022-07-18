@@ -41,7 +41,7 @@ const en = {
     'Please check these terms and conditions regularly. We can update them at any time without notice.',
   agreeToChanges:
     'You’ll agree to any changes if you continue to use this service after the terms and conditions have been updated.',
-  contactUs: 'Contact Us',
+  contactUs: 'Contact us',
   address: {
     line1: 'CTSC (Courts and Tribunal Service Centre)',
     line2: 'C/o HMCTS Digital Divorce Services',

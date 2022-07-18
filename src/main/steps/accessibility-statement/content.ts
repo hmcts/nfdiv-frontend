@@ -1,7 +1,7 @@
 import type { TranslationFn } from '../../app/controller/GetController';
 import type { CommonContent } from '../common/common.content';
 
-const en = ({ isDivorce, telephoneNumber }: CommonContent) => ({
+const en = ({ isDivorce, telephoneNumber, openingTimes }: CommonContent) => ({
   title: `Accessibility Statement for the ${isDivorce ? 'Apply for a divorce' : 'End a civil partnership'} service`,
   line1: {
     part1: 'This accessibility statement applies to the website available at ',
@@ -56,7 +56,7 @@ const en = ({ isDivorce, telephoneNumber }: CommonContent) => ({
   line15:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email: 'Email:',
-  call: `Call: ${telephoneNumber} (Monday to Friday 8am to 8pm, Saturday 8am to 2pm)`,
+  call: `Call: ${telephoneNumber} (${openingTimes})`,
   line16: 'We’ll consider your request and get back to you within 10 working days.',
   subHeading4: 'Reporting accessibility problems with this website',
   line17:
