@@ -71,7 +71,7 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const newUserCase = await req.locals.api.getNewInviteCase(
+      const newInviteUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
         res.locals.serviceType,
         req.locals.logger
@@ -80,15 +80,15 @@ export class OidcMiddleware {
       const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
 
       let redirectUrl;
-      if (newUserCase && existingUserCase) {
-        req.session.inviteCaseId = newUserCase.id;
-        req.session.inviteCaseApplicationType = newUserCase.applicationType;
+      if (newInviteUserCase && existingUserCase) {
+        req.session.inviteCaseId = newInviteUserCase.id;
+        req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
           redirectUrl = EXISTING_APPLICATION;
         }
-      } else if (newUserCase) {
-        req.session.inviteCaseId = newUserCase.id;
+      } else if (newInviteUserCase) {
+        req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
