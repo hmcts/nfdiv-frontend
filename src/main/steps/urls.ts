@@ -17,6 +17,8 @@ export const PRIVACY_POLICY_URL: PageLink = '/privacy-policy';
 export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
 export const COOKIES_URL: PageLink = '/cookies';
 export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
+export const WEBCHAT_URL: PageLink = '/webchat';
+export const CONTACT_US: PageLink = '/contact-us';
 export const CHECK_ANSWERS_URL: PageLink = '/check-your-answers';
 
 export const APPLICATION_ENDED: PageLink = '/application-ended';
@@ -56,7 +58,6 @@ export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
-export const WEBCHAT_URL: PageLink = '/webchat';
 export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
 export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
