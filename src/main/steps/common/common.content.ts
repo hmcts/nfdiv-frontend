@@ -74,7 +74,7 @@ export const en = {
   sendUsAMessageDetails: 'We aim to get back to you within 5 working days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  telephoneDetails: 'Monday to Friday, 8am to 6pm.',
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:

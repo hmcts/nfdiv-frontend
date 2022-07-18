@@ -53,7 +53,7 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber }: CommonConten
   gettingHelp: 'Getting help',
   telephone: {
     heading: 'Phone',
-    openingTimes: '(Monday to Friday, 8am to 8pm, Saturday 8am to 2pm)',
+    openingTimes: '(Monday to Friday, 8am to 6pm)',
     number: telephoneNumber,
   },
   email: 'Email',

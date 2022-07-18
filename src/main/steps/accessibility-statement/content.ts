@@ -56,7 +56,7 @@ const en = ({ isDivorce, telephoneNumber }: CommonContent) => ({
   line15:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email: 'Email:',
-  call: `Call: ${telephoneNumber} (Monday to Friday 8am to 8pm, Saturday 8am to 2pm)`,
+  call: `Call: ${telephoneNumber} (Monday to Friday 8am to 6pm)`,
   line16: 'We’ll consider your request and get back to you within 10 working days.',
   subHeading4: 'Reporting accessibility problems with this website',
   line17:
