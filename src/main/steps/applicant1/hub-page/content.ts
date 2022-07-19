@@ -80,13 +80,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
     Read the court’s reason(s) for refusing the application and provide the requested information.`,
     bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
     next: 'What you need to do next',
     line4: 'You need to respond to the court’s feedback before your application can proceed.',
     line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
@@ -208,13 +201,6 @@ const cy: typeof en = ({
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
     Read the court’s reason(s) for refusing the application and provide the requested information.`,
     bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
     next: 'What you need to do next',
     line4: 'You need to respond to the court’s feedback before your application can proceed.',
     line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
