@@ -116,7 +116,7 @@ const en = ({
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: `Telephone: ${telephoneNumber}`,
-  telephoneDetails: 'Monday to Friday 8am to 5pm',
+  telephoneDetails: 'Monday to Friday 8am to 6pm',
   telephoneCharges: {
     part1: 'Find out about call charges',
     link: config.get('govukUrls.callCharges'),
