@@ -4,12 +4,12 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
-import { TermsAndConditionsGetController } from './get';
+import { ContactUsGetController } from './get';
 
-describe('TermsAndConditionsGetController', () => {
-  const controller = new TermsAndConditionsGetController();
+describe('ContactUsGetController', () => {
+  const controller = new ContactUsGetController();
 
-  test('Should render the terms and conditions page', async () => {
+  test('Should render the contact us page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
