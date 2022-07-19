@@ -80,7 +80,9 @@ export const latestLegalAdvisorDecisionContent = (userCase: Partial<CaseWithId>)
   const pastLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[] | undefined = userCase.coLegalAdvisorDecisions;
   return pastLegalAdvisorDecisions
     ? {
-        latestRefusalClarificationAdditionalInfo: `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`,
+        latestRefusalClarificationAdditionalInfo: pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo
+          ? `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`
+          : '',
         latestRefusalClarificationReasons: pastLegalAdvisorDecisions[0].value.refusalClarificationReason?.filter(
           reason => reason !== ClarificationReason.OTHER
         ),
