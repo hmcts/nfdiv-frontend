@@ -1,19 +1,14 @@
+import * as oidc from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, InProgressDivorceCase, getCaseApi } from './case-api';
-import { CaseApiClient } from './case-api-client';
-import {
-  ApplicationType,
-  CITIZEN_ADD_PAYMENT,
-  CITIZEN_UPDATE,
-  DivorceOrDissolution,
-  SYSTEM_UNLINK_APPLICANT,
-  State,
-  UserRole,
-} from './definition';
+import * as caseApiClient from './case-api-client';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
+const getCaseApiClientMock = jest.spyOn(caseApiClient, 'getCaseApiClient');
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -26,24 +21,24 @@ const userDetails: UserDetails = {
 
 describe('CaseApi', () => {
   const mockApiClient = {
-    getLatestLinkedCase: jest.fn(),
-    getLatestCaseOrInvite: jest.fn(),
     getCaseById: jest.fn(),
     createCase: jest.fn(),
+    findUserInviteCases: jest.fn(),
+    findExistingUserCases: jest.fn(),
     getCaseUserRoles: jest.fn(),
     sendEvent: jest.fn(),
   };
 
   let api: CaseApi;
   beforeEach(() => {
-    api = new CaseApi(mockApiClient as unknown as CaseApiClient);
+    api = new CaseApi(mockApiClient as unknown as caseApiClient.CaseApiClient);
   });
 
   afterEach(() => {
-    mockApiClient.getLatestLinkedCase.mockClear();
-    mockApiClient.getLatestCaseOrInvite.mockClear();
     mockApiClient.getCaseById.mockClear();
     mockApiClient.createCase.mockClear();
+    mockApiClient.findUserInviteCases.mockClear();
+    mockApiClient.findExistingUserCases.mockClear();
     mockApiClient.getCaseUserRoles.mockClear();
     mockApiClient.sendEvent.mockClear();
   });
@@ -51,54 +46,114 @@ describe('CaseApi', () => {
   const serviceType = DivorceOrDissolution.DIVORCE;
 
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+    'Should create a %s case',
+    async caseType => {
+      const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: caseType };
+      mockApiClient.createCase.mockResolvedValue(createdCase);
+
+      const userCase = await api.createCase(caseType, userDetails);
+
+      expect(userCase).toStrictEqual(createdCase);
+    }
+  );
+
+  test('Should throw error when case could not be created', async () => {
+    mockApiClient.createCase.mockRejectedValue(new Error('Case could not be created.'));
+
+    await expect(api.createCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
+  });
+
+  test('Should return case for caseId passed', async () => {
+    const expectedCase = { id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' };
+    mockApiClient.getCaseById.mockResolvedValue(expectedCase);
+
+    const actualCase = await api.getCaseById('1234');
+    expect(actualCase).toStrictEqual(expectedCase);
+  });
+
+  test('Should throw error when case could not be fetched', async () => {
+    mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
+
+    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+  });
+
+  test('should return case data for new invite case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => mockCase),
+    });
+    const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
+    getSystemUserMock.mockClear();
+  });
+
+  test('should return false for if there is no invite case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => false),
+    });
+    const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual(false);
+    getSystemUserMock.mockClear();
+  });
+
+  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should return %s case data response',
     async caseType => {
-      const expectedCase = {
+      const userCase = [
+        {
+          id: '1234',
+          state: State.Draft,
+          case_data: {
+            divorceOrDissolution: caseType,
+            applicationFeeOrderSummary: [{ test: 'fees' }],
+            applicationPayments: [{ test: 'payment' }],
+          },
+        },
+      ];
+      mockApiClient.findExistingUserCases.mockResolvedValue(userCase);
+
+      const results = await api.getExistingUserCase(caseType);
+
+      expect(results).toStrictEqual({
         id: '1234',
         state: State.Draft,
         divorceOrDissolution: caseType,
         applicationFeeOrderSummary: [{ test: 'fees' }],
         payments: [{ test: 'payment' }],
-      };
-      mockApiClient.getLatestLinkedCase.mockResolvedValue(expectedCase);
-
-      const userCase = await api.getOrCreateCase(caseType, userDetails);
-
-      expect(userCase).toStrictEqual(expectedCase);
+      });
     }
   );
 
   test('Should throw error when case could not be retrieved', async () => {
-    mockApiClient.getLatestLinkedCase.mockRejectedValue(new Error('Case could not be retrieved.'));
+    mockApiClient.findExistingUserCases.mockRejectedValue(new Error('Case could not be retrieved.'));
 
-    await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Case could not be retrieved.');
-  });
-
-  test('Should create a case if one is not found', async () => {
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: 'divorce' };
-    mockApiClient.createCase.mockResolvedValue(createdCase);
-
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
-
-    expect(userCase).toStrictEqual(createdCase);
-  });
-
-  test('Should throw error when case could not be created', async () => {
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.createCase.mockRejectedValue(new Error('Case could not be created.'));
-
-    await expect(api.getOrCreateCase(serviceType, userDetails)).rejects.toThrow('Case could not be created.');
+    await expect(api.getExistingUserCase(serviceType)).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('Should throw an error if in progress divorce case is found', async () => {
-    const mockCase = { D8DivorceUnit: 'serviceCentre', state: 'AwaitingDecreeNisi' };
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(mockCase);
+    const mockCase = [{ case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' }];
+    mockApiClient.findExistingUserCases.mockResolvedValue(mockCase);
 
     try {
-      await api.getOrCreateCase(serviceType, userDetails);
+      await api.getExistingUserCase(serviceType);
     } catch (err) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(err instanceof InProgressDivorceCase).toBeTruthy();
@@ -109,27 +164,27 @@ describe('CaseApi', () => {
   });
 
   test('Should ignore incomplete divorce cases', async () => {
-    const mockDivCase = { D8DivorceUnit: 'serviceCentre', state: 'AwaitingPayment' };
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation(async caseType =>
+    const mockDivCase = [{ id: '1', state: 'AwaitingPayment', case_data: { D8DivorceUnit: 'serviceCentre' } }];
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    mockApiClient.findExistingUserCases.mockImplementation(async caseType =>
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    const userCase = await api.getExistingUserCase(serviceType);
 
-    expect(userCase).toStrictEqual(mockCase);
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
   test('Should ignore divorce cases not assigned to the service center', async () => {
-    const mockDivCase = { D8DivorceUnit: 'BuryStEdmunds', state: 'AwaitingDecreeNisi' };
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation(async caseType =>
+    const mockDivCase = [{ id: '1', state: 'AwaitingDecreeNisi', case_data: { D8DivorceUnit: 'BuryStEdmunds' } }];
+    const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
+    mockApiClient.findExistingUserCases.mockImplementation(async caseType =>
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getOrCreateCase(serviceType, userDetails);
+    const userCase = await api.getExistingUserCase(serviceType);
 
-    expect(userCase).toStrictEqual(mockCase);
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
   test('Should update case', async () => {
@@ -161,123 +216,11 @@ describe('CaseApi', () => {
     await expect(api.triggerEvent('not found', caseData, CITIZEN_UPDATE)).rejects.toThrow('Case could not be updated.');
   });
 
-  test('Should return case for caseId passed', async () => {
-    const expectedCase = { id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' };
-    mockApiClient.getCaseById.mockResolvedValue(expectedCase);
-
-    const actualCase = await api.getCaseById('1234');
-    expect(actualCase).toStrictEqual(expectedCase);
-  });
-
-  test('Should throw error when case could not be fetched', async () => {
-    mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
-
-    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
-  });
-
   test('isApplicant2() should return true if the case role contains applicant 2', async () => {
     mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
 
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return true if the case role contains applicant 2', async () => {
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestCaseOrInvite.mockResolvedValue(mockCase);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
-
-    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return false if the case role contains creator', async () => {
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestCaseOrInvite.mockResolvedValue(mockCase);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-
-    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(false);
-  });
-
-  test('isApplicantAlreadyLinked() should return true if the case role contains creator for a joint case', async () => {
-    const mockCase = {
-      id: '1',
-      state: State.Draft,
-      divorceOrDissolution: serviceType,
-      applicationType: ApplicationType.JOINT_APPLICATION,
-    };
-    mockApiClient.getLatestCaseOrInvite.mockResolvedValue(mockCase);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-
-    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return false if the case role does not contain applicant 2', async () => {
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestCaseOrInvite.mockResolvedValue(mockCase);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CASE_WORKER }] });
-
-    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(false);
-  });
-
-  test('isApplicantAlreadyLinked() returns false if case is not found', async () => {
-    mockApiClient.getLatestCaseOrInvite.mockResolvedValue(false);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CASE_WORKER }] });
-
-    const isApplicant2AlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicant2AlreadyLinked).toBe(false);
-  });
-
-  test('should unlink stale draft cases', async () => {
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation((caseType: string) =>
-      Promise.resolve(caseType.includes('DIVORCE') ? false : mockCase)
-    );
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-    mockApiClient.sendEvent.mockResolvedValue(mockCase);
-
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
-
-    expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1', {}, SYSTEM_UNLINK_APPLICANT);
-  });
-
-  test('should not invoke unlink event if no cases found', async () => {
-    mockApiClient.getLatestLinkedCase.mockResolvedValue(false);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-    mockApiClient.sendEvent.mockResolvedValue({});
-
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
-
-    expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
-  });
-
-  test('should not invoke unlink event if the case is not in draft state', async () => {
-    const mockCase = { id: '1', state: State.Holding, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation((caseType: string) =>
-      Promise.resolve(caseType.includes('DIVORCE') ? false : mockCase)
-    );
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-    mockApiClient.sendEvent.mockResolvedValue(mockCase);
-
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
-
-    expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
-  });
-
-  test('should not invoke unlink event if user is applicant 2', async () => {
-    const mockCase = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
-    mockApiClient.getLatestLinkedCase.mockImplementation((caseType: string) =>
-      Promise.resolve(caseType.includes('DIVORCE') ? false : mockCase)
-    );
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
-    mockApiClient.sendEvent.mockResolvedValue(mockCase);
-
-    await api.unlinkStaleDraftCaseIfFound(serviceType, userDetails);
-
-    expect(mockApiClient.sendEvent).not.toHaveBeenCalled();
   });
 });
 
