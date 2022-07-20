@@ -13,7 +13,7 @@ export default class ConfirmYourJointApplicationPostController extends Applicant
       formData.applicant2UsedWelshTranslationOnSubmission = YesOrNo.YES;
     }
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    return super.save(req, formData, eventName);
   }
 
   protected getEventName(): string {
