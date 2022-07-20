@@ -113,7 +113,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     jurisdictionDetailsReasonBody: {
       part1:
         'The court has judged that your application does not fall within the jurisdiction of England and Wales. You must have at least one legal connection to England and Wales. You can see all the possible legal connections on the ',
-      part2: 'Refusal Order (PDF)',
+      part2: 'Refusal Order document',
       part3: '.',
       downloadReference: 'Refusal-Order',
       link: '/downloads/conditional-order-refusal',
@@ -132,7 +132,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsComments: 'The court’s comments',
+    courtsComments: 'The court has made the following comments on your application:',
   },
 });
 
