@@ -16,7 +16,6 @@ import {
   PageLink,
   SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
-  WEBCHAT_URL,
 } from '../../steps/urls';
 
 /**
@@ -29,13 +28,12 @@ export class StateRedirectMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if ([WEBCHAT_URL].includes(req.path as PageLink)) {
+        if (signInNotRequired(req.path as PageLink)) {
           return next('route');
         }
 
         if (
           this.hasPartnerNotResponded(req.session.userCase, req.session.isApplicant2) &&
-          !signInNotRequired(req.path) &&
           ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
         ) {
           return res.redirect(NO_RESPONSE_YET);
@@ -43,7 +41,6 @@ export class StateRedirectMiddleware {
 
         if (
           [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state) &&
-          !signInNotRequired(req.path) &&
           req.path !== APPLICATION_SUBMITTED
         ) {
           return res.redirect(APPLICATION_SUBMITTED);
