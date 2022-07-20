@@ -38,16 +38,11 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const caseData = {
-      accessCode: 'QWERTY78',
-      caseReference: '1234123412341234',
-      applicationType: ApplicationType.JOINT_APPLICATION,
-    };
-
-    const req = mockRequest({ body });
-    (getCaseApiMock as jest.Mock).mockReturnValue({
+    const caseApiMockFn = {
       triggerEvent: jest.fn(() => {
         return {
+          accessCode: 'QWERTY78',
+          caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
@@ -61,12 +56,14 @@ describe('AccessCodePostController', () => {
       unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
-    });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+
+    const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
         accessCode: 'QWERTY78',
@@ -86,16 +83,11 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const caseData = {
-      accessCode: 'QWERTY78',
-      caseReference: '1234123412341234',
-      applicationType: ApplicationType.SOLE_APPLICATION,
-    };
-
-    const req = mockRequest({ body });
-    (getCaseApiMock as jest.Mock).mockReturnValue({
+    const caseApiMockFn = {
       triggerEvent: jest.fn(() => {
         return {
+          accessCode: 'QWERTY78',
+          caseReference: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
@@ -109,13 +101,15 @@ describe('AccessCodePostController', () => {
       unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
-    });
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+
+    const req = mockRequest({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
         accessCode: 'QWERTY78',
@@ -133,16 +127,11 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: '  Qwer TY 78  ', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const caseData = {
-      accessCode: '  Qwer TY 78  ',
-      caseReference: '1234123412341234',
-      applicationType: ApplicationType.SOLE_APPLICATION,
-    };
-
-    const req = mockRequest({ body });
-    (getCaseApiMock as jest.Mock).mockReturnValue({
+    const caseApiMockFn = {
       triggerEvent: jest.fn(() => {
         return {
+          accessCode: '  Qwer TY 78  ',
+          caseReference: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
@@ -156,13 +145,15 @@ describe('AccessCodePostController', () => {
       unlinkStaleDraftCaseIfFound: jest.fn(() => {
         return undefined;
       }),
-    });
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+
+    const req = mockRequest({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(
       '1234123412341234',
       {
         accessCode: '  Qwer TY 78  ',
