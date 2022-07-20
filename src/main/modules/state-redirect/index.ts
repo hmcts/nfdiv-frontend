@@ -6,6 +6,7 @@ import { CaseWithId } from '../../app/case/case';
 import { State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
+import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
@@ -15,7 +16,6 @@ import {
   PageLink,
   SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
-  WEBCHAT_URL,
 } from '../../steps/urls';
 
 /**
@@ -28,7 +28,7 @@ export class StateRedirectMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if ([WEBCHAT_URL].includes(req.path as PageLink)) {
+        if (signInNotRequired(req.path as PageLink)) {
           return next('route');
         }
 
