@@ -4,8 +4,8 @@ import { signInNotRequired } from '../../steps/url-utils';
 import { TIMED_OUT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-const sessionTimeoutInterval = 20 * 60 * 1000; // 20 minutes
-// const sessionTimeoutInterval = 20 * 60 * 1000; // 10 seconds (FOR TESTING)
+const sessionTimeoutInterval = signInNotRequired(window.location.pathname) ? Infinity : 20 * 60 * 1000; // 20 minutes
+// const sessionTimeoutInterval = 10 * 1000; // 10 seconds (FOR TESTING)
 let timeout;
 
 const saveBeforeSessionTimeout = async () => {
@@ -43,9 +43,7 @@ const pingUserActive = throttle(
   { trailing: false }
 );
 
-if (!signInNotRequired(window.location.pathname)) {
-  setTimeout(() => {
-    ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
-  }, eventTimer);
-  setSaveTimeout();
-}
+setTimeout(() => {
+  ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
+}, eventTimer);
+setSaveTimeout();
