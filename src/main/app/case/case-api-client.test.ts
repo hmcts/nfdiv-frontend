@@ -102,19 +102,21 @@ describe('CaseApi', () => {
         },
       });
 
-      const userCase = await api.getLatestLinkedCase(CASE_TYPE, serviceType);
+      const userCases = await api.findExistingUserCases(CASE_TYPE, serviceType);
 
-      expect(userCase).toStrictEqual({
+      expect(userCases[0]).toStrictEqual({
         id: '1234',
         state: State.Draft,
-        divorceOrDissolution: serviceType,
-        applicationFeeOrderSummary: [{ test: 'fees' }],
-        payments: [{ test: 'payment' }],
+        case_data: {
+          divorceOrDissolution: serviceType,
+          applicationFeeOrderSummary: [{ test: 'fees' }],
+          applicationPayments: [{ test: 'payment' }],
+        },
       });
     }
   );
 
-  test('Should getLatestCaseOrInvite', async () => {
+  test('Should return DIVORCE caseType data response', async () => {
     mockedAxios.post.mockResolvedValue({
       data: {
         cases: [
@@ -140,14 +142,55 @@ describe('CaseApi', () => {
       },
     });
 
-    const userCase = await api.getLatestCaseOrInvite(CASE_TYPE, DivorceOrDissolution.DIVORCE, 'user.email@gmail.com');
+    const userCases = await api.findExistingUserCases('DIVORCE', DivorceOrDissolution.DIVORCE);
 
-    expect(userCase).toStrictEqual({
+    expect(userCases[0]).toStrictEqual({
       id: '1234',
       state: State.Draft,
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-      applicationFeeOrderSummary: [{ test: 'fees' }],
-      payments: [{ test: 'payment' }],
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        applicationPayments: [{ test: 'payment' }],
+      },
+    });
+  });
+
+  test('Should find users invite case', async () => {
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        cases: [
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'divorce',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+          {
+            id: '1234',
+            state: State.Draft,
+            case_data: {
+              divorceOrDissolution: 'dissolution',
+              applicationFeeOrderSummary: [{ test: 'fees' }],
+              applicationPayments: [{ test: 'payment' }],
+            },
+          },
+        ],
+      },
+    });
+
+    const userCases = await api.findUserInviteCases('user.email@gmail.com', CASE_TYPE, DivorceOrDissolution.DIVORCE);
+
+    expect(userCases[0]).toStrictEqual({
+      id: '1234',
+      state: State.Draft,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicationFeeOrderSummary: [{ test: 'fees' }],
+        applicationPayments: [{ test: 'payment' }],
+      },
     });
   });
 
@@ -157,13 +200,26 @@ describe('CaseApi', () => {
         status: 500,
       },
       config: {
-        method: 'GET',
+        method: 'POST',
       },
     });
 
-    await expect(api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
+    await expect(api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).rejects.toThrow(
       'Case could not be retrieved.'
     );
+  });
+
+  test('Should return false case could not be retrieved and status code is 404', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 404,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    expect(await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).toStrictEqual(false);
   });
 
   test('Should create a case', async () => {
@@ -222,12 +278,14 @@ describe('CaseApi', () => {
       data: { cases: [firstMockCase, secondMockCase] },
     });
 
-    const userCase = await api.getLatestLinkedCase(CASE_TYPE, DivorceOrDissolution.DIVORCE);
+    const userCases = await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE);
 
-    expect(userCase).toStrictEqual({
+    expect(userCases[0]).toStrictEqual({
       id: '1',
       state: State.Draft,
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      case_data: {
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      },
     });
   });
 

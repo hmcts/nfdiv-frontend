@@ -13,5 +13,6 @@ export const defaultViewArgs = {
   language: expect.any(String),
   htmlLang: expect.any(String),
   userEmail: expect.any(String),
+  existingCaseId: expect.any(String),
   contactEmail: expect.any(String),
 };

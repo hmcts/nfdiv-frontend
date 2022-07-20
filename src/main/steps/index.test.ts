@@ -13,6 +13,7 @@ import {
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
+  HUB_PAGE,
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
@@ -28,7 +29,7 @@ import {
 } from './index';
 
 describe('Steps', () => {
-  describe('getNextStep()', () => {
+  describe('getNextStepUrl()', () => {
     let mockReq: AppRequest;
     beforeEach(() => {
       mockReq = mockRequest();
@@ -51,6 +52,11 @@ describe('Steps', () => {
       mockReq.originalUrl = `${YOUR_DETAILS_URL}?customQueryString`;
       const data = { gender: Gender.MALE };
       expect(getNextStepUrl(mockReq, data)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
+    });
+
+    it.each([APPLICANT_2, RESPONDENT])('returns / when the next step for applicant 2 is /applicant2/', prefixUrl => {
+      mockReq.originalUrl = prefixUrl + HUB_PAGE;
+      expect(getNextStepUrl(mockReq, {})).toBe(HOME_URL);
     });
   });
 
