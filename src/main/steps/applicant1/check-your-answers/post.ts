@@ -7,6 +7,7 @@ import {
   CITIZEN_SUBMIT,
   INVITE_APPLICANT_2,
   State,
+  YesOrNo,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -20,6 +21,10 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
     formData.divorceOrDissolution = req.session.userCase.divorceOrDissolution;
     formData.applicant1ApplyForFinancialOrder = req.session.userCase.applicant1ApplyForFinancialOrder;
     formData.applicant1WhoIsFinancialOrderFor = req.session.userCase.applicant1WhoIsFinancialOrderFor;
+
+    if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.lang === 'cy') {
+      formData.applicant1UsedWelshTranslationOnSubmission = YesOrNo.YES;
+    }
 
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }

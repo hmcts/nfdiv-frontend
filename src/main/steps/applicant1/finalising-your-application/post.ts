@@ -1,10 +1,24 @@
 import autobind from 'autobind-decorator';
 
-import { FINAL_ORDER_REQUESTED } from '../../../app/case/definition';
+import { Case, CaseWithId } from '../../../app/case/case';
+import { FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
+  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    if (req.session.lang === 'cy') {
+      if (req.session.isApplicant2) {
+        formData.applicant2UsedWelshTranslationOnSubmission = YesOrNo.YES;
+      } else {
+        formData.applicant1UsedWelshTranslationOnSubmission = YesOrNo.YES;
+      }
+    }
+
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+  }
+
   protected getEventName(): string {
     return FINAL_ORDER_REQUESTED;
   }

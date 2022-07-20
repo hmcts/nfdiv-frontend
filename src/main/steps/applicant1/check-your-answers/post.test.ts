@@ -47,8 +47,6 @@ describe('CheckYourAnswersPostController', () => {
   it('triggers INVITE_APPLICANT_2 when joint application', async () => {
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
-      applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant1StatementOfTruth: Checkbox.Checked,
     };
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
@@ -67,8 +65,6 @@ describe('CheckYourAnswersPostController', () => {
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
       state: State.AwaitingApplicant1Response,
-      applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant1StatementOfTruth: Checkbox.Checked,
     };
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
@@ -87,8 +83,6 @@ describe('CheckYourAnswersPostController', () => {
     const body = {
       applicationType: ApplicationType.JOINT_APPLICATION,
       state: State.AwaitingApplicant1Response,
-      applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant1StatementOfTruth: Checkbox.Checked,
     };
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
@@ -108,6 +102,36 @@ describe('CheckYourAnswersPostController', () => {
         applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.CHILDREN],
       },
       APPLICANT_1_RESUBMIT
+    );
+  });
+
+  it('sets applicant1UsedWelshTranslationOnSubmission to Yes if Welsh translation used', async () => {
+    const body = {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      state: State.Draft,
+      applicant1IConfirmPrayer: Checkbox.Checked,
+      applicant1StatementOfTruth: Checkbox.Checked,
+    };
+    const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    req.session.lang = 'cy';
+    req.session.userCase.applicant1ApplyForFinancialOrder = YesOrNo.YES;
+    req.session.userCase.applicant1WhoIsFinancialOrderFor = [FinancialOrderFor.CHILDREN];
+
+    const res = mockResponse();
+    await checkYourAnswerPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      {
+        ...body,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicant1ApplyForFinancialOrder: YesOrNo.YES,
+        applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.CHILDREN],
+        applicant1UsedWelshTranslationOnSubmission: YesOrNo.YES,
+      },
+      CITIZEN_SUBMIT
     );
   });
 });
