@@ -4,7 +4,7 @@ import { signInNotRequired } from '../../steps/url-utils';
 import { TIMED_OUT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-const sessionTimeoutInterval = signInNotRequired(window.location.pathname) ? Infinity : 20 * 60 * 1000; // 20 minutes
+const sessionTimeoutInterval = signInNotRequired(window.location.pathname) ? 12 * 60 * 60 * 1000 : 20 * 60 * 1000; // 12 hr or 20 minutes
 // const sessionTimeoutInterval = 10 * 1000; // 10 seconds (FOR TESTING)
 let timeout;
 
