@@ -16,6 +16,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const caseData = {
+      id: '1234123412341234',
       applicationType: ApplicationType.JOINT_APPLICATION,
     };
 
@@ -29,6 +30,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
 
   test('Should create a new case and unset isApplicant2 for applicant 2', async () => {
@@ -36,6 +38,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const controller = new SwitchToSoleApplicationPostController(mockFormContent.fields);
 
     const caseData = {
+      id: '1234123412341234',
       applicationType: ApplicationType.JOINT_APPLICATION,
     };
 
@@ -50,6 +53,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.isApplicant2).toEqual(false);
+    expect(req.session.existingCaseId).toStrictEqual(undefined);
   });
 
   test('Should redirect to pay and submit page when cancel button used in AwaitingPayment state', async () => {
