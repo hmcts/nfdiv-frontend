@@ -14,6 +14,9 @@ describe('ConfirmYourJointApplicationPostController', () => {
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
+      applicant2ApplyForFinancialOrder: undefined,
+      applicant2WhoIsFinancialOrderFor: undefined,
+      divorceOrDissolution: 'divorce',
     };
     const mockFormContent = {
       fields: {
@@ -38,6 +41,9 @@ describe('ConfirmYourJointApplicationPostController', () => {
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant2IConfirmPrayer: Checkbox.Checked,
       applicant2StatementOfTruth: Checkbox.Checked,
+      applicant2ApplyForFinancialOrder: undefined,
+      applicant2WhoIsFinancialOrderFor: undefined,
+      divorceOrDissolution: 'divorce',
     };
     const mockFormContent = {
       fields: {
