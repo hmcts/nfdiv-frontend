@@ -1,5 +1,5 @@
 import { State } from '../../main/app/case/definition';
-import { ADDRESS_PRIVATE, HOME_URL } from '../../main/steps/urls';
+import { ADDRESS_PRIVATE, HOME_URL, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
@@ -15,6 +15,16 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
 
   I.amOnPage(ADDRESS_PRIVATE);
   I.click('I do not need my contact details kept private');
+  I.click('Continue');
+});
+
+Given('I set the email address for applicant 2', async () => {
+  I.amOnPage(THEIR_EMAIL_ADDRESS);
+  const applicant2EmailAddress = testConfig.GetUser(parseInt('2')).username;
+
+  await iClearTheForm();
+  iClick("Your husband's email address");
+  I.type(applicant2EmailAddress);
   I.click('Continue');
 });
 

@@ -5,13 +5,13 @@ import { DivorceOrDissolution } from '../../app/case/definition';
 import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
-import { NoResponseYetApplicationGetController } from './get';
+import { ExistingApplicationGetController } from './get';
 
-describe('NoResponseYetApplicationGetController', () => {
-  const controller = new NoResponseYetApplicationGetController();
+describe('ExistingApplicationGetController', () => {
+  const controller = new ExistingApplicationGetController();
   const language = 'en';
 
-  test('Should render the no response page with divorce content', async () => {
+  test('Should render the existing application page with divorce content', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
@@ -31,7 +31,7 @@ describe('NoResponseYetApplicationGetController', () => {
     });
   });
 
-  test('Should render the no response page with civil content', async () => {
+  test('Should render the existing application page with civil content', async () => {
     const req = mockRequest();
     const res = mockResponse();
     res.locals.serviceType = DivorceOrDissolution.DISSOLUTION;
