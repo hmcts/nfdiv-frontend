@@ -2142,6 +2142,7 @@ export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_REMIND_APPLICANTS_APPLY_FOR_FINAL_ORDER = 'system-remind-applicants-final-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
+export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';

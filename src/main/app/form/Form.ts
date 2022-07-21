@@ -1,3 +1,4 @@
+import { existingOrNew } from '../../steps/existing-application/content';
 import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
@@ -189,4 +190,5 @@ interface CaseWithFormData extends CaseWithId {
   saveAndSignOut?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
+  existingOrNewApplication?: existingOrNew;
 }
