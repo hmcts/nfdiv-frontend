@@ -68,6 +68,8 @@ export class AccessCodePostController {
       await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
     }
 
+    req.session.existingCaseId = req.session.userCase.id;
+
     const nextStep =
       req.session.errors.length > 0
         ? req.url

@@ -42,14 +42,14 @@ describe('AccessCodePostController', () => {
       triggerEvent: jest.fn(() => {
         return {
           accessCode: 'QWERTY78',
-          caseReference: '1234123412341234',
+          id: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
       getCaseById: jest.fn(() => {
         return {
           accessCode: 'QWERTY78',
-          caseReference: '1234123412341234',
+          id: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
@@ -77,6 +77,7 @@ describe('AccessCodePostController', () => {
     );
     expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
     expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
 
   test('Should have no errors and redirect to the next page in AOS journey', async () => {
@@ -87,14 +88,14 @@ describe('AccessCodePostController', () => {
       triggerEvent: jest.fn(() => {
         return {
           accessCode: 'QWERTY78',
-          caseReference: '1234123412341234',
+          id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
       getCaseById: jest.fn(() => {
         return {
           accessCode: 'QWERTY78',
-          caseReference: '1234123412341234',
+          id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
@@ -121,6 +122,7 @@ describe('AccessCodePostController', () => {
     );
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
     expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
 
   test('Assert access code with whitespaces and lowercase characters is valid', async () => {
