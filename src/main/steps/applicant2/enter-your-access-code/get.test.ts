@@ -8,9 +8,6 @@ import { generateContent } from './content';
 import { Applicant2AccessCodeGetController } from './get';
 
 jest.mock('../../../app/auth/user/oidc');
-jest.mock('../../../app/case/case-api', () => ({
-  getCaseApi: () => ({ isApplicantAlreadyLinked: jest.fn() }),
-}));
 
 describe('AccessCodeGetController', () => {
   const controller = new Applicant2AccessCodeGetController();

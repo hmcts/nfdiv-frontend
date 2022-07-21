@@ -92,16 +92,15 @@ export class OidcMiddleware {
         if (!isLinkingUrl(req.path)) {
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
-      } else {
-        req.session.userCase =
-          req.session.userCase ||
-          existingUserCase ||
-          (await req.locals.api.createCase(res.locals.serviceType, req.session.user));
-
-        req.session.existingCaseId = req.session.userCase.id;
-
+      } else if (existingUserCase) {
         req.session.isApplicant2 =
           req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+        req.session.userCase = req.session.userCase || existingUserCase;
+        redirectUrl = HOME_URL;
+      } else {
+        req.session.userCase = await req.locals.api.createCase(res.locals.serviceType, req.session.user);
+
+        req.session.isApplicant2 = false;
       }
 
       req.session.save(err => {
@@ -137,7 +136,7 @@ export class OidcMiddleware {
           ? 'https://manage-case.platform.hmcts.net/'
           : isApp2Callback
           ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
-          : '/';
+          : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
       } else {
