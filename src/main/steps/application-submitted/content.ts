@@ -16,7 +16,8 @@ const en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
+  openingTimes,
+  telephoneNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
@@ -75,12 +76,8 @@ const en = ({
     .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
-  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${config.get(
-    'servicePhoneNo'
-  )} to request it. Otherwise the court will do it.`,
-  line9: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${config.get(
-    'servicePhoneNo'
-  )}.`,
+  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
+  line9: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
   line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
@@ -115,11 +112,10 @@ const en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
-  telephoneNumber: `Telephone: ${config.get('servicePhoneNo')}`,
-  telephoneDetails: 'Monday to Friday 8am to 5pm',
+  telephoneNumber: `Telephone: ${telephoneNumber}`,
+  openingTimes,
   telephoneCharges: {
     part1: 'Find out about call charges',
     link: config.get('govukUrls.callCharges'),
@@ -145,7 +141,8 @@ const cy: typeof en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
+  telephoneNumber,
+  openingTimes,
 }: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
@@ -204,12 +201,8 @@ const cy: typeof en = ({
     .format('D MMMM YYYY')} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
-  line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${config.get(
-    'cyServicePhoneNo'
-  )}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
-  line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${config.get(
-    'cyServicePhoneNo'
-  )}.`,
+  line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+  line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
   line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
@@ -243,11 +236,10 @@ const cy: typeof en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
-  telephoneNumber: `Rhif ffôn: ${config.get('cyServicePhoneNo')}`,
-  telephoneDetails: 'Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm',
+  telephoneNumber: `Rhif ffôn: ${telephoneNumber}`,
+  openingTimes,
   telephoneCharges: {
     part1: 'Gwybodaeth am brisiau galwadau',
     link: config.get('govukUrls.callCharges'),

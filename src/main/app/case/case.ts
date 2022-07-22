@@ -6,6 +6,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ClarificationReason,
   ConditionalOrderCourt,
   DateAsString,
   DivorceDocument,
@@ -111,6 +112,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
+  coRefusalClarificationReason: 'coRefusalClarificationReason',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
@@ -278,6 +280,7 @@ export interface Case {
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
+  coRefusalClarificationReason?: ClarificationReason[];
   coRefusalClarificationAdditionalInfo?: string;
   dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
@@ -301,6 +304,7 @@ export interface Case {
   applicant1FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   applicant2SolicitorRepresented: YesOrNo;
+  applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;

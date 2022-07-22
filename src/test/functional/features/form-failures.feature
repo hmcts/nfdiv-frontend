@@ -70,6 +70,11 @@ Feature: Form failures
     And I select "I do not know their email address"
     When I click "Continue"
     Then the page should include "You have entered an email address and indicated that you do not know their email address. You can only do one before continuing."
+    Given I clear the form
+    And I select "Your spouse's email address"
+    And I type my own email address
+    When I click "Continue"
+    Then the page should include "You have entered your own email address. You need to enter your spouse's email address before continuing."
 
     Given I go to "/do-you-have-address"
     When I click "Continue"

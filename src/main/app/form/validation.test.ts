@@ -3,6 +3,7 @@ import { CaseDate } from '../case/case';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
+  isApplicant2EmailValid,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -178,6 +179,20 @@ describe('Validation', () => {
       { mockEmail: 'test_123@test@test.com', expected: 'invalid' },
     ])('validates an email when %o', ({ mockEmail, expected }) => {
       expect(isEmailValid(mockEmail)).toEqual(expected);
+    });
+  });
+
+  describe('isApplicant2EmailValid()', () => {
+    it.each([
+      { mockEmail: '', expected: 'invalid' },
+      { mockEmail: 'test', expected: 'invalid' },
+      { mockEmail: '12345', expected: 'invalid' },
+      { mockEmail: 'test@test.com', expected: undefined },
+      { mockEmail: 'test_123@test.com', expected: undefined },
+      { mockEmail: 'test_123@test@test.com', expected: 'invalid' },
+      { mockEmail: 'applicant1@email.com', expected: 'sameEmail' },
+    ])('validates an email when %o', ({ mockEmail, expected }) => {
+      expect(isApplicant2EmailValid(mockEmail, 'applicant1@email.com')).toEqual(expected);
     });
   });
 

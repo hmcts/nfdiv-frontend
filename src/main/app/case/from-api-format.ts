@@ -163,6 +163,7 @@ const fields: FromApiConverters = {
     dateAosSubmitted: dayjs(data.dateAosSubmitted).format('D MMMM YYYY'),
   }),
   previousState: 'previousState',
+  applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
 };
 
 const fromApiDate = date => {

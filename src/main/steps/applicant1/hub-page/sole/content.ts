@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { Checkbox } from '../../../../app/case/case';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
@@ -481,14 +482,12 @@ export const generateContent: TranslationFn = content => {
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
-  const isServiceApplicationGranted =
-    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
   const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
-  const isClarificationDocumentsUploaded = userCase.coClarificationUploadDocuments?.length;
+  const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments === Checkbox.Unchecked;
   const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
     .alternativeServiceType as AlternativeServiceType;
   const isAlternativeService = !!alternativeServiceType;
@@ -497,7 +496,7 @@ export const generateContent: TranslationFn = content => {
   );
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
-    isServiceApplicationGranted,
+    userCase,
     isSuccessfullyServedByBailiff,
     isAlternativeService
   );
@@ -508,7 +507,6 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
     isClarificationDocumentsUploaded,
-    isServiceApplicationGranted,
     isAlternativeService,
     theLatestUpdateTemplate,
   };

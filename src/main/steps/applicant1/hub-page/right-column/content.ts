@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
-const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
@@ -53,7 +53,8 @@ const en = ({ isDivorce, isApplicant2, userCase }: CommonContent) => ({
   gettingHelp: 'Getting help',
   telephone: {
     heading: 'Phone',
-    openingTimes: '(Monday to Friday, 8am to 8pm, Saturday 8am to 2pm)',
+    openingTimes: `(${openingTimes})`,
+    number: telephoneNumber,
   },
   email: 'Email',
   post: 'Post',

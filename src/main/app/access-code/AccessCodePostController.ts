@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -20,9 +20,6 @@ export class AccessCodePostController {
       return res.redirect(SIGN_OUT_URL);
     }
 
-    const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
@@ -30,8 +27,10 @@ export class AccessCodePostController {
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
+    const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
+
     try {
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
+      const caseData = await caseworkerUserApi.getCaseById(caseReference as string);
 
       if (caseData.applicationType === ApplicationType.JOINT_APPLICATION) {
         formData.applicant2FirstNames = req.session.user.givenName;
@@ -52,7 +51,7 @@ export class AccessCodePostController {
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase = await caseworkerUserApi.triggerEvent(
           caseReference as string,
           formData,
           SYSTEM_LINK_APPLICANT_2
@@ -65,9 +64,11 @@ export class AccessCodePostController {
       }
     }
 
-    if (req.session.errors.length === 0) {
-      await req.locals.api.unlinkStaleDraftCaseIfFound(res.locals.serviceType, req.session.user);
+    if (req.session.errors.length === 0 && req.session.existingCaseId) {
+      await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
     }
+
+    req.session.existingCaseId = req.session.userCase.id;
 
     const nextStep =
       req.session.errors.length > 0

@@ -36,7 +36,7 @@ const en = (
   const connectionCheckboxes = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `My ${partner} and I are habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `My ${partner} and I were last habitually resident in England
-    and Wales and ones of us continues to reside there`,
+    and Wales and one of us continues to reside there`,
     [JurisdictionConnections.APP_2_RESIDENT_SOLE]: `My ${partner} is habitually resident in England and Wales`,
     [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `My ${partner} is habitually resident in England and Wales`,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
