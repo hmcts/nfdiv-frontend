@@ -23,7 +23,9 @@ const en = ({ isDivorce, userCase }) => ({
     },
     aboutApplication: {
       line1: 'How do you want to respond to the application?',
-      line2: 'Do you agree the courts of England and Wales have jurisdiction?',
+      line2: `Do you agree the courts of England and Wales have legal power (jurisdiction) to ${
+        isDivorce ? 'grant your divorce' : 'end your civil partnership'
+      }?`,
       line3: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
         isDivorce ? 'grant your divorce' : 'end your civil partnership'
       }.`,
@@ -142,46 +144,49 @@ const en = ({ isDivorce, userCase }) => ({
   },
 });
 
-// @TODO translations
 const cy: typeof en = ({ isDivorce, userCase }) => ({
   ...en({ isDivorce, userCase }),
+  titleSoFar: 'Gwiriwch eich atebion hyd yma',
+  titleSubmit: 'Gwiriwch eich atebion',
   sectionTitles: {
-    readApplication: `Confirm that you have read the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    readApplication: `Cadarnhewch eich bod wedi cael y ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }`,
-    aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
-    contactYou: 'Sut bydd y llys yn cysylltu â chi',
-    otherCourtCases: 'Other court cases',
+    aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,
+    contactYou: 'Sut fydd y llys yn cysylltu â chi',
+    otherCourtCases: 'Achosion llys eraill',
   },
   stepQuestions: {
     readApplication: {
-      line1: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+      line1: `Adolygu’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}`,
     },
     aboutApplication: {
-      line1: 'How do you want to respond to the application?',
-      line2: 'Do you agree the courts of England and Wales have jurisdiction?',
-      line3: `Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to ${
-        isDivorce ? 'grant your divorce' : 'end your civil partnership'
+      line1: 'Sut rydych chi eisiau ymateb i’r cais?',
+      line2: `Ydych chi’n cytuno bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
+        isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+      }?`,
+      line3: `Eglurwch pam ydych chi’n credu nad oes gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ${
+        isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch priodas sifil i ben'
       }.`,
-      line4: 'Which country is your life mainly based?',
+      line4: 'Ym mha wlad ydych chi’n byw yn bennaf?',
     },
     contactYou: {
       line1: 'Trwy e-bost',
       line2: 'Dros y ffôn',
-      line3: 'What language do you want to receive emails and documents in?',
+      line3: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
     },
     otherCourtCases: {
-      line1: `Are there, or have there ever been, any other court cases relating to this ${
-        isDivorce ? 'marriage' : 'civil partnership'
-      }?`,
-      line2: 'Provide details about the other legal proceedings.',
+      line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
+        isDivorce ? 'priodas' : 'partneriaeth sifil'
+      }, eich eiddo, neu'ch plant?`,
+      line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
     },
   },
   stepAnswers: {
     readApplication: {
       line1: `${
         userCase.confirmReadPetition
-          ? `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`
+          ? `Rwyf wedi darllen y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’n partneriaeth sifil i ben'}`
           : ''
       }`,
     },
@@ -189,15 +194,15 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${
         userCase.disputeApplication
           ? userCase.disputeApplication === YesOrNo.YES
-            ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-            : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
+            ? `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`
+            : `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`
           : ''
       }`,
       line2: `${
         userCase.jurisdictionAgree
           ? userCase.jurisdictionAgree === YesOrNo.YES
-            ? 'Yes, I agree the courts have jurisdiction'
-            : 'No, I do not agree the courts have jurisdiction'
+            ? 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth'
+            : 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth'
           : ''
       }`,
       line3: `${
@@ -233,6 +238,27 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     otherCourtCases: {
       line1: `${userCase.applicant2LegalProceedings}`,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+    },
+  },
+  continueApplication: 'Parhau gyda’r cais',
+  confirmBeforeSubmit: 'Cadarnhau cyn cyflwyno',
+  iConfirm: 'Rwy’n cadarnhau:',
+  confirmSotHint: `
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-4">
+    <li>Fi yw’r unigolyn a enwir fel yr atebydd yn y cais ${
+      isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+    }</li>
+    <li>Credaf fod y ffeithiau a nodir yn yr ymateb hwn yn wir.</li></ul>`,
+  confirmationExplanation: `Mae’r datganiad cyntaf yn cadarnhau mai chi yw’r unigolyn y dylai fod yn ymateb i’r cais hwn ${
+    isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+  }. Yr ail yw eich datganiad gwirionedd.`,
+  confirmApplicationIsTrueWarning:
+    'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  continue: 'Submit',
+  errors: {
+    aosStatementOfTruth: {
+      required:
+        'Nid ydych wedi cadarnhau mai chi yw’r atebydd ac eich bod yn credu bod y ffeithiau yn wir. Mae angen ichi gadarnhau cyn parhau.',
     },
   },
 });
