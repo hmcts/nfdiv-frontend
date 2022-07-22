@@ -254,7 +254,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   }. Yr ail yw eich datganiad gwirionedd.`,
   confirmApplicationIsTrueWarning:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
-  continue: 'Submit',
+  continue: 'Cyflwyno',
   errors: {
     aosStatementOfTruth: {
       required:
