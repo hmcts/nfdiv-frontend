@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -6,9 +7,19 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import {
+  ApplicationType,
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  DivorceOrDissolution,
+  ListValue,
+  Payment,
+  UserRole,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
+
+const caseApiLogger = Logger.getLogger('case-api');
 
 export class InProgressDivorceCase implements Error {
   constructor(public readonly message: string, public readonly name = 'DivCase') {}
@@ -48,6 +59,24 @@ export class CaseApi {
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
     const userRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
     return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+  }
+
+  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
+    const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
+    const userCase = this.getLatestUserCase(userCases);
+    caseApiLogger.info(`In isApplicantAlreadyLinked, userCase exists: ${userCase ? 'true' : 'false'}`);
+    if (userCase) {
+      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
+      const linkedRoles =
+        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
+          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
+          : [UserRole.APPLICANT_2];
+      caseApiLogger.info(
+        `In isApplicantAlreadyLinked, case ID ${userCase.id}, linkedRoles: ${linkedRoles}, userRoles: ${userRoles.case_users[0]?.case_role}`
+      );
+      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
+    }
+    return false;
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
