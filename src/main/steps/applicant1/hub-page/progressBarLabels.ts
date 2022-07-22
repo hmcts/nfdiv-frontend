@@ -21,7 +21,6 @@ const enArialLabels = {
     'A progress bar showing the application has been submitted, the response has been received, a conditional order has been granted and a final order has been granted. All steps are now complete.',
 };
 
-// @TODO translations (weeks)
 const cy: typeof en = (isDivorce: boolean) => ({
   submitted: "Wedi'i gyflwyno",
   weeksToResponse: '2 wythnos',
