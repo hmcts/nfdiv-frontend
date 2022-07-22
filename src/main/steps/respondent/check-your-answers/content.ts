@@ -236,7 +236,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
+      line1: `${userCase.applicant2LegalProceedings?.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
     },
   },
