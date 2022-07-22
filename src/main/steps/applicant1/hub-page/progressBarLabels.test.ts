@@ -41,11 +41,11 @@ describe('getProgressBarContent', () => {
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toEqual({
       submitted: "Wedi'i gyflwyno",
-      weeksToResponse: '2 weeks',
+      weeksToResponse: '2 wythnos',
       response: 'Ymateb',
-      weeksToConditionalOrder: '20 weeks',
+      weeksToConditionalOrder: '20 wythnos',
       conditionalOrder: 'Gorchymyn amodol',
-      weeksToFinalOrder: '6 weeks',
+      weeksToFinalOrder: '6 wythnos',
       finalOrder: 'Gorchymyn terfynol (Wedi ysgaru)',
       progressBarAriaLabel:
         'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno. Y camau nesaf yw cael ymateb, gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',
@@ -57,11 +57,11 @@ describe('getProgressBarContent', () => {
     const labels = getProgressBarContent(false, displayState, false);
     expect(labels).toEqual({
       submitted: "Wedi'i gyflwyno",
-      weeksToResponse: '2 weeks',
+      weeksToResponse: '2 wythnos',
       response: 'Ymateb',
-      weeksToConditionalOrder: '20 weeks',
+      weeksToConditionalOrder: '20 wythnos',
       conditionalOrder: 'Gorchymyn amodol',
-      weeksToFinalOrder: '6 weeks',
+      weeksToFinalOrder: '6 wythnos',
       finalOrder: 'Gorchymyn terfynol (Partneriaeth sifil wedi dod i ben)',
       progressBarAriaLabel:
         'Bar cynnydd yn dangos bod y cais wedi’i gyflwyno. Y camau nesaf yw cael ymateb, gorchymyn amodol yn cael ei gymeradwyo a gorchymyn terfynol yn cael ei gymeradwyo, sef y cam olaf o’r broses. Nid yw’r camau nesaf wedi’u cwblhau eto.',

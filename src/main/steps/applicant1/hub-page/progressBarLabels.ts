@@ -24,11 +24,11 @@ const enArialLabels = {
 // @TODO translations (weeks)
 const cy: typeof en = (isDivorce: boolean) => ({
   submitted: "Wedi'i gyflwyno",
-  weeksToResponse: '2 weeks',
+  weeksToResponse: '2 wythnos',
   response: 'Ymateb',
-  weeksToConditionalOrder: '20 weeks',
+  weeksToConditionalOrder: '20 wythnos',
   conditionalOrder: 'Gorchymyn amodol',
-  weeksToFinalOrder: '6 weeks',
+  weeksToFinalOrder: '6 wythnos',
   finalOrder: `Gorchymyn terfynol (${isDivorce ? 'Wedi ysgaru' : 'Partneriaeth sifil wedi dod i ben'})`,
 });
 
