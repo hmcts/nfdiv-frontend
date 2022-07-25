@@ -25,7 +25,7 @@ const cy: typeof en = ({ isDivorce, required }) => ({
   title: `A oes angen help arnoch i dalu'r ffi am ${
     isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
   }`,
-  line1: `Mae'r cais hwn ${isDivorce ? 'am ysgariad' : ''}yn costio ${getFee(
+  line1: `Mae'r cais hwn ${isDivorce ? 'am ysgariad ' : ''}yn costio ${getFee(
     config.get('fees.applicationFee')
   )}. Efallai y byddwch yn gallu cael help i dalu'r ffi:`,
   helpPayingWhen: [
