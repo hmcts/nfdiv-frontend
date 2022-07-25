@@ -110,6 +110,7 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
+  contactEmail: 'divorcecase@justice.gov.uk',
 };
 
 const cy: typeof en = {
@@ -184,6 +185,7 @@ const cy: typeof en = {
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays', // todo
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
+  contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
 
 export const generatePageContent = ({
@@ -209,7 +211,6 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
-  const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
@@ -225,7 +226,6 @@ export const generatePageContent = ({
     isApplicant2,
     userCase,
     userEmail,
-    contactEmail,
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
@@ -249,7 +249,6 @@ export type CommonContent = typeof en & {
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
-  contactEmail?: string;
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;
