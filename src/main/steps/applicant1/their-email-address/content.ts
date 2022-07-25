@@ -46,10 +46,10 @@ const cy = ({ partner }) => ({
   line1:
     "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
   line2: 'Os ydych yn defnyddio ei gyfeiriad/chyfeiriad e-bost gwaith, dylech ofyn am ganiatâd yn gyntaf.',
-  respondentEmailAddress: `Cyfeiriad e-bost eich ${partner}`,
-  doNotKnowRespondentEmailAddress: 'Nid wyf yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost',
+  applicant2EmailAddress: `Cyfeiriad e-bost eich ${partner}`,
+  applicant1DoesNotKnowApplicant2EmailAddress: 'Nid wyf yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost',
   errors: {
-    respondentEmailAddress: {
+    applicant2EmailAddress: {
       required:
         "Nid ydych wedi rhoi ei gyfeiriad/chyfeiriad e-bost neu wedi dweud nad ydych yn gwybod beth ydyw. Mae'n rhaid i chi wneud y naill neu'r llall cyn parhau.",
       incorrect:
