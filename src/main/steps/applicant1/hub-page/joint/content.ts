@@ -8,7 +8,7 @@ import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
-const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
@@ -54,7 +54,8 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'What you can do',
       line2: `You should contact your ${partner} and ask them to apply. Only contact them if it’s safe to do so.`,
       line3: 'If you do not think they will apply then you can ',
-      link: 'change your application to a sole application.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'change your application to a sole application.',
     },
   },
   awaitingLegalAdvisorReferral: {
@@ -96,7 +97,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
       isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
@@ -150,7 +151,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'Beth allwch chi ei wneud',
       line2: `Dylech gysylltu â'ch ${partner} a gofyn iddynt wneud cais. Cysylltwch â nhw dim ond os yw'n ddiogel i chi wneud hynny.`,
       line3: 'Os nad ydych yn credu y byddant yn gwneud cais yna gallwch ',
-      link: 'newid eich cais i fod yn gais unigol.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'newid eich cais i fod yn gais unigol.',
     },
   },
   awaitingLegalAdvisorReferral: {
