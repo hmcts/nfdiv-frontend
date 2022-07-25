@@ -15,6 +15,6 @@
 {% endfor %}
 
 {% if latestRefusalClarificationAdditionalInfo %}
-  <h4 class="govuk-heading-s">{{ courtFeedback.courtsComments }}</h4>
+  <h4 class="govuk-heading-s">{{ courtFeedback.courtsCommentsShortHeading if condensedHeading else courtFeedback.courtsCommentsLongHeading }}</h4>
   <p class="govuk-body">{{ latestRefusalClarificationAdditionalInfo }}</p>
 {% endif %}

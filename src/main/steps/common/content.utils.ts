@@ -76,9 +76,12 @@ export const accessibleDetailsSpan = (spanText: string, accessibleText: string):
   return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
 };
 
-export const latestLegalAdvisorDecisionContent = (userCase: Partial<CaseWithId>): Record<string, unknown> => {
+export const latestLegalAdvisorDecisionContent = (
+  userCase: Partial<CaseWithId>,
+  condensedHeading: boolean
+): Record<string, unknown> => {
   const pastLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[] | undefined = userCase.coLegalAdvisorDecisions;
-  return pastLegalAdvisorDecisions
+  const contentObject = pastLegalAdvisorDecisions
     ? {
         latestRefusalClarificationAdditionalInfo: pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo
           ? `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`
@@ -91,4 +94,6 @@ export const latestLegalAdvisorDecisionContent = (userCase: Partial<CaseWithId>)
         latestRefusalClarificationAdditionalInfo: '',
         latestRefusalClarificationReasons: [],
       };
+  contentObject['condensedHeading'] = condensedHeading;
+  return contentObject;
 };

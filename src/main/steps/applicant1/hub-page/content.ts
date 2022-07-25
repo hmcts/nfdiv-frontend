@@ -132,7 +132,8 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsComments: 'The court has made the following comments on your application:',
+    courtsCommentsLongHeading: 'The court has made the following comments on your application:',
+    courtsCommentsShortHeading: 'The court’s comments:',
   },
 });
 
@@ -260,7 +261,8 @@ const cy: typeof en = ({
     previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsComments: 'The court’s comments',
+    courtsCommentsLongHeading: 'The court has made the following comments on your application:',
+    courtsCommentsShortHeading: 'The court’s comments:',
   },
 });
 
@@ -286,6 +288,6 @@ export const generateContent: TranslationFn = content => {
     ...columnGenerateContent(content),
     ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
     isCoFieldsSet,
-    ...latestLegalAdvisorDecisionContent(userCase),
+    ...latestLegalAdvisorDecisionContent(userCase, true),
   };
 };

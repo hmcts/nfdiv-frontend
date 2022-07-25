@@ -97,6 +97,6 @@ export const generateContent: TranslationFn = content => {
     uploadContentScript,
     referenceNumber,
     courtFeedback,
-    ...latestLegalAdvisorDecisionContent(userCase),
+    ...latestLegalAdvisorDecisionContent(userCase, false),
   };
 };

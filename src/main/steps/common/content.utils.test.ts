@@ -134,8 +134,8 @@ describe('content.utils', () => {
         latestRefusalClarificationAdditionalInfo: '',
         latestRefusalClarificationReasons: [],
       };
-      const actual = latestLegalAdvisorDecisionContent(userCase);
-      expect(actual).toEqual(expected);
+      const actual = latestLegalAdvisorDecisionContent(userCase, true);
+      expect(actual).toEqual(expect.objectContaining(expected));
     });
 
     test('Defined pastLegalAdvisorDecisions', () => {
@@ -177,8 +177,8 @@ describe('content.utils', () => {
         latestRefusalClarificationAdditionalInfo: '"Test refusalClarificationAdditionalInfo value"',
         latestRefusalClarificationReasons: [ClarificationReason.JURISDICTION_DETAILS],
       };
-      const actual = latestLegalAdvisorDecisionContent(userCase);
-      expect(actual).toEqual(expected);
+      const actual = latestLegalAdvisorDecisionContent(userCase, true);
+      expect(actual).toEqual(expect.objectContaining(expected));
     });
   });
 
@@ -205,7 +205,29 @@ describe('content.utils', () => {
       latestRefusalClarificationAdditionalInfo: '"Test refusalClarificationAdditionalInfo value"',
       latestRefusalClarificationReasons: [ClarificationReason.JURISDICTION_DETAILS],
     };
-    const actual = latestLegalAdvisorDecisionContent(userCase);
-    expect(actual).toEqual(expected);
+    const actual = latestLegalAdvisorDecisionContent(userCase, true);
+    expect(actual).toEqual(expect.objectContaining(expected));
+  });
+
+  test('condensed heading true', () => {
+    const userCase = {
+      coLegalAdvisorDecisions: undefined,
+    } as Partial<CaseWithId>;
+    const expected = {
+      condensedHeading: true,
+    };
+    const actual = latestLegalAdvisorDecisionContent(userCase, true);
+    expect(actual).toEqual(expect.objectContaining(expected));
+  });
+
+  test('condensed heading false', () => {
+    const userCase = {
+      coLegalAdvisorDecisions: undefined,
+    } as Partial<CaseWithId>;
+    const expected = {
+      condensedHeading: false,
+    };
+    const actual = latestLegalAdvisorDecisionContent(userCase, false);
+    expect(actual).toEqual(expect.objectContaining(expected));
   });
 });
