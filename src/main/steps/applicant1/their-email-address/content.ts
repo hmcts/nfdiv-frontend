@@ -41,7 +41,7 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
   },
 });
 
-const cy = ({ partner }) => ({
+const cy: typeof en = ({ partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
