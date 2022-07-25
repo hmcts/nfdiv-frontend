@@ -55,7 +55,7 @@ const cy = ({ partner }) => ({
       incorrect:
         'Rydych wedi rhoi cyfeiriad e-bost ac wedi nodi nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost. Dim ond un y gallwch ei wneud cyn parhau.',
       invalid: 'Rydych wedi rhoi cyfeiriad e-bost annilys. Gwiriwch ef a nodwch ef eto cyn parhau.',
-      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`, //todo NFDIV-2467
+      sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
   },
 });
