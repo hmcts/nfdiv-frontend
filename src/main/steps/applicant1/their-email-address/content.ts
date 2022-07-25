@@ -44,8 +44,11 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
 const cy = ({ partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
-    "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
-  line2: 'Os ydych yn defnyddio ei gyfeiriad/chyfeiriad e-bost gwaith, dylech ofyn am ganiatâd yn gyntaf.',
+    "Mae'n bwysig eich bod yn darparu eu cyfeiriad e-bost oherwydd efallai y bydd y llys angen 'cyflwyno' (danfon) dogfennau iddynt ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, efallai y bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
+  line2:
+    "Nodwch gyfeiriad e-bost maent yn ei ddefnyddio ar gyfer negeseuon personol. Dylech osgoi defnyddio eu cyfeiriad e-bost gwaith oherwydd efallai nad yw'n breifat.",
+  applicant2EmailAddress: `Cyfeiriad e-bost eich ${partner}`,
+  applicant1DoesNotKnowApplicant2EmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
   respondentEmailAddress: `Cyfeiriad e-bost eich ${partner}`,
   doNotKnowRespondentEmailAddress: 'Nid wyf yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost',
   errors: {

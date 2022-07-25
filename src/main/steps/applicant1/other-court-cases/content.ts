@@ -24,7 +24,7 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
   const partnership = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Achosion llys eraill',
-    line1: `Mae'r llys angen gwybod os oes unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${partnership}, eich eiddo, neu'ch plant. Mae hyn yn cynnwys unrhyw achosion cyfreithiol sydd:`,
+    line1: `Mae'r llys angen gwybod os oes unrhyw achosion cyfreithiol eraill yn ymwneud â'ch ${partnership}. Er enghraifft, achos llys arall sydd eisoes wedi delio â dod â'r briodas hon i ben. Mae hyn yn cynnwys unrhyw achosion llys sydd ar y gweill, achosion sydd wedi gorffen neu achosion y rhoddwyd gorau iddynt, naill ai yn y DU neu dramor.`,
     point1: 'yn gyfredol, sydd wedi dod i ben, neu achos y rhoddwyd gorau iddo',
     point2: `rhyngoch chi a'ch ${partner}`,
     point3: `rhyngoch chi, eich ${partner} ac unrhyw un arall`,
@@ -35,6 +35,8 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
     partnership: `Ein ${partnership}`,
     property: 'Ein heiddo',
     children: 'Ein plant',
+    yes: 'Oes',
+    no: 'Nac oes',
     errors: {
       applicant1LegalProceedings: {
         required,
