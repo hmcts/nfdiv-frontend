@@ -1,25 +1,14 @@
-import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { CaseApiClient, getCaseApiClient } from './case-api-client';
-import {
-  ApplicationType,
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  SYSTEM_UNLINK_APPLICANT,
-  State,
-  UserRole,
-} from './definition';
+import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
+import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
-
-const caseApiLogger = Logger.getLogger('case-api');
 
 export class InProgressDivorceCase implements Error {
   constructor(public readonly message: string, public readonly name = 'DivCase') {}
@@ -30,48 +19,30 @@ export class CaseApi {
 
   constructor(private readonly apiClient: CaseApiClient) {}
 
-  public async getOrCreateCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
-      throw new InProgressDivorceCase('User has in progress divorce case');
-    }
-    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
-
-    return userCase || this.apiClient.createCase(serviceType, userDetails);
+  public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+    return this.apiClient.createCase(serviceType, userDetails);
   }
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
   }
 
-  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.apiClient.getLatestCaseOrInvite(CASE_TYPE, serviceType, user.email);
-    caseApiLogger.info(`In isApplicantAlreadyLinked, userCase exists: ${userCase ? 'true' : 'false'}`);
-    if (userCase) {
-      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      const linkedRoles =
-        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
-          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
-          : [UserRole.APPLICANT_2];
-      caseApiLogger.info(
-        `In isApplicantAlreadyLinked, case ID ${userCase.id}, linkedRoles: ${linkedRoles}, userRoles: ${userRoles.case_users[0]?.case_role}`
-      );
-      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
-    }
-    return false;
+  public async getNewInviteCase(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<CaseWithId | false> {
+    const apiClient = getCaseApiClient(await getSystemUser(), logger);
+    const userCases = await apiClient.findUserInviteCases(email, CASE_TYPE, serviceType);
+    return this.getLatestUserCase(userCases);
   }
 
-  public async unlinkStaleDraftCaseIfFound(
-    serviceType: DivorceOrDissolution,
-    user: UserDetails
-  ): Promise<CaseWithId | undefined> {
-    const userCase = await this.apiClient.getLatestLinkedCase(CASE_TYPE, serviceType);
-    if (userCase) {
-      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-
-      if (userCase.state === State.Draft && [UserRole.CREATOR].includes(userRoles.case_users[0]?.case_role)) {
-        return this.apiClient.sendEvent(userCase.id, {}, SYSTEM_UNLINK_APPLICANT);
-      }
+  public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
+    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
+      throw new InProgressDivorceCase('User has in progress divorce case');
     }
+    const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
+    return this.getLatestUserCase(userCases);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -88,22 +59,34 @@ export class CaseApi {
   }
 
   private async hasInProgressDivorceCase(): Promise<boolean> {
-    const divCase = await this.apiClient.getLatestLinkedCase('DIVORCE', 'DIVORCE');
-    const courtId = divCase && (divCase as unknown as Record<string, string>).D8DivorceUnit;
-    const states = [
-      'AwaitingPayment',
-      'AwaitingAmendCase',
-      'ServiceApplicationNotApproved',
-      'AwaitingAlternativeService',
-      'AwaitingProcessServerService',
-      'AwaitingDWPResponse',
-      'AosDrafted',
-      'AwaitingBailiffService',
-      'IssuedToBailiff',
-      'AwaitingServicePayment',
-    ];
+    const userCase = (await this.apiClient.findExistingUserCases('DIVORCE', 'DIVORCE'))[0];
+    if (userCase) {
+      const courtId = (userCase.case_data as unknown as Record<string, string>).D8DivorceUnit;
+      const states = [
+        'AwaitingPayment',
+        'AwaitingAmendCase',
+        'ServiceApplicationNotApproved',
+        'AwaitingAlternativeService',
+        'AwaitingProcessServerService',
+        'AwaitingDWPResponse',
+        'AosDrafted',
+        'AwaitingBailiffService',
+        'IssuedToBailiff',
+        'AwaitingServicePayment',
+      ];
 
-    return divCase && courtId === 'serviceCentre' && !states.includes(divCase.state);
+      return courtId === 'serviceCentre' && !states.includes(userCase.state);
+    }
+    return false;
+  }
+
+  private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+    if (userCases) {
+      return userCases[0]
+        ? { ...fromApiFormat(userCases[0].case_data), id: userCases[0].id.toString(), state: userCases[0].state }
+        : false;
+    }
+    return false;
   }
 }
 

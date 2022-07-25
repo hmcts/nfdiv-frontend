@@ -15,59 +15,39 @@ export class CaseApiClient {
 
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async getLatestLinkedCase(caseType: string, serviceType: string): Promise<CaseWithId | false> {
+  public async findExistingUserCases(caseType: string, serviceType: string): Promise<CcdV1Response[] | false> {
     const query = {
       query: { match_all: {} },
       sort: [{ created_date: { order: 'desc' } }],
     };
-    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+    return this.findUserCases(caseType, serviceType, JSON.stringify(query));
   }
 
-  public async getLatestCaseOrInvite(
+  public async findUserInviteCases(
+    email: string,
     caseType: string,
-    serviceType: string,
-    email: string
-  ): Promise<CaseWithId | false> {
+    serviceType: string
+  ): Promise<CcdV1Response[] | false> {
     const query = {
       query: {
         bool: {
-          should: [
-            {
-              bool: {
-                must: {
-                  match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
-                },
-                filter: { exists: { field: 'data.accessCode' } },
-              },
-            },
-            {
-              multi_match: {
-                query: email,
-                fields: ['data.applicant1Email', 'data.applicant2Email'],
-                type: 'cross_fields',
-                operator: 'and',
-              },
-            },
-          ],
+          must: {
+            match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
+          },
+          filter: { exists: { field: 'data.accessCode' } },
         },
       },
       sort: [{ created_date: { order: 'desc' } }],
     };
-    return this.getLatestUserCase(caseType, serviceType, JSON.stringify(query));
+    return this.findUserCases(caseType, serviceType, JSON.stringify(query));
   }
 
-  private async getLatestUserCase(caseType: string, serviceType: string, query: string): Promise<CaseWithId | false> {
+  private async findUserCases(caseType: string, serviceType: string, query: string): Promise<CcdV1Response[] | false> {
     try {
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
-
-      const latestCase =
-        caseType === 'DIVORCE'
-          ? response.data.cases[0]
-          : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType)[0];
-
-      return latestCase
-        ? { ...fromApiFormat(latestCase.case_data), id: latestCase.id.toString(), state: latestCase.state }
-        : false;
+      return caseType === 'DIVORCE'
+        ? response.data.cases
+        : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
     } catch (err) {
       if (err.response?.status === 404) {
         return false;
