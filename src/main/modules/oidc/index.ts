@@ -12,6 +12,7 @@ import {
   APPLICANT_2_SIGN_IN_URL,
   CALLBACK_URL,
   ENTER_YOUR_ACCESS_CODE,
+  EXISTING_APPLICATION,
   HOME_URL,
   PageLink,
   RESPONDENT,
@@ -41,23 +42,8 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (!isLinkingUrl(req.path)) {
-            try {
-              req.session.userCase =
-                req.session.userCase ||
-                (await req.locals.api.getOrCreateCase(res.locals.serviceType, req.session.user));
-            } catch (e) {
-              if (e instanceof InProgressDivorceCase) {
-                const token = encodeURIComponent(req.session.user.accessToken);
-                return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
-              } else {
-                return res.redirect(SIGN_OUT_URL);
-              }
-            }
-
-            req.session.isApplicant2 =
-              req.session.isApplicant2 ??
-              (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          if (!req.session.existingCaseId && !req.session.inviteCaseId) {
+            return this.findExistingAndNewUserCases(req, res, next);
           }
 
           if (
@@ -69,13 +55,7 @@ export class OidcMiddleware {
             return res.redirect(HOME_URL);
           }
 
-          req.session.save(err => {
-            if (err) {
-              return res.redirect(SIGN_OUT_URL);
-            } else {
-              return next();
-            }
-          });
+          return next();
         } else {
           if (signInNotRequired(req.path)) {
             return next();
@@ -87,6 +67,60 @@ export class OidcMiddleware {
         }
       })
     );
+  }
+
+  private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const newInviteUserCase = await req.locals.api.getNewInviteCase(
+        req.session.user.email,
+        res.locals.serviceType,
+        req.locals.logger
+      );
+
+      const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
+
+      let redirectUrl;
+      if (newInviteUserCase && existingUserCase) {
+        req.session.inviteCaseId = newInviteUserCase.id;
+        req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
+        req.session.existingCaseId = existingUserCase.id;
+        if (!req.path.includes(EXISTING_APPLICATION)) {
+          redirectUrl = EXISTING_APPLICATION;
+        }
+      } else if (newInviteUserCase) {
+        req.session.inviteCaseId = newInviteUserCase.id;
+        if (!isLinkingUrl(req.path)) {
+          redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+        }
+      } else {
+        req.session.userCase =
+          req.session.userCase ||
+          existingUserCase ||
+          (await req.locals.api.createCase(res.locals.serviceType, req.session.user));
+
+        req.session.existingCaseId = req.session.userCase.id;
+
+        req.session.isApplicant2 =
+          req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+      }
+
+      req.session.save(err => {
+        if (err) {
+          return res.redirect(SIGN_OUT_URL);
+        } else if (redirectUrl) {
+          return res.redirect(redirectUrl);
+        } else {
+          return next();
+        }
+      });
+    } catch (e) {
+      if (e instanceof InProgressDivorceCase) {
+        const token = encodeURIComponent(req.session.user.accessToken);
+        return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+      } else {
+        return res.redirect(SIGN_OUT_URL);
+      }
+    }
   }
 
   private callbackHandler(protocol: string, port: string) {
@@ -101,9 +135,7 @@ export class OidcMiddleware {
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
-          : isApp2Callback
-          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
-          : '/';
+          : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
       } else {

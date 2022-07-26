@@ -17,7 +17,7 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { CHECK_JURISDICTION, HOME_URL } from '../../main/steps/urls';
+import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -185,24 +185,31 @@ When('I enter my valid case reference and valid access code', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
-  const fetchedCase = await caseApi.getCaseById(userCase.id);
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
-  const caseReference = userCase.id;
-  const accessCode = fetchedCase.accessCode;
+  if (userCase) {
+    const fetchedCase = await caseApi.getCaseById(userCase.id);
 
-  if (!caseReference || !accessCode) {
-    throw new Error(`No case reference or access code was returned for ${testUser}`);
+    const caseReference = userCase.id;
+    const accessCode = fetchedCase.accessCode;
+
+    if (!caseReference || !accessCode) {
+      throw new Error(`No case reference or access code was returned for ${testUser}`);
+    }
+
+    iClick('Sign out');
+    await login('citizenApplicant2');
+    I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+
+    iClick('Your reference number');
+    I.type(caseReference);
+    iClick('Your access code');
+    I.type(accessCode);
+    iClick('Continue');
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
   }
-
-  iClick('Sign out');
-  await login('citizenApplicant2');
-
-  iClick('Your reference number');
-  I.type(caseReference);
-  iClick('Your access code');
-  I.type(accessCode);
-  iClick('Continue');
 });
 
 When('a case worker issues the application', async () => {
@@ -249,17 +256,23 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
-  const caseReference = userCase.id;
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
-  if (!caseReference) {
-    throw new Error(`No case reference or access code was returned for ${testUser}`);
+  if (userCase) {
+    const caseReference = userCase.id;
+
+    if (!caseReference) {
+      throw new Error(`No case reference or access code was returned for ${testUser}`);
+    }
+
+    const cwUser = await testConfig.GetOrCreateCaseWorker();
+    const caseWorker = await iGetTheTestUser(cwUser);
+    const cwCaseApi = iGetTheCaseApi(caseWorker);
+    await cwCaseApi.triggerEvent(caseReference, userData, eventName);
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
   }
-
-  const cwUser = await testConfig.GetOrCreateCaseWorker();
-  const caseWorker = await iGetTheTestUser(cwUser);
-  const cwCaseApi = iGetTheCaseApi(caseWorker);
-  await cwCaseApi.triggerEvent(caseReference, userData, eventName);
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
@@ -310,21 +323,23 @@ const executeUserCaseScript = async data => {
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
   await new Promise(resolve => setTimeout(resolve, 5000));
-  const userCase = await api.getOrCreateCase(DivorceOrDissolution.DIVORCE, testUser);
+  const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
-  data.applicant2MiddleNames = data.state || userCase.state;
+  if (userCase) {
+    data.applicant2MiddleNames = data.state || userCase.state;
 
-  const connections = addConnectionsBasedOnQuestions(data);
+    const connections = addConnectionsBasedOnQuestions(data);
 
-  // don't set as applicant 2 as they don't have permission
-  data.connections = connections.length > 0 ? connections : undefined;
+    // don't set as applicant 2 as they don't have permission
+    data.connections = connections.length > 0 ? connections : undefined;
 
-  try {
-    await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
-  } catch (error) {
-    console.error('Could not set fixture data as ' + user.username);
-    console.error(toApiFormat(data));
-    process.exit(-1);
+    try {
+      await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+    } catch (error) {
+      console.error('Could not set fixture data as ' + user.username);
+      console.error(toApiFormat(data));
+      process.exit(-1);
+    }
   }
 };
 

@@ -137,11 +137,12 @@ const cy: typeof en = {
   saveAndSignOut: 'Cadw ac allgofnodi',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
+  save: 'Cadw',
   accessibility: 'Datganiad Hygyrchedd',
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
-  contactUs: 'Cysylltwch â ni',
+  contactUs: 'Cysylltu â ni',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -175,14 +176,22 @@ const cy: typeof en = {
   no: 'Naddo',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltwch â ni am gymorth',
+  contactUsForHelp: 'Cysylltu â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   sendUsAMessage: 'Anfonwch neges atom',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
-  openingTimesHeading: 'Opening times (webchat and telephone)', // todo
-  openingTimes: 'Dydd Llun i Ddydd Gwener, 8am - 6pm',
-  closingTimes: 'Closed on Saturdays, Sundays and bank holidays', // todo
+  openingTimesHeading: 'Oriau agor',
+  openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
+  closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltu â ni dros y ffôn neu e-bost.',
+  allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
+  useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
+  useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  changeCookiesHeading: 'Newid eich gosodiadau cwcis',
 };
 
 export const generatePageContent = ({
@@ -192,6 +201,8 @@ export const generatePageContent = ({
   isDivorce = true,
   isApplicant2 = false,
   userEmail,
+  existingCaseId,
+  inviteCaseApplicationType,
 }: {
   language: Language;
   userCase: Partial<CaseWithId>;
@@ -199,6 +210,8 @@ export const generatePageContent = ({
   isDivorce?: boolean;
   isApplicant2?: boolean;
   userEmail?: string;
+  existingCaseId?: string;
+  inviteCaseApplicationType?: ApplicationType;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
@@ -230,6 +243,8 @@ export const generatePageContent = ({
     isAmendableStates,
     isClarificationAmendableState,
     isFinalOrderState,
+    existingCaseId,
+    inviteCaseApplicationType,
   };
 
   if (pageContent) {
@@ -254,6 +269,8 @@ export type CommonContent = typeof en & {
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
   isFinalOrderState: boolean;
+  existingCaseId?: string;
+  inviteCaseApplicationType?: ApplicationType;
 };
 
 export type Language = 'en' | 'cy';

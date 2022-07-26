@@ -75,7 +75,9 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      if (userCase.applicant1ApplyForConditionalOrder) {
+      if (userCase.coApplicant1StatementOfTruth) {
+        return HUB_PAGE;
+      } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
         return userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
@@ -112,11 +114,17 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
+      if (req.session.userCase.coApplicant2StatementOfTruth) {
+        return HUB_PAGE;
+      }
       return req.session.userCase.applicant2ApplyForConditionalOrder
         ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
         : req.session.userCase.applicant2ApplyForConditionalOrderStarted
         ? CONTINUE_WITH_YOUR_APPLICATION
         : HUB_PAGE;
+    }
+    case State.AwaitingLegalAdvisorReferral: {
+      return HUB_PAGE;
     }
     default: {
       if (isLastQuestionComplete) {
