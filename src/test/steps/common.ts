@@ -17,7 +17,7 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { CHECK_JURISDICTION, HOME_URL } from '../../main/steps/urls';
+import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -199,6 +199,7 @@ When('I enter my valid case reference and valid access code', async () => {
 
     iClick('Sign out');
     await login('citizenApplicant2');
+    I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
 
     iClick('Your reference number');
     I.type(caseReference);
