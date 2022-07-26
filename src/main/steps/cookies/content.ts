@@ -103,7 +103,8 @@ const cy: typeof en = ({ isDivorce }) => ({
   paragraph1:
     'Darn bach o ddata sy&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
   howAreCookiesUsedParagraph1: 'Sut ydym yn defnyddio cwcis yn y gwasanaeth hwn:',
-  howAreCookiesUsedItem1: 'mesur sut ydych yn defnyddio’r gwasanaeth fel y gallwn ei wella',
+  howAreCookiesUsedItem1:
+    'mesur sut ydych yn defnyddio’r gwasanaeth fel y gallwn ei ddiweddaru a’i wella yn seiliedig ar eich anghenion chi',
   howAreCookiesUsedItem2: 'cofio&rsquo;r hysbysiadau rydych wedi&rsquo;u gweld fel na fyddwch yn eu gweld eto',
   howAreCookiesUsedItem3: 'storio’r atebion a roddwch dros dro',
   howAreCookiesUsedParagraph2:
@@ -113,7 +114,7 @@ const cy: typeof en = ({ isDivorce }) => ({
   }`,
   websiteUsageCookiesHeading3: 'Cwcis a ddefnyddir i fesur faint o bobl sy’n defnyddio ein gwefan',
   websiteUsageCookiesParagraph1:
-    'Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion defnyddwyr ac i&rsquo;n helpu i wneud gwelliannau, er enghraifft gwella’r cyfleuster chwilio.',
+    'Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio’r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion defnyddwyr ac i’n helpu i wneud gwelliannau, er enghraifft gwella’r cyfleuster chwilio.',
   websiteUsageCookiesParagraph2: 'Mae Google Analytics yn storio gwybodaeth am:',
   websiteUsageCookiesItem1: 'y tudalennau yr ydych yn ymweld â hwy',
   websiteUsageCookiesItem2: 'faint o amser y byddwch yn ei dreulio ar bob tudalen',
@@ -123,7 +124,7 @@ const cy: typeof en = ({ isDivorce }) => ({
     'Rydym yn caniatáu i Google ddefnyddio neu rannu ein data dadansoddi. Gallwch ddarganfod mwy am sut mae Google yn defnyddio’r wybodaeth hon yn eu <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Polisi Preifatrwydd.</a>',
   websiteUsageCookiesParagraph4:
     'Gallwch <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">optio allan o Google Analytics</a> os nad ydych eisiau i Google gael mynediad at eich gwybodaeth.',
-  websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
+  websiteUsageCookiesParagraph5: 'Rhestr o’r cwcis Google Analytics a ddefnyddir.',
   websiteUsageCookiesAriaDescribedby: 'os nad ydych eisiau i Google gael mynediad at eich gwybodaeth',
   cookieNameHeader: 'Enw’r cwci',
   cookiePurposeHeader: 'Pwrpas y cwci',
@@ -136,14 +137,15 @@ const cy: typeof en = ({ isDivorce }) => ({
   googleAnalyticsCookiePurpose2: 'Rheoli faint o bobl sy’n ymweld â’r dudalen',
   googleAnalyticsCookieExpiry2: '10 munud',
   googleAnalyticsCookieName3: '_gid',
-  googleAnalyticsCookiePurpose3: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi',
+  googleAnalyticsCookiePurpose3: 'Gadael i’r gwasanaeth wybod pwy ydych chi',
   googleAnalyticsCookieExpiry3: '24 awr',
   introMessageCookiesHeading1: 'Cwcis a ddefnyddir i droi ein neges gyflwyno i ffwrdd',
   introMessageCookiesParagraph1:
-    'Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld â&rsquo;r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio â&rsquo;i dangos eto.',
+    'Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld â’r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio â’i dangos eto.',
   introMessageCookiesAriaDescribedby: 'List of introductory cookies used.',
   introMessageCookieName1: 'seen_cookie_message',
-  introMessageCookiePurpose1: 'Arbed neges i roi gwybod inni eich bod wedi gweld ein neges ynglŷn â chwcis',
+  introMessageCookiePurpose1:
+    'Cadw neges ar eich cyfrifiadur i roi gwybod inni eich bod wedi gweld ein neges ynglŷn â chwcis',
   introMessageCookieExpiry1: '1 mis',
   sessionCookiesHeading1:
     'Cwcis a ddefnyddir i storio’r atebion a roesoch yn ystod eich ymweliad (gelwir hyn yn ‘sesiwn’)',
@@ -152,12 +154,11 @@ const cy: typeof en = ({ isDivorce }) => ({
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
   sessionCookieName1: 'connect.sid',
   sessionCookiePurpose1: 'Gwybodaeth am eich sesiwn gyfredol',
-  identityCookiesHeading1: 'Cwcis a ddefnyddir i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth',
-  identityCookiesParagraph1:
-    'Rydym yn defnyddio cwcis dilysu i’ch adnabod pan fyddwch yn dod nôl i&rsquo;r gwasanaeth.',
+  identityCookiesHeading1: 'Cwcis a ddefnyddir i’ch adnabod pan fyddwch yn dod nôl i’r gwasanaeth',
+  identityCookiesParagraph1: 'Rydym yn defnyddio cwcis dilysu i’ch adnabod pan fyddwch yn dod nôl i’r gwasanaeth.',
   identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
   identityCookieName1: '__auth-token',
-  identityCookiePurpose1: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi',
+  identityCookiePurpose1: 'Gadael i’r gwasanaeth wybod pwy ydych chi',
   securityCookiesHeading1: 'Cwcis a ddefnyddir i wneud y gwasanaeth yn fwy diogel',
   securityCookiesParagraph1:
     'Rydym yn gosod cwcis er mwyn rhwystro hacwyr rhag addasu cynnwys y cwcis eraill a osodon ni. Mae hyn yn gwneud y gwasanaeth yn fwy diogel ac yn diogelu eich gwybodaeth bersonol.',
@@ -165,8 +166,28 @@ const cy: typeof en = ({ isDivorce }) => ({
   securityCookieName1: 'TSxxxxxxxx',
   securityCookiePurpose1: 'Amddiffyn eich sesiwn rhag i rywun ymyrryd ag o',
   securityCookieName2: '__state',
-  securityCookiePurpose2: 'Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi a diogelu eich manylion',
+  securityCookiePurpose2: 'Gadael i’r gwasanaeth wybod pwy ydych chi a diogelu eich manylion',
   whenYouCloseYourBrowser: 'Pan fyddwch chi’n cau’ch porwr',
+  dynatraceCookiesHeading1: 'Cwcis a ddefnyddir i fesur perfformiad y gwasanaeth',
+  dynatraceCookiesParagraph1:
+    'Rydym yn defnyddio Platfform Deallusrwydd Meddalwedd Dynatrace i ddarparu Gwasanaeth Monitro Perfformiad Gwasanaeth i gasglu gwybodaeth am sut yr ydych yn defnyddio gwasanaethau GLlTEM.' +
+    'Rydym yn gwneud hyn i fonitro gwasanaethau GLlTEM er mwyn datrys problemau yn ein gwasanaethau a chasglu data ar sut y gallwn eu gwella. ' +
+    'Mae GLlTEM yn storio gwybodaeth am:',
+  dynatraceCookiesItem1: 'Berfformiad y wefan',
+  dynatraceCookiesItem2: 'Y defnydd a wneir o’r wefan',
+  dynatraceCookiesItem3: 'Ymddygiad defnyddwyr',
+  dynatraceCookiesParagraph2:
+    'Cyflwynir yr wybodaeth angenrheidiol yn y Gwasanaeth Monitro Perfformiad Gwasanaeth at y dibenion a nodwyd uchod. ' +
+    'Nid ydym yn defnyddio neu’n rhannu’r wybodaeth ar gyfer unrhyw bwrpas arall. Nid ydym yn caniatáu i Dynatrace ddefnyddio neu rannu’r wybodaeth ar gyfer unrhyw bwrpas arall.',
+  dynatraceCookiesPurpose1: 'Olrhain ymweliad ar draws ceisiadau amryfal',
+  sessionEnd: 'Pan ddaw’r sesiwn i ben',
+  dynatraceCookiesPurpose2: 'Mesur natur gudd y gweinydd er mwyn monitro perfformiad y gwasanaeth',
+  dynatraceCookiesPurpose3:
+    'Er mwyn canfod pwyntiau terfyn priodol ar gyfer trosglwyddo tywysydd: mae’n cynnwys rhif adnabod y sesiwn at ddibenion cydberthyniad',
+  dynatraceCookiesPurpose4: 'Storfa gyfryngol ar gyfer gweithrediadau sy’n rhychwantu tudalennau',
+  dynatraceCookiesPurpose5: 'Rhif adnabod ymwelydd er mwyn cydberthnasu sesiynau',
+  dynatraceCookiesPurpose6: 'Diwedd y sesiwn',
+  oneYear: '1 blwyddyn',
 });
 
 const languages = {

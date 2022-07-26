@@ -1,9 +1,9 @@
 import { throttle } from 'lodash';
 
-import { TIMED_OUT_URL } from '../../steps/urls';
+import { TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-const sessionTimeoutInterval = 20 * 60 * 1000; // 20 minutes
+const sessionTimeoutInterval = WEBCHAT_URL === window.location.pathname ? 12 * 60 * 60 * 1000 : 20 * 60 * 1000; // 12 hr or 20 minutes
 let timeout;
 
 const saveBeforeSessionTimeout = async () => {
