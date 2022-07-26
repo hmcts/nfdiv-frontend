@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { Gender } from '../../app/case/definition';
+import { ApplicationType, Gender, State } from '../../app/case/definition';
 
 import { CommonContent, en } from './common.content';
 
@@ -74,4 +74,12 @@ export const formattedCaseId = (caseId: string | undefined): string | undefined 
 
 export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
   return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
+};
+
+export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): boolean => {
+  return (
+    userCase.state === State.AwaitingApplicant2Response &&
+    userCase.accessCode !== undefined &&
+    userCase.applicationType === ApplicationType.JOINT_APPLICATION
+  );
 };

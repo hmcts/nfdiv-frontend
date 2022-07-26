@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
+import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
+import { THEIR_EMAIL_ADDRESS, YOU_CANNOT_UPDATE_THEIR_EMAIL } from '../../urls';
 
 const en = ({ partner, userCase }: CommonContent) => ({
   title: `Your answers have been sent to your ${partner} to review`,
@@ -8,6 +10,12 @@ const en = ({ partner, userCase }: CommonContent) => ({
   reviewDate: userCase.dueDate,
   line3:
     'You will receive an email notification to confirm when they have reviewed. If they do not review then you will be told what you can do to progress the application.',
+  updatePartnersEmailAddress: {
+    part1: 'If you need to, you can ',
+    part2: `update your ${partner}'s email address and resend the email`,
+    part3: '.',
+    link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
+  },
 });
 
 const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
@@ -17,6 +25,12 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
   reviewDate: userCase.dueDate,
   line3:
     'Byddwch yn cael hysbysiad pan fyddant wedi adolygu’ch atebion. Os na fyddant yn eu hadolygu, rhoddir wybod i chi beth allwch ei wneud i symud y cais yn ei flaen.',
+  updatePartnersEmailAddress: {
+    part1: 'If you need to, you can ',
+    part2: `update your ${partner}'s email address and resend the email`,
+    part3: '.',
+    link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
+  }, //todo
 });
 
 const languages = {

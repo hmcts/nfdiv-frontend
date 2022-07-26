@@ -2096,6 +2096,9 @@ export const enum HttpStatus {
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
 
+export const JURISDICTION = 'DIVORCE';
+export const CASE_TYPE = 'NFD';
+
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
@@ -2105,7 +2108,6 @@ export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
-export const CASE_TYPE = 'NFD';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
@@ -2123,7 +2125,6 @@ export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const FINAL_ORDER_REQUESTED = 'final-order-requested';
 export const INVITE_APPLICANT_2 = 'invite-applicant2';
-export const JURISDICTION = 'DIVORCE';
 export const SUBMIT_AOS = 'submit-aos';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
@@ -2157,5 +2158,6 @@ export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronou
 export const UPDATE_AOS = 'update-aos';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const UPDATE_JOINT_CONDITIONAL_ORDER = 'update-joint-conditional-order';
+
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';

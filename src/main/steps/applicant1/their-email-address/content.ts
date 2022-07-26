@@ -2,8 +2,9 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isApplicant2EmailValid, isFieldFilledIn } from '../../../app/form/validation';
+import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
 
-const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
+const en = ({ userCase, partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,
   line1: `It’s important you provide ${
     isJointApplication
@@ -37,11 +38,13 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
           : 'entered an invalid email address. Check it and enter it again before continuing.'
       }`,
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
+      notNewEmail: 'The email you have entered is the same as the original applicant 2 email address.',
     },
   },
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
 });
 
-const cy = ({ partner }) => ({
+const cy = ({ userCase, partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
@@ -56,8 +59,10 @@ const cy = ({ partner }) => ({
         'Rydych wedi rhoi cyfeiriad e-bost ac wedi nodi nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost. Dim ond un y gallwch ei wneud cyn parhau.',
       invalid: 'Rydych wedi rhoi cyfeiriad e-bost annilys. Gwiriwch ef a nodwch ef eto cyn parhau.',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`, //todo NFDIV-2467
+      notNewEmail: 'The email you have entered is the same as the original applicant 2 email address.',
     },
   },
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
 });
 
 export const form: FormContent = {
@@ -76,6 +81,7 @@ export const form: FormContent = {
     },
     applicant1DoesNotKnowApplicant2EmailAddress: {
       type: 'checkboxes',
+      hidden: isApplicant2EmailUpdatePossible(userCase),
       values: [
         {
           name: 'applicant1DoesNotKnowApplicant2EmailAddress',
@@ -86,7 +92,7 @@ export const form: FormContent = {
     },
   }),
   submit: {
-    text: l => l.continue,
+    text: l => l.continueOrResend,
   },
 };
 

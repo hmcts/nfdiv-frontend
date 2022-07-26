@@ -1,3 +1,5 @@
+{% from "common/page-link.njk" import pageLink %}
+
 {% extends "common/page.njk" %}
 
 {% block backLink %}
@@ -8,5 +10,6 @@
   <p class="govuk-body">{{ sentTo }} <strong>{{ userCase.applicant2EmailAddress }}</strong>.</p>
   <p class="govuk-body">{{ theyShouldReviewBy }} <strong>{{ reviewDate }}</strong>.</p>
   <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ pageLink(updatePartnersEmailAddress) }}</p>
   <p class="govuk-body"><a href="/save-and-sign-out?lng={{language}}" class="govuk-link">{{ saveAndSignOut }}</a></p>
 {% endblock %}

@@ -12,6 +12,7 @@ import {
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
+import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -34,6 +35,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
+  EMAIL_RESENT,
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
@@ -84,6 +86,7 @@ import {
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
   YOUR_NAME,
+  YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
@@ -300,7 +303,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: THEIR_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress ? YOU_NEED_THEIR_EMAIL_ADDRESS : IN_THE_UK;
+        return data.applicant1DoesNotKnowApplicant2EmailAddress
+          ? YOU_NEED_THEIR_EMAIL_ADDRESS
+          : isApplicant2EmailUpdatePossible(data)
+          ? EMAIL_RESENT
+          : IN_THE_UK;
       } else {
         return DO_YOU_HAVE_ADDRESS;
       }
@@ -395,6 +402,14 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: APPLICATION_ENDED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: EMAIL_RESENT,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: YOU_CANNOT_UPDATE_THEIR_EMAIL,
     getNextStep: () => HOME_URL,
   },
 ];

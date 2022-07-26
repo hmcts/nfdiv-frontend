@@ -8,7 +8,7 @@ dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
-export type EmailValidator = (value: string | undefined, applicant1Email: string | undefined) => void | string;
+export type EmailValidator = (value: string | undefined, comparedEmail: string | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value || (value as string).trim?.().length === 0) {
