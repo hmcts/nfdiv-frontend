@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
 import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
-import { THEIR_EMAIL_ADDRESS } from '../../urls';
+import { THEIR_EMAIL_ADDRESS, YOU_CANNOT_UPDATE_THEIR_EMAIL } from '../../urls';
 
 const en = ({ partner, userCase }: CommonContent) => ({
   title: 'The email has been resent',
@@ -13,7 +13,7 @@ const en = ({ partner, userCase }: CommonContent) => ({
     part1: 'If you need to, you can ',
     part2: `update your ${partner}'s email address and resend the email`,
     part3: '.',
-    link: THEIR_EMAIL_ADDRESS,
+    link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
   },
 });
 
@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
     part1: 'If you need to, you can ',
     part2: `update your ${partner}'s email address and resend the email`,
     part3: '.',
-    link: THEIR_EMAIL_ADDRESS,
+    link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
   }, //todo
 });
 
