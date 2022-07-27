@@ -77,22 +77,6 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
       : 'What you need to do',
-  clarificationSubmitted: {
-    withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.issueDate
-      )
-        .add(config.get('dates.issueDateOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
-      line2: 'This was the court’s feedback, explaining the information which was needed:',
-    },
-    withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
-      line4: 'You will receive an update when your documents have been received and checked.',
-    },
-    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-  },
 });
 
 // @TODO translations
@@ -165,29 +149,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
         : dayjs(userCase.coApplicant2SubmittedDate)
             .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
             .format('D MMMM YYYY')
-    } ar ôl i'ch cais gael ei wirio. 
+    } ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
       : 'What you need to do',
-  clarificationSubmitted: {
-    withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.issueDate
-      )
-        .add(config.get('dates.issueDateOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
-      line2: 'This was the court’s feedback, explaining the information which was needed:',
-    },
-    withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
-      line4: 'You will receive an update when your documents have been received and checked.',
-    },
-    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-  },
 });
 
 const languages = {
