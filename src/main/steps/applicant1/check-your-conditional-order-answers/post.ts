@@ -16,7 +16,7 @@ export default class CheckYourConditionalOrderAnswersPostController extends Post
       }
     }
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    return super.save(req, formData, eventName);
   }
 
   protected getEventName(): string {
