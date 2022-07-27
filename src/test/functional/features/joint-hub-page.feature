@@ -98,9 +98,9 @@ Feature: Joint hub page
     And I select "I cannot upload some or all of my documents"
     Then the page should include "You can post your documents to the court if you cannot upload them"
     When I click "Continue"
-    Then the page should include "You will receive an update when your documents have been received and checked."
+    Then the page should include "You or your husband need to post the documents requested by the court:"
 
     When I click "Sign out"
     And I login with applicant "1"
-    And the page should include "You will receive an update when your documents have been received and checked."
+    And the page should include "You or your husband need to post the documents requested by the court:"
 
