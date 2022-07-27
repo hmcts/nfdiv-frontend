@@ -17,6 +17,7 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_NAME,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
@@ -35,7 +36,6 @@ import {
   UPLOAD_YOUR_DOCUMENTS,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_COMMENTS_SENT,
-  YOUR_NAME,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
@@ -53,7 +53,7 @@ export const preSubmissionSequence: Step[] = [
         ? YOU_CANNOT_APPLY
         : data.applicant1HelpPayingNeeded === YesOrNo.YES
         ? HELP_WITH_YOUR_FEE_URL
-        : YOUR_NAME,
+        : ENTER_YOUR_NAME,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -65,19 +65,20 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: HELP_WITH_YOUR_FEE_URL,
-    getNextStep: data => (data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : YOUR_NAME),
+    getNextStep: data =>
+      data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : ENTER_YOUR_NAME,
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     getNextStep: data =>
-      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : YOUR_NAME,
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : ENTER_YOUR_NAME,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
     getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
   },
   {
-    url: YOUR_NAME,
+    url: ENTER_YOUR_NAME,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {

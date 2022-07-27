@@ -37,6 +37,7 @@ import {
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_NAME,
   EQUALITY,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
@@ -83,7 +84,6 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
-  YOUR_NAME,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
@@ -242,10 +242,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => YOUR_NAME,
+    getNextStep: () => ENTER_YOUR_NAME,
   },
   {
-    url: YOUR_NAME,
+    url: ENTER_YOUR_NAME,
     getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
   },
   {
