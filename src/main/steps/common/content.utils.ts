@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { Gender } from '../../app/case/definition';
+import { ClarificationReason, Gender, LegalAdvisorDecision, ListValue } from '../../app/case/definition';
 
 import { CommonContent, en } from './common.content';
 
@@ -74,4 +74,26 @@ export const formattedCaseId = (caseId: string | undefined): string | undefined 
 
 export const accessibleDetailsSpan = (spanText: string, accessibleText: string): string => {
   return spanText + '</span><span class="govuk-visually-hidden"> &nbsp - ' + accessibleText;
+};
+
+export const latestLegalAdvisorDecisionContent = (
+  userCase: Partial<CaseWithId>,
+  condensedHeading: boolean
+): Record<string, unknown> => {
+  const pastLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[] | undefined = userCase.coLegalAdvisorDecisions;
+  const contentObject = pastLegalAdvisorDecisions
+    ? {
+        latestRefusalClarificationAdditionalInfo: pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo
+          ? `"${pastLegalAdvisorDecisions[0].value.refusalClarificationAdditionalInfo}"`
+          : '',
+        latestRefusalClarificationReasons: pastLegalAdvisorDecisions[0].value.refusalClarificationReason?.filter(
+          reason => reason !== ClarificationReason.OTHER
+        ),
+      }
+    : {
+        latestRefusalClarificationAdditionalInfo: '',
+        latestRefusalClarificationReasons: [],
+      };
+  contentObject['condensedHeading'] = condensedHeading;
+  return contentObject;
 };
