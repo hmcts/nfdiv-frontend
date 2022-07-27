@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
@@ -164,6 +165,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const { userCase } = content;
+  const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments !== Checkbox.Checked;
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
@@ -176,7 +179,6 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
   const displayState = currentStateFn(content.userCase).at(
     (content.userCase.state === State.OfflineDocumentReceived
       ? content.userCase.previousState
@@ -192,7 +194,7 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
-    cannotUploadDocuments,
     theLatestUpdateTemplate,
+    isClarificationDocumentsUploaded,
   };
 };
