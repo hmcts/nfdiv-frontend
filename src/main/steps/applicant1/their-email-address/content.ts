@@ -38,7 +38,6 @@ const en = ({ userCase, partner, isDivorce, isJointApplication, hasEnteredSolici
           : 'entered an invalid email address. Check it and enter it again before continuing.'
       }`,
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
-      notNewEmail: 'The email you have entered is the same as the original applicant 2 email address.',
     },
   },
   continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
@@ -59,10 +58,9 @@ const cy = ({ userCase, partner }) => ({
         'Rydych wedi rhoi cyfeiriad e-bost ac wedi nodi nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost. Dim ond un y gallwch ei wneud cyn parhau.',
       invalid: 'Rydych wedi rhoi cyfeiriad e-bost annilys. Gwiriwch ef a nodwch ef eto cyn parhau.',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`, //todo NFDIV-2467
-      notNewEmail: 'The email you have entered is the same as the original applicant 2 email address.',
     },
   },
-  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue', //todo
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Parhau', //todo
 });
 
 export const form: FormContent = {

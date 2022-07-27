@@ -28,14 +28,12 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
     part2: `update your ${partner}'s email address and resend the email`,
     part3: '.',
     link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
-  }, //todo
-});
+  },
+}); //todo
 
 const languages = {
   en,
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
-  return languages[content.language](content);
-};
+export const generateContent: TranslationFn = content => languages[content.language](content);
