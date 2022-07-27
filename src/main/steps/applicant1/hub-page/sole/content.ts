@@ -123,21 +123,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
       'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
-  clarificationSubmitted: {
-    line1: 'This was the court’s feedback, explaining the information which was needed:',
-    line2: userCase.coRefusalClarificationAdditionalInfo,
-    withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.dateSubmitted
-      )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
-    },
-    withoutDocuments: {
-      line1: 'You need to post the documents requested by the court:',
-      line3: 'You will receive an update when your documents have been received and checked.',
-    },
-  },
   awaitingFinalOrderOrFinalOrderOverdue: {
     line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
@@ -354,21 +339,6 @@ const cy: typeof en = (
     line2:
       "Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, yna mae'n rhaid i chi  wneud cais am 'orchymyn terfynol'. Bydd hyn yn cadarnhau eich ysgariad. " +
       "Mae'n rhaid i chi  aros 6 wythnos tan ar ôl eich gorchymyn amodol, i wneud cais am y gorchymyn terfynol.",
-  },
-  clarificationSubmitted: {
-    line1: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
-    line2: userCase.coRefusalClarificationAdditionalInfo,
-    withDocuments: {
-      line1: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${dayjs(
-        userCase.dateSubmitted
-      )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
-        .format('D MMMM YYYY')} ar ôl i'r llys ei adolygu.`,
-    },
-    withoutDocuments: {
-      line1: "Mae angen i chi bostio'r dogfennau y mae'r llys yn gofyn amdanynt:",
-      line3: "Byddwch yn cael diweddariad pan fydd eich dogfennau wedi dod i law a'u gwirio.",
-    },
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
     line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${

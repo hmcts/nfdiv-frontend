@@ -41,7 +41,7 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
   },
 });
 
-const cy = ({ partner }) => ({
+const cy: typeof en = ({ partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu eu cyfeiriad e-bost oherwydd efallai y bydd y llys angen 'cyflwyno' (danfon) dogfennau iddynt ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, efallai y bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
@@ -49,16 +49,14 @@ const cy = ({ partner }) => ({
     "Nodwch gyfeiriad e-bost maent yn ei ddefnyddio ar gyfer negeseuon personol. Dylech osgoi defnyddio eu cyfeiriad e-bost gwaith oherwydd efallai nad yw'n breifat.",
   applicant2EmailAddress: `Cyfeiriad e-bost eich ${partner}`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
-  respondentEmailAddress: `Cyfeiriad e-bost eich ${partner}`,
-  doNotKnowRespondentEmailAddress: 'Nid wyf yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost',
   errors: {
-    respondentEmailAddress: {
+    applicant2EmailAddress: {
       required:
         "Nid ydych wedi rhoi ei gyfeiriad/chyfeiriad e-bost neu wedi dweud nad ydych yn gwybod beth ydyw. Mae'n rhaid i chi wneud y naill neu'r llall cyn parhau.",
       incorrect:
         'Rydych wedi rhoi cyfeiriad e-bost ac wedi nodi nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad e-bost. Dim ond un y gallwch ei wneud cyn parhau.',
       invalid: 'Rydych wedi rhoi cyfeiriad e-bost annilys. Gwiriwch ef a nodwch ef eto cyn parhau.',
-      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`, //todo NFDIV-2467
+      sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
   },
 });

@@ -2,14 +2,16 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
-import { ClarificationReason, ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
+import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
+import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
+import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
+import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
@@ -20,12 +22,6 @@ export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'appl
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
-  applicationSubmitted: 'Application submitted',
-  response: 'Response',
-  conditionalOrderApplication: 'Conditional order application',
-  conditionalOrderGranted: 'Conditional order granted',
-  finalOrderApplication: 'Final order application',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
@@ -79,14 +75,41 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
     Read the court’s reason(s) for refusing the application and provide the requested information.`,
-    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
-      reason => reason !== ClarificationReason.OTHER
-    ),
+    bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+    buttonText: 'Respond to the court',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+  },
+  clarificationSubmitted: {
+    withDocuments: {
+      youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} after the court has reviewed it.`,
+    },
+    withoutDocuments: {
+      needToPost: `You ${
+        isJointApplication ? `or your ${partner}` : ''
+      } need to post the documents requested by the court:`,
+    },
+    thisWasCourtsFeedback: 'This was the court’s feedback, explaining what was needed:',
+  },
+  courtFeedback: {
     jurisdictionDetailsReasonHeading: 'Jurisdiction',
     jurisdictionDetailsReasonBody: {
       part1:
         'The court has judged that your application does not fall within the jurisdiction of England and Wales. You must have at least one legal connection to England and Wales. You can see all the possible legal connections on the ',
-      part2: 'Refusal Order (PDF)',
+      part2: 'Refusal Order document',
       part3: '.',
       downloadReference: 'Refusal-Order',
       link: '/downloads/conditional-order-refusal',
@@ -105,23 +128,8 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsComments: 'The court’s comments',
-    coRefusalClarificationAdditionalInfo: `${
-      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
-    }`,
-    bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
-    next: 'What you need to do next',
-    line4: 'You need to respond to the court’s feedback before your application can proceed.',
-    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
-    buttonText: 'Respond to the court',
-    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+    courtsCommentsLongHeading: 'The court has made the following comments on your application:',
+    courtsCommentsShortHeading: 'The court’s comments:',
   },
 });
 
@@ -196,9 +204,36 @@ const cy: typeof en = ({
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
     Read the court’s reason(s) for refusing the application and provide the requested information.`,
-    coRefusalClarificationReasons: userCase.coRefusalClarificationReason?.filter(
-      reason => reason !== ClarificationReason.OTHER
-    ),
+    bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
+    line3: {
+      part1: 'You can download a copy of the court’s full ',
+      part2: 'Refusal Order (PDF)',
+      part3: '.',
+      downloadReference: 'Refusal-Order',
+      link: '/downloads/conditional-order-refusal',
+    },
+    next: 'What you need to do next',
+    line4: 'You need to respond to the court’s feedback before your application can proceed.',
+    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
+    buttonText: 'Respond to the court',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+  },
+  clarificationSubmitted: {
+    withDocuments: {
+      youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${dayjs(
+        userCase.dateSubmitted
+      )
+        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        .format('D MMMM YYYY')} ar ôl i'r llys ei adolygu.`,
+    },
+    withoutDocuments: {
+      needToPost: `Mae angen i chi ${
+        isJointApplication ? `neu eich ${partner}` : ''
+      } bostio'r dogfennau y mae'r llys yn gofyn amdanynt:`,
+    },
+    thisWasCourtsFeedback: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
+  },
+  courtFeedback: {
     jurisdictionDetailsReasonHeading: 'Jurisdiction',
     jurisdictionDetailsReasonBody: {
       part1:
@@ -222,23 +257,8 @@ const cy: typeof en = ({
     previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsComments: 'The court’s comments',
-    coRefusalClarificationAdditionalInfo: `${
-      userCase.coRefusalClarificationAdditionalInfo ? '"' + userCase.coRefusalClarificationAdditionalInfo + '"' : ''
-    }`,
-    bothCanProvide: `Either you or your ${partner} can provide the information requested by the court. You should agree your response first, before submitting it.`,
-    line3: {
-      part1: 'You can download a copy of the court’s full ',
-      part2: 'Refusal Order (PDF)',
-      part3: '.',
-      downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
-    },
-    next: 'What you need to do next',
-    line4: 'You need to respond to the court’s feedback before your application can proceed.',
-    line5: 'You will be able to upload or post documents to the court when you respond, if they have been requested.',
-    buttonText: 'Respond to the court',
-    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`,
+    courtsCommentsLongHeading: 'The court has made the following comments on your application:',
+    courtsCommentsShortHeading: 'The court’s comments:',
   },
 });
 
@@ -255,14 +275,24 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
+  const { userCase, isDivorce, language } = content;
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const applicationTranslations = content.isJointApplication
+    ? jointGenerateContent(content)
+    : soleGenerateContent(content);
+  const progressBarContent = getProgressBarContent(
+    isDivorce,
+    applicationTranslations.displayState as StateSequence,
+    language === 'en'
+  );
   return {
-    ...languages[content.language]({ ...content, referenceNumber }),
+    ...languages[language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
-    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    ...applicationTranslations,
     isCoFieldsSet,
+    ...latestLegalAdvisorDecisionContent(userCase, true),
+    ...progressBarContent,
   };
 };

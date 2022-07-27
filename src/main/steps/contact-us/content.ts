@@ -5,7 +5,7 @@ const en = () => ({
 });
 
 const cy: typeof en = () => ({
-  title: 'Cysylltwch â ni',
+  title: 'Cysylltu â ni',
 });
 
 const languages = {
