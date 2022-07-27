@@ -10,7 +10,7 @@
   .progress-bar-next-stage {
     position: absolute;
     top: -40px;
-    right: 80%;
+    right: 90%;
     width: 100%;
   }
 
@@ -23,8 +23,15 @@
 
   .sole-application-bar:nth-child(2) {
     right: 5%;
+    .progress-bar-next-stage {
+      right: 75%;
+      width: 150%;
+    }
   }
   .sole-application-bar:nth-child(3) {
     left: 5%;
+  }
+  .sole-application-bar:nth-child(4) > .progress-bar-next-stage {
+    right: 70%;
   }
 }
