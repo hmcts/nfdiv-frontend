@@ -1,13 +1,12 @@
 {% from "common/service-address.njk" import serviceAddressMacro %}
 
 {% if isClarificationDocumentsUploaded %}
-  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
+  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.youHaveProvided }}</p>
 {% else %}
-  <p class="govuk-body govuk-!-margin-bottom-1">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-1">{{ clarificationSubmitted.withoutDocuments.needToPost }}</p>
   {{ serviceAddressMacro(serviceAddress, 'heading') }}
-  <p class="govuk-body">{{ clarificationSubmitted.line1 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.line2 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>
 {% endif %}
+
+<p class="govuk-body">{{ clarificationSubmitted.thisWasCourtsFeedback }}</p>
+
+{% include "applicant1/hub-page/common/court-feedback.njk" %}
