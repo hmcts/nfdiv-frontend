@@ -62,7 +62,7 @@ const cy = ({ userCase, partner }) => ({
       notNewEmail: 'The email you have entered is the same as the original applicant 2 email address.',
     },
   },
-  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue', //todo
 });
 
 export const form: FormContent = {
@@ -108,8 +108,10 @@ export const generateContent: TranslationFn = content => {
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
   const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
+  const isApplicant2EmailUpdatePossibleAnswer = isApplicant2EmailUpdatePossible(content.userCase);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(userCase || {}) },
+    isApplicant2EmailUpdatePossibleAnswer,
   };
 };

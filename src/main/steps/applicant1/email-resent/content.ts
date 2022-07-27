@@ -37,10 +37,5 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translation = languages[content.language](content);
-  const isApplicant2EmailUpdatePossibleAnswer = isApplicant2EmailUpdatePossible(content.userCase);
-  return {
-    ...translation,
-    isApplicant2EmailUpdatePossibleAnswer,
-  };
+  return languages[content.language](content);
 };
