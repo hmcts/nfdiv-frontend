@@ -38,6 +38,7 @@ import {
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAME,
+  ENTER_YOUR_NAMES,
   EQUALITY,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
@@ -242,11 +243,16 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => ENTER_YOUR_NAME,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? ENTER_YOUR_NAMES : ENTER_YOUR_NAME,
+  },
+  {
+    url: ENTER_YOUR_NAMES,
+    getNextStep: () => CERTIFICATE_NAME,
   },
   {
     url: ENTER_YOUR_NAME,
-    getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
+    getNextStep: () => THEIR_NAME,
   },
   {
     url: THEIR_NAME,
