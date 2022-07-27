@@ -647,6 +647,7 @@ export interface CaseData {
   coRefusalClarificationReason: ClarificationReason[];
   coRefusalClarificationAdditionalInfo: string;
   coClarificationResponses: ListValue<string>[];
+  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationUploadDocuments: ListValue<DivorceDocument>[];
   coCannotUploadClarificationDocuments: YesOrNo;
   coOutcomeCase: YesOrNo;
@@ -658,7 +659,6 @@ export interface CaseData {
   coCertificateOfEntitlementDocument: DivorceDocument;
   coRefusalOrderDocument: Document;
   coConditionalOrderGrantedDocument: DivorceDocument;
-  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
@@ -1167,6 +1167,17 @@ export interface SolicitorService {
   ServiceSotFirm: string;
   StatementOfTruth: YesOrNo;
   TruthStatement: string;
+}
+
+export interface LegalAdvisorDecision {
+  granted: YesOrNo;
+  decisionDate: DateAsString;
+  refusalDecision: RefusalOption;
+  refusalClarificationReason: ClarificationReason[];
+  refusalClarificationAdditionalInfo: string;
+  refusalAdminErrorInfo: string;
+  refusalRejectionReason: RejectionReason[];
+  refusalRejectionAdditionalInfo: string;
 }
 
 export interface ConfidentialDivorceDocument {
