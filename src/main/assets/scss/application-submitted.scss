@@ -4,3 +4,27 @@
     color: govuk-colour('white');
   }
 }
+
+#application-submitted-bar {
+  margin-top: 50px;
+  .progress-bar-next-stage {
+    position: absolute;
+    top: -40px;
+    right: 80%;
+    width: 100%;
+  }
+
+  .joint-application-bar:nth-child(2) {
+    left: 10%;
+    .progress-bar-next-stage {
+      right: 120%;
+    }
+  }
+
+  .sole-application-bar:nth-child(2) {
+    right: 5%;
+  }
+  .sole-application-bar:nth-child(3) {
+    left: 5%;
+  }
+}
