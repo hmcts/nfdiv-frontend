@@ -7,9 +7,11 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
+import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
+import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
 
@@ -20,12 +22,6 @@ export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'appl
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
-  applicationSubmitted: 'Application submitted',
-  response: 'Response',
-  conditionalOrderApplication: 'Conditional order application',
-  conditionalOrderGranted: 'Conditional order granted',
-  finalOrderApplication: 'Final order application',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
@@ -279,15 +275,24 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
+  const { userCase, isDivorce, language } = content;
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const applicationTranslations = content.isJointApplication
+    ? jointGenerateContent(content)
+    : soleGenerateContent(content);
+  const progressBarContent = getProgressBarContent(
+    isDivorce,
+    applicationTranslations.displayState as StateSequence,
+    language === 'en'
+  );
   return {
-    ...languages[content.language]({ ...content, referenceNumber }),
+    ...languages[language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
-    ...(content.isJointApplication ? jointGenerateContent(content) : soleGenerateContent(content)),
+    ...applicationTranslations,
     isCoFieldsSet,
     ...latestLegalAdvisorDecisionContent(userCase, true),
+    ...progressBarContent,
   };
 };
