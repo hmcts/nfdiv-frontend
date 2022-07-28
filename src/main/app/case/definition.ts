@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-
-// Generated using typescript-generator version 2.36.1070 on 2022-07-13 16:11:17.
+// Generated using typescript-generator version 2.36.1070 on 2022-07-28 07:35:30.
 
 export interface Address {
   AddressLine1: string;
@@ -248,6 +247,7 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
+  UsedWelshTranslationOnSubmission: YesOrNo;
   FinancialOrdersFor: FinancialOrderFor[];
   LegalProceedings: YesOrNo;
   LegalProceedingsDetails: string;
@@ -437,6 +437,7 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
+  applicant1UsedWelshTranslationOnSubmission: YesOrNo;
   applicant1FinancialOrdersFor: FinancialOrderFor[];
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsDetails: string;
@@ -472,6 +473,7 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
+  applicant2UsedWelshTranslationOnSubmission: YesOrNo;
   applicant2FinancialOrdersFor: FinancialOrderFor[];
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsDetails: string;
@@ -769,6 +771,7 @@ export interface CaseData {
   applicant1ScreenHasMarriageBroken: YesOrNo;
   d11Document: DivorceDocument;
   bulkListCaseReference: string;
+  coRefusalRejectionReason: RejectionReason[];
   hyphenatedCaseRef: string;
   nocWhichApplicant: WhichApplicant;
   nocAreTheyRepresented: YesOrNo;
@@ -1142,6 +1145,7 @@ export interface RetiredFields {
   applicant1ScreenHasMarriageBroken: YesOrNo;
   d11Document: DivorceDocument;
   bulkListCaseReference: string;
+  coRefusalRejectionReason: RejectionReason[];
 }
 
 export interface Solicitor {
@@ -1729,6 +1733,7 @@ export const enum State {
   PendingHearingOutcome = 'PendingHearingOutcome',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
+  WelshTranslationRequested = 'WelshTranslationRequested',
   WelshTranslationReview = 'WelshTranslationReview',
 }
 
