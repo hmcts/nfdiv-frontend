@@ -27,6 +27,7 @@ describe('ApplicationSubmittedGetController', () => {
         isDivorce,
         userEmail: 'test@example.com',
         userCase: req.session.userCase,
+        existingCaseId: req.session.existingCaseId,
       }),
       userCase: req.session.userCase,
     });
@@ -48,6 +49,7 @@ describe('ApplicationSubmittedGetController', () => {
         isDivorce,
         userEmail: 'test@example.com',
         userCase: req.session.userCase,
+        existingCaseId: req.session.existingCaseId,
       }),
       userCase: req.session.userCase,
     });

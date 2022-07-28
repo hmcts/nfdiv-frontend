@@ -73,7 +73,7 @@
       {% endif %}
 
       {% block contact_us %}
-        {% include "./contact-us.njk" %}
+        {% include "./contact-us/details.njk" %}
       {% endblock %}
     </div>
   </div>
@@ -98,6 +98,10 @@
         {
           href: "/terms-and-conditions",
           text: termsAndConditions
+        },
+        {
+          href: "/contact-us",
+          text: contactUs
         }
       ]
     }

@@ -6,10 +6,6 @@
 
 {% block backLink %}{% endblock %}
 
-{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
-  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
-{% endmacro %}
-
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">{{ title }}</h1>
@@ -21,33 +17,9 @@
     </div>
     <p><strong>{{ confirmationEmail }}</strong></p>
   </div>
-  {{ hmctsProgressBar({
-    items: [{
-      label: {
-        html: textWithVisuallyHiddenSpan(title, true)
-      },
-      complete: true
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(partnerResponse, displayState.isAfter('AwaitingApplicant2Response'))
-      },
-      complete: userCase.applicationType == 'jointApplication' and displayState.isAtOrAfter('Applicant2Approved')
-        or userCase.applicationType == 'soleApplication' and displayState.isAtOrAfter('Holding'),
-      active: displayState.state() == 'AwaitingApplicant2Response'
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(conditionalOrderGranted, displayState.isAfter('AwaitingLegalAdvisorReferral'))
-      },
-      complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
-      active: displayState.state() == 'AwaitingLegalAdvisorReferral'
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(applicationEnded, displayState.isAtOrAfter('FinalOrderComplete'))
-      },
-      complete: displayState.isAtOrAfter('FinalOrderComplete'),
-      active: displayState.state() == 'FinalOrderComplete'
-    }]
-  }) }}
+
+  {% include "./progress-bar.njk" %}
+
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
@@ -125,12 +97,12 @@
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
-  <p class="govuk-body">{{ webChatDetails }}</p>
+    {% include "common/webchat.html" %}
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
   <p class="govuk-body"><a class="govuk-link" href="mailto:${contactEmail}">{{ contactEmail }}</a></p>
   <h3 class="govuk-heading-m">{{ telephone }}</h3>
   <p class="govuk-body">{{ telephoneNumber }}</p>
-  <p class="govuk-body">{{ telephoneDetails }}</p>
+  <p class="govuk-body">{{ openingTimes }}</p>
   <p class="govuk-body"><a class="govuk-link" href={{ telephoneCharges.link }}>{{ telephoneCharges.part1 }}</a></p>
   <p class="govuk-body">{{ domesticAbuse.part1 }}<a class="govuk-link" href={{ domesticAbuse.link }}>{{ domesticAbuse.part2 }}</a></p>
 

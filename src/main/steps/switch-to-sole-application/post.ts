@@ -26,7 +26,10 @@ export class SwitchToSoleApplicationPostController {
 
     if (req.session.isApplicant2 && req.session.errors.length === 0) {
       req.session.userCase = undefined as unknown as CaseWithId;
+      req.session.existingCaseId = undefined as unknown as string;
       req.session.isApplicant2 = false;
+    } else {
+      req.session.existingCaseId = req.session.userCase.id;
     }
 
     const nextUrl = req.session.errors.length > 0 ? req.url : YOUR_DETAILS_URL;

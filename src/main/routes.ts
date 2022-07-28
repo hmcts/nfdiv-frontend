@@ -16,8 +16,12 @@ import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ApplicationSubmittedGetController } from './steps/application-submitted/get';
+import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
+import * as existingApplicationContent from './steps/existing-application/content';
+import { ExistingApplicationGetController } from './steps/existing-application/get';
+import { ExistingApplicationPostController } from './steps/existing-application/post';
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
@@ -31,10 +35,12 @@ import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
   APPLICATION_SUBMITTED,
+  CONTACT_US,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
+  EXISTING_APPLICATION,
   HOME_URL,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
@@ -58,6 +64,11 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
+    app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
+    app.post(
+      EXISTING_APPLICATION,
+      errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
+    );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
@@ -65,8 +76,9 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS_URL, errorHandler(new TermsAndConditionsGetController().get));
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
-    app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
+    app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
+    app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));

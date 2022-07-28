@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
+import { getProgressBarContent } from '../applicant1/hub-page/progressBarLabels';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
 import { formattedCaseId } from '../common/content.utils';
@@ -15,7 +16,7 @@ const en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
+  openingTimes,
   telephoneNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
@@ -23,9 +24,6 @@ const en = ({
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
-  partnerResponse: `Your ${partner} responds`,
-  conditionalOrderGranted: 'Conditional order granted',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
@@ -114,11 +112,10 @@ const en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
   telephoneNumber: `Telephone: ${telephoneNumber}`,
-  telephoneDetails: 'Monday to Friday 8am to 5pm',
+  openingTimes,
   telephoneCharges: {
     part1: 'Find out about call charges',
     link: config.get('govukUrls.callCharges'),
@@ -144,17 +141,14 @@ const cy: typeof en = ({
   referenceNumber,
   isJointApplication,
   webChat,
-  webChatNotAvailable,
   telephoneNumber,
+  openingTimes,
 }: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
-  partnerResponse: `Bydd eich ${partner} yn ymateb`,
-  conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
-  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo progress bar to be updated as per - NFDIV-2371
   subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',
@@ -242,11 +236,10 @@ const cy: typeof en = ({
     link: config.get('govukUrls.legalAdvisor'),
   },
   webChat,
-  webChatDetails: webChatNotAvailable,
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
   telephoneNumber: `Rhif ffôn: ${telephoneNumber}`,
-  telephoneDetails: 'Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm',
+  openingTimes,
   telephoneCharges: {
     part1: 'Gwybodaeth am brisiau galwadau',
     link: config.get('govukUrls.callCharges'),
@@ -271,7 +264,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -290,6 +283,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const progressBarContent = getProgressBarContent(isDivorce, displayState, language === 'en');
   return {
     ...languages[language]({ ...content, referenceNumber }),
     displayState,
@@ -299,5 +293,6 @@ export const generateContent: TranslationFn = content => {
     applicationServedAnotherWay,
     referenceNumber,
     cannotUploadDocuments,
+    ...progressBarContent,
   };
 };

@@ -445,6 +445,43 @@ describe('HomeGetController', () => {
     expect(res.redirect).toBeCalledWith(CHECK_CONDITIONAL_ORDER_ANSWERS_URL);
   });
 
+  test('redirects to hub page page for ConditionalOrderPending state if coApplicant1StatementOfTruth', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          coApplicant1StatementOfTruth: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.ConditionalOrderPending,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+  });
+
+  test('redirects to hub page for applicant2 users for ConditionalOrderPending state if coApplicant2StatementOfTruth', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          coApplicant2StatementOfTruth: YesOrNo.YES,
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to application ended page for applicant 1 users if applicant2ScreenHasUnionBroken is No', () => {
     const req = mockRequest({
       session: {
@@ -634,6 +671,24 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.JOINT_APPLICATION,
           state: State.AwaitingPronouncement,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to the hub page for applicant 2 users in AwaitingLegalAdvisorReferral state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          state: State.AwaitingLegalAdvisorReferral,
         },
         isApplicant2: true,
       },

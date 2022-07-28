@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-07-12 09:20:51.
+
+// Generated using typescript-generator version 2.36.1070 on 2022-07-13 16:11:17.
 
 export interface Address {
   AddressLine1: string;
@@ -352,6 +353,7 @@ export interface Application {
   rejectReason: RejectReason;
   currentState: State;
   previousState: State;
+  welshPreviousState: State;
   stateToTransitionApplicationTo: State;
   applicationPayments: ListValue<Payment>[];
   overdueNotificationSent: YesOrNo;
@@ -360,6 +362,7 @@ export interface Application {
   respondentSolicitorReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
+  previousReissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
   applicant1IsApplicant2Represented: Applicant2Represented;
   applicant1SolicitorAnswersLink: Document;
@@ -564,6 +567,7 @@ export interface CaseData {
   rejectReason: RejectReason;
   currentState: State;
   previousState: State;
+  welshPreviousState: State;
   stateToTransitionApplicationTo: State;
   applicationPayments: ListValue<Payment>[];
   overdueNotificationSent: YesOrNo;
@@ -572,6 +576,7 @@ export interface CaseData {
   respondentSolicitorReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
   reissueOption: ReissueOption;
+  previousReissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
   applicant1IsApplicant2Represented: Applicant2Represented;
   applicant1SolicitorAnswersLink: Document;
@@ -640,11 +645,11 @@ export interface CaseData {
   coGrantedDate: DateAsString;
   coRefusalDecision: RefusalOption;
   coRefusalAdminErrorInfo: string;
-  coRefusalRejectionReason: RejectionReason[];
   coRefusalRejectionAdditionalInfo: string;
   coRefusalClarificationReason: ClarificationReason[];
   coRefusalClarificationAdditionalInfo: string;
   coClarificationResponses: ListValue<string>[];
+  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationUploadDocuments: ListValue<DivorceDocument>[];
   coCannotUploadClarificationDocuments: YesOrNo;
   coOutcomeCase: YesOrNo;
@@ -656,7 +661,6 @@ export interface CaseData {
   coCertificateOfEntitlementDocument: DivorceDocument;
   coRefusalOrderDocument: Document;
   coConditionalOrderGrantedDocument: DivorceDocument;
-  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
@@ -868,7 +872,6 @@ export interface ConditionalOrder {
   GrantedDate: DateAsString;
   RefusalDecision: RefusalOption;
   RefusalAdminErrorInfo: string;
-  RefusalRejectionReason: RejectionReason[];
   RefusalRejectionAdditionalInfo: string;
   RefusalClarificationReason: ClarificationReason[];
   RefusalClarificationAdditionalInfo: string;
@@ -1166,6 +1169,17 @@ export interface SolicitorService {
   ServiceSotFirm: string;
   StatementOfTruth: YesOrNo;
   TruthStatement: string;
+}
+
+export interface LegalAdvisorDecision {
+  granted: YesOrNo;
+  decisionDate: DateAsString;
+  refusalDecision: RefusalOption;
+  refusalClarificationReason: ClarificationReason[];
+  refusalClarificationAdditionalInfo: string;
+  refusalAdminErrorInfo: string;
+  refusalRejectionReason: RejectionReason[];
+  refusalRejectionAdditionalInfo: string;
 }
 
 export interface ConfidentialDivorceDocument {
@@ -1715,6 +1729,7 @@ export const enum State {
   PendingHearingOutcome = 'PendingHearingOutcome',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
+  WelshTranslationReview = 'WelshTranslationReview',
 }
 
 export const enum UserRole {
@@ -2101,6 +2116,7 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
+
 export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
@@ -2147,6 +2163,7 @@ export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_REMIND_APPLICANTS_APPLY_FOR_FINAL_ORDER = 'system-remind-applicants-final-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
+export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
@@ -2159,6 +2176,6 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
-export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
