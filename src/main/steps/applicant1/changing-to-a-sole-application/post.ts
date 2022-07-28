@@ -1,0 +1,38 @@
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
+import { CaseWithId } from '../../../app/case/case';
+import { SWITCH_TO_SOLE } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { YOUR_DETAILS_URL } from '../../urls';
+
+@autobind
+export default class ChangingToASoleApplicationPostController extends PostController<AnyObject> {
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    req.session.errors = [];
+    try {
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE);
+    } catch (err) {
+      req.locals.logger.error('Error encountered whilst switching to sole application ', err);
+      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+    }
+
+    if (req.session.isApplicant2 && req.session.errors.length === 0) {
+      req.session.userCase = undefined as unknown as CaseWithId;
+      req.session.existingCaseId = undefined as unknown as string;
+      req.session.isApplicant2 = false;
+    } else {
+      req.session.existingCaseId = req.session.userCase.id;
+    }
+
+    const nextUrl = req.session.errors.length > 0 ? req.url : YOUR_DETAILS_URL;
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
+  }
+}
