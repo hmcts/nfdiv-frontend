@@ -54,6 +54,7 @@ import {
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
+  JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -410,10 +411,15 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: PAYMENT_CALLBACK_URL,
-    getNextStep: () => APPLICATION_SUBMITTED,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? JOINT_APPLICATION_SUBMITTED : APPLICATION_SUBMITTED,
   },
   {
     url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: JOINT_APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
   },
   {
