@@ -18,6 +18,7 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -733,7 +734,7 @@ const cy: typeof en = ({
             : `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
           : ''
       }`,
-      line4: userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : '',
+      line4: userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate, SupportedLanguages.Cy)}` : '',
       line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES

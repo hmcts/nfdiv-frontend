@@ -1,6 +1,7 @@
 import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { generatePageContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -8,7 +9,7 @@ import ApplicationEndedGetController from './get';
 
 describe('ApplicationEndedGetController', () => {
   const controller = new ApplicationEndedGetController();
-  const language = 'en';
+  const language = SupportedLanguages.En;
 
   test('Should render the application ended page', async () => {
     const req = mockRequest();

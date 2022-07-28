@@ -1,7 +1,12 @@
+import { SupportedLanguages } from '../../../main/modules/i18n';
 import { generatePageContent } from '../../../main/steps/common/common.content';
 
 export const defaultViewArgs = {
-  ...generatePageContent({ language: 'en', userEmail: 'test@example.com', userCase: expect.any(Object) }),
+  ...generatePageContent({
+    language: SupportedLanguages.En,
+    userEmail: 'test@example.com',
+    userCase: expect.any(Object),
+  }),
   serviceName: expect.any(String),
   sessionErrors: expect.any(Array),
   getNextIncompleteStepUrl: expect.any(Function),

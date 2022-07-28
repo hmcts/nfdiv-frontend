@@ -2,9 +2,9 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
-import { LanguageToggle } from '../../modules/i18n';
+import { LanguageToggle, SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
-import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
+import { CommonContent, generatePageContent } from '../../steps/common/common.content';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -23,7 +23,7 @@ export class GetController {
       return;
     }
 
-    const language = this.getPreferredLanguage(req) as Language;
+    const language = this.getPreferredLanguage(req) as SupportedLanguages;
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const isApplicant2 = req.session?.isApplicant2;
     const userCase = req.session?.userCase;
@@ -53,12 +53,6 @@ export class GetController {
   }
 
   private getPreferredLanguage(req: AppRequest) {
-    // User selected language
-    const requestedLanguage = req.query['lng'] as string;
-    if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
-      return requestedLanguage;
-    }
-
     // Saved session language
     if (req.session?.lang) {
       return req.session.lang;
@@ -66,6 +60,6 @@ export class GetController {
 
     // Browsers default language
     const negotiator = new Negotiator(req);
-    return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
+    return negotiator.language(LanguageToggle.supportedLanguages) || SupportedLanguages.En;
   }
 }

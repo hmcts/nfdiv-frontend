@@ -4,6 +4,7 @@ import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
+import { SupportedLanguages } from '../../../modules/i18n';
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
 
@@ -21,7 +22,7 @@ const initUploadManager = (): void => {
   const language = document.documentElement.lang;
   location.hash = '';
 
-  const chooseFilePhoto = language === 'cy' ? 'Dewiswch ffeil' : 'Choose a file';
+  const chooseFilePhoto = language === SupportedLanguages.Cy ? 'Dewiswch ffeil' : 'Choose a file';
 
   const uppy = new Uppy({
     restrictions: {

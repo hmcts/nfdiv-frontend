@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
+import { SupportedLanguages } from '../../modules/i18n';
 import { getProgressBarContent } from '../applicant1/hub-page/progressBarLabels';
 import { isCountryUk } from '../applicant1Sequence';
 import type { CommonContent } from '../common/common.content';
@@ -283,7 +284,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const progressBarContent = getProgressBarContent(isDivorce, displayState, language === 'en');
+  const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
   return {
     ...languages[language]({ ...content, referenceNumber }),
     displayState,

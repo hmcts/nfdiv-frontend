@@ -9,6 +9,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import {
   accessibleDetailsSpan,
@@ -193,7 +194,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line13: `Lle gweinyddwyd y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
   line14: userCase.ceremonyPlace,
   line15: `Dyddiad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
-  line16: getFormattedDate(userCase.relationshipDate),
+  line16: getFormattedDate(userCase.relationshipDate, SupportedLanguages.Cy),
   subHeading3: "Pam all y llys ddelio â'r achos (awdurdodaeth)",
   line17: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints:

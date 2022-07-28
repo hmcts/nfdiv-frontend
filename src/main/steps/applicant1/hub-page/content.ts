@@ -5,6 +5,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
 import { StateSequence } from '../../state-sequence';
@@ -285,7 +286,7 @@ export const generateContent: TranslationFn = content => {
   const progressBarContent = getProgressBarContent(
     isDivorce,
     applicationTranslations.displayState as StateSequence,
-    language === 'en'
+    language === SupportedLanguages.En
   );
   return {
     ...languages[language]({ ...content, referenceNumber }),
