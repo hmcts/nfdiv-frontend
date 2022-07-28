@@ -77,6 +77,20 @@ describe('from-api-format', () => {
     });
   });
 
+  const resultsWithDivorce: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
+    divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    applicant1HasMarriageBroken: MarriageBroken.MARRIAGE_BROKEN,
+  };
+
+  test('Should convert results from api to nfdiv fe format with divorce values', async () => {
+    const nfdivFormat = fromApiFormat(resultsWithDivorce as unknown as CaseData);
+
+    expect(nfdivFormat).toStrictEqual({
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
+    });
+  });
+
   test('Should convert results from api to nfdiv fe format', async () => {
     const nfdivFormat = fromApiFormat(results as unknown as CaseData);
 

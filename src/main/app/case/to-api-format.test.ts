@@ -11,6 +11,7 @@ import {
   FinancialOrderFor,
   Gender,
   HowToRespondApplication,
+  MarriageBroken,
   MarriageFormation,
   YesOrNo,
 } from './definition';
@@ -465,6 +466,36 @@ describe('to-api-format', () => {
       expected: { applicant1HasCivilPartnershipBroken: [CivilPartnershipBroken.CIVIL_PARTNERSHIP_BROKEN] },
     },
   ])('sets applicant1ScreenHasUnionBroken when civil partnership broken set', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
+      applicant1ScreenHasUnionBroken: YesOrNo.NO,
+      expected: { applicant1HasCivilPartnershipBroken: [] },
+    },
+  ])('doesnt set applicant1ScreenHasUnionBroken when civil partnership broken not set', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      applicant1ScreenHasUnionBroken: YesOrNo.YES,
+      expected: { applicant1HasMarriageBroken: [MarriageBroken.MARRIAGE_BROKEN] },
+    },
+  ])('sets applicant1ScreenHasUnionBroken when marriage broken set', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      applicant1ScreenHasUnionBroken: YesOrNo.NO,
+      expected: { applicant1HasMarriageBroken: [] },
+    },
+  ])('doesnt set applicant1ScreenHasUnionBroken when marriage broken not set', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 
