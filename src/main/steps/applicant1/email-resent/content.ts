@@ -29,7 +29,7 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
     part3: '.',
     link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
   },
-}); //todo
+}); //todo translations NFDIV-2209
 
 const languages = {
   en,

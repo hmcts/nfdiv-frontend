@@ -17,7 +17,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     'You will receive another notification when they have reviewed and confirmed the joint application.',
   wrongPerson:
     'If you think the wrong person received the email and accessed the case, please contact the service using the details below.',
-}); //todo
+}); //todo translations NFDIV-2614
 
 const languages = {
   en,

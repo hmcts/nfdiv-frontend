@@ -43,7 +43,7 @@ const en = ({ userCase, partner, isDivorce, isJointApplication, hasEnteredSolici
   continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
 });
 
-const cy = ({ userCase, partner }) => ({
+const cy: typeof en = ({ userCase, partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu ei gyfeiriad/chyfeiriad e-bost fel y gall y llys 'gyflwyno' (danfon) dogfennau iddo/iddi ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
@@ -60,7 +60,7 @@ const cy = ({ userCase, partner }) => ({
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
   },
-  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Parhau', //todo
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Parhau', //todo translation NFDIV-2614
 });
 
 export const form: FormContent = {
