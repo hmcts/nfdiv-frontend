@@ -9,5 +9,9 @@
 {% endblock %}
 
 {% block form %}
-  {% include "./form.njk" %}
+  {% if isApplicant2EmailUpdatePossibleAnswer %}
+    {% include "./form.njk" %}
+  {% else %}
+    {% include "common/form/form.njk" %}
+  {% endif %}
 {% endblock %}
