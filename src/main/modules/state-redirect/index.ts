@@ -8,6 +8,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
+  APPLICANT_2,
   APPLICATION_SUBMITTED,
   JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
@@ -51,9 +52,11 @@ export class StateRedirectMiddleware {
           }
           if (
             req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
-            req.path !== JOINT_APPLICATION_SUBMITTED
+            ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
           ) {
-            return res.redirect(JOINT_APPLICATION_SUBMITTED);
+            return req.session.isApplicant2
+              ? res.redirect(APPLICANT_2 + JOINT_APPLICATION_SUBMITTED)
+              : res.redirect(JOINT_APPLICATION_SUBMITTED);
           }
         }
 

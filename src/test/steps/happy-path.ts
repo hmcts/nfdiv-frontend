@@ -224,5 +224,5 @@ const completePayment = () => {
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
 
-  I.waitInUrl('/application-submitted', 15);
+  I.waitInUrl('/joint-application-submitted', 15);
 };
