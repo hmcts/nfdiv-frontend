@@ -223,11 +223,6 @@ export const generatePageContent = ({
     userCase &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
-  const isFinalOrderState =
-    userCase &&
-    [State.FinalOrderComplete, State.FinalOrderOverdue, State.FinalOrderPending, State.FinalOrderRequested].includes(
-      userCase.state!
-    );
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -242,7 +237,6 @@ export const generatePageContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
-    isFinalOrderState,
     existingCaseId,
     inviteCaseApplicationType,
   };
@@ -268,7 +262,6 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
-  isFinalOrderState: boolean;
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 };

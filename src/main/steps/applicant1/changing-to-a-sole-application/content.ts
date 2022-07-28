@@ -1,3 +1,4 @@
+import { State } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
@@ -31,7 +32,12 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const isFinalOrderState =
+    content.userCase &&
+    [State.FinalOrderComplete, State.FinalOrderOverdue, State.FinalOrderPending, State.FinalOrderRequested].includes(
+      content.userCase.state!
+    );
+  const translations = languages[content.language]({ ...content, isFinalOrderState });
   return {
     ...translations,
     form,
