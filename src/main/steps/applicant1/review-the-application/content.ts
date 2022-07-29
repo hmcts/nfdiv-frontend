@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -60,7 +60,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line13: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line14: userCase.ceremonyPlace,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line16: getFormattedDate(userCase.relationshipDate),
+  line16: getFormattedCaseDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
@@ -194,7 +194,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line13: `Lle gweinyddwyd y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
   line14: userCase.ceremonyPlace,
   line15: `Dyddiad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
-  line16: getFormattedDate(userCase.relationshipDate, SupportedLanguages.Cy),
+  line16: getFormattedCaseDate(userCase.relationshipDate, SupportedLanguages.Cy),
   subHeading3: "Pam all y llys ddelio â'r achos (awdurdodaeth)",
   line17: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints:

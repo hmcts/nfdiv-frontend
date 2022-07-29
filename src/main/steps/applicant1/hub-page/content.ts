@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -69,7 +70,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     You ${isJointApplication ? `/ your ${partner} ` : ''}still have to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
-    You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
+    You can apply for a final order on ${getFormattedDate(userCase.dateFinalOrderEligibleFrom)}. This will end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
   },
@@ -198,9 +199,10 @@ const cy: typeof en = ({
     }dal i orfod gwneud cais am orchymyn terfynol a fydd yn dod â'r ${
       isDivorce ? 'briodas' : 'partneriaeth sifil'
     } i ben.
-    Gallwch wneud cais am orchymyn terfynol ar ${userCase.dateFinalOrderEligibleFrom}. Bydd hyn yn dod â'ch ${
-      isDivorce ? 'priodas' : 'partneriaeth sifil i ben'
-    }.`,
+    Gallwch wneud cais am orchymyn terfynol ar ${getFormattedDate(
+      userCase.dateFinalOrderEligibleFrom,
+      SupportedLanguages.Cy
+    )}. Bydd hyn yn dod â'ch ${isDivorce ? 'priodas' : 'partneriaeth sifil i ben'}.`,
   },
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.

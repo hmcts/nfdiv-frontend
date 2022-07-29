@@ -1,7 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -46,9 +46,9 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
     userCase.applicant2FullNameOnCertificate
   } (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
-  ceremonyPlace: `${userCase.ceremonyPlace}`,
+  ceremonyPlace: userCase.ceremonyPlace,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  relationshipDate: getFormattedDate(userCase.relationshipDate),
+  relationshipDate: getFormattedCaseDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line4: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
@@ -81,7 +81,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   otherCourtCasesLine2: `The applicant has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicantLegalProceedingsDetails: userCase.applicant1LegalProceedingsDetails,
   noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,

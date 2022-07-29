@@ -1,9 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -23,16 +25,16 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${userCase.dueDate}.`,
+    } by ${getFormattedDate(userCase.dueDate)}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${
+    } by ${getFormattedDate(
       userCase.dueDate
-    }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
+    )}. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a>.`,
@@ -240,16 +242,17 @@ const cy: typeof en = (
     }.`,
     line2: `Dylai eich ${partner} ymateb i'r ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${userCase.dueDate}.`,
+    } erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line3:
       "Byddwch yn cael eich hysbysu drwy e-bost pan fyddant wedi ymateb. Neu cewch wybod beth i’w wneud nesaf os nad ydyn nhw'n ymateb.",
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${
-      userCase.dueDate
-    }. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
+    } erbyn ${getFormattedDate(
+      userCase.dueDate,
+      SupportedLanguages.Cy
+    )}. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
     line2: `Os nad ydych yn credu y byddant yn ymateb yna gallwch <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">weld yr opsiynau ar gyfer bwrw ymlaen â'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }</a>.`,

@@ -57,7 +57,7 @@ describe('GetController', () => {
       const language = SupportedLanguages.Cy;
       const req = mockRequest();
       const res = mockResponse();
-      req.query.lng = language;
+      req.session.lang = language;
       await controller.get(req, res);
 
       expect(res.render).toBeCalledWith('page', {
@@ -99,7 +99,7 @@ describe('GetController', () => {
       const language = SupportedLanguages.Cy;
       const req = mockRequest({ headers: { 'accept-language': language } });
       const res = mockResponse();
-      req.query.lng = language;
+      req.session.lang = language;
       await controller.get(req, res);
 
       expect(res.render).toBeCalledWith('page', {

@@ -1,8 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import Negotiator from 'negotiator';
 
-import { LanguageToggle, SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generatePageContent } from '../../steps/common/common.content';
 import { DivorceOrDissolution } from '../case/definition';
@@ -23,7 +22,7 @@ export class GetController {
       return;
     }
 
-    const language = this.getPreferredLanguage(req) as SupportedLanguages;
+    const language = req.session.lang as SupportedLanguages;
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const isApplicant2 = req.session?.isApplicant2;
     const userCase = req.session?.userCase;
@@ -50,16 +49,5 @@ export class GetController {
       htmlLang: language,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
-  }
-
-  private getPreferredLanguage(req: AppRequest) {
-    // Saved session language
-    if (req.session?.lang) {
-      return req.session.lang;
-    }
-
-    // Browsers default language
-    const negotiator = new Negotiator(req);
-    return negotiator.language(LanguageToggle.supportedLanguages) || SupportedLanguages.En;
   }
 }

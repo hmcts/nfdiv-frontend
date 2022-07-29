@@ -41,6 +41,7 @@ export const mockRequest = ({
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         ...userCase,
       },
+      lang: SupportedLanguages.En,
       existingCaseId: '123456',
       isApplicant2,
       save: jest.fn(done => done()),
