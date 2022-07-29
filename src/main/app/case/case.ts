@@ -15,6 +15,7 @@ import {
   FinancialOrderFor,
   Gender,
   JurisdictionConnections,
+  LegalAdvisorDecision,
   ListValue,
   OrderSummary,
   Payment,
@@ -115,6 +116,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coRefusalClarificationReason: 'coRefusalClarificationReason',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
   coClarificationUploadDocuments: 'coClarificationUploadDocuments',
+  coLegalAdvisorDecisions: 'coLegalAdvisorDecisions',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
   dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
   applicant2SolicitorName: 'applicant2SolicitorName',
@@ -289,6 +291,7 @@ export interface Case {
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];
+  coLegalAdvisorDecisions?: ListValue<LegalAdvisorDecision>[];
   doesApplicant1WantToApplyForFinalOrder?: Checkbox;
   doesApplicant2WantToApplyForFinalOrder?: Checkbox;
   applicant2FinalOrderExplanation?: string;

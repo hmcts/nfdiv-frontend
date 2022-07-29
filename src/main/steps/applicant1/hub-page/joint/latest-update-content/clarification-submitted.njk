@@ -1,13 +1,1 @@
-{% from "common/service-address.njk" import serviceAddressMacro %}
-
-{% if cannotUploadDocuments %}
-  <p class="govuk-body govuk-!-margin-bottom-1">{{ clarificationSubmitted.withoutDocuments.line1 }}</p>
-  {{ serviceAddressMacro(serviceAddress, 'heading') }}
-  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line3 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.clarificationAddInfo }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.withoutDocuments.line4 }}</p>
-{% else %}
-  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line1 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.withDocuments.line2 }}</p>
-  <p class="govuk-body">{{ clarificationSubmitted.clarificationAddInfo }}</p>
-{% endif %}
+{% include "../../sole/latest-update-content/clarification-submitted.njk" %}

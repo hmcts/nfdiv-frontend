@@ -6,10 +6,6 @@
 
 {% block backLink %}{% endblock %}
 
-{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
-  {{text}}<span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
-{% endmacro %}
-
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">{{ title }}</h1>
@@ -21,33 +17,9 @@
     </div>
     <p><strong>{{ confirmationEmail }}</strong></p>
   </div>
-  {{ hmctsProgressBar({
-    items: [{
-      label: {
-        html: textWithVisuallyHiddenSpan(title, true)
-      },
-      complete: true
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(partnerResponse, displayState.isAfter('AwaitingApplicant2Response'))
-      },
-      complete: userCase.applicationType == 'jointApplication' and displayState.isAtOrAfter('Applicant2Approved')
-        or userCase.applicationType == 'soleApplication' and displayState.isAtOrAfter('Holding'),
-      active: displayState.state() == 'AwaitingApplicant2Response'
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(conditionalOrderGranted, displayState.isAfter('AwaitingLegalAdvisorReferral'))
-      },
-      complete: displayState.isAfter('AwaitingLegalAdvisorReferral'),
-      active: displayState.state() == 'AwaitingLegalAdvisorReferral'
-    }, {
-      label: {
-        html: textWithVisuallyHiddenSpan(applicationEnded, displayState.isAtOrAfter('FinalOrderComplete'))
-      },
-      complete: displayState.isAtOrAfter('FinalOrderComplete'),
-      active: displayState.state() == 'FinalOrderComplete'
-    }]
-  }) }}
+
+  {% include "./progress-bar.njk" %}
+
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
