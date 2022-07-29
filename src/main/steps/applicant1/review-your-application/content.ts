@@ -1,7 +1,6 @@
 import config from 'config';
-import dayjs from 'dayjs';
 
-import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -27,7 +26,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   caseReferenceHeading: 'Case reference number',
   caseReferenceValue: formattedCaseId(userCase.id),
   issuedDateHeading: 'Issued',
-  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  issuedDateValue: getFormattedDate(userCase.issueDate),
   applicantHeading: 'Applicant',
   applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
   respondentHeading: 'Respondent',

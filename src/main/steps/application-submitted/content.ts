@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -72,9 +73,9 @@ const en = ({
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and Help With Fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
-    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+  )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
@@ -197,9 +198,10 @@ const cy: typeof en = ({
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
-  }. Fe gewch neges e-bost erbyn ${dayjs(userCase.dateSubmitted)
-    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    .format('D MMMM YYYY')} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    SupportedLanguages.Cy
+  )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
