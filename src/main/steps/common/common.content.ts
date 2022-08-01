@@ -111,12 +111,13 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
+  contactEmail: 'divorcecase@justice.gov.uk',
 };
 
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForDivorce: 'gwneud cais am ysgariad',
+  applyForDivorce: 'wneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   feedback:
     'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
@@ -185,7 +186,7 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
-  helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltu â ni dros y ffôn neu e-bost.',
+  helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
@@ -193,6 +194,7 @@ const cy: typeof en = {
   useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
+  contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
 
 export const generatePageContent = ({
@@ -218,7 +220,6 @@ export const generatePageContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
-  const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
@@ -234,7 +235,6 @@ export const generatePageContent = ({
     isApplicant2,
     userCase,
     userEmail,
-    contactEmail,
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
@@ -258,7 +258,6 @@ export type CommonContent = typeof en & {
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
-  contactEmail?: string;
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;
