@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { ApplicationType, PaymentStatus, State } from '../../../app/case/definition';
+import { ApplicationType, CITIZEN_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition';
 import { APPLICATION_SUBMITTED, CHECK_ANSWERS_URL, PAY_AND_SUBMIT, PAY_YOUR_FEE } from '../../urls';
 
 import PaymentCallbackGetController from './get';
@@ -48,7 +48,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
+      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -117,7 +117,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
+      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });
@@ -190,7 +190,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array));
+      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
     });

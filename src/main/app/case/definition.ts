@@ -2123,6 +2123,7 @@ export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
 export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
+export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CONFIRM_RECEIPT = 'confirm-receipt';
 export const INVITE_APPLICANT_2 = 'invite-applicant2';
