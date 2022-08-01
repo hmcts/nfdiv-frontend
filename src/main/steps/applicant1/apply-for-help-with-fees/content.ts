@@ -15,7 +15,7 @@ const en = ({ isDivorce }) => ({
 });
 
 const cy: typeof en = ({ isDivorce }) => ({
-  title: `Mae arnoch angen gwneud am help i dalu eich ${
+  title: `Mae arnoch angen gwneud cais am help i dalu eich ${
     isDivorce ? 'ffioedd ysgaru' : 'ffioedd i ddod â’ch partneriaeth sifil i ben'
   }`,
   line1: `Mae arnoch angen gwneud cais am <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank">help i dalu ffioedd (yn agor mewn tab newydd)</a> cyn ichi barhau gyda’r cais hwn ${

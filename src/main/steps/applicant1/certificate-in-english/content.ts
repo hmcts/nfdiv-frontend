@@ -18,6 +18,8 @@ const cy: typeof en = ({ isDivorce, marriage, civilPartnership, required }) => (
   title: `A yw eich tystysgrif ${isDivorce ? marriage : civilPartnership} wreiddiol yn Saesneg?`,
   line1: "Os yw eich tystysgrif wreiddiol yn cynnwys fersiwn Saesneg, dewiswch 'ydy'.",
   line2: "Os oes gennych gyfieithiad Saesneg fel dogfen ar wahân, dewiswch 'nac ydy'.",
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     certificateInEnglish: {
       required,
