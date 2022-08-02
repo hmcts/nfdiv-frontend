@@ -32,7 +32,7 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   }.
   Darparwch cymaint o wybodaeth â phosibl, megis: `,
   point1: 'enwau’r bobl sydd ynghlwm â’r achos',
-  point2: 'Rhif(au) yr achos(ion)',
+  point2: 'rhif(au) yr achos(ion)',
   point3: 'os yw’r achosion yn mynd rhagddynt neu os ydynt wedi gorffen',
   point4: 'beth yw diben yr achosion',
   point5: 'enw a chyfeiriad y llys, gan gynnwys y wlad',
