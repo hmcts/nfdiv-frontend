@@ -31,7 +31,7 @@ const cy = ({ isDivorce, partner }: CommonContent, relationship: string) => {
     title: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
     line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
-    }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd ${partner} enw cyn priodi.`,
+    }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd gennych chi neu eich ${partner} enw cyn priodi.`,
     warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
     applicant1FullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
     applicant2FullNameOnCertificate: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
