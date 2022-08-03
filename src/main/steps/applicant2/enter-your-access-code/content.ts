@@ -29,7 +29,31 @@ const en = () => ({
 });
 
 // @TODO translations
-const cy = en;
+const cy: typeof en = () => ({
+  title: 'Rhowch eich manylion mynediad',
+  line1: 'Your reference number and access code are in the email you received which invited you to this application.',
+  caseReference: 'Eich cyfeirnod',
+  caseReferenceHint: 'Rhif 16 digid yw hwn',
+  accessCode: 'Eich cod mynediad',
+  accessCodeHint: 'Mae hwn yn cynnwys 8 nod',
+  errorSaving: 'Sorry, we’re having technical problems accessing your application. Please try again in a few minutes.',
+  errors: {
+    caseReference: {
+      required:
+        'You have not entered a reference number. Enter the reference number from the email you received before continuing.',
+      invalid: 'You have entered an invalid reference number. Check your email and enter it again before continuing.',
+      invalidReference:
+        'You have entered the wrong reference number. Check your email and enter it again before continuing.',
+    },
+    accessCode: {
+      required:
+        'You have not entered an access code. Enter the access code from the email you received before continuing.',
+      invalid: 'You have entered an invalid access code. Check your email and enter it again before continuing.',
+      invalidAccessCode:
+        'You have entered the wrong access code. Check your email and enter it again before continuing.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

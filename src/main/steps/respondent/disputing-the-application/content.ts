@@ -59,14 +59,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   helpPayingWhen: ['yn cael rhai budd-daliadau', 'gydag ychydig o gynilion neu ddim cynilion o gwbl', 'ar incwm isel'],
   line2: `Mae gennych tan ${dayjs(userCase.issueDate)
     .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
-    .format('D MMMM YYYY')} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad cau,
-    yna bydd eich ${partner} fel arfer yn gallu parhau â’r ${
-    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    .format('D MMMM YYYY')} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad hwn,
+    yna bydd eich ${partner} fel arfer yn gallu parhau â’r cais ${
+    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
   }.`,
   line3: `Yr unig resymau dilys dros herio’r ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil'
   } yw oherwydd (os yw un neu fwy o’r canlynol yn berthnasol):`,
-  point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
+  point1: `nid ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
   ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
   point2: `nid ydych yn credu bod eich ${
     isDivorce ? 'priodas' : 'partneriaeth sifil'

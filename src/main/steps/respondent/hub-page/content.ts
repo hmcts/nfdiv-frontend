@@ -215,7 +215,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
     }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
     line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
-    line4: 'Neu ei bostio i:',
+    line4: 'Neu ei phostio i:',
     line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
       config.get('fees.d8bFormSubmission')
     )} pan fyddwch yn cyflwyno'r ffurflen. Os nad oes gennych fawr ddim cynilion, os o gwbl, eich bod ar fudd-daliadau penodol neu os oes gennych incwm isel, efallai y gallwch gae <a class="govuk-link" href="https://www.gov.uk/get-help-with-court-fees">help i dalu ffioedd</a>.`,
