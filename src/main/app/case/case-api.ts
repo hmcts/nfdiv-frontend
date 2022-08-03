@@ -9,10 +9,6 @@ import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Paymen
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
-export class InProgressDivorceCase implements Error {
-  constructor(public readonly message: string, public readonly name = 'DivCase') {}
-}
-
 export class CaseApi {
   readonly maxRetries: number = 3;
 

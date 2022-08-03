@@ -79,16 +79,6 @@ export class OidcMiddleware {
 
       const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
 
-      if (
-        !existingUserCase &&
-        !newInviteUserCase &&
-        config.get('services.case.checkDivCases') &&
-        (await req.locals.api.hasInProgressDivorceCase())
-      ) {
-        const token = encodeURIComponent(req.session.user.accessToken);
-        return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
-      }
-
       let redirectUrl;
       if (newInviteUserCase && existingUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
@@ -103,6 +93,12 @@ export class OidcMiddleware {
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {
+        if (!existingUserCase) {
+          if (await req.locals.api.hasInProgressDivorceCase()) {
+            const token = encodeURIComponent(req.session.user.accessToken);
+            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+          }
+        }
         req.session.userCase =
           req.session.userCase ||
           existingUserCase ||
