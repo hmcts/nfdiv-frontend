@@ -149,7 +149,19 @@ describe('CaseApi', () => {
   });
 
   test('Should throw an error if in progress divorce case is found', async () => {
+    const userCase = [
+      {
+        id: '1234',
+        state: State.Draft,
+        case_data: {
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          applicationFeeOrderSummary: [{ test: 'fees' }],
+          applicationPayments: [{ test: 'payment' }],
+        },
+      },
+    ];
     const mockCase = [{ case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' }];
+    mockApiClient.findExistingUserCases.mockReturnValueOnce(userCase);
     mockApiClient.findExistingUserCases.mockResolvedValue(mockCase);
 
     try {

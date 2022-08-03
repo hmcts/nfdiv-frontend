@@ -1,4 +1,3 @@
-import config from 'config';
 import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
@@ -38,9 +37,6 @@ export class CaseApi {
   }
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
-    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
-      throw new InProgressDivorceCase('User has in progress divorce case');
-    }
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
     return this.getLatestUserCase(userCases);
   }
@@ -58,7 +54,7 @@ export class CaseApi {
     return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
   }
 
-  private async hasInProgressDivorceCase(): Promise<boolean> {
+  public async hasInProgressDivorceCase(): Promise<boolean> {
     const userCase = (await this.apiClient.findExistingUserCases('DIVORCE', 'DIVORCE'))[0];
     if (userCase) {
       const courtId = (userCase.case_data as unknown as Record<string, string>).D8DivorceUnit;
