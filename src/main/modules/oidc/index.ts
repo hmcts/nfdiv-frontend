@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
@@ -70,6 +71,8 @@ export class OidcMiddleware {
   }
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
+    const logger = Logger.getLogger('find-existing-and-new-user-cases');
+
     try {
       const newInviteUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
@@ -116,6 +119,7 @@ export class OidcMiddleware {
     } catch (e) {
       if (e instanceof InProgressDivorceCase) {
         const token = encodeURIComponent(req.session.user.accessToken);
+        logger.info(`Case ID ${req.session.userCase.id} being redirected to old divorce`);
         return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
       } else {
         return res.redirect(SIGN_OUT_URL);
