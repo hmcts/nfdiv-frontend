@@ -94,7 +94,7 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
-          if (await req.locals.api.hasInProgressDivorceCase()) {
+          if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
