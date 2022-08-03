@@ -15,7 +15,7 @@ describe('ReviewTheApplicationPostController', () => {
     addedByAPI: 'adds new data to the session returned from API',
   };
 
-  it('triggers DRAFT_AOS when confirmReadPetition is undefined', async () => {
+  it('triggers DRAFT_AOS when confirmReadPetition is undefined in userCase', async () => {
     const body = {
       confirmReadPetition: Checkbox.Checked,
     };
