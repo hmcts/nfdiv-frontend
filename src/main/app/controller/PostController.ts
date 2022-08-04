@@ -7,7 +7,7 @@ import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, UPDATE_AOS } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
-import { AppRequest, AppSession } from './AppRequest';
+import { AppRequest } from './AppRequest';
 import { shouldUpdateAos } from './controller.utils';
 
 @autobind
@@ -45,13 +45,12 @@ export class PostController<T extends AnyObject> {
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const preSubmissionSession = structuredClone(req.session);
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, this.getEventName(req, preSubmissionSession));
+        req.session.userCase = await this.save(req, formData, this.getEventName(req));
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -72,8 +71,7 @@ export class PostController<T extends AnyObject> {
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getEventName(req: AppRequest<T>, preSubmissionSession: AppSession): string {
+  protected getEventName(req: AppRequest<T>): string {
     if (shouldUpdateAos(req)) {
       return UPDATE_AOS;
     } else if (req.session.isApplicant2) {
