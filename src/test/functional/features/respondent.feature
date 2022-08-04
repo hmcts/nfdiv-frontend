@@ -14,7 +14,7 @@ Feature: Respondent
   Scenario: They fill out a happy path respondent journey
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
-    When I click "Respond to the apswwsplication"
+    When I click "Respond to the application"
     Then the page URL should be "/respondent/review-the-application"
     And the page should include "Review the divorce application"
 
