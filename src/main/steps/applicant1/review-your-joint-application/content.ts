@@ -59,9 +59,9 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceText: enHabitualResident,
+  habitualResidenceText: enHabitualResident.body,
   heading8: 'Domicile',
-  domicileText: enDomicile,
+  domicileText: enDomicile.body,
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'

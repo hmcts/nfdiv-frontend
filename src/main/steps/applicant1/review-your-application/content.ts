@@ -59,9 +59,9 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceText: enHabitualResident,
+  habitualResidenceText: enHabitualResident.body,
   heading8: 'Domicile',
-  domicileText: enDomicile,
+  domicileText: enDomicile.body,
   heading9: 'Residual jurisdiction',
   residualJurisdictionLine1: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).`,
   residualJurisdictionLine2:
