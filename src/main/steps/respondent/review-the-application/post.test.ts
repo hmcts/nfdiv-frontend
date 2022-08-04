@@ -2,7 +2,6 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { DRAFT_AOS, UPDATE_AOS } from '../../../app/case/definition';
-import { PostController } from '../../../app/controller/PostController';
 import { FormContent } from '../../../app/form/Form';
 import * as steps from '../../index';
 
@@ -70,7 +69,7 @@ describe('ReviewTheApplicationPostController', () => {
 
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { confirmReadPetition: Checkbox.Checked };
-    const controller = new PostController(mockFormContent.fields);
+    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
@@ -80,7 +79,7 @@ describe('ReviewTheApplicationPostController', () => {
       })
     );
     const res = mockResponse();
-    await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
+    await expect(reviewTheApplicationPostController.post(req, res)).rejects.toEqual('An error while saving session');
     expect(req.locals.logger.error).toBeCalled();
     expect(req.session.errors).toStrictEqual([
       {
