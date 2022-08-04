@@ -73,7 +73,7 @@ export class PostController<T extends AnyObject> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getEventName(req: AppRequest<T>, preSubmissionReq: AppSession): string {
+  protected getEventName(req: AppRequest<T>, preSubmissionSession: AppSession): string {
     if (shouldUpdateAos(req)) {
       return UPDATE_AOS;
     } else if (req.session.isApplicant2) {
