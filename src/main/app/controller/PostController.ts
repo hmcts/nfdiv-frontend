@@ -7,7 +7,7 @@ import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
-import { AppRequest } from './AppRequest';
+import { AppRequest, AppSession } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -44,12 +44,13 @@ export class PostController<T extends AnyObject> {
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
+    const preSubmissionSession = structuredClone(req.session);
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        req.session.userCase = await this.save(req, formData, this.getEventName(req));
+        req.session.userCase = await this.save(req, formData, this.getEventName(req, preSubmissionSession));
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -70,7 +71,8 @@ export class PostController<T extends AnyObject> {
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
   }
 
-  protected getEventName(req: AppRequest<T>): string {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected getEventName(req: AppRequest<T>, preSubmissionReq: AppSession): string {
     if (req.session.isApplicant2) {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
