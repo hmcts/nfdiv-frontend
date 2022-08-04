@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, Checkbox } from '../../../app/case/case';
+import { Case } from '../../../app/case/case';
 import { DRAFT_AOS, UPDATE_AOS } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -22,10 +22,10 @@ export default class ReviewTheApplicationPostController extends PostController<A
 
     if (req.session.errors.length === 0) {
       try {
-        if (preSubmissionSession.confirmReadPetition === Checkbox.Checked) {
-          req.session.userCase = await this.save(req, formData, UPDATE_AOS);
-        } else {
+        if (preSubmissionSession.confirmReadPetition === undefined) {
           req.session.userCase = await this.save(req, formData, DRAFT_AOS);
+        } else {
+          req.session.userCase = await this.save(req, formData, UPDATE_AOS);
         }
       } catch (err) {
         req.locals.logger.error('Error saving', err);
