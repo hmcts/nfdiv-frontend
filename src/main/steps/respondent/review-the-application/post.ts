@@ -16,7 +16,7 @@ export default class ReviewTheApplicationPostController extends PostController<A
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const preSubmissionSession = structuredClone(req.session.userCase);
+    const preSubmissionSession = JSON.parse(JSON.stringify(req.session.userCase));
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 

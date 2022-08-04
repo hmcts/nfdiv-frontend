@@ -10,9 +10,6 @@ import ReviewTheApplicationPostController from './post';
 
 describe('ReviewTheApplicationPostController', () => {
   const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-  global.structuredClone = jest.fn(val => {
-    return JSON.parse(JSON.stringify(val));
-  });
 
   const expectedUserCase = {
     id: '1234',
