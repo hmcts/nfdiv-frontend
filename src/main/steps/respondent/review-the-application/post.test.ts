@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { DRAFT_AOS, Gender, UPDATE_AOS } from '../../../app/case/definition';
+import { DRAFT_AOS, UPDATE_AOS } from '../../../app/case/definition';
 import { PostController } from '../../../app/controller/PostController';
 import { FormContent } from '../../../app/form/Form';
 import * as steps from '../../index';
@@ -69,22 +69,24 @@ describe('ReviewTheApplicationPostController', () => {
     } as unknown as FormContent;
 
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { gender: Gender.FEMALE };
+    const body = { confirmReadPetition: Checkbox.Checked };
     const controller = new PostController(mockFormContent.fields);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
+    (req.locals.api.triggerEvent as jest.Mock).mockImplementation(
+      jest.fn(() => {
+        throw Error;
+      })
+    );
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
-
-    const userCase = {
-      ...req.session.userCase,
-      ...body,
-    };
-    expect(mockSave).toHaveBeenCalled();
-    expect(getNextStepUrlMock).toBeCalledWith(req, userCase);
-    expect(res.redirect).not.toHaveBeenCalled();
-    expect(req.session.errors).toStrictEqual([]);
+    expect(req.locals.logger.error).toBeCalled();
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'errorSaving',
+        propertyName: '*',
+      },
+    ]);
   });
 });
