@@ -16,13 +16,13 @@ export default class ReviewTheApplicationPostController extends PostController<A
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const preSubmissionSession = structuredClone(req.session);
+    const preSubmissionSession = structuredClone(req.session.userCase);
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        if (preSubmissionSession.userCase.confirmReadPetition === Checkbox.Checked) {
+        if (preSubmissionSession.confirmReadPetition === Checkbox.Checked) {
           req.session.userCase = await this.save(req, formData, UPDATE_AOS);
         } else {
           req.session.userCase = await this.save(req, formData, DRAFT_AOS);

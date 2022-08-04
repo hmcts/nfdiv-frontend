@@ -7,6 +7,10 @@ import { FormContent } from '../../../app/form/Form';
 import ReviewTheApplicationPostController from './post';
 
 describe('ReviewTheApplicationPostController', () => {
+  global.structuredClone = jest.fn(val => {
+    return JSON.parse(JSON.stringify(val));
+  });
+
   const expectedUserCase = {
     id: '1234',
     divorceOrDissolution: 'divorce',
