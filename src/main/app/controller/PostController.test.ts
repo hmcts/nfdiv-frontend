@@ -10,7 +10,9 @@ import {
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
   Gender,
+  UPDATE_AOS,
 } from '../case/definition';
+import * as controllerUtils from '../controller/controller.utils';
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
@@ -18,6 +20,7 @@ import { PostController } from './PostController';
 import Mock = jest.Mock;
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const shouldUpdateAosMock = jest.spyOn(controllerUtils, 'shouldUpdateAos');
 
 describe('PostController', () => {
   afterEach(() => {
@@ -275,6 +278,34 @@ describe('PostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_APPLICANT2_UPDATE);
 
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
+  });
+
+  test('getEventName returns UPDATE_AOS when shouldUpdateAos returns true', async () => {
+    shouldUpdateAosMock.mockReturnValue(true);
+    const body = { gender: Gender.MALE };
+    const controller = new PostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    req.session.isApplicant2 = true;
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'male' }, UPDATE_AOS);
+  });
+
+  test('getEventName should not return UPDATE_AOS when shouldUpdateAos returns false', async () => {
+    shouldUpdateAosMock.mockReturnValue(false);
+    const body = { gender: Gender.MALE };
+    const controller = new PostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    req.session.isApplicant2 = true;
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalledWith('1234', { gender: 'male' }, UPDATE_AOS);
   });
 });
 

@@ -4,10 +4,11 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, UPDATE_AOS } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest, AppSession } from './AppRequest';
+import { shouldUpdateAos } from './controller.utils';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -73,7 +74,9 @@ export class PostController<T extends AnyObject> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest<T>, preSubmissionReq: AppSession): string {
-    if (req.session.isApplicant2) {
+    if (shouldUpdateAos(req)) {
+      return UPDATE_AOS;
+    } else if (req.session.isApplicant2) {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
       return CITIZEN_UPDATE;
