@@ -40,6 +40,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  ConditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-order-answers',
     link: '/downloads/conditional-order-answers',
@@ -83,6 +88,7 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
+  const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
@@ -92,6 +98,7 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
+    hasConditionalOrderGranted,
     ...languages[content.language](content),
   };
 };

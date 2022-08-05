@@ -58,6 +58,15 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     downloadReference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
   },
+  conditionalOrderGrantedDocumentLine: {
+    part1: 'You can ',
+    part2: "view and download your 'conditional order'.",
+    part3: `This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    downloadReference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+  },
   conditionalOrderPronounced: {
     line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
     (read out) by a judge at ${
@@ -182,6 +191,15 @@ const cy: typeof en = ({
     part2: "weld a lawrlwytho eich 'tystysgrif hawl i gael gorchymyn amodol'.",
     part3: `Dyma'r ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch chi ${
       isDivorce ? 'gael ysgaria' : "dod â'ch partneriaeth sifil i ben"
+    }.`,
+    downloadReference: 'Certificate-of-Entitlement',
+    link: '/downloads/certificate-of-entitlement',
+  },
+  conditionalOrderGrantedDocumentLine: {
+    part1: 'You can ',
+    part2: "view and download your 'certificate of entitlement for a conditional order'.",
+    part3: `This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
     downloadReference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
