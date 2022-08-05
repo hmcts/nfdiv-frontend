@@ -17,7 +17,7 @@ export const form: FormContent = {
             name: 'confirmReadPetition',
             id: 'confirmReadPetitionId',
             label: l => l.confirmReadPetition,
-            attributes: { disabled: shouldDisableCheckbox },
+            attributes: shouldDisableCheckbox ? { disabled: true } : {},
             selected: shouldDisableCheckbox,
             value: Checkbox.Checked,
             validator: isFieldFilledIn,
