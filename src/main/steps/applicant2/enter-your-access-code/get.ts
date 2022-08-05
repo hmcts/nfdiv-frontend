@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
@@ -15,6 +16,9 @@ export class Applicant2AccessCodeGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    const logger = Logger.getLogger('access-code-get-controller');
+    logger.info(`isProd flag is ${config.get('isProd')}`);
+
     if (config.get('isProd')) {
       const newInviteUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
