@@ -19,6 +19,7 @@ export const mockRequest = ({
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
         isApplicant2: jest.fn(),
+        getNewInviteCase: jest.fn(),
       },
       logger: {
         info: jest.fn(),
