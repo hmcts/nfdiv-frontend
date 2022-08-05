@@ -2,7 +2,7 @@ import * as oidc from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { CaseApi, InProgressDivorceCase, getCaseApi } from './case-api';
+import { CaseApi, getCaseApi } from './case-api';
 import * as caseApiClient from './case-api-client';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
@@ -146,21 +146,6 @@ describe('CaseApi', () => {
     mockApiClient.findExistingUserCases.mockRejectedValue(new Error('Case could not be retrieved.'));
 
     await expect(api.getExistingUserCase(serviceType)).rejects.toThrow('Case could not be retrieved.');
-  });
-
-  test('Should throw an error if in progress divorce case is found', async () => {
-    const mockCase = [{ case_data: { D8DivorceUnit: 'serviceCentre' }, state: 'AwaitingDecreeNisi' }];
-    mockApiClient.findExistingUserCases.mockResolvedValue(mockCase);
-
-    try {
-      await api.getExistingUserCase(serviceType);
-    } catch (err) {
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(err instanceof InProgressDivorceCase).toBeTruthy();
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(err.message).toBe('User has in progress divorce case');
-      return;
-    }
   });
 
   test('Should ignore incomplete divorce cases', async () => {
