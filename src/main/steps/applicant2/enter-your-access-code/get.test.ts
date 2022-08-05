@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
@@ -8,7 +10,8 @@ import { HOME_URL } from '../../urls';
 import { generateContent } from './content';
 import { Applicant2AccessCodeGetController } from './get';
 
-jest.mock('../../../app/auth/user/oidc');
+jest.mock('config');
+const mockedConfig = config as jest.Mocked<typeof config>;
 
 describe('AccessCodeGetController', () => {
   const controller = new Applicant2AccessCodeGetController();
@@ -17,6 +20,7 @@ describe('AccessCodeGetController', () => {
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should render the enter your access code page with %s content',
     async serviceType => {
+      mockedConfig.get.mockReturnValueOnce('true');
       const userCase = {
         divorceOrDissolution: serviceType,
         id: '1234',
@@ -47,6 +51,7 @@ describe('AccessCodeGetController', () => {
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should redirect to HOME_URL if no invite case found',
     async serviceType => {
+      mockedConfig.get.mockReturnValueOnce('true');
       const req = mockRequest();
       (req.locals.api.getNewInviteCase as jest.Mock).mockResolvedValue(false);
       const res = mockResponse();
