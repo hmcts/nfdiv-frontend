@@ -5,7 +5,6 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../../app/case/definition';
 import { generatePageContent } from '../../common/common.content';
-import { HOME_URL } from '../../urls';
 
 import { generateContent } from './content';
 import { Applicant2AccessCodeGetController } from './get';
@@ -48,17 +47,17 @@ describe('AccessCodeGetController', () => {
     }
   );
 
-  test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
-    'Should redirect to HOME_URL if no invite case found',
-    async serviceType => {
-      mockedConfig.get.mockReturnValueOnce('true');
-      const req = mockRequest();
-      (req.locals.api.getNewInviteCase as jest.Mock).mockResolvedValue(false);
-      const res = mockResponse();
-      res.locals.serviceType = serviceType;
-      await controller.get(req, res);
-
-      expect(res.redirect).toBeCalledWith(HOME_URL);
-    }
-  );
+  // test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
+  //   'Should redirect to HOME_URL if no invite case found',
+  //   async serviceType => {
+  //     mockedConfig.get.mockReturnValueOnce('true');
+  //     const req = mockRequest();
+  //     (req.locals.api.getNewInviteCase as jest.Mock).mockResolvedValue(false);
+  //     const res = mockResponse();
+  //     res.locals.serviceType = serviceType;
+  //     await controller.get(req, res);
+  //
+  //     expect(res.redirect).toBeCalledWith(HOME_URL);
+  //   }
+  // );
 });
