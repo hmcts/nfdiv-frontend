@@ -16,10 +16,12 @@ export class Applicant2AccessCodeGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    const isProd = config.get('isProd');
+
     const logger = Logger.getLogger('access-code-get-controller');
     logger.info(`isProd flag is ${config.get('isProd')}`);
 
-    if (config.get('isProd')) {
+    if (isProd) {
       const newInviteUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
         res.locals.serviceType,
