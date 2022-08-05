@@ -92,4 +92,4 @@ govukUrls:
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
   feedbackSurvey: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done'
-isProd: false
+envType: 'NONPROD'

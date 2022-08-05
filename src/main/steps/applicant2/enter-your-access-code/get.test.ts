@@ -20,7 +20,7 @@ describe('AccessCodeGetController', () => {
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should render the enter your access code page with %s content',
     async serviceType => {
-      mockedConfig.get.mockReturnValueOnce(true);
+      mockedConfig.get.mockReturnValueOnce('PROD');
       const userCase = {
         divorceOrDissolution: serviceType,
         id: '1234',
@@ -51,7 +51,7 @@ describe('AccessCodeGetController', () => {
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should redirect to HOME_URL if no invite case found',
     async serviceType => {
-      mockedConfig.get.mockReturnValueOnce(true);
+      mockedConfig.get.mockReturnValueOnce('PROD');
       const req = mockRequest();
       (req.locals.api.getNewInviteCase as jest.Mock).mockResolvedValue(false);
       const res = mockResponse();
