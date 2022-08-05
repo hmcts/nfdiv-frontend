@@ -1,4 +1,3 @@
-import config from 'config';
 import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
@@ -9,10 +8,6 @@ import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-clien
 import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
-
-export class InProgressDivorceCase implements Error {
-  constructor(public readonly message: string, public readonly name = 'DivCase') {}
-}
 
 export class CaseApi {
   readonly maxRetries: number = 3;
@@ -38,9 +33,6 @@ export class CaseApi {
   }
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
-    if (config.get('services.case.checkDivCases') && (await this.hasInProgressDivorceCase())) {
-      throw new InProgressDivorceCase('User has in progress divorce case');
-    }
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
     return this.getLatestUserCase(userCases);
   }
@@ -58,7 +50,7 @@ export class CaseApi {
     return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, eventName);
   }
 
-  private async hasInProgressDivorceCase(): Promise<boolean> {
+  public async hasInProgressDivorceCase(): Promise<boolean> {
     const userCase = (await this.apiClient.findExistingUserCases('DIVORCE', 'DIVORCE'))[0];
     if (userCase) {
       const courtId = (userCase.case_data as unknown as Record<string, string>).D8DivorceUnit;
