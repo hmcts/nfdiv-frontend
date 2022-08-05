@@ -3,7 +3,7 @@ import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
-import { InProgressDivorceCase, getCaseApi } from '../../app/case/case-api';
+import { getCaseApi } from '../../app/case/case-api';
 import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
@@ -96,6 +96,13 @@ export class OidcMiddleware {
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {
+        if (!existingUserCase) {
+          if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
+            logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
+            const token = encodeURIComponent(req.session.user.accessToken);
+            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+          }
+        }
         req.session.userCase =
           req.session.userCase ||
           existingUserCase ||
@@ -117,15 +124,7 @@ export class OidcMiddleware {
         }
       });
     } catch (e) {
-      if (e instanceof InProgressDivorceCase) {
-        const token = encodeURIComponent(req.session.user.accessToken);
-        logger.info(
-          `Case ID ${req.session.userCase?.id} and UserID ${req.session.user.id} being redirected to old divorce`
-        );
-        return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
-      } else {
-        return res.redirect(SIGN_OUT_URL);
-      }
+      return res.redirect(SIGN_OUT_URL);
     }
   }
 
