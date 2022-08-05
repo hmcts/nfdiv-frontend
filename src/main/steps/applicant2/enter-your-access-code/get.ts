@@ -19,18 +19,22 @@ export class Applicant2AccessCodeGetController extends GetController {
     const isProd = config.get('isProd');
 
     const logger = Logger.getLogger('access-code-get-controller');
-    logger.info(`isProd flag is ${config.get('isProd')}`);
+    logger.info(`isProd flag is ${isProd}`);
+    logger.info(`isProd type is: ${typeof isProd}`);
 
     if (isProd) {
+      logger.info('isProd block working');
       const newInviteUserCase = await req.locals.api.getNewInviteCase(
         req.session.user.email,
         res.locals.serviceType,
         req.locals.logger
       );
       if (!newInviteUserCase) {
+        logger.info('No newInviteUserCase 11');
         return res.redirect(HOME_URL);
       }
     }
+    logger.info('triggering super.get()');
     await super.get(req, res);
   }
 }
