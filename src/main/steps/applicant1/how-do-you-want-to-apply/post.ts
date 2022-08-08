@@ -27,7 +27,7 @@ export default class ApplicationTypePostController extends PostController<AnyObj
     }
 
     if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
-      await this.saveAndSignOut(req, res, formData);
+      await this.saveAndSignOut(req, res, form, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }
