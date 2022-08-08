@@ -1,5 +1,13 @@
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { Gender } from '../../app/case/definition';
+import {
+  ClarificationReason,
+  Gender,
+  LegalAdvisorDecision,
+  ListValue,
+  RefusalOption,
+  RejectionReason,
+  YesOrNo,
+} from '../../app/case/definition';
 
 import { CommonContent, en } from './common.content';
 import {
@@ -9,6 +17,7 @@ import {
   getPartner,
   getSelectedGender,
   getServiceName,
+  latestLegalAdvisorDecisionContent,
 } from './content.utils';
 
 describe('content.utils', () => {
@@ -114,5 +123,111 @@ describe('content.utils', () => {
     const actual = formattedCaseId(caseId);
 
     expect(actual).toEqual('1111-2222-3333-4444');
+  });
+
+  describe('test latestLegalAdvisorDecisionContent', () => {
+    test('Undefined pastLegalAdvisorDecisions', () => {
+      const userCase = {
+        coLegalAdvisorDecisions: undefined,
+      } as Partial<CaseWithId>;
+      const expected = {
+        latestRefusalClarificationAdditionalInfo: '',
+        latestRefusalClarificationReasons: [],
+      };
+      const actual = latestLegalAdvisorDecisionContent(userCase, true);
+      expect(actual).toEqual(expect.objectContaining(expected));
+    });
+
+    test('Defined pastLegalAdvisorDecisions', () => {
+      const coLegalAdvisorDecisionsValue: ListValue<LegalAdvisorDecision>[] = [
+        {
+          id: '1',
+          value: {
+            granted: YesOrNo.NO,
+            decisionDate: '2021-05-10',
+            refusalDecision: RefusalOption.MORE_INFO,
+            refusalClarificationReason: [ClarificationReason.JURISDICTION_DETAILS],
+            refusalClarificationAdditionalInfo: 'Test refusalClarificationAdditionalInfo value',
+            refusalAdminErrorInfo: 'Test refusalAdminErrorInfo value',
+            refusalRejectionReason: [RejectionReason.OTHER],
+            refusalRejectionAdditionalInfo: 'Test refusalRejectionAdditionalInfo value',
+          },
+        },
+        {
+          id: '2',
+          value: {
+            granted: YesOrNo.YES,
+            decisionDate: '2021-09-11',
+            refusalDecision: RefusalOption.MORE_INFO,
+            refusalClarificationReason: [
+              ClarificationReason.JURISDICTION_DETAILS,
+              ClarificationReason.MARRIAGE_CERTIFICATE,
+            ],
+            refusalClarificationAdditionalInfo: 'Test refusalClarificationAdditionalInfo value 2',
+            refusalAdminErrorInfo: 'Test refusalAdminErrorInfo value 2',
+            refusalRejectionReason: [RejectionReason.OTHER],
+            refusalRejectionAdditionalInfo: 'Test refusalRejectionAdditionalInfo value 2',
+          },
+        },
+      ];
+      const userCase = {
+        coLegalAdvisorDecisions: coLegalAdvisorDecisionsValue,
+      } as Partial<CaseWithId>;
+      const expected = {
+        latestRefusalClarificationAdditionalInfo: '"Test refusalClarificationAdditionalInfo value"',
+        latestRefusalClarificationReasons: [ClarificationReason.JURISDICTION_DETAILS],
+      };
+      const actual = latestLegalAdvisorDecisionContent(userCase, true);
+      expect(actual).toEqual(expect.objectContaining(expected));
+    });
+  });
+
+  test('pastLegalAdvisorDecisions ClarificationReason.OTHER filter', () => {
+    const coLegalAdvisorDecisionsValue: ListValue<LegalAdvisorDecision>[] = [
+      {
+        id: '1',
+        value: {
+          granted: YesOrNo.NO,
+          decisionDate: '2021-05-10',
+          refusalDecision: RefusalOption.MORE_INFO,
+          refusalClarificationReason: [ClarificationReason.JURISDICTION_DETAILS, ClarificationReason.OTHER],
+          refusalClarificationAdditionalInfo: 'Test refusalClarificationAdditionalInfo value',
+          refusalAdminErrorInfo: 'Test refusalAdminErrorInfo value',
+          refusalRejectionReason: [RejectionReason.OTHER],
+          refusalRejectionAdditionalInfo: 'Test refusalRejectionAdditionalInfo value',
+        },
+      },
+    ];
+    const userCase = {
+      coLegalAdvisorDecisions: coLegalAdvisorDecisionsValue,
+    } as Partial<CaseWithId>;
+    const expected = {
+      latestRefusalClarificationAdditionalInfo: '"Test refusalClarificationAdditionalInfo value"',
+      latestRefusalClarificationReasons: [ClarificationReason.JURISDICTION_DETAILS],
+    };
+    const actual = latestLegalAdvisorDecisionContent(userCase, true);
+    expect(actual).toEqual(expect.objectContaining(expected));
+  });
+
+  test('condensed heading true', () => {
+    const userCase = {
+      coLegalAdvisorDecisions: undefined,
+    } as Partial<CaseWithId>;
+    const expected = {
+      condensedHeading: true,
+    };
+    const actual = latestLegalAdvisorDecisionContent(userCase, true);
+    expect(actual).toEqual(expect.objectContaining(expected));
+  });
+
+  test('condensed heading false', () => {
+    const userCase = {
+      coLegalAdvisorDecisions: undefined,
+    } as Partial<CaseWithId>;
+    const expected = {
+      condensedHeading: false,
+    };
+    const actual = latestLegalAdvisorDecisionContent(userCase, false);
+    expect(actual).toEqual(expect.objectContaining(expected));
   });
 });

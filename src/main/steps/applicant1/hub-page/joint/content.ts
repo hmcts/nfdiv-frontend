@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
@@ -78,22 +79,6 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
       : 'What you need to do',
-  clarificationSubmitted: {
-    withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.issueDate
-      )
-        .add(config.get('dates.issueDateOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
-      line2: 'This was the court’s feedback, explaining the information which was needed:',
-    },
-    withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
-      line4: 'You will receive an update when your documents have been received and checked.',
-    },
-    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-  },
 });
 
 // @TODO translations
@@ -174,22 +159,6 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
       : 'What you need to do',
-  clarificationSubmitted: {
-    withDocuments: {
-      line1: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.issueDate
-      )
-        .add(config.get('dates.issueDateOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
-      line2: 'This was the court’s feedback, explaining the information which was needed:',
-    },
-    withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line3: 'This is the feedback the court gave, which explains what documents you need to send:',
-      line4: 'You will receive an update when your documents have been received and checked.',
-    },
-    clarificationAddInfo: `"${userCase.coRefusalClarificationAdditionalInfo}"`,
-  },
 });
 
 const languages = {
@@ -198,6 +167,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const { userCase } = content;
+  const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments !== Checkbox.Checked;
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
@@ -210,7 +181,6 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const cannotUploadDocuments = content.userCase.coCannotUploadClarificationDocuments?.length;
   const displayState = currentStateFn(content.userCase).at(
     (content.userCase.state === State.OfflineDocumentReceived
       ? content.userCase.previousState
@@ -226,7 +196,7 @@ export const generateContent: TranslationFn = content => {
     isApplicant2,
     applicantConfirmReceipt,
     applicantApplyForConditionalOrderStarted,
-    cannotUploadDocuments,
     theLatestUpdateTemplate,
+    isClarificationDocumentsUploaded,
   };
 };
