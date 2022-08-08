@@ -23,17 +23,27 @@ export class PostController<T extends AnyObject> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
-      await this.saveAndSignOut(req, res, formData);
+      await this.saveAndSignOut(req, res, form, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }
   }
 
-  protected async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
-    } catch {
-      // ignore
+  protected async saveAndSignOut(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+
+    if (req.session.errors.length === 0) {
+      try {
+        await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+      } catch {
+        // ignore
+      }
     }
     res.redirect(SAVE_AND_SIGN_OUT);
   }
