@@ -192,6 +192,16 @@ const cy: typeof en = {
   apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
   useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  cookiesHeading: 'Cwcis ar',
+  cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
+  cookiesLine2:
+    "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
+  acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+  rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+  viewCookies: 'Gweld cwcis',
+  hideMessage: "Cuddio'r neges cwcihon",
+  cookiesConfirmationMessage:
+    '<p>Gallwch <a class="govuk-link" href="/cookies">newid gosodiadau eich cwcis ar</a> unrhyw adeg.</p>',
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
