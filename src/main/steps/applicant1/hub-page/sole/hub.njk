@@ -24,13 +24,4 @@
   </p>
 {% endset %}
 
-{% set conditionalOrderGrantedDocumentLineHtml %}
-  <p class="govuk-body">{{ conditionalOrderGrantedDocumentLine.part1 }}
-    <a class="govuk-link" href={{ conditionalOrderGrantedDocumentLine.link }}
-    download={{ conditionalOrderGrantedDocumentLine.downloadReference }}>
-      {{ conditionalOrderGrantedDocumentLine.part2 }}</a>
-    {{ conditionalOrderGrantedDocumentLine.part3 }}
-  </p>
-{% endset %}
-
 {% include "./latest-update-content" + theLatestUpdateTemplate %}

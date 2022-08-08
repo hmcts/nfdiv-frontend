@@ -93,9 +93,9 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line3: `If they do not apply for a final order by ${userCase.dateFinalOrderEligibleFrom} then you can apply for a final order.`,
     line4: {
       part1: 'You can ',
-      part2: 'read and download your certificate of entitlement.',
-      downloadReference: 'Certificate-of-Entitlement',
-      link: '/downloads/certificate-of-entitlement',
+      part2: "view and download your 'conditional order'.",
+      downloadReference: 'Conditional-Order-Granted',
+      link: '/downloads/conditional-order-granted',
     },
   },
   legalAdvisorReferral: {
