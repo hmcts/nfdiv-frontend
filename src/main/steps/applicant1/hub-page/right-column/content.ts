@@ -65,7 +65,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
-    text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'application to end your civil partnership'} (PDF)`,
+    text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -75,7 +75,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
-    text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'application to end your civil partnership'} (PDF)`,
+    text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
   deemedOrDispensedDownload: {
     reference: 'Certificate-of-Service',
