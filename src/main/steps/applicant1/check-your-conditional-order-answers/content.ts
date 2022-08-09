@@ -55,7 +55,7 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
 });
 
 // @TODO translations
-const cy = en;
+const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
