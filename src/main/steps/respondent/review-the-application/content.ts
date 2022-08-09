@@ -5,8 +5,6 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/review-the-application/content';
 import { checkboxToBoolean } from '../../common/content.utils';
 
-export const CONFIRM_READ_PETITION_ID = 'confirmReadPetitionId';
-
 export const form: FormContent = {
   fields: userCase => {
     const shouldDisableCheckbox = checkboxToBoolean(userCase.confirmReadPetition);
@@ -17,7 +15,7 @@ export const form: FormContent = {
         values: [
           {
             name: 'confirmReadPetition',
-            id: CONFIRM_READ_PETITION_ID,
+            id: 'confirmReadPetitionId',
             label: l => l.confirmReadPetition,
             attributes: shouldDisableCheckbox ? { disabled: true } : {},
             selected: shouldDisableCheckbox,
