@@ -36,8 +36,8 @@ const en = ({ isDivorce, partner, isJointApplication, required }: CommonContent)
 });
 
 const cy: typeof en = ({ isDivorce, partner, isJointApplication, required }: CommonContent) => ({
-  title: `Ydych chi eisiau bwrw ymlaen â’ch${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
-  ${isJointApplication ? ' ar y cyd' : ''}?`,
+  title: `Ydych chi eisiau bwrw ymlaen â’ch ${isDivorce ? 'ysgariad?' : 'cais i ddod â’ch partneriaeth sifil i ben'}
+  ${isJointApplication ? ' ar y cyd?' : ''}`,
   line1: `Y cam nesaf yn y${
     isDivorce ? ' ysgaru' : ''
   } broses yw gwneud cais am ‘orchymyn amodol’. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
