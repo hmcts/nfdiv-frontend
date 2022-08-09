@@ -35,7 +35,6 @@ const en = ({ isDivorce, partner, isJointApplication, required }: CommonContent)
   },
 });
 
-// @TODO translations
 const cy = ({ isDivorce, partner, isJointApplication, required }: CommonContent) => ({
   title: `Ydych chi eisiau bwrw ymlaen â’ch${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
   ${isJointApplication ? ' ar y cyd' : ''}?`,
