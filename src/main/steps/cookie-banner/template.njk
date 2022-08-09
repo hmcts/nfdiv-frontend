@@ -7,11 +7,11 @@
 {% endset %}
 
 {% set acceptHtml %}
-  pageLink(cookiesBanner.acceptCookiesConfirmationMessage)
+  {{ pageLink(cookiesBanner.acceptCookiesConfirmationMessage) }}
 {% endset %}
 
 {% set rejectHtml %}
-  pageLink(cookiesBanner.rejectCookiesConfirmationMessage)
+  {{ pageLink(cookiesBanner.rejectCookiesConfirmationMessage) }}
 {% endset %}
 
 {{ govukCookieBanner({
