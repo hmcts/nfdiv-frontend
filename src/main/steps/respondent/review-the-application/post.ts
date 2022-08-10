@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../app/case/case';
-import { DRAFT_AOS, UPDATE_AOS } from '../../../app/case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, DRAFT_AOS } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
@@ -25,7 +25,7 @@ export default class ReviewTheApplicationPostController extends PostController<A
         if (preSubmissionSession.confirmReadPetition === undefined) {
           req.session.userCase = await this.save(req, formData, DRAFT_AOS);
         } else {
-          req.session.userCase = await this.save(req, formData, UPDATE_AOS);
+          req.session.userCase = await this.save(req, formData, CITIZEN_APPLICANT2_UPDATE);
         }
       } catch (err) {
         req.locals.logger.error('Error saving', err);
