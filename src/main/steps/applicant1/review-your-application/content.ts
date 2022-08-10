@@ -8,7 +8,12 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
-import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
+import {
+  cyDomicile,
+  cyHabitualResident,
+  enDomicile,
+  enHabitualResident,
+} from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
@@ -47,6 +52,8 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   } (as shown on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate)`,
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   ceremonyPlace: `${userCase.ceremonyPlace}`,
+  ceremonyCountryHeading: `Country of ${isDivorce ? 'marriage' : 'civil partnership'}`,
+  ceremonyCountry: `${userCase.ceremonyCountry}`,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
   relationshipDate: getFormattedDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
@@ -121,6 +128,8 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   },
   reasonInformationNotCorrectHint:
     'Provide details of any other information that needs updating. Do not tell the court about updates to contact details here.',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1ConfirmInformationStillCorrect: {
       required,
@@ -132,8 +141,138 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({
+  isDivorce,
+  isApplicant2,
+  userCase,
+  partner,
+  required,
+  isJointApplication,
+}: CommonContent) => ({
+  title: `Adolygu eich ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}`,
+  subtitle: `Darllenwch eich cais gwreiddiol ${
+    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+  } isod a chadarnhewch fod yr wybodaeth dal yn gywir ac yn wir, hyd at eithaf eich gwybodaeth.`,
+  heading1: `${isDivorce ? 'Cais am ysgariad' : 'cais i ddod â phartneriaeth sifil i ben'}`,
+  line1: `Mae ${userCase.applicant1FirstNames} ${userCase.applicant1LastNames} yn gwneud cais i’r llys:`,
+  listItem1: `${isDivorce ? 'am orchymyn ysgaru terfynol oddi wrth' : 'i ddiddymu’r bartneriaeth sifil gyda'} ${
+    userCase.applicant2FirstNames
+  } ${userCase.applicant2LastNames}`,
+  listItem2: 'i wneud gorchymyn ariannol',
+  caseReferenceHeading: 'Cyfeirnod yr achos',
+  caseReferenceValue: formattedCaseId(userCase.id),
+  issuedDateHeading: 'Dyddiad cyflwyno',
+  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  applicantHeading: 'Ceisydd',
+  applicantNames: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
+  respondentHeading: 'Atebydd',
+  respondentNames: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  whatThisMeansInfo1: `Y ceisydd yw’r unigolyn sydd wedi gwneud cais ${
+    isDivorce ? 'am yr ysgariad' : 'i ddod a’u partneriaeth sifil i ben'
+  }.`,
+  whatThisMeansInfo2: `Yr atebydd yw eu  ${partner}.`,
+  heading2: `Ynghylch y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  line2: `Caiff y manylion hyn eu copïo’n uniongyrchol oddi ar y ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } dystysgrif, neu gyfieithiad o’r dystysgrif os nad yw’n Saesneg.
+  Yr enwau ar y dystysgrif yw’r enwau yr oedd y ceisydd a’r atebydd yn eu defnyddio cyn ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }.`,
+  heading3: `Rhwng pwy mae’r ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  line3: `${userCase.applicant1FullNameOnCertificate} ac ${
+    userCase.applicant2FullNameOnCertificate
+  } (fel y dangosir ar y ${isDivorce ? 'priodas' : 'partneriaeth sifil'} dystysgrif)`,
+  heading4: `Lle gweinyddwyd y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  ceremonyPlace: `${userCase.ceremonyPlace}`,
+  ceremonyCountryHeading: `Gwlad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  ceremonyCountry: `${userCase.ceremonyCountry}`,
+  heading5: `Dyddiad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
+  relationshipDate: getFormattedDate(userCase.relationshipDate),
+  heading6: 'Pam y gall y llys ddelio â’r achos (awdurdodaeth)',
+  line4: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
+  connectionBulletPoints: userCase.connections
+    ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
+    : [],
+  whatThisMeans: 'Beth mae hyn yn ei olygu',
+  whatThisMeansInfo3: `Rhaid bod gan lysoedd Cymru a Lloegr yr awdurdodaeth (y pŵer cyfreithiol) i allu ${
+    isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
+  }. Cadarnhaodd y ceisydd bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai’r ceisydd neu’r atebydd neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Loegr, neu bob un ohonynt.`,
+  heading7: 'Preswylio’n arferol',
+  habitualResidenceText: cyHabitualResident,
+  heading8: 'Domisil',
+  domicileText: cyDomicile,
+  heading9: 'Awdurdodaeth weddillol',
+  residualJurisdictionLine1: `Fel arfer, i fod yn gymwys ar gyfer awdurdodaeth weddillol, mae’n rhaid i’ch domisil chi neu ddomisil eich ${partner} fod yng Nghymru neu Loegr. Ni all y naill na’r llall ohonoch fod yn ddinesydd gwlad arall yn yr UE (ac eithrio Denmarc) na phreswylio’n arferol mewn gwlad arall yn yr UE (ac eithrio Denmarc).`,
+  residualJurisdictionLine2:
+    'Hefyd, os ydych yn briod â rhywun o’r un rhyw, efallai eich bod yn gymwys ar gyfer awdurdodaeth weddillol os yw: (pob un o’r canlynol yn berthnasol):',
+  residualJurisdictionListItem1: 'mi wnaethoch briodi eich gilydd yn y DU',
+  residualJurisdictionListItem2:
+    'nid yw’r naill na’r llall ohonoch yn ddinesydd gwlad arall yn yr UE (ac eithrio Denmarc) na’n preswylio’n arferol mewn gwlad arall yn yr UE (ac eithrio Denmarc)',
+  residualJurisdictionListItem3: `byddai er lles cyfiawnder i’r llys ystyried y cais (gallai hyn fod yn berthnasol, er enghraifft, os nad yw’r wlad lle mae eich cartref yn caniatáu i gyplau o’r un rhyw ${
+    isDivorce ? 'gael ysgariad' : 'ddod â phartneriaeth sifil i ben'
+  }`,
+  residualJurisdictionLine3:
+    'Fodd bynnag, gall awdurdodaeth weddillol fod yn gymhleth. Os nad ydych chi’n siŵr a yw hyn yn berthnasol i chi, dylech gael cyngor cyfreithiol',
+  heading10: 'Achosion llys eraill',
+  otherCourtCasesLine1: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  },
+  a all effeithio ar bŵer cyfreithiol (awdurdodaeth) y llys.`,
+  otherCourtCasesLine2: `Mae’r ceisydd wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }:`,
+  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  noOtherCourtCases: `Mae’r ceisydd wedi nodi nad oes unrhyw achosion llys eraill sy’n ymwneud â’r ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }.`,
+  heading11: `Rheswm dros  ${isDivorce ? 'yr ysgariad' : 'ddod â’r bartneriaeth sifil i ben'}`,
+  line5: `Mae’r ${isDivorce ? 'briodas' : 'berthynas'} wedi chwalu’n gyfan gwbl (ni ellir ei hachub).`,
+  heading12: 'Cais am orchymyn ariannol',
+  financialOrderLine1: `Mae’r ceisydd yn bwriadu gwneud cais i’r llys am orchmynion ariannol ar gyfer y ceisydd, ${userCase.applicant1WhoIsFinancialOrderFor
+    ?.sort()
+    .join(' ac ')
+    .replace(FinancialOrderFor.APPLICANT, 'ar gyfer ceisydd')
+    .replace(FinancialOrderFor.CHILDREN, 'plant y ceisydd a’r atebydd')}.`,
+  noFinancialOrder: 'Nid yw’r ceiswyr yw gwneud cais i’r llys am orchmynion ariannol',
+  financialOrderMoreInfoLine1: `${
+    isApplicant2 ? 'Fe ofynnwyd i chi' : `Fe ofynnwyd i’ch ${partner}`
+  } os ydych/ydynt eisiau i’r llys benderfynu sut y bydd eich arian, eich eiddo, eich pensiynau a’ch asedau eraill yn cael eu rhannu. Fe elwir y penderfyniadau hyn yn ‘gorchmynion ariannol’. Gellir gwneud gorchmynion ariannol rhyngoch chi a’ch ${partner} sifil ac unrhyw blant sydd gennych.`,
+  financialOrderMoreInfoLine2:
+    'Gellir gwneud gorchymyn ariannol os ydych yn cytuno ynghylch sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol. Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu. Gelwir hyn yn ‘gorchymyn ariannol sy’n cael ei wrthwynebu’.',
+  financialOrderMoreInfoLine3: `Bydd angen i’ch gŵr ${partner} lenwi ffurflen arall a thalu ffi i gychwyn achos cyfreithiol yn ffurfiol. Mae gwneud cais am ‘gorchymyn ariannol sy’n cael ei wrthwynebu’ yn costio ${getFee(
+    config.get('fees.financialOrder')
+  )}. Mae gwneud cais am ‘gorchymyn ariannol trwy gydsyniad’ yn costio ${getFee(
+    config.get('fees.consentOrder')
+  )}. Gall cyfreithiwr ddrafftio’r rhain i chi.`,
+  financialOrderMoreInfoLine4: 'Os nad ydych chi’n siŵr beth i’w wneud, dylech gael cyngor cyfreithiol.',
+  heading13: 'Datganiad Gwirionedd',
+  factsTrue: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
+  confirmInformationStillCorrect: 'A yw’r wybodaeth yn y cais hwn dal yn gywir?',
+  reasonInformationNotCorrect: {
+    heading1: 'Newid eich manylion cyswllt',
+    part1: 'Gallwch ddiweddaru eich cyfeiriad a’ch rhif ffôn yn yr',
+    link: CHECK_CONTACT_DETAILS,
+    linkText: `'adran ‘manylion cyswllt’ o’ch cyfrif ${isDivorce ? 'ysgaru' : ''}.`,
+    part2: 'Ni chodir cost am hyn',
+    heading2: 'Newid unrhyw wybodaeth arall',
+    part3: `Os ydych eisiau newid unrhyw wybodaeth arall yna dylech ddarparu’r manylion isod. Bydd y llys yn ei adolygu ac efallai bydd rhaid i chi dalu ffi o ${getFee(
+      config.get('fees.updateApplication')
+    )}. Mae hyn oherwydd y bydd rhaid adolygu’r cais ac efallai bydd rhaid anfon y cais at eich ${partner} eto.`,
+  },
+  reasonInformationNotCorrectHint:
+    'Darparwch fanylion am unrhyw wybodaeth arall sydd angen cael ei diweddaru. Peidiwch â dweud wrth y llys am ddiweddariadau i fanylion cyswllt yma.',
+  yes: 'Ydy',
+  no: 'Nac ydy',
+  errors: {
+    applicant1ConfirmInformationStillCorrect: {
+      required,
+    },
+    applicant1ReasonInformationNotCorrect: {
+      required:
+        'You have said the information is not still correct but not provided details. Provide details of what information is not correct.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
