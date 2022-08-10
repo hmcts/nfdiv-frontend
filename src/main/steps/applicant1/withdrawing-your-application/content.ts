@@ -143,7 +143,7 @@ const cy = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       cadarnhau eich bod am fwrw ymlaen â’ch cais ar y cyd.`,
     },
   },
-  exitLink: 'Exit service',
+  exitLink: 'Gadael y gwasanaeth',
 });
 
 const languages = {
