@@ -13,6 +13,7 @@ import {
   cyHabitualResident,
   enDomicile,
   enHabitualResident,
+  enResidual,
 } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
@@ -65,21 +66,12 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   whatThisMeansInfo3: `The courts of England or Wales must have the legal power (jurisdiction) to be able to ${
     isDivorce ? 'grant a divorce' : 'end a civil partnership'
   }. The applicant confirmed that the legal statement(s) in the application apply to either or both the applicant and respondent. Each legal statement includes some or all of the following legal connections to England or Wales.`,
-  heading7: 'Habitual residence',
-  habitualResidenceText: enHabitualResident,
-  heading8: 'Domicile',
-  domicileText: enDomicile,
-  heading9: 'Residual jurisdiction',
-  residualJurisdictionLine1: `Usually, to be eligible for residual jurisdiction you or your ${partner} must be domiciled in England. Neither of you must be nationals of or habitually resident in, another country in the EU (except Denmark).`,
-  residualJurisdictionLine2:
-    'In addition, if you’re married to a member of the same sex, you may be eligible for residual jurisdiction if: (all the following apply):',
-  residualJurisdictionListItem1: 'you married each other in the UK',
-  residualJurisdictionListItem2:
-    'neither of you are nationals of, or habitually resident in, another country in the EU (except Denmark)',
-  residualJurisdictionListItem3:
-    'it would be in the interests of natural justice for the court to consider this application (this may apply if, for example, your home country does not allow divorce / ending a civil partnership between same-sex couples',
-  residualJurisdictionLine3:
-    'However, residual jurisdiction can be complex. If you’re not sure whether this applies to you then you should get legal advice',
+  habitualResidenceHeading: enHabitualResident.heading,
+  habitualResidenceText: enHabitualResident.body,
+  domicileHeading: enDomicile.heading,
+  domicileText: enDomicile.body,
+  residualJurisdictionHeading: enResidual(isDivorce, partner).heading,
+  residualJurisdictionText: enResidual(isDivorce, partner).body,
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
