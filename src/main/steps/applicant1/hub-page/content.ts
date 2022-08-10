@@ -234,31 +234,29 @@ const cy: typeof en = ({
     thisWasCourtsFeedback: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
   },
   courtFeedback: {
-    jurisdictionDetailsReasonHeading: 'Jurisdiction',
+    jurisdictionDetailsReasonHeading: 'Awdurdodaeth',
     jurisdictionDetailsReasonBody: {
       part1:
-        'The court has judged that your application does not fall within the jurisdiction of England and Wales. You must have at least one legal connection to England and Wales. You can see all the possible legal connections on the ',
-      part2: 'Refusal Order (PDF)',
+        'Barnodd y llys nad yw eich cais yn syrthio o fewn awdurdodaeth llysoedd Cymru a Lloegr. Rhaid bod gennych o leiaf un cysylltiad cyfreithiol gyda Chymru a Lloegr. Gallwch weld yr holl gysylltiadau cyfreithiol posib yn y ',
+      part2: 'Gorchymyn Gwrthod (PDF)',
       part3: '.',
       downloadReference: 'Refusal-Order',
       link: '/downloads/conditional-order-refusal',
     },
-    marriageCertTranslationReasonHeading: `A translation of your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } certificate`,
-    marriageCertTranslationReasonBody: `The ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } certificate must be translated and certified by a statement of truth or a notary public. You can find a translation service online which provides certification as part of their service. You will need to scan and upload this document or post it to the court.`,
-    marriageCertificateReasonHeading: `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-    marriageCertificateReasonBody: `The image of your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } certificate does not appear to be scanned or show the full original. Provide a digital photo or scan of the original. The image must be of the whole document and include the serial or system number. It must be readable by court staff.`,
-    previousProceedingDetailsReasonHeading: 'Details of other legal proceedings',
-    previousProceedingDetailsReasonBody: `Clarify whether there are, or have ever been, any other legal proceedings relating to the ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }. Provide evidence that any other previous proceedings have either been dismissed or withdrawn.`,
-    courtsCommentsLongHeading: 'The court has made the following comments on your application:',
-    courtsCommentsShortHeading: 'The court’s comments:',
+    marriageCertTranslationReasonHeading: `Cyfieithiad o’ch tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
+    marriageCertTranslationReasonBody: `Rhaid i’r dystysgrif ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } gael ei chyfieithu a’i hardystio gan ddatganiad o wirionedd neu notari cyhoeddus. Mae yna wasanaethau cyfieithu ar-lein sy’n cynnwys ardystio fel rhan o’u gwasanaeth. Bydd angen i chi sganio a llwytho’r ddogfen hon neu ei phostio i’r llys.`,
+    marriageCertificateReasonHeading: `Eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} wreiddiol`,
+    marriageCertificateReasonBody: `Nid yw’n ymddangos bod y ddelwedd o’ch tystysgrif ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } wedi cael ei sganio neu nid yw’n dangos y ddogfen wreiddiol lawn. Darparwch ddelwedd ddigidol neu gopi sgan o’r dystysgrif wreiddiol. Rhaid i’r ddelwedd fod o’r ddogfen gyfan a chynnwys y rhif cyfresol neu rif y system. Dylai fod staff y llys yn gallu ei darllen.`,
+    previousProceedingDetailsReasonHeading: 'Manylion achosion cyfreithiol eraill ',
+    previousProceedingDetailsReasonBody: `Cadarnhewch pa un a oes, neu a oes wedi bod erioed, unrhyw achosion llys eraill sy’n ymwneud â’r ${
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    }. Darparwch dystiolaeth bod unrhyw achos blaenorol wedi’i wrthod neu ei dynnu’n ôl.`,
+    courtsCommentsLongHeading: "Mae'r llys wedi gwneud y sylwadau canlynol ar eich cais:",
+    courtsCommentsShortHeading: 'Sylwadau’r llys:',
   },
 });
 
