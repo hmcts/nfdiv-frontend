@@ -61,7 +61,7 @@ const cy: typeof en = ({ userCase, partner }) => ({
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
   },
-  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Parhau', //todo translation NFDIV-2614
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Ail-anfon y neges e-bost' : 'Parhau',
 });
 
 export const form: FormContent = {

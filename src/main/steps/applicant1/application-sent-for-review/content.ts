@@ -26,12 +26,12 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
   line3:
     'Byddwch yn cael hysbysiad pan fyddant wedi adolygu’ch atebion. Os na fyddant yn eu hadolygu, rhoddir wybod i chi beth allwch ei wneud i symud y cais yn ei flaen.',
   updatePartnersEmailAddress: {
-    part1: 'If you need to, you can ',
-    part2: `update your ${partner}'s email address and resend the email`,
+    part1: 'Os oes arnoch angen, gallwch ',
+    part2: `ddiweddaru cyfeiriad e-bost eich ${partner} ac ail-anfon y neges e-bost`,
     part3: '.',
     link: isApplicant2EmailUpdatePossible(userCase) ? THEIR_EMAIL_ADDRESS : YOU_CANNOT_UPDATE_THEIR_EMAIL,
   },
-}); //todo translations NFDIV-2614
+});
 
 const languages = {
   en,
