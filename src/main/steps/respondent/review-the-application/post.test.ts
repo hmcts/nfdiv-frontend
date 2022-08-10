@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { DRAFT_AOS, UPDATE_AOS } from '../../../app/case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, DRAFT_AOS } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import * as steps from '../../index';
 
@@ -38,7 +38,7 @@ describe('ReviewTheApplicationPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, DRAFT_AOS);
   });
 
-  it('triggers UPDATE_AOS when confirmReadPetition is checked in userCase', async () => {
+  it('triggers CITIZEN_APPLICANT2_UPDATE when confirmReadPetition is checked in userCase', async () => {
     const body = {
       confirmReadPetition: Checkbox.Checked,
     };
@@ -57,7 +57,7 @@ describe('ReviewTheApplicationPostController', () => {
     const res = mockResponse();
     await reviewTheApplicationPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, UPDATE_AOS);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE);
   });
 
   test('rejects with an error when unable to save session data in ReviewTheApplicationPostController', async () => {
