@@ -16,7 +16,7 @@ const en = ({ partner, isDivorce, isFinalOrderState }) => ({
   goBack: 'Go back',
 });
 
-const cy = ({ partner, isDivorce, isFinalOrderState }) => ({
+const cy: typeof en = ({ partner, isDivorce, isFinalOrderState }) => ({
   title: 'Newid i gais unigol',
   line1: `Os nad ydych yn meddwl bydd eich ${partner} yn gwneud cais am ${
     isFinalOrderState ? 'orchymyn terfynol' : 'orchymyn amodol'
