@@ -4,7 +4,6 @@ import { Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { applicant1PreSubmissionSequence } from './applicant1Sequence';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
@@ -89,16 +88,6 @@ describe('Steps', () => {
       mockReq.session.userCase.gender = Gender.MALE;
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       expect(getNextIncompleteStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
-    });
-
-    it('goes back one page if the step is incomplete & excluded from continue application', () => {
-      applicant1PreSubmissionSequence[1].excludeFromContinueApplication = true;
-
-      mockReq.originalUrl = HAS_RELATIONSHIP_BROKEN_URL;
-      mockReq.session.userCase.gender = Gender.MALE;
-      mockReq.session.userCase.sameSex = Checkbox.Unchecked;
-      const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(YOUR_DETAILS_URL);
     });
 
     it('returns the upload-your-documents step if user has not completed the form', () => {
