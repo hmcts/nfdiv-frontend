@@ -11,6 +11,7 @@ import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisd
 import {
   cyDomicile,
   cyHabitualResident,
+  cyResidual,
   enDomicile,
   enHabitualResident,
   enResidual,
@@ -189,22 +190,12 @@ const cy: typeof en = ({
   whatThisMeansInfo3: `Rhaid bod gan lysoedd Cymru a Lloegr yr awdurdodaeth (y pŵer cyfreithiol) i allu ${
     isDivorce ? 'caniatáu ysgariad' : 'dod â phartneriaeth sifil i ben'
   }. Cadarnhaodd y ceisydd bod y datganiad(au) cyfreithiol yn y cais yn berthnasol i naill ai’r ceisydd neu’r atebydd neu’r ddau ohonynt. Mae pob datganiad cyfreithiol yn cynnwys rhai o’r cysylltiadau cyfreithiol canlynol â Chymru neu Loegr, neu bob un ohonynt.`,
-  heading7: 'Preswylio’n arferol',
-  habitualResidenceText: cyHabitualResident,
-  heading8: 'Domisil',
-  domicileText: cyDomicile,
-  heading9: 'Awdurdodaeth weddillol',
-  residualJurisdictionLine1: `Fel arfer, i fod yn gymwys ar gyfer awdurdodaeth weddillol, mae’n rhaid i’ch domisil chi neu ddomisil eich ${partner} fod yng Nghymru neu Loegr. Ni all y naill na’r llall ohonoch fod yn ddinesydd gwlad arall yn yr UE (ac eithrio Denmarc) na phreswylio’n arferol mewn gwlad arall yn yr UE (ac eithrio Denmarc).`,
-  residualJurisdictionLine2:
-    'Hefyd, os ydych yn briod â rhywun o’r un rhyw, efallai eich bod yn gymwys ar gyfer awdurdodaeth weddillol os yw: (pob un o’r canlynol yn berthnasol):',
-  residualJurisdictionListItem1: 'mi wnaethoch briodi eich gilydd yn y DU',
-  residualJurisdictionListItem2:
-    'nid yw’r naill na’r llall ohonoch yn ddinesydd gwlad arall yn yr UE (ac eithrio Denmarc) na’n preswylio’n arferol mewn gwlad arall yn yr UE (ac eithrio Denmarc)',
-  residualJurisdictionListItem3: `byddai er lles cyfiawnder i’r llys ystyried y cais (gallai hyn fod yn berthnasol, er enghraifft, os nad yw’r wlad lle mae eich cartref yn caniatáu i gyplau o’r un rhyw ${
-    isDivorce ? 'gael ysgariad' : 'ddod â phartneriaeth sifil i ben'
-  }`,
-  residualJurisdictionLine3:
-    'Fodd bynnag, gall awdurdodaeth weddillol fod yn gymhleth. Os nad ydych chi’n siŵr a yw hyn yn berthnasol i chi, dylech gael cyngor cyfreithiol',
+  habitualResidenceHeading: cyHabitualResident.heading,
+  habitualResidenceText: cyHabitualResident.body,
+  domicileHeading: enDomicile.heading,
+  domicileText: cyDomicile.body,
+  residualJurisdictionHeading: cyResidual(isDivorce, partner).heading,
+  residualJurisdictionText: cyResidual(isDivorce, partner).body,
   heading10: 'Achosion llys eraill',
   otherCourtCasesLine1: `Mae’r llys angen gwybod am unrhyw achosion llys eraill sy’n ymwneud â’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
