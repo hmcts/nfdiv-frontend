@@ -74,8 +74,22 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
   exitLink: 'Exit service',
 });
 
-// @TODO translations
-const cy = en;
+const cy = ({ isDivorce }: CommonContent) => ({
+  title: `Tynnu eich ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
+  sole: {
+    line1: {
+      part1: `Rydych wedi dweud nad ydych eisiau bwrw ymlaen â‘ch ${
+        isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+      }.
+      Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi lenwi`,
+      part2: 'ffurflen D11',
+      part3: ' ar wahân a’i hanfon i’r llys. Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon.',
+      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+    },
+    line2:
+      'Os oes arnoch angen help gallwch gysylltu â’r llys gan ddefnyddio’r manylion isod. Ni all y staff cynorthwyol roi cyngor cyfreithiol i chi.',
+  },
+});
 
 const languages = {
   en,
