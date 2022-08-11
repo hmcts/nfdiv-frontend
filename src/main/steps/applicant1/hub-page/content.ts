@@ -142,7 +142,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   },
 });
 
-// @TODO translations
 const cy: typeof en = ({
   isDivorce,
   userCase,
@@ -201,8 +200,8 @@ const cy: typeof en = ({
     part3: `This is the document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
-    downloadReference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-entitlement',
+    downloadReference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
   },
   conditionalOrderPronounced: {
     line1: `Rydych wedi cael 'gorchymyn amodol' gan y llys. Cafodd eich gorchymyn amodol ei gyhoeddi’n ffurfiol (darllen allan) gan farnwr yn ${
