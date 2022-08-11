@@ -52,11 +52,11 @@ Feature: Joint hub page
     And a case worker updates court case hearing
     When I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
     And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
     When I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
     And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
     Given I set the case state to "AwaitingClarification"
