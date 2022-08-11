@@ -78,6 +78,8 @@ Feature: Applicant 1 joint application
     Then the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     When I click "Continue"
+    Then the page should include "What language do you want to receive emails and documents in"
+    Given I select "English"
 
     When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"
