@@ -17,6 +17,7 @@ import {
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
+import { SupportedLanguages } from '../../main/modules/i18n';
 import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
@@ -34,7 +35,7 @@ After(async () => {
 export const iAmOnPage = (text: string): void => {
   const url = new URL(text, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
-    url.searchParams.set('lng', 'en');
+    url.searchParams.set('lng', SupportedLanguages.En);
   }
   I.amOnPage(url.toString());
 };

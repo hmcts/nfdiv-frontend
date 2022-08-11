@@ -127,6 +127,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CannotUpload: 'applicant1CannotUpload',
   applicant2CannotUpload: 'applicant2CannotUpload',
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
+  dueDate: 'dueDate',
+  dateSubmitted: 'dateSubmitted',
+  dateAosSubmitted: 'dateAosSubmitted',
+  dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
+  coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
+  coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
+  dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
   coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
 };
 
@@ -289,7 +296,6 @@ export interface Case {
   coClarificationResponses?: string;
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
-  coRefusalRejectionAdditionalInfo?: string;
   coClarificationUploadedFiles?: UploadedFile[];
   coLegalAdvisorDecisions?: ListValue<LegalAdvisorDecision>[];
   doesApplicant1WantToApplyForFinalOrder?: Checkbox;
