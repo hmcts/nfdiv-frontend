@@ -173,6 +173,24 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1:
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
   },
+  conditionalOrderRejected: {
+    heading1: 'CONDITIONAL ORDER REJECTED',
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
+  },
   serviceApplicationRejected: {
     line1: {
       part1: `The court has refused your application ${
@@ -221,6 +239,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
+      ? 'Latest information'
+      : 'What you need to do',
 });
 
 // @TODO translations
@@ -390,6 +412,24 @@ const cy: typeof en = (
     line1:
       'Mae eich cais wedi dod i law a bydd yn cael ei adolygu gan farnwr. Byddwch yn cael e-bost yn dweud wrthych a yw eich cais wedi bod yn llwyddiannus ai peidio.',
   },
+  conditionalOrderRejected: {
+    heading1: 'CONDITIONAL ORDER REJECTED',
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
+  },
   serviceApplicationRejected: {
     line1: {
       part1: `Mae'r llys wedi gwrthod eich cais i ${
@@ -440,6 +480,10 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
+      ? 'Latest information'
+      : 'What you need to do',
 });
 
 const languages = {
@@ -450,6 +494,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
+  const isAwaitingAmendedApplication = State.AwaitingAmendedApplication;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
   const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
@@ -479,5 +524,6 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isAlternativeService,
     theLatestUpdateTemplate,
+    isAwaitingAmendedApplication,
   };
 };

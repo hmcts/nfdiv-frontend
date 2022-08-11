@@ -74,6 +74,24 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     } after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
+  conditionalOrderRejected: {
+    heading1: 'CONDITIONAL ORDER REJECTED',
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
+  },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
@@ -153,6 +171,24 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     } ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
+  conditionalOrderRejected: {
+    heading1: 'CONDITIONAL ORDER REJECTED',
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
+  },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
@@ -170,6 +206,7 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const isAwaitingAmendedApplication = State.AwaitingAmendedApplication;
   const hasApplicantAppliedForConditionalOrder = content.isApplicant2
     ? content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
     : content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
@@ -196,5 +233,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
+    isAwaitingAmendedApplication,
   };
 };
