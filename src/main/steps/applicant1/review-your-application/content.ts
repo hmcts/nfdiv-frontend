@@ -252,7 +252,7 @@ const cy: typeof en = ({
     },
     applicant1ReasonInformationNotCorrect: {
       required:
-        'You have said the information is not still correct but not provided details. Provide details of what information is not correct.',
+        'Rydych wedi dweud bod yr wybodaeth yn anghywir o hyd, ond nid ydych wedi rhoi manylion. Nodwch pa wybodaeth sy’n anghywir, os gwelwch yn dda.',
     },
   },
 });
