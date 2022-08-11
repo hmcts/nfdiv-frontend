@@ -20,6 +20,8 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${partner} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
   applicant1LifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
   applicant2LifeBasedInEnglandAndWales: `A yw bywyd eich ${partner} gan amlaf yng Nghymru neu Loegr?`,
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1LifeBasedInEnglandAndWales: { required },
     applicant2LifeBasedInEnglandAndWales: { required },

@@ -609,7 +609,7 @@ const cy: typeof en = ({
   }),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
-  line1: "Dyma'r wybodaeth a ddarparwyd gennych. Gwiriwch ef i wneud yn siŵr ei fod yn gywir.",
+  line1: "Dyma'r wybodaeth a ddarparwyd gennych. Gwnewch yn siŵr ei bod yn gywir.",
   sectionTitles: {
     readApplication: `Cadarnhewch eich bod wedi cael y ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod a’ch partneriaeth sifil i ben'
@@ -723,7 +723,9 @@ const cy: typeof en = ({
       line1: `${isDivorce ? `Fy n${partner}` : userCase.gender === Gender.MALE ? 'Gwryw' : 'Benyw'}`,
       line2: `${
         userCase.sameSex === Checkbox.Unchecked
-          ? `Doedden ni ddim yn gwpl o’r un rhyw pan ${isDivorce ? 'briodi' : 'ffurfio ein partneriaeth sifil'} ni.`
+          ? `Doedden ni ddim yn gwpl o’r un rhyw pan wnaethom ni ${
+              isDivorce ? 'briodi' : 'ffurfio ein partneriaeth sifil'
+            }.`
           : `Roeddem yn gwpl o’r un rhyw pan wnaethom ni ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}`
       }`,
       line3: `${
@@ -737,7 +739,7 @@ const cy: typeof en = ({
       line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
-            ? `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
+            ? `Oes, mae gen i fy ${isDivorce ? 'nhystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
             : `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`
           : ''
       }`,
@@ -869,7 +871,10 @@ const cy: typeof en = ({
       line4: `${
         isJointApplication
           ? ''
-          : userCase.applicant1IsApplicant2Represented?.replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
+          : userCase.applicant1IsApplicant2Represented
+              ?.replace('Yes', 'Oes')
+              .replace('No', 'Nac oes')
+              .replace(Applicant2Represented.NOT_SURE, 'Dw i ddim yn siŵr')
       }`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
@@ -887,7 +892,9 @@ const cy: typeof en = ({
         .join('<br>')}`,
       line6: `${stripTags(userCase.applicant2EmailAddress)}`,
       line7: `${
-        isJointApplication ? '' : userCase.applicant1KnowsApplicant2Address?.replace('Yes', 'Do').replace('No', 'Naddo')
+        isJointApplication
+          ? ''
+          : userCase.applicant1KnowsApplicant2Address?.replace('Yes', 'Oes').replace('No', 'Nac oes')
       }`,
       line8: `${
         isJointApplication
@@ -965,7 +972,7 @@ const cy: typeof en = ({
   confirmApplicationIsTrueHint:
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">Mae hyn yn cadarnhau bod yr wybodaeth rydych yn ei chyflwyno yn wir ac yn gywir hyd at eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.</p>',
   confirmApplicationIsTrueWarning:
-    "Gellir dwyn achos am ddirmyg llys yn erbyn unrhyw un sy'n gwneud, neu'n achosi i ddatganiad ffug gael ei wneud, wedi'i ddilysu gan ddatganiad o wirionedd heb gred onest ei fod yn wir.",
+    "Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy'n gwneud datganiad anwir, neu sy'n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu'n onest ei fod yn wir.",
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)

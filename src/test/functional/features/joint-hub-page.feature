@@ -52,11 +52,11 @@ Feature: Joint hub page
     And a case worker updates court case hearing
     When I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
     And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
     When I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 29 September 2013 at 3:30PM."
+    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
     And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
     Given I set the case state to "AwaitingClarification"
@@ -98,9 +98,9 @@ Feature: Joint hub page
     And I select "I cannot upload some or all of my documents"
     Then the page should include "You can post your documents to the court if you cannot upload them"
     When I click "Continue"
-    Then the page should include "You will receive an update when your documents have been received and checked."
+    Then the page should include "You or your husband need to post the documents requested by the court:"
 
     When I click "Sign out"
     And I login with applicant "1"
-    And the page should include "You will receive an update when your documents have been received and checked."
+    And the page should include "You or your husband need to post the documents requested by the court:"
 
