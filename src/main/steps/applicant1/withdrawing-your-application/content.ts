@@ -22,7 +22,7 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       part1: `You have said you do not want to continue with your ${
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       }.
-      If you want to withdraw your application then you need to jointly fill out a`,
+      If you want to withdraw your application then you and your ${partner} need to jointly fill out a`,
       part2: 'D11 form',
       part3: 'and send it to the court. Details of where to send it are on the form.',
       link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
@@ -94,7 +94,7 @@ const cy = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       part1: `Rydych wedi dweud nad ydych eisiau bwrw ymlaen â‘ch ${
         isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
       }.
-      Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi lenwi `,
+      Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi a’ch ${partner} lenwi `,
       part2: 'D11 form',
       part3: 'ar y cyd a’i hanfon i’r llys. Mae’r ffurflen yn egluro i ble y dylid ei hanfon.',
       link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
