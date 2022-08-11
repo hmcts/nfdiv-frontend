@@ -1,3 +1,4 @@
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -17,7 +18,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       isDivorce ? 'finalising your divorce' : 'ending your civil partnership'
     }`,
     line1: 'You should save and sign out and settle your finances before applying for a final order.',
-    line2: `If you have not applied by ${userCase.dateFinalOrderEligibleToRespondent} then your ${partner} will be able to apply.
+    line2: `If you have not applied by ${getFormattedDate(
+      userCase.dateFinalOrderEligibleToRespondent
+    )} then your ${partner} will be able to apply.
     You may both have to come to a court hearing, if they apply.`,
     line3: 'If you wait a year before applying then you will need to explain the delay to the court.',
   },

@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { SupportedLanguages } from '../../modules/i18n';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -206,7 +207,7 @@ export const generatePageContent = ({
   existingCaseId,
   inviteCaseApplicationType,
 }: {
-  language: Language;
+  language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
@@ -215,7 +216,7 @@ export const generatePageContent = ({
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 }): PageContent => {
-  const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
@@ -249,7 +250,7 @@ export const generatePageContent = ({
 };
 
 export type CommonContent = typeof en & {
-  language: Language;
+  language: SupportedLanguages;
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
@@ -264,5 +265,3 @@ export type CommonContent = typeof en & {
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 };
-
-export type Language = 'en' | 'cy';
