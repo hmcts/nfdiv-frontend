@@ -62,8 +62,8 @@ const cy: typeof en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }
     continueApplication: `Ydych chi eisiau bwrw ymlaen â’ch ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } ${isJointApplication ? ' ar y cyd' : ''}?`,
-    isInformationCorrect: 'Is the information in this application still correct?',
-    changeDetails: 'Details that need updating:',
+    isInformationCorrect: 'A yw’r wybodaeth yn y cais hwn dal yn gywir?',
+    changeDetails: 'Manylion sydd angen cael ei ddiweddaru:',
   },
   stepAnswers: {
     continueApplication: `${
