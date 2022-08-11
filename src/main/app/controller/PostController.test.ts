@@ -211,21 +211,27 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
-  it('saves and signs out even if there are errors', async () => {
-    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
-    const controller = new PostController(mockFormContent.fields);
+  it('saves and signs out without saving data if there are errors', async () => {
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
+    const mockPhoneNumberFormContent = {
+      fields: {
+        applicant1PhoneNumber: {
+          type: 'tel',
+          validator: isPhoneNoValid,
+        },
+      },
+    } as unknown as FormContent;
+    const controller = new PostController(mockPhoneNumberFormContent.fields);
 
-    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      { gender: 'female', sameSex: null },
-      CITIZEN_SAVE_AND_CLOSE
-    );
+    expect(req.locals.api.triggerEvent).toBeCalledTimes(0);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(req.session.errors).toEqual(errors);
   });
 
   it('saves and signs out even if was an error saving data', async () => {
