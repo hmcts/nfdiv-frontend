@@ -218,7 +218,7 @@ When('a case worker issues the application', async () => {
 
 When('a case worker updates court case hearing', async () => {
   await triggerAnEvent(SYSTEM_UPDATE_CASE_COURT_HEARING, {
-    coDateAndTimeOfHearing: '2013-09-29T15:30',
+    coDateAndTimeOfHearing: '2021-11-10T00:00:00.000',
     coCourt: ConditionalOrderCourt.BIRMINGHAM,
     coDecisionDate: '2021-05-10',
   });
