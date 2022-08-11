@@ -70,9 +70,9 @@ const en = (
     line2:
       'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case.',
     habitualResidence: 'Habitual Residence',
-    habitualResidenceText: enHabitualResident,
+    habitualResidenceText: enHabitualResident.body,
     domicile: 'Domicile',
-    domicileText: enDomicile,
+    domicileText: enDomicile.body,
     disputesAboutJurisdiction: 'Disputes about jurisdiction',
     disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
       If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
@@ -142,9 +142,9 @@ const cy: typeof en = (
     line2:
       'Mae ffyrdd eraill o fod â chysylltiad cyfreithiol â Chymru a Lloegr. Gall y rhain fod yn bwysig os oes anghydfod o ran p’un a oes gan y llysoedd awdurdodaeth dros eich achos ai peidio.',
     habitualResidence: 'Preswylio’n arferol',
-    habitualResidenceText: cyHabitualResident,
+    habitualResidenceText: cyHabitualResident.body,
     domicile: 'Domisil',
-    domicileText: cyDomicile,
+    domicileText: cyDomicile.body,
     disputesAboutJurisdiction: 'Anghydfodau ynghylch awdurdodaeth',
     disputesAboutJurisdictionText: `Os ydych yn meddwl gall fod anghydfod ynghylch p’un a oes gan y llysoedd yng Nghymru a Lloegr awdurdodaeth dros eich achos neu beidio, neu os ydych yn ansicr p’un a oes gan y llysoedd awdurdodaeth, yna dylech gael cyngor cyfreithiol cyn cyflwyno’r cais hwn.<br><br>
       Os ydych yn meddwl bod yna ffyrdd ychwanegol y gallwch fod â chysylltiad â Chymru a Lloegr, gallwch eu hychwanegu isod`,
