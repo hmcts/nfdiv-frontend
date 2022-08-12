@@ -1,10 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
 import { StateSequence } from '../../state-sequence';
@@ -33,21 +35,17 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     }.`,
     line2: `A judge will 'pronounce' (read out) your conditional order at a hearing. The hearing will take place at ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} at ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    ).format('h:mmA')}.`,
-    line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
-      .format('D MMMM YYYY')} if you want to attend.`,
-    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .add(config.get('dates.applyForFoDays'), 'day')
-      .format('D MMMM YYYY')}. This is the final step in the ${
-      isDivorce ? 'divorce ' : ''
-    }process and will legally end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+    } on ${getFormattedDate(userCase.coDateAndTimeOfHearing)} at ${dayjs(userCase.coDateAndTimeOfHearing).format(
+      'h:mmA'
+    )}.`,
+    line3: `You do not need to come to the hearing, unless you want to object. You must contact the court by ${getFormattedDate(
+      dayjs(userCase.coDateAndTimeOfHearing).subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
+    )} if you want to attend.`,
+    line4: `After your conditional order has been pronounced, you will then be able to apply for a 'final order' on ${getFormattedDate(
+      dayjs(userCase.coDateAndTimeOfHearing).add(config.get('dates.applyForFoDays'), 'day')
+    )}. This is the final step in the ${isDivorce ? 'divorce ' : ''}process and will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.`,
   },
   certificateOfEntitlementLine: {
     part1: 'You can ',
@@ -62,13 +60,13 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
     (read out) by a judge at ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } on ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
+    } on ${getFormattedDate(userCase.coDateAndTimeOfHearing)}.
     Your ${partner} has also been notified.`,
     line2: `${isDivorce ? 'You are not divorced' : 'Your civil partnership is not legally ended'} yet.
     You ${isJointApplication ? `/ your ${partner} ` : ''}still have to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
-    You can apply for a final order on ${userCase.dateFinalOrderEligibleFrom}. This will end your ${
+    You can apply for a final order on ${getFormattedDate(userCase.dateFinalOrderEligibleFrom)}. This will end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
   },
@@ -91,11 +89,9 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   },
   clarificationSubmitted: {
     withDocuments: {
-      youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${dayjs(
-        userCase.dateSubmitted
-      )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
-        .format('D MMMM YYYY')} after the court has reviewed it.`,
+      youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${getFormattedDate(
+        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+      )} after the court has reviewed it.`,
     },
     withoutDocuments: {
       needToPost: `You ${
@@ -143,7 +139,7 @@ const cy: typeof en = ({
   isApplicant2,
 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
-  referenceNumber: `Reference Number: ${referenceNumber}`,
+  referenceNumber: `Cyfeirnod: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
   response: 'Response',
   conditionalOrderApplication: 'Conditional order application',
@@ -161,19 +157,17 @@ const cy: typeof en = ({
     }.`,
     line2: `Bydd barnwr yn 'cyhoeddi' (darllen allan) eich gorchymyn amodol mewn gwrandawiad. Bydd y gwrandawiad yn cael ei gynnal yn ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } ar ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')} ar ${dayjs(
+    } ar ${getFormattedDate(userCase.coDateAndTimeOfHearing, SupportedLanguages.Cy)} ar ${dayjs(
       userCase.coDateAndTimeOfHearing
     ).format('h:mmA')}.`,
-    line3: `Nid oes angen i chi ddod i'r gwrandawiad, oni bai eich bod eisiau gwrthwynebu. Rhaid i chi gysylltu â'r llys erbyn ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day')
-      .format('D MMMM YYYY')} os ydych eisiau bod yn bresennol.`,
-    line4: `Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, bydd byddwch chi wedyn yn gallu gwneud cais am 'orchymyn terfynol' ar ${dayjs(
-      userCase.coDateAndTimeOfHearing
-    )
-      .add(config.get('dates.applyForFoDays'), 'day')
-      .format('D MMMM YYYY')}. Dyma'r cam olaf yn y broses ${isDivorce ? 'ysgaru ' : ''}a bydd yn dod â'ch ${
+    line3: `Nid oes angen i chi ddod i'r gwrandawiad, oni bai eich bod eisiau gwrthwynebu. Rhaid i chi gysylltu â'r llys erbyn ${getFormattedDate(
+      dayjs(userCase.coDateAndTimeOfHearing).subtract(config.get('dates.contactCourtBeforeHearingDays'), 'day'),
+      SupportedLanguages.Cy
+    )} os ydych eisiau bod yn bresennol.`,
+    line4: `Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, bydd byddwch chi wedyn yn gallu gwneud cais am 'orchymyn terfynol' ar ${getFormattedDate(
+      dayjs(userCase.coDateAndTimeOfHearing).add(config.get('dates.applyForFoDays'), 'day'),
+      SupportedLanguages.Cy
+    )}. Dyma'r cam olaf yn y broses ${isDivorce ? 'ysgaru ' : ''}a bydd yn dod â'ch ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } i ben yn gyfreithiol.`,
   },
@@ -189,7 +183,7 @@ const cy: typeof en = ({
   conditionalOrderPronounced: {
     line1: `Rydych wedi cael 'gorchymyn amodol' gan y llys. Cafodd eich gorchymyn amodol ei gyhoeddi’n ffurfiol (darllen allan) gan farnwr yn ${
       userCase.coCourt === ConditionalOrderCourt.BIRMINGHAM ? birmingham : buryStEdmunds
-    } ar ${dayjs(userCase.coDateAndTimeOfHearing).format('D MMMM YYYY')}.
+    } ar ${getFormattedDate(userCase.coDateAndTimeOfHearing, SupportedLanguages.Cy)}.
     Mae eich ${partner} hefyd wedi cael gwybod.`,
     line2: `${isDivorce ? 'Nid ydych wedi ysgaru' : 'Nid yw eich partneriaeth sifil wedi dod i ben yn gyfreithiol'} eto.
     Mae’n rhaid i chi ${
@@ -197,9 +191,10 @@ const cy: typeof en = ({
     }dal i orfod gwneud cais am orchymyn terfynol a fydd yn dod â'r ${
       isDivorce ? 'briodas' : 'partneriaeth sifil'
     } i ben.
-    Gallwch wneud cais am orchymyn terfynol ar ${userCase.dateFinalOrderEligibleFrom}. Bydd hyn yn dod â'ch ${
-      isDivorce ? 'priodas' : 'partneriaeth sifil i ben'
-    }.`,
+    Gallwch wneud cais am orchymyn terfynol ar ${getFormattedDate(
+      userCase.dateFinalOrderEligibleFrom,
+      SupportedLanguages.Cy
+    )}. Bydd hyn yn dod â'ch ${isDivorce ? 'priodas' : 'partneriaeth sifil i ben'}.`,
   },
   awaitingClarification: {
     line1: `The court has reviewed your application for a conditional order. You need to provide some information before your application can progress.
@@ -220,11 +215,10 @@ const cy: typeof en = ({
   },
   clarificationSubmitted: {
     withDocuments: {
-      youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${dayjs(
-        userCase.dateSubmitted
-      )
-        .add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
-        .format('D MMMM YYYY')} ar ôl i'r llys ei adolygu.`,
+      youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${getFormattedDate(
+        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day'),
+        SupportedLanguages.Cy
+      )} ar ôl i'r llys ei adolygu.`,
     },
     withoutDocuments: {
       needToPost: `Mae angen i chi ${
@@ -285,7 +279,7 @@ export const generateContent: TranslationFn = content => {
   const progressBarContent = getProgressBarContent(
     isDivorce,
     applicationTranslations.displayState as StateSequence,
-    language === 'en'
+    language === SupportedLanguages.En
   );
   return {
     ...languages[language]({ ...content, referenceNumber }),

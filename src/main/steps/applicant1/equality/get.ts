@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CITIZEN_UPDATE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CHECK_ANSWERS_URL } from '../../urls';
 
 import { createToken } from './createToken';
@@ -44,7 +45,7 @@ export default class PCQGetController {
         pcqId: req.session.userCase.applicant1PcqId,
         partyId: req.session.user.email,
         returnUrl: `${protocol}${res.locals.host}${port}${CHECK_ANSWERS_URL}`,
-        language: req.session.lang || 'en',
+        language: req.session.lang || SupportedLanguages.En,
         ccdCaseId: req.session.userCase.id,
       };
 
