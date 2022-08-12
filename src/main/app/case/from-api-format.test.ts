@@ -32,9 +32,6 @@ describe('from-api-format', () => {
     applicant1StatementOfTruth: YesOrNo.YES,
     applicant2StatementOfTruth: YesOrNo.YES,
     statementOfTruth: YesOrNo.YES,
-    dueDate: '2021-07-26',
-    dateFinalOrderEligibleFrom: '2021-07-26',
-    dateFinalOrderEligibleToRespondent: '2021-07-26',
     howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
     coApplicant1StatementOfTruth: YesOrNo.YES,
     coApplicant2StatementOfTruth: YesOrNo.YES,
@@ -43,8 +40,6 @@ describe('from-api-format', () => {
     doesApplicant2WantToApplyForFinalOrder: YesOrNo.YES,
     applicant2AgreedToReceiveEmails: YesOrNo.YES,
     confirmReadPetition: YesOrNo.YES,
-    coApplicant1SubmittedDate: '2022-03-31T00:00:00Z',
-    coApplicant2SubmittedDate: '2022-03-28T00:00:00Z',
     coClarificationResponses: [{ id: '1', value: 'test' }],
     coCannotUploadClarificationDocuments: YesOrNo.YES,
   };
@@ -81,9 +76,6 @@ describe('from-api-format', () => {
       aosStatementOfTruth: Checkbox.Checked,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant2IConfirmPrayer: Checkbox.Checked,
-      dueDate: '26 July 2021',
-      dateFinalOrderEligibleFrom: '26 July 2021',
-      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
@@ -92,8 +84,6 @@ describe('from-api-format', () => {
       doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: '31 March 2022',
-      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
@@ -118,9 +108,6 @@ describe('from-api-format', () => {
     const nfdivFormat = fromApiFormat({
       ...results,
       marriageDate: '2000-09-02',
-      dateSubmitted: '2021-01-01',
-      dateFinalOrderSubmitted: '2022-01-01',
-      dateAosSubmitted: '2022-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -146,10 +133,6 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      dateSubmitted: '1 January 2021',
-      dueDate: '26 July 2021',
-      dateFinalOrderEligibleFrom: '26 July 2021',
-      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.YES,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
@@ -158,12 +141,8 @@ describe('from-api-format', () => {
       doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: '31 March 2022',
-      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
-      dateFinalOrderSubmitted: '1 January 2022',
-      dateAosSubmitted: '1 January 2022',
     });
   });
 
@@ -192,9 +171,6 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      dueDate: '26 July 2021',
-      dateFinalOrderEligibleFrom: '26 July 2021',
-      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: null,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
@@ -203,8 +179,6 @@ describe('from-api-format', () => {
       doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: '31 March 2022',
-      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
@@ -235,9 +209,6 @@ describe('from-api-format', () => {
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
-      dueDate: '26 July 2021',
-      dateFinalOrderEligibleFrom: '26 July 2021',
-      dateFinalOrderEligibleToRespondent: '26 July 2021',
       disputeApplication: YesOrNo.NO,
       coApplicant1StatementOfTruth: Checkbox.Checked,
       coApplicant2StatementOfTruth: Checkbox.Checked,
@@ -246,8 +217,6 @@ describe('from-api-format', () => {
       doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
       applicant2AgreeToReceiveEmails: Checkbox.Checked,
       confirmReadPetition: Checkbox.Checked,
-      coApplicant1SubmittedDate: '31 March 2022',
-      coApplicant2SubmittedDate: '28 March 2022',
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
     });
@@ -256,12 +225,10 @@ describe('from-api-format', () => {
   test('ignores empty addresses', async () => {
     const nfdivFormat = fromApiFormat({
       marriageDate: undefined,
-      dateSubmitted: '2021-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
       relationshipDate: undefined,
-      dateSubmitted: '1 January 2021',
     });
   });
 
