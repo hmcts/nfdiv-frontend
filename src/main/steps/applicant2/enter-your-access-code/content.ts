@@ -9,7 +9,6 @@ const en = () => ({
   caseReferenceHint: 'This is a 16-digit number',
   accessCode: 'Your access code',
   accessCodeHint: 'This is 8 characters',
-  errorSaving: 'Sorry, we’re having technical problems accessing your application. Please try again in a few minutes.',
   errors: {
     caseReference: {
       required:
@@ -28,8 +27,30 @@ const en = () => ({
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = () => ({
+  title: 'Rhowch eich manylion mynediad',
+  line1: 'Mae eich cyfeirnod a’ch cod mynediad yn yr e-bost neu’r llythyr a gawsoch i’ch gwahodd i’r cais hwn.',
+  caseReference: 'Eich cyfeirnod',
+  caseReferenceHint: 'Rhif 16 digid yw hwn',
+  accessCode: 'Eich cod mynediad',
+  accessCodeHint: 'Mae hwn yn cynnwys 8 llythyren',
+  errors: {
+    caseReference: {
+      required:
+        'Nid ydych wedi rhoi cyfeirnod. Rhowch y cyfeirnod o’r e-bost yr ydych wedi ei dderbyn cyn mynd ymlaen.',
+      invalid: 'Rydych wedi rhoi cyfeirnod annilys. Edrychwch ar eich e-bost a rhowch y cyfeirnod eto cyn mynd ymlaen.',
+      invalidReference:
+        'Rydych wedi rhoi’r cyfeirnod anghywir. Edrychwch ar eich e-bost a rhowch y cyfeirnod eto cyn mynd ymlaen.',
+    },
+    accessCode: {
+      required:
+        'Nid ydych wedi rhoi cod mynediad. Rhowch y cod mynediad o’r e-bost yr ydych wedi ei dderbyn cyn mynd ymlaen.',
+      invalid: 'Rydych wedi rhoi cod mynediad annilys. Edrychwch ar eich e-bost a rhowch y cod eto cyn mynd ymlaen.',
+      invalidAccessCode:
+        'Rydych wedi rhoi’r cod mynediad anghywir. Edrychwch ar eich e-bost a rhowch y cod eto cyn mynd ymlaen.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
