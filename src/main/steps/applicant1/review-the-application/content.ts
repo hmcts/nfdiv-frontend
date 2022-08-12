@@ -234,11 +234,11 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   financialOrderNo: "Nid yw’r ceisydd yn bwriadu gwneud cais i'r llys am orchmynion ariannol.",
   financialOrderMoreDetails: `${isApplicant2 ? `Fe ofynnwyd i’ch ${partner} os ydynt` : 'Fe ofynnwyd i chi os ydych'}
    eisiau i’r llys benderfynu sut y bydd eich arian, eich eiddo, eich pensiynau a’ch asedau eraill yn cael eu rhannu. Fe elwir y penderfyniadau hyn yn ‘gorchmynion ariannol’.
-   Gellir gwneud gorchmynion ariannol rhyngoch chi a’ch ${partner} sifil ac unrhyw blant sydd gennych.
+   Gellir gwneud gorchmynion ariannol rhyngoch chi a’ch ${partner} ac unrhyw blant sydd gennych.
    <br><br>Gellir gwneud gorchymyn ariannol os ydych yn cytuno ynghylch sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol.
    Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu.
    Gelwir hyn yn ‘gorchymyn ariannol sy’n cael ei wrthwynebu’.
-   <br><br>I ddechrau achos cyfreithiol yn ffurfiol, bydd angen i ${partner} lenwi ffurflen arall a thalu ffi.
+   <br><br>I ddechrau achos cyfreithiol yn ffurfiol, bydd angen i'ch ${partner} lenwi ffurflen arall a thalu ffi.
    Mae gwneud cais am ‘gorchymyn ariannol sy’n cael ei wrthwynebu’ yn costio ${getFee(
      config.get('fees.financialOrder')
    )}. Mae gwneud cais am ‘gorchymyn ariannol trwy gydsyniad’ yn costio ${getFee(config.get('fees.consentOrder'))}.
