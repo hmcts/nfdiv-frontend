@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
+import { SupportedLanguages } from '../../modules/i18n';
 import { Case, CaseWithId } from '../case/case';
 import { CaseApi } from '../case/case-api';
 import { ApplicationType } from '../case/definition';
@@ -24,7 +25,7 @@ export interface AppSession extends Session {
   inviteCaseId: string;
   existingCaseId: string;
   isApplicant2: boolean;
-  lang: string | undefined;
+  lang: SupportedLanguages | undefined;
   errors: FormError[] | undefined;
   inviteCaseApplicationType?: ApplicationType;
 }
