@@ -60,7 +60,7 @@ describe('PaymentClient', () => {
           version: 'mock fee version',
         },
       ],
-      language: undefined,
+      language: '',
       case_type: 'NFD',
     });
 

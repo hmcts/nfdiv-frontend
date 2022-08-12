@@ -36,6 +36,7 @@ import {
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
   EMAIL_RESENT,
+  ENGLISH_OR_WELSH,
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
@@ -273,6 +274,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
