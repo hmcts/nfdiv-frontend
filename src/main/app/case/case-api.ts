@@ -45,7 +45,7 @@ export class CaseApi {
     return this.getLatestUserCase(userCases);
   }
 
-  public async isAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
+  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
     const userCase = await this.getExistingUserCase(serviceType);
     if (userCase) {
       const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);

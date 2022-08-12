@@ -17,7 +17,7 @@ describe('AccessCodeGetController', () => {
     'Should render the enter your access code page with %s content',
     async serviceType => {
       const req = mockRequest();
-      (req.locals.api.isAlreadyLinked as jest.Mock).mockResolvedValue(false);
+      (req.locals.api.isApplicantAlreadyLinked as jest.Mock).mockResolvedValue(false);
       const res = mockResponse();
       res.locals.serviceType = serviceType;
       await controller.get(req, res);
@@ -42,7 +42,7 @@ describe('AccessCodeGetController', () => {
     'Should redirect to HOME_URL if applicant is already linked',
     async serviceType => {
       const req = mockRequest();
-      (req.locals.api.isAlreadyLinked as jest.Mock).mockResolvedValue(true);
+      (req.locals.api.isApplicantAlreadyLinked as jest.Mock).mockResolvedValue(true);
       const res = mockResponse();
       res.locals.serviceType = serviceType;
       await controller.get(req, res);
