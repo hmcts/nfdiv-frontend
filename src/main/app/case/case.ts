@@ -320,6 +320,7 @@ export interface Case {
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
+  coRefusalRejectionAdditionalInfo?: string;
 }
 
 export interface CaseWithId extends Case {

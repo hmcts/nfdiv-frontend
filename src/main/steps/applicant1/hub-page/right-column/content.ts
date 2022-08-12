@@ -106,6 +106,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
+  refusalOrderPdf: {
+    reference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    text: 'View the refusal order (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
