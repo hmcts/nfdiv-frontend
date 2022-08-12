@@ -2,6 +2,7 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../app/case/definition';
+import { SupportedLanguages } from '../../modules/i18n';
 import { generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
@@ -9,7 +10,7 @@ import { AccessibilityStatementGetController } from './get';
 
 describe('AccessibilityStatementGetController', () => {
   const controller = new AccessibilityStatementGetController();
-  const language = 'en';
+  const language = SupportedLanguages.En;
 
   test('Should render the accessibility statement page for divorce service', async () => {
     const req = mockRequest();

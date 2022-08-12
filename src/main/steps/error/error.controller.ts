@@ -4,7 +4,8 @@ import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { Language, generatePageContent } from '../common/common.content';
+import { SupportedLanguages } from '../../modules/i18n';
+import { generatePageContent } from '../common/common.content';
 
 import { errorContent } from './content';
 
@@ -54,7 +55,7 @@ export class ErrorController {
       return;
     }
 
-    const language = (req.session?.lang || 'en') as Language;
+    const language = req.session?.lang || SupportedLanguages.En;
     const errorText =
       errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
     const commonContent = generatePageContent({
