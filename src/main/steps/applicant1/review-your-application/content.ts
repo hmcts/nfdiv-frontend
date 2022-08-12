@@ -176,7 +176,7 @@ const cy: typeof en = ({
   ceremonyCountryHeading: `Gwlad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
   ceremonyCountry: `${userCase.ceremonyCountry}`,
   heading5: `Dyddiad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
-  relationshipDate: getFormattedDate(userCase.relationshipDate),
+  relationshipDate: getFormattedCaseDate(userCase.relationshipDate),
   heading6: 'Pam y gall y llys ddelio â’r achos (awdurdodaeth)',
   line4: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints: userCase.connections
