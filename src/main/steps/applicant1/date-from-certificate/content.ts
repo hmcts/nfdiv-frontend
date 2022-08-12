@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../app/form/validation';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 const en = ({ isDivorce }) => ({
   title: isDivorce ? 'When did you get married?' : 'When did you form your civil partnership?',
@@ -46,19 +47,19 @@ export const form: FormContent = {
       hint: l => l.hint,
       values: [
         {
-          label: language === 'cy' ? 'Diwrnod' : 'Day',
+          label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2 },
         },
         {
-          label: language === 'cy' ? 'Mis' : 'Month',
+          label: language === SupportedLanguages.Cy ? 'Mis' : 'Month',
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2 },
         },
         {
-          label: language === 'cy' ? 'Blwyddyn' : 'Year',
+          label: language === SupportedLanguages.Cy ? 'Blwyddyn' : 'Year',
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4 },

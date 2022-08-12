@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
@@ -30,9 +31,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, userCase, telephon
   thinkPartnerChoosingNotToRespond: `I think my ${partner} is receiving the application but is choosing not to respond`,
   evidencePartnerNotResponded: `I have evidence that my ${partner} has received the application, but will not or cannot respond`,
   triedEveryWayToDeliver: "I've tried every possible way of delivering the application",
-  dueDate: `${dayjs(userCase.issueDate)
-    .add(config.get('dates.arrangeProcessServiceDays'), 'day')
-    .format('D MMMM YYYY')}`,
+  dueDate: `${getFormattedDate(dayjs(userCase.issueDate).add(config.get('dates.arrangeProcessServiceDays'), 'day'))}`,
   telephoneNumber,
 });
 
