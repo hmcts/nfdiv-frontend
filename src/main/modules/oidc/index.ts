@@ -140,6 +140,8 @@ export class OidcMiddleware {
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
+          : isApp2Callback
+          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
           : HOME_URL;
 
         return req.session.save(() => res.redirect(url));

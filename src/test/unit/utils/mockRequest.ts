@@ -21,6 +21,7 @@ export const mockRequest = ({
         getCaseById: jest.fn(),
         isApplicant2: jest.fn(),
         getNewInviteCase: jest.fn(),
+        isAlreadyLinked: jest.fn(),
       },
       logger: {
         info: jest.fn(),
