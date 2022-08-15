@@ -102,7 +102,7 @@ export class OidcMiddleware {
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
-          if ([APPLICANT_2, APPLICANT_2 + ENTER_YOUR_ACCESS_CODE].includes(req.path)) {
+          if (isLinkingUrl(req.path)) {
             return next();
           }
         }
