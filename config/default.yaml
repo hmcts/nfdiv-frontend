@@ -10,7 +10,7 @@ dates:
   jointConditionalOrderResponseDays: 14
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
-  applicationSubmittedOffsetDays: 14
+  applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
 fees:
   applicationFee: DivorceCivPart
