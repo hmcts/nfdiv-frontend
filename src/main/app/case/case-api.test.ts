@@ -4,14 +4,7 @@ import { PaymentModel } from '../payment/PaymentModel';
 
 import { CaseApi, getCaseApi } from './case-api';
 import * as caseApiClient from './case-api-client';
-import {
-  ApplicationType,
-  CITIZEN_ADD_PAYMENT,
-  CITIZEN_UPDATE,
-  DivorceOrDissolution,
-  State,
-  UserRole,
-} from './definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
 jest.mock('axios');
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
@@ -213,64 +206,6 @@ describe('CaseApi', () => {
 
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return true if the case role contains applicant 2 for sole applications', async () => {
-    mockApiClient.findExistingUserCases.mockResolvedValue([
-      {
-        case_data: { DivorceOrDissolution: serviceType, applicationType: ApplicationType.SOLE_APPLICATION },
-        id: 123456789,
-        state: State.Draft,
-      },
-    ]);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
-
-    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicantAlreadyLinked).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return true if the case role contains applicant 2 for joint applications', async () => {
-    mockApiClient.findExistingUserCases.mockResolvedValue([
-      {
-        case_data: { DivorceOrDissolution: serviceType, applicationType: ApplicationType.JOINT_APPLICATION },
-        id: 123456789,
-        state: State.Draft,
-      },
-    ]);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.APPLICANT_2 }] });
-
-    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicantAlreadyLinked).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return true if the case role contains creator for joint applications', async () => {
-    mockApiClient.findExistingUserCases.mockResolvedValue([
-      {
-        case_data: { DivorceOrDissolution: serviceType, applicationType: ApplicationType.JOINT_APPLICATION },
-        id: 123456789,
-        state: State.Draft,
-      },
-    ]);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
-
-    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicantAlreadyLinked).toBe(true);
-  });
-
-  test('isApplicantAlreadyLinked() should return false if the case role does not contain applicant 2', async () => {
-    mockApiClient.findExistingUserCases.mockResolvedValue([
-      { case_data: { DivorceOrDissolution: serviceType }, id: 123456789, state: State.Draft },
-    ]);
-    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CASE_WORKER }] });
-    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicantAlreadyLinked).toBe(false);
-  });
-
-  test('isApplicantAlreadyLinked() returns false if case is not found', async () => {
-    mockApiClient.findExistingUserCases.mockResolvedValue(false);
-
-    const isApplicantAlreadyLinked = await api.isApplicantAlreadyLinked(serviceType, userDetails);
-    expect(isApplicantAlreadyLinked).toBe(false);
   });
 });
 

@@ -14,10 +14,7 @@ export class Applicant2AccessCodeGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (
-      (await req.locals.api.isApplicantAlreadyLinked(res.locals.serviceType, req.session.user)) &&
-      !req.session.applicantChoosesNewInviteCase
-    ) {
+    if (req.session.existingCaseId && !req.session.applicantChoosesNewInviteCase) {
       return res.redirect(HOME_URL);
     }
     await super.get(req, res);

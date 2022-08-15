@@ -5,15 +5,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import {
-  ApplicationType,
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  UserRole,
-} from './definition';
+import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -43,19 +35,6 @@ export class CaseApi {
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
     return this.getLatestUserCase(userCases);
-  }
-
-  public async isApplicantAlreadyLinked(serviceType: DivorceOrDissolution, user: UserDetails): Promise<boolean> {
-    const userCase = await this.getExistingUserCase(serviceType);
-    if (userCase) {
-      const userRoles = await this.apiClient.getCaseUserRoles(userCase.id, user.id);
-      const linkedRoles =
-        userCase.applicationType && userCase.applicationType.includes(ApplicationType.JOINT_APPLICATION)
-          ? [UserRole.CREATOR, UserRole.APPLICANT_2]
-          : [UserRole.APPLICANT_2];
-      return linkedRoles.includes(userRoles.case_users[0]?.case_role);
-    }
-    return false;
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
