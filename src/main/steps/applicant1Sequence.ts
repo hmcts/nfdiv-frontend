@@ -91,7 +91,6 @@ import {
 
 export interface Step {
   url: string;
-  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -336,9 +335,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: NEED_TO_GET_ADDRESS,
-    excludeFromContinueApplication: true,
-    getNextStep: data =>
-      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
   },
   {
     url: ENTER_THEIR_ADDRESS,
