@@ -101,6 +101,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  ConditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-order-answers',
     link: '/downloads/conditional-order-answers',
