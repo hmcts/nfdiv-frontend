@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import CheckYourConditionalOrderAnswersPostController from './post';
 
@@ -35,7 +36,7 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     );
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
     await checkYourConditionalOrderAnswersPostController.post(req, res);
@@ -64,7 +65,7 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     );
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
     req.session.isApplicant2 = true;
 
     const res = mockResponse();

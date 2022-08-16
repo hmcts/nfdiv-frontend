@@ -12,6 +12,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import CheckYourAnswersPostController from './post';
 
@@ -115,7 +116,7 @@ describe('CheckYourAnswersPostController', () => {
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
     req.session.userCase.applicant1ApplyForFinancialOrder = YesOrNo.YES;
     req.session.userCase.applicant1WhoIsFinancialOrderFor = [FinancialOrderFor.CHILDREN];
 

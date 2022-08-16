@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { CITIZEN_SUBMIT, DivorceOrDissolution, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import Applicant1ConfirmYourJointApplicationPostController from './post';
 
@@ -49,7 +50,7 @@ describe('Applicant1ConfirmYourJointApplicationPostController', () => {
     );
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
     await applicant1ConfirmYourJointApplicationPostController.post(req, res);

@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import RespondentCheckYourAnswersPostController from './post';
 
@@ -41,7 +42,7 @@ describe('RespondentCheckYourAnswersPostController', () => {
     );
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
     await respondentCheckYourAnswerPostController.post(req, res);

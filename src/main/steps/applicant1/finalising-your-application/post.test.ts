@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import FinalisingYourApplicationPostController from './post';
 
@@ -37,7 +38,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
@@ -64,7 +65,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
     req.session.isApplicant2 = true;
 
     const res = mockResponse();

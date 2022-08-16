@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import { APPLICANT_2_APPROVE, ApplicationType, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import { SupportedLanguages } from '../../../modules/i18n';
 
 import ConfirmYourJointApplicationPostController from './post';
 
@@ -55,7 +56,7 @@ describe('ConfirmYourJointApplicationPostController', () => {
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    req.session.lang = 'cy';
+    req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
     await confirmYourAnswerPostController.post(req, res);
