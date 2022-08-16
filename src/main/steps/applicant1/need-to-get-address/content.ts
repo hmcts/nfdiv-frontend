@@ -4,9 +4,10 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
+const en = ({ isDivorce, divorce, endingCivilPartnership, required }: CommonContent) => {
   const dissolution = isDivorce ? divorce : endingCivilPartnership;
   return {
     title: 'You need to get their address',
@@ -22,10 +23,15 @@ const en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
       config.get('fees.alternativeService')
     )}.`,
     iWantToHavePapersServedAnotherWay: `I want to apply to have the ${dissolution} papers ‘served’ (delivered) to them another way.`,
+    errors: {
+      iWantToHavePapersServedAnotherWay: {
+        required,
+      },
+    },
   };
 };
 
-const cy: typeof en = ({ isDivorce, divorce, endingCivilPartnership }: CommonContent) => {
+const cy: typeof en = ({ isDivorce, divorce, endingCivilPartnership, required }: CommonContent) => {
   const dissolution = isDivorce ? divorce : endingCivilPartnership;
   return {
     title: "Mae angen i chi ddod o hyd i'w gyfeiriad/chyfeiriad",
@@ -41,6 +47,11 @@ const cy: typeof en = ({ isDivorce, divorce, endingCivilPartnership }: CommonCon
       config.get('fees.alternativeService')
     )} yn ychwanegol.`,
     iWantToHavePapersServedAnotherWay: `Rwyf eisiau gwneud cais i gael y papurau ${dissolution} wedi'u 'cyflwyno' (wedi'u danfon) iddo/iddi mewn ffordd arall.`,
+    errors: {
+      iWantToHavePapersServedAnotherWay: {
+        required,
+      },
+    },
   };
 };
 
@@ -54,6 +65,7 @@ export const form: FormContent = {
           name: 'iWantToHavePapersServedAnotherWay',
           label: l => l.iWantToHavePapersServedAnotherWay,
           value: Checkbox.Checked,
+          validator: isFieldFilledIn,
         },
       ],
     },

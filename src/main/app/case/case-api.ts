@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
@@ -12,9 +13,12 @@ import { toApiFormat } from './to-api-format';
 export class CaseApi {
   readonly maxRetries: number = 3;
 
+  private readonly logger = Logger.getLogger('CaseApi');
+
   constructor(private readonly apiClient: CaseApiClient) {}
 
   public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+    this.logger.info(`Creating a new case for user (${userDetails.id})`);
     return this.apiClient.createCase(serviceType, userDetails);
   }
 
