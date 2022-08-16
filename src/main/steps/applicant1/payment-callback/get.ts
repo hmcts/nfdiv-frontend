@@ -44,7 +44,7 @@ export default class PaymentCallbackGetController {
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
-      req.session.userCase = await req.locals.api.addPayment(
+      req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
         payments.list,
         CITIZEN_PAYMENT_MADE

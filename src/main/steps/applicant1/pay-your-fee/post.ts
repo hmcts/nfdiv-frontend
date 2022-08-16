@@ -41,7 +41,11 @@ export default class PaymentPostController {
       transactionId: payment.external_reference,
     });
 
-    req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list, CITIZEN_ADD_PAYMENT);
+    req.session.userCase = await req.locals.api.triggerPaymentEvent(
+      req.session.userCase.id,
+      payments.list,
+      CITIZEN_ADD_PAYMENT
+    );
 
     this.saveAndRedirect(req, res, payment._links.next_url.href);
   }

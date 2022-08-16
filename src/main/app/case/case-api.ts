@@ -50,7 +50,11 @@ export class CaseApi {
     return this.apiClient.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 
-  public async addPayment(caseId: string, payments: ListValue<Payment>[], eventName: string): Promise<CaseWithId> {
+  public async triggerPaymentEvent(
+    caseId: string,
+    payments: ListValue<Payment>[],
+    eventName: string
+  ): Promise<CaseWithId> {
     return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, eventName);
   }
 

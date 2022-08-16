@@ -48,7 +48,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
+      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -64,7 +64,7 @@ describe('PaymentCallbackGetController', () => {
       await paymentController.get(req, res);
 
       expect(mockGet).not.toHaveBeenCalled();
-      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
     });
 
@@ -79,7 +79,7 @@ describe('PaymentCallbackGetController', () => {
       await paymentController.get(req, res);
 
       expect(mockGet).not.toHaveBeenCalled();
-      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
     });
 
@@ -105,7 +105,7 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
       const res = mockResponse();
 
       (mockGet as jest.Mock).mockReturnValueOnce({
@@ -117,7 +117,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
     });
@@ -144,7 +144,7 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
       const res = mockResponse();
 
       (mockGet as jest.Mock).mockReturnValueOnce(undefined);
@@ -178,7 +178,7 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.addPayment = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
       const res = mockResponse();
 
       (mockGet as jest.Mock).mockReturnValueOnce({
@@ -190,7 +190,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
       expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
     });
