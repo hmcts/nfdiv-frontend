@@ -172,14 +172,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
   },
   conditionalOrderRejected: {
-    heading1: 'CONDITIONAL ORDER REJECTED',
     line1: `The court is not yet satisfied you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }. You need to read the court’s feedback and update your application, before you can continue.`,
     line2: 'The court’s feedback',
     line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
     part1: 'You can download a copy of the court’s full',
-    part2: 'Refusal Order PDF',
+    part2: 'Refusal Order PDF.',
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
     line4: 'What you need to do',
@@ -412,14 +411,13 @@ const cy: typeof en = (
       'Mae eich cais wedi dod i law a bydd yn cael ei adolygu gan farnwr. Byddwch yn cael e-bost yn dweud wrthych a yw eich cais wedi bod yn llwyddiannus ai peidio.',
   },
   conditionalOrderRejected: {
-    heading1: 'CONDITIONAL ORDER REJECTED',
-    line1: `The court is not yet satisfied you are entitled to ${
-      isDivorce ? 'get divorced' : 'end your civil partnership'
-    }. You need to read the court’s feedback and update your application, before you can continue.`,
-    line2: 'The court’s feedback',
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : 'dod âch partneriaeth sifil i ben'
+    }. Mae angen i chi ddarllen adborth y llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Adborth y llys',
     line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
-    part1: 'You can download a copy of the court’s full',
-    part2: 'Refusal Order PDF',
+    part1: 'Gallwch lawrlwytho copi llawn y llys',
+    part2: 'Orchymyn Gwrthod (PDF).',
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
     line4: 'What you need to do',
@@ -481,7 +479,7 @@ const cy: typeof en = (
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
+      ? 'Yr wybodaeth ddiweddaraf'
       : 'What you need to do',
 });
 
@@ -493,7 +491,6 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
-  const isAwaitingAmendedApplication = State.AwaitingAmendedApplication;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
   const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
@@ -523,6 +520,5 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isAlternativeService,
     theLatestUpdateTemplate,
-    isAwaitingAmendedApplication,
   };
 };

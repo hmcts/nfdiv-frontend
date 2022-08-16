@@ -120,6 +120,23 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       line3: 'You will receive an update when your documents have been received and checked.',
     },
   },
+  conditionalOrderRejected: {
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
+  },
   awaitingPronouncement: {
     line1: `Your ${partner}’s application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
@@ -281,6 +298,23 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       line2: 'address',
       line3: 'You will receive an update when your documents have been received and checked.',
     },
+  },
+  conditionalOrderRejected: {
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen adborth y llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Adborth y llys',
+    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    part1: 'Gallwch lawrlwytho copi o llawn y llys',
+    part2: 'Orchymyn Gwrthod (PDF).',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: 'You will also need to pay a £95 amendment fee',
   },
   awaitingPronouncement: {
     line1: `Eich ${partner} am 'orchymyn amodol' wedi dod i law. Mae'r llys yn cytuno bod gennych hawl i ${

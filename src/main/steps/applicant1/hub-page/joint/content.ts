@@ -82,7 +82,6 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   conditionalOrderRejected: {
-    heading1: 'CONDITIONAL ORDER REJECTED',
     line1: `The court is not yet satisfied you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }. You need to read the court’s feedback and update your application, before you can continue.`,
@@ -183,14 +182,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   conditionalOrderRejected: {
-    heading1: 'CONDITIONAL ORDER REJECTED',
-    line1: `The court is not yet satisfied you are entitled to ${
-      isDivorce ? 'get divorced' : 'end your civil partnership'
-    }. You need to read the court’s feedback and update your application, before you can continue.`,
-    line2: 'The court’s feedback',
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen adborth y llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Adborth y llys',
     line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
-    part1: 'You can download a copy of the court’s full',
-    part2: 'Refusal Order PDF',
+    part1: 'Gallwch lawrlwytho copi o llawn y llys.',
+    part2: 'Orchymyn Gwrthod (PDF)',
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
     line4: 'What you need to do',
@@ -217,7 +215,6 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = content.isApplicant2
     ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
-  const isAwaitingAmendedApplication = State.AwaitingAmendedApplication;
   const hasApplicantAppliedForConditionalOrder = content.isApplicant2
     ? content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
     : content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
@@ -244,6 +241,5 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    isAwaitingAmendedApplication,
   };
 };
