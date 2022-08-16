@@ -22,7 +22,7 @@ export class GetController {
       return;
     }
 
-    const language = (req.session?.lang as SupportedLanguages) || SupportedLanguages.En;
+    const language = (req.session?.lang as SupportedLanguages) || res.locals['lang'];
     const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
     const isApplicant2 = req.session?.isApplicant2;
     const userCase = req.session?.userCase;
