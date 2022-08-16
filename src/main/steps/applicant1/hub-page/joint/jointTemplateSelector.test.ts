@@ -35,6 +35,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/awaiting-clarification.njk');
   });
 
+  test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
+    const theState = displayState.at(State.AwaitingAmendedApplication);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-amended-application.njk');
+  });
+
   test('should show /clarification-submitted.njk for state ClarificationSubmitted', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     const jointTemplate = getJointHubTemplate(theState, false);

@@ -109,6 +109,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/clarification-submitted.njk');
   });
 
+  test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
+    const theState = displayState.at(State.AwaitingAmendedApplication);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-amended-application.njk');
+  });
+
   test('should show /awaiting-bailiff-service.njk for state AwaitingBailiffService', () => {
     const theState = displayState.at(State.AwaitingBailiffService);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);

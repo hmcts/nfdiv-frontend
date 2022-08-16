@@ -130,6 +130,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
   applicant1UsedWelshTranslationOnSubmission: 'applicant1UsedWelshTranslationOnSubmission',
   applicant2UsedWelshTranslationOnSubmission: 'applicant2UsedWelshTranslationOnSubmission',
+  coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
   dueDate: 'dueDate',
   dateSubmitted: 'dateSubmitted',
   dateAosSubmitted: 'dateAosSubmitted',
@@ -287,7 +288,6 @@ export interface Case {
   coCourt: ConditionalOrderCourt;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
-  coConditionalOrderGrantedDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
   coApplicant2SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
@@ -323,8 +323,6 @@ export interface Case {
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
-  applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
-  applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
