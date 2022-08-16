@@ -129,6 +129,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
   applicant1UsedWelshTranslationOnSubmission: 'applicant1UsedWelshTranslationOnSubmission',
   applicant2UsedWelshTranslationOnSubmission: 'applicant2UsedWelshTranslationOnSubmission',
+  dueDate: 'dueDate',
+  dateSubmitted: 'dateSubmitted',
+  dateAosSubmitted: 'dateAosSubmitted',
+  dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
+  coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
+  coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
+  dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

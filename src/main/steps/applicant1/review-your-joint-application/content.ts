@@ -1,7 +1,6 @@
 import config from 'config';
-import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -28,7 +27,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   line2: 'Applicant 1 is also applying to the court to make a financial order.',
   line3: 'Applicant 2 is also applying to the court to make a financial order.',
   issuedDateHeading: 'Issued',
-  issuedDateValue: dayjs(userCase.issueDate).format('D MMMM YYYY'),
+  issuedDateValue: getFormattedDate(userCase.issueDate),
   caseReferenceHeading: 'Case reference number',
   caseReferenceValue: formattedCaseId(userCase.id),
   applicant1Heading: 'Applicant 1',
@@ -47,7 +46,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   heading4: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   ceremonyPlace: userCase.ceremonyPlace,
   heading5: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  relationshipDate: getFormattedDate(userCase.relationshipDate),
+  relationshipDate: getFormattedCaseDate(userCase.relationshipDate),
   heading6: 'Why the court can deal with the case (jurisdiction)',
   line6: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints: userCase.connections
@@ -59,9 +58,9 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   }. The applicants confirmed that the legal statement(s) in the application apply to either or both the applicants.
     Each legal statement includes some or all of the following legal connections to England or Wales.`,
   heading7: 'Habitual residence',
-  habitualResidenceText: enHabitualResident,
+  habitualResidenceText: enHabitualResident.body,
   heading8: 'Domicile',
-  domicileText: enDomicile,
+  domicileText: enDomicile.body,
   heading10: 'Other court cases',
   otherCourtCasesLine1: `The court needs to know about any other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
