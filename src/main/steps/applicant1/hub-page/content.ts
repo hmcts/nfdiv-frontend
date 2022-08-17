@@ -139,7 +139,7 @@ const cy: typeof en = ({
   isApplicant2,
 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
-  referenceNumber: `Reference Number: ${referenceNumber}`,
+  referenceNumber: `Cyfeirnod: ${referenceNumber}`,
   applicationSubmitted: 'Application submitted',
   response: 'Response',
   conditionalOrderApplication: 'Conditional order application',

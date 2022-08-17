@@ -26,7 +26,7 @@ const en = ({ isDivorce }: CommonContent) => ({
 const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   title: 'Sut rydych chi eisiau ymateb i’r cais?',
   line1: 'Gallwch ond herio’r cais os: (yw un neu fwy o’r canlynol yn berthnasol)',
-  point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
+  point1: `nid ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
    ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
   point2: `nid ydych yn credu bod eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} yn ddilys yn gyfreithiol.
   Er enghraifft, os oedd un ohonoch eisoes yn briod neu mewn partneriaeth sifil pan wnaethoch chi ${
