@@ -8,6 +8,11 @@ def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
 
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
+
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
    secretType : 'Secret',
