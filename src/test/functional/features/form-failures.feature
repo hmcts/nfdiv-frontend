@@ -80,6 +80,10 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    Given I go to "/need-to-get-address"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/other-court-cases"
     And I clear the form
     And I click "Continue"
