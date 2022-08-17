@@ -50,7 +50,8 @@ export const HABITUALLY_RESIDENT_ENGLAND_WALES: PageLink = '/habitually-resident
 export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-jurisdiction';
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 
-export const YOUR_NAME: PageLink = '/enter-your-name';
+export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
+export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
 export const THEIR_NAME: PageLink = '/enter-their-name';
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
@@ -96,6 +97,7 @@ export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
+export const JOINT_APPLICATION_SUBMITTED: PageLink = '/joint-application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 
