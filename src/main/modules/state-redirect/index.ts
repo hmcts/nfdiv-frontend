@@ -3,12 +3,14 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { State } from '../../app/case/definition';
+import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
+  APPLICANT_2,
   APPLICATION_SUBMITTED,
+  JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -40,10 +42,22 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state) &&
-          req.path !== APPLICATION_SUBMITTED
+          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state)
         ) {
-          return res.redirect(APPLICATION_SUBMITTED);
+          if (
+            req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+            req.path !== APPLICATION_SUBMITTED
+          ) {
+            return res.redirect(APPLICATION_SUBMITTED);
+          }
+          if (
+            req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
+            ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
+          ) {
+            return req.session.isApplicant2
+              ? res.redirect(APPLICANT_2 + JOINT_APPLICATION_SUBMITTED)
+              : res.redirect(JOINT_APPLICATION_SUBMITTED);
+          }
         }
 
         if (

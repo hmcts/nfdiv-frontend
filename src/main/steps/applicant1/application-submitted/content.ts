@@ -1,15 +1,15 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
-import { TranslationFn } from '../../app/controller/GetController';
-import { SupportedLanguages } from '../../modules/i18n';
-import { getProgressBarContent } from '../applicant1/hub-page/progressBarLabels';
-import { isCountryUk } from '../applicant1Sequence';
-import type { CommonContent } from '../common/common.content';
-import { formattedCaseId } from '../common/content.utils';
-import { currentStateFn } from '../state-sequence';
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { SupportedLanguages } from '../../../modules/i18n';
+import { isCountryUk } from '../../applicant1Sequence';
+import type { CommonContent } from '../../common/common.content';
+import { formattedCaseId } from '../../common/content.utils';
+import { currentStateFn } from '../../state-sequence';
+import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = ({
   isDivorce,
