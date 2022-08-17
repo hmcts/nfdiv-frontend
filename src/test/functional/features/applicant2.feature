@@ -230,7 +230,7 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings using the information above."
+    Given I select "Provide details about the other legal proceedings."
     And I type "Test other legal proceedings details"
 
     When I click "Continue"

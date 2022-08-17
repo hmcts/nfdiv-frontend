@@ -32,7 +32,11 @@ export class CaseApiClient {
       query: {
         bool: {
           must: {
-            match: { 'data.applicant2InviteEmailAddress': { query: email, operator: 'AND' } },
+            multi_match: {
+              query: email,
+              fields: ['data.applicant2InviteEmailAddress', 'data.applicant2Email'],
+              operator: 'and',
+            },
           },
           filter: { exists: { field: 'data.accessCode' } },
         },

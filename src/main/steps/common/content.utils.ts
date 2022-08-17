@@ -112,3 +112,5 @@ export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): 
     userCase.applicationType === ApplicationType.JOINT_APPLICATION
   );
 };
+
+export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;

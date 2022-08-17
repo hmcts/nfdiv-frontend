@@ -40,6 +40,8 @@ import {
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_NAME,
+  ENTER_YOUR_NAMES,
   EQUALITY,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
@@ -86,7 +88,6 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
-  YOUR_NAME,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
@@ -94,7 +95,6 @@ import {
 
 export interface Step {
   url: string;
-  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -246,11 +246,16 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => YOUR_NAME,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? ENTER_YOUR_NAMES : ENTER_YOUR_NAME,
   },
   {
-    url: YOUR_NAME,
-    getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
+    url: ENTER_YOUR_NAMES,
+    getNextStep: () => CERTIFICATE_NAME,
+  },
+  {
+    url: ENTER_YOUR_NAME,
+    getNextStep: () => THEIR_NAME,
   },
   {
     url: THEIR_NAME,
@@ -343,9 +348,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: NEED_TO_GET_ADDRESS,
-    excludeFromContinueApplication: true,
-    getNextStep: data =>
-      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
   },
   {
     url: ENTER_THEIR_ADDRESS,
