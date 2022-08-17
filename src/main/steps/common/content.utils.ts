@@ -97,3 +97,5 @@ export const latestLegalAdvisorDecisionContent = (
   contentObject['condensedHeading'] = condensedHeading;
   return contentObject;
 };
+
+export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;
