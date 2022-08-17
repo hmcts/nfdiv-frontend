@@ -1,40 +1,41 @@
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
+{% from "common/page-link.njk" import pageLink %}
 
 {% set cookieMessageHTML %}
-  <p class="govuk-body">{{ cookiesLine1 }}</p>
-  <p class="govuk-body">{{ cookiesLine2 }}</p>
+  <p class="govuk-body">{{ cookiesBanner.cookiesLine1 }}</p>
+  <p class="govuk-body">{{ cookiesBanner.cookiesLine2 }}</p>
 {% endset %}
 
 {% set acceptHtml %}
-  <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+  {{ pageLink(cookiesBanner.acceptCookiesConfirmationMessage) }}
 {% endset %}
 
 {% set rejectHtml %}
-  <p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+  {{ pageLink(cookiesBanner.rejectCookiesConfirmationMessage) }}
 {% endset %}
 
 {{ govukCookieBanner({
   classes: 'cookie-banner',
-  ariaLabel: cookiesHeading + " " + serviceName,
+  ariaLabel: cookiesBanner.cookiesHeading + " " + serviceName,
   hidden: true,
   messages: [
     {
       classes: 'cookie-banner-message',
-      headingText: cookiesHeading + " " + serviceName,
+      headingText: cookiesBanner.cookiesHeading + " " + serviceName,
       html: cookieMessageHTML,
       actions: [
       {
         classes: 'cookie-banner-accept-button',
-        text: acceptAnalyticsCookies,
+        text: cookiesBanner.acceptAnalyticsCookies,
         type: "button"
       },
       {
         classes: 'cookie-banner-reject-button',
-        text: rejectAnalyticsCookies,
+        text: cookiesBanner.rejectAnalyticsCookies,
         type: "button"
       },
       {
-        text: viewCookies,
+        text: cookiesBanner.viewCookies,
         href: "/cookies"
       }
     ]
@@ -47,7 +48,7 @@
       actions: [
       {
         classes: 'cookie-banner-hide-button',
-        text: hideMessage
+        text: cookiesBanner.hideMessage
       }
     ]
     },
@@ -59,7 +60,7 @@
       actions: [
       {
         classes: 'cookie-banner-hide-button',
-        text: hideMessage
+        text: cookiesBanner.hideMessage
       }
     ]
     }
