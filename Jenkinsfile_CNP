@@ -32,9 +32,18 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withPipeline(type, product, component) {
+  enableCrossBrowserTest()
   disableLegacyDeployment()
   loadVaultSecrets(secrets)
   syncBranchesWithMaster(branchesToSync)
+
+  before('crossBrowserTest') {
+    yarnBuilder.smokeTest()
+  }
+
+  after('crossBrowserTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
+  }
 
   after('build') {
     yarnBuilder.yarn('build')
