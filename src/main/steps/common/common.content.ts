@@ -78,16 +78,28 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 8am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
-  cookiesHeading: 'Cookies on',
-  cookiesLine1: 'We use some essential cookies to make this service work.',
-  cookiesLine2:
-    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
-  acceptAnalyticsCookies: 'Accept analytics cookies',
-  rejectAnalyticsCookies: 'Reject analytics cookies',
-  viewCookies: 'View cookies',
-  hideMessage: 'Hide this message',
-  cookiesConfirmationMessage:
-    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  cookiesBanner: {
+    cookiesHeading: 'Cookies on',
+    cookiesLine1: 'We use some essential cookies to make this service work.',
+    cookiesLine2:
+      'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+    acceptAnalyticsCookies: 'Accept analytics cookies',
+    rejectAnalyticsCookies: 'Reject analytics cookies',
+    viewCookies: 'View cookies',
+    hideMessage: 'Hide this message',
+    acceptCookiesConfirmationMessage: {
+      part1: 'You’ve accepted additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'You’ve rejected additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+  },
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -193,6 +205,28 @@ const cy: typeof en = {
   apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
   useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  cookiesBanner: {
+    cookiesHeading: 'Cwcis ar',
+    cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
+    cookiesLine2:
+      "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
+    acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+    rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+    viewCookies: 'Gweld cwcis',
+    hideMessage: "Cuddio'r neges cwcihon",
+    acceptCookiesConfirmationMessage: {
+      part1: 'Rydych wedi derbyn cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+  },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
