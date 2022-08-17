@@ -20,6 +20,7 @@ import {
   CONFIRM_JOINT_APPLICATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HOME_URL,
+  JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
   JURISDICTION_LAST_TWELVE_MONTHS,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
@@ -105,7 +106,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
 
 export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
   const finalUrls = [HOME_URL, `${APPLICANT_2 + CONFIRM_JOINT_APPLICATION}`];
-  const startsWithUrls = ['/pay', APPLICATION_SUBMITTED];
+  const startsWithUrls = ['/pay', APPLICATION_SUBMITTED, JOINT_APPLICATION_SUBMITTED];
 
   return (
     nextStepUrl.includes(CHECK_ANSWERS_URL) ||

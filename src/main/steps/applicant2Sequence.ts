@@ -27,6 +27,7 @@ import {
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
@@ -161,6 +162,10 @@ export const preSubmissionSequence: Step[] = [
 ];
 
 const postSubmissionSequence: Step[] = [
+  {
+    url: JOINT_APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
