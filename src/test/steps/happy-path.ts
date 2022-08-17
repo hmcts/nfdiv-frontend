@@ -194,6 +194,7 @@ Given('I pay and submit the application', () => {
   iClick('Pay and submit application');
 
   completePayment();
+  I.waitInUrl('/application-submitted', 15);
 });
 
 Given('I pay and submit the joint application', () => {
@@ -201,6 +202,7 @@ Given('I pay and submit the joint application', () => {
   iClick('Pay and submit');
 
   completePayment();
+  I.waitInUrl('/joint-application-submitted', 15);
 });
 
 const completePayment = () => {
@@ -227,6 +229,4 @@ const completePayment = () => {
 
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
-
-  I.waitInUrl('/application-submitted', 15);
 };
