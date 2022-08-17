@@ -70,9 +70,9 @@ const en = (
     line2:
       'There are other ways to be legally connected to England and Wales. These may be important if there is a dispute about whether the courts have jurisdiction over your case.',
     habitualResidence: 'Habitual Residence',
-    habitualResidenceText: enHabitualResident,
+    habitualResidenceText: enHabitualResident.body,
     domicile: 'Domicile',
-    domicileText: enDomicile,
+    domicileText: enDomicile.body,
     disputesAboutJurisdiction: 'Disputes about jurisdiction',
     disputesAboutJurisdictionText: `If you think there might be a dispute about whether the English and Welsh courts have jurisdiction over your case or you are not sure whether the courts have jurisdiction, then you should get legal advice before submitting this application.<br><br>
       If you think there are additional ways in which you are connected to England and Wales then you can add them below`,
@@ -101,9 +101,15 @@ const cy: typeof en = (
 
   const connectionCheckboxes = {
     [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `Rwyf i a fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
-    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `Roeddwn i a fy ${partner} yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr, ac mae un ohonom yn parhau i breswylio yno`,
-    [JurisdictionConnections.APP_2_RESIDENT_SOLE]: `Mae fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
-    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `Mae fy ${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_1_APP_2_LAST_RESIDENT]: `Roeddwn i a fy ${
+      isDivorce ? 'n' : ''
+    }${partner} yn preswylio’n arferol ddiwethaf yng Nghymru a Lloegr, ac mae un ohonom yn parhau i breswylio yno`,
+    [JurisdictionConnections.APP_2_RESIDENT_SOLE]: `Mae fy ${
+      isDivorce ? 'n' : ''
+    }${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_2_RESIDENT_JOINT]: `Mae fy ${
+      isDivorce ? 'n' : ''
+    }${partner} yn preswylio’n arferol yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_RESIDENT_TWELVE_MONTHS]: `${
       isJointApplication
         ? `Rwyf i neu fy ${partner} yn preswylio'n arferol yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf blwyddyn yn union cyn gwneud y cais hwn`
@@ -114,9 +120,13 @@ const cy: typeof en = (
         ? `Rwyf i neu fy ${partner} â'n domisil, ac yn preswylio'n arferol, yng Nghymru a Lloegr ac wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn`
         : 'Mae fy nomisil yng Nghymru a Lloegr, rwy’n preswylio’n arferol yno, ac rwyf wedi preswylio yno am o leiaf chwe mis yn union cyn gwneud y cais hwn'
     }`,
-    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `Mae fy nomisil i, a domisil fy ${partner} yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_1_APP_2_DOMICILED]: `Mae fy nomisil i, a domisil fy ${
+      isDivorce ? 'n' : ''
+    }${partner} yng Nghymru a Lloegr`,
     [JurisdictionConnections.APP_1_DOMICILED]: 'Dim ond fy nomisil i sydd yng Nghymru a Lloegr',
-    [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil fy ${partner} sydd yng Nghymru a Lloegr`,
+    [JurisdictionConnections.APP_2_DOMICILED]: `Dim ond domisil fy ${
+      isDivorce ? 'n' : ''
+    }${partner} sydd yng Nghymru a Lloegr`,
     [JurisdictionConnections.RESIDUAL_JURISDICTION_CP]: `Mi wnes i a fy mhartner sifil gofrestru ein partneriaeth sifil yng Nghymru a Lloegr,
       a byddai er budd cyfiawnder i'r llys ysgwyddo awdurdodaeth yn yr achos hwn`,
     [JurisdictionConnections.RESIDUAL_JURISDICTION_D]: `Mi wnes i a fy ${partner} briodi ein gilydd yng Nghymru a
@@ -132,9 +142,9 @@ const cy: typeof en = (
     line2:
       'Mae ffyrdd eraill o fod â chysylltiad cyfreithiol â Chymru a Lloegr. Gall y rhain fod yn bwysig os oes anghydfod o ran p’un a oes gan y llysoedd awdurdodaeth dros eich achos ai peidio.',
     habitualResidence: 'Preswylio’n arferol',
-    habitualResidenceText: cyHabitualResident,
+    habitualResidenceText: cyHabitualResident.body,
     domicile: 'Domisil',
-    domicileText: cyDomicile,
+    domicileText: cyDomicile.body,
     disputesAboutJurisdiction: 'Anghydfodau ynghylch awdurdodaeth',
     disputesAboutJurisdictionText: `Os ydych yn meddwl gall fod anghydfod ynghylch p’un a oes gan y llysoedd yng Nghymru a Lloegr awdurdodaeth dros eich achos neu beidio, neu os ydych yn ansicr p’un a oes gan y llysoedd awdurdodaeth, yna dylech gael cyngor cyfreithiol cyn cyflwyno’r cais hwn.<br><br>
       Os ydych yn meddwl bod yna ffyrdd ychwanegol y gallwch fod â chysylltiad â Chymru a Lloegr, gallwch eu hychwanegu isod`,

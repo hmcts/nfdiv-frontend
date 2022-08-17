@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { SupportedLanguages } from '../../modules/i18n';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -77,16 +78,28 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 8am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
-  cookiesHeading: 'Cookies on',
-  cookiesLine1: 'We use some essential cookies to make this service work.',
-  cookiesLine2:
-    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
-  acceptAnalyticsCookies: 'Accept analytics cookies',
-  rejectAnalyticsCookies: 'Reject analytics cookies',
-  viewCookies: 'View cookies',
-  hideMessage: 'Hide this message',
-  cookiesConfirmationMessage:
-    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  cookiesBanner: {
+    cookiesHeading: 'Cookies on',
+    cookiesLine1: 'We use some essential cookies to make this service work.',
+    cookiesLine2:
+      'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+    acceptAnalyticsCookies: 'Accept analytics cookies',
+    rejectAnalyticsCookies: 'Reject analytics cookies',
+    viewCookies: 'View cookies',
+    hideMessage: 'Hide this message',
+    acceptCookiesConfirmationMessage: {
+      part1: 'You’ve accepted additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'You’ve rejected additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+  },
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -110,12 +123,13 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
+  contactEmail: 'divorcecase@justice.gov.uk',
 };
 
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForDivorce: 'gwneud cais am ysgariad',
+  applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   feedback:
     'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
@@ -184,14 +198,37 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
-  helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltu â ni dros y ffôn neu e-bost.',
+  helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
   useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  cookiesBanner: {
+    cookiesHeading: 'Cwcis ar',
+    cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
+    cookiesLine2:
+      "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
+    acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+    rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+    viewCookies: 'Gweld cwcis',
+    hideMessage: "Cuddio'r neges cwcihon",
+    acceptCookiesConfirmationMessage: {
+      part1: 'Rydych wedi derbyn cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+  },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
+  contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
 
 export const generatePageContent = ({
@@ -204,7 +241,7 @@ export const generatePageContent = ({
   existingCaseId,
   inviteCaseApplicationType,
 }: {
-  language: Language;
+  language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
@@ -213,11 +250,10 @@ export const generatePageContent = ({
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 }): PageContent => {
-  const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
-  const contactEmail = 'divorcecase@justice.gov.uk';
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
@@ -233,7 +269,6 @@ export const generatePageContent = ({
     isApplicant2,
     userCase,
     userEmail,
-    contactEmail,
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
@@ -249,7 +284,7 @@ export const generatePageContent = ({
 };
 
 export type CommonContent = typeof en & {
-  language: Language;
+  language: SupportedLanguages;
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
@@ -257,7 +292,6 @@ export type CommonContent = typeof en & {
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
-  contactEmail?: string;
   isJointApplication: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean;
@@ -265,5 +299,3 @@ export type CommonContent = typeof en & {
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 };
-
-export type Language = 'en' | 'cy';

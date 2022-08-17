@@ -55,13 +55,7 @@ allSequences.forEach((sequence: Step[], i: number) => {
   }
 });
 
-const getNextIncompleteStep = (
-  data: CaseWithId,
-  step: Step,
-  sequence: Step[],
-  removeExcluded = false,
-  checkedSteps: Step[] = []
-): string => {
+const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], checkedSteps: Step[] = []): string => {
   const stepField = stepFields[step.url];
   // if this step has a form
   if (stepField) {
@@ -70,17 +64,13 @@ const getNextIncompleteStep = (
     const stepForm = new Form(fields);
     if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
       // go to that step
-      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-        ? checkedSteps[checkedSteps.length - 1].url
-        : step.url;
+      return step.url;
     } else {
       // if there are no errors go to the next page and work out what to do
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : CHECK_ANSWERS_URL;
+      return nextStep ? getNextIncompleteStep(data, nextStep, sequence, checkedSteps.concat(step)) : CHECK_ANSWERS_URL;
     }
   }
 
@@ -96,7 +86,7 @@ export const getNextIncompleteStepUrl = (req: AppRequest): string => {
     [State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(req.session.userCase.state)
       ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
       : 0;
-  const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence, true);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence);
 
   const jurisdictionUrls = [
     WHERE_YOUR_LIVES_ARE_BASED_URL,

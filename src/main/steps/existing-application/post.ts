@@ -26,6 +26,10 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
+            req.locals.logger.error(
+              `UserId: "${req.session.user.id}" has chosen to continue with existing application: ${req.session.existingCaseId}
+              and cancelling case invite: ${req.session.inviteCaseId}`
+            );
             const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
             await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 

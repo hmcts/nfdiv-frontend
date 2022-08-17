@@ -132,6 +132,10 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('I agree that the divorce service can send me notifications');
   iClick('Continue');
 
+  I.waitInUrl('/english-or-welsh');
+  iClick('English');
+  iClick('Continue');
+
   I.waitInUrl('/address-private');
   iClick('I do not need my contact details kept private');
   iClick('Continue');

@@ -16,6 +16,7 @@ import {
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
@@ -95,6 +96,10 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {

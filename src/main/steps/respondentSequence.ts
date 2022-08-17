@@ -8,6 +8,7 @@ import {
   CHECK_PHONE_NUMBER,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
   HOME_URL,
@@ -50,6 +51,10 @@ const sequence: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {
