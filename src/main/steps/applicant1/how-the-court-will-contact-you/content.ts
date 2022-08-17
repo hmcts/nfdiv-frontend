@@ -38,13 +38,14 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   byEmail: 'Trwy e-bost',
   byEmailLine1: `Rydych wedi cytuno i dderbyn negeseuon e-bost i ddefnyddio'r ${
     isDivorce ? 'gwasanaeth ysgaru ar-lein' : 'gwasanaeth ar-lein i ddiweddu eich partneriaeth sifil'
-  }. Ni fydd eich cyfeiriad e-bost yn cael ei rannu gyda'ch ${partner}.`,
+  }. Gallwch ddewis cadw eich cyfeiriad e-bost yn breifat oddi wrth eich ${partner} yn nes ymlaen yn ystod y cais hwn.`,
   byEmailLine2: 'Anfonir negeseuon e-bost i:',
   applicantAgreeToReceiveEmails: `Rwy'n cytuno y gall y ${
     isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
   } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`,
   byPhone: 'Dros y ffôn',
-  byPhoneLine1: `Nodwch eich rhif ffôn fel y gall staff y llys gysylltu â chi yn gyflym, os oes angen. Ni fydd eich rhif ffôn yn cael ei rannu gyda'ch ${partner}.`,
+  byPhoneLine1: `Nodwch eich rhif ffôn fel y gall staff y llys gysylltu â chi yn gyflym, os oes angen.
+   Gallwch ddewis cadw eich rhif ffôn yn breifat oddi wrth eich ${partner} yn nes ymlaen yn ystod y cais hwn.`,
   applicantPhoneNumber: 'Nodwch eich rhif ffôn (dewisol)',
   errors: {
     applicant1AgreeToReceiveEmails: {

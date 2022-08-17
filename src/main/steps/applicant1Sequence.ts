@@ -34,6 +34,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
+  ENGLISH_OR_WELSH,
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
@@ -90,7 +91,6 @@ import {
 
 export interface Step {
   url: string;
-  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -270,6 +270,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -331,9 +335,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: NEED_TO_GET_ADDRESS,
-    excludeFromContinueApplication: true,
-    getNextStep: data =>
-      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
   },
   {
     url: ENTER_THEIR_ADDRESS,

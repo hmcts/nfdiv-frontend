@@ -1,11 +1,13 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
@@ -18,9 +20,9 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   readMore: 'Find out more about Help With Fees',
   helpText: 'You may be able to get help paying the fee if you (one or more of the following):',
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
-  line2: `You have until ${dayjs(userCase.issueDate)
-    .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
-    .format('D MMMM YYYY')} to submit the form. If you do not submit the form by the deadline,
+  line2: `You have until ${getFormattedDate(
+    dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+  )} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.`,
@@ -57,16 +59,17 @@ const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
   readMore: 'Darganfyddwch fwy am Help i dalu Ffioedd.',
   helpText: 'Efallai y gallwch gael help i dalu ffioedd os ydych chi (os yw un neu fwy o’r canlynol yn berthnasol):',
   helpPayingWhen: ['yn cael rhai budd-daliadau', 'gydag ychydig o gynilion neu ddim cynilion o gwbl', 'ar incwm isel'],
-  line2: `Mae gennych tan ${dayjs(userCase.issueDate)
-    .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
-    .format('D MMMM YYYY')} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad cau,
-    yna bydd eich ${partner} fel arfer yn gallu parhau â’r ${
-    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  line2: `Mae gennych tan ${getFormattedDate(
+    dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day'),
+    SupportedLanguages.Cy
+  )} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad hwn,
+    yna bydd eich ${partner} fel arfer yn gallu parhau â’r cais ${
+    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
   }.`,
   line3: `Yr unig resymau dilys dros herio’r ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil'
   } yw oherwydd (os yw un neu fwy o’r canlynol yn berthnasol):`,
-  point1: `nad ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
+  point1: `nid ydych yn credu bod gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ganiatáu’r cais
   ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
   point2: `nid ydych yn credu bod eich ${
     isDivorce ? 'priodas' : 'partneriaeth sifil'
