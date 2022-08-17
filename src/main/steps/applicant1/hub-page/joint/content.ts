@@ -201,7 +201,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Yr wybodaeth ddiweddaraf'
-      : 'What you need to do now',
+      : 'What you need to do',
 });
 
 const languages = {
