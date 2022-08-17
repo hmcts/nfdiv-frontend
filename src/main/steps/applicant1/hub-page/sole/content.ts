@@ -178,7 +178,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line2: 'The court’s feedback',
     line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
     part1: 'You can download a copy of the court’s full',
-    part2: 'Refusal Order PDF',
+    part2: 'Refusal Order PDF.',
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
     line4: 'What you need to do',
@@ -411,21 +411,21 @@ const cy: typeof en = (
       'Mae eich cais wedi dod i law a bydd yn cael ei adolygu gan farnwr. Byddwch yn cael e-bost yn dweud wrthych a yw eich cais wedi bod yn llwyddiannus ai peidio.',
   },
   conditionalOrderRejected: {
-    line1: `The court is not yet satisfied you are entitled to ${
-      isDivorce ? 'get divorced' : 'end your civil partnership'
-    }. You need to read the court’s feedback and update your application, before you can continue.`,
-    line2: 'The court’s feedback',
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen sylwadau’r llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Sylwadau’r llys',
     line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
-    part1: 'You can download a copy of the court’s full',
-    part2: 'Refusal Order PDF',
+    part1: 'Gallwch lawrlwytho copi o',
+    part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
-    line4: 'What you need to do',
-    line5: 'You will need to change the application, and submit it to the court again.',
+    line4: 'Beth sydd angen i chi ei wneud',
+    line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
     line6:
-      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
-    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
-    line8: 'You will also need to pay a £95 amendment fee',
+      "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
+    line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
+    line8: 'Bydd angen i chi hefyd dalu ffi ddiwygio o £95.',
   },
   serviceApplicationRejected: {
     line1: {
@@ -479,7 +479,7 @@ const cy: typeof en = (
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
+      ? 'Yr wybodaeth ddiweddaraf'
       : 'What you need to do',
 });
 
