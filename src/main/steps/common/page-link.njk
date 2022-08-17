@@ -1,0 +1,6 @@
+{% macro pageLink(objectBody) %}
+  <p class="govuk-body">{{ objectBody.part1 }}
+    <a class="govuk-link" href={{ objectBody.link }}>
+    {{ objectBody.part2 }}</a>{{ objectBody.part3 }}
+  </p>
+{% endmacro %}
