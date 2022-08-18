@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { FINAL_ORDER_REQUESTED } from '../../../app/case/definition';
+import { FINAL_ORDER_REQUESTED, JOINT_FINAL_ORDER_REQUESTED } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
 import FinalisingYourApplicationPostController from './post';
@@ -23,5 +23,23 @@ describe('FinalisingYourApplicationPostController', () => {
     await finalisingYourApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, FINAL_ORDER_REQUESTED);
+  });
+
+  it('triggers JOINT_FINAL_ORDER_REQUESTED', async () => {
+    const body = {
+      doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
+    };
+    const mockFormContent = {
+      fields: {
+        doesApplicant2WantToApplyForFinalOrder: {},
+      },
+    } as unknown as FormContent;
+    const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body, session: { isApplicant2: true } });
+    const res = mockResponse();
+    await finalisingYourApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, JOINT_FINAL_ORDER_REQUESTED);
   });
 });
