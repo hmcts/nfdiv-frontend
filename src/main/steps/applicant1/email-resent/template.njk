@@ -2,14 +2,13 @@
 
 {% extends "common/page.njk" %}
 
-{% block backLink %}
-{% endblock %}
+{% block backLink %}{% endblock %}
 
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <p class="govuk-body">{{ sentTo }} <strong>{{ userCase.applicant2EmailAddress }}</strong>.</p>
-  <p class="govuk-body">{{ theyShouldReviewBy }} <strong>{{ reviewDate }}</strong>.</p>
-  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-inset-text">{{ newAccessDetails }}</p>
+  <p class="govuk-body">{{ reviewApplicationDeadline }}</p>
+  <p class="govuk-body">{{ yourNotification }}</p>
   <p class="govuk-body">{{ pageLink(updatePartnersEmailAddress) }}</p>
   <p class="govuk-body"><a href="/logout" class="govuk-link">{{ exitService }}</a></p>
 {% endblock %}
