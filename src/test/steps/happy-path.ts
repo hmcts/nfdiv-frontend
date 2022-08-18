@@ -132,6 +132,10 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('I agree that the divorce service can send me notifications');
   iClick('Continue');
 
+  I.waitInUrl('/english-or-welsh');
+  iClick('English');
+  iClick('Continue');
+
   I.waitInUrl('/address-private');
   iClick('I do not need my contact details kept private');
   iClick('Continue');
@@ -190,6 +194,7 @@ Given('I pay and submit the application', () => {
   iClick('Pay and submit application');
 
   completePayment();
+  I.waitInUrl('/application-submitted', 15);
 });
 
 Given('I pay and submit the joint application', () => {
@@ -197,6 +202,7 @@ Given('I pay and submit the joint application', () => {
   iClick('Pay and submit');
 
   completePayment();
+  I.waitInUrl('/joint-application-submitted', 15);
 });
 
 const completePayment = () => {
@@ -223,6 +229,4 @@ const completePayment = () => {
 
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
-
-  I.waitInUrl('/application-submitted', 15);
 };

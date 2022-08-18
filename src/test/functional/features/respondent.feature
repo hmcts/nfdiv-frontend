@@ -100,7 +100,7 @@ Feature: Respondent
     When I click "Continue"
     Then the page URL should be "/respondent/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings using the information above."
+    Given I select "Provide details about the other legal proceedings."
     And I type "test details"
 
     When I click "Continue"
