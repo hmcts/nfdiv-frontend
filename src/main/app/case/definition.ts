@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-08-18 08:04:35.
+// Generated using typescript-generator version 2.36.1070 on 2022-08-18 09:16:02.
 
 export interface Address {
   AddressLine1: string;
@@ -2202,11 +2202,11 @@ export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-upd
 export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CONFIRM_RECEIPT = 'confirm-receipt';
+export const APPLICANT2_FINAL_ORDER_REQUESTED = 'applicant2-final-order-requested';
+export const APPLICANT2_APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const UPDATE_AOS = 'update-aos';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
-export const JOINT_FINAL_ORDER_REQUESTED = 'joint-final-order-requested';
-export const JOINT_APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
