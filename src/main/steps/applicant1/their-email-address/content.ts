@@ -2,8 +2,9 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isApplicant2EmailValid, isFieldFilledIn } from '../../../app/form/validation';
+import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
 
-const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
+const en = ({ userCase, partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,
   line1: `It’s important you provide ${
     isJointApplication
@@ -39,9 +40,10 @@ const en = ({ partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
     },
   },
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Resend email' : 'Continue',
 });
 
-const cy: typeof en = ({ partner }) => ({
+const cy: typeof en = ({ userCase, partner }) => ({
   title: `Nodwch gyfeiriad e-bost eich ${partner}`,
   line1:
     "Mae'n bwysig eich bod yn darparu eu cyfeiriad e-bost oherwydd efallai y bydd y llys angen 'cyflwyno' (danfon) dogfennau iddynt ar-lein. Os na fyddwch yn darparu cyfeiriad e-bost, efallai y bydd y papurau ysgariad yn cael eu cyflwyno (eu danfon) drwy'r post. Bydd y negeseuon e-bost hefyd yn cynnwys gwybodaeth a diweddariadau sy'n ymwneud â'r ysgariad.",
@@ -59,6 +61,7 @@ const cy: typeof en = ({ partner }) => ({
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
   },
+  continueOrResend: isApplicant2EmailUpdatePossible(userCase) ? 'Ail-anfon y neges e-bost' : 'Parhau',
 });
 
 export const form: FormContent = {
@@ -77,6 +80,7 @@ export const form: FormContent = {
     },
     applicant1DoesNotKnowApplicant2EmailAddress: {
       type: 'checkboxes',
+      hidden: isApplicant2EmailUpdatePossible(userCase),
       values: [
         {
           name: 'applicant1DoesNotKnowApplicant2EmailAddress',
@@ -87,7 +91,7 @@ export const form: FormContent = {
     },
   }),
   submit: {
-    text: l => l.continue,
+    text: l => l.continueOrResend,
   },
 };
 
@@ -103,8 +107,10 @@ export const generateContent: TranslationFn = content => {
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
   const translations = languages[language]({ ...content, hasEnteredSolicitorDetails });
+  const isApplicant2EmailUpdatePossibleAnswer = isApplicant2EmailUpdatePossible(content.userCase);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(userCase || {}) },
+    isApplicant2EmailUpdatePossibleAnswer,
   };
 };
