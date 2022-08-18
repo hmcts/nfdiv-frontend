@@ -1,12 +1,15 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../app/case/definition';
-import { TranslationFn } from '../../app/controller/GetController';
-import { isCountryUk } from '../applicant1Sequence';
-import type { CommonContent } from '../common/common.content';
-import { formattedCaseId } from '../common/content.utils';
-import { currentStateFn } from '../state-sequence';
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { SupportedLanguages } from '../../../modules/i18n';
+import { isCountryUk } from '../../applicant1Sequence';
+import type { CommonContent } from '../../common/common.content';
+import { formattedCaseId } from '../../common/content.utils';
+import { currentStateFn } from '../../state-sequence';
+import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = ({
   isDivorce,
@@ -23,9 +26,6 @@ const en = ({
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
   } by email.`,
-  partnerResponse: `Your ${partner} responds`,
-  conditionalOrderGranted: 'Conditional order granted',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
@@ -73,9 +73,9 @@ const en = ({
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and Help With Fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by ${dayjs(userCase.dateSubmitted)
-    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    .format('D MMMM YYYY')} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+  )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
@@ -151,9 +151,6 @@ const cy: typeof en = ({
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
-  partnerResponse: `Bydd eich ${partner} yn ymateb`,
-  conditionalOrderGranted: 'Gorchymyn amodol wedi’i ganiatáu',
-  applicationEnded: isDivorce ? 'Wedi ysgaru' : 'Civil partnership ended', //todo progress bar to be updated as per - NFDIV-2371
   subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',
@@ -201,9 +198,10 @@ const cy: typeof en = ({
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
-  }. Fe gewch neges e-bost erbyn ${dayjs(userCase.dateSubmitted)
-    .add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    .format('D MMMM YYYY')} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    SupportedLanguages.Cy
+  )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
@@ -269,7 +267,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -288,6 +286,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
   return {
     ...languages[language]({ ...content, referenceNumber }),
     displayState,
@@ -297,5 +296,6 @@ export const generateContent: TranslationFn = content => {
     applicationServedAnotherWay,
     referenceNumber,
     cannotUploadDocuments,
+    ...progressBarContent,
   };
 };

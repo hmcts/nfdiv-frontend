@@ -40,6 +40,11 @@ Feature: Respondent
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
 
     When I click "Continue"
+    Then the page URL should be "/respondent/english-or-welsh"
+    And the page should include "What language do you want to receive emails and documents in?"
+    Given I select "English"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"
     And the page should include "Check your answers"
     Given I select "I confirm that:"
@@ -95,7 +100,7 @@ Feature: Respondent
     When I click "Continue"
     Then the page URL should be "/respondent/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings using the information above."
+    Given I select "Provide details about the other legal proceedings."
     And I type "test details"
 
     When I click "Continue"
@@ -104,6 +109,11 @@ Feature: Respondent
     Given I click "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I click "Enter your phone number (optional)"
     And I type "0123456789"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/english-or-welsh"
+    And the page should include "What language do you want to receive emails and documents in?"
+    Given I select "English"
 
     When I click "Continue"
     Then the page URL should be "/respondent/check-your-answers"

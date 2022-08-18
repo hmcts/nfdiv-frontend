@@ -34,9 +34,12 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
+  ENGLISH_OR_WELSH,
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_NAME,
+  ENTER_YOUR_NAMES,
   EQUALITY,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
@@ -54,6 +57,7 @@ import {
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
+  JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
   JURISDICTION_INTERSTITIAL_URL,
   JURISDICTION_LAST_TWELVE_MONTHS,
@@ -83,14 +87,12 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_DETAILS_URL,
-  YOUR_NAME,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
 
 export interface Step {
   url: string;
-  excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
@@ -242,11 +244,16 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: () => YOUR_NAME,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? ENTER_YOUR_NAMES : ENTER_YOUR_NAME,
   },
   {
-    url: YOUR_NAME,
-    getNextStep: data => (data.applicationType === ApplicationType.JOINT_APPLICATION ? CERTIFICATE_NAME : THEIR_NAME),
+    url: ENTER_YOUR_NAMES,
+    getNextStep: () => CERTIFICATE_NAME,
+  },
+  {
+    url: ENTER_YOUR_NAME,
+    getNextStep: () => THEIR_NAME,
   },
   {
     url: THEIR_NAME,
@@ -270,6 +277,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: HOW_THE_COURTS_WILL_CONTACT_YOU,
+    getNextStep: () => ENGLISH_OR_WELSH,
+  },
+  {
+    url: ENGLISH_OR_WELSH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {
@@ -331,9 +342,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: NEED_TO_GET_ADDRESS,
-    excludeFromContinueApplication: true,
-    getNextStep: data =>
-      data.iWantToHavePapersServedAnotherWay === Checkbox.Checked ? HOW_TO_APPLY_TO_SERVE : ENTER_THEIR_ADDRESS,
+    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
   },
   {
     url: ENTER_THEIR_ADDRESS,
@@ -410,7 +419,16 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: PAYMENT_CALLBACK_URL,
-    getNextStep: () => APPLICATION_SUBMITTED,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.JOINT_APPLICATION ? JOINT_APPLICATION_SUBMITTED : APPLICATION_SUBMITTED,
+  },
+  {
+    url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: JOINT_APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
   },
   {
     url: HUB_PAGE,

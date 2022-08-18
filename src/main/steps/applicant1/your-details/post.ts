@@ -19,7 +19,7 @@ export default class YourDetailsPostController extends PostController<AnyObject>
     }
 
     if (req.body.saveAndSignOut || req.body.saveBeforeSessionTimeout) {
-      await this.saveAndSignOut(req, res, formData);
+      await this.saveAndSignOut(req, res, form, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }

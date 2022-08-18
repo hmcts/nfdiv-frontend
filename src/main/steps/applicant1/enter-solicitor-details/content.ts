@@ -38,7 +38,7 @@ const cy: typeof en = ({ partner, isDivorce }) => ({
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } yn cael ei ‘gyflwyno’ (ei anfon) atynt. `,
   line2: `Os oes arnoch angen cael manylion ei gyfreithiwr, yna gallwch gadw’r cais hwn, allgofnodi a dychwelyd i’r cais pan fydd y manylion gennych.
-  Mae’n bwysig yn enwedig eich bod yn cael eu manylion os yw eich ${partner} wedi gofyn i chi eu darparu i’r llys.`,
+  Mae’n bwysig eich bod yn cael eu manylion os yw eich ${partner} wedi gofyn i chi eu darparu i’r llys.`,
   line3:
     'Os yw’n rhy anodd neu os nad yw’n ddiogel i gael manylion eu cyfreithiwr, yna gallwch barhau heb eu darparu. ',
   solicitorName: 'Enw’r cyfreithiwr',
