@@ -13,4 +13,7 @@
       {{ certificateOfEntitlementLine.part2 }}</a>
     {{ certificateOfEntitlementLine.part3 }}
   </p>
+{% else %}
+  <p class="govuk-body">{{ awaitingLegalAdvisorReferral.line1 }}</p>
+  <p class="govuk-body">{{ awaitingLegalAdvisorReferral.line2 }}</p>
 {% endif %}
