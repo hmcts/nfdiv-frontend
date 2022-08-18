@@ -239,6 +239,7 @@ export interface Applicant {
   Gender: Gender;
   ContactDetailsType: ContactDetailsType;
   SolicitorRepresented: YesOrNo;
+  UsedWelshTranslationOnSubmission: YesOrNo;
   SolicitorName: string;
   SolicitorReference: string;
   SolicitorPhone: string;
@@ -427,6 +428,7 @@ export interface CaseData {
   applicant1Gender: Gender;
   applicant1ContactDetailsType: ContactDetailsType;
   applicant1SolicitorRepresented: YesOrNo;
+  applicant1UsedWelshTranslationOnSubmission: YesOrNo;
   applicant1SolicitorName: string;
   applicant1SolicitorReference: string;
   applicant1SolicitorPhone: string;
@@ -462,6 +464,7 @@ export interface CaseData {
   applicant2Gender: Gender;
   applicant2ContactDetailsType: ContactDetailsType;
   applicant2SolicitorRepresented: YesOrNo;
+  applicant2UsedWelshTranslationOnSubmission: YesOrNo;
   applicant2SolicitorName: string;
   applicant2SolicitorReference: string;
   applicant2SolicitorPhone: string;
