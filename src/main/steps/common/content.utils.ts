@@ -1,7 +1,14 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { ClarificationReason, Gender, LegalAdvisorDecision, ListValue } from '../../app/case/definition';
+import {
+  ApplicationType,
+  ClarificationReason,
+  Gender,
+  LegalAdvisorDecision,
+  ListValue,
+  State,
+} from '../../app/case/definition';
 
 import { CommonContent, en } from './common.content';
 
@@ -96,6 +103,14 @@ export const latestLegalAdvisorDecisionContent = (
       };
   contentObject['condensedHeading'] = condensedHeading;
   return contentObject;
+};
+
+export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): boolean => {
+  return (
+    userCase.state === State.AwaitingApplicant2Response &&
+    userCase.accessCode !== undefined &&
+    userCase.applicationType === ApplicationType.JOINT_APPLICATION
+  );
 };
 
 export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;
