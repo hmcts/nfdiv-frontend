@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { invert } from 'lodash';
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
@@ -102,18 +101,6 @@ const fields: FromApiConverters = {
   statementOfTruth: data => ({
     aosStatementOfTruth: checkboxConverter(data.statementOfTruth),
   }),
-  dateSubmitted: data => ({
-    dateSubmitted: dayjs(data.dateSubmitted).format('D MMMM YYYY'),
-  }),
-  dueDate: data => ({
-    dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
-  }),
-  dateFinalOrderEligibleFrom: data => ({
-    dateFinalOrderEligibleFrom: dayjs(data.dateFinalOrderEligibleFrom).format('D MMMM YYYY'),
-  }),
-  dateFinalOrderEligibleToRespondent: data => ({
-    dateFinalOrderEligibleToRespondent: dayjs(data.dateFinalOrderEligibleToRespondent).format('D MMMM YYYY'),
-  }),
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
@@ -130,12 +117,6 @@ const fields: FromApiConverters = {
   }),
   coApplicant2StatementOfTruth: data => ({
     coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
-  }),
-  coApplicant1SubmittedDate: data => ({
-    coApplicant1SubmittedDate: dayjs(data.coApplicant1SubmittedDate).format('D MMMM YYYY'),
-  }),
-  coApplicant2SubmittedDate: data => ({
-    coApplicant2SubmittedDate: dayjs(data.coApplicant2SubmittedDate).format('D MMMM YYYY'),
   }),
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
@@ -156,12 +137,6 @@ const fields: FromApiConverters = {
       applicant2SolicitorAddressCountry: address?.[6],
     };
   },
-  dateFinalOrderSubmitted: data => ({
-    dateFinalOrderSubmitted: dayjs(data.dateFinalOrderSubmitted).format('D MMMM YYYY'),
-  }),
-  dateAosSubmitted: data => ({
-    dateAosSubmitted: dayjs(data.dateAosSubmitted).format('D MMMM YYYY'),
-  }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
 };

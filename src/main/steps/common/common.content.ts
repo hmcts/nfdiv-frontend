@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { SupportedLanguages } from '../../modules/i18n';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -27,6 +28,7 @@ export const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There was a problem',
   saveAndSignOut: 'Save and sign out',
+  exitService: 'Exit this service',
   signOut: 'Sign out',
   signIn: 'Sign in',
   accessibility: 'Accessibility statement',
@@ -77,16 +79,28 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 8am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
-  cookiesHeading: 'Cookies on',
-  cookiesLine1: 'We use some essential cookies to make this service work.',
-  cookiesLine2:
-    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
-  acceptAnalyticsCookies: 'Accept analytics cookies',
-  rejectAnalyticsCookies: 'Reject analytics cookies',
-  viewCookies: 'View cookies',
-  hideMessage: 'Hide this message',
-  cookiesConfirmationMessage:
-    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  cookiesBanner: {
+    cookiesHeading: 'Cookies on',
+    cookiesLine1: 'We use some essential cookies to make this service work.',
+    cookiesLine2:
+      'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+    acceptAnalyticsCookies: 'Accept analytics cookies',
+    rejectAnalyticsCookies: 'Reject analytics cookies',
+    viewCookies: 'View cookies',
+    hideMessage: 'Hide this message',
+    acceptCookiesConfirmationMessage: {
+      part1: 'You’ve accepted additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'You’ve rejected additional cookies. You can ',
+      link: '/cookies',
+      part2: 'change your cookie settings',
+      part3: ' at any time.',
+    },
+  },
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -116,7 +130,7 @@ export const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForDivorce: 'wneud cais am ysgariad',
+  applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   feedback:
     'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
@@ -136,6 +150,7 @@ const cy: typeof en = {
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  exitService: 'Gadael y gwasanaeth hwn',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
   save: 'Cadw',
@@ -192,6 +207,28 @@ const cy: typeof en = {
   apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
   useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
   doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  cookiesBanner: {
+    cookiesHeading: 'Cwcis ar',
+    cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
+    cookiesLine2:
+      "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
+    acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+    rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+    viewCookies: 'Gweld cwcis',
+    hideMessage: "Cuddio'r neges cwcihon",
+    acceptCookiesConfirmationMessage: {
+      part1: 'Rydych wedi derbyn cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+    rejectCookiesConfirmationMessage: {
+      part1: 'Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch ',
+      link: '/cookies',
+      part2: 'newid gosodiadau eich cwcis ar',
+      part3: ' unrhyw adeg.',
+    },
+  },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
@@ -206,7 +243,7 @@ export const generatePageContent = ({
   existingCaseId,
   inviteCaseApplicationType,
 }: {
-  language: Language;
+  language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
   pageContent?: TranslationFn;
   isDivorce?: boolean;
@@ -215,7 +252,7 @@ export const generatePageContent = ({
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 }): PageContent => {
-  const commonTranslations: typeof en = language === 'en' ? en : cy;
+  const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
@@ -249,7 +286,7 @@ export const generatePageContent = ({
 };
 
 export type CommonContent = typeof en & {
-  language: Language;
+  language: SupportedLanguages;
   serviceName: string;
   pageContent?: TranslationFn;
   isDivorce: boolean;
@@ -264,5 +301,3 @@ export type CommonContent = typeof en & {
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
 };
-
-export type Language = 'en' | 'cy';

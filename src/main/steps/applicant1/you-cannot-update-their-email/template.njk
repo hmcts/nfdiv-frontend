@@ -1,0 +1,11 @@
+{% from "common/page-link.njk" import pageLink %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">{{ alreadyAccessed }}</p>
+  <p class="govuk-body">{{ anotherNotification }}</p>
+  <p class="govuk-body">{{ wrongPerson }}</p>
+  <p class="govuk-body"><a href="/save-and-sign-out?lng={{language}}" class="govuk-link">{{ saveAndSignOut }}</a></p>
+{% endblock %}
