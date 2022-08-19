@@ -1,4 +1,4 @@
-{% from "common/anchor-body.njk" import anchorBody %}
+{% from "common/download-link.njk" import downloadLink %}
 
 {% for reason in latestRefusalClarificationReasons %}
   {% set heading = reason + "ReasonHeading" %}
@@ -7,7 +7,7 @@
   <h4 class="govuk-heading-s">{{ courtFeedback[heading] }}</h4>
 
   {% if courtFeedback[body] is mapping %}
-    {% set anchoredBody = anchorBody(courtFeedback[body]) %}
+    {% set anchoredBody = downloadLink(courtFeedback[body]) %}
     <p class="govuk-body">{{ anchoredBody }}</p>
   {% else %}
     <p class="govuk-body">{{ courtFeedback[body] }}</p>
