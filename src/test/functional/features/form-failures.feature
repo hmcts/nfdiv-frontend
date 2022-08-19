@@ -80,6 +80,10 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
+    Given I go to "/need-to-get-address"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/other-court-cases"
     And I clear the form
     And I click "Continue"
@@ -381,7 +385,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
 
-    Given I go to "/applicant2/enter-your-name"
+    Given I go to "/applicant2/enter-your-names"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not entered your first name. Enter it before continuing."
