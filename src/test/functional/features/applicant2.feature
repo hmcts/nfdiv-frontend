@@ -17,7 +17,7 @@ Feature: Applicant 2
     Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-name"
+    Then the page URL should be "/applicant2/enter-your-names"
     And the page should include "Enter your name"
     Given I clear the form
     And I select "Your first name(s)"
@@ -142,7 +142,7 @@ Feature: Applicant 2
     Given I select "I do not need help with fees"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-name"
+    Then the page URL should be "/applicant2/enter-your-names"
     Given I go to "/applicant2/help-with-your-fee"
     And I select "I need help with fees"
 
@@ -165,7 +165,7 @@ Feature: Applicant 2
     And I type "HWF-ABC-123"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-name"
+    Then the page URL should be "/applicant2/enter-your-names"
     And the page should include "Enter your name"
     Given I select "Your first name(s)"
     And I type "Sarah"
@@ -230,7 +230,7 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings using the information above."
+    Given I select "Provide details about the other legal proceedings."
     And I type "Test other legal proceedings details"
 
     When I click "Continue"

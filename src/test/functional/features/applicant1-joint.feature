@@ -282,6 +282,10 @@ Feature: Applicant 1 joint application
     And I type "123456789"
 
     When I click "Continue"
+    Then the page should include "What language do you want to receive emails and documents in?"
+    Given I select "English"
+
+    When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "Keep my contact details private"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
