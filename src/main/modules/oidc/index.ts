@@ -88,11 +88,13 @@ export class OidcMiddleware {
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
+          logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
           redirectUrl = EXISTING_APPLICATION;
         }
       } else if (newInviteUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
+          logger.info(`User (${req.session.user.id}) is being redirected to linking page`);
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {

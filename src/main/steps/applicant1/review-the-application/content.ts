@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -9,6 +9,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import {
   accessibleDetailsSpan,
@@ -59,7 +60,7 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line13: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line14: userCase.ceremonyPlace,
   line15: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line16: getFormattedDate(userCase.relationshipDate),
+  line16: getFormattedCaseDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line17: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
@@ -193,7 +194,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line13: `Lle gweinyddwyd y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
   line14: userCase.ceremonyPlace,
   line15: `Dyddiad y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
-  line16: getFormattedDate(userCase.relationshipDate),
+  line16: getFormattedCaseDate(userCase.relationshipDate, SupportedLanguages.Cy),
   subHeading3: "Pam all y llys ddelio â'r achos (awdurdodaeth)",
   line17: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints:
@@ -233,11 +234,11 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   financialOrderNo: "Nid yw’r ceisydd yn bwriadu gwneud cais i'r llys am orchmynion ariannol.",
   financialOrderMoreDetails: `${isApplicant2 ? `Fe ofynnwyd i’ch ${partner} os ydynt` : 'Fe ofynnwyd i chi os ydych'}
    eisiau i’r llys benderfynu sut y bydd eich arian, eich eiddo, eich pensiynau a’ch asedau eraill yn cael eu rhannu. Fe elwir y penderfyniadau hyn yn ‘gorchmynion ariannol’.
-   Gellir gwneud gorchmynion ariannol rhyngoch chi a’ch ${partner} sifil ac unrhyw blant sydd gennych.
+   Gellir gwneud gorchmynion ariannol rhyngoch chi a’ch ${partner} ac unrhyw blant sydd gennych.
    <br><br>Gellir gwneud gorchymyn ariannol os ydych yn cytuno ynghylch sut i rannu arian ac eiddo, ac os ydych eisiau gwneud y penderfyniad yn rhwymol gyfreithiol.
    Fe elwir hyn yn ‘gorchymyn ariannol trwy gydsyniad’. Neu gellir eu gwneud os ydych yn anghytuno ar sut i rannu arian ac eiddo ac rydych eisiau i’r llys benderfynu.
    Gelwir hyn yn ‘gorchymyn ariannol sy’n cael ei wrthwynebu’.
-   <br><br>I ddechrau achos cyfreithiol yn ffurfiol, bydd angen i ${partner} lenwi ffurflen arall a thalu ffi.
+   <br><br>I ddechrau achos cyfreithiol yn ffurfiol, bydd angen i'ch ${partner} lenwi ffurflen arall a thalu ffi.
    Mae gwneud cais am ‘gorchymyn ariannol sy’n cael ei wrthwynebu’ yn costio ${getFee(
      config.get('fees.financialOrder')
    )}. Mae gwneud cais am ‘gorchymyn ariannol trwy gydsyniad’ yn costio ${getFee(config.get('fees.consentOrder'))}.

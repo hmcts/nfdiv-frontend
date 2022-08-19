@@ -1,9 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -23,16 +25,16 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${userCase.dueDate}.`,
+    } by ${getFormattedDate(userCase.dueDate)}.`,
     line3:
       'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${
+    } by ${getFormattedDate(
       userCase.dueDate
-    }. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
+    )}. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
     line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a>.`,
@@ -44,9 +46,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
-    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
-      .add(config.get('dates.issueDateOffsetDays'), 'day')
-      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day')
+    )}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued. You will receive an email to remind you.`,
   },
@@ -69,9 +71,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     }. This means they want to try and prevent ${
       isDivorce ? 'the divorce' : 'the ending of your civil partnership'
     }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have to submit an ‘answer’ to the court by ${dayjs(userCase.issueDate)
-      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
-      .format('D MMMM YYYY')}. This is a form which explains their reasons for defending the ${
+    line2: `They have to submit an ‘answer’ to the court by ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day')
+    )}. This is a form which explains their reasons for defending the ${
       isDivorce ? 'divorce' : 'ending of your civil partnership'
     }.`,
     line3: `If they submit the ‘answer’ then a judge will decide how to proceed. If they do not submit the form in time, then you will be able to proceed with the ${
@@ -112,13 +114,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   legalAdvisorReferral: {
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${dayjs(
-      userCase.coApplicant1SubmittedDate
-    )
-      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-      .format(
-        'D MMMM YYYY'
-      )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
+    }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${getFormattedDate(
+      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
+    )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
       'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
@@ -163,9 +161,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     } will be legally ended.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
-            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-            .format('D MMMM YYYY')}`
+        ? `You will receive an email by ${getFormattedDate(
+            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+          )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
@@ -240,16 +238,17 @@ const cy: typeof en = (
     }.`,
     line2: `Dylai eich ${partner} ymateb i'r ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${userCase.dueDate}.`,
+    } erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line3:
       "Byddwch yn cael eich hysbysu drwy e-bost pan fyddant wedi ymateb. Neu cewch wybod beth i’w wneud nesaf os nad ydyn nhw'n ymateb.",
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${
-      userCase.dueDate
-    }. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
+    } erbyn ${getFormattedDate(
+      userCase.dueDate,
+      SupportedLanguages.Cy
+    )}. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
     line2: `Os nad ydych yn credu y byddant yn ymateb yna gallwch <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">weld yr opsiynau ar gyfer bwrw ymlaen â'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }</a>.`,
@@ -261,9 +260,10 @@ const cy: typeof en = (
     line2: `Y cam nesaf yw i chi wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
       isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
     }.`,
-    line3: `Gallwch wneud cais am orchymyn amodol ar ${dayjs(userCase.issueDate)
-      .add(config.get('dates.issueDateOffsetDays'), 'day')
-      .format('D MMMM YYYY')}. Y rheswm am hyn yw bod yn rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
+    line3: `Gallwch wneud cais am orchymyn amodol ar ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )}. Y rheswm am hyn yw bod yn rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     } Byddwch yn cael e-bost i'ch atgoffa.`,
   },
@@ -286,9 +286,10 @@ const cy: typeof en = (
     }. Mae hyn yn golygu eu bod am geisio atal ${
       isDivorce ? 'y cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">ddarllen eu hymateb yma</a>.`,
-    line2: `Rhaid iddynt gyflwyno 'ateb' i'r llys erbyn ${dayjs(userCase.issueDate)
-      .add(config.get('dates.disputeDueDateOffsetDays'), 'day')
-      .format('D MMMM YYYY')}. Ffurflen yw hon sy'n esbonio eu rhesymau dros amddiffyn y ${
+    line2: `Rhaid iddynt gyflwyno 'ateb' i'r llys erbyn ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )}. Ffurflen yw hon sy'n esbonio eu rhesymau dros amddiffyn y ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }.`,
     line3: `Os byddant yn cyflwyno'r 'ateb' yna bydd barnwr yn penderfynu sut i fwrw ymlaen. Os na fyddant yn cyflwyno'r ffurflen mewn pryd, yna byddwch yn gallu bwrw ymlaen â'r ${
@@ -329,13 +330,10 @@ const cy: typeof en = (
   legalAdvisorReferral: {
     line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
-    }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${dayjs(
-      userCase.coApplicant1SubmittedDate
-    )
-      .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-      .format(
-        'D MMMM YYYY'
-      )} ar ôl i'ch cais gael ei wirio. Bydd hyn yn cael yr amser, y dyddiad a'r llys y bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
+    }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
+      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )} ar ôl i'ch cais gael ei wirio. Bydd hyn yn cael yr amser, y dyddiad a'r llys y bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
     line2:
       "Ar ôl i'ch gorchymyn amodol gael ei gyhoeddi, yna mae'n rhaid i chi  wneud cais am 'orchymyn terfynol'. Bydd hyn yn cadarnhau eich ysgariad. " +
       "Mae'n rhaid i chi  aros 6 wythnos tan ar ôl eich gorchymyn amodol, i wneud cais am y gorchymyn terfynol.",
@@ -380,9 +378,10 @@ const cy: typeof en = (
     } will be legally ended.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${dayjs(userCase.dateFinalOrderSubmitted)
-            .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-            .format('D MMMM YYYY')}`
+        ? `You will receive an email by ${getFormattedDate(
+            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
+            SupportedLanguages.Cy
+          )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
