@@ -104,6 +104,9 @@ export class OidcMiddleware {
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
+          if (isLinkingUrl(req.path)) {
+            return next();
+          }
         }
         req.session.userCase =
           req.session.userCase ||
@@ -142,6 +145,8 @@ export class OidcMiddleware {
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
+          : isApp2Callback
+          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
           : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
