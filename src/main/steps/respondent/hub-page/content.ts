@@ -87,15 +87,15 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
-    They can apply for a final order on ${getFormattedDate(userCase.dateFinalOrderEligibleFrom)}. This will end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.`,
+    They can apply for a final order from ${getFormattedDate(
+      userCase.dateFinalOrderEligibleFrom
+    )}. This will end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
     line3: `If they do not apply for a final order by ${getFormattedDate(
       userCase.dateFinalOrderEligibleFrom
     )} then you can apply for a final order.`,
     line4: {
       part1: 'You can ',
-      part2: 'read and download your certificate of entitlement.',
+      part2: 'download and read your conditional order.',
       downloadReference: 'Certificate-of-Entitlement',
       link: '/downloads/certificate-of-entitlement',
     },
