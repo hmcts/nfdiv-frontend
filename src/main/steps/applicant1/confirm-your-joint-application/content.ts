@@ -11,8 +11,7 @@ import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisd
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
-import { getName } from '../hub-page/content';
+import { accessibleDetailsSpan, formattedCaseId, getName } from '../../common/content.utils';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||

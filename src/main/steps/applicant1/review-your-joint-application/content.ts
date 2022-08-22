@@ -9,9 +9,8 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { enDomicile, enHabitualResident } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields, getName } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
-import { getName } from '../hub-page/content';
 
 const en = ({ isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
