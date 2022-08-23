@@ -1430,12 +1430,12 @@
   dependencies:
     "@uppy/utils" "^4.0.7"
 
-"@uppy/file-input@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-2.1.1.tgz#6e3d000b6d24593267157fb1650e7ce664991d0a"
-  integrity sha512-yqsNxDuOoEm0DP/+jw1osW8t1rkx8wpxRCmea33HyvS/rLAU/5VFKyXPfatw/UnoLKrtcsQTj5BRTXspOoRciQ==
+"@uppy/file-input@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-2.1.2.tgz#c71cd7c6c97764d46921bc4307ac8e40ca41857f"
+  integrity sha512-tdn6HNMnLOC2xpdZYbdXNSjTS9EpLvY97vOfq9SZWkoX/cmZiOf6JfFc3Qm8pS3RRnVmwsdi5usEPbzMQ5RAEg==
   dependencies:
-    "@uppy/utils" "^4.1.0"
+    "@uppy/utils" "^4.1.2"
     preact "^10.5.13"
 
 "@uppy/progress-bar@^2.1.1":
