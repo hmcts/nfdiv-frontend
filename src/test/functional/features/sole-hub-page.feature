@@ -123,11 +123,11 @@ Feature: Sole hub page
     Given I set the case state to "ConditionalOrderPronounced"
     When I go to "/"
     Then the page should include "You have been granted a 'conditional order' by the court."
-    And the page should include "You can read and download your certificate of entitlement"
+    And the page should include "You can view and download your 'conditional order'."
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
-    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    Then the page should include "You can view and download your 'conditional order'."
 
     Given I set the case state to "FinalOrderRequested"
     And I click "Sign out"
