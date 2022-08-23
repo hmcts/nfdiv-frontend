@@ -72,6 +72,7 @@ export class AccessCodePostController {
         await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
       }
       req.session.existingCaseId = req.session.userCase.id;
+      req.session.applicantChoosesNewInviteCase = undefined;
     }
 
     const nextStep =
