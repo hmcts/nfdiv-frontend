@@ -110,6 +110,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
   coCourt: 'coCourt',
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
+  coConditionalOrderGrantedDocument: 'coConditionalOrderGrantedDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
