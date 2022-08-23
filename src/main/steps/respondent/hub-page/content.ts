@@ -169,7 +169,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line6:
       'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
     line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
-    line8: 'You will also need to pay a £95 amendment fee',
+    line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
   },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
@@ -350,7 +350,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line6:
       "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
     line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
-    line8: 'Bydd angen i chi hefyd dalu ffi ddiwygio o £95.',
+    line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
