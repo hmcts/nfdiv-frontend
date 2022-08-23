@@ -60,7 +60,6 @@ Feature: Joint conditional order
     When I click "Continue"
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "You and your wife have applied for a 'conditional order'"
-    And I click "stop"
 
   @nightly
   Scenario: Applicant 2 is first in time applicant for conditional order journey and responds with additional information

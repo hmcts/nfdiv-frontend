@@ -51,7 +51,6 @@ Feature: Sole conditional order
     And I click "I believe that the facts stated in this application are true"
     And I click "Continue"
     Then the page URL should be "/hub-page"
-    And I click "stop"
 
   @flaky
   Scenario: Applicant 1 response with additional information and uploads for condition order
