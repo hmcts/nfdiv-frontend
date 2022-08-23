@@ -127,7 +127,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CannotUpload: 'applicant1CannotUpload',
   applicant2CannotUpload: 'applicant2CannotUpload',
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
-  coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
   applicant1UsedWelshTranslationOnSubmission: 'applicant1UsedWelshTranslationOnSubmission',
   applicant2UsedWelshTranslationOnSubmission: 'applicant2UsedWelshTranslationOnSubmission',
   coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
