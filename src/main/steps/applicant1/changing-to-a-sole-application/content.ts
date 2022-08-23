@@ -16,8 +16,19 @@ const en = ({ partner, isDivorce, isFinalOrderState }) => ({
   goBack: 'Go back',
 });
 
-//TODO translation
-const cy = en;
+const cy: typeof en = ({ partner, isDivorce, isFinalOrderState }) => ({
+  title: 'Newid i gais unigol',
+  line1: `Os nad ydych yn meddwl bydd eich ${partner} yn gwneud cais am ${
+    isFinalOrderState ? 'orchymyn terfynol' : 'orchymyn amodol'
+  },
+  yna gallwch newid i gais unigol. Mae hyn yn golygu mai chi fydd y prif ceisydd ac ef/hi fydd yr ‘atebydd’ ar gyfer gweddill y
+  ${isDivorce ? 'broses ysgaru' : 'broses i ddod â’ch partneriaeth sifil i ben'}.
+  Bydd yn cael ei hysbysu o’r newid hwn.`,
+  newApplicationDisclaimer:
+    'Ni fyddwch yn gallu newid yn ôl i gais ar y cyd unwaith y byddwch wedi gwneud y newid hwn.',
+  create: 'Newid i gais unigol ',
+  goBack: 'Yn ôl',
+});
 
 export const form: FormContent = {
   fields: {},
