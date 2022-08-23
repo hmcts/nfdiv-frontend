@@ -16,6 +16,7 @@ import {
   formattedCaseId,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
+  getName,
   getPartner,
   getSelectedGender,
   getServiceName,
@@ -34,6 +35,40 @@ describe('content.utils', () => {
     } as typeof en;
 
     const actual = getServiceName(translations, isDivorce);
+
+    expect(actual).toBe(expected);
+  });
+
+  test.each([
+    ['applicant1', 'First One Middle One Last One'],
+    ['applicant2', 'First Two Middle Two Last Two'],
+  ])('should return applicant name', (applicant, expected) => {
+    const userCase = {
+      applicant1FirstNames: 'First One',
+      applicant1MiddleNames: 'Middle One',
+      applicant1LastNames: 'Last One',
+      applicant2FirstNames: 'First Two',
+      applicant2MiddleNames: 'Middle Two',
+      applicant2LastNames: 'Last Two',
+    } as Partial<CaseWithId>;
+
+    const actual = getName(userCase, applicant as 'applicant1' | 'applicant2');
+
+    expect(actual).toBe(expected);
+  });
+
+  test.each([
+    ['applicant1', 'First One Last One'],
+    ['applicant2', 'First Two Last Two'],
+  ])('should return applicant name even with undefined middle name', (applicant, expected) => {
+    const userCase = {
+      applicant1FirstNames: 'First One',
+      applicant1LastNames: 'Last One',
+      applicant2FirstNames: 'First Two',
+      applicant2LastNames: 'Last Two',
+    } as Partial<CaseWithId>;
+
+    const actual = getName(userCase, applicant as 'applicant1' | 'applicant2');
 
     expect(actual).toBe(expected);
   });
