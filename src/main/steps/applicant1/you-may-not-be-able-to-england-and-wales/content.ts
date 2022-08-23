@@ -7,7 +7,6 @@ const en = ({ isDivorce }: CommonContent) => ({
     isDivorce ? 'grant you a divorce' : 'end your civil partnership'
   }.`,
   checkJurisdictionAgain: 'Check how you’re legally connected to England or Wales again',
-  exitService: 'Exit this service',
 });
 
 const cy: typeof en = ({ isDivorce }: CommonContent) => ({
@@ -18,7 +17,6 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
     isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
   }.`,
   checkJurisdictionAgain: 'Gwiriwch eich cysylltiadau cyfreithiol â Chymru neu Loegr eto',
-  exitService: 'Gadael y gwasanaeth hwn',
 });
 
 const languages = {
