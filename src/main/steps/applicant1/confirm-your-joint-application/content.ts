@@ -11,8 +11,7 @@ import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisd
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
-import { getName } from '../hub-page/content';
+import { accessibleDetailsSpan, formattedCaseId, getName } from '../../common/content.utils';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
@@ -134,7 +133,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
       .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line19: `${userCase.applicant1Email}`,
+  line19: userCase.applicant1Email,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -151,7 +150,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
       .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line20: `${userCase.applicant2Email}`,
+  line20: userCase.applicant2Email,
   confirm: `Confirm before ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
@@ -299,7 +298,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       .join('<br>')
   }`,
   subHeading8: 'Cyfeiriad e-bost ceisydd 1',
-  line19: `${userCase.applicant1Email}`,
+  line19: userCase.applicant1Email,
   subHeading9: 'Cyfeiriad post Ceisydd 2',
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -316,7 +315,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       .join('<br>')
   }`,
   subHeading10: 'Cyfeiriad e-bost ceisydd 2',
-  line20: `${userCase.applicant2Email}`,
+  line20: userCase.applicant2Email,
   confirm: `Cadarnhewch cyn ${isSubmit(isApplicant2, userCase) ? 'cyflwyno' : 'parhau'}`,
   confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
     isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'
