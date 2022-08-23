@@ -288,8 +288,10 @@ export interface Case {
   coCourt: ConditionalOrderCourt;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
+  coConditionalOrderGrantedDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
   coApplicant2SubmittedDate?: DateAsString;
+  coRefusalRejectionAdditionalInfo?: string;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
@@ -323,6 +325,8 @@ export interface Case {
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
+  applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
+  applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
