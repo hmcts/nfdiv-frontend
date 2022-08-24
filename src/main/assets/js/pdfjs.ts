@@ -3,6 +3,7 @@ import 'pdfjs-dist/build/pdf.worker';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.js';
 
+const loadingMsg = document.getElementById('loading-msg') as HTMLDivElement;
 const pdfContainer = document.getElementById('pdf-container') as HTMLDivElement;
 if (pdfContainer) {
   pdfjsLib.getDocument('/downloads/respondent-answers').promise.then(
@@ -10,11 +11,13 @@ if (pdfContainer) {
       console.log('PDF loaded');
       const pdf = new PdfDocument(pdfDocument);
       await pdf.load();
+      loadingMsg.setAttribute('hidden', 'hidden');
     },
     err => {
       console.log('failed to load pdf', err);
       const downloadLink = document.getElementById('download-link') as HTMLAnchorElement;
       downloadLink.removeAttribute('hidden');
+      loadingMsg.setAttribute('hidden', 'hidden');
     }
   );
 }

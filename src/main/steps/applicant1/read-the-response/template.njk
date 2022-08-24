@@ -5,6 +5,9 @@
   <p class="govuk-body">{{ line1 }}</p>
 
   {% if showResponseDocument %}
+    <div id="loading-msg">
+      <p class="govuk-body">Loding ...</p>
+    </div>
     <div id="pdf-container" hidden>
       <button id="prev-page" class="govuk-link" hidden>{{ downloadResponse.prev }}</button>
       <button id="next-page" class="govuk-link" hidden>{{ downloadResponse.next }}</button>
