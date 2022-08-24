@@ -11,7 +11,8 @@
       <canvas class="pdf-canvas"></canvas>
     </div>
     <p class="govuk-body">
-      <a class="govuk-link" href={{ downloadResponse.link }} download>{{ downloadResponse.text }}</a>
+      <a id="download-link" hidden
+         class="govuk-link" href={{ downloadResponse.link }} download>{{ downloadResponse.text }}</a>
     </p>
   {% else %}
     <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>

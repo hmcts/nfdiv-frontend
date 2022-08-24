@@ -9,7 +9,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => ({
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }. It’s legally known as an ‘acknowledgement of service’.`,
   downloadResponse: {
-    text: 'Download copy of the response',
+    text: `Download a copy of your ${partner}'s response`,
     prev: 'Previous',
     next: 'Next',
     link: '/downloads/respondent-answers',

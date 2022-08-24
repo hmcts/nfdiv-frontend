@@ -3,16 +3,23 @@ import 'pdfjs-dist/build/pdf.worker';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.js';
 
-pdfjsLib.getDocument('/downloads/respondent-answers').promise.then(
-  async pdfDocument => {
-    const pdf = new PdfDocument(pdfDocument);
-    await pdf.load();
-  },
-  err => console.log(err)
-);
+const pdfContainer = document.getElementById('pdf-container') as HTMLDivElement;
+if (pdfContainer) {
+  pdfjsLib.getDocument('/downloads/respondent-answers').promise.then(
+    async pdfDocument => {
+      console.log('PDF loaded');
+      const pdf = new PdfDocument(pdfDocument);
+      await pdf.load();
+    },
+    err => {
+      console.log('failed to load pdf', err);
+      const downloadLink = document.getElementById('download-link') as HTMLAnchorElement;
+      downloadLink.removeAttribute('hidden');
+    }
+  );
+}
 
 class PdfDocument {
-  container: HTMLDivElement | undefined;
   currentPage = 1;
   pageAwaitingRender: number | undefined;
   renderInProgress = false;
@@ -20,15 +27,13 @@ class PdfDocument {
   constructor(private pdf) {}
 
   async load() {
-    console.log('PDF loaded', this.pdf.numPages);
-    this.container = document.getElementById('pdf-container') as HTMLDivElement;
-    if (this.container) {
+    if (pdfContainer) {
       if (this.pdf.numPages > 1) {
-        const prevLink = this.container.querySelector('#prev-page') as HTMLButtonElement;
+        const prevLink = pdfContainer.querySelector('#prev-page') as HTMLButtonElement;
         prevLink.removeAttribute('hidden');
         prevLink.onclick = () => this.renderPrevPage();
 
-        const nextLink = this.container.querySelector('#next-page') as HTMLButtonElement;
+        const nextLink = pdfContainer.querySelector('#next-page') as HTMLButtonElement;
         nextLink.removeAttribute('hidden');
         nextLink.onclick = () => this.renderNextPage();
       }
@@ -63,7 +68,7 @@ class PdfDocument {
   async renderPage() {
     this.renderInProgress = true;
     const page = await this.pdf.getPage(this.currentPage);
-    const canvas = this.container?.getElementsByTagName('canvas').item(0) as HTMLCanvasElement;
+    const canvas = pdfContainer.getElementsByTagName('canvas').item(0) as HTMLCanvasElement;
 
     const viewport = page.getViewport({ scale: 1.5 });
     canvas.height = viewport.height;
@@ -81,7 +86,7 @@ class PdfDocument {
         this.currentPage = this.pageAwaitingRender;
         await this.renderPage();
       }
-      this.container?.removeAttribute('hidden');
+      pdfContainer.removeAttribute('hidden');
 
       console.log('Page rendered', this.currentPage);
     }
