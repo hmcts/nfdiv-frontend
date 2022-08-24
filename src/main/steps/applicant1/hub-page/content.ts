@@ -2,13 +2,12 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId } from '../../../app/case/case';
 import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
-import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
+import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
 import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
@@ -16,10 +15,6 @@ import { generateContent as jointGenerateContent } from './joint/content';
 import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
-
-export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
-  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']].join(' ');
-};
 
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
@@ -55,6 +50,15 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     }.`,
     downloadReference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
+  },
+  conditionalOrderGrantedDocumentLine: {
+    part1: 'You can ',
+    part2: "view and download your 'conditional order'.",
+    part3: `This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    downloadReference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
@@ -129,7 +133,6 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   },
 });
 
-// @TODO translations
 const cy: typeof en = ({
   isDivorce,
   userCase,
@@ -180,6 +183,15 @@ const cy: typeof en = ({
     }.`,
     downloadReference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
+  },
+  conditionalOrderGrantedDocumentLine: {
+    part1: 'You can ',
+    part2: "view and download your 'certificate of entitlement for a conditional order'.",
+    part3: `This is the document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }.`,
+    downloadReference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
   },
   conditionalOrderPronounced: {
     line1: `Rydych wedi cael 'gorchymyn amodol' gan y llys. Cafodd eich gorchymyn amodol ei gyhoeddi’n ffurfiol (darllen allan) gan farnwr yn ${

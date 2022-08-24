@@ -8,6 +8,7 @@ import { PaymentModel } from '../../../app/payment/PaymentModel';
 import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
+  JOINT_APPLICATION_SUBMITTED,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
@@ -47,7 +48,9 @@ export default class PaymentCallbackGetController {
 
     req.session.save(() => {
       if (payments.wasLastPaymentSuccessful) {
-        return res.redirect(APPLICATION_SUBMITTED);
+        return req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+          ? res.redirect(JOINT_APPLICATION_SUBMITTED)
+          : res.redirect(APPLICATION_SUBMITTED);
       }
 
       res.redirect(

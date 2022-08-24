@@ -1,13 +1,26 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
-import { ClarificationReason, Gender, LegalAdvisorDecision, ListValue } from '../../app/case/definition';
+import {
+  ApplicationType,
+  ClarificationReason,
+  Gender,
+  LegalAdvisorDecision,
+  ListValue,
+  State,
+} from '../../app/case/definition';
 
 import { CommonContent, en } from './common.content';
 
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
   return capitalize(serviceName);
+};
+
+export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']]
+    .filter(name => name !== undefined)
+    .join(' ');
 };
 
 export const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender | undefined => {
@@ -97,3 +110,13 @@ export const latestLegalAdvisorDecisionContent = (
   contentObject['condensedHeading'] = condensedHeading;
   return contentObject;
 };
+
+export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): boolean => {
+  return (
+    userCase.state === State.AwaitingApplicant2Response &&
+    userCase.accessCode !== undefined &&
+    userCase.applicationType === ApplicationType.JOINT_APPLICATION
+  );
+};
+
+export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;

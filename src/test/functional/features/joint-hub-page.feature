@@ -41,14 +41,21 @@ Feature: Joint hub page
     When I go to "/"
     Then the page should include "You have been granted a 'conditional order' by the court."
     And the page should include "You are not divorced yet."
-    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    And the page should include "You can view and download your 'conditional order'."
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
     And the page should include "You are not divorced yet."
-    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    And the page should include "You can view and download your 'conditional order'."
 
     Given I set the case state to "AwaitingPronouncement"
+    Then the page should include "You and your wife have applied for a 'conditional order'."
+    Then the page should include "The court will check your application and send it to a judge."
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page should include "You and your husband have applied for a 'conditional order'."
+    Then the page should include "The court will check your application and send it to a judge."
+
     And a case worker updates court case hearing
     When I click "Sign out"
     And I login with applicant "1"
@@ -60,12 +67,10 @@ Feature: Joint hub page
     And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
 
     Given I set the case state to "AwaitingClarification"
+    Then the page should include "Either you or your wife can provide the information requested by the court"
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Either you or your husband can provide the information requested by the court"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Either you or your wife can provide the information requested by the court"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
