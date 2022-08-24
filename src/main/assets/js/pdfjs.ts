@@ -31,11 +31,11 @@ class PdfDocument {
       if (this.pdf.numPages > 1) {
         const prevLink = pdfContainer.querySelector('#prev-page') as HTMLButtonElement;
         prevLink.removeAttribute('hidden');
-        prevLink.onclick = () => this.renderPrevPage();
+        prevLink.onclick = this.renderPrevPage;
 
         const nextLink = pdfContainer.querySelector('#next-page') as HTMLButtonElement;
         nextLink.removeAttribute('hidden');
-        nextLink.onclick = () => this.renderNextPage();
+        nextLink.onclick = this.renderNextPage;
       }
       await this.renderPage();
     }
