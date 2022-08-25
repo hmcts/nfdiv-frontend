@@ -2,11 +2,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../app/case/case';
-import { CITIZEN_APPLICANT2_UPDATE, DRAFT_AOS } from '../../../app/case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
 import { getNextStepUrl } from '../../index';
+import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 @autobind
 export default class ReviewTheApplicationPostController extends PostController<AnyObject> {
@@ -41,5 +42,20 @@ export default class ReviewTheApplicationPostController extends PostController<A
       }
       res.redirect(nextUrl);
     });
+  }
+
+  protected async saveAndSignOut(
+    req: AppRequest<AnyObject>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    formData = {};
+    try {
+      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+    } catch {
+      // ignore
+    }
+    res.redirect(SAVE_AND_SIGN_OUT);
   }
 }
