@@ -34,11 +34,16 @@ class PdfDocument {
       if (this.pdf.numPages > 1) {
         const prevLink = pdfContainer.querySelector('#prev-page') as HTMLButtonElement;
         prevLink.removeAttribute('hidden');
-        prevLink.onclick = this.renderPrevPage;
+        prevLink.onclick = () => this.renderPrevPage();
 
         const nextLink = pdfContainer.querySelector('#next-page') as HTMLButtonElement;
         nextLink.removeAttribute('hidden');
-        nextLink.onclick = this.renderNextPage;
+        nextLink.onclick = () => this.renderNextPage();
+
+        const numberOfPages = document.getElementById('pages-total') as HTMLSpanElement;
+        if (numberOfPages) {
+          numberOfPages.textContent = this.pdf.numPages;
+        }
       }
       await this.renderPage();
     }
@@ -88,6 +93,10 @@ class PdfDocument {
       if (this.pageAwaitingRender) {
         this.currentPage = this.pageAwaitingRender;
         await this.renderPage();
+      }
+      const currentPage = document.getElementById('current-page') as HTMLSpanElement;
+      if (this.pdf.numPages > 1 && currentPage) {
+        currentPage.textContent = `${this.currentPage}/`;
       }
       pdfContainer.removeAttribute('hidden');
 
