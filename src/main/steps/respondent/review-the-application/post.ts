@@ -23,7 +23,7 @@ export default class ReviewTheApplicationPostController extends PostController<A
 
     if (req.session.errors.length === 0) {
       try {
-        if (preSubmissionSession.confirmReadPetition === undefined) {
+        if (!preSubmissionSession.confirmReadPetition) {
           req.session.userCase = await this.save(req, formData, DRAFT_AOS);
         } else {
           req.session.userCase = await this.save(req, formData, CITIZEN_APPLICANT2_UPDATE);
