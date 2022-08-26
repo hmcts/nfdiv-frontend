@@ -106,6 +106,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.ConditionalOrderPronounced:
     case State.AwaitingClarification:
     case State.ClarificationSubmitted:
+    case State.AwaitingFinalOrder:
     case State.Holding: {
       return HUB_PAGE;
     }

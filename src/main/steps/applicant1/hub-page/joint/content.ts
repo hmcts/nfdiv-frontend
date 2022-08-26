@@ -81,6 +81,11 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
+  awaitingFinalOrder: {
+    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+  },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
@@ -163,6 +168,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       SupportedLanguages.Cy
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
+  },
+  awaitingFinalOrder: {
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
+      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
+    }.`,
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
