@@ -176,24 +176,23 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
+  const { userCase, isApplicant2 } = content;
   const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments !== Checkbox.Checked;
-  const hasApplicantConfirmedReceipt = content.isApplicant2
-    ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
-    : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
-  const hasApplicantAppliedForConditionalOrder = content.isApplicant2
-    ? content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
-  const partnerSubmissionOverdue = dayjs(content.userCase.dueDate).isBefore(dayjs());
-  const isApplicant2 = content.isApplicant2;
+  const hasApplicantConfirmedReceipt = isApplicant2
+    ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
+    : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const hasApplicantAppliedForConditionalOrder = isApplicant2
+    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
+    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+  const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
+    .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
+    .isBefore(dayjs());
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(content.userCase).at(
-    (content.userCase.state === State.OfflineDocumentReceived
-      ? content.userCase.previousState
-      : content.userCase.state) as State
+  const displayState = currentStateFn(userCase).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
