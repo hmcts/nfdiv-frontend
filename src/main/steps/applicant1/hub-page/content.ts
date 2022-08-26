@@ -23,8 +23,10 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
   whatHappensNext: 'What happens next',
-  applyForConditionalOrder: 'Apply for conditional order',
-  applyForFinalOrder: 'Apply for final order',
+  button: {
+    applyForConditionalOrder: 'Apply for conditional order',
+    applyForFinalOrder: 'Apply for final order',
+  },
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
       isDivorce ? 'get divorced' : 'end your civil partnership'
@@ -155,8 +157,10 @@ const cy: typeof en = ({
   subHeading2: 'Gwybodaeth ddefnyddiol',
   line1: 'Rhagor o wybodaeth am rannu arian ac eiddo',
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
-  applyForConditionalOrder: 'Gwneud cais am orchymyn amodol',
-  applyForFinalOrder: 'Gwneud cais am orchymyn terfynol',
+  button: {
+    applyForConditionalOrder: 'Gwneud cais am orchymyn amodol',
+    applyForFinalOrder: 'Gwneud cais am orchymyn terfynol',
+  },
   awaitingPronouncement: {
     line1: `Mae cais am 'orchymyn amodol' wedi dod i law. Mae'r llys yn cytuno bod gennych hawl i ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
