@@ -7,11 +7,13 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
+import { jointHubPageSubheading as hubPageSubheading } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
 const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
@@ -86,14 +88,11 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       isDivorce ? 'marriage' : 'civil partnership'
     }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
 });
 
 // @TODO translations
 const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
       isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
@@ -176,10 +175,6 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
     }.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
 });
 
 const languages = {

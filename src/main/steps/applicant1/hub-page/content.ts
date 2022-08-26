@@ -19,7 +19,7 @@ import { generateContent as soleGenerateContent } from './sole/content';
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Reference Number: ${referenceNumber}`,
-  subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update',
+  subHeading1: userCase.state === 'AwaitingClarification' ? 'What you need to do' : 'Latest update',
   subHeading2: 'Helpful information',
   line1: 'Find out about dividing money and property',
   whatHappensNext: 'What happens next',

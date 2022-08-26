@@ -108,7 +108,7 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You need to provide some information before your application can progress."
-    And the page should include "What you need to do now"
+    And the page should include "What you need to do"
 
     Given I click 'Provide information'
     Then the page URL should be '/provide-information-to-the-court'
