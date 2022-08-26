@@ -3,20 +3,38 @@
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
-  <p class="govuk-body">{{ line2 }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
-  <p class="govuk-body">{{ line3 }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-  <p class="govuk-body">{{ line4 }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
-  <p class="govuk-body">{{ line5 | safe }}</p>
-  {% if hasNotAgreedToJurisdiction %}
-    <p class="govuk-body">{{ countryLifeMainlyBased | safe }}</p>
+
+  {% if showResponseDocument %}
+    <div id="loading-msg">
+      <p class="govuk-body">Loding ...</p>
+    </div>
+    <div id="pdf-container" hidden>
+      <button id="prev-page" class="govuk-link" hidden>{{ downloadResponse.prev }}</button>
+      <button id="next-page" class="govuk-link" hidden>{{ downloadResponse.next }}</button>
+      <span id="current-page"></span><span id="pages-total"></span>
+      <canvas class="pdf-canvas"></canvas>
+    </div>
+    <p class="govuk-body">
+      <a id="download-link" hidden
+         class="govuk-link" href={{ downloadResponse.link }} download>{{ downloadResponse.text }}</a>
+    </p>
+  {% else %}
+    <h3 class="govuk-heading-m">{{ subHeading1 }}</h3>
+    <p class="govuk-body">{{ line2 }}</p>
+    <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
+    <p class="govuk-body">{{ line3 }}</p>
+    <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
+    <p class="govuk-body">{{ line4 }}</p>
+    <h3 class="govuk-heading-m">{{ subHeading4 }}</h3>
+    <p class="govuk-body">{{ line5 | safe }}</p>
+    {% if hasNotAgreedToJurisdiction %}
+      <p class="govuk-body">{{ countryLifeMainlyBased | safe }}</p>
+    {% endif %}
+    <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
+    <p class="govuk-body">{{ line6 | safe }}</p>
+    <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
+    <p class="govuk-body">{{ line7 }}</p>
+    <p class="govuk-body">{{ line8 }}</p>
   {% endif %}
-  <h3 class="govuk-heading-m">{{ subHeading5 }}</h3>
-  <p class="govuk-body">{{ line6 | safe }}</p>
-  <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
-  <p class="govuk-body">{{ line7 }}</p>
-  <p class="govuk-body">{{ line8 }}</p>
+
 {% endblock %}
