@@ -7,7 +7,13 @@ if (!process.env.TEST_PASSWORD) {
 
 import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
+import {
+  APPLICANT_2,
+  ENTER_YOUR_ACCESS_CODE,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  HOME_URL,
+  YOUR_DETAILS_URL,
+} from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
@@ -31,10 +37,13 @@ export const autoLogin = {
     I.fillField('password', password);
     I.click('Sign in');
     I.waitForText('Apply for a divorce', 60);
+    I.click('My husband');
+    I.click('Continue');
+    I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?', 60);
   },
   check: (I: CodeceptJS.I): void => {
-    I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
-    I.waitForText('Apply for a divorce');
+    I.amOnPage(`${HAS_RELATIONSHIP_BROKEN_URL}?lng=en`);
+    I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?');
   },
   restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
