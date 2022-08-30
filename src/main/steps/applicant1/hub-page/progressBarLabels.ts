@@ -2,7 +2,7 @@ import { StateSequence } from '../../state-sequence';
 
 const en = (isDivorce: boolean) => ({
   submitted: 'Submitted',
-  weeksToResponse: '2 weeks',
+  weeksToResponse: '4 weeks',
   response: 'Response',
   weeksToConditionalOrder: '20 weeks',
   conditionalOrder: 'Conditional order',
