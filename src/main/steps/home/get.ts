@@ -32,7 +32,7 @@ import {
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
-    if (req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
+    if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
       throw new Error('Invalid case type');
     }
 
@@ -57,6 +57,10 @@ const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
   applicationType === ApplicationType.SOLE_APPLICATION ? respondentFirstQuestionForm : applicant2FirstQuestionForm;
 
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
+  if (!userCase) {
+    return YOUR_DETAILS_URL;
+  }
+
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
       return userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO ? APPLICATION_ENDED : CHECK_ANSWERS_URL;
