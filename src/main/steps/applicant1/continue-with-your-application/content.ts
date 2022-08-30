@@ -35,8 +35,32 @@ const en = ({ isDivorce, partner, isJointApplication, required }: CommonContent)
   },
 });
 
-// @TODO translations
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner, isJointApplication, required }: CommonContent) => ({
+  title: `Ydych chi eisiau bwrw ymlaen â’ch ${isDivorce ? 'ysgariad?' : 'cais i ddod â’ch partneriaeth sifil i ben'}
+  ${isJointApplication ? ' ar y cyd?' : ''}`,
+  line1: `Y cam nesaf yn y${
+    isDivorce ? ' ysgaru' : ''
+  } broses yw gwneud cais am ‘orchymyn amodol’. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+    isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+  }.`,
+  jointLine1: `Mae hwn yn gais ar y cyd, felly bydd yn rhaid i’ch ${partner} wneud cais hefyd. Anfonwyd e-bost ato/ati i'w (h)atgoffa.`,
+  jointLine2: `Mae eich ${partner} eisoes wedi cadarnhau’r cais hwn ar y cyd.`,
+  readMore: 'Darllenwch fwy am y camau nesaf',
+  line2: 'Mae’n rhaid cwblhau 2 gam arall nes y byddwch wedi ysgaru’n gyfreithiol:',
+  conditionalOrder: 'Gwneud cais am orchymyn amodol',
+  conditionalOrderInfo: `Mae hyn yn dangos bod y llys yn cytuno bod gennych hawl i ${
+    isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+  }.`,
+  finalOrder: 'Gwneud cais am orchymyn terfynol',
+  finalOrderInfo: `Mae hyn yn dod â'r ${
+    isDivorce ? 'briodas' : 'partneriaeth sifil'
+  } i ben yn gyfreithiol. Ni allwch wneud cais am orchymyn terfynol tan 6 wythnos ar ôl y gorchymyn amodol.`,
+  yes: `Rwyf eisiau bwrw ymlaen â’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’r bartneriaeth sifil i ben'}`,
+  no: `Nid wyf eisiau bwrw ymlaen â’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’r bartneriaeth sifil i ben'}`,
+  errors: {
+    applicant1ApplyForConditionalOrder: { required },
+  },
+});
 
 export const form: FormContent = {
   fields: {

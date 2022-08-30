@@ -14,7 +14,7 @@ import {
   enHabitualResident,
 } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields } from '../../common/content.utils';
+import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields, getName } from '../../common/content.utils';
 import { CHECK_CONTACT_DETAILS } from '../../urls';
 
 const en = ({ isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
@@ -36,9 +36,9 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   caseReferenceHeading: 'Case reference number',
   caseReferenceValue: formattedCaseId(userCase.id),
   applicant1Heading: 'Applicant 1',
-  applicant1Names: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
+  applicant1Names: getName(userCase, 'applicant1'),
   applicant2Heading: 'Applicant 2',
-  applicant2Names: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+  applicant2Names: getName(userCase, 'applicant2'),
   heading2: `About the ${isDivorce ? 'marriage' : 'civil partnership'}`,
   line4: `These details are copied directly from the marriage certificate, or the translation of the certificate if it’s not in English.
   The names on the certificate are the names the applicants used before the ${
@@ -115,7 +115,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   heading15: 'Applicant 1’s email address',
   applicant1EmailAddress: userCase.applicant1Email,
   heading16: "Applicant 2's email address",
-  applicant2EmailAddress: userCase.applicant2EmailAddress,
+  applicant2EmailAddress: userCase.applicant2Email,
   heading17: 'Statement of truth',
   factsTrue: 'I believe that the facts stated in this application are true.',
   confirmInformationStillCorrect: 'Is the information in this application still correct?',
