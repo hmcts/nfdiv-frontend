@@ -17,6 +17,12 @@ export const getServiceName = (translations: typeof en, isDivorce: boolean): str
   return capitalize(serviceName);
 };
 
+export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']]
+    .filter(name => name !== undefined)
+    .join(' ');
+};
+
 export const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender | undefined => {
   if (isApplicant2 && userCase?.sameSex === Checkbox.Unchecked) {
     if (userCase?.gender === Gender.MALE) {
