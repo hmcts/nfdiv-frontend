@@ -143,11 +143,14 @@ export class OidcMiddleware {
           isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
         );
 
-        const url = req.session.user.roles.includes('caseworker')
-          ? 'https://manage-case.platform.hmcts.net/'
-          : isApp2Callback
-          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
-          : HOME_URL;
+        let url;
+        if (req.session.user.roles.includes('caseworker')) {
+          url = config.get('services.exui.url');
+        } else if (isApp2Callback) {
+          url = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+        } else {
+          url = HOME_URL;
+        }
 
         return req.session.save(() => res.redirect(url));
       } else {

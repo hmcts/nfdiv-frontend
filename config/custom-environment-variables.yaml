@@ -21,6 +21,8 @@ services:
     tokenKey: PCQ_TOKEN
   decreeNisi:
     url: DECREE_NISI_URL
+  exui:
+    url: MANAGE_CASE_URL
 port: PORT
 session:
   redis:

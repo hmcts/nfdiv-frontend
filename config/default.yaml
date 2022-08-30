@@ -60,6 +60,8 @@ services:
     tokenKey: 'SERVICE_TOKEN_KEY'
   decreeNisi:
     url: 'https://decree-nisi-aks.aat.platform.hmcts.net'
+  exui:
+    url: 'https://manage-case.aat.platform.hmcts.net'
 health:
   timeout: 5000
   deadline: 15000
