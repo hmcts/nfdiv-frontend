@@ -72,7 +72,7 @@ Feature: Sole conditional order
     When I click "Continue"
     Then the page URL should be "/hub-page"
     And the page should include "You have provided the information requested by the court."
-    And the page should include "This was the court’s feedback, explaining the information which was needed"
+    And the page should include "This was the court’s feedback, explaining what was needed"
 
     Given I click "Sign out"
     And I login with applicant "2"

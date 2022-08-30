@@ -9,7 +9,7 @@ describe('getProgressBarContent', () => {
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toEqual({
       submitted: 'Submitted',
-      weeksToResponse: '2 weeks',
+      weeksToResponse: '4 weeks',
       response: 'Response',
       weeksToConditionalOrder: '20 weeks',
       conditionalOrder: 'Conditional order',
@@ -25,7 +25,7 @@ describe('getProgressBarContent', () => {
     const labels = getProgressBarContent(false, displayState, true);
     expect(labels).toEqual({
       submitted: 'Submitted',
-      weeksToResponse: '2 weeks',
+      weeksToResponse: '4 weeks',
       response: 'Response',
       weeksToConditionalOrder: '20 weeks',
       conditionalOrder: 'Conditional order',
