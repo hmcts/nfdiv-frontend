@@ -6,7 +6,15 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import {
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  DivorceOrDissolution,
+  ListValue,
+  Payment,
+  State,
+  UserRole,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -38,7 +46,7 @@ export class CaseApi {
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getLatestUserCase(userCases);
+    return this.getLatestPrioritisedUserCase(userCases);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -74,6 +82,26 @@ export class CaseApi {
       return courtId === 'serviceCentre' && !states.includes(userCase.state);
     }
     return false;
+  }
+
+  private getLatestPrioritisedUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+    const isDraftState = [
+      State.Draft,
+      State.AwaitingApplicant1Response,
+      State.AwaitingApplicant2Response,
+      State.Applicant2Approved,
+    ];
+    if (userCases && userCases.length > 1) {
+      const submittedUserCase = userCases.slice(1).find(userCase => !isDraftState.includes(userCase.state));
+      if (isDraftState.includes(userCases[0].state) && submittedUserCase) {
+        return {
+          ...fromApiFormat(submittedUserCase.case_data),
+          id: submittedUserCase.id.toString(),
+          state: submittedUserCase.state,
+        };
+      }
+    }
+    return this.getLatestUserCase(userCases);
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
