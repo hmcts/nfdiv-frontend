@@ -46,7 +46,7 @@ export class CaseApi {
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getLatestPrioritisedUserCase(userCases);
+    return this.getPriorityUserCase(userCases);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -84,16 +84,16 @@ export class CaseApi {
     return false;
   }
 
-  private getLatestPrioritisedUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    const isDraftState = [
+  private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+    const preSubmissionStates = [
       State.Draft,
       State.AwaitingApplicant1Response,
       State.AwaitingApplicant2Response,
       State.Applicant2Approved,
     ];
     if (userCases && userCases.length > 1) {
-      const submittedUserCase = userCases.slice(1).find(userCase => !isDraftState.includes(userCase.state));
-      if (isDraftState.includes(userCases[0].state) && submittedUserCase) {
+      const submittedUserCase = userCases.find(userCase => !preSubmissionStates.includes(userCase.state));
+      if (submittedUserCase) {
         return {
           ...fromApiFormat(submittedUserCase.case_data),
           id: submittedUserCase.id.toString(),
