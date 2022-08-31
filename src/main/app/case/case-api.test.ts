@@ -172,7 +172,7 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
-  test('Should prioritise non draft case', async () => {
+  test('Should prioritise Submitted case', async () => {
     const mockDraftCase = {
       id: '1',
       state: State.Draft,
@@ -190,6 +190,28 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({
       id: '1',
       state: State.Submitted,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should prioritise AwaitingApplicant2Response case over Draft', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockSubmittedCase = {
+      id: '1',
+      state: State.AwaitingApplicant2Response,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.AwaitingApplicant2Response,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
   });

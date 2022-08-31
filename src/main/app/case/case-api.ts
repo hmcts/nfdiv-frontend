@@ -85,19 +85,22 @@ export class CaseApi {
   }
 
   private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    const preSubmissionStates = [
-      State.Draft,
+    const preSubmissionJointStates = [
       State.AwaitingApplicant1Response,
       State.AwaitingApplicant2Response,
       State.Applicant2Approved,
     ];
     if (userCases && userCases.length > 1) {
-      const submittedUserCase = userCases.find(userCase => !preSubmissionStates.includes(userCase.state));
-      if (submittedUserCase) {
+      const submittedUserCase = userCases.find(
+        userCase => ![State.Draft, ...preSubmissionJointStates].includes(userCase.state)
+      );
+      const preSubmittedUserCase = userCases.find(userCase => preSubmissionJointStates.includes(userCase.state));
+      const priorityUserCase = submittedUserCase || preSubmittedUserCase;
+      if (priorityUserCase) {
         return {
-          ...fromApiFormat(submittedUserCase.case_data),
-          id: submittedUserCase.id.toString(),
-          state: submittedUserCase.state,
+          ...fromApiFormat(priorityUserCase.case_data),
+          id: priorityUserCase.id.toString(),
+          state: priorityUserCase.state,
         };
       }
     }
