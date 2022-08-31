@@ -45,6 +45,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
+  FinalOrderGrantedDocumentDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: "Download a copy of your 'final order'",
+  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-order-answers',
     link: '/downloads/conditional-order-answers',
@@ -106,6 +111,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
+  FinalOrderGrantedDocumentDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: "Download a copy of your 'final order'",
+  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-order-answers',
     link: '/downloads/conditional-order-answers',
@@ -147,6 +157,9 @@ export const generateContent: TranslationFn = content => {
   );
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
   const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
+  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+  );
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
@@ -157,6 +170,7 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
+    hasFinalOrderGranted,
     ...languages[content.language](content),
   };
 };

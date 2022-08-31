@@ -131,6 +131,14 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     courtsCommentsLongHeading: 'The court has made the following comments on your application:',
     courtsCommentsShortHeading: 'The court’s comments:',
   },
+  finalOrderComplete: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    part1: "Download a copy of your 'final order'",
+    part2:
+      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+  },
 });
 
 const cy: typeof en = ({
@@ -264,6 +272,14 @@ const cy: typeof en = ({
     }. Darparwch dystiolaeth bod unrhyw achos blaenorol wedi’i wrthod neu ei dynnu’n ôl.`,
     courtsCommentsLongHeading: "Mae'r llys wedi gwneud y sylwadau canlynol ar eich cais:",
     courtsCommentsShortHeading: 'Sylwadau’r llys:',
+  },
+  finalOrderComplete: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    part1: "Download a copy of your 'final order'",
+    part2:
+      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
   },
 });
 

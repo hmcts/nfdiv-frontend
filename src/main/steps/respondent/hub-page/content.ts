@@ -166,6 +166,14 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
+  finalOrderComplete: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    part1: "Download a copy of your 'final order'",
+    part2:
+      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+  },
 });
 
 // @TODO translations
@@ -330,6 +338,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+  },
+  finalOrderComplete: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    part1: "Download a copy of your 'final order'",
+    part2:
+      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
   },
 });
 

@@ -48,6 +48,12 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe('/final-order-complete.njk');
+  });
+
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingPronouncement', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);

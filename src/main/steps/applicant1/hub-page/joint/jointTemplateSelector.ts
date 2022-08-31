@@ -21,6 +21,8 @@ export const getJointHubTemplate = (
       return '/clarification-submitted.njk';
     case State.ConditionalOrderPending:
       return '/conditional-order-pending.njk';
+    case State.FinalOrderComplete:
+      return '/final-order-complete.njk';
     case State.AwaitingLegalAdvisorReferral:
       return '/awaiting-legal-advisor-referral.njk';
     default: {

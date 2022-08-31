@@ -21,6 +21,8 @@ export const getRespondentHubTemplate = (
     case State.ClarificationSubmitted:
       return '/clarification-submitted.njk';
     case State.AwaitingLegalAdvisorReferral:
+    case State.FinalOrderComplete:
+      return '/final-order-complete.njk';
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
     case State.AwaitingGeneralConsideration:
