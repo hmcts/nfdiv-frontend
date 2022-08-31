@@ -7,13 +7,7 @@ if (!process.env.TEST_PASSWORD) {
 
 import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import {
-  APPLICANT_2,
-  ENTER_YOUR_ACCESS_CODE,
-  HAS_RELATIONSHIP_BROKEN_URL,
-  HOME_URL,
-  YOUR_DETAILS_URL,
-} from '../main/steps/urls';
+import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HAS_RELATIONSHIP_BROKEN_URL, HOME_URL } from '../main/steps/urls';
 
 import { IdamUserManager } from './steps/IdamUserManager';
 
