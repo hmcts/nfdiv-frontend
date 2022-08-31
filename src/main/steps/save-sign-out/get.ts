@@ -19,7 +19,7 @@ export class SaveSignOutGetController extends GetController {
       if (err) {
         throw err;
       }
-
+      res.clearCookie('nfdiv-session');
       super.get(req, res);
     });
   }
