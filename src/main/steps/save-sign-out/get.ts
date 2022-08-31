@@ -3,7 +3,8 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { generateContent } from '../../steps/save-sign-out/content';
+
+import { generateContent } from './content';
 
 @autobind
 export class SaveSignOutGetController extends GetController {
