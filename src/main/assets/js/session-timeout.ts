@@ -3,9 +3,6 @@ import { throttle } from 'lodash';
 import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-const sessionTimeoutInterval = [WEBCHAT_URL, TIMED_OUT_URL].includes(window.location.pathname as PageLink)
-  ? 12 * 60 * 60 * 1000 // 12 hours
-  : 20 * 60 * 1000; // or 20 minutes
 let timeout;
 
 const saveBeforeSessionTimeout = async () => {
@@ -30,7 +27,7 @@ const setSaveTimeout = () => {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
     saveBeforeSessionTimeout();
-  }, sessionTimeoutInterval);
+  }, getSessionTimeoutInterval());
 };
 
 const pingUserActive = throttle(
@@ -42,6 +39,17 @@ const pingUserActive = throttle(
   eventTimer,
   { trailing: false }
 );
+
+const getSessionTimeoutInterval = (): number => {
+  const timeoutParam = new URL(location.href).searchParams.get('timeout');
+  if (timeoutParam && !isNaN(parseInt(timeoutParam))) {
+    return parseInt(timeoutParam);
+  }
+
+  return [WEBCHAT_URL, TIMED_OUT_URL].includes(window.location.pathname as PageLink)
+    ? 12 * 60 * 60 * 1000 // 12 hours
+    : 20 * 60 * 1000; // or 20 minutes
+};
 
 setTimeout(() => {
   ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
