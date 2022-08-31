@@ -10,6 +10,7 @@ const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
+export const NFDIV_SESSION_COOKIE = 'nfdiv-session';
 
 export class SessionStorage {
   public enableFor(app: Application): void {
@@ -18,7 +19,7 @@ export class SessionStorage {
 
     app.use(
       session({
-        name: 'nfdiv-session',
+        name: NFDIV_SESSION_COOKIE,
         resave: false,
         saveUninitialized: false,
         secret: config.get('session.secret'),

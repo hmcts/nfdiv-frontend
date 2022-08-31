@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
+import { NFDIV_SESSION_COOKIE } from '../../modules/session';
 import { generateContent } from '../../steps/save-sign-out/content';
 
 @autobind
@@ -19,7 +20,7 @@ export class SaveSignOutGetController extends GetController {
       if (err) {
         throw err;
       }
-      res.clearCookie('nfdiv-session');
+      res.clearCookie(NFDIV_SESSION_COOKIE);
       super.get(req, res);
     });
   }
