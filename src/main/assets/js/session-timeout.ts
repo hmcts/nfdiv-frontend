@@ -28,7 +28,6 @@ const setSaveTimeout = () => {
   timeout = setTimeout(() => {
     saveBeforeSessionTimeout();
   }, getSessionTimeoutInterval());
-  console.log(getSessionTimeoutInterval());
 };
 
 const pingUserActive = throttle(
