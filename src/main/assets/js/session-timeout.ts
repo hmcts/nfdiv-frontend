@@ -28,6 +28,7 @@ const setSaveTimeout = () => {
   timeout = setTimeout(() => {
     saveBeforeSessionTimeout();
   }, getSessionTimeoutInterval());
+  console.log(getSessionTimeoutInterval());
 };
 
 const pingUserActive = throttle(
@@ -41,14 +42,15 @@ const pingUserActive = throttle(
 );
 
 const getSessionTimeoutInterval = (): number => {
+  const twelveHours: number = 12 * 60 * 60 * 1000;
+  const twentyMinutes: number = 20 * 60 * 1000;
+
   const timeoutParam = new URL(location.href).searchParams.get('timeout');
-  if (timeoutParam && !isNaN(parseInt(timeoutParam))) {
-    return parseInt(timeoutParam);
+  if (process.env.NODE_ENV === 'development' && timeoutParam && !isNaN(parseInt(timeoutParam))) {
+    return parseInt(timeoutParam) > twentyMinutes ? twentyMinutes : Math.abs(parseInt(timeoutParam));
   }
 
-  return [WEBCHAT_URL, TIMED_OUT_URL].includes(window.location.pathname as PageLink)
-    ? 12 * 60 * 60 * 1000 // 12 hours
-    : 20 * 60 * 1000; // or 20 minutes
+  return [WEBCHAT_URL, TIMED_OUT_URL].includes(window.location.pathname as PageLink) ? twelveHours : twentyMinutes;
 };
 
 setTimeout(() => {
