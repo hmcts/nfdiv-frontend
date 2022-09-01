@@ -91,7 +91,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       userCase.dateFinalOrderEligibleFrom
     )}. This will end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
     line3: `If they do not apply for a final order by ${getFormattedDate(
-      userCase.dateFinalOrderEligibleFrom
+      dayjs(userCase.dateFinalOrderEligibleFrom).add(3, 'months')
     )} then you can apply for a final order.`,
     line4: {
       part1: 'You can ',
