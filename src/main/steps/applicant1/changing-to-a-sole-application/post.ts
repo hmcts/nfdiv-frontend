@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseWithId } from '../../../app/case/case';
 import { SWITCH_TO_SOLE_CO } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -19,12 +18,9 @@ export default class ChangingToASoleApplicationPostController extends PostContro
     }
 
     if (req.session.isApplicant2 && req.session.errors.length === 0) {
-      req.session.userCase = undefined as unknown as CaseWithId;
-      req.session.existingCaseId = undefined as unknown as string;
       req.session.isApplicant2 = false;
-    } else {
-      req.session.existingCaseId = req.session.userCase.id;
     }
+    req.session.existingCaseId = req.session.userCase.id;
 
     const nextUrl = req.session.errors.length > 0 ? req.url : HUB_PAGE;
 
