@@ -36,7 +36,7 @@ export class HomeGetController {
       res.redirect(YOUR_DETAILS_URL);
     }
 
-    if (req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
+    if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
       throw new Error('Invalid case type');
     }
 
