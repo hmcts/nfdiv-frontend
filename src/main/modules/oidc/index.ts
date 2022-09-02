@@ -74,13 +74,11 @@ export class OidcMiddleware {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
 
     try {
-      const newInviteUserCase = await req.locals.api.getNewInviteCase(
+      const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
         req.session.user.email,
         res.locals.serviceType,
         req.locals.logger
       );
-
-      const existingUserCase = await req.locals.api.getExistingUserCase(res.locals.serviceType);
 
       let redirectUrl;
       if (newInviteUserCase && existingUserCase) {
