@@ -40,12 +40,12 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
-  ConditionalOrderGrantedDocumentDownload: {
+  conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
-  FinalOrderGrantedDocumentDownload: {
+  finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
     text: "Download a copy of your 'final order'",
@@ -106,12 +106,12 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
-  ConditionalOrderGrantedDocumentDownload: {
+  conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
-  FinalOrderGrantedDocumentDownload: {
+  finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
     text: "Download a copy of your 'final order'",
