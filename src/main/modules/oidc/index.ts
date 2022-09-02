@@ -110,7 +110,7 @@ export class OidcMiddleware {
         }
         req.session.userCase = req.session.userCase || existingUserCase;
 
-        req.session.existingCaseId = req.session.userCase.id;
+        req.session.existingCaseId = req.session.userCase?.id;
 
         req.session.isApplicant2 =
           req.session.isApplicant2 ??
