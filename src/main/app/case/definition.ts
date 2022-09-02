@@ -673,6 +673,8 @@ export interface CaseData {
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
@@ -943,6 +945,8 @@ export interface FinalOrder {
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
