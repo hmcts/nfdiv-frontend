@@ -93,17 +93,21 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
   },
   servedByBailiff: {
-    line1: `The court has seen evidence that your ${
+    line1: `The bailiff has successfully served (delivered) your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } has been successfully ‘served’ (delivered) to your ${partner}. You can `,
-    line2: "view and download your 'certificate of service'.",
-    downloadReference: '/downloads/certificate-of-service',
+    } to your ${partner}. They served them the documents on ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate
+    )}.`,
   },
   awaitingConditionalOrder: `You can now apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
     isDivorce ? 'get a divorce' : 'end your civil partnership'
   }.`,
   awaitingConditionalOrderAndServedByBailiff: {
-    line1: `The court has seen evidence that the court documents have been successfully ‘served’ (delivered) to your ${partner}. You can`,
+    line1: `The bailiff has successfully served (delivered) your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } to your ${partner}. They served them the documents on ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate
+    )}.`,
     line2: `You will not see a response from your ${partner} when you apply for the conditional order.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `You will not see a response from your ${partner} in the conditional order application.

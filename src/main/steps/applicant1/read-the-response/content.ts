@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -8,6 +8,12 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => ({
   line1: `You need to read your ${partner}'s response before you continue. These are the questions they were asked, including whether they want to dispute your application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
   }. It’s legally known as an ‘acknowledgement of service’.`,
+  downloadResponse: {
+    text: `Download a copy of your ${partner}'s response`,
+    prev: 'Previous',
+    next: 'Next',
+    link: '/downloads/respondent-answers',
+  },
   subHeading1: 'Respondent',
   line2: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
   subHeading2: 'Applicant',
@@ -53,9 +59,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const hasNotAgreedToJurisdiction = content.userCase.jurisdictionAgree === YesOrNo.NO;
+  const showResponseDocument =
+    [State.AwaitingConditionalOrder, State.ConditionalOrderDrafted].includes(content.userCase.state as State) &&
+    content.userCase.applicant2Offline === YesOrNo.YES;
   return {
     ...languages[content.language](content),
     form,
     hasNotAgreedToJurisdiction,
+    showResponseDocument,
   };
 };
