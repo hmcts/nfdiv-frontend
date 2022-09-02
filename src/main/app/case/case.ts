@@ -110,6 +110,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ReasonInformationNotCorrect: 'coApplicant2ReasonInformationNotCorrect',
   coCourt: 'coCourt',
   coCertificateOfEntitlementDocument: 'coCertificateOfEntitlementDocument',
+  coConditionalOrderGrantedDocument: 'coConditionalOrderGrantedDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
   applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
@@ -127,6 +128,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CannotUpload: 'applicant1CannotUpload',
   applicant2CannotUpload: 'applicant2CannotUpload',
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
+  applicant1UsedWelshTranslationOnSubmission: 'applicant1UsedWelshTranslationOnSubmission',
+  applicant2UsedWelshTranslationOnSubmission: 'applicant2UsedWelshTranslationOnSubmission',
+  dueDate: 'dueDate',
+  dateSubmitted: 'dateSubmitted',
+  dateAosSubmitted: 'dateAosSubmitted',
+  dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
+  coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
+  coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
+  dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -277,6 +287,7 @@ export interface Case {
   coCourt: ConditionalOrderCourt;
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
+  coConditionalOrderGrantedDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
   coApplicant2SubmittedDate?: DateAsString;
   coDateAndTimeOfHearing: DateAsString;
@@ -312,6 +323,9 @@ export interface Case {
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
+  applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
+  applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
+  applicant2Offline: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

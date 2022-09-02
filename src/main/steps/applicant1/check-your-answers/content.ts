@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import {
   Applicant2Represented,
@@ -18,6 +18,7 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -265,7 +266,7 @@ const en = ({
             : `My ${isDivorce ? 'marriage' : 'civil partnership'} has not broken down irretrievably`
           : ''
       }`,
-      line4: `${userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : ''}`,
+      line4: `${userCase.relationshipDate ? `${getFormattedCaseDate(userCase.relationshipDate)}` : ''}`,
       line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES
@@ -508,17 +509,17 @@ const en = ({
       line5: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
     aboutYouForApplicant2: {
-      line1: urls.YOUR_NAME,
-      line2: urls.YOUR_NAME,
-      line3: urls.YOUR_NAME,
+      line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
+      line2: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
+      line3: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
       line6: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
     },
     contactYou: {
-      line1: urls.YOUR_NAME,
-      line2: urls.YOUR_NAME,
-      line3: urls.YOUR_NAME,
+      line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
+      line2: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
+      line3: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line4: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
       line5: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
       line6: urls.ENGLISH_OR_WELSH,
@@ -735,7 +736,9 @@ const cy: typeof en = ({
             : `Nac ydy, nid yw fy  ${isDivorce ? 'mhriodas' : 'mherthynas'} wedi chwalu'n gyfan gwbl`
           : ''
       }`,
-      line4: userCase.relationshipDate ? `${getFormattedDate(userCase.relationshipDate)}` : '',
+      line4: userCase.relationshipDate
+        ? `${getFormattedCaseDate(userCase.relationshipDate, SupportedLanguages.Cy)}`
+        : '',
       line5: `${
         userCase.hasCertificate
           ? userCase.hasCertificate === YesOrNo.YES

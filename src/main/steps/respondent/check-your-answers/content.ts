@@ -149,7 +149,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
   sectionTitles: {
-    readApplication: `Cadarnhewch eich bod wedi cael y ${
+    readApplication: `Cadarnhewch eich bod wedi darllen y ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }`,
     aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,

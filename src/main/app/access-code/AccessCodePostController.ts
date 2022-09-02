@@ -66,9 +66,13 @@ export class AccessCodePostController {
 
     if (req.session.errors.length === 0) {
       if (req.session.existingCaseId) {
+        req.locals.logger.error(
+          `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
+        );
         await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
       }
       req.session.existingCaseId = req.session.userCase.id;
+      req.session.applicantChoosesNewInviteCase = undefined;
     }
 
     const nextStep =

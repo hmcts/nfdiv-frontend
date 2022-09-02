@@ -2,6 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
+import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CASE_TYPE, DivorceOrDissolution } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
@@ -38,7 +39,7 @@ export class PaymentClient {
         code: fee.value.FeeCode,
         version: fee.value.FeeVersion,
       })),
-      language: this.session.lang === 'en' ? '' : this.session.lang?.toUpperCase(),
+      language: this.session.lang === SupportedLanguages.En ? '' : this.session.lang?.toUpperCase(),
     };
 
     logger.info(body);

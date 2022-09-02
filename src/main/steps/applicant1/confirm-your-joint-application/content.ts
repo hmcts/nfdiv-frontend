@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -9,9 +9,9 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
-import { getName } from '../hub-page/content';
+import { accessibleDetailsSpan, formattedCaseId, getName } from '../../common/content.utils';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||
@@ -42,7 +42,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   line11: `Where the ${isDivorce ? 'marriage' : 'civil partnership'} took place`,
   line12: userCase.ceremonyPlace,
   line13: `Date of ${isDivorce ? 'marriage' : 'civil partnership'}`,
-  line14: getFormattedDate(userCase.relationshipDate),
+  line14: getFormattedCaseDate(userCase.relationshipDate),
   subHeading3: 'Why the court can deal with the case (jurisdiction)',
   line15: 'The courts of England and Wales have the legal power (jurisdiction) to deal with this case because:',
   connectionBulletPoints:
@@ -133,7 +133,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
       .join('<br>')
   }`,
   subHeading8: "Applicant 1's email address",
-  line19: `${userCase.applicant1Email}`,
+  line19: userCase.applicant1Email,
   subHeading9: "Applicant 2's postal address",
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -150,7 +150,7 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
       .join('<br>')
   }`,
   subHeading10: "Applicant 2's email address",
-  line20: `${userCase.applicant2Email}`,
+  line20: userCase.applicant2Email,
   confirm: `Confirm before ${isSubmit(isApplicant2, userCase) ? 'submitting' : 'continuing'}`,
   confirmPrayer: `I confirm that I’m applying to the court to ${
     isDivorce ? 'dissolve my marriage (get a divorce)' : 'end my civil partnership'
@@ -206,7 +206,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
   line11: `Lle digwyddodd y ${isDivorce ? 'briodas ' : 'bartneriaeth sifil'}`,
   line12: userCase.ceremonyPlace,
   line13: `Dyddiad y ${isDivorce ? 'briodas ' : 'bartneriaeth sifil'}`,
-  line14: getFormattedDate(userCase.relationshipDate),
+  line14: getFormattedCaseDate(userCase.relationshipDate, SupportedLanguages.Cy),
   subHeading3: 'Pam gall y llys ddelio â’r achos (awdurdodaeth)',
   line15: 'Mae gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) i wrando’r achos hwn oherwydd:',
   connectionBulletPoints:
@@ -298,7 +298,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       .join('<br>')
   }`,
   subHeading8: 'Cyfeiriad e-bost ceisydd 1',
-  line19: `${userCase.applicant1Email}`,
+  line19: userCase.applicant1Email,
   subHeading9: 'Cyfeiriad post Ceisydd 2',
   respondentAddressCountry: `${
     userCase.applicant2SolicitorAddress ||
@@ -315,7 +315,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
       .join('<br>')
   }`,
   subHeading10: 'Cyfeiriad e-bost ceisydd 2',
-  line20: `${userCase.applicant2Email}`,
+  line20: userCase.applicant2Email,
   confirm: `Cadarnhewch cyn ${isSubmit(isApplicant2, userCase) ? 'cyflwyno' : 'parhau'}`,
   confirmPrayer: `Rwy’n cadarnhau fy mod yn gwneud cais i’r llys i ${
     isDivorce ? 'ddiddymu fy mhriodas (cael ysgariad)' : 'ddod â fy mhartneriaeth sifil i ben'

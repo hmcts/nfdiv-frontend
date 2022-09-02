@@ -88,11 +88,13 @@ export class OidcMiddleware {
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
+          logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
           redirectUrl = EXISTING_APPLICATION;
         }
       } else if (newInviteUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
+          logger.info(`User (${req.session.user.id}) is being redirected to linking page`);
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {
@@ -101,6 +103,9 @@ export class OidcMiddleware {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+          }
+          if (isLinkingUrl(req.path)) {
+            return next();
           }
         }
         req.session.userCase =
@@ -140,6 +145,8 @@ export class OidcMiddleware {
 
         const url = req.session.user.roles.includes('caseworker')
           ? 'https://manage-case.platform.hmcts.net/'
+          : isApp2Callback
+          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
           : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
