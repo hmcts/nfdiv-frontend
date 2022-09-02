@@ -1,9 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 
@@ -28,9 +30,9 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
      A conditional order is a document that says the court does not see any reason why you cannot ${
        isDivorce ? 'get a divorce' : 'end your civil partnership'
      }.`,
-    line3: `You can apply for a conditional order on ${dayjs(userCase.issueDate)
-      .add(config.get('dates.issueDateOffsetDays'), 'day')
-      .format('D MMMM YYYY')}. This is because you have to wait until 20 weeks from when the ${
+    line3: `You can apply for a conditional order on ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day')
+    )}. This is because you have to wait until 20 weeks from when the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } was issued.
       You will receive an email to remind you.`,
@@ -44,9 +46,12 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
       because this is a joint application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.
       They have been sent an email to remind them.`,
-      line2: `If they do not apply by ${dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
-        .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
-        .format('D MMMM YYYY')} then you will be sent an email telling you how you can progress the application.`,
+      line2: `If they do not apply by ${getFormattedDate(
+        dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate).add(
+          config.get('dates.jointConditionalOrderResponseDays'),
+          'day'
+        )
+      )} then you will be sent an email telling you how you can progress the application.`,
     },
     afterDueDate: {
       line1: `Your ${partner} has still not applied for a conditional order.
@@ -64,15 +69,17 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line2: `The court will check your application and send it to a judge.
     If the judge agrees that you should ${isDivorce ? 'get a divorce' : 'end your civil partnership'},
     then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
-    You will receive an email by ${
+    You will receive an email by ${getFormattedDate(
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
-        ? dayjs(userCase.coApplicant1SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-            .format('D MMMM YYYY')
-        : dayjs(userCase.coApplicant2SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-            .format('D MMMM YYYY')
-    } after your application has been checked.
+        ? dayjs(userCase.coApplicant1SubmittedDate).add(
+            config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
+            'day'
+          )
+        : dayjs(userCase.coApplicant2SubmittedDate).add(
+            config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
+            'day'
+          )
+    )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   subHeading1:
@@ -102,11 +109,10 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
      Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
        isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
      }.`,
-    line3: `Gallwch wneud cais am orchymyn amodol ar ${dayjs(userCase.issueDate)
-      .add(config.get('dates.issueDateOffsetDays'), 'day')
-      .format(
-        'D MMMM YYYY'
-      )}. Y rheswm dros hyn yw oherwydd bod rhaid i chi aros hyd nes i 20 wythnos fynd heibio o'r adeg y cyhoeddwyd y ${
+    line3: `Gallwch wneud cais am orchymyn amodol ar ${getFormattedDate(
+      dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )}. Y rheswm dros hyn yw oherwydd bod rhaid i chi aros hyd nes i 20 wythnos fynd heibio o'r adeg y cyhoeddwyd y ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
@@ -121,11 +127,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
         isDivorce ? 'am ysgariad' : "ddod â'ch partneriaeth sifil i ben"
       }.
       Anfonwyd e-bost ato/ati i'w (h)atgoffa.`,
-      line2: `Os nad yw’n gwneud cais erbyn ${dayjs(
-        userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate
-      )
-        .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
-        .format('D MMMM YYYY')} yna fe anfonir e-bost atoch yn dweud wrthych sut y gallwch fwrw ymlaen â'r cais.`,
+      line2: `Os nad yw’n gwneud cais erbyn ${getFormattedDate(
+        dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate).add(
+          config.get('dates.jointConditionalOrderResponseDays'),
+          'day'
+        ),
+        SupportedLanguages.Cy
+      )} yna fe anfonir e-bost atoch yn dweud wrthych sut y gallwch fwrw ymlaen â'r cais.`,
     },
     afterDueDate: {
       line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn amodol o hyd.
@@ -144,15 +152,18 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line1: `Rydych chi a'ch ${partner} wedi gwneud cais am 'orchymyn amodol'.`,
     line2: `Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr.
      Os bydd y barnwr yn cytuno y dylech ${isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"},
-    yna bydd yn  caniatáu i chi gael gorchymyn amodol ac yna'n ei ‘gyhoeddi’ yn y llys. Byddwch yn cael e-bost erbyn ${
+    yna bydd yn  caniatáu i chi gael gorchymyn amodol ac yna'n ei ‘gyhoeddi’ yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
-        ? dayjs(userCase.coApplicant1SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-            .format('D MMMM YYYY')
-        : dayjs(userCase.coApplicant2SubmittedDate)
-            .add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
-            .format('D MMMM YYYY')
-    } ar ôl i'ch cais gael ei wirio.
+        ? dayjs(userCase.coApplicant1SubmittedDate).add(
+            config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
+            'day'
+          )
+        : dayjs(userCase.coApplicant2SubmittedDate).add(
+            config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
+            'day'
+          ),
+      SupportedLanguages.Cy
+    )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   subHeading1:
@@ -167,24 +178,23 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
+  const { userCase, isApplicant2 } = content;
   const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments !== Checkbox.Checked;
-  const hasApplicantConfirmedReceipt = content.isApplicant2
-    ? content.userCase.applicant2ConfirmReceipt === YesOrNo.YES
-    : content.userCase.applicant1ConfirmReceipt === YesOrNo.YES;
-  const hasApplicantAppliedForConditionalOrder = content.isApplicant2
-    ? content.userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : content.userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
-  const partnerSubmissionOverdue = dayjs(content.userCase.dueDate).isBefore(dayjs());
-  const isApplicant2 = content.isApplicant2;
+  const hasApplicantConfirmedReceipt = isApplicant2
+    ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
+    : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const hasApplicantAppliedForConditionalOrder = isApplicant2
+    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
+    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+  const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
+    .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
+    .isBefore(dayjs());
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(content.userCase).at(
-    (content.userCase.state === State.OfflineDocumentReceived
-      ? content.userCase.previousState
-      : content.userCase.state) as State
+  const displayState = currentStateFn(userCase).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {

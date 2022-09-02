@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
 import { getSystemUser } from '../auth/user/oidc';
@@ -5,16 +6,27 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import {
+  CASE_TYPE,
+  CITIZEN_ADD_PAYMENT,
+  DivorceOrDissolution,
+  ListValue,
+  Payment,
+  State,
+  UserRole,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
   readonly maxRetries: number = 3;
 
+  private readonly logger = Logger.getLogger('CaseApi');
+
   constructor(private readonly apiClient: CaseApiClient) {}
 
   public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
+    this.logger.info(`Creating a new case for user (${userDetails.id})`);
     return this.apiClient.createCase(serviceType, userDetails);
   }
 
@@ -34,7 +46,7 @@ export class CaseApi {
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getLatestUserCase(userCases);
+    return this.getPriorityUserCase(userCases);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -70,6 +82,29 @@ export class CaseApi {
       return courtId === 'serviceCentre' && !states.includes(userCase.state);
     }
     return false;
+  }
+
+  private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+    const preSubmissionJointStates = [
+      State.AwaitingApplicant1Response,
+      State.AwaitingApplicant2Response,
+      State.Applicant2Approved,
+    ];
+    if (userCases && userCases.length > 1) {
+      const submittedUserCase = userCases.find(
+        userCase => ![State.Draft, ...preSubmissionJointStates].includes(userCase.state)
+      );
+      const preSubmittedUserCase = userCases.find(userCase => preSubmissionJointStates.includes(userCase.state));
+      const priorityUserCase = submittedUserCase || preSubmittedUserCase;
+      if (priorityUserCase) {
+        return {
+          ...fromApiFormat(priorityUserCase.case_data),
+          id: priorityUserCase.id.toString(),
+          state: priorityUserCase.state,
+        };
+      }
+    }
+    return this.getLatestUserCase(userCases);
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {

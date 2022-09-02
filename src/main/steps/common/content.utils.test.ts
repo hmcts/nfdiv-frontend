@@ -1,11 +1,13 @@
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
+  ApplicationType,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
   ListValue,
   RefusalOption,
   RejectionReason,
+  State,
   YesOrNo,
 } from '../../app/case/definition';
 
@@ -14,9 +16,11 @@ import {
   formattedCaseId,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
+  getName,
   getPartner,
   getSelectedGender,
   getServiceName,
+  isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
 } from './content.utils';
 
@@ -31,6 +35,40 @@ describe('content.utils', () => {
     } as typeof en;
 
     const actual = getServiceName(translations, isDivorce);
+
+    expect(actual).toBe(expected);
+  });
+
+  test.each([
+    ['applicant1', 'First One Middle One Last One'],
+    ['applicant2', 'First Two Middle Two Last Two'],
+  ])('should return applicant name', (applicant, expected) => {
+    const userCase = {
+      applicant1FirstNames: 'First One',
+      applicant1MiddleNames: 'Middle One',
+      applicant1LastNames: 'Last One',
+      applicant2FirstNames: 'First Two',
+      applicant2MiddleNames: 'Middle Two',
+      applicant2LastNames: 'Last Two',
+    } as Partial<CaseWithId>;
+
+    const actual = getName(userCase, applicant as 'applicant1' | 'applicant2');
+
+    expect(actual).toBe(expected);
+  });
+
+  test.each([
+    ['applicant1', 'First One Last One'],
+    ['applicant2', 'First Two Last Two'],
+  ])('should return applicant name even with undefined middle name', (applicant, expected) => {
+    const userCase = {
+      applicant1FirstNames: 'First One',
+      applicant1LastNames: 'Last One',
+      applicant2FirstNames: 'First Two',
+      applicant2LastNames: 'Last Two',
+    } as Partial<CaseWithId>;
+
+    const actual = getName(userCase, applicant as 'applicant1' | 'applicant2');
 
     expect(actual).toBe(expected);
   });
@@ -229,5 +267,51 @@ describe('content.utils', () => {
     };
     const actual = latestLegalAdvisorDecisionContent(userCase, false);
     expect(actual).toEqual(expect.objectContaining(expected));
+  });
+
+  describe('isApplicant2EmailUpdatePossible', () => {
+    test('Return true condition', () => {
+      const userCase = {
+        state: State.AwaitingApplicant2Response,
+        accessCode: 'HSKJ2983',
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as Partial<CaseWithId>;
+      const expected = true;
+      const actual = isApplicant2EmailUpdatePossible(userCase);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Return false when state is not correct', () => {
+      const userCase = {
+        state: State.Submitted,
+        accessCode: 'HSKJ2983',
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as Partial<CaseWithId>;
+      const expected = false;
+      const actual = isApplicant2EmailUpdatePossible(userCase);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Return false when access code is not correct', () => {
+      const userCase = {
+        state: State.AwaitingApplicant2Response,
+        accessCode: undefined,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as Partial<CaseWithId>;
+      const expected = false;
+      const actual = isApplicant2EmailUpdatePossible(userCase);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Return false when application type is not correct', () => {
+      const userCase = {
+        state: State.AwaitingApplicant2Response,
+        accessCode: 'HSKJ2983',
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      } as Partial<CaseWithId>;
+      const expected = false;
+      const actual = isApplicant2EmailUpdatePossible(userCase);
+      expect(actual).toEqual(expected);
+    });
   });
 });

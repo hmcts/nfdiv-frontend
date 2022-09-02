@@ -40,6 +40,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  ConditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-order-answers',
     link: '/downloads/conditional-order-answers',
@@ -61,7 +66,65 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
 });
 
 // @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }: CommonContent) => ({
+  applicationDownload: {
+    reference: 'Divorce-Application',
+    link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
+    text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  certificateOfServiceDownload: {
+    reference: 'Certificate-of-Service',
+    link: '/downloads/certificate-of-service',
+    text: "View your 'certificate of service' (PDF)",
+  },
+  respondentAnswersDownload: {
+    reference: 'Respondent-Answers',
+    link: '/downloads/respondent-answers',
+    text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  deemedOrDispensedDownload: {
+    reference: 'Certificate-of-Service',
+    link: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service'
+    }`,
+    text: `View the court order granting your application for
+    ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service (PDF)`,
+  },
+  certificateOfEntitlementDownload: {
+    reference: 'Certificate-of-Entitlement',
+    link: '/downloads/certificate-of-entitlement',
+    text: 'View the certificate of entitlement (PDF)',
+  },
+  ConditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
+  conditionalOrderAnswersPdf: {
+    reference: 'Conditional-order-answers',
+    link: '/downloads/conditional-order-answers',
+    text: 'View the conditional order application (PDF)',
+  },
+  reviewContactDetails: `<a class="govuk-link" href="${
+    (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
+    CHECK_CONTACT_DETAILS
+  }">Adolygu eich manylion cyswllt</a>`,
+  iWantTo: 'Rwyf eisiau...',
+  gettingHelp: 'Cael help',
+  telephone: {
+    heading: 'Rhif ffôn',
+    openingTimes: `(${openingTimes})`,
+    number: telephoneNumber,
+  },
+  email: 'E-bost',
+  post: "Drwy'r post",
+});
 
 const languages = {
   en,
@@ -83,6 +146,7 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
+  const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
@@ -92,6 +156,7 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
+    hasConditionalOrderGranted,
     ...languages[content.language](content),
   };
 };

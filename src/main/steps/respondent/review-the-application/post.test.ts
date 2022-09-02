@@ -1,31 +1,91 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, DRAFT_AOS } from '../../../app/case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, DRAFT_AOS } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
+import * as steps from '../../index';
 
 import ReviewTheApplicationPostController from './post';
 
 describe('ReviewTheApplicationPostController', () => {
-  it('triggers DRAFT_AOS', async () => {
+  const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+
+  const expectedUserCase = {
+    id: '1234',
+    divorceOrDissolution: 'divorce',
+    gender: 'female',
+    sameSex: Checkbox.Unchecked,
+    addedByAPI: 'adds new data to the session returned from API',
+  };
+
+  it('triggers DRAFT_AOS when confirmReadPetition is undefined in userCase', async () => {
     const body = {
-      applicant1IConfirmPrayer: Checkbox.Checked,
-      applicant1StatementOfTruth: Checkbox.Checked,
-      applicationType: ApplicationType.SOLE_APPLICATION,
+      confirmReadPetition: Checkbox.Checked,
     };
     const mockFormContent = {
       fields: {
-        applicationType: {},
-        applicant1IConfirmPrayer: {},
-        applicant1StatementOfTruth: {},
+        confirmReadPetition: {},
       },
     } as unknown as FormContent;
     const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, session: { isApplicant2: true } });
+    const req = mockRequest({ body, session: { isApplicant2: true, userCase: expectedUserCase } });
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+
     const res = mockResponse();
     await reviewTheApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, DRAFT_AOS);
+  });
+
+  it('triggers CITIZEN_APPLICANT2_UPDATE when confirmReadPetition is checked in userCase', async () => {
+    const body = {
+      confirmReadPetition: Checkbox.Checked,
+    };
+    const mockFormContent = {
+      fields: {
+        confirmReadPetition: {},
+      },
+    } as unknown as FormContent;
+    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
+
+    expectedUserCase['confirmReadPetition'] = Checkbox.Checked;
+
+    const req = mockRequest({ body, session: { isApplicant2: true, userCase: expectedUserCase } });
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+
+    const res = mockResponse();
+    await reviewTheApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE);
+  });
+
+  test('rejects with an error when unable to save session data in ReviewTheApplicationPostController', async () => {
+    const mockFormContent = {
+      fields: {
+        confirmReadPetition: {},
+      },
+    } as unknown as FormContent;
+
+    getNextStepUrlMock.mockReturnValue('/next-step-url');
+    const body = { confirmReadPetition: Checkbox.Checked };
+    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
+
+    const mockSave = jest.fn(done => done('An error while saving session'));
+    const req = mockRequest({ body, session: { save: mockSave } });
+    (req.locals.api.triggerEvent as jest.Mock).mockImplementation(
+      jest.fn(() => {
+        throw Error;
+      })
+    );
+    const res = mockResponse();
+    await expect(reviewTheApplicationPostController.post(req, res)).rejects.toEqual('An error while saving session');
+    expect(req.locals.logger.error).toBeCalled();
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'errorSaving',
+        propertyName: '*',
+      },
+    ]);
   });
 });

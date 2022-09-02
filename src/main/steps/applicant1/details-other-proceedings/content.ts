@@ -17,7 +17,7 @@ const en = ({ isDivorce }: CommonContent) => ({
   point6: 'the date the proceedings began',
   point7: 'the dates of any hearings that have been scheduled',
   point8: 'the details of any orders that have been made',
-  applicant1LegalProceedingsDetails: 'Provide details about the other legal proceedings.',
+  legalProceedingsDetails: 'Provide details about the other legal proceedings.',
   errors: {
     applicant1LegalProceedingsDetails: {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
@@ -39,7 +39,7 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   point6: 'y dyddiad y dechreuodd yr achosion',
   point7: "dyddiadau unrhyw wrandawiadau sydd wedi'u trefnu ",
   point8: 'manylion unrhyw orchmynion sydd wedi’u gwneud',
-  applicant1LegalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
+  legalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
   errors: {
     applicant1LegalProceedingsDetails: {
       required:
@@ -53,7 +53,7 @@ export const form: FormContent = {
     applicant1LegalProceedingsDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.applicant1LegalProceedingsDetails,
+      label: l => l.legalProceedingsDetails,
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
