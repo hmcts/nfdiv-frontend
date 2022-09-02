@@ -2144,6 +2144,7 @@ export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
+export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
 export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
