@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 
 import { Case, CaseWithId } from '../../../app/case/case';
-import { FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
+import { APPLICANT2_FINAL_ORDER_REQUESTED, FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 
@@ -19,7 +19,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
     return super.save(req, formData, eventName);
   }
 
-  protected getEventName(): string {
-    return FINAL_ORDER_REQUESTED;
+  protected getEventName(req: AppRequest<AnyObject>): string {
+    return req.session.isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
   }
 }
