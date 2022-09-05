@@ -1,3 +1,8 @@
 <p class="govuk-body">{{ conditionalOrderPronounced.line1 }}</p>
 <p class="govuk-inset-text">{{ conditionalOrderPronounced.line2 }}</p>
-{{ certificateOfEntitlementLineHtml | safe }}
+<p class="govuk-body">{{ conditionalOrderGrantedDocumentLine.part1 }}
+  <a class="govuk-link" href={{ conditionalOrderGrantedDocumentLine.link }}
+  download={{ conditionalOrderGrantedDocumentLine.downloadReference }}>
+    {{ conditionalOrderGrantedDocumentLine.part2 }}</a>
+  {{ conditionalOrderGrantedDocumentLine.part3 }}
+</p>
