@@ -34,6 +34,25 @@ export class CaseApi {
     return this.apiClient.getCaseById(caseId);
   }
 
+  public async getExistingAndNewUserCases(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
+    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
+
+    if (process.env.IGNORE_LINKED_INVITES === 'ENABLED') {
+      if (existingUserCase && newInviteUserCase) {
+        return {
+          existingUserCase,
+          newInviteUserCase: newInviteUserCase.id !== existingUserCase.id ? newInviteUserCase : false,
+        };
+      }
+    }
+    return { existingUserCase, newInviteUserCase };
+  }
+
   public async getNewInviteCase(
     email: string,
     serviceType: string,
