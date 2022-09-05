@@ -10,11 +10,6 @@ Feature: Joint hub page
     And a superuser updates "issueDate" with "2020-01-01"
 
   Scenario: Joint hub applicant 1 and applicant 2 pages
-    Given I set the case state to "AwaitingFinalOrder"
-    And I go to "/"
-    Then the page should include "You can now apply for a ‘final order’."
-    And the page should include "Apply for final order"
-
     Given I set the case state to "Holding"
     And I go to "/"
     Then the page should include "Your application for divorce has been submitted and checked by court staff."
@@ -76,6 +71,11 @@ Feature: Joint hub page
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Either you or your husband can provide the information requested by the court"
+
+    Given I set the case state to "AwaitingFinalOrder"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘final order’."
+    And the page should include "Apply for final order"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
