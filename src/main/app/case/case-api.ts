@@ -42,7 +42,7 @@ export class CaseApi {
     const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
     const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
 
-    if (process.env.ENV_TYPE !== 'PROD') {
+    if (process.env.IGNORE_LINKED_INVITES === 'ENABLED') {
       if (existingUserCase && newInviteUserCase) {
         return {
           existingUserCase,
