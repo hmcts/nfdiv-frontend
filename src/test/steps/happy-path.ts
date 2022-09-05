@@ -48,7 +48,7 @@ Given('I set the case state to {string}', async (state: State) => {
   });
   await I.grabCurrentUrl();
   I.amOnPage('/logout');
-  await autoLogin.login(I, user.username);
+  await autoLogin.login(I, user.username, user.password, false);
 });
 
 Given("I've completed all happy path questions correctly", async () => {

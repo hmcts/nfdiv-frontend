@@ -24,13 +24,20 @@ const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPasswor
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 
 export const autoLogin = {
-  login: (I: CodeceptJS.I, username = TestUser, password = TestPass): void => {
+  login: (I: CodeceptJS.I, username = TestUser, password = TestPass, createCase = true): void => {
     I.amOnPage(HOME_URL);
     I.waitForText('Sign in or create an account');
     I.fillField('username', username);
     I.fillField('password', password);
     I.click('Sign in');
     I.waitForText('Apply for a divorce', 60);
+    if (createCase) {
+      I.click('My husband');
+      I.click('Continue');
+      I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?', 60);
+      I.amOnPage(YOUR_DETAILS_URL);
+      I.waitForText('Apply for a divorce', 60);
+    }
   },
   check: (I: CodeceptJS.I): void => {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
