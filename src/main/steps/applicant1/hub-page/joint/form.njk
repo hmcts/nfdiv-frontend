@@ -9,7 +9,7 @@
   {% if displayState.state() == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
       text: confirmReceipt,
-      classes: form.submit.classes,
+      classes: 'disable-upon-submit',
       type: "submit",
       name: applicantConfirmReceipt,
       value: "Yes",
