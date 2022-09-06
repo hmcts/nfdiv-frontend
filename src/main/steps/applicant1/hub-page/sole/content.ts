@@ -160,7 +160,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   },
   finalOrderRequested: {
     line1: `${
-      !userCase.applicant2FinalOrderExplanation
+      userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES
         ? "You have applied for a 'final order'. Your "
         : `Your ${partner} has applied for a 'final order'. The `
     }application will be checked by court staff.`,
@@ -467,6 +467,9 @@ export const generateContent: TranslationFn = content => {
   const isClarificationDocumentsUploaded = userCase.coCannotUploadClarificationDocuments !== Checkbox.Checked;
   const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
     .alternativeServiceType as AlternativeServiceType;
+  userCase.applicant1AppliedForFinalOrderFirst = userCase.doesApplicant1WantToApplyForFinalOrder
+    ? YesOrNo.YES
+    : YesOrNo.NO;
   const isAlternativeService = !!alternativeServiceType;
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State

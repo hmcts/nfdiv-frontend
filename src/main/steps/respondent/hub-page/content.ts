@@ -163,13 +163,9 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
     line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
        number. You can `,
-    line4: `${
-      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
-            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-          )}`
-        : 'You should receive an email within 14 working days,'
-    } confirming whether the final order has been granted.`,
+    line4: `You will receive an email by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} after the application has been checked`,
   },
 });
 
