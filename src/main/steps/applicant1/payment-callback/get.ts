@@ -1,7 +1,7 @@
 import config from 'config';
 import { Response } from 'express';
 
-import { ApplicationType, State } from '../../../app/case/definition';
+import { ApplicationType, CITIZEN_PAYMENT_MADE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
@@ -44,7 +44,13 @@ export default class PaymentCallbackGetController {
 
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
-    req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
+    if (payments.wasLastPaymentSuccessful) {
+      req.session.userCase = await req.locals.api.triggerPaymentEvent(
+        req.session.userCase.id,
+        payments.list,
+        CITIZEN_PAYMENT_MADE
+      );
+    }
 
     req.session.save(() => {
       if (payments.wasLastPaymentSuccessful) {

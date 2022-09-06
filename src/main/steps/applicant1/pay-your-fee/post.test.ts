@@ -38,7 +38,7 @@ describe('PaymentPostController', () => {
       });
       const res = mockResponse();
 
-      (req.locals.api.addPayment as jest.Mock).mockReturnValueOnce({
+      (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
         payments: [{ new: 'payment' }],
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
@@ -107,7 +107,7 @@ describe('PaymentPostController', () => {
 
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(req.locals.api.addPayment).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
     });
 
