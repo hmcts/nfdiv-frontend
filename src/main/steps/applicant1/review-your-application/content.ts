@@ -81,7 +81,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   otherCourtCasesLine2: `The applicant has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicantLegalProceedingsDetails: userCase.applicant1LegalProceedingsDetails,
+  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
   noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
@@ -182,7 +182,7 @@ const cy: typeof en = ({
   heading6: 'Pam y gall y llys ddelio â’r achos (awdurdodaeth)',
   line4: 'Mae gan lysoedd Cymru a Lloegr y pŵer cyfreithiol (awdurdodaeth) i ddelio â’r achos hwn oherwydd:',
   connectionBulletPoints: userCase.connections
-    ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, true, isDivorce, isJointApplication)
+    ? connectionBulletPointsSummarisedForAllUsers(userCase.connections, false, isDivorce, isJointApplication)
     : [],
   whatThisMeans: 'Beth mae hyn yn ei olygu',
   whatThisMeansInfo3: `Rhaid bod gan lysoedd Cymru a Lloegr yr awdurdodaeth (y pŵer cyfreithiol) i allu ${
