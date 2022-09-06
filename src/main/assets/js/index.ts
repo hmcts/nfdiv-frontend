@@ -10,6 +10,6 @@ import './avaya-webchat';
 import './data-layer';
 import './confirm-read-petition-submit';
 import './pdfjs';
-import './disabled-upon-submit';
+import './disable-upon-submit';
 
 initAll();

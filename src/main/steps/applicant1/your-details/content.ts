@@ -3,7 +3,7 @@ import { Gender } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { DISABLED_UPON_SUBMIT_CLASSNAME } from '../../common/content.utils';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 
 const en = ({ isDivorce, required }) => ({
   title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',
@@ -52,7 +52,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
-    classes: DISABLED_UPON_SUBMIT_CLASSNAME,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 

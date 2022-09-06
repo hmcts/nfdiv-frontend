@@ -12,7 +12,7 @@ import {
 
 import { CommonContent, en } from './common.content';
 
-export const DISABLED_UPON_SUBMIT_CLASSNAME = 'disable-upon-submit';
+export const DISABLE_UPON_SUBMIT = 'disable-upon-submit';
 
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
