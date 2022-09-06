@@ -10,7 +10,6 @@
     "start": "NODE_ENV=production node src/main/server.js",
     "start:dev": "NODE_ENV=development yarn start:watch",
     "start:docker": "NODE_ENV=docker yarn start:watch",
-    "start:dockeraxios": "NODE_ENV=docker DEBUG=axios yarn start:watch",
     "start:watch": "nodemon --config nodemon.express.json",
     "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
     "build": "webpack --config webpack.config.js",
