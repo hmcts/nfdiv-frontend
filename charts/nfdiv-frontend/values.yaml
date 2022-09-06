@@ -39,8 +39,8 @@ nodejs:
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
-    #CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    CCD_URL: 'https://ccd-definition-store-nfdiv-case-api-pr-2260.service.core-compute-preview.internal'
+    CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    #CCD_URL: 'http://ccd-definition-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'

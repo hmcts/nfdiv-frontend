@@ -37,8 +37,8 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   case:
-    #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    url: 'https://ccd-definition-store-nfdiv-case-api-pr-2260.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    #url: 'http://ccd-definition-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
