@@ -1,6 +1,6 @@
 import { DISABLE_UPON_SUBMIT } from '../../steps/common/content.utils';
 
-const DEBOUNCE_TIMEOUT_IN_SECONDS = 5;
+const DEBOUNCE_TIMEOUT_IN_SECONDS = 10;
 let debounceFormSubmitTimer: number | ReturnType<typeof setTimeout> = 0;
 
 const submitButtons = document.getElementsByClassName(DISABLE_UPON_SUBMIT);
