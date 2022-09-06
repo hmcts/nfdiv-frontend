@@ -11,9 +11,6 @@
 
 {% elif isSuccessfullyServedByBailiff %}
   <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line1 }}
-    <a class="govuk-link" href={{servedByBailiff.downloadReference}}
-    download="Certificate-of-Service">
-    {{servedByBailiff.line2}}</a>
   </p>
   <p class="govuk-body">{{ awaitingConditionalOrderAndServedByBailiff.line2 }}</p>
 {% endif %}

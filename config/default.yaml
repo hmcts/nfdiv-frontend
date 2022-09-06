@@ -4,13 +4,13 @@ uploadTimeout: 60000
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
-  awaitingLegalAdvisorReferralOffsetDays: 21
-  clarificationSubmittedOffsetDays: 16
+  awaitingLegalAdvisorReferralOffsetDays: 28
+  clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
-  jointConditionalOrderResponseDays: 14
+  jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
-  applicationSubmittedOffsetDays: 14
+  applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
 fees:
   applicationFee: DivorceCivPart
