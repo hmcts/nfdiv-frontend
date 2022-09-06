@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "nfdiv-frontend"
+  name: 'nfdiv-frontend'
   annotations:
     # This must match folder-name/job-name in Jenkins.
     jenkins.io/job-full-name: cft:HMCTS_j_to_z/nfdiv-frontend
@@ -10,7 +10,7 @@ metadata:
     - nodejs
   links:
     - url: https://hmcts-reform.slack.com/app_redirect?channel=no-fault-divorce-tech
-      title: "#no-fault-divorce-tech on Slack"
+      title: '#no-fault-divorce-tech on Slack'
       icon: chat
 spec:
   type: service
