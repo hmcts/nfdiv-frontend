@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isConditionalOrderReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -121,6 +122,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
