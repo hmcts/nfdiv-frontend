@@ -172,6 +172,68 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
+  test('Should prioritise Submitted case', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockSubmittedCase = {
+      id: '1',
+      state: State.Submitted,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.Submitted,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should prioritise AwaitingApplicant2Response case over Draft', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockSubmittedCase = {
+      id: '1',
+      state: State.AwaitingApplicant2Response,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.AwaitingApplicant2Response,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should return latest draft cases if multiple linked cases are draft', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockDraftCase2 = {
+      id: '2',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockDraftCase2]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: DivorceOrDissolution.DIVORCE });
+  });
+
   test('Should update case', async () => {
     const expectedRes = { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE };
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
@@ -188,7 +250,7 @@ describe('CaseApi', () => {
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
     const payments = new PaymentModel([]);
 
-    const actualRes = await api.addPayment('1234', payments.list);
+    const actualRes = await api.triggerPaymentEvent('1234', payments.list, CITIZEN_ADD_PAYMENT);
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1234', { applicationPayments: [] }, CITIZEN_ADD_PAYMENT);
     expect(actualRes).toStrictEqual(expectedRes);
