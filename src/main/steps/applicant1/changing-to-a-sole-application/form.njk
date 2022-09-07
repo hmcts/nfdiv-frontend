@@ -6,9 +6,8 @@
   <div class="govuk-form-group">
     {{ govukButton({
       text: getContent(form.submit.text),
-      classes: form.submit.classes,
+      classes: 'disable-upon-submit',
       type: "submit",
-      preventDoubleClick: true,
       attributes: {
         id: 'main-form-submit'
       }
