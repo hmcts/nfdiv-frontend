@@ -159,7 +159,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    applicant1Line: "You have applied for a 'final order'. Your ",
+    applicant1Line: 'You have applied for a ‘final order’. Your ',
     applicant2Line: `Your ${partner} has applied for a 'final order. The `,
     line1: 'application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
