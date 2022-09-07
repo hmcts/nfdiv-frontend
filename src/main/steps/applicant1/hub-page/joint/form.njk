@@ -9,7 +9,7 @@
   {% if displayState.state() == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
       text: confirmReceipt,
-      classes: form.submit.classes,
+      classes: 'disable-upon-submit',
       type: "submit",
       name: applicantConfirmReceipt,
       value: "Yes",
@@ -18,11 +18,10 @@
   {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
     {{ govukButton({
       text: applyForConditionalOrder,
-      classes: form.submit.classes,
+      classes: 'disable-upon-submit',
       type: "submit",
       name: applicantApplyForConditionalOrderStarted,
-      value: "Yes",
-      preventDoubleClick: true
+      value: "Yes"
     }) }}
   {% endif %}
  </form>
