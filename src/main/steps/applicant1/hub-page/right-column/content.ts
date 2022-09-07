@@ -50,6 +50,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
+  d84DocumentDownload: {
+    reference: 'D84-document',
+    link: '/downloads/d84-document',
+    text: 'View the D84 document (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -111,6 +116,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
+  d84DocumentDownload: {
+    reference: 'D84-document',
+    link: '/downloads/d84-document',
+    text: 'View the D84 document (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -150,6 +160,7 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
+  const hasD84Document = content.userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.D84);
   return {
     aosSubmitted,
     hasCertificateOfService,
@@ -157,6 +168,7 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
+    hasD84Document,
     ...languages[content.language](content),
   };
 };
