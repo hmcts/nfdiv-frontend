@@ -40,7 +40,7 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
-  ConditionalOrderGrantedDocumentDownload: {
+  conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
@@ -50,10 +50,10 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
-  d84DocumentDownload: {
-    reference: 'D84-document',
-    link: '/downloads/d84-document',
-    text: 'View the D84 document (PDF)',
+  conditionalOrderApplicationDownload: {
+    reference: 'Conditional-order-application',
+    link: '/downloads/conditional-order-application',
+    text: 'View the conditional order application (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
@@ -106,7 +106,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
-  ConditionalOrderGrantedDocumentDownload: {
+  conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
@@ -116,10 +116,10 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
-  d84DocumentDownload: {
-    reference: 'D84-document',
-    link: '/downloads/d84-document',
-    text: 'View the D84 document (PDF)',
+  conditionalOrderApplicationDownload: {
+    reference: 'Conditional-order-application',
+    link: '/downloads/conditional-order-application',
+    text: 'View the conditional order application (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
@@ -160,7 +160,9 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
-  const hasD84Document = content.userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.D84);
+  const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
+  );
   return {
     aosSubmitted,
     hasCertificateOfService,
@@ -168,7 +170,7 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
-    hasD84Document,
+    hasConditionalOrderApplication,
     ...languages[content.language](content),
   };
 };

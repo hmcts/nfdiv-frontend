@@ -143,11 +143,12 @@ export class DocumentDownloadMiddleware {
       },
     };
 
-    const dmStoreProxyForD84Document = {
-      endpoints: ['/downloads/d84-document'],
+    const dmStoreProxyForConditionalOrderApplicationPdf = {
+      endpoints: ['/downloads/conditional-order-application'],
       path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(doc => doc.value.documentType === DocumentType.D84)?.value
-          .documentLink.document_binary_url;
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
+        )?.value.documentLink.document_binary_url;
       },
     };
 
@@ -166,7 +167,7 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf,
       dmStoreProxyForBailiffServicePdf,
       dmStoreProxyForConditionalOrderGrantedPdf,
-      dmStoreProxyForD84Document,
+      dmStoreProxyForConditionalOrderApplicationPdf,
     ];
 
     for (const dmStoreProxy of dmStoreProxies) {
