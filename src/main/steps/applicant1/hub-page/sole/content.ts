@@ -160,7 +160,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   },
   finalOrderRequested: {
     applicant1Line: 'You have applied for a ‘final order’. Your ',
-    applicant2Line: `Your ${partner} has applied for a 'final order. The `,
+    applicant2Line: `Your ${partner} has applied for a ‘final order’. The `,
     line1: 'application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
@@ -378,8 +378,8 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    applicant1Line: "You have applied for a 'final order'. Your ",
-    applicant2Line: `Your ${partner} has applied for a 'final order. The `,
+    applicant1Line: 'You have applied for a ‘final order’. Your ',
+    applicant2Line: `Your ${partner} has applied for a ‘final order’. The `,
     line1: 'application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
