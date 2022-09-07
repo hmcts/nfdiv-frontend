@@ -24,6 +24,7 @@ import {
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHANGES_TO_YOUR_NAME_URL,
+  CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
@@ -512,6 +513,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: CHANGING_TO_SOLE_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   {
