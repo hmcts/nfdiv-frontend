@@ -10,6 +10,9 @@
   {{ certificateOfEntitlementLineHtml | safe }}
 
 {% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' and not isCoFieldsSet %}
+  {% if isSwitchToSoleCoApp and displayState.state() == 'AwaitingLegalAdvisorReferral' %}
+    <p class="govuk-body">{{ legalAdvisorReferral.switchToSoleCoLine }}</p>
+  {% endif %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
 {% endif %}

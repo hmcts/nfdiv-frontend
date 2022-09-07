@@ -330,6 +330,7 @@ export interface Case {
   applicant2Offline: YesOrNo;
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;
+  switchedToSoleCo: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
