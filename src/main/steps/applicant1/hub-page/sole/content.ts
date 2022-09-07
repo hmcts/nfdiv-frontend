@@ -159,17 +159,19 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    line1: `${
-      userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES
-        ? "You have applied for a 'final order'. Your "
-        : `Your ${partner} has applied for a 'final order'. The `
-    }application will be checked by court staff.`,
+    applicant1Line: "You have applied for a 'final order'. Your ",
+    applicant2Line: `Your ${partner} has applied for a 'final order. The `,
+    line1: 'application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
-    line3: `You will receive an email by ${getFormattedDate(
-      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    )} confirming whether the final order has been granted.`,
+    line3: `${
+      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+        ? `You will receive an email by ${getFormattedDate(
+            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+          )}`
+        : 'You should receive an email within 2 working days,'
+    } confirming whether the final order has been granted.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:
@@ -376,21 +378,18 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    line1: `${
-      userCase.applicant2FinalOrderExplanation
-        ? "You have applied for a 'final order'. Your "
-        : 'Your ' + partner + "has applied for a 'final order'. The "
-    }. 'application will be checked by court staff.'`,
+    applicant1Line: "You have applied for a 'final order'. Your ",
+    applicant2Line: `Your ${partner} has applied for a 'final order. The `,
+    line1: 'application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
-            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
-            SupportedLanguages.Cy
+            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
-        : 'You should receive an email within 14 working days,'
+        : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {

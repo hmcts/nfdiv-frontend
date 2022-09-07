@@ -1,3 +1,14 @@
-{% for property, line in finalOrderRequested %}
-  <p class="govuk-body">{{ line }}</p>
-{% endfor %}
+{% if userCase.applicant1AppliedForFinalOrderFirst === 'Yes' %}
+  <p class="govuk-body">
+   {{ finalOrderRequested.applicant1Line }}
+   {{ finalOrderRequested.line1 }}</p>
+  <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
+  <p class="govuk-body">{{ finalOrderRequested.line3 }}</p>
+{% else %}
+  <p class="govuk-body">
+   {{ finalOrderRequested.applicant2Line }}
+   {{ finalOrderRequested.line1 }}
+   {{ finalOrderRequested.line2 }}
+   {{ finalOrderRequested.line3 }}</p>
+
+{% endif %}
