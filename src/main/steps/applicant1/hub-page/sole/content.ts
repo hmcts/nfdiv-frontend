@@ -116,6 +116,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     alternativeServiceType === AlternativeServiceType.DISPENSED ? "'dispense with" : "for 'deemed"
   }service', which was granted. You can `,
   legalAdvisorReferral: {
+    switchToSoleCoLine: `You have changed the application to a ‘sole application’. Your ${partner} has been notified by email.`,
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${getFormattedDate(
@@ -332,6 +333,7 @@ const cy: typeof en = (
      alternativeServiceType === AlternativeServiceType.DISPENSED ? 'gyflwyno tybiedig' : 'i hepgor cyflwyno’r cais'
    }, a gafodd ei gadarnhau. Gallwch `,
   legalAdvisorReferral: {
+    switchToSoleCoLine: `You have changed the application to a ‘sole application’. Your ${partner} has been notified by email.`,
     line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
@@ -473,6 +475,7 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isAlternativeService
   );
+  const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -482,5 +485,6 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isAlternativeService,
     theLatestUpdateTemplate,
+    isSwitchToSoleCoApp,
   };
 };
