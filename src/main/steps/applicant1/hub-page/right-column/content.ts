@@ -46,12 +46,12 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     text: 'View the conditional order (PDF)',
   },
   conditionalOrderAnswersPdf: {
-    reference: 'Conditional-order-answers',
+    reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
   conditionalOrderApplicationDownload: {
-    reference: 'Conditional-order-application',
+    reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
@@ -112,12 +112,12 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     text: 'View the conditional order (PDF)',
   },
   conditionalOrderAnswersPdf: {
-    reference: 'Conditional-order-answers',
+    reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
     text: 'View the conditional order application (PDF)',
   },
   conditionalOrderApplicationDownload: {
-    reference: 'Conditional-order-application',
+    reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
