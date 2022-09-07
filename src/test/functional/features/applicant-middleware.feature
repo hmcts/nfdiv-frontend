@@ -19,7 +19,3 @@ Feature: Applicant middleware
     Then the page URL should be "/applicant2/irretrievable-breakdown"
     When I go to '/other-court-cases'
     Then the page URL should be "/error"
-
-    Given I go to "/applicant2/irretrievable-breakdown?timeout=500"
-    And I wait "5" seconds
-    Then the page should include "You were signed out to protect your privacy"
