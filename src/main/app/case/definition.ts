@@ -842,6 +842,7 @@ export interface CaseData {
   bulkScanCaseReference: string;
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
+  switchedToSoleCo: YesOrNo;
 }
 
 export interface CaseDocuments {
