@@ -1,4 +1,4 @@
-import { AlternativeServiceType, ApplicationType, DocumentType, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -169,9 +169,9 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderApplication = userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
-  const hasFinalOrderApplication = userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
-  );
+  const hasFinalOrderApplication =
+    userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION) &&
+    userCase.state === State.FinalOrderRequested;
   return {
     aosSubmitted,
     hasCertificateOfService,
