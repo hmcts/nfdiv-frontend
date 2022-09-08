@@ -6,23 +6,12 @@ import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/have-you-applied-for-help-with-fees/content';
-import { CommonContent } from '../../common/common.content';
 
-const labels = ({ isDivorce, partner, required }: CommonContent) => ({
-  title: `Have you already applied for help with your ${isDivorce ? 'divorce' : ''} fee?`,
+const labels = content => ({
   line1: '',
-  refReceivedWhenApplied: `You received this when you applied for help with your fees. Enter your number, not one provided to your ${partner}.`,
   errors: {
-    applicant2AlreadyAppliedForHelpPaying: {
-      required,
-    },
-    applicant2HelpWithFeesRefNo: {
-      required:
-        'You need to enter your Help With Fees reference number before continuing. You received this when you applied.',
-      invalid: 'You have entered an invalid Help With Fees reference number. Check the number and enter it again.',
-      invalidUsedExample:
-        'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
-    },
+    applicant2AlreadyAppliedForHelpPaying: content.errors.applicant1AlreadyAppliedForHelpPaying,
+    applicant2HelpWithFeesRefNo: content.errors.applicant1HelpWithFeesRefNo,
   },
 });
 
@@ -61,9 +50,10 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const applicant1Content = applicant1GenerateContent(content);
   return {
-    ...applicant1GenerateContent(content),
-    ...labels(content),
+    ...applicant1Content,
+    ...labels(applicant1Content),
     form,
   };
 };
