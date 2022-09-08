@@ -183,18 +183,20 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   awaitingFinalOrder: {
-    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
-    line2: `If they do not apply by [application completion date plus 14 days] then you will be sent an email telling you how you can ${
-      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    line1: `Rydych wedi gwneud cais am 'orchymyn terfynol'. Mae'n rhaid i'ch ${partner} wneud cais hefyd oherwydd bod hwn yn gais ar y cyd. Anfonwyd nodyn atgoffa ato/ati drwy e-bost.`,
+    line2: `Os nad yw’n gwneud cais erbyn ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} yna anfonir e-bost atoch yn dweud wrthych sut y gallwch ${
+      isDivorce ? 'gadarnhau eich ysgariad' : "ddod â'ch partneriaeth sifil i ben"
     }.`,
   },
   finalOrderRequested: {
-    line1: `You and your ${partner} have both confirmed you want to ${
-      isDivorce ? 'finalise the divorce' : 'end your civil partnership'
-    }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
+      isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
     }.`,
-    line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
