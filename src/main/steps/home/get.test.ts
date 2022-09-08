@@ -819,4 +819,16 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HOW_DO_YOU_WANT_TO_RESPOND}`);
   });
+
+  test('redirects to your-details page if no userCase in the session', () => {
+    const req = mockRequest({
+      session: {
+        userCase: false,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
+  });
 });

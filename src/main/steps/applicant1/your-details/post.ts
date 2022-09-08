@@ -9,6 +9,10 @@ import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdict
 @autobind
 export default class YourDetailsPostController extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    if (!req.session.userCase) {
+      req.session.userCase = await req.locals.api.createCase(res.locals.serviceType, req.session.user);
+    }
+
     const form = new Form(<FormFields>this.fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...originalFormData } = form.getParsedBody(req.body);

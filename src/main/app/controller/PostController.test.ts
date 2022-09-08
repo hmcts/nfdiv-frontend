@@ -211,7 +211,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
-  it('saves and signs out without saving data if there are errors', async () => {
+  it('saves and signs out with empty form data if there are errors', async () => {
     const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
     const mockPhoneNumberFormContent = {
@@ -228,7 +228,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toBeCalledTimes(0);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
     expect(req.session.errors).toEqual(errors);
