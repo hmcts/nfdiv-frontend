@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, Checkbox } from '../../../app/case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '../../../app/case/definition';
+import { Case } from '../../../app/case/case';
+import { CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS, UPDATE_AOS, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
@@ -17,16 +17,15 @@ export default class ReviewTheApplicationPostController extends PostController<A
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const preSubmissionSession = JSON.parse(JSON.stringify(req.session.userCase));
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        if (preSubmissionSession.confirmReadPetition !== Checkbox.Checked) {
-          req.session.userCase = await this.save(req, formData, DRAFT_AOS);
+        if (req.session.userCase.aosIsDrafted === YesOrNo.YES) {
+          req.session.userCase = await this.save(req, formData, UPDATE_AOS);
         } else {
-          req.session.userCase = await this.save(req, formData, CITIZEN_APPLICANT2_UPDATE);
+          req.session.userCase = await this.save(req, formData, DRAFT_AOS);
         }
       } catch (err) {
         req.locals.logger.error('Error saving', err);
