@@ -82,6 +82,20 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
+  awaitingFinalOrder: {
+    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
+    line2: `If they do not apply by [application completion date plus 14 days] then you will be sent an email telling you how you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }.`,
+  },
+  finalOrderRequested: {
+    line1: `You and your ${partner} have both confirmed you want to ${
+      isDivorce ? 'finalise the diviorce' : 'end your civil partnership'
+    }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
+    line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+  },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
       ? 'Latest information'
@@ -165,6 +179,20 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       SupportedLanguages.Cy
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
+  },
+  awaitingFinalOrder: {
+    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
+    line2: `If they do not apply by [application completion date plus 14 days] then you will be sent an email telling you how you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }.`,
+  },
+  finalOrderRequested: {
+    line1: `You and your ${partner} have both confirmed you want to ${
+      isDivorce ? 'finalise the diviorce' : 'end your civil partnership'
+    }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
+    line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
   subHeading1:
     userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
