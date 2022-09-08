@@ -84,13 +84,15 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
   awaitingFinalOrder: {
     line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
-    line2: `If they do not apply by [application completion date plus 14 days] then you will be sent an email telling you how you can ${
+    line2: `If they do not apply by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} then you will be sent an email telling you how you can ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }.`,
   },
   finalOrderRequested: {
     line1: `You and your ${partner} have both confirmed you want to ${
-      isDivorce ? 'finalise the diviorce' : 'end your civil partnership'
+      isDivorce ? 'finalise the divorce' : 'end your civil partnership'
     }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
@@ -188,7 +190,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   },
   finalOrderRequested: {
     line1: `You and your ${partner} have both confirmed you want to ${
-      isDivorce ? 'finalise the diviorce' : 'end your civil partnership'
+      isDivorce ? 'finalise the divorce' : 'end your civil partnership'
     }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,

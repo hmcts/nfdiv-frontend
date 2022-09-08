@@ -105,6 +105,8 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
 const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
   const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
   switch (req.session.userCase.state) {
+    case State.AwaitingFinalOrder:
+    case State.FinalOrderRequested:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
     case State.ConditionalOrderPronounced:
