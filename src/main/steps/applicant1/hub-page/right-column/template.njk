@@ -41,8 +41,8 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 {% endif %}
 
 {% if isAwaitingAmendedApplication %}
-  <p class="govuk-body"><a class="govuk-link" href={{refusalOrderPdf.link}}
-    download={{refusalOrderPdf.reference}}>{{refusalOrderPdf.text}}</a></p>
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
+    download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
