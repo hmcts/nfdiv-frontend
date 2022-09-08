@@ -4,13 +4,13 @@ uploadTimeout: 60000
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
-  awaitingLegalAdvisorReferralOffsetDays: 21
-  clarificationSubmittedOffsetDays: 16
+  awaitingLegalAdvisorReferralOffsetDays: 28
+  clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
-  jointConditionalOrderResponseDays: 14
+  jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
-  applicationSubmittedOffsetDays: 14
+  applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
 fees:
   applicationFee: DivorceCivPart
@@ -38,7 +38,7 @@ services:
     systemPassword: 'dummy_password'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
+    #url: 'http://ccd-definition-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
