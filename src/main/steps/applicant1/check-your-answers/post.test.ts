@@ -26,7 +26,7 @@ describe('CheckYourAnswersPostController', () => {
     },
   } as unknown as FormContent;
 
-  it('triggers CITIZEN_SUBMIT when sole application', async () => {
+  it('triggers CITIZEN_SUBMIT when sole application and sets applicant1UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant1IConfirmPrayer: Checkbox.Checked,
@@ -40,7 +40,11 @@ describe('CheckYourAnswersPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      {
+        ...body,
+        applicant1UsedWelshTranslationOnSubmission: YesOrNo.NO,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+      },
       CITIZEN_SUBMIT
     );
   });

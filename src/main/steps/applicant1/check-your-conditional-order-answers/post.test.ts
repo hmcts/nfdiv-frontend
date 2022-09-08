@@ -14,7 +14,7 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     },
   } as unknown as FormContent;
 
-  it('triggers SUBMIT_CONDITIONAL_ORDER when submitting conditional order application', async () => {
+  it('triggers SUBMIT_CONDITIONAL_ORDER when submitting conditional order application and sets applicant1UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       coApplicant1StatementOfTruth: Checkbox.Checked,
     };
@@ -24,7 +24,11 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SUBMIT_CONDITIONAL_ORDER);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, applicant1UsedWelshTranslationOnSubmission: YesOrNo.NO },
+      SUBMIT_CONDITIONAL_ORDER
+    );
   });
 
   it('sets applicant1UsedWelshTranslationOnSubmission to Yes if applicant 1 and Welsh translation used', async () => {

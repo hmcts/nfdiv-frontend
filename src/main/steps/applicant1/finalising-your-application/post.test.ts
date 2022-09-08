@@ -8,7 +8,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import FinalisingYourApplicationPostController from './post';
 
 describe('FinalisingYourApplicationPostController', () => {
-  it('triggers CITIZEN_FINAL_ORDER_REQUESTED', async () => {
+  it('triggers CITIZEN_FINAL_ORDER_REQUESTED and sets applicant1UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
     };
@@ -23,7 +23,11 @@ describe('FinalisingYourApplicationPostController', () => {
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, FINAL_ORDER_REQUESTED);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, applicant1UsedWelshTranslationOnSubmission: YesOrNo.NO },
+      FINAL_ORDER_REQUESTED
+    );
   });
 
   it('sets applicant1UsedWelshTranslationOnSubmission to Yes if applicant 1 and Welsh translation used', async () => {
@@ -81,7 +85,7 @@ describe('FinalisingYourApplicationPostController', () => {
     );
   });
 
-  it('triggers APPLICANT2_FINAL_ORDER_REQUESTED', async () => {
+  it('triggers APPLICANT2_FINAL_ORDER_REQUESTED and sets applicant2UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
     };
@@ -96,6 +100,10 @@ describe('FinalisingYourApplicationPostController', () => {
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, APPLICANT2_FINAL_ORDER_REQUESTED);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, applicant2UsedWelshTranslationOnSubmission: YesOrNo.NO },
+      APPLICANT2_FINAL_ORDER_REQUESTED
+    );
   });
 });

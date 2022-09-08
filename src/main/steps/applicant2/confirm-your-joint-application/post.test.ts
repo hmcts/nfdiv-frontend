@@ -8,7 +8,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import ConfirmYourJointApplicationPostController from './post';
 
 describe('ConfirmYourJointApplicationPostController', () => {
-  it('triggers APPLICANT_2_APPROVED', async () => {
+  it('triggers APPLICANT_2_APPROVED and sets applicant2UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       applicant1IConfirmPrayer: '',
       applicant1StatementOfTruth: '',
@@ -34,7 +34,11 @@ describe('ConfirmYourJointApplicationPostController', () => {
     const res = mockResponse();
     await confirmYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...body }, APPLICANT_2_APPROVE);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, applicant2UsedWelshTranslationOnSubmission: YesOrNo.NO },
+      APPLICANT_2_APPROVE
+    );
   });
 
   it('sets applicant2UsedWelshTranslationOnSubmission to Yes if Welsh translation used', async () => {
