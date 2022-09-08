@@ -17,10 +17,11 @@ export const mockRequest = ({
     locals: {
       api: {
         triggerEvent: jest.fn(),
-        addPayment: jest.fn(),
+        triggerPaymentEvent: jest.fn(),
         getCaseById: jest.fn(),
         isApplicant2: jest.fn(),
         getNewInviteCase: jest.fn(),
+        createCase: jest.fn(),
       },
       logger: {
         info: jest.fn(),

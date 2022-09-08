@@ -12,7 +12,7 @@ import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
-const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
@@ -42,7 +42,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   confirmReceipt: 'Confirm receipt',
   applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
   A conditional order is a document that says the court does not see any reason why you cannot
-  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
+  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.`,
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
@@ -62,7 +62,8 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'What you can do',
       line2: `You should contact your ${partner} and ask them to apply. Only contact them if it’s safe to do so.`,
       line3: 'If you do not think they will apply then you can ',
-      link: 'change your application to a sole application.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'change your application to a sole application.',
     },
   },
   awaitingLegalAdvisorReferral: {
@@ -90,7 +91,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
@@ -146,7 +147,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'Beth allwch chi ei wneud',
       line2: `Dylech gysylltu â'ch ${partner} a gofyn iddynt wneud cais. Cysylltwch â nhw dim ond os yw'n ddiogel i chi wneud hynny.`,
       line3: 'Os nad ydych yn credu y byddant yn gwneud cais yna gallwch ',
-      link: 'newid eich cais i fod yn gais unigol.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'newid eich cais i fod yn gais unigol.',
     },
   },
   awaitingLegalAdvisorReferral: {

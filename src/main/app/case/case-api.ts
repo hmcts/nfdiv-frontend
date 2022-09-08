@@ -6,15 +6,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import {
-  CASE_TYPE,
-  CITIZEN_ADD_PAYMENT,
-  DivorceOrDissolution,
-  ListValue,
-  Payment,
-  State,
-  UserRole,
-} from './definition';
+import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, State, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -32,6 +24,23 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     return this.apiClient.getCaseById(caseId);
+  }
+
+  public async getExistingAndNewUserCases(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
+    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
+
+    if (existingUserCase && newInviteUserCase) {
+      return {
+        existingUserCase,
+        newInviteUserCase: newInviteUserCase.id !== existingUserCase.id ? newInviteUserCase : false,
+      };
+    }
+    return { existingUserCase, newInviteUserCase };
   }
 
   public async getNewInviteCase(
@@ -58,8 +67,12 @@ export class CaseApi {
     return this.apiClient.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 
-  public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
+  public async triggerPaymentEvent(
+    caseId: string,
+    payments: ListValue<Payment>[],
+    eventName: string
+  ): Promise<CaseWithId> {
+    return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, eventName);
   }
 
   public async hasInProgressDivorceCase(): Promise<boolean> {
