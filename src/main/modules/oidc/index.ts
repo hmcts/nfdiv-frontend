@@ -106,15 +106,15 @@ export class OidcMiddleware {
             return next();
           }
         }
-        req.session.userCase =
-          req.session.userCase ||
-          existingUserCase ||
-          (await req.locals.api.createCase(res.locals.serviceType, req.session.user));
+        req.session.userCase = req.session.userCase || existingUserCase;
 
-        req.session.existingCaseId = req.session.userCase.id;
+        req.session.existingCaseId = req.session.userCase?.id;
 
         req.session.isApplicant2 =
-          req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          req.session.isApplicant2 ??
+          (req.session.userCase
+            ? await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id)
+            : false);
       }
 
       req.session.save(err => {

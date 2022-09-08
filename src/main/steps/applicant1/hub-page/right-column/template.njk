@@ -35,6 +35,11 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
 {% endif %}
 
+{% if hasConditionalOrderApplication %}
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
+   download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
+{% endif %}
+
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 <h3 class="govuk-heading-s govuk-!-margin-bottom-2">{{ gettingHelp }}</h3>
