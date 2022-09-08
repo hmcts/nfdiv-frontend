@@ -110,7 +110,7 @@ Feature: Sole hub page
     Then the page should include "You need to provide some information before your application can progress."
     And the page should include "What you need to do now"
 
-    Given I click 'Respond to the court'
+    Given I click 'Provide information'
     Then the page URL should be '/provide-information-to-the-court'
     And the page should include "Provide information to the court"
     Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
@@ -127,7 +127,7 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
-    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    Then the page should include "You can view and download your 'conditional order'."
 
     Given I set the case state to "FinalOrderRequested"
     And I click "Sign out"

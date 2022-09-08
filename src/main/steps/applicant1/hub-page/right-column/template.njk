@@ -25,9 +25,19 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{certificateOfEntitlementDownload.reference}}>{{certificateOfEntitlementDownload.text}}</a></p>
 {% endif %}
 
+{% if hasConditionalOrderGranted %}
+  <p class="govuk-body"><a class="govuk-link" href={{ConditionalOrderGrantedDocumentDownload.link}}
+    download={{ConditionalOrderGrantedDocumentDownload.reference}}>{{ConditionalOrderGrantedDocumentDownload.text}}</a></p>
+{% endif %}
+
 {% if hasConditionalOrderAnswers %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
+{% endif %}
+
+{% if hasConditionalOrderApplication %}
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
+   download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>

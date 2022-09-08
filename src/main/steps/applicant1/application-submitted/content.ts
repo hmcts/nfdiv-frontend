@@ -151,7 +151,7 @@ const cy: typeof en = ({
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
   } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
-  subHeading1: 'Beth sydd angen i chi ei wneud nawr ',
+  subHeading1: 'Beth sydd angen i chi ei wneud nawr',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',
   line2: 'Mae angen i chi anfon y dogfennau canlynol i’r llys gan na wnaethoch eu llwytho yn gynharach:',

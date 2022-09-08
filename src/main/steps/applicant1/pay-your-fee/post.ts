@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
@@ -41,7 +41,11 @@ export default class PaymentPostController {
       transactionId: payment.external_reference,
     });
 
-    req.session.userCase = await req.locals.api.addPayment(req.session.userCase.id, payments.list);
+    req.session.userCase = await req.locals.api.triggerPaymentEvent(
+      req.session.userCase.id,
+      payments.list,
+      CITIZEN_ADD_PAYMENT
+    );
 
     this.saveAndRedirect(req, res, payment._links.next_url.href);
   }

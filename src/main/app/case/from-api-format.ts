@@ -139,6 +139,8 @@ const fields: FromApiConverters = {
   },
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
+  applicant2Offline: 'applicant2Offline',
+  switchedToSoleCo: 'switchedToSoleCo',
 };
 
 const fromApiDate = date => {

@@ -40,9 +40,19 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  conditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
   conditionalOrderAnswersPdf: {
-    reference: 'Conditional-order-answers',
+    reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
+    text: 'View the conditional order application (PDF)',
+  },
+  conditionalOrderApplicationDownload: {
+    reference: 'Conditional-Order-Application',
+    link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
@@ -96,9 +106,19 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/certificate-of-entitlement',
     text: 'View the certificate of entitlement (PDF)',
   },
+  conditionalOrderGrantedDocumentDownload: {
+    reference: 'Conditional-Order-Granted',
+    link: '/downloads/conditional-order-granted',
+    text: 'View the conditional order (PDF)',
+  },
   conditionalOrderAnswersPdf: {
-    reference: 'Conditional-order-answers',
+    reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
+    text: 'View the conditional order application (PDF)',
+  },
+  conditionalOrderApplicationDownload: {
+    reference: 'Conditional-Order-Application',
+    link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
@@ -136,8 +156,12 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
+  const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
   const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
+  );
+  const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
   return {
     aosSubmitted,
@@ -145,6 +169,8 @@ export const generateContent: TranslationFn = content => {
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
     hasConditionalOrderAnswers,
+    hasConditionalOrderGranted,
+    hasConditionalOrderApplication,
     ...languages[content.language](content),
   };
 };

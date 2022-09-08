@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isConditionalOrderReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -54,8 +55,53 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonContent) => ({
+  title: 'Gwiriwch eich atebion',
+  titleSoFar: 'Gwiriwch eich atebion hyd yma',
+  confirm: 'Cadarnhau cyn cyflwyno',
+  stepQuestions: {
+    continueApplication: `Ydych chi eisiau bwrw ymlaen â’ch ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } ${isJointApplication ? ' ar y cyd' : ''}?`,
+    isInformationCorrect: 'A yw’r wybodaeth yn y cais hwn dal yn gywir?',
+    changeDetails: 'Manylion sydd angen cael ei ddiweddaru:',
+  },
+  stepAnswers: {
+    continueApplication: `${
+      isApplicant2 ? userCase.applicant2ApplyForConditionalOrder : userCase.applicant1ApplyForConditionalOrder
+    }`,
+    isInformationCorrect: `${
+      isApplicant2
+        ? userCase.applicant2ConfirmInformationStillCorrect
+        : userCase.applicant1ConfirmInformationStillCorrect
+    }`,
+    changeDetails: `${
+      isApplicant2 ? userCase.applicant2ReasonInformationNotCorrect : userCase.applicant1ReasonInformationNotCorrect
+    }`,
+  },
+  stepLinks: {
+    continueApplication: `${isApplicant2 ? '/applicant2' : ''}${urls.CONTINUE_WITH_YOUR_APPLICATION}`,
+    isInformationCorrect: `${isApplicant2 ? '/applicant2' : ''}${
+      isJointApplication ? urls.REVIEW_YOUR_JOINT_APPLICATION : urls.REVIEW_YOUR_APPLICATION
+    }`,
+    changeDetails: `${isApplicant2 ? '/applicant2' : ''}${
+      isJointApplication ? urls.REVIEW_YOUR_JOINT_APPLICATION : urls.REVIEW_YOUR_APPLICATION
+    }`,
+  },
+  confirmApplicationIsTrue: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
+  confirmApplicationIsTrueHint:
+    '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">Mae hyn yn cadarnhau bod yr wybodaeth rydych yn ei chyflwyno yn wir ac yn gywir hyd at eithaf eich gwybodaeth. Gelwir hyn yn eich ‘datganiad gwirionedd’.</p>',
+  confirmApplicationIsTrueWarning:
+    'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  continueApplication: 'Parhau gyda’r cais',
+  submit: 'Cyflwyno',
+  errors: {
+    coApplicant1StatementOfTruth: {
+      required:
+        'Nid ydych wedi cadarnhau eich bod yn credu bod y ffeithiau yn y cais yn wir. Mae angen ichi gadarnhau cyn parhau.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
@@ -76,6 +122,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 

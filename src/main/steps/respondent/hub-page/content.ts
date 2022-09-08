@@ -96,8 +96,8 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line4: {
       part1: 'You can ',
       part2: 'download and read your conditional order.',
-      downloadReference: 'Certificate-of-Entitlement',
-      link: '/downloads/certificate-of-entitlement',
+      downloadReference: 'Conditional-Order-Granted',
+      link: '/downloads/conditional-order-granted',
     },
   },
   legalAdvisorReferral: {

@@ -12,9 +12,17 @@ import {
 
 import { CommonContent, en } from './common.content';
 
+export const DISABLE_UPON_SUBMIT = 'disable-upon-submit';
+
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
   return capitalize(serviceName);
+};
+
+export const getName = (userCase: Partial<CaseWithId>, app: 'applicant1' | 'applicant2'): string => {
+  return [userCase[app + 'FirstNames'], userCase[app + 'MiddleNames'], userCase[app + 'LastNames']]
+    .filter(name => name !== undefined)
+    .join(' ');
 };
 
 export const getSelectedGender = (userCase: Partial<CaseWithId>, isApplicant2: boolean): Gender | undefined => {
