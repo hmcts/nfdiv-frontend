@@ -45,11 +45,6 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
-  finalOrderGrantedDocumentDownload: {
-    reference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
-    text: "Download a copy of your 'final order'",
-  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
@@ -59,6 +54,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
+  },
+  finalOrderGrantedDocumentDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: 'Download a copy of your final order (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
@@ -116,11 +116,6 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-granted',
     text: 'View the conditional order (PDF)',
   },
-  finalOrderGrantedDocumentDownload: {
-    reference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
-    text: "Download a copy of your 'final order'",
-  },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
@@ -130,6 +125,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
+  },
+  finalOrderGrantedDocumentDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: 'Download a copy of your final order (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +

@@ -30,11 +30,6 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
     download={{conditionalOrderGrantedDocumentDownload.reference}}>{{conditionalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
-{% if hasFinalOrderGranted %}
-  <p class="govuk-body"><a class="govuk-link" href={{finalOrderGrantedDocumentDownload.link}}
-    download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
-{% endif %}
-
 {% if hasConditionalOrderAnswers %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
@@ -43,6 +38,11 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 {% if hasConditionalOrderApplication %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
    download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
+{% endif %}
+
+{% if hasFinalOrderGranted %}
+  <p class="govuk-body"><a class="govuk-link" href={{finalOrderGrantedDocumentDownload.link}}
+    download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
