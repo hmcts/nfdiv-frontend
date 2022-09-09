@@ -133,7 +133,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dueDate: 'dueDate',
   dateSubmitted: 'dateSubmitted',
   dateAosSubmitted: 'dateAosSubmitted',
-  aosIsDrafted: 'aosIsDrafted',
   dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
   coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
   coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
@@ -322,7 +321,6 @@ export interface Case {
   applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
   dateAosSubmitted?: DateAsString;
-  aosIsDrafted?: YesOrNo;
   aosStatementOfTruth: Checkbox;
   previousState: State;
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;

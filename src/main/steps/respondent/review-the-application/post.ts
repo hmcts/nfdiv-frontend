@@ -1,12 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case } from '../../../app/case/case';
-import { DRAFT_AOS, UPDATE_AOS, YesOrNo } from '../../../app/case/definition';
+import { Case, Checkbox } from '../../../app/case/case';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
 import { getNextStepUrl } from '../../index';
+import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 @autobind
 export default class ReviewTheApplicationPostController extends PostController<AnyObject> {
@@ -16,15 +17,16 @@ export default class ReviewTheApplicationPostController extends PostController<A
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
+    const preSubmissionSession = JSON.parse(JSON.stringify(req.session.userCase));
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
       try {
-        if (req.session.userCase.aosIsDrafted === YesOrNo.YES) {
-          req.session.userCase = await this.save(req, formData, UPDATE_AOS);
-        } else {
+        if (preSubmissionSession.confirmReadPetition !== Checkbox.Checked) {
           req.session.userCase = await this.save(req, formData, DRAFT_AOS);
+        } else {
+          req.session.userCase = await this.save(req, formData, CITIZEN_APPLICANT2_UPDATE);
         }
       } catch (err) {
         req.locals.logger.error('Error saving', err);
@@ -40,5 +42,20 @@ export default class ReviewTheApplicationPostController extends PostController<A
       }
       res.redirect(nextUrl);
     });
+  }
+
+  protected async saveAndSignOut(
+    req: AppRequest<AnyObject>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    formData = {};
+    try {
+      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+    } catch {
+      // ignore
+    }
+    res.redirect(SAVE_AND_SIGN_OUT);
   }
 }
