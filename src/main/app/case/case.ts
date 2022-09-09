@@ -328,6 +328,7 @@ export interface Case {
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2Offline: YesOrNo;
+  switchedToSoleCo: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
