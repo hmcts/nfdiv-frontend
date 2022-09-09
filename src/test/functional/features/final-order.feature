@@ -20,27 +20,16 @@ Feature: Final order
 
     When I click "Apply for a final order"
     Then the page should include "Do you want to finalise your divorce?"
-    Given I select "I want to finalise my divorce"
 
+    Given I select "I want to finalise my divorce"
     When I click "Continue"
     Then the page URL should be "/hub-page"
-
-    Given I set the case state to "FinalOrderRequested"
-    And I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
     And the page should include "You should receive an email within 2 working days,"
-    Given I click "Sign out"
-    When I login with applicant "2"
+
+    Given a superuser updates "dateFinalOrderNoLongerEligible" with "2020-01-01"
     Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
     And the page should include "You should receive an email within 2 working days,"
-    Given a superuser updates "dateFinalOrderNoLongerEligible" with "2020-01-01"
-    And I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "You will receive an email by"
-    Given I click "Sign out"
-    When I login with applicant "2"
-    And the page should include "You will receive an email by"
 
   @nightly
   Scenario: Applicant sole final order journey overdue
