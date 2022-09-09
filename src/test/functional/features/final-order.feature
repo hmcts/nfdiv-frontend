@@ -28,8 +28,10 @@ Feature: Final order
     And the page should include "You should receive an email within 2 working days,"
 
     Given a superuser updates "dateFinalOrderNoLongerEligible" with "2020-01-01"
+    When I click "Sign out"
+    And I login with applicant "2"
     Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days,"
+    And the page should include "You will receive an email by"
 
   @nightly
   Scenario: Applicant sole final order journey overdue
