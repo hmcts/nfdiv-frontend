@@ -76,7 +76,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1KnowsApplicant2Address: 'applicant1KnowsApplicant2Address',
   applicant1LegalProceedings: 'applicant1LegalProceedings',
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
-  applicant1LegalProceedingsDetailsTranslated: 'applicant1LegalProceedingsDetailsTranslated',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
   applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
@@ -240,7 +239,6 @@ export interface Case {
   iWantToHavePapersServedAnotherWay?: Checkbox;
   applicant1LegalProceedings?: YesOrNo;
   applicant1LegalProceedingsDetails?: string;
-  applicant1LegalProceedingsDetailsTranslated?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
   applicant1ApplyForFinancialOrder?: YesOrNo;
