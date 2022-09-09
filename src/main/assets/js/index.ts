@@ -9,5 +9,6 @@ import './cookie';
 import './avaya-webchat';
 import './data-layer';
 import './pdfjs';
+import './disable-upon-submit';
 
 initAll();
