@@ -1,14 +1,8 @@
 {% if userCase.applicant1AppliedForFinalOrderFirst === 'Yes' %}
-  <p class="govuk-body">
-   {{ finalOrderRequested.applicant1Line }}
-   {{ finalOrderRequested.line1 }}</p>
+  <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line3 }}</p>
 {% else %}
-  <p class="govuk-body">
-   {{ finalOrderRequested.applicant2Line }}
-   {{ finalOrderRequested.line1 }}
-   {{ finalOrderRequested.line2 }}
-   {{ finalOrderRequested.line3 }}</p>
-
+  <p class="govuk-body">{{ finalOrderRequested.applicant2Line1 }}</p>
+  <p class="govuk-body">{{ finalOrderRequested.applicant2Line2 }}</p>
 {% endif %}
