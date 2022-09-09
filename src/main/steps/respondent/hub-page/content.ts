@@ -87,15 +87,15 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
-    They can apply for a final order on ${getFormattedDate(userCase.dateFinalOrderEligibleFrom)}. This will end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.`,
-    line3: `If they do not apply for a final order by ${getFormattedDate(
+    They can apply for a final order from ${getFormattedDate(
       userCase.dateFinalOrderEligibleFrom
+    )}. This will end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+    line3: `If they do not apply for a final order by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderEligibleFrom).add(3, 'months')
     )} then you can apply for a final order.`,
     line4: {
       part1: 'You can ',
-      part2: "view and download your 'conditional order'.",
+      part2: 'download and read your conditional order.',
       downloadReference: 'Conditional-Order-Granted',
       link: '/downloads/conditional-order-granted',
     },
