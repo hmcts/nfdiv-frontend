@@ -2,15 +2,28 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
-import { jointHubPageSubheading as hubPageSubheading } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
+
+const hubPageSubheading = (
+  userCase: Partial<CaseWithId>,
+  language: SupportedLanguages = SupportedLanguages.En
+): string => {
+  if (
+    userCase.coClarificationUploadDocuments ||
+    userCase.coClarificationResponses ||
+    userCase.state === State.AwaitingFinalOrder
+  ) {
+    return language === SupportedLanguages.En ? 'Latest update' : 'Diweddariad diweddaraf';
+  }
+  return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
+};
 
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase),
