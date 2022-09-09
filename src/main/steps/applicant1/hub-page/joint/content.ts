@@ -7,11 +7,13 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
+import { jointHubPageSubheading as hubPageSubheading } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
@@ -82,14 +84,15 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  awaitingFinalOrder: {
+    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+  },
 });
 
-// @TODO translations
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
       isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
@@ -166,10 +169,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  awaitingFinalOrder: {
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
+      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
 });
 
 const languages = {
