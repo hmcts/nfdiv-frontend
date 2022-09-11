@@ -3,10 +3,11 @@ import { Response } from 'express';
 
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
-import { SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
+import { currentStateFn } from '../state-sequence';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
@@ -41,8 +42,12 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
 
             nextUrl = HOME_URL;
           } else {
-            req.session.applicantChoosesNewInviteCase = true;
-            nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+            if (this.isAllowedState(req.session.userCase.state, req.session.userCase.applicationType)) {
+              req.session.applicantChoosesNewInviteCase = true;
+              nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+            } else {
+              //go back
+            }
           }
         } catch (err) {
           req.locals.logger.error('Error saving', err);
@@ -59,6 +64,35 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
         }
         res.redirect(nextUrl);
       });
+    }
+  }
+
+  private isAllowedState(state: State, applicationType: ApplicationType | undefined): boolean {
+    if (ApplicationType.SOLE_APPLICATION === applicationType) {
+      //if they have not responded
+      return [
+        'AwaitingService',
+        'Holding',
+        'AwaitingConditionalOrder',
+        'IssuedToBailiff',
+        'AwaitingBailiffService',
+        'AwaitingBailiffReferral',
+        'AwaitingServiceConsideration',
+        'AwaitingServicePayment',
+        'AwaitingAlternativeService',
+        'AwaitingDwpResponse',
+        'AwaitingJudgeClarification',
+        'OfflineDocumentReceived',
+        'GeneralConsiderationComplete',
+        'AwaitingGeneralReferralPayment',
+        'AwaitingGeneralConsideration',
+        'GeneralApplicationReceived',
+        'PendingHearingOutcome',
+        'AosOverdue',
+        'AosDrafted',
+      ].includes(state);
+    } else {
+      return currentStateFn(state).isBefore(State.Submitted);
     }
   }
 }

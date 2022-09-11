@@ -2,15 +2,19 @@ import { ApplicationType } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { CommonContent } from '../common/common.content';
 import { formattedCaseId } from '../common/content.utils';
+
+import { ExistingApplicationContent } from './get';
 
 export enum existingOrNew {
   Existing = 'existing',
   New = 'new',
 }
 
-const en = ({ isDivorce, partner, required, existingCaseId }: CommonContent, isInviteCaseJoint: boolean) => {
+const en = (
+  { isDivorce, partner, required, existingCaseId }: ExistingApplicationContent,
+  isInviteCaseJoint: boolean
+) => {
   const respondJoin = `${isInviteCaseJoint ? 'join' : 'respond to'}`;
   return {
     title: 'You have an existing application',
@@ -31,7 +35,10 @@ const en = ({ isDivorce, partner, required, existingCaseId }: CommonContent, isI
   };
 };
 
-const cy: typeof en = ({ isDivorce, partner, required, existingCaseId }: CommonContent, isInviteCaseJoint: boolean) => {
+const cy: typeof en = (
+  { isDivorce, partner, required, existingCaseId }: ExistingApplicationContent,
+  isInviteCaseJoint: boolean
+) => {
   const respondJoin = `${isInviteCaseJoint ? 'ymateb i gais' : 'ymuno â chais'}`;
   return {
     title: 'Mae gennych gais sydd eisoes yn bod',
@@ -76,7 +83,7 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = (content: CommonContent) => {
+export const generateContent: TranslationFn = (content: ExistingApplicationContent) => {
   const isInviteCaseJoint = content.inviteCaseApplicationType === ApplicationType.JOINT_APPLICATION;
   const translations = languages[content.language](content, isInviteCaseJoint);
   return {

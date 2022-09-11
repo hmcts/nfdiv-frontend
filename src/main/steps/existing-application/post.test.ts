@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as oidc from '../../app/auth/user/oidc';
 import * as caseApi from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
@@ -42,6 +42,7 @@ describe('ExistingApplicationPostController', () => {
     };
 
     const req = mockRequest({ body });
+    req.session.userCase.state = State.AwaitingPayment;
     req.originalUrl = EXISTING_APPLICATION;
     const res = mockResponse();
 
