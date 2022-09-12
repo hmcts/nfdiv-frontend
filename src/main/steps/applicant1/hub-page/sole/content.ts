@@ -227,7 +227,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Latest information'
-      : `${userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update'}`,
+      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
 });
 
 // @TODO translations
@@ -452,7 +452,9 @@ const cy: typeof en = (
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Yr wybodaeth ddiweddaraf'
-      : `${userCase.state === 'AwaitingClarification' ? 'What you need to do now' : 'Latest update'}`,
+      : `${
+          userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
+        }`,
 });
 
 const languages = {

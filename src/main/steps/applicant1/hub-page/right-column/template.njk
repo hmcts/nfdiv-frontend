@@ -40,7 +40,7 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
 {% endif %}
 
-{% if isAwaitingAmendedApplication %}
+{% if isAwaitingAmendedApplicationState %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
     download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
 {% endif %}
