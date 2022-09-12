@@ -38,12 +38,11 @@ export class PostController<T extends AnyObject> {
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
-    if (req.session.errors.length === 0) {
-      try {
-        await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
-      } catch {
-        // ignore
-      }
+    formData = req.session.errors.length === 0 ? formData : {};
+    try {
+      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+    } catch {
+      // ignore
     }
     res.redirect(SAVE_AND_SIGN_OUT);
   }
