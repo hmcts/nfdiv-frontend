@@ -108,7 +108,7 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You need to provide some information before your application can progress."
-    And the page should include "What you need to do now"
+    And the page should include "What you need to do"
 
     Given I click 'Provide information'
     Then the page URL should be '/provide-information-to-the-court'
@@ -123,7 +123,7 @@ Feature: Sole hub page
     Given I set the case state to "ConditionalOrderPronounced"
     When I go to "/"
     Then the page should include "You have been granted a 'conditional order' by the court."
-    And the page should include "You can view and download your 'conditional order'."
+    And the page should include "You can download and read your conditional order"
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
