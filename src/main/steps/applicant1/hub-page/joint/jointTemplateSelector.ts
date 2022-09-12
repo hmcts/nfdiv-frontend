@@ -29,6 +29,8 @@ export const getJointHubTemplate = (
       return '/conditional-order-pending.njk';
     case State.AwaitingLegalAdvisorReferral:
       return '/awaiting-legal-advisor-referral.njk';
+    case State.AwaitingFinalOrder:
+      return '/awaiting-final-order.njk';
     default: {
       if (
         displayState.isAfter('Holding') &&
