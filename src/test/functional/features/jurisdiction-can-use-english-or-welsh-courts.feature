@@ -1,8 +1,8 @@
 Feature: Jurisdiction - can use English or Welsh courts
 
   Background:
-    Given I login
-    When I've completed all questions correctly to get to the jurisdiction section
+    Given I create a new user and login
+    And I've completed all questions correctly to get to the jurisdiction section
 
   Scenario: Jurisdiction happy path tests
     # A Applicant1 and Applicant2 are habitually resident
@@ -146,6 +146,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
     And I click "Continue"
+    Then the page should include "You can use English or Welsh courts to get a divorce"
     When I click "Back"
     Then the page should include "Check if you can get a divorce in England or Wales"
 
