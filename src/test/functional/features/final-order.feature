@@ -36,9 +36,11 @@ Feature: Final order
 
     Given I select "I want to finalise my divorce"
     When I click "Continue"
-    Then the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days,"
+    Then the page should include "You need to pay"
+    And the page should include "If you need help paying the fee"
 
+    Given I click "Sign out"
+    When I login with applicant "1"
     Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
     And the page should include "You will receive an email by"
 
