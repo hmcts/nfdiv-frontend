@@ -91,7 +91,6 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
