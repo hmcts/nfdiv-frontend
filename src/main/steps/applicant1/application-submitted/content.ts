@@ -20,6 +20,7 @@ const en = ({
   webChat,
   openingTimes,
   telephoneNumber,
+  isApplicant2,
 }: CommonContent) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
@@ -132,7 +133,9 @@ const en = ({
     part1: 'This is a new service. ',
     part2: 'Your feedback',
     part3: ' helps to improve it for others.',
-    link: config.get('govukUrls.feedbackSurvey'),
+    link: `${config.get('govukUrls.feedbackExitSurvey')}/?service=${isDivorce ? 'Divorce' : 'Civil'}&party=${
+      isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'
+    }`,
   },
 });
 
@@ -145,6 +148,7 @@ const cy: typeof en = ({
   webChat,
   telephoneNumber,
   openingTimes,
+  isApplicant2,
 }: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
@@ -257,7 +261,9 @@ const cy: typeof en = ({
     part1: 'Mae hwn yn wasanaeth newydd.',
     part2: 'Mae eich adborth',
     part3: ' yn ein helpu i wella’r gwasanaeth i eraill.',
-    link: config.get('govukUrls.feedbackSurvey'),
+    link: `${config.get('govukUrls.feedbackExitSurvey')}/?service=${isDivorce ? 'Divorce' : 'Civil'}&party=${
+      isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'
+    }`,
   },
 });
 
