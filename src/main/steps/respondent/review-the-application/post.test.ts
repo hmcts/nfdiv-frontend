@@ -1,9 +1,15 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_APPLICANT2_UPDATE, DRAFT_AOS } from '../../../app/case/definition';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_SAVE_AND_CLOSE,
+  DRAFT_AOS,
+} from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import * as steps from '../../index';
+import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 import ReviewTheApplicationPostController from './post';
 
@@ -87,5 +93,24 @@ describe('ReviewTheApplicationPostController', () => {
         propertyName: '*',
       },
     ]);
+  });
+
+  test('case is saved with empty formData', async () => {
+    const mockFormContent = {
+      fields: {
+        confirmReadPetition: {},
+      },
+    } as unknown as FormContent;
+
+    const body = { confirmReadPetition: Checkbox.Checked, saveAndSignOut: true };
+    const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body, userCase: { applicationType: ApplicationType.SOLE_APPLICATION } });
+    const res = mockResponse();
+    await reviewTheApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
+
+    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 });
