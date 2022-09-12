@@ -30,6 +30,15 @@ Feature: Final order
     Given a superuser updates "dateFinalOrderNoLongerEligible" with "2020-01-01"
     When I click "Sign out"
     And I login with applicant "2"
+    And I set the case state to "AwaitingFinalOrder"
+    And I click "Apply for a final order"
+    Then the page should include "Do you want to finalise your divorce?"
+
+    Given I select "I want to finalise my divorce"
+    When I click "Continue"
+    Then the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+    And the page should include "You should receive an email within 2 working days,"
+
     Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
     And the page should include "You will receive an email by"
 
