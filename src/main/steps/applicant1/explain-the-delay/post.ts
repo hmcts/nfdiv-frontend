@@ -9,8 +9,13 @@ import { SupportedLanguages } from '../../../modules/i18n';
 @autobind
 export default class ExplainTheDelayPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    formData.applicant1UsedWelshTranslationOnSubmission =
-      req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
+    if (req.session.isApplicant2) {
+      formData.applicant2UsedWelshTranslationOnSubmission =
+        req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
+    } else {
+      formData.applicant1UsedWelshTranslationOnSubmission =
+        req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
+    }
 
     return super.save(req, formData, eventName);
   }
