@@ -44,15 +44,9 @@ export default class ReviewTheApplicationPostController extends PostController<A
     });
   }
 
-  protected async saveAndSignOut(
-    req: AppRequest<AnyObject>,
-    res: Response,
-    form: Form,
-    formData: Partial<Case>
-  ): Promise<void> {
-    formData = {};
+  protected async saveAndSignOut(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
-      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+      await this.save(req, {}, CITIZEN_SAVE_AND_CLOSE);
     } catch {
       // ignore
     }
