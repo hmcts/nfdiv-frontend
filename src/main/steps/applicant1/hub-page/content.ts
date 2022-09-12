@@ -140,7 +140,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }. You need to read the court’s feedback and update your application, before you can continue.`,
     line2: 'The court’s feedback',
-    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    line3: userCase.coRefusalRejectionAdditionalInfo,
     part1: 'You can download a copy of the court’s full',
     part2: 'Refusal Order PDF.',
     downloadReference: 'Refusal-Order',
