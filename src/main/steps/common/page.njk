@@ -43,6 +43,7 @@
 
 {% set bannerHtml %}
   {{ feedback.part1 }}<a class="govuk-link" aria-label="{{ feedback.ariaLabel }}" href="{{ feedback.link }}{{ pageUrl }}" target="_blank">{{ feedback.part2 }}</a>{{ feedback.part3 }}
+  <a href="{{ languageToggle.link }}" class="govuk-link language">{{ languageToggle.text }}</a>
 {% endset %}
 
 {% block beforeContent %}
@@ -50,7 +51,7 @@
     tag: {
       text: phase
     },
-    html: bannerHtml + languageToggle
+    html: bannerHtml
   }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>

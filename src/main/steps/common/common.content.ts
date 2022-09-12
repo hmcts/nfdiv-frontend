@@ -17,7 +17,10 @@ export const en = {
       'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
-  languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
+  languageToggle: {
+    text: 'Cymraeg',
+    link: '?lng=cy',
+  },
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
@@ -146,7 +149,10 @@ const cy: typeof en = {
       'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
-  languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
+  languageToggle: {
+    text: 'English',
+    link: '?lng=en',
+  },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
