@@ -112,11 +112,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
     line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
-  },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  },  
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -212,11 +208,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
     }.`,
     line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
-  },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  },  
 });
 
 const languages = {
