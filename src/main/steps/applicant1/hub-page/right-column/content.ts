@@ -160,7 +160,7 @@ export const generateContent: TranslationFn = content => {
   const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
-  const isAwaitingAmendedApplicationState = State.AwaitingAmendedApplication;
+  const isAwaitingAmendedApplicationState: boolean = content.userCase.state === State.AwaitingAmendedApplication;
   const hasCertificateOfDeemedOrDispensedService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
