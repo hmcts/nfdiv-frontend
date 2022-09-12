@@ -294,7 +294,7 @@ const cy: typeof en = ({
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }. Mae angen i chi ddarllen sylwadau’r llys a diweddaru eich cais, cyn y gallwch barhau.`,
     line2: 'Sylwadau’r llys',
-    line3: `${userCase.coRefusalRejectionAdditionalInfo}`,
+    line3: userCase.coRefusalRejectionAdditionalInfo,
     part1: 'Gallwch lawrlwytho copi o',
     part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
     downloadReference: 'Refusal-Order',
