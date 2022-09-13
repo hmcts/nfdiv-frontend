@@ -74,7 +74,7 @@ Feature: Joint hub page
 
     Given I set the case state to "AwaitingFinalOrder"
     And I go to "/"
-    Then the page should include "You can now apply for a ‘final order’."
+    Then the page should include "You have applied for a ‘final order’."
     And the page should include "Apply for final order"
 
   @nightly
