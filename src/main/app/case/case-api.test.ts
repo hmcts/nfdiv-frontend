@@ -114,6 +114,53 @@ describe('CaseApi', () => {
     getSystemUserMock.mockClear();
   });
 
+  test('getExistingAndNewUserCases should return both existing case and new invite case if unique cases', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    const userCase2 = { id: '2', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => [userCase2]),
+    });
+    mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({
+      existingUserCase: { id: '1', state: State.Draft, divorceOrDissolution: serviceType },
+      newInviteUserCase: { id: '2', state: State.Draft, divorceOrDissolution: serviceType },
+    });
+    getSystemUserMock.mockClear();
+  });
+
+  test('getExistingAndNewUserCases should return existing case and false if invited case is an existing case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const userCase = { id: '1234', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => [userCase]),
+    });
+    mockApiClient.findExistingUserCases.mockResolvedValue([userCase]);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({
+      existingUserCase: { id: '1234', state: State.Draft, divorceOrDissolution: serviceType },
+      newInviteUserCase: false,
+    });
+    getSystemUserMock.mockClear();
+  });
+
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should return %s case data response',
     async caseType => {
