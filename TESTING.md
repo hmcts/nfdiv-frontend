@@ -72,7 +72,7 @@ Happy path cross browser tests are written in Cucumber syntax with Codecept runn
 
 These are run via Playwright - Chrome/Edge, Safari and Firefox and SauceLabs in Windows 10 and Microsoft Edge.
 
-Running cross browser tests locally, start the server and then run:
+Running cross browser tests locally, start the server then run:
 
 `TEST_HEADLESS=false yarn test:crossbrowser:playwright`
 
