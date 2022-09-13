@@ -9,7 +9,6 @@ import {
   ListValue,
   State,
 } from '../../app/case/definition';
-import { SupportedLanguages } from '../../modules/i18n';
 
 import { CommonContent, en } from './common.content';
 
@@ -123,17 +122,3 @@ export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): 
 };
 
 export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;
-
-export const jointHubPageSubheading = (
-  userCase: Partial<CaseWithId>,
-  language: SupportedLanguages = SupportedLanguages.En
-): string => {
-  if (
-    userCase.coClarificationUploadDocuments ||
-    userCase.coClarificationResponses ||
-    userCase.state === State.AwaitingFinalOrder
-  ) {
-    return language === SupportedLanguages.En ? 'Latest update' : 'Diweddariad diweddaraf';
-  }
-  return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
-};
