@@ -59,7 +59,7 @@ const cy: typeof en = (
   };
 };
 
-export const form: FormContent = {
+export const formContent: FormContent = {
   fields: {
     existingOrNewApplication: {
       type: 'radios',
@@ -86,6 +86,7 @@ const languages = {
 export const generateContent: TranslationFn = (content: ExistingApplicationContent) => {
   const isInviteCaseJoint = content.inviteCaseApplicationType === ApplicationType.JOINT_APPLICATION;
   const translations = languages[content.language](content, isInviteCaseJoint);
+  const form = content.cannotLinkToNewCase ? {} : formContent;
   return {
     ...translations,
     form,

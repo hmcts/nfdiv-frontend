@@ -1,13 +1,14 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import { isEmpty } from 'lodash';
 
 import { getSystemUser } from '../../app/auth/user/oidc';
+import { CaseWithId } from '../../app/case/case';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { currentStateFn } from '../state-sequence';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
@@ -39,14 +40,14 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.userCase.id,
               req.session.user.id
             );
-
             nextUrl = HOME_URL;
           } else {
-            if (this.isAllowedState(req.session.userCase.state, req.session.userCase.applicationType)) {
+            if (this.isAllowedToLinkToNewCase(req.session.userCase)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
-              //go back
+              req.locals.logger.error('Applicant not allowed to link to new case');
+              nextUrl = this.urlWithQueryParam(req.url, 'cannotLinkToNewCase=true');
             }
           }
         } catch (err) {
@@ -67,32 +68,15 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     }
   }
 
-  private isAllowedState(state: State, applicationType: ApplicationType | undefined): boolean {
-    if (ApplicationType.SOLE_APPLICATION === applicationType) {
-      //if they have not responded
-      return [
-        'AwaitingService',
-        'Holding',
-        'AwaitingConditionalOrder',
-        'IssuedToBailiff',
-        'AwaitingBailiffService',
-        'AwaitingBailiffReferral',
-        'AwaitingServiceConsideration',
-        'AwaitingServicePayment',
-        'AwaitingAlternativeService',
-        'AwaitingDwpResponse',
-        'AwaitingJudgeClarification',
-        'OfflineDocumentReceived',
-        'GeneralConsiderationComplete',
-        'AwaitingGeneralReferralPayment',
-        'AwaitingGeneralConsideration',
-        'GeneralApplicationReceived',
-        'PendingHearingOutcome',
-        'AosOverdue',
-        'AosDrafted',
-      ].includes(state);
+  private isAllowedToLinkToNewCase(userCase: CaseWithId): boolean {
+    if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
+      return !isEmpty(userCase.dateAosSubmitted);
     } else {
-      return currentStateFn(state).isBefore(State.Submitted);
+      return !isEmpty(userCase.dateSubmitted);
     }
+  }
+
+  private urlWithQueryParam(url: string, queryParam: string): string {
+    return url.concat(url.includes('?') ? '&' : '?').concat(`${queryParam}`);
   }
 }

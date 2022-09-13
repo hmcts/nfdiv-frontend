@@ -19,9 +19,12 @@ export class ExistingApplicationGetController extends GetController {
       existingCaseId: req.session?.existingCaseId,
       inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
     };
-    if (this.pageContent) {
-      Object.assign(content, this.pageContent(content));
+
+    if (req.query['cannotLinkToNewCase']) {
+      Object.assign(content, { ...content, cannotLinkToNewCase: true });
     }
+
+    Object.assign(content, generateContent(content));
     return content;
   }
 }
@@ -29,4 +32,5 @@ export class ExistingApplicationGetController extends GetController {
 export interface ExistingApplicationContent extends CommonContent {
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
+  cannotLinkToNewCase?: boolean;
 }
