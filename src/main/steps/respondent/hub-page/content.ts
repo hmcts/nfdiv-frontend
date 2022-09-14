@@ -319,17 +319,17 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
   finalOrderRequested: {
-    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'.  Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'bydd eich partneriaeth sifil yn dod i ben yn gyfreithiol'
     }.`,
     line2: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+          )} yn cadarnhau `
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau '
+    } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
 });
 

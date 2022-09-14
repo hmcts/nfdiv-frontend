@@ -378,18 +378,18 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
-    line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+    line1: "Rydych wedi gwneud cais am 'orchymyn terfynol'.  Bydd eich cais yn cael ei wirio gan staff y llys.",
+    line2: `Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } yn dod i ben yn gyfreithiol.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn  ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith,'
+    } yn cadarnhau a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:
