@@ -169,7 +169,7 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderApplication = userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
-  const hasFinalOrderApplication =
+  const hasFinalOrderApplicationAndFinalOrderRequested =
     userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION) &&
     userCase.state === State.FinalOrderRequested;
   return {
@@ -180,7 +180,7 @@ export const generateContent: TranslationFn = content => {
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
     hasConditionalOrderApplication,
-    hasFinalOrderApplication,
+    hasFinalOrderApplicationAndFinalOrderRequested,
     ...languages[language](content),
   };
 };
