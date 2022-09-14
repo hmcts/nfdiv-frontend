@@ -81,7 +81,7 @@ const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointAppli
   otherCourtCasesLine2: `The applicant has given details of other court cases relating to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }:`,
-  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicantLegalProceedingsDetails: userCase.applicant1LegalProceedingsDetails,
   noOtherCourtCases: `The applicant has indicated that there are no other court cases which are related to the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }.`,
@@ -202,7 +202,7 @@ const cy: typeof en = ({
   otherCourtCasesLine2: `Mae’r ceisydd wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
   }:`,
-  applicantLegalProceedingsDetails: `${userCase.applicant1LegalProceedingsDetails}`,
+  applicantLegalProceedingsDetails: userCase.applicant1LegalProceedingsDetails,
   noOtherCourtCases: `Mae’r ceisydd wedi nodi nad oes unrhyw achosion llys eraill sy’n ymwneud â’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
   }.`,
