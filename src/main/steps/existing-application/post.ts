@@ -27,27 +27,30 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       req.session.errors = form.getErrors(formData);
       if (req.session.errors.length === 0) {
         try {
+          const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
+          const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
             req.locals.logger.error(
               `UserId: "${req.session.user.id}" has chosen to continue with existing application: ${req.session.existingCaseId}
               and cancelling case invite: ${req.session.inviteCaseId}`
             );
-            const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
             await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
-            req.session.userCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+            req.session.userCase = existingCase;
             req.session.isApplicant2 = await caseworkerUserApi.isApplicant2(
               req.session.userCase.id,
               req.session.user.id
             );
             nextUrl = HOME_URL;
           } else {
-            if (this.isAllowedToLinkToNewCase(req.session.userCase)) {
+            if (this.isAllowedToLinkToNewCase(existingCase)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
               req.locals.logger.error('Applicant not allowed to link to new case');
-              nextUrl = this.urlWithQueryParam(req.url, 'cannotLinkToNewCase=true');
+              req.session.cannotLinkToNewCase = true;
+              req.session.existingApplicationType = existingCase.applicationType;
+              nextUrl = req.url;
             }
           }
         } catch (err) {
@@ -70,13 +73,9 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
 
   private isAllowedToLinkToNewCase(userCase: CaseWithId): boolean {
     if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
-      return !isEmpty(userCase.dateAosSubmitted);
+      return isEmpty(userCase.dateAosSubmitted);
     } else {
-      return !isEmpty(userCase.dateSubmitted);
+      return isEmpty(userCase.dateSubmitted);
     }
-  }
-
-  private urlWithQueryParam(url: string, queryParam: string): string {
-    return url.concat(url.includes('?') ? '&' : '?').concat(`${queryParam}`);
   }
 }

@@ -1,6 +1,25 @@
-{% extends "common/template.njk" %}
+{% extends "../common/page.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  {% if cannotLinkToNewCase %}
+    <p class="govuk-body">{{ cannotJoin }}</p>
+    {{ govukDetails({
+         summaryText: changeExisting.summary,
+         html: changeExisting.detail
+    }) }}
+    {{ govukDetails({
+         summaryText: startNewApplication.summary,
+         html: startNewApplication.detail
+    }) }}
+  {% else %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
+{% endblock %}
 
 {% block form %}
   {% include "./form.njk" %}
