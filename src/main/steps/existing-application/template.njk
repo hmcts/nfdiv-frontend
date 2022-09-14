@@ -16,6 +16,8 @@
          summaryText: startNewApplication.summary,
          html: startNewApplication.detail
     }) }}
+    <p class="govuk-body"><a href="{{ exit.link }}" class="govuk-link">{{ exit.text }}</a></p>
+    {% block contact_us %}{% endblock %}
   {% else %}
     <p class="govuk-body">{{ line2 }}</p>
   {% endif %}
