@@ -378,13 +378,13 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    line1: "Rydych wedi gwneud cais am 'orchymyn terfynol'.  Bydd eich cais yn cael ei wirio gan staff y llys.",
+    line1: "Rydych wedi gwneud cais am 'orchymyn terfynol'. Bydd eich cais yn cael ei wirio gan staff y llys.",
     line2: `Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } yn dod i ben yn gyfreithiol.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `Byddwch yn cael e-bost erbyn  ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )}`

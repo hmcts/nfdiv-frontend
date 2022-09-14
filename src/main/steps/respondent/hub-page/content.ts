@@ -319,7 +319,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
   finalOrderRequested: {
-    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'.  Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'. Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'bydd eich partneriaeth sifil yn dod i ben yn gyfreithiol'
     }.`,
     line2: `${
