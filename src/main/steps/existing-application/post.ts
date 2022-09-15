@@ -41,6 +41,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
 
             nextUrl = HOME_URL;
           } else {
+            req.session.applicantChoosesNewInviteCase = true;
             nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
           }
         } catch (err) {

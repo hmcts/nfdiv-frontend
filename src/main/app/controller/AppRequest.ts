@@ -25,6 +25,7 @@ export interface AppSession extends Session {
   inviteCaseId: string;
   existingCaseId: string;
   isApplicant2: boolean;
+  applicantChoosesNewInviteCase: boolean | undefined;
   lang: SupportedLanguages | undefined;
   errors: FormError[] | undefined;
   inviteCaseApplicationType?: ApplicationType;

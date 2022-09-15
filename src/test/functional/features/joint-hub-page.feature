@@ -41,12 +41,12 @@ Feature: Joint hub page
     When I go to "/"
     Then the page should include "You have been granted a 'conditional order' by the court."
     And the page should include "You are not divorced yet."
-    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    And the page should include "You can view and download your 'conditional order'."
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
     And the page should include "You are not divorced yet."
-    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    And the page should include "You can view and download your 'conditional order'."
 
     Given I set the case state to "AwaitingPronouncement"
     Then the page should include "You and your wife have applied for a 'conditional order'."
@@ -71,6 +71,11 @@ Feature: Joint hub page
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "Either you or your husband can provide the information requested by the court"
+
+    Given I set the case state to "AwaitingFinalOrder"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘final order’."
+    And the page should include "Apply for final order"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents

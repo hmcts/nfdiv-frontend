@@ -16,9 +16,6 @@
 
   {% elif isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
-      <a class="govuk-link" href={{ servedByBailiff.downloadReference }}
-      download="Certificate-of-Service">
-      {{ servedByBailiff.line2 }}</a>
     </p>
 
   {% else %}
