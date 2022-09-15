@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { extname } from 'path';
 
+import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
@@ -131,6 +132,18 @@ export class Routes {
             throw err;
           }
           res.end();
+        });
+      })
+    );
+
+    app.get(
+      '/exit-service',
+      errorHandler((req: AppRequest, res: Response) => {
+        req.session.destroy(err => {
+          if (err) {
+            throw err;
+          }
+          res.redirect(config.get('govukUrls.applyForDivorce'));
         });
       })
     );

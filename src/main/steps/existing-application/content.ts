@@ -1,5 +1,3 @@
-import config from 'config';
-
 import { ApplicationType } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
@@ -48,10 +46,7 @@ const en = (
         'You can withdraw it by downloading and filling out a D11 form and sending it to the court. ' +
         'Details of where to send it are on the application form.',
     },
-    exit: {
-      text: 'Exit service',
-      link: config.get('govukUrls.applyForDivorce'),
-    },
+    exitService: 'Exit service',
     errors: {
       existingOrNewApplication: {
         required,
@@ -95,10 +90,7 @@ const cy: typeof en = (
         'You can withdraw it by downloading and filling out a D11 form and sending it to the court. ' +
         'Details of where to send it are on the application form.',
     },
-    exit: {
-      text: 'Gadael y gwasanaeth',
-      link: config.get('govukUrls.applyForDivorce'),
-    },
+    exitService: 'Gadael y gwasanaeth',
     errors: {
       existingOrNewApplication: {
         required,

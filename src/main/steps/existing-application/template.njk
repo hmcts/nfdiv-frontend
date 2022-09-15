@@ -1,5 +1,5 @@
-{% extends "../common/page.njk" %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% extends "../common/page.njk" %}
 
 {% block backLink %}{% endblock %}
 
@@ -16,8 +16,7 @@
          summaryText: startNewApplication.summary,
          html: startNewApplication.detail
     }) }}
-    <p class="govuk-body"><a href="{{ exit.link }}" class="govuk-link">{{ exit.text }}</a></p>
-    {% block contact_us %}{% endblock %}
+    <p class="govuk-body"><a href="/exit-service" class="govuk-link">{{ exitService }}</a></p>
   {% else %}
     <p class="govuk-body">{{ line2 }}</p>
   {% endif %}
