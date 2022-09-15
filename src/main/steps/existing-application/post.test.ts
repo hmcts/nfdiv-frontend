@@ -20,6 +20,7 @@ const mockSystemUser = {
   familyName: 'worker',
   roles: ['caseworker'],
 };
+let caseApiMockFn;
 
 describe('ExistingApplicationPostController', () => {
   const mockFormContent = {
@@ -53,7 +54,7 @@ describe('ExistingApplicationPostController', () => {
       applicationType: ApplicationType.JOINT_APPLICATION,
       id: '1234',
     };
-    const caseApiMockFn = {
+    caseApiMockFn = {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => caseData),
       isApplicant2: jest.fn(() => true),
@@ -72,6 +73,53 @@ describe('ExistingApplicationPostController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
+  test.each([
+    [ApplicationType.JOINT_APPLICATION, undefined, undefined],
+    [ApplicationType.SOLE_APPLICATION, undefined, undefined],
+  ])(
+    'Should have no errors and redirect to the access code page for %s',
+    async (applicationType, dateSubmitted, dateAosSubmitted) => {
+      const body = {
+        existingOrNewApplication: existingOrNew.New,
+      };
+      mockCaseApi(applicationType, dateSubmitted, dateAosSubmitted);
+
+      const req = mockRequest({ body });
+      req.url = EXISTING_APPLICATION;
+      const res = mockResponse();
+      const controller = new ExistingApplicationPostController(mockFormContent.fields);
+
+      await controller.post(req, res);
+
+      expect(res.redirect).toBeCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+      expect(req.session.errors).toStrictEqual([]);
+      expect(req.session.cannotLinkToNewCase).toBeFalsy();
+      expect(req.session.existingApplicationType).toBeFalsy();
+    }
+  );
+
+  test.each([
+    [ApplicationType.JOINT_APPLICATION, '2022-08-22', undefined],
+    [ApplicationType.SOLE_APPLICATION, '2022-08-22', '2022-09-15'],
+  ])('Should be redirected to the current page for %s', async (applicationType, dateSubmitted, dateAosSubmitted) => {
+    const body = {
+      existingOrNewApplication: existingOrNew.New,
+    };
+    mockCaseApi(applicationType, dateSubmitted, dateAosSubmitted);
+
+    const req = mockRequest({ body });
+    req.url = EXISTING_APPLICATION;
+    const res = mockResponse();
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toBeCalledWith(EXISTING_APPLICATION);
+    expect(req.session.cannotLinkToNewCase).toBeTruthy();
+    expect(req.session.existingApplicationType).toBe(applicationType);
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+  });
+
   test('Should cancel new case invite and continue with existing case', async () => {
     const body = {
       existingOrNewApplication: existingOrNew.Existing,
@@ -86,7 +134,7 @@ describe('ExistingApplicationPostController', () => {
       id: '1234',
     };
 
-    const caseApiMockFn = {
+    caseApiMockFn = {
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => caseData),
       isApplicant2: jest.fn(() => true),
@@ -151,4 +199,15 @@ describe('ExistingApplicationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
     expect(req.session.errors).toEqual(errors);
   });
+
+  const mockCaseApi = (applicationType, dateSubmitted, dateAosSubmitted): void => {
+    getSystemUserMock.mockResolvedValue(mockSystemUser);
+    const caseData = { applicationType, dateSubmitted, dateAosSubmitted, id: '1234' };
+    caseApiMockFn = {
+      triggerEvent: jest.fn(),
+      getCaseById: jest.fn(() => caseData),
+      isApplicant2: jest.fn(() => true),
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+  };
 });

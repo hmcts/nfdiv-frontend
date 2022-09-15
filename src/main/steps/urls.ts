@@ -7,6 +7,8 @@ export const SIGN_IN_URL: PageLink = '/login';
 export const APPLICANT_2_SIGN_IN_URL: PageLink = '/login-applicant2';
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
+export const EXIT_SERVICE: PageLink = '/exit-service';
+export const ACTIVE: PageLink = '/active';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 

@@ -33,6 +33,7 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  ACTIVE,
   APPLICANT_2,
   CONTACT_US,
   COOKIES_URL,
@@ -40,6 +41,7 @@ import {
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
   EXISTING_APPLICATION,
+  EXIT_SERVICE,
   HOME_URL,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
@@ -120,7 +122,7 @@ export class Routes {
     );
 
     app.get(
-      '/active',
+      ACTIVE,
       errorHandler((req: AppRequest, res: Response) => {
         if (!req.session.user) {
           return res.redirect(SIGN_OUT_URL);
@@ -137,7 +139,7 @@ export class Routes {
     );
 
     app.get(
-      '/exit-service',
+      EXIT_SERVICE,
       errorHandler((req: AppRequest, res: Response) => {
         req.session.destroy(err => {
           if (err) {
