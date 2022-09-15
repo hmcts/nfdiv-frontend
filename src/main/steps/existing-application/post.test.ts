@@ -12,6 +12,14 @@ import { ExistingApplicationPostController } from './post';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
+const mockSystemUser = {
+  accessToken: 'token',
+  id: '1234',
+  email: 'user@caseworker.com',
+  givenName: 'case',
+  familyName: 'worker',
+  roles: ['caseworker'],
+};
 
 describe('ExistingApplicationPostController', () => {
   const mockFormContent = {
@@ -40,6 +48,17 @@ describe('ExistingApplicationPostController', () => {
     const body = {
       existingOrNewApplication: existingOrNew.New,
     };
+    getSystemUserMock.mockResolvedValue(mockSystemUser);
+    const caseData = {
+      applicationType: ApplicationType.JOINT_APPLICATION,
+      id: '1234',
+    };
+    const caseApiMockFn = {
+      triggerEvent: jest.fn(),
+      getCaseById: jest.fn(() => caseData),
+      isApplicant2: jest.fn(() => true),
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
 
     const req = mockRequest({ body });
     req.session.userCase.state = State.AwaitingPayment;
@@ -58,14 +77,7 @@ describe('ExistingApplicationPostController', () => {
       existingOrNewApplication: existingOrNew.Existing,
     };
 
-    getSystemUserMock.mockResolvedValue({
-      accessToken: 'token',
-      id: '1234',
-      email: 'user@caseworker.com',
-      givenName: 'case',
-      familyName: 'worker',
-      roles: ['caseworker'],
-    });
+    getSystemUserMock.mockResolvedValue(mockSystemUser);
 
     const req = mockRequest({ body });
 
@@ -102,14 +114,7 @@ describe('ExistingApplicationPostController', () => {
     };
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
 
-    getSystemUserMock.mockResolvedValue({
-      accessToken: 'token',
-      id: '1234',
-      email: 'user@caseworker.com',
-      givenName: 'case',
-      familyName: 'worker',
-      roles: ['caseworker'],
-    });
+    getSystemUserMock.mockResolvedValue(mockSystemUser);
 
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;

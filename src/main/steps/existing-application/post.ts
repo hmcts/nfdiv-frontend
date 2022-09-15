@@ -30,9 +30,9 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
           const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
           const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
-            req.locals.logger.error(
-              `UserId: "${req.session.user.id}" has chosen to continue with existing application: ${req.session.existingCaseId}
-              and cancelling case invite: ${req.session.inviteCaseId}`
+            req.locals.logger.info(
+              `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
+                    and cancelling case invite: ${req.session.inviteCaseId}`
             );
             await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
 
@@ -47,7 +47,11 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
-              req.locals.logger.error('Applicant not allowed to link to new case');
+              req.locals.logger.info(
+                `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}
+                      so invite will be cancelled`
+              );
+              await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
               req.session.cannotLinkToNewCase = true;
               req.session.existingApplicationType = existingCase.applicationType;
               nextUrl = req.url;
