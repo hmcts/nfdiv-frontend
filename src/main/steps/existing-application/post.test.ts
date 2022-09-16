@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as oidc from '../../app/auth/user/oidc';
 import * as caseApi from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
@@ -10,16 +10,15 @@ import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SA
 import { existingOrNew } from './content';
 import { ExistingApplicationPostController } from './post';
 
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
-const mockSystemUser = {
+jest.spyOn(oidc, 'getSystemUser').mockResolvedValue({
   accessToken: 'token',
   id: '1234',
   email: 'user@caseworker.com',
   givenName: 'case',
   familyName: 'worker',
   roles: ['caseworker'],
-};
+});
+const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 let caseApiMockFn;
 
 describe('ExistingApplicationPostController', () => {
@@ -35,7 +34,6 @@ describe('ExistingApplicationPostController', () => {
     const body = {
       saveAndSignOut: true,
     };
-
     const req = mockRequest({ body });
     const res = mockResponse();
 
@@ -43,34 +41,6 @@ describe('ExistingApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
-  });
-
-  test('Should have no errors and redirect to the access code page', async () => {
-    const body = {
-      existingOrNewApplication: existingOrNew.New,
-    };
-    getSystemUserMock.mockResolvedValue(mockSystemUser);
-    const caseData = {
-      applicationType: ApplicationType.JOINT_APPLICATION,
-      id: '1234',
-    };
-    caseApiMockFn = {
-      triggerEvent: jest.fn(),
-      getCaseById: jest.fn(() => caseData),
-      isApplicant2: jest.fn(() => true),
-    };
-    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
-
-    const req = mockRequest({ body });
-    req.session.userCase.state = State.AwaitingPayment;
-    req.originalUrl = EXISTING_APPLICATION;
-    const res = mockResponse();
-
-    const controller = new ExistingApplicationPostController(mockFormContent.fields);
-    await controller.post(req, res);
-
-    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
-    expect(req.session.errors).toStrictEqual([]);
   });
 
   test.each([
@@ -83,15 +53,14 @@ describe('ExistingApplicationPostController', () => {
         existingOrNewApplication: existingOrNew.New,
       };
       mockCaseApi(applicationType, dateSubmitted, dateAosSubmitted);
-
       const req = mockRequest({ body });
       req.url = EXISTING_APPLICATION;
       const res = mockResponse();
-      const controller = new ExistingApplicationPostController(mockFormContent.fields);
 
+      const controller = new ExistingApplicationPostController(mockFormContent.fields);
       await controller.post(req, res);
 
-      expect(res.redirect).toBeCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
       expect(req.session.errors).toStrictEqual([]);
       expect(req.session.cannotLinkToNewCase).toBeFalsy();
       expect(req.session.existingApplicationType).toBeFalsy();
@@ -106,12 +75,11 @@ describe('ExistingApplicationPostController', () => {
       existingOrNewApplication: existingOrNew.New,
     };
     mockCaseApi(applicationType, dateSubmitted, dateAosSubmitted);
-
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
     const res = mockResponse();
-    const controller = new ExistingApplicationPostController(mockFormContent.fields);
 
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(EXISTING_APPLICATION);
@@ -125,24 +93,11 @@ describe('ExistingApplicationPostController', () => {
       existingOrNewApplication: existingOrNew.Existing,
     };
 
-    getSystemUserMock.mockResolvedValue(mockSystemUser);
-
     const req = mockRequest({ body });
 
-    const caseData = {
-      applicationType: ApplicationType.JOINT_APPLICATION,
-      id: '1234',
-    };
-
-    caseApiMockFn = {
-      triggerEvent: jest.fn(),
-      getCaseById: jest.fn(() => caseData),
-      isApplicant2: jest.fn(() => true),
-    };
-
-    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+    mockCaseApi(ApplicationType.JOINT_APPLICATION, undefined, undefined);
     req.originalUrl = EXISTING_APPLICATION;
-    req.session.existingCaseId = caseData.id;
+    req.session.existingCaseId = '1234';
     req.session.inviteCaseId = '5678';
     const res = mockResponse();
 
@@ -160,10 +115,6 @@ describe('ExistingApplicationPostController', () => {
     const body = {
       existingOrNewApplication: existingOrNew.Existing,
     };
-    const controller = new ExistingApplicationPostController(mockFormContent.fields);
-
-    getSystemUserMock.mockResolvedValue(mockSystemUser);
-
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
     (getCaseApiMock as jest.Mock).mockReturnValue({
@@ -172,6 +123,8 @@ describe('ExistingApplicationPostController', () => {
       }),
     });
     const res = mockResponse();
+
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
@@ -201,7 +154,6 @@ describe('ExistingApplicationPostController', () => {
   });
 
   const mockCaseApi = (applicationType, dateSubmitted, dateAosSubmitted): void => {
-    getSystemUserMock.mockResolvedValue(mockSystemUser);
     const caseData = { applicationType, dateSubmitted, dateAosSubmitted, id: '1234' };
     caseApiMockFn = {
       triggerEvent: jest.fn(),
