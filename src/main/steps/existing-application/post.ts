@@ -43,7 +43,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
             );
             nextUrl = HOME_URL;
           } else {
-            if (this.isAllowedToLinkToNewCase(existingCase)) {
+            if (this.isAllowedToUnLinkFromCase(existingCase)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
@@ -75,7 +75,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     }
   }
 
-  private isAllowedToLinkToNewCase(userCase: CaseWithId): boolean {
+  private isAllowedToUnLinkFromCase(userCase: CaseWithId): boolean {
     if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
       return isEmpty(userCase.dateAosSubmitted);
     } else {
