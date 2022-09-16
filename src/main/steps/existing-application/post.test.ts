@@ -43,16 +43,13 @@ describe('ExistingApplicationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
-  test.each([
-    [ApplicationType.JOINT_APPLICATION, undefined, undefined],
-    [ApplicationType.SOLE_APPLICATION, undefined, undefined],
-  ])(
+  test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
     'Should have no errors and redirect to the access code page for %s',
-    async (applicationType, dateSubmitted, dateAosSubmitted) => {
+    async applicationType => {
       const body = {
         existingOrNewApplication: existingOrNew.New,
       };
-      mockCaseApi(applicationType, dateSubmitted, dateAosSubmitted);
+      mockCaseApi(applicationType, undefined, undefined);
       const req = mockRequest({ body });
       req.url = EXISTING_APPLICATION;
       const res = mockResponse();
