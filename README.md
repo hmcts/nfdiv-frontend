@@ -21,8 +21,6 @@
 <img src="https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/c4/nfdiv/images/structurizr-nfdiv-caseworker.png" width="600">
 </details>
 
-
-
 - [nfdiv-frontend](#nfdiv-frontend)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
@@ -244,7 +242,7 @@ The application exposes a health endpoint [https://localhost:3001/health](https:
 
 Once you have created a NFDIV-Case-API Pull Request with the case definition changes, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
 
-For example: `CCD_URL: 'http://ccd-data-store-api-nfdiv-case-api-pr-232.service.core-compute-preview.internal'`
+For example: `CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-232.service.core-compute-preview.internal'`
 
 Next, run the `generateTypescript` Gradle task in the Case API. Once this has completed, navigate to `build/ts/index.ts` in the Case API and copy the contents of the file. Navigate back to the frontend repository and paste the contents of the file into [definition.ts](src/main/app/case/definition.ts). Depending on how your IDE is configured, the formatting of strings from double to single quotes should be carried out automatically.
 
