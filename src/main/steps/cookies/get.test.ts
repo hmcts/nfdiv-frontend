@@ -18,7 +18,7 @@ describe('CookiesGetController', () => {
     await controller.get(req, res);
     const isDivorce = true;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
@@ -39,7 +39,7 @@ describe('CookiesGetController', () => {
     await controller.get(req, res);
     const isDivorce = false;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,

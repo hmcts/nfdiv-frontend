@@ -51,7 +51,7 @@ describe('JurisdictionPostController', () => {
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
-    expect(addConnectionsBasedOnQuestionsMock).toBeCalled();
+    expect(addConnectionsBasedOnQuestionsMock).toHaveBeenCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_RESIDENT]);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', bodyWithConnection, CITIZEN_UPDATE);
     expect(req.session.errors).toStrictEqual([]);
@@ -92,7 +92,7 @@ describe('JurisdictionPostController', () => {
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
-    expect(addConnectionsBasedOnQuestionsMock).toBeCalled();
+    expect(addConnectionsBasedOnQuestionsMock).toHaveBeenCalled();
     expect(req.body.connections).toEqual([JurisdictionConnections.APP_1_APP_2_DOMICILED]);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', bodyWithConnection, CITIZEN_UPDATE);
     expect(req.session.errors).toStrictEqual([]);
