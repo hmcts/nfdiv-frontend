@@ -328,7 +328,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )} yn cadarnhau`
-        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau '
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
 });
