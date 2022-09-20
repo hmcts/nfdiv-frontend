@@ -25,7 +25,7 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', {
+    expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
       language: SupportedLanguages.En,
       serviceName: 'Apply for a divorce',
@@ -44,7 +44,7 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', {
+    expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
       isAmendableStates: false,
     });
@@ -60,7 +60,7 @@ describe('GetController', () => {
       req.session.lang = language;
       await controller.get(req, res);
 
-      expect(res.render).toBeCalledWith('page', {
+      expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
@@ -81,7 +81,7 @@ describe('GetController', () => {
       req.session.lang = language;
       await controller.get(req, res);
 
-      expect(res.render).toBeCalledWith('page', {
+      expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
@@ -102,7 +102,7 @@ describe('GetController', () => {
       req.session.lang = language;
       await controller.get(req, res);
 
-      expect(res.render).toBeCalledWith('page', {
+      expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
         text: 'welsh',
@@ -145,7 +145,7 @@ describe('GetController', () => {
     req.session.userCase.gender = Gender.FEMALE;
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith('page', {
+    expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
       userCase: {
         id: '1234',
@@ -184,7 +184,7 @@ describe('GetController', () => {
         existingCaseId: req.session.existingCaseId,
         inviteCaseApplicationType: req.session.inviteCaseApplicationType,
       });
-      expect(res.render).toBeCalledWith('page', {
+      expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         isAmendableStates: true,
         userCase: req.session.userCase,
@@ -224,7 +224,7 @@ describe('GetController', () => {
             language,
             userCase: req.session.userCase,
           });
-          expect(res.render).toBeCalledWith('page', {
+          expect(res.render).toHaveBeenCalledWith('page', {
             ...defaultViewArgs,
             ...commonContent,
             isDivorce,
