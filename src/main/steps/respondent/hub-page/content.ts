@@ -327,7 +327,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
         ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
-          )} yn cadarnhau `
+          )} yn cadarnhau`
         : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau '
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
