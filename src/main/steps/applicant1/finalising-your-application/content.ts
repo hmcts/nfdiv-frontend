@@ -3,6 +3,7 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
@@ -47,7 +48,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     }`,
     line1: 'Dylech gadw’r cais ac allgofnodi, a sortio eich sefyllfa ariannol cyn gwneud cais am orchymyn terfynol.',
     line2: `Os nad ydych wedi gwneud cais erbyn ${getFormattedDate(
-      userCase.dateFinalOrderEligibleToRespondent
+      userCase.dateFinalOrderEligibleToRespondent,
+      SupportedLanguages.Cy
     )} yna bydd eich ${partner} yn gallu gwneud cais.
     Mae’n bosib y bydd yn rhaid i’r ddau ohonoch ddod i wrandawiad llys, os byddant yn gwneud cais.`,
     line3:
