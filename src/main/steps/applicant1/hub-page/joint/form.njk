@@ -23,14 +23,5 @@
       name: applicantApplyForConditionalOrderStarted,
       value: "Yes"
     }) }}
-  {% elif displayState.state() == 'AwaitingFinalOrder' %}
-      {{ govukButton({
-        text: button.applyForFinalOrder,
-        classes: form.submit.classes,
-        type: "submit",
-        name: "TODO",
-        value: "Yes",
-        preventDoubleClick: true
-      }) }}
   {% endif %}
  </form>

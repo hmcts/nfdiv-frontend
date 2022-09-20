@@ -8,6 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
+import { FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -97,10 +98,13 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
-  awaitingFinalOrder: {
-    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
-    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for a final order',
+    buttonLink: FINALISING_YOUR_APPLICATION,
   },
 });
 
@@ -182,12 +186,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
-  awaitingFinalOrder: {
-    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
-      isDivorce ? 'priodas' : 'partneriaeth sifil'
-    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
-      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
-    }.`,
+  awaitingFinalOrderOrFinalOrderOverdue: {
+    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for a final order',
+    buttonLink: FINALISING_YOUR_APPLICATION,
   },
 });
 
@@ -212,6 +217,11 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
+
+  const applicantWantToApplyForFinalOrder = isApplicant2
+    ? 'doesApplicant2WantToApplyForFinalOrder'
+    : 'doesApplicant1WantToApplyForFinalOrder';
+
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -227,5 +237,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
+    applicantWantToApplyForFinalOrder,
   };
 };
