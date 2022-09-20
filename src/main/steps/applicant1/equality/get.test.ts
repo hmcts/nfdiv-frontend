@@ -53,7 +53,7 @@ describe('PCQGetController', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
   });
 
   test('Should redirect to Check Your Answers if applicant1PcqId is already populated', async () => {
@@ -63,7 +63,7 @@ describe('PCQGetController', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
   });
 
   test('Should redirect to Check Your Answers if config cannot be loaded', async () => {
@@ -75,6 +75,6 @@ describe('PCQGetController', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(CHECK_ANSWERS_URL);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
   });
 });
