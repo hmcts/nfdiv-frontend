@@ -43,6 +43,6 @@ describe('ApplicationEndedGetController', () => {
     await expect(controller.get(req, res)).rejects.toThrow(
       'Error encountered whilst switching application type to sole.'
     );
-    expect(req.locals.logger.error).toBeCalled();
+    expect(req.locals.logger.error).toHaveBeenCalled();
   });
 });
