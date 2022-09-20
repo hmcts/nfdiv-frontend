@@ -17,7 +17,7 @@ describe('ApplicationEndedGetController', () => {
     await controller.get(req, res);
     const isDivorce = true;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...defaultViewArgs,
       ...generatePageContent({
         language,

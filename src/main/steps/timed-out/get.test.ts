@@ -19,7 +19,7 @@ describe('TimedOutGetController', () => {
     const userCase = req.session.userCase;
 
     expect(req.session.destroy).toBeCalled();
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,

@@ -120,6 +120,6 @@ describe('PaymentClient', () => {
 
     await client.get('1234');
 
-    expect(mockLogger.error).toBeCalledWith('Error fetching payment', { some: 'error' });
+    expect(mockLogger.error).toHaveBeenCalledWith('Error fetching payment', { some: 'error' });
   });
 });
