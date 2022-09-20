@@ -306,7 +306,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line1: `Gall eich ${partner} wneud cais am 'orchymyn terfynol' yn awr. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch
      ${isDivorce ? 'priodas' : 'partneriaeth sifil'} i ben yn gyfreithiol. Dyma'r cam olaf yn y
      ${isDivorce ? 'broses ysgaru' : "i ddod â'ch partneriaeth sifil i ben"}.`,
-    line2: `Os na fyddant yn gwneud cais erbyn ${getFormattedDate(userCase.dateFinalOrderEligibleToRespondent)}
+    line2: `Os na fyddant yn gwneud cais erbyn ${getFormattedDate(
+      userCase.dateFinalOrderEligibleToRespondent,
+      SupportedLanguages.Cy
+    )}
      byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
