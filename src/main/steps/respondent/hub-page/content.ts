@@ -169,6 +169,8 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
     line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
        number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
@@ -338,6 +340,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
     line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
        number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 

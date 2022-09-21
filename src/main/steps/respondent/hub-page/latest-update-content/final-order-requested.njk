@@ -1,8 +1,8 @@
 {% if hasApplicant2AppliedForFinalOrderFirst %}
     <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
     <p class="govuk-body">{{ finalOrderRequested.line3 }}
-    <a href="https://www.gov.uk/get-help-with-court-fees"
-    class="govuk-link" target="_blank">apply for Help With Fees here</a></p>
+    <a href="{{ finalOrderRequested.link }}"
+    class="govuk-link" target="_blank">finalOrderRequested.line4</a></p>
 {% else %}
     <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>
 {% endif %}
