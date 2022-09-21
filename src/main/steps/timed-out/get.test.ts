@@ -14,7 +14,7 @@ describe('TimedOutGetController', () => {
     await controller.get(req, res);
     const language = SupportedLanguages.En;
 
-    expect(req.session.destroy).toBeCalled();
+    expect(req.session.destroy).toHaveBeenCalled();
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,

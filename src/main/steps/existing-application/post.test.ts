@@ -79,7 +79,7 @@ describe('ExistingApplicationPostController', () => {
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(EXISTING_APPLICATION);
+    expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
     expect(req.session.cannotLinkToNewCase).toBeTruthy();
     expect(req.session.existingApplicationType).toBe(applicationType);
     expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
