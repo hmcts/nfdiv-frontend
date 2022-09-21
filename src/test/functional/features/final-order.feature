@@ -69,17 +69,19 @@ Feature: Final order
     When I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife has still not applied for a 'final order'"
-    And the page URL should be '/respondent/hub-page'
+    And the page URL should be "/respondent/hub-page"
 
     Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
     When I set the case state to "AwaitingFinalOrder"
     And I click "Apply for a final order"
-    And I click "I want permission to apply for a final order, and to finalise my divorce"
+    Then the page URL should be "/respondent/finalising-your-application"
+
+    Given I click "I want permission to apply for a final order, and to finalise my divorce"
     And I select "Explain why you need to apply for the final order"
     And I type "I want to apply myself"
     When I click "Submit"
     Then the page URL should be '/respondent/hub-page'
-    Then the page should include "You need to pay"
+    And the page should include "You need to pay"
     And the page should include "If you need help paying the fee"
 
     Given I click "Sign out"
