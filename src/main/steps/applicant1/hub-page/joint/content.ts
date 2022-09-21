@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { FINALISING_YOUR_APPLICATION } from '../../../urls';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -104,7 +104,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
     buttonText: 'Apply for a final order',
-    buttonLink: FINALISING_YOUR_APPLICATION,
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
 });
 
@@ -192,7 +192,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
     buttonText: 'Apply for a final order',
-    buttonLink: FINALISING_YOUR_APPLICATION,
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
 });
 

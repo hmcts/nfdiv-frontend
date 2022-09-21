@@ -17,28 +17,19 @@
 {% set readMoreChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
   <ol class="govuk-list govuk-list--number">
-    <li> <a class="govuk-link" href={{ readMoreChangeToSole.linkFinalOrder }} download={{ readMoreChangeToSole.downloadReferenceFinalOrder}}>
-        {{ readMoreChangeToSole.orderedList1FinalOrderPart1 }}</a> {{ readMoreChangeToSole.orderedList1FinalOrderPart2 }}
+    <li> {{ readMoreChangeToSole.orderedList1FinalOrder | safe }}
     </li>
-    <li> {{ readMoreChangeToSole.orderedList2CertificateOfServicePart1 }}
-      <a class="govuk-link" href={{ readMoreChangeToSole.linkCertificateOfService }} download={{ readMoreChangeToSole.downloadReferenceCertificateOfService}}>
-        {{ readMoreChangeToSole.orderedList2CertificateOfServicePart2 }}
-      </a> {{ readMoreChangeToSole.orderedList2CertificateOfServicePart3 }}
+    <li>
+      {{ readMoreChangeToSole.orderedList2CertificateOfService | safe }}
     </li>
     <li>
       {{ readMoreChangeToSole.orderedList3 }}
       <ul class="govuk-list govuk-list--bullet">
-        <li>{{ readMoreChangeToSole.bulletPoint1Part1 }}
-          <a class="govuk-link" href={{ readMoreChangeToSole.linkFinalOrder }} download={{ readMoreChangeToSole.downloadReferenceFinalOrder}}>
-            {{ readMoreChangeToSole.bulletPoint1Part2 }}
-          </a>
-          {{ readMoreChangeToSole.bulletPoint1Part3 }}
+        <li>
+          {{ readMoreChangeToSole.bulletPoint1 | safe }}
         </li>
-        <li>{{ readMoreChangeToSole.bulletPoint2Part1 }}
-          <a class="govuk-link" href={{ readMoreChangeToSole.linkCertificateOfService }} download={{ readMoreChangeToSole.downloadReferenceCertificateOfService}}>
-            {{ readMoreChangeToSole.bulletPoint2Part2 }}
-          </a>
-          {{ readMoreChangeToSole.bulletPoint2Part3 }}
+        <li>
+          {{ readMoreChangeToSole.bulletPoint2 | safe }}
         </li>
       </ul>
     </li>
@@ -51,7 +42,7 @@
   <p class="govuk-body">{{ line1 }}</p>
   {% if isJointApplication %}
     {{ govukWarningText({
-      text: warningTextJoint,
+      text: warningText,
       iconFallbackText: "Warning"
     }) }}
     {{ govukDetails({

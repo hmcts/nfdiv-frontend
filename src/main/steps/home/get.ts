@@ -161,7 +161,6 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.GeneralConsiderationComplete:
     case State.AwaitingGeneralReferralPayment:
     case State.AwaitingGeneralConsideration:
-    case State.AwaitingFinalOrder:
     case State.GeneralApplicationReceived: {
       if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
