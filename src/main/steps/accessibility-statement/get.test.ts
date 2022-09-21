@@ -19,7 +19,7 @@ describe('AccessibilityStatementGetController', () => {
     const isDivorce = true;
     const userCase = req.session.userCase;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
@@ -41,7 +41,7 @@ describe('AccessibilityStatementGetController', () => {
     const isDivorce = false;
     const userCase = req.session.userCase;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
