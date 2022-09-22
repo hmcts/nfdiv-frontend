@@ -32,6 +32,7 @@ export const autoLogin = {
     I.click('Sign in');
     I.waitForText('Apply for a divorce', 60);
     if (createCase) {
+      I.amOnPage(YOUR_DETAILS_URL);
       I.click('My husband');
       I.click('Continue');
       I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?', 60);
