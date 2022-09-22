@@ -17,7 +17,7 @@ describe('ApplicationEndedGetController', () => {
     await controller.get(req, res);
     const isDivorce = true;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...defaultViewArgs,
       ...generatePageContent({
         language,
@@ -43,6 +43,6 @@ describe('ApplicationEndedGetController', () => {
     await expect(controller.get(req, res)).rejects.toThrow(
       'Error encountered whilst switching application type to sole.'
     );
-    expect(req.locals.logger.error).toBeCalled();
+    expect(req.locals.logger.error).toHaveBeenCalled();
   });
 });

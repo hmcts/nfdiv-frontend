@@ -40,6 +40,9 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
+          if (req.session.user.roles.includes('caseworker')) {
+            res.redirect('https://manage-case.platform.hmcts.net/');
+          }
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
@@ -141,11 +144,7 @@ export class OidcMiddleware {
           isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
         );
 
-        const url = req.session.user.roles.includes('caseworker')
-          ? 'https://manage-case.platform.hmcts.net/'
-          : isApp2Callback
-          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
-          : HOME_URL;
+        const url = isApp2Callback ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}` : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
       } else {

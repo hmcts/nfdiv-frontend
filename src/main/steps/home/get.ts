@@ -41,7 +41,7 @@ export class HomeGetController {
     }
 
     const firstQuestionFormContent = req.session.isApplicant2
-      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
+      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType as ApplicationType)
       : applicant1FirstQuestionForm;
 
     const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);

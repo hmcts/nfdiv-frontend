@@ -23,7 +23,7 @@ describe('AccessCodeGetController', () => {
       await controller.get(req, res);
       const isDivorce = serviceType === DivorceOrDissolution.DIVORCE;
 
-      expect(res.render).toBeCalledWith(expect.anything(), {
+      expect(res.render).toHaveBeenCalledWith(expect.anything(), {
         ...defaultViewArgs,
         ...generatePageContent({
           language,
@@ -47,7 +47,7 @@ describe('AccessCodeGetController', () => {
       res.locals.serviceType = serviceType;
       await controller.get(req, res);
 
-      expect(res.redirect).toBeCalledWith(HOME_URL);
+      expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
     }
   );
 });

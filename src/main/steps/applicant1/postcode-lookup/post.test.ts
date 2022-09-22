@@ -22,8 +22,8 @@ describe('PostcodeLookupPostController', () => {
 
     await postcodeLookupPostController.post(mockReq, mockRes);
 
-    expect(mockGetAddressesFromPostcode).toBeCalledWith('TEST POSTCODE', mockReq.locals.logger);
-    expect(mockRes.json).toBeCalledWith(['MOCK ADDRESS']);
+    expect(mockGetAddressesFromPostcode).toHaveBeenCalledWith('TEST POSTCODE', mockReq.locals.logger);
+    expect(mockRes.json).toHaveBeenCalledWith(['MOCK ADDRESS']);
   });
 
   it.each([
