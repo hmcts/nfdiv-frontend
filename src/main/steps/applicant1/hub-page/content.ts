@@ -153,7 +153,7 @@ const cy: typeof en = ({
   finalOrderApplication: 'Final order application',
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1:
-    userCase.state === 'AwaitingClarification' ? 'Beth sydd angen i chi ei wneud nawr' : 'Yr wybodaeth ddiweddaraf',
+    userCase.state === 'AwaitingClarification' ? 'Beth sydd angen i chi ei wneud nawr' : 'Diweddariad diweddaraf',
   subHeading2: 'Gwybodaeth ddefnyddiol',
   line1: 'Rhagor o wybodaeth am rannu arian ac eiddo',
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
