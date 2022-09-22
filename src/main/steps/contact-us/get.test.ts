@@ -16,7 +16,7 @@ describe('ContactUsGetController', () => {
     await controller.get(req, res);
     const language = SupportedLanguages.En;
 
-    expect(res.render).toBeCalledWith(
+    expect(res.render).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         ...generatePageContent({

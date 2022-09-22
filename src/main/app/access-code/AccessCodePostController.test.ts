@@ -75,7 +75,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -120,7 +120,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -165,7 +165,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toBeCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -190,14 +190,14 @@ describe('AccessCodePostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
+    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'invalidAccessCode',
         propertyName: 'accessCode',
       },
     ]);
-    expect(req.locals.logger.error).toBeCalled();
+    expect(req.locals.logger.error).toHaveBeenCalled();
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
@@ -217,7 +217,7 @@ describe('AccessCodePostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
+    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'invalidReference',
@@ -249,7 +249,7 @@ describe('AccessCodePostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
+    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'errorSaving',
