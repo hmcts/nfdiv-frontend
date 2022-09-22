@@ -25,7 +25,7 @@ describe('ApplicationTypePostController', () => {
     const res = mockResponse();
     await applicationTypeController.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(SWITCH_TO_SOLE_APPLICATION);
+    expect(res.redirect).toHaveBeenCalledWith(SWITCH_TO_SOLE_APPLICATION);
   });
 
   test('Should post when applicant 2 is not linked and nullify jurisdiction data', async () => {

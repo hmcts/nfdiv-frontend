@@ -303,7 +303,7 @@ describe('CaseApi', () => {
       event_token: '123',
     };
 
-    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+    expect(mockedAxios.post).toHaveBeenCalledWith('/cases/1234/events', expectedRequest);
   });
 
   test('Should throw error when case could not be updated', async () => {
@@ -340,7 +340,7 @@ describe('CaseApi', () => {
       event: { id: CITIZEN_ADD_PAYMENT },
       event_token: '123',
     };
-    expect(mockedAxios.post).toBeCalledWith('/cases/1234/events', expectedRequest);
+    expect(mockedAxios.post).toHaveBeenCalledWith('/cases/1234/events', expectedRequest);
     expect(mockLogger.error).not.toHaveBeenCalled();
   });
 
