@@ -28,7 +28,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
-    expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
+    expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -50,7 +50,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE);
-    expect(res.redirect).toBeCalledWith(YOUR_DETAILS_URL);
+    expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.isApplicant2).toEqual(false);
     expect(req.session.existingCaseId).toStrictEqual(undefined);
@@ -64,7 +64,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(PAY_AND_SUBMIT);
+    expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
   });
 
   test('Should redirect to home page when cancel button used in any non AwaitingPayment state', async () => {
@@ -74,7 +74,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(HOME_URL);
+    expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
   });
 
   test('Should return error when event could not be triggered and redirect to the same page', async () => {
@@ -90,7 +90,7 @@ describe('SwitchToSoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
+    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'errorSaving',
