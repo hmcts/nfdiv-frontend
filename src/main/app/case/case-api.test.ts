@@ -114,6 +114,53 @@ describe('CaseApi', () => {
     getSystemUserMock.mockClear();
   });
 
+  test('getExistingAndNewUserCases should return both existing case and new invite case if unique cases', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    const userCase2 = { id: '2', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => [userCase2]),
+    });
+    mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({
+      existingUserCase: { id: '1', state: State.Draft, divorceOrDissolution: serviceType },
+      newInviteUserCase: { id: '2', state: State.Draft, divorceOrDissolution: serviceType },
+    });
+    getSystemUserMock.mockClear();
+  });
+
+  test('getExistingAndNewUserCases should return existing case and false if invited case is an existing case', async () => {
+    getSystemUserMock.mockResolvedValue({
+      accessToken: 'token',
+      id: '1234',
+      email: 'user@caseworker.com',
+      givenName: 'case',
+      familyName: 'worker',
+      roles: ['caseworker'],
+    });
+    const userCase = { id: '1234', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+      findUserInviteCases: jest.fn(() => [userCase]),
+    });
+    mockApiClient.findExistingUserCases.mockResolvedValue([userCase]);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+
+    expect(results).toStrictEqual({
+      existingUserCase: { id: '1234', state: State.Draft, divorceOrDissolution: serviceType },
+      newInviteUserCase: false,
+    });
+    getSystemUserMock.mockClear();
+  });
+
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should return %s case data response',
     async caseType => {
@@ -172,6 +219,68 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
+  test('Should prioritise Submitted case', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockSubmittedCase = {
+      id: '1',
+      state: State.Submitted,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.Submitted,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should prioritise AwaitingApplicant2Response case over Draft', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockSubmittedCase = {
+      id: '1',
+      state: State.AwaitingApplicant2Response,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.AwaitingApplicant2Response,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
+  test('Should return latest draft cases if multiple linked cases are draft', async () => {
+    const mockDraftCase = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    const mockDraftCase2 = {
+      id: '2',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockDraftCase2]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: DivorceOrDissolution.DIVORCE });
+  });
+
   test('Should update case', async () => {
     const expectedRes = { id: '1234', divorceOrDissolution: DivorceOrDissolution.DIVORCE };
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
@@ -188,7 +297,7 @@ describe('CaseApi', () => {
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
     const payments = new PaymentModel([]);
 
-    const actualRes = await api.addPayment('1234', payments.list);
+    const actualRes = await api.triggerPaymentEvent('1234', payments.list, CITIZEN_ADD_PAYMENT);
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1234', { applicationPayments: [] }, CITIZEN_ADD_PAYMENT);
     expect(actualRes).toStrictEqual(expectedRes);

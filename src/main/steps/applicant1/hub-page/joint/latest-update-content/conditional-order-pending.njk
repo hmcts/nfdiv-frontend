@@ -1,14 +1,14 @@
 {% if hasApplicantAppliedForConditionalOrder %}
   {% if partnerSubmissionOverdue %}
-  <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line1 }}</p>
-  <h3 class="govuk-heading-s">{{ conditionalOrderPending.afterDueDate.subHeading }}</h3>
-  <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line2 }}</p>
-  <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line3 }}
-    <a class="govuk-link" href="/switch-to-sole-application" target="_blank">{{ conditionalOrderPending.afterDueDate.link }}</a>
-  </p>
+    <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line1 }}</p>
+    <h3 class="govuk-heading-s">{{ conditionalOrderPending.afterDueDate.subHeading }}</h3>
+    <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line2 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPending.afterDueDate.line3 }}
+      <a class="govuk-link" href={{ conditionalOrderPending.afterDueDate.link }}>{{ conditionalOrderPending.afterDueDate.linkText }}</a>
+    </p>
   {% else %}
-  <p class="govuk-body">{{ conditionalOrderPending.beforeDueDate.line1 }}</p>
-  <p class="govuk-body">{{ conditionalOrderPending.beforeDueDate.line2 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPending.beforeDueDate.line1 }}</p>
+    <p class="govuk-body">{{ conditionalOrderPending.beforeDueDate.line2 }}</p>
   {% endif %}
 {% else %}
 <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>

@@ -139,7 +139,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
 };
 
-export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
+export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
   const result = {};
 
   for (const field of Object.keys(data)) {
@@ -326,6 +326,7 @@ export interface Case {
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2Offline: YesOrNo;
+  switchedToSoleCo: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

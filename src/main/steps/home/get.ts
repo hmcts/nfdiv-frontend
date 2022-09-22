@@ -32,12 +32,16 @@ import {
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
-    if (req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
+    if (!req.session.userCase) {
+      res.redirect(YOUR_DETAILS_URL);
+    }
+
+    if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
       throw new Error('Invalid case type');
     }
 
     const firstQuestionFormContent = req.session.isApplicant2
-      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
+      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType as ApplicationType)
       : applicant1FirstQuestionForm;
 
     const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
@@ -106,6 +110,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.ConditionalOrderPronounced:
     case State.AwaitingClarification:
     case State.ClarificationSubmitted:
+    case State.AwaitingFinalOrder:
     case State.Holding: {
       return HUB_PAGE;
     }

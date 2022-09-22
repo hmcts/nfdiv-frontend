@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, Gender } from '../../../app/case/definition';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, DivorceOrDissolution, Gender } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
@@ -72,5 +72,22 @@ describe('YourDetailsPostController', () => {
     );
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+  });
+
+  it('creates a new case if there is none in the session', async () => {
+    const body = { gender: Gender.FEMALE, sameSex: Checkbox.Checked };
+    const yourDetailsController = new YourDetailsPostController(mockFormContent.fields);
+
+    const expectedUserCase: Partial<CaseWithId> = {
+      id: '1234',
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    };
+
+    const req = mockRequest({ body, session: { userCase: false } });
+    (req.locals.api.createCase as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    const res = mockResponse();
+    await yourDetailsController.post(req, res);
+
+    expect(req.locals.api.createCase).toHaveBeenCalledWith('divorce', req.session.user);
   });
 });

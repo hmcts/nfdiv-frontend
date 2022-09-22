@@ -12,6 +12,8 @@ import {
 
 import { CommonContent, en } from './common.content';
 
+export const DISABLE_UPON_SUBMIT = 'disable-upon-submit';
+
 export const getServiceName = (translations: typeof en, isDivorce: boolean): string => {
   const serviceName = isDivorce ? translations.applyForDivorce : translations.applyForDissolution;
   return capitalize(serviceName);

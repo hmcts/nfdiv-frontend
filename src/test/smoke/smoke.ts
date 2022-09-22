@@ -31,7 +31,7 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 describe('Homepage should redirect to IDAM', () => {
   test('Homepage', async () => {
     const checkHomepage = async () => {
-      const response = await axios.get(process.env.TEST_URL!);
+      const response = await axios.get(process.env.TEST_URL as string);
       if (response.status !== 200 || !response.data.includes('password')) {
         throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
       }

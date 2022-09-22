@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
@@ -11,7 +11,22 @@ import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
-const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const hubPageSubheading = (
+  userCase: Partial<CaseWithId>,
+  language: SupportedLanguages = SupportedLanguages.En
+): string => {
+  if (
+    userCase.coClarificationUploadDocuments ||
+    userCase.coClarificationResponses ||
+    userCase.state === State.AwaitingFinalOrder
+  ) {
+    return language === SupportedLanguages.En ? 'Latest update' : 'Diweddariad diweddaraf';
+  }
+  return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
+};
+
+const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
@@ -40,7 +55,7 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
   confirmReceipt: 'Confirm receipt',
   applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
   A conditional order is a document that says the court does not see any reason why you cannot
-  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,
+  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.`,
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
@@ -60,7 +75,8 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'What you can do',
       line2: `You should contact your ${partner} and ask them to apply. Only contact them if it’s safe to do so.`,
       line3: 'If you do not think they will apply then you can ',
-      link: 'change your application to a sole application.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'change your application to a sole application.',
     },
   },
   awaitingLegalAdvisorReferral: {
@@ -81,14 +97,15 @@ const en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  awaitingFinalOrder: {
+    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+  },
 });
 
-// @TODO translations
-const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+  subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
       isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
@@ -143,7 +160,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
       subHeading: 'Beth allwch chi ei wneud',
       line2: `Dylech gysylltu â'ch ${partner} a gofyn iddynt wneud cais. Cysylltwch â nhw dim ond os yw'n ddiogel i chi wneud hynny.`,
       line3: 'Os nad ydych yn credu y byddant yn gwneud cais yna gallwch ',
-      link: 'newid eich cais i fod yn gais unigol.',
+      link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
+      linkText: 'newid eich cais i fod yn gais unigol.',
     },
   },
   awaitingLegalAdvisorReferral: {
@@ -164,10 +182,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner }: CommonContent) => ({
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
-  subHeading1:
-    userCase.coClarificationUploadDocuments || userCase.coClarificationResponses
-      ? 'Latest information'
-      : 'What you need to do',
+  awaitingFinalOrder: {
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
+      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
 });
 
 const languages = {
