@@ -18,8 +18,8 @@ describe('TimedOutGetController', () => {
     const isDivorce = true;
     const userCase = req.session.userCase;
 
-    expect(req.session.destroy).toBeCalled();
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(req.session.destroy).toHaveBeenCalled();
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
