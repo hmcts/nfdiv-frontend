@@ -28,7 +28,7 @@ describe('ChangingToASoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE_CO);
-    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -50,7 +50,7 @@ describe('ChangingToASoleApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, SWITCH_TO_SOLE_CO);
-    expect(res.redirect).toBeCalledWith(HUB_PAGE);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.isApplicant2).toEqual(false);
   });
@@ -68,7 +68,7 @@ describe('ChangingToASoleApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
+    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'errorSaving',
