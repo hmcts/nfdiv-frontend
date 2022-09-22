@@ -86,7 +86,7 @@ describe('ReviewTheApplicationPostController', () => {
     );
     const res = mockResponse();
     await expect(reviewTheApplicationPostController.post(req, res)).rejects.toEqual('An error while saving session');
-    expect(req.locals.logger.error).toBeCalled();
+    expect(req.locals.logger.error).toHaveBeenCalled();
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'errorSaving',
