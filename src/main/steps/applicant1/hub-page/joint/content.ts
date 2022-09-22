@@ -203,8 +203,8 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
-    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+    ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
+    : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
