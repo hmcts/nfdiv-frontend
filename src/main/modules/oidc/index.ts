@@ -40,6 +40,9 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
+          if (req.session.user.roles.includes('caseworker')) {
+            res.redirect('https://manage-case.platform.hmcts.net/');
+          }
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
@@ -106,15 +109,15 @@ export class OidcMiddleware {
             return next();
           }
         }
-        req.session.userCase =
-          req.session.userCase ||
-          existingUserCase ||
-          (await req.locals.api.createCase(res.locals.serviceType, req.session.user));
+        req.session.userCase = req.session.userCase || existingUserCase;
 
-        req.session.existingCaseId = req.session.userCase.id;
+        req.session.existingCaseId = req.session.userCase?.id;
 
         req.session.isApplicant2 =
-          req.session.isApplicant2 ?? (await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id));
+          req.session.isApplicant2 ??
+          (req.session.userCase
+            ? await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id)
+            : false);
       }
 
       req.session.save(err => {
@@ -141,11 +144,7 @@ export class OidcMiddleware {
           isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
         );
 
-        const url = req.session.user.roles.includes('caseworker')
-          ? 'https://manage-case.platform.hmcts.net/'
-          : isApp2Callback
-          ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`
-          : HOME_URL;
+        const url = isApp2Callback ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}` : HOME_URL;
 
         return req.session.save(() => res.redirect(url));
       } else {
