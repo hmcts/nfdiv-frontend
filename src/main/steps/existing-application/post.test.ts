@@ -33,7 +33,7 @@ describe('ExistingApplicationPostController', () => {
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
   test('Should have no errors and redirect to the access code page', async () => {
@@ -48,7 +48,7 @@ describe('ExistingApplicationPostController', () => {
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -91,7 +91,7 @@ describe('ExistingApplicationPostController', () => {
     expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
     expect(caseApiMockFn.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
     expect(caseApiMockFn.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
-    expect(res.redirect).toBeCalledWith(HOME_URL);
+    expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -120,7 +120,7 @@ describe('ExistingApplicationPostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(EXISTING_APPLICATION);
+    expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'errorSaving',
@@ -142,7 +142,7 @@ describe('ExistingApplicationPostController', () => {
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(EXISTING_APPLICATION);
+    expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
     expect(req.session.errors).toEqual(errors);
   });
 });

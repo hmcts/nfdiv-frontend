@@ -139,7 +139,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
 };
 
-export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
+export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
   const result = {};
 
   for (const field of Object.keys(data)) {
