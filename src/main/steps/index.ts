@@ -18,6 +18,7 @@ import {
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JURISDICTION,
   CONFIRM_JOINT_APPLICATION,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HOME_URL,
   JOINT_APPLICATION_SUBMITTED,
@@ -81,11 +82,13 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], c
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
   const sequence = getUserSequence(req);
-  const sequenceIndex =
-    !req.session.isApplicant2 &&
-    [State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(req.session.userCase.state)
-      ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
-      : 0;
+  const sequenceIndex = [State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(
+    req.session.userCase.state
+  )
+    ? req.session.isApplicant2
+      ? sequence.findIndex(s => s.url.includes(CONTINUE_WITH_YOUR_APPLICATION))
+      : sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
+    : 0;
   const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence);
 
   const jurisdictionUrls = [
