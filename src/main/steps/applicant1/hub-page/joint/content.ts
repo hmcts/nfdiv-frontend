@@ -187,10 +187,10 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.
-    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol.
+    Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"}.`,
     buttonText: 'Apply for a final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },

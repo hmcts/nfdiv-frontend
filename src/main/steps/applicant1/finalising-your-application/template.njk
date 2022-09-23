@@ -17,24 +17,42 @@
 {% set readMoreChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
   <ol class="govuk-list govuk-list--number">
-    <li> {{ readMoreChangeToSole.orderedList1FinalOrder | safe }}
+    <li>
+      <p class="govuk-body">
+        <a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf"
+           download="Download-Fill-Out-Application-For-Final-Order">Download and fill out an application for a final order</a>
+          {{ readMoreChangeToSole.orderedList1FinalOrder }}
+      </p>
     </li>
     <li>
-      {{ readMoreChangeToSole.orderedList2CertificateOfService | safe }}
+      <p class="govuk-body"> {{ readMoreChangeToSole.orderedList2CertificateOfServicePart1 }}
+        <a class="govuk-link" href="https://www.gov.uk/government/publications/form-n215-certificate-of-service"
+           download="Download-Fill-Out-Certificate-Of-Service">fill out a 'certificate of service'</a>
+        {{ readMoreChangeToSole.orderedList2CertificateOfServicePart2 }}
+      </p>
     </li>
     <li>
-      {{ readMoreChangeToSole.orderedList3 }}
+      <p class="govuk-body">{{ readMoreChangeToSole.orderedList3 }}</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          {{ readMoreChangeToSole.bulletPoint1 | safe }}
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint1Part1 }}
+            <a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf"
+               download="Download-Fill-Out-Application-For-Final-Order">application for a final order</a>
+            {{ readMoreChangeToSole.bulletPoint1Part2 }}
+          </p>
         </li>
         <li>
-          {{ readMoreChangeToSole.bulletPoint2 | safe }}
+
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint2Part1 }}
+            <a class="govuk-link" href="https://www.gov.uk/government/publications/form-n215-certificate-of-service"
+               download="Download-Fill-Out-Certificate-Of-Service"> 'certificate of service'</a>
+            {{ readMoreChangeToSole.bulletPoint2Part2 }}
+          </p>
         </li>
       </ul>
     </li>
   </ol>
-  <p class="govuk-body">{{ readMoreChangeToSole.postOrEmail }}</p>
+  <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
 {% endset %}
 
 {% block page_content %}
@@ -46,11 +64,11 @@
       iconFallbackText: "Warning"
     }) }}
     {{ govukDetails({
-      summaryText: readMoreJoint.subHeader,
+      summaryText: readMoreJointSubheader,
       html: readMoreContentJoint
     }) }}
     {{ govukDetails({
-      summaryText: readMoreJoint.subHeader2,
+      summaryText: readMoreChangeToSoleSubHeader,
       html: readMoreChangeToSole
     }) }}
   {% else %}
