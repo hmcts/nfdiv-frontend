@@ -98,6 +98,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   awaitingFinalOrder: {
+    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+  },
+  hasAppliedForFinalOrder: {
     line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
     line2: `If they do not apply by ${getFormattedDate(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
@@ -194,6 +199,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
   awaitingFinalOrder: {
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
+      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+  },
+  hasAppliedForFinalOrder: {
     line1: `Rydych wedi gwneud cais am 'orchymyn terfynol'. Mae'n rhaid i'ch ${partner} wneud cais hefyd oherwydd bod hwn yn gais ar y cyd. Anfonwyd nodyn atgoffa ato/ati drwy e-bost.`,
     line2: `Os nad yw’n gwneud cais erbyn ${getFormattedDate(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
@@ -235,6 +247,9 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
+  const hasApplicantAppliedForFinalOrder = isApplicant2
+    ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
+    : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
@@ -247,5 +262,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
+    hasApplicantAppliedForFinalOrder,
   };
 };
