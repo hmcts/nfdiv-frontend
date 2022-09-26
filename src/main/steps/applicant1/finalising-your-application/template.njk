@@ -14,39 +14,36 @@
   <p class="govuk-body">{{ readMoreJoint.line2 }}</p>
 {% endset %}
 
-{% set readMoreChangeToSole %}
+{% set readMoreContentChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
   <ol class="govuk-list govuk-list--number">
     <li>
-      <p class="govuk-body">
-        <a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf"
-           download="Download-Fill-Out-Application-For-Final-Order">Download and fill out an application for a final order</a>
-          {{ readMoreChangeToSole.orderedList1FinalOrder }}
+      <p class="govuk-body"><a href="{{ links.applicationForFinalOrder }}" download="{{ downloadRefs.applicationForFinalOrder }}">
+          {{ readMoreChangeToSole.orderedList1.linkText }}</a>
+        {{ readMoreChangeToSole.orderedList1.line }}
       </p>
     </li>
     <li>
-      <p class="govuk-body"> {{ readMoreChangeToSole.orderedList2CertificateOfServicePart1 }}
-        <a class="govuk-link" href="https://www.gov.uk/government/publications/form-n215-certificate-of-service"
-           download="Download-Fill-Out-Certificate-Of-Service">fill out a 'certificate of service'</a>
-        {{ readMoreChangeToSole.orderedList2CertificateOfServicePart2 }}
+      <p class="govuk-body">{{ readMoreChangeToSole.orderedList2.line1 }}
+        <a href="{{ links.certificateOfService }}" download="{{ downloadRefs.certificateOfService }}">
+          {{ readMoreChangeToSole.orderedList2.linkText }}</a>
+        {{ readMoreChangeToSole.orderedList2.line2 }}
       </p>
     </li>
     <li>
       <p class="govuk-body">{{ readMoreChangeToSole.orderedList3 }}</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint1Part1 }}
-            <a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf"
-               download="Download-Fill-Out-Application-For-Final-Order">application for a final order</a>
-            {{ readMoreChangeToSole.bulletPoint1Part2 }}
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint1.part1 }}
+            <a href="{{ links.applicationForFinalOrder }}" download="{{ downloadRefs.applicationForFinalOrder }}">
+              {{ readMoreChangeToSole.bulletPoint1.linkText }}</a>
+            {{ readMoreChangeToSole.bulletPoint1.part2 }}
           </p>
         </li>
         <li>
-
-          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint2Part1 }}
-            <a class="govuk-link" href="https://www.gov.uk/government/publications/form-n215-certificate-of-service"
-               download="Download-Fill-Out-Certificate-Of-Service"> 'certificate of service'</a>
-            {{ readMoreChangeToSole.bulletPoint2Part2 }}
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint2.part1 }}
+            <a href="{{ links.certificateOfService }}" download="{{ downloadRefs.certificateOfService }}">{{ readMoreChangeToSole.bulletPoint2.linkText }}</a>
+            {{ readMoreChangeToSole.bulletPoint2.part2 }}
           </p>
         </li>
       </ul>
@@ -64,12 +61,12 @@
       iconFallbackText: "Warning"
     }) }}
     {{ govukDetails({
-      summaryText: readMoreJointSubheader,
+      summaryText: readMoreJoint.subHeader,
       html: readMoreContentJoint
     }) }}
     {{ govukDetails({
-      summaryText: readMoreChangeToSoleSubHeader,
-      html: readMoreChangeToSole
+      summaryText: readMoreChangeToSole.subHeader,
+      html: readMoreContentChangeToSole
     }) }}
   {% else %}
     {{ govukWarningText({
