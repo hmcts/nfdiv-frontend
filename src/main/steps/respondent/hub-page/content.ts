@@ -154,6 +154,23 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
+  conditionalOrderRejected: {
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
+  },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
@@ -323,6 +340,23 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line3: 'If you apply then you may both have to come to court.',
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
+  },
+  conditionalOrderRejected: {
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen sylwadau’r llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Sylwadau’r llys',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'Gallwch lawrlwytho copi o',
+    part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'Beth sydd angen i chi ei wneud',
+    line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
+    line6:
+      "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
+    line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
+    line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
