@@ -174,14 +174,20 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+    line2: `You need to pay ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
+    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
+       number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
@@ -355,8 +361,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
@@ -364,6 +369,13 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+    line2: `You need to pay ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
+    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
+       number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
@@ -382,6 +394,7 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
+  const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -389,5 +402,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
+    hasApplicant2AppliedForFinalOrderFirst,
   };
 };
