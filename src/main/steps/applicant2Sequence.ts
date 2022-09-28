@@ -207,10 +207,6 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HUB_PAGE,
   },
   {
-    url: PROVIDE_INFORMATION_TO_THE_COURT,
-    getNextStep: () => HUB_PAGE,
-  },
-  {
     url: CHANGING_TO_SOLE_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },

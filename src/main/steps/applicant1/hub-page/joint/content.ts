@@ -218,10 +218,6 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
-  const applicantWantToApplyForFinalOrder = isApplicant2
-    ? 'doesApplicant2WantToApplyForFinalOrder'
-    : 'doesApplicant1WantToApplyForFinalOrder';
-
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -237,6 +233,5 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    applicantWantToApplyForFinalOrder,
   };
 };
