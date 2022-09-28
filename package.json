@@ -98,13 +98,13 @@
     "toobusy-js": "^0.5.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
-    "typescript": "^4.8.3",
+    "typescript": "^4.8.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.36.2",
+    "@typescript-eslint/parser": "^5.38.0",
     "@wdio/sauce-service": "^7.24.0",
     "allure-commandline": "^2.17.2",
     "axios-debug-log": "^0.8.4",
