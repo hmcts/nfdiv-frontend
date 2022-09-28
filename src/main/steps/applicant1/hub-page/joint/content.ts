@@ -98,7 +98,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
-  awaitingFinalOrderOrFinalOrderOverdue: {
+  awaitingFinalOrder: {
     line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
@@ -186,7 +186,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
   },
-  awaitingFinalOrderOrFinalOrderOverdue: {
+  awaitingFinalOrder: {
     line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } i ben yn gyfreithiol.
