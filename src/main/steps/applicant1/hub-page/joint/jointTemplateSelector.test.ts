@@ -64,4 +64,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, false);
     expect(jointTemplate).toBe('/awaiting-final-order.njk');
   });
+
+  test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder', () => {
+    const theState = displayState.at(State.AwaitingJointFinalOrder);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
 });
