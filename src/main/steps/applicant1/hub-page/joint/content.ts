@@ -247,7 +247,7 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
-  const hasApplicantAppliedForFinalOrder = isApplicant2
+  const hasApplicantAppliedForFinalOrderFirst = isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
@@ -262,6 +262,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    hasApplicantAppliedForFinalOrder,
+    hasApplicantAppliedForFinalOrderFirst,
   };
 };
