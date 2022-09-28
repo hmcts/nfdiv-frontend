@@ -130,6 +130,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorRepresented: 'applicant2SolicitorRepresented',
   applicant1UsedWelshTranslationOnSubmission: 'applicant1UsedWelshTranslationOnSubmission',
   applicant2UsedWelshTranslationOnSubmission: 'applicant2UsedWelshTranslationOnSubmission',
+  coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
   dueDate: 'dueDate',
   dateSubmitted: 'dateSubmitted',
   dateAosSubmitted: 'dateAosSubmitted',
@@ -137,6 +138,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
   coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
+  applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
+  applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -290,6 +293,7 @@ export interface Case {
   coConditionalOrderGrantedDocument: DivorceDocument;
   coApplicant1SubmittedDate?: DateAsString;
   coApplicant2SubmittedDate?: DateAsString;
+  coRefusalRejectionAdditionalInfo?: string;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
@@ -326,6 +330,8 @@ export interface Case {
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2Offline: YesOrNo;
+  applicant1AppliedForFinalOrderFirst: YesOrNo;
+  applicant2AppliedForFinalOrderFirst: YesOrNo;
   switchedToSoleCo: YesOrNo;
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;
