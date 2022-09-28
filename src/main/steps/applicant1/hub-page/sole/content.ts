@@ -450,6 +450,15 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
+  finalOrderGranted: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    downloadLink: {
+      linkUrl: '/downloads/certificate-of-entitlement',
+      linkText: 'Download a copy of your ‘final order’',
+    },
+    line2:
+      '. This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+  },
 });
 
 const languages = {
@@ -483,6 +492,8 @@ export const generateContent: TranslationFn = content => {
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
+  const finalOrderComplete = userCase.state === State.FinalOrderComplete;
+
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -494,5 +505,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isSwitchToSoleCoApp,
     hasApplicant1AppliedForFinalOrderFirst,
+    finalOrderComplete,
   };
 };

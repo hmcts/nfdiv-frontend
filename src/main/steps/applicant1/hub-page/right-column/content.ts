@@ -121,6 +121,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
+  finalOrderGrantedDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: 'Download a copy of ‘final order’ (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -163,6 +168,11 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
+
+  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+  );
+
   return {
     aosSubmitted,
     hasCertificateOfService,
@@ -171,6 +181,8 @@ export const generateContent: TranslationFn = content => {
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
     hasConditionalOrderApplication,
+    hasFinalOrderGranted,
+
     ...languages[content.language](content),
   };
 };
