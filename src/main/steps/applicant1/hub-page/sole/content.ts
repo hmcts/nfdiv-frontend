@@ -227,6 +227,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Latest information'
+      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
 });
 
 // @TODO translations
@@ -450,6 +454,12 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Yr wybodaeth ddiweddaraf'
+      : `${
+          userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
+        }`,
   finalOrderGranted: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     downloadLink: {
