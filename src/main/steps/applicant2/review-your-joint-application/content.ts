@@ -26,6 +26,7 @@ export const form: FormContent = {
         { label: l => l.yes, value: YesOrNo.YES },
         {
           label: l => l.no,
+          value: YesOrNo.NO,
           subFields: {
             applicant2ReasonInformationNotCorrect: {
               type: 'hidden',
