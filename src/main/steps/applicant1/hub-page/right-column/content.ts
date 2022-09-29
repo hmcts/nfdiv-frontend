@@ -134,7 +134,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   finalOrderGrantedDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
-    text: 'Download a copy of ‘final order’ (PDF)',
+    text: 'Download a copy of the ‘final order’ (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
