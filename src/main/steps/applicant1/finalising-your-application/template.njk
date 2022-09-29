@@ -9,10 +9,6 @@
     <p class="govuk-body">{{ readMore.line3 }}</p>
 {% endset %}
 
-{% set readMoreContentJoint %}
-  <p class="govuk-body">{{ readMoreJoint.line1 }}</p>
-  <p class="govuk-body">{{ readMoreJoint.line2 }}</p>
-{% endset %}
 
 {% set readMoreAboutSettlingFinancesContentJoint %}
   <p class="govuk-body">{{ readMoreAboutSettlingFinances.line1 }}</p>
@@ -27,8 +23,8 @@
 
 {% set readMoreContentChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
-  {% if AwaitingJointFinalOrderState  %}
-  <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
+  {% if isAwaitingJointFinalOrderState  %}
+    <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
   {% endif %}
   <ol class="govuk-list govuk-list--number">
     <li>
@@ -63,7 +59,16 @@
       </ul>
     </li>
   </ol>
-  <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
+  <p class="govuk-body">{{ readMoreChangeToSole.line3 }}</p>
+{% endset %}
+
+{% set readMoreContentJoint %}
+  <p class="govuk-body">{{ readMoreJoint.line1 }}</p>
+  <p class="govuk-body">{{ readMoreJoint.line2 }}</p>
+  {{ govukDetails({
+    summaryText: readMoreChangeToSole.subHeader,
+    html: readMoreContentChangeToSole
+  }) }}
 {% endset %}
 
 
@@ -74,16 +79,12 @@
     text: warningText,
     iconFallbackText: "Warning"
   }) }}
-  {% if isJointApplication and AwaitingFinalOrderState %}
+  {% if isJointApplication and isAwaitingFinalOrderState %}
     {{ govukDetails({
       summaryText: readMoreJoint.subHeader,
       html: readMoreContentJoint
     }) }}
-    {{ govukDetails({
-      summaryText: readMoreChangeToSole.subHeader,
-      html: readMoreContentChangeToSole
-    }) }}
- {% elif isJointApplication and AwaitingJointFinalOrderState %}
+ {% elif isJointApplication and isAwaitingJointFinalOrderState %}
     {{ govukDetails({
       summaryText: readMoreAboutSettlingFinances.subHeader,
       html: readMoreAboutSettlingFinancesContentJoint

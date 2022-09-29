@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
@@ -13,11 +15,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     isDivorce ? 'marriage' : 'civil partnership'
   } will be legally ended after the final order is made. This might affect your finances.`,
   warningText: `If you have not finished negotiations about your money, property or other assets then you should seek legal advice before finalising
-  ${
-    isDivorce || State.AwaitingJointFinalOrder.includes(userCase.state as State)
-      ? 'your divorce'
-      : 'ending your civil partnership'
-  }. ${isJointApplication ? 'If you want to settle your finances first, then save and sign out.' : ''}`,
+  ${isDivorce ? 'your divorce' : 'ending your civil partnership'}. ${
+    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+      ? 'If you want to settle your finances first, then save and sign out.'
+      : ''
+  }`,
   readMore: {
     subHeader: `If you want to settle your finances before  ${
       isDivorce ? 'finalising your divorce' : 'ending your civil partnership'
@@ -38,7 +40,9 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     line2: `You should still continue and confirm you want to ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     } below.
-    If your ${partner} does not also confirm within 2 weeks then you will be able to ${
+    If your ${partner} does not also confirm within ${config.get(
+      'dates.changingToSolePartnerConfirmationWeeks'
+    )} weeks then you will be able to ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     } as a sole applicant.
     You will receive an email with information on how to change your application, if they do not apply.`,
@@ -58,7 +62,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     This will mean you will become the respondent and the ${
       isDivorce ? 'divorce could be finalised' : 'civil partnership could be ended'
     } without your confirmation.
-    They must give you 14 days notice if they intend to do this.`,
+    They must give you ${config.get('dates.settlingFinancesConfirmationDays')} days notice if they intend to do this.`,
     line3: {
       part1: `If you want to settle your finances before the ${
         isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'
@@ -99,11 +103,16 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     },
     orderedList2: {
       line1: `Give notice to your ${partner} that you are intending to apply for a final order as a sole applicant.
-    You can do this by sending them a draft copy of the application by email or post. You will need to `,
+      You can do this by sending them a draft copy of the application by email or post. You will need to `,
       linkText: "fill out a 'certificate of service'",
       line2: ' (as a sole applicant)',
     },
-    orderedList3: `You have to give your ${partner} 14 days to respond, starting from the day they are ‘served’ the application. After 14 days, then send the following documents and evidence to the court:`,
+    orderedList3: `You have to give your ${partner} ${config.get(
+      'dates.changingToSolePartnerResponseDays'
+    )} days to respond,
+    starting from the day they are ‘served’ the application. After ${config.get(
+      'dates.changingToSolePartnerResponseDays'
+    )} days, then send the following documents and evidence to the court:`,
     bulletPoint1: {
       part1: 'The ',
       linkText: 'application for a final order',
@@ -161,14 +170,14 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const translations = languages[content.language](content);
-  const AwaitingFinalOrderState = State.AwaitingFinalOrder.includes(userCase.state as State);
-  const AwaitingJointFinalOrderState = State.AwaitingJointFinalOrder.includes(userCase.state as State);
+  const isAwaitingFinalOrderState = State.AwaitingFinalOrder.includes(userCase.state as State);
+  const isAwaitingJointFinalOrderState = State.AwaitingJointFinalOrder.includes(userCase.state as State);
   const isJointApplication = content.isJointApplication;
   return {
     ...translations,
     ...columnGenerateContent(content),
-    AwaitingFinalOrderState,
-    AwaitingJointFinalOrderState,
+    isAwaitingFinalOrderState,
+    isAwaitingJointFinalOrderState,
     isJointApplication,
     form,
   };
