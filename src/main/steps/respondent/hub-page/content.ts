@@ -377,6 +377,15 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line4: 'apply for Help With Fees here',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
+  finalOrderComplete: {
+    line1: 'Your final order has been granted. You are now legally divorced.',
+    downloadLink: {
+      linkUrl: '/downloads/final-order-granted',
+      linkText: 'Download a copy of your ‘final order’',
+    },
+    line2:
+      '. This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+  },
 });
 
 const languages = {
@@ -395,6 +404,9 @@ export const generateContent: TranslationFn = content => {
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
+
+  const isFinalOrderComplete = userCase.state === State.FinalOrderComplete;
+
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -403,5 +415,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
     hasApplicant2AppliedForFinalOrderFirst,
+    isFinalOrderComplete,
   };
 };

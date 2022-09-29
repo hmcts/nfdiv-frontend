@@ -87,4 +87,9 @@ describe('RespondentTemplateSelector test', () => {
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe('/awaiting-aos.njk');
   });
+  test('should show /final-order-complete.njk for states at FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe('/final-order-complete.njk');
+  });
 });
