@@ -170,8 +170,8 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const translations = languages[content.language](content);
-  const isAwaitingFinalOrderState = State.AwaitingFinalOrder.includes(userCase.state as State);
-  const isAwaitingJointFinalOrderState = State.AwaitingJointFinalOrder.includes(userCase.state as State);
+  const isAwaitingFinalOrderState = userCase.state === State.AwaitingFinalOrder;
+  const isAwaitingJointFinalOrderState = userCase.state === State.AwaitingJointFinalOrder;
   const isJointApplication = content.isJointApplication;
   return {
     ...translations,
