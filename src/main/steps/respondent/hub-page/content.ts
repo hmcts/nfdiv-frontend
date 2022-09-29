@@ -379,8 +379,13 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
   },
   finalOrderComplete: {
     line1: 'Your final order has been granted. You are now legally divorced.',
-    line2: `<a class="govuk-link" href="/downloads/final-order-granted" download="Final-Order-Granted">Download a copy of your ‘final order’</a>.
- This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.`,
+    downloadLink: {
+      url: '/downloads/final-order-granted',
+      text: 'Download a copy of your ‘final order’',
+      reference: 'Final-Order-Granted',
+    },
+    line2:
+      '. This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
   },
 });
 
@@ -401,7 +406,7 @@ export const generateContent: TranslationFn = content => {
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
 
-  const isFinalOrderComplete = userCase.state === State.FinalOrderComplete;
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
 
   return {
     ...applicant1GenerateContent(content),
@@ -411,6 +416,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
     hasApplicant2AppliedForFinalOrderFirst,
-    isFinalOrderComplete,
+    isFinalOrderCompleteState,
   };
 };
