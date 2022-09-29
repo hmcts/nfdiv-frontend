@@ -1,9 +1,4 @@
 {% if isFinalOrderComplete %}
   <p class="govuk-body">{{ finalOrderComplete.line1 }}</p>
-  <p class="govuk-body">
-      <a class="govuk-link" href={{ finalOrderGrantedDownload.link }}
-      download={{ finalOrderGrantedDownload.reference }}>
-        {{ finalOrderGrantedDownload.text }}</a>
-      {{ finalOrderComplete.line2 }}
-    </p>
+  <p class="govuk-body">{{ finalOrderComplete.line2 | safe }}</p>
 {% endif %}
