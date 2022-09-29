@@ -460,10 +460,10 @@ const cy: typeof en = (
       : `${
           userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
         }`,
-  finalOrderGranted: {
+  finalOrderComplete: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     downloadLink: {
-      linkUrl: '/downloads/certificate-of-entitlement',
+      linkUrl: '/downloads/final-order-granted',
       linkText: 'Download a copy of your ‘final order’',
     },
     line2:
@@ -502,7 +502,7 @@ export const generateContent: TranslationFn = content => {
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
-  const finalOrderComplete = userCase.state === State.FinalOrderComplete;
+  const isFinalOrderComplete = userCase.state === State.FinalOrderComplete;
 
   return {
     ...languages[language](content, alternativeServiceType),
@@ -515,6 +515,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isSwitchToSoleCoApp,
     hasApplicant1AppliedForFinalOrderFirst,
-    finalOrderComplete,
+    isFinalOrderComplete,
   };
 };

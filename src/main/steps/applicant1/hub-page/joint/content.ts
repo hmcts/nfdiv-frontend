@@ -192,7 +192,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
     }.`,
   },
-  finalOrderGranted: {
+  finalOrderComplete: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     downloadLink: {
       linkUrl: '/downloads/final-order-granted',
@@ -228,7 +228,7 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
 
-  const finalOrderComplete = userCase.state === State.FinalOrderComplete;
+  const isFinalOrderComplete = userCase.state === State.FinalOrderComplete;
 
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
@@ -242,6 +242,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    finalOrderComplete,
+    isFinalOrderComplete,
   };
 };
