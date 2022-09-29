@@ -89,8 +89,3 @@ Feature: Final order
     Then the page should include "Your husband has applied for a ‘final order’."
     And the page should include "A judge will review the application"
     And the page should include "You will then receive an email telling you what they decide."
-
-    Given I set the case state to "FinalOrderComplete"
-    When I go to "/respondent/hub-page?lng=cy"
-    Then the page should include "Your final order has been granted. You are now legally divorced."
-    And the page should include "Download a copy of your ‘final order’"
