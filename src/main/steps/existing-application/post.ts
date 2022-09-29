@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId } from '../../app/case/case';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
@@ -77,7 +77,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
 
   private isAllowedToUnLinkFromCase(userCase: CaseWithId): boolean {
     if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
-      return isEmpty(userCase.dateAosSubmitted);
+      const postSubmission = State.Submitted !== userCase.state && !isEmpty(userCase.dateSubmitted);
+      return postSubmission && isEmpty(userCase.dateAosSubmitted);
     } else {
       return isEmpty(userCase.dateSubmitted);
     }
