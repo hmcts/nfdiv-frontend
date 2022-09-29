@@ -380,13 +380,11 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
   finalOrderComplete: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     line2: {
-      part1: {
-        url: '/downloads/final-order-granted',
-        text: 'Download a copy of your ‘final order’',
-        reference: 'Final-Order-Granted',
-      },
+      part1: 'Download a copy of your ‘final order’',
       part2:
         '. This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
     },
   },
 });

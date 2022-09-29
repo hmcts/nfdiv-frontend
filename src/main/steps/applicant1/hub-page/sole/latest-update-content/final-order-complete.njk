@@ -1,9 +1,9 @@
 {% if isFinalOrderComplete %}
   <p class="govuk-body">{{ finalOrderComplete.line1 }}</p>
   <p class="govuk-body">
-      <a class="govuk-link" href={{ finalOrderComplete.line2.part1.url }}
-      download={{ finalOrderComplete.line2.part1.reference }}>
-        {{ finalOrderComplete.line2.part1.text }}</a>
+      <a class="govuk-link" href={{ finalOrderComplete.line2.link }}
+      download={{ finalOrderComplete.line2.reference }}>
+        {{ finalOrderComplete.line2.text }}</a>
       {{ finalOrderComplete.line2.part2 }}
     </p>
 {% endif %}
