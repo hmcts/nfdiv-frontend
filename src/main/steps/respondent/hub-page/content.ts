@@ -378,11 +378,13 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
   finalOrderComplete: {
-    line1: 'Your final order has been granted. You are now legally divorced.',
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    yn awr wedi dod i ben yn gyfreithiol.`,
     line2: {
-      part1: 'Download a copy of your ‘final order’',
-      part2: `. This is the document that shows your ${isDivorce ? 'marriage' : 'civil partnership'} is legally ended. 
-        You may need it so you should save a copy for your' records.`,
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
       link: '/downloads/final-order-granted',
       reference: 'Final-Order-Granted',
     },

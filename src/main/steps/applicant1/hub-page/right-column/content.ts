@@ -134,7 +134,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   finalOrderGrantedDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
-    text: 'Download a copy of the ‘final order’ (PDF)',
+    text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
