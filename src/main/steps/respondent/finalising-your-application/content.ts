@@ -41,7 +41,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 
 const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   title: isDivorce ? 'Cadarnhau eich ysgariad' : 'Dod â’ch partneriaeth sifil i ben',
-  line1: `Fel arfer, mae’n gynt os bydd eich ${partner} yn gwneud cais am orchymyn terfynol. Mae hyn oherwydd mai nhw yw’r ceisydd. Gallwch gadw’r cais ac allgofnodi a gofyn iddynt wneud cais, os yw’n ddiogel i wneud hynny. `,
+  line1: `Fel arfer, mae’n gynt os bydd eich ${partner} yn gwneud cais am orchymyn terfynol. Mae hyn oherwydd mai nhw yw’r ceisydd. Gallwch gadw’r cais ac allgofnodi a gofyn iddynt wneud cais, os yw’n ddiogel i wneud hynny.`,
   line2: `Os na fydd eich ${partner} yn gwneud cais i ${
     isDivorce ? 'gadarnhau’r ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
   }, yna gallwch chi wneud cais yn lle. Bydd angen i chi wneud cais am ganiatâd oherwydd mai chi yw'r 'atebydd' yn y ${
@@ -56,9 +56,9 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'gadarnhau fy ysgariad' : "ddod â'm mhartneriaeth sifil i ben"
   }`,
   explainWhy: 'Esboniwch pam fod angen i chi wneud cais am orchymyn terfynol',
-  line4: `If permission to apply for a final order is granted, then your application for a final order will also be considered. If the final order is made, then your ${
-    isDivorce ? 'marriage' : 'civil partnership'
-  } will be legally ended.`,
+  line4: `Os caniateir i chi wneud cais am orchymyn terfynol, yna bydd eich cais am orchymyn terfynol hefyd yn cael ei ystyried. Os gwneir y gorchymyn terfynol, yna bydd eich ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } yn dod i ben yn gyfreithiol.`,
   continue: 'Cyflwyno',
   errors: {
     doesApplicant2WantToApplyForFinalOrder: {
