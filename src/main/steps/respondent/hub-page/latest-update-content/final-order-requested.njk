@@ -1,3 +1,8 @@
-{% for property, line in finalOrderRequested %}
-  <p class="govuk-body">{{ line }}</p>
-{% endfor %}
+{% if hasApplicant2AppliedForFinalOrderFirst %}
+    <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
+    <p class="govuk-body">{{ finalOrderRequested.line3 }}
+    <a href="{{ finalOrderRequested.link }}"
+    class="govuk-link" target="_blank">{{ finalOrderRequested.line4 }}</a></p>
+{% else %}
+    <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>
+{% endif %}
