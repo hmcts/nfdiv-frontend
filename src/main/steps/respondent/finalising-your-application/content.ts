@@ -27,7 +27,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line4: `If permission to apply for a final order is granted, then your application for a final order will also be considered. If the final order is made, then your ${
     isDivorce ? 'marriage' : 'civil partnership'
   } will be legally ended.`,
-  continue: 'Submit',
   errors: {
     doesApplicant2WantToApplyForFinalOrder: {
       required:
@@ -59,7 +58,6 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   line4: `Os caniateir i chi wneud cais am orchymyn terfynol, yna bydd eich cais am orchymyn terfynol hefyd yn cael ei ystyried. Os gwneir y gorchymyn terfynol, yna bydd eich ${
     isDivorce ? 'priodas' : 'partneriaeth sifil'
   } yn dod i ben yn gyfreithiol.`,
-  continue: 'Cyflwyno',
   errors: {
     doesApplicant2WantToApplyForFinalOrder: {
       required:
@@ -95,7 +93,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
   },
 };
 
