@@ -133,7 +133,7 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
-  contactEmail: 'divorcecase@justice.gov.uk',
+  contactEmail: 'contactdivorce@justice.gov.uk',
 };
 
 const cy: typeof en = {
@@ -248,7 +248,7 @@ const cy: typeof en = {
     },
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
-  contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
+  contactEmail: 'contactdivorce@justice.gov.uk',
 };
 
 export const generatePageContent = ({
