@@ -29,7 +29,7 @@ const en = (
     existingSelected: 'You will not ever be able to access the new application',
     cannotJoin: `${
       ApplicationType.SOLE_APPLICATION === existingApplicationType
-        ? `You cannot join or create a new application because your ${partner} has already responded to your existing application.`
+        ? 'You cannot join or create a new application. This is because you have an existing case. You are not allowed to have more than one application by law.'
         : `You cannot join or create a new application because you are doing a joint application with your ${partner} ` +
           'and you have both confirmed and submitted it.'
     }`,
