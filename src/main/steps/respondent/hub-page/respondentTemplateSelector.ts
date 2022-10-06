@@ -23,6 +23,8 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
+    case State.AwaitingAmendedApplication:
+      return '/awaiting-amended-application.njk';
     case State.AwaitingGeneralConsideration:
       if (userCase.aosStatementOfTruth) {
         return '/awaiting-general-consideration.njk';

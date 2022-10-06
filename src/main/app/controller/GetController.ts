@@ -47,6 +47,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
+      pageUrl: req.url,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }
