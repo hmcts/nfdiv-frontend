@@ -154,17 +154,40 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
+  conditionalOrderRejected: {
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
+  },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+    line2: `You need to pay ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
+    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
+       number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
@@ -321,11 +344,27 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
+  conditionalOrderRejected: {
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen sylwadau’r llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Sylwadau’r llys',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'Gallwch lawrlwytho copi o',
+    part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'Beth sydd angen i chi ei wneud',
+    line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
+    line6:
+      "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
+    line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
+    line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
+  },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
@@ -333,6 +372,13 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+    line2: `You need to pay ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
+    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
+       number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
@@ -351,6 +397,7 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
+  const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -358,5 +405,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
+    hasApplicant2AppliedForFinalOrderFirst,
   };
 };
