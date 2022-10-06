@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
@@ -26,7 +25,6 @@ import {
 export class StateRedirectMiddleware {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
-    dayjs.extend(customParseFormat);
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
@@ -81,7 +79,7 @@ export class StateRedirectMiddleware {
     return (
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
         (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&
-      dayjs(userCase.dueDate, 'D MMMM YYYY').diff(dayjs()) < 0
+      dayjs(userCase.dueDate).diff(dayjs()) < 0
     );
   }
 }
