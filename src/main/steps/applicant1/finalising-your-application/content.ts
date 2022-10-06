@@ -1,4 +1,5 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
@@ -85,7 +86,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   readMoreChangeToSole: {
     subHeader: State.AwaitingJointFinalOrder.includes(userCase.state as State)
       ? 'Changing to a sole application'
-      : 'If you want to change sole application now ',
+      : 'If you want to change to a sole application now ',
     line1: State.AwaitingJointFinalOrder.includes(userCase.state as State)
       ? `Your ${partner} has already confirmed the application for a final order. The quickest way for you to
     ${
@@ -136,6 +137,12 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
         'You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out.',
     },
   },
+  continue: `${
+    State.FinalOrderOverdue.includes(userCase.state as State) ||
+    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+      ? 'Continue'
+      : 'Submit'
+  }`,
 });
 
 // @TODO translations
@@ -172,6 +179,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isAwaitingFinalOrderState = userCase.state === State.AwaitingFinalOrder;
   const isAwaitingJointFinalOrderState = userCase.state === State.AwaitingJointFinalOrder;
+  const isFinalOrderOverdue = userCase.state === State.FinalOrderOverdue;
   const isJointApplication = content.isJointApplication;
   return {
     ...translations,
@@ -179,6 +187,7 @@ export const generateContent: TranslationFn = content => {
     isAwaitingFinalOrderState,
     isAwaitingJointFinalOrderState,
     isJointApplication,
+    isFinalOrderOverdue,
     form,
   };
 };

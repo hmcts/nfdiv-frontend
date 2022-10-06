@@ -23,6 +23,7 @@ export const getJointHubTemplate = (
       return '/conditional-order-pending.njk';
     case State.AwaitingLegalAdvisorReferral:
       return '/awaiting-legal-advisor-referral.njk';
+    case State.FinalOrderOverdue:
     case State.AwaitingJointFinalOrder:
     case State.AwaitingFinalOrder:
       return '/awaiting-final-order.njk';
