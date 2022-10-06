@@ -1,6 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
+import { chronologicalStateSequence } from '../../steps/state-sequence';
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
@@ -98,33 +99,31 @@ export class CaseApi {
   }
 
   private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    const preSubmissionJointStates = [
-      State.AwaitingApplicant1Response,
-      State.AwaitingApplicant2Response,
-      State.Applicant2Approved,
-    ];
+    // If more than one userCase, find the priority one (e.g. Submitted > AwaitingPayment > Draft):
     if (userCases && userCases.length > 1) {
-      const submittedUserCase = userCases.find(
-        userCase => ![State.Draft, ...preSubmissionJointStates].includes(userCase.state)
-      );
-      const preSubmittedUserCase = userCases.find(userCase => preSubmissionJointStates.includes(userCase.state));
-      const priorityUserCase = submittedUserCase || preSubmittedUserCase;
-      if (priorityUserCase) {
-        return {
-          ...fromApiFormat(priorityUserCase.case_data),
-          id: priorityUserCase.id.toString(),
-          state: priorityUserCase.state,
-        };
+      const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
+      if (submittedUserCase) {
+        return convertCcdV1ResponseToCaseWithId(submittedUserCase);
       }
+      // If we have two Draft cases, this method is safe in finding the latest case because the [0] element will be the latest case.
+      // Otherwise, the highest priority pre-submitted case will be chosen (the one with the highest index):
+      return convertCcdV1ResponseToCaseWithId(this.getHighestPriorityPreSubmissionCases(userCases)[0]);
     }
+    // Else, return the only case we have (or false):
     return this.getLatestUserCase(userCases);
+  }
+
+  private getHighestPriorityPreSubmissionCases(userCases: CcdV1Response[]): CcdV1Response[] {
+    const stateIndexArr = userCases.map(userCase => preSubmittedStatePrioritySequence.indexOf(userCase.state));
+    const highestPriorityStateIndex: number = Math.max(...stateIndexArr);
+    return userCases.filter(
+      userCase => preSubmittedStatePrioritySequence.indexOf(userCase.state) === highestPriorityStateIndex
+    );
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
     if (userCases) {
-      return userCases[0]
-        ? { ...fromApiFormat(userCases[0].case_data), id: userCases[0].id.toString(), state: userCases[0].state }
-        : false;
+      return userCases[0] ? convertCcdV1ResponseToCaseWithId(userCases[0]) : false;
     }
     return false;
   }
@@ -132,4 +131,17 @@ export class CaseApi {
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(getCaseApiClient(userDetails, logger));
+};
+
+const preSubmittedStatePrioritySequence: State[] = chronologicalStateSequence.slice(
+  0,
+  chronologicalStateSequence.indexOf(State.Submitted)
+);
+
+const convertCcdV1ResponseToCaseWithId = (ccdV1ResponseInstance: CcdV1Response): CaseWithId => {
+  return {
+    ...fromApiFormat(ccdV1ResponseInstance.case_data),
+    id: ccdV1ResponseInstance.id.toString(),
+    state: ccdV1ResponseInstance.state,
+  };
 };
