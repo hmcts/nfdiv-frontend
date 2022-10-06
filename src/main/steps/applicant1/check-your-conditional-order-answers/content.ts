@@ -46,7 +46,6 @@ const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonCon
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   continueApplication: 'Continue application',
-  submit: 'submit',
   errors: {
     coApplicant1StatementOfTruth: {
       required:
@@ -94,7 +93,6 @@ const cy: typeof en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }
   confirmApplicationIsTrueWarning:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   continueApplication: 'Parhau gyda’r cais',
-  submit: 'Cyflwyno',
   errors: {
     coApplicant1StatementOfTruth: {
       required:
@@ -121,7 +119,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
     classes: DISABLE_UPON_SUBMIT,
   },
 };
