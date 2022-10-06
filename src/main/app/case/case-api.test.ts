@@ -263,6 +263,23 @@ describe('CaseApi', () => {
     });
   });
 
+  test('Should return the only case if there is only one', async () => {
+    const mockCase = {
+      id: '1',
+      state: State.AwaitingClarification,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockCase]);
+
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+    expect(userCase).toStrictEqual({
+      id: '1',
+      state: State.AwaitingClarification,
+      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    });
+  });
+
   test('Should return latest draft cases if multiple linked cases are draft', async () => {
     const mockDraftCase = {
       id: '1',
