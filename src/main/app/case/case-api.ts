@@ -145,3 +145,7 @@ const convertCcdV1ResponseToCaseWithId = (ccdV1ResponseInstance: CcdV1Response):
     state: ccdV1ResponseInstance.state,
   };
 };
+
+export const exportedForTesting = {
+  preSubmittedStatePrioritySequence,
+};

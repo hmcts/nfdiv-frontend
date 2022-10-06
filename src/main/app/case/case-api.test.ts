@@ -2,7 +2,7 @@ import * as oidc from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { CaseApi, getCaseApi } from './case-api';
+import { CaseApi, exportedForTesting, getCaseApi } from './case-api';
 import * as caseApiClient from './case-api-client';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
@@ -219,14 +219,14 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
-  test('Should prioritise Submitted case', async () => {
+  test('Should prioritise Submitted case over Draft case', async () => {
     const mockDraftCase = {
       id: '1',
       state: State.Draft,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     const mockSubmittedCase = {
-      id: '1',
+      id: '2',
       state: State.Submitted,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
@@ -235,21 +235,21 @@ describe('CaseApi', () => {
     const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
-      id: '1',
+      id: '2',
       state: State.Submitted,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
   });
 
-  test('Should prioritise AwaitingApplicant2Response case over Draft', async () => {
+  test('Should prioritise AwaitingPayment case over Draft', async () => {
     const mockDraftCase = {
       id: '1',
       state: State.Draft,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     const mockSubmittedCase = {
-      id: '1',
-      state: State.AwaitingApplicant2Response,
+      id: '2',
+      state: State.AwaitingPayment,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
@@ -257,8 +257,8 @@ describe('CaseApi', () => {
     const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
-      id: '1',
-      state: State.AwaitingApplicant2Response,
+      id: '2',
+      state: State.AwaitingPayment,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
   });
@@ -315,6 +315,11 @@ describe('CaseApi', () => {
 
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
+  });
+
+  test('preSubmittedStatePrioritySequence should be appropriate', async () => {
+    expect(exportedForTesting.preSubmittedStatePrioritySequence).toHaveLength(7);
+    expect(exportedForTesting.preSubmittedStatePrioritySequence).not.toContain(State.Submitted);
   });
 });
 
