@@ -47,6 +47,7 @@ export const chronologicalStateSequence: State[] = [
   State.AwaitingApplicant1Response,
   State.Applicant2Approved,
   State.AwaitingHWFDecision,
+  State.WelshTranslationReview,
   State.AwaitingPayment,
   State.AwaitingDocuments,
   State.Submitted,
