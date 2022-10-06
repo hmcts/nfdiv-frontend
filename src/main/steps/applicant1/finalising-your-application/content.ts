@@ -26,7 +26,6 @@ const en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     line3: 'If you wait a year before applying then you will need to explain the delay to the court.',
   },
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'}`,
-  continue: 'Submit',
   errors: {
     doesApplicant1WantToApplyForFinalOrder: {
       required:
@@ -56,7 +55,6 @@ const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
       "Os byddwch yn disgwyl blwyddyn cyn gwneud cais yna bydd angen i chi egluro’r rhesymau dros yr oedi i'r llys.",
   },
   checkboxLine: `Rwyf eisiau ${isDivorce ? 'cadarnhau fy ysgariad' : "dod â'm partneriaeth sifil i ben"}`,
-  continue: 'Cyflwyno',
   errors: {
     doesApplicant1WantToApplyForFinalOrder: {
       required:
@@ -82,7 +80,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
   },
 };
 
