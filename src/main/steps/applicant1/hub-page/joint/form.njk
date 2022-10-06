@@ -23,7 +23,7 @@
       name: applicantApplyForConditionalOrderStarted,
       value: "Yes"
     }) }}
-    {% elif displayState.state() == 'AwaitingFinalOrder' or 'AwaitingJointFinalOrder' %}
+    {% elif displayState.state() == 'AwaitingFinalOrder' or 'AwaitingJointFinalOrder' or 'FinalOrderOverdue' %}
     {{ govukButton({
       text: button.applyForFinalOrder,
       classes: form.submit.classes,

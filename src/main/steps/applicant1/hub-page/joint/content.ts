@@ -99,11 +99,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     This will have the time, date and court your conditional order will be pronounced.`,
   },
   awaitingFinalOrder: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+    line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    buttonText: 'Apply for a final order',
+    buttonText: 'Apply for final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
 });

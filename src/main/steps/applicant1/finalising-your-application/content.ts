@@ -139,7 +139,8 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   },
   continue: `${
     State.FinalOrderOverdue.includes(userCase.state as State) ||
-    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
+    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible) ||
+    !isJointApplication
       ? 'Continue'
       : 'Submit'
   }`,
