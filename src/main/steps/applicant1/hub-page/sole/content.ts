@@ -160,10 +160,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
+    applicant2AppliedFirstLine1: `Your ${partner} has applied for a ‘final order’.`,
+    applicant2AppliedFirstLine2:
+      'A judge will review the application. You will then receive an email telling you what they decide.',
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
@@ -224,6 +227,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Latest information'
+      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
 });
 
 // @TODO translations
@@ -345,11 +352,11 @@ const cy: typeof en = (
       "Mae'n rhaid i chi  aros 6 wythnos tan ar ôl eich gorchymyn amodol, i wneud cais am y gorchymyn terfynol.",
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.
-    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    buttonText: 'Apply for a final order',
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol.
+    Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "proses i ddod â'ch partneriaeth sifil i ben"}.`,
+    buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Darllenwch fwy am y camau nesaf',
@@ -378,15 +385,17 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
+    applicant2AppliedFirstLine1: `Your ${partner} has applied for a ‘final order’.`,
+    applicant2AppliedFirstLine2:
+      'A judge will review the application. You will then receive an email telling you what they decide.',
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
-            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
-            SupportedLanguages.Cy
+            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
@@ -445,6 +454,12 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Yr wybodaeth ddiweddaraf'
+      : `${
+          userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
+        }`,
 });
 
 const languages = {
@@ -476,6 +491,8 @@ export const generateContent: TranslationFn = content => {
     isAlternativeService
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
+  const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -486,5 +503,6 @@ export const generateContent: TranslationFn = content => {
     isAlternativeService,
     theLatestUpdateTemplate,
     isSwitchToSoleCoApp,
+    hasApplicant1AppliedForFinalOrderFirst,
   };
 };

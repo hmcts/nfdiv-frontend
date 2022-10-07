@@ -38,7 +38,7 @@ services:
     systemPassword: 'dummy_password'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #url: 'http://ccd-definition-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
+    #url: 'https://ccd-data-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
@@ -91,4 +91,4 @@ govukUrls:
   legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
-  feedbackSurvey: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done'
+  feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'

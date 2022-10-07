@@ -22,6 +22,7 @@ const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.
 const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
+const LOGIN_TIMEOUT = 60;
 
 export const autoLogin = {
   login: (I: CodeceptJS.I, username = TestUser, password = TestPass, createCase = true): void => {
@@ -30,18 +31,19 @@ export const autoLogin = {
     I.fillField('username', username);
     I.fillField('password', password);
     I.click('Sign in');
-    I.waitForText('Apply for a divorce', 60);
+    I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
     if (createCase) {
+      I.amOnPage(YOUR_DETAILS_URL);
       I.click('My husband');
       I.click('Continue');
-      I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?', 60);
+      I.waitForText('Has your marriage broken down irretrievably (it cannot be saved)?', LOGIN_TIMEOUT);
       I.amOnPage(YOUR_DETAILS_URL);
-      I.waitForText('Apply for a divorce', 60);
+      I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
     }
   },
   check: (I: CodeceptJS.I): void => {
     I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
-    I.waitForText('Apply for a divorce');
+    I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
   },
   restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -56,11 +58,11 @@ export const autoLoginForApplicant2 = {
     I.fillField('username', username);
     I.fillField('password', password);
     I.click('Sign in');
-    I.waitForText('Apply for a divorce', 60);
+    I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
   },
   check: (I: CodeceptJS.I): void => {
     I.amOnPage(`${APPLICANT_2 + ENTER_YOUR_ACCESS_CODE}?lng=en`);
-    I.waitForText('Apply for a divorce');
+    I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
   },
   restore: (I: CodeceptJS.I, cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -154,6 +156,7 @@ config.helpers = {
     waitForTimeout: config.WaitForTimeout,
     waitForAction: 350,
     timeout: config.WaitForTimeout,
+    retries: 5,
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
   },
