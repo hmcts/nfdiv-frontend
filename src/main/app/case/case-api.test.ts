@@ -2,7 +2,7 @@ import * as oidc from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { CaseApi, exportedForTesting, getCaseApi } from './case-api';
+import { CaseApi, getCaseApi } from './case-api';
 import * as caseApiClient from './case-api-client';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
 
@@ -332,11 +332,6 @@ describe('CaseApi', () => {
 
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
-  });
-
-  test('preSubmittedStatePrioritySequence should be appropriate', async () => {
-    expect(exportedForTesting.preSubmittedStatePrioritySequence).toHaveLength(7);
-    expect(exportedForTesting.preSubmittedStatePrioritySequence).not.toContain(State.Submitted);
   });
 });
 

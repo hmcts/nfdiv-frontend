@@ -90,3 +90,8 @@ export const chronologicalStateSequence: State[] = [
   State.OfflineDocumentReceived,
   State.BulkCaseReject,
 ];
+
+export const preSubmittedStatePrioritySequence: State[] = chronologicalStateSequence.slice(
+  0,
+  chronologicalStateSequence.indexOf(State.Submitted)
+);

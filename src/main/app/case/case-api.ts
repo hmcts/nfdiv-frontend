@@ -1,13 +1,13 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
-import { chronologicalStateSequence } from '../../steps/state-sequence';
+import { preSubmittedStatePrioritySequence } from '../../steps/state-sequence';
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, State, UserRole } from './definition';
+import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -133,19 +133,10 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
   return new CaseApi(getCaseApiClient(userDetails, logger));
 };
 
-const preSubmittedStatePrioritySequence: State[] = chronologicalStateSequence.slice(
-  0,
-  chronologicalStateSequence.indexOf(State.Submitted)
-);
-
 const convertCcdV1ResponseToCaseWithId = (ccdV1ResponseInstance: CcdV1Response): CaseWithId => {
   return {
     ...fromApiFormat(ccdV1ResponseInstance.case_data),
     id: ccdV1ResponseInstance.id.toString(),
     state: ccdV1ResponseInstance.state,
   };
-};
-
-export const exportedForTesting = {
-  preSubmittedStatePrioritySequence,
 };

@@ -1,6 +1,6 @@
 import { State } from '../app/case/definition';
 
-import { currentStateFn } from './state-sequence';
+import { chronologicalStateSequence, currentStateFn, preSubmittedStatePrioritySequence } from './state-sequence';
 
 describe('StateSequence', () => {
   test('Should ensure state is before test state', () => {
@@ -33,5 +33,14 @@ describe('StateSequence', () => {
   test('Should return current state', () => {
     const mockUserCase = { state: State.AwaitingPronouncement };
     expect(currentStateFn(mockUserCase).state()).toEqual(State.AwaitingPronouncement);
+  });
+
+  test('preSubmittedStatePrioritySequence should be appropriate', async () => {
+    expect(preSubmittedStatePrioritySequence).toHaveLength(8);
+    expect(preSubmittedStatePrioritySequence).not.toContain(State.Submitted);
+  });
+
+  test('chronologicalStateSequence should be appropriate', async () => {
+    expect(chronologicalStateSequence).toHaveLength(47);
   });
 });
