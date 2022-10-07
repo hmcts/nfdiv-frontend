@@ -139,8 +139,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   },
   continue: `${
     State.FinalOrderOverdue.includes(userCase.state as State) ||
-    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible) ||
-    !isJointApplication
+    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
       ? 'Continue'
       : 'Submit'
   }`,
@@ -276,8 +275,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
   },
   continue: `${
     State.FinalOrderOverdue.includes(userCase.state as State) ||
-    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible) ||
-    !isJointApplication
+    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
       ? 'Continue'
       : 'Submit'
   }`,
@@ -300,7 +298,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.submit,
+    text: l => l.continue,
   },
 };
 
