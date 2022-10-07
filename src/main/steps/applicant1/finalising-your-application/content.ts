@@ -99,7 +99,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     }
     You can change by following the steps below:`,
     orderedList1: {
-      part1: 'Download and fill out an application for a final order',
+      linkText: 'Download and fill out an application for a final order',
       part2: ' (as a sole applicant)',
     },
     orderedList2: {
