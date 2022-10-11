@@ -326,11 +326,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     } i ben yn gyfreithiol.`,
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
-     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
-     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    line2: `If they do not apply by ${getFormattedDate(userCase.dateFinalOrderEligibleToRespondent)}
-     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+    line1: `Gall eich ${partner} wneud cais am 'orchymyn terfynol' yn awr. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch
+     ${isDivorce ? 'priodas' : 'partneriaeth sifil'} i ben yn gyfreithiol. Dyma'r cam olaf yn y
+     ${isDivorce ? 'broses ysgaru' : "i ddod â'ch partneriaeth sifil i ben"}.`,
+    line2: `Os na fyddant yn gwneud cais erbyn ${getFormattedDate(
+      userCase.dateFinalOrderEligibleToRespondent,
+      SupportedLanguages.Cy
+    )}
+     byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
     line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${

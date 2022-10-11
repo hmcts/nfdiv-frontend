@@ -22,7 +22,7 @@ Feature: Final order
     Then the page should include "Do you want to finalise your divorce?"
 
     Given I select "I want to finalise my divorce"
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
     And the page should include "You should receive an email within 2 working days,"

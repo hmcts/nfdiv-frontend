@@ -43,6 +43,7 @@ export const currentStateFn = (state: State | undefined): StateSequence => {
     State.AwaitingApplicant1Response,
     State.Applicant2Approved,
     State.AwaitingHWFDecision,
+    State.WelshTranslationReview,
     State.AwaitingPayment,
     State.AwaitingDocuments,
     State.Submitted,
