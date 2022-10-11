@@ -38,10 +38,10 @@ export class StateSequence {
 }
 
 export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => {
-  return new StateSequence(chronologicalStateSequence).at(userCase.state as State);
+  return new StateSequence(orderedStateSequence).at(userCase.state as State);
 };
 
-export const chronologicalStateSequence: State[] = [
+export const orderedStateSequence: State[] = [
   State.Draft,
   State.AwaitingApplicant2Response,
   State.AwaitingApplicant1Response,
@@ -91,7 +91,7 @@ export const chronologicalStateSequence: State[] = [
   State.BulkCaseReject,
 ];
 
-export const preSubmittedStatePrioritySequence: State[] = chronologicalStateSequence.slice(
+export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.slice(
   0,
-  chronologicalStateSequence.indexOf(State.Submitted)
+  orderedStateSequence.indexOf(State.Submitted)
 );

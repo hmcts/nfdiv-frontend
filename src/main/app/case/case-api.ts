@@ -99,17 +99,11 @@ export class CaseApi {
   }
 
   private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    // If more than one userCase, find the priority one (e.g. Submitted > AwaitingPayment > Draft):
     if (userCases && userCases.length > 1) {
       const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
-      if (submittedUserCase) {
-        return convertCcdV1ResponseToCaseWithId(submittedUserCase);
-      }
-      // If we have two Draft cases, this method is safe in finding the latest case because the [0] element will be the latest case.
-      // Otherwise, the highest priority pre-submitted case will be chosen (the one with the highest index):
-      return convertCcdV1ResponseToCaseWithId(this.getHighestPriorityPreSubmissionCases(userCases)[0]);
+      const priorityUserCase = submittedUserCase || this.getHighestPriorityPreSubmissionCases(userCases)[0];
+      return convertCcdV1ResponseToCaseWithId(priorityUserCase);
     }
-    // Else, return the only case we have (or false):
     return this.getLatestUserCase(userCases);
   }
 
