@@ -375,9 +375,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line2: `Mae angen i chi dalu ${getFee(
       config.get('fees.finalOrderApplicationFee')
     )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 123 1711 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
-    line3: `Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch `,
+    line3:
+      "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
     line4: 'wneud cais am Help i Dalu Ffioedd yma.',
-    link: 'https://www.gov.uk/get-help-with-court-fees'
+    link: 'https://www.gov.uk/get-help-with-court-fees',
   },
 });
 
