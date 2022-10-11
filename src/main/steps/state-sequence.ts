@@ -98,12 +98,12 @@ export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.s
 );
 
 export const getHighestPriorityPreSubmissionCases = (userCases: CcdV1Response[]): CcdV1Response[] => {
-  if (userCases.some(userCase => !preSubmittedStatePrioritySequence.includes(<State>userCase.state))) {
+  if (userCases.some(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state))) {
     throw new Error('At least one of the userCases is not in a pre-submitted state');
   }
-  const stateIndexArr = userCases.map(userCase => preSubmittedStatePrioritySequence.indexOf(<State>userCase.state));
+  const stateIndexArr = userCases.map(userCase => preSubmittedStatePrioritySequence.indexOf(userCase.state));
   const highestPriorityStateIndex: number = Math.max(...stateIndexArr);
   return userCases.filter(
-    userCase => preSubmittedStatePrioritySequence.indexOf(<State>userCase.state) === highestPriorityStateIndex
+    userCase => preSubmittedStatePrioritySequence.indexOf(userCase.state) === highestPriorityStateIndex
   );
 };
