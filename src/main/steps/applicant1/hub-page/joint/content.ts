@@ -15,14 +15,17 @@ const hubPageSubheading = (
   userCase: Partial<CaseWithId>,
   language: SupportedLanguages = SupportedLanguages.En
 ): string => {
-  if (
+  if (userCase.state === State.AwaitingAmendedApplication) {
+    return language === SupportedLanguages.En ? 'Latest information' : 'Yr wybodaeth ddiweddaraf';
+  } else if (
     userCase.coClarificationUploadDocuments ||
     userCase.coClarificationResponses ||
     userCase.state === State.AwaitingFinalOrder
   ) {
     return language === SupportedLanguages.En ? 'Latest update' : 'Diweddariad diweddaraf';
+  } else {
+    return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
   }
-  return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
 };
 
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -203,8 +206,8 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
-    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+    ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
+    : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());

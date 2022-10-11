@@ -42,6 +42,12 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe('/clarification-submitted.njk');
   });
 
+  test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
+    const theState = displayState.at(State.AwaitingAmendedApplication);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe('/awaiting-amended-application.njk');
+  });
+
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingLegalAdvisorReferral', () => {
     const theState = displayState.at(State.AwaitingLegalAdvisorReferral);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
