@@ -261,7 +261,7 @@ Feature: Form failures
 
     Given I set the case state to "AwaitingFinalOrder"
     And I go to "/finalising-your-application"
-    When I click "Continue"
+    When I click "Submit"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
 
     Given I go to "/explain-the-delay"
@@ -519,11 +519,11 @@ Feature: Form failures
 
     When I click "Continue"
     Then the page URL should be "/check-your-conditional-order-answers"
-    When I click "Continue"
+    When I click "Submit"
     Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
     Given I select "I believe that the facts stated in this application are true"
 
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/hub-page"
     When I click "Sign out"
     And I login with applicant "2"
