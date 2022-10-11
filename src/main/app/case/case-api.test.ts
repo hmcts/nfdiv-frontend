@@ -241,28 +241,6 @@ describe('CaseApi', () => {
     });
   });
 
-  test('Should prioritise AwaitingPayment case over Draft', async () => {
-    const mockDraftCase = {
-      id: '1',
-      state: State.Draft,
-      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
-    };
-    const mockSubmittedCase = {
-      id: '2',
-      state: State.AwaitingPayment,
-      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
-    };
-    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
-
-    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-    expect(userCase).toStrictEqual({
-      id: '2',
-      state: State.AwaitingPayment,
-      divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-    });
-  });
-
   test('Should return the only case if there is only one', async () => {
     const mockCase = {
       id: '1',

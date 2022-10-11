@@ -1,6 +1,11 @@
-import { State } from '../app/case/definition';
+import { DivorceOrDissolution, State } from '../app/case/definition';
 
-import { chronologicalStateSequence, currentStateFn, preSubmittedStatePrioritySequence } from './state-sequence';
+import {
+  currentStateFn,
+  getHighestPriorityPreSubmissionCases,
+  orderedStateSequence,
+  preSubmittedStatePrioritySequence,
+} from './state-sequence';
 
 describe('StateSequence', () => {
   test('Should ensure state is before test state', () => {
@@ -40,7 +45,32 @@ describe('StateSequence', () => {
     expect(preSubmittedStatePrioritySequence).not.toContain(State.Submitted);
   });
 
-  test('chronologicalStateSequence should be appropriate', async () => {
-    expect(chronologicalStateSequence).toHaveLength(47);
+  test('orderedStateSequence should be appropriate', async () => {
+    expect(orderedStateSequence).toHaveLength(47);
+  });
+
+  describe('getHighestPriorityPreSubmissionCases', () => {
+    const serviceType = DivorceOrDissolution.DIVORCE;
+    test('Throw error if one of the cases is in post-submission state', async () => {
+      const userCase1 = { id: '1', state: State.Submitted, case_data: { divorceOrDissolution: serviceType } };
+      expect(() => getHighestPriorityPreSubmissionCases([userCase1])).toThrow(
+        new Error('At least one of the userCases is not in a pre-submitted state')
+      );
+    });
+
+    test('Return the highest priority of two pre-submission cases', async () => {
+      const userCase1 = { id: '2', state: State.AwaitingPayment, case_data: { divorceOrDissolution: serviceType } };
+      const userCase2 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+      const priorityCase = getHighestPriorityPreSubmissionCases([userCase1, userCase2]);
+      expect(priorityCase).toEqual([userCase1]);
+    });
+
+    test('Return both the highest priority cases of three pre-submission cases', async () => {
+      const userCase1 = { id: '3', state: State.AwaitingPayment, case_data: { divorceOrDissolution: serviceType } };
+      const userCase2 = { id: '2', state: State.AwaitingPayment, case_data: { divorceOrDissolution: serviceType } };
+      const userCase3 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
+      const priorityCase = getHighestPriorityPreSubmissionCases([userCase1, userCase2, userCase3]);
+      expect(priorityCase).toEqual([userCase1, userCase2]);
+    });
   });
 });

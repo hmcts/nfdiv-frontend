@@ -95,3 +95,14 @@ export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.s
   0,
   orderedStateSequence.indexOf(State.Submitted)
 );
+
+export const getHighestPriorityPreSubmissionCases = (userCases: Partial<CaseWithId>[]): Partial<CaseWithId>[] => {
+  if (userCases.some(userCase => !preSubmittedStatePrioritySequence.includes(<State>userCase.state))) {
+    throw new Error('At least one of the userCases is not in a pre-submitted state');
+  }
+  const stateIndexArr = userCases.map(userCase => preSubmittedStatePrioritySequence.indexOf(<State>userCase.state));
+  const highestPriorityStateIndex: number = Math.max(...stateIndexArr);
+  return userCases.filter(
+    userCase => preSubmittedStatePrioritySequence.indexOf(<State>userCase.state) === highestPriorityStateIndex
+  );
+};
