@@ -23,13 +23,14 @@
       name: applicantApplyForConditionalOrderStarted,
       value: "Yes"
     }) }}
-  {% elif displayState.state() == 'AwaitingFinalOrder' and not hasApplicantAppliedForFinalOrderFirst %}
+  {% elif (displayState.state() == 'AwaitingFinalOrder'
+    or displayState.state() == 'AwaitingJointFinalOrder' or displayState.state() == 'FinalOrderOverdue')
+    and not hasApplicantAppliedForFinalOrderFirst %}
       {{ govukButton({
-        text: button.applyForFinalOrder,
+        text: awaitingFinalOrder.buttonText,
         classes: form.submit.classes,
+        href: awaitingFinalOrder.buttonLink,
         type: "submit",
-        name: "TODO",
-        value: "Yes",
         preventDoubleClick: true
       }) }}
   {% endif %}
