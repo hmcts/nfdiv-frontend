@@ -7,6 +7,9 @@ dates:
   awaitingLegalAdvisorReferralOffsetDays: 28
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
+  changingToSolePartnerConfirmationWeeks: 2
+  settlingFinancesConfirmationDays: 14
+  changingToSolePartnerResponseDays: 14
   jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43

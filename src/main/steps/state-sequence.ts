@@ -77,6 +77,7 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.ConditionalOrderPronounced,
     State.ConditionalOrderRefused,
     State.AwaitingFinalOrder,
+    State.AwaitingJointFinalOrder,
     State.FinalOrderOverdue,
     State.FinalOrderRequested,
     State.FinalOrderPending,
