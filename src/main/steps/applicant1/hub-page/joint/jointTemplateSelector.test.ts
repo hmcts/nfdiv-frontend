@@ -71,6 +71,18 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/awaiting-final-order.njk');
   });
 
+  test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder', () => {
+    const theState = displayState.at(State.AwaitingJointFinalOrder);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
+  test('should show /awaiting-final-order.njk for state FinalOrderOverdue', () => {
+    const theState = displayState.at(State.FinalOrderOverdue);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
   test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const jointTemplate = getJointHubTemplate(theState, false);
