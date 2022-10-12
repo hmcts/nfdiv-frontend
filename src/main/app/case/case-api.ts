@@ -112,9 +112,12 @@ export class CaseApi {
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    return userCases
-      ? { ...fromApiFormat(userCases[0].case_data), id: userCases[0].id.toString(), state: userCases[0].state }
-      : false;
+    if (userCases) {
+      return userCases[0]
+        ? { ...fromApiFormat(userCases[0].case_data), id: userCases[0].id.toString(), state: userCases[0].state }
+        : false;
+    }
+    return false;
   }
 }
 
