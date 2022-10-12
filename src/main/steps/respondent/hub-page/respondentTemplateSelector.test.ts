@@ -87,9 +87,11 @@ describe('RespondentTemplateSelector test', () => {
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe('/awaiting-aos.njk');
   });
-  test('should show /final-order-complete.njk for states at FinalOrderComplete', () => {
+  test('should show ../../../common/latest-update-content/final-order-complete.njk for states at FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
-    expect(respondentTemplate).toBe('/final-order-complete.njk');
+    expect(respondentTemplate).toBe(
+      '../../../../applicant1/hub-page/common/latest-update-content/final-order-complete.njk'
+    );
   });
 });

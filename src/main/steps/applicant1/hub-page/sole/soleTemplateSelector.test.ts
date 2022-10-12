@@ -174,9 +174,9 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/aos-awaiting-or-drafted.njk');
   });
 
-  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+  test('should show ../../../common/latest-update-content/final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe('/final-order-complete.njk');
+    expect(soleTemplate).toBe('../../../common/latest-update-content/final-order-complete.njk');
   });
 });

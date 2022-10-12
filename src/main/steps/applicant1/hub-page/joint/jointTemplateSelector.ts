@@ -28,7 +28,7 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return '/awaiting-final-order.njk';
     case State.FinalOrderComplete: {
-      return '/final-order-complete.njk';
+      return '../../../common/latest-update-content/final-order-complete.njk';
     }
     default: {
       if (
