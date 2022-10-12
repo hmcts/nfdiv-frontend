@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { SupportedLanguages } from '../../modules/i18n';
-import { generatePageContent } from '../common/common.content';
+import { generateCommonContent } from '../common/common.content';
 
 import { errorContent } from './content';
 
@@ -58,7 +58,7 @@ export class ErrorController {
     const language = req.session?.lang || SupportedLanguages.En;
     const errorText =
       errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
-    const commonContent = generatePageContent({
+    const commonContent = generateCommonContent({
       language,
       userEmail: req.session?.user?.email,
       userCase: {},
