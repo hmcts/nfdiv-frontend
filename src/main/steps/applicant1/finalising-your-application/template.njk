@@ -9,15 +9,94 @@
     <p class="govuk-body">{{ readMore.line3 }}</p>
 {% endset %}
 
+
+{% set readMoreAboutSettlingFinancesContentJoint %}
+  <p class="govuk-body">{{ readMoreAboutSettlingFinances.line1 }}</p>
+  <p class="govuk-body">{{ readMoreAboutSettlingFinances.line2 }}</p>
+  <p class="govuk-body">{{ readMoreAboutSettlingFinances.line3.part1 }}
+    <a href="{{ readMoreAboutSettlingFinances.line3.link }}">
+      {{ readMoreAboutSettlingFinances.line3.part2 }}
+    </a>
+    {{ readMoreAboutSettlingFinances.line3.part3 }}
+  </p>
+{% endset %}
+
+{% set readMoreContentChangeToSole %}
+  <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
+  {% if isAwaitingJointFinalOrderState  %}
+    <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
+  {% endif %}
+  <ol class="govuk-list govuk-list--number">
+    <li>
+      <p class="govuk-body"><a href="{{ links.applicationForFinalOrder }}">
+          {{ readMoreChangeToSole.orderedList1.linkText }}</a>
+        {{ readMoreChangeToSole.orderedList1.part2 }}
+      </p>
+    </li>
+    <li>
+      <p class="govuk-body">{{ readMoreChangeToSole.orderedList2.line1 }}
+        <a href="{{ links.certificateOfService }}">
+          {{ readMoreChangeToSole.orderedList2.linkText }}</a>
+        {{ readMoreChangeToSole.orderedList2.line2 }}
+      </p>
+    </li>
+    <li>
+      <p class="govuk-body">{{ readMoreChangeToSole.orderedList3 }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint1.part1 }}
+            <a href="{{ links.applicationForFinalOrder }}">
+              {{ readMoreChangeToSole.bulletPoint1.linkText }}</a>
+            {{ readMoreChangeToSole.bulletPoint1.part2 }}
+          </p>
+        </li>
+        <li>
+          <p class="govuk-body"> {{ readMoreChangeToSole.bulletPoint2.part1 }}
+            <a href="{{ links.certificateOfService }}">{{ readMoreChangeToSole.bulletPoint2.linkText }}</a>
+            {{ readMoreChangeToSole.bulletPoint2.part2 }}
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <p class="govuk-body">{{ readMoreChangeToSole.line3 }}</p>
+{% endset %}
+
+{% set readMoreContentJoint %}
+  <p class="govuk-body">{{ readMoreJoint.line1 }}</p>
+  <p class="govuk-body">{{ readMoreJoint.line2 }}</p>
+  {{ govukDetails({
+    summaryText: readMoreChangeToSole.subHeader,
+    html: readMoreContentChangeToSole
+  }) }}
+{% endset %}
+
+
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-    {{ govukWarningText({
-      text: warningText,
-      iconFallbackText: "Warning"
-    }) }}
-  {{ govukDetails({
-    summaryText: readMore.subHeader,
-    html: readMoreContent
+  {{ govukWarningText({
+    text: warningText,
+    iconFallbackText: "Warning"
   }) }}
+  {% if isJointApplication and isAwaitingFinalOrderState or isJointApplication and isFinalOrderOverdue %}
+    {{ govukDetails({
+      summaryText: readMoreJoint.subHeader,
+      html: readMoreContentJoint
+    }) }}
+ {% elif isJointApplication and isAwaitingJointFinalOrderState %}
+    {{ govukDetails({
+      summaryText: readMoreAboutSettlingFinances.subHeader,
+      html: readMoreAboutSettlingFinancesContentJoint
+    }) }}
+    {{ govukDetails({
+      summaryText: readMoreChangeToSole.subHeader,
+      html: readMoreContentChangeToSole
+    }) }}
+  {% else %}
+    {{ govukDetails({
+      summaryText: readMore.subHeader,
+      html: readMoreContent
+    }) }}
+  {% endif %}
 {% endblock %}
