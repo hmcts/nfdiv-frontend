@@ -4,6 +4,7 @@ import { Routes } from './routes';
 import {
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
+  EXIT_SERVICE,
   HOME_URL,
   RESPONDENT,
   TERMS_AND_CONDITIONS_URL,
@@ -31,6 +32,7 @@ describe('Routes', () => {
       [APPLICANT_2, RESPONDENT, `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
       undefined
     );
+    expect(appMock.get).toHaveBeenCalledWith(EXIT_SERVICE, undefined);
     expect(appMock.get).toHaveBeenCalledWith(TERMS_AND_CONDITIONS_URL, undefined);
     expect(appMock.get).toHaveBeenCalledWith(YOUR_DETAILS_URL, expect.any(Function), undefined);
     expect(appMock.get).toHaveBeenCalledWith('/document-manager/delete/:index', undefined);
