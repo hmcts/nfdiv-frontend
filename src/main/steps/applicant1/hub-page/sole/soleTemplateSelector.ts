@@ -25,6 +25,7 @@ export const getSoleHubTemplate = (
     case State.ConditionalOrderPronounced: {
       return '/conditional-order-pronounced.njk';
     }
+    case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
