@@ -76,6 +76,7 @@ export const currentStateFn = (state: State | undefined): StateSequence => {
     State.ConditionalOrderPronounced,
     State.ConditionalOrderRefused,
     State.AwaitingFinalOrder,
+    State.AwaitingJointFinalOrder,
     State.FinalOrderOverdue,
     State.FinalOrderRequested,
     State.FinalOrderPending,
