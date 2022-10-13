@@ -20,6 +20,8 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAMES,
+  EXPLAIN_THE_DELAY,
+  FINALISING_YOUR_APPLICATION,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
@@ -194,6 +196,14 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: FINALISING_YOUR_APPLICATION,
+    getNextStep: data => (data.previousState === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+  },
+  {
+    url: EXPLAIN_THE_DELAY,
     getNextStep: () => HUB_PAGE,
   },
   {
