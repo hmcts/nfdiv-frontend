@@ -9,7 +9,7 @@ describe('JointTemplateSelector test', () => {
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
-  const displayState = currentStateFn(userCase);
+  const displayState = currentStateFn(userCase.state);
 
   test('should show /awaiting-pronouncement.njk for state AwaitingPronouncement', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
@@ -67,6 +67,18 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /awaiting-final-order.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
+  test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder', () => {
+    const theState = displayState.at(State.AwaitingJointFinalOrder);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
+  test('should show /awaiting-final-order.njk for state FinalOrderOverdue', () => {
+    const theState = displayState.at(State.FinalOrderOverdue);
     const jointTemplate = getJointHubTemplate(theState, false);
     expect(jointTemplate).toBe('/awaiting-final-order.njk');
   });
