@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
-import { CommonContent, generatePageContent } from '../../steps/common/common.content';
+import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -13,7 +13,7 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
+  constructor(protected readonly view: string, protected readonly pageContent: TranslationFn) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
@@ -23,20 +23,6 @@ export class GetController {
     }
 
     const language = (req.session?.lang as SupportedLanguages) || res.locals['lang'];
-    const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
-    const isApplicant2 = req.session?.isApplicant2;
-    const userCase = req.session?.userCase;
-    const content = generatePageContent({
-      language,
-      pageContent: this.content,
-      isDivorce,
-      isApplicant2,
-      userCase,
-      userEmail: req.session?.user?.email,
-      existingCaseId: req.session?.existingCaseId,
-      inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
-    });
-
     const sessionErrors = req.session?.errors || [];
 
     if (req.session?.errors) {
@@ -44,11 +30,33 @@ export class GetController {
     }
 
     res.render(this.view, {
-      ...content,
+      ...this.getPageContent(req, res, language),
       sessionErrors,
       htmlLang: language,
       pageUrl: req.url,
       getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
+    });
+  }
+
+  public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
+    const content = this.getCommonContent(req, res, language);
+
+    if (this.pageContent) {
+      Object.assign(content, this.pageContent(content));
+    }
+    return content;
+  }
+
+  public getCommonContent(req: AppRequest, res: Response, language: SupportedLanguages): CommonContent {
+    const isDivorce = res.locals.serviceType === DivorceOrDissolution.DIVORCE;
+    const isApplicant2 = req.session?.isApplicant2;
+    const userCase = req.session?.userCase;
+    return generateCommonContent({
+      language,
+      isDivorce,
+      isApplicant2,
+      userCase,
+      userEmail: req.session?.user?.email,
     });
   }
 }
