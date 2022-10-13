@@ -5,7 +5,7 @@ import { getProgressBarContent } from './progressBarLabels';
 
 describe('getProgressBarContent', () => {
   test('should return english divorce progress bar labels', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toEqual({
       submitted: 'Submitted',
@@ -21,7 +21,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return english civil progress bar labels', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(false, displayState, true);
     expect(labels).toEqual({
       submitted: 'Submitted',
@@ -37,7 +37,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return welsh divorce progress bar labels', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toEqual({
       submitted: "Wedi'i gyflwyno",
@@ -53,7 +53,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return welsh civil progress bar labels', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(false, displayState, false);
     expect(labels).toEqual({
       submitted: "Wedi'i gyflwyno",
@@ -69,7 +69,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return submitted arial label', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -78,7 +78,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return response arial label', () => {
-    const displayState = currentStateFn({ state: State.Holding });
+    const displayState = currentStateFn(State.Holding);
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -87,7 +87,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return conditional order arial label', () => {
-    const displayState = currentStateFn({ state: State.AwaitingFinalOrder });
+    const displayState = currentStateFn(State.AwaitingFinalOrder);
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -96,7 +96,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return final order arial label', () => {
-    const displayState = currentStateFn({ state: State.FinalOrderComplete });
+    const displayState = currentStateFn(State.FinalOrderComplete);
     const labels = getProgressBarContent(true, displayState, true);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -105,7 +105,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return submitted arial label in welsh', () => {
-    const displayState = currentStateFn({ state: State.Submitted });
+    const displayState = currentStateFn(State.Submitted);
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -114,7 +114,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return response arial label in welsh', () => {
-    const displayState = currentStateFn({ state: State.Holding });
+    const displayState = currentStateFn(State.Holding);
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -123,7 +123,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return conditional order arial label in welsh', () => {
-    const displayState = currentStateFn({ state: State.AwaitingFinalOrder });
+    const displayState = currentStateFn(State.AwaitingFinalOrder);
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
@@ -132,7 +132,7 @@ describe('getProgressBarContent', () => {
   });
 
   test('should return final order arial label in welsh', () => {
-    const displayState = currentStateFn({ state: State.FinalOrderComplete });
+    const displayState = currentStateFn(State.FinalOrderComplete);
     const labels = getProgressBarContent(true, displayState, false);
     expect(labels).toMatchObject({
       progressBarAriaLabel:
