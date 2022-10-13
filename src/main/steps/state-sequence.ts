@@ -1,4 +1,3 @@
-import { CaseWithId } from '../app/case/case';
 import { CcdV1Response } from '../app/case/case-api-client';
 import { State } from '../app/case/definition';
 
@@ -38,8 +37,8 @@ export class StateSequence {
   }
 }
 
-export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => {
-  return new StateSequence(orderedStateSequence).at(userCase.state as State);
+export const currentStateFn = (state: State | undefined): StateSequence => {
+  return new StateSequence(orderedStateSequence).at(state as State);
 };
 
 export const orderedStateSequence: State[] = [
