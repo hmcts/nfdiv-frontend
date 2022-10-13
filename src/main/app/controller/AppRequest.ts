@@ -26,9 +26,11 @@ export interface AppSession extends Session {
   existingCaseId: string;
   isApplicant2: boolean;
   applicantChoosesNewInviteCase: boolean | undefined;
+  cannotLinkToNewCase: boolean | undefined;
+  inviteCaseApplicationType?: ApplicationType;
+  existingApplicationType?: ApplicationType;
   lang: SupportedLanguages | undefined;
   errors: FormError[] | undefined;
-  inviteCaseApplicationType?: ApplicationType;
 }
 
 export interface UserDetails {
