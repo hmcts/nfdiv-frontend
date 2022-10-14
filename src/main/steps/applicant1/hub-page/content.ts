@@ -152,7 +152,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
     line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
   },
-  finalOrderComplete: {
+  finalOrderGranted: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     part1: "Download a copy of your 'final order'",
     part2:
@@ -314,7 +314,7 @@ const cy: typeof en = ({
     line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
     line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
-  finalOrderComplete: {
+  finalOrderGranted: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     part1: "Download a copy of your 'final order'",
     part2:

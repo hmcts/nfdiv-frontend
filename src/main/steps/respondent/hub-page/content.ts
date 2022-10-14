@@ -189,7 +189,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line4: 'apply for Help With Fees here',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
-  finalOrderComplete: {
+  finalOrderGranted: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     part1: "Download a copy of your 'final order'",
     part2:
@@ -388,7 +388,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line4: 'apply for Help With Fees here',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
-  finalOrderComplete: {
+  finalOrderGranted: {
     line1: 'Your final order has been granted. You are now legally divorced.',
     part1: "Download a copy of your 'final order'",
     part2:
