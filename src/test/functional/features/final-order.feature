@@ -47,13 +47,13 @@ Feature: Final order
     Then the page should include "Do you want to finalise your divorce?"
     Given I select "I want to finalise my divorce"
 
-    When I click "Submit"
-    And the page should include "Explain the delay"
-    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
-    And I type "Reason for delay"
-    And I select "I believe that the facts stated in this application are true"
     When I click "Continue"
-    Then the page URL should be "/hub-page"
+    And the page should include "Explain the delay"
+#    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
+#    And I type "Reason for delay"
+#    And I select "I believe that the facts stated in this application are true"
+#    When I click "Continue"
+#    Then the page URL should be "/hub-page"
 
   Scenario: Respondent sole final order journey
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
