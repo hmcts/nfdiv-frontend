@@ -173,4 +173,10 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/aos-awaiting-or-drafted.njk');
   });
+
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/final-order-complete.njk');
+  });
 });
