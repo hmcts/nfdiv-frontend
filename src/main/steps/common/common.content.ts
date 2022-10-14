@@ -1,6 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
-import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
@@ -9,12 +8,22 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
-  feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">feedback</a> will help us to improve it.',
-  languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
+  feedback: {
+    part1: 'This is a new service – your ',
+    part2: 'feedback',
+    part3: ' will help us to improve it.',
+    ariaLabel:
+      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
+  languageToggle: {
+    text: 'Cymraeg',
+    link: '?lng=cy',
+  },
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
+  submit: 'Submit',
   change: 'Change',
   upload: 'Upload',
   download: 'Download',
@@ -132,12 +141,22 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
-  feedback:
-    'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
-  languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
+  feedback: {
+    part1: 'Mae hwn yn wasanaeth newydd - ',
+    part2: 'bydd eich sylwadau',
+    part3: ' yn ein helpu i wella’r gwasanaeth.',
+    ariaLabel:
+      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
+  languageToggle: {
+    text: 'English',
+    link: '?lng=en',
+  },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
+  submit: 'Cyflwyno',
   change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
@@ -233,25 +252,19 @@ const cy: typeof en = {
   contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
 
-export const generatePageContent = ({
+export const generateCommonContent = ({
   language,
   userCase,
-  pageContent,
   isDivorce = true,
   isApplicant2 = false,
   userEmail,
-  existingCaseId,
-  inviteCaseApplicationType,
 }: {
   language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
-  pageContent?: TranslationFn;
   isDivorce?: boolean;
   isApplicant2?: boolean;
   userEmail?: string;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
-}): PageContent => {
+}): CommonContent => {
   const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
@@ -262,7 +275,7 @@ export const generatePageContent = ({
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
-  const content: CommonContent = {
+  return {
     ...commonTranslations,
     serviceName,
     partner,
@@ -274,21 +287,12 @@ export const generatePageContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
-    existingCaseId,
-    inviteCaseApplicationType,
   };
-
-  if (pageContent) {
-    Object.assign(content, pageContent(content));
-  }
-
-  return content;
 };
 
 export type CommonContent = typeof en & {
   language: SupportedLanguages;
   serviceName: string;
-  pageContent?: TranslationFn;
   isDivorce: boolean;
   isApplicant2: boolean;
   userCase: Partial<CaseWithId>;
@@ -298,6 +302,4 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
 };

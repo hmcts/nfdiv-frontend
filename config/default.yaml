@@ -7,6 +7,9 @@ dates:
   awaitingLegalAdvisorReferralOffsetDays: 28
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
+  changingToSolePartnerConfirmationWeeks: 2
+  settlingFinancesConfirmationDays: 14
+  changingToSolePartnerResponseDays: 14
   jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
@@ -91,4 +94,5 @@ govukUrls:
   legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
-  feedbackSurvey: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done'
+  feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
+  applyForDivorce: 'https://www.gov.uk/apply-for-divorce'

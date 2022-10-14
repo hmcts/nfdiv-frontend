@@ -18,7 +18,7 @@ describe('SoleTemplateSelector test', () => {
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
-  const displayState = currentStateFn(userCase);
+  const displayState = currentStateFn(userCase.state);
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
@@ -107,6 +107,12 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/clarification-submitted.njk');
+  });
+
+  test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
+    const theState = displayState.at(State.AwaitingAmendedApplication);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-amended-application.njk');
   });
 
   test('should show /awaiting-bailiff-service.njk for state AwaitingBailiffService', () => {

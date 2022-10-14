@@ -8,6 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -15,14 +16,17 @@ const hubPageSubheading = (
   userCase: Partial<CaseWithId>,
   language: SupportedLanguages = SupportedLanguages.En
 ): string => {
-  if (
+  if (userCase.state === State.AwaitingAmendedApplication) {
+    return language === SupportedLanguages.En ? 'Latest information' : 'Yr wybodaeth ddiweddaraf';
+  } else if (
     userCase.coClarificationUploadDocuments ||
     userCase.coClarificationResponses ||
     userCase.state === State.AwaitingFinalOrder
   ) {
     return language === SupportedLanguages.En ? 'Latest update' : 'Diweddariad diweddaraf';
+  } else {
+    return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
   }
-  return language === SupportedLanguages.En ? 'What you need to do' : 'Beth sydd angen i chi ei wneud';
 };
 
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -100,7 +104,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   awaitingFinalOrder: {
     line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
-    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for final order',
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
 });
 
@@ -185,9 +192,10 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   awaitingFinalOrder: {
     line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
-    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
-      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
-    }.`,
+    } i ben yn gyfreithiol.
+    Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"}.`,
+    buttonText: 'Gwneud cais am orchymyn terfynol',
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
 });
 
@@ -203,8 +211,8 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
-    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+    ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
+    : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
@@ -212,7 +220,7 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(userCase).at(
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
