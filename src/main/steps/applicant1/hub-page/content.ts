@@ -153,10 +153,11 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
   },
   finalOrderGranted: {
-    line1: 'Your final order has been granted. You are now legally divorced.',
-    part1: "Download a copy of your 'final order'",
-    part2:
-      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
+    part1: "Download a copy of your 'final order'.",
+    part2: ` This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
   },
@@ -315,10 +316,11 @@ const cy: typeof en = ({
     line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
   finalOrderGranted: {
-    line1: 'Your final order has been granted. You are now legally divorced.',
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
     part1: "Download a copy of your 'final order'",
-    part2:
-      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
   },

@@ -190,10 +190,11 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
   finalOrderGranted: {
-    line1: 'Your final order has been granted. You are now legally divorced.',
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
     part1: "Download a copy of your 'final order'",
-    part2:
-      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
   },
@@ -389,10 +390,11 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
   finalOrderGranted: {
-    line1: 'Your final order has been granted. You are now legally divorced.',
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
     part1: "Download a copy of your 'final order'",
-    part2:
-      'This is the document that shows your marriage is legally ended. You may need it so you should save a copy for your records.',
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
   },
