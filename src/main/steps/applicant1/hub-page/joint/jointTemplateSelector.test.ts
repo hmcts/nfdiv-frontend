@@ -59,6 +59,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
   });
 
+  test('should show /awaiting-legal-advisor-referral.njk for state AwaitingAdminClarification', () => {
+    const theState = displayState.at(State.AwaitingAdminClarification);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
+  });
+
   test('should show /applicant-not-yet-applied-for-conditional-order.njk for states after Holding and before AwaitingLegalAdvisorReferral and not hasApplicantAppliedForConditionalOrder', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const jointTemplate = getJointHubTemplate(theState, false);
