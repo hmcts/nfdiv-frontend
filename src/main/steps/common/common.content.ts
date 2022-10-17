@@ -1,6 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
-import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
@@ -24,6 +23,7 @@ export const en = {
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
+  submit: 'Submit',
   change: 'Change',
   upload: 'Upload',
   download: 'Download',
@@ -156,6 +156,7 @@ const cy: typeof en = {
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
+  submit: 'Cyflwyno',
   change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
@@ -251,25 +252,19 @@ const cy: typeof en = {
   contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
 };
 
-export const generatePageContent = ({
+export const generateCommonContent = ({
   language,
   userCase,
-  pageContent,
   isDivorce = true,
   isApplicant2 = false,
   userEmail,
-  existingCaseId,
-  inviteCaseApplicationType,
 }: {
   language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
-  pageContent?: TranslationFn;
   isDivorce?: boolean;
   isApplicant2?: boolean;
   userEmail?: string;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
-}): PageContent => {
+}): CommonContent => {
   const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
@@ -280,7 +275,7 @@ export const generatePageContent = ({
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
-  const content: CommonContent = {
+  return {
     ...commonTranslations,
     serviceName,
     partner,
@@ -292,21 +287,12 @@ export const generatePageContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
-    existingCaseId,
-    inviteCaseApplicationType,
   };
-
-  if (pageContent) {
-    Object.assign(content, pageContent(content));
-  }
-
-  return content;
 };
 
 export type CommonContent = typeof en & {
   language: SupportedLanguages;
   serviceName: string;
-  pageContent?: TranslationFn;
   isDivorce: boolean;
   isApplicant2: boolean;
   userCase: Partial<CaseWithId>;
@@ -316,6 +302,4 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean;
   isClarificationAmendableState: boolean;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
 };

@@ -27,7 +27,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line4: `If permission to apply for a final order is granted, then your application for a final order will also be considered. If the final order is made, then your ${
     isDivorce ? 'marriage' : 'civil partnership'
   } will be legally ended.`,
-  continue: 'Submit',
   errors: {
     doesApplicant2WantToApplyForFinalOrder: {
       required:
@@ -66,7 +65,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
   },
 };
 
