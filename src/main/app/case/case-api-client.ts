@@ -47,6 +47,7 @@ export class CaseApiClient {
   }
 
   private async findUserCases(caseType: string, serviceType: string, query: string): Promise<CcdV1Response[] | false> {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     try {
       const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
       return caseType === 'DIVORCE'
@@ -145,6 +146,7 @@ export class CaseApiClient {
 }
 
 export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   return new CaseApiClient(
     Axios.create({
       baseURL: config.get('services.case.url'),
