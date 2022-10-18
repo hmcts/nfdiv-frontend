@@ -16,6 +16,7 @@ describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
+    previousState: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -113,6 +114,13 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/clarification-submitted.njk');
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ClarificationSubmitted when previousState is AwaitingAdminClarification', () => {
+    const theState = displayState.at(State.ClarificationSubmitted);
+    userCase.previousState = State.AwaitingAdminClarification;
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
   test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
