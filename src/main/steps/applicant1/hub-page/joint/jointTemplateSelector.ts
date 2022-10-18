@@ -30,6 +30,9 @@ export const getJointHubTemplate = (
     case State.AwaitingJointFinalOrder:
     case State.AwaitingFinalOrder:
       return '/awaiting-final-order.njk';
+    case State.FinalOrderComplete: {
+      return '/final-order-complete.njk';
+    }
     default: {
       if (
         displayState.isAfter('Holding') &&
