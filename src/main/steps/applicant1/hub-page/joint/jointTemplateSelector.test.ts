@@ -99,7 +99,7 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
-    const jointTemplate = getJointHubTemplate(theState, false);
+    const jointTemplate = getJointHubTemplate(theState, userCase, false);
     expect(jointTemplate).toBe('/final-order-complete.njk');
   });
 });
