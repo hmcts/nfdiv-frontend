@@ -44,7 +44,11 @@ export const getSoleHubTemplate = (
     case State.AwaitingClarification:
       return '/awaiting-clarification.njk';
     case State.ClarificationSubmitted:
-      return '/clarification-submitted.njk';
+      if (userCase.previousState === State.AwaitingAdminClarification) {
+        return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
+      } else {
+        return '/clarification-submitted.njk';
+      }
     case State.AwaitingAmendedApplication:
       return '/awaiting-amended-application.njk';
     case State.AwaitingBailiffService:

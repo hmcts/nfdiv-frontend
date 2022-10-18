@@ -223,7 +223,7 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
-  const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
     displayState,

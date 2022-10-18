@@ -1,8 +1,10 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
   displayState: StateSequence,
+  userCase: Partial<CaseWithId>,
   hasApplicantAppliedForConditionalOrder: boolean
 ): string | undefined => {
   switch (displayState.state()) {
@@ -18,7 +20,11 @@ export const getJointHubTemplate = (
     case State.AwaitingClarification:
       return '/awaiting-clarification.njk';
     case State.ClarificationSubmitted:
-      return '/clarification-submitted.njk';
+      if (userCase.previousState === State.AwaitingAdminClarification) {
+        return '/awaiting-legal-advisor-referral.njk';
+      } else {
+        return '/clarification-submitted.njk';
+      }
     case State.AwaitingAmendedApplication:
       return '/awaiting-amended-application.njk';
     case State.ConditionalOrderPending:
