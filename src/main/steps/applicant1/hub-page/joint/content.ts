@@ -237,6 +237,7 @@ export const generateContent: TranslationFn = content => {
   );
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
+
   return {
     ...languages[content.language](content),
     displayState,
