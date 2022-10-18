@@ -15,6 +15,9 @@ export const getRespondentHubTemplate = (
     case State.FinalOrderOverdue: {
       return '/awaiting-final-order-or-final-order-overdue.njk';
     }
+    case State.FinalOrderComplete: {
+      return '/final-order-complete.njk';
+    }
     case State.ConditionalOrderPronounced: {
       return '/conditional-order-pronounced.njk';
     }
@@ -23,6 +26,8 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
+    case State.AwaitingAmendedApplication:
+      return '/awaiting-amended-application.njk';
     case State.AwaitingGeneralConsideration:
       if (userCase.aosStatementOfTruth) {
         return '/awaiting-general-consideration.njk';

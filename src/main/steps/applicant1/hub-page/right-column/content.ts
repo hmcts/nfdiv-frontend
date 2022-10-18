@@ -1,4 +1,4 @@
-import { AlternativeServiceType, ApplicationType, DocumentType, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
@@ -54,6 +54,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
+  },
+  conditionalOrderRefusalPdf: {
+    reference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    text: 'View the conditional order refusal (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
@@ -121,6 +126,16 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-application',
     text: 'View the conditional order application (PDF)',
   },
+  conditionalOrderRefusalPdf: {
+    reference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    text: 'View the conditional order refusal (PDF)',
+  },
+  finalOrderGrantedDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -150,6 +165,7 @@ export const generateContent: TranslationFn = content => {
   const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
+  const isAwaitingAmendedApplicationState: boolean = content.userCase.state === State.AwaitingAmendedApplication;
   const hasCertificateOfDeemedOrDispensedService = content.userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
@@ -163,14 +179,21 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
+
+  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+  );
+
   return {
     aosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
+    isAwaitingAmendedApplicationState,
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
     hasConditionalOrderApplication,
+    hasFinalOrderGranted,
     ...languages[content.language](content),
   };
 };

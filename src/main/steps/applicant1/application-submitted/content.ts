@@ -11,16 +11,19 @@ import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = ({
-  isDivorce,
-  userCase,
-  partner,
-  referenceNumber,
-  isJointApplication,
-  webChat,
-  openingTimes,
-  telephoneNumber,
-}: CommonContent) => ({
+const en = (
+  {
+    isDivorce,
+    userCase,
+    partner,
+    referenceNumber,
+    isJointApplication,
+    webChat,
+    openingTimes,
+    telephoneNumber,
+  }: CommonContent,
+  feedbackLink: string
+) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
@@ -132,20 +135,23 @@ const en = ({
     part1: 'This is a new service. ',
     part2: 'Your feedback',
     part3: ' helps to improve it for others.',
-    link: config.get('govukUrls.feedbackSurvey'),
+    link: feedbackLink,
   },
 });
 
-const cy: typeof en = ({
-  isDivorce,
-  userCase,
-  partner,
-  referenceNumber,
-  isJointApplication,
-  webChat,
-  telephoneNumber,
-  openingTimes,
-}: CommonContent) => ({
+const cy: typeof en = (
+  {
+    isDivorce,
+    userCase,
+    partner,
+    referenceNumber,
+    isJointApplication,
+    webChat,
+    telephoneNumber,
+    openingTimes,
+  }: CommonContent,
+  feedbackLink: string
+) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
   confirmationEmail: `Mae cadarnhad${
@@ -257,7 +263,7 @@ const cy: typeof en = ({
     part1: 'Mae hwn yn wasanaeth newydd.',
     part2: 'Mae eich adborth',
     part3: ' yn ein helpu i wella’r gwasanaeth i eraill.',
-    link: config.get('govukUrls.feedbackSurvey'),
+    link: feedbackLink,
   },
 });
 
@@ -267,8 +273,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce } = content;
-  const displayState = currentStateFn(userCase).at(
+  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const referenceNumber = formattedCaseId(userCase.id);
@@ -287,8 +293,11 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
+  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
   return {
-    ...languages[language]({ ...content, referenceNumber }),
+    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
