@@ -77,6 +77,11 @@ Feature: Joint hub page
     Then the page should include "You can now apply for a ‘final order’."
     And the page should include "Apply for final order"
 
+    Given I set the case state to "AwaitingJointFinalOrder"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘final order’."
+    And the page should include "Apply for final order"
+
     Given I set the case state to "FinalOrderRequested"
     And I go to "/"
     Then the page should include "You and your wife have both confirmed you want to finalise the divorce"
