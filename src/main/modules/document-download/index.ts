@@ -161,6 +161,15 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForFinalOrderGrantedPdf = {
+      endpoints: ['/downloads/final-order-granted'],
+      path: (req: AppRequest) => {
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     const dmStoreProxies = [
       dmStoreProxyForApplicationPdf,
       dmStoreProxyForRespondentAnswersPdf,
@@ -178,6 +187,7 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForConditionalOrderGrantedPdf,
       dmStoreProxyFinalOrderGrantedPdf,
       dmStoreProxyForConditionalOrderApplicationPdf,
+      dmStoreProxyForFinalOrderGrantedPdf,
     ];
 
     for (const dmStoreProxy of dmStoreProxies) {

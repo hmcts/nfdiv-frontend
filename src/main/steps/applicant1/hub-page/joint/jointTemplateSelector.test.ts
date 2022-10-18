@@ -53,12 +53,6 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/conditional-order-pending.njk');
   });
 
-  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
-    const theState = displayState.at(State.FinalOrderComplete);
-    const jointTemplate = getJointHubTemplate(theState, false);
-    expect(jointTemplate).toBe('/final-order-complete.njk');
-  });
-
   test('should show /awaiting-legal-advisor-referral.njk for state AwaitingLegalAdvisorReferral', () => {
     const theState = displayState.at(State.AwaitingLegalAdvisorReferral);
     const jointTemplate = getJointHubTemplate(theState, false);
@@ -87,5 +81,11 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.FinalOrderOverdue);
     const jointTemplate = getJointHubTemplate(theState, false);
     expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/final-order-complete.njk');
   });
 });

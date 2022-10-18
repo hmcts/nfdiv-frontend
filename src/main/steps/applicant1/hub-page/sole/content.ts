@@ -460,6 +460,18 @@ const cy: typeof en = (
       : `${
           userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
         }`,
+  finalOrderComplete: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    line2: {
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
+    },
+  },
 });
 
 const languages = {
@@ -493,6 +505,8 @@ export const generateContent: TranslationFn = content => {
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
+
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -504,5 +518,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isSwitchToSoleCoApp,
     hasApplicant1AppliedForFinalOrderFirst,
+    isFinalOrderCompleteState,
   };
 };
