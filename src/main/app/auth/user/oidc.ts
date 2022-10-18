@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import Axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
@@ -5,6 +6,8 @@ import jwt_decode from 'jwt-decode';
 import { IdamUserManager, idamTokenCache } from '../../../../test/steps/IdamUserManager';
 import { APPLICANT_2_CALLBACK_URL, CALLBACK_URL, PageLink, SIGN_IN_URL } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
+
+const logger = Logger.getLogger('oidc');
 
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
@@ -45,8 +48,10 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   let response;
   if (idamTokenCache.get(systemUsername) !== null) {
+    logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
   } else {
+    logger.info('Generating access token for systemUsername...');
     response = await IdamUserManager.getAccessTokenFromIdam(systemUsername, systemPassword);
     idamTokenCache.set(systemUsername, { id_token: response.data.id_token, access_token: response.data.access_token });
   }
