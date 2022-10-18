@@ -15,6 +15,9 @@ export const getRespondentHubTemplate = (
     case State.FinalOrderOverdue: {
       return '/awaiting-final-order-or-final-order-overdue.njk';
     }
+    case State.FinalOrderComplete: {
+      return '/final-order-complete.njk';
+    }
     case State.ConditionalOrderPronounced: {
       return '/conditional-order-pronounced.njk';
     }

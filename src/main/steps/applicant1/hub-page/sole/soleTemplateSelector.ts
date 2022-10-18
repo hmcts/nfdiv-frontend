@@ -18,6 +18,9 @@ export const getSoleHubTemplate = (
     case State.FinalOrderRequested: {
       return '/final-order-requested.njk';
     }
+    case State.FinalOrderComplete: {
+      return '/final-order-complete.njk';
+    }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral: {
       return '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk';

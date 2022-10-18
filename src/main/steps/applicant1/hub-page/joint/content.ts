@@ -197,6 +197,18 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
+  finalOrderComplete: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    line2: {
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
+    },
+  },
 });
 
 const languages = {
@@ -223,6 +235,7 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
@@ -235,5 +248,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
+    isFinalOrderCompleteState,
   };
 };
