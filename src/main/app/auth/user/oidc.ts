@@ -9,7 +9,7 @@ import { UserDetails } from '../../controller/AppRequest';
 
 const logger = Logger.getLogger('oidc');
 
-const idamTokenCache = new NodeCache({ stdTTL: 25200, checkperiod: 1800 });
+const idamTokenCache = new NodeCache({ stdTTL: 3600, checkperiod: 1800 });
 
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
