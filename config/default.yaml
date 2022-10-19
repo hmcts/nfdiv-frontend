@@ -39,6 +39,7 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+    caching: 'false'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     #url: 'https://ccd-data-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
