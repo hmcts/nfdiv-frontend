@@ -49,7 +49,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const systemPassword: string = config.get('services.idam.systemPassword');
 
   let response;
-  const isCachingEnabled = Boolean(config.get('service.idam.caching'));
+  const isCachingEnabled = Boolean(config.get('services.idam.caching'));
   if (isCachingEnabled && idamTokenCache.get(systemUsername)) {
     logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
