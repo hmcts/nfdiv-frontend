@@ -373,6 +373,7 @@ export interface Application {
   progressPaperCase: ProgressPaperCase;
   paperCasePaymentMethod: PaperCasePaymentMethod;
   newPaperCase: YesOrNo;
+  isAdminClarificationSubmitted: YesOrNo;
 }
 
 export interface Bailiff {

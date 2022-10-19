@@ -1,4 +1,4 @@
-import { DivorceOrDissolution, State } from '../../../../app/case/definition';
+import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
@@ -7,7 +7,7 @@ describe('JointTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
-    previousState: State.Draft,
+    isAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -48,9 +48,9 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/clarification-submitted.njk');
   });
 
-  test('should show /awaiting-legal-advisor-referral.njk for state ClarificationSubmitted when previousState is AwaitingAdminClarification', () => {
+  test('should show /awaiting-legal-advisor-referral.njk for state ClarificationSubmitted when isAdminClarificationSubmitted is Yes', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
-    userCase.previousState = State.AwaitingAdminClarification;
+    userCase.isAdminClarificationSubmitted = YesOrNo.YES;
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
     expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
   });

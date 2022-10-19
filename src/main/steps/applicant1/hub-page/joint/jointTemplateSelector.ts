@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { State } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
@@ -20,7 +20,7 @@ export const getJointHubTemplate = (
     case State.AwaitingClarification:
       return '/awaiting-clarification.njk';
     case State.ClarificationSubmitted:
-      if (userCase.previousState === State.AwaitingAdminClarification) {
+      if (userCase.isAdminClarificationSubmitted === YesOrNo.YES) {
         return '/awaiting-legal-advisor-referral.njk';
       } else {
         return '/clarification-submitted.njk';
