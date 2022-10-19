@@ -1,5 +1,4 @@
-import Axios, { AxiosResponse } from 'axios';
-import sysConfig from 'config';
+import { AxiosResponse } from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
@@ -20,6 +19,8 @@ import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/conn
 import { SupportedLanguages } from '../../main/modules/i18n';
 import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
+
+import { IdamUserManager } from './IdamUserManager';
 
 const { I, login } = inject();
 
@@ -282,14 +283,10 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const id: string = sysConfig.get('services.idam.clientID');
-  const secret = sysConfig.get('services.idam.clientSecret');
-  const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
-
-  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${user.username}&password=${user.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
-
-  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  const response: AxiosResponse<OidcResponse> = await IdamUserManager.getAccessTokenFromIdam(
+    user.username,
+    user.password
+  );
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;

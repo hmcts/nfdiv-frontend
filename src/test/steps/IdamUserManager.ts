@@ -96,13 +96,20 @@ export class IdamUserManager {
 
   static async getAccessTokenFromIdam(username: string, password: string): Promise<AxiosResponse<OidcResponse>> {
     const id: string = sysConfig.get('services.idam.clientID');
-    const secret = sysConfig.get('services.idam.clientSecret');
+    const secret: string = sysConfig.get('services.idam.clientSecret');
     const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
 
     const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-    const data = `grant_type=password&username=${username}&password=${password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+    const data = new URLSearchParams({
+      grant_type: 'password',
+      username,
+      password,
+      client_id: id,
+      client_secret: secret,
+      scope: 'openid%20profile%20roles%20openid%20roles%20profile',
+    });
 
-    return axios.post(tokenUrl, data, { headers });
+    return axios.post(tokenUrl, data.toString(), { headers });
   }
 
   getCurrentUsername(): string {
