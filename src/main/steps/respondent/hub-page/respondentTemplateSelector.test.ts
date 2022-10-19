@@ -10,7 +10,7 @@ describe('RespondentTemplateSelector test', () => {
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
-  const displayState = currentStateFn(userCase);
+  const displayState = currentStateFn(userCase.state);
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
@@ -86,5 +86,10 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe('/awaiting-aos.njk');
+  });
+  test('should show /final-order-complete.njk for states at FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe('/final-order-complete.njk');
   });
 });
