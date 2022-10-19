@@ -47,19 +47,24 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const systemPassword: string = config.get('services.idam.systemPassword');
 
   let response;
-  if (idamTokenCache.get(systemUsername)) {
+  const isNotProd: boolean = process.env.NODE_ENV !== 'production';
+  if (idamTokenCache.get(systemUsername) && isNotProd) {
     logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
-  } else {
+  } else if (isNotProd) {
     logger.info('Generating access token for systemUsername...');
     response = await IdamUserManager.getAccessTokenFromIdam(systemUsername, systemPassword);
-    idamTokenCache.set(systemUsername, { id_token: response.data.id_token, access_token: response.data.access_token });
+    idamTokenCache.set(systemUsername, {
+      data: { id_token: response.data.id_token, access_token: response.data.access_token },
+    });
+  } else {
+    response = await IdamUserManager.getAccessTokenFromIdam(systemUsername, systemPassword);
   }
 
-  const jwt = jwt_decode(response.id_token) as IdTokenJwtPayload;
+  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
-    accessToken: response.access_token,
+    accessToken: response.data.access_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
