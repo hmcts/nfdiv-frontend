@@ -48,7 +48,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   let response;
   const isNotProd: boolean = process.env.NODE_ENV !== 'production';
-  if (idamTokenCache.get(systemUsername) && isNotProd) {
+  if (isNotProd && idamTokenCache.get(systemUsername)) {
     logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
   } else if (isNotProd) {
