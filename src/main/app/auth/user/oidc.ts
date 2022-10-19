@@ -9,7 +9,7 @@ import { UserDetails } from '../../controller/AppRequest';
 
 const logger = Logger.getLogger('oidc');
 
-export const idamTokenCache = new NodeCache({ stdTTL: 25200, checkperiod: 1800 });
+const idamTokenCache = new NodeCache({ stdTTL: 25200, checkperiod: 1800 });
 
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
@@ -88,7 +88,7 @@ export interface OidcResponse {
   access_token: string;
 }
 
-export const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
+const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
