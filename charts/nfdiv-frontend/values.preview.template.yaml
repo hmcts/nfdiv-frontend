@@ -9,7 +9,7 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
-    IDAM_TOKEN_CACHE: 'true'
+    IDAM_TOKEN_CACHE: true
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
