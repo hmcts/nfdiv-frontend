@@ -51,10 +51,9 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   let response;
   const isCachingEnabled = Boolean(config.get('services.idam.caching'));
   if (isCachingEnabled && idamTokenCache.get(systemUsername)) {
-    logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
   } else if (isCachingEnabled) {
-    logger.info('Generating access token for systemUsername...');
+    logger.info('Generating access token for system user and then caching it');
     response = await getAccessTokenFromIdam(systemUsername, systemPassword);
     idamTokenCache.set(systemUsername, {
       data: { id_token: response.data.id_token, access_token: response.data.access_token },
