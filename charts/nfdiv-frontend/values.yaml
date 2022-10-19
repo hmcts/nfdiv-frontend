@@ -45,6 +45,7 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DECREE_NISI_URL: 'https://decree-nisi-aks.{{ .Values.global.environment }}.platform.hmcts.net'
+    IDAM_TOKEN_CACHE: 'false'
 #disable autoscaling because it doesnt deploy AAT
 autoscaling:
   enabled: false

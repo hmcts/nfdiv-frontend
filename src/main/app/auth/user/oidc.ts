@@ -49,11 +49,11 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const systemPassword: string = config.get('services.idam.systemPassword');
 
   let response;
-  const isNotProd: boolean = process.env.NODE_ENV !== 'production';
-  if (isNotProd && idamTokenCache.get(systemUsername)) {
+  const isCachingEnabled = Boolean(config.get('service.idam.caching'));
+  if (isCachingEnabled && idamTokenCache.get(systemUsername)) {
     logger.info('Fetching systemUsername from cache...');
     response = idamTokenCache.get(systemUsername);
-  } else if (isNotProd) {
+  } else if (isCachingEnabled) {
     logger.info('Generating access token for systemUsername...');
     response = await getAccessTokenFromIdam(systemUsername, systemPassword);
     idamTokenCache.set(systemUsername, {
