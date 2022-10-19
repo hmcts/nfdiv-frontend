@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
-import { OidcResponse } from '../../main/app/auth/user/oidc';
+import { OidcResponse, getAccessTokenFromIdam } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
@@ -19,8 +19,6 @@ import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/conn
 import { SupportedLanguages } from '../../main/modules/i18n';
 import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
-
-import { IdamUserManager } from './IdamUserManager';
 
 const { I, login } = inject();
 
@@ -283,10 +281,7 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const response: AxiosResponse<OidcResponse> = await IdamUserManager.getAccessTokenFromIdam(
-    user.username,
-    user.password
-  );
+  const response: AxiosResponse<OidcResponse> = await getAccessTokenFromIdam(user.username, user.password);
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;

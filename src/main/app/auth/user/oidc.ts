@@ -2,12 +2,14 @@ import { Logger } from '@hmcts/nodejs-logging';
 import Axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
+import NodeCache from 'node-cache';
 
-import { IdamUserManager, idamTokenCache } from '../../../../test/steps/IdamUserManager';
 import { APPLICANT_2_CALLBACK_URL, CALLBACK_URL, PageLink, SIGN_IN_URL } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
 
 const logger = Logger.getLogger('oidc');
+
+export const idamTokenCache = new NodeCache({ stdTTL: 25200, checkperiod: 1800 });
 
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
@@ -53,12 +55,12 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     response = idamTokenCache.get(systemUsername);
   } else if (isNotProd) {
     logger.info('Generating access token for systemUsername...');
-    response = await IdamUserManager.getAccessTokenFromIdam(systemUsername, systemPassword);
+    response = await getAccessTokenFromIdam(systemUsername, systemPassword);
     idamTokenCache.set(systemUsername, {
       data: { id_token: response.data.id_token, access_token: response.data.access_token },
     });
   } else {
-    response = await IdamUserManager.getAccessTokenFromIdam(systemUsername, systemPassword);
+    response = await getAccessTokenFromIdam(systemUsername, systemPassword);
   }
 
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
@@ -85,3 +87,20 @@ export interface OidcResponse {
   id_token: string;
   access_token: string;
 }
+
+export const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.clientSecret');
+  const tokenUrl: string = config.get('services.idam.tokenURL');
+  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
+  const data = new URLSearchParams({
+    grant_type: 'password',
+    username,
+    password,
+    client_id: id,
+    client_secret: secret,
+    scope: 'openid%20profile%20roles%20openid%20roles%20profile',
+  });
+
+  return Axios.post(tokenUrl, data.toString(), { headers });
+};

@@ -1,13 +1,8 @@
 /* eslint-disable no-console */
 
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import sysConfig from 'config';
-import NodeCache from 'node-cache';
+import axios, { AxiosInstance } from 'axios';
 
-import { OidcResponse } from '../../main/app/auth/user/oidc';
 import { UserRole } from '../../main/app/case/definition';
-
-export const idamTokenCache = new NodeCache({ stdTTL: 25200, checkperiod: 1800 });
 
 export class IdamUserManager {
   client: AxiosInstance;
@@ -92,24 +87,6 @@ export class IdamUserManager {
     }
 
     this.users = new Set([firstUser]);
-  }
-
-  static async getAccessTokenFromIdam(username: string, password: string): Promise<AxiosResponse<OidcResponse>> {
-    const id: string = sysConfig.get('services.idam.clientID');
-    const secret: string = sysConfig.get('services.idam.clientSecret');
-    const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
-
-    const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-    const data = new URLSearchParams({
-      grant_type: 'password',
-      username,
-      password,
-      client_id: id,
-      client_secret: secret,
-      scope: 'openid%20profile%20roles%20openid%20roles%20profile',
-    });
-
-    return axios.post(tokenUrl, data.toString(), { headers });
   }
 
   getCurrentUsername(): string {
