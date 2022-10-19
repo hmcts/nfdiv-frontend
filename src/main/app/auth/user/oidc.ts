@@ -88,19 +88,12 @@ export interface OidcResponse {
   access_token: string;
 }
 
-const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
+export const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = new URLSearchParams({
-    grant_type: 'password',
-    username,
-    password,
-    client_id: id,
-    client_secret: secret,
-    scope: 'openid%20profile%20roles%20openid%20roles%20profile',
-  });
+  const data = `grant_type=password&username=${username}&password=${password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
-  return Axios.post(tokenUrl, data.toString(), { headers });
+  return Axios.post(tokenUrl, data, { headers });
 };
