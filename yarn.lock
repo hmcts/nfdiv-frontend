@@ -4848,7 +4848,7 @@ got@^8.3.1:
     url-parse-lax "^3.0.0"
     url-to-options "^1.0.1"
 
-govuk-frontend@^4.3.1:
+govuk-frontend@4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-4.3.1.tgz#d9c581aca3d23bbfe9bd27c25fee65322b276393"
   integrity sha512-uD0KVFds7drOwLEvfp4zRBOXuHCxkWLYDQcYvlbG+2baZ9po2TGZz8WjfzhfueYjo9+Uwk+bM0NQT6g4cg/Q+A==
