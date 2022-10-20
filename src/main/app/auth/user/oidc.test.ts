@@ -80,7 +80,9 @@ describe('getSystemUser', () => {
   };
 
   test('Cache enabled', async () => {
-    mockedConfig.get.mockReturnValue('true');
+    mockedConfig.get.mockReturnValueOnce('divorce');
+    mockedConfig.get.mockReturnValueOnce('https://idam-web-public.aat.platform.hmcts.net/login');
+    mockedConfig.get.mockReturnValueOnce('true');
     mockedAxios.post.mockResolvedValue(accessTokenResponse);
 
     const result = await getSystemUser();
@@ -88,6 +90,8 @@ describe('getSystemUser', () => {
   });
 
   test('Cache disabled', async () => {
+    mockedConfig.get.mockReturnValueOnce('divorce');
+    mockedConfig.get.mockReturnValueOnce('https://idam-web-public.aat.platform.hmcts.net/loginwddwdw');
     mockedConfig.get.mockReturnValue('false');
     mockedAxios.post.mockResolvedValue(accessTokenResponse);
 
