@@ -2,9 +2,8 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
-import { generatePageContent } from '../common/common.content';
+import { generateCommonContent } from '../common/common.content';
 
-import { generateContent } from './content';
 import { ContactUsGetController } from './get';
 
 describe('ContactUsGetController', () => {
@@ -19,9 +18,8 @@ describe('ContactUsGetController', () => {
     expect(res.render).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        ...generatePageContent({
+        ...generateCommonContent({
           language,
-          pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
         }),

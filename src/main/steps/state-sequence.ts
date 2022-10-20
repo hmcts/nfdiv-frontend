@@ -1,4 +1,3 @@
-import { CaseWithId } from '../app/case/case';
 import { State } from '../app/case/definition';
 
 export class StateSequence {
@@ -37,13 +36,14 @@ export class StateSequence {
   }
 }
 
-export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => {
+export const currentStateFn = (state: State | undefined): StateSequence => {
   return new StateSequence([
     State.Draft,
     State.AwaitingApplicant2Response,
     State.AwaitingApplicant1Response,
     State.Applicant2Approved,
     State.AwaitingHWFDecision,
+    State.WelshTranslationReview,
     State.AwaitingPayment,
     State.AwaitingDocuments,
     State.Submitted,
@@ -76,6 +76,7 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.ConditionalOrderPronounced,
     State.ConditionalOrderRefused,
     State.AwaitingFinalOrder,
+    State.AwaitingJointFinalOrder,
     State.FinalOrderOverdue,
     State.FinalOrderRequested,
     State.FinalOrderPending,
@@ -85,5 +86,5 @@ export const currentStateFn = (userCase: Partial<CaseWithId>): StateSequence => 
     State.NewPaperCase,
     State.OfflineDocumentReceived,
     State.BulkCaseReject,
-  ]).at(userCase.state as State);
+  ]).at(state as State);
 };
