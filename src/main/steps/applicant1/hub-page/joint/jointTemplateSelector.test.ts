@@ -81,7 +81,7 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
-    const jointTemplate = getJointHubTemplate(theState, false);
+    const jointTemplate = getJointHubTemplate(theState, userCase, false);
     expect(jointTemplate).toBe('/final-order-requested.njk');
   });
 
