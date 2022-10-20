@@ -136,6 +136,11 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/conditional-order-refusal',
     text: 'View the conditional order refusal (PDF)',
   },
+  finalOrderApplicationDownload: {
+    reference: 'Final-Order-Application',
+    link: '/downloads/final-order-application',
+    text: 'View the final order application (PDF)',
+  },
   finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
@@ -162,16 +167,17 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const { userCase, isJointApplication } = content;
   const aosSubmitted =
-    !content.isJointApplication &&
-    (content.userCase.applicant2StatementOfTruth ||
-      content.userCase.aosStatementOfTruth ||
-      content.userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
-  const hasCertificateOfService = content.userCase.alternativeServiceOutcomes?.find(
+    !isJointApplication &&
+    (userCase.applicant2StatementOfTruth ||
+      userCase.aosStatementOfTruth ||
+      userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
+  const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
-  const isAwaitingAmendedApplicationState: boolean = content.userCase.state === State.AwaitingAmendedApplication;
-  const hasCertificateOfDeemedOrDispensedService = content.userCase.alternativeServiceOutcomes?.find(
+  const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
+  const hasCertificateOfDeemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
@@ -187,6 +193,10 @@ export const generateContent: TranslationFn = content => {
   const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
+  const hasFinalOrderApplicationAndFinalOrderRequested = userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
+  );
+
   return {
     aosSubmitted,
     hasCertificateOfService,
@@ -196,6 +206,7 @@ export const generateContent: TranslationFn = content => {
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
     hasConditionalOrderApplication,
+    hasFinalOrderApplicationAndFinalOrderRequested,
     hasFinalOrderGranted,
     ...languages[content.language](content),
   };

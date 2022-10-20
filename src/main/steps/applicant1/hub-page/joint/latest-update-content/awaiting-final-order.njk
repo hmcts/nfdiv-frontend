@@ -1,1 +1,6 @@
-<p class="govuk-body">{{ awaitingFinalOrder.line1 }}</p>
+{% if hasApplicantAppliedForFinalOrderFirst %}
+  <p class="govuk-body">{{ hasAppliedForFinalOrder.line1 }}</p>
+  <p class="govuk-body">{{ hasAppliedForFinalOrder.line2 }}</p>
+{% else %}
+  <p class="govuk-body">{{ awaitingFinalOrder.line1 }}</p>
+{% endif %}
