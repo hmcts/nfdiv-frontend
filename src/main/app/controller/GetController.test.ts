@@ -2,8 +2,8 @@ import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
-import { generatePageContent } from '../../steps/common/common.content';
-import { ApplicationType, DivorceOrDissolution, Gender, State } from '../case/definition';
+import { generateCommonContent } from '../../steps/common/common.content';
+import { DivorceOrDissolution, Gender, State } from '../case/definition';
 
 import { GetController } from './GetController';
 
@@ -62,13 +62,12 @@ describe('GetController', () => {
 
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
+        ...controller.getPageContent(req, res, language),
         text: 'welsh',
         language: SupportedLanguages.Cy,
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
-        existingCaseId: req.session.existingCaseId,
       });
     });
 
@@ -83,13 +82,12 @@ describe('GetController', () => {
 
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
+        ...controller.getPageContent(req, res, language),
         text: 'welsh',
         language: SupportedLanguages.Cy,
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
-        existingCaseId: req.session.existingCaseId,
       });
     });
 
@@ -104,13 +102,12 @@ describe('GetController', () => {
 
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail, userCase: req.session.userCase }),
+        ...controller.getPageContent(req, res, language),
         text: 'welsh',
         language: SupportedLanguages.Cy,
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
-        existingCaseId: req.session.existingCaseId,
       });
     });
   });
@@ -163,11 +160,10 @@ describe('GetController', () => {
       const controller = new GetController('page', getContentMock);
 
       const req = mockRequest({ userCase: { state: State.Draft } });
-      req.session.inviteCaseApplicationType = ApplicationType.SOLE_APPLICATION;
       const res = mockResponse();
       await controller.get(req, res);
 
-      const commonContent = generatePageContent({
+      const commonContent = generateCommonContent({
         language: SupportedLanguages.En,
         userEmail,
         userCase: req.session.userCase,
@@ -181,14 +177,11 @@ describe('GetController', () => {
         userCase: req.session.userCase,
         partner: 'spouse',
         userEmail,
-        existingCaseId: req.session.existingCaseId,
-        inviteCaseApplicationType: req.session.inviteCaseApplicationType,
       });
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         isAmendableStates: true,
         userCase: req.session.userCase,
-        inviteCaseApplicationType: req.session.inviteCaseApplicationType,
       });
     });
 
@@ -209,13 +202,7 @@ describe('GetController', () => {
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
-          const commonContent = generatePageContent({
-            language,
-            pageContent: getContentMock,
-            isDivorce,
-            userCase: { gender },
-            userEmail,
-          });
+          const commonContent = controller.getPageContent(req, res, language);
 
           expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
@@ -232,7 +219,6 @@ describe('GetController', () => {
             language,
             pageText: `something in ${language}`,
             userEmail,
-            existingCaseId: req.session.existingCaseId,
           });
         });
       });

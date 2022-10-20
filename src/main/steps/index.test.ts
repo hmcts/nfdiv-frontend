@@ -130,10 +130,24 @@ describe('Steps', () => {
       expect(actual).toBe(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
     });
 
-    it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted", () => {
-      mockReq.session.userCase.state = State.ConditionalOrderDrafted;
-      const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
+    it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted/ConditionalOrderPending", () => {
+      const testStates = [State.ConditionalOrderPending, State.ConditionalOrderDrafted];
+      for (const state of testStates) {
+        mockReq.session.userCase.state = state;
+        mockReq.session.isApplicant2 = false;
+        const actual = getNextIncompleteStepUrl(mockReq);
+        expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
+      }
+    });
+
+    it("uses applicant 2's CO sequence if state is ConditionalOrderDrafted/ConditionalOrderPending", () => {
+      const testStates = [State.ConditionalOrderPending, State.ConditionalOrderDrafted];
+      for (const state of testStates) {
+        mockReq.session.userCase.state = state;
+        mockReq.session.isApplicant2 = true;
+        const actual = getNextIncompleteStepUrl(mockReq);
+        expect(actual).toBe(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
+      }
     });
   });
 

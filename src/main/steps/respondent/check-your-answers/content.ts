@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -135,7 +136,6 @@ const en = ({ isDivorce, userCase }) => ({
   }. The second is your statement of truth.`,
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-  continue: 'Submit',
   errors: {
     aosStatementOfTruth: {
       required:
@@ -254,7 +254,6 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   }. Yr ail yw eich datganiad gwirionedd.`,
   confirmApplicationIsTrueWarning:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
-  continue: 'Cyflwyno',
   errors: {
     aosStatementOfTruth: {
       required:
@@ -281,7 +280,8 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 

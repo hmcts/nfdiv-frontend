@@ -1,8 +1,8 @@
 import { SupportedLanguages } from '../../../main/modules/i18n';
-import { generatePageContent } from '../../../main/steps/common/common.content';
+import { generateCommonContent } from '../../../main/steps/common/common.content';
 
 export const defaultViewArgs = {
-  ...generatePageContent({
+  ...generateCommonContent({
     language: SupportedLanguages.En,
     userEmail: 'test@example.com',
     userCase: expect.any(Object),
@@ -18,5 +18,5 @@ export const defaultViewArgs = {
   language: expect.any(String),
   htmlLang: expect.any(String),
   userEmail: expect.any(String),
-  existingCaseId: expect.any(String),
+  pageUrl: expect.any(String),
 };

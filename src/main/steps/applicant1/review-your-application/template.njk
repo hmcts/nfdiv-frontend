@@ -9,21 +9,14 @@
 {% set whatThisMeansContent2 %}
   <p class="govuk-body">{{ whatThisMeansInfo3 }}</p>
 
-  <h3 class="govuk-heading-m">{{ heading7 }}</h3>
+  <h3 class="govuk-heading-m">{{ habitualResidenceHeading }}</h3>
   <p class="govuk-body">{{ habitualResidenceText | safe }}</p>
 
-  <h3 class="govuk-heading-m">{{ heading8 }}</h3>
+  <h3 class="govuk-heading-m">{{ domicileHeading }}</h3>
   <p class="govuk-body">{{ domicileText | safe }}</p>
 
-  <h3 class="govuk-heading-m">{{ heading9 }}</h3>
-  <p class="govuk-body">{{ residualJurisdictionLine1 }}</p>
-  <p class="govuk-body">{{ residualJurisdictionLine2 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ residualJurisdictionListItem1 }}</li>
-    <li>{{ residualJurisdictionListItem2 }}</li>
-    <li>{{ residualJurisdictionListItem3 }}</li>
-  </ul>
-  <p class="govuk-body">{{ residualJurisdictionLine3 }}</p>
+  <h3 class="govuk-heading-m">{{ residualJurisdictionHeading }}</h3>
+  <p class="govuk-body">{{ residualJurisdictionText | safe }}</p>
 {% endset %}
 
 {% set whatThisMeansContent3 %}
@@ -69,6 +62,8 @@
     <dd class="govuk-body">{{ line3 }}</dd>
     <dt class="govuk-heading-s">{{ heading4 }}</dt>
     <dd class="govuk-body">{{ ceremonyPlace }}</dd>
+    <dt class="govuk-heading-s">{{ ceremonyCountryHeading }}</dt>
+    <dd class="govuk-body">{{ ceremonyCountry }}</dd>
     <dt class="govuk-heading-s">{{ heading5 }}</dt>
     <dd class="govuk-body">{{ relationshipDate }}</dd>
   </dl>
