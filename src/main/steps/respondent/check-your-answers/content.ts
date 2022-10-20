@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 
@@ -280,6 +281,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.submit,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
