@@ -80,7 +80,6 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       if (userCase.coApplicant1SubmittedDate) {
-        // Review comments: Only take app to hub page if they have completely submitted CO
         return HUB_PAGE;
       } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
@@ -125,7 +124,6 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       if (req.session.userCase.coApplicant2SubmittedDate) {
-        // Review comments: Only take app 2 to hub page if they have completely submitted CO
         return HUB_PAGE;
       }
       return req.session.userCase.applicant2ApplyForConditionalOrder
