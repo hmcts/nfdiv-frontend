@@ -15,7 +15,6 @@ import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
-  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JURISDICTION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
@@ -118,13 +117,10 @@ export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
   );
 };
 
-export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
-  const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
-  const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
-
-  return (
-    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
-  );
+export const isConditionalOrderReadyToSubmit = (data: Partial<CaseWithId>, isApp2: boolean): boolean => {
+  return isApp2
+    ? Boolean(data.applicant2ConfirmInformationStillCorrect)
+    : Boolean(data.applicant1ConfirmInformationStillCorrect);
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
