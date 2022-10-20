@@ -8,6 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -103,7 +104,26 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   awaitingFinalOrder: {
     line1: `You can now apply for a ‘final order’. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
-    }. It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    }.
+    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    buttonText: 'Apply for final order',
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
+  },
+  hasAppliedForFinalOrder: {
+    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
+    line2: `If they do not apply by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} then you will be sent an email telling you how you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }.`,
+  },
+  finalOrderRequested: {
+    line1: `You and your ${partner} have both confirmed you want to ${
+      isDivorce ? 'finalise the divorce' : 'end your civil partnership'
+    }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
+    line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
 });
 
@@ -188,9 +208,38 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   awaitingFinalOrder: {
     line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
-    } i ben yn gyfreithiol. Dyma'r cam olaf yn y ${
-      isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"
+    } i ben yn gyfreithiol.
+    Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "broses i ddod â'ch partneriaeth sifil i ben"}.`,
+    buttonText: 'Gwneud cais am orchymyn terfynol',
+    buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
+  },
+  hasAppliedForFinalOrder: {
+    line1: `Rydych wedi gwneud cais am 'orchymyn terfynol'. Mae'n rhaid i'ch ${partner} wneud cais hefyd oherwydd bod hwn yn gais ar y cyd. Anfonwyd nodyn atgoffa ato/ati drwy e-bost.`,
+    line2: `Os nad yw’n gwneud cais erbyn ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} yna anfonir e-bost atoch yn dweud wrthych sut y gallwch ${
+      isDivorce ? 'gadarnhau eich ysgariad' : "ddod â'ch partneriaeth sifil i ben"
     }.`,
+  },
+  finalOrderRequested: {
+    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
+      isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
+    }.`,
+    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
+  },
+  finalOrderComplete: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    line2: {
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
+    },
   },
 });
 
@@ -206,8 +255,8 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
-    ? userCase.applicant2ApplyForConditionalOrderStarted === YesOrNo.YES
-    : userCase.applicant1ApplyForConditionalOrderStarted === YesOrNo.YES;
+    ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
+    : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
@@ -215,9 +264,15 @@ export const generateContent: TranslationFn = content => {
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(userCase).at(
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
+  const hasApplicantAppliedForFinalOrderFirst = isApplicant2
+    ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
+    : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
+
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
@@ -230,5 +285,7 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
+    hasApplicantAppliedForFinalOrderFirst,
+    isFinalOrderCompleteState,
   };
 };

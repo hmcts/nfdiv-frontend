@@ -326,11 +326,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     } i ben yn gyfreithiol.`,
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
-     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
-     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    line2: `If they do not apply by ${getFormattedDate(userCase.dateFinalOrderEligibleToRespondent)}
-     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+    line1: `Gall eich ${partner} wneud cais am 'orchymyn terfynol' yn awr. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch
+     ${isDivorce ? 'priodas' : 'partneriaeth sifil'} i ben yn gyfreithiol. Dyma'r cam olaf yn y
+     ${isDivorce ? 'broses ysgaru' : "i ddod â'ch partneriaeth sifil i ben"}.`,
+    line2: `Os na fyddant yn gwneud cais erbyn ${getFormattedDate(
+      userCase.dateFinalOrderEligibleToRespondent,
+      SupportedLanguages.Cy
+    )}
+     byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
     line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
@@ -377,6 +380,18 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line4: 'apply for Help With Fees here',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
+  finalOrderComplete: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    line2: {
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
+    },
+  },
 });
 
 const languages = {
@@ -390,11 +405,14 @@ export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   const hasSubmittedAos = !isEmpty(userCase.dateAosSubmitted);
-  const displayState = currentStateFn(userCase).at(
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
+
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
+
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -403,5 +421,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
     hasApplicant2AppliedForFinalOrderFirst,
+    isFinalOrderCompleteState,
   };
 };
