@@ -65,6 +65,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/applicant-not-yet-applied-for-conditional-order.njk');
   });
 
+  test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
+    const theState = displayState.at(State.FinalOrderRequested);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/final-order-requested.njk');
+  });
+
   test('should show /awaiting-final-order.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const jointTemplate = getJointHubTemplate(theState, false);
@@ -81,5 +87,11 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.FinalOrderOverdue);
     const jointTemplate = getJointHubTemplate(theState, false);
     expect(jointTemplate).toBe('/awaiting-final-order.njk');
+  });
+
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const jointTemplate = getJointHubTemplate(theState, false);
+    expect(jointTemplate).toBe('/final-order-complete.njk');
   });
 });
