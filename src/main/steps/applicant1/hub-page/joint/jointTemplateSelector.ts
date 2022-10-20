@@ -6,6 +6,9 @@ export const getJointHubTemplate = (
   hasApplicantAppliedForConditionalOrder: boolean
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.FinalOrderRequested: {
+      return '/final-order-requested.njk';
+    }
     case State.AwaitingPronouncement: {
       return '/awaiting-pronouncement.njk';
     }
@@ -19,12 +22,19 @@ export const getJointHubTemplate = (
       return '/awaiting-clarification.njk';
     case State.ClarificationSubmitted:
       return '/clarification-submitted.njk';
+    case State.AwaitingAmendedApplication:
+      return '/awaiting-amended-application.njk';
     case State.ConditionalOrderPending:
       return '/conditional-order-pending.njk';
     case State.AwaitingLegalAdvisorReferral:
       return '/awaiting-legal-advisor-referral.njk';
+    case State.FinalOrderOverdue:
+    case State.AwaitingJointFinalOrder:
     case State.AwaitingFinalOrder:
       return '/awaiting-final-order.njk';
+    case State.FinalOrderComplete: {
+      return '/final-order-complete.njk';
+    }
     default: {
       if (
         displayState.isAfter('Holding') &&

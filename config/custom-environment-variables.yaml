@@ -7,6 +7,7 @@ services:
     tokenURL: IDAM_API_URL
     clientID: IDAM_CLIENT_ID
     clientSecret: IDAM_SECRET
+    caching: IDAM_TOKEN_CACHE
   case:
     url: CCD_URL
     checkDivCases: SKIP_DIV_CASE_CHECK
