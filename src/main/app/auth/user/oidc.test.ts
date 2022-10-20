@@ -8,7 +8,6 @@ import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './o
 const config = require('config');
 
 jest.mock('axios');
-jest.mock('config');
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
@@ -51,6 +50,8 @@ describe('getUserDetails', () => {
 });
 
 describe('getSystemUser', () => {
+  jest.mock('config');
+
   const getSystemUserTestToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNhc2V3b3JrZXItZGl2b3JjZS1zeXN0ZW11cGRhdGUiLCJjYXNld29ya2VyLWNhYSIsImNhc2V3b3JrZXIiLCJjYXNld29ya2VyLWRpdm9yY2UiXX0.NDab3XAV8NWQTuuxBQ9mpwTIdw4KMWWiJ37Dp3EHG7s';
 
