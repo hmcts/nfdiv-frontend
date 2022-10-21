@@ -293,20 +293,22 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
+  const displayState = currentStateFn(userCase.state).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
+
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
     hasApplicantAppliedForFinalOrderFirst &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    );
+    ) &&
+    userCase.state !== State.FinalOrderRequested;
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(userCase.state).at(
-    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
-  );
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
 
