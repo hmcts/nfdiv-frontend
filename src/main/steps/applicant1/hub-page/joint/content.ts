@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, CHANGING_TO_SOLE_APPLICATION, FINALISING_YOUR_APPLICATION } from '../../../urls';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -120,7 +120,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
         isDivorce ? 'finalise your divorce' : 'end your civil partnership'
       }`,
       linkText: 'as a sole applicant.',
-      link: `${isApplicant2 ? `${APPLICANT_2}${CHANGING_TO_SOLE_APPLICATION}` : CHANGING_TO_SOLE_APPLICATION}`,
+      link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
     },
   },
 });
