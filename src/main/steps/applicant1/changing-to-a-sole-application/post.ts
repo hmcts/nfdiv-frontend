@@ -1,10 +1,9 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { SWITCH_TO_SOLE, SWITCH_TO_SOLE_CO, State } from '../../../app/case/definition';
+import { SWITCH_TO_SOLE_CO } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { currentStateFn } from '../../state-sequence';
 import { HUB_PAGE } from '../../urls';
 
 @autobind
@@ -12,9 +11,7 @@ export default class ChangingToASoleApplicationPostController extends PostContro
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     req.session.errors = [];
     try {
-      const displayState = currentStateFn(req.session.userCase.state);
-      const eventName = displayState.isBefore(State.AwaitingFinalOrder) ? SWITCH_TO_SOLE_CO : SWITCH_TO_SOLE;
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, eventName);
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE_CO);
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
