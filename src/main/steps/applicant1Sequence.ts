@@ -517,7 +517,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: CHANGING_TO_SOLE_APPLICATION,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: () => FINALISING_YOUR_APPLICATION,
   },
   {
     url: HUB_PAGE,

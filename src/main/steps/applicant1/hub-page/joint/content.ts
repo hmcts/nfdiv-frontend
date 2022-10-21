@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
+import { APPLICANT_2, CHANGING_TO_SOLE_APPLICATION, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -109,6 +109,20 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     buttonText: 'Apply for final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
+  awaitingJointFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
+      isDivorce ? 'divorce application' : 'to end your civil partnership'
+    } can be finalised jointly.`,
+    subHeading: 'What you can do',
+    line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
+    line3: {
+      part1: `If you do not think they will confirm the application then you can ${
+        isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+      }`,
+      linkText: 'as a sole applicant.',
+      link: `${isApplicant2 ? `${APPLICANT_2}${CHANGING_TO_SOLE_APPLICATION}` : CHANGING_TO_SOLE_APPLICATION}`,
+    },
+  },
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -197,6 +211,20 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
+  awaitingJointFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
+      isDivorce ? 'divorce application' : 'to end your civil partnership'
+    } can be finalised jointly.`,
+    subHeading: 'What you can do',
+    line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
+    line3: {
+      part1: `If you do not think they will confirm the application then you can ${
+        isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+      }`,
+      linkText: 'as a sole applicant',
+      link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    },
+  },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
     yn awr wedi dod i ben yn gyfreithiol.`,
@@ -228,6 +256,15 @@ export const generateContent: TranslationFn = content => {
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
+
+  const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days = isApplicant2
+    ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
+    : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
+      dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
+      dayjs().isAfter(
+        dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+      );
+
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
@@ -251,5 +288,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
     isFinalOrderCompleteState,
+    finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
   };
 };
