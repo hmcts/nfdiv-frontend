@@ -6,7 +6,9 @@
     <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.part1 }}
       <a class="govuk-link" href={{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.link }}>{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.linkText }}</a>
     </p>
-{% else %}
+{% elif hasApplicantAppliedForFinalOrderFirst %}
   <p class="govuk-body">{{ hasAppliedForFinalOrder.line1 }}</p>
   <p class="govuk-body">{{ hasAppliedForFinalOrder.line2 }}</p>
+{% else %}
+{% include "./awaiting-final-order.njk" %}
 {% endif %}
