@@ -9,8 +9,10 @@ import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { hasSubmittedAos } from './index.utils';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
+import { getAosSteps } from './url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
@@ -139,7 +141,9 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase.state);
 
-  if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
+  if (hasSubmittedAos(req.session.userCase)) {
+    return respondentSequence.filter(step => !getAosSteps().includes(step.url));
+  } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
     return respondentSequence;
   } else if (req.session.isApplicant2) {
     return stateSequence.isBefore(State.Applicant2Approved)
