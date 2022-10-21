@@ -6,6 +6,9 @@ export const getJointHubTemplate = (
   hasApplicantAppliedForConditionalOrder: boolean
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.FinalOrderRequested: {
+      return '/final-order-requested.njk';
+    }
     case State.AwaitingPronouncement: {
       return '/awaiting-pronouncement.njk';
     }
