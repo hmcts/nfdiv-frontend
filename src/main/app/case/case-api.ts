@@ -1,12 +1,13 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
+import { getHighestPriorityPreSubmissionCases, preSubmittedStatePrioritySequence } from '../../steps/state-sequence';
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, State, UserRole } from './definition';
+import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -98,24 +99,14 @@ export class CaseApi {
   }
 
   private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
-    const preSubmissionJointStates = [
-      State.AwaitingApplicant1Response,
-      State.AwaitingApplicant2Response,
-      State.Applicant2Approved,
-    ];
     if (userCases && userCases.length > 1) {
-      const submittedUserCase = userCases.find(
-        userCase => ![State.Draft, ...preSubmissionJointStates].includes(userCase.state)
-      );
-      const preSubmittedUserCase = userCases.find(userCase => preSubmissionJointStates.includes(userCase.state));
-      const priorityUserCase = submittedUserCase || preSubmittedUserCase;
-      if (priorityUserCase) {
-        return {
-          ...fromApiFormat(priorityUserCase.case_data),
-          id: priorityUserCase.id.toString(),
-          state: priorityUserCase.state,
-        };
-      }
+      const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
+      const priorityUserCase = submittedUserCase || getHighestPriorityPreSubmissionCases(userCases)[0];
+      return {
+        ...fromApiFormat(priorityUserCase.case_data),
+        id: priorityUserCase.id.toString(),
+        state: priorityUserCase.state,
+      };
     }
     return this.getLatestUserCase(userCases);
   }
