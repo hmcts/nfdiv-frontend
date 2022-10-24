@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
 export const getSoleHubTemplate = (
@@ -16,57 +16,57 @@ export const getSoleHubTemplate = (
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
-      return '/final-order-requested.njk';
+      return HubTemplate.FinalOrderRequested;
     }
     case State.FinalOrderComplete: {
-      return '/final-order-complete.njk';
+      return HubTemplate.FinalOrderComplete;
     }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral: {
-      return '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk';
+      return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
     }
     case State.ConditionalOrderPronounced: {
-      return '/conditional-order-pronounced.njk';
+      return HubTemplate.ConditionalOrderPronounced;
     }
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
-      return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
+      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingGeneralConsideration:
       if (userCase.aosStatementOfTruth) {
-        return '/awaiting-general-consideration.njk';
+        return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAosOverdue) {
-        return '/aos-due.njk';
+        return HubTemplate.AoSDue;
       } else {
-        return '/aos-awaiting-or-drafted.njk';
+        return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingConditionalOrder:
-      return '/awaiting-conditional-order.njk';
+      return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
-      return '/holding.njk';
+      return HubTemplate.Holding;
     case State.AwaitingClarification:
-      return '/awaiting-clarification.njk';
+      return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
-      return '/clarification-submitted.njk';
+      return HubTemplate.ClarificationSubmitted;
     case State.AwaitingAmendedApplication:
-      return '/awaiting-amended-application.njk';
+      return HubTemplate.AwaitingAmendedApplication;
     case State.AwaitingBailiffService:
-      return '/awaiting-bailiff-service.njk';
+      return HubTemplate.AwaitingBailiffService;
     case State.AwaitingFinalOrder:
     case State.FinalOrderOverdue:
-      return '/awaiting-final-order-or-final-order-overdue.njk';
+      return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     case State.AwaitingAos:
       if (isServiceApplicationGranted && !isSuccessfullyServedByBailiff) {
-        return '/bailiff-service-unsuccessful.njk';
+        return HubTemplate.BailiffServiceUnsuccessful;
       } else if (isAlternativeService && !isServiceApplicationGranted) {
-        return '/service-application-rejected.njk';
+        return HubTemplate.ServiceApplicationRejected;
       } else {
-        return '/aos-awaiting-or-drafted.njk';
+        return HubTemplate.AosAwaitingOrDrafted;
       }
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
-        return '/aos-due.njk';
+        return HubTemplate.AoSDue;
       }
-      return '/aos-awaiting-or-drafted.njk';
+      return HubTemplate.AosAwaitingOrDrafted;
     }
   }
 };
