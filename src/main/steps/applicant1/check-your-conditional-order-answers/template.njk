@@ -10,7 +10,7 @@
   {% set nextIncompleteStep = "/applicant2/continue-with-your-application" if isApplicant2 else "/continue-with-your-application" %}
 {% else %}
   {% set nextIncompleteStep = getNextIncompleteStepUrl() %}
-  {% set isConditionalOrderReadyToSubmit = isConditionalOrderReadyToSubmit(nextIncompleteStep) %}
+  {% set isConditionalOrderReadyToSubmit = isConditionalOrderReadyToSubmit(userCase, isApplicant2) %}
 {% endif %}
 
 {% set title = title if isConditionalOrderReadyToSubmit else titleSoFar %}
