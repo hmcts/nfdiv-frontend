@@ -141,6 +141,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/awaiting-final-order-or-final-order-overdue.njk');
   });
 
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/final-order-complete.njk');
+  });
+
   test('should show /awaiting-bailiff-service.njk for state FinalOrderOverdue', () => {
     const theState = displayState.at(State.FinalOrderOverdue);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
@@ -186,11 +192,5 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.NewPaperCase);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/aos-awaiting-or-drafted.njk');
-  });
-
-  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
-    const theState = displayState.at(State.FinalOrderComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe('/final-order-complete.njk');
   });
 });
