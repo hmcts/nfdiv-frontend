@@ -7,7 +7,6 @@ import { AppRequest } from '../app/controller/AppRequest';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
-  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -169,21 +168,41 @@ describe('Steps', () => {
   });
 
   describe('isConditionalOrderReadyToSubmit()', () => {
-    it('returns false if nextStepUrl is /continue-with-your-application', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(CONTINUE_WITH_YOUR_APPLICATION);
-      expect(isApplicationReadyToSubmitBoolean).toBeFalsy();
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
     });
 
-    it('returns true if nextStepUrl is /', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(HOME_URL);
-      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    it('returns true if is app1 and applicant1ConfirmInformationStillCorrect not empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = YesOrNo.YES;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = undefined;
+      const isApp2 = false;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(true);
     });
 
-    it('returns true if nextStepUrl contains /check-your-conditional-order-answers', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
-        `${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}?lng=eng`
-      );
-      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    it('returns true if is app2 and applicant2ConfirmInformationStillCorrect not empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = undefined;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = YesOrNo.NO;
+      const isApp2 = true;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(true);
+    });
+
+    it('returns false if is app1 and applicant1ConfirmInformationStillCorrect is empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = undefined;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = YesOrNo.YES;
+      const isApp2 = false;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(false);
+    });
+
+    it('returns false if is app2 and applicant2ConfirmInformationStillCorrect is empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = YesOrNo.YES;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = undefined;
+      const isApp2 = true;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(false);
     });
   });
 });

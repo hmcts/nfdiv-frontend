@@ -371,22 +371,22 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
   finalOrderRequested: {
-    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'. Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'bydd eich partneriaeth sifil yn dod i ben yn gyfreithiol'
     }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
-    line2: `You need to pay ${getFee(
+          )} yn cadarnhau`
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
+    } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
+    line2: `Mae angen i chi dalu ${getFee(
       config.get('fees.finalOrderApplicationFee')
-    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
-    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
-       number. You can `,
-    line4: 'apply for Help With Fees here',
+    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 123 1711 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
+    line3:
+      "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
+    line4: 'wneud cais am Help i Dalu Ffioedd yma.',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
   finalOrderGranted: {

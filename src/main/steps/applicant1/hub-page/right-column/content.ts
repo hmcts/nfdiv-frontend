@@ -114,22 +114,22 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
-    text: 'View the certificate of entitlement (PDF)',
+    text: 'Gweld y dystysgrif hawl (PDF)',
   },
   conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
-    text: 'View the conditional order (PDF)',
+    text: 'Gweld y gorchymyn amodol (PDF)',
   },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
-    text: 'View the conditional order application (PDF)',
+    text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderApplicationDownload: {
     reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
-    text: 'View the conditional order application (PDF)',
+    text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderRefusalPdf: {
     reference: 'Refusal-Order',
