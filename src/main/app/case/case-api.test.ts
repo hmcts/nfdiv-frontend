@@ -219,14 +219,14 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
 
-  test('Should prioritise Submitted case', async () => {
+  test('Should prioritise Submitted case over Draft case', async () => {
     const mockDraftCase = {
       id: '1',
       state: State.Draft,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     const mockSubmittedCase = {
-      id: '1',
+      id: '2',
       state: State.Submitted,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
@@ -235,30 +235,25 @@ describe('CaseApi', () => {
     const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
-      id: '1',
+      id: '2',
       state: State.Submitted,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
   });
 
-  test('Should prioritise AwaitingApplicant2Response case over Draft', async () => {
-    const mockDraftCase = {
+  test('Should return the only case if there is only one', async () => {
+    const mockCase = {
       id: '1',
-      state: State.Draft,
+      state: State.AwaitingClarification,
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
-    const mockSubmittedCase = {
-      id: '1',
-      state: State.AwaitingApplicant2Response,
-      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
-    };
-    mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
+    mockApiClient.findExistingUserCases.mockResolvedValue([mockCase]);
 
     const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
     expect(userCase).toStrictEqual({
       id: '1',
-      state: State.AwaitingApplicant2Response,
+      state: State.AwaitingClarification,
       divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     });
   });
