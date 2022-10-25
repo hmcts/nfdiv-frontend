@@ -152,6 +152,15 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
     line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
   },
+  finalOrderGranted: {
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
+    part1: "Download a copy of your 'final order'.",
+    part2: ` This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+  },
 });
 
 const cy: typeof en = ({
@@ -171,7 +180,7 @@ const cy: typeof en = ({
   finalOrderApplication: 'Final order application',
   applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1:
-    userCase.state === 'AwaitingClarification' ? 'Beth sydd angen i chi ei wneud nawr' : 'Yr wybodaeth ddiweddaraf',
+    userCase.state === 'AwaitingClarification' ? 'Beth sydd angen i chi ei wneud nawr' : 'Diweddariad diweddaraf',
   subHeading2: 'Gwybodaeth ddefnyddiol',
   line1: 'Rhagor o wybodaeth am rannu arian ac eiddo',
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
@@ -305,6 +314,15 @@ const cy: typeof en = ({
       "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
     line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
     line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
+  },
+  finalOrderGranted: {
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
+    part1: "Download a copy of your 'final order'",
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
   },
 });
 

@@ -60,6 +60,11 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
     link: '/downloads/conditional-order-refusal',
     text: 'View the conditional order refusal (PDF)',
   },
+  finalOrderGrantedDocumentDownload: {
+    reference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+    text: 'Download a copy of your final order (PDF)',
+  },
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -109,22 +114,22 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
     link: '/downloads/certificate-of-entitlement',
-    text: 'View the certificate of entitlement (PDF)',
+    text: 'Gweld y dystysgrif hawl (PDF)',
   },
   conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
     link: '/downloads/conditional-order-granted',
-    text: 'View the conditional order (PDF)',
+    text: 'Gweld y gorchymyn amodol (PDF)',
   },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
     link: '/downloads/conditional-order-answers',
-    text: 'View the conditional order application (PDF)',
+    text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderApplicationDownload: {
     reference: 'Conditional-Order-Application',
     link: '/downloads/conditional-order-application',
-    text: 'View the conditional order application (PDF)',
+    text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderRefusalPdf: {
     reference: 'Refusal-Order',
@@ -136,7 +141,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/final-order-application',
     text: 'View the final order application (PDF)',
   },
-  finalOrderGrantedDownload: {
+  finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
     text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
@@ -177,19 +182,19 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
-  const hasCertificateOfEntitlement = userCase.coCertificateOfEntitlementDocument;
-  const hasConditionalOrderGranted = userCase.coConditionalOrderGrantedDocument;
-  const hasConditionalOrderAnswers = userCase.documentsGenerated?.find(
+  const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
+  const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
+  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
+    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+  );
+  const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
   );
-  const hasConditionalOrderApplication = userCase.documentsGenerated?.find(
+  const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
   );
   const hasFinalOrderApplicationAndFinalOrderRequested = userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
-  );
-  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
   );
 
   return {
