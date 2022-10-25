@@ -189,6 +189,15 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line4: 'apply for Help With Fees here',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
+  finalOrderGranted: {
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
+    part1: "Download a copy of your 'final order'",
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
+  },
 });
 
 // @TODO translations
@@ -362,35 +371,33 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
   },
   finalOrderRequested: {
-    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'. Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'bydd eich partneriaeth sifil yn dod i ben yn gyfreithiol'
     }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
-    line2: `You need to pay ${getFee(
+          )} yn cadarnhau`
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
+    } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
+    line2: `Mae angen i chi dalu ${getFee(
       config.get('fees.finalOrderApplicationFee')
-    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
-    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
-       number. You can `,
-    line4: 'apply for Help With Fees here',
+    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 123 1711 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
+    line3:
+      "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
+    line4: 'wneud cais am Help i Dalu Ffioedd yma.',
     link: 'https://www.gov.uk/get-help-with-court-fees',
   },
-  finalOrderComplete: {
-    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+  finalOrderGranted: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
     yn awr wedi dod i ben yn gyfreithiol.`,
-    line2: {
-      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
-      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
-        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
-      }.`,
-      link: '/downloads/final-order-granted',
-      reference: 'Final-Order-Granted',
-    },
+    part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+    part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+      isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+    }.`,
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
   },
 });
 
@@ -410,9 +417,6 @@ export const generateContent: TranslationFn = content => {
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
-
-  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
-
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -421,6 +425,5 @@ export const generateContent: TranslationFn = content => {
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
     hasApplicant2AppliedForFinalOrderFirst,
-    isFinalOrderCompleteState,
   };
 };
