@@ -70,7 +70,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
       }
       then you can apply to delay the final order. You can do this by filling out a `,
       part2: "'general application' D11 form",
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
       part3: ` and sending it to the court.
       You only need to apply to delay the final order if you receive notice from your ${partner}
       that they are going to apply to ${
@@ -79,9 +79,8 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     },
   },
   links: {
-    applicationForFinalOrder:
-      'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf',
-    certificateOfService: 'https://www.gov.uk/government/publications/form-n215-certificate-of-service',
+    applicationForFinalOrder: config.get('govukUrls.d36Form'),
+    certificateOfService: config.get('govukUrls.n215Form'),
   },
   readMoreChangeToSole: {
     subHeader: State.AwaitingJointFinalOrder.includes(userCase.state as State)
@@ -207,7 +206,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
         isDivorce ? 'ysgariad gael ei gadarnhau' : 'bartneriaeth sifil ddod i ben yn gyfreithiol'
       } yna gallwch wneud cais i oedi'r gorchymyn terfynol. Gallwch wneud hyn trwy llenwi `,
       part2: "ffurflen D11 'cais cyffredinol'",
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
       part3: ` a'i hanfon i'r llys.
       Dylech ond gwneud cais i oedi’r gorchymyn terfynol os ydych yn cael rhybudd gan eich ${partner}
       ei fod/bod am wneud cais i ${
@@ -216,9 +215,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
     },
   },
   links: {
-    applicationForFinalOrder:
-      'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf',
-    certificateOfService: 'https://www.gov.uk/government/publications/form-n215-certificate-of-service',
+    applicationForFinalOrder: config.get('govukUrls.d36Form'),
+    certificateOfService: config.get('govukUrls.n215Form'),
   },
   readMoreChangeToSole: {
     subHeader: State.AwaitingJointFinalOrder.includes(userCase.state as State)
