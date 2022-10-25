@@ -105,7 +105,7 @@
   "devDependencies": {
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
-    "@typescript-eslint/parser": "^5.38.0",
+    "@typescript-eslint/parser": "^5.41.0",
     "@wdio/sauce-service": "^7.25.2",
     "allure-commandline": "^2.17.2",
     "axios-debug-log": "^0.8.4",
@@ -122,7 +122,7 @@
     "jest": "^27.5.1",
     "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
-    "node-sass": "^7.0.1",
+    "node-sass": "^7.0.3",
     "nodemon": "^2.0.20",
     "npm-run-all": "^4.1.5",
     "pa11y": "^6.2.3",
