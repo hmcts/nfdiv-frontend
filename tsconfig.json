@@ -17,8 +17,7 @@
     "baseUrl": "src/main",
     "paths": {
       "router/*": ["router/*"],
-      "routes/*": ["routes/*"],
-      "hmrc/*": ["../../node_modules/hmrc-frontend/hmrc/*"]
+      "routes/*": ["routes/*"]
     },
     "typeRoots": ["./node_modules/@types"]
   },
