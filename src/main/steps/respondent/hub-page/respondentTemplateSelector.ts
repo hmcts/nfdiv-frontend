@@ -25,6 +25,8 @@ export const getRespondentHubTemplate = (
       return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
     case State.AwaitingAmendedApplication:
       return '/awaiting-amended-application.njk';
+    case State.FinalOrderComplete:
+      return '/final-order-complete.njk';
     case State.AwaitingGeneralConsideration:
       if (userCase.aosStatementOfTruth) {
         return '/awaiting-general-consideration.njk';

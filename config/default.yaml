@@ -7,6 +7,9 @@ dates:
   awaitingLegalAdvisorReferralOffsetDays: 28
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
+  changingToSolePartnerConfirmationWeeks: 2
+  settlingFinancesConfirmationDays: 14
+  changingToSolePartnerResponseDays: 14
   jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
@@ -36,9 +39,10 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+    caching: false
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #url: 'https://ccd-data-store-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
+    #    url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2402.service.core-compute-preview.internal'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
@@ -92,3 +96,4 @@ govukUrls:
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
   feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
+  applyForDivorce: 'https://www.gov.uk/apply-for-divorce'

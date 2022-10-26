@@ -96,6 +96,15 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyFinalOrderGrantedPdf = {
+      endpoints: ['/downloads/final-order-granted'],
+      path: (req: AppRequest) => {
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     const dmStoreProxyForDeemedServiceRefusedPdf = {
       endpoints: ['/downloads/deemed-service-refused'],
       path: (req: AppRequest) => {
@@ -152,6 +161,24 @@ export class DocumentDownloadMiddleware {
       },
     };
 
+    const dmStoreProxyForFinalOrderApplicationPdf = {
+      endpoints: ['/downloads/final-order-application'],
+      path: (req: AppRequest) => {
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
+    const dmStoreProxyForFinalOrderGrantedPdf = {
+      endpoints: ['/downloads/final-order-granted'],
+      path: (req: AppRequest) => {
+        return req.session.userCase?.documentsGenerated.find(
+          doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+        )?.value.documentLink.document_binary_url;
+      },
+    };
+
     const dmStoreProxies = [
       dmStoreProxyForApplicationPdf,
       dmStoreProxyForRespondentAnswersPdf,
@@ -167,7 +194,10 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf,
       dmStoreProxyForBailiffServicePdf,
       dmStoreProxyForConditionalOrderGrantedPdf,
+      dmStoreProxyFinalOrderGrantedPdf,
       dmStoreProxyForConditionalOrderApplicationPdf,
+      dmStoreProxyForFinalOrderApplicationPdf,
+      dmStoreProxyForFinalOrderGrantedPdf,
     ];
 
     for (const dmStoreProxy of dmStoreProxies) {

@@ -18,7 +18,7 @@ describe('SoleTemplateSelector test', () => {
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
-  const displayState = currentStateFn(userCase);
+  const displayState = currentStateFn(userCase.state);
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
@@ -125,6 +125,12 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/awaiting-final-order-or-final-order-overdue.njk');
+  });
+
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/final-order-complete.njk');
   });
 
   test('should show /awaiting-bailiff-service.njk for state FinalOrderOverdue', () => {

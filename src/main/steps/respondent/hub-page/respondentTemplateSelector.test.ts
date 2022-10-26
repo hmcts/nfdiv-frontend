@@ -10,7 +10,7 @@ describe('RespondentTemplateSelector test', () => {
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
-  const displayState = currentStateFn(userCase);
+  const displayState = currentStateFn(userCase.state);
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
@@ -52,6 +52,12 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingLegalAdvisorReferral);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
+  });
+
+  test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
+    const theState = displayState.at(State.FinalOrderComplete);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe('/final-order-complete.njk');
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingPronouncement', () => {

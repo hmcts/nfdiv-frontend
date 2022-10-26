@@ -26,8 +26,8 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 {% endif %}
 
 {% if hasConditionalOrderGranted %}
-  <p class="govuk-body"><a class="govuk-link" href={{ConditionalOrderGrantedDocumentDownload.link}}
-    download={{ConditionalOrderGrantedDocumentDownload.reference}}>{{ConditionalOrderGrantedDocumentDownload.text}}</a></p>
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderGrantedDocumentDownload.link}}
+    download={{conditionalOrderGrantedDocumentDownload.reference}}>{{conditionalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
 {% if hasConditionalOrderAnswers %}
@@ -40,9 +40,19 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
 {% endif %}
 
+{% if hasFinalOrderGranted %}
+  <p class="govuk-body"><a class="govuk-link" href={{finalOrderGrantedDocumentDownload.link}}
+    download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
+{% endif %}
+
 {% if isAwaitingAmendedApplicationState %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
     download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
+{% endif %}
+
+{% if hasFinalOrderApplicationAndFinalOrderRequested %}
+  <p class="govuk-body"><a class="govuk-link" href={{finalOrderApplicationDownload.link}}
+   download={{finalOrderApplicationDownload.reference}}>{{finalOrderApplicationDownload.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
