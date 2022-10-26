@@ -1,0 +1,15 @@
+{% from "hmrc/components/timeout-dialog/macro.njk" import hmrcTimeoutDialog %}
+
+{{ hmrcTimeoutDialog({
+    language: "en",
+    timeout: "20",
+    countdown: "10",
+    keepAliveUrl: "?continue=true",
+    signOutUrl: "/save-and-sign-out",
+    timeoutUrl: "/timed-out",
+    title: "",
+    message: "",
+    messageSuffix: "",
+    keepAliveButtonText: "Continue with your application",
+    signOutButtonText: "Save and sign out"
+  }) }}

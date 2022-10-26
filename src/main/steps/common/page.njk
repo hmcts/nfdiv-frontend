@@ -59,6 +59,9 @@
 {% endblock %}
 
 {% block content %}
+   {% block timeout %}
+      {% include "./timeout-modal.njk" %}
+   {% endblock %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% block error_summary %}

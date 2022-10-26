@@ -12,12 +12,16 @@ export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
+    const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath], {
-      autoescape: true,
-      watch: app.locals.developmentMode,
-      express: app,
-    });
+    const env = nunjucks.configure(
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath, hmrcFrontendPath],
+      {
+        autoescape: true,
+        watch: app.locals.developmentMode,
+        express: app,
+      }
+    );
 
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;

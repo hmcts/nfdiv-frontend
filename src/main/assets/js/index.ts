@@ -1,4 +1,6 @@
-import { initAll } from 'govuk-frontend';
+import { initAll as govUkFrontendInitAll } from 'govuk-frontend';
+// import { initAll as hmrcFrontendInitAll } from 'hmrc/all.js';
+import { initAll as hmrcFrontendInitAll } from 'hmrc-frontend/hmrc/all.js';
 
 import '../scss/main.scss';
 import './go-back';
@@ -12,4 +14,5 @@ import './confirm-read-petition-submit';
 import './pdfjs';
 import './disable-upon-submit';
 
-initAll();
+govUkFrontendInitAll();
+hmrcFrontendInitAll();
