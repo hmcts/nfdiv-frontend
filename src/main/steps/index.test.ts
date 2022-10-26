@@ -225,7 +225,7 @@ describe('Steps', () => {
       const result = getUserSequence(mockReq);
       expect(result).toHaveLength(6);
       expect(result.map(step => step.url)).toContain('/respondent/hub-page');
-      expect(result.map(step => step.url)).toContain('/respondent/how-do-you-want-to-respond');
+      expect(result.map(step => step.url)).not.toContain('/respondent/how-do-you-want-to-respond');
     });
 
     it('returns a sequence including AoS steps if AoS not yet submitted', () => {
