@@ -1784,6 +1784,7 @@ export const enum HubTemplate {
   AoSDue = '/aos-due.njk',
   ApplicantNotYetAppliedForConditionalOrder = '/applicant-not-yet-applied-for-conditional-order.njk',
   AwaitingAmendedApplication = '/awaiting-amended-application.njk',
+  AwaitingAoS = '/awaiting-aos.njk',
   AwaitingBailiffService = '/awaiting-bailiff-service.njk',
   AwaitingClarification = '/awaiting-clarification.njk',
   AwaitingConditionalOrder = '/awaiting-conditional-order.njk',
