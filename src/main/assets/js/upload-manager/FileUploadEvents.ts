@@ -28,7 +28,7 @@ export class FileUploadEvents {
     location.hash = '#uploadErrorSummary';
     errorUploadingEl?.focus();
     this.uppy.info('');
-    this.uppy.reset();
+    this.uppy.cancelAll();
   };
 
   public onFilesSelected = async (uppy: Uppy, uploadedFiles: UploadedFiles): Promise<void> => {
