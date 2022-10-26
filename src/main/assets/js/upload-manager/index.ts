@@ -1,4 +1,4 @@
-import Uppy from '@uppy/core';
+import { Uppy } from '@uppy/core';
 import DropTarget from '@uppy/drop-target';
 import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
@@ -62,7 +62,7 @@ const initUploadManager = (): void => {
         await fileUploadEvents.onFilesSelected(uppy, uploadedFiles);
         updateFileList(uploadedFiles);
       } finally {
-        uppy.reset();
+        uppy.cancelAll();
         document.body.style.cursor = 'default';
       }
     })
