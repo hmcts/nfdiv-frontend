@@ -33,9 +33,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
-    // alias: {
-    //   "hmrc": hmrcFrontend.paths.template,
-    // }
   },
   output: {
     path: path.resolve(__dirname, 'src/main/public/'),
