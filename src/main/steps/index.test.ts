@@ -1,6 +1,6 @@
 import { completeCase } from '../../test/functional/fixtures/completeCase';
 import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { Checkbox } from '../app/case/case';
+import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
@@ -22,6 +22,7 @@ import {
 import {
   getNextIncompleteStepUrl,
   getNextStepUrl,
+  getUserSequence,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
 } from './index';
@@ -203,6 +204,41 @@ describe('Steps', () => {
       const isApp2 = true;
       const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
       expect(isConditionalOrderReadyToSubmitResult).toBe(false);
+    });
+  });
+
+  describe('getUserSequence()', () => {
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
+    });
+
+    it('returns a sequence without AoS steps if AoS already submitted', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Holding,
+        dateAosSubmitted: '2021-05-10',
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toHaveLength(6);
+      expect(result.map(step => step.url)).toContain('/respondent/hub-page');
+      expect(result.map(step => step.url)).toContain('/respondent/how-do-you-want-to-respond');
+    });
+
+    it('returns a sequence including AoS steps if AoS not yet submitted', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Holding,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toHaveLength(15);
+      expect(result.map(step => step.url)).toContain('/respondent/how-do-you-want-to-respond');
     });
   });
 });

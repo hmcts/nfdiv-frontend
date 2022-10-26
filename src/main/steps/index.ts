@@ -137,10 +137,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase.state);
 
-  if (hasSubmittedAos(req.session.userCase)) {
-    return respondentSequence.filter(step => !getAosSteps().includes(step.url));
-  } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return respondentSequence;
+  if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
+    if (hasSubmittedAos(req.session.userCase)) {
+      return respondentSequence.filter(step => !getAosSteps().includes(step.url));
+    } else {
+      return respondentSequence;
+    }
   } else if (req.session.isApplicant2) {
     return stateSequence.isBefore(State.Applicant2Approved)
       ? applicant2PreSubmissionSequence
