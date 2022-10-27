@@ -23,6 +23,7 @@ import {
   getNextIncompleteStepUrl,
   getNextStepUrl,
   getUserSequence,
+  hasSubmittedAos,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
 } from './index';
@@ -239,6 +240,27 @@ describe('Steps', () => {
       const result = getUserSequence(mockReq);
       expect(result).toHaveLength(15);
       expect(result.map(step => step.url)).toContain('/respondent/how-do-you-want-to-respond');
+    });
+  });
+
+  describe('hasSubmittedAos', () => {
+    test('Returns true if dateAosSubmitted is defined', () => {
+      const userCase: CaseWithId = {
+        id: '1234',
+        state: State.Holding,
+        dateAosSubmitted: '2021-05-10',
+      } as CaseWithId;
+      const result = hasSubmittedAos(userCase);
+      expect(result).toBe(true);
+    });
+
+    test('Returns false if dateAosSubmitted is undefined', () => {
+      const userCase: CaseWithId = {
+        id: '1234',
+        state: State.Holding,
+      } as CaseWithId;
+      const result = hasSubmittedAos(userCase);
+      expect(result).toBe(false);
     });
   });
 });

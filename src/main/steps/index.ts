@@ -9,7 +9,6 @@ import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { hasSubmittedAos } from './index.utils';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { getAosSteps } from './url-utils';
@@ -123,6 +122,10 @@ export const isConditionalOrderReadyToSubmit = (data: Partial<CaseWithId>, isApp
   return isApp2
     ? Boolean(data.applicant2ConfirmInformationStillCorrect)
     : Boolean(data.applicant1ConfirmInformationStillCorrect);
+};
+
+export const hasSubmittedAos = (userCase: CaseWithId): boolean => {
+  return Boolean(userCase.dateAosSubmitted);
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
