@@ -9,6 +9,5 @@ if (errorList) {
       event: 'Error shown',
       errormsg: listElements.item(i)?.firstElementChild?.textContent,
     });
-    console.log('error shown', listElements.item(i)?.firstElementChild?.textContent);
   }
 }
