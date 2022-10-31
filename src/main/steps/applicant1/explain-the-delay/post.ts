@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 
 import { Case, CaseWithId } from '../../../app/case/case';
-import { CITIZEN_FINAL_ORDER_DELAY_REASON, YesOrNo } from '../../../app/case/definition';
+import { APPLICANT2_FINAL_ORDER_REQUESTED, FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { SupportedLanguages } from '../../../modules/i18n';
@@ -20,7 +20,7 @@ export default class ExplainTheDelayPostController extends PostController<AnyObj
     return super.save(req, formData, eventName);
   }
 
-  protected getEventName(): string {
-    return CITIZEN_FINAL_ORDER_DELAY_REASON;
+  protected getEventName(req: AppRequest<AnyObject>): string {
+    return req.session.isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
   }
 }

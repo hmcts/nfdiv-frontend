@@ -200,7 +200,7 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data => (data.previousState === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+    getNextStep: data => (data.state === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,
