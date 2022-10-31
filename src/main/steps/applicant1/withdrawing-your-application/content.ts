@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { CommonContent } from '../../common/common.content';
@@ -12,7 +14,7 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       If you want to withdraw your application then you need to fill out a separate`,
       part2: 'D11 form',
       part3: ' and send it to the court. Details of where to send it are on the form.',
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
     },
     line2:
       'If you need help then you can contact the court using the details below. The support staff cannot give you legal advice.',
@@ -25,7 +27,7 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       If you want to withdraw your application then you and your ${partner} need to jointly fill out a`,
       part2: 'D11 form',
       part3: 'and send it to the court. Details of where to send it are on the form.',
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
     },
     continueAsSole: 'If you want to continue as a sole applicant',
     firstInTimeApplicant: {
@@ -84,7 +86,7 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
       Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi lenwi`,
       part2: 'ffurflen D11',
       part3: ' ar wahân a’i hanfon i’r llys. Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon.',
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
     },
     line2:
       'Os oes arnoch angen help gallwch gysylltu â’r llys gan ddefnyddio’r manylion isod. Ni all y staff cynorthwyol roi cyngor cyfreithiol i chi.',
@@ -97,7 +99,7 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
       Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi a’ch ${partner} lenwi `,
       part2: 'ffurflen D11',
       part3: 'ar y cyd a’i hanfon i’r llys. Mae’r ffurflen yn egluro i ble y dylid ei hanfon.',
-      link: 'https://www.gov.uk/government/publications/form-d11-application-notice',
+      link: config.get('govukUrls.d11Form'),
     },
     continueAsSole: 'Os ydych am fwrw ymlaen fel yr unig geisydd',
     firstInTimeApplicant: {
@@ -123,7 +125,7 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
     },
     secondInTimeApplicant: {
       line1: {
-        part1: `Mae eich ${partner} eisoes wedi cadarnhau ei fod/bod am fwrw ymlaen â’ch cais ar y cyd. 
+        part1: `Mae eich ${partner} eisoes wedi cadarnhau ei fod/bod am fwrw ymlaen â’ch cais ar y cyd.
         Y ffordd gyflymaf o fwrw ymlaen â’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
         yw i chithau hefyd `,
         part2: 'gadarnhau eich bod am fwrw ymlaen â’ch cais ar y cyd.',
@@ -138,7 +140,7 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
       },
       line3:
         'Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon. Dylech adael y gwasanaeth ac anfon y ffurflen i mewn os ydych eisiau newid i gais unigol.',
-      line4: `Y ffordd gyflymaf o fwrw ymlaen â’r 
+      line4: `Y ffordd gyflymaf o fwrw ymlaen â’r
       ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}
       cadarnhau eich bod am fwrw ymlaen â’ch cais ar y cyd.`,
     },
