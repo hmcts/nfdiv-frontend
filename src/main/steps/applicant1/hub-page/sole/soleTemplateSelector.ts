@@ -18,9 +18,6 @@ export const getSoleHubTemplate = (
     case State.FinalOrderRequested: {
       return '/final-order-requested.njk';
     }
-    case State.FinalOrderComplete: {
-      return '/final-order-complete.njk';
-    }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral: {
       return '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk';
@@ -54,6 +51,8 @@ export const getSoleHubTemplate = (
     case State.AwaitingFinalOrder:
     case State.FinalOrderOverdue:
       return '/awaiting-final-order-or-final-order-overdue.njk';
+    case State.FinalOrderComplete:
+      return '/final-order-complete.njk';
     case State.AwaitingAos:
       if (isServiceApplicationGranted && !isSuccessfullyServedByBailiff) {
         return '/bailiff-service-unsuccessful.njk';
