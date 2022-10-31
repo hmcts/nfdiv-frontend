@@ -468,7 +468,7 @@ const cy: typeof en = (
           userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
         }`,
   finalOrderComplete: {
-    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
     yn awr wedi dod i ben yn gyfreithiol.`,
     line2: {
       part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
