@@ -23,7 +23,7 @@ export const getJointHubTemplate = (
     case State.AwaitingClarification:
       return '/awaiting-clarification.njk';
     case State.ClarificationSubmitted:
-      if (userCase.isAdminClarificationSubmitted === YesOrNo.YES) {
+      if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
         return '/awaiting-legal-advisor-referral.njk';
       } else {
         return '/clarification-submitted.njk';

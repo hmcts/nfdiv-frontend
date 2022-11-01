@@ -16,7 +16,7 @@ describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
-    isAdminClarificationSubmitted: YesOrNo.NO,
+    coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -116,9 +116,9 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/clarification-submitted.njk');
   });
 
-  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ClarificationSubmitted when isAdminClarificationSubmitted is Yes', () => {
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ClarificationSubmitted when coIsAdminClarificationSubmitted is Yes', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
-    userCase.isAdminClarificationSubmitted = YesOrNo.YES;
+    userCase.coIsAdminClarificationSubmitted = YesOrNo.YES;
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });

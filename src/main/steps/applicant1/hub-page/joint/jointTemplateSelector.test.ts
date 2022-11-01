@@ -7,7 +7,7 @@ describe('JointTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
-    isAdminClarificationSubmitted: YesOrNo.NO,
+    coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -48,9 +48,9 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe('/clarification-submitted.njk');
   });
 
-  test('should show /awaiting-legal-advisor-referral.njk for state ClarificationSubmitted when isAdminClarificationSubmitted is Yes', () => {
+  test('should show /awaiting-legal-advisor-referral.njk for state ClarificationSubmitted when coIsAdminClarificationSubmitted is Yes', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
-    userCase.isAdminClarificationSubmitted = YesOrNo.YES;
+    userCase.coIsAdminClarificationSubmitted = YesOrNo.YES;
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
     expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
   });
