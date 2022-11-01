@@ -24,14 +24,10 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
-  const id: string = config.get('services.idam.clientID');
-  const secret: string = config.get('services.idam.clientSecret');
-  const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
-  const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
-  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  const params = { callbackUrl, code };
+  const response: AxiosResponse<OidcResponse> = await getAccessTokenFromIdam(params);
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
@@ -47,6 +43,7 @@ export const getUserDetails = async (
 export const getSystemUser = async (): Promise<UserDetails> => {
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
+  const params = { username: systemUsername, password: systemPassword };
 
   let response;
   const isCachingEnabled = config.get('services.idam.caching') === 'true';
@@ -54,12 +51,12 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     response = idamTokenCache.get(systemUsername);
   } else if (isCachingEnabled) {
     logger.info('Generating access token for system user and then caching it');
-    response = await getAccessTokenFromIdam(systemUsername, systemPassword);
+    response = await getAccessTokenFromIdam(params);
     idamTokenCache.set(systemUsername, {
       data: { id_token: response.data.id_token, access_token: response.data.access_token },
     });
   } else {
-    response = await getAccessTokenFromIdam(systemUsername, systemPassword);
+    response = await getAccessTokenFromIdam(params);
   }
 
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
@@ -87,12 +84,17 @@ export interface OidcResponse {
   access_token: string;
 }
 
-export const getAccessTokenFromIdam = (username: string, password: string): Promise<AxiosResponse<OidcResponse>> => {
+export const getAccessTokenFromIdam = (params: Record<string, string>): Promise<AxiosResponse<OidcResponse>> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${username}&password=${password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
+  let data = '';
+  if (params.username && params.password) {
+    data = `grant_type=password&username=${params.username}&password=${params.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+  } else if (params.callbackUrl && params.code) {
+    data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${params.callbackUrl}&code=${params.code}`;
+  }
   return Axios.post(tokenUrl, data, { headers });
 };

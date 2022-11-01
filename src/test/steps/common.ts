@@ -281,7 +281,7 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const response: AxiosResponse<OidcResponse> = await getAccessTokenFromIdam(user.username, user.password);
+  const response: AxiosResponse<OidcResponse> = await getAccessTokenFromIdam(user);
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;
