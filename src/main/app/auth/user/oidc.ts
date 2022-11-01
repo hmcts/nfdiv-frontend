@@ -28,7 +28,7 @@ export const getUserDetails = async (
   const code = encodeURIComponent(rawCode);
   const params = { callbackUrl, code };
 
-  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, code);
+  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.code);
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
