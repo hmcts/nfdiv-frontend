@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
-import { OidcResponse, getAccessTokenFromIdam } from '../../main/app/auth/user/oidc';
+import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
@@ -281,7 +281,8 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const response: AxiosResponse<OidcResponse> = await getAccessTokenFromIdam(user);
+  const params = { username: user.username, password: user.password };
+  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;
