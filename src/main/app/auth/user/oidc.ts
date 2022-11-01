@@ -95,7 +95,7 @@ export const getIdamToken = async (
   cacheKey: string
 ): Promise<AxiosResponse<OidcResponse>> => {
   let response;
-  const isCachingEnabled = false;
+  const isCachingEnabled = String(config.get('services.idam.caching')) === 'true';
   if (isCachingEnabled && idamTokenCache.get(cacheKey)) {
     response = idamTokenCache.get(cacheKey);
   } else if (isCachingEnabled) {
@@ -105,7 +105,6 @@ export const getIdamToken = async (
       data: { id_token: response.data.id_token, access_token: response.data.access_token },
     });
   } else {
-    logger.info('createIdamToken');
     response = await createIdamToken(params);
   }
 
