@@ -704,6 +704,9 @@ export interface CaseData {
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderLateExplanationTranslated: string;
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderLateExplanationTranslated: string;
+  applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
@@ -1004,6 +1007,9 @@ export interface FinalOrder {
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderLateExplanationTranslated: string;
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderLateExplanationTranslated: string;
+  applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
@@ -2226,7 +2232,6 @@ export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
-export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
 export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CONFIRM_RECEIPT = 'confirm-receipt';
 export const APPLICANT2_FINAL_ORDER_REQUESTED = 'applicant2-final-order-requested';
