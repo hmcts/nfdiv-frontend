@@ -1,7 +1,7 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
-import FinalisingYourApplicationPostController from './applicant1/finalising-your-application/post';
+import { needsToExplainDelay } from './applicant1/finalising-your-application/post';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
@@ -201,8 +201,7 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data =>
-      FinalisingYourApplicationPostController.needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE,
+    getNextStep: data => (needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,

@@ -26,18 +26,18 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    return FinalisingYourApplicationPostController.needsToExplainDelay(req.session.userCase)
+    return needsToExplainDelay(req.session.userCase)
       ? CITIZEN_APPLICANT2_UPDATE
       : req.session.isApplicant2
       ? APPLICANT2_FINAL_ORDER_REQUESTED
       : FINAL_ORDER_REQUESTED;
   }
-
-  public static needsToExplainDelay(userCase: Partial<CaseWithId>): boolean {
-    return (
-      userCase.state === State.FinalOrderOverdue ||
-      Boolean(userCase.applicant1FinalOrderLateExplanation) ||
-      Boolean(userCase.applicant2FinalOrderLateExplanation)
-    );
-  }
 }
+
+export const needsToExplainDelay = (userCase: Partial<CaseWithId>): boolean => {
+  return (
+    userCase.state === State.FinalOrderOverdue ||
+    Boolean(userCase.applicant1FinalOrderLateExplanation) ||
+    Boolean(userCase.applicant2FinalOrderLateExplanation)
+  );
+};

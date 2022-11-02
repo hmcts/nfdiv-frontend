@@ -12,7 +12,7 @@ import {
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
-import FinalisingYourApplicationPostController from './applicant1/finalising-your-application/post';
+import { needsToExplainDelay } from './applicant1/finalising-your-application/post';
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
@@ -506,8 +506,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data =>
-      FinalisingYourApplicationPostController.needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE,
+    getNextStep: data => (needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,
