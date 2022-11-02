@@ -1,7 +1,7 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { needsToExplainDelay } from '../app/controller/controller.utils';
 
-import { needsToExplainDelay } from './applicant1/finalising-your-application/post';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,

@@ -6,13 +6,13 @@ import {
   State,
   YesOrNo,
 } from '../app/case/definition';
+import { needsToExplainDelay } from '../app/controller/controller.utils';
 import { isLessThanAYear } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
-import { needsToExplainDelay } from './applicant1/finalising-your-application/post';
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,

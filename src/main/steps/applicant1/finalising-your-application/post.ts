@@ -5,11 +5,11 @@ import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   CITIZEN_APPLICANT2_UPDATE,
   FINAL_ORDER_REQUESTED,
-  State,
   YesOrNo,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
@@ -33,11 +33,3 @@ export default class FinalisingYourApplicationPostController extends PostControl
       : FINAL_ORDER_REQUESTED;
   }
 }
-
-export const needsToExplainDelay = (userCase: Partial<CaseWithId>): boolean => {
-  return (
-    userCase.state === State.FinalOrderOverdue ||
-    Boolean(userCase.applicant1FinalOrderLateExplanation) ||
-    Boolean(userCase.applicant2FinalOrderLateExplanation)
-  );
-};
