@@ -115,13 +115,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
-    line3: {
-      part1: `If you do not think they will confirm the application then you can ${
-        isDivorce ? 'finalise your divorce' : 'end your civil partnership'
-      }`,
-      linkText: 'as a sole applicant.',
-      link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
-    },
+    line3: `If you do not think they will confirm the application then you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }`,
+    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    linkText: 'as a sole applicant.',
   },
   hasAppliedForFinalOrder: {
     line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
@@ -249,13 +247,11 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
-    line3: {
-      part1: `If you do not think they will confirm the application then you can ${
-        isDivorce ? 'finalise your divorce' : 'end your civil partnership'
-      }`,
-      linkText: 'as a sole applicant',
-      link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
-    },
+    line3: `If you do not think they will confirm the application then you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }`,
+    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    linkText: 'as a sole applicant',
   },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
