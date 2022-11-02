@@ -124,6 +124,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2SolicitorEmail: 'applicant2SolicitorEmail',
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
   applicant1FinalOrderLateExplanation: 'applicant1FinalOrderLateExplanation',
+  applicant2FinalOrderLateExplanation: 'applicant2FinalOrderLateExplanation',
   applicant2FinalOrderExplanation: 'applicant2FinalOrderExplanation',
   applicant1CannotUpload: 'applicant1CannotUpload',
   applicant2CannotUpload: 'applicant2CannotUpload',
@@ -320,6 +321,7 @@ export interface Case {
   applicant2SolicitorAddressPostcode?: string;
   applicant2SolicitorAddressCountry?: string;
   applicant1FinalOrderLateExplanation?: string;
+  applicant2FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   applicant2SolicitorRepresented: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;

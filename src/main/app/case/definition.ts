@@ -704,6 +704,9 @@ export interface CaseData {
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderLateExplanationTranslated: string;
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderLateExplanationTranslated: string;
+  applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
@@ -1004,6 +1007,9 @@ export interface FinalOrder {
   applicant1FinalOrderLateExplanation: string;
   applicant1FinalOrderLateExplanationTranslated: string;
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
+  applicant2FinalOrderLateExplanation: string;
+  applicant2FinalOrderLateExplanationTranslated: string;
+  applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;

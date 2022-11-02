@@ -37,6 +37,10 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   private static needsToExplainDelay(userCase: Partial<CaseWithId>): boolean {
-    return userCase.state === State.FinalOrderOverdue;
+    return (
+      userCase.state === State.FinalOrderOverdue ||
+      Boolean(userCase.applicant1FinalOrderLateExplanation) ||
+      Boolean(userCase.applicant2FinalOrderLateExplanation)
+    );
   }
 }
