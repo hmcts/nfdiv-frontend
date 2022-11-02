@@ -11,6 +11,7 @@ import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
+import { getAosSteps } from './url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
@@ -123,6 +124,10 @@ export const isConditionalOrderReadyToSubmit = (data: Partial<CaseWithId>, isApp
     : Boolean(data.applicant1ConfirmInformationStillCorrect);
 };
 
+export const hasSubmittedAos = (userCase: CaseWithId): boolean => {
+  return Boolean(userCase.dateAosSubmitted);
+};
+
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
   const { path, queryString } = getPathAndQueryString(req);
   const nextStep = allSequences.reduce((list, sequence) => list.concat(...sequence), []).find(s => s.url === path);
@@ -136,7 +141,11 @@ export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase.state);
 
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
-    return respondentSequence;
+    if (hasSubmittedAos(req.session.userCase)) {
+      return respondentSequence.filter(step => !getAosSteps().includes(step.url));
+    } else {
+      return respondentSequence;
+    }
   } else if (req.session.isApplicant2) {
     return stateSequence.isBefore(State.Applicant2Approved)
       ? applicant2PreSubmissionSequence
