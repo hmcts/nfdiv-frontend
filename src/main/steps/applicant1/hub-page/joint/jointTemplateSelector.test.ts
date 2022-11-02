@@ -1,4 +1,4 @@
-import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
+import { DivorceOrDissolution, HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
@@ -15,97 +15,97 @@ describe('JointTemplateSelector test', () => {
   test('should show /awaiting-pronouncement.njk for state AwaitingPronouncement', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-pronouncement.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingPronouncement);
   });
 
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/holding.njk');
+    expect(jointTemplate).toBe(HubTemplate.Holding);
   });
 
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
     const theState = displayState.at(State.ConditionalOrderPronounced);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/conditional-order-pronounced.njk');
+    expect(jointTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
   });
 
   test('should show /awaiting-clarification.njk for state AwaitingClarification', () => {
     const theState = displayState.at(State.AwaitingClarification);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-clarification.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingClarification);
   });
 
   test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
     const theState = displayState.at(State.AwaitingAmendedApplication);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-amended-application.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingAmendedApplication);
   });
 
   test('should show /clarification-submitted.njk for state ClarificationSubmitted', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/clarification-submitted.njk');
+    expect(jointTemplate).toBe(HubTemplate.ClarificationSubmitted);
   });
 
   test('should show /awaiting-legal-advisor-referral.njk for state ClarificationSubmitted when coIsAdminClarificationSubmitted is Yes', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     userCase.coIsAdminClarificationSubmitted = YesOrNo.YES;
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
   });
 
   test('should show /conditional-order-pending.njk for state ConditionalOrderPending', () => {
     const theState = displayState.at(State.ConditionalOrderPending);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/conditional-order-pending.njk');
+    expect(jointTemplate).toBe(HubTemplate.ConditionalOrderPending);
   });
 
   test('should show /awaiting-legal-advisor-referral.njk for state AwaitingLegalAdvisorReferral', () => {
     const theState = displayState.at(State.AwaitingLegalAdvisorReferral);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
   });
 
   test('should show /awaiting-legal-advisor-referral.njk for state AwaitingAdminClarification', () => {
     const theState = displayState.at(State.AwaitingAdminClarification);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-legal-advisor-referral.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
   });
 
   test('should show /applicant-not-yet-applied-for-conditional-order.njk for states after Holding and before AwaitingLegalAdvisorReferral and not hasApplicantAppliedForConditionalOrder', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/applicant-not-yet-applied-for-conditional-order.njk');
+    expect(jointTemplate).toBe(HubTemplate.ApplicantNotYetAppliedForConditionalOrder);
   });
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/final-order-requested.njk');
+    expect(jointTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
   test('should show /awaiting-final-order.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
   });
 
   test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder', () => {
     const theState = displayState.at(State.AwaitingJointFinalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
   });
 
   test('should show /awaiting-final-order.njk for state FinalOrderOverdue', () => {
     const theState = displayState.at(State.FinalOrderOverdue);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/awaiting-final-order.njk');
+    expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
   });
 
   test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe('/final-order-complete.njk');
+    expect(jointTemplate).toBe(HubTemplate.FinalOrderComplete);
   });
 });

@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
@@ -9,38 +9,38 @@ export const getJointHubTemplate = (
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
-      return '/final-order-requested.njk';
+      return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingPronouncement: {
-      return '/awaiting-pronouncement.njk';
+      return HubTemplate.AwaitingPronouncement;
     }
     case State.Holding: {
-      return '/holding.njk';
+      return HubTemplate.Holding;
     }
     case State.ConditionalOrderPronounced: {
-      return '/conditional-order-pronounced.njk';
+      return HubTemplate.ConditionalOrderPronounced;
     }
     case State.AwaitingClarification:
-      return '/awaiting-clarification.njk';
+      return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
       if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
-        return '/awaiting-legal-advisor-referral.njk';
+        return HubTemplate.AwaitingLegalAdvisorReferral;
       } else {
-        return '/clarification-submitted.njk';
+        return HubTemplate.ClarificationSubmitted;
       }
     case State.AwaitingAmendedApplication:
-      return '/awaiting-amended-application.njk';
+      return HubTemplate.AwaitingAmendedApplication;
     case State.ConditionalOrderPending:
-      return '/conditional-order-pending.njk';
+      return HubTemplate.ConditionalOrderPending;
     case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
-      return '/awaiting-legal-advisor-referral.njk';
+      return HubTemplate.AwaitingLegalAdvisorReferral;
     case State.FinalOrderOverdue:
     case State.AwaitingJointFinalOrder:
     case State.AwaitingFinalOrder:
-      return '/awaiting-final-order.njk';
+      return HubTemplate.AwaitingFinalOrder;
     case State.FinalOrderComplete: {
-      return '/final-order-complete.njk';
+      return HubTemplate.FinalOrderComplete;
     }
     default: {
       if (
@@ -48,7 +48,7 @@ export const getJointHubTemplate = (
         displayState.isBefore('AwaitingLegalAdvisorReferral') &&
         !hasApplicantAppliedForConditionalOrder
       ) {
-        return '/applicant-not-yet-applied-for-conditional-order.njk';
+        return HubTemplate.ApplicantNotYetAppliedForConditionalOrder;
       }
     }
   }
