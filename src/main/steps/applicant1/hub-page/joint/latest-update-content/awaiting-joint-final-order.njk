@@ -2,9 +2,8 @@
     <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line1 }}</p>
     <h3 class="govuk-heading-s">{{ awaitingJointFinalOrderOrFinalOrderOverdue.subHeading }}</h3>
     <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line2 }}</p>
-    <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.part1 }}</p>
-    <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.part1 }}
-      <a class="govuk-link" href={{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.link }}>{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3.linkText }}</a>
+    <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3 }}
+      <a class="govuk-link" href={{ awaitingJointFinalOrderOrFinalOrderOverdue.link }}>{{ awaitingJointFinalOrderOrFinalOrderOverdue.linkText }}</a>
     </p>
 {% elif hasApplicantAppliedForFinalOrderFirst %}
   <p class="govuk-body">{{ hasAppliedForFinalOrder.line1 }}</p>
