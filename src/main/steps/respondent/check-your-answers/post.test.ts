@@ -8,7 +8,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import RespondentCheckYourAnswersPostController from './post';
 
 describe('RespondentCheckYourAnswersPostController', () => {
-  it('triggers CITIZEN_SUBMIT', async () => {
+  it('triggers CITIZEN_SUBMIT and sets applicant2UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       aosStatementOfTruth: Checkbox.Checked,
     };
@@ -25,7 +25,11 @@ describe('RespondentCheckYourAnswersPostController', () => {
     const res = mockResponse();
     await respondentCheckYourAnswerPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SUBMIT_AOS);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { ...body, applicant2UsedWelshTranslationOnSubmission: YesOrNo.NO },
+      SUBMIT_AOS
+    );
   });
 
   it('sets applicant2UsedWelshTranslationOnSubmission to Yes if Welsh translation used', async () => {
