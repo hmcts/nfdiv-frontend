@@ -111,7 +111,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
-      isDivorce ? 'divorce application' : 'civil partnership'
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
@@ -243,7 +243,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
-      isDivorce ? 'divorce application' : 'civil partnership'
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
