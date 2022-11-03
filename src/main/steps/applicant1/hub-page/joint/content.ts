@@ -111,7 +111,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
-      isDivorce ? 'divorce application' : 'to end your civil partnership'
+      isDivorce ? 'divorce application' : 'civil partnership'
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
@@ -119,7 +119,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
     link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
-    linkText: 'as a sole applicant.',
+    linkText: ' as a sole applicant.',
   },
   hasAppliedForFinalOrder: {
     line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
@@ -243,7 +243,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
-      isDivorce ? 'divorce application' : 'to end your civil partnership'
+      isDivorce ? 'divorce application' : 'civil partnership'
     } can be finalised jointly.`,
     subHeading: 'What you can do',
     line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
@@ -251,7 +251,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
     link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
-    linkText: 'as a sole applicant',
+    linkText: ' as a sole applicant',
   },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
@@ -299,7 +299,7 @@ export const generateContent: TranslationFn = content => {
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
     ) &&
-    userCase.state !== State.FinalOrderRequested;
+    userCase.state === State.AwaitingJointFinalOrder;
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
