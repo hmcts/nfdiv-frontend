@@ -89,7 +89,6 @@ const sequence: Step[] = [
 
 export const respondentSequence = ((): Step[] => {
   return sequence.map(step => ({
-    ...step,
     url: `${RESPONDENT}${step.url}`,
     getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
