@@ -1,12 +1,21 @@
 import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
+  CHECK_ANSWERS_URL,
   CONTACT_US,
   COOKIES_URL,
+  DETAILS_OTHER_PROCEEDINGS,
+  DISPUTING_THE_APPLICATION,
+  ENGLISH_OR_WELSH,
   ENTER_YOUR_ACCESS_CODE,
+  HOW_DO_YOU_WANT_TO_RESPOND,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
+  LEGAL_JURISDICTION_OF_THE_COURTS,
+  OTHER_COURT_CASES,
   PRIVACY_POLICY_URL,
   PageLink,
   RESPONDENT,
+  REVIEW_THE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   WEBCHAT_URL,
 } from './urls';
@@ -23,3 +32,18 @@ export const signInNotRequired = (reqPath: string): boolean =>
 
 export const isLinkingUrl = (reqPath: string): boolean =>
   reqPath.endsWith(APPLICANT_2) || reqPath.endsWith(RESPONDENT) || reqPath.endsWith(ENTER_YOUR_ACCESS_CODE);
+
+export const getAosSteps = (): string[] => {
+  const baseUrls = [
+    REVIEW_THE_APPLICATION,
+    HOW_DO_YOU_WANT_TO_RESPOND,
+    DISPUTING_THE_APPLICATION,
+    LEGAL_JURISDICTION_OF_THE_COURTS,
+    OTHER_COURT_CASES,
+    DETAILS_OTHER_PROCEEDINGS,
+    HOW_THE_COURTS_WILL_CONTACT_YOU,
+    ENGLISH_OR_WELSH,
+    CHECK_ANSWERS_URL,
+  ];
+  return baseUrls.map(url => `${RESPONDENT}${url}`);
+};
