@@ -1,6 +1,6 @@
 import { Application } from 'express';
 
-export class Webpack {
+export class WebpackDev {
   public enableFor(app: Application): void {
     if (app.locals.developmentMode) {
       const webpackDev = require('webpack-dev-middleware');
