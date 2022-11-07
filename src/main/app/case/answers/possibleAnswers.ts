@@ -1,10 +1,8 @@
-import { pick } from 'lodash';
-
 import { StepWithContent } from '../../../steps';
 import { Form, FormFields } from '../../form/Form';
 import { Case } from '../case';
 
-export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
+export const getAllPossibleAnswerFieldsForSteps = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
   const sequenceWithForms = steps.filter(step => step.form);
 
   const getPossibleFields = (step: StepWithContent, fields: string[]) => {
@@ -27,6 +25,3 @@ export const getAllPossibleAnswersForPath = (caseState: Partial<Case>, steps: St
 
   return getPossibleFields(sequenceWithForms[0], []);
 };
-
-export const omitUnreachableAnswers = (caseState: Partial<Case>, steps: StepWithContent[]): Partial<Case> =>
-  pick(caseState, getAllPossibleAnswersForPath(caseState, steps));
