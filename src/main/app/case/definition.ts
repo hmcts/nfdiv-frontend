@@ -1791,6 +1791,7 @@ export const enum HubTemplate {
   AwaitingFinalOrder = '/awaiting-final-order.njk',
   AwaitingFinalOrderOrFinalOrderOverdue = '/awaiting-final-order-or-final-order-overdue.njk',
   AwaitingGeneralConsideration = '/awaiting-general-consideration.njk',
+  AwaitingJointFinalOrder = '/awaiting-joint-final-order.njk',
   AwaitingLegalAdvisorReferral = '/awaiting-legal-advisor-referral.njk',
   AwaitingLegalAdvisorReferralOrAwaitingPronouncement = '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk',
   AwaitingPronouncement = '/awaiting-pronouncement.njk',
