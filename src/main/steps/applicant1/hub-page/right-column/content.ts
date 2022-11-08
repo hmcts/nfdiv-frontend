@@ -168,9 +168,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase } = content;
-  const isRespondentAnswersDocumentPresent = userCase.documentsUploaded?.find(
-    doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS
-  );
+  const isAosSubmitted =
+    userCase.dateAosSubmitted &&
+    userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS);
   const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
@@ -196,7 +196,7 @@ export const generateContent: TranslationFn = content => {
   );
 
   return {
-    isRespondentAnswersDocumentPresent,
+    isAosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
