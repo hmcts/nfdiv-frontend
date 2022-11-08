@@ -91,10 +91,10 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
   });
 
-  test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder', () => {
+  test('should show /awaiting-joint-final-order.njk for state AwaitingJointFinalOrder', () => {
     const theState = displayState.at(State.AwaitingJointFinalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase, false);
-    expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingJointFinalOrder);
   });
 
   test('should show /awaiting-final-order.njk for state FinalOrderOverdue', () => {

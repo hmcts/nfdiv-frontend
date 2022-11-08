@@ -10,7 +10,7 @@ Feature: Joint hub page
     And a superuser updates "issueDate" with "2020-01-01"
 
   Scenario: Joint hub applicant 1 and applicant 2 applied first
-    Given I set the case state to "AwaitingJointFinalOrder"
+    Given I set the case state to "AwaitingFinalOrder"
     And I go to "/"
     Then the page should include "You have applied for a ‘final order’. Your wife also has to apply because this is a joint application. They have been sent an email reminder."
     When I click "Sign out"

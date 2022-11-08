@@ -109,6 +109,18 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     buttonText: 'Apply for final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
+  awaitingJointFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } can be finalised jointly.`,
+    subHeading: 'What you can do',
+    line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
+    line3: `If you do not think they will confirm the application then you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }`,
+    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    linkText: ' as a sole applicant.',
+  },
   hasAppliedForFinalOrder: {
     line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
     line2: `If they do not apply by ${getFormattedDate(
@@ -229,6 +241,18 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }.`,
     line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
   },
+  awaitingJointFinalOrderOrFinalOrderOverdue: {
+    line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } can be finalised jointly.`,
+    subHeading: 'What you can do',
+    line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
+    line3: `If you do not think they will confirm the application then you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }`,
+    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    linkText: ' as a sole applicant',
+  },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
     yn awr wedi dod i ben yn gyfreithiol.`,
@@ -260,17 +284,27 @@ export const generateContent: TranslationFn = content => {
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
-  const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
-  const applicantApplyForConditionalOrderStarted = isApplicant2
-    ? 'applicant2ApplyForConditionalOrderStarted'
-    : 'applicant1ApplyForConditionalOrderStarted';
-  const displayState = currentStateFn(userCase.state).at(
-    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
-  );
 
   const hasApplicantAppliedForFinalOrderFirst = isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+
+  const displayState = currentStateFn(userCase.state).at(
+    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
+  );
+
+  const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
+    hasApplicantAppliedForFinalOrderFirst &&
+    dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
+    dayjs().isAfter(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    ) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
+  const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
+  const applicantApplyForConditionalOrderStarted = isApplicant2
+    ? 'applicant2ApplyForConditionalOrderStarted'
+    : 'applicant1ApplyForConditionalOrderStarted';
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
@@ -288,5 +322,6 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
+    finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
   };
 };
