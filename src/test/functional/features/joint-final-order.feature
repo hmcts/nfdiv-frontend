@@ -1,4 +1,4 @@
-Feature: Sole final order
+Feature: Joint final order
 
   Background: Logged in for hub page
     Given I create a new user and login
