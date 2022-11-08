@@ -91,7 +91,7 @@
     "node-cache": "^5.1.2",
     "nunjucks": "^3.2.3",
     "otplib": "^12.0.1",
-    "pdfjs-dist": "^2.16.105",
+    "pdfjs-dist": "^3.0.279",
     "redis": "^3.1.2",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.5.0",
