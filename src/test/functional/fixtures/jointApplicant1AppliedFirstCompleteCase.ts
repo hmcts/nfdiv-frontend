@@ -53,4 +53,6 @@ export const jointApplicant1AppliedFirstCompleteCase: Partial<BrowserCase> = {
   applicant1UploadedFiles: [],
   applicant1AppliedForFinalOrderFirst: YesOrNo.YES,
   applicant2AppliedForFinalOrderFirst: YesOrNo.YES,
+  dateFinalOrderNoLongerEligible: '2023-02-02',
+  dateFinalOrderSubmitted: '2022-09-21T08:08:34.548',
 };

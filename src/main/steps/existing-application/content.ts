@@ -73,22 +73,22 @@ const cy: typeof en = (
     existingSelected: 'Ni fyddwch byth yn gallu cael mynediad i’r cais newydd',
     cannotJoin: `${
       ApplicationType.SOLE_APPLICATION === existingApplicationType
-        ? `You cannot join or create a new application because your ${partner} has already responded to your existing application.`
-        : `You cannot join or create a new application because you are doing a joint application with your ${partner} ` +
-          'and you have both confirmed and submitted it.'
+        ? `Ni allwch ymuno neu greu cais newydd oherwydd bod eich ${partner} eisoes wedi ymateb i'ch cais presennol.`
+        : `Ni allwch ymuno neu greu cais newydd oherwydd eich bod yn gwneud cais ar y cyd gyda'ch ${partner} ` +
+          "ac mae'r ddau ohonoch wedi ei gadarnhau a'i gyflwyno."
     }`,
     changeExisting: {
-      summary: 'If you want to change something in your existing application',
+      summary: 'Os ydych chi eisiau newid rhywbeth yn eich cais presennol',
       detail:
-        `You can contact the court to request a change to your application. Send details of the request to ${contactEmail}. ` +
-        `Make sure you include your case reference number: ${formattedCaseId(existingCaseId)}.`,
+        `Gallwch gysylltu â’r llys i ofyn am newid eich cais. Anfonwch fanylion y cais i  ${contactEmail}. ` +
+        `Gwnewch yn siŵr eich bod yn cynnwys cyfeirnod eich achos: ${formattedCaseId(existingCaseId)}.`,
     },
     startNewApplication: {
-      summary: 'If you want to start a new application',
+      summary: 'Os ydych eisiau dechrau cais newydd',
       detail:
-        'You need to withdraw your existing application if you want to start a new one. ' +
-        'You can withdraw it by downloading and filling out a D11 form and sending it to the court. ' +
-        'Details of where to send it are on the application form.',
+        'Mae angen i chi dynnu eich cais presennol yn ôl os ydych eisiau dechrau un newydd. ' +
+        'Gallwch ei dynnu yn ôl trwy lwytho ffurflen D11 i lawr, ei llenwi a’i hanfon i’r llys. ' +
+        'Mae manylion ar y ffurflen gais yn egluro i ble y dylid ei hanfon.',
     },
     exitService: 'Gadael y gwasanaeth',
     errors: {
