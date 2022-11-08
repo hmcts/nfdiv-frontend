@@ -3,9 +3,38 @@ import { throttle } from 'lodash';
 import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-let timeout;
+const TIMEOUT_NOTICE = 3 * 1000; // 30 seconds
+const timeoutDialog = document.getElementById('timeout-modal-container');
 
-const saveBeforeSessionTimeout = async () => {
+let timeout, noticeTimeout;
+
+const scheduleSessionTimeout = () => {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    saveSessionAndRedirect();
+  }, getSessionTimeoutInterval());
+};
+
+const scheduleTimeoutNotice = () => {
+  clearTimeout(noticeTimeout);
+  noticeTimeout = setTimeout(() => {
+    timeoutDialog?.removeAttribute('hidden');
+  }, getSessionTimeoutInterval() - TIMEOUT_NOTICE);
+};
+
+const scheduleTimeouts = () => {
+  clearTimeout(noticeTimeout);
+  document.getElementById('timeout-modal-close-button')?.addEventListener('click', () => {
+    timeoutDialog?.setAttribute('hidden', 'hidden');
+    scheduleTimeoutNotice();
+    scheduleSessionTimeout();
+    pingUserActive();
+  });
+  scheduleTimeoutNotice();
+  scheduleSessionTimeout();
+};
+
+const saveSessionAndRedirect = async () => {
   const form = document.getElementById('main-form');
   if (form) {
     const formData = new FormData(form as HTMLFormElement);
@@ -23,17 +52,10 @@ const saveBeforeSessionTimeout = async () => {
   window.location.href = `${TIMED_OUT_URL}?lng=${document.documentElement.lang}`;
 };
 
-const setSaveTimeout = () => {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    saveBeforeSessionTimeout();
-  }, getSessionTimeoutInterval());
-};
-
 const pingUserActive = throttle(
   () => {
     fetch('/active').then(() => {
-      setSaveTimeout();
+      scheduleSessionTimeout();
     });
   },
   eventTimer,
@@ -55,4 +77,5 @@ const getSessionTimeoutInterval = (): number => {
 setTimeout(() => {
   ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt => document.addEventListener(evt, pingUserActive));
 }, eventTimer);
-setSaveTimeout();
+
+scheduleTimeouts();
