@@ -1,4 +1,6 @@
-{% if finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days %}
+{% if eligibleForSoleFinalOrderAfterSwitchToSoleValue %}
+  <p class="govuk-body">{{ applyForFinalOrderAfterSwitchToSole.line1 }}</p>
+{% elif finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days %}
   <p class="govuk-body">{{ awaitingJointFinalOrderLate.line1 }}</p>
   <h3 class="govuk-heading-s">{{ awaitingJointFinalOrderLate.subHeading }}</h3>
   <p class="govuk-body">{{ awaitingJointFinalOrderLate.line2 }}</p>

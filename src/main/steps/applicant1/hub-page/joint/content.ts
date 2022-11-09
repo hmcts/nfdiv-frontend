@@ -7,6 +7,7 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
+import { eligibleForSoleFinalOrderAfterSwitchToSole } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
@@ -109,6 +110,14 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     buttonText: 'Apply for final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
+  hasAppliedForFinalOrder: {
+    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
+    line2: `If they do not apply by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+    )} then you will be sent an email telling you how you can ${
+      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    }.`,
+  },
   awaitingJointFinalOrderLate: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -121,13 +130,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
     linkText: ' as a sole applicant.',
   },
-  hasAppliedForFinalOrder: {
-    line1: `You have applied for a ‘final order’. Your ${partner} also has to apply because this is a joint application. They have been sent an email reminder.`,
-    line2: `If they do not apply by ${getFormattedDate(
-      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    )} then you will be sent an email telling you how you can ${
-      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
-    }.`,
+  applyForFinalOrderAfterSwitchToSole: {
+    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
   },
   finalOrderRequested: {
     line1: `You and your ${partner} have both confirmed you want to ${
@@ -233,14 +239,6 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'gadarnhau eich ysgariad' : "ddod â'ch partneriaeth sifil i ben"
     }.`,
   },
-  finalOrderRequested: {
-    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
-      isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
-    }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
-      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
-    }.`,
-    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
-  },
   awaitingJointFinalOrderLate: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -252,6 +250,19 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }`,
     link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
     linkText: ' as a sole applicant',
+  },
+  applyForFinalOrderAfterSwitchToSole: {
+    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+  },
+  finalOrderRequested: {
+    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
+      isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
+    }.`,
+    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
   },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
@@ -306,6 +317,18 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
+  const eligibleForSoleFinalOrderAfterSwitchToSoleValue: boolean = eligibleForSoleFinalOrderAfterSwitchToSole(
+    userCase,
+    isApplicant2
+  );
+
+  const showApplyForFinalOrderButton: boolean =
+    eligibleForSoleFinalOrderAfterSwitchToSoleValue ||
+    ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(
+      displayState as unknown as State
+    ) &&
+      !hasApplicantAppliedForFinalOrderFirst);
+
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
@@ -320,5 +343,7 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
+    eligibleForSoleFinalOrderAfterSwitchToSoleValue,
+    showApplyForFinalOrderButton,
   };
 };
