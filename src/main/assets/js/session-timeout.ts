@@ -3,7 +3,7 @@ import { throttle } from 'lodash';
 import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
-const TIMEOUT_NOTICE = 3 * 1000; // 30 seconds
+const TIMEOUT_NOTICE = 120 * 1000; // 2 minutes
 const timeoutDialog = document.getElementById('timeout-modal-container');
 
 let timeout, noticeTimeout;

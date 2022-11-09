@@ -1,0 +1,17 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+<div id="timeout-modal-container" class="modal" hidden>
+  <div #outerContainer id="timeout-modal" class="modal-content govuk-width-container clearfix" cdkTrapFocus tabindex="0">
+    <h1 class="govuk-heading-l">{{ timeout.title }}</h1>
+    <p class="govuk-body">{{ timeout.line1 }}</p>
+    <p class="govuk-body">{{ timeout.line2 }}</p>
+    <div class="govuk-form-group">
+      {{ govukButton({
+            text: timeout.buttonText,
+            attributes: { id: 'timeout-modal-close-button' }
+      }) }}
+      <p class="govuk-body">
+        <a href="{{ timeout.link }}?lng={{ language }}" class="govuk-link">{{ saveAndSignOut }}</a>
+      </p>
+    </div>
+  </div>
+</div>

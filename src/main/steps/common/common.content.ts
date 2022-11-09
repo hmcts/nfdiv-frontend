@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { SAVE_AND_SIGN_OUT } from '../urls';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -126,6 +127,14 @@ export const en = {
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  timeout: {
+    title: 'You are going to be signed out',
+    line1:
+      'You are going to be signed out of your application in 2mins because of inactivity. This is to protect your personal information.',
+    line2: 'If you want to continue with your application then press the close button.',
+    buttonText: 'Close',
+    link: SAVE_AND_SIGN_OUT,
+  },
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
     line2: 'HMCTS Divorce and Dissolution service',
