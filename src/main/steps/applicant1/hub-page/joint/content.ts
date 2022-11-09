@@ -109,7 +109,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     buttonText: 'Apply for final order',
     buttonLink: `${isApplicant2 ? `${APPLICANT_2}${FINALISING_YOUR_APPLICATION}` : FINALISING_YOUR_APPLICATION}`,
   },
-  awaitingJointFinalOrderOrFinalOrderOverdue: {
+  awaitingJointFinalOrderLate: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } can be finalised jointly.`,
@@ -241,7 +241,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }.`,
     line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
   },
-  awaitingJointFinalOrderOrFinalOrderOverdue: {
+  awaitingJointFinalOrderLate: {
     line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } can be finalised jointly.`,
