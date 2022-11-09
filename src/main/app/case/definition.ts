@@ -706,6 +706,8 @@ export interface CaseData {
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
   generalOrderDate: DateAsString;
@@ -1006,6 +1008,8 @@ export interface FinalOrder {
   applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
 }

@@ -120,6 +120,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coLegalAdvisorDecisions: 'coLegalAdvisorDecisions',
   dateFinalOrderEligibleToRespondent: 'dateFinalOrderEligibleToRespondent',
   dateFinalOrderNoLongerEligible: 'dateFinalOrderNoLongerEligible',
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
   applicant2SolicitorName: 'applicant2SolicitorName',
   applicant2SolicitorEmail: 'applicant2SolicitorEmail',
   applicant2SolicitorFirmName: 'applicant2SolicitorFirmName',
@@ -309,6 +311,8 @@ export interface Case {
   doesApplicant2WantToApplyForFinalOrder?: Checkbox;
   applicant2FinalOrderExplanation?: string;
   dateFinalOrderNoLongerEligible?: DateAsString;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo?: DateAsString;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo?: DateAsString;
   applicant2SolicitorName: string;
   applicant2SolicitorEmail: string;
   applicant2SolicitorFirmName: string;
