@@ -503,7 +503,6 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isAlternativeService
   );
-  const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
 
   return {
     ...languages[language](content, alternativeServiceType),
@@ -514,6 +513,5 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isAlternativeService,
     theLatestUpdateTemplate,
-    isSwitchToSoleCoApp,
   };
 };
