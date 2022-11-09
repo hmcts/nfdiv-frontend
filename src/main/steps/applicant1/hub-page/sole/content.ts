@@ -504,7 +504,6 @@ export const generateContent: TranslationFn = content => {
     isAlternativeService
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
-  const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
   return {
     ...languages[language](content, alternativeServiceType),
@@ -516,6 +515,5 @@ export const generateContent: TranslationFn = content => {
     isAlternativeService,
     theLatestUpdateTemplate,
     isSwitchToSoleCoApp,
-    hasApplicant1AppliedForFinalOrderFirst,
   };
 };

@@ -1,4 +1,4 @@
-{% if hasApplicant1AppliedForFinalOrderFirst %}
+{% if userCase.applicant1AppliedForFinalOrderFirst === 'Yes' %}
   <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line3 }}</p>
