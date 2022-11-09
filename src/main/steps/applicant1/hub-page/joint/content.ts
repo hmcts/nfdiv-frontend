@@ -306,8 +306,6 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
-  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
-
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
@@ -321,7 +319,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
-    isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
   };
 };
