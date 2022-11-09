@@ -128,11 +128,10 @@ export const en = {
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   timeout: {
-    title: 'You are going to be signed out',
+    title: 'You are about to be signed out',
     line1:
-      'You are going to be signed out of your application in 2mins because of inactivity. This is to protect your personal information.',
-    line2: 'If you want to continue with your application then press the close button.',
-    buttonText: 'Close',
+      'You are going to be signed out of your application in 2 minutes because of inactivity. This is to protect your personal information.',
+    buttonText: 'Continue with your application',
     link: SAVE_AND_SIGN_OUT,
   },
   serviceAddress: {
