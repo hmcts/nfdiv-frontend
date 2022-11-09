@@ -317,13 +317,13 @@ export const generateContent: TranslationFn = content => {
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
-  const eligibleForSoleFinalOrderAfterSwitchToSoleValue: boolean = eligibleForSoleFinalOrderAfterSwitchToSole(
+  const isEligibleForSoleFinalOrderAfterSwitchToSole: boolean = eligibleForSoleFinalOrderAfterSwitchToSole(
     userCase,
     isApplicant2
   );
 
   const showApplyForFinalOrderButton: boolean =
-    eligibleForSoleFinalOrderAfterSwitchToSoleValue ||
+    isEligibleForSoleFinalOrderAfterSwitchToSole ||
     ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(
       displayState as unknown as State
     ) &&
@@ -343,7 +343,7 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
-    eligibleForSoleFinalOrderAfterSwitchToSoleValue,
+    isEligibleForSoleFinalOrderAfterSwitchToSole,
     showApplyForFinalOrderButton,
   };
 };
