@@ -81,6 +81,9 @@ Feature: Joint hub page
     And I go to "/"
     Then the page should include "You can now apply for a ‘final order’."
     And the page should include "Apply for final order"
+    Then /^I pause for a while$/ do
+      sleep 30
+    end
 
     Given I set the case state to "FinalOrderRequested"
     And I go to "/"

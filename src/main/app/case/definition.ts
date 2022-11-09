@@ -708,6 +708,8 @@ export interface CaseData {
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
+  applicant1IntendsToSwitchToSole: YesOrNo;
+  applicant2IntendsToSwitchToSole: YesOrNo;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
