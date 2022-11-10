@@ -25,6 +25,7 @@ export const getSoleHubTemplate = (
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }
+    case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
@@ -43,7 +44,11 @@ export const getSoleHubTemplate = (
     case State.AwaitingClarification:
       return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
-      return HubTemplate.ClarificationSubmitted;
+      if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
+        return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
+      } else {
+        return HubTemplate.ClarificationSubmitted;
+      }
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingAmendedApplication;
     case State.AwaitingBailiffService:
