@@ -1,5 +1,3 @@
-import config from 'config';
-import dayjs from 'dayjs';
 import { capitalize } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
@@ -124,19 +122,3 @@ export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): 
 };
 
 export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;
-
-export const eligibleForSoleFinalOrderAfterSwitchToSole = (
-  userCase: Partial<CaseWithId>,
-  isApplicant2: boolean
-): boolean => {
-  const applicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
-    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
-  return (
-    userCase.state === State.AwaitingJointFinalOrder &&
-    applicantDeclaredIntentionToSwitchToSoleFo !== undefined &&
-    dayjs(applicantDeclaredIntentionToSwitchToSoleFo)
-      .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-      .isBefore(dayjs())
-  );
-};

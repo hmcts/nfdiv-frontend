@@ -7,7 +7,6 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
-import { eligibleForSoleFinalOrderAfterSwitchToSole } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
 
@@ -312,15 +311,21 @@ export const generateContent: TranslationFn = content => {
     ) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
+  const applicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
+    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
+
+  const isEligibleForSoleFinalOrderAfterSwitchToSole =
+    userCase.state === State.AwaitingJointFinalOrder &&
+    applicantDeclaredIntentionToSwitchToSoleFo !== undefined &&
+    dayjs(applicantDeclaredIntentionToSwitchToSoleFo)
+      .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
+      .isBefore(dayjs());
+
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
-
-  const isEligibleForSoleFinalOrderAfterSwitchToSole: boolean = eligibleForSoleFinalOrderAfterSwitchToSole(
-    userCase,
-    isApplicant2
-  );
 
   const showApplyForFinalOrderButton: boolean =
     isEligibleForSoleFinalOrderAfterSwitchToSole ||
