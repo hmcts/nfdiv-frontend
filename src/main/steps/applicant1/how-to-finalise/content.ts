@@ -14,7 +14,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } is about to be legally ended.`,
   confirmIntendToSwitchToSoleFo: `I intend to apply for a final order as sole applicant and I want the court to notify my ${partner}`,
   errors: {
-    confirmIntendToSwitchToSoleFo: {
+    applicant1IntendsToSwitchToSole: {
       required: 'You need to check this',
     },
   },
@@ -28,14 +28,12 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   line2: `If they will not confirm then you can apply for a final order as a sole applicant. First your ${partner} needs to be given 2 week’s notice that you are intending to apply. This is so they are aware that the ${
     isDivorce ? 'marriage' : 'civil partnership'
   } is about to be legally ended.`,
-  checkboxText: `I intend to apply for a final order as sole applicant and I want the court to notify my ${partner}`,
   confirmIntendToSwitchToSoleFo: `I have read the application ${
     isDivorce ? 'for divorce' : 'to end our civil partnership'
   }`,
   errors: {
-    confirmIntendToSwitchToSoleFo: {
-      required:
-        'You need to confirm that you have read the application before you continue. You can say whether you want to dispute it later.',
+    applicant1IntendsToSwitchToSole: {
+      required: 'You need to check this',
     },
   },
 });

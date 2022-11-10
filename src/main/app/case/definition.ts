@@ -708,8 +708,8 @@ export interface CaseData {
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
-  applicant1IntendsToSwitchToSole: YesOrNo;
-  applicant2IntendsToSwitchToSole: YesOrNo;
+  applicant1IntendsToSwitchToSole: string[];
+  applicant2IntendsToSwitchToSole: string[];
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -2280,3 +2280,4 @@ export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-dat
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
+export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';

@@ -324,8 +324,8 @@ export interface Case {
   applicant2SolicitorRepresented: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
-  applicant1IntendsToSwitchToSole?: YesOrNo;
-  applicant2IntendsToSwitchToSole?: YesOrNo;
+  applicant1IntendsToSwitchToSole?: Checkbox;
+  applicant2IntendsToSwitchToSole?: Checkbox;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
