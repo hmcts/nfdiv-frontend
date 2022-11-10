@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { DateAsString, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
@@ -305,22 +305,23 @@ export const generateContent: TranslationFn = content => {
 
   const displayState = currentStateFn(userCase.state).at(displayStateAsState);
 
+  const applicantDeclaredIntentionToSwitchToSoleFoDate: DateAsString | undefined = isApplicant2
+    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
+
   const applicantIsEligibleToSubmitIntentionToSwitchToSoleFo =
     hasApplicantAppliedForFinalOrderFirst &&
+    !applicantDeclaredIntentionToSwitchToSoleFoDate &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
     ) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
-  const applicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
-    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
-
   const applicantIsEligibleToApplyForFinalOrderAfterSwitchToSole =
     userCase.state === State.AwaitingJointFinalOrder &&
-    applicantDeclaredIntentionToSwitchToSoleFo !== undefined &&
-    dayjs(applicantDeclaredIntentionToSwitchToSoleFo)
+    applicantDeclaredIntentionToSwitchToSoleFoDate !== undefined &&
+    dayjs(applicantDeclaredIntentionToSwitchToSoleFoDate)
       .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
       .isBefore(dayjs());
 
