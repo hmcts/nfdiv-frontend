@@ -132,7 +132,6 @@ export const en = {
     line1:
       'You are going to be signed out of your application in 2 minutes because of inactivity. This is to protect your personal information.',
     buttonText: 'Continue with your application',
-    link: SAVE_AND_SIGN_OUT,
   },
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
@@ -142,6 +141,7 @@ export const en = {
     postcode: 'CM20 9UG',
   },
   contactEmail: 'contactdivorce@justice.gov.uk',
+  saveAndSignOutLink: SAVE_AND_SIGN_OUT,
 };
 
 const cy: typeof en = {

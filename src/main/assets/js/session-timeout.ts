@@ -17,12 +17,16 @@ class SessionTimeout {
   form = document.getElementById('main-form');
 
   schedule(): void {
+    this.scheduleSignOut();
+    this.onNotificationPopupClose();
+  }
+
+  onNotificationPopupClose(): void {
     this.popupCloseBtn?.addEventListener('click', () => {
       this.showNotificationPopup(false);
       this.scheduleSignOut();
       this.pingUserActive();
     });
-    this.scheduleSignOut();
   }
 
   scheduleSignOut(): void {
@@ -62,8 +66,8 @@ class SessionTimeout {
     window.location.href = `${TIMED_OUT_URL}?lng=${document.documentElement.lang}`;
   }
 
-  pingUserActive(): void {
-    throttle(() => fetch('/active').then(this.scheduleSignOut), eventTimer, { trailing: false });
+  pingUserActive() {
+    return throttle(() => fetch('/active').then(() => this.scheduleSignOut()), eventTimer, { trailing: false });
   }
 
   getSessionTimeoutInterval(): number {
@@ -82,7 +86,7 @@ const sessionTimeout = new SessionTimeout();
 
 setTimeout(() => {
   ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt =>
-    document.addEventListener(evt, sessionTimeout.pingUserActive)
+    document.addEventListener(evt, sessionTimeout.pingUserActive())
   );
 }, eventTimer);
 
