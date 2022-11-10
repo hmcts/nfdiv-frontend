@@ -307,8 +307,8 @@ export const generateContent: TranslationFn = content => {
     : 'applicant1ApplyForConditionalOrderStarted';
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
 
-  const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
     displayState,
