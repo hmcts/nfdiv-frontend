@@ -303,7 +303,7 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
 
-  const isEligibleToSubmitIntentionToSwitchToSoleFo =
+  const applicantIsEligibleToSubmitIntentionToSwitchToSoleFo =
     hasApplicantAppliedForFinalOrderFirst &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
@@ -315,7 +315,7 @@ export const generateContent: TranslationFn = content => {
     ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
     : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
 
-  const isEligibleForSoleFinalOrderAfterSwitchToSole =
+  const applicantIsEligibleToApplyForSoleFinalOrderAfterSwitchToSole =
     userCase.state === State.AwaitingJointFinalOrder &&
     applicantDeclaredIntentionToSwitchToSoleFo !== undefined &&
     dayjs(applicantDeclaredIntentionToSwitchToSoleFo)
@@ -328,7 +328,7 @@ export const generateContent: TranslationFn = content => {
     : 'applicant1ApplyForConditionalOrderStarted';
 
   const showApplyForFinalOrderButton: boolean =
-    isEligibleForSoleFinalOrderAfterSwitchToSole ||
+    applicantIsEligibleToApplyForSoleFinalOrderAfterSwitchToSole ||
     ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(
       displayState as unknown as State
     ) &&
@@ -347,8 +347,8 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
-    isEligibleToSubmitIntentionToSwitchToSoleFo,
-    isEligibleForSoleFinalOrderAfterSwitchToSole,
+    applicantIsEligibleToSubmitIntentionToSwitchToSoleFo,
+    applicantIsEligibleToApplyForSoleFinalOrderAfterSwitchToSole,
     showApplyForFinalOrderButton,
   };
 };
