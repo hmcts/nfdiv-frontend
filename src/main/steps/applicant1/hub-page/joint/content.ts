@@ -321,9 +321,13 @@ export const generateContent: TranslationFn = content => {
   const applicantIsEligibleToApplyForFinalOrderAfterSwitchToSole =
     userCase.state === State.AwaitingJointFinalOrder &&
     applicantDeclaredIntentionToSwitchToSoleFoDate !== undefined &&
-    dayjs(applicantDeclaredIntentionToSwitchToSoleFoDate)
-      .add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-      .isBefore(dayjs());
+    dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
+    dayjs().isAfter(
+      dayjs(applicantDeclaredIntentionToSwitchToSoleFoDate).add(
+        config.get('dates.finalOrderSubmittedOffsetDays'),
+        'day'
+      )
+    );
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
