@@ -303,7 +303,7 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
 
-  const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
+  const isEligibleToSubmitIntentionToSwitchToSoleFo =
     hasApplicantAppliedForFinalOrderFirst &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
@@ -347,7 +347,7 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
     hasApplicantAppliedForFinalOrderFirst,
-    finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
+    isEligibleToSubmitIntentionToSwitchToSoleFo,
     isEligibleForSoleFinalOrderAfterSwitchToSole,
     showApplyForFinalOrderButton,
   };
