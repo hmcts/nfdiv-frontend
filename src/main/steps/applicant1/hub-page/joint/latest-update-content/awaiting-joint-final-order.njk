@@ -1,0 +1,13 @@
+{% if finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days %}
+  <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line1 }}</p>
+  <h3 class="govuk-heading-s">{{ awaitingJointFinalOrderOrFinalOrderOverdue.subHeading }}</h3>
+  <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line2 }}</p>
+  <p class="govuk-body">{{ awaitingJointFinalOrderOrFinalOrderOverdue.line3 }}
+    <a class="govuk-link" href={{ awaitingJointFinalOrderOrFinalOrderOverdue.link }}>{{ awaitingJointFinalOrderOrFinalOrderOverdue.linkText }}</a>
+  </p>
+{% elif hasApplicantAppliedForFinalOrderFirst %}
+  <p class="govuk-body">{{ hasAppliedForFinalOrder.line1 }}</p>
+  <p class="govuk-body">{{ hasAppliedForFinalOrder.line2 }}</p>
+{% else %}
+  {% include "./awaiting-final-order.njk" %}
+{% endif %}
