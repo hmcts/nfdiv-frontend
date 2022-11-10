@@ -299,9 +299,11 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 
-  const displayState = currentStateFn(userCase.state).at(
-    (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
-  );
+  const displayStateAsState = (
+    userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state
+  ) as State;
+
+  const displayState = currentStateFn(userCase.state).at(displayStateAsState);
 
   const applicantIsEligibleToSubmitIntentionToSwitchToSoleFo =
     hasApplicantAppliedForFinalOrderFirst &&
@@ -329,9 +331,7 @@ export const generateContent: TranslationFn = content => {
 
   const showApplyForFinalOrderButton: boolean =
     applicantIsEligibleToApplyForFinalOrderAfterSwitchToSole ||
-    ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(
-      displayState as unknown as State
-    ) &&
+    ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(displayStateAsState) &&
       !hasApplicantAppliedForFinalOrderFirst);
 
   const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
