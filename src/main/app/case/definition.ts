@@ -844,6 +844,10 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   switchedToSoleCo: YesOrNo;
   coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
 }
 
 export interface CaseDocuments {
@@ -1805,6 +1809,7 @@ export const enum HubTemplate {
   FinalOrderComplete = '/final-order-complete.njk',
   FinalOrderRequested = '/final-order-requested.njk',
   Holding = '/holding.njk',
+  IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
 }
 
