@@ -12,6 +12,7 @@ class SessionTimeout {
   timeout;
   notificationTimer;
 
+  notificationPopupIsOpen = false;
   notificationPopup = document.getElementById('timeout-modal-container');
   popupCloseBtn = this.notificationPopup?.querySelector('#timeout-modal-close-button');
   form = document.getElementById('main-form');
@@ -46,8 +47,10 @@ class SessionTimeout {
   showNotificationPopup(visible: boolean): void {
     if (visible) {
       this.notificationPopup?.removeAttribute('hidden');
+      this.notificationPopupIsOpen = true;
     } else {
       this.notificationPopup?.setAttribute('hidden', 'hidden');
+      this.notificationPopupIsOpen = false;
     }
   }
 
@@ -67,7 +70,15 @@ class SessionTimeout {
   }
 
   pingUserActive() {
-    return throttle(() => fetch('/active').then(() => this.scheduleSignOut()), eventTimer, { trailing: false });
+    return throttle(
+      () => {
+        if (!this.notificationPopupIsOpen) {
+          fetch('/active').then(() => this.scheduleSignOut());
+        }
+      },
+      eventTimer,
+      { trailing: false }
+    );
   }
 
   getSessionTimeoutInterval(): number {
