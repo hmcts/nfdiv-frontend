@@ -4,8 +4,9 @@ const en = () => ({
   title: 'Webchat',
 });
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = () => ({
+  title: 'Sgwrsio dros y we',
+});
 
 const languages = {
   en,

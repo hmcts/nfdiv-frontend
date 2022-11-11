@@ -1,10 +1,10 @@
 import { StepWithContent } from '../../../steps';
 import { Case } from '../case';
 
-import { omitUnreachableAnswers } from './possibleAnswers';
+import { getAllPossibleAnswerFieldsForSteps } from './possibleAnswers';
 
 describe('omitUnreachableAnswers()', () => {
-  test('omits unreachable answers', () => {
+  test('omits unreachable answer fields', () => {
     const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       valid2: 'pick-me',
@@ -23,12 +23,12 @@ describe('omitUnreachableAnswers()', () => {
       },
     ] as unknown as StepWithContent[];
 
-    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+    const actual = getAllPossibleAnswerFieldsForSteps(caseStateWithUnreachableAnswers, mockSteps);
 
-    expect(actual).toEqual({ valid1: 'pick-me', valid2: 'pick-me' });
+    expect(actual).toEqual(['valid1', 'valid2']);
   });
 
-  test('omits unreachable answers with checkboxes', () => {
+  test('omits unreachable answer fields with checkboxes', () => {
     const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       invalid1: 'dont-pick-me',
@@ -46,12 +46,12 @@ describe('omitUnreachableAnswers()', () => {
       },
     ] as unknown as StepWithContent[];
 
-    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+    const actual = getAllPossibleAnswerFieldsForSteps(caseStateWithUnreachableAnswers, mockSteps);
 
-    expect(actual).toEqual({ valid1: 'pick-me' });
+    expect(actual).toEqual(['valid1']);
   });
 
-  test('omits unreachable answers with subfields', () => {
+  test('omits unreachable answer fields with subfields', () => {
     const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       valid2: 'pick-me',
@@ -72,12 +72,12 @@ describe('omitUnreachableAnswers()', () => {
       },
     ] as unknown as StepWithContent[];
 
-    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+    const actual = getAllPossibleAnswerFieldsForSteps(caseStateWithUnreachableAnswers, mockSteps);
 
-    expect(actual).toEqual({ valid1: 'pick-me', valid2: 'pick-me' });
+    expect(actual).toEqual(['someCheckboxes', 'valid1', 'valid2']);
   });
 
-  test('omits unreachable answers with date', () => {
+  test('omits unreachable answer fields with date', () => {
     const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       invalid1: 'dont-pick-me',
@@ -90,12 +90,12 @@ describe('omitUnreachableAnswers()', () => {
       },
     ] as unknown as StepWithContent[];
 
-    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+    const actual = getAllPossibleAnswerFieldsForSteps(caseStateWithUnreachableAnswers, mockSteps);
 
-    expect(actual).toEqual({ valid1: 'pick-me' });
+    expect(actual).toEqual(['valid1']);
   });
 
-  test('omits unreachable answers with fields as functions', () => {
+  test('omits unreachable answer fields with fields as functions', () => {
     const caseStateWithUnreachableAnswers = {
       valid1: 'pick-me',
       invalid1: 'dont-pick-me',
@@ -108,8 +108,8 @@ describe('omitUnreachableAnswers()', () => {
       },
     ] as unknown as StepWithContent[];
 
-    const actual = omitUnreachableAnswers(caseStateWithUnreachableAnswers, mockSteps);
+    const actual = getAllPossibleAnswerFieldsForSteps(caseStateWithUnreachableAnswers, mockSteps);
 
-    expect(actual).toEqual({ valid1: 'pick-me' });
+    expect(actual).toEqual(['valid1']);
   });
 });

@@ -1,6 +1,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
-{% from "common/service-address.njk" import serviceAddressMacro %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/page.njk" %}
 
@@ -97,7 +97,7 @@
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
-    {% include "common/webchat.html" %}
+    {% include "webchat/link-to-webchat.njk" %}
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
   <p class="govuk-body"><a class="govuk-link" href="mailto:${contactEmail}">{{ contactEmail }}</a></p>
   <h3 class="govuk-heading-m">{{ telephone }}</h3>
