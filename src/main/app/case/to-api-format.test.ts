@@ -10,6 +10,7 @@ import {
   FinancialOrderFor,
   Gender,
   HowToRespondApplication,
+  IntendsToSwitchToSole,
   MarriageFormation,
   YesOrNo,
 } from './definition';
@@ -243,7 +244,7 @@ describe('to-api-format', () => {
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      applicant1IntendsToSwitchToSole: [YesOrNo.YES],
+      applicant1IntendsToSwitchToSole: [IntendsToSwitchToSole.YES],
     });
   });
 
@@ -253,7 +254,7 @@ describe('to-api-format', () => {
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
-      applicant2IntendsToSwitchToSole: [YesOrNo.YES],
+      applicant2IntendsToSwitchToSole: [IntendsToSwitchToSole.YES],
     });
   });
 
