@@ -1,6 +1,6 @@
 Feature: Joint final order
 
-  Background: Logged in for hub page
+  Background: Logged in for hub page and progress case to AwaitingFinalOrder
     Given I create a new user and login
     And I've already completed the form using the fixture "jointFinalOrderCompleteCase"
     When I go to "/"
