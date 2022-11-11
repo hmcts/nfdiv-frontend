@@ -17,6 +17,7 @@ describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
+    coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -55,6 +56,12 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAdminClarification', () => {
+    const theState = displayState.at(State.AwaitingAdminClarification);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
   test('should show /awaiting-general-consideration.njk for state AwaitingGeneralConsideration and aosStatementOfTruth', () => {
@@ -108,6 +115,13 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/clarification-submitted.njk');
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ClarificationSubmitted when coIsAdminClarificationSubmitted is Yes', () => {
+    const theState = displayState.at(State.ClarificationSubmitted);
+    userCase.coIsAdminClarificationSubmitted = YesOrNo.YES;
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
   test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
