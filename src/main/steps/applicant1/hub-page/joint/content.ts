@@ -316,13 +316,38 @@ export const generateContent: TranslationFn = content => {
     ) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
+  const doesApplicantIntendToSwitchToSoleFinalOrder = isApplicant2
+    ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
+    : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
+
+  const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
+    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
+
+  const withinSwitchToSoleFinalOrderIntentionNotificationWindow =
+    hasApplicantAppliedForFinalOrderFirst &&
+    doesApplicantIntendToSwitchToSoleFinalOrder &&
+    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo) &&
+    dayjs().isBefore(
+      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
+        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+        'day'
+      )
+    ) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
-  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
+  const theLatestUpdateTemplate = getJointHubTemplate(
+    displayState,
+    userCase,
+    hasApplicantAppliedForConditionalOrder,
+    withinSwitchToSoleFinalOrderIntentionNotificationWindow
+  );
 
   return {
     ...languages[content.language](content),
@@ -338,5 +363,6 @@ export const generateContent: TranslationFn = content => {
     hasApplicantAppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
+    withinSwitchToSoleFinalOrderIntentionNotificationWindow,
   };
 };
