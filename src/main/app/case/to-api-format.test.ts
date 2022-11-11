@@ -237,6 +237,26 @@ describe('to-api-format', () => {
     });
   });
 
+  test('converts applicant1IntendsToSwitchToSole with checkboxConverterSwitchToSoleIntention', async () => {
+    const apiFormat = toApiFormat({
+      applicant1IntendsToSwitchToSole: Checkbox.Checked,
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      applicant1IntendsToSwitchToSole: [YesOrNo.YES],
+    });
+  });
+
+  test('converts applicant2IntendsToSwitchToSole with checkboxConverterSwitchToSoleIntention', async () => {
+    const apiFormat = toApiFormat({
+      applicant2IntendsToSwitchToSole: Checkbox.Checked,
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      applicant2IntendsToSwitchToSole: [YesOrNo.YES],
+    });
+  });
+
   test.each([
     {
       gender: Gender.MALE,
