@@ -158,7 +158,7 @@ const cy: typeof en = {
   back: 'Yn ôl',
   continue: 'Parhau',
   submit: 'Cyflwyno',
-  confirm: 'Confirm', //Need welsh translation
+  confirm: 'Cadarnhau',
   change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
