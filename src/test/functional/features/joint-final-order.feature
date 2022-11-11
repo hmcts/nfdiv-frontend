@@ -2,10 +2,7 @@ Feature: Joint final order
 
   Background: Logged in for hub page
     Given I create a new user and login
-
-  @nightly
-  Scenario: [1] Applicant joint final order journey within a year
-    Given I've already completed the form using the fixture "jointFinalOrderCompleteCase"
+    And I've already completed the form using the fixture "jointFinalOrderCompleteCase"
     When I go to "/"
     And I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
@@ -17,10 +14,12 @@ Feature: Joint final order
     And I select "I believe that the facts stated in this application are true"
     When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
-
     And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
+    Then I click "Sign out"
+
+  @nightly
+  Scenario: [1] Applicant joint final order journey within a year
+    Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
 
     When I click "Apply for final order"
@@ -31,7 +30,6 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your husband also has to apply because this is a joint application."
     And the page should include "They have been sent an email reminder."
-
     When I click "Sign out"
     And I login with applicant "2"
     Then the page URL should be "/applicant2/hub-page"
@@ -46,22 +44,7 @@ Feature: Joint final order
 
   @nightly
   Scenario: [2] Applicant 1 joint switch to sole final order journey
-    Given I've already completed the form using the fixture "jointFinalOrderCompleteCase"
-    When I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
-    And I go to "/applicant2/confirm-your-joint-application"
-    Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
-    And I select "I believe that the facts stated in this application are true"
-    When I click "Submit"
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
-
-    And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
+    Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
 
     When I click "Apply for final order"
@@ -79,26 +62,23 @@ Feature: Joint final order
     Given I click "Sign out"
     When I login with applicant "1"
     Then the page URL should be "/hub-page"
-    Then the page should include "STOP HERE"
+    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
+
+    Given I click "as a sole applicant"
+    Then the page URL should be "/how-to-finalise"
+    And the page should include "How to finalise your divorce"
+
+    Given I click "Confirm"
+    Then the page URL should be "/how-to-finalise"
+    And the page should include "There was a problem"
+
+    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my husband"
+    Then I click "Confirm"
+    Then the page URL should be "/hub-page"
 
   @nightly
   Scenario: [3] Applicant 2 joint switch to sole final order journey
-    Given I've already completed the form using the fixture "jointFinalOrderCompleteCase"
-    When I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
-    And I go to "/applicant2/confirm-your-joint-application"
-    Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
-    And I select "I believe that the facts stated in this application are true"
-    When I click "Submit"
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
-
-    And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "2"
+    Given I login with applicant "2"
     Then the page should include "You can now apply for a ‘final order’."
 
     When I click "Apply for final order"
@@ -116,4 +96,16 @@ Feature: Joint final order
     Given I click "Sign out"
     When I login with applicant "2"
     Then the page URL should be "/applicant2/hub-page"
-    Then the page should include "STOP HERE"
+    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
+
+    Given I click "as a sole applicant"
+    Then the page URL should be "/applicant2/how-to-finalise"
+    And the page should include "How to finalise your divorce"
+
+    Given I click "Confirm"
+    Then the page URL should be "/applicant2/how-to-finalise"
+    And the page should include "There was a problem"
+
+    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
+    Then I click "Confirm"
+    Then the page URL should be "/applicant2/hub-page"
