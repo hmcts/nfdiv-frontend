@@ -15,6 +15,7 @@ import {
   FinancialOrdersThemselves,
   Gender,
   HowToRespondApplication,
+  IntendsToSwitchToSole,
   MarriageFormation,
   YesOrNo,
 } from './definition';
@@ -32,12 +33,12 @@ const checkboxConverter = (value: string | undefined) => {
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
 
-const checkboxConverterTwo = (value: string | undefined) => {
+const checkboxConverterSwitchToSoleIntention = (value: string | undefined) => {
   if (value === null) {
     return null;
   }
 
-  return value === Checkbox.Checked ? ['Yes'] : ['No'];
+  return value === Checkbox.Checked ? [IntendsToSwitchToSole.YES] : [IntendsToSwitchToSole.NO];
 };
 
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
@@ -322,10 +323,10 @@ const fields: ToApiConverters = {
     ]),
   }),
   applicant1IntendsToSwitchToSole: data => ({
-    applicant1IntendsToSwitchToSole: checkboxConverterTwo(data.applicant1IntendsToSwitchToSole),
+    applicant1IntendsToSwitchToSole: checkboxConverterSwitchToSoleIntention(data.applicant1IntendsToSwitchToSole),
   }),
   applicant2IntendsToSwitchToSole: data => ({
-    applicant2IntendsToSwitchToSole: checkboxConverterTwo(data.applicant2IntendsToSwitchToSole),
+    applicant2IntendsToSwitchToSole: checkboxConverterSwitchToSoleIntention(data.applicant2IntendsToSwitchToSole),
   }),
 };
 
