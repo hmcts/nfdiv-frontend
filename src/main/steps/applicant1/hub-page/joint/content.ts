@@ -282,7 +282,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
         isApplicant2
           ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
           : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo
-      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
+      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day'),
+      SupportedLanguages.Cy
     )}. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
 });
