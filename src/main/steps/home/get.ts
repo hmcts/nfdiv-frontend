@@ -33,7 +33,7 @@ import {
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
     if (!req.session.userCase) {
-      res.redirect(YOUR_DETAILS_URL);
+      return res.redirect(YOUR_DETAILS_URL);
     }
 
     if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {

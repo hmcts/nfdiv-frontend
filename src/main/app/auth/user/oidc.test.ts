@@ -53,6 +53,12 @@ describe('getUserDetails', () => {
       roles: ['citizen'],
     });
   });
+
+  test('should throw error if missing data from request', async () => {
+    await expect(getUserDetails('http://localhost', '', CALLBACK_URL)).rejects.toThrow(
+      'Missing data for createIdamToken.'
+    );
+  });
 });
 
 describe('getSystemUser', () => {

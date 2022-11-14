@@ -511,7 +511,6 @@ export const generateContent: TranslationFn = content => {
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
-
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
 
   return {
