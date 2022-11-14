@@ -68,10 +68,6 @@ Feature: Joint final order
     Then the page URL should be "/how-to-finalise"
     And the page should include "How to finalise your divorce"
 
-    Given I click "Confirm"
-    Then the page URL should be "/how-to-finalise"
-    And the page should include "There was a problem"
-
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my husband"
     Then I click "Confirm"
     Then the page URL should be "/hub-page"
@@ -101,10 +97,6 @@ Feature: Joint final order
     Given I click "as a sole applicant"
     Then the page URL should be "/applicant2/how-to-finalise"
     And the page should include "How to finalise your divorce"
-
-    Given I click "Confirm"
-    Then the page URL should be "/applicant2/how-to-finalise"
-    And the page should include "There was a problem"
 
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
     Then I click "Confirm"
