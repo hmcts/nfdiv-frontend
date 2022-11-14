@@ -1,6 +1,5 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import { now } from 'lodash';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
@@ -141,7 +140,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   intendToSwitchToSoleFinalOrder: {
     line1: `The court has notified your ${partner} by email that you are intending to apply for a final order as a sole applicant.`,
     line2: `You will be able to apply for a final order from ${getFormattedDate(
-      dayjs(now()).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
+      dayjs(
+        isApplicant2
+          ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+          : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo
+      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
     )}. You will receive an email to remind you.`,
   },
 });
@@ -275,7 +278,11 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
   intendToSwitchToSoleFinalOrder: {
     line1: `Mae'r llys wedi hysbysu eich ${partner} drwy e-bost eich bod yn bwriadu gwneud cais am orchymyn terfynol fel unig geisydd.`,
     line2: `Byddwch yn gallu gwneud cais am orchymyn terfynol o ${getFormattedDate(
-      dayjs(now()).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
+      dayjs(
+        isApplicant2
+          ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+          : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo
+      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
     )}. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
 });
