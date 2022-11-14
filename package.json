@@ -106,7 +106,7 @@
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
-    "@wdio/sauce-service": "^7.25.4",
+    "@wdio/sauce-service": "^7.26.0",
     "allure-commandline": "^2.20.1",
     "axios-debug-log": "^0.8.4",
     "codeceptjs": "^3.3.6",
