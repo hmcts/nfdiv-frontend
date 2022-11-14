@@ -708,8 +708,8 @@ export interface CaseData {
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
-  applicant1IntendsToSwitchToSole: IntendsToSwitchToSole[];
-  applicant2IntendsToSwitchToSole: IntendsToSwitchToSole[];
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -2037,11 +2037,6 @@ export const enum OfflineDocumentReceived {
 
 export const enum Granted {
   YES = 'Yes',
-}
-
-export const enum IntendsToSwitchToSole {
-  YES = 'Yes',
-  NO = 'No',
 }
 
 export const enum WhichApplicant {
