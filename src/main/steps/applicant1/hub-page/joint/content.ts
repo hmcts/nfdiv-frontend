@@ -330,17 +330,30 @@ export const generateContent: TranslationFn = content => {
     ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
     : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
 
-  const withinSwitchToSoleFinalOrderIntentionNotificationWindow =
+  const hasApplicantDeclaredIntentionToSwitchToSoleFo =
     hasApplicantAppliedForFinalOrderFirst &&
     doesApplicantIntendToSwitchToSoleFinalOrder &&
-    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo) &&
-    dayjs().isBefore(
-      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
-        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-        'day'
-      )
-    ) &&
+    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo);
+
+  const applicantSwitchToSoleFoIntentionNotificationExpires = dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
+    config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+    'day'
+  );
+
+  const withinSwitchToSoleFinalOrderIntentionNotificationWindow =
+    hasApplicantDeclaredIntentionToSwitchToSoleFo &&
+    dayjs().isBefore(applicantSwitchToSoleFoIntentionNotificationExpires) &&
     userCase.state === State.AwaitingJointFinalOrder;
+
+  const hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired =
+    hasApplicantDeclaredIntentionToSwitchToSoleFo &&
+    dayjs().isAfter(applicantSwitchToSoleFoIntentionNotificationExpires) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
+  const isFinalOrderAwaitingOrOverdue =
+    displayState.state() === 'AwaitingFinalOrder' ||
+    displayState.state() === 'AwaitingJointFinalOrder' ||
+    displayState.state() === 'FinalOrderOverdue';
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
@@ -352,7 +365,8 @@ export const generateContent: TranslationFn = content => {
     displayState,
     userCase,
     hasApplicantAppliedForConditionalOrder,
-    withinSwitchToSoleFinalOrderIntentionNotificationWindow
+    withinSwitchToSoleFinalOrderIntentionNotificationWindow,
+    hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired
   );
 
   return {
@@ -370,5 +384,7 @@ export const generateContent: TranslationFn = content => {
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
     withinSwitchToSoleFinalOrderIntentionNotificationWindow,
+    hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired,
+    isFinalOrderAwaitingOrOverdue,
   };
 };
