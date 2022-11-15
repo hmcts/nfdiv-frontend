@@ -17,7 +17,9 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   } will be legally ended after the final order is made. This might affect your finances.`,
   warningText: `If you have not finished negotiations about your money, property or other assets then you should seek legal advice before finalising
   ${isDivorce ? 'your divorce' : 'ending your civil partnership'}. ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !userCase.doesApplicant1IntendToSwitchToSole
       ? 'If you want to settle your finances first, then save and sign out.'
       : ''
   }`,
@@ -127,7 +129,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
       'You can either post or email the documents and evidence to the court. Details of where to send them are on any correspondence you have received from the court.',
   },
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'} ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State) ? `jointly with my ${partner}` : ''
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !userCase.doesApplicant1IntendToSwitchToSole
+      ? `jointly with my ${partner}`
+      : ''
   }`,
 
   errors: {
@@ -151,7 +157,9 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
   } yn dod i ben yn gyfreithiol pan wneir y gorchymyn terfynol. Gallai hyn effeithio ar eich sefyllfa ariannol.`,
   warningText: `Os nad ydych wedi gorffen cynnal trafodaethau am eich arian, eiddo neu asedau eraill yna dylech ofyn am gyngor cyfreithiol cyn
   ${isDivorce ? 'cadarnhau eich ysgariad' : 'dod â’ch partneriaeth sifil i ben'}. ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !userCase.doesApplicant1IntendToSwitchToSole
       ? 'Os ydych eisiau setlo eich sefyllfa ariannol yn gyntaf, yna dylech gadw’r cais ac allgofnodi.'
       : ''
   }`,
@@ -261,7 +269,9 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
       'Gallwch un ai postio neu e-bostio’r dogfennau a’r dystiolaeth i’r llys. Bydd y manylion am lle i’w hanfon wedi’u nodi ar unrhyw ohebiaeth rydych wedi’i chael gan y llys.',
   },
   checkboxLine: `Rwyf eisiau ${isDivorce ? 'cadarnhau fy ysgariad' : "dod â'm partneriaeth sifil i ben"} ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !userCase.doesApplicant1IntendToSwitchToSole
       ? `ar y cyd gyda fy ${partner}`
       : ''
   }`,

@@ -1,7 +1,15 @@
 import autobind from 'autobind-decorator';
+import config from 'config';
+import dayjs from 'dayjs';
 
 import { Case, CaseWithId } from '../../../app/case/case';
-import { APPLICANT2_FINAL_ORDER_REQUESTED, FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
+import {
+  APPLICANT2_FINAL_ORDER_REQUESTED,
+  FINAL_ORDER_REQUESTED,
+  SWITCH_TO_SOLE_FO,
+  State,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 
@@ -20,6 +28,32 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    return req.session.isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
+    const userCase = req.session.userCase;
+    const isApplicant2 = req.session.isApplicant2;
+
+    const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
+      ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+      : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
+
+    const hasApplicantDeclaredIntentionToSwitchToSoleFo =
+      (isApplicant2
+        ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
+        : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES) &&
+      dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo);
+
+    if (
+      hasApplicantDeclaredIntentionToSwitchToSoleFo &&
+      dayjs().isAfter(
+        dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
+          config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+          'day'
+        )
+      ) &&
+      userCase.state === State.AwaitingJointFinalOrder
+    ) {
+      return SWITCH_TO_SOLE_FO;
+    }
+
+    return isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
   }
 }
