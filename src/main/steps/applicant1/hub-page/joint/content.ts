@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -118,7 +118,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line3: `If you do not think they will confirm the application then you can ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
-    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    link: `${isApplicant2 ? `${APPLICANT_2}${HOW_TO_FINALISE_APPLICATION}` : HOW_TO_FINALISE_APPLICATION}`,
     linkText: ' as a sole applicant.',
   },
   hasAppliedForFinalOrder: {
@@ -260,7 +260,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line3: `If you do not think they will confirm the application then you can ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
-    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    link: `${isApplicant2 ? `${APPLICANT_2}${HOW_TO_FINALISE_APPLICATION}` : HOW_TO_FINALISE_APPLICATION}`,
     linkText: ' as a sole applicant',
   },
   finalOrderComplete: {
