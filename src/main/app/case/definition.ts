@@ -2256,6 +2256,7 @@ export const DRAFT_AOS = 'draft-aos';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
+export const SWITCH_TO_SOLE_FO = 'switch-to-sole-fo';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
 export const SYSTEM_REMIND_RESPONDENT_SOLICITOR_TO_RESPOND = 'system-remind-respondent-solicitor-to-respond';
 export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
