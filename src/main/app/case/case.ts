@@ -336,6 +336,10 @@ export interface Case {
   applicant2AppliedForFinalOrderFirst: YesOrNo;
   switchedToSoleCo: YesOrNo;
   coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
 }
 
 export interface CaseWithId extends Case {

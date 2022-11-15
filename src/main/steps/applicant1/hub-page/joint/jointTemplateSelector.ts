@@ -5,7 +5,8 @@ import { StateSequence } from '../../../state-sequence';
 export const getJointHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
-  hasApplicantAppliedForConditionalOrder: boolean
+  hasApplicantAppliedForConditionalOrder = false,
+  withinSwitchToSoleFinalOrderNotificationWindow = false
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -39,6 +40,9 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
     case State.AwaitingJointFinalOrder:
+      if (withinSwitchToSoleFinalOrderNotificationWindow) {
+        return HubTemplate.IntendToSwitchToSoleFinalOrder;
+      }
       return HubTemplate.AwaitingJointFinalOrder;
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;
