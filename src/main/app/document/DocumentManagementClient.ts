@@ -2,17 +2,22 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
 export class DocumentManagementClient {
   client: AxiosInstance;
 
-  constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {
+  CASE_TYPE = 'NFD';
+  JURISDICTION = 'DIVORCE';
+  BASE_URL: string = config.get('services.documentManagement.url');
+
+  constructor(private readonly user: UserDetails) {
     this.client = Axios.create({
-      baseURL,
+      baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
-        ServiceAuthorization: authToken,
+        ServiceAuthorization: getServiceAuthToken(),
       },
     });
   }
@@ -25,13 +30,15 @@ export class DocumentManagementClient {
     classification: Classification;
   }): Promise<DocumentManagementFile[]> {
     const formData = new FormData();
+    formData.append('caseTypeId', this.CASE_TYPE);
+    formData.append('jurisdictionId', this.JURISDICTION);
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
       formData.append('files', file.buffer, file.originalname);
     }
 
-    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
+    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/cases/documents', formData, {
       headers: {
         ...formData.getHeaders(),
         'user-id': this.user.id,
@@ -40,7 +47,7 @@ export class DocumentManagementClient {
       maxBodyLength: Infinity,
       timeout: config.get<number>('uploadTimeout'),
     });
-    return response.data?._embedded?.documents || [];
+    return response.data?.documents || [];
   }
 
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
@@ -49,9 +56,7 @@ export class DocumentManagementClient {
 }
 
 interface DocumentManagementResponse {
-  _embedded: {
-    documents: DocumentManagementFile[];
-  };
+  documents: DocumentManagementFile[];
 }
 
 export interface DocumentManagementFile {

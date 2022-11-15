@@ -1,23 +1,17 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+import type { AppRequest } from '../controller/AppRequest';
 
 import { Classification, DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
-  private getDocumentManagementClient(user: UserDetails) {
-    return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
-  }
-
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     if (
@@ -43,9 +37,7 @@ export class DocumentManagerController {
       }
     }
 
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-
-    const filesCreated = await documentManagementClient.create({
+    const filesCreated = await new DocumentManagementClient(req.session.user).create({
       files: req.files,
       classification: Classification.Public,
     });
@@ -81,11 +73,9 @@ export class DocumentManagerController {
       if (req.headers.accept?.includes('application/json')) {
         res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(
-          isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT
-        );
+        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
       } else {
-        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
+        res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
       }
     });
   }
@@ -132,8 +122,7 @@ export class DocumentManagerController {
       isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    await documentManagementClient.delete({ url: documentUrlToDelete });
+    await new DocumentManagementClient(req.session.user).delete({ url: documentUrlToDelete });
 
     req.session.save(err => {
       if (err) {
