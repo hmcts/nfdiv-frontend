@@ -5,11 +5,10 @@ import FormData from 'form-data';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
+import { Classification, DocumentManagementFile, UploadedFiles } from './CaseDocumentManagementClient';
+
 export class DocumentManagementClient {
   client: AxiosInstance;
-
-  CASE_TYPE = 'NFD';
-  JURISDICTION = 'DIVORCE';
   BASE_URL: string = config.get('services.documentManagement.url');
 
   constructor(private readonly user: UserDetails) {
@@ -30,15 +29,13 @@ export class DocumentManagementClient {
     classification: Classification;
   }): Promise<DocumentManagementFile[]> {
     const formData = new FormData();
-    formData.append('caseTypeId', this.CASE_TYPE);
-    formData.append('jurisdictionId', this.JURISDICTION);
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
       formData.append('files', file.buffer, file.originalname);
     }
 
-    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/cases/documents', formData, {
+    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
       headers: {
         ...formData.getHeaders(),
         'user-id': this.user.id,
@@ -47,7 +44,7 @@ export class DocumentManagementClient {
       maxBodyLength: Infinity,
       timeout: config.get<number>('uploadTimeout'),
     });
-    return response.data?.documents || [];
+    return response.data?._embedded?.documents || [];
   }
 
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
@@ -56,37 +53,7 @@ export class DocumentManagementClient {
 }
 
 interface DocumentManagementResponse {
-  documents: DocumentManagementFile[];
-}
-
-export interface DocumentManagementFile {
-  size: number;
-  mimeType: string;
-  originalDocumentName: string;
-  modifiedOn: string;
-  createdOn: string;
-  classification: Classification;
-  _links: {
-    self: {
-      href: string;
-    };
-    binary: {
-      href: string;
-    };
-    thumbnail: {
-      href: string;
-    };
+  _embedded: {
+    documents: DocumentManagementFile[];
   };
-}
-
-export type UploadedFiles =
-  | {
-      [fieldname: string]: Express.Multer.File[];
-    }
-  | Express.Multer.File[];
-
-export enum Classification {
-  Private = 'PRIVATE',
-  Restricted = 'RESTRICTED',
-  Public = 'PUBLIC',
 }

@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 
@@ -6,9 +7,10 @@ import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } 
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
-import type { AppRequest } from '../controller/AppRequest';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
-import { Classification, DocumentManagementClient } from './DocumentManagementClient';
+import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
+import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
@@ -37,7 +39,7 @@ export class DocumentManagerController {
       }
     }
 
-    const filesCreated = await new DocumentManagementClient(req.session.user).create({
+    const filesCreated = await this.getApiClient(req.session.user).create({
       files: req.files,
       classification: Classification.Public,
     });
@@ -122,7 +124,7 @@ export class DocumentManagerController {
       isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
-    await new DocumentManagementClient(req.session.user).delete({ url: documentUrlToDelete });
+    await this.getApiClient(req.session.user).delete({ url: documentUrlToDelete });
 
     req.session.save(err => {
       if (err) {
@@ -135,5 +137,12 @@ export class DocumentManagerController {
       }
       return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
     });
+  }
+
+  getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
+    if (config.get('services.caseDocumentManagement.enabled')) {
+      return new CaseDocumentManagementClient(user);
+    }
+    return new DocumentManagementClient(user);
   }
 }

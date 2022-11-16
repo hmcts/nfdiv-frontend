@@ -4,7 +4,7 @@ import config from 'config';
 import * as serviceAuth from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { Classification, UploadedFiles } from './CaseDocumentManagementClient';
+import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient';
 import { DocumentManagementClient } from './DocumentManagementClient';
 
 jest.mock('axios');
@@ -15,14 +15,14 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockServiceAuth = serviceAuth as jest.Mocked<typeof serviceAuth>;
 
-describe('DocumentManagementClient', () => {
+describe('CaseDocumentManagementClient', () => {
   it('creates documents', async () => {
-    const mockPost = jest.fn().mockResolvedValue({ data: { _embedded: { documents: ['a-document'] } } });
+    const mockPost = jest.fn().mockResolvedValue({ data: { documents: ['a-document'] } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
-    mockedConfig.get.mockReturnValueOnce('document-management-base-url');
+    mockedConfig.get.mockReturnValueOnce('case-document-management-base-url');
     mockServiceAuth.getServiceAuthToken.mockReturnValueOnce('dummyS2SAuthToken');
 
-    const client = new DocumentManagementClient({
+    const client = new CaseDocumentManagementClient({
       id: 'userId',
       accessToken: 'userAccessToken',
     } as unknown as UserDetails);
@@ -33,13 +33,13 @@ describe('DocumentManagementClient', () => {
     });
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
-      baseURL: 'document-management-base-url',
+      baseURL: 'case-document-management-base-url',
       headers: { Authorization: 'Bearer userAccessToken', ServiceAuthorization: 'dummyS2SAuthToken' },
     });
 
-    expect(mockPost.mock.calls[0][0]).toEqual('/documents');
-    expect(mockPost.mock.calls[0][1]._streams[3]).toContain('filename="a-new-file"');
-    expect(mockPost.mock.calls[0][1]._streams[1]).toEqual('PRIVATE');
+    expect(mockPost.mock.calls[0][0]).toEqual('/cases/documents');
+    expect(mockPost.mock.calls[0][1]._streams[9]).toContain('filename="a-new-file"');
+    expect(mockPost.mock.calls[0][1]._streams[7]).toEqual('PRIVATE');
     expect(mockPost.mock.calls[0][2].headers['user-id']).toEqual('userId');
     expect(actual).toEqual(['a-document']);
   });
