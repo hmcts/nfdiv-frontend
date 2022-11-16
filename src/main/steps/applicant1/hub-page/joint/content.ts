@@ -310,13 +310,13 @@ export const generateContent: TranslationFn = content => {
     : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
 
   const applicantIsEligibleToSubmitIntentionToSwitchToSoleFo =
+    userCase.state === State.AwaitingJointFinalOrder &&
     hasApplicantAppliedForFinalOrderFirst &&
     !applicantDeclaredIntentionToSwitchToSoleFoDate &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    ) &&
-    userCase.state === State.AwaitingJointFinalOrder;
+    );
 
   const applicantIsEligibleToApplyForFinalOrderAfterSwitchToSole =
     userCase.state === State.AwaitingJointFinalOrder &&
