@@ -845,6 +845,7 @@ export interface CaseData {
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
   switchedToSoleCo: YesOrNo;
+  coIsAdminClarificationSubmitted: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -947,6 +948,7 @@ export interface ConditionalOrder {
   LastApprovedServiceApplicationIsBailiffApplication: YesOrNo;
   CertificateOfServiceDate: DateAsString;
   SuccessfulServedByBailiff: YesOrNo;
+  IsAdminClarificationSubmitted: YesOrNo;
 }
 
 export interface ConditionalOrderQuestions {

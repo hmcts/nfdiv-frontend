@@ -338,8 +338,8 @@ export const generateContent: TranslationFn = content => {
     applicantIsEligibleToApplyForFinalOrderAfterSwitchToSole ||
     ([State.AwaitingFinalOrder, State.AwaitingJointFinalOrder, State.FinalOrderOverdue].includes(displayStateAsState) &&
       !hasApplicantAppliedForFinalOrderFirst);
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
 
-  const theLatestUpdateTemplate = getJointHubTemplate(displayState, hasApplicantAppliedForConditionalOrder);
   return {
     ...languages[content.language](content),
     displayState,
