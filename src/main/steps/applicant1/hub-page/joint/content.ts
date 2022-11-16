@@ -324,7 +324,7 @@ export const generateContent: TranslationFn = content => {
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(applicantDeclaredIntentionToSwitchToSoleFoDate).add(
-        config.get('dates.finalOrderSubmittedOffsetDays'),
+        config.get('dates.intentionToSwitchToSoleNoticePeriodDays'),
         'day'
       )
     );

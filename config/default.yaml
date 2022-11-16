@@ -7,6 +7,7 @@ dates:
   awaitingLegalAdvisorReferralOffsetDays: 28
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
+  intentionToSwitchToSoleNoticePeriodDays: 14
   changingToSolePartnerConfirmationWeeks: 2
   settlingFinancesConfirmationDays: 14
   changingToSolePartnerResponseDays: 14
