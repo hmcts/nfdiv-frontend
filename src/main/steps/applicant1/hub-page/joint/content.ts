@@ -369,6 +369,5 @@ export const generateContent: TranslationFn = content => {
     hasApplicantAppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
-    withinSwitchToSoleFinalOrderIntentionNotificationWindow,
   };
 };
