@@ -4,8 +4,8 @@ import { isEmpty } from 'lodash';
 
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId } from '../../app/case/case';
-import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
+import { CaseApi, getCaseApi } from '../../app/case/case-api';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State, UserRole } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
@@ -43,7 +43,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
             );
             nextUrl = HOME_URL;
           } else {
-            if (this.isAllowedToUnLinkFromCase(existingCase)) {
+            if (await this.isAllowedToUnlinkFromExistingCase(existingCase, caseworkerUserApi, req)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
@@ -75,10 +75,24 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     }
   }
 
-  private isAllowedToUnLinkFromCase(userCase: CaseWithId): boolean {
+  private async isAllowedToUnlinkFromExistingCase(
+    userCase: CaseWithId,
+    caseworkerUserApi: CaseApi,
+    req: AppRequest
+  ): Promise<boolean> {
     if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
-      const postSubmission = State.Submitted !== userCase.state && !isEmpty(userCase.dateSubmitted);
-      return postSubmission && isEmpty(userCase.dateAosSubmitted);
+      const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(
+        userCase.id,
+        req.session.user.id
+      );
+      if (currentUsersRoleOnExistingCase === UserRole.APPLICANT_2) {
+        const postSubmission = State.Submitted !== userCase.state && !isEmpty(userCase.dateSubmitted);
+        return postSubmission && isEmpty(userCase.dateAosSubmitted);
+      } else if (currentUsersRoleOnExistingCase === UserRole.CREATOR) {
+        return isEmpty(userCase.dateSubmitted);
+      } else {
+        throw new Error('User is neither CREATOR or APPLICANT_2 on the existing case.');
+      }
     } else {
       return isEmpty(userCase.dateSubmitted);
     }
