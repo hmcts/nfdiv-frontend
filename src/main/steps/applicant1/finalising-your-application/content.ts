@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -323,6 +323,20 @@ export const generateContent: TranslationFn = content => {
   const isAwaitingJointFinalOrderState = userCase.state === State.AwaitingJointFinalOrder;
   const isFinalOrderOverdue = userCase.state === State.FinalOrderOverdue;
   const isJointApplication = content.isJointApplication;
+
+  const isIntendingAndAbleToSwitchToSoleFo =
+    userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
+    userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES &&
+    dayjs().isAfter(
+      dayjs(userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo).add(
+        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+        'day'
+      )
+    ) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
+  const isJointApplicationAndNotSwitchingToSoleFo = isJointApplication && !isIntendingAndAbleToSwitchToSoleFo;
+
   return {
     ...translations,
     ...columnGenerateContent(content),
@@ -330,6 +344,7 @@ export const generateContent: TranslationFn = content => {
     isAwaitingJointFinalOrderState,
     isJointApplication,
     isFinalOrderOverdue,
+    isJointApplicationAndNotSwitchingToSoleFo,
     form,
   };
 };
