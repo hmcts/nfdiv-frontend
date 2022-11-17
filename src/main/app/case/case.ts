@@ -140,6 +140,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
   applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
+  doesApplicant1IntendToSwitchToSole: 'doesApplicant1IntendToSwitchToSole',
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
+  doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
