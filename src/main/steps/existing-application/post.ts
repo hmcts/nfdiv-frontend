@@ -43,7 +43,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
             );
             nextUrl = HOME_URL;
           } else {
-            if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req)) {
+            if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
@@ -78,13 +78,10 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
   private async isAllowedToUnlinkFromCase(
     existingUserCase: CaseWithId,
     caseworkerUserApi: CaseApi,
-    req: AppRequest
+    userId: string
   ): Promise<boolean> {
     if (ApplicationType.SOLE_APPLICATION === existingUserCase.applicationType) {
-      const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(
-        existingUserCase.id,
-        req.session.user.id
-      );
+      const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(existingUserCase.id, userId);
       if (currentUsersRoleOnExistingCase === UserRole.APPLICANT_2) {
         const postSubmission = State.Submitted !== existingUserCase.state && !isEmpty(existingUserCase.dateSubmitted);
         return postSubmission && isEmpty(existingUserCase.dateAosSubmitted);
