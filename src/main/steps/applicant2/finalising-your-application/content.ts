@@ -1,4 +1,8 @@
+import config from 'config';
+import dayjs from 'dayjs';
+
 import { Checkbox } from '../../../app/case/case';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -33,6 +37,22 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+  const { userCase } = content;
+
+  const isIntendingAndAbleToSwitchToSoleFo =
+    userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES &&
+    userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES &&
+    dayjs().isAfter(
+      dayjs(userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo).add(
+        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+        'day'
+      )
+    ) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
+  applicant1Content.isJointApplicationAndNotSwitchingToSoleFo =
+    applicant1Content.isJointApplication && !isIntendingAndAbleToSwitchToSoleFo;
+
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
