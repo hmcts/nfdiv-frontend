@@ -134,7 +134,6 @@ Feature: Joint final order
     Then I click "Confirm"
     Then the page URL should be "/hub-page"
     And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
-    Then I set the intention to switch to sole declaration date to "2022-10-21"
     And a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
     Given I click "Sign out"
