@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId } from '../../app/case/case';
 import { CaseApi, getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State, UserRole } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
@@ -81,16 +81,17 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     caseworkerUserApi: CaseApi,
     userId: string
   ): Promise<boolean> {
-    if (ApplicationType.SOLE_APPLICATION === existingUserCase.applicationType) {
-      const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(existingUserCase.id, userId);
-      if (currentUsersRoleOnExistingCase === UserRole.APPLICANT_2) {
-        const postSubmission = State.Submitted !== existingUserCase.state && !isEmpty(existingUserCase.dateSubmitted);
-        return postSubmission && isEmpty(existingUserCase.dateAosSubmitted);
-      } else if (currentUsersRoleOnExistingCase === UserRole.CREATOR) {
-        return isEmpty(existingUserCase.dateSubmitted);
-      } else {
-        throw new Error('User is neither CREATOR or APPLICANT_2 on the existing case.');
-      }
+    const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(existingUserCase.id, userId);
+
+    if (![UserRole.APPLICANT_2, UserRole.CREATOR].includes(currentUsersRoleOnExistingCase)) {
+      throw new Error('User is neither CREATOR or APPLICANT_2 on the existing case.');
+    }
+
+    if (
+      existingUserCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+      currentUsersRoleOnExistingCase === UserRole.APPLICANT_2
+    ) {
+      return isEmpty(existingUserCase.dateAosSubmitted);
     } else {
       return isEmpty(existingUserCase.dateSubmitted);
     }

@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as oidc from '../../app/auth/user/oidc';
 import * as caseApi from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State, UserRole } from '../../app/case/definition';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
@@ -100,37 +100,6 @@ describe('ExistingApplicationPostController', () => {
       );
     }
   );
-
-  test('When New case chosen and user is respondent on sole, unsubmitted existing case', async () => {
-    const body = {
-      existingOrNewApplication: existingOrNew.New,
-    };
-    const caseData = {
-      applicationType: ApplicationType.SOLE_APPLICATION,
-      state: State.Draft,
-      id: '1234',
-    };
-
-    const caseApiMockFnReturnValue = caseApiMockFn(caseData);
-    caseApiMockFnReturnValue.getUsersRoleOnCase = jest.fn(() => UserRole.APPLICANT_2);
-    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFnReturnValue);
-    const req = mockRequest({ body });
-
-    req.url = EXISTING_APPLICATION;
-    const res = mockResponse();
-
-    const controller = new ExistingApplicationPostController(mockFormContent.fields);
-    await controller.post(req, res);
-
-    expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
-    expect(req.session.cannotLinkToNewCase).toBeTruthy();
-    expect(req.session.existingApplicationType).toBe(ApplicationType.SOLE_APPLICATION);
-    expect(caseApiMockFnReturnValue.triggerEvent).toHaveBeenCalledWith(
-      req.session.inviteCaseId,
-      {},
-      SYSTEM_CANCEL_CASE_INVITE
-    );
-  });
 
   test('When New case chosen and user is respondent on submitted but not AOS submitted existing case', async () => {
     const body = {
