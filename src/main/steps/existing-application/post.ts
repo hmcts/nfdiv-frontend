@@ -29,6 +29,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
         try {
           const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
           const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
             req.locals.logger.info(
               `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
@@ -42,7 +43,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.user.id
             );
             nextUrl = HOME_URL;
-          } else {
+          } else if (formData.existingOrNewApplication === existingOrNew.New) {
             if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
