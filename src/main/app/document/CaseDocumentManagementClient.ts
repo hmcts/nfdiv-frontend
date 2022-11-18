@@ -3,13 +3,11 @@ import config from 'config';
 import FormData from 'form-data';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { CASE_TYPE, JURISDICTION } from '../case/definition';
 import type { UserDetails } from '../controller/AppRequest';
 
 export class CaseDocumentManagementClient {
   client: AxiosInstance;
-
-  CASE_TYPE = 'NFD';
-  JURISDICTION = 'DIVORCE';
   BASE_URL: string = config.get('services.caseDocumentManagement.url');
 
   constructor(private readonly user: UserDetails) {
@@ -30,8 +28,8 @@ export class CaseDocumentManagementClient {
     classification: Classification;
   }): Promise<DocumentManagementFile[]> {
     const formData = new FormData();
-    formData.append('caseTypeId', this.CASE_TYPE);
-    formData.append('jurisdictionId', this.JURISDICTION);
+    formData.append('caseTypeId', CASE_TYPE);
+    formData.append('jurisdictionId', JURISDICTION);
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
