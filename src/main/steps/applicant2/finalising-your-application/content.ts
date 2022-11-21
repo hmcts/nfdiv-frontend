@@ -50,6 +50,8 @@ export const generateContent: TranslationFn = content => {
     ) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
+  applicant1Content.isIntendingAndAbleToSwitchToSoleFo = isIntendingAndAbleToSwitchToSoleFo;
+
   applicant1Content.isJointApplicationAndNotSwitchingToSoleFo =
     applicant1Content.isJointApplication && !isIntendingAndAbleToSwitchToSoleFo;
 
