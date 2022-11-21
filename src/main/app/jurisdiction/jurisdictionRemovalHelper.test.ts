@@ -7,7 +7,6 @@ describe('JurisdictionRemovalHelper', () => {
   test('Should set unreachable fields as null', async () => {
     const bodyWithConnection = {
       id: '1234',
-      relationshipDate: { day: '01', month: '01', year: '2021' },
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
@@ -21,7 +20,6 @@ describe('JurisdictionRemovalHelper', () => {
 
     const expectedUserCase = {
       id: '1234',
-      relationshipDate: { day: '01', month: '01', year: '2021' },
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
@@ -41,7 +39,6 @@ describe('JurisdictionRemovalHelper', () => {
   test('Should set all fields as null', async () => {
     const bodyWithConnection = {
       id: '1234',
-      relationshipDate: { day: '01', month: '01', year: '2021' },
       applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
       applicant1LifeBasedInEnglandAndWales: YesOrNo.YES,
       connections: ['A'],
@@ -64,7 +61,6 @@ describe('JurisdictionRemovalHelper', () => {
       applicant2DomicileInEnglandWales: null,
       bothLastHabituallyResident: null,
       jurisdictionResidualEligible: null,
-      relationshipDate: null,
     };
 
     const newUserCase = setJurisdictionFieldsAsNull(bodyWithConnection);

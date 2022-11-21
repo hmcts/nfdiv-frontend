@@ -12,7 +12,6 @@ const jurisdictionFields = [
   'applicant1LivingInEnglandWalesTwelveMonths',
   'applicant1LivingInEnglandWalesSixMonths',
   'jurisdictionResidualEligible',
-  'relationshipDate',
 ];
 
 export const setUnreachableJurisdictionFieldsAsNull = (userCase: Partial<Case>): Partial<Case> => {

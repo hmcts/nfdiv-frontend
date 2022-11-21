@@ -11,7 +11,7 @@ import {
   isFutureDate,
   isInvalidHelpWithFeesRef,
   isInvalidPostcode,
-  isMoreThanAYearAgo,
+  isLessThanAYearAgoInc,
   isPhoneNoValid,
   isValidAccessCode,
   isValidCaseReference,
@@ -80,8 +80,8 @@ describe('Validation', () => {
         month: (dateObj.getUTCMonth() - 6).toString(),
         year: dateObj.getUTCFullYear().toString(),
       };
-      const isValid = isMoreThanAYearAgo(date);
-      expect(isValid).toStrictEqual(undefined);
+      const isValid = isLessThanAYearAgoInc(date);
+      expect(isValid).toStrictEqual('lessThanAYearAgoInc');
     });
 
     test('Should check if date entered is exactly a year ago', async () => {
@@ -91,9 +91,9 @@ describe('Validation', () => {
         month: (dateObj.getUTCMonth() - 11).toString(),
         year: dateObj.getUTCFullYear().toString(),
       };
-      const isValid = isMoreThanAYearAgo(date);
+      const isValid = isLessThanAYearAgoInc(date);
 
-      expect(isValid).toStrictEqual(undefined);
+      expect(isValid).toStrictEqual('lessThanAYearAgoInc');
     });
 
     test('Should check if date entered is more than a year ago', async () => {
@@ -103,9 +103,9 @@ describe('Validation', () => {
         month: (dateObj.getUTCMonth() - 11).toString(),
         year: dateObj.getUTCFullYear().toString(),
       };
-      const isValid = isMoreThanAYearAgo(date);
+      const isValid = isLessThanAYearAgoInc(date);
 
-      expect(isValid).toStrictEqual('moreThanAYearAgo');
+      expect(isValid).toStrictEqual(undefined);
     });
   });
 
