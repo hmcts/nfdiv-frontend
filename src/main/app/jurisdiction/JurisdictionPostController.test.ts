@@ -63,14 +63,11 @@ describe('JurisdictionPostController', () => {
 
     const body = {
       connections: [JurisdictionConnections.APP_1_APP_2_DOMICILED],
+      relationshipDate: { day: '01', month: '01', year: '2021' },
     };
     const bodyWithConnection = {
       connections: ['F'],
-      applicant1DomicileInEnglandWales: null,
-      applicant1LifeBasedInEnglandAndWales: null,
-      applicant2DomicileInEnglandWales: null,
-      applicant2LifeBasedInEnglandAndWales: null,
-      bothLastHabituallyResident: null,
+      relationshipDate: { day: '01', month: '01', year: '2021' },
       applicant1LivingInEnglandWalesSixMonths: null,
       applicant1LivingInEnglandWalesTwelveMonths: null,
       jurisdictionResidualEligible: null,
@@ -79,6 +76,7 @@ describe('JurisdictionPostController', () => {
     };
     const mockFormContent = {
       fields: {
+        relationshipDate: { day: '01', month: '01', year: '2021' },
         connections: {},
       },
     } as unknown as FormContent;
