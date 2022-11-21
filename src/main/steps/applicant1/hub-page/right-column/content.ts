@@ -170,7 +170,8 @@ export const generateContent: TranslationFn = content => {
   const { userCase } = content;
   const isAosSubmitted =
     userCase.dateAosSubmitted &&
-    userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS);
+    (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+      userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
   const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
