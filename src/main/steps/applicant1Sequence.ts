@@ -6,7 +6,7 @@ import {
   State,
   YesOrNo,
 } from '../app/case/definition';
-import { isLessThanAYear } from '../app/form/validation';
+import { isMoreThanAYearAgo } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
@@ -117,7 +117,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: RELATIONSHIP_DATE_URL,
     getNextStep: data =>
-      isLessThanAYear(data.relationshipDate) === 'lessThanAYear' ? RELATIONSHIP_NOT_LONG_ENOUGH_URL : CERTIFICATE_URL,
+      isMoreThanAYearAgo(data.relationshipDate) === 'moreThanAYearAgo'
+        ? CERTIFICATE_URL
+        : RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   },
   {
     url: RELATIONSHIP_NOT_LONG_ENOUGH_URL,

@@ -73,16 +73,17 @@ export const isFutureDate: DateValidator = date => {
   }
 };
 
-export const isLessThanAYear: DateValidator = date => {
+export const isMoreThanAYearAgo: DateValidator = date => {
   if (!date) {
     return;
   }
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
-  const oneYearAgo = new Date();
+  const today = new Date();
+  const oneYearAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  if (!(enteredDate < oneYearAgo)) {
-    return 'lessThanAYear';
+  if (enteredDate < oneYearAgo) {
+    return 'moreThanAYearAgo';
   }
 };
 
