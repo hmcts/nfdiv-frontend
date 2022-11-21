@@ -147,7 +147,7 @@ Feature: Joint final order
 
     Given I select "I want to finalise my divorce"
     When I click "Submit"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     And the page should include "You have applied for a ‘final order’. Your wife also has to apply because this is a joint application."
     And the page should include "They have been sent an email reminder."
 
@@ -156,16 +156,16 @@ Feature: Joint final order
 
     Given I click "Sign out"
     When I login with applicant "2"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
 
     Given I click "as a sole applicant"
-    Then the page URL should be "/how-to-finalise"
+    Then the page URL should be "/applicant2/how-to-finalise"
     And the page should include "How to finalise your divorce"
 
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
     Then I click "Confirm"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
 
     Given I click "Sign out"
     When I login with applicant "2"
@@ -220,7 +220,7 @@ Feature: Joint final order
 
     Given I select "I want to finalise my divorce"
     When I click "Submit"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     And the page should include "You have applied for a ‘final order’. Your wife also has to apply because this is a joint application."
     And the page should include "They have been sent an email reminder."
 
@@ -229,24 +229,24 @@ Feature: Joint final order
 
     Given I click "Sign out"
     When I login with applicant "2"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
 
     Given I click "as a sole applicant"
-    Then the page URL should be "/how-to-finalise"
+    Then the page URL should be "/applicant2/how-to-finalise"
     And the page should include "How to finalise your divorce"
 
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
     Then I click "Confirm"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     And the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
     And a superuser updates "dateApplicant2DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
     Given I click "Sign out"
     When I login with applicant "2"
     Then I click "Apply for final order"
-    Then the page URL should be "/finalising-your-application"
+    Then the page URL should be "/applicant2/finalising-your-application"
     And the page should include "Do you want to finalise your divorce?"
     Then I click "Submit"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "/applicant2/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
