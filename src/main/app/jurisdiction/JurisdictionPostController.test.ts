@@ -66,6 +66,11 @@ describe('JurisdictionPostController', () => {
     };
     const bodyWithConnection = {
       connections: ['F'],
+      applicant1DomicileInEnglandWales: null,
+      applicant1LifeBasedInEnglandAndWales: null,
+      applicant2DomicileInEnglandWales: null,
+      applicant2LifeBasedInEnglandAndWales: null,
+      bothLastHabituallyResident: null,
       applicant1LivingInEnglandWalesSixMonths: null,
       applicant1LivingInEnglandWalesTwelveMonths: null,
       jurisdictionResidualEligible: null,
