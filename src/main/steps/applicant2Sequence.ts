@@ -29,6 +29,7 @@ import {
   HOME_URL,
   HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
@@ -172,6 +173,10 @@ const postSubmissionSequence: Step[] = [
   {
     url: YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HOW_TO_FINALISE_APPLICATION,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: HUB_PAGE,

@@ -313,6 +313,12 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddressCountry,
     ]),
   }),
+  applicant1IntendsToSwitchToSole: data => ({
+    applicant1IntendsToSwitchToSole: [checkboxConverter(data.applicant1IntendsToSwitchToSole)],
+  }),
+  applicant2IntendsToSwitchToSole: data => ({
+    applicant2IntendsToSwitchToSole: [checkboxConverter(data.applicant2IntendsToSwitchToSole)],
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
