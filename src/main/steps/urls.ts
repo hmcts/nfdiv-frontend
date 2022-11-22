@@ -132,5 +132,6 @@ export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-applica
 export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-conditional-order-answers';
 export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-to-the-court';
 
+export const HOW_TO_FINALISE_APPLICATION: PageLink = '/how-to-finalise';
 export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-application';
 export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';

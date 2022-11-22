@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../../urls';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -118,7 +118,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line3: `If you do not think they will confirm the application then you can ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
-    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    link: `${isApplicant2 ? `${APPLICANT_2}${HOW_TO_FINALISE_APPLICATION}` : HOW_TO_FINALISE_APPLICATION}`,
     linkText: ' as a sole applicant.',
   },
   hasAppliedForFinalOrder: {
@@ -136,6 +136,16 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
     line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+  },
+  intendToSwitchToSoleFinalOrder: {
+    line1: `The court has notified your ${partner} by email that you are intending to apply for a final order as a sole applicant.`,
+    line2: `You will be able to apply for a final order from ${getFormattedDate(
+      dayjs(
+        isApplicant2
+          ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+          : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo
+      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
+    )}. You will receive an email to remind you.`,
   },
 });
 
@@ -250,7 +260,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line3: `If you do not think they will confirm the application then you can ${
       isDivorce ? 'finalise your divorce' : 'end your civil partnership'
     }`,
-    link: `${isApplicant2 ? `${APPLICANT_2}'/how-to-finalise'` : '/how-to-finalise'}`,
+    link: `${isApplicant2 ? `${APPLICANT_2}${HOW_TO_FINALISE_APPLICATION}` : HOW_TO_FINALISE_APPLICATION}`,
     linkText: ' as a sole applicant',
   },
   finalOrderComplete: {
@@ -264,6 +274,17 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       link: '/downloads/final-order-granted',
       reference: 'Final-Order-Granted',
     },
+  },
+  intendToSwitchToSoleFinalOrder: {
+    line1: `Mae'r llys wedi hysbysu eich ${partner} drwy e-bost eich bod yn bwriadu gwneud cais am orchymyn terfynol fel unig geisydd.`,
+    line2: `Byddwch yn gallu gwneud cais am orchymyn terfynol o ${getFormattedDate(
+      dayjs(
+        isApplicant2
+          ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+          : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo
+      ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )}. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
 });
 
@@ -301,13 +322,38 @@ export const generateContent: TranslationFn = content => {
     ) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
+  const doesApplicantIntendToSwitchToSoleFinalOrder = isApplicant2
+    ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
+    : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
+
+  const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
+    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
+    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
+
+  const withinSwitchToSoleFinalOrderIntentionNotificationWindow =
+    hasApplicantAppliedForFinalOrderFirst &&
+    doesApplicantIntendToSwitchToSoleFinalOrder &&
+    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo) &&
+    dayjs().isBefore(
+      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
+        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+        'day'
+      )
+    ) &&
+    userCase.state === State.AwaitingJointFinalOrder;
+
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
-  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder);
+  const theLatestUpdateTemplate = getJointHubTemplate(
+    displayState,
+    userCase,
+    hasApplicantAppliedForConditionalOrder,
+    withinSwitchToSoleFinalOrderIntentionNotificationWindow
+  );
 
   return {
     ...languages[content.language](content),

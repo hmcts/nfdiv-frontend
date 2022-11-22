@@ -104,7 +104,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.43.0",
     "@wdio/sauce-service": "^7.26.0",
     "allure-commandline": "^2.20.1",
@@ -112,7 +112,7 @@
     "codeceptjs": "^3.3.6",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.5",
