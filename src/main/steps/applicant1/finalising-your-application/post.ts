@@ -1,10 +1,12 @@
 import autobind from 'autobind-decorator';
 import config from 'config';
 import dayjs from 'dayjs';
+import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
+  ApplicationType,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   State,
@@ -12,6 +14,9 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { Form } from '../../../app/form/Form';
+import { getNextStepUrl } from '../../index';
+import { HUB_PAGE } from '../../urls';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
@@ -25,6 +30,53 @@ export default class FinalisingYourApplicationPostController extends PostControl
     }
 
     return super.save(req, formData, eventName);
+  }
+
+  protected async saveAndContinue(
+    req: AppRequest<AnyObject>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+
+    if (req.session.errors.length === 0) {
+      try {
+        req.session.userCase = await this.save(req, formData, this.getEventName(req));
+      } catch (err) {
+        req.locals.logger.error('Error saving', err);
+        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+      }
+    }
+
+    let nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
+
+    const hasSwitchedToSoleFo =
+      req.session.isApplicant2 &&
+      req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+      req.session.userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
+      req.session.userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES &&
+      dayjs().isAfter(
+        dayjs(req.session.userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo).add(
+          config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+          'day'
+        )
+      ) &&
+      req.session.userCase.state === State.FinalOrderRequested &&
+      formData.doesApplicant2WantToApplyForFinalOrder;
+
+    if (hasSwitchedToSoleFo) {
+      req.session.isApplicant2 = false;
+      nextUrl = req.session.errors.length > 0 ? req.url : HUB_PAGE;
+    }
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
