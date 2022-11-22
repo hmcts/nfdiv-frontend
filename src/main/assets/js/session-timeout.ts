@@ -57,11 +57,11 @@ class SessionTimeout {
   }
 
   startCountdown() {
-    const countDownTime = new Date().getTime() + this.TIMEOUT_NOTICE;
+    const startTime = new Date().getTime() + this.TIMEOUT_NOTICE;
     setInterval(() => {
-      const distance = countDownTime - new Date().getTime();
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const countdown = startTime - new Date().getTime();
+      const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
       if (this.countdownTimer) {
         this.countdownTimer.innerHTML = ` ${minutes}m ${seconds}s `;
       }
