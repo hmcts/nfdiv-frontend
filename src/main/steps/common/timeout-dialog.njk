@@ -2,7 +2,7 @@
 <div id="timeout-modal-container" class="modal" hidden>
   <div #outerContainer id="timeout-modal" class="modal-content govuk-width-container clearfix" tabindex="0">
     <h1 class="govuk-heading-l">{{ timeout.title }}</h1>
-    <p class="govuk-body">{{ timeout.line1 }}</p>
+    <p class="govuk-body">{{ timeout.part1 }}<span id="countdown-timer"></span>{{ timeout.part2 }}</p>
     <div class="govuk-form-group">
       {{ govukButton({
             text: timeout.buttonText,

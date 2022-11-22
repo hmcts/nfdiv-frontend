@@ -130,8 +130,8 @@ export const en = {
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   timeout: {
     title: 'You are about to be signed out',
-    line1:
-      'You are going to be signed out of your application in 2 minutes because of inactivity. This is to protect your personal information.',
+    part1: 'You are going to be signed out of your application in',
+    part2: 'because of inactivity. This is to protect your personal information.',
     buttonText: 'Continue with your application',
   },
   serviceAddress: {

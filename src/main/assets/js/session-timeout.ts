@@ -7,7 +7,7 @@ const eventTimer = 5 * 60 * 1000; // 5 minutes
 class SessionTimeout {
   TWELVE_HOURS = 12 * 60 * 60 * 1000;
   TWENTY_MINUTES = 20 * 60 * 1000;
-  TIMEOUT_NOTICE = 120 * 1000; // 2 minutes
+  TIMEOUT_NOTICE = 2 * 60 * 1000; // 2 minutes
   sessionTimeoutInterval: number = this.getSessionTimeoutInterval();
   timeout;
   notificationTimer;
@@ -15,6 +15,7 @@ class SessionTimeout {
   notificationPopupIsOpen = false;
   notificationPopup = document.getElementById('timeout-modal-container');
   popupCloseBtn = this.notificationPopup?.querySelector('#timeout-modal-close-button');
+  countdownTimer = this.notificationPopup?.querySelector('#countdown-timer');
   form = document.getElementById('main-form');
 
   schedule(): void {
@@ -48,10 +49,23 @@ class SessionTimeout {
     if (visible) {
       this.notificationPopup?.removeAttribute('hidden');
       this.notificationPopupIsOpen = true;
+      this.startCountdown();
     } else {
       this.notificationPopup?.setAttribute('hidden', 'hidden');
       this.notificationPopupIsOpen = false;
     }
+  }
+
+  startCountdown() {
+    const countDownTime = new Date().getTime() + this.TIMEOUT_NOTICE;
+    setInterval(() => {
+      const distance = countDownTime - new Date().getTime();
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (this.countdownTimer) {
+        this.countdownTimer.innerHTML = ` ${minutes}m ${seconds}s `;
+      }
+    }, 1000);
   }
 
   async saveSessionAndRedirect(): Promise<void> {
