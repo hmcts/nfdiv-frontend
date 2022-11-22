@@ -138,6 +138,7 @@ Feature: Joint final order
     When I login with applicant "1"
     Then the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
 
+  @nightly
   Scenario: [5] Applicant 2 joint switch to sole final order journey - switch to sole not yet available
     Given I login with applicant "2"
     Then the page should include "You can now apply for a ‘final order’."
@@ -171,6 +172,7 @@ Feature: Joint final order
     When I login with applicant "2"
     Then the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
 
+  @nightly
   Scenario: [6] Applicant 1 joint switch to sole final order journey - switch to sole available
     Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
@@ -211,6 +213,7 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
 
+  @nightly
   Scenario: [7] Applicant 2 joint switch to sole final order journey - switch to sole available
     Given I login with applicant "2"
     Then the page should include "You can now apply for a ‘final order’."
@@ -248,5 +251,5 @@ Feature: Joint final order
     Then the page URL should be "/applicant2/finalising-your-application"
     And the page should include "Do you want to finalise your divorce?"
     Then I click "Submit"
-    Then the page URL should be "/applicant2/hub-page"
+    Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
