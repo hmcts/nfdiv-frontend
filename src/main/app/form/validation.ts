@@ -80,8 +80,7 @@ export const isLessThanAYearAgoInc: DateValidator = date => {
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   const today = new Date();
-  const oneYearAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
   if (enteredDate >= oneYearAgo) {
     return 'lessThanAYearAgoInc';
   }
