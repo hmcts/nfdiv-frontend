@@ -57,6 +57,7 @@ import {
   HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
+  HOW_TO_FINALISE_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
@@ -517,6 +518,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: CHANGING_TO_SOLE_APPLICATION,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: HOW_TO_FINALISE_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   {
