@@ -708,6 +708,8 @@ export interface CaseData {
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -843,6 +845,11 @@ export interface CaseData {
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
   switchedToSoleCo: YesOrNo;
+  coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
 }
 
 export interface CaseDocuments {
@@ -945,6 +952,7 @@ export interface ConditionalOrder {
   LastApprovedServiceApplicationIsBailiffApplication: YesOrNo;
   CertificateOfServiceDate: DateAsString;
   SuccessfulServedByBailiff: YesOrNo;
+  IsAdminClarificationSubmitted: YesOrNo;
 }
 
 export interface ConditionalOrderQuestions {
@@ -1803,6 +1811,7 @@ export const enum HubTemplate {
   FinalOrderComplete = '/final-order-complete.njk',
   FinalOrderRequested = '/final-order-requested.njk',
   Holding = '/holding.njk',
+  IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
 }
 
@@ -2278,3 +2287,4 @@ export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-dat
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
+export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';

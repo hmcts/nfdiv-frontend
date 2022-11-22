@@ -143,6 +143,11 @@ const fields: FromApiConverters = {
   switchedToSoleCo: 'switchedToSoleCo',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
   applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
+  coIsAdminClarificationSubmitted: 'coIsAdminClarificationSubmitted',
+  doesApplicant1IntendToSwitchToSole: 'doesApplicant1IntendToSwitchToSole',
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
+  doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
 };
 
 const fromApiDate = date => {

@@ -15,6 +15,7 @@ dates:
   applyForFoDays: 43
   applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
+  switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice

@@ -324,6 +324,8 @@ export interface Case {
   applicant2SolicitorRepresented: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
+  applicant1IntendsToSwitchToSole?: Checkbox;
+  applicant2IntendsToSwitchToSole?: Checkbox;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
@@ -333,6 +335,11 @@ export interface Case {
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;
   switchedToSoleCo: YesOrNo;
+  coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
 }
 
 export interface CaseWithId extends Case {
