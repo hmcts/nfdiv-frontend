@@ -6,7 +6,6 @@ import { Response } from 'express';
 import { Case, CaseWithId } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
-  ApplicationType,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   State,
@@ -52,21 +51,13 @@ export default class FinalisingYourApplicationPostController extends PostControl
 
     let nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
 
-    const hasSwitchedToSoleFo =
+    const hasApplicant2SwitchedToSoleFo =
       req.session.isApplicant2 &&
-      req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-      req.session.userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
-      req.session.userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES &&
-      dayjs().isAfter(
-        dayjs(req.session.userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo).add(
-          config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-          'day'
-        )
-      ) &&
+      req.session.userCase.finalOrderSwitchedToSole === YesOrNo.YES &&
       req.session.userCase.state === State.FinalOrderRequested &&
       formData.doesApplicant2WantToApplyForFinalOrder;
 
-    if (hasSwitchedToSoleFo) {
+    if (hasApplicant2SwitchedToSoleFo) {
       req.session.isApplicant2 = false;
       nextUrl = req.session.errors.length > 0 ? req.url : HUB_PAGE;
     }
@@ -87,20 +78,20 @@ export default class FinalisingYourApplicationPostController extends PostControl
       ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
       : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
 
-    const hasApplicantDeclaredIntentionToSwitchToSoleFo =
-      (isApplicant2
-        ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
-        : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES) &&
-      dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo);
+    const hasApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
+      ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
+      : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
+
+    const hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired = dayjs().isAfter(
+      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
+        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
+        'day'
+      )
+    );
 
     if (
       hasApplicantDeclaredIntentionToSwitchToSoleFo &&
-      dayjs().isAfter(
-        dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
-          config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-          'day'
-        )
-      ) &&
+      hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired &&
       userCase.state === State.AwaitingJointFinalOrder
     ) {
       return SWITCH_TO_SOLE_FO;
