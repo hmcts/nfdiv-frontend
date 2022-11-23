@@ -148,7 +148,7 @@ class SessionTimeout {
 const sessionTimeout = new SessionTimeout();
 
 setTimeout(() => {
-  ['click', 'touchstart', 'mousemove', 'keypress', 'keydown'].forEach(evt =>
+  ['click', 'touchstart', 'mousemove', 'keypress', 'keydown', 'scroll'].forEach(evt =>
     document.addEventListener(evt, sessionTimeout.pingUserActive())
   );
 }, eventTimer);
