@@ -144,6 +144,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
   doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
+  finalOrderSwitchedToSole: 'finalOrderSwitchedToSole',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -344,6 +345,7 @@ export interface Case {
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
   doesApplicant2IntendToSwitchToSole: YesOrNo;
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  finalOrderSwitchedToSole: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

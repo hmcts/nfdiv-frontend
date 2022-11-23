@@ -850,6 +850,7 @@ export interface CaseData {
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
   doesApplicant2IntendToSwitchToSole: YesOrNo;
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  finalOrderSwitchedToSole: YesOrNo;
 }
 
 export interface CaseDocuments {
