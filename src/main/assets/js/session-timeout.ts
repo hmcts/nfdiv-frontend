@@ -11,6 +11,7 @@ class SessionTimeout {
   sessionTimeoutInterval: number = this.getSessionTimeoutInterval();
   timeout;
   notificationTimer;
+  countdownInterval;
 
   notificationPopupIsOpen = false;
   notificationPopup: HTMLElement | null = document.getElementById('timeout-modal-container');
@@ -26,6 +27,7 @@ class SessionTimeout {
 
   onNotificationPopupClose(): void {
     this.popupCloseBtn?.addEventListener('click', () => {
+      this.clearCountdown();
       this.showNotificationPopup(false);
       this.scheduleSignOut();
       this.pingUserActive();
@@ -58,16 +60,27 @@ class SessionTimeout {
     }
   }
 
+  convertCountdownToHumanReadableText(countdown: number): string {
+    const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+    return minutes === 0 ? `${seconds}s` : `${minutes}m ${seconds}s`;
+  }
+
   startCountdown() {
     const startTime = new Date().getTime() + this.TIMEOUT_NOTICE;
-    setInterval(() => {
+    this.countdownInterval = setInterval(() => {
       const countdown = startTime - new Date().getTime();
-      const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
       if (this.countdownTimer) {
-        this.countdownTimer.innerHTML = ` ${minutes}m ${seconds}s `;
+        this.countdownTimer.innerHTML = ` ${this.convertCountdownToHumanReadableText(countdown)} `;
       }
     }, 1000);
+  }
+
+  clearCountdown() {
+    if (this.countdownInterval && this.countdownTimer) {
+      clearInterval(this.countdownInterval);
+      this.countdownTimer.innerHTML = ` ${this.convertCountdownToHumanReadableText(this.TIMEOUT_NOTICE)} `;
+    }
   }
 
   trapFocusInModal() {
@@ -135,7 +148,7 @@ class SessionTimeout {
 const sessionTimeout = new SessionTimeout();
 
 setTimeout(() => {
-  ['click', 'touchstart', 'mousemove', 'keypress'].forEach(evt =>
+  ['click', 'touchstart', 'mousemove', 'keypress', 'keydown'].forEach(evt =>
     document.addEventListener(evt, sessionTimeout.pingUserActive())
   );
 }, eventTimer);
