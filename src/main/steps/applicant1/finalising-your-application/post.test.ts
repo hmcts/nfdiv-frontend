@@ -67,6 +67,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const req = mockRequest({ body });
     req.session.lang = SupportedLanguages.Cy;
     req.session.isApplicant2 = true;
+    req.locals.api.triggerEvent = jest.fn().mockReturnValue({});
 
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
@@ -93,6 +94,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { isApplicant2: true } });
+    req.locals.api.triggerEvent = jest.fn().mockReturnValue({});
     const res = mockResponse();
     await finalisingYourApplicationPostController.post(req, res);
 
