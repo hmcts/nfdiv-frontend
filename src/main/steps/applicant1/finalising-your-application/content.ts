@@ -8,6 +8,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent) => ({
@@ -298,6 +299,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
