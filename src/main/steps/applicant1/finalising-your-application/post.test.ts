@@ -1,9 +1,16 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { APPLICANT2_FINAL_ORDER_REQUESTED, FINAL_ORDER_REQUESTED, YesOrNo } from '../../../app/case/definition';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
+import {
+  APPLICANT2_FINAL_ORDER_REQUESTED,
+  FINAL_ORDER_REQUESTED,
+  SWITCH_TO_SOLE_FO,
+  State,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
+import { FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls';
 
 import FinalisingYourApplicationPostController from './post';
 
@@ -99,5 +106,58 @@ describe('FinalisingYourApplicationPostController', () => {
     await finalisingYourApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, APPLICANT2_FINAL_ORDER_REQUESTED);
+  });
+
+  it('triggers SWITCH_TO_SOLE_FO for Applicant 1', async () => {
+    const body = {
+      doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
+    };
+    const mockFormContent = {
+      fields: {
+        doesApplicant1WantToApplyForFinalOrder: {},
+      },
+    } as unknown as FormContent;
+    const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
+
+    const userCase = <CaseWithId>{
+      doesApplicant1IntendToSwitchToSole: YesOrNo.YES,
+      dateApplicant1DeclaredIntentionToSwitchToSoleFo: '2022-10-10',
+      state: State.AwaitingJointFinalOrder,
+    };
+    const req = mockRequest({ body, session: { isApplicant2: false }, userCase });
+    req.locals.api.triggerEvent = jest.fn().mockReturnValue({});
+    req.originalUrl = FINALISING_YOUR_APPLICATION;
+    const res = mockResponse();
+    await finalisingYourApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SWITCH_TO_SOLE_FO);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+
+  it('triggers SWITCH_TO_SOLE_FO for Applicant 2', async () => {
+    const body = {
+      doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
+    };
+    const mockFormContent = {
+      fields: {
+        doesApplicant2WantToApplyForFinalOrder: {},
+      },
+    } as unknown as FormContent;
+    const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
+
+    const userCase = <CaseWithId>{
+      doesApplicant2IntendToSwitchToSole: YesOrNo.YES,
+      dateApplicant2DeclaredIntentionToSwitchToSoleFo: '2022-10-10',
+      state: State.AwaitingJointFinalOrder,
+    };
+    const req = mockRequest({ body, session: { isApplicant2: true }, userCase });
+    req.locals.api.triggerEvent = jest
+      .fn()
+      .mockReturnValue({ finalOrderSwitchedToSole: YesOrNo.YES, state: State.FinalOrderRequested });
+    const res = mockResponse();
+    await finalisingYourApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SWITCH_TO_SOLE_FO);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 });
