@@ -10,7 +10,7 @@ import {
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
-import { FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls';
 
 import FinalisingYourApplicationPostController from './post';
 
@@ -151,6 +151,7 @@ describe('FinalisingYourApplicationPostController', () => {
       state: State.AwaitingJointFinalOrder,
     };
     const req = mockRequest({ body, session: { isApplicant2: true }, userCase });
+    req.originalUrl = APPLICANT_2 + FINALISING_YOUR_APPLICATION;
     req.locals.api.triggerEvent = jest
       .fn()
       .mockReturnValue({ finalOrderSwitchedToSole: YesOrNo.YES, state: State.FinalOrderRequested });

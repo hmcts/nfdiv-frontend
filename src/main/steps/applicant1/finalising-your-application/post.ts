@@ -13,12 +13,12 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form } from '../../../app/form/Form';
-import { getNextStepUrl } from '../../index';
-import { HUB_PAGE } from '../../urls';
+import { Form, FormError } from '../../../app/form/Form';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
+  private formData: Partial<Case> = {};
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     if (req.session.lang === 'cy') {
       if (req.session.isApplicant2) {
@@ -31,43 +31,31 @@ export default class FinalisingYourApplicationPostController extends PostControl
     return super.save(req, formData, eventName);
   }
 
+  protected getNextUrl(req: AppRequest, errors: FormError[], data: Partial<CaseWithId>): string {
+    const hasApplicant2SwitchedToSoleFo =
+      req.session.isApplicant2 &&
+      req.originalUrl === APPLICANT_2 + FINALISING_YOUR_APPLICATION &&
+      req.session.userCase.finalOrderSwitchedToSole === YesOrNo.YES &&
+      req.session.userCase.state === State.FinalOrderRequested &&
+      this.formData.doesApplicant2WantToApplyForFinalOrder;
+
+    if (hasApplicant2SwitchedToSoleFo) {
+      req.session.isApplicant2 = false;
+      req.originalUrl = FINALISING_YOUR_APPLICATION;
+    }
+
+    return super.getNextUrl(req, errors, data);
+  }
+
   protected async saveAndContinue(
     req: AppRequest<AnyObject>,
     res: Response,
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    Object.assign(req.session.userCase, formData);
-    req.session.errors = form.getErrors(formData);
+    this.formData = formData;
 
-    if (req.session.errors.length === 0) {
-      try {
-        req.session.userCase = await this.save(req, formData, this.getEventName(req));
-      } catch (err) {
-        req.locals.logger.error('Error saving', err);
-        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-      }
-    }
-
-    let nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
-
-    const hasApplicant2SwitchedToSoleFo =
-      req.session.isApplicant2 &&
-      req.session.userCase.finalOrderSwitchedToSole === YesOrNo.YES &&
-      req.session.userCase.state === State.FinalOrderRequested &&
-      formData.doesApplicant2WantToApplyForFinalOrder;
-
-    if (hasApplicant2SwitchedToSoleFo) {
-      req.session.isApplicant2 = false;
-      nextUrl = req.session.errors.length > 0 ? req.url : HUB_PAGE;
-    }
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(nextUrl);
-    });
+    return super.saveAndContinue(req, res, form, formData);
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
