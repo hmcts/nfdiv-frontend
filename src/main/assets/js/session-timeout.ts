@@ -13,9 +13,10 @@ class SessionTimeout {
   notificationTimer;
 
   notificationPopupIsOpen = false;
-  notificationPopup = document.getElementById('timeout-modal-container');
-  popupCloseBtn = this.notificationPopup?.querySelector('#timeout-modal-close-button');
-  countdownTimer = this.notificationPopup?.querySelector('#countdown-timer');
+  notificationPopup: HTMLElement | null = document.getElementById('timeout-modal-container');
+  popupCloseBtn: HTMLButtonElement | null | undefined =
+    this.notificationPopup?.querySelector('#timeout-modal-close-button');
+  countdownTimer: HTMLSpanElement | null | undefined = this.notificationPopup?.querySelector('#countdown-timer');
   form = document.getElementById('main-form');
 
   schedule(): void {
@@ -50,6 +51,7 @@ class SessionTimeout {
       this.notificationPopup?.removeAttribute('hidden');
       this.notificationPopupIsOpen = true;
       this.startCountdown();
+      this.trapFocusInModal();
     } else {
       this.notificationPopup?.setAttribute('hidden', 'hidden');
       this.notificationPopupIsOpen = false;
@@ -66,6 +68,29 @@ class SessionTimeout {
         this.countdownTimer.innerHTML = ` ${minutes}m ${seconds}s `;
       }
     }, 1000);
+  }
+
+  trapFocusInModal() {
+    const firstFocusableElement: HTMLSpanElement | null | undefined =
+      this.notificationPopup?.querySelector('#timeout-modal');
+    const lastFocusableElement: HTMLAnchorElement | null | undefined =
+      this.notificationPopup?.querySelector('#timeout-signout-link');
+    firstFocusableElement?.focus();
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Tab') {
+        if (event.shiftKey) {
+          if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement?.focus();
+            event.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastFocusableElement) {
+            firstFocusableElement?.focus();
+            event.preventDefault();
+          }
+        }
+      }
+    });
   }
 
   async saveSessionAndRedirect(): Promise<void> {
