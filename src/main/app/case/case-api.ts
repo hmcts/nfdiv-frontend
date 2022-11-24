@@ -60,14 +60,14 @@ export class CaseApi {
     return this.getPriorityUserCase(userCases);
   }
 
-  public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
-    const userRoles: CaseAssignedUserRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
-    return userRoles.case_users[0]?.case_role;
-  }
-
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
     const userRole: UserRole = await this.getUsersRoleOnCase(caseId, userId);
     return userRole === UserRole.APPLICANT_2;
+  }
+
+  public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
+    const userRoles: CaseAssignedUserRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
+    return userRoles.case_users[0]?.case_role;
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
