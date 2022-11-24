@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
-import { CaseWithId, Checkbox } from '../../app/case/case';
+import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
@@ -84,9 +84,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
-        return userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-          (userCase.applicant2StatementOfTruth === Checkbox.Checked ||
-            userCase.aosStatementOfTruth === Checkbox.Checked)
+        return userCase.applicationType === ApplicationType.SOLE_APPLICATION && userCase.dateAosSubmitted
           ? READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION;
       } else {

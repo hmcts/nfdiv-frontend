@@ -167,12 +167,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, isJointApplication } = content;
-  const aosSubmitted =
-    !isJointApplication &&
-    (userCase.applicant2StatementOfTruth ||
-      userCase.aosStatementOfTruth ||
-      userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
+  const { userCase } = content;
+  const isAosSubmitted =
+    userCase.dateAosSubmitted &&
+    (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+      userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
   const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
@@ -198,7 +197,7 @@ export const generateContent: TranslationFn = content => {
   );
 
   return {
-    aosSubmitted,
+    isAosSubmitted,
     hasCertificateOfService,
     hasCertificateOfDeemedOrDispensedService,
     hasCertificateOfEntitlement,
