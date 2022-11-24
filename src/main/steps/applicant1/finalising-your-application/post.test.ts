@@ -120,6 +120,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
 
     const userCase = <CaseWithId>{
+      applicant1AppliedForFinalOrderFirst: YesOrNo.YES,
       doesApplicant1IntendToSwitchToSole: YesOrNo.YES,
       dateApplicant1DeclaredIntentionToSwitchToSoleFo: '2022-10-10',
       state: State.AwaitingJointFinalOrder,
@@ -146,6 +147,7 @@ describe('FinalisingYourApplicationPostController', () => {
     const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(mockFormContent.fields);
 
     const userCase = <CaseWithId>{
+      applicant2AppliedForFinalOrderFirst: YesOrNo.YES,
       doesApplicant2IntendToSwitchToSole: YesOrNo.YES,
       dateApplicant2DeclaredIntentionToSwitchToSoleFo: '2022-10-10',
       state: State.AwaitingJointFinalOrder,
