@@ -6,8 +6,8 @@ export const getJointHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
   hasApplicantAppliedForConditionalOrder = false,
-  withinSwitchToSoleFinalOrderNotificationWindow = false,
-  hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired = false
+  isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod = false,
+  hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired = false
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -41,10 +41,10 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
     case State.AwaitingJointFinalOrder:
-      if (withinSwitchToSoleFinalOrderNotificationWindow) {
+      if (isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod) {
         return HubTemplate.IntendToSwitchToSoleFinalOrder;
       }
-      if (hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired) {
+      if (hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired) {
         return HubTemplate.AwaitingFinalOrder;
       }
       return HubTemplate.AwaitingJointFinalOrder;

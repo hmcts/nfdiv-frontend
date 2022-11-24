@@ -23,8 +23,8 @@
       name: applicantApplyForConditionalOrderStarted,
       value: "Yes"
     }) }}
-  {% elif (isFinalOrderAwaitingOrOverdue and not hasApplicantAppliedForFinalOrderFirst)
-    or hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired %}
+  {% elif isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst
+    or isIntendingAndAbleToSwitchToSoleFinalOrder %}
       {{ govukButton({
         text: awaitingFinalOrder.buttonText,
         classes: form.submit.classes,

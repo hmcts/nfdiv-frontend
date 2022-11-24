@@ -7,6 +7,8 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
+import { hasApplicantAppliedForFinalOrderFirst } from '../../../common/content.utils';
+import { getSwitchToSoleFinalOrderStatus } from '../../../common/switch.to.sole.content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
 
@@ -306,48 +308,16 @@ export const generateContent: TranslationFn = content => {
     .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
     .isBefore(dayjs());
 
-  const hasApplicantAppliedForFinalOrderFirst = isApplicant2
-    ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
-    : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
-
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
 
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
-    hasApplicantAppliedForFinalOrderFirst &&
+    hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2) &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
     ) &&
-    userCase.state === State.AwaitingJointFinalOrder;
-
-  const doesApplicantIntendToSwitchToSoleFinalOrder = isApplicant2
-    ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
-    : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
-
-  const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
-    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
-
-  const hasApplicantDeclaredIntentionToSwitchToSoleFo =
-    hasApplicantAppliedForFinalOrderFirst &&
-    doesApplicantIntendToSwitchToSoleFinalOrder &&
-    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFo);
-
-  const applicantSwitchToSoleFoIntentionNotificationExpires = dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
-    config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-    'day'
-  );
-
-  const withinSwitchToSoleFinalOrderIntentionNotificationWindow =
-    hasApplicantDeclaredIntentionToSwitchToSoleFo &&
-    dayjs().isBefore(applicantSwitchToSoleFoIntentionNotificationExpires) &&
-    userCase.state === State.AwaitingJointFinalOrder;
-
-  const hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired =
-    hasApplicantDeclaredIntentionToSwitchToSoleFo &&
-    dayjs().isAfter(applicantSwitchToSoleFoIntentionNotificationExpires) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
   const isFinalOrderAwaitingOrOverdue =
@@ -355,18 +325,23 @@ export const generateContent: TranslationFn = content => {
     displayState.state() === State.AwaitingJointFinalOrder ||
     displayState.state() === State.FinalOrderOverdue;
 
+  const isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst =
+    isFinalOrderAwaitingOrOverdue && !hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
+
+  const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
   const theLatestUpdateTemplate = getJointHubTemplate(
     displayState,
     userCase,
     hasApplicantAppliedForConditionalOrder,
-    withinSwitchToSoleFinalOrderIntentionNotificationWindow,
-    hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired
+    switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod,
+    switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired
   );
 
   return {
@@ -380,11 +355,10 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    hasApplicantAppliedForFinalOrderFirst,
+    hasApplicantAppliedForFinalOrderFirst: hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2),
+    isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst,
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
-    withinSwitchToSoleFinalOrderIntentionNotificationWindow,
-    hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired,
-    isFinalOrderAwaitingOrOverdue,
+    isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder,
   };
 };
