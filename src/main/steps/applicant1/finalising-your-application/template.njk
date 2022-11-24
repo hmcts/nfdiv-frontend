@@ -5,7 +5,9 @@
 
 {% set readMoreContent %}
     <p class="govuk-body">{{ readMore.line1 }}</p>
+  {% if not isIntendingAndAbleToSwitchToSoleFinalOrder %}
     <p class="govuk-body">{{ readMore.line2 }}</p>
+  {% endif %}
     <p class="govuk-body">{{ readMore.line3 }}</p>
 {% endset %}
 
