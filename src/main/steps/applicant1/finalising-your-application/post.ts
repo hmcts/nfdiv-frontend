@@ -1,6 +1,4 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
-import dayjs from 'dayjs';
 import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../app/case/case';
@@ -14,6 +12,7 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError } from '../../../app/form/Form';
+import { getSwitchToSoleFinalOrderStatus } from '../../common/switch.to.sole.content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
 @autobind
@@ -59,32 +58,11 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    const userCase = req.session.userCase;
-    const isApplicant2 = req.session.isApplicant2;
-
-    const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-      ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
-      : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
-
-    const hasApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-      ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
-      : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
-
-    const hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired = dayjs().isAfter(
-      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
-        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-        'day'
-      )
-    );
-
-    if (
-      hasApplicantDeclaredIntentionToSwitchToSoleFo &&
-      hasSwitchToSoleFinalOrderIntentionNotificationWindowExpired &&
-      userCase.state === State.AwaitingJointFinalOrder
-    ) {
-      return SWITCH_TO_SOLE_FO;
-    }
-
-    return isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
+    return getSwitchToSoleFinalOrderStatus(req.session.userCase, req.session.isApplicant2)
+      .isIntendingAndAbleToSwitchToSoleFinalOrder
+      ? SWITCH_TO_SOLE_FO
+      : req.session.isApplicant2
+      ? APPLICANT2_FINAL_ORDER_REQUESTED
+      : FINAL_ORDER_REQUESTED;
   }
 }

@@ -3,18 +3,16 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
-import { State, YesOrNo } from '../../../app/case/definition';
+import { State } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import {
+  doesApplicantIntendToSwitchToSoleFinalOrder,
+  getSwitchToSoleFinalOrderStatus,
+} from '../../common/switch.to.sole.content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
-
-const doesApplicantIntendToSwitchToSole = (userCase, isApplicant2) => {
-  return isApplicant2
-    ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
-    : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
-};
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `Do you want to ${isDivorce ? 'finalise your divorce' : 'end your civil partnership'}?`,
@@ -25,7 +23,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
   ${isDivorce ? 'your divorce' : 'ending your civil partnership'}. ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSole(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
       ? 'If you want to settle your finances first, then save and sign out.'
       : ''
   }`,
@@ -103,7 +101,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
     You should save and sign out and follow these steps.`,
     line2: `If you want to change to a sole application then it will delay the ${
       isDivorce ? 'divorce' : 'ending of the civil partnership'
-    }
+    }.
     You can change by following the steps below:`,
     orderedList1: {
       linkText: 'Download and fill out an application for a final order',
@@ -137,7 +135,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'} ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSole(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
       ? `jointly with my ${partner}`
       : ''
   }`,
@@ -165,7 +163,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApp
   ${isDivorce ? 'cadarnhau eich ysgariad' : 'dod â’ch partneriaeth sifil i ben'}. ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSole(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
       ? 'Os ydych eisiau setlo eich sefyllfa ariannol yn gyntaf, yna dylech gadw’r cais ac allgofnodi.'
       : ''
   }`,
@@ -277,7 +275,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApp
   checkboxLine: `Rwyf eisiau ${isDivorce ? 'cadarnhau fy ysgariad' : "dod â'm partneriaeth sifil i ben"} ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSole(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
       ? `ar y cyd gyda fy ${partner}`
       : ''
   }`,
@@ -326,26 +324,10 @@ export const generateContent: TranslationFn = content => {
   const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
 
-  const applicantAppliedForFinalOrderFirst = isApplicant2
-    ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
-    : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+  const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
 
-  const dateApplicantDeclaredIntentionToSwitchToSoleFo = isApplicant2
-    ? userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo
-    : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
-
-  const isIntendingAndAbleToSwitchToSoleFo =
-    applicantAppliedForFinalOrderFirst &&
-    doesApplicantIntendToSwitchToSole(userCase, isApplicant2) &&
-    dayjs().isAfter(
-      dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFo).add(
-        config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
-        'day'
-      )
-    ) &&
-    userCase.state === State.AwaitingJointFinalOrder;
-
-  const isJointApplicationAndNotSwitchingToSoleFo = content.isJointApplication && !isIntendingAndAbleToSwitchToSoleFo;
+  const isJointApplicationAndNotSwitchingToSoleFo =
+    content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder;
   const isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue =
     isJointApplicationAndNotSwitchingToSoleFo &&
     (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
@@ -357,6 +339,7 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     ...columnGenerateContent(content),
     isAwaitingJointFinalOrder,
+    isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder,
     isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue,
     isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder,
     form,
