@@ -73,6 +73,21 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
 
+    Given I click "Sign out"
+    When I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
+    Then a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
+
+    Given I click "Sign out"
+    When I login with applicant "1"
+    Then I click "Apply for final order"
+    Then the page URL should be "/finalising-your-application"
+    And the page should include "Do you want to finalise your divorce?"
+    Then I click "Submit"
+    Then the page URL should be "/hub-page"
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+
   @nightly
   Scenario: [3] Applicant 2 joint switch to sole final order journey
     Given I login with applicant "2"
@@ -104,146 +119,11 @@ Feature: Joint final order
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
 
-  @nightly
-  Scenario: [4] Applicant 1 joint switch to sole final order journey - switch to sole not yet available
-    Given I login with applicant "1"
-    Then the page should include "You can now apply for a ‘final order’."
-
-    When I click "Apply for final order"
-    Then the page should include "Do you want to finalise your divorce?"
-
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your husband also has to apply because this is a joint application."
-    And the page should include "They have been sent an email reminder."
-
-    Then I set the case state to "AwaitingJointFinalOrder"
-    And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
-
-    Given I click "Sign out"
-    When I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
-
-    Given I click "as a sole applicant"
-    Then the page URL should be "/how-to-finalise"
-    And the page should include "How to finalise your divorce"
-
-    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my husband"
-    Then I click "Confirm"
-    Then the page URL should be "/hub-page"
-
-    Given I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
-
-  @nightly
-  Scenario: [5] Applicant 2 joint switch to sole final order journey - switch to sole not yet available
-    Given I login with applicant "2"
-    Then the page should include "You can now apply for a ‘final order’."
-
-    When I click "Apply for final order"
-    Then the page should include "Do you want to finalise your divorce?"
-
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/applicant2/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your wife also has to apply because this is a joint application."
-    And the page should include "They have been sent an email reminder."
-
-    Then I set the case state to "AwaitingJointFinalOrder"
-    And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
-
     Given I click "Sign out"
     When I login with applicant "2"
-    Then the page URL should be "/applicant2/hub-page"
-    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
-
-    Given I click "as a sole applicant"
-    Then the page URL should be "/applicant2/how-to-finalise"
-    And the page should include "How to finalise your divorce"
-
-    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
-    Then I click "Confirm"
-    Then the page URL should be "/applicant2/hub-page"
-
-    Given I click "Sign out"
-    When I login with applicant "2"
-    Then the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
-
-  @nightly
-  Scenario: [6] Applicant 1 joint switch to sole final order journey - switch to sole available
-    Given I login with applicant "1"
-    Then the page should include "You can now apply for a ‘final order’."
-
-    When I click "Apply for final order"
-    Then the page should include "Do you want to finalise your divorce?"
-
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your husband also has to apply because this is a joint application."
-    And the page should include "They have been sent an email reminder."
-
-    Then I set the case state to "AwaitingJointFinalOrder"
-    And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
-
-    Given I click "Sign out"
-    When I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
-
-    Given I click "as a sole applicant"
-    Then the page URL should be "/how-to-finalise"
-    And the page should include "How to finalise your divorce"
-
-    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my husband"
-    Then I click "Confirm"
-    Then the page URL should be "/hub-page"
-    And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
-    And a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
-
-    Given I click "Sign out"
-    When I login with applicant "1"
-    Then I click "Apply for final order"
-    Then the page URL should be "/finalising-your-application"
-    And the page should include "Do you want to finalise your divorce?"
-    Then I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-
-  @nightly
-  Scenario: [7] Applicant 2 joint switch to sole final order journey - switch to sole available
-    Given I login with applicant "2"
-    Then the page should include "You can now apply for a ‘final order’."
-
-    When I click "Apply for final order"
-    Then the page should include "Do you want to finalise your divorce?"
-
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/applicant2/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your wife also has to apply because this is a joint application."
-    And the page should include "They have been sent an email reminder."
-
-    Then I set the case state to "AwaitingJointFinalOrder"
-    And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
-
-    Given I click "Sign out"
-    When I login with applicant "2"
-    Then the page URL should be "/applicant2/hub-page"
-    Then the page should include "If you do not think they will confirm the application then you can finalise your divorce"
-
-    Given I click "as a sole applicant"
-    Then the page URL should be "/applicant2/how-to-finalise"
-    And the page should include "How to finalise your divorce"
-
-    Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
-    Then I click "Confirm"
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
-    And a superuser updates "dateApplicant2DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
+    Then a superuser updates "dateApplicant2DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
     Given I click "Sign out"
     When I login with applicant "2"
