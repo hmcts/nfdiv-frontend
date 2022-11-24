@@ -325,9 +325,6 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
-  const isAwaitingFinalOrderState = userCase.state === State.AwaitingFinalOrder;
-  const isAwaitingJointFinalOrderState = userCase.state === State.AwaitingJointFinalOrder;
-  const isFinalOrderOverdue = userCase.state === State.FinalOrderOverdue;
 
   const applicantAppliedForFinalOrderFirst = isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
@@ -349,14 +346,19 @@ export const generateContent: TranslationFn = content => {
     userCase.state === State.AwaitingJointFinalOrder;
 
   const isJointApplicationAndNotSwitchingToSoleFo = content.isJointApplication && !isIntendingAndAbleToSwitchToSoleFo;
+  const isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue =
+    isJointApplicationAndNotSwitchingToSoleFo &&
+    (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
+  const isAwaitingJointFinalOrder = userCase.state === State.AwaitingJointFinalOrder;
+  const isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder =
+    isJointApplicationAndNotSwitchingToSoleFo && isAwaitingJointFinalOrder;
 
   return {
     ...translations,
     ...columnGenerateContent(content),
-    isAwaitingFinalOrderState,
-    isAwaitingJointFinalOrderState,
-    isFinalOrderOverdue,
-    isJointApplicationAndNotSwitchingToSoleFo,
+    isAwaitingJointFinalOrder,
+    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue,
+    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder,
     form,
   };
 };

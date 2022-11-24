@@ -351,9 +351,9 @@ export const generateContent: TranslationFn = content => {
     userCase.state === State.AwaitingJointFinalOrder;
 
   const isFinalOrderAwaitingOrOverdue =
-    displayState.state() === 'AwaitingFinalOrder' ||
-    displayState.state() === 'AwaitingJointFinalOrder' ||
-    displayState.state() === 'FinalOrderOverdue';
+    displayState.state() === State.AwaitingFinalOrder ||
+    displayState.state() === State.AwaitingJointFinalOrder ||
+    displayState.state() === State.FinalOrderOverdue;
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
