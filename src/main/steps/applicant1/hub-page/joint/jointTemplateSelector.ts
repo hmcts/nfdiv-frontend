@@ -2,12 +2,18 @@ import { CaseWithId } from '../../../../app/case/case';
 import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
 import { StateSequence } from '../../../state-sequence';
 
+type switchToSoleIntentionKeys =
+  | 'isWithinSwitchToSoleFoIntentionNotificationPeriod'
+  | 'hasSwitchToSoleFoIntentionNotificationPeriodExpired';
+
 export const getJointHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
   hasApplicantAppliedForConditionalOrder = false,
-  isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod = false,
-  hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired = false
+  switchToSoleIntention: Record<switchToSoleIntentionKeys, boolean> = {
+    isWithinSwitchToSoleFoIntentionNotificationPeriod: false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired: false,
+  }
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -41,10 +47,10 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
     case State.AwaitingJointFinalOrder:
-      if (isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod) {
+      if (switchToSoleIntention.isWithinSwitchToSoleFoIntentionNotificationPeriod) {
         return HubTemplate.IntendToSwitchToSoleFinalOrder;
       }
-      if (hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired) {
+      if (switchToSoleIntention.hasSwitchToSoleFoIntentionNotificationPeriodExpired) {
         return HubTemplate.AwaitingFinalOrder;
       }
       return HubTemplate.AwaitingJointFinalOrder;

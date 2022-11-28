@@ -336,13 +336,12 @@ export const generateContent: TranslationFn = content => {
   const switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
-  const theLatestUpdateTemplate = getJointHubTemplate(
-    displayState,
-    userCase,
-    hasApplicantAppliedForConditionalOrder,
-    switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
-    switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired
-  );
+  const theLatestUpdateTemplate = getJointHubTemplate(displayState, userCase, hasApplicantAppliedForConditionalOrder, {
+    isWithinSwitchToSoleFoIntentionNotificationPeriod:
+      switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired:
+      switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired,
+  });
 
   return {
     ...languages[content.language](content),
