@@ -331,7 +331,7 @@ export const generateContent: TranslationFn = content => {
     isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder: false,
   };
 
-  if (content.isJointApplication) {
+  if (content.isJointApplication && doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)) {
     const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
     const isJointApplicationAndNotSwitchingToSoleFo =
       content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder;

@@ -83,11 +83,22 @@ export const getSwitchToSoleFinalOrderStatus = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): SwitchToSoleFinalOrderStatus => {
-  return {
-    isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod:
-      isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod(userCase, isApplicant2),
-    hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired:
-      hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired(userCase, isApplicant2),
-    isIntendingAndAbleToSwitchToSoleFinalOrder: isIntendingAndAbleToSwitchToSoleFinalOrder(userCase, isApplicant2),
+  const switchToSoleStatus = {
+    isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod: false,
+    hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired: false,
+    isIntendingAndAbleToSwitchToSoleFinalOrder: false,
   };
+
+  if (doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2) === true) {
+    switchToSoleStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod =
+      isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod(userCase, isApplicant2);
+    switchToSoleStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired =
+      hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired(userCase, isApplicant2);
+    switchToSoleStatus.isIntendingAndAbleToSwitchToSoleFinalOrder = isIntendingAndAbleToSwitchToSoleFinalOrder(
+      userCase,
+      isApplicant2
+    );
+  }
+
+  return switchToSoleStatus;
 };
