@@ -5,7 +5,7 @@ import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
-import { Form, FormError, FormFields, FormFieldsFn } from '../form/Form';
+import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 
@@ -47,8 +47,10 @@ export class PostController<T extends AnyObject> {
     res.redirect(SAVE_AND_SIGN_OUT);
   }
 
-  protected getNextUrl(req: AppRequest, errors: FormError[], data: Partial<CaseWithId>): string {
-    return errors.length > 0 ? req.url : getNextStepUrl(req, data);
+  protected getNextUrl(req: AppRequest): string {
+    return req.session.errors !== undefined && req.session.errors.length > 0
+      ? req.url
+      : getNextStepUrl(req, req.session.userCase);
   }
 
   protected async saveAndContinue(
@@ -69,7 +71,7 @@ export class PostController<T extends AnyObject> {
       }
     }
 
-    const nextUrl = this.getNextUrl(req, req.session.errors, req.session.userCase);
+    const nextUrl = this.getNextUrl(req);
 
     req.session.save(err => {
       if (err) {

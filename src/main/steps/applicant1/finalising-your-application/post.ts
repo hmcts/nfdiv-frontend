@@ -11,7 +11,7 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormError } from '../../../app/form/Form';
+import { Form } from '../../../app/form/Form';
 import { getSwitchToSoleFinalOrderStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
@@ -30,7 +30,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
     return super.save(req, formData, eventName);
   }
 
-  protected getNextUrl(req: AppRequest, errors: FormError[], data: Partial<CaseWithId>): string {
+  protected getNextUrl(req: AppRequest): string {
     const hasApplicant2SwitchedToSoleFo =
       req.session.isApplicant2 &&
       req.originalUrl === APPLICANT_2 + FINALISING_YOUR_APPLICATION &&
@@ -43,7 +43,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
       req.originalUrl = FINALISING_YOUR_APPLICATION;
     }
 
-    return super.getNextUrl(req, errors, data);
+    return super.getNextUrl(req);
   }
 
   protected async saveAndContinue(
