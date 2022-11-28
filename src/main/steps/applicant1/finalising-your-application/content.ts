@@ -324,24 +324,29 @@ export const generateContent: TranslationFn = content => {
   const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
 
-  const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+  const switchToSoleLogic = {
+    isAwaitingJointFinalOrder: false,
+    isIntendingAndAbleToSwitchToSoleFinalOrder: false,
+    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue: false,
+    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder: false,
+  };
 
-  const isJointApplicationAndNotSwitchingToSoleFo =
-    content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder;
-  const isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue =
-    isJointApplicationAndNotSwitchingToSoleFo &&
-    (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
-  const isAwaitingJointFinalOrder = userCase.state === State.AwaitingJointFinalOrder;
-  const isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder =
-    isJointApplicationAndNotSwitchingToSoleFo && isAwaitingJointFinalOrder;
+  if (content.isJointApplication) {
+    const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    const isJointApplicationAndNotSwitchingToSoleFo =
+      content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder;
+    switchToSoleLogic.isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue =
+      isJointApplicationAndNotSwitchingToSoleFo &&
+      (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
+    switchToSoleLogic.isAwaitingJointFinalOrder = userCase.state === State.AwaitingJointFinalOrder;
+    switchToSoleLogic.isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder =
+      isJointApplicationAndNotSwitchingToSoleFo && switchToSoleLogic.isAwaitingJointFinalOrder;
+  }
 
   return {
     ...translations,
     ...columnGenerateContent(content),
-    isAwaitingJointFinalOrder,
-    isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder,
-    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue,
-    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder,
+    ...switchToSoleLogic,
     form,
   };
 };
