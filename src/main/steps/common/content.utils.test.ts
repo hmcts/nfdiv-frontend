@@ -20,7 +20,7 @@ import {
   getPartner,
   getSelectedGender,
   getServiceName,
-  hasApplicantAppliedForFinalOrderFirst,
+  hasApplicantAppliedForFoFirst,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
 } from './content.utils';
@@ -324,11 +324,11 @@ describe('content.utils', () => {
       } as Partial<CaseWithId>;
       let isApplicant2 = false;
       let expected = true;
-      let actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
       isApplicant2 = true;
       expected = false;
-      actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
 
@@ -339,11 +339,11 @@ describe('content.utils', () => {
       } as Partial<CaseWithId>;
       let isApplicant2 = true;
       let expected = true;
-      let actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
       isApplicant2 = false;
       expected = false;
-      actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
 
@@ -354,10 +354,10 @@ describe('content.utils', () => {
       } as Partial<CaseWithId>;
       let isApplicant2 = false;
       const expected = false;
-      let actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
       isApplicant2 = true;
-      actual = hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
   });

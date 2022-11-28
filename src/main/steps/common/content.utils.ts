@@ -124,10 +124,7 @@ export const isApplicant2EmailUpdatePossible = (userCase: Partial<CaseWithId>): 
 
 export const checkboxToBoolean = (checkboxValue: Checkbox | undefined): boolean => checkboxValue === Checkbox.Checked;
 
-export const hasApplicantAppliedForFinalOrderFirst = (
-  userCase: Partial<CaseWithId>,
-  isApplicant2: boolean
-): boolean => {
+export const hasApplicantAppliedForFoFirst = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
   return isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;

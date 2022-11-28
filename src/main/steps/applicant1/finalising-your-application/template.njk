@@ -25,7 +25,7 @@
 
 {% set readMoreContentChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
-  {% if isAwaitingJointFinalOrder  %}
+  {% if isStateAwaitingJointFo  %}
     <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
   {% endif %}
   <ol class="govuk-list govuk-list--number">
@@ -81,12 +81,12 @@
     text: warningText,
     iconFallbackText: "Warning"
   }) }}
-  {% if isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue %}
+  {% if isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue %}
     {{ govukDetails({
       summaryText: readMoreJoint.subHeader,
       html: readMoreContentJoint
     }) }}
- {% elif isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder %}
+ {% elif isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo %}
     {{ govukDetails({
       summaryText: readMoreAboutSettlingFinances.subHeader,
       html: readMoreAboutSettlingFinancesContentJoint

@@ -4,24 +4,21 @@ import dayjs from 'dayjs';
 import { CaseWithId } from '../../app/case/case';
 import { State, YesOrNo } from '../../app/case/definition';
 
-import { hasApplicantAppliedForFinalOrderFirst } from './content.utils';
+import { hasApplicantAppliedForFoFirst } from './content.utils';
 
 interface SwitchToSoleFinalOrderStatus {
-  isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod: boolean;
-  hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired: boolean;
-  isIntendingAndAbleToSwitchToSoleFinalOrder: boolean;
+  isWithinSwitchToSoleFoIntentionNotificationPeriod: boolean;
+  hasSwitchToSoleFoIntentionNotificationPeriodExpired: boolean;
+  isIntendingAndAbleToSwitchToSoleFo: boolean;
 }
 
-export const doesApplicantIntendToSwitchToSoleFinalOrder = (
-  userCase: Partial<CaseWithId>,
-  isApplicant2: boolean
-): boolean => {
+export const doesApplicantIntendToSwitchToSoleFo = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
   return isApplicant2
     ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
     : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
 };
 
-const dateApplicantDeclaredIntentionToSwitchToSoleFinalOrder = (
+const getDateApplicantDeclaredIntentionToSwitchToSoleFo = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): string | undefined => {
@@ -30,74 +27,70 @@ const dateApplicantDeclaredIntentionToSwitchToSoleFinalOrder = (
     : userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo;
 };
 
-const hasApplicantDeclaredIntentionToSwitchToSoleFinalOrder = (
+const hasApplicantDeclaredIntentionToSwitchToSoleFo = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): boolean => {
   return (
-    hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2) &&
-    doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2) &&
-    dayjs().isAfter(dateApplicantDeclaredIntentionToSwitchToSoleFinalOrder(userCase, isApplicant2))
+    hasApplicantAppliedForFoFirst(userCase, isApplicant2) && doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
   );
 };
 
-const applicantSwitchToSoleFinalOrderIntentionNotificationPeriodExpiryDate = (
+const getApplicantSwitchToSoleFoIntentionNotificationPeriodExpiryDate = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): dayjs.Dayjs => {
-  return dayjs(dateApplicantDeclaredIntentionToSwitchToSoleFinalOrder(userCase, isApplicant2)).add(
+  return dayjs(getDateApplicantDeclaredIntentionToSwitchToSoleFo(userCase, isApplicant2)).add(
     config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'),
     'day'
   );
 };
 
-const isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod = (
+const isWithinSwitchToSoleFoIntentionNotificationPeriod = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): boolean => {
   return (
-    hasApplicantDeclaredIntentionToSwitchToSoleFinalOrder(userCase, isApplicant2) &&
-    dayjs().isBefore(applicantSwitchToSoleFinalOrderIntentionNotificationPeriodExpiryDate(userCase, isApplicant2)) &&
+    hasApplicantDeclaredIntentionToSwitchToSoleFo(userCase, isApplicant2) &&
+    dayjs().isAfter(getDateApplicantDeclaredIntentionToSwitchToSoleFo(userCase, isApplicant2)) &&
+    dayjs().isBefore(getApplicantSwitchToSoleFoIntentionNotificationPeriodExpiryDate(userCase, isApplicant2)) &&
     userCase.state === State.AwaitingJointFinalOrder
   );
 };
 
-const hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired = (
+const hasSwitchToSoleFoIntentionNotificationPeriodExpired = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): boolean => {
   return (
-    hasApplicantDeclaredIntentionToSwitchToSoleFinalOrder(userCase, isApplicant2) &&
-    dayjs().isAfter(applicantSwitchToSoleFinalOrderIntentionNotificationPeriodExpiryDate(userCase, isApplicant2))
+    hasApplicantDeclaredIntentionToSwitchToSoleFo(userCase, isApplicant2) &&
+    dayjs().isAfter(getApplicantSwitchToSoleFoIntentionNotificationPeriodExpiryDate(userCase, isApplicant2))
   );
 };
 
-const isIntendingAndAbleToSwitchToSoleFinalOrder = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
+const isIntendingAndAbleToSwitchToSoleFo = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
   return (
-    hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired(userCase, isApplicant2) &&
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder
   );
 };
 
-export const getSwitchToSoleFinalOrderStatus = (
+export const getSwitchToSoleFoStatus = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): SwitchToSoleFinalOrderStatus => {
   const switchToSoleStatus = {
-    isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod: false,
-    hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired: false,
-    isIntendingAndAbleToSwitchToSoleFinalOrder: false,
+    isWithinSwitchToSoleFoIntentionNotificationPeriod: false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired: false,
+    isIntendingAndAbleToSwitchToSoleFo: false,
   };
 
-  if (doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2) === true) {
-    switchToSoleStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod =
-      isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod(userCase, isApplicant2);
-    switchToSoleStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired =
-      hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired(userCase, isApplicant2);
-    switchToSoleStatus.isIntendingAndAbleToSwitchToSoleFinalOrder = isIntendingAndAbleToSwitchToSoleFinalOrder(
-      userCase,
-      isApplicant2
-    );
+  if (doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2) === true) {
+    switchToSoleStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod =
+      isWithinSwitchToSoleFoIntentionNotificationPeriod(userCase, isApplicant2);
+    switchToSoleStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired =
+      hasSwitchToSoleFoIntentionNotificationPeriodExpired(userCase, isApplicant2);
+    switchToSoleStatus.isIntendingAndAbleToSwitchToSoleFo = isIntendingAndAbleToSwitchToSoleFo(userCase, isApplicant2);
   }
 
   return switchToSoleStatus;

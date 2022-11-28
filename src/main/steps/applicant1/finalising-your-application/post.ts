@@ -11,7 +11,7 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
-import { getSwitchToSoleFinalOrderStatus } from '../../common/switch-to-sole-content.utils';
+import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
 @autobind
@@ -56,8 +56,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    return getSwitchToSoleFinalOrderStatus(req.session.userCase, req.session.isApplicant2)
-      .isIntendingAndAbleToSwitchToSoleFinalOrder
+    return getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo
       ? SWITCH_TO_SOLE_FO
       : req.session.isApplicant2
       ? APPLICANT2_FINAL_ORDER_REQUESTED

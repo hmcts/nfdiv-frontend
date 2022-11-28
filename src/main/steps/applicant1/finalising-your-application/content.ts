@@ -9,8 +9,8 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import {
-  doesApplicantIntendToSwitchToSoleFinalOrder,
-  getSwitchToSoleFinalOrderStatus,
+  doesApplicantIntendToSwitchToSoleFo,
+  getSwitchToSoleFoStatus,
 } from '../../common/switch-to-sole-content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
   ${isDivorce ? 'your divorce' : 'ending your civil partnership'}. ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? 'If you want to settle your finances first, then save and sign out.'
       : ''
   }`,
@@ -135,7 +135,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'} ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? `jointly with my ${partner}`
       : ''
   }`,
@@ -163,7 +163,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApp
   ${isDivorce ? 'cadarnhau eich ysgariad' : 'dod â’ch partneriaeth sifil i ben'}. ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? 'Os ydych eisiau setlo eich sefyllfa ariannol yn gyntaf, yna dylech gadw’r cais ac allgofnodi.'
       : ''
   }`,
@@ -275,7 +275,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApp
   checkboxLine: `Rwyf eisiau ${isDivorce ? 'cadarnhau fy ysgariad' : "dod â'm partneriaeth sifil i ben"} ${
     isJointApplication &&
     State.AwaitingFinalOrder.includes(userCase.state as State) &&
-    !doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? `ar y cyd gyda fy ${partner}`
       : ''
   }`,
@@ -325,22 +325,22 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
 
   const switchToSoleLogic = {
-    isAwaitingJointFinalOrder: false,
-    isIntendingAndAbleToSwitchToSoleFinalOrder: false,
-    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue: false,
-    isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder: false,
+    isStateAwaitingJointFo: false,
+    isIntendingAndAbleToSwitchToSoleFo: false,
+    isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue: false,
+    isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo: false,
   };
 
-  if (content.isJointApplication && doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2)) {
-    const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
-    const isJointApplicationAndNotSwitchingToSoleFo =
-      content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder;
-    switchToSoleLogic.isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingFinalOrderOrFinalOrderOverdue =
-      isJointApplicationAndNotSwitchingToSoleFo &&
+  if (content.isJointApplication && doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)) {
+    const switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
+    const isJointAppNotSwitchingToSoleFo =
+      content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo;
+    switchToSoleLogic.isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue =
+      isJointAppNotSwitchingToSoleFo &&
       (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
-    switchToSoleLogic.isAwaitingJointFinalOrder = userCase.state === State.AwaitingJointFinalOrder;
-    switchToSoleLogic.isJointApplicationAndNotSwitchingToSoleFinalOrderAndAwaitingJointFinalOrder =
-      isJointApplicationAndNotSwitchingToSoleFo && switchToSoleLogic.isAwaitingJointFinalOrder;
+    switchToSoleLogic.isStateAwaitingJointFo = userCase.state === State.AwaitingJointFinalOrder;
+    switchToSoleLogic.isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo =
+      isJointAppNotSwitchingToSoleFo && switchToSoleLogic.isStateAwaitingJointFo;
   }
 
   return {

@@ -5,10 +5,7 @@ import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import { State, YesOrNo } from '../../app/case/definition';
 
-import {
-  doesApplicantIntendToSwitchToSoleFinalOrder,
-  getSwitchToSoleFinalOrderStatus,
-} from './switch-to-sole-content.utils';
+import { doesApplicantIntendToSwitchToSoleFo, getSwitchToSoleFoStatus } from './switch-to-sole-content.utils';
 
 describe('switch.to.sole.content.utils', () => {
   test('doesApplicantIntendToSwitchToSoleFinalOrder - applicant 1 intends', () => {
@@ -18,11 +15,11 @@ describe('switch.to.sole.content.utils', () => {
     } as Partial<CaseWithId>;
     let isApplicant2 = false;
     let expected = true;
-    let actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    let actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
     isApplicant2 = true;
     expected = false;
-    actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
   });
 
@@ -33,11 +30,11 @@ describe('switch.to.sole.content.utils', () => {
     } as Partial<CaseWithId>;
     let isApplicant2 = true;
     let expected = true;
-    let actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    let actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
     isApplicant2 = false;
     expected = false;
-    actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
   });
 
@@ -48,10 +45,10 @@ describe('switch.to.sole.content.utils', () => {
     } as Partial<CaseWithId>;
     let isApplicant2 = false;
     const expected = false;
-    let actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    let actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
     isApplicant2 = true;
-    actual = doesApplicantIntendToSwitchToSoleFinalOrder(userCase, isApplicant2);
+    actual = doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2);
     expect(actual).toEqual(expected);
   });
 
@@ -67,29 +64,29 @@ describe('switch.to.sole.content.utils', () => {
       state: State.AwaitingJointFinalOrder,
     } as Partial<CaseWithId>;
     let isApplicant2 = false;
-    let switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    let switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     let within = true;
     let expired = false;
     let intendingAndAble = false;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
     userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
-    switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     within = false;
     expired = true;
     intendingAndAble = true;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
     isApplicant2 = true;
-    switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     within = false;
     expired = false;
     intendingAndAble = false;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
   });
 
   test('getSwitchToSoleFinalOrderStatus - applicant 2', () => {
@@ -104,27 +101,27 @@ describe('switch.to.sole.content.utils', () => {
       state: State.AwaitingJointFinalOrder,
     } as Partial<CaseWithId>;
     let isApplicant2 = true;
-    let switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    let switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     let within = true;
     let expired = false;
     let intendingAndAble = false;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
     userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
-    switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     within = false;
     expired = true;
     intendingAndAble = true;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
     isApplicant2 = false;
-    switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+    switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     expired = false;
     intendingAndAble = false;
-    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod).toEqual(within);
-    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired).toEqual(expired);
-    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder).toEqual(intendingAndAble);
+    expect(switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod).toEqual(within);
+    expect(switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired).toEqual(expired);
+    expect(switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo).toEqual(intendingAndAble);
   });
 });

@@ -7,8 +7,8 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
-import { hasApplicantAppliedForFinalOrderFirst } from '../../../common/content.utils';
-import { getSwitchToSoleFinalOrderStatus } from '../../../common/switch-to-sole-content.utils';
+import { hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
+import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
 
@@ -313,7 +313,7 @@ export const generateContent: TranslationFn = content => {
   );
 
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
-    hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2) &&
+    hasApplicantAppliedForFoFirst(userCase, isApplicant2) &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     dayjs().isAfter(
       dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
@@ -326,22 +326,22 @@ export const generateContent: TranslationFn = content => {
     displayState.state() === State.FinalOrderOverdue;
 
   const isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst =
-    isFinalOrderAwaitingOrOverdue && !hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2);
+    isFinalOrderAwaitingOrOverdue && !hasApplicantAppliedForFoFirst(userCase, isApplicant2);
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2
     ? 'applicant2ApplyForConditionalOrderStarted'
     : 'applicant1ApplyForConditionalOrderStarted';
 
-  const switchToSoleFinalOrderStatus = getSwitchToSoleFinalOrderStatus(userCase, isApplicant2);
+  const switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
 
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
   const theLatestUpdateTemplate = getJointHubTemplate(
     displayState,
     userCase,
     hasApplicantAppliedForConditionalOrder,
-    switchToSoleFinalOrderStatus.isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod,
-    switchToSoleFinalOrderStatus.hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired
+    switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
+    switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired
   );
 
   return {
@@ -355,10 +355,10 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrderStarted,
     theLatestUpdateTemplate,
     isClarificationDocumentsUploaded,
-    hasApplicantAppliedForFinalOrderFirst: hasApplicantAppliedForFinalOrderFirst(userCase, isApplicant2),
+    hasApplicantAppliedForFinalOrderFirst: hasApplicantAppliedForFoFirst(userCase, isApplicant2),
     isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst,
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
-    isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFinalOrder,
+    isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo,
   };
 };
