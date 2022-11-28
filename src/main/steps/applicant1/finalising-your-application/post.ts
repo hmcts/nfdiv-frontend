@@ -6,7 +6,6 @@ import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
-  State,
   YesOrNo,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -35,7 +34,6 @@ export default class FinalisingYourApplicationPostController extends PostControl
       req.session.isApplicant2 &&
       req.originalUrl === APPLICANT_2 + FINALISING_YOUR_APPLICATION &&
       req.session.userCase.finalOrderSwitchedToSole === YesOrNo.YES &&
-      req.session.userCase.state === State.FinalOrderRequested &&
       this.formData.doesApplicant2WantToApplyForFinalOrder;
 
     if (hasApplicant2SwitchedToSoleFo) {
