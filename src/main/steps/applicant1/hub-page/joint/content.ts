@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { hasApplicantAppliedForFinalOrderFirst } from '../../../common/content.utils';
-import { getSwitchToSoleFinalOrderStatus } from '../../../common/switch.to.sole.content.utils';
+import { getSwitchToSoleFinalOrderStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
 

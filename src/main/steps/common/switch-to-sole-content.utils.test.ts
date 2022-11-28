@@ -8,7 +8,7 @@ import { State, YesOrNo } from '../../app/case/definition';
 import {
   doesApplicantIntendToSwitchToSoleFinalOrder,
   getSwitchToSoleFinalOrderStatus,
-} from './switch.to.sole.content.utils';
+} from './switch-to-sole-content.utils';
 
 describe('switch.to.sole.content.utils', () => {
   test('doesApplicantIntendToSwitchToSoleFinalOrder - applicant 1 intends', () => {

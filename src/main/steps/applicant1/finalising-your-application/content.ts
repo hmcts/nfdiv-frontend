@@ -11,7 +11,7 @@ import { CommonContent } from '../../common/common.content';
 import {
   doesApplicantIntendToSwitchToSoleFinalOrder,
   getSwitchToSoleFinalOrderStatus,
-} from '../../common/switch.to.sole.content.utils';
+} from '../../common/switch-to-sole-content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({

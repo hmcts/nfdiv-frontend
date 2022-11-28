@@ -12,7 +12,7 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError } from '../../../app/form/Form';
-import { getSwitchToSoleFinalOrderStatus } from '../../common/switch.to.sole.content.utils';
+import { getSwitchToSoleFinalOrderStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
 @autobind
