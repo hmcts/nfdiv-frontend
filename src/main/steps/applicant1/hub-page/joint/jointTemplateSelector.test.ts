@@ -97,22 +97,10 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.AwaitingJointFinalOrder);
   });
 
-  test('should show /intend-to-switch-to-sole-final-order.njk for state AwaitingJointFinalOrder within SwitchToSoleFO Notification Window', () => {
+  test('should show /intend-to-switch-to-sole-final-order for state AwaitingJointFinalOrder within SwitchToSoleFO Notification Window', () => {
     const theState = displayState.at(State.AwaitingJointFinalOrder);
-    const jointTemplate = getJointHubTemplate(theState, userCase, false, {
-      isWithinSwitchToSoleFoIntentionNotificationPeriod: true,
-      hasSwitchToSoleFoIntentionNotificationPeriodExpired: false,
-    });
+    const jointTemplate = getJointHubTemplate(theState, userCase, false, true);
     expect(jointTemplate).toBe(HubTemplate.IntendToSwitchToSoleFinalOrder);
-  });
-
-  test('should show /awaiting-final-order.njk for state AwaitingJointFinalOrder when SwitchToSoleFO Notification Window has Expired', () => {
-    const theState = displayState.at(State.AwaitingJointFinalOrder);
-    const jointTemplate = getJointHubTemplate(theState, userCase, false, {
-      isWithinSwitchToSoleFoIntentionNotificationPeriod: false,
-      hasSwitchToSoleFoIntentionNotificationPeriodExpired: true,
-    });
-    expect(jointTemplate).toBe(HubTemplate.AwaitingFinalOrder);
   });
 
   test('should show /awaiting-final-order.njk for state FinalOrderOverdue', () => {
