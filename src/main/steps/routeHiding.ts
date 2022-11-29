@@ -17,7 +17,7 @@ import {
   REVIEW_THE_APPLICATION,
 } from './urls';
 
-export const hideRouteFromUser = (req: AppRequest): boolean => {
+export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   if (!req.session.userCase) {
     return false;
   }

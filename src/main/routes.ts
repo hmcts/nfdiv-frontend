@@ -25,7 +25,7 @@ import { ExistingApplicationPostController } from './steps/existing-application/
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { hideRouteFromUser } from './steps/routeHideConditions';
+import { shouldHideRouteFromUser } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
@@ -159,7 +159,7 @@ export class Routes {
     if (
       isApp2Route !== req.session.isApplicant2 ||
       !getUserSequence(req).some(r => req.path.includes(r.url)) ||
-      hideRouteFromUser(req)
+      shouldHideRouteFromUser(req)
     ) {
       return res.redirect('/error');
     }
