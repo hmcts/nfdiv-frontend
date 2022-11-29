@@ -31,6 +31,8 @@ export default class FinalisingYourApplicationPostController extends PostControl
 
   protected getNextUrl(req: AppRequest): string {
     const hasApplicant2SwitchedToSoleFo =
+      req.session.errors !== undefined &&
+      req.session.errors.length > 0 &&
       req.session.isApplicant2 &&
       req.originalUrl === APPLICANT_2 + FINALISING_YOUR_APPLICATION &&
       req.session.userCase.finalOrderSwitchedToSole === YesOrNo.YES &&
