@@ -102,7 +102,7 @@ export interface Step {
 }
 
 export interface RoutePermission {
-  url: PageLink;
+  urls: PageLink[];
   condition: (data: Partial<CaseWithId>) => boolean;
 }
 
