@@ -21,8 +21,6 @@ export const routeHideConditions: RoutePermission[] = [
   {
     url: FINALISING_YOUR_APPLICATION,
     condition: data =>
-      data.state === State.FinalOrderRequested ||
-      data.welshPreviousState === State.FinalOrderRequested ||
-      data.applicant1AppliedForFinalOrderFirst === YesOrNo.YES,
+      data.state === State.FinalOrderRequested || data.applicant1AppliedForFinalOrderFirst === YesOrNo.YES,
   },
 ];
