@@ -79,19 +79,15 @@ export const getSwitchToSoleFoStatus = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): SwitchToSoleFinalOrderStatus => {
-  const switchToSoleStatus = {
-    isWithinSwitchToSoleFoIntentionNotificationPeriod: false,
-    hasSwitchToSoleFoIntentionNotificationPeriodExpired: false,
-    isIntendingAndAbleToSwitchToSoleFo: false,
+  return {
+    isWithinSwitchToSoleFoIntentionNotificationPeriod: isWithinSwitchToSoleFoIntentionNotificationPeriod(
+      userCase,
+      isApplicant2
+    ),
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired: hasSwitchToSoleFoIntentionNotificationPeriodExpired(
+      userCase,
+      isApplicant2
+    ),
+    isIntendingAndAbleToSwitchToSoleFo: isIntendingAndAbleToSwitchToSoleFo(userCase, isApplicant2),
   };
-
-  if (doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2) === true) {
-    switchToSoleStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod =
-      isWithinSwitchToSoleFoIntentionNotificationPeriod(userCase, isApplicant2);
-    switchToSoleStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired =
-      hasSwitchToSoleFoIntentionNotificationPeriodExpired(userCase, isApplicant2);
-    switchToSoleStatus.isIntendingAndAbleToSwitchToSoleFo = isIntendingAndAbleToSwitchToSoleFo(userCase, isApplicant2);
-  }
-
-  return switchToSoleStatus;
 };
