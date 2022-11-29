@@ -324,23 +324,18 @@ export const generateContent: TranslationFn = content => {
   const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
 
-  const switchToSoleLogic = {
-    isStateAwaitingJointFo: false,
-    isIntendingAndAbleToSwitchToSoleFo: false,
-    isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue: false,
-    isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo: false,
-  };
+  const switchToSoleLogic = {};
 
   if (content.isJointApplication && doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)) {
     const switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     const isJointAppNotSwitchingToSoleFo =
       content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo;
-    switchToSoleLogic.isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue =
+    switchToSoleLogic['isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue'] =
       isJointAppNotSwitchingToSoleFo &&
       (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
-    switchToSoleLogic.isStateAwaitingJointFo = userCase.state === State.AwaitingJointFinalOrder;
-    switchToSoleLogic.isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo =
-      isJointAppNotSwitchingToSoleFo && switchToSoleLogic.isStateAwaitingJointFo;
+    switchToSoleLogic['isStateAwaitingJointFo'] = userCase.state === State.AwaitingJointFinalOrder;
+    switchToSoleLogic['isJointAppNotSwitchingToSoleFoAndStateAwaitingJointFo'] =
+      isJointAppNotSwitchingToSoleFo && switchToSoleLogic['isStateAwaitingJointFo'];
   }
 
   return {
