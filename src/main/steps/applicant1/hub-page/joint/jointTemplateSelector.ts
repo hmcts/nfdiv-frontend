@@ -5,9 +5,15 @@ import { StateSequence } from '../../../state-sequence';
 export const getJointHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
-  hasApplicantAppliedForConditionalOrder = false,
-  isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod = false,
-  hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired = false
+  {
+    hasApplicantAppliedForConditionalOrder = false,
+    isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+  }: {
+    hasApplicantAppliedForConditionalOrder?: boolean;
+    isWithinSwitchToSoleFoIntentionNotificationPeriod?: boolean;
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired?: boolean;
+  } = {}
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -41,10 +47,10 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
     case State.AwaitingJointFinalOrder:
-      if (isWithinSwitchToSoleFinalOrderIntentionNotificationPeriod) {
+      if (isWithinSwitchToSoleFoIntentionNotificationPeriod) {
         return HubTemplate.IntendToSwitchToSoleFinalOrder;
       }
-      if (hasSwitchToSoleFinalOrderIntentionNotificationPeriodExpired) {
+      if (hasSwitchToSoleFoIntentionNotificationPeriodExpired) {
         return HubTemplate.AwaitingFinalOrder;
       }
       return HubTemplate.AwaitingJointFinalOrder;
