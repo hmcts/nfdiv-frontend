@@ -9,10 +9,6 @@ export const getJointHubTemplate = (
     hasApplicantAppliedForConditionalOrder = false,
     isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
-  }: {
-    hasApplicantAppliedForConditionalOrder?: boolean;
-    isWithinSwitchToSoleFoIntentionNotificationPeriod?: boolean;
-    hasSwitchToSoleFoIntentionNotificationPeriodExpired?: boolean;
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
