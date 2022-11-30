@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../app/case/case';
 import {
@@ -26,7 +27,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
     return super.save(req, formData, eventName);
   }
 
-  protected getNextUrl(req: AppRequest): string {
+  protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
     const hasApplicant2SwitchedToSoleFo =
       (req.session.errors === undefined || req.session.errors.length === 0) &&
       req.session.isApplicant2 &&
@@ -38,7 +39,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
       req.originalUrl = FINALISING_YOUR_APPLICATION;
     }
 
-    return super.getNextUrl(req);
+    super.saveSessionAndRedirect(req, res);
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {

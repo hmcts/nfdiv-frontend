@@ -6,7 +6,6 @@ import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '..
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
-import { getNextStepUrl } from '../../index';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 @autobind
@@ -34,14 +33,7 @@ export default class ReviewTheApplicationPostController extends PostController<A
       }
     }
 
-    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(nextUrl);
-    });
+    this.saveSessionAndRedirect(req, res);
   }
 
   protected async saveAndSignOut(req: AppRequest<AnyObject>, res: Response): Promise<void> {

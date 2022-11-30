@@ -53,6 +53,17 @@ export class PostController<T extends AnyObject> {
       : getNextStepUrl(req, req.session.userCase);
   }
 
+  protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
+    const nextUrl = this.getNextUrl(req);
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
+  }
+
   protected async saveAndContinue(
     req: AppRequest<T>,
     res: Response,
@@ -71,14 +82,7 @@ export class PostController<T extends AnyObject> {
       }
     }
 
-    const nextUrl = this.getNextUrl(req);
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(nextUrl);
-    });
+    this.saveSessionAndRedirect(req, res);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
