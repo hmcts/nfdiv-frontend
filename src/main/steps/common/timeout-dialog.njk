@@ -4,7 +4,8 @@
     <h1 class="govuk-heading-l">{{ timeout.title }}</h1>
     <p class="govuk-body">{{ timeout.part1 }}<span id="countdown-timer"
                                                    data-minutes="{{ timeout.minutes }}"
-                                                   data-seconds="{{ timeout.seconds }}"> {{ timeout.twoMinutes }} </span>{{ timeout.part2 }}</p>
+                                                   data-seconds="{{ timeout.seconds }}"
+                                                   data-default="{{ timeout.twoMinutes }}"> {{ timeout.twoMinutes }} </span>{{ timeout.part2 }}</p>
     <div class="govuk-form-group">
       {{ govukButton({
             text: timeout.buttonText,

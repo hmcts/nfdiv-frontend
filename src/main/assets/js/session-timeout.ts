@@ -81,9 +81,17 @@ class SessionTimeout {
     if (this.countdownTimer) {
       const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+      const defaultText = this.countdownTimer.dataset.default;
       const secondsText = this.countdownTimer.dataset.seconds;
       const minutesText = this.countdownTimer.dataset.minutes;
-      return minutes === 0 ? ` ${seconds} ${secondsText} ` : ` ${minutes} ${minutesText} ${seconds} ${secondsText} `;
+      switch (minutes) {
+        case 0:
+          return ` ${seconds} ${secondsText} `;
+        case 2:
+          return ` ${defaultText} `;
+        default:
+          return ` ${minutes} ${minutesText} ${seconds} ${secondsText} `;
+      }
     }
     return '';
   }
