@@ -22,6 +22,7 @@ export const form: FormContent = {
           label: l => l.checkboxLine,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
+          selected: false,
         },
       ],
     },
