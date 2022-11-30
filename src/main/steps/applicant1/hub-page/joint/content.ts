@@ -149,6 +149,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day')
     )}. You will receive an email to remind you.`,
   },
+  intendingAndAbleToSwitchToSoleFinalOrder: {
+    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+  },
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -287,6 +292,11 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       ).add(config.get('dates.switchToSoleFinalOrderIntentionNotificationOffsetDays'), 'day'),
       SupportedLanguages.Cy
     )}. Byddwch yn cael e-bost i'ch atgoffa.`,
+  },
+  intendingAndAbleToSwitchToSoleFinalOrder: {
+    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
   },
 });
 
