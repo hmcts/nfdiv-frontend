@@ -322,7 +322,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
-          applicant2StatementOfTruth: Checkbox.Checked,
+          dateAosSubmitted: '2021-05-10',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderDrafted,
@@ -413,7 +413,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           applicant1ApplyForConditionalOrderStarted: YesOrNo.YES,
-          applicant2StatementOfTruth: Checkbox.Checked,
+          dateAosSubmitted: '2021-05-10',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           applicationType: ApplicationType.SOLE_APPLICATION,
           state: State.ConditionalOrderPending,
