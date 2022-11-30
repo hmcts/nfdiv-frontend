@@ -2808,10 +2808,10 @@ co@4.6.0, co@^4.6.0:
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==
 
-codeceptjs@^3.3.6:
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.3.6.tgz#3631c7e7e9bd9ff7c41e61296e4ca45403359efc"
-  integrity sha512-NYDY8Iuwr/RMfME1Ho75TmmtnDUzuMhB4USCAZWtxtxpC0IhuczdX3QqYlkyrOTe3/XGed8hbx3V10q1Z0NYrQ==
+codeceptjs@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.3.7.tgz#0ce460e98cbe45cb97caf727a348d398a0af85b3"
+  integrity sha512-NLug9VKnMcIhjY9kt/QP7e0D6YoAx0vIs11Zb35vwlzA+jSPXtN5g+Nh6T+N9af+NxHDXOIn0qOy3bGF1bOFlw==
   dependencies:
     "@codeceptjs/configure" "^0.8.0"
     "@codeceptjs/helper" "^1.0.2"
