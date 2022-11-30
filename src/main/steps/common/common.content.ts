@@ -133,7 +133,9 @@ export const en = {
     part1: 'You are going to be signed out of your application in',
     part2: 'because of inactivity. This is to protect your personal information.',
     buttonText: 'Continue with your application',
-    twoMinutes: '2m 0s',
+    twoMinutes: '2 minutes',
+    minutes: 'minute',
+    seconds: 'seconds',
   },
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',

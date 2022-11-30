@@ -65,7 +65,7 @@ class SessionTimeout {
     this.countdownInterval = setInterval(() => {
       const countdown = startTime - new Date().getTime();
       if (this.countdownTimer) {
-        this.countdownTimer.innerHTML = this.convertCountdownToHumanReadableText(countdown);
+        this.countdownTimer.innerHTML = this.convertToHumanReadableText(countdown);
       }
     }, 1000);
   }
@@ -73,14 +73,19 @@ class SessionTimeout {
   clearCountdown() {
     if (this.countdownInterval && this.countdownTimer) {
       clearInterval(this.countdownInterval);
-      this.countdownTimer.innerHTML = this.convertCountdownToHumanReadableText(this.TIMEOUT_NOTICE);
+      this.countdownTimer.innerHTML = this.convertToHumanReadableText(this.TIMEOUT_NOTICE);
     }
   }
 
-  convertCountdownToHumanReadableText(countdown: number): string {
-    const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
-    return minutes === 0 ? ` ${seconds}s ` : ` ${minutes}m ${seconds}s `;
+  convertToHumanReadableText(countdown: number): string {
+    if (this.countdownTimer) {
+      const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+      const secondsText = this.countdownTimer.dataset.seconds;
+      const minutesText = this.countdownTimer.dataset.minutes;
+      return minutes === 0 ? ` ${seconds} ${secondsText} ` : ` ${minutes} ${minutesText} ${seconds} ${secondsText} `;
+    }
+    return '';
   }
 
   trapFocusInModal() {
