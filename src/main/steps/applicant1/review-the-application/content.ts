@@ -164,7 +164,7 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   },
   line3: {
     key: 'Dyddiad cychwyn',
-    value: getFormattedDate(userCase.issueDate),
+    value: getFormattedDate(userCase.issueDate, SupportedLanguages.Cy),
   },
   line4: {
     key: 'Cyfeirnod yr achos',
