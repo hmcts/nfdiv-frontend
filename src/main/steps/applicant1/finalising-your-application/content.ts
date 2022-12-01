@@ -331,6 +331,8 @@ export const generateContent: TranslationFn = content => {
     const switchToSoleFinalOrderStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
     const isJointAppNotSwitchingToSoleFo =
       content.isJointApplication && !switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo;
+    switchToSoleLogic['isIntendingAndAbleToSwitchToSoleFo'] =
+      switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo;
     switchToSoleLogic['isJointAppNotSwitchingToSoleFoAndStateAwaitingFoOrFoOverdue'] =
       isJointAppNotSwitchingToSoleFo &&
       (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
