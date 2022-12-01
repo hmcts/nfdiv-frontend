@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -31,7 +31,10 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
     item2: 'to make a financial order',
   },
-  line3: 'Issued',
+  line3: {
+    key: 'Issued',
+    value: getFormattedDate(userCase.issueDate),
+  },
   line4: {
     key: 'Case reference number',
     value: formattedCaseId(userCase.id),
@@ -159,7 +162,10 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
     ${userCase.applicant2FirstNames} ${userCase.applicant2LastNames}`,
     item2: 'am orchymyn ariannol',
   },
-  line3: 'Dyddiad cychwyn',
+  line3: {
+    key: 'Dyddiad cychwyn',
+    value: getFormattedDate(userCase.issueDate),
+  },
   line4: {
     key: 'Cyfeirnod yr achos',
     value: formattedCaseId(userCase.id),
