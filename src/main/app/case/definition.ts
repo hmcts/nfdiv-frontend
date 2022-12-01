@@ -757,9 +757,9 @@ export interface CaseData {
   d36WhoApplying: OfflineWhoApplying;
   finalOrderSwitchedToSole: YesOrNo;
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
-  applicant1IntendsToSwitchToSole: IntendsToSwitchToSole[];
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
-  applicant2IntendsToSwitchToSole: IntendsToSwitchToSole[];
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
   doesApplicant1IntendToSwitchToSole: YesOrNo;
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
   doesApplicant2IntendToSwitchToSole: YesOrNo;
@@ -1083,9 +1083,9 @@ export interface FinalOrder {
   d36WhoApplying: OfflineWhoApplying;
   finalOrderSwitchedToSole: YesOrNo;
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
-  applicant1IntendsToSwitchToSole: IntendsToSwitchToSole[];
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
-  applicant2IntendsToSwitchToSole: IntendsToSwitchToSole[];
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
   doesApplicant1IntendToSwitchToSole: YesOrNo;
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
   doesApplicant2IntendToSwitchToSole: YesOrNo;
@@ -2416,5 +2416,6 @@ export const SYSTEM_NOTIFY_JOINT_APPLICANT_CAN_SWITCH_TO_SOLE = 'system-notify-j
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';

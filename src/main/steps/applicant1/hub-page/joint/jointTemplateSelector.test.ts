@@ -1,4 +1,5 @@
-import { DivorceOrDissolution, HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
+import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
