@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
-import { HubTemplate, State } from '../../../app/case/definition';
+import { State } from '../../../app/case/definition';
+import { HubTemplate } from '../../applicant1/hub-page/hubTemplates';
 import { StateSequence } from '../../state-sequence';
 
 export const getRespondentHubTemplate = (
