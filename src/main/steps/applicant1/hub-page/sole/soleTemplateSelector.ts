@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
-import { HubTemplate } from '../hubTemplates';
 
 export const getSoleHubTemplate = (
   displayState: StateSequence,
