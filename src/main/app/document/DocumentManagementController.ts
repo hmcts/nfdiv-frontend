@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
+import { LoggerInstance } from 'winston';
 
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
@@ -14,8 +15,11 @@ import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
+  logger: LoggerInstance | undefined;
+
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
+    this.logger = req.locals.logger;
     if (
       (!isApplicant2 &&
         ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
@@ -72,12 +76,13 @@ export class DocumentManagerController {
     );
 
     req.session.save(() => {
+      this.logNewUploads(newUploads, req);
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
+        return res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else if (req.session.userCase.state === State.AwaitingClarification) {
         return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
       } else {
-        res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
+        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
       }
     });
   }
@@ -141,8 +146,20 @@ export class DocumentManagerController {
 
   getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
     if (config.get('services.caseDocumentManagement.enabled')) {
+      this.logger?.info('uploading document through cdam');
       return new CaseDocumentManagementClient(user);
     }
+    this.logger?.info('uploading document through docstore');
     return new DocumentManagementClient(user);
+  }
+
+  private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
+    newUploads.forEach(file =>
+      req.locals.logger.info(
+        'uploaded file(url={}) to case(id={})',
+        file.value?.documentLink?.document_binary_url,
+        req.session.userCase.id
+      )
+    );
   }
 }
