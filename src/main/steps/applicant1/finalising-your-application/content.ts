@@ -12,6 +12,7 @@ import {
   doesApplicantIntendToSwitchToSoleFo,
   getSwitchToSoleFoStatus,
 } from '../../common/switch-to-sole-content.utils';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
@@ -313,6 +314,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
