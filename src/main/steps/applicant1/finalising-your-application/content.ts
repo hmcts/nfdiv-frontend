@@ -8,11 +8,11 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import {
   doesApplicantIntendToSwitchToSoleFo,
   getSwitchToSoleFoStatus,
 } from '../../common/switch-to-sole-content.utils';
-import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
