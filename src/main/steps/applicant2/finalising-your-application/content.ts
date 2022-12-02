@@ -23,6 +23,7 @@ export const form: FormContent = {
           label: l => l.checkboxLine,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
+          selected: false,
         },
       ],
     },
@@ -35,6 +36,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
