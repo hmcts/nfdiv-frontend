@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
