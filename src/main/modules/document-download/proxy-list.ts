@@ -111,11 +111,14 @@ const findDocumentAndGetPath = (req: AppRequest, documentType: DocumentType): st
 };
 
 const getPath = (req: AppRequest, document: DivorceDocument | undefined): string => {
-  const cdamEnabled = config.get('services.caseDocumentManagement.enabled');
   const path = document?.documentLink.document_binary_url.replace(
     /.*documents/,
-    `${cdamEnabled ? '/cases' : ''}/documents`
+    `${isCdamEnabled() ? '/cases' : ''}/documents`
   ) as string;
-  req.locals.logger.info('downloading document(url={})', path);
+  req.locals.logger.info(`downloading document(url=${path})`);
   return path;
+};
+
+export const isCdamEnabled = (): boolean => {
+  return String(config.get('services.caseDocumentManagement.enabled')).valueOf() === 'true';
 };

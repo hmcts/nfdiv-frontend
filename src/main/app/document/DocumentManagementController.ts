@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
+import { isCdamEnabled } from '../../modules/document-download/proxy-list';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
@@ -145,7 +145,7 @@ export class DocumentManagerController {
   }
 
   getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
-    if (config.get('services.caseDocumentManagement.enabled')) {
+    if (isCdamEnabled()) {
       this.logger?.info('uploading document through cdam');
       return new CaseDocumentManagementClient(user);
     }
@@ -156,9 +156,7 @@ export class DocumentManagerController {
   private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
     newUploads.forEach(file =>
       req.locals.logger.info(
-        'uploaded file(url={}) to case(id={})',
-        file.value?.documentLink?.document_binary_url,
-        req.session.userCase.id
+        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) to case(id=${req.session.userCase.id})`
       )
     );
   }
