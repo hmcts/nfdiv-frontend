@@ -23,7 +23,7 @@
 
 {% set readMoreContentChangeToSole %}
   <p class="govuk-body">{{ readMoreChangeToSole.line1 }}</p>
-  {% if isAwaitingJointFinalOrderState  %}
+  {% if isStateAwaitingJointFo  %}
     <p class="govuk-body">{{ readMoreChangeToSole.line2 }}</p>
   {% endif %}
   <ol class="govuk-list govuk-list--number">
@@ -79,24 +79,26 @@
     text: warningText,
     iconFallbackText: "Warning"
   }) }}
-  {% if isJointApplication and isAwaitingFinalOrderState or isJointApplication and isFinalOrderOverdue %}
-    {{ govukDetails({
-      summaryText: readMoreJoint.subHeader,
-      html: readMoreContentJoint
-    }) }}
- {% elif isJointApplication and isAwaitingJointFinalOrderState %}
-    {{ govukDetails({
-      summaryText: readMoreAboutSettlingFinances.subHeader,
-      html: readMoreAboutSettlingFinancesContentJoint
-    }) }}
-    {{ govukDetails({
-      summaryText: readMoreChangeToSole.subHeader,
-      html: readMoreContentChangeToSole
-    }) }}
-  {% else %}
-    {{ govukDetails({
-      summaryText: readMore.subHeader,
-      html: readMoreContent
-    }) }}
+  {% if not isIntendingAndAbleToSwitchToSoleFo %}
+    {% if isJointAppAndStateAwaitingFoOrFoOverdue %}
+      {{ govukDetails({
+        summaryText: readMoreJoint.subHeader,
+        html: readMoreContentJoint
+      }) }}
+    {% elif isJointAppAndStateAwaitingJointFo %}
+      {{ govukDetails({
+        summaryText: readMoreAboutSettlingFinances.subHeader,
+        html: readMoreAboutSettlingFinancesContentJoint
+      }) }}
+      {{ govukDetails({
+        summaryText: readMoreChangeToSole.subHeader,
+        html: readMoreContentChangeToSole
+      }) }}
+    {% else %}
+      {{ govukDetails({
+        summaryText: readMore.subHeader,
+        html: readMoreContent
+      }) }}
+    {% endif %}
   {% endif %}
 {% endblock %}
