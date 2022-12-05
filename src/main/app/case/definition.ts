@@ -627,7 +627,6 @@ export interface CaseData {
   progressPaperCase: ProgressPaperCase;
   paperCasePaymentMethod: PaperCasePaymentMethod;
   newPaperCase: YesOrNo;
-  switchedToSoleCo: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
   applicant2UserId: string;
@@ -732,7 +731,6 @@ export interface CaseData {
   coLastApprovedServiceApplicationIsBailiffApplication: YesOrNo;
   coCertificateOfServiceDate: DateAsString;
   coSuccessfulServedByBailiff: YesOrNo;
-  coIsAdminClarificationSubmitted: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
@@ -755,15 +753,10 @@ export interface CaseData {
   finalOrderReminderSentApplicant2: YesOrNo;
   d36ApplicationType: OfflineApplicationType;
   d36WhoApplying: OfflineWhoApplying;
-  finalOrderSwitchedToSole: YesOrNo;
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
-  doesApplicant1IntendToSwitchToSole: YesOrNo;
-  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
-  doesApplicant2IntendToSwitchToSole: YesOrNo;
-  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -900,6 +893,13 @@ export interface CaseData {
   bulkScanCaseReference: string;
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
+  switchedToSoleCo: YesOrNo;
+  coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  finalOrderSwitchedToSole: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -2353,7 +2353,6 @@ export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
-export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
@@ -2366,9 +2365,7 @@ export const CONFIRM_RECEIPT = 'confirm-receipt';
 export const APPLICANT2_FINAL_ORDER_REQUESTED = 'applicant2-final-order-requested';
 export const APPLICANT2_APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const INVITE_APPLICANT_2 = 'invite-applicant2';
-export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
 export const UPDATE_AOS = 'update-aos';
-export const SWITCH_TO_SOLE_FO = 'switch-to-sole-fo';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
@@ -2382,6 +2379,9 @@ export const SUBMIT_AOS = 'submit-aos';
 export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const DRAFT_AOS = 'draft-aos';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
+export const SWITCH_TO_SOLE = 'switch-to-sole';
+export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
+export const SWITCH_TO_SOLE_FO = 'switch-to-sole-fo';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
 export const SYSTEM_REMIND_RESPONDENT_SOLICITOR_TO_RESPOND = 'system-remind-respondent-solicitor-to-respond';
 export const SYSTEM_APPLICANT_SWITCH_TO_SOLE_AFTER_INTENTION =

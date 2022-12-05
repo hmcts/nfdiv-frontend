@@ -47,6 +47,23 @@ export class PostController<T extends AnyObject> {
     res.redirect(SAVE_AND_SIGN_OUT);
   }
 
+  protected getNextUrl(req: AppRequest): string {
+    return req.session.errors !== undefined && req.session.errors.length > 0
+      ? req.url
+      : getNextStepUrl(req, req.session.userCase);
+  }
+
+  protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
+    const nextUrl = this.getNextUrl(req);
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(nextUrl);
+    });
+  }
+
   protected async saveAndContinue(
     req: AppRequest<T>,
     res: Response,
@@ -65,14 +82,7 @@ export class PostController<T extends AnyObject> {
       }
     }
 
-    const nextUrl = req.session.errors.length > 0 ? req.url : getNextStepUrl(req, req.session.userCase);
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(nextUrl);
-    });
+    this.saveSessionAndRedirect(req, res);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
