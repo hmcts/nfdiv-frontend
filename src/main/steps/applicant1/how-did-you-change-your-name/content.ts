@@ -16,7 +16,7 @@ const en = ({ isDivorce, required }) => ({
   errors: {
     applicant1NameChangedHow: {
       required,
-      applicant1ChangedNameHowAnotherWay:
+      applicant1NameChangedHowOtherDetails:
         'You have said you changed your name another way but not provided details. Provide details of how you changed your name.',
     },
   },
@@ -35,7 +35,7 @@ const cy: typeof en = ({ isDivorce }) => ({
   errors: {
     applicant1NameChangedHow: {
       required: 'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddewis ateb cyn parhau.',
-      applicant1ChangedNameHowAnotherWay:
+      applicant1NameChangedHowOtherDetails:
         'Rydych wedi dweud eich bod wedi newid eich enw mewn ffordd arall ond heb ddarparu manylion. Rhowch fanylion am sut y gwnaethoch newid eich enw.',
     },
   },
@@ -65,7 +65,7 @@ export const form: FormContent = {
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
-            applicant1ChangedNameHowAnotherWay: {
+            applicant1NameChangedHowOtherDetails: {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
               labelSize: null,
@@ -74,9 +74,9 @@ export const form: FormContent = {
           validator: ((value, formData) => {
             if (
               (value as string[])?.includes(ChangedNameHow.OTHER) &&
-              !formData.applicant1ChangedNameHowAnotherWay?.length
+              !formData.applicant1NameChangedHowOtherDetails?.length
             ) {
-              return 'applicant1ChangedNameHowAnotherWay';
+              return 'applicant1NameChangedHowOtherDetails';
             }
           }) as ValidationCheck,
         },

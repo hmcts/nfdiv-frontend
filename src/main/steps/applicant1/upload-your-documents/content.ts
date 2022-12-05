@@ -149,8 +149,8 @@ export const form: FormContent = {
     }
 
     if (
-      (userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-        userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES) &&
+      (userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
+        userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES) &&
       !(
         userCase.applicant1NameChangedHow?.length === 1 &&
         userCase.applicant1NameChangedHow[0] === ChangedNameHow.MARRIAGE_CERTIFICATE
@@ -246,8 +246,8 @@ export const generateContent: TranslationFn = content => {
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
   const applicant1HasChangedName =
-    content.userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-    content.userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES;
+    content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
+    content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"

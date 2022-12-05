@@ -273,8 +273,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: CHANGES_TO_YOUR_NAME_URL,
     getNextStep: data =>
-      data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
+      data.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },

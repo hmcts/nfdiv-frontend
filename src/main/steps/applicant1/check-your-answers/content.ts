@@ -331,8 +331,8 @@ const en = ({
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
-      line3: `${stripTags(userCase.applicant1LastNameChangedWhenRelationshipFormed)}`,
-      line4: `${stripTags(userCase.applicant1NameChangedSinceRelationshipFormed)}`,
+      line3: `${stripTags(userCase.applicant1LastNameChangedWhenMarried)}`,
+      line4: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificate)}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length
           ? userCase.applicant1NameChangedHow
@@ -804,11 +804,9 @@ const cy: typeof en = ({
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
-      line3: `${stripTags(
-        userCase.applicant1LastNameChangedWhenRelationshipFormed?.replace('Yes', 'Do').replace('No', 'Naddo')
-      )}`,
+      line3: `${stripTags(userCase.applicant1LastNameChangedWhenMarried?.replace('Yes', 'Do').replace('No', 'Naddo'))}`,
       line4: `${stripTags(
-        userCase.applicant1NameChangedSinceRelationshipFormed?.replace('Yes', 'Do').replace('No', 'Naddo')
+        userCase.applicant1NameDifferentToMarriageCertificate?.replace('Yes', 'Do').replace('No', 'Naddo')
       )}`,
       line5: `${
         userCase.applicant1NameChangedHow?.length

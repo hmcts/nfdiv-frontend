@@ -12,8 +12,8 @@ const labels = applicant1Content => {
     errors: {
       applicant2NameChangedHow: {
         required: applicant1Content.errors.applicant1NameChangedHow.required,
-        applicant2ChangedNameHowAnotherWay:
-          applicant1Content.errors.applicant1NameChangedHow.applicant1ChangedNameHowAnotherWay,
+        applicant2NameChangedHowOtherDetails:
+          applicant1Content.errors.applicant1NameChangedHow.applicant1NameChangedHowOtherDetails,
       },
     },
   };
@@ -44,7 +44,7 @@ export const form: FormContent = {
           label: l => l.anotherWay,
           value: ChangedNameHow.OTHER,
           subFields: {
-            applicant2ChangedNameHowAnotherWay: {
+            applicant2NameChangedHowOtherDetails: {
               type: 'textarea',
               label: l => l.anotherWayMoreDetails,
               labelSize: null,
@@ -53,9 +53,9 @@ export const form: FormContent = {
           validator: ((value, formData) => {
             if (
               (value as string[])?.includes(ChangedNameHow.OTHER) &&
-              !formData.applicant2ChangedNameHowAnotherWay?.length
+              !formData.applicant2NameChangedHowOtherDetails?.length
             ) {
-              return 'applicant2ChangedNameHowAnotherWay';
+              return 'applicant2NameChangedHowOtherDetails';
             }
           }) as ValidationCheck,
         },

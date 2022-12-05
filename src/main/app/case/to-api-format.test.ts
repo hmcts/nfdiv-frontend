@@ -48,8 +48,8 @@ describe('to-api-format', () => {
     applicant2EnglishOrWelsh: LanguagePreference.English,
     applicant1NameChangedHow: [ChangedNameHow.OTHER],
     applicant2NameChangedHow: [ChangedNameHow.OTHER],
-    applicant1ChangedNameHowAnotherWay: 'Test',
-    applicant2ChangedNameHowAnotherWay: 'Test',
+    applicant1NameChangedHowOtherDetails: 'Test',
+    applicant2NameChangedHowOtherDetails: 'Test',
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
     applicant1IConfirmPrayer: Checkbox.Checked,
@@ -99,8 +99,8 @@ describe('to-api-format', () => {
     applicant1IsApplicant2Represented: Applicant2Represented.YES,
     applicant1NameChangedHow: [],
     applicant2NameChangedHow: [],
-    applicant1ChangedNameHowAnotherWay: 'Test',
-    applicant2ChangedNameHowAnotherWay: 'Test',
+    applicant1NameChangedHowOtherDetails: 'Test',
+    applicant2NameChangedHowOtherDetails: 'Test',
     applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant1ApplyForFinancialOrder: YesOrNo.YES,
@@ -328,15 +328,15 @@ describe('to-api-format', () => {
 
   test.each([
     {
-      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
-      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant1LastNameChangedWhenMarried: YesOrNo.YES,
       },
     },
     {
-      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
-      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant1LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant1LastNameChangedWhenMarried: YesOrNo.NO,
         applicant1NameChangedHow: null,
@@ -344,15 +344,15 @@ describe('to-api-format', () => {
       },
     },
     {
-      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
-      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant2LastNameChangedWhenMarried: YesOrNo.YES,
       },
     },
     {
-      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
-      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant2LastNameChangedWhenMarried: YesOrNo.NO,
         applicant2NameChangedHow: null,
