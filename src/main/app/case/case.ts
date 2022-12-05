@@ -232,12 +232,12 @@ export interface Case {
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
-  applicant2LastNameChangedWhenMarried?: YesOrNo;
   applicant1NameDifferentToMarriageCertificate?: YesOrNo;
-  applicant2NameDifferentToMarriageCertificate?: YesOrNo;
   applicant1NameChangedHow?: ChangedNameHow[];
-  applicant2NameChangedHow?: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails?: string;
+  applicant2LastNameChangedWhenMarried?: YesOrNo;
+  applicant2NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant2NameChangedHow?: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails?: string;
   applicant1Email?: string;
   applicant2Email?: string;
