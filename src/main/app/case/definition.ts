@@ -231,7 +231,11 @@ export interface Applicant {
   ConfirmReceipt: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
+  LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  LastNameChangedWhenMarriedOtherDetails: string;
   NameDifferentToMarriageCertificate: YesOrNo;
+  NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  NameDifferentToMarriageCertificateOtherDetails: string;
   NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
   Address: AddressGlobalUK;
@@ -441,7 +445,11 @@ export interface CaseData {
   applicant1ConfirmReceipt: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
+  applicant1LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  applicant1LastNameChangedWhenMarriedOtherDetails: string;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
+  applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -480,7 +488,11 @@ export interface CaseData {
   applicant2ConfirmReceipt: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
+  applicant2LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  applicant2LastNameChangedWhenMarriedOtherDetails: string;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
+  applicant2NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  applicant2NameDifferentToMarriageCertificateOtherDetails: string;
   applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2Address: AddressGlobalUK;

@@ -3,6 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
+  ChangedNameHow,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -10,6 +11,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
+import { ValidationCheck } from '../../app/form/Form';
 
 import { CommonContent, en } from './common.content';
 
@@ -128,4 +130,18 @@ export const hasApplicantAppliedForFoFirst = (userCase: Partial<CaseWithId>, isA
   return isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+};
+
+export const getNameChangeOtherDetailsValidator = (
+  fieldName:
+    | 'applicant1LastNameChangedWhenMarriedOtherDetails'
+    | 'applicant1NameDifferentToMarriageCertificateOtherDetails'
+    | 'applicant2LastNameChangedWhenMarriedOtherDetails'
+    | 'applicant2NameDifferentToMarriageCertificateOtherDetails'
+): ValidationCheck => {
+  return ((value, formData) => {
+    if ((value as string[])?.includes(ChangedNameHow.OTHER) && !formData[fieldName]?.length) {
+      return fieldName;
+    }
+  }) as ValidationCheck;
 };

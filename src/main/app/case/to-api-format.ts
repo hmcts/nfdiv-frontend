@@ -189,19 +189,49 @@ const fields: ToApiConverters = {
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
-  applicant1LastNameChangedWhenMarried: data => ({
-    applicant1LastNameChangedWhenMarried: data.applicant1LastNameChangedWhenMarried,
-    ...(data.applicant1LastNameChangedWhenMarried === YesOrNo.NO &&
-    data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant1NameChangedHow', 'applicant1NameChangedHowOtherDetails'])
-      : {}),
+  applicant1LastNameChangedWhenMarriedMethod: data => ({
+    applicant1LastNameChangedWhenMarriedMethod:
+      data.applicant1LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant1LastNameChangedWhenMarriedMethod,
   }),
-  applicant2LastNameChangedWhenMarried: data => ({
-    applicant2LastNameChangedWhenMarried: data.applicant2LastNameChangedWhenMarried,
-    ...(data.applicant2LastNameChangedWhenMarried === YesOrNo.NO &&
-    data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant2NameChangedHow', 'applicant2NameChangedHowOtherDetails'])
-      : {}),
+  applicant1LastNameChangedWhenMarriedOtherDetails: data => ({
+    applicant1LastNameChangedWhenMarriedOtherDetails:
+      data.applicant1LastNameChangedWhenMarried === YesOrNo.NO
+        ? ''
+        : data.applicant1LastNameChangedWhenMarriedOtherDetails,
+  }),
+  applicant1NameDifferentToMarriageCertificateMethod: data => ({
+    applicant1NameDifferentToMarriageCertificateMethod:
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
+        ? []
+        : data.applicant1NameDifferentToMarriageCertificateMethod,
+  }),
+  applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
+    applicant1NameDifferentToMarriageCertificateOtherDetails:
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
+        ? ''
+        : data.applicant1NameDifferentToMarriageCertificateOtherDetails,
+  }),
+  applicant2LastNameChangedWhenMarriedMethod: data => ({
+    applicant2LastNameChangedWhenMarriedMethod:
+      data.applicant2LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant2LastNameChangedWhenMarriedMethod,
+  }),
+  applicant2LastNameChangedWhenMarriedOtherDetails: data => ({
+    applicant2LastNameChangedWhenMarriedOtherDetails:
+      data.applicant2LastNameChangedWhenMarried === YesOrNo.NO
+        ? ''
+        : data.applicant2LastNameChangedWhenMarriedOtherDetails,
+  }),
+  applicant2NameDifferentToMarriageCertificateMethod: data => ({
+    applicant2NameDifferentToMarriageCertificateMethod:
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
+        ? []
+        : data.applicant2NameDifferentToMarriageCertificateMethod,
+  }),
+  applicant2NameDifferentToMarriageCertificateOtherDetails: data => ({
+    applicant2NameDifferentToMarriageCertificateOtherDetails:
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
+        ? ''
+        : data.applicant2NameDifferentToMarriageCertificateOtherDetails,
   }),
   applicant1HelpPayingNeeded: data => ({
     applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,

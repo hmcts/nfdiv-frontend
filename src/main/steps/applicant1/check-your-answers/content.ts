@@ -203,20 +203,26 @@ const en = ({
       line1: `Copy your full name from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
       line2: `Copy your ${partner}'s full name from the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
       line3: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line4: `Have you changed any part of your name since ${
+      line4: `How did you change your last name when you ${
+        isDivorce ? 'got married' : 'formed your civil partnership'
+      }?`,
+      line5: `Have you changed any part of your name since ${
         isDivorce ? 'getting married' : 'forming your civil partnership'
       }?`,
-      line5: 'How did you change your name?',
+      line6: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
       line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
       line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line5: `Have you changed any part of your name since ${
+      line5: `How did you change your last name when you ${
+        isDivorce ? 'got married' : 'formed your civil partnership'
+      }?`,
+      line6: `Have you changed any part of your name since ${
         isDivorce ? 'getting married' : 'forming your civil partnership'
       }?`,
-      line6: 'How did you change your name?',
+      line7: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     contactYou: {
       line1: 'Your first name(s)',
@@ -332,10 +338,22 @@ const en = ({
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1LastNameChangedWhenMarried)}`,
-      line4: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificate)}`,
-      line5: `${
-        userCase.applicant1NameChangedHow?.length
-          ? userCase.applicant1NameChangedHow
+      line4: `${
+        userCase.applicant1LastNameChangedWhenMarriedMethod?.length
+          ? userCase.applicant1LastNameChangedWhenMarriedMethod
+              .join(' / ')
+              .replace(ChangedNameHow.OTHER, 'Another way')
+              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(
+                ChangedNameHow.MARRIAGE_CERTIFICATE,
+                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+              )
+          : ''
+      }`,
+      line5: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificate)}`,
+      line6: `${
+        userCase.applicant1NameDifferentToMarriageCertificateMethod?.length
+          ? userCase.applicant1NameDifferentToMarriageCertificateMethod
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Another way')
               .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
@@ -506,7 +524,8 @@ const en = ({
       line2: urls.CERTIFICATE_NAME,
       line3: urls.CHANGES_TO_YOUR_NAME_URL,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
-      line5: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
+      line5: urls.CHANGES_TO_YOUR_NAME_URL,
+      line6: urls.CHANGES_TO_YOUR_NAME_URL,
     },
     aboutYouForApplicant2: {
       line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
@@ -514,7 +533,8 @@ const en = ({
       line3: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
-      line6: urls.HOW_DID_YOU_CHANGE_YOUR_NAME,
+      line6: urls.CHANGES_TO_YOUR_NAME_URL,
+      line7: urls.CHANGES_TO_YOUR_NAME_URL,
     },
     contactYou: {
       line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
@@ -671,8 +691,11 @@ const cy: typeof en = ({
       line3: `Wnaethoch chi newid eich cyfenw pan wnaethoch chi ${
         isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
-      line4: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line5: 'Sut wnaethoch chi newid eich enw?',
+      line4: `How did you change your last name when you ${
+        isDivorce ? 'got married' : 'formed your civil partnership'
+      }?`,
+      line5: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line6: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     aboutYouForApplicant2: {
       line1: 'Eich enw(au) cyntaf',
@@ -681,8 +704,11 @@ const cy: typeof en = ({
       line4: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
         isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
-      line5: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line6: 'Sut wnaethoch chi newid eich enw?',
+      line5: `How did you change your last name when you ${
+        isDivorce ? 'got married' : 'formed your civil partnership'
+      }?`,
+      line6: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line7: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',
@@ -805,12 +831,24 @@ const cy: typeof en = ({
       line1: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line2: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1LastNameChangedWhenMarried?.replace('Yes', 'Do').replace('No', 'Naddo'))}`,
-      line4: `${stripTags(
+      line4: `${
+        userCase.applicant1LastNameChangedWhenMarriedMethod?.length
+          ? userCase.applicant1LastNameChangedWhenMarriedMethod
+              .join(' / ')
+              .replace(ChangedNameHow.OTHER, 'Ffordd arall')
+              .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')
+              .replace(
+                ChangedNameHow.MARRIAGE_CERTIFICATE,
+                `Tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`
+              )
+          : ''
+      }`,
+      line5: `${stripTags(
         userCase.applicant1NameDifferentToMarriageCertificate?.replace('Yes', 'Do').replace('No', 'Naddo')
       )}`,
-      line5: `${
-        userCase.applicant1NameChangedHow?.length
-          ? userCase.applicant1NameChangedHow
+      line6: `${
+        userCase.applicant1NameDifferentToMarriageCertificateMethod?.length
+          ? userCase.applicant1NameDifferentToMarriageCertificateMethod
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Ffordd arall')
               .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')

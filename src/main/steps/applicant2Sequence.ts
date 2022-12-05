@@ -27,7 +27,6 @@ import {
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
-  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
@@ -89,14 +88,6 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    getNextStep: data =>
-      data.applicant2LastNameChangedWhenMarried === YesOrNo.YES ||
-      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
-        ? HOW_DID_YOU_CHANGE_YOUR_NAME
-        : HOW_THE_COURTS_WILL_CONTACT_YOU,
-  },
-  {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
