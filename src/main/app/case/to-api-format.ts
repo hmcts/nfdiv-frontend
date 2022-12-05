@@ -146,14 +146,14 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
-  applicant1ChangedNameHowAnotherWay: data => ({
+  applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant1ChangedNameHowAnotherWay
+      ? data.applicant1NameChangedHowOtherDetails
       : '',
   }),
-  applicant2ChangedNameHowAnotherWay: data => ({
+  applicant2NameChangedHowOtherDetails: data => ({
     applicant2NameChangedHowOtherDetails: data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant2ChangedNameHowAnotherWay
+      ? data.applicant2NameChangedHowOtherDetails
       : '',
   }),
   applicant1CannotUploadDocuments: data => ({
@@ -189,17 +189,17 @@ const fields: ToApiConverters = {
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
-  applicant1LastNameChangedWhenRelationshipFormed: data => ({
-    applicant1LastNameChangedWhenMarried: data.applicant1LastNameChangedWhenRelationshipFormed,
-    ...(data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
-    data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.NO
+  applicant1LastNameChangedWhenMarried: data => ({
+    applicant1LastNameChangedWhenMarried: data.applicant1LastNameChangedWhenMarried,
+    ...(data.applicant1LastNameChangedWhenMarried === YesOrNo.NO &&
+    data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
       ? setUnreachableAnswersToNull(['applicant1NameChangedHow', 'applicant1NameChangedHowOtherDetails'])
       : {}),
   }),
-  applicant2LastNameChangedWhenRelationshipFormed: data => ({
-    applicant2LastNameChangedWhenMarried: data.applicant2LastNameChangedWhenRelationshipFormed,
-    ...(data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
-    data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.NO
+  applicant2LastNameChangedWhenMarried: data => ({
+    applicant2LastNameChangedWhenMarried: data.applicant2LastNameChangedWhenMarried,
+    ...(data.applicant2LastNameChangedWhenMarried === YesOrNo.NO &&
+    data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
       ? setUnreachableAnswersToNull(['applicant2NameChangedHow', 'applicant2NameChangedHowOtherDetails'])
       : {}),
   }),

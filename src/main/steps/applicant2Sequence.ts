@@ -90,8 +90,8 @@ export const preSubmissionSequence: Step[] = [
   {
     url: CHANGES_TO_YOUR_NAME_URL,
     getNextStep: data =>
-      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
+      data.applicant2LastNameChangedWhenMarried === YesOrNo.YES ||
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
         ? HOW_DID_YOU_CHANGE_YOUR_NAME
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },

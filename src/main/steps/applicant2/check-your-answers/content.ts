@@ -35,8 +35,8 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2LastNameChangedWhenRelationshipFormed}`,
-      line5: `${userCase.applicant2NameChangedSinceRelationshipFormed}`,
+      line4: `${userCase.applicant2LastNameChangedWhenMarried}`,
+      line5: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
       line6: `${
         userCase.applicant2NameChangedHow?.length
           ? userCase.applicant2NameChangedHow
@@ -146,8 +146,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: userCase.applicant2LastNameChangedWhenRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line5: userCase.applicant2NameChangedSinceRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line4: userCase.applicant2LastNameChangedWhenMarried.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line5: userCase.applicant2NameDifferentToMarriageCertificate.replace('Yes', 'Do').replace('No', 'Naddo'),
       line6: `${
         userCase.applicant2NameChangedHow?.length
           ? userCase.applicant2NameChangedHow

@@ -4,7 +4,7 @@ import { BrowserCase } from '../../steps/common';
 
 export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
-  applicant2NameChangedSinceRelationshipFormed: YesOrNo.YES,
+  applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
   applicant2ScreenHasUnionBroken: YesOrNo.YES,
   applicant2HelpPayingNeeded: YesOrNo.NO,
   applicant2FirstNames: 'Test your name',
@@ -12,7 +12,7 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2LegalProceedings: YesOrNo.NO,
   applicant2ApplyForFinancialOrder: YesOrNo.NO,
   applicant2WhoIsFinancialOrderFor: [],
-  applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
+  applicant2LastNameChangedWhenMarried: YesOrNo.NO,
   applicant2PhoneNumber: '',
   applicant2EnglishOrWelsh: LanguagePreference.English,
   applicant2MiddleNames: '',
@@ -28,6 +28,6 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2CannotUpload: Checkbox.Checked,
   applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   applicant2UploadedFiles: [],
-  applicant2ChangedNameHowAnotherWay: '',
+  applicant2NameChangedHowOtherDetails: '',
   applicant2Confirmation: YesOrNo.YES,
 };
