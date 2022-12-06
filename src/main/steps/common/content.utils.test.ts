@@ -20,6 +20,7 @@ import {
   getPartner,
   getSelectedGender,
   getServiceName,
+  hasApplicantAppliedForFoFirst,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
 } from './content.utils';
@@ -311,6 +312,52 @@ describe('content.utils', () => {
       } as Partial<CaseWithId>;
       const expected = false;
       const actual = isApplicant2EmailUpdatePossible(userCase);
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('hasApplicantAppliedForFinalOrderFirst', () => {
+    test('Applicant 1 has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.YES,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      let expected = true;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      expected = false;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Applicant 2 has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.NO,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.YES,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = true;
+      let expected = true;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = false;
+      expected = false;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('No Applicant has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.NO,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      const expected = false;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
   });

@@ -71,6 +71,23 @@ Feature: Joint final order
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my husband"
     Then I click "Confirm"
     Then the page URL should be "/hub-page"
+    And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
+
+    Given I click "Sign out"
+    When I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    And the page should include "The court has notified your husband by email that you are intending to apply for a final order as a sole applicant."
+    Then a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
+
+    Given I click "Sign out"
+    When I login with applicant "1"
+    Then I click "Apply for final order"
+    Then the page URL should be "/finalising-your-application"
+    And the page should include "Do you want to finalise your divorce?"
+    Then I click "I want to finalise my divorce"
+    Then I click "Submit"
+    Then the page URL should be "/hub-page"
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
 
   @nightly
   Scenario: [3] Applicant 2 joint switch to sole final order journey
@@ -101,3 +118,20 @@ Feature: Joint final order
     Given I click "I intend to apply for a final order as sole applicant and I want the court to notify my wife"
     Then I click "Confirm"
     Then the page URL should be "/applicant2/hub-page"
+    And the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
+
+    Given I click "Sign out"
+    When I login with applicant "2"
+    Then the page URL should be "/applicant2/hub-page"
+    And the page should include "The court has notified your wife by email that you are intending to apply for a final order as a sole applicant."
+    Then a superuser updates "dateApplicant2DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
+
+    Given I click "Sign out"
+    When I login with applicant "2"
+    Then I click "Apply for final order"
+    Then the page URL should be "/applicant2/finalising-your-application"
+    And the page should include "Do you want to finalise your divorce?"
+    Then I click "I want to finalise my divorce"
+    Then I click "Submit"
+    Then the page URL should be "/hub-page"
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
