@@ -40,4 +40,6 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  enableCrossBrowserTest()
+
 }
