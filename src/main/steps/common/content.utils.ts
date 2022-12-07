@@ -145,3 +145,30 @@ export const getNameChangeOtherDetailsValidator = (
     }
   }) as ValidationCheck;
 };
+
+export const nameChangedHowPossibleValue = (
+  userCase: Partial<CaseWithId>,
+  isApplicant2: boolean
+): ChangedNameHow[] | undefined => {
+  if (isApplicant2) {
+    return [
+      ...new Set(
+        (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
+          userCase.applicant2NameDifferentToMarriageCertificateMethod || []
+        )
+      ),
+    ].length === 0
+      ? undefined
+      : userCase.applicant2NameChangedHow;
+  } else {
+    return [
+      ...new Set(
+        (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
+          userCase.applicant1NameDifferentToMarriageCertificateMethod || []
+        )
+      ),
+    ].length === 0
+      ? undefined
+      : userCase.applicant1NameChangedHow;
+  }
+};

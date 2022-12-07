@@ -24,10 +24,10 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AddressPostcode: 'SW1H 9AJ',
   applicant2AddressPrivate: YesOrNo.NO,
   applicant2AddressTown: 'LONDON',
-  applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+  applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
   applicant2CannotUpload: Checkbox.Checked,
   applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   applicant2UploadedFiles: [],
-  applicant2NameChangedHowOtherDetails: '',
+  applicant2LastNameChangedWhenMarriedOtherDetails: '',
   applicant2Confirmation: YesOrNo.YES,
 };
