@@ -4,8 +4,8 @@ import { isEmpty } from 'lodash';
 
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId } from '../../app/case/case';
-import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, State } from '../../app/case/definition';
+import { CaseApi, getCaseApi } from '../../app/case/case-api';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
@@ -29,6 +29,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
         try {
           const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
           const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
             req.locals.logger.info(
               `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
@@ -42,8 +43,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.user.id
             );
             nextUrl = HOME_URL;
-          } else {
-            if (this.isAllowedToUnLinkFromCase(existingCase)) {
+          } else if (formData.existingOrNewApplication === existingOrNew.New) {
+            if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
@@ -75,12 +76,24 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     }
   }
 
-  private isAllowedToUnLinkFromCase(userCase: CaseWithId): boolean {
-    if (ApplicationType.SOLE_APPLICATION === userCase.applicationType) {
-      const postSubmission = State.Submitted !== userCase.state && !isEmpty(userCase.dateSubmitted);
-      return postSubmission && isEmpty(userCase.dateAosSubmitted);
+  private async isAllowedToUnlinkFromCase(
+    existingUserCase: CaseWithId,
+    caseworkerUserApi: CaseApi,
+    userId: string
+  ): Promise<boolean> {
+    const currentUsersRoleOnExistingCase = await caseworkerUserApi.getUsersRoleOnCase(existingUserCase.id, userId);
+
+    if (![UserRole.APPLICANT_2, UserRole.CREATOR].includes(currentUsersRoleOnExistingCase)) {
+      throw new Error('User is neither CREATOR or APPLICANT_2 on the existing case.');
+    }
+
+    if (
+      existingUserCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+      currentUsersRoleOnExistingCase === UserRole.APPLICANT_2
+    ) {
+      return isEmpty(existingUserCase.dateAosSubmitted);
     } else {
-      return isEmpty(userCase.dateSubmitted);
+      return isEmpty(existingUserCase.dateSubmitted);
     }
   }
 }
