@@ -7,6 +7,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
+import { CaseAssignedUserRoles } from './case-roles';
 import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
@@ -60,8 +61,13 @@ export class CaseApi {
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
-    const userRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
-    return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+    const userRole: UserRole = await this.getUsersRoleOnCase(caseId, userId);
+    return userRole === UserRole.APPLICANT_2;
+  }
+
+  public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
+    const userRoles: CaseAssignedUserRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
+    return userRoles.case_users[0]?.case_role;
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
