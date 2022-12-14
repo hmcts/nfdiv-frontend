@@ -194,10 +194,11 @@ const fields: ToApiConverters = {
       data.applicant1LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant1LastNameChangedWhenMarriedMethod,
   }),
   applicant1LastNameChangedWhenMarriedOtherDetails: data => ({
-    applicant1LastNameChangedWhenMarriedOtherDetails:
-      data.applicant1LastNameChangedWhenMarried === YesOrNo.NO
-        ? ''
-        : data.applicant1LastNameChangedWhenMarriedOtherDetails,
+    applicant1LastNameChangedWhenMarriedOtherDetails: data.applicant1LastNameChangedWhenMarriedMethod?.includes(
+      ChangedNameHow.OTHER
+    )
+      ? data.applicant1LastNameChangedWhenMarriedOtherDetails
+      : '',
   }),
   applicant1NameDifferentToMarriageCertificateMethod: data => ({
     applicant1NameDifferentToMarriageCertificateMethod:
@@ -207,19 +208,20 @@ const fields: ToApiConverters = {
   }),
   applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
     applicant1NameDifferentToMarriageCertificateOtherDetails:
-      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
-        ? ''
-        : data.applicant1NameDifferentToMarriageCertificateOtherDetails,
+      data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
+        ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
+        : '',
   }),
   applicant2LastNameChangedWhenMarriedMethod: data => ({
     applicant2LastNameChangedWhenMarriedMethod:
       data.applicant2LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant2LastNameChangedWhenMarriedMethod,
   }),
   applicant2LastNameChangedWhenMarriedOtherDetails: data => ({
-    applicant2LastNameChangedWhenMarriedOtherDetails:
-      data.applicant2LastNameChangedWhenMarried === YesOrNo.NO
-        ? ''
-        : data.applicant2LastNameChangedWhenMarriedOtherDetails,
+    applicant2LastNameChangedWhenMarriedOtherDetails: data.applicant2LastNameChangedWhenMarriedMethod?.includes(
+      ChangedNameHow.OTHER
+    )
+      ? data.applicant2LastNameChangedWhenMarriedOtherDetails
+      : '',
   }),
   applicant2NameDifferentToMarriageCertificateMethod: data => ({
     applicant2NameDifferentToMarriageCertificateMethod:
@@ -229,9 +231,9 @@ const fields: ToApiConverters = {
   }),
   applicant2NameDifferentToMarriageCertificateOtherDetails: data => ({
     applicant2NameDifferentToMarriageCertificateOtherDetails:
-      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
-        ? ''
-        : data.applicant2NameDifferentToMarriageCertificateOtherDetails,
+      data.applicant2NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
+        ? data.applicant2NameDifferentToMarriageCertificateOtherDetails
+        : '',
   }),
   applicant1HelpPayingNeeded: data => ({
     applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,

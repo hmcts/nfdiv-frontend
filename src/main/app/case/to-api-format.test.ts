@@ -339,8 +339,6 @@ describe('to-api-format', () => {
       applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant1LastNameChangedWhenMarried: YesOrNo.NO,
-        applicant1NameChangedHow: null,
-        applicant1NameChangedHowOtherDetails: null,
       },
     },
     {
@@ -355,8 +353,6 @@ describe('to-api-format', () => {
       applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant2LastNameChangedWhenMarried: YesOrNo.NO,
-        applicant2NameChangedHow: null,
-        applicant2NameChangedHowOtherDetails: null,
       },
     },
     {
