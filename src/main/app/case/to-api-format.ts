@@ -369,7 +369,9 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
 
 const addressConverter = (address: (string | undefined)[]) => (address.some(Boolean) ? address.join('\n') : '');
 
-const setUnreachableAnswersToNull = (properties: string[]): Record<string, null> =>
+export const setUnreachableAnswersToNull = (
+  properties: (keyof Partial<Case> | keyof Partial<CaseData>)[]
+): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

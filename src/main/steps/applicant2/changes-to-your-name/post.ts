@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 
 import { Case, CaseWithId } from '../../../app/case/case';
+import { setUnreachableAnswersToNull } from '../../../app/case/to-api-format';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 
@@ -8,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 export default class Applicant2ChangesToYourNamePostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const emptyOldFields = req.session.userCase.applicant2NameChangedHow?.length
-      ? { applicant2NameChangedHow: [], applicant2NameChangedHowOtherDetails: '' }
+      ? setUnreachableAnswersToNull(['applicant2NameChangedHow', 'applicant2NameChangedHowOtherDetails'])
       : {};
 
     return req.locals.api.triggerEvent(req.session.userCase.id, { ...formData, ...emptyOldFields }, eventName);
