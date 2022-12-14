@@ -61,7 +61,7 @@ describe('Applicant2ChangesToYourNamePostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { applicant2NameChangedHow: null, applicant2NameChangedHowOtherDetails: null, ...body },
+      { applicant2NameChangedHow: [], applicant2NameChangedHowOtherDetails: '', ...body },
       CITIZEN_UPDATE
     );
   });

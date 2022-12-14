@@ -191,7 +191,7 @@ const fields: ToApiConverters = {
   }),
   applicant1LastNameChangedWhenMarriedMethod: data => ({
     applicant1LastNameChangedWhenMarriedMethod:
-      data.applicant1LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant1LastNameChangedWhenMarriedMethod,
+      data.applicant1LastNameChangedWhenMarried === YesOrNo.YES ? data.applicant1LastNameChangedWhenMarriedMethod : [],
   }),
   applicant1LastNameChangedWhenMarriedOtherDetails: data => ({
     applicant1LastNameChangedWhenMarriedOtherDetails: data.applicant1LastNameChangedWhenMarriedMethod?.includes(
@@ -200,21 +200,9 @@ const fields: ToApiConverters = {
       ? data.applicant1LastNameChangedWhenMarriedOtherDetails
       : '',
   }),
-  applicant1NameDifferentToMarriageCertificateMethod: data => ({
-    applicant1NameDifferentToMarriageCertificateMethod:
-      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
-        ? []
-        : data.applicant1NameDifferentToMarriageCertificateMethod,
-  }),
-  applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
-    applicant1NameDifferentToMarriageCertificateOtherDetails:
-      data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
-        ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
-        : '',
-  }),
   applicant2LastNameChangedWhenMarriedMethod: data => ({
     applicant2LastNameChangedWhenMarriedMethod:
-      data.applicant2LastNameChangedWhenMarried === YesOrNo.NO ? [] : data.applicant2LastNameChangedWhenMarriedMethod,
+      data.applicant2LastNameChangedWhenMarried === YesOrNo.YES ? data.applicant2LastNameChangedWhenMarriedMethod : [],
   }),
   applicant2LastNameChangedWhenMarriedOtherDetails: data => ({
     applicant2LastNameChangedWhenMarriedOtherDetails: data.applicant2LastNameChangedWhenMarriedMethod?.includes(
@@ -223,11 +211,23 @@ const fields: ToApiConverters = {
       ? data.applicant2LastNameChangedWhenMarriedOtherDetails
       : '',
   }),
+  applicant1NameDifferentToMarriageCertificateMethod: data => ({
+    applicant1NameDifferentToMarriageCertificateMethod:
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? data.applicant1NameDifferentToMarriageCertificateMethod
+        : [],
+  }),
+  applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
+    applicant1NameDifferentToMarriageCertificateOtherDetails:
+      data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
+        ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
+        : '',
+  }),
   applicant2NameDifferentToMarriageCertificateMethod: data => ({
     applicant2NameDifferentToMarriageCertificateMethod:
-      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
-        ? []
-        : data.applicant2NameDifferentToMarriageCertificateMethod,
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? data.applicant2NameDifferentToMarriageCertificateMethod
+        : [],
   }),
   applicant2NameDifferentToMarriageCertificateOtherDetails: data => ({
     applicant2NameDifferentToMarriageCertificateOtherDetails:
@@ -369,7 +369,7 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
 
 const addressConverter = (address: (string | undefined)[]) => (address.some(Boolean) ? address.join('\n') : '');
 
-export const setUnreachableAnswersToNull = (
+const setUnreachableAnswersToNull = (
   properties: (keyof Partial<Case> | keyof Partial<CaseData>)[]
 ): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});

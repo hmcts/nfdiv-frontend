@@ -150,25 +150,25 @@ export const nameChangedHowPossibleValue = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): ChangedNameHow[] | undefined => {
+  const applicant1ChangeMethods = [
+    ...new Set(
+      (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
+        userCase.applicant1NameDifferentToMarriageCertificateMethod || []
+      )
+    ),
+  ];
+
+  const applicant2ChangeMethods = [
+    ...new Set(
+      (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
+        userCase.applicant2NameDifferentToMarriageCertificateMethod || []
+      )
+    ),
+  ];
+
   if (isApplicant2) {
-    return [
-      ...new Set(
-        (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant2NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ].length === 0
-      ? undefined
-      : userCase.applicant2NameChangedHow;
+    return applicant2ChangeMethods.length === 0 ? userCase.applicant2NameChangedHow : applicant2ChangeMethods;
   } else {
-    return [
-      ...new Set(
-        (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant1NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ].length === 0
-      ? undefined
-      : userCase.applicant1NameChangedHow;
+    return applicant1ChangeMethods.length === 0 ? userCase.applicant1NameChangedHow : applicant1ChangeMethods;
   }
 };
