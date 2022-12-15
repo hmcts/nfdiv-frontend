@@ -101,6 +101,11 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
+export interface RoutePermission {
+  urls: PageLink[];
+  condition: (data: Partial<CaseWithId>) => boolean;
+}
+
 export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
