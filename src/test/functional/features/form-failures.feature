@@ -176,13 +176,10 @@ Feature: Form failures
     Given I go to "/changes-to-your-name"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/how-did-you-change-your-name"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes"
     Given I select "Another way"
     When I click "Continue"
-    Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
 
     Given I go to "/how-the-court-will-contact-you"
     And I click "Continue"
@@ -397,14 +394,10 @@ Feature: Form failures
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/applicant2/how-did-you-change-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes"
     Given I select "Another way"
     When I click "Continue"
-    Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
 
     Given I go to "/applicant2/how-the-court-will-contact-you"
     And I clear the form

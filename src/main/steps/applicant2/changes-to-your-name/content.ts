@@ -12,11 +12,17 @@ import { getNameChangeOtherDetailsValidator } from '../../common/content.utils';
 const labels = ({ required }: CommonContent) => {
   return {
     errors: {
-      applicant2LastNameChangedWhenMarried: {
+      applicant2LastNameChangedWhenMarried: { required },
+      applicant2NameDifferentToMarriageCertificate: { required },
+      applicant2LastNameChangedWhenMarriedMethod: {
         required,
+        applicant2LastNameChangedWhenMarriedOtherDetails:
+          'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
       },
-      applicant2NameDifferentToMarriageCertificate: {
+      applicant2NameDifferentToMarriageCertificateMethod: {
         required,
+        applicant2NameDifferentToMarriageCertificateOtherDetails:
+          'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
       },
     },
   };
