@@ -1,14 +1,14 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
 import 'pdfjs-dist/build/pdf.worker';
-import { downloadEndpoints } from '../../modules/document-download/downloadEndpoints';
+import { DownloadEndpoint } from '../../modules/document-download/downloadEndpoints';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.js';
 
 const loadingMsg = document.getElementById('loading-msg') as HTMLDivElement;
 const pdfContainer = document.getElementById('pdf-container') as HTMLDivElement;
 if (pdfContainer) {
-  pdfjsLib.getDocument(downloadEndpoints.RESPONDENT_ANSWERS).promise.then(
+  pdfjsLib.getDocument(DownloadEndpoint.RESPONDENT_ANSWERS).promise.then(
     async pdfDocument => {
       console.log('PDF loaded');
       const pdf = new PdfDocument(pdfDocument);

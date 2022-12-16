@@ -1,4 +1,4 @@
-export const enum downloadEndpoints {
+export const enum DownloadEndpoint {
   DIVORCE_APPLICATION = '/downloads/divorce-application',
   APPLICATION_TO_END_CIVIL_PARTNERSHIP = '/downloads/application-to-end-civil-partnership',
   RESPONDENT_ANSWERS = '/downloads/respondent-answers',

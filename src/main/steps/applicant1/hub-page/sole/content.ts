@@ -5,7 +5,7 @@ import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
 import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { downloadEndpoints } from '../../../../modules/document-download/downloadEndpoints';
+import { DownloadEndpoint } from '../../../../modules/document-download/downloadEndpoints';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
@@ -214,7 +214,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       part2: 'bailiff service certificate',
       part3: ', to see what you can do next.',
       downloadReference: 'Bailiff-certificate',
-      link: downloadEndpoints.BAILIFF_UNSUCCESSFUL_CERTIFICATION_OF_SERVICE,
+      link: DownloadEndpoint.BAILIFF_UNSUCCESSFUL_CERTIFICATION_OF_SERVICE,
     },
   },
   awaitingBailiffService: {
@@ -225,7 +225,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       part1: 'Download and read your ',
       part2: "'bailiff service application approval'.",
       downloadReference: 'Bailiff-service-application-approval',
-      link: downloadEndpoints.BAILIFF_SERVICE,
+      link: DownloadEndpoint.BAILIFF_SERVICE,
     },
   },
   subHeading1:
@@ -448,7 +448,7 @@ const cy: typeof en = (
       part2: 'dystysgrif y gwasanaeth beili',
       part3: ', i weld beth allwch chi ei wneud nesaf.',
       downloadReference: 'Bailiff-certificate',
-      link: downloadEndpoints.BAILIFF_UNSUCCESSFUL_CERTIFICATION_OF_SERVICE,
+      link: DownloadEndpoint.BAILIFF_UNSUCCESSFUL_CERTIFICATION_OF_SERVICE,
     },
   },
   awaitingBailiffService: {
@@ -459,7 +459,7 @@ const cy: typeof en = (
       part1: 'Lawrlwythwch a ',
       part2: "darllenwch eich ‘cais am wasanaeth beili a gymeradwywyd'",
       downloadReference: 'Bailiff-service-application-approval',
-      link: downloadEndpoints.BAILIFF_SERVICE,
+      link: DownloadEndpoint.BAILIFF_SERVICE,
     },
   },
   subHeading1:
@@ -476,7 +476,7 @@ const cy: typeof en = (
       part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
         isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
       }.`,
-      link: downloadEndpoints.FINAL_ORDER_GRANTED,
+      link: DownloadEndpoint.FINAL_ORDER_GRANTED,
       reference: 'Final-Order-Granted',
     },
   },

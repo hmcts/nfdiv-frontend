@@ -1,7 +1,7 @@
 import { State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { downloadEndpoints } from '../../../modules/document-download/downloadEndpoints';
+import { DownloadEndpoint } from '../../../modules/document-download/downloadEndpoints';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, isDivorce, userCase }: CommonContent) => ({
@@ -13,7 +13,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => ({
     text: `Download a copy of your ${partner}'s response`,
     prev: 'Previous',
     next: 'Next',
-    link: downloadEndpoints.RESPONDENT_ANSWERS,
+    link: DownloadEndpoint.RESPONDENT_ANSWERS,
   },
   subHeading1: 'Respondent',
   line2: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,

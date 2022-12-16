@@ -5,7 +5,7 @@ import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { downloadEndpoints } from '../../../../modules/document-download/downloadEndpoints';
+import { DownloadEndpoint } from '../../../../modules/document-download/downloadEndpoints';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
@@ -279,7 +279,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
         isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
       }.`,
-      link: downloadEndpoints.FINAL_ORDER_GRANTED,
+      link: DownloadEndpoint.FINAL_ORDER_GRANTED,
       reference: 'Final-Order-Granted',
     },
   },
