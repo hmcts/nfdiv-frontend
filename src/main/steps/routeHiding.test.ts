@@ -67,8 +67,30 @@ describe('routeHiding', () => {
       expect(result).toBeTruthy();
     });
 
-    test('check RESPONDENT/FINALISING_YOUR_APPLICATION condition (state)', () => {
+    test('Dont hide FINALISING_YOUR_APPLICATION when s2s-fo not submitted yet (app1)', () => {
       mockReq.url = FINALISING_YOUR_APPLICATION;
+      mockReq.session.userCase.applicant1AppliedForFinalOrderFirst = YesOrNo.YES;
+      mockReq.session.userCase.doesApplicant1IntendToSwitchToSole = YesOrNo.YES;
+      mockReq.session.userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
+
+      mockReq.session.userCase.state = State.AwaitingJointFinalOrder;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('Hide FINALISING_YOUR_APPLICATION when s2s-fo has been submitted (app1)', () => {
+      mockReq.url = FINALISING_YOUR_APPLICATION;
+      mockReq.session.userCase.applicant1AppliedForFinalOrderFirst = YesOrNo.YES;
+      mockReq.session.userCase.doesApplicant1IntendToSwitchToSole = YesOrNo.YES;
+      mockReq.session.userCase.dateApplicant1DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
+
+      mockReq.session.userCase.state = State.FinalOrderRequested;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('check RESPONDENT/FINALISING_YOUR_APPLICATION condition (state)', () => {
+      mockReq.url = `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`;
       mockReq.session.userCase.state = State.FinalOrderRequested;
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
@@ -77,6 +99,28 @@ describe('routeHiding', () => {
     test('check RESPONDENT/FINALISING_YOUR_APPLICATION condition (applicant2AppliedForFinalOrderFirst)', () => {
       mockReq.url = `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`;
       mockReq.session.userCase.applicant2AppliedForFinalOrderFirst = YesOrNo.YES;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('Dont hide RESPONDENT/FINALISING_YOUR_APPLICATION when s2s-fo not submitted yet (app2)', () => {
+      mockReq.url = `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`;
+      mockReq.session.userCase.applicant2AppliedForFinalOrderFirst = YesOrNo.YES;
+      mockReq.session.userCase.doesApplicant2IntendToSwitchToSole = YesOrNo.YES;
+      mockReq.session.userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
+
+      mockReq.session.userCase.state = State.AwaitingJointFinalOrder;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('Hide RESPONDENT/FINALISING_YOUR_APPLICATION when s2s-fo has been submitted (app2)', () => {
+      mockReq.url = `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`;
+      mockReq.session.userCase.applicant2AppliedForFinalOrderFirst = YesOrNo.YES;
+      mockReq.session.userCase.doesApplicant2IntendToSwitchToSole = YesOrNo.YES;
+      mockReq.session.userCase.dateApplicant2DeclaredIntentionToSwitchToSoleFo = '2022-10-10';
+
+      mockReq.session.userCase.state = State.FinalOrderRequested;
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
     });
