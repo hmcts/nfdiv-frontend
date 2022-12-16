@@ -6,6 +6,7 @@ import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
+import { downloadEndpoints } from '../../../modules/document-download/downloadEndpoints';
 import { SupportedLanguages } from '../../../modules/i18n';
 import {
   form as applicant1Form,
@@ -97,7 +98,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       part1: 'You can ',
       part2: 'download and read your conditional order.',
       downloadReference: 'Conditional-Order-Granted',
-      link: '/downloads/conditional-order-granted',
+      link: downloadEndpoints.CONDITIONAL_ORDER_GRANTED,
     },
   },
   legalAdvisorReferral: {
@@ -163,7 +164,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     part1: 'You can download a copy of the court’s full',
     part2: 'Refusal Order PDF.',
     downloadReference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     line4: 'What you need to do',
     line5: 'You will need to change the application, and submit it to the court again.',
     line6:
@@ -196,7 +197,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     part2: `This is the official court document which proves
       ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
+    link: downloadEndpoints.FINAL_ORDER_GRANTED,
   },
 });
 
@@ -290,7 +291,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       part1: 'Gallwch ',
       part2: 'ddarllen a lawrlwytho eich tystysgrif hawl.',
       downloadReference: 'Certificate-of-Entitlement',
-      link: '/downloads/certificate-of-entitlement',
+      link: downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT,
     },
   },
   legalAdvisorReferral: {
@@ -362,7 +363,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     part1: 'Gallwch lawrlwytho copi o',
     part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
     downloadReference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     line4: 'Beth sydd angen i chi ei wneud',
     line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
     line6:
@@ -397,7 +398,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
     }.`,
     downloadReference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
+    link: downloadEndpoints.FINAL_ORDER_GRANTED,
   },
 });
 

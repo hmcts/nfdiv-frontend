@@ -1,5 +1,6 @@
 import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { downloadEndpoints } from '../../../../modules/document-download/downloadEndpoints';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
@@ -11,12 +12,12 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
-    link: '/downloads/certificate-of-service',
+    link: downloadEndpoints.CERTIFICATE_OF_SERVICE,
     text: "View your 'certificate of service' (PDF)",
   },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
-    link: '/downloads/respondent-answers',
+    link: downloadEndpoints.RESPONDENT_ANSWERS,
     text: `View the response to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
@@ -37,32 +38,32 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
   },
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-entitlement',
+    link: downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT,
     text: 'View the certificate of entitlement (PDF)',
   },
   conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
-    link: '/downloads/conditional-order-granted',
+    link: downloadEndpoints.CONDITIONAL_ORDER_GRANTED,
     text: 'View the conditional order (PDF)',
   },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
-    link: '/downloads/conditional-order-answers',
+    link: downloadEndpoints.CONDITIONAL_ORDER_ANSWERS,
     text: 'View the conditional order application (PDF)',
   },
   conditionalOrderApplicationDownload: {
     reference: 'Conditional-Order-Application',
-    link: '/downloads/conditional-order-application',
+    link: downloadEndpoints.CONDITIONAL_ORDER_APPLICATION,
     text: 'View the conditional order application (PDF)',
   },
   conditionalOrderRefusalPdf: {
     reference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     text: 'View the conditional order refusal (PDF)',
   },
   finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
+    link: downloadEndpoints.FINAL_ORDER_GRANTED,
     text: 'Download a copy of your final order (PDF)',
   },
   reviewContactDetails: `<a class="govuk-link" href="${
@@ -89,12 +90,12 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
-    link: '/downloads/certificate-of-service',
+    link: downloadEndpoints.CERTIFICATE_OF_SERVICE,
     text: "View your 'certificate of service' (PDF)",
   },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
-    link: '/downloads/respondent-answers',
+    link: downloadEndpoints.RESPONDENT_ANSWERS,
     text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
   deemedOrDispensedDownload: {
@@ -113,37 +114,37 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
   },
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-entitlement',
+    link: downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT,
     text: 'Gweld y dystysgrif hawl (PDF)',
   },
   conditionalOrderGrantedDocumentDownload: {
     reference: 'Conditional-Order-Granted',
-    link: '/downloads/conditional-order-granted',
+    link: downloadEndpoints.CONDITIONAL_ORDER_GRANTED,
     text: 'Gweld y gorchymyn amodol (PDF)',
   },
   conditionalOrderAnswersPdf: {
     reference: 'Conditional-Order-Answers',
-    link: '/downloads/conditional-order-answers',
+    link: downloadEndpoints.CONDITIONAL_ORDER_ANSWERS,
     text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderApplicationDownload: {
     reference: 'Conditional-Order-Application',
-    link: '/downloads/conditional-order-application',
+    link: downloadEndpoints.CONDITIONAL_ORDER_APPLICATION,
     text: 'Gweld y cais am orchymyn amodol (PDF) ',
   },
   conditionalOrderRefusalPdf: {
     reference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     text: 'View the conditional order refusal (PDF)',
   },
   finalOrderApplicationDownload: {
     reference: 'Final-Order-Application',
-    link: '/downloads/final-order-application',
+    link: downloadEndpoints.FINAL_ORDER_APPLICATION,
     text: 'View the final order application (PDF)',
   },
   finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
+    link: downloadEndpoints.FINAL_ORDER_GRANTED,
     text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
   },
   reviewContactDetails: `<a class="govuk-link" href="${

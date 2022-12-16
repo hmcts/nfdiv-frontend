@@ -6,6 +6,7 @@ import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/c
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
+import { downloadEndpoints } from '../../../modules/document-download/downloadEndpoints';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CommonContent } from '../../common/common.content';
 import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
@@ -53,7 +54,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
     downloadReference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-entitlement',
+    link: downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT,
   },
   conditionalOrderGrantedDocumentLine: {
     part1: 'You can ',
@@ -62,7 +63,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
     downloadReference: 'Conditional-Order-Granted',
-    link: '/downloads/conditional-order-granted',
+    link: downloadEndpoints.CONDITIONAL_ORDER_GRANTED,
   },
   conditionalOrderPronounced: {
     line1: `You have been granted a 'conditional order' by the court. Your conditional order was formally pronounced
@@ -87,7 +88,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       part2: 'Refusal Order (PDF)',
       part3: '.',
       downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
+      link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     },
     next: 'Providing information to the court',
     line4: 'You need to respond to the court’s feedback before your application can proceed.',
@@ -116,7 +117,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       part2: 'Refusal Order document',
       part3: '.',
       downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
+      link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     },
     marriageCertTranslationReasonHeading: `A translation of your ${
       isDivorce ? 'marriage' : 'civil partnership'
@@ -144,7 +145,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     part1: 'You can download a copy of the court’s full',
     part2: 'Refusal Order PDF.',
     downloadReference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     line4: 'What you need to do',
     line5: 'You will need to change the application, and submit it to the court again.',
     line6:
@@ -159,7 +160,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     part2: ` This is the official court document which proves
       ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
-    link: '/downloads/final-order-granted',
+    link: downloadEndpoints.FINAL_ORDER_GRANTED,
   },
 });
 
@@ -215,7 +216,7 @@ const cy: typeof en = ({
       isDivorce ? 'gael ysgaria' : "dod â'ch partneriaeth sifil i ben"
     }.`,
     downloadReference: 'Certificate-of-Entitlement',
-    link: '/downloads/certificate-of-entitlement',
+    link: downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT,
   },
   conditionalOrderGrantedDocumentLine: {
     part1: 'You can ',
@@ -224,7 +225,7 @@ const cy: typeof en = ({
       isDivorce ? 'get divorced' : 'end your civil partnership'
     }.`,
     downloadReference: 'Conditional-Order-Granted',
-    link: '/downloads/conditional-order-granted',
+    link: downloadEndpoints.CONDITIONAL_ORDER_GRANTED,
   },
   conditionalOrderPronounced: {
     line1: `Rydych wedi cael 'gorchymyn amodol' gan y llys. Cafodd eich gorchymyn amodol ei gyhoeddi’n ffurfiol (darllen allan) gan farnwr yn ${
@@ -251,7 +252,7 @@ const cy: typeof en = ({
       part2: 'Orchymyn Gwrthod (PDF)',
       part3: ' llawn y llys.',
       downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
+      link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     },
     next: 'Darparu gwybodaeth i’r Llys',
     line4: 'Mae arnoch angen darparu’r wybodaeth a ofynnwyd amdani gan y llys.',
@@ -281,7 +282,7 @@ const cy: typeof en = ({
       part2: 'Gorchymyn Gwrthod (PDF)',
       part3: '.',
       downloadReference: 'Refusal-Order',
-      link: '/downloads/conditional-order-refusal',
+      link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     },
     marriageCertTranslationReasonHeading: `Cyfieithiad o’ch tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`,
     marriageCertTranslationReasonBody: `Rhaid i’r dystysgrif ${
@@ -307,7 +308,7 @@ const cy: typeof en = ({
     part1: 'Gallwch lawrlwytho copi o',
     part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
     downloadReference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
     line4: 'Beth sydd angen i chi ei wneud',
     line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
     line6:
@@ -322,7 +323,7 @@ const cy: typeof en = ({
     part2: `This is the official court document which proves
       ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Refusal-Order',
-    link: '/downloads/conditional-order-refusal',
+    link: downloadEndpoints.CONDITIONAL_ORDER_REFUSAL,
   },
 });
 

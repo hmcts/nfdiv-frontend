@@ -5,6 +5,8 @@ import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-tok
 import { DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
+import { downloadEndpoints } from './downloadEndpoints';
+
 const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
@@ -18,7 +20,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForApplicationPdf = {
-      endpoints: ['/downloads/divorce-application', '/downloads/application-to-end-civil-partnership'],
+      endpoints: [downloadEndpoints.DIVORCE_APPLICATION, downloadEndpoints.APPLICATION_TO_END_CIVIL_PARTNERSHIP],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(doc => doc.value.documentType === DocumentType.APPLICATION)
           ?.value.documentLink.document_binary_url;
@@ -26,7 +28,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForRespondentAnswersPdf = {
-      endpoints: ['/downloads/respondent-answers'],
+      endpoints: [downloadEndpoints.RESPONDENT_ANSWERS],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated
           .concat(req.session.userCase?.documentsUploaded)
@@ -36,7 +38,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForCertificateOfServicePdf = {
-      endpoints: ['/downloads/certificate-of-service'],
+      endpoints: [downloadEndpoints.CERTIFICATE_OF_SERVICE],
       path: (req: AppRequest) => {
         return req.session.userCase?.alternativeServiceOutcomes.find(
           doc =>
@@ -47,7 +49,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForDeemedAsServicePdf = {
-      endpoints: ['/downloads/certificate-of-deemed-as-service'],
+      endpoints: [downloadEndpoints.CERTIFICATE_OF_DEEMED_AS_SERVICE],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.DEEMED_AS_SERVICE_GRANTED
@@ -56,7 +58,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForDispenseWithServicePdf = {
-      endpoints: ['/downloads/certificate-of-dispense-with-service'],
+      endpoints: [downloadEndpoints.CERTIFICATE_OF_DISPENSE_WITH_SERVICE],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_GRANTED
@@ -65,21 +67,21 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForCertificateOfEntitlementPdf = {
-      endpoints: ['/downloads/certificate-of-entitlement'],
+      endpoints: [downloadEndpoints.CERTIFICATE_OF_ENTITLEMENT],
       path: (req: AppRequest) => {
         return req.session.userCase?.coCertificateOfEntitlementDocument.documentLink.document_binary_url;
       },
     };
 
     const dmStoreProxyForConditionalOrderGrantedPdf = {
-      endpoints: ['/downloads/conditional-order-granted'],
+      endpoints: [downloadEndpoints.CONDITIONAL_ORDER_GRANTED],
       path: (req: AppRequest) => {
         return req.session.userCase?.coConditionalOrderGrantedDocument.documentLink.document_binary_url;
       },
     };
 
     const dmStoreProxyForConditionalOrderRefusalPdf = {
-      endpoints: ['/downloads/conditional-order-refusal'],
+      endpoints: [downloadEndpoints.CONDITIONAL_ORDER_REFUSAL],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_REFUSAL
@@ -88,7 +90,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForConditionalOrderAnswersPdf = {
-      endpoints: ['/downloads/conditional-order-answers'],
+      endpoints: [downloadEndpoints.CONDITIONAL_ORDER_ANSWERS],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
@@ -97,7 +99,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyFinalOrderGrantedPdf = {
-      endpoints: ['/downloads/final-order-granted'],
+      endpoints: [downloadEndpoints.FINAL_ORDER_GRANTED],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
@@ -106,7 +108,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForDeemedServiceRefusedPdf = {
-      endpoints: ['/downloads/deemed-service-refused'],
+      endpoints: [downloadEndpoints.DEEMED_SERVICE_REFUSED],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.DEEMED_SERVICE_REFUSED
@@ -115,7 +117,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForDispenseWithServiceRefusedPdf = {
-      endpoints: ['/downloads/dispense-with-service-refused'],
+      endpoints: [downloadEndpoints.DISPENSE_WITH_SERVICE_REFUSED],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_REFUSED
@@ -124,7 +126,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForBailiffServiceRefusedPdf = {
-      endpoints: ['/downloads/bailiff-service-refused'],
+      endpoints: [downloadEndpoints.BAILIFF_SERVICE_REFUSED],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE_REFUSED
@@ -133,7 +135,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf = {
-      endpoints: ['/downloads/bailiff-unsuccessful-certificate-of-service'],
+      endpoints: [downloadEndpoints.BAILIFF_UNSUCCESSFUL_CERTIFICATION_OF_SERVICE],
       path: (req: AppRequest) => {
         return req.session.userCase?.alternativeServiceOutcomes.find(
           doc =>
@@ -144,7 +146,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForBailiffServicePdf = {
-      endpoints: ['/downloads/bailiff-service'],
+      endpoints: [downloadEndpoints.BAILIFF_SERVICE],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE
@@ -153,7 +155,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForConditionalOrderApplicationPdf = {
-      endpoints: ['/downloads/conditional-order-application'],
+      endpoints: [downloadEndpoints.CONDITIONAL_ORDER_APPLICATION],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
@@ -162,7 +164,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForFinalOrderApplicationPdf = {
-      endpoints: ['/downloads/final-order-application'],
+      endpoints: [downloadEndpoints.FINAL_ORDER_APPLICATION],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
@@ -171,7 +173,7 @@ export class DocumentDownloadMiddleware {
     };
 
     const dmStoreProxyForFinalOrderGrantedPdf = {
-      endpoints: ['/downloads/final-order-granted'],
+      endpoints: [downloadEndpoints.FINAL_ORDER_GRANTED],
       path: (req: AppRequest) => {
         return req.session.userCase?.documentsGenerated.find(
           doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
