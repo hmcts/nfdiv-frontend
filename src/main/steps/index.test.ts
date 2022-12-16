@@ -4,9 +4,6 @@ import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { respondentSequence } from './respondentSequence';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
@@ -26,6 +23,7 @@ import {
   getNextIncompleteStepUrl,
   getNextStepUrl,
   getUserSequence,
+  hasSubmittedAos,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
 } from './index';
@@ -216,7 +214,22 @@ describe('Steps', () => {
       mockReq = mockRequest();
     });
 
-    it('returns respondentSequence if is applicant2 and sole', () => {
+    it('returns a sequence without AoS steps if AoS already submitted', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Holding,
+        dateAosSubmitted: '2021-05-10',
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toHaveLength(6);
+      expect(result.map(step => step.url)).toContain('/respondent/hub-page');
+      expect(result.map(step => step.url)).not.toContain('/respondent/how-do-you-want-to-respond');
+    });
+
+    it('returns a sequence including AoS steps if AoS not yet submitted', () => {
       mockReq.session.userCase = {
         id: '1234',
         state: State.Holding,
@@ -225,61 +238,29 @@ describe('Steps', () => {
       mockReq.session.isApplicant2 = true;
 
       const result = getUserSequence(mockReq);
-      expect(result).toEqual(respondentSequence);
+      expect(result).toHaveLength(15);
+      expect(result.map(step => step.url)).toContain('/respondent/how-do-you-want-to-respond');
     });
+  });
 
-    it('returns applicant2PreSubmissionSequence if is applicant2, joint and pre-submission state', () => {
-      mockReq.session.userCase = {
+  describe('hasSubmittedAos', () => {
+    test('Returns true if dateAosSubmitted is defined', () => {
+      const userCase: CaseWithId = {
         id: '1234',
-        state: State.Draft,
-        applicationType: ApplicationType.JOINT_APPLICATION,
+        state: State.Holding,
+        dateAosSubmitted: '2021-05-10',
       } as CaseWithId;
-      mockReq.session.isApplicant2 = true;
-
-      const result = getUserSequence(mockReq);
-      expect(result).toEqual(applicant2PreSubmissionSequence);
+      const result = hasSubmittedAos(userCase);
+      expect(result).toBe(true);
     });
 
-    it('returns applicant2PreSubmissionSequence if is applicant2, joint and post-submission state', () => {
-      mockReq.session.userCase = {
+    test('Returns false if dateAosSubmitted is undefined', () => {
+      const userCase: CaseWithId = {
         id: '1234',
-        state: State.AwaitingFinalOrder,
-        applicationType: ApplicationType.JOINT_APPLICATION,
+        state: State.Holding,
       } as CaseWithId;
-      mockReq.session.isApplicant2 = true;
-
-      const result = getUserSequence(mockReq);
-      expect(result).toEqual(applicant2PostSubmissionSequence);
+      const result = hasSubmittedAos(userCase);
+      expect(result).toBe(false);
     });
-
-    test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
-      'returns applicant1PreSubmissionSequence if is applicant 1, %s and pre-submission state',
-      async applicationType => {
-        mockReq.session.userCase = {
-          id: '1234',
-          state: State.Draft,
-          applicationType,
-        } as CaseWithId;
-        mockReq.session.isApplicant2 = false;
-
-        const result = getUserSequence(mockReq);
-        expect(result).toEqual(applicant1PreSubmissionSequence);
-      }
-    );
-
-    test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
-      'returns applicant1PostSubmissionSequence if is applicant 1, %s and pre-submission state',
-      async applicationType => {
-        mockReq.session.userCase = {
-          id: '1234',
-          state: State.AwaitingConditionalOrder,
-          applicationType,
-        } as CaseWithId;
-        mockReq.session.isApplicant2 = false;
-
-        const result = getUserSequence(mockReq);
-        expect(result).toEqual(applicant1PostSubmissionSequence);
-      }
-    );
   });
 });
