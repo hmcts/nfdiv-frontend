@@ -25,7 +25,6 @@ import { ExistingApplicationPostController } from './steps/existing-application/
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { shouldHideRouteFromUser } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
@@ -156,11 +155,7 @@ export class Routes {
 
   private isRouteForUser(req: AppRequest, res: Response, next: NextFunction): void {
     const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-    if (
-      isApp2Route !== req.session.isApplicant2 ||
-      !getUserSequence(req).some(r => req.path.includes(r.url)) ||
-      shouldHideRouteFromUser(req)
-    ) {
+    if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
       return res.redirect('/error');
     }
     next();
