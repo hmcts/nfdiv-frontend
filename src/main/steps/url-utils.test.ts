@@ -1,4 +1,4 @@
-import { isLinkingUrl, signInNotRequired } from './url-utils';
+import { getAosSteps, isLinkingUrl, signInNotRequired } from './url-utils';
 import { ACCESSIBILITY_STATEMENT_URL, HOME_URL, RESPONDENT } from './urls';
 
 describe('url-utils', () => {
@@ -23,6 +23,16 @@ describe('url-utils', () => {
     test('Returns false if request path is not a "linking" path', () => {
       const result = isLinkingUrl(HOME_URL);
       expect(result).toBe(false);
+    });
+  });
+
+  describe('getAosSteps', () => {
+    test('Returns mapped AoS steps', () => {
+      const result = getAosSteps();
+      for (const step of result) {
+        expect(step.includes(RESPONDENT)).toBeTruthy();
+      }
+      expect(result).toHaveLength(9);
     });
   });
 });
