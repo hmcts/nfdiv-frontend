@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/finalising-your-application/content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 
 const labels = content => ({
   errors: {
@@ -22,17 +23,20 @@ export const form: FormContent = {
           label: l => l.checkboxLine,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
+          selected: false,
         },
       ],
     },
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+
   return {
     ...applicant1Content,
     ...labels(applicant1Content),

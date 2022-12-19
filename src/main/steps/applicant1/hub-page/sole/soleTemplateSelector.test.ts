@@ -4,11 +4,11 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceOutcome,
   DivorceOrDissolution,
-  HubTemplate,
   ListValue,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
