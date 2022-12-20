@@ -5,7 +5,7 @@ import { State, YesOrNo } from '../case/definition';
 import { AppSession } from './AppRequest';
 
 export const needsToExplainDelay = (userCase: Partial<CaseWithId>): boolean => {
-  // This should be expanded upon in NFDIV-3138.
+  // This should be expanded upon in NFDIV-1607.
   return userCase.state === State.FinalOrderOverdue;
 };
 

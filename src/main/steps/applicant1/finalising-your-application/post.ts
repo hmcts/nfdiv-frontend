@@ -20,11 +20,9 @@ import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!needsToExplainDelay(req.session.userCase)) {
-      return super.save(req, addWelshTranslationUponSubmissionFormData(formData, req.session), eventName);
-    }
-
-    return super.save(req, formData, eventName);
+    return needsToExplainDelay(req.session.userCase)
+      ? super.save(req, formData, eventName)
+      : super.save(req, addWelshTranslationUponSubmissionFormData(formData, req.session), eventName);
   }
 
   protected saveSessionAndRedirect(req: AppRequest, res: Response): void {

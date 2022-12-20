@@ -22,11 +22,9 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
     formData.applicant1ApplyForFinancialOrder = req.session.userCase.applicant1ApplyForFinancialOrder;
     formData.applicant1WhoIsFinancialOrderFor = req.session.userCase.applicant1WhoIsFinancialOrderFor;
 
-    if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      return super.save(req, addWelshTranslationUponSubmissionFormData(formData, req.session), eventName);
-    }
-
-    return super.save(req, formData, eventName);
+    return req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION
+      ? super.save(req, addWelshTranslationUponSubmissionFormData(formData, req.session), eventName)
+      : super.save(req, formData, eventName);
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
