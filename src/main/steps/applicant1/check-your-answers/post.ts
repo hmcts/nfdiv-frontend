@@ -7,11 +7,10 @@ import {
   CITIZEN_SUBMIT,
   INVITE_APPLICANT_2,
   State,
-  YesOrNo,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { addWelshTranslationUponSubmissionFormData } from '../../../app/controller/controller.utils';
 
 @autobind
 export default class CheckYourAnswersPostController extends PostController<AnyObject> {
@@ -24,8 +23,7 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
     formData.applicant1WhoIsFinancialOrderFor = req.session.userCase.applicant1WhoIsFinancialOrderFor;
 
     if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      formData.applicant1UsedWelshTranslationOnSubmission =
-        req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
+      return super.save(req, addWelshTranslationUponSubmissionFormData(formData, req.session), eventName);
     }
 
     return super.save(req, formData, eventName);
