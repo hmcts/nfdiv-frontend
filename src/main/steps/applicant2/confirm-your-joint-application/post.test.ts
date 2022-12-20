@@ -59,7 +59,7 @@ describe('ConfirmYourJointApplicationPostController', () => {
     } as unknown as FormContent;
     const confirmYourAnswerPostController = new ConfirmYourJointApplicationPostController(mockFormContent.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, session: { isApplicant2: true } });
     req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();

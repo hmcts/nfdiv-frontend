@@ -8,7 +8,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import RespondentCheckYourAnswersPostController from './post';
 
 describe('RespondentCheckYourAnswersPostController', () => {
-  it('triggers CITIZEN_SUBMIT and sets applicant2UsedWelshTranslationOnSubmission to No', async () => {
+  it('triggers SUBMIT_AOS and sets applicant2UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       aosStatementOfTruth: Checkbox.Checked,
     };
@@ -21,7 +21,7 @@ describe('RespondentCheckYourAnswersPostController', () => {
       mockFormContent.fields
     );
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, session: { isApplicant2: true } });
     const res = mockResponse();
     await respondentCheckYourAnswerPostController.post(req, res);
 
@@ -45,7 +45,7 @@ describe('RespondentCheckYourAnswersPostController', () => {
       mockFormContent.fields
     );
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, session: { isApplicant2: true } });
     req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
