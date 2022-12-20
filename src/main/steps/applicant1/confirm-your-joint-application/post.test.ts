@@ -8,7 +8,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import Applicant1ConfirmYourJointApplicationPostController from './post';
 
 describe('Applicant1ConfirmYourJointApplicationPostController', () => {
-  it('triggers CITIZEN_SUBMIT', async () => {
+  it('triggers CITIZEN_SUBMIT and sets applicant1UsedWelshTranslationOnSubmission to No', async () => {
     const body = {
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1StatementOfTruth: Checkbox.Checked,
@@ -29,7 +29,11 @@ describe('Applicant1ConfirmYourJointApplicationPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      {
+        ...body,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        applicant1UsedWelshTranslationOnSubmission: YesOrNo.NO,
+      },
       CITIZEN_SUBMIT
     );
   });

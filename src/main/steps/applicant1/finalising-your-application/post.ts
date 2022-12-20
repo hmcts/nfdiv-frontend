@@ -10,17 +10,21 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils';
+import { SupportedLanguages } from '../../../modules/i18n';
 import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (req.session.lang === 'cy') {
+    if (!needsToExplainDelay(req.session.userCase)) {
       if (req.session.isApplicant2) {
-        formData.applicant2UsedWelshTranslationOnSubmission = YesOrNo.YES;
+        formData.applicant2UsedWelshTranslationOnSubmission =
+          req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
       } else {
-        formData.applicant1UsedWelshTranslationOnSubmission = YesOrNo.YES;
+        formData.applicant1UsedWelshTranslationOnSubmission =
+          req.session.lang === SupportedLanguages.Cy ? YesOrNo.YES : YesOrNo.NO;
       }
     }
 
