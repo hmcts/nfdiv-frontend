@@ -52,11 +52,11 @@ withNightlyPipeline(type, product, component) {
     yarnBuilder.smokeTest()
   }
 
-  after('crossBrowserTest') {
+  afterAlways('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
   }
 
-  after('fullFunctionalTest') {
+  afterAlways('fullFunctionalTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
   }
 }
