@@ -1,25 +1,25 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
+import { LoggerInstance } from 'winston';
 
+import { isCdamEnabled } from '../../modules/document-download/proxy-list';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
-import { Classification, DocumentManagementClient } from './DocumentManagementClient';
+import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
+import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
-  private getDocumentManagementClient(user: UserDetails) {
-    return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
-  }
+  logger: LoggerInstance | undefined;
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
+    this.logger = req.locals.logger;
     if (
       (!isApplicant2 &&
         ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
@@ -43,9 +43,7 @@ export class DocumentManagerController {
       }
     }
 
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-
-    const filesCreated = await documentManagementClient.create({
+    const filesCreated = await this.getApiClient(req.session.user).create({
       files: req.files,
       classification: Classification.Public,
     });
@@ -78,14 +76,13 @@ export class DocumentManagerController {
     );
 
     req.session.save(() => {
+      this.logNewUploads(newUploads, req);
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
+        return res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(
-          isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT
-        );
+        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
       } else {
-        res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
+        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
       }
     });
   }
@@ -132,8 +129,7 @@ export class DocumentManagerController {
       isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    await documentManagementClient.delete({ url: documentUrlToDelete });
+    await this.getApiClient(req.session.user).delete({ url: documentUrlToDelete });
 
     req.session.save(err => {
       if (err) {
@@ -146,5 +142,22 @@ export class DocumentManagerController {
       }
       return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
     });
+  }
+
+  getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
+    if (isCdamEnabled()) {
+      this.logger?.info('uploading document through cdam');
+      return new CaseDocumentManagementClient(user);
+    }
+    this.logger?.info('uploading document through docstore');
+    return new DocumentManagementClient(user);
+  }
+
+  private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
+    newUploads.forEach(file =>
+      req.locals.logger.info(
+        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) to case(id=${req.session.userCase.id})`
+      )
+    );
   }
 }
