@@ -31,8 +31,6 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
-new PropertiesVolume().enableFor(app);
-
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
@@ -44,6 +42,7 @@ app.use((req, res, next) => {
 });
 
 new AxiosLogger().enableFor(app);
+new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
