@@ -1,3 +1,4 @@
+import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet from 'helmet';
@@ -7,6 +8,7 @@ const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const azureBlob = '*.blob.core.windows.net';
 const doubleclick = 'stats.g.doubleclick.net';
 const self = "'self'";
+const equalityUrl: string = config.get('services.equalityAndDiversity.url');
 
 /**
  * Module that enables helmet in the application
@@ -68,7 +70,8 @@ export class Helmet {
           connectSrc,
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
-          formAction: [self, 'https://www.payments.service.gov.uk'],
+          // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
+          formAction: [self, 'https://www.payments.service.gov.uk', equalityUrl],
           imgSrc,
           objectSrc: [self],
           scriptSrc,
