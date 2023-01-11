@@ -17,14 +17,10 @@ const logger = Logger.getLogger('PCQGetController');
 @autobind
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    req.locals.logger.info('PCQGetController called...');
-
     const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
     const url = config.get('services.equalityAndDiversity.url');
 
     if (!req.session.userCase.applicant1PcqId && tokenKey && url) {
-      req.locals.logger.info('Creating PCQ ID..');
-
       const path: string = config.get('services.equalityAndDiversity.path');
       const health = `${url}/health`;
 
@@ -75,7 +71,6 @@ export default class PCQGetController {
         if (err) {
           throw err;
         }
-        req.locals.logger.info('Redirecting to PCQ: ', `${url}${path}?${qs}`);
         res.redirect(`${url}${path}?${qs}`);
       });
     } else {
