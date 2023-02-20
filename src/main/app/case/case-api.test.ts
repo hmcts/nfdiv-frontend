@@ -311,6 +311,20 @@ describe('CaseApi', () => {
     const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
     expect(isApplicant2).toBe(true);
   });
+
+  test('isApplicant2() should return false if the case role does not contain applicant 2', async () => {
+    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
+
+    const isApplicant2 = await api.isApplicant2('1234123412341234', userDetails.id);
+    expect(isApplicant2).toBe(false);
+  });
+
+  test('getUsersRoleOnCase() should return the user role of the user on the case', async () => {
+    mockApiClient.getCaseUserRoles.mockResolvedValue({ case_users: [{ case_role: UserRole.CREATOR }] });
+
+    const getUsersRoleOnCase = await api.getUsersRoleOnCase('1234123412341234', userDetails.id);
+    expect(getUsersRoleOnCase).toBe(UserRole.CREATOR);
+  });
 });
 
 describe('getCaseApi', () => {

@@ -1,11 +1,16 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
-  hasApplicantAppliedForConditionalOrder: boolean
+  {
+    hasApplicantAppliedForConditionalOrder = false,
+    isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+  } = {}
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -39,6 +44,12 @@ export const getJointHubTemplate = (
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
     case State.AwaitingJointFinalOrder:
+      if (isWithinSwitchToSoleFoIntentionNotificationPeriod) {
+        return HubTemplate.IntendToSwitchToSoleFinalOrder;
+      }
+      if (hasSwitchToSoleFoIntentionNotificationPeriodExpired) {
+        return HubTemplate.AwaitingFinalOrder;
+      }
       return HubTemplate.AwaitingJointFinalOrder;
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;

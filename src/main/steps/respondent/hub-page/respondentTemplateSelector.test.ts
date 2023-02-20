@@ -1,5 +1,6 @@
 import { Checkbox } from '../../../app/case/case';
-import { DivorceOrDissolution, HubTemplate, State } from '../../../app/case/definition';
+import { DivorceOrDissolution, State } from '../../../app/case/definition';
+import { HubTemplate } from '../../common/hubTemplates';
 import { currentStateFn } from '../../state-sequence';
 
 import { getRespondentHubTemplate } from './respondentTemplateSelector';

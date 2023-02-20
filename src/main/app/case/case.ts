@@ -140,6 +140,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
   applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
+  doesApplicant1IntendToSwitchToSole: 'doesApplicant1IntendToSwitchToSole',
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
+  doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
+  finalOrderSwitchedToSole: 'finalOrderSwitchedToSole',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -324,6 +329,8 @@ export interface Case {
   applicant2SolicitorRepresented: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
+  applicant1IntendsToSwitchToSole?: Checkbox;
+  applicant2IntendsToSwitchToSole?: Checkbox;
   dateAosSubmitted?: DateAsString;
   aosStatementOfTruth: Checkbox;
   previousState: State;
@@ -334,6 +341,11 @@ export interface Case {
   applicant2AppliedForFinalOrderFirst: YesOrNo;
   switchedToSoleCo: YesOrNo;
   coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  finalOrderSwitchedToSole: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

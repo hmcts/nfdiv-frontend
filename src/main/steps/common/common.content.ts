@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { SAVE_AND_SIGN_OUT } from '../urls';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -24,6 +25,7 @@ export const en = {
   back: 'Back',
   continue: 'Continue',
   submit: 'Submit',
+  confirm: 'Confirm',
   change: 'Change',
   upload: 'Upload',
   download: 'Download',
@@ -126,6 +128,15 @@ export const en = {
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  timeout: {
+    title: 'You are about to be signed out',
+    part1: 'You are going to be signed out of your application in',
+    part2: 'because of inactivity. This is to protect your personal information.',
+    buttonText: 'Continue with your application',
+    twoMinutes: '2 minutes',
+    minutes: 'minute',
+    seconds: 'seconds',
+  },
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
     line2: 'HMCTS Divorce and Dissolution service',
@@ -134,6 +145,7 @@ export const en = {
     postcode: 'CM20 9UG',
   },
   contactEmail: 'contactdivorce@justice.gov.uk',
+  saveAndSignOutLink: SAVE_AND_SIGN_OUT,
 };
 
 const cy: typeof en = {
@@ -157,6 +169,7 @@ const cy: typeof en = {
   back: 'Yn ôl',
   continue: 'Parhau',
   submit: 'Cyflwyno',
+  confirm: 'Cadarnhau',
   change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',

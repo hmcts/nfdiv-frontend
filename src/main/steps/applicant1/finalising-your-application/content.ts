@@ -8,16 +8,23 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
+import {
+  doesApplicantIntendToSwitchToSoleFo,
+  getSwitchToSoleFoStatus,
+} from '../../common/switch-to-sole-content.utils';
 import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
-const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent) => ({
+const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `Do you want to ${isDivorce ? 'finalise your divorce' : 'end your civil partnership'}?`,
   line1: `Your ${
     isDivorce ? 'marriage' : 'civil partnership'
   } will be legally ended after the final order is made. This might affect your finances.`,
   warningText: `If you have not finished negotiations about your money, property or other assets then you should seek legal advice before finalising
   ${isDivorce ? 'your divorce' : 'ending your civil partnership'}. ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? 'If you want to settle your finances first, then save and sign out.'
       : ''
   }`,
@@ -95,7 +102,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
     You should save and sign out and follow these steps.`,
     line2: `If you want to change to a sole application then it will delay the ${
       isDivorce ? 'divorce' : 'ending of the civil partnership'
-    }
+    }.
     You can change by following the steps below:`,
     orderedList1: {
       linkText: 'Download and fill out an application for a final order',
@@ -127,7 +134,11 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
       'You can either post or email the documents and evidence to the court. Details of where to send them are on any correspondence you have received from the court.',
   },
   checkboxLine: `I want to ${isDivorce ? 'finalise my divorce' : 'end my civil partnership'} ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State) ? `jointly with my ${partner}` : ''
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
+      ? `jointly with my ${partner}`
+      : ''
   }`,
 
   errors: {
@@ -144,14 +155,16 @@ const en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent)
   }`,
 });
 
-const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `Ydych chi eisiau ${isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"}?`,
   line1: `Bydd eich ${
     isDivorce ? 'priodas' : 'partneriaeth sifil'
   } yn dod i ben yn gyfreithiol pan wneir y gorchymyn terfynol. Gallai hyn effeithio ar eich sefyllfa ariannol.`,
   warningText: `Os nad ydych wedi gorffen cynnal trafodaethau am eich arian, eiddo neu asedau eraill yna dylech ofyn am gyngor cyfreithiol cyn
   ${isDivorce ? 'cadarnhau eich ysgariad' : 'dod â’ch partneriaeth sifil i ben'}. ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? 'Os ydych eisiau setlo eich sefyllfa ariannol yn gyntaf, yna dylech gadw’r cais ac allgofnodi.'
       : ''
   }`,
@@ -261,7 +274,9 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication }: Com
       'Gallwch un ai postio neu e-bostio’r dogfennau a’r dystiolaeth i’r llys. Bydd y manylion am lle i’w hanfon wedi’u nodi ar unrhyw ohebiaeth rydych wedi’i chael gan y llys.',
   },
   checkboxLine: `Rwyf eisiau ${isDivorce ? 'cadarnhau fy ysgariad' : "dod â'm partneriaeth sifil i ben"} ${
-    isJointApplication && State.AwaitingFinalOrder.includes(userCase.state as State)
+    isJointApplication &&
+    State.AwaitingFinalOrder.includes(userCase.state as State) &&
+    !doesApplicantIntendToSwitchToSoleFo(userCase, isApplicant2)
       ? `ar y cyd gyda fy ${partner}`
       : ''
   }`,
@@ -292,12 +307,14 @@ export const form: FormContent = {
           label: l => l.checkboxLine,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,
+          selected: false,
         },
       ],
     },
   },
   submit: {
     text: l => l.continue,
+    classes: DISABLE_UPON_SUBMIT,
   },
 };
 
@@ -307,19 +324,28 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase } = content;
+  const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
-  const isAwaitingFinalOrderState = userCase.state === State.AwaitingFinalOrder;
-  const isAwaitingJointFinalOrderState = userCase.state === State.AwaitingJointFinalOrder;
-  const isFinalOrderOverdue = userCase.state === State.FinalOrderOverdue;
-  const isJointApplication = content.isJointApplication;
+
+  const isJointAppAndStateAwaitingFoOrFoOverdue =
+    content.isJointApplication &&
+    (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
+  const isJointAppAndStateAwaitingJointFo =
+    content.isJointApplication && userCase.state === State.AwaitingJointFinalOrder;
+  const isStateAwaitingJointFo = userCase.state === State.AwaitingJointFinalOrder;
+
+  const isIntendingAndAbleToSwitchToSoleFo = getSwitchToSoleFoStatus(
+    userCase,
+    isApplicant2
+  ).isIntendingAndAbleToSwitchToSoleFo;
+
   return {
     ...translations,
     ...columnGenerateContent(content),
-    isAwaitingFinalOrderState,
-    isAwaitingJointFinalOrderState,
-    isJointApplication,
-    isFinalOrderOverdue,
+    isJointAppAndStateAwaitingFoOrFoOverdue,
+    isJointAppAndStateAwaitingJointFo,
+    isStateAwaitingJointFo,
+    isIntendingAndAbleToSwitchToSoleFo,
     form,
   };
 };
