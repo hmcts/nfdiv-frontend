@@ -1880,6 +1880,7 @@ export const enum State {
   FinalOrderOverdue = 'FinalOrderOverdue',
   FinalOrderPending = 'FinalOrderPending',
   FinalOrderRequested = 'FinalOrderRequested',
+  RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
   IssuedToBailiff = 'IssuedToBailiff',

@@ -43,10 +43,11 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    return getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo
-      ? SWITCH_TO_SOLE_FO
-      : req.session.isApplicant2
-      ? APPLICANT2_FINAL_ORDER_REQUESTED
-      : FINAL_ORDER_REQUESTED;
+    if (getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo) {
+      return SWITCH_TO_SOLE_FO;
+    } else if (req.session.isApplicant2) {
+      return APPLICANT2_FINAL_ORDER_REQUESTED;
+    }
+    return FINAL_ORDER_REQUESTED;
   }
 }
