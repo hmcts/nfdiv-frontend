@@ -19,6 +19,12 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
+  test('should show /final-order-requested.njk for state RespondentFinalOrderRequested', () => {
+    const theState = displayState.at(State.RespondentFinalOrderRequested);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
   test('should show /awaiting-final-order-or-final-order-overdue.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
