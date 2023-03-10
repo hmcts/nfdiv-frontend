@@ -42,6 +42,7 @@ export class FileUploadEvents {
     }
     const uploadInfo = uppy.getState();
     if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
+      uploadInfo.info![0].name = '';
       return this.onError(uploadInfo.info![0]);
     }
 
