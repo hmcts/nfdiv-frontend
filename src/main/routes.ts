@@ -10,7 +10,6 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { cookieMaxAge } from './modules/session';
 import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
@@ -128,8 +127,8 @@ export class Routes {
         if (!req.session.user) {
           return res.redirect(SIGN_OUT_URL);
         }
-        req.session.cookie.expires = new Date(Date.now() + cookieMaxAge);
-        req.session.cookie.maxAge = cookieMaxAge;
+        req.session.cookie.expires = new Date(Date.now() + (config.get('session.maxAge') as number));
+        req.session.cookie.maxAge = config.get('session.maxAge');
         req.session.save(err => {
           if (err) {
             throw err;

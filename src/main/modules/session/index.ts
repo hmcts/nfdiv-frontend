@@ -8,8 +8,6 @@ import FileStoreFactory from 'session-file-store';
 
 const FileStore = FileStoreFactory(session);
 
-export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
-
 export class SessionStorage {
   public enableFor(app: Application): void {
     app.use(cookieParser());
@@ -23,7 +21,7 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
-          maxAge: cookieMaxAge,
+          maxAge: config.get('session.maxAge'),
           sameSite: 'lax', // required for the oauth2 redirect
           secure: !app.locals.developmentMode,
         },
