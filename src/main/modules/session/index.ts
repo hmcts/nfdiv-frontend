@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
@@ -9,7 +10,7 @@ import FileStoreFactory from 'session-file-store';
 const FileStore = FileStoreFactory(session);
 
 export class SessionStorage {
-  public enableFor(app: Application): void {
+  public enableFor(app: Application, logger: Logger): void {
     app.use(cookieParser());
     app.set('trust proxy', 1);
 
@@ -26,12 +27,12 @@ export class SessionStorage {
           secure: !app.locals.developmentMode,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
-        store: this.getStore(app),
+        store: this.getStore(app, logger),
       })
     );
   }
 
-  private getStore(app: Application) {
+  private getStore(app: Application, logger: Logger) {
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({
@@ -44,7 +45,7 @@ export class SessionStorage {
         password: config.get('session.redis.key') as string,
       });
 
-      client.connect().catch(app.locals.logger.error);
+      client.connect().catch(logger.error);
 
       app.locals.redisClient = client;
       return new RedisStore({ client });
