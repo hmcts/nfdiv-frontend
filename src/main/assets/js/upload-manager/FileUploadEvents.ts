@@ -15,10 +15,10 @@ const errorUploadingWrongFormatEl = getById('errorFileWrongFormat');
 export class FileUploadEvents {
   constructor(private readonly uppy: Uppy) {}
 
-  public onError = (errorMessage: string): void => {
-    if (errorMessage.includes('exceeds maximum allowed size')) {
+  public onError = (state: Error): void => {
+    if (state.message.includes('exceeds maximum allowed size')) {
       errorUploadingTooBigEl?.classList.remove(hidden);
-    } else if (errorMessage.includes('You can only upload: image/jpeg')) {
+    } else if (state.message.includes('You can only upload: image/jpeg')) {
       errorUploadingWrongFormatEl?.classList.remove(hidden);
     } else {
       errorUploadingGenericEl?.classList.remove(hidden);
@@ -42,7 +42,7 @@ export class FileUploadEvents {
     }
     const uploadInfo = uppy.getState();
     if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
-      return this.onError(uploadInfo.info![0].message);
+      return this.onError(uploadInfo.info![0]);
     }
 
     uploadGroupEl?.scrollIntoView({ block: 'center' });
