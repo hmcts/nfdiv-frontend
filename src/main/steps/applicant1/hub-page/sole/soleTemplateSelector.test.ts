@@ -28,6 +28,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
+  test('should show /final-order-requested.njk for state RespondentFinalOrderRequested', () => {
+    const theState = displayState.at(State.RespondentFinalOrderRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
   test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state AwaitingServiceConsideration', () => {
     const theState = displayState.at(State.AwaitingServiceConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
