@@ -7,7 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
+import { accessibleDetailsSpan, nameChangedHowPossibleValue } from '../../common/content.utils';
 
 const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -149,11 +149,10 @@ export const form: FormContent = {
     }
 
     if (
-      (userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-        userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES) &&
+      nameChangedHowPossibleValue(userCase, false) &&
       !(
-        userCase.applicant1NameChangedHow?.length === 1 &&
-        userCase.applicant1NameChangedHow[0] === ChangedNameHow.MARRIAGE_CERTIFICATE
+        nameChangedHowPossibleValue(userCase, false)?.length === 1 &&
+        nameChangedHowPossibleValue(userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
       )
     ) {
       checkboxes.push({
@@ -245,9 +244,15 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
+  const shouldMentionProofOfNameChange: boolean | undefined =
+    nameChangedHowPossibleValue(content.userCase, false) &&
+    !(
+      nameChangedHowPossibleValue(content.userCase, false)?.length === 1 &&
+      nameChangedHowPossibleValue(content.userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
+    );
   const applicant1HasChangedName =
-    content.userCase.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-    content.userCase.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES;
+    content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
+    content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -264,5 +269,6 @@ export const generateContent: TranslationFn = content => {
     uploadContentScript,
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
+    shouldMentionProofOfNameChange,
   };
 };
