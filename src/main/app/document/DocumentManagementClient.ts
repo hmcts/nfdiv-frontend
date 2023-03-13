@@ -2,17 +2,21 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
+
+import { Classification, DocumentManagementFile, UploadedFiles } from './CaseDocumentManagementClient';
 
 export class DocumentManagementClient {
   client: AxiosInstance;
+  BASE_URL: string = config.get('services.documentManagement.url');
 
-  constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {
+  constructor(private readonly user: UserDetails) {
     this.client = Axios.create({
-      baseURL,
+      baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
-        ServiceAuthorization: authToken,
+        ServiceAuthorization: getServiceAuthToken(),
       },
     });
   }
@@ -52,36 +56,4 @@ interface DocumentManagementResponse {
   _embedded: {
     documents: DocumentManagementFile[];
   };
-}
-
-export interface DocumentManagementFile {
-  size: number;
-  mimeType: string;
-  originalDocumentName: string;
-  modifiedOn: string;
-  createdOn: string;
-  classification: Classification;
-  _links: {
-    self: {
-      href: string;
-    };
-    binary: {
-      href: string;
-    };
-    thumbnail: {
-      href: string;
-    };
-  };
-}
-
-export type UploadedFiles =
-  | {
-      [fieldname: string]: Express.Multer.File[];
-    }
-  | Express.Multer.File[];
-
-export enum Classification {
-  Private = 'PRIVATE',
-  Restricted = 'RESTRICTED',
-  Public = 'PUBLIC',
 }

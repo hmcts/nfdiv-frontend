@@ -2,6 +2,7 @@ import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { RoutePermission } from './applicant1Sequence';
+import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -34,7 +35,9 @@ export const routeHideConditions: RoutePermission[] = [
   {
     urls: [FINALISING_YOUR_APPLICATION],
     condition: data =>
-      data.state === State.FinalOrderRequested || data.applicant1AppliedForFinalOrderFirst === YesOrNo.YES,
+      data.state === State.FinalOrderRequested ||
+      (data.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
+        !getSwitchToSoleFoStatus(data, false).isIntendingAndAbleToSwitchToSoleFo),
   },
   {
     urls: [
@@ -42,7 +45,9 @@ export const routeHideConditions: RoutePermission[] = [
       ...convertUrlsToRespondentUrls([FINALISING_YOUR_APPLICATION]),
     ],
     condition: data =>
-      data.state === State.FinalOrderRequested || data.applicant2AppliedForFinalOrderFirst === YesOrNo.YES,
+      data.state === State.FinalOrderRequested ||
+      (data.applicant2AppliedForFinalOrderFirst === YesOrNo.YES &&
+        !getSwitchToSoleFoStatus(data, true).isIntendingAndAbleToSwitchToSoleFo),
   },
   {
     urls: convertUrlsToRespondentUrls([

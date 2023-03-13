@@ -1,3 +1,4 @@
+import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet from 'helmet';
@@ -57,6 +58,12 @@ export class Helmet {
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
     ];
+    const formAction = [self, 'https://www.payments.service.gov.uk'];
+    // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
+    const equalityUrl: string = config.get('services.equalityAndDiversity.url');
+    if (equalityUrl) {
+      formAction.push(equalityUrl);
+    }
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -68,7 +75,7 @@ export class Helmet {
           connectSrc,
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
-          formAction: [self, 'https://www.payments.service.gov.uk'],
+          formAction,
           imgSrc,
           objectSrc: [self],
           scriptSrc,
