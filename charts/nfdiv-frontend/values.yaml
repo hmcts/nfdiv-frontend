@@ -40,7 +40,7 @@ nodejs:
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    #    CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-2402.service.core-compute-preview.internal'
+    # CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.service.core-compute-preview.internal'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview
     DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     CASE_DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'

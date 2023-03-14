@@ -146,14 +146,14 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
-  applicant1ChangedNameHowAnotherWay: data => ({
+  applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant1ChangedNameHowAnotherWay
+      ? data.applicant1NameChangedHowOtherDetails
       : '',
   }),
-  applicant2ChangedNameHowAnotherWay: data => ({
+  applicant2NameChangedHowOtherDetails: data => ({
     applicant2NameChangedHowOtherDetails: data.applicant2NameChangedHow?.includes(ChangedNameHow.OTHER)
-      ? data.applicant2ChangedNameHowAnotherWay
+      ? data.applicant2NameChangedHowOtherDetails
       : '',
   }),
   applicant1CannotUploadDocuments: data => ({
@@ -189,19 +189,51 @@ const fields: ToApiConverters = {
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
-  applicant1LastNameChangedWhenRelationshipFormed: data => ({
-    applicant1LastNameChangedWhenMarried: data.applicant1LastNameChangedWhenRelationshipFormed,
-    ...(data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
-    data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant1NameChangedHow', 'applicant1NameChangedHowOtherDetails'])
-      : {}),
+  applicant1LastNameChangedWhenMarriedMethod: data => ({
+    applicant1LastNameChangedWhenMarriedMethod:
+      data.applicant1LastNameChangedWhenMarried === YesOrNo.YES ? data.applicant1LastNameChangedWhenMarriedMethod : [],
   }),
-  applicant2LastNameChangedWhenRelationshipFormed: data => ({
-    applicant2LastNameChangedWhenMarried: data.applicant2LastNameChangedWhenRelationshipFormed,
-    ...(data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.NO &&
-    data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant2NameChangedHow', 'applicant2NameChangedHowOtherDetails'])
-      : {}),
+  applicant1LastNameChangedWhenMarriedOtherDetails: data => ({
+    applicant1LastNameChangedWhenMarriedOtherDetails: data.applicant1LastNameChangedWhenMarriedMethod?.includes(
+      ChangedNameHow.OTHER
+    )
+      ? data.applicant1LastNameChangedWhenMarriedOtherDetails
+      : '',
+  }),
+  applicant2LastNameChangedWhenMarriedMethod: data => ({
+    applicant2LastNameChangedWhenMarriedMethod:
+      data.applicant2LastNameChangedWhenMarried === YesOrNo.YES ? data.applicant2LastNameChangedWhenMarriedMethod : [],
+  }),
+  applicant2LastNameChangedWhenMarriedOtherDetails: data => ({
+    applicant2LastNameChangedWhenMarriedOtherDetails: data.applicant2LastNameChangedWhenMarriedMethod?.includes(
+      ChangedNameHow.OTHER
+    )
+      ? data.applicant2LastNameChangedWhenMarriedOtherDetails
+      : '',
+  }),
+  applicant1NameDifferentToMarriageCertificateMethod: data => ({
+    applicant1NameDifferentToMarriageCertificateMethod:
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? data.applicant1NameDifferentToMarriageCertificateMethod
+        : [],
+  }),
+  applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
+    applicant1NameDifferentToMarriageCertificateOtherDetails:
+      data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
+        ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
+        : '',
+  }),
+  applicant2NameDifferentToMarriageCertificateMethod: data => ({
+    applicant2NameDifferentToMarriageCertificateMethod:
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? data.applicant2NameDifferentToMarriageCertificateMethod
+        : [],
+  }),
+  applicant2NameDifferentToMarriageCertificateOtherDetails: data => ({
+    applicant2NameDifferentToMarriageCertificateOtherDetails:
+      data.applicant2NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
+        ? data.applicant2NameDifferentToMarriageCertificateOtherDetails
+        : '',
   }),
   applicant1HelpPayingNeeded: data => ({
     applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,
@@ -337,7 +369,9 @@ const languagePreferenceYesNoOrNull = (value: LanguagePreference | undefined) =>
 
 const addressConverter = (address: (string | undefined)[]) => (address.some(Boolean) ? address.join('\n') : '');
 
-const setUnreachableAnswersToNull = (properties: string[]): Record<string, null> =>
+const setUnreachableAnswersToNull = (
+  properties: (keyof Partial<Case> | keyof Partial<CaseData>)[]
+): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

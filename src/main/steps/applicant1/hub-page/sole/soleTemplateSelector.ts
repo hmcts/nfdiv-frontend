@@ -16,6 +16,7 @@ export const getSoleHubTemplate = (
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   switch (displayState.state()) {
+    case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }

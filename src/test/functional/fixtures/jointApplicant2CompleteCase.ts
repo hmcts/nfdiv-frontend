@@ -4,7 +4,6 @@ import { BrowserCase } from '../../steps/common';
 
 export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
-  applicant2NameChangedSinceRelationshipFormed: YesOrNo.YES,
   applicant2ScreenHasUnionBroken: YesOrNo.YES,
   applicant2HelpPayingNeeded: YesOrNo.NO,
   applicant2FirstNames: 'Test your name',
@@ -12,7 +11,6 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2LegalProceedings: YesOrNo.NO,
   applicant2ApplyForFinancialOrder: YesOrNo.NO,
   applicant2WhoIsFinancialOrderFor: [],
-  applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
   applicant2PhoneNumber: '',
   applicant2EnglishOrWelsh: LanguagePreference.English,
   applicant2MiddleNames: '',
@@ -24,10 +22,13 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AddressPostcode: 'SW1H 9AJ',
   applicant2AddressPrivate: YesOrNo.NO,
   applicant2AddressTown: 'LONDON',
-  applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+  applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+  applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.OTHER],
+  applicant2LastNameChangedWhenMarriedOtherDetails: 'Other reason',
+  applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
+  applicant2NameDifferentToMarriageCertificateMethod: [],
   applicant2CannotUpload: Checkbox.Checked,
   applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   applicant2UploadedFiles: [],
-  applicant2ChangedNameHowAnotherWay: '',
   applicant2Confirmation: YesOrNo.YES,
 };
