@@ -3,6 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
+  ChangedNameHow,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -10,6 +11,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
+import { ValidationCheck } from '../../app/form/Form';
 
 import { CommonContent, en } from './common.content';
 
@@ -128,4 +130,43 @@ export const hasApplicantAppliedForFoFirst = (userCase: Partial<CaseWithId>, isA
   return isApplicant2
     ? userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+};
+
+export const getNameChangeOtherDetailsValidator = (
+  fieldName:
+    | 'applicant1LastNameChangedWhenMarriedOtherDetails'
+    | 'applicant1NameDifferentToMarriageCertificateOtherDetails'
+    | 'applicant2LastNameChangedWhenMarriedOtherDetails'
+    | 'applicant2NameDifferentToMarriageCertificateOtherDetails'
+): ValidationCheck => {
+  return ((value, formData) => {
+    if ((value as string[])?.includes(ChangedNameHow.OTHER) && !formData[fieldName]?.length) {
+      return fieldName;
+    }
+  }) as ValidationCheck;
+};
+
+export const nameChangedHowPossibleValue = (
+  userCase: Partial<CaseWithId>,
+  isApplicant2: boolean
+): ChangedNameHow[] | undefined => {
+  if (isApplicant2) {
+    const applicant2ChangeMethods = [
+      ...new Set(
+        (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
+          userCase.applicant2NameDifferentToMarriageCertificateMethod || []
+        )
+      ),
+    ];
+    return applicant2ChangeMethods.length === 0 ? userCase.applicant2NameChangedHow : applicant2ChangeMethods;
+  } else {
+    const applicant1ChangeMethods = [
+      ...new Set(
+        (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
+          userCase.applicant1NameDifferentToMarriageCertificateMethod || []
+        )
+      ),
+    ];
+    return applicant1ChangeMethods.length === 0 ? userCase.applicant1NameChangedHow : applicant1ChangeMethods;
+  }
 };

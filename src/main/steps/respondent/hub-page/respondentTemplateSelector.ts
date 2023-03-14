@@ -9,6 +9,7 @@ export const getRespondentHubTemplate = (
   hasSubmittedAos: boolean
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }

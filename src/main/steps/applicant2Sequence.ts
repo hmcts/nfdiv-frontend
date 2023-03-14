@@ -2,6 +2,7 @@ import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
+import { nameChangedHowPossibleValue } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -27,7 +28,6 @@ import {
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
-  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
@@ -89,14 +89,6 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    getNextStep: data =>
-      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
-        ? HOW_DID_YOU_CHANGE_YOUR_NAME
-        : HOW_THE_COURTS_WILL_CONTACT_YOU,
-  },
-  {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
@@ -132,14 +124,18 @@ export const preSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
-        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
+        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value =>
+            nameChangedHowPossibleValue(data, true)?.includes(value)
+          )
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
+      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value =>
+        nameChangedHowPossibleValue(data, true)?.includes(value)
+      )
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
