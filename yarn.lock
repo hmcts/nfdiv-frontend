@@ -17,40 +17,43 @@
   dependencies:
     tslib "^2.2.0"
 
-"@azure/core-auth@^1.3.0":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@azure/core-auth/-/core-auth-1.3.2.tgz#6a2c248576c26df365f6c7881ca04b7f6d08e3d0"
-  integrity sha512-7CU6DmCHIZp5ZPiZ9r3J17lTKMmYsm/zGvNkjArQwPkrLlZ1TZ+EUYfGgh2X31OLMVAQCTJZW4cXHJi02EbJnA==
+"@azure/core-auth@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@azure/core-auth/-/core-auth-1.4.0.tgz#6fa9661c1705857820dbc216df5ba5665ac36a9e"
+  integrity sha512-HFrcTgmuSuukRf/EdPmqBrc5l6Q5Uu+2TbuhaKbgaCpP2TfAeiNaQPAadxO+CYBRHGUzIDteMAjFspFLDLnKVQ==
   dependencies:
     "@azure/abort-controller" "^1.0.0"
     tslib "^2.2.0"
 
-"@azure/core-http@^2.2.3":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@azure/core-http/-/core-http-2.2.5.tgz#e8cf8345d4a7f0ee7c8304a300c43d2df992ddbe"
-  integrity sha512-kctMqSQ6zfnlFpuYzfUKadeTyOQYbIQ+3Rj7dzVC3Dk1dOnHroTwR9hLYKX8/n85iJpkyaksaXpuh5L7GJRYuQ==
+"@azure/core-rest-pipeline@^1.10.0":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@azure/core-rest-pipeline/-/core-rest-pipeline-1.10.2.tgz#eacd4ed9308f1f5cdac37332f36d4f3a4f3c01e4"
+  integrity sha512-e3WzAsRKLor5EgK2bQqR1OY5D7VBqzORHtlqtygZZQGCYOIBsynqrZBa8MFD1Ue9r8TPtofOLditalnlQHS45Q==
   dependencies:
     "@azure/abort-controller" "^1.0.0"
-    "@azure/core-auth" "^1.3.0"
-    "@azure/core-tracing" "1.0.0-preview.13"
+    "@azure/core-auth" "^1.4.0"
+    "@azure/core-tracing" "^1.0.1"
+    "@azure/core-util" "^1.0.0"
     "@azure/logger" "^1.0.0"
-    "@types/node-fetch" "^2.5.0"
-    "@types/tunnel" "^0.0.3"
     form-data "^4.0.0"
-    node-fetch "^2.6.7"
-    process "^0.11.10"
-    tough-cookie "^4.0.0"
+    http-proxy-agent "^5.0.0"
+    https-proxy-agent "^5.0.0"
     tslib "^2.2.0"
-    tunnel "^0.0.6"
     uuid "^8.3.0"
-    xml2js "^0.4.19"
 
-"@azure/core-tracing@1.0.0-preview.13":
-  version "1.0.0-preview.13"
-  resolved "https://registry.yarnpkg.com/@azure/core-tracing/-/core-tracing-1.0.0-preview.13.tgz#55883d40ae2042f6f1e12b17dd0c0d34c536d644"
-  integrity sha512-KxDlhXyMlh2Jhj2ykX6vNEU0Vou4nHr025KoSEiz7cS3BNiHNaZcdECk/DmLkEB0as5T7b/TpRcehJ5yV6NeXQ==
+"@azure/core-tracing@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@azure/core-tracing/-/core-tracing-1.0.1.tgz#352a38cbea438c4a83c86b314f48017d70ba9503"
+  integrity sha512-I5CGMoLtX+pI17ZdiFJZgxMJApsK6jjfm85hpgp3oazCdq5Wxgh4wMr7ge/TTWW1B5WBuvIOI1fMU/FrOAMKrw==
   dependencies:
-    "@opentelemetry/api" "^1.0.1"
+    tslib "^2.2.0"
+
+"@azure/core-util@^1.0.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@azure/core-util/-/core-util-1.2.0.tgz#3499deba1fc36dda6f1912b791809b6f15d4a392"
+  integrity sha512-ffGIw+Qs8bNKNLxz5UPkz4/VBM/EZY07mPve1ZYFqYUdPwFqRj0RPk0U7LZMOfT7GCck9YjuT1Rfp1PApNl1ng==
+  dependencies:
+    "@azure/abort-controller" "^1.0.0"
     tslib "^2.2.0"
 
 "@azure/logger@^1.0.0":
@@ -761,7 +764,7 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@opentelemetry/api@^1.0.1", "@opentelemetry/api@^1.0.4":
+"@opentelemetry/api@^1.0.4":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.1.0.tgz#563539048255bbe1a5f4f586a4a10a1bb737f44a"
   integrity sha512-hf+3bwuBwtXsugA2ULBc95qxrOqP2pOekLz34BJhcAKawt94vfeNyUKpYc0lZQ/3sCP6LqRa7UAdHA7i5UODzQ==
@@ -1190,14 +1193,6 @@
   resolved "https://registry.yarnpkg.com/@types/negotiator/-/negotiator-0.6.1.tgz#4c75543f6ef87f427f4705e731a933595b7397f5"
   integrity sha512-c4mvXFByghezQ/eVGN5HvH/jI63vm3B7FiE81BUzDAWmuiohRecCO6ddU60dfq29oKUMiQujsoB2h0JQC7JHKA==
 
-"@types/node-fetch@^2.5.0":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.6.2.tgz#d1a9c5fd049d9415dce61571557104dec3ec81da"
-  integrity sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==
-  dependencies:
-    "@types/node" "*"
-    form-data "^3.0.0"
-
 "@types/node@*", "@types/node@^18.0.0", "@types/node@^18.15.2":
   version "18.15.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.2.tgz#0407ceb15647f186318101546d5ae40725b73810"
@@ -1286,13 +1281,6 @@
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@types/toobusy-js/-/toobusy-js-0.5.2.tgz#e5816a216cf4c5c4a09534a4341352ce3ec7b939"
   integrity sha512-jK/CMvC5h/ECMhWRNjeFYIZzGFFvjt38+zbMndFKyDUHl1dm89SX7u8njoNHQKrW+OZoqxteBLvtSBFQOdGyHA==
-
-"@types/tunnel@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@types/tunnel/-/tunnel-0.0.3.tgz#f109e730b072b3136347561fc558c9358bb8c6e9"
-  integrity sha512-sOUTGn6h1SfQ+gbgqC364jLFBw2lnFqkgF3q0WovEHRLMrVD1sd5aufqi/aJObLekJO+Aq5z646U4Oxy6shXMA==
-  dependencies:
-    "@types/node" "*"
 
 "@types/ua-parser-js@^0.7.33":
   version "0.7.36"
@@ -1969,12 +1957,13 @@ append-field@^1.0.0:
   resolved "https://registry.yarnpkg.com/append-field/-/append-field-1.0.0.tgz#1e3440e915f0b1203d23748e78edd7b9b5b43e56"
   integrity sha512-klpgFSWLW1ZEs8svjfb7g4qWY0YS5imI82dTg+QahUvJ8YqAY0P10Uk8tTyh9ZGuYEZEMaeJYCF5BFuX552hsw==
 
-applicationinsights@^2.3.6:
-  version "2.3.6"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.3.6.tgz#91277ce44e5f6d2f85336922c05d90f8699c2e70"
-  integrity sha512-ZzXXpZpDRGcy6Pp5V319nDF9/+Ey7jNknEXZyaBajtC5onN0dcBem6ng5jcb3MPH2AjYWRI8XgyNEuzP/6Y5/A==
+applicationinsights@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.5.0.tgz#f008580b2f68267a5d233cce4e1f50b587bdf3c4"
+  integrity sha512-6kIFmpANRok+6FhCOmO7ZZ/mh7fdNKn17BaT13cg/RV5roLPJlA6q8srWexayHd3MPcwMb9072e8Zp0P47s/pw==
   dependencies:
-    "@azure/core-http" "^2.2.3"
+    "@azure/core-auth" "^1.4.0"
+    "@azure/core-rest-pipeline" "^1.10.0"
     "@microsoft/applicationinsights-web-snippet" "^1.0.1"
     "@opentelemetry/api" "^1.0.4"
     "@opentelemetry/core" "^1.0.1"
@@ -7852,7 +7841,7 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-process@^0.11.1, process@^0.11.10:
+process@^0.11.1:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
@@ -8450,11 +8439,6 @@ saucelabs@^7.1.3:
     hash.js "^1.1.7"
     tunnel "^0.0.6"
     yargs "^17.2.1"
-
-sax@>=0.6.0:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-  integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
 saxes@^5.0.1:
   version "5.0.1"
@@ -10112,23 +10096,10 @@ xml-name-validator@^3.0.0:
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
 
-xml2js@^0.4.19:
-  version "0.4.23"
-  resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.23.tgz#a0c69516752421eb2ac758ee4d4ccf58843eac66"
-  integrity sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==
-  dependencies:
-    sax ">=0.6.0"
-    xmlbuilder "~11.0.0"
-
 xml@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
   integrity sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==
-
-xmlbuilder@~11.0.0:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-11.0.1.tgz#be9bae1c8a046e76b31127726347d0ad7002beb3"
-  integrity sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA==
 
 xmlchars@^2.2.0:
   version "2.2.0"
