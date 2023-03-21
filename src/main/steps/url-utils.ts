@@ -4,11 +4,17 @@ import {
   CONTACT_US,
   COOKIES_URL,
   ENTER_YOUR_ACCESS_CODE,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
   PRIVACY_POLICY_URL,
   PageLink,
+  RESIDUAL_JURISDICTION,
   RESPONDENT,
   TERMS_AND_CONDITIONS_URL,
   WEBCHAT_URL,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
 
 export const signInNotRequired = (reqPath: string): boolean =>
@@ -29,3 +35,12 @@ export const convertUrlsToRespondentUrls = (urls: PageLink[]): PageLink[] =>
 
 export const convertUrlsToApplicant2Urls = (urls: PageLink[]): PageLink[] =>
   urls.map(url => `${APPLICANT_2}${url}` as PageLink);
+
+export const jurisdictionUrls: PageLink[] = [
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+  JURISDICTION_DOMICILE,
+  JURISDICTION_LAST_TWELVE_MONTHS,
+  HABITUALLY_RESIDENT_ENGLAND_WALES,
+  LIVING_ENGLAND_WALES_SIX_MONTHS,
+  RESIDUAL_JURISDICTION,
+];
