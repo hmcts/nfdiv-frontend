@@ -58,7 +58,7 @@ export class Helmet {
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
     ];
-    const formAction = [self, 'https://www.payments.service.gov.uk'];
+    const formAction = [self, 'https://www.payments.service.gov.uk https://card.payments.service.gov.uk'];
     // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
     const equalityUrl: string = config.get('services.equalityAndDiversity.url');
     if (equalityUrl) {
