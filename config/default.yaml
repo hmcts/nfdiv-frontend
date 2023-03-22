@@ -73,6 +73,7 @@ health:
   deadline: 15000
 session:
   secret: 'local'
+  maxAge: 1260000
   redis:
     host:
     key:
