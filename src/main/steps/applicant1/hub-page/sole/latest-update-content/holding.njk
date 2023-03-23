@@ -19,7 +19,10 @@
     </p>
 
   {% else %}
-    <p class="govuk-body">{{ holding.line1 | safe }}</p>
+    <p class="govuk-body">{{ holding.line1 | safe }}
+    {% if isAosSubmitted %}
+      {{ holding.link | safe }}</p>
+    {% endif %}
   {% endif %}
 
   <p class="govuk-body">{{ holding.line2 }}</p>

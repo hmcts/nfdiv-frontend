@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
-import { AlternativeServiceType, State, YesOrNo } from '../../../../app/case/definition';
+import { AlternativeServiceType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
@@ -42,7 +42,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   holding: {
     line1: `Your ${partner} has responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">download and read their response (PDF)</a>.`,
+    }.`,
+    link: 'You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">download and read their response (PDF)</a>.',
     line2: `The next step is for you to apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
@@ -268,7 +269,8 @@ const cy: typeof en = (
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">lawrlwytho a darllen eu hymateb (PDF)</a>.`,
+    }.`,
+    link: 'Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">lawrlwytho a darllen eu hymateb (PDF)</a>.',
     line2: `Y cam nesaf yw i chi wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
       isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
     }.`,
@@ -468,7 +470,7 @@ const cy: typeof en = (
           userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
         }`,
   finalOrderComplete: {
-    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
     yn awr wedi dod i ben yn gyfreithiol.`,
     line2: {
       part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
@@ -488,6 +490,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
+  const isAosSubmitted =
+    userCase.dateAosSubmitted &&
+    (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+      userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
@@ -516,6 +522,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
+    isAosSubmitted,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
     isDeemedOrDispensedApplication,
