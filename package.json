@@ -7,13 +7,13 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "start": "NODE_ENV=production node src/main/server.js",
+    "start": "NODE_ENV=production yarn node src/main/server.js",
     "start:dev": "NODE_ENV=development yarn start:watch",
     "start:docker": "NODE_ENV=docker yarn start:watch",
     "start:watch": "nodemon --config nodemon.express.json",
     "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
-    "build": "webpack --config webpack.config.js",
-    "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
+    "build": "yarn webpack --config webpack.config.js",
+    "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
     "build:ts": "tsc -P . --outDir ./src/main",
     "test": "npx if-env ${CI} && yarn test:unit || exit 0",
     "test:unit": "jest",
@@ -138,5 +138,6 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-middleware": "^6.0.1",
     "webpack-node-externals": "^3.0.0"
-  }
+  },
+  "packageManager": "yarn@3.4.1"
 }
