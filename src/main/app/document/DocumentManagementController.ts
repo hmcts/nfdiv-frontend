@@ -3,7 +3,6 @@ import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
-import { isCdamEnabled } from '../../modules/document-download/proxy-list';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
@@ -145,13 +144,11 @@ export class DocumentManagerController {
   }
 
   getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
-    if (isCdamEnabled()) {
-      this.logger?.info('uploading document through cdam');
-      return new CaseDocumentManagementClient(user);
-    }
-    this.logger?.info('uploading document through docstore');
-    return new DocumentManagementClient(user);
+    this.logger?.info('uploading document through cdam');
+    return new CaseDocumentManagementClient(user);
   }
+  // this function takes a parameter 'user' of type 'UserDetails'
+  // the function return an instance of either 'DocumentManagementClient' or 'CaseDocumentManagementClient'
 
   private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
     newUploads.forEach(file =>
