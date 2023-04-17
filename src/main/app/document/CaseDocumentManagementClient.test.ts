@@ -5,7 +5,6 @@ import * as serviceAuth from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient';
-import { DocumentManagementClient } from './DocumentManagementClient';
 
 jest.mock('axios');
 jest.mock('config');
@@ -48,7 +47,7 @@ describe('CaseDocumentManagementClient', () => {
     const mockDelete = jest.fn().mockResolvedValue({ data: 'MOCKED-OK' });
     mockedAxios.create.mockReturnValueOnce({ delete: mockDelete } as unknown as AxiosInstance);
 
-    const client = new DocumentManagementClient({
+    const client = new CaseDocumentManagementClient({
       id: 'userId',
       accessToken: 'userAccessToken',
     } as unknown as UserDetails);
