@@ -146,8 +146,6 @@ export class DocumentManagerController {
     this.logger?.info('uploading document through cdam');
     return new CaseDocumentManagementClient(user);
   }
-  // this function takes a parameter 'user' of type 'UserDetails'
-  // the function return an instance of either 'DocumentManagementClient' or 'CaseDocumentManagementClient'
 
   private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
     newUploads.forEach(file =>
