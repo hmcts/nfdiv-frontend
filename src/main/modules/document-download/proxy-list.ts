@@ -1,5 +1,3 @@
-import config from 'config';
-
 import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
@@ -114,8 +112,4 @@ const getPath = (req: AppRequest, document: DivorceDocument | undefined): string
   const path = document?.documentLink.document_binary_url.replace(/.*documents/, '/cases/documents') as string;
   req.locals.logger.info(`downloading document(url=${path})`);
   return path;
-};
-
-export const isCdamEnabled = (): boolean => {
-  return String(config.get('services.caseDocumentManagement.enabled')).valueOf() === 'true';
 };

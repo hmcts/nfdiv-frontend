@@ -7,7 +7,7 @@ import { DocumentManagerController } from './DocumentManagementController';
 
 const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
 
-jest.mock('../document/DocumentManagementClient');
+jest.mock('../document/CaseDocumentManagementClient');
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();

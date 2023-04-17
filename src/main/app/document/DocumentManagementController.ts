@@ -10,7 +10,6 @@ import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
-import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
@@ -143,7 +142,7 @@ export class DocumentManagerController {
     });
   }
 
-  getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
+  getApiClient(user: UserDetails): CaseDocumentManagementClient {
     this.logger?.info('uploading document through cdam');
     return new CaseDocumentManagementClient(user);
   }
