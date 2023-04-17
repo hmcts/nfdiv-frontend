@@ -52,7 +52,6 @@ services:
     url: http://dm-store-aat.service.core-compute-aat.internal
   caseDocumentManagement:
     url: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
-    enabled: false
   payments:
     url: http://payment-api-aat.service.core-compute-aat.internal
   fees:
