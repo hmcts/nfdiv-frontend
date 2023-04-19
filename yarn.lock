@@ -2095,19 +2095,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@uppy/core@npm:3.0.4"
+"@uppy/core@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@uppy/core@npm:3.2.0"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
-    "@uppy/store-default": ^3.0.2
-    "@uppy/utils": ^5.0.2
+    "@uppy/store-default": ^3.0.3
+    "@uppy/utils": ^5.3.0
     lodash.throttle: ^4.1.1
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: fec1615042896665e469c3820515bc84777c7997c8dcf79847db735412b745df3976870bbb97c4ad0331fbf7502fce8ad84b7297cef7f852684a80d8bffa20a5
+  checksum: 7924e3023d9a3481b117cc9213e9615fbae451be76892422eb6b00ac387fde59d58492a64fe57fa71425be3e7519bec6ecf3872a9b063796649ffa611863dfb5
   languageName: node
   linkType: hard
 
@@ -2146,10 +2146,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/store-default@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@uppy/store-default@npm:3.0.2"
-  checksum: 9cd5bd8c559866e267c166eab502f699064a91eeeaab21b32e3164ce8b33cb819841b8ad4283a4b42f9e7c8ce60c97d93228652b0f5a9086e43f1cb0b5379221
+"@uppy/store-default@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@uppy/store-default@npm:3.0.3"
+  checksum: bcc34f94210478707256826997923badd92165e1e2ba0abbcdcdaba2e5824b96f22b1ed7ad6afb9647a4a7c9838ed4d98d6e3fd31d72ddbd3f9b865bca28d3db
   languageName: node
   linkType: hard
 
@@ -2159,6 +2159,15 @@ __metadata:
   dependencies:
     lodash.throttle: ^4.1.1
   checksum: bac856170835fd162edaf3c51e010013c7a7c75431096d88100088265e9dab933f871e91e03a9faa1a1c92e875edb298b3264dd44cede50079232afc071699cc
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@uppy/utils@npm:5.3.0"
+  dependencies:
+    lodash.throttle: ^4.1.1
+  checksum: 2fb85dc16d67dbe80558f6a4b0c09091b3016e8c15359b7d7b5e62a846585e64fc2f1c0f0b0d9faaee33105393dcd0b95cd456e2250be7ab4ae25791d9f43590
   languageName: node
   linkType: hard
 
@@ -9317,7 +9326,7 @@ __metadata:
     "@types/uuid": ^9.0.0
     "@typescript-eslint/eslint-plugin": ^5.58.0
     "@typescript-eslint/parser": ^5.55.0
-    "@uppy/core": ^3.0.4
+    "@uppy/core": ^3.2.0
     "@uppy/drop-target": ^2.0.1
     "@uppy/file-input": ^3.0.1
     "@uppy/progress-bar": ^3.0.1
