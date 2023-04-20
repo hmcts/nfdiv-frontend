@@ -3575,15 +3575,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvas@npm:^2.10.2":
-  version: 2.10.2
-  resolution: "canvas@npm:2.10.2"
+"canvas@npm:^2.11.0":
+  version: 2.11.2
+  resolution: "canvas@npm:2.11.2"
   dependencies:
     "@mapbox/node-pre-gyp": ^1.0.0
     nan: ^2.17.0
     node-gyp: latest
     simple-get: ^3.0.3
-  checksum: b2e3eb4c3635fa2f67857619621c3d314f935a9e51904536dadf4908ab580dff4f5bcbaafe6eb0255247fa027ca494d5cd97c33376a49a0f994997263fa9944b
+  checksum: 61e554aef80022841dc836964534082ec21435928498032562089dfb7736215f039c7d99ee546b0cf10780232d9bf310950f8b4d489dc394e0fb6f6adfc97994
   languageName: node
   linkType: hard
 
@@ -9368,7 +9368,7 @@ __metadata:
     nunjucks: ^3.2.3
     otplib: ^12.0.1
     pa11y: ^6.2.3
-    pdfjs-dist: ^3.1.81
+    pdfjs-dist: ^3.5.141
     playwright: ^1.32.3
     prettier: ^2.8.7
     redis: ^4.6.5
@@ -10198,6 +10198,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"path2d-polyfill@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "path2d-polyfill@npm:2.0.1"
+  checksum: e38a4f920be3550e8334b899cc56f4fca0a976ca69404ee10d656a45d422996b7e27e294e2cf0aac2e410ce59d6977cde9f95586e62a24e6c904716695e059f8
+  languageName: node
+  linkType: hard
+
 "path@npm:^0.12.7":
   version: 0.12.7
   resolution: "path@npm:0.12.7"
@@ -10215,16 +10222,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:^3.1.81":
-  version: 3.1.81
-  resolution: "pdfjs-dist@npm:3.1.81"
+"pdfjs-dist@npm:^3.5.141":
+  version: 3.5.141
+  resolution: "pdfjs-dist@npm:3.5.141"
   dependencies:
-    canvas: ^2.10.2
+    canvas: ^2.11.0
+    path2d-polyfill: ^2.0.1
     web-streams-polyfill: ^3.2.1
   dependenciesMeta:
     canvas:
       optional: true
-  checksum: f72bf7dbdf1f96b67c75aa04cdf9eed87a2d51b151eeee139495e589e61099ca258b425326a6e481753d98e9c82b608e3064e5d35b41cb0b28e715d7d1c44102
+  checksum: b58e801b92a0d7b58b3799c0cf48f35deb45e140ef488744251a3e3dd148acef7aef4edfb8c7622b342c7068e8b7c01b754546ed0e60897e48665fa45af9d845
   languageName: node
   linkType: hard
 
