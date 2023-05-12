@@ -23,6 +23,7 @@ import {
   getSelectedGender,
   getServiceName,
   hasApplicantAppliedForFoFirst,
+  hasApplicantIntendedToSwitchToSoleFo,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
   nameChangedHowPossibleValue,
@@ -221,6 +222,38 @@ describe('content.utils', () => {
       };
       const actual = latestLegalAdvisorDecisionContent(userCase, true);
       expect(actual).toEqual(expect.objectContaining(expected));
+    });
+  });
+
+  describe('hasApplicantIntendedToSwitchToSole', () => {
+    test('Applicant 1 has inteded to switchto sole', () => {
+      const userCase = {
+        doesApplicant1IntendToSwitchToSole: YesOrNo.YES,
+        doesApplicant2IntendToSwitchToSole: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      let expected = true;
+      let actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      expected = false;
+      actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Applicant 2 has inteded to switchto sole', () => {
+      const userCase = {
+        doesApplicant1IntendToSwitchToSole: YesOrNo.NO,
+        doesApplicant2IntendToSwitchToSole: YesOrNo.YES,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = true;
+      let expected = true;
+      let actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = false;
+      expected = false;
+      actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
     });
   });
 
