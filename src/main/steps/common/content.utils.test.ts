@@ -14,6 +14,7 @@ import {
 
 import { CommonContent, en } from './common.content';
 import {
+  canIntendToSwitchToSoleFo,
   formattedCaseId,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
@@ -23,7 +24,6 @@ import {
   getSelectedGender,
   getServiceName,
   hasApplicantAppliedForFoFirst,
-  hasApplicantIntendedToSwitchToSoleFo,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
   nameChangedHowPossibleValue,
@@ -225,34 +225,34 @@ describe('content.utils', () => {
     });
   });
 
-  describe('hasApplicantIntendedToSwitchToSole', () => {
-    test('Applicant 1 has inteded to switchto sole', () => {
+  describe('canIntendToSwitchToSole', () => {
+    test('Applicant 1 can intend to switch to sole', () => {
       const userCase = {
-        doesApplicant1IntendToSwitchToSole: YesOrNo.YES,
-        doesApplicant2IntendToSwitchToSole: YesOrNo.NO,
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.YES,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.NO,
       } as Partial<CaseWithId>;
       let isApplicant2 = false;
       let expected = true;
-      let actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
       expect(actual).toEqual(expected);
       isApplicant2 = true;
       expected = false;
-      actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
 
-    test('Applicant 2 has inteded to switchto sole', () => {
+    test('Applicant 2 can intend to switch to sole', () => {
       const userCase = {
-        doesApplicant1IntendToSwitchToSole: YesOrNo.NO,
-        doesApplicant2IntendToSwitchToSole: YesOrNo.YES,
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.NO,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.YES,
       } as Partial<CaseWithId>;
       let isApplicant2 = true;
       let expected = true;
-      let actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
       expect(actual).toEqual(expected);
       isApplicant2 = false;
       expected = false;
-      actual = hasApplicantIntendedToSwitchToSoleFo(userCase, isApplicant2);
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
       expect(actual).toEqual(expected);
     });
   });

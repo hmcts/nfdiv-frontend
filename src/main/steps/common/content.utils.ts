@@ -132,10 +132,10 @@ export const hasApplicantAppliedForFoFirst = (userCase: Partial<CaseWithId>, isA
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 };
 
-export const hasApplicantIntendedToSwitchToSoleFo = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
+export const canIntendToSwitchToSoleFo = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
   return isApplicant2
-    ? userCase.doesApplicant2IntendToSwitchToSole === YesOrNo.YES
-    : userCase.doesApplicant1IntendToSwitchToSole === YesOrNo.YES;
+    ? userCase.applicant2CanIntendToSwitchToSoleFo === YesOrNo.YES
+    : userCase.applicant1CanIntendToSwitchToSoleFo === YesOrNo.YES;
 };
 
 export const getNameChangeOtherDetailsValidator = (
