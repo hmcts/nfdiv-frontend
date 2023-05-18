@@ -48,8 +48,6 @@ services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
-  documentManagement:
-    url: http://dm-store-aat.service.core-compute-aat.internal
   caseDocumentManagement:
     url: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
   payments:
