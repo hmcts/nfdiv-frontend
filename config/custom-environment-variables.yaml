@@ -17,7 +17,6 @@ services:
     url: FEES_API_URL
   caseDocumentManagement:
     url: CASE_DOCUMENT_MANAGEMENT_URL
-    enabled: ENABLE_CDAM
   equalityAndDiversity:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN

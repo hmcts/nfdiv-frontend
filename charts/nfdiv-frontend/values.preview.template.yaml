@@ -10,7 +10,6 @@ nodejs:
     enabled: false
   environment:
     IDAM_TOKEN_CACHE: true
-    ENABLE_CDAM: true
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
