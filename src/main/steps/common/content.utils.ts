@@ -132,6 +132,12 @@ export const hasApplicantAppliedForFoFirst = (userCase: Partial<CaseWithId>, isA
     : userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
 };
 
+export const canIntendToSwitchToSoleFo = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
+  return isApplicant2
+    ? userCase.applicant2CanIntendToSwitchToSoleFo === YesOrNo.YES
+    : userCase.applicant1CanIntendToSwitchToSoleFo === YesOrNo.YES;
+};
+
 export const getNameChangeOtherDetailsValidator = (
   fieldName:
     | 'applicant1LastNameChangedWhenMarriedOtherDetails'
