@@ -3,6 +3,7 @@ import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
+import { isCdamEnabled } from '../../modules/document-download/proxy-list';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
@@ -10,6 +11,7 @@ import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
+import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
 export class DocumentManagerController {
@@ -142,9 +144,13 @@ export class DocumentManagerController {
     });
   }
 
-  getApiClient(user: UserDetails): CaseDocumentManagementClient {
-    this.logger?.info('uploading document through cdam');
-    return new CaseDocumentManagementClient(user);
+  getApiClient(user: UserDetails): DocumentManagementClient | CaseDocumentManagementClient {
+    if (isCdamEnabled()) {
+      this.logger?.info('uploading document through cdam');
+      return new CaseDocumentManagementClient(user);
+    }
+    this.logger?.info('uploading document through docstore');
+    return new DocumentManagementClient(user);
   }
 
   private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
