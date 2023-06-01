@@ -6,6 +6,6 @@ export enum Classification {
 
 export const mockCreate = jest.fn();
 export const mockDelete = jest.fn();
-export const CaseDocumentManagementClient = jest.fn().mockImplementation(() => {
+export const DocumentManagementClient = jest.fn().mockImplementation(() => {
   return { create: mockCreate, delete: mockDelete };
 });
